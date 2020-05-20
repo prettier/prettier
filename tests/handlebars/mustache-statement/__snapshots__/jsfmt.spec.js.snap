@@ -78,30 +78,30 @@ singleQuote: true
 />
 
 <div
-  class="a long list of classes more than 80 chars with a complex mustache statement {{
+  class='a long list of classes more than 80 chars with a complex mustache statement {{
     if (or this.a this.b) this.c this.d
-  }}"
+  }}'
 >
 </div>
 
 <div
-  class="a multi line list of classes with a complex mustache statement
-  {{if (or this.a this.b) this.c this.d}}"
+  class='a multi line list of classes with a complex mustache statement
+  {{if (or this.a this.b) this.c this.d}}'
 >
 </div>
 
 <div
-  class="a-first-class {{if this.optionOne 'optionOne'}} {{
+  class='a-first-class {{if this.optionOne 'optionOne'}} {{
     if this.optionTwo 'optionTwo'
   }} {{if this.optionThree 'optionThree'}} {{
     if this.optionFour 'optionFour'
-  }} {{if this.optionFive 'optionFive'}} {{this.class}}"
+  }} {{if this.optionFive 'optionFive'}} {{this.class}}'
   ...attributes
 >
 </div>
 
 <div
-  class="a-first-class
+  class='a-first-class
   {{if this.optionOne 'optionOne'}}
 
    {{if this.optionTwo 'optionTwo'}}
@@ -112,7 +112,7 @@ singleQuote: true
 
    {{if this.optionFive 'optionFive'}}
 
-   {{this.class}}"
+   {{this.class}}'
   ...attributes
 >
 </div>
