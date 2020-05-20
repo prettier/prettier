@@ -69,6 +69,27 @@ function isNextLineEmpty(node, text) {
   return false;
 }
 
+function isPreviousLineEmpty(node, text) {
+  let newlineCount = 0;
+  for (let i = node.position.start.offset + 1; i > 0; i--) {
+    const char = text[i];
+
+    if (char === "\n") {
+      newlineCount++;
+    }
+
+    if (newlineCount === 1 && /\S/.test(char)) {
+      return false;
+    }
+
+    if (newlineCount === 2) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function isLastDescendantNode(path) {
   const node = path.getValue();
 
@@ -333,6 +354,7 @@ module.exports = {
   mapNode,
   defineShortcut,
   isNextLineEmpty,
+  isPreviousLineEmpty,
   isLastDescendantNode,
   getBlockValueLineContents,
   getFlowScalarLineContents,

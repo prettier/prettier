@@ -15,6 +15,7 @@ const {
   hasPrettierIgnore,
   isLastDescendantNode,
   isNextLineEmpty,
+  isPreviousLineEmpty,
   isNode,
   isEmptyNode,
   defineShortcut,
@@ -132,7 +133,22 @@ function genericPrint(path, options, print) {
     hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
       ? align(
           node.type === "sequenceItem" ? 2 : 0,
-          concat([hardline, join(hardline, path.map(print, "endComments"))])
+          concat([
+            hardline,
+            join(
+              hardline,
+              path.map(
+                (path) =>
+                  concat([
+                    isPreviousLineEmpty(path.getValue(), options.originalText)
+                      ? hardline
+                      : "",
+                    print(path),
+                  ]),
+                "endComments"
+              )
+            ),
+          ])
         )
       : "",
   ]);
