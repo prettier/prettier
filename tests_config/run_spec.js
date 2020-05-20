@@ -105,7 +105,10 @@ global.run_spec = (fixtures, parsers, options) => {
     .filter(Boolean);
 
   // Make sure tests are in correct location
-  checkParsers({ dirname, files }, parsers);
+  // only runs on local and one task on CI
+  if (!isCI || process.env.ENABLE_CODE_COVERAGE) {
+    checkParsers({ dirname, files }, parsers);
+  }
 
   const stringifiedOptions = stringifyOptions(options);
 
