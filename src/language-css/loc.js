@@ -98,7 +98,6 @@ function replaceQuotesInInlineComments(text) {
   let state = "initial";
   /** @type {State} */
   let stateToReturnFromQuotes = "initial";
-  const inlineCommentsToReplace = [];
   const chars = text.split("");
   const SPECIAL_CHAR_PLACEHOLDER = " ";
 
