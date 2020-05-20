@@ -106,6 +106,58 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`mixed.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import 'b';
+// another comment
+//no-space before
+=====================================output=====================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import "b";
+// another comment
+//no-space before
+
+================================================================================
+`;
+
+exports[`mixed-block.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import 'b';
+/* block */
+/*no-space block*/
+=====================================output=====================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import "b";
+
+@import 'b
+@import 'b';
+/* bl
+
+================================================================================
+`;
+
 exports[`places.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -165,7 +217,7 @@ foo {
 ================================================================================
 `;
 
-exports[`trailing_star_slash.scss format 1`] = `
+exports[`trailing_star_slash.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
