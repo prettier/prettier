@@ -1,95 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.ts format 1`] = `
+exports[`trailingComma.notjson - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["json"]
 printWidth: 80
+trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
-export function match(): string /* the matching pattern */
-a
-
-=====================================output=====================================
-export function match(): string; /* the matching pattern */
-a;
-
-================================================================================
-`;
-
-exports[`default.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-export default interface Foo {
-  readonly bar?: string;
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
 }
 
 =====================================output=====================================
-export default interface Foo {
-  readonly bar?: string;
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
 }
 
 ================================================================================
 `;
 
-exports[`export.ts format 1`] = `
+exports[`trailingComma.notjson - {"trailingComma":"all"} format 2`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["json5"]
 printWidth: 80
+trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
-declare module "hello" {
-    export default Hello;
-}
-
-declare module "hello" {
-    export = Hello;
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
 }
 
 =====================================output=====================================
-declare module "hello" {
-  export default Hello;
-}
-
-declare module "hello" {
-  export = Hello;
+{
+  k1: "v1",
+  k2: "v2",
+  k3: "v3",
 }
 
 ================================================================================
 `;
 
-exports[`export-as-ns.ts format 1`] = `
+exports[`trailingComma.notjson format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["json"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-export * as utilities from "./utilities.js";
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
+}
 
 =====================================output=====================================
-export * as utilities from "./utilities.js";
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
+}
 
 ================================================================================
 `;
 
-exports[`export-class.ts format 1`] = `
+exports[`trailingComma.notjson format 2`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["json5"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-export class A {}
-export default class B {}
-export abstract class C {}
-export default abstract class D {}
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
+}
 
 =====================================output=====================================
-export class A {}
-export default class B {}
-export abstract class C {}
-export default abstract class D {}
+{
+  k1: "v1",
+  k2: "v2",
+  k3: "v3",
+}
+
+================================================================================
+`;
+
+exports[`trailingComma.notjson format 3`] = `
+====================================options=====================================
+parsers: ["json-stringify"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
+}
+
+=====================================output=====================================
+{
+  "k1": "v1",
+  "k2": "v2",
+  "k3": "v3"
+}
 
 ================================================================================
 `;

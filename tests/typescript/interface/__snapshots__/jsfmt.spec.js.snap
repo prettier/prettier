@@ -33,7 +33,7 @@ abstract interface I {}
 ================================================================================
 `;
 
-exports[`comments.js - {"semi":false} format 1`] = `
+exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -54,7 +54,7 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,7 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`ignore.js - {"semi":false} format 1`] = `
+exports[`ignore.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -143,7 +143,7 @@ interface T<T> {
 ================================================================================
 `;
 
-exports[`ignore.js format 1`] = `
+exports[`ignore.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
