@@ -183,13 +183,8 @@ function replaceQuotesInInlineComments(text) {
         continue;
 
       case "comment-inline":
-        if (c === '"' || c === "'") {
+        if (c === '"' || c === "'" || c === "*") {
           chars[i] = SPECIAL_CHAR_PLACEHOLDER;
-        }
-        if (c === "/" && text[i + 1] === "*") {
-          chars[i] = SPECIAL_CHAR_PLACEHOLDER;
-          chars[i + 1] = SPECIAL_CHAR_PLACEHOLDER;
-          i++;
         }
         if (c === "\n" || c === "\r") {
           state = "initial";
