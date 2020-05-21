@@ -4,7 +4,7 @@ const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("@rollup/plugin-node-resolve");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
@@ -167,7 +167,7 @@ function getRollupConfig(bundle) {
     rollupPluginAlias(alias),
     bundle.target === "universal" &&
       nativeShims(path.resolve(__dirname, "shims")),
-    resolve({
+    nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
     }),
