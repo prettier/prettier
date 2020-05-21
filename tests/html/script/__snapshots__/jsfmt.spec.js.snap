@@ -101,6 +101,16 @@ printWidth: 80
 </script><script type="invalid">
   {   "json":false  }
 </script>
+<script type="text/html">
+  <div>
+  <p>foo</p>
+  </div>
+</script>
+<script lang="html">
+  <div>
+  <p>foo</p>
+  </div>
+</script>
 
 <script
   async=""
@@ -131,6 +141,16 @@ End Function
 </script>
 <script type="invalid">
   {   "json":false  }
+</script>
+<script type="text/html">
+  <div>
+    <p>foo</p>
+  </div>
+</script>
+<script lang="html">
+  <div>
+    <p>foo</p>
+  </div>
 </script>
 
 <script

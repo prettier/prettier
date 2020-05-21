@@ -398,6 +398,10 @@ function _inferScriptParser(node) {
     return "markdown";
   }
 
+  if (type === "text/html" || lang === "html") {
+    return "html";
+  }
+
   if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
     return "json";
   }
