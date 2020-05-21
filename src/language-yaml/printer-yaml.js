@@ -15,7 +15,6 @@ const {
   hasPrettierIgnore,
   isLastDescendantNode,
   isNextLineEmpty,
-  isPreviousLineEmpty,
   isNode,
   isEmptyNode,
   defineShortcut,
@@ -39,7 +38,7 @@ const {
   markAsRoot,
   softline,
 } = docBuilders;
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -140,7 +139,11 @@ function genericPrint(path, options, print) {
               path.map(
                 (path) =>
                   concat([
-                    isPreviousLineEmpty(path.getValue(), options.originalText)
+                    isPreviousLineEmpty(
+                      options.originalText,
+                      path.getValue(),
+                      options.locStart
+                    )
                       ? hardline
                       : "",
                     print(path),
