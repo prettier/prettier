@@ -387,7 +387,7 @@ body
 a {
   /* comment 1 */
   /* comment 2 */
-  padding /* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px
+  padding/* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px
     /* comment 6 */; /* comment 7 */
   /* comment 8 */
   transform: translate(/* comment 9 */ 10px /* comment 10 */);
@@ -404,16 +404,16 @@ a {
 
 .foo {
   /* comment 23 */
-  color /* comment 24 */:/* comment 25 */ blue /* comment 26 */; /* comment 27 */
-  transform /* comment 28 */:/* comment 29 */ translate(
+  color/* comment 24 */:/* comment 25 */ blue /* comment 26 */; /* comment 27 */
+  transform/* comment 28 */:/* comment 29 */ translate(
       /* comment 30 */ 10px /* comment 31 */
     )
     /* comment 32 */; /* comment 33 */
 }
 .foo {
   /* comment 34 */
-  color /* comment 35 */ : /* comment 36 */ blue /* comment 37 */; /* comment 38 */
-  transform /* comment 39 */ : /* comment 40 */ translate(
+  color/* comment 35 */ : /* comment 36 */ blue /* comment 37 */; /* comment 38 */
+  transform/* comment 39 */ : /* comment 40 */ translate(
       /* comment 41 */ 10px /* comment 42 */
     )
     /* comment 43 */; /* comment 44 */
@@ -421,7 +421,7 @@ a {
 .foo {
   /* comment 45 */
   /* comment 46 */
-  color /* comment 47 */
+  color/* comment 47 */
     /* comment 48 */
     /* comment 49 */ :  /* comment 50 */
     /* comment 51 */
@@ -429,7 +429,7 @@ a {
     /* comment 53 */ /* comment 54 */ /* comment 55 */; /* comment 56 */
   /* comment 57 */
   /* comment 58 */
-  transform /* comment 59 */
+  transform/* comment 59 */
     /* comment 60 */
     /* comment 61 */ : /* comment 62 */
     /* comment 63 */

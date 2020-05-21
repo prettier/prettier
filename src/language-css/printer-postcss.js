@@ -160,7 +160,7 @@ function genericPrint(path, options, print) {
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
-        !trimmedBetween.startsWith(":") ? " " : "",
+        trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend ? "" : " ",
         isLessParser(options) && node.extend && node.selector
