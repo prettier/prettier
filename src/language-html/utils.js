@@ -398,7 +398,7 @@ function _inferScriptParser(node) {
     return "markdown";
   }
 
-  if (type === "text/html" || lang === "html") {
+  if (type === "text/html") {
     return "html";
   }
 
