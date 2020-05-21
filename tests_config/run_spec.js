@@ -39,7 +39,6 @@ const unstableTests = new Map(
       (options) => options.proseWrap === "always",
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
-    "yaml/prettier-ignore/document.yml",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
