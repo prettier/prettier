@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-rules.css - {"trailingComma":"none"} format 1`] = `
+exports[`at-rules.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -76,7 +76,7 @@ a {
 ================================================================================
 `;
 
-exports[`at-rules.css format 1`] = `
+exports[`at-rules.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -151,7 +151,7 @@ a {
 ================================================================================
 `;
 
-exports[`declaration.css - {"trailingComma":"none"} format 1`] = `
+exports[`declaration.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -170,7 +170,7 @@ a {
 ================================================================================
 `;
 
-exports[`declaration.css format 1`] = `
+exports[`declaration.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -188,7 +188,7 @@ a {
 ================================================================================
 `;
 
-exports[`list.css - {"trailingComma":"none"} format 1`] = `
+exports[`list.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -294,7 +294,7 @@ $breakpoint-map: (
 ================================================================================
 `;
 
-exports[`list.css format 1`] = `
+exports[`list.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -399,7 +399,7 @@ $breakpoint-map: (
 ================================================================================
 `;
 
-exports[`map.css - {"trailingComma":"none"} format 1`] = `
+exports[`map.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -444,7 +444,7 @@ $map: (
 ================================================================================
 `;
 
-exports[`map.css format 1`] = `
+exports[`map.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -488,7 +488,7 @@ $map: (
 ================================================================================
 `;
 
-exports[`selector_list.css - {"trailingComma":"none"} format 1`] = `
+exports[`selector_list.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -520,7 +520,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 ================================================================================
 `;
 
-exports[`selector_list.css format 1`] = `
+exports[`selector_list.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -551,7 +551,7 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 ================================================================================
 `;
 
-exports[`variable.css - {"trailingComma":"none"} format 1`] = `
+exports[`variable.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -569,7 +569,7 @@ $margin: 0, 2em, 0, 1.5em;
 ================================================================================
 `;
 
-exports[`variable.css format 1`] = `
+exports[`variable.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

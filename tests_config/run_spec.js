@@ -54,9 +54,6 @@ global.run_spec = (fixtures, parsers, options) => {
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
 
-  // Make sure tests are in correct location
-  checkParsers(dirname, parsers);
-
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
@@ -105,6 +102,12 @@ global.run_spec = (fixtures, parsers, options) => {
       };
     })
     .filter(Boolean);
+
+  // Make sure tests are in correct location
+  // only runs on local and one task on CI
+  if (!isCI || process.env.ENABLE_CODE_COVERAGE) {
+    checkParsers({ dirname, files }, parsers);
+  }
 
   const stringifiedOptions = stringifyOptions(options);
 
