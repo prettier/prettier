@@ -244,6 +244,90 @@ $my-map: (
 ================================================================================
 `;
 
+exports[`mixed.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import 'b';
+// another comment
+//no-space before
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import "b";
+// another comment
+//no-space before
+
+================================================================================
+`;
+
+exports[`mixed-2.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+@import "a";
+//*
+@import 'b';
+/* block */
+/*no-space block*/
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+@import "a";
+//*
+@import "b";
+/* block */
+/*no-space block*/
+
+================================================================================
+`;
+
+exports[`mixed-block.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import 'b';
+/* block */
+/*no-space block*/
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import "b";
+/* block */
+/*no-space block*/
+
+================================================================================
+`;
+
 exports[`prettier-ignore.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]

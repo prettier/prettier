@@ -1,17 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_require.ts format 1`] = `
+exports[`yaml.less format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import { IModel } from 'vs/editor/common/editorCommon';
-import JSONContributionRegistry = require('vs/platform/jsonschemas/common/jsonContributionRegistry');
+---
+title: Title
+description: Description
+---
+
+a {
+  color: red;
+}
 
 =====================================output=====================================
-import { IModel } from "vs/editor/common/editorCommon";
-import JSONContributionRegistry = require("vs/platform/jsonschemas/common/jsonContributionRegistry");
+---
+title: Title
+description: Description
+---
+
+a {
+  color: red;
+}
 
 ================================================================================
 `;
