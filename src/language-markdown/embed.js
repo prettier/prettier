@@ -36,7 +36,7 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
-  if (node.type === "yaml") {
+  if (node.type === "front-matter-yaml") {
     return markAsRoot(
       concat([
         "---",

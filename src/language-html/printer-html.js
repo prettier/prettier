@@ -40,9 +40,8 @@ const {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
-  isFrontMatterNode,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");

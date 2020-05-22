@@ -8,7 +8,7 @@ const {
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
 
-  if (node.type === "yaml") {
+  if (node.type === "front-matter-yaml") {
     return markAsRoot(
       concat([
         "---",

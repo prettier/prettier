@@ -837,6 +837,10 @@ function getParserName(lang, options) {
   return null;
 }
 
+function isFrontMatterNode(node) {
+  return node && node.type && node.type.startsWith("front-matter-");
+}
+
 module.exports = {
   replaceEndOfLineWith,
   getStringWidth,
@@ -881,4 +885,5 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isWithinParentArrayProperty,
+  isFrontMatterNode,
 };

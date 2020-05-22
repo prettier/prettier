@@ -8,6 +8,7 @@ const {
   printString,
   hasIgnoreComment,
   hasNewline,
+  isFrontMatterNode,
 } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 
@@ -96,7 +97,7 @@ function genericPrint(path, options, print) {
     return node;
   }
 
-  if (node.type.startsWith("front-matter-")) {
+  if (isFrontMatterNode(node)) {
     return concat([node.raw, hardline]);
   }
 
@@ -959,8 +960,7 @@ function printNodeSequence(path, options, print) {
             options.locStart(node.nodes[i + 1]),
             { backwards: true }
           ) &&
-          node.nodes[i].type !== "yaml" &&
-          node.nodes[i].type !== "toml") ||
+          !isFrontMatterNode(node.nodes[i])) ||
         (node.nodes[i + 1].type === "css-atrule" &&
           node.nodes[i + 1].name === "else" &&
           node.nodes[i].type !== "css-comment")
@@ -974,8 +974,7 @@ function printNodeSequence(path, options, print) {
             pathChild.getValue(),
             options.locEnd
           ) &&
-          node.nodes[i].type !== "yaml" &&
-          node.nodes[i].type !== "toml"
+          !isFrontMatterNode(node.nodes[i])
         ) {
           parts.push(hardline);
         }
