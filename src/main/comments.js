@@ -24,8 +24,6 @@ const {
 } = require("../common/util-shared");
 const childNodesCacheKey = Symbol("child-nodes");
 
-/** @typedef {import("../document/doc-builders").Doc} Doc */
-
 function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
     return;
