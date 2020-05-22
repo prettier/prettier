@@ -40,6 +40,7 @@ const {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  isFrontMatterNode,
 } = require("./utils");
 const { replaceEndOfLineWith } = require("../common/util");
 const preprocess = require("./preprocess");
@@ -189,7 +190,7 @@ function embed(path, print, textToDoc, options) {
       }
       break;
     }
-    case "yaml":
+    case "front-matter-yaml":
       return markAsRoot(
         concat([
           "---",
@@ -205,6 +206,11 @@ function embed(path, print, textToDoc, options) {
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
+
+  if (isFrontMatterNode(node)) {
+    return concat(replaceEndOfLineWith(node.raw, literalline));
+  }
+
   switch (node.type) {
     case "root":
       if (options.__onHtmlRoot) {

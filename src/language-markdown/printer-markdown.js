@@ -62,6 +62,13 @@ function genericPrint(path, options, print) {
     );
   }
 
+  if (node.type.startsWith("front-matter-")) {
+    return options.originalText.slice(
+      node.position.start.offset,
+      node.position.end.offset
+    );
+  }
+
   switch (node.type) {
     case "root":
       if (node.children.length === 0) {

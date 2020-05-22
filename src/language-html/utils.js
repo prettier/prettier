@@ -157,7 +157,7 @@ function isScriptLikeTag(node) {
 }
 
 function isFrontMatterNode(node) {
-  return node.type === "yaml" || node.type === "toml";
+  return node.type.startsWith("front-matter-");
 }
 
 function canHaveInterpolation(node) {

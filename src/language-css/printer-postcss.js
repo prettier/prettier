@@ -96,10 +96,11 @@ function genericPrint(path, options, print) {
     return node;
   }
 
+  if (node.type.startsWith("front-matter-")) {
+    return concat([node.raw, hardline]);
+  }
+
   switch (node.type) {
-    case "yaml":
-    case "toml":
-      return concat([node.raw, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 

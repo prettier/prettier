@@ -13,7 +13,7 @@ function parse(text) {
   const match = text.match(
     // trailing spaces after delimiters are allowed
     new RegExp(
-      `^(${delimiterRegex})[^\\n\\S]*\\n(?:([\\s\\S]*?)\\n)?\\1[^\\n\\S]*(\\n|$)`
+      `^(${delimiterRegex})([^\\n]*)\\n(?:([\\s\\S]*?)\\n)?\\1[^\\n\\S]*(\\n|$)`
     )
   );
 
@@ -21,11 +21,15 @@ function parse(text) {
     return { frontMatter: null, content: text };
   }
 
-  const [raw, delimiter, value] = match;
+  const [raw, delimiter, language, value] = match;
+  let type = DELIMITER_MAP[delimiter];
+  if (type !== "toml" && language && language.trim()) {
+    type = language.trim();
+  }
 
   return {
     frontMatter: {
-      type: DELIMITER_MAP[delimiter],
+      type: `front-matter-${type}`,
       value,
       raw: raw.replace(/\n$/, ""),
     },
