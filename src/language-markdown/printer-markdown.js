@@ -62,7 +62,7 @@ function genericPrint(path, options, print) {
     );
   }
 
-  if (node.type.startsWith("front-matter-")) {
+  if (isFrontMatterNode(node)) {
     return options.originalText.slice(
       node.position.start.offset,
       node.position.end.offset
