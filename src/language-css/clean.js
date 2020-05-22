@@ -40,6 +40,10 @@ function clean(ast, newObj, parent) {
     }
   }
 
+  if (ast.type === "value-root") {
+    delete newObj.text;
+  }
+
   if (
     ast.type === "media-query" ||
     ast.type === "media-query-list" ||

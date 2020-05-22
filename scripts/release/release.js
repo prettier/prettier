@@ -40,6 +40,7 @@ async function run() {
     require("./steps/push-to-git"),
     require("./steps/publish-to-npm"),
     require("./steps/bump-prettier"),
+    require("./steps/update-dependents-count"),
     require("./steps/post-publish-steps"),
   ];
 

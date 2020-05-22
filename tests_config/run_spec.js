@@ -39,7 +39,6 @@ const unstableTests = new Map(
       (options) => options.proseWrap === "always",
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
-    "yaml/prettier-ignore/document.yml",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -54,9 +53,6 @@ const isTestDirectory = (dirname, name) =>
 global.run_spec = (fixtures, parsers, options) => {
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
-
-  // Make sure tests are in correct location
-  checkParsers(dirname, parsers);
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
@@ -106,6 +102,12 @@ global.run_spec = (fixtures, parsers, options) => {
       };
     })
     .filter(Boolean);
+
+  // Make sure tests are in correct location
+  // only runs on local and one task on CI
+  if (!isCI || process.env.ENABLE_CODE_COVERAGE) {
+    checkParsers({ dirname, files }, parsers);
+  }
 
   const stringifiedOptions = stringifyOptions(options);
 

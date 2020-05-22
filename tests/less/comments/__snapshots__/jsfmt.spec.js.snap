@@ -62,26 +62,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block.css format 1`] = `
-====================================options=====================================
-parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-/* Kikoo */
-/**
- * Kikoo
- */
-
-=====================================output=====================================
-/* Kikoo */
-/**
- * Kikoo
- */
-
-================================================================================
-`;
-
 exports[`block.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -102,6 +82,136 @@ printWidth: 80
 /**
  * Kikoo
  */
+
+================================================================================
+`;
+
+exports[`block-2.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+=====================================output=====================================
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+================================================================================
+`;
+
+exports[`issue-8130.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@import "../node_modules/foo/bar.less";
+
+// @index(['./components/**/*.less', '!./**/_demo/**'], f => \`@import '\${f.path}\${f.ext}';\`)
+@import './components/Button/Button.less';
+@import './components/Form/Form.less';
+@import './components/Input/Input.less';
+// @endindex
+
+=====================================output=====================================
+@import "../node_modules/foo/bar.less";
+
+// @index(['./components/**/*.less', '!./**/_demo/**'], f => \`@import '\${f.path}\${f.ext}';\`)
+@import "./components/Button/Button.less";
+@import "./components/Form/Form.less";
+@import "./components/Input/Input.less";
+// @endindex
+
+================================================================================
+`;
+
+exports[`mixed.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import 'b';
+// another comment
+//no-space before
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import "b";
+// another comment
+//no-space before
+
+================================================================================
+`;
+
+exports[`mixed-2.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+@import "a";
+//*
+@import 'b';
+/* block */
+/*no-space block*/
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+@import "a";
+//*
+@import "b";
+/* block */
+/*no-space block*/
+
+================================================================================
+`;
+
+exports[`mixed-block.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import 'b';
+/* block */
+/*no-space block*/
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import "b";
+/* block */
+/*no-space block*/
 
 ================================================================================
 `;
@@ -165,7 +275,7 @@ foo {
 ================================================================================
 `;
 
-exports[`trailing_star_slash.scss format 1`] = `
+exports[`trailing_star_slash.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
