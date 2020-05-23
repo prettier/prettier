@@ -39,8 +39,7 @@ function insertPragma(text) {
   const strippedText = docblock.strip(text);
   const separatingNewlines = strippedText.startsWith("\n") ? "\n" : "\n\n";
   return (
-    shebang +
-    (shebang ? "\n" : "") +
+    (shebang ? `${shebang}\n` : "") +
     newDocblock +
     separatingNewlines +
     strippedText
