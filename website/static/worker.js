@@ -14,6 +14,7 @@ function importScriptOnce(url) {
 
 importScripts("lib/parsers-location.js");
 importScripts("lib/standalone.js");
+importScripts("doc-explorer.js");
 
 // this is required to only load parsers when we need them
 const parsers = Object.create(null);
@@ -54,6 +55,7 @@ function handleMessage(message) {
         JSON.stringify(
           prettier.getSupportInfo({
             showUnreleased: true,
+            plugins: [prettierPlugins.docExplorer],
           })
         )
       ),
@@ -68,7 +70,7 @@ function handleMessage(message) {
     delete options.doc;
     delete options.output2;
 
-    const plugins = [{ parsers }];
+    const plugins = [{ parsers }, prettierPlugins.docExplorer];
     options.plugins = plugins;
 
     const formatResult = formatCode(message.code, options);
