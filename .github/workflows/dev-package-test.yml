@@ -3,6 +3,10 @@ name: Dev_Package_Test
 on:
   schedule:
     - cron: "0 0 * * 1"
+  pull_request:
+    paths:
+      - "package.json"
+      - ".github/workflows/dev-package-test.yml"
 
 jobs:
   test:
