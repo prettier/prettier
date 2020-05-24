@@ -222,6 +222,45 @@ export type b =
 ================================================================================
 `;
 
+exports[`type-arguments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #6988
+
+// functional component with ugly linebreak
+export const MyLongNamedReactFunctionalComponent1: FunctionComponent<ALongNamedInterface1 & ALongNamedInterface2> = (props) => {}
+
+// functional component with valid linebreak
+export const MyLongNamedReactFunctionalComponent2: FunctionComponent<ALongNamedInterface1 | ALongNamedInterface2> = (props) => {}
+
+// functional component with valid linebreak
+export const MyLongNamedReactFunctionalComponent3: FunctionComponent<ALongNamedInterface1, ALongNamedInterface2> = (props) => {}
+
+=====================================output=====================================
+// #6988
+
+// functional component with ugly linebreak
+export const MyLongNamedReactFunctionalComponent1: FunctionComponent<
+  ALongNamedInterface1 & ALongNamedInterface2
+> = (props) => {};
+
+// functional component with valid linebreak
+export const MyLongNamedReactFunctionalComponent2: FunctionComponent<
+  ALongNamedInterface1 | ALongNamedInterface2
+> = (props) => {};
+
+// functional component with valid linebreak
+export const MyLongNamedReactFunctionalComponent3: FunctionComponent<
+  ALongNamedInterface1,
+  ALongNamedInterface2
+> = (props) => {};
+
+================================================================================
+`;
+
 exports[`union-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
