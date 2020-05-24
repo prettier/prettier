@@ -1216,40 +1216,6 @@ function printPathNoParens(path, options, print, args) {
 
       return contents;
     }
-    case "TSInterfaceDeclaration":
-      if (n.declare) {
-        parts.push("declare ");
-      }
-
-      parts.push(
-        n.abstract ? "abstract " : "",
-        printTypeScriptModifiers(path, options, print),
-        "interface ",
-        path.call(print, "id"),
-        n.typeParameters ? path.call(print, "typeParameters") : "",
-        " "
-      );
-
-      if (n.extends && n.extends.length) {
-        parts.push(
-          group(
-            indent(
-              concat([
-                softline,
-                "extends ",
-                (n.extends.length === 1 ? identity : indent)(
-                  join(concat([",", line]), path.map(print, "extends"))
-                ),
-                " ",
-              ])
-            )
-          )
-        );
-      }
-
-      parts.push(path.call(print, "body"));
-
-      return concat(parts);
 
     case "ObjectTypeInternalSlot":
       return concat([
@@ -2807,35 +2773,48 @@ function printPathNoParens(path, options, print, args) {
 
     case "DeclareInterface":
     case "InterfaceDeclaration":
-    case "InterfaceTypeAnnotation": {
+    case "InterfaceTypeAnnotation":
+    case "TSInterfaceDeclaration": {
       if (n.type === "DeclareInterface" || n.declare) {
         parts.push("declare ");
       }
 
+      if (n.type === "TSInterfaceDeclaration") {
+        parts.push(
+          n.abstract ? "abstract " : "",
+          printTypeScriptModifiers(path, options, print)
+        );
+      }
+
       parts.push("interface");
 
-      if (n.type === "DeclareInterface" || n.type === "InterfaceDeclaration") {
-        parts.push(
+      const partsGroup = [];
+
+      if (n.type !== "InterfaceTypeAnnotation") {
+        partsGroup.push(
           " ",
           path.call(print, "id"),
           path.call(print, "typeParameters")
         );
       }
 
-      if (n.extends.length > 0) {
-        parts.push(
-          group(
-            indent(
-              concat([
-                line,
-                "extends ",
-                (n.extends.length === 1 ? identity : indent)(
-                  join(concat([",", line]), path.map(print, "extends"))
-                ),
-              ])
-            )
+      if (n.extends && n.extends.length !== 0) {
+        partsGroup.push(
+          line,
+          "extends ",
+          (n.extends.length === 1 ? identity : indent)(
+            join(concat([",", line]), path.map(print, "extends"))
           )
         );
+      }
+
+      if (
+        (n.id && hasTrailingComment(n.id)) ||
+        (n.extends && n.extends.length !== 0)
+      ) {
+        parts.push(group(indent(concat(partsGroup))));
+      } else {
+        parts.push(...partsGroup);
       }
 
       parts.push(" ", path.call(print, "body"));
@@ -4460,90 +4439,77 @@ function printClass(path, options, print) {
 
   parts.push("class");
 
-  if (n.id) {
-    parts.push(" ", path.call(print, "id"));
-  }
-
-  parts.push(path.call(print, "typeParameters"));
+  // Keep old behaviour of extends in same line
+  // If there is only on extends and there are not comments
+  const groupMode =
+    (n.id && hasTrailingComment(n.id)) ||
+    (n.superClass &&
+      n.superClass.comments &&
+      n.superClass.comments.length !== 0) ||
+    (n.extends && n.extends.length !== 0) || // DeclareClass
+    (n.mixins && n.mixins.length !== 0) ||
+    (n.implements && n.implements.length !== 0);
 
   const partsGroup = [];
+
+  if (n.id) {
+    partsGroup.push(" ", path.call(print, "id"));
+  }
+
+  partsGroup.push(path.call(print, "typeParameters"));
+
+  function printList(listName) {
+    if (n[listName] && n[listName].length !== 0) {
+      const printedLeadingComments = comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        ({ marker }) => marker === listName
+      );
+      partsGroup.push(
+        line,
+        printedLeadingComments,
+        printedLeadingComments && hardline,
+        listName,
+        group(
+          indent(
+            concat([line, join(concat([",", line]), path.map(print, listName))])
+          )
+        )
+      );
+    }
+  }
+
   if (n.superClass) {
     const printed = concat([
       "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters"),
     ]);
-    // Keep old behaviour of extends in same line
-    // If there is only on extends and there are not comments
-    if (
-      (!n.implements || n.implements.length === 0) &&
-      (!n.superClass.comments || n.superClass.comments.length === 0)
-    ) {
-      parts.push(
-        concat([
-          " ",
-          path.call(
-            (superClass) =>
-              comments.printComments(superClass, () => printed, options),
-            "superClass"
-          ),
-        ])
-      );
+    const printedWithComments = path.call(
+      (superClass) =>
+        comments.printComments(superClass, () => printed, options),
+      "superClass"
+    );
+    if (groupMode) {
+      partsGroup.push(line, group(printedWithComments));
     } else {
-      partsGroup.push(
-        group(
-          concat([
-            line,
-            path.call(
-              (superClass) =>
-                comments.printComments(superClass, () => printed, options),
-              "superClass"
-            ),
-          ])
-        )
-      );
+      partsGroup.push(" ", printedWithComments);
     }
-  } else if (n.extends && n.extends.length > 0) {
-    parts.push(" extends ", join(", ", path.map(print, "extends")));
-  }
-
-  if (n.mixins && n.mixins.length > 0) {
-    partsGroup.push(
-      line,
-      "mixins ",
-      group(indent(join(concat([",", line]), path.map(print, "mixins"))))
-    );
-  }
-
-  if (n.implements && n.implements.length > 0) {
-    partsGroup.push(
-      line,
-      "implements",
-      group(
-        indent(
-          concat([
-            line,
-            join(concat([",", line]), path.map(print, "implements")),
-          ])
-        )
-      )
-    );
-  }
-
-  if (partsGroup.length > 0) {
-    parts.push(group(indent(concat(partsGroup))));
-  }
-
-  if (
-    n.body &&
-    n.body.comments &&
-    hasLeadingOwnLineComment(options.originalText, n.body, options)
-  ) {
-    parts.push(hardline);
   } else {
-    parts.push(" ");
+    printList("extends");
   }
-  parts.push(path.call(print, "body"));
+
+  printList("mixins");
+  printList("implements");
+
+  if (groupMode) {
+    parts.push(group(indent(concat(partsGroup))));
+  } else {
+    parts.push(...partsGroup);
+  }
+
+  parts.push(" ", path.call(print, "body"));
 
   return parts;
 }
