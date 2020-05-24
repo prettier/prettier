@@ -6,4 +6,6 @@
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO4/B8AAqgB0yr7dJgAAAAASUVORK5CYII=");
   background-image: url(data:application/font-woff;charset=utf-8;base64,ThisIsNormalBut/+0ThisIsLowerCased);
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO4/B8AAqgB0yr7dJgAAAAASUVORK5CYII=) center center no-repeat;
+  background-image: url("hello"+"world");
+  background-image: url(https://prettier-fonts.com/css?family=Prettier+Sans&size=500,400,300,1000,600);
 }

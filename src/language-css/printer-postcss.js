@@ -536,7 +536,14 @@ function genericPrint(path, options, print) {
             (iNextNode && isAdditionNode(iNextNode)) ||
             isAdditionNode(iNode)
           ) {
-            parts.push(" ");
+            const isString =
+              iNode.type !== "value-word" && iNextNode.type !== "value-word";
+            const hasVars =
+              iNode.value.startsWith("$") || iNextNode.value.startsWith("$");
+
+            if (isString || hasVars) {
+              parts.push(" ");
+            }
           }
           continue;
         }
@@ -824,6 +831,8 @@ function genericPrint(path, options, print) {
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
 
+      const isInsideUrl = isURLFunctionNode(parentNode);
+
       return group(
         concat([
           node.open ? path.call(print, "open") : "",
@@ -831,7 +840,7 @@ function genericPrint(path, options, print) {
             concat([
               softline,
               join(
-                concat([",", line]),
+                isInsideUrl ? "," : concat([",", line]),
                 path.map((childPath) => {
                   const node = childPath.getValue();
                   const printed = print(childPath);
