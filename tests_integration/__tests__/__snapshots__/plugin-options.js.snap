@@ -57,7 +57,7 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
-  foo-parser       foo
+  foo-parser       foo (plugin: ./plugin)
 "
 `;
 
