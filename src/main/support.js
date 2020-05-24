@@ -60,20 +60,20 @@ function getSupportInfo({
         );
 
         if (option.name === "parser") {
-          collectParsersFromLanguages(option, languages);
+          collectParsersFromLanguages(option, languages, plugins);
         }
       }
 
-      const filteredPlugins = plugins.filter(
-        (plugin) =>
-          plugin.defaultOptions &&
-          plugin.defaultOptions[option.name] !== undefined
-      );
-
-      const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
-        reduced[plugin.name] = plugin.defaultOptions[option.name];
-        return reduced;
-      }, {});
+      const pluginDefaults = plugins
+        .filter(
+          (plugin) =>
+            plugin.defaultOptions &&
+            plugin.defaultOptions[option.name] !== undefined
+        )
+        .reduce((reduced, plugin) => {
+          reduced[plugin.name] = plugin.defaultOptions[option.name];
+          return reduced;
+        }, {});
 
       return { ...option, pluginDefaults };
     });
@@ -105,14 +105,21 @@ function getSupportInfo({
   }
 }
 
-function collectParsersFromLanguages(option, languages) {
+function collectParsersFromLanguages(option, languages, plugins) {
   const existingValues = new Set(option.choices.map((choice) => choice.value));
   for (const language of languages) {
     if (language.parsers) {
-      for (const parser of language.parsers) {
-        if (!existingValues.has(parser)) {
-          existingValues.add(parser);
-          option.choices.push({ value: parser, description: language.name });
+      for (const value of language.parsers) {
+        if (!existingValues.has(value)) {
+          existingValues.add(value);
+          const plugin = plugins.find(
+            (plugin) => plugin.parsers && plugin.parsers[value]
+          );
+          let description = language.name;
+          if (plugin && plugin.name) {
+            description += ` (plugin: ${plugin.name})`;
+          }
+          option.choices.push({ value, description });
         }
       }
     }
