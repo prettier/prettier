@@ -28,6 +28,8 @@ See [Usage](#usage) below for examples.
 </script>
 ```
 
+Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier's `package.json` points to `standalone.js`, that's why `https://unpkg.com/prettier` can also be used instead of `https://unpkg.com/prettier/standalone.js`.
+
 ### ES Modules
 
 ```js
