@@ -29,6 +29,10 @@ function getSupportInfo({
   // we need to treat it as the normal one so as to test new features.
   const version = currentVersion.split("-", 1)[0];
 
+  const languages = plugins
+    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
+    .filter(filterSince);
+
   const options = arrayify(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
@@ -54,6 +58,10 @@ function getSupportInfo({
         option.choices = option.choices.filter(
           (option) => filterSince(option) && filterDeprecated(option)
         );
+
+        if (option.name === "parser") {
+          collectParsersFromLanguages(option, languages);
+        }
       }
 
       const filteredPlugins = plugins.filter(
@@ -69,10 +77,6 @@ function getSupportInfo({
 
       return { ...option, pluginDefaults };
     });
-
-  const languages = plugins
-    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
-    .filter(filterSince);
 
   return { languages, options };
 
@@ -98,6 +102,20 @@ function getSupportInfo({
     }
     const { cliName, cliCategory, cliDescription, ...newObject } = object;
     return newObject;
+  }
+}
+
+function collectParsersFromLanguages(option, languages) {
+  const existingValues = new Set(option.choices.map((choice) => choice.value));
+  for (const language of languages) {
+    if (language.parsers) {
+      for (const parser of language.parsers) {
+        if (!existingValues.has(parser)) {
+          existingValues.add(parser);
+          option.choices.push({ value: parser, description: language.name });
+        }
+      }
+    }
   }
 }
 

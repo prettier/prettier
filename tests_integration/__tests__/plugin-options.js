@@ -22,6 +22,16 @@ describe("show detailed external option with `--help foo-option`", () => {
   });
 });
 
+describe("include plugin's parsers to the values of the `parser` option`", () => {
+  runPrettier("plugins/options", [
+    "--plugin=./plugin",
+    "--help",
+    "parser",
+  ]).test({
+    status: 0,
+  });
+});
+
 describe("external options from CLI should work", () => {
   runPrettier(
     "plugins/options",
