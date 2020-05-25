@@ -72,24 +72,25 @@ function embed(path, print, textToDoc, options) {
             parser === "markdown"
               ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
               : node.value;
+          const textToDocOptions = { parser };
+          if (options.parser === "html" && parser === "babel") {
+            let sourceType = "script";
+            const { attrMap } = node.parent;
+            if (
+              attrMap &&
+              (attrMap.type === "module" ||
+                (attrMap.type === "text/babel" &&
+                  attrMap["data-type"] === "module"))
+            ) {
+              sourceType = "module";
+            }
+            textToDocOptions.__babelSourceType = sourceType;
+          }
           return builders.concat([
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(
-                textToDoc(
-                  value,
-                  options.parser === "html" && parser === "babel"
-                    ? {
-                        parser,
-                        __babelSourceType:
-                          node.attrMap && node.attrMap.type === "module"
-                            ? "module"
-                            : "script",
-                      }
-                    : { parser }
-                )
-              ),
+              stripTrailingHardline(textToDoc(value, textToDocOptions)),
               printClosingTagSuffix(node, options),
             ]),
           ]);
