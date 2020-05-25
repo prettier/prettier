@@ -66,15 +66,6 @@ const parsers = [
   {
     input: "src/language-handlebars/parser-glimmer.js",
     commonjs: {
-      namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
-          "parse",
-          "parseWithoutProcessing",
-        ],
-        [require.resolve(
-          "@glimmer/syntax/dist/modules/es2017/index.js"
-        )]: "default",
-      },
       ignore: ["source-map"],
     },
   },
