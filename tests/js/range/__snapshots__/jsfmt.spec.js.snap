@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class-declaration.js format 1`] = `
+exports[`class-declaration.js 10…26 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -24,7 +24,7 @@ let    x
 ================================================================================
 `;
 
-exports[`different-levels.js format 1`] = `
+exports[`different-levels.js 19…48 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -46,7 +46,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`function-declaration.js format 1`] = `
+exports[`function-declaration.js 16…43 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -60,7 +60,7 @@ function ugly({ a = 1, b = 2 }) {}
 ================================================================================
 `;
 
-exports[`ignore-indentation.js format 1`] = `
+exports[`ignore-indentation.js 222…225 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -88,7 +88,7 @@ function ugly ( {a=1,     b     =   2     }      ) {
 ================================================================================
 `;
 
-exports[`large-dict.js format 1`] = `
+exports[`large-dict.js 80…155 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -116,7 +116,7 @@ function ugly() {
 ================================================================================
 `;
 
-exports[`module-export1.js format 1`] = `
+exports[`module-export1.js 45…56 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -146,7 +146,7 @@ export   default    42
 ================================================================================
 `;
 
-exports[`module-export2.js format 1`] = `
+exports[`module-export2.js 57…79 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -175,7 +175,7 @@ export   default    42
 ================================================================================
 `;
 
-exports[`module-export3.js format 1`] = `
+exports[`module-export3.js 104…108 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -205,7 +205,7 @@ export default 42;
 ================================================================================
 `;
 
-exports[`module-import.js format 1`] = `
+exports[`module-import.js 7…22 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -235,7 +235,7 @@ export   default    42
 ================================================================================
 `;
 
-exports[`multiple-statements.js format 1`] = `
+exports[`multiple-statements.js 30…49 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -273,7 +273,7 @@ call(
 ================================================================================
 `;
 
-exports[`multiple-statements2.js format 1`] = `
+exports[`multiple-statements2.js 18…56 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -311,7 +311,7 @@ call(
 ================================================================================
 `;
 
-exports[`nested.js format 1`] = `
+exports[`nested.js 0…37 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -334,7 +334,7 @@ try {
 ================================================================================
 `;
 
-exports[`nested-print-width.js format 1`] = `
+exports[`nested-print-width.js 28…110 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -356,7 +356,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`nested2.js format 1`] = `
+exports[`nested2.js 9…37 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -380,7 +380,7 @@ catch (err) {}
 ================================================================================
 `;
 
-exports[`nested3.js format 1`] = `
+exports[`nested3.js 9…37 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -404,7 +404,7 @@ catch (err) {}
 ================================================================================
 `;
 
-exports[`object-expression.js format 1`] = `
+exports[`object-expression.js 11…14 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -418,7 +418,7 @@ const y = { a: 1, b: 2 };
 ================================================================================
 `;
 
-exports[`object-expression2.js format 1`] = `
+exports[`object-expression2.js 53…104 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -450,7 +450,7 @@ const y = [
 ================================================================================
 `;
 
-exports[`range.js format 1`] = `
+exports[`range.js 224…227 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -478,7 +478,7 @@ function ugly ( {a=1,     b     =   2     }      ) {
 ================================================================================
 `;
 
-exports[`range-end.js format 1`] = `
+exports[`range-end.js 32…50 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -504,7 +504,7 @@ call(1, 2, 3);
 ================================================================================
 `;
 
-exports[`range-start.js format 1`] = `
+exports[`range-start.js 0…18 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -532,7 +532,23 @@ call(
 ================================================================================
 `;
 
-exports[`try-catch.js format 1`] = `
+exports[`snippet: #4206 FIXME 16…31 format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default class Foo{
+/**/
+}
+=====================================output=====================================
+export default class Foo {
+                 /**/
+               }
+================================================================================
+`;
+
+exports[`try-catch.js 7…8 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -548,7 +564,7 @@ try {
 ================================================================================
 `;
 
-exports[`whitespace.js format 1`] = `
+exports[`whitespace.js 0…1 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

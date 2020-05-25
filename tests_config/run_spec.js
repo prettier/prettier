@@ -111,140 +111,158 @@ global.run_spec = (fixtures, parsers, options) => {
 
   const stringifiedOptions = stringifyOptions(options);
 
-  for (const { name, filename, code, output } of [...files, ...snippets]) {
-    describe(`${name}${
-      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
-    }`, () => {
-      let rangeStart;
-      let rangeEnd;
-      let cursorOffset;
+  for (const { name, filename, code, output, ...snippetOptions } of [
+    ...files,
+    ...snippets,
+  ]) {
+    let { rangeStart, rangeEnd } = snippetOptions;
+    let cursorOffset;
 
-      const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
-        .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
-          rangeStart = offset;
-          return "";
-        })
-        .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
-          rangeEnd = offset;
-          return "";
-        });
-
-      const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
-        cursorOffset = offset;
+    const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
+      .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
+        rangeStart = offset;
+        return "";
+      })
+      .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
+        rangeEnd = offset;
         return "";
       });
 
-      const baseOptions = {
-        printWidth: 80,
-        ...options,
-        rangeStart,
-        rangeEnd,
-        cursorOffset,
-      };
-      const mainOptions = {
-        ...baseOptions,
-        ...(IS_PARSER_INFERENCE_TESTS
-          ? { filepath: filename }
-          : { parser: parsers[0] }),
-      };
-
-      const hasEndOfLine = "endOfLine" in mainOptions;
-
-      if (IS_ERROR_TESTS) {
-        test("error test", () => {
-          expect(() => {
-            format(input, filename, mainOptions);
-          }).toThrowErrorMatchingSnapshot();
-        });
-        return;
-      }
-
-      const formattedWithCursor = format(input, filename, mainOptions);
-      const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
-      const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
-
-      test("format", () => {
-        expect(visualizedOutput).toEqual(
-          visualizeEndOfLine(consistentEndOfLine(formattedWithCursor))
-        );
-        if (typeof output === "string") {
-          expect(formatted).toEqual(output);
-        } else {
-          expect(
-            raw(
-              createSnapshot(
-                hasEndOfLine
-                  ? visualizeEndOfLine(
-                      code
-                        .replace(RANGE_START_PLACEHOLDER, "")
-                        .replace(RANGE_END_PLACEHOLDER, "")
-                    )
-                  : source,
-                hasEndOfLine ? visualizedOutput : formattedWithCursor,
-                { ...baseOptions, parsers }
-              )
-            )
-          ).toMatchSnapshot();
-        }
-      });
-
-      const parsersToVerify = parsers.slice(1);
-      if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
-        parsersToVerify.push("babel-ts");
-      }
-
-      for (const parser of parsersToVerify) {
-        const verifyOptions = { ...baseOptions, parser };
-
-        test(`verify (${parser})`, () => {
-          if (
-            parser === "babel-ts" &&
-            options &&
-            (options.disableBabelTS === true ||
-              (Array.isArray(options.disableBabelTS) &&
-                options.disableBabelTS.includes(name)))
-          ) {
-            expect(() => {
-              format(input, filename, verifyOptions);
-            }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
-          } else {
-            const verifyOutput = format(input, filename, verifyOptions);
-            expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
-          }
-        });
-      }
-
-      const isUnstable = unstableTests.get(filename);
-      const isUnstableTest = isUnstable && isUnstable(options || {});
-      if (
-        DEEP_COMPARE &&
-        (formatted !== input || isUnstableTest) &&
-        typeof rangeStart === "undefined" &&
-        typeof rangeEnd === "undefined" &&
-        typeof cursorOffset === "undefined" &&
-        !TEST_CRLF
-      ) {
-        test("second format", () => {
-          const secondOutput = format(formatted, filename, mainOptions);
-          if (isUnstableTest) {
-            // To keep eye on failed tests, this assert never supposed to pass,
-            // if it fails, just remove the file from `unstableTests`
-            expect(secondOutput).not.toEqual(formatted);
-          } else {
-            expect(secondOutput).toEqual(formatted);
-          }
-        });
-      }
-
-      if (AST_COMPARE && formatted !== input) {
-        test("compare AST", () => {
-          const { cursorOffset, ...parseOptions } = mainOptions;
-          const originalAst = parse(input, parseOptions);
-          const formattedAst = parse(formatted, parseOptions);
-          expect(formattedAst).toEqual(originalAst);
-        });
-      }
+    const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
+      cursorOffset = offset;
+      return "";
     });
+
+    const baseOptions = {
+      printWidth: 80,
+      ...options,
+      ...snippetOptions,
+      rangeStart,
+      rangeEnd,
+      cursorOffset,
+    };
+
+    const humanReadableRange =
+      typeof rangeStart === "number" && typeof rangeEnd === "number"
+        ? `${rangeStart}…${rangeEnd}`
+        : "";
+
+    describe(
+      [
+        name,
+        humanReadableRange,
+        stringifiedOptions && "- " + stringifiedOptions,
+      ]
+        .filter(Boolean)
+        .join(" "),
+      () => {
+        const mainOptions = {
+          ...baseOptions,
+          ...(IS_PARSER_INFERENCE_TESTS
+            ? { filepath: filename }
+            : { parser: parsers[0] }),
+        };
+
+        const hasEndOfLine = "endOfLine" in mainOptions;
+
+        if (IS_ERROR_TESTS) {
+          test("error test", () => {
+            expect(() => {
+              format(input, filename, mainOptions);
+            }).toThrowErrorMatchingSnapshot();
+          });
+          return;
+        }
+
+        const formattedWithCursor = format(input, filename, mainOptions);
+        const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
+        const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
+
+        test("format", () => {
+          expect(visualizedOutput).toEqual(
+            visualizeEndOfLine(consistentEndOfLine(formattedWithCursor))
+          );
+          if (typeof output === "string") {
+            expect(formatted).toEqual(output);
+          } else {
+            expect(
+              raw(
+                createSnapshot(
+                  hasEndOfLine
+                    ? visualizeEndOfLine(
+                        code
+                          .replace(RANGE_START_PLACEHOLDER, "")
+                          .replace(RANGE_END_PLACEHOLDER, "")
+                      )
+                    : source,
+                  hasEndOfLine ? visualizedOutput : formattedWithCursor,
+                  { ...baseOptions, parsers }
+                )
+              )
+            ).toMatchSnapshot();
+          }
+        });
+
+        const parsersToVerify = parsers.slice(1);
+        if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+          parsersToVerify.push("babel-ts");
+        }
+
+        for (const parser of parsersToVerify) {
+          const verifyOptions = { ...baseOptions, parser };
+
+          test(`verify (${parser})`, () => {
+            if (
+              parser === "babel-ts" &&
+              options &&
+              (options.disableBabelTS === true ||
+                (Array.isArray(options.disableBabelTS) &&
+                  options.disableBabelTS.includes(name)))
+            ) {
+              expect(() => {
+                format(input, filename, verifyOptions);
+              }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+            } else {
+              const verifyOutput = format(input, filename, verifyOptions);
+              expect(visualizeEndOfLine(verifyOutput)).toEqual(
+                visualizedOutput
+              );
+            }
+          });
+        }
+
+        const isUnstable = unstableTests.get(filename);
+        const isUnstableTest = isUnstable && isUnstable(options || {});
+        if (
+          DEEP_COMPARE &&
+          (formatted !== input || isUnstableTest) &&
+          typeof rangeStart === "undefined" &&
+          typeof rangeEnd === "undefined" &&
+          typeof cursorOffset === "undefined" &&
+          !TEST_CRLF
+        ) {
+          test("second format", () => {
+            const secondOutput = format(formatted, filename, mainOptions);
+            if (isUnstableTest) {
+              // To keep eye on failed tests, this assert never supposed to pass,
+              // if it fails, just remove the file from `unstableTests`
+              expect(secondOutput).not.toEqual(formatted);
+            } else {
+              expect(secondOutput).toEqual(formatted);
+            }
+          });
+        }
+
+        if (AST_COMPARE && formatted !== input) {
+          test("compare AST", () => {
+            const { cursorOffset, ...parseOptions } = mainOptions;
+            const originalAst = parse(input, parseOptions);
+            const formattedAst = parse(formatted, parseOptions);
+            expect(formattedAst).toEqual(originalAst);
+          });
+        }
+      }
+    );
   }
 };
 
