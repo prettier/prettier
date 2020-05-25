@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`identifier.json 1…4 format 1`] = `
+exports[`identifier.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`issue2297.json 5…6 format 1`] = `
+exports[`issue2297.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80

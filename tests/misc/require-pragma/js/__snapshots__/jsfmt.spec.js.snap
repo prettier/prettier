@@ -74,7 +74,7 @@ function      foo(bar)
 ================================================================================
 `;
 
-exports[`range-with-pragma.js 21…36 - {"requirePragma":true} format 1`] = `
+exports[`range-with-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -95,7 +95,7 @@ var test = true;
 ================================================================================
 `;
 
-exports[`range-without-pragma.js 0…15 - {"requirePragma":true} format 1`] = `
+exports[`range-without-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

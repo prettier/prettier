@@ -115,42 +115,35 @@ global.run_spec = (fixtures, parsers, options) => {
     ...files,
     ...snippets,
   ]) {
-    let { rangeStart, rangeEnd } = snippetOptions;
-    let cursorOffset;
+    describe(`${name}${
+      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
+    }`, () => {
+      let { rangeStart, rangeEnd } = snippetOptions;
+      let cursorOffset;
 
-    const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
-      .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
-        rangeStart = offset;
-        return "";
-      })
-      .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
-        rangeEnd = offset;
+      const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
+        .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
+          rangeStart = offset;
+          return "";
+        })
+        .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
+          rangeEnd = offset;
+          return "";
+        });
+
+      const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
+        cursorOffset = offset;
         return "";
       });
 
-    const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
-      cursorOffset = offset;
-      return "";
-    });
-
-    const baseOptions = {
-      printWidth: 80,
-      ...options,
-      ...snippetOptions,
-      rangeStart,
-      rangeEnd,
-      cursorOffset,
-    };
-
-    const extendedName = [
-      name,
-      getHumanReadableRange(rangeStart, rangeEnd),
-      stringifiedOptions && "- " + stringifiedOptions,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    describe(extendedName, () => {
+      const baseOptions = {
+        printWidth: 80,
+        ...options,
+        ...snippetOptions,
+        rangeStart,
+        rangeEnd,
+        cursorOffset,
+      };
       const mainOptions = {
         ...baseOptions,
         ...(IS_PARSER_INFERENCE_TESTS
@@ -368,10 +361,4 @@ function stringifyOptions(options) {
   );
 
   return string === "{}" ? "" : string;
-}
-
-function getHumanReadableRange(rangeStart, rangeEnd) {
-  return typeof rangeStart === "number" && typeof rangeEnd === "number"
-    ? `${rangeStart}…${rangeEnd}`
-    : "";
 }
