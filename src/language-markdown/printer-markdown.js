@@ -80,12 +80,6 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      // `http://www.example.com:80/_a_`
-      //                              ^ this is parsed as a `_` word
-      if (node.value === "_") {
-        return node.value;
-      }
-
       return node.value
         .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
