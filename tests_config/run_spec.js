@@ -184,7 +184,7 @@ global.run_spec = (fixtures, parsers, options) => {
                     )
                   : source,
                 hasEndOfLine ? visualizedOutput : formattedWithCursor,
-                { ...baseOptions, parsers }
+                composeOptionsForSnapshot(baseOptions, parsers, snippetOptions)
               )
             )
           ).toMatchSnapshot();
@@ -293,6 +293,22 @@ function visualizeEndOfLine(text) {
   });
 }
 
+function composeOptionsForSnapshot(baseOptions, parsers, snippetOptions) {
+  const snapshotOptions = { ...baseOptions, parsers };
+  const keepRange =
+    typeof baseOptions.rangeStart === "number" &&
+    typeof baseOptions.rangeEnd === "number" &&
+    baseOptions.rangeStart === snippetOptions.rangeStart &&
+    baseOptions.rangeEnd === snippetOptions.rangeEnd;
+  if (!keepRange) {
+    delete snapshotOptions.rangeStart;
+    delete snapshotOptions.rangeEnd;
+  }
+  delete snapshotOptions.cursorOffset;
+  delete snapshotOptions.disableBabelTS;
+  return snapshotOptions;
+}
+
 function createSnapshot(input, output, options) {
   const separatorWidth = 80;
   const printWidthIndicator =
@@ -302,16 +318,7 @@ function createSnapshot(input, output, options) {
   return []
     .concat(
       printSeparator(separatorWidth, "options"),
-      printOptions(
-        omit(
-          options,
-          (k) =>
-            k === "rangeStart" ||
-            k === "rangeEnd" ||
-            k === "cursorOffset" ||
-            k === "disableBabelTS"
-        )
-      ),
+      printOptions(options),
       printWidthIndicator,
       printSeparator(separatorWidth, "input"),
       input,
@@ -339,16 +346,6 @@ function printOptions(options) {
       ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
       : JSON.stringify(value);
   }
-}
-
-function omit(obj, fn) {
-  return Object.keys(obj).reduce((reduced, key) => {
-    const value = obj[key];
-    if (!fn(key, value)) {
-      reduced[key] = value;
-    }
-    return reduced;
-  }, {});
 }
 
 function stringifyOptions(options) {

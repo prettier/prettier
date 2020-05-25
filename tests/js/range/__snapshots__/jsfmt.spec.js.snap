@@ -536,6 +536,8 @@ exports[`snippet: #4206 FIXME format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 31
+rangeStart: 16
                                                                                 | printWidth
 =====================================input======================================
 export default class Foo{
