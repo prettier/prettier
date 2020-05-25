@@ -462,9 +462,9 @@ function needsParens(path, options) {
           parent.name === null &&
           node.params &&
           node.params.some(
-            (parma) =>
-              parma.typeAnnotation &&
-              parma.typeAnnotation.type === "NullableTypeAnnotation"
+            (param) =>
+              param.typeAnnotation &&
+              param.typeAnnotation.type === "NullableTypeAnnotation"
           ))
       );
     }
