@@ -136,7 +136,7 @@ function preprocess(text: string, options: object): string;
 
 Printers convert ASTs into a Prettier intermediate representation, also known as a Doc.
 
-The key must match the `astFormat` that the parser produces. The value contains an object with a `print` function. All other attributes (`embed`, `preprocess`, etc.) are optional.
+The key must match the `astFormat` that the parser produces. The value contains an object with a `print` function. All other properties (`embed`, `preprocess`, etc.) are optional.
 
 ```js
 export const printers = {
@@ -311,7 +311,7 @@ function canAttachComment(node: AST): boolean;
 ```
 
 This function is used for deciding whether a comment can be attached to
-a particular AST node. By default, _all_ AST attributes are traversed
+a particular AST node. By default, _all_ AST properties are traversed
 searching for nodes that comments can be attached to. This function
 is used to prevent comments from being attached to a particular node.
 A typical implementation looks like
@@ -362,7 +362,7 @@ Based on the text surrounding a comment node, Prettier dispatches:
     * `remaining` in all other cases.
 
 At the time of dispatching, Prettier will have annotated each AST comment
-node (i.e., created new attributes) with at least one of `enclosingNode`,
+node (i.e., created new properties) with at least one of `enclosingNode`,
 `precedingNode`, or `followingNode`. These can be used to aid a plugin's
 decision process (of course the entire AST and original text is also
 passed in for making more complicated decisions).
@@ -371,7 +371,7 @@ _Manually assigning a comment_
 
 Nodes with comments are expected to have a `comments` attribute containing
 an array of comments. Each comment is expected to have the following
-attributes: `leading`, `trailing`, `printed`. An example `ownLine`
+properties: `leading`, `trailing`, `printed`. An example `ownLine`
 function that ensures a comment does not follow a "punctuation" node
 (made up for demonstration purposes) might look like:
 
