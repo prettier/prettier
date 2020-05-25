@@ -456,7 +456,16 @@ function needsParens(path, options) {
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
-        ancestor.type === "NullableTypeAnnotation"
+        ancestor.type === "NullableTypeAnnotation" ||
+        // See #5283
+        (parent.type === "FunctionTypeParam" &&
+          parent.name === null &&
+          node.params &&
+          node.params.some(
+            (param) =>
+              param.typeAnnotation &&
+              param.typeAnnotation.type === "NullableTypeAnnotation"
+          ))
       );
     }
 
