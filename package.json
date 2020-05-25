@@ -8,6 +8,8 @@
   "author": "James Long",
   "license": "MIT",
   "main": "./index.js",
+  "browser": "./standalone.js",
+  "unpkg": "./standalone.js",
   "engines": {
     "node": ">=10.13.0"
   },
