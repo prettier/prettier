@@ -112,7 +112,7 @@
     "rimraf": "3.0.2",
     "rollup": "2.10.9",
     "rollup-plugin-node-globals": "1.4.0",
-    "rollup-plugin-terser": "5.3.0",
+    "rollup-plugin-terser": "6.1.0",
     "shelljs": "0.8.4",
     "snapshot-diff": "0.8.0",
     "strip-ansi": "6.0.0",
