@@ -80,7 +80,7 @@
     "unicode-regex": "3.0.0",
     "unified": "9.0.0",
     "vnopts": "1.0.2",
-    "yaml-unist-parser": "1.1.1"
+    "yaml-unist-parser": "1.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.9.6",
