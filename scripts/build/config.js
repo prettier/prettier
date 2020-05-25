@@ -18,7 +18,6 @@ const path = require("path");
  * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
- * @property {Object} namedExports - for cases where rollup can't infer what's exported
  * @property {string[]} ignore - paths of CJS modules to ignore
  */
 
