@@ -338,7 +338,7 @@ The `handleComments` object contains three optional functions, each with signatu
 function(
 	// The AST node corresponding to the comment
 	comment: AST,
-	// The full sourcecode text
+	// The full source code text
 	text: string,
 	// The global options object
 	options: object,
@@ -381,7 +381,7 @@ const { util } = require("prettier");
 function ownLine(comment, text, options, ast, isLastComment) {
   const { precedingNode } = comment;
   if (precedingNode && precedingNode.type === "punctuation") {
-    util.addTrailingComment(preceedingNode, comment);
+    util.addTrailingComment(precedingNode, comment);
     return true;
   }
   return false;
