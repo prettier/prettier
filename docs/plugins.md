@@ -281,12 +281,13 @@ Comments are often not part of a language's AST and present a challenge
 for pretty printers. A Prettier plugin can either print comments itself
 in its `print` function or rely on Prettier's comment algorithm.
 
-By default, if the AST has a top-level `comments` attribute,
+By default, if the AST has a top-level `comments` property,
 Prettier assumes that `comments` stores an array of comment nodes.
 Prettier will then use the provided `parsers[<plugin>].locStart`/`locEnd`
 functions to search for the AST node that each comment "belongs" to.
 Comments are then attached to these nodes **mutating the AST in the
-process**. The `*Comment` functions are used to adjust Prettier's
+process** and the `comments` property is deleted from the AST root.
+The `*Comment` functions are used to adjust Prettier's
 algorithm. Once attached to the AST, Prettier will automatically call
 the `printComment(path, options): Doc` function and insert the returned
 doc into the (hopefully) correct place.
@@ -351,9 +352,8 @@ function(
 
 These functions are used to override Prettier's default comment
 assignment algorithm. `ownLine`/`endOfLine`/`remaining` is expected
-to either manually assign a comment to a node (removing it from the
-`astRoot.comments` array) and return `true`, or return a `falsy` value
-and let Prettier assign the comment.
+to either manually assign a comment to a node and return `true`,
+or return a `falsy` value and let Prettier assign the comment.
 
 Based on the text surrounding a comment node, Prettier dispatches:
 
@@ -369,7 +369,7 @@ passed in for making more complicated decisions).
 
 _Manually assigning a comment_
 
-Nodes with comments are expected to have a `comments` attribute containing
+Nodes with comments are expected to have a `comments` property containing
 an array of comments. Each comment is expected to have the following
 properties: `leading`, `trailing`, `printed`. An example `ownLine`
 function that ensures a comment does not follow a "punctuation" node
