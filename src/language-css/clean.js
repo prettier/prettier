@@ -15,7 +15,7 @@ function clean(ast, newObj, parent) {
     delete newObj[name];
   });
 
-  if (ast.type === "front-matter-yaml") {
+  if (isFrontMatterNode(ast) && ast.lang === "yaml") {
     delete newObj.value;
   }
 

@@ -97,11 +97,9 @@ function genericPrint(path, options, print) {
     return node;
   }
 
-  if (isFrontMatterNode(node)) {
-    return concat([node.raw, hardline]);
-  }
-
   switch (node.type) {
+    case "front-matter":
+      return concat([node.raw, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 

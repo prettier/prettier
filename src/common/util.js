@@ -838,7 +838,7 @@ function getParserName(lang, options) {
 }
 
 function isFrontMatterNode(node) {
-  return node && node.type && node.type.startsWith("front-matter-");
+  return node && node.type === "front-matter";
 }
 
 module.exports = {

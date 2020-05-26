@@ -22,14 +22,15 @@ function parse(text) {
   }
 
   const [raw, delimiter, language, value] = match;
-  let type = DELIMITER_MAP[delimiter];
-  if (type !== "toml" && language && language.trim()) {
-    type = language.trim();
+  let lang = DELIMITER_MAP[delimiter];
+  if (lang !== "toml" && language && language.trim()) {
+    lang = language.trim();
   }
 
   return {
     frontMatter: {
-      type: `front-matter-${type}`,
+      type: "front-matter",
+      lang,
       value,
       raw: raw.replace(/\n$/, ""),
     },

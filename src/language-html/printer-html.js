@@ -41,7 +41,7 @@ const {
   shouldPreserveContent,
   unescapeQuoteEntities,
 } = require("./utils");
-const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
+const { replaceEndOfLineWith } = require("../common/util");
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
@@ -189,28 +189,28 @@ function embed(path, print, textToDoc, options) {
       }
       break;
     }
-    case "front-matter-yaml":
-      return markAsRoot(
-        concat([
-          "---",
-          hardline,
-          node.value.trim().length === 0
-            ? ""
-            : textToDoc(node.value, { parser: "yaml" }),
-          "---",
-        ])
-      );
+    case "front-matter":
+      if (node.lang === "yaml") {
+        return markAsRoot(
+          concat([
+            "---",
+            hardline,
+            node.value.trim().length === 0
+              ? ""
+              : textToDoc(node.value, { parser: "yaml" }),
+            "---",
+          ])
+        );
+      }
   }
 }
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
-  if (isFrontMatterNode(node)) {
-    return concat(replaceEndOfLineWith(node.raw, literalline));
-  }
-
   switch (node.type) {
+    case "front-matter":
+      return concat(replaceEndOfLineWith(node.raw, literalline));
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
