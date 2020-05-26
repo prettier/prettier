@@ -1,5 +1,7 @@
 "use strict";
 
+const { isFrontMatterNode } = require("../common/util");
+
 module.exports = function (ast, newNode) {
   delete newNode.sourceSpan;
   delete newNode.startSourceSpan;
@@ -12,7 +14,7 @@ module.exports = function (ast, newNode) {
   }
 
   // may be formatted by multiparser
-  if (ast.type === "yaml" || ast.type === "toml") {
+  if (isFrontMatterNode(ast) || ast.type === "yaml" || ast.type === "toml") {
     return null;
   }
 

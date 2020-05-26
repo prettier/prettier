@@ -6,7 +6,7 @@ const {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
-const { getParserName } = require("../common/util");
+const { getParserName, isFrontMatterNode } = require("../common/util");
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
@@ -154,10 +154,6 @@ function isScriptLikeTag(node) {
       (isUnknownNamespace(node) &&
         (node.name === "script" || node.name === "style")))
   );
-}
-
-function isFrontMatterNode(node) {
-  return node.type === "yaml" || node.type === "toml";
 }
 
 function canHaveInterpolation(node) {
@@ -701,7 +697,6 @@ module.exports = {
   inferScriptParser,
   isVueCustomBlock,
   isDanglingSpaceSensitiveNode,
-  isFrontMatterNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,

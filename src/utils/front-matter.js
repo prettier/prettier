@@ -6,7 +6,7 @@ const DELIMITER_MAP = {
 };
 
 // trailing spaces after delimiters are allowed
-const frontMatterRe = /^(-{3}|\+{3})[^\S\n]*\n(?:([\S\s]*?)\n)?\1[^\S\n]*(\n|$)/;
+const frontMatterRe = /^(-{3}|\+{3})([^\n]*)\n(?:([\S\s]*?)\n)?\1[^\S\n]*(\n|$)/;
 
 function parse(text) {
   const match = text.match(frontMatterRe);
@@ -15,11 +15,16 @@ function parse(text) {
     return { frontMatter: null, content: text };
   }
 
-  const [raw, delimiter, value] = match;
+  const [raw, delimiter, language, value] = match;
+  let lang = DELIMITER_MAP[delimiter];
+  if (lang !== "toml" && language && language.trim()) {
+    lang = language.trim();
+  }
 
   return {
     frontMatter: {
-      type: DELIMITER_MAP[delimiter],
+      type: "front-matter",
+      lang,
       value,
       raw: raw.replace(/\n$/, ""),
     },
