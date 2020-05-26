@@ -186,7 +186,7 @@ function formatRange(text, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1
   );
-  const indentString = text.slice(rangeStart2, rangeStart);
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
   const alignmentSize = privateUtil.getAlignmentSize(
     indentString,
