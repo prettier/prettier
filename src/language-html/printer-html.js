@@ -63,6 +63,7 @@ function concat(parts) {
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
+
   switch (node.type) {
     case "text": {
       if (isScriptLikeTag(node.parent)) {
@@ -206,6 +207,11 @@ function embed(path, print, textToDoc, options) {
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
+
+  if (shouldPreserveContent(node, options)) {
+    return printPreserveContent(path, options, print);
+  }
+
   switch (node.type) {
     case "root":
       if (options.__onHtmlRoot) {
@@ -548,34 +554,6 @@ function printChildren(path, options, print) {
       );
     }
 
-    if (shouldPreserveContent(child, options)) {
-      return concat(
-        [].concat(
-          printOpeningTagPrefix(child, options),
-          group(printOpeningTag(childPath, options, print)),
-          replaceEndOfLineWith(
-            options.originalText.slice(
-              child.startSourceSpan.end.offset +
-                (child.firstChild &&
-                needsToBorrowParentOpeningTagEndMarker(child.firstChild)
-                  ? -printOpeningTagEndMarker(child).length
-                  : 0),
-              child.endSourceSpan.start.offset +
-                (child.lastChild &&
-                needsToBorrowParentClosingTagStartMarker(child.lastChild)
-                  ? printClosingTagStartMarker(child, options).length
-                  : needsToBorrowLastChildClosingTagEndMarker(child)
-                  ? -printClosingTagEndMarker(child.lastChild, options).length
-                  : 0)
-            ),
-            literalline
-          ),
-          printClosingTag(child, options),
-          printClosingTagSuffix(child, options)
-        )
-      );
-    }
-
     return print(childPath);
   }
 
@@ -640,6 +618,36 @@ function printChildren(path, options, print) {
       ? line
       : softline;
   }
+}
+
+function printPreserveContent(path, options, print) {
+  const node = path.getValue();
+
+  return concat(
+    [].concat(
+      printOpeningTagPrefix(node, options),
+      group(printOpeningTag(path, options, print)),
+      replaceEndOfLineWith(
+        options.originalText.slice(
+          node.startSourceSpan.end.offset +
+            (node.firstChild &&
+            needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+              ? -printOpeningTagEndMarker(node).length
+              : 0),
+          node.endSourceSpan.start.offset +
+            (node.lastChild &&
+            needsToBorrowParentClosingTagStartMarker(node.lastChild)
+              ? printClosingTagStartMarker(node, options).length
+              : needsToBorrowLastChildClosingTagEndMarker(node)
+              ? -printClosingTagEndMarker(node.lastChild, options).length
+              : 0)
+        ),
+        literalline
+      ),
+      printClosingTag(node, options),
+      printClosingTagSuffix(node, options)
+    )
+  );
 }
 
 function printOpeningTag(path, options, print) {
