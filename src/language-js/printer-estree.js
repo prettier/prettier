@@ -1613,13 +1613,17 @@ function printPathNoParens(path, options, print, args) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
     case "BigIntLiteral":
-      // babel: n.extra.raw, typescript: n.raw, flow: n.bigint
-      return (n.bigint || (n.extra ? n.extra.raw : n.raw)).toLowerCase();
+      // babel: n.extra.raw, flow: n.bigint
+      return (n.bigint || n.extra.raw).toLowerCase();
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
       if (n.regex) {
         return printRegex(n.regex);
+      }
+      // typescript
+      if (n.bigint) {
+        return n.raw.toLowerCase();
       }
       if (typeof n.value === "number") {
         return printNumber(n.raw);
