@@ -940,7 +940,7 @@ function printPathNoParens(path, options, print, args) {
                   line,
                   shouldAddParens ? ifBreak("", concat(["(", parenSpace])) : "",
                   body,
-                  shouldAddParens ? ifBreak("", concat([")", parenSpace])) : "",
+                  shouldAddParens ? ifBreak("", concat([parenSpace, ")"])) : "",
                 ])
               ),
               shouldAddLine
