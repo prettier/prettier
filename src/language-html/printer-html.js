@@ -33,6 +33,7 @@ const {
   hasPrettierIgnore,
   inferScriptParser,
   isVueCustomBlock,
+  isVueNonHtmlBlock,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -63,6 +64,37 @@ function concat(parts) {
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
+
+  if (
+    isVueNonHtmlBlock(node, options) &&
+    !isScriptLikeTag(node) &&
+    node.type !== "interpolation"
+  ) {
+    const content = getNodeContent(node, options);
+
+    const parser = inferScriptParser(node, options);
+    let printed;
+
+    if (parser) {
+      try {
+        printed = concat([
+          hardline,
+          stripTrailingHardline(textToDoc(content, { parser }), true),
+          hardline,
+        ]);
+      } catch (_) {
+        // Do nothing
+      }
+    }
+
+    return concat([
+      printOpeningTagPrefix(node, options),
+      group(printOpeningTag(path, options, print)),
+      printed || replaceEndOfLineWith(content, literalline),
+      printClosingTag(node, options),
+      printClosingTagSuffix(node, options),
+    ]);
+  }
 
   switch (node.type) {
     case "text": {
@@ -115,25 +147,6 @@ function embed(path, print, textToDoc, options) {
           needsToBorrowPrevClosingTagEndMarker(node.parent.next)
             ? " "
             : line,
-        ]);
-      } else if (isVueCustomBlock(node.parent, options)) {
-        const parser = inferScriptParser(node.parent, options);
-        let printed;
-        if (parser) {
-          try {
-            printed = textToDoc(node.value, { parser });
-          } catch (error) {
-            // Do nothing
-          }
-        }
-        if (printed == null) {
-          printed = node.value;
-        }
-        return concat([
-          parser ? breakParent : "",
-          printOpeningTagPrefix(node),
-          stripTrailingHardline(printed, true),
-          printClosingTagSuffix(node),
         ]);
       }
       break;
@@ -209,7 +222,15 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
 
   if (shouldPreserveContent(node, options)) {
-    return printPreserveContent(path, options, print);
+    return concat(
+      [].concat(
+        printOpeningTagPrefix(node, options),
+        group(printOpeningTag(path, options, print)),
+        replaceEndOfLineWith(getNodeContent(node, options), literalline),
+        printClosingTag(node, options),
+        printClosingTagSuffix(node, options)
+      )
+    );
   }
 
   switch (node.type) {
@@ -620,33 +641,20 @@ function printChildren(path, options, print) {
   }
 }
 
-function printPreserveContent(path, options, print) {
-  const node = path.getValue();
-
-  return concat(
-    [].concat(
-      printOpeningTagPrefix(node, options),
-      group(printOpeningTag(path, options, print)),
-      replaceEndOfLineWith(
-        options.originalText.slice(
-          node.startSourceSpan.end.offset +
-            (node.firstChild &&
-            needsToBorrowParentOpeningTagEndMarker(node.firstChild)
-              ? -printOpeningTagEndMarker(node).length
-              : 0),
-          node.endSourceSpan.start.offset +
-            (node.lastChild &&
-            needsToBorrowParentClosingTagStartMarker(node.lastChild)
-              ? printClosingTagStartMarker(node, options).length
-              : needsToBorrowLastChildClosingTagEndMarker(node)
-              ? -printClosingTagEndMarker(node.lastChild, options).length
-              : 0)
-        ),
-        literalline
-      ),
-      printClosingTag(node, options),
-      printClosingTagSuffix(node, options)
-    )
+function getNodeContent(node, options) {
+  return options.originalText.slice(
+    node.startSourceSpan.end.offset +
+      (node.firstChild &&
+      needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+        ? -printOpeningTagEndMarker(node).length
+        : 0),
+    node.endSourceSpan.start.offset +
+      (node.lastChild &&
+      needsToBorrowParentClosingTagStartMarker(node.lastChild)
+        ? printClosingTagStartMarker(node, options).length
+        : needsToBorrowLastChildClosingTagEndMarker(node)
+        ? -printClosingTagEndMarker(node.lastChild, options).length
+        : 0)
   );
 }
 

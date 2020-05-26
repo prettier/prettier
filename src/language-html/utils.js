@@ -438,7 +438,7 @@ function inferScriptParser(node, options) {
     return inferStyleParser(node) || "css";
   }
 
-  if (options && isVueCustomBlock(node, options)) {
+  if (options && isVueNonHtmlBlock(node, options)) {
     return (
       _inferScriptParser(node) ||
       inferStyleParser(node) ||
@@ -668,12 +668,23 @@ function unescapeQuoteEntities(text) {
 // See https://vue-loader.vuejs.org/spec.html for detail
 const vueRootElementsSet = new Set(["template", "style", "script"]);
 function isVueCustomBlock(node, options) {
+  return isVueSfcBlock(node, options) && !vueRootElementsSet.has(node.fullName);
+}
+
+function isVueSfcBlock(node, options) {
   return (
     options.parser === "vue" &&
     node.type === "element" &&
     node.parent.type === "root" &&
-    !vueRootElementsSet.has(node.fullName) &&
     node.fullName.toLowerCase() !== "html"
+  );
+}
+
+function isVueNonHtmlBlock(node, options) {
+  return (
+    isVueSfcBlock(node, options) &&
+    (isVueCustomBlock(node, options) ||
+      (node.attrMap.lang && node.attrMap.lang !== "html"))
   );
 }
 
@@ -700,6 +711,7 @@ module.exports = {
   identity,
   inferScriptParser,
   isVueCustomBlock,
+  isVueNonHtmlBlock,
   isDanglingSpaceSensitiveNode,
   isFrontMatterNode,
   isIndentationSensitiveNode,
