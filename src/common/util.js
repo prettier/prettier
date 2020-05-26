@@ -1,7 +1,6 @@
 "use strict";
 
 const stringWidth = require("string-width");
-const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
 const support = require("../main/support");
 
@@ -682,37 +681,45 @@ function printNumber(rawNumber) {
  * @returns {number}
  */
 function getMaxContinuousCount(str, target) {
-  const results = str.match(
-    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
-  );
+  let result = 0;
+  const targetLength = target.length;
 
-  if (results === null) {
-    return 0;
+  for (let index = 0; index < str.length; index++) {
+    if (str.slice(index, index + targetLength) === target) {
+      let length = 1;
+      index += targetLength;
+
+      while (str.slice(index, index + targetLength) === target) {
+        length++;
+        index += targetLength;
+      }
+
+      result = Math.max(result, length);
+    }
   }
 
-  return results.reduce(
-    (maxCount, result) => Math.max(maxCount, result.length / target.length),
-    0
-  );
+  return result;
 }
 
 function getMinNotPresentContinuousCount(str, target) {
-  const matches = str.match(
-    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
-  );
-
-  if (matches === null) {
-    return 0;
-  }
+  let max = 0;
+  const targetLength = target.length;
 
   const countPresent = new Map();
-  let max = 0;
 
-  for (const match of matches) {
-    const count = match.length / target.length;
-    countPresent.set(count, true);
-    if (count > max) {
-      max = count;
+  for (let index = 0; index < str.length; index++) {
+    if (str.slice(index, index + targetLength) === target) {
+      let length = 1;
+      index += targetLength;
+
+      while (str.slice(index, index + targetLength) === target) {
+        length++;
+        index += targetLength;
+      }
+
+      countPresent.set(length, true);
+
+      max = Math.max(max, length);
     }
   }
 
@@ -722,7 +729,7 @@ function getMinNotPresentContinuousCount(str, target) {
     }
   }
 
-  return max + 1;
+  return max ? max + 1 : 0;
 }
 
 /**
