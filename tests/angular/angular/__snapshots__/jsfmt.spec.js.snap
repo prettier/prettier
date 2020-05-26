@@ -110,7 +110,9 @@ printWidth: 1
 </div>
 
 <div
-  class="common--error-message"
+  class="
+    common--error-message
+  "
   test-hook="upper-error-message"
   ng-if="
     !$ctrl.showsFormBelowPlain() &&
@@ -3468,7 +3470,16 @@ printWidth: 1
   }}
 </label>
 <div
-  class="Nemo possimus non voluptates dicta accusamus id quia"
+  class="
+    Nemo
+    possimus
+    non
+    voluptates
+    dicta
+    accusamus
+    id
+    quia
+  "
 >
   {{
     copyTypes[
@@ -8055,7 +8066,9 @@ can be found in the LICENSE file at http://angular.io/license
 </p>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8076,7 +8089,9 @@ can be found in the LICENSE file at http://angular.io/license
   [hidden]="isUnchanged")
 </p>
 <div
-  class="context"
+  class="
+    context
+  "
 >
   {{
     title
@@ -8123,7 +8138,9 @@ can be found in the LICENSE file at http://angular.io/license
   (keyup)="
     (0)
   "
-  class="context"
+  class="
+    context
+  "
 >
   Type
   something:
@@ -8136,7 +8153,9 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8158,7 +8177,9 @@ can be found in the LICENSE file at http://angular.io/license
   )
 </p>
 <div
-  class="context"
+  class="
+    context
+  "
 >
   <button
     (click)="
@@ -8177,7 +8198,9 @@ can be found in the LICENSE file at http://angular.io/license
   context
 </p>
 <div
-  class="context"
+  class="
+    context
+  "
 >
   <button
     (click)="
@@ -8201,7 +8224,9 @@ can be found in the LICENSE file at http://angular.io/license
 </p>
 <!-- template hides the following; plenty of examples later -->
 <div
-  class="context"
+  class="
+    context
+  "
 >
   <button
     *ngFor="
@@ -8228,7 +8253,9 @@ can be found in the LICENSE file at http://angular.io/license
   (#heroForm)
 </p>
 <div
-  class="context"
+  class="
+    context
+  "
 >
   <form
     #heroForm
@@ -8243,7 +8270,9 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8261,7 +8290,9 @@ can be found in the LICENSE file at http://angular.io/license
 <!--<img src="http://www.wpclipart.com/cartoon/people/hero/hero_silhoutte_T.png">-->
 <!-- Public Domain terms of use: http://www.wpclipart.com/terms.html -->
 <div
-  class="special"
+  class="
+    special
+  "
 >
   Mental
   Model
@@ -8279,7 +8310,9 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <!-- Normal HTML -->
   <div
-    class="special"
+    class="
+      special
+    "
   >
     Mental
     Model
@@ -8389,7 +8422,9 @@ can be found in the LICENSE file at http://angular.io/license
 </button>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8432,7 +8467,9 @@ can be found in the LICENSE file at http://angular.io/license
 />
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8509,7 +8546,9 @@ can be found in the LICENSE file at http://angular.io/license
 </button>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8671,7 +8710,9 @@ can be found in the LICENSE file at http://angular.io/license
 </p>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8765,7 +8806,9 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8781,7 +8824,11 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- standard class attribute setting  -->
 <div
-  class="bad curly special"
+  class="
+    bad
+    curly
+    special
+  "
 >
   Bad
   curly
@@ -8790,7 +8837,11 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- reset/override all class names with a binding  -->
 <div
-  class="bad curly special"
+  class="
+    bad
+    curly
+    special
+  "
   [class]="
     badCurly
   "
@@ -8814,7 +8865,9 @@ can be found in the LICENSE file at http://angular.io/license
 
 <!-- binding to \`class.special\` trumps the class attribute -->
 <div
-  class="special"
+  class="
+    special
+  "
   [class.special]="
     !isSpecial
   "
@@ -8841,7 +8894,9 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8894,7 +8949,9 @@ can be found in the LICENSE file at http://angular.io/license
 </button>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -8968,7 +9025,9 @@ can be found in the LICENSE file at http://angular.io/license
 </app-big-hero-detail>
 
 <div
-  class="parent-div"
+  class="
+    parent-div
+  "
   (click)="
     onClickMe(
       $event
@@ -8979,7 +9038,9 @@ can be found in the LICENSE file at http://angular.io/license
   Click
   me
   <div
-    class="child-div"
+    class="
+      child-div
+    "
   >
     Click
     me
@@ -9026,7 +9087,9 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9083,7 +9146,9 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9155,7 +9220,9 @@ bindon-ngModel
 (ngModelChange)="setUppercaseName($event)"
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9279,7 +9346,11 @@ bindon-ngModel
 </div>
 
 <div
-  class="bad curly special"
+  class="
+    bad
+    curly
+    special
+  "
 >
   Bad
   curly
@@ -9297,7 +9368,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9430,7 +9503,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9558,7 +9633,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9573,7 +9650,9 @@ bindon-ngModel
 </h2>
 
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     *ngFor="
@@ -9588,7 +9667,9 @@ bindon-ngModel
 <br />
 
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <!-- *ngFor w/ hero-detail Component -->
   <app-hero-detail
@@ -9602,7 +9683,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9622,7 +9705,9 @@ bindon-ngModel
   separator
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     *ngFor="
@@ -9649,7 +9734,9 @@ bindon-ngModel
   separator
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <!-- Ex: "1 - Hercules" -->
   <div
@@ -9670,7 +9757,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9713,7 +9802,9 @@ bindon-ngModel
   trackBy
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     #noTrackBy
@@ -9752,7 +9843,9 @@ bindon-ngModel
   trackBy
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     #withTrackBy
@@ -9799,7 +9892,9 @@ bindon-ngModel
   separator
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     *ngFor="
@@ -9826,7 +9921,9 @@ bindon-ngModel
   separator
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     *ngFor="
@@ -9853,7 +9950,9 @@ bindon-ngModel
   separator
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     *ngFor="
@@ -9879,7 +9978,9 @@ bindon-ngModel
   function
 </p>
 <div
-  class="box"
+  class="
+    box
+  "
 >
   <div
     *ngFor="
@@ -9897,7 +9998,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -9990,7 +10093,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10058,7 +10163,9 @@ bindon-ngModel
 ></app-hero-form>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10111,7 +10218,9 @@ bindon-ngModel
 }}
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10189,7 +10298,9 @@ bindon-ngModel
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10286,7 +10397,9 @@ See console log:
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10323,7 +10436,9 @@ See console log:
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10375,7 +10490,9 @@ See console log:
 </div>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10437,7 +10554,9 @@ See console log:
 </p>
 
 <a
-  class="to-toc"
+  class="
+    to-toc
+  "
   href="#toc"
   >top</a
 >
@@ -10460,13 +10579,17 @@ can be found in the LICENSE file at http://angular.io/license
     #heroForm="ngForm"
   >
     <div
-      class="form-group"
+      class="
+        form-group
+      "
     >
       <label
         for="name"
         >Name
         <input
-          class="form-control"
+          class="
+            form-control
+          "
           name="name"
           required
           [(ngModel)]="
