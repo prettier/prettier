@@ -71,38 +71,17 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
 
+function isJsSourceElement(type) {
+  return (
+    type === "Directive" ||
+    type === "TypeAlias" ||
+    type === "ExportAssignment" ||
+    type.endsWith("Statement") ||
+    type.endsWith("Declaration")
+  );
+}
+
 // JS and JS like to avoid repetitions
-const jsSourceElements = new Set([
-  "FunctionDeclaration",
-  "BlockStatement",
-  "BreakStatement",
-  "ContinueStatement",
-  "DebuggerStatement",
-  "DoWhileStatement",
-  "EmptyStatement",
-  "ExpressionStatement",
-  "ForInStatement",
-  "ForStatement",
-  "IfStatement",
-  "LabeledStatement",
-  "ReturnStatement",
-  "SwitchStatement",
-  "ThrowStatement",
-  "TryStatement",
-  "VariableDeclaration",
-  "WhileStatement",
-  "WithStatement",
-  "ClassDeclaration", // ES 2015
-  "ImportDeclaration", // Module
-  "ExportDefaultDeclaration", // Module
-  "ExportNamedDeclaration", // Module
-  "ExportAllDeclaration", // Module
-  "TypeAlias", // Flow
-  "InterfaceDeclaration", // Flow, TypeScript
-  "TypeAliasDeclaration", // TypeScript
-  "ExportAssignment", // TypeScript
-  "ExportDeclaration", // TypeScript
-]);
 const jsonSourceElements = new Set([
   "ObjectExpression",
   "ArrayExpression",
@@ -139,7 +118,7 @@ function isSourceElement(opts, node) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
-      return jsSourceElements.has(node.type);
+      return isJsSourceElement(node.type);
     case "json":
       return jsonSourceElements.has(node.type);
     case "graphql":
