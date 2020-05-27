@@ -44,28 +44,28 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
 }
 
 function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
-  const start = options.locStart(node);
-  const end = options.locEnd(node);
-  if (start <= offset && offset <= end) {
-    for (const childNode of comments.getSortedChildNodes(node, options)) {
-      const childResult = findNodeAtOffset(
-        childNode,
-        offset,
-        options,
-        predicate,
-        [node, ...parentNodes]
-      );
-      if (childResult) {
-        return childResult;
-      }
-    }
+  if (offset < options.locStart(node) || offset > options.locEnd(node)) {
+    return;
+  }
 
-    if (!predicate || predicate(node)) {
-      return {
-        node,
-        parentNodes,
-      };
+  for (const childNode of comments.getSortedChildNodes(node, options)) {
+    const childResult = findNodeAtOffset(
+      childNode,
+      offset,
+      options,
+      predicate,
+      [node, ...parentNodes]
+    );
+    if (childResult) {
+      return childResult;
     }
+  }
+
+  if (!predicate || predicate(node)) {
+    return {
+      node,
+      parentNodes,
+    };
   }
 }
 
