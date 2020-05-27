@@ -10,6 +10,7 @@ const locationForRange = (text, { rangeStart = 0, rangeEnd = text.length }) => {
 
   // `@babel/code-frame` use 1 based line number
   start.line += 1;
+  start.column += 1;
   end.line += 1;
 
   return {

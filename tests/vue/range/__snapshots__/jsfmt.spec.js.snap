@@ -9,8 +9,11 @@ printWidth: 80
    4 | </template>
    5 | 
 >  6 | <script>
+     | ^^^^^^^^
 >  7 | let Prettier        = format => { your.js('though') }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >  8 | </script>
+     | ^^^^^^^^^
    9 | 
   10 | <style>
   11 | .and { css: too !important }
