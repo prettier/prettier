@@ -8,11 +8,12 @@ const locationForRange = (text, { rangeStart = 0, rangeEnd = text.length }) => {
   const start = lines.locationForIndex(rangeStart);
   const end = lines.locationForIndex(rangeEnd);
 
-  // `@babel/code-frame` use 1 based line number
   start.line += 1;
   start.column += 1;
   end.line += 1;
-  end.column += 1;
+  if (start.line === end.line) {
+    end.column += 1;
+  }
 
   return {
     start,
