@@ -81,6 +81,7 @@ printWidth: 80
 requirePragma: true
                                                                                 | printWidth
 =====================================input======================================
+  1 | /**
   2 |  * @prettier
   3 |  */
 > 4 | var test = true
