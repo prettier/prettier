@@ -6,6 +6,9 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+   1 | <template>
+   2 |   <p>Templates are formatted as well...
+   3 |     </p>
    4 | </template>
    5 | 
 >  6 | <script>
@@ -17,6 +20,8 @@ printWidth: 80
    9 | 
   10 | <style>
   11 | .and { css: too !important }
+  12 | </style>
+  13 | 
 =====================================output=====================================
 <template>
   <p>Templates are formatted as well...</p>

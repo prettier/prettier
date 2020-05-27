@@ -22,13 +22,9 @@ const locationForRange = (text, { rangeStart = 0, rangeEnd = text.length }) => {
 };
 
 const visualizeRange = (text, { rangeStart = 0, rangeEnd = text.length }) =>
-  codeFrameColumns(
-    text,
-    locationForRange(
-      text,
-      { rangeStart, rangeEnd },
-      { linesAbove: Infinity, linesBelow: Infinity }
-    )
-  );
+  codeFrameColumns(text, locationForRange(text, { rangeStart, rangeEnd }), {
+    linesAbove: Infinity,
+    linesBelow: Infinity,
+  });
 
 module.exports = visualizeRange;

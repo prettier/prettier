@@ -72,6 +72,8 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+  1 | function ugly ( {a=1,     b     =   2     }      ) {
+  2 |   function ugly ( {a=1,     b     =   2     }      ) {
   3 |     function ugly ( {a=1,     b     =   2     }      ) {
   4 |   	  	     \`multiline template string
 > 5 |               with too much indentation\`
@@ -79,6 +81,7 @@ printWidth: 80
   6 |     }
   7 |   }
   8 | }
+  9 | 
 =====================================output=====================================
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
@@ -98,6 +101,7 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+  1 | function ugly() {
   2 |   const dictWithSeveralEntries = {
   3 |     key:          "value",
 > 4 |     anotherKey:   "another value",
@@ -128,13 +132,17 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-  1 | import  def , {named}  from    'x'
-  2 | 
-> 3 | export *  from   'd'
-    |          ^^^^^^^^^^^
-  4 | 
-  5 | export    const  x
-  6 |   =  42
+   1 | import  def , {named}  from    'x'
+   2 | 
+>  3 | export *  from   'd'
+     |          ^^^^^^^^^^^
+   4 | 
+   5 | export    const  x
+   6 |   =  42
+   7 | 
+   8 | export   default    42
+   9 | 
+  10 | 
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -155,17 +163,19 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-  2 | 
-  3 | export *  from   'd'
-> 4 | 
-    | ^
-> 5 | export    const  x
-    | ^^^^^^^^^^^^^^^^^^
-> 6 |   =  42
-    | ^^
-  7 | 
-  8 | export   default    42
-  9 | 
+   1 | import  def , {named}  from    'x'
+   2 | 
+   3 | export *  from   'd'
+>  4 | 
+     | ^
+>  5 | export    const  x
+     | ^^^^^^^^^^^^^^^^^^
+>  6 |   =  42
+     | ^^
+   7 | 
+   8 | export   default    42
+   9 | 
+  10 | 
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -185,6 +195,11 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+   1 | import  def , {named}  from    'x'
+   2 | 
+   3 | export *  from   'd'
+   4 | 
+   5 | export    const  x
    6 |   =  42
    7 | 
 >  8 | export   default    42
@@ -211,11 +226,17 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-> 1 | import  def , {named}  from    'x'
-    |        ^^^^^^^^^^^^^^^
-  2 | 
-  3 | export *  from   'd'
-  4 | 
+>  1 | import  def , {named}  from    'x'
+     |        ^^^^^^^^^^^^^^^
+   2 | 
+   3 | export *  from   'd'
+   4 | 
+   5 | export    const  x
+   6 |   =  42
+   7 | 
+   8 | export   default    42
+   9 | 
+  10 | 
 =====================================output=====================================
 import def, { named } from "x";
 
@@ -236,6 +257,9 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+   1 | call(
+   2 |   1, 2,3
+   3 | );
    4 | 
    5 | call(
 >  6 |   1, 2,3
@@ -251,6 +275,9 @@ printWidth: 80
   11 | );
   12 | 
   13 | call(
+  14 |   1, 2,3
+  15 | );
+  16 | 
 =====================================output=====================================
 call(
   1, 2,3
@@ -273,6 +300,7 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+   1 | call(
    2 |   1, 2,3
    3 | );
 >  4 | 
@@ -296,6 +324,7 @@ printWidth: 80
   13 | call(
   14 |   1, 2,3
   15 | );
+  16 | 
 =====================================output=====================================
 call(
   1, 2,3
@@ -439,6 +468,8 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+   1 | 
+   2 | const y =       [
    3 |     {
    4 |                 a: 1,
 >  5 |     },
@@ -474,6 +505,8 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+  1 | function ugly ( {a=1,     b     =   2     }      ) {
+  2 |   function ugly ( {a=1,     b     =   2     }      ) {
   3 |     function ugly ( {a=1,     b     =   2     }      ) {
   4 |              \`multiline template string
 > 5 |               with too much indentation\`
@@ -481,6 +514,7 @@ printWidth: 80
   6 |     }
   7 |   }
   8 | }
+  9 | 
 =====================================output=====================================
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
@@ -500,6 +534,9 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+  1 | // Unchanged
+  2 | call(
+  3 |   1, 2,3
   4 | );
   5 | 
 > 6 | 
@@ -527,17 +564,20 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-> 1 | call(
-    | ^^^^^
-> 2 |   1, 2,3
-    | ^^^^^^^^
-> 3 | );
-    | ^^^^^^^^
-> 4 | 
-    | ^
-  5 | 
-  6 | // Unchanged
-  7 | call(
+>  1 | call(
+     | ^^^^^
+>  2 |   1, 2,3
+     | ^^^^^^^^
+>  3 | );
+     | ^^^^^^^^
+>  4 | 
+     | ^
+   5 | 
+   6 | // Unchanged
+   7 | call(
+   8 |   1, 2,3
+   9 | );
+  10 | 
 =====================================output=====================================
 call(1, 2, 3);
 
