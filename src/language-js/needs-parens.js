@@ -475,11 +475,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        // TypeScript workaround for https://github.com/JamesHenry/typescript-estree/issues/2
-        // See corresponding workaround in printer.js case: "Literal"
-        ((options.parser !== "typescript" && !parent.directive) ||
-          (options.parser === "typescript" &&
-            options.originalText.charAt(options.locStart(node) - 1) === "("))
+        !parent.directive
       ) {
         // To avoid becoming a directive
         const grandParent = path.getParentNode(1);
