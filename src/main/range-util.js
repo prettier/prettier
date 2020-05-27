@@ -74,7 +74,9 @@ function isJsSourceElement(type) {
   return (
     type === "Directive" ||
     type === "TypeAlias" ||
-    type === "ExportAssignment" ||
+    type === "TSExportAssignment" ||
+    type.startsWith("Declare") ||
+    type.startsWith("TSDeclare") ||
     type.endsWith("Statement") ||
     type.endsWith("Declaration")
   );
