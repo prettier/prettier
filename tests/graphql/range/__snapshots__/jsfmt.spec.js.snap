@@ -4,7 +4,7 @@ exports[`issue2296.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
-                                                                                | printWidth
+     |                                                                                | printWidth
 =====================================input======================================
 > 1 | {NPC{life}}
     | ^^^

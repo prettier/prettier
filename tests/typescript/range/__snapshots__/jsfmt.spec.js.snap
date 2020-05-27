@@ -4,7 +4,7 @@ exports[`issue-4926.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-                                                                                | printWidth
+      |                                                                                | printWidth
 =====================================input======================================
    1 | class Foo {
    2 |     /** Does this key match a given MinimalKey extending object? */
@@ -42,7 +42,7 @@ exports[`issue-7148.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-                                                                                | printWidth
+     |                                                                                | printWidth
 =====================================input======================================
   1 | export default class Test {
 > 2 |   private obj = { isTest: true }

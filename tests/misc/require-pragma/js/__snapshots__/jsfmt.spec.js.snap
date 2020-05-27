@@ -79,7 +79,7 @@ exports[`range-with-pragma.js - {"requirePragma":true} format 1`] = `
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+     |                                                                                | printWidth
 =====================================input======================================
   1 | /**
   2 |  * @prettier
@@ -101,7 +101,7 @@ exports[`range-without-pragma.js - {"requirePragma":true} format 1`] = `
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 requirePragma: true
-                                                                                | printWidth
+     |                                                                                | printWidth
 =====================================input======================================
 > 1 | var test = true
     | ^^^^^^^^^^^^^^^
