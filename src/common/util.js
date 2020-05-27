@@ -782,9 +782,12 @@ function addLeadingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function addDanglingComment(node, comment) {
+function addDanglingComment(node, comment, marker) {
   comment.leading = false;
   comment.trailing = false;
+  if (marker) {
+    comment.marker = marker;
+  }
   addCommentHelper(node, comment);
 }
 
@@ -837,6 +840,21 @@ function getParserName(lang, options) {
   return null;
 }
 
+function isFrontMatterNode(node) {
+  return node && node.type === "front-matter";
+}
+
+function getShebang(text) {
+  if (!text.startsWith("#!")) {
+    return "";
+  }
+  const index = text.indexOf("\n");
+  if (index === -1) {
+    return text;
+  }
+  return text.slice(0, index);
+}
+
 module.exports = {
   replaceEndOfLineWith,
   getStringWidth,
@@ -881,4 +899,6 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isWithinParentArrayProperty,
+  isFrontMatterNode,
+  getShebang,
 };

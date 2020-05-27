@@ -5,6 +5,7 @@ const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
 const checkParsers = require("./utils/check-parsers");
+const visualizeRange = require("./utils/visualize-range");
 
 const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
@@ -23,7 +24,7 @@ const prettier = !TEST_STANDALONE
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    "js/class-comment/comments.js",
+    "js/class-comment/misc.js",
     ["js/comments/dangling_array.js", (options) => options.semi === false],
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/binary-expressions-single-comments.js",
@@ -39,7 +40,6 @@ const unstableTests = new Map(
       (options) => options.proseWrap === "always",
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
-    "yaml/prettier-ignore/document.yml",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -54,9 +54,6 @@ const isTestDirectory = (dirname, name) =>
 global.run_spec = (fixtures, parsers, options) => {
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
-
-  // Make sure tests are in correct location
-  checkParsers(dirname, parsers);
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
@@ -106,6 +103,12 @@ global.run_spec = (fixtures, parsers, options) => {
       };
     })
     .filter(Boolean);
+
+  // Make sure tests are in correct location
+  // only runs on local and one task on CI
+  if (!isCI || process.env.ENABLE_CODE_COVERAGE) {
+    checkParsers({ dirname, files }, parsers);
+  }
 
   const stringifiedOptions = stringifyOptions(options);
 
@@ -168,18 +171,32 @@ global.run_spec = (fixtures, parsers, options) => {
         if (typeof output === "string") {
           expect(formatted).toEqual(output);
         } else {
+          let codeForSnapshot = hasEndOfLine
+            ? code
+                .replace(RANGE_START_PLACEHOLDER, "")
+                .replace(RANGE_END_PLACEHOLDER, "")
+            : source;
+          let codeOffset = 0;
+
+          if (
+            typeof baseOptions.rangeStart === "number" ||
+            typeof baseOptions.rangeEnd === "number"
+          ) {
+            codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
+            codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
+          }
+
+          if (hasEndOfLine) {
+            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+          }
+
           expect(
             raw(
               createSnapshot(
-                hasEndOfLine
-                  ? visualizeEndOfLine(
-                      code
-                        .replace(RANGE_START_PLACEHOLDER, "")
-                        .replace(RANGE_END_PLACEHOLDER, "")
-                    )
-                  : source,
+                codeForSnapshot,
                 hasEndOfLine ? visualizedOutput : formattedWithCursor,
-                { ...baseOptions, parsers }
+                { ...baseOptions, parsers },
+                { codeOffset }
               )
             )
           ).toMatchSnapshot();
@@ -288,11 +305,13 @@ function visualizeEndOfLine(text) {
   });
 }
 
-function createSnapshot(input, output, options) {
+function createSnapshot(input, output, options, { codeOffset }) {
   const separatorWidth = 80;
   const printWidthIndicator =
     options.printWidth > 0 && Number.isFinite(options.printWidth)
-      ? " ".repeat(options.printWidth) + "| printWidth"
+      ? (codeOffset ? " ".repeat(codeOffset - 1) + "|" : "") +
+        " ".repeat(options.printWidth) +
+        "| printWidth"
       : [];
   return []
     .concat(

@@ -31,7 +31,7 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
@@ -63,6 +63,11 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
+    case "front-matter":
+      return options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
     case "root":
       if (node.children.length === 0) {
         return "";
@@ -932,6 +937,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
+    isFrontMatterNode(ast) ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||
@@ -960,9 +966,7 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      ((parent.children[0].type === "yaml" ||
-        parent.children[0].type === "toml") &&
-        parent.children[1] === ast)) &&
+      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)
   ) {

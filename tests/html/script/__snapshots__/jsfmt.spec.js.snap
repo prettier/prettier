@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`babel.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script type="text/babel" data-presets="react" data-type="module">
+import { h, 
+         render } from 'https://unpkg.com/preact?module';
+render(
+<h1>Hello World!</h1>,
+         document.body
+);
+</script>
+
+<script type="text/babel">
+<!--
+alert(1)
+-->
+</script>
+
+=====================================output=====================================
+<script type="text/babel" data-presets="react" data-type="module">
+  import { h, render } from "https://unpkg.com/preact?module";
+  render(<h1>Hello World!</h1>, document.body);
+</script>
+
+<script type="text/babel">
+  <!--
+  alert(1);
+  -->
+</script>
+
+================================================================================
+`;
+
 exports[`legacy.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
@@ -101,6 +137,11 @@ printWidth: 80
 </script><script type="invalid">
   {   "json":false  }
 </script>
+<script type="text/html">
+  <div>
+  <p>foo</p>
+  </div>
+</script>
 
 <script
   async=""
@@ -131,6 +172,11 @@ End Function
 </script>
 <script type="invalid">
   {   "json":false  }
+</script>
+<script type="text/html">
+  <div>
+    <p>foo</p>
+  </div>
 </script>
 
 <script

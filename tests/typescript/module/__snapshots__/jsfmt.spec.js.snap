@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.js format 1`] = `
+exports[`empty.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ declare module "autoprefixer";
 ================================================================================
 `;
 
-exports[`global.js format 1`] = `
+exports[`global.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
