@@ -487,7 +487,7 @@ function printPathNoParens(path, options, print, args) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
-      // Detect Flow-parsed directives
+      // Detect Flow and TypeScript directives
       if (n.directive) {
         return concat([nodeStr(n.expression, options, true), semi]);
       }
@@ -1617,7 +1617,7 @@ function printPathNoParens(path, options, print, args) {
       return (n.bigint || (n.extra ? n.extra.raw : n.raw)).toLowerCase();
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
-    case "Literal": {
+    case "Literal":
       if (n.regex) {
         return printRegex(n.regex);
       }
@@ -1627,18 +1627,7 @@ function printPathNoParens(path, options, print, args) {
       if (typeof n.value !== "string") {
         return "" + n.value;
       }
-      // TypeScript workaround for https://github.com/JamesHenry/typescript-estree/issues/2
-      // See corresponding workaround in needs-parens.js
-      const grandParent = path.getParentNode(1);
-      const isTypeScriptDirective =
-        options.parser === "typescript" &&
-        typeof n.value === "string" &&
-        grandParent &&
-        (grandParent.type === "Program" ||
-          grandParent.type === "BlockStatement");
-
-      return nodeStr(n, options, isTypeScriptDirective);
-    }
+      return nodeStr(n, options);
     case "Directive":
       return path.call(print, "value"); // Babel 6
     case "DirectiveLiteral":
