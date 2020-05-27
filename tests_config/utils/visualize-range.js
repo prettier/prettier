@@ -2,8 +2,9 @@
 
 const LinesAndColumns = require("lines-and-columns").default;
 const { codeFrameColumns } = require("@babel/code-frame");
+const codeFrameColumnsOptions = { linesAbove: Infinity, linesBelow: Infinity };
 
-const locationForRange = (text, { rangeStart = 0, rangeEnd = text.length }) => {
+const locationForRange = (text, rangeStart, rangeEnd) => {
   const lines = new LinesAndColumns(text);
   const start = lines.locationForIndex(rangeStart);
   const end = lines.locationForIndex(rangeEnd);
@@ -22,9 +23,10 @@ const locationForRange = (text, { rangeStart = 0, rangeEnd = text.length }) => {
 };
 
 const visualizeRange = (text, { rangeStart = 0, rangeEnd = text.length }) =>
-  codeFrameColumns(text, locationForRange(text, { rangeStart, rangeEnd }), {
-    linesAbove: Infinity,
-    linesBelow: Infinity,
-  });
+  codeFrameColumns(
+    text,
+    locationForRange(text, rangeStart, rangeEnd),
+    codeFrameColumnsOptions
+  );
 
 module.exports = visualizeRange;
