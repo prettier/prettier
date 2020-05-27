@@ -5,6 +5,7 @@ const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
 const checkParsers = require("./utils/check-parsers");
+const visualizeRange = require("./utils/visualize-range");
 
 const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
@@ -170,18 +171,32 @@ global.run_spec = (fixtures, parsers, options) => {
         if (typeof output === "string") {
           expect(formatted).toEqual(output);
         } else {
+          let codeForSnapshot = hasEndOfLine
+            ? code
+                .replace(RANGE_START_PLACEHOLDER, "")
+                .replace(RANGE_END_PLACEHOLDER, "")
+            : source;
+          let codeOffset = 0;
+
+          if (
+            typeof baseOptions.rangeStart === "number" ||
+            typeof baseOptions.rangeEnd === "number"
+          ) {
+            codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
+            codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
+          }
+
+          if (hasEndOfLine) {
+            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+          }
+
           expect(
             raw(
               createSnapshot(
-                hasEndOfLine
-                  ? visualizeEndOfLine(
-                      code
-                        .replace(RANGE_START_PLACEHOLDER, "")
-                        .replace(RANGE_END_PLACEHOLDER, "")
-                    )
-                  : source,
+                codeForSnapshot,
                 hasEndOfLine ? visualizedOutput : formattedWithCursor,
-                { ...baseOptions, parsers }
+                { ...baseOptions, parsers },
+                { codeOffset }
               )
             )
           ).toMatchSnapshot();
@@ -290,11 +305,13 @@ function visualizeEndOfLine(text) {
   });
 }
 
-function createSnapshot(input, output, options) {
+function createSnapshot(input, output, options, { codeOffset }) {
   const separatorWidth = 80;
   const printWidthIndicator =
     options.printWidth > 0 && Number.isFinite(options.printWidth)
-      ? " ".repeat(options.printWidth) + "| printWidth"
+      ? (codeOffset ? " ".repeat(codeOffset - 1) + "|" : "") +
+        " ".repeat(options.printWidth) +
+        "| printWidth"
       : [];
   return []
     .concat(
