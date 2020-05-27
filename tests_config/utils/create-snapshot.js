@@ -1,5 +1,7 @@
 "use strict";
 
+const raw = require("jest-snapshot-serializer-raw").wrap;
+
 function printSeparator(width, description) {
   description = description || "";
   const leftLength = Math.floor((width - description.length) / 2);
@@ -27,18 +29,20 @@ function createSnapshot(input, output, options, { codeOffset }) {
         " ".repeat(options.printWidth) +
         "| printWidth"
       : [];
-  return []
-    .concat(
-      printSeparator(separatorWidth, "options"),
-      printOptions(options),
-      printWidthIndicator,
-      printSeparator(separatorWidth, "input"),
-      input,
-      printSeparator(separatorWidth, "output"),
-      output,
-      printSeparator(separatorWidth)
-    )
-    .join("\n");
+  return raw(
+    []
+      .concat(
+        printSeparator(separatorWidth, "options"),
+        printOptions(options),
+        printWidthIndicator,
+        printSeparator(separatorWidth, "input"),
+        input,
+        printSeparator(separatorWidth, "output"),
+        output,
+        printSeparator(separatorWidth)
+      )
+      .join("\n")
+  );
 }
 
 module.exports = createSnapshot;

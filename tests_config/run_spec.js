@@ -2,7 +2,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
 const checkParsers = require("./utils/check-parsers");
 const visualizeRange = require("./utils/visualize-range");
@@ -196,13 +195,11 @@ global.run_spec = (fixtures, parsers, options) => {
           }
 
           expect(
-            raw(
-              createSnapshot(
-                codeForSnapshot,
-                hasEndOfLine ? visualizedOutput : formattedWithCursor,
-                composeOptionsForSnapshot(baseOptions, parsers),
-                { codeOffset }
-              )
+            createSnapshot(
+              codeForSnapshot,
+              hasEndOfLine ? visualizedOutput : formattedWithCursor,
+              composeOptionsForSnapshot(baseOptions, parsers),
+              { codeOffset }
             )
           ).toMatchSnapshot();
         }
