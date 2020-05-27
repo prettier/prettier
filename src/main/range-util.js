@@ -70,7 +70,6 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-
 function isJsSourceElement(type) {
   return (
     type === "Directive" ||
@@ -81,7 +80,6 @@ function isJsSourceElement(type) {
   );
 }
 
-// JS and JS like to avoid repetitions
 const jsonSourceElements = new Set([
   "ObjectExpression",
   "ArrayExpression",
