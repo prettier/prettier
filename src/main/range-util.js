@@ -43,11 +43,9 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   };
 }
 
-function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
-  predicate = predicate || (() => true);
-  parentNodes = parentNodes || [];
-  const start = options.locStart(node, options.locStart);
-  const end = options.locEnd(node, options.locEnd);
+function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
+  const start = options.locStart(node);
+  const end = options.locEnd(node);
   if (start <= offset && offset <= end) {
     for (const childNode of comments.getSortedChildNodes(node, options)) {
       const childResult = findNodeAtOffset(
@@ -55,14 +53,14 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
         offset,
         options,
         predicate,
-        [node].concat(parentNodes)
+        [node, ...parentNodes]
       );
       if (childResult) {
         return childResult;
       }
     }
 
-    if (predicate(node)) {
+    if (!predicate || predicate(node)) {
       return {
         node,
         parentNodes,
@@ -166,7 +164,7 @@ function calculateRange(text, opts, ast) {
     endNonWhitespace > opts.rangeStart;
     --endNonWhitespace
   ) {
-    if (text[endNonWhitespace - 1].match(/\S/)) {
+    if (/\S/.test(text[endNonWhitespace - 1])) {
       break;
     }
   }
@@ -191,24 +189,15 @@ function calculateRange(text, opts, ast) {
     };
   }
 
-  const siblingAncestors = findSiblingAncestors(
+  const { startNode, endNode } = findSiblingAncestors(
     startNodeAndParents,
     endNodeAndParents,
     opts
   );
-  const { startNode, endNode } = siblingAncestors;
-  const rangeStart = Math.min(
-    opts.locStart(startNode, opts.locStart),
-    opts.locStart(endNode, opts.locStart)
-  );
-  const rangeEnd = Math.max(
-    opts.locEnd(startNode, opts.locEnd),
-    opts.locEnd(endNode, opts.locEnd)
-  );
 
   return {
-    rangeStart,
-    rangeEnd,
+    rangeStart: Math.min(opts.locStart(startNode), opts.locStart(endNode)),
+    rangeEnd: Math.max(opts.locEnd(startNode), opts.locEnd(endNode)),
   };
 }
 
