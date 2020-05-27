@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dynamic-import.js error test 1`] = `
+"Unexpected token \`,\`, expected the token \`)\` (1:24)
+> 1 | import('./prettier.mjs', {})
+    |                        ^
+  2 | "
+`;

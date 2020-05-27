@@ -69,7 +69,7 @@ function postprocess(ast, options) {
           return { ...node.types[0], ...composeLoc(node) };
         }
         break;
-      // flow
+      // flow & typescript
       case "ImportExpression":
         return {
           ...node,
