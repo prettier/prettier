@@ -6,19 +6,14 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<template>
-  <p>Templates are formatted as well...
-    </p>
-</template>
-
-<script>
-let Prettier        = format => { your.js('though') }
-</script>
-
-<style>
-.and { css: too !important }
-</style>
-
+   4 | </template>
+   5 | 
+>  6 | <script>
+>  7 | let Prettier        = format => { your.js('though') }
+>  8 | </script>
+   9 | 
+  10 | <style>
+  11 | .and { css: too !important }
 =====================================output=====================================
 <template>
   <p>Templates are formatted as well...</p>

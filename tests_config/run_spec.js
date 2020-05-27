@@ -5,6 +5,7 @@ const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
 const checkParsers = require("./utils/check-parsers");
+const visualizeRange = require("./utils/visualize-range");
 
 const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
@@ -170,16 +171,27 @@ global.run_spec = (fixtures, parsers, options) => {
         if (typeof output === "string") {
           expect(formatted).toEqual(output);
         } else {
+          let codeForSnapshot = hasEndOfLine
+            ? code
+                .replace(RANGE_START_PLACEHOLDER, "")
+                .replace(RANGE_END_PLACEHOLDER, "")
+            : source;
+
+          if (
+            typeof baseOptions.rangeStart === "number" ||
+            typeof baseOptions.rangeEnd === "number"
+          ) {
+            codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
+          }
+
+          if (hasEndOfLine) {
+            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+          }
+
           expect(
             raw(
               createSnapshot(
-                hasEndOfLine
-                  ? visualizeEndOfLine(
-                      code
-                        .replace(RANGE_START_PLACEHOLDER, "")
-                        .replace(RANGE_END_PLACEHOLDER, "")
-                    )
-                  : source,
+                codeForSnapshot,
                 hasEndOfLine ? visualizedOutput : formattedWithCursor,
                 { ...baseOptions, parsers }
               )

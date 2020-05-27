@@ -294,12 +294,12 @@ parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted  <|>  (2  ,3,   )
-
-    thisWontBeFormatted  (2, 90  ,)
-    
+  1 | thisWontBeFormatted  ( 1  ,3)
+  2 | 
+> 3 |     thisWillBeFormatted  <|>  (2  ,3,   )
+> 4 | 
+> 5 |     thisWontBeFormatted  (2, 90  ,)
+  6 |     
 =====================================output=====================================
 thisWontBeFormatted  ( 1  ,3)
 
@@ -316,12 +316,12 @@ parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted    (2  ,3<|>,   )
-
-    thisWontBeFormatted  (2, 90  ,)
-    
+  1 | thisWontBeFormatted  ( 1  ,3)
+  2 | 
+> 3 |     thisWillBeFormatted    (2  ,3<|>,   )
+> 4 | 
+> 5 |     thisWontBeFormatted  (2, 90  ,)
+  6 |     
 =====================================output=====================================
 thisWontBeFormatted  ( 1  ,3)
 
@@ -338,12 +338,12 @@ parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted    (2  ,3,  <|> )
-
-    thisWontBeFormatted  (2, 90  ,)
-    
+  1 | thisWontBeFormatted  ( 1  ,3)
+  2 | 
+> 3 |     thisWillBeFormatted    (2  ,3,  <|> )
+> 4 | 
+> 5 |     thisWontBeFormatted  (2, 90  ,)
+  6 |     
 =====================================output=====================================
 thisWontBeFormatted  ( 1  ,3)
 
@@ -360,12 +360,17 @@ parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-thisWontBeFormatted <|> ( 1  ,3)
-
-    thisWillBeFormatted    (2  ,3,   )
-
-    thisWontBeFormatted  (2, 90  ,)
-    
+> 1 | thisWontBeFormatted <|> ( 1  ,3)
+    |                               ^^
+> 2 | 
+    | ^
+> 3 |     thisWillBeFormatted    (2  ,3,   )
+    | ^
+> 4 | 
+    | ^
+> 5 |     thisWontBeFormatted  (2, 90  ,)
+    | ^
+  6 |     
 =====================================output=====================================
 thisWontBeFormatted <|> ( 1  ,3)
 
@@ -382,12 +387,12 @@ parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-thisWontBeFormatted  ( 1  ,3)
-
-    thisWillBeFormatted    (2  ,3,   )
-
-    thisWontBeFormatted  (2, 9<|>0  ,)
-    
+  1 | thisWontBeFormatted  ( 1  ,3)
+  2 | 
+> 3 |     thisWillBeFormatted    (2  ,3,   )
+> 4 | 
+> 5 |     thisWontBeFormatted  (2, 9<|>0  ,)
+  6 |     
 =====================================output=====================================
 thisWontBeFormatted  ( 1  ,3)
 

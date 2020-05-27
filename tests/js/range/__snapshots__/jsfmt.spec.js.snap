@@ -6,13 +6,15 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-
-class    a {
-  b(   ) {}
-}
-
-let    x
+  1 | 
+  2 | 
+> 3 | class    a {
+    |        ^^^^^
+> 4 |   b(   ) {}
+    | ^^^^^^^^^^^
+  5 | }
+  6 | 
+  7 | let    x
 =====================================output=====================================
 
 
@@ -30,12 +32,15 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-call(1,2,3)
-call(1,2,3)
-function f() {
-  call(1,2,3)
-}
-
+  1 | call(1,2,3)
+> 2 | call(1,2,3)
+    |       ^^^^^
+> 3 | function f() {
+    | ^^^^^^^^^^^^^^
+> 4 |   call(1,2,3)
+    | ^^^^^^^^^
+  5 | }
+  6 | 
 =====================================output=====================================
 call(1,2,3)
 call(1, 2, 3);
@@ -52,8 +57,9 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function ugly ( {a=1,     b     =   2     }      ) {}
-
+> 1 | function ugly ( {a=1,     b     =   2     }      ) {}
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 | 
 =====================================output=====================================
 function ugly({ a = 1, b = 2 }) {}
 
@@ -66,15 +72,13 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function ugly ( {a=1,     b     =   2     }      ) {
-  function ugly ( {a=1,     b     =   2     }      ) {
-    function ugly ( {a=1,     b     =   2     }      ) {
-  	  	     \`multiline template string
-              with too much indentation\`
-    }
-  }
-}
-
+  3 |     function ugly ( {a=1,     b     =   2     }      ) {
+  4 |   	  	     \`multiline template string
+> 5 |               with too much indentation\`
+    |                   ^^^
+  6 |     }
+  7 |   }
+  8 | }
 =====================================output=====================================
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
@@ -94,15 +98,14 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function ugly() {
-  const dictWithSeveralEntries = {
-    key:          "value",
-    anotherKey:   "another value",
-    firstNumber:  1,
-    secondNumber: 2
-  };
-}
-
+  2 |   const dictWithSeveralEntries = {
+  3 |     key:          "value",
+> 4 |     anotherKey:   "another value",
+> 5 |     firstNumber:  1,
+> 6 |     secondNumber: 2
+  7 |   };
+  8 | }
+  9 | 
 =====================================output=====================================
 function ugly() {
   const dictWithSeveralEntries = {
@@ -122,16 +125,13 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import  def , {named}  from    'x'
-
-export *  from   'd'
-
-export    const  x
-  =  42
-
-export   default    42
-
-
+  1 | import  def , {named}  from    'x'
+  2 | 
+> 3 | export *  from   'd'
+    |         ^^^^^^^^^^^
+  4 | 
+  5 | export    const  x
+  6 |   =  42
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -152,16 +152,14 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import  def , {named}  from    'x'
-
-export *  from   'd'
-
-export    const  x
-  =  42
-
-export   default    42
-
-
+  2 | 
+  3 | export *  from   'd'
+> 4 | 
+> 5 | export    const  x
+> 6 |   =  42
+  7 | 
+  8 | export   default    42
+  9 | 
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -181,16 +179,12 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import  def , {named}  from    'x'
-
-export *  from   'd'
-
-export    const  x
-  =  42
-
-export   default    42
-
-
+   6 |   =  42
+   7 | 
+>  8 | export   default    42
+     |                  ^^^^
+   9 | 
+  10 | 
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -211,16 +205,11 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import  def , {named}  from    'x'
-
-export *  from   'd'
-
-export    const  x
-  =  42
-
-export   default    42
-
-
+> 1 | import  def , {named}  from    'x'
+    |       ^^^^^^^^^^^^^^^
+  2 | 
+  3 | export *  from   'd'
+  4 | 
 =====================================output=====================================
 import def, { named } from "x";
 
@@ -241,22 +230,21 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-call(
-  1, 2,3
-);
-
-call(
-  1, 2,3
-);
-
-call(
-  1, 2,3
-);
-
-call(
-  1, 2,3
-);
-
+   4 | 
+   5 | call(
+>  6 |   1, 2,3
+     |     ^^^^
+>  7 | );
+     | ^^
+>  8 | 
+     | ^^
+>  9 | call(
+     | ^^
+> 10 |   1, 2,3
+     | ^^^^^
+  11 | );
+  12 | 
+  13 | call(
 =====================================output=====================================
 call(
   1, 2,3
@@ -279,22 +267,20 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-call(
-  1, 2,3
-);
-
-call(
-  1, 2,3
-);
-
-call(
-  1, 2,3
-);
-
-call(
-  1, 2,3
-);
-
+   2 |   1, 2,3
+   3 | );
+>  4 | 
+>  5 | call(
+>  6 |   1, 2,3
+>  7 | );
+>  8 | 
+>  9 | call(
+> 10 |   1, 2,3
+> 11 | );
+> 12 | 
+  13 | call(
+  14 |   1, 2,3
+  15 | );
 =====================================output=====================================
 call(
   1, 2,3
@@ -317,13 +303,13 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-try {
-  if (condition) {
-    body
-  }
-}
-catch (err) {}
-
+> 1 | try {
+> 2 |   if (condition) {
+> 3 |     body
+> 4 |   }
+  5 | }
+  6 | catch (err) {}
+  7 | 
 =====================================output=====================================
 try {
   if (condition) {
@@ -340,12 +326,15 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function f() {
-  if (true) {
-    call("this line is 79 chars", "long", "it should", "stay as single line");
-  }
-}
-
+  1 | function f() {
+> 2 |   if (true) {
+    |             ^
+> 3 |     call("this line is 79 chars", "long", "it should", "stay as single line");
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 4 |   }
+    | ^^
+  5 | }
+  6 | 
 =====================================output=====================================
 function f() {
   if (true) {
@@ -362,13 +351,16 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-try {
-  if (condition) {
-    body
-  }
-}
-catch (err) {}
-
+  1 | try {
+> 2 |   if (condition) {
+    |   ^^^^^^^^^^^^^^^^
+> 3 |     body
+    | ^^^^^^^^
+> 4 |   }
+    | ^^^
+  5 | }
+  6 | catch (err) {}
+  7 | 
 =====================================output=====================================
 try {
   if (condition) {
@@ -386,13 +378,16 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-try {
-1;if (condition) {
-    body
-  }
-}
-catch (err) {}
-
+  1 | try {
+> 2 | 1;if (condition) {
+    |   ^^^^^^^^^^^^^^^^
+> 3 |     body
+    | ^^^^^^^^
+> 4 |   }
+    | ^^^
+  5 | }
+  6 | catch (err) {}
+  7 | 
 =====================================output=====================================
 try {
 1;if (condition) {
@@ -410,8 +405,9 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const y = {a:1, b:2}
-
+> 1 | const y = {a:1, b:2}
+    |           ^^^
+  2 | 
 =====================================output=====================================
 const y = { a: 1, b: 2 };
 
@@ -424,17 +420,20 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-const y =       [
-    {
-                a: 1,
-    },
-    {
-              a: 1,
-              b:2
-    },
-]
-
+   3 |     {
+   4 |                 a: 1,
+>  5 |     },
+     |      ^
+>  6 |     {
+     | ^^^^^
+>  7 |               a: 1,
+     | ^^^^^
+>  8 |               b:2
+     | ^^^^^
+>  9 |     },
+     | ^^^^^^
+  10 | ]
+  11 | 
 =====================================output=====================================
 
 const y = [
@@ -456,15 +455,13 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function ugly ( {a=1,     b     =   2     }      ) {
-  function ugly ( {a=1,     b     =   2     }      ) {
-    function ugly ( {a=1,     b     =   2     }      ) {
-             \`multiline template string
-              with too much indentation\`
-    }
-  }
-}
-
+  3 |     function ugly ( {a=1,     b     =   2     }      ) {
+  4 |              \`multiline template string
+> 5 |               with too much indentation\`
+    |                   ^^^
+  6 |     }
+  7 |   }
+  8 | }
 =====================================output=====================================
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
@@ -484,15 +481,12 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// Unchanged
-call(
-  1, 2,3
-);
-
-
-call(
-  1, 2,3
-);
+  4 | );
+  5 | 
+> 6 | 
+> 7 | call(
+> 8 |   1, 2,3
+> 9 | );
 =====================================output=====================================
 // Unchanged
 call(
@@ -510,16 +504,13 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-call(
-  1, 2,3
-);
-
-
-// Unchanged
-call(
-  1, 2,3
-);
-
+> 1 | call(
+> 2 |   1, 2,3
+> 3 | );
+> 4 | 
+  5 | 
+  6 | // Unchanged
+  7 | call(
 =====================================output=====================================
 call(1, 2, 3);
 
@@ -538,9 +529,10 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-try {}
-catch (err) {}
-
+  1 | try {}
+> 2 | catch (err) {}
+    | ^
+  3 | 
 =====================================output=====================================
 try {
 } catch (err) {}
@@ -554,8 +546,9 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
- 
-
+> 1 |  
+    | ^
+  2 | 
 =====================================output=====================================
  
 
