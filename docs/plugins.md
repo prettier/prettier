@@ -357,9 +357,9 @@ or return `false` and let Prettier attach the comment.
 
 Based on the text surrounding a comment node, Prettier dispatches:
 
-* `ownLine` if a comment has only whitespace preceding it and a newline afterwards,
-* `endOfLine` if a comment has a newline afterwards but some non-whitespace preceding it,
-* `remaining` in all other cases.
+- `ownLine` if a comment has only whitespace preceding it and a newline afterwards,
+- `endOfLine` if a comment has a newline afterwards but some non-whitespace preceding it,
+- `remaining` in all other cases.
 
 At the time of dispatching, Prettier will have annotated each AST comment
 node (i.e., created new properties) with at least one of `enclosingNode`,
@@ -390,7 +390,8 @@ function ownLine(comment, text, options, ast, isLastComment) {
 Nodes with comments are expected to have a `comments` property containing
 an array of comments. Each comment is expected to have the following
 properties: `leading`, `trailing`, `printed`.
-<!-- TODO: add a note that this might change in the future --> 
+
+<!-- TODO: add a note that this might change in the future -->
 
 The example above uses `util.addTrailingComment`, which automatically sets
 `comment.leading`/`trailing`/`printed` to appropriate values and adds
