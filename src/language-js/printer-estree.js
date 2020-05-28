@@ -4182,6 +4182,7 @@ function printExportDeclaration(path, options, print) {
       parts.push(semi);
     }
   } else {
+    parts.push(decl.exportKind === "type" ? "type " : "");
     parts.push(printModuleSpecifiers(path, options, print));
     parts.push(printModuleSource(path, options, print));
     parts.push(semi);

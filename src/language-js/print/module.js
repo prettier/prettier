@@ -12,10 +12,7 @@ function printModuleSource(path, options, print) {
 
 function printModuleSpecifiers(path, options, print) {
   const node = path.getValue();
-  const parts = [
-    node.type === "ImportDeclaration" ? " " : "",
-    node.exportKind === "type" ? "type " : "",
-  ];
+  const parts = [node.type === "ImportDeclaration" ? " " : ""];
 
   const standalonesSpecifiers = [];
   const groupedSpecifiers = [];
