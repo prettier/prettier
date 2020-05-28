@@ -974,6 +974,8 @@ function printPathNoParens(path, options, print, args) {
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);
+    case "DeclareExportDeclaration":
+      return concat(["declare ", printExportDeclaration(path, options, print)]);
     case "ExportAllDeclaration":
       parts.push("export");
 
@@ -2526,8 +2528,6 @@ function printPathNoParens(path, options, print, args) {
         "declare export *",
         printModuleSource(path, options, print),
       ]);
-    case "DeclareExportDeclaration":
-      return concat(["declare ", printExportDeclaration(path, options, print)]);
     case "DeclareOpaqueType":
     case "OpaqueType": {
       parts.push(
