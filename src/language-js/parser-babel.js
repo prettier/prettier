@@ -16,8 +16,8 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
     errorRecovery: true,
     createParenthesizedExpressions: true,
     plugins: [
-      // When add a plugin, please add a test in `tests/js/babel-plugins`,
-      // To remove plugins, remove it add run `yarn test tests/js/babel-plugins` to verify
+      // When adding a plugin, please add a test in `tests/js/babel-plugins`,
+      // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
 
       "doExpressions",
       "classProperties",
