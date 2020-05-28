@@ -11,6 +11,13 @@ exports[`html-like-comments.js error test 1`] = `
   6 | "
 `;
 
+exports[`module-attributes.js error test 1`] = `
+"The only accepted module attribute is \`type\` (1:33)
+> 1 | import foo from \\"foo.json\\" with foo: \\"json\\";
+    |                                 ^
+  2 | "
+`;
+
 exports[`partial-template-strings.js error test 1`] = `
 "Unexpected token (6:42)
   4 | 
