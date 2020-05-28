@@ -627,6 +627,14 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
       if (
+        node.type === "OptionalMemberExpression" &&
+        parent.type === "TSNonNullExpression" &&
+        path.getParentNode(1).type === "MemberExpression"
+      ) {
+        return true;
+      }
+
+      if (
         (parent.type === "MemberExpression" && name === "object") ||
         ((parent.type === "CallExpression" ||
           parent.type === "NewExpression") &&
