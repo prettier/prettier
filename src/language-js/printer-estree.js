@@ -92,6 +92,7 @@ const {
   printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
+  printModuleSource,
 } = require("./print/misc");
 
 const needsQuoteProps = new WeakMap();
@@ -974,19 +975,19 @@ function printPathNoParens(path, options, print, args) {
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      parts.push("export ");
+      parts.push("export");
 
       if (n.exportKind === "type") {
-        parts.push("type ");
+        parts.push(" type");
       }
 
-      parts.push("* ");
+      parts.push(" *");
 
       if (n.exported) {
-        parts.push("as ", path.call(print, "exported"), " ");
+        parts.push(" as ", path.call(print, "exported"));
       }
 
-      parts.push("from ", path.call(print, "source"), semi);
+      parts.push(printModuleSource(path, options, print), semi);
 
       return concat(parts);
 
@@ -994,15 +995,17 @@ function printPathNoParens(path, options, print, args) {
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
     case "ImportDeclaration": {
-      parts.push("import ");
+      parts.push("import");
 
       if (n.importKind && n.importKind !== "value") {
-        parts.push(n.importKind + " ");
+        parts.push(" ", n.importKind);
       }
 
       const standalones = [];
       const grouped = [];
       if (n.specifiers && n.specifiers.length > 0) {
+        parts.push(" ");
+
         path.each((specifierPath) => {
           const value = specifierPath.getValue();
           if (
@@ -1056,8 +1059,7 @@ function printPathNoParens(path, options, print, args) {
             )
           );
         }
-
-        parts.push(" from ");
+        parts.push(printModuleSource(path, options, print));
       } else if (
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
@@ -1068,10 +1070,12 @@ function printPathNoParens(path, options, print, args) {
           )
         )
       ) {
-        parts.push("{} from ");
+        parts.push(" {}", printModuleSource(path, options, print));
+      } else {
+        parts.push(" ", path.call(print, "source"));
       }
 
-      parts.push(path.call(print, "source"), semi);
+      parts.push(semi);
 
       return concat(parts);
     }
@@ -2573,7 +2577,10 @@ function printPathNoParens(path, options, print, args) {
     case "DeclareVariable":
       return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
     case "DeclareExportAllDeclaration":
-      return concat(["declare export * from ", path.call(print, "source")]);
+      return concat([
+        "declare export *",
+        printModuleSource(path, options, print),
+      ]);
     case "DeclareExportDeclaration":
       return concat(["declare ", printExportDeclaration(path, options, print)]);
     case "DeclareOpaqueType":
@@ -4297,10 +4304,7 @@ function printExportDeclaration(path, options, print) {
       parts.push("{}");
     }
 
-    if (decl.source) {
-      parts.push(" from ", path.call(print, "source"));
-    }
-
+    parts.push(printModuleSource(path, options, print));
     parts.push(semi);
   }
 

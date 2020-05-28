@@ -58,9 +58,15 @@ function printBindExpressionCallee(path, options, print) {
   return concat(["::", path.call(print, "callee")]);
 }
 
+function printModuleSource(path, options, print) {
+  const node = path.getValue();
+  return node.source ? concat([" from ", path.call(print, "source")]) : "";
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
+  printModuleSource,
 };
