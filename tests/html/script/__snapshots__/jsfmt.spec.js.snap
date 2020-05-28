@@ -23,7 +23,7 @@ alert(1)
 
 =====================================output=====================================
 <script type="text/babel" data-presets="react" data-type="module">
-  import { h, render } from  with ;
+  import { h, render } from "https://unpkg.com/preact?module" with ;
   render(<h1>Hello World!</h1>, document.body);
 </script>
 
@@ -97,8 +97,8 @@ async function foo() {
 
 =====================================output=====================================
 <script type="module">
-  import prettier from  with ;
-  import parserGraphql from  with ;
+  import prettier from "prettier/standalone" with ;
+  import parserGraphql from "prettier/parser-graphql" with ;
 
   prettier.format("query { }", {
     parser: "graphql",

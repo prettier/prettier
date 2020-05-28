@@ -37,9 +37,9 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
+      ["decorators", { decoratorsBeforeExport: false }],
       "privateIn",
       ["moduleAttributes", { version: "may-2020" }],
-      ["decorators", { decoratorsBeforeExport: false }],
       ...extraPlugins,
     ],
   };

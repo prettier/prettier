@@ -23,7 +23,7 @@ printWidth: 80
 import foo from "foo.json" with type: "json";
 
 =====================================output=====================================
-import foo from  with type: "json";
+import foo from "foo.json" with type: "json";
 
 ================================================================================
 `;

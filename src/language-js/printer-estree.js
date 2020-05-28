@@ -1071,7 +1071,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push("{} from ");
       }
 
-      path.call(print, "source");
+      parts.push(path.call(print, "source"));
 
       if (n.attributes) {
         parts.push(" with ");
