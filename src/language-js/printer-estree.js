@@ -1056,6 +1056,8 @@ function printPathNoParens(path, options, print, args) {
             )
           );
         }
+
+        parts.push(" from ");
       } else if (
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
@@ -1066,10 +1068,10 @@ function printPathNoParens(path, options, print, args) {
           )
         )
       ) {
-        parts.push("{}");
+        parts.push("{} from ");
       }
 
-      parts.push(" from ", path.call(print, "source"));
+      parts.push(path.call(print, "source"));
 
       if (Array.isArray(n.attributes) && n.attributes.length !== 0) {
         parts.push(" with ", concat(path.map(print, "attributes")));
