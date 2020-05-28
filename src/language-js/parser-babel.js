@@ -16,22 +16,17 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
     errorRecovery: true,
     createParenthesizedExpressions: true,
     plugins: [
+      // When add a plugin, please add a test in `tests/js/babel-plugins`,
+      // To remove plugins, remove it add run `yarn test tests/js/babel-plugins` to verify
+
       "doExpressions",
-      "objectRestSpread",
       "classProperties",
       "exportDefaultFrom",
-      "exportNamespaceFrom",
-      "asyncGenerators",
       "functionBind",
       "functionSent",
-      "dynamicImport",
+      // "dynamicImport", // Need ref
       "numericSeparator",
-      "importMeta",
-      "optionalCatchBinding",
-      "optionalChaining",
       "classPrivateProperties",
-      "nullishCoalescingOperator",
-      "bigInt",
       "throwExpressions",
       "logicalAssignment",
       "classPrivateMethods",
