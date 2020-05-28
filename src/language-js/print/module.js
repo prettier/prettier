@@ -36,6 +36,7 @@ function printModuleSpecifiers(path, options, print) {
       ) {
         groupedSpecifiers.push(print(specifierPath));
       } else {
+        /* istanbul ignore next */
         throw new Error(
           `Unknown specifier type ${JSON.stringify(specifierType)}`
         );
