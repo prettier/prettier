@@ -14,10 +14,10 @@ function printModuleSpecifiers(path, options, print) {
   const node = path.getValue();
   const parts = [node.type === "ImportDeclaration" ? " " : ""];
 
-  const standalonesSpecifiers = [];
-  const groupedSpecifiers = [];
-
   if (node.specifiers && node.specifiers.length > 0) {
+    const standalonesSpecifiers = [];
+    const groupedSpecifiers = [];
+
     path.each((specifierPath) => {
       const specifierType = path.getValue().type;
       if (
@@ -45,7 +45,7 @@ function printModuleSpecifiers(path, options, print) {
     const canBreak =
       groupedSpecifiers.length > 1 ||
       standalonesSpecifiers.length > 0 ||
-      (node.specifiers && node.specifiers.some((node) => node.comments));
+      node.specifiers.some((node) => node.comments);
 
     if (groupedSpecifiers.length !== 0) {
       if (standalonesSpecifiers.length !== 0) {
