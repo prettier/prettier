@@ -133,25 +133,27 @@ function genericPrint(path, options, print) {
       return printLine(path, node.value, { proseWrap });
     }
     case "emphasis": {
-      const parentNode = path.getParentNode();
-      const index = parentNode.children.indexOf(node);
-      const prevNode = parentNode.children[index - 1];
-      const nextNode = parentNode.children[index + 1];
-      const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-        (prevNode &&
-          prevNode.type === "sentence" &&
-          prevNode.children.length > 0 &&
-          privateUtil.getLast(prevNode.children).type === "word" &&
-          !privateUtil.getLast(prevNode.children).hasTrailingPunctuation) ||
-        (nextNode &&
-          nextNode.type === "sentence" &&
-          nextNode.children.length > 0 &&
-          nextNode.children[0].type === "word" &&
-          !nextNode.children[0].hasLeadingPunctuation);
-      let style =
-        hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+      let style;
       if (isAutolink(node.children[0], options)) {
         style = options.originalText[node.position.start.offset];
+      } else {
+        const parentNode = path.getParentNode();
+        const index = parentNode.children.indexOf(node);
+        const prevNode = parentNode.children[index - 1];
+        const nextNode = parentNode.children[index + 1];
+        const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
+          (prevNode &&
+            prevNode.type === "sentence" &&
+            prevNode.children.length > 0 &&
+            privateUtil.getLast(prevNode.children).type === "word" &&
+            !privateUtil.getLast(prevNode.children).hasTrailingPunctuation) ||
+          (nextNode &&
+            nextNode.type === "sentence" &&
+            nextNode.children.length > 0 &&
+            nextNode.children[0].type === "word" &&
+            !nextNode.children[0].hasLeadingPunctuation);
+        style =
+          hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       }
       return concat([style, printChildren(path, options, print), style]);
     }
