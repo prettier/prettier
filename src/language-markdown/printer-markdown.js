@@ -30,6 +30,7 @@ const {
   punctuationPattern,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
+  isAutolink,
 } = require("./utils");
 const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
 
@@ -84,8 +85,8 @@ function genericPrint(path, options, print) {
       });
     case "sentence":
       return printChildren(path, options, print);
-    case "word":
-      return node.value
+    case "word": {
+      let escapedValue = node.value
         .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
@@ -101,6 +102,22 @@ function genericPrint(path, options, print) {
               : `${underscore2}${text2}`
             ).replace(/_/g, "\\_")
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
+
+      if (
+        escapedValue.charAt(0) === "\\" &&
+        node.value.charAt(0) !== "\\" &&
+        path.match(
+          undefined,
+          (node, name, index) => node.type === "sentence" && index === 0,
+          (node, name, index) => isAutolink(node.children[index - 1], options)
+        )
+      ) {
+        // backslash is parsed as part of autolinks, so we need to remove it
+        escapedValue = escapedValue.slice(1);
+      }
+
+      return escapedValue;
+    }
     case "whitespace": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
