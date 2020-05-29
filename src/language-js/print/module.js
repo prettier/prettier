@@ -42,15 +42,15 @@ function printModuleSpecifiers(path, options, print) {
 
     parts.push(join(", ", standalonesSpecifiers));
 
-    const canBreak =
-      groupedSpecifiers.length > 1 ||
-      standalonesSpecifiers.length > 0 ||
-      node.specifiers.some((node) => node.comments);
-
     if (groupedSpecifiers.length !== 0) {
       if (standalonesSpecifiers.length !== 0) {
         parts.push(", ");
       }
+
+      const canBreak =
+        groupedSpecifiers.length > 1 ||
+        standalonesSpecifiers.length > 0 ||
+        node.specifiers.some((node) => node.comments);
 
       if (canBreak) {
         parts.push(
