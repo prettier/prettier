@@ -114,6 +114,75 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`function-in-url.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@function concat($strings...) {
+  $result: '';
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+ backround: url(concat('http://', 'example.com', '/image.png'));
+}
+
+=====================================output=====================================
+@function concat($strings...) {
+  $result: "";
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+  backround: url(concat("http://", "example.com", "/image.png"));
+}
+
+================================================================================
+`;
+
+exports[`function-in-url.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@function concat($strings...) {
+  $result: '';
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+ backround: url(concat('http://', 'example.com', '/image.png'));
+}
+
+=====================================output=====================================
+@function concat($strings...) {
+  $result: "";
+  @each $string in $strings {
+    $sum: $result + $string;
+  }
+  @return $result;
+}
+
+a {
+  backround: url(concat("http://", "example.com", "/image.png"));
+}
+
+================================================================================
+`;
+
 exports[`import_comma.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
