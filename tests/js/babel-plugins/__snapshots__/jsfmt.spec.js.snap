@@ -720,6 +720,34 @@ obj.a.b &&= c;
 ================================================================================
 `;
 
+exports[`module-attributes-dynamic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("foo.json", { with: { type: "json" } })
+
+=====================================output=====================================
+import("foo.json", { with: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`module-attributes-static.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import foo from "foo.json" with type: "json";
+
+=====================================output=====================================
+import foo from "foo.json" with type: "json";
+
+================================================================================
+`;
+
 exports[`nullish-coalescing-operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
