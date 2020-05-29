@@ -148,12 +148,11 @@ function genericPrint(path, options, print) {
           nextNode.children.length > 0 &&
           nextNode.children[0].type === "word" &&
           !nextNode.children[0].hasLeadingPunctuation);
-      const style =
-        hasPrevOrNextWord ||
-        getAncestorNode(path, "emphasis") ||
-        isAutolink(node.children[0], options)
-          ? "*"
-          : "_";
+      let style =
+        hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+      if (isAutolink(node.children[0], options)) {
+        style = options.originalText[node.position.start.offset];
+      }
       return concat([style, printChildren(path, options, print), style]);
     }
     case "strong":
