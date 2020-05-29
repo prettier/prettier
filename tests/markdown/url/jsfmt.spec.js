@@ -1,4 +1,4 @@
-const {flatten} = require('lodash');
+const { flatten } = require("lodash");
 
 const urls = [
   "http://www.example.com:80/_a",
@@ -24,7 +24,7 @@ run_spec(
   {
     dirname: __dirname,
     snippets: flatten(
-      urls.map(url => [
+      urls.map((url) => [
         url,
         `_${url}_`,
         `*${url}*`,
