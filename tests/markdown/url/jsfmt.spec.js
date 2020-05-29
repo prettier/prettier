@@ -50,7 +50,7 @@ const brokenTests = new Set([
   "_http://www.example.com:80/_a*b_",
   "_http://www.example.com:80/_a*b _",
   "_http://www.example.com:80/_a*/_",
-  "_http://www.example.com:80/_a*/ _"
+  "_http://www.example.com:80/_a*/ _",
 ]);
 
 run_spec(
@@ -72,7 +72,9 @@ run_spec(
         `* ${url} *`,
         `_ ${url} *`,
       ])
-    ).filter((code) => !brokenTests.has(code)),
+    )
+      .filter((code) => !brokenTests.has(code))
+      .map((code) => ({ code, name: code })),
   },
   ["markdown"]
 );
