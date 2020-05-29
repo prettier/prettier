@@ -21,7 +21,7 @@ const urls = [
 ];
 
 const brokenTests = new Set([
-  // v2.0.5 broken cases
+  // v2.0.5 broken cases, fixed in 
   "*http://www.example.com:80/_a_*",
   "*http://www.example.com:80/_a_ *",
   "*http://www.example.com:80/_a__*",
@@ -31,6 +31,26 @@ const brokenTests = new Set([
   "*http://www.example.com:80/_a_/_ *",
   "*http://www.example.com:80/_a_* *",
   "*http://www.example.com:80/_a_/* *",
+
+  // #8140 broken cases
+  "_http://www.example.com:80/*a_",
+  "_http://www.example.com:80/*a _",
+  "_http://www.example.com:80/*a*_",
+  "_http://www.example.com:80/*a* _",
+  "_http://www.example.com:80/*a**_",
+  "_http://www.example.com:80/*a** _",
+  "_http://www.example.com:80/*a*b_",
+  "_http://www.example.com:80/*a*b _",
+  "_http://www.example.com:80/*a*/_",
+  "_http://www.example.com:80/*a*/ _",
+  "_http://www.example.com:80/*a*/*_",
+  "_http://www.example.com:80/*a*/* _",
+  "_http://www.example.com:80/_a*_",
+  "_http://www.example.com:80/_a* _",
+  "_http://www.example.com:80/_a*b_",
+  "_http://www.example.com:80/_a*b _",
+  "_http://www.example.com:80/_a*/_",
+  "_http://www.example.com:80/_a*/ _"
 ]);
 
 run_spec(
