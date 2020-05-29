@@ -21,16 +21,16 @@ const urls = [
 ];
 
 const brokenTests = new Set([
-  // v2.0.5 broken cases, fixed in 
-  "*http://www.example.com:80/_a_*",
-  "*http://www.example.com:80/_a_ *",
-  "*http://www.example.com:80/_a__*",
-  "*http://www.example.com:80/_a_/*",
-  "*http://www.example.com:80/_a_/ *",
-  "*http://www.example.com:80/_a_/_*",
-  "*http://www.example.com:80/_a_/_ *",
-  "*http://www.example.com:80/_a_* *",
-  "*http://www.example.com:80/_a_/* *",
+  // v2.0.5 broken cases, fixed in #8140
+  // "*http://www.example.com:80/_a_*",
+  // "*http://www.example.com:80/_a_ *",
+  // "*http://www.example.com:80/_a__*",
+  // "*http://www.example.com:80/_a_/*",
+  // "*http://www.example.com:80/_a_/ *",
+  // "*http://www.example.com:80/_a_/_*",
+  // "*http://www.example.com:80/_a_/_ *",
+  // "*http://www.example.com:80/_a_* *",
+  // "*http://www.example.com:80/_a_/* *",
 
   // #8140 broken cases
   "_http://www.example.com:80/*a_",
