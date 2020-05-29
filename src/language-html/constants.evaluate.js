@@ -13,7 +13,7 @@ const getCssStyleTags = (property) =>
           htmlStyle.selectorText
             .split(",")
             .map((selector) => selector.trim())
-            .filter((selector) => /^[a-zA-Z0-9]+$/.test(selector))
+            .filter((selector) => /^[\dA-Za-z]+$/.test(selector))
             .map((tagName) => [tagName, htmlStyle.style[property]])
         )
     )
@@ -35,6 +35,8 @@ const CSS_DISPLAY_TAGS = {
   // there's no css display for these elements but they behave these ways
   video: "inline-block",
   audio: "inline-block",
+  select: "inline-block",
+  optgroup: "inline-block",
 };
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");

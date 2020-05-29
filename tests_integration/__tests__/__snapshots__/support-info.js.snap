@@ -94,6 +94,14 @@ Object {
       },
       "type": "int",
     },
+    "embeddedLanguageFormatting": Object {
+      "choices": Array [
+        "auto",
+        "off",
+      ],
+      "default": "auto",
+      "type": "choice",
+    },
     "endOfLine": Object {
       "choices": Array [
         "lf",
@@ -684,7 +692,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.14.0\\",
       \\"tmScope\\": \\"source.yaml\\",
       \\"type\\": \\"data\\",
-      \\"vscodeLanguageIds\\": [\\"yaml\\"]
+      \\"vscodeLanguageIds\\": [\\"yaml\\", \\"ansible\\"]
     }
   ],
   \\"options\\": [
@@ -726,6 +734,25 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"range\\": { \\"end\\": null, \\"start\\": -1, \\"step\\": 1 },
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Format embedded code if Prettier can automatically identify it.\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"Never automatically format embedded code.\\",
+          \\"value\\": \\"off\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Control how Prettier formats quoted code embedded in the file.\\",
+      \\"name\\": \\"embeddedLanguageFormatting\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.1.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"Global\\",

@@ -5,9 +5,9 @@ const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
-function babelOptions(extraPlugins = []) {
+function babelOptions({ sourceType, extraPlugins = [] }) {
   return {
-    sourceType: "module",
+    sourceType,
     allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
@@ -16,32 +16,43 @@ function babelOptions(extraPlugins = []) {
     errorRecovery: true,
     createParenthesizedExpressions: true,
     plugins: [
+      // When adding a plugin, please add a test in `tests/js/babel-plugins`,
+      // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+
       "doExpressions",
-      "objectRestSpread",
       "classProperties",
       "exportDefaultFrom",
-      "exportNamespaceFrom",
-      "asyncGenerators",
       "functionBind",
       "functionSent",
-      "dynamicImport",
       "numericSeparator",
-      "importMeta",
-      "optionalCatchBinding",
-      "optionalChaining",
       "classPrivateProperties",
-      ["pipelineOperator", { proposal: "minimal" }],
-      "nullishCoalescingOperator",
-      "bigInt",
       "throwExpressions",
       "logicalAssignment",
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
+      "privateIn",
       ["decorators", { decoratorsBeforeExport: false }],
       ...extraPlugins,
     ],
   };
+}
+
+function resolvePluginsConflict(
+  condition,
+  pluginCombinations,
+  conflictPlugins
+) {
+  if (!condition) {
+    return pluginCombinations;
+  }
+  const combinations = [];
+  for (const combination of pluginCombinations) {
+    for (const plugin of conflictPlugins) {
+      combinations.push([...combination, plugin]);
+    }
+  }
+  return combinations;
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
@@ -49,11 +60,25 @@ function createParse(parseMethod, ...pluginCombinations) {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
+    const sourceType =
+      opts && opts.__babelSourceType === "script" ? "script" : "module";
+
     let ast;
     try {
+      const combinations = resolvePluginsConflict(
+        text.includes("|>"),
+        pluginCombinations,
+        [
+          ["pipelineOperator", { proposal: "smart" }],
+          ["pipelineOperator", { proposal: "minimal" }],
+          ["pipelineOperator", { proposal: "fsharp" }],
+        ]
+      );
       ast = tryCombinations(
         (options) => babel[parseMethod](text, options),
-        pluginCombinations.map(babelOptions)
+        combinations.map((extraPlugins) =>
+          babelOptions({ sourceType, extraPlugins })
+        )
       );
     } catch (error) {
       throw createError(
@@ -89,7 +114,7 @@ function tryCombinations(fn, combinations) {
   let error;
   for (let i = 0; i < combinations.length; i++) {
     try {
-      return fn(combinations[i]);
+      return rethrowSomeRecoveredErrors(fn(combinations[i]));
     } catch (_error) {
       if (!error) {
         error = _error;
@@ -97,6 +122,20 @@ function tryCombinations(fn, combinations) {
     }
   }
   throw error;
+}
+
+function rethrowSomeRecoveredErrors(ast) {
+  if (ast.errors) {
+    for (const error of ast.errors) {
+      if (
+        typeof error.message === "string" &&
+        error.message.startsWith("Did not expect a type annotation here.")
+      ) {
+        throw error;
+      }
+    }
+  }
+  return ast;
 }
 
 function parseJson(text, parsers, opts) {
@@ -115,11 +154,10 @@ function assertJsonNode(node, parent) {
     case "ObjectExpression":
       return node.properties.forEach(assertJsonChildNode);
     case "ObjectProperty":
-      // istanbul ignore if
       if (node.computed) {
         throw createJsonError("computed");
       }
-      // istanbul ignore if
+
       if (node.shorthand) {
         throw createJsonError("shorthand");
       }
@@ -129,7 +167,6 @@ function assertJsonNode(node, parent) {
         case "+":
         case "-":
           return assertJsonChildNode(node.argument);
-        // istanbul ignore next
         default:
           throw createJsonError("operator");
       }
@@ -143,7 +180,6 @@ function assertJsonNode(node, parent) {
     case "NumericLiteral":
     case "StringLiteral":
       return;
-    // istanbul ignore next
     default:
       throw createJsonError();
   }
@@ -152,7 +188,6 @@ function assertJsonNode(node, parent) {
     return assertJsonNode(child, node);
   }
 
-  // istanbul ignore next
   function createJsonError(attribute) {
     const name = !attribute
       ? node.type

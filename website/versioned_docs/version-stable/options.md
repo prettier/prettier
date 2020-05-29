@@ -130,7 +130,7 @@ Valid options:
 - `true` - Example:
 
 <!-- prettier-ignore -->
-```
+```jsx
 <button
   className="prettier-class"
   id="prettier-id"
@@ -142,7 +142,7 @@ Valid options:
 - `false` - Example:
 
 <!-- prettier-ignore -->
-```
+```jsx
 <button
   className="prettier-class"
   id="prettier-id"
@@ -347,7 +347,7 @@ If you want to make sure that your entire git repository only contains Linux-sty
 
 1. Ensure Prettier’s `endOfLine` option is set to `lf` (this is a default value since v2.0.0)
 1. Configure [a pre-commit hook](precommit.md) that will run Prettier
-1. Configure Prettier to run in your CI pipeline using [`--check` flag](cli.md#check). If you use Travis CI, set [the `autocrlf` option](https://docs.travis-ci.com/user/customizing-the-build#git-end-of-line-conversion-control) to `input` in `.travis.yml`.
+1. Configure Prettier to run in your CI pipeline using [`--check` flag](cli.md#--check). If you use Travis CI, set [the `autocrlf` option](https://docs.travis-ci.com/user/customizing-the-build#git-end-of-line-conversion-control) to `input` in `.travis.yml`.
 1. Add `* text=auto eol=lf` to the repo's `.gitattributes` file.
    You may need to ask Windows users to re-clone your repo after this change to ensure git has not converted `LF` to `CRLF` on checkout.
 

@@ -21,6 +21,10 @@ function clean(ast, newObj, parent) {
     delete newObj.loc.source;
   }
 
+  if (ast.type === "Program") {
+    delete newObj.sourceType;
+  }
+
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();
   }
@@ -196,6 +200,10 @@ function clean(ast, newObj, parent) {
     ) {
       newObj.quasis.forEach((quasi) => delete quasi.value);
     }
+  }
+
+  if (ast.type === "InterpreterDirective") {
+    newObj.value = newObj.value.trimEnd();
   }
 }
 

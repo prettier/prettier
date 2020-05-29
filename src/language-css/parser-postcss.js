@@ -181,6 +181,8 @@ function parseValue(value) {
     };
   }
 
+  result.text = value;
+
   const parsedResult = parseNestedValue(result);
 
   return addTypePrefix(parsedResult, "value-");
@@ -367,6 +369,23 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
+    if (
+      isLessParser(options) &&
+      node.type === "css-decl" &&
+      value.startsWith("extend(")
+    ) {
+      // extend is missing
+      if (!node.extend) {
+        node.extend = node.raws.between === ":";
+      }
+
+      // `:extend()` is parsed as value
+      if (node.extend && !node.selector) {
+        delete node.value;
+        node.selector = parseSelector(value.slice("extend(".length, -1));
+      }
+    }
+
     if (node.type === "css-atrule") {
       if (isLessParser(options)) {
         // mixin
@@ -446,7 +465,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
+        if (/^\(\s*(without|with)\s*:[\S\s]+\)$/.test(params)) {
           node.params = parseValue(params);
         } else {
           node.selector = parseSelector(params);
@@ -482,7 +501,7 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
+        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
         params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
 
@@ -515,7 +534,7 @@ function parseNestedCSS(node, options) {
   return node;
 }
 
-function parseWithParser(parser, text, options) {
+function parseWithParser(parse, text, options) {
   const parsed = parseFrontMatter(text);
   const { frontMatter } = parsed;
   text = parsed.content;
@@ -523,7 +542,7 @@ function parseWithParser(parser, text, options) {
   let result;
 
   try {
-    result = parser.parse(text);
+    result = parse(text);
   } catch (e) {
     if (typeof e.line !== "number") {
       throw e;
@@ -542,47 +561,52 @@ function parseWithParser(parser, text, options) {
   return result;
 }
 
-function requireParser(isSCSSParser) {
-  if (isSCSSParser) {
-    return require("postcss-scss");
+// TODO: make this only work on css
+function parseCss(text, parsers, options) {
+  const isSCSSParser = isSCSS(options.parser, text);
+  const parseFunctions = isSCSSParser
+    ? [parseScss, parseLess]
+    : [parseLess, parseScss];
+
+  let error;
+  for (const parse of parseFunctions) {
+    try {
+      return parse(text, parsers, options);
+    } catch (parseError) {
+      error = error || parseError;
+    }
   }
 
+  /* istanbul ignore next */
+  if (error) {
+    throw error;
+  }
+}
+
+function parseLess(text, parsers, options) {
   const lessParser = require("postcss-less");
-  return {
+  return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    parse: (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
-  };
+    (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
+    text,
+    options
+  );
 }
 
-function parse(text, parsers, options) {
-  const hasExplicitParserChoice =
-    options.parser === "less" || options.parser === "scss";
-  const isSCSSParser = isSCSS(options.parser, text);
-
-  try {
-    return parseWithParser(requireParser(isSCSSParser), text, options);
-  } catch (originalError) {
-    if (hasExplicitParserChoice) {
-      throw originalError;
-    }
-
-    try {
-      return parseWithParser(requireParser(!isSCSSParser), text, options);
-    } catch (_secondError) {
-      throw originalError;
-    }
-  }
+function parseScss(text, parsers, options) {
+  const { parse } = require("postcss-scss");
+  return parseWithParser(parse, text, options);
 }
 
-const parser = {
-  parse,
+const postCssParser = {
   astFormat: "postcss",
   hasPragma,
   locStart(node) {
     if (node.source) {
       return node.source.startOffset;
     }
+    /* istanbul ignore next */
     return null;
   },
   locEnd(node) {
@@ -596,8 +620,17 @@ const parser = {
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    css: parser,
-    less: parser,
-    scss: parser,
+    css: {
+      ...postCssParser,
+      parse: parseCss,
+    },
+    less: {
+      ...postCssParser,
+      parse: parseLess,
+    },
+    scss: {
+      ...postCssParser,
+      parse: parseScss,
+    },
   },
 };
