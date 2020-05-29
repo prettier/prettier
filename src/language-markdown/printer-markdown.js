@@ -104,8 +104,7 @@ function genericPrint(path, options, print) {
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
       if (
-        escapedValue.startsWith("\\_") &&
-        !node.value.startsWith("\\_") &&
+        escapedValue !== node.value &&
         path.match(
           undefined,
           (node, name, index) => node.type === "sentence" && index === 0,
