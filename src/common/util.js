@@ -678,54 +678,55 @@ function printNumber(rawNumber) {
 /**
  * @param {string} str
  * @param {string} target
+ * @yields {number}
+ */
+function* getContinuousCount(str, target) {
+  const targetLength = target.length;
+
+  let index = 0;
+  while (index < str.length) {
+    let nextIndex = str.indexOf(target, index);
+    if (nextIndex === -1) {
+      return yield 0;
+    }
+
+    let count = 1;
+    nextIndex += targetLength;
+    while (str.slice(nextIndex, nextIndex + targetLength) === target) {
+      nextIndex += targetLength;
+      count++;
+    }
+    index = nextIndex;
+
+    yield count;
+  }
+}
+
+/**
+ * @param {string} str
+ * @param {string} target
  * @returns {number}
  */
 function getMaxContinuousCount(str, target) {
-  let result = 0;
-  const targetLength = target.length;
-
-  for (let index = 0; index < str.length; index++) {
-    if (str.slice(index, index + targetLength) === target) {
-      let length = 1;
-      index += targetLength;
-
-      while (str.slice(index, index + targetLength) === target) {
-        length++;
-        index += targetLength;
-      }
-
-      result = Math.max(result, length);
-    }
+  let max = 0;
+  for (const count of getContinuousCount(str, target)) {
+    max = Math.max(max, count);
   }
-
-  return result;
+  return max;
 }
 
 function getMinNotPresentContinuousCount(str, target) {
   let max = 0;
-  const targetLength = target.length;
-
   const countPresent = new Map();
 
-  for (let index = 0; index < str.length; index++) {
-    if (str.slice(index, index + targetLength) === target) {
-      let length = 1;
-      index += targetLength;
-
-      while (str.slice(index, index + targetLength) === target) {
-        length++;
-        index += targetLength;
-      }
-
-      countPresent.set(length, true);
-
-      max = Math.max(max, length);
-    }
+  for (const count of getContinuousCount(str, target)) {
+    max = Math.max(max, count);
+    countPresent.set(count, true);
   }
 
-  for (let i = 1; i < max; i++) {
-    if (!countPresent.get(i)) {
-      return i;
+  for (let count = 1; count < max; count++) {
+    if (!countPresent.get(count)) {
+      return count;
     }
   }
 
