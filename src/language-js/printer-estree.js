@@ -1488,7 +1488,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "ArrayExpression":
     case "ArrayPattern":
-    case "TupleExpression":
+    case "TupleExpression": {
       const openBracket = n.type === "TupleExpression" ? "#[" : "[";
       const closeBracket = "]";
       if (n.elements.length === 0) {
@@ -1584,6 +1584,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       return concat(parts);
+    }
     case "SequenceExpression": {
       const parent = path.getParentNode(0);
       if (
