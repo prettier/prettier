@@ -33,11 +33,11 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .cache
-          key: v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
+          key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
           restore-keys: |
-            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
-            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
-            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/master-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/master-
 
       - name: Build Package
         run: yarn build
