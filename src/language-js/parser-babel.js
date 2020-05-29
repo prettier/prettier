@@ -33,6 +33,7 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "partialApplication",
       "privateIn",
       ["decorators", { decoratorsBeforeExport: false }],
+      ["recordAndTuple", { syntaxType: "hash" }],
       ...extraPlugins,
     ],
   };
@@ -85,12 +86,14 @@ function createParse(parseMethod, ...pluginCombinations) {
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error
         error.message.replace(/ \(.*\)/, ""),
-        {
-          start: {
-            line: error.loc.line,
-            column: error.loc.column + 1,
-          },
-        }
+        error.loc
+          ? {
+              start: {
+                line: error.loc.line,
+                column: error.loc.column + 1,
+              },
+            }
+          : { start: { line: 0, column: 0 } }
       );
     }
     delete ast.tokens;

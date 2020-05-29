@@ -1232,7 +1232,8 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectPattern":
     case "ObjectTypeAnnotation":
     case "TSInterfaceBody":
-    case "TSTypeLiteral": {
+    case "TSTypeLiteral":
+    case "RecordExpression": {
       let propertiesField;
 
       if (n.type === "TSTypeLiteral") {
@@ -1293,7 +1294,8 @@ function printPathNoParens(path, options, print, args) {
         : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
         ? ifBreak(semi, ";")
         : ",";
-      const leftBrace = n.exact ? "{|" : "{";
+      const leftBrace =
+        n.type === "RecordExpression" ? "#{" : n.exact ? "{|" : "{";
       const rightBrace = n.exact ? "|}" : "}";
 
       // Unfortunately, things are grouped together in the ast can be
@@ -1486,17 +1488,20 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "ArrayExpression":
     case "ArrayPattern":
+    case "TupleExpression":
+      const openBracket = n.type === "TupleExpression" ? "#[" : "[";
+      const closeBracket = "]";
       if (n.elements.length === 0) {
         if (!hasDanglingComments(n)) {
-          parts.push("[]");
+          parts.push(openBracket, closeBracket);
         } else {
           parts.push(
             group(
               concat([
-                "[",
+                openBracket,
                 comments.printDanglingComments(path, options),
                 softline,
-                "]",
+                closeBracket,
               ])
             )
           );
@@ -1545,7 +1550,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(
           group(
             concat([
-              "[",
+              openBracket,
               indent(
                 concat([
                   softline,
@@ -1566,7 +1571,7 @@ function printPathNoParens(path, options, print, args) {
                 /* sameIndent */ true
               ),
               softline,
-              "]",
+              closeBracket,
             ]),
             { shouldBreak }
           )
