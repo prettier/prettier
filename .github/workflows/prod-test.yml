@@ -30,7 +30,7 @@ jobs:
         # https://github.com/actions/cache/issues/107#issuecomment-556037278
         if: github.event_name == 'push' || github.event_name == 'pull_request'
         id: build-cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: .cache
           key: v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
@@ -43,7 +43,7 @@ jobs:
         run: yarn build
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: dist
           path: dist
@@ -67,7 +67,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist
@@ -110,7 +110,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist
