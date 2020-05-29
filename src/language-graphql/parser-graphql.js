@@ -5,14 +5,14 @@ const { hasPragma } = require("./pragma");
 
 function parseComments(ast) {
   const comments = [];
-  const startToken = ast.loc.startToken;
-  let next = startToken.next;
+  const { startToken } = ast.loc;
+  let { next } = startToken;
   while (next.kind !== "<EOF>") {
     if (next.kind === "Comment") {
       Object.assign(next, {
         // The Comment token's column starts _after_ the `#`,
         // but we need to make sure the node captures the `#`
-        column: next.column - 1
+        column: next.column - 1,
       });
       comments.push(next);
     }
@@ -38,7 +38,7 @@ function removeTokens(node) {
 function fallbackParser(parse, source) {
   const parserOptions = {
     allowLegacySDLImplementsInterfaces: false,
-    experimentalFragmentVariables: true
+    experimentalFragmentVariables: true,
   };
   try {
     return parse(source, parserOptions);
@@ -57,13 +57,13 @@ function parse(text /*, parsers, opts*/) {
     removeTokens(ast);
     return ast;
   } catch (error) {
-    const GraphQLError = require("graphql/error").GraphQLError;
+    const { GraphQLError } = require("graphql/error");
     if (error instanceof GraphQLError) {
       throw createError(error.message, {
         start: {
           line: error.locations[0].line,
-          column: error.locations[0].column
-        }
+          column: error.locations[0].column,
+        },
       });
     } else {
       throw error;
@@ -88,7 +88,7 @@ module.exports = {
           return node.end;
         }
         return node.loc && node.loc.end;
-      }
-    }
-  }
+      },
+    },
+  },
 };

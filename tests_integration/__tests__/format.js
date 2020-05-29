@@ -7,7 +7,9 @@ test("yaml parser should handle CRLF correctly", () => {
   const input = "a:\r\n  123\r\n";
   expect(
     // use JSON.stringify to observe CRLF
-    JSON.stringify(prettier.format(input, { parser: "yaml" }))
+    JSON.stringify(
+      prettier.format(input, { parser: "yaml", endOfLine: "auto" })
+    )
   ).toMatchSnapshot();
 });
 
@@ -31,7 +33,9 @@ test("html parser should handle CRLF correctly", () => {
   const input = "<!--\r\n  test\r\n  test\r\n-->";
   expect(
     // use JSON.stringify to observe CRLF
-    JSON.stringify(prettier.format(input, { parser: "html" }))
+    JSON.stringify(
+      prettier.format(input, { parser: "html", endOfLine: "auto" })
+    )
   ).toMatchSnapshot();
 });
 
@@ -39,7 +43,9 @@ test("markdown parser should handle CRLF correctly", () => {
   const input = "```\r\n\r\n\r\n```";
   expect(
     // use JSON.stringify to observe CRLF
-    JSON.stringify(prettier.format(input, { parser: "markdown" }))
+    JSON.stringify(
+      prettier.format(input, { parser: "markdown", endOfLine: "auto" })
+    )
   ).toMatchSnapshot();
 });
 
@@ -50,11 +56,13 @@ test("should work with foo plugin instance", () => {
       prettier.format(input, { parser: "foo-parser", plugins: [fooPlugin] })
     )
   ).toMatchInlineSnapshot(
-    `"\\"{\\\\\\"tabWidth\\\\\\":8,\\\\\\"bracketSpacing\\\\\\":false}\\""`
+    '"\\"{\\\\\\"tabWidth\\\\\\":8,\\\\\\"bracketSpacing\\\\\\":false}\\""'
   );
 });
 
 test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", () => {
   const input = "<a></a>\n<b></b>";
-  expect(() => prettier.format(input)).toThrowErrorMatchingSnapshot();
+  expect(() =>
+    prettier.format(input, { parser: "babel" })
+  ).toThrowErrorMatchingSnapshot();
 });

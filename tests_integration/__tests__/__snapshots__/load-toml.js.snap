@@ -11,18 +11,12 @@ Object {
       8002,
     ],
     "server": "192.168.1.1",
-    Symbol(type): Symbol(table),
-    Symbol(declared): true,
   },
   "owner": Object {
     "dob": 1979-05-27T15:32:00.000Z,
     "name": "Tom Preston-Werner",
-    Symbol(type): Symbol(table),
-    Symbol(declared): true,
   },
   "title": "TOML Example",
-  Symbol(type): Symbol(table),
-  Symbol(declared): false,
 }
 `;
 

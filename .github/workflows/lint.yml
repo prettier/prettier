@@ -1,0 +1,47 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - master
+      - patch-release
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check Dependencies
+        run: yarn lint:deps
+
+      - name: Check JSDoc Types
+        run: yarn lint:typecheck
+
+      - name: Lint ESLint
+        run: yarn lint:eslint
+
+      - name: Lint Prettier
+        run: yarn lint:prettier
+
+      - name: Spellcheck
+        run: yarn lint:spellcheck
+
+      - name: Lint Changelog
+        run: yarn lint:changelog
+
+      - name: Check Lock File Changes
+        run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
