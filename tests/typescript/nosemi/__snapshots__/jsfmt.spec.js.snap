@@ -55,7 +55,7 @@ interface InlineMultiple {
 ================================================================================
 `;
 
-exports[`type.js - {"semi":false} format 1`] = `
+exports[`type.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

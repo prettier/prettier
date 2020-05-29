@@ -18,7 +18,6 @@ const path = require("path");
  * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
- * @property {Object} namedExports - for cases where rollup can't infer what's exported
  * @property {string[]} ignore - paths of CJS modules to ignore
  */
 
@@ -66,15 +65,6 @@ const parsers = [
   {
     input: "src/language-handlebars/parser-glimmer.js",
     commonjs: {
-      namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
-          "parse",
-          "parseWithoutProcessing",
-        ],
-        [require.resolve(
-          "@glimmer/syntax/dist/modules/es2017/index.js"
-        )]: "default",
-      },
       ignore: ["source-map"],
     },
   },

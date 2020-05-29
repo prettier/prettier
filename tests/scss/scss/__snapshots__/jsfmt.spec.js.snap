@@ -1121,7 +1121,7 @@ a {
   content: "#{my-fn("foo")}";
 }
 
-mixin theme($css-property, $css-value, $theme-classes: t) {
+@mixin theme($css-property, $css-value, $theme-classes: t) {
   @each $selector in & {
     @each $class in $theme-classes {
       @each $theme, $theme-properties in c(themes) {
@@ -2084,7 +2084,7 @@ a {
   content: "#{my-fn("foo")}";
 }
 
-mixin theme($css-property, $css-value, $theme-classes: t) {
+@mixin theme($css-property, $css-value, $theme-classes: t) {
   @each $selector in & {
     @each $class in $theme-classes {
       @each $theme, $theme-properties in c(themes) {
@@ -3149,7 +3149,7 @@ a {
   content: "#{my-fn("foo")}";
 }
 
-mixin theme($css-property, $css-value, $theme-classes: t) {
+@mixin theme($css-property, $css-value, $theme-classes: t) {
   @each $selector in & {
     @each $class in $theme-classes {
       @each $theme, $theme-properties in c(themes) {
@@ -4112,7 +4112,7 @@ a {
   content: "#{my-fn("foo")}";
 }
 
-mixin theme($css-property, $css-value, $theme-classes: t) {
+@mixin theme($css-property, $css-value, $theme-classes: t) {
   @each $selector in & {
     @each $class in $theme-classes {
       @each $theme, $theme-properties in c(themes) {

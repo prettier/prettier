@@ -6,7 +6,7 @@ const {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
-const { getParserName } = require("../common/util");
+const { getParserName, isFrontMatterNode } = require("../common/util");
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
@@ -154,10 +154,6 @@ function isScriptLikeTag(node) {
       (isUnknownNamespace(node) &&
         (node.name === "script" || node.name === "style")))
   );
-}
-
-function isFrontMatterNode(node) {
-  return node.type === "yaml" || node.type === "toml";
 }
 
 function canHaveInterpolation(node) {
@@ -398,6 +394,10 @@ function _inferScriptParser(node) {
     return "markdown";
   }
 
+  if (type === "text/html") {
+    return "html";
+  }
+
   if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
     return "json";
   }
@@ -530,7 +530,15 @@ function getNodeCssStyleDisplay(node, options) {
       return "inline";
     case "ignore":
       return "block";
-    default:
+    default: {
+      // See https://github.com/prettier/prettier/issues/8151
+      if (
+        options.parser === "vue" &&
+        node.parent &&
+        node.parent.type === "root"
+      ) {
+        return "block";
+      }
       return (
         (node.type === "element" &&
           (!node.namespace ||
@@ -539,6 +547,7 @@ function getNodeCssStyleDisplay(node, options) {
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
+    }
   }
 }
 
@@ -652,13 +661,15 @@ function unescapeQuoteEntities(text) {
 }
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
-const rootElementsSet = new Set(["template", "style", "script", "html"]);
+// See https://vue-loader.vuejs.org/spec.html for detail
+const vueRootElementsSet = new Set(["template", "style", "script"]);
 function isVueCustomBlock(node, options) {
   return (
     options.parser === "vue" &&
     node.type === "element" &&
     node.parent.type === "root" &&
-    !rootElementsSet.has(node.fullName)
+    !vueRootElementsSet.has(node.fullName) &&
+    node.fullName.toLowerCase() !== "html"
   );
 }
 
@@ -686,7 +697,6 @@ module.exports = {
   inferScriptParser,
   isVueCustomBlock,
   isDanglingSpaceSensitiveNode,
-  isFrontMatterNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
