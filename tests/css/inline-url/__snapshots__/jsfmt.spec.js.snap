@@ -47,6 +47,7 @@ printWidth: 80
   background: url(data/+0ThisShouldNotBeLowerCased);
   background: url(https://foo/A*3I8oSY6AKRMAAAAAAAAAAABkARQnAQ);
   background: url(https://example.com/some/quite,long,url,with,commas.jpg);
+  background: url(http://123.example.com);
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap);
 
@@ -87,6 +88,7 @@ printWidth: 80
   background: url(data/+0ThisShouldNotBeLowerCased);
   background: url(https://foo/A*3I8oSY6AKRMAAAAAAAAAAABkARQnAQ);
   background: url(https://example.com/some/quite,long,url,with,commas.jpg);
+  background: url(http://123.example.com);
 }
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap);
 
