@@ -149,7 +149,11 @@ function genericPrint(path, options, print) {
           nextNode.children[0].type === "word" &&
           !nextNode.children[0].hasLeadingPunctuation);
       const style =
-        hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+        hasPrevOrNextWord ||
+        getAncestorNode(path, "emphasis") ||
+        isAutolink(node.children[0], options)
+          ? "*"
+          : "_";
       return concat([style, printChildren(path, options, print), style]);
     }
     case "strong":
