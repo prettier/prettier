@@ -26,9 +26,6 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Cache Build Results
-        # Prevent error on re-run
-        # https://github.com/actions/cache/issues/107#issuecomment-556037278
-        if: github.event_name == 'push' || github.event_name == 'pull_request'
         id: build-cache
         uses: actions/cache@v2
         with:
