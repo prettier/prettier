@@ -104,8 +104,8 @@ function genericPrint(path, options, print) {
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
       if (
-        escapedValue.charAt(0) === "\\" &&
-        node.value.charAt(0) !== "\\" &&
+        escapedValue.startsWith("\\_") &&
+        !node.value.startsWith("\\_") &&
         path.match(
           undefined,
           (node, name, index) => node.type === "sentence" && index === 0,
@@ -113,7 +113,9 @@ function genericPrint(path, options, print) {
         )
       ) {
         // backslash is parsed as part of autolinks, so we need to remove it
-        escapedValue = escapedValue.slice(1);
+        escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
+          prefix.replace(/\\/g, "")
+        );
       }
 
       return escapedValue;
