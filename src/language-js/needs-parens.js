@@ -705,6 +705,8 @@ function needsParens(path, options) {
     case "JSXElement":
       return (
         name === "callee" ||
+        (parent.type === "BinaryExpression" &&
+          parent.operator === "<") ||
         (parent.type !== "ArrayExpression" &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&
