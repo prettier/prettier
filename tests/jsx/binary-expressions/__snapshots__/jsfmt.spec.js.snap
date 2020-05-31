@@ -16,6 +16,16 @@ printWidth: 80
 <div></div> <= 5;
 <div></div> >= 5;
 
+(<div />) < <div />;
+<div /> > <div />;
+(<div></div>) < <div></div>;
+<div></div> > <div></div>;
+
+<div /> <= <div />;
+<div /> >= <div />;
+<div></div> <= <div></div>;
+<div></div> >= <div></div>;
+
 =====================================output=====================================
 (<div />) < 5;
 <div /> > 5;
@@ -26,6 +36,16 @@ printWidth: 80
 <div /> >= 5;
 <div></div> <= 5;
 <div></div> >= 5;
+
+(<div />) < <div />;
+<div /> > <div />;
+(<div></div>) < <div></div>;
+<div></div> > <div></div>;
+
+<div /> <= <div />;
+<div /> >= <div />;
+<div></div> <= <div></div>;
+<div></div> >= <div></div>;
 
 ================================================================================
 `;

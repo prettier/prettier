@@ -706,7 +706,8 @@ function needsParens(path, options) {
       return (
         name === "callee" ||
         (parent.type === "BinaryExpression" &&
-          parent.operator === "<") ||
+          parent.operator === "<" &&
+          name === "left") ||
         (parent.type !== "ArrayExpression" &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&
