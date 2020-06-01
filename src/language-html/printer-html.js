@@ -239,6 +239,7 @@ function genericPrint(path, options, print) {
         hardline,
       ]);
     case "element":
+    case "ieConditionalComment": {
       if (shouldPreserveContent(node, options)) {
         return concat(
           [].concat(
@@ -250,8 +251,6 @@ function genericPrint(path, options, print) {
           )
         );
       }
-    // Fall through
-    case "ieConditionalComment": {
       /**
        * do not break:
        *
