@@ -5,7 +5,7 @@ title: WebStorm Setup
 
 ## Using Prettier in WebStorm
 
-Use the `Reformat with Prettier` action (`Alt-Shift-Cmd-P` on macOS or `Alt-Shift-Ctrl-P` on Windows and Linux) to format the selected code, a file, or a whole directory.
+Use the `Reformat with Prettier` action (`Opt-Shift-Cmd-P` on macOS or `Alt-Shift-Ctrl-P` on Windows and Linux) to format the selected code, a file, or a whole directory.
 
 To run Prettier on save in WebStorm 2020.1 or above, open _Preferences | Languages & Frameworks | JavaScript | Prettier_ and enable the option `Run on save for files`.
 
