@@ -56,8 +56,11 @@ const isTestDirectory = (dirname, name) =>
   dirname.startsWith(path.join(__dirname, "../tests", name));
 
 global.run_spec = (fixtures, parsers, options) => {
-  // Can't test plugins on standalone
+  // Can't test plugins on standalone, a empty test to pass
   if (TEST_STANDALONE && options && options.plugins) {
+    test("", () => {
+      expect(true).toBe(true);
+    });
     return;
   }
 
