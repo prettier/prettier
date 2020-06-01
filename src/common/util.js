@@ -685,18 +685,18 @@ function* getContinuousCount(str, target) {
 
   let index = 0;
   while (index < str.length) {
-    let nextIndex = str.indexOf(target, index);
-    if (nextIndex === -1) {
+    index = str.indexOf(target, index);
+    if (index === -1) {
       return yield 0;
     }
 
     let count = 1;
-    nextIndex += targetLength;
-    while (str.slice(nextIndex, nextIndex + targetLength) === target) {
-      nextIndex += targetLength;
+    index += targetLength;
+
+    while (str.slice(index, index + targetLength) === target) {
+      index += targetLength;
       count++;
     }
-    index = nextIndex;
 
     yield count;
   }
