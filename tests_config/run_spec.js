@@ -56,6 +56,11 @@ const isTestDirectory = (dirname, name) =>
   dirname.startsWith(path.join(__dirname, "../tests", name));
 
 global.run_spec = (fixtures, parsers, options) => {
+  // Can't test plugins on standalone
+  if (TEST_STANDALONE && options && options.plugins) {
+    return;
+  }
+
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
 
