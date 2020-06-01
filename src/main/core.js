@@ -175,8 +175,7 @@ function formatRange(text, opts) {
   const { ast } = parsed;
   text = parsed.text;
 
-  const range = rangeUtil.calculateRange(text, opts, ast);
-  const { rangeStart, rangeEnd } = range;
+  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
@@ -186,7 +185,7 @@ function formatRange(text, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1
   );
-  const indentString = text.slice(rangeStart2, rangeStart);
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
   const alignmentSize = privateUtil.getAlignmentSize(
     indentString,
