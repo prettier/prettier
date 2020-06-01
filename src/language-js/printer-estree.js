@@ -649,6 +649,11 @@ function printPathNoParens(path, options, print, args) {
 
       const hasJSX = isJSXNode(n.right);
 
+      // For alignment expression statements with trailing comments like:
+      //
+      // foo +
+      //   bar + // comment
+      //   baz;
       const hasTrailingCommentInBinaryish = (node) => {
         if (isBinaryish(node) && !node.comments) {
           return hasTrailingCommentInBinaryish(node.left);
@@ -656,7 +661,7 @@ function printPathNoParens(path, options, print, args) {
           return hasTrailingComment(node);
         }
       };
-      if (hasTrailingCommentInBinaryish(n) && parent.type === "ExpressionStatement") {
+      if (parent.type === "ExpressionStatement" && hasTrailingCommentInBinaryish(n)) {
         const [{ parts: headParts }, ...tail] = parts;
         parts = [...headParts, ...tail];
       }
