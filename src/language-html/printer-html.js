@@ -68,7 +68,7 @@ function embed(path, print, textToDoc, options) {
   switch (node.type) {
     case "element": {
       if (isScriptLikeTag(node) || node.type === "interpolation") {
-        // Fallback to "text"
+        // Fall through to "text"
         return;
       }
 
@@ -226,18 +226,6 @@ function embed(path, print, textToDoc, options) {
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
-  if (shouldPreserveContent(node, options)) {
-    return concat(
-      [].concat(
-        printOpeningTagPrefix(node, options),
-        group(printOpeningTag(path, options, print)),
-        replaceEndOfLineWith(getNodeContent(node, options), literalline),
-        printClosingTag(node, options),
-        printClosingTagSuffix(node, options)
-      )
-    );
-  }
-
   switch (node.type) {
     case "front-matter":
       return concat(replaceEndOfLineWith(node.raw, literalline));
@@ -251,6 +239,18 @@ function genericPrint(path, options, print) {
         hardline,
       ]);
     case "element":
+      if (shouldPreserveContent(node, options)) {
+        return concat(
+          [].concat(
+            printOpeningTagPrefix(node, options),
+            group(printOpeningTag(path, options, print)),
+            replaceEndOfLineWith(getNodeContent(node, options), literalline),
+            printClosingTag(node, options),
+            printClosingTagSuffix(node, options)
+          )
+        );
+      }
+    // Fall through
     case "ieConditionalComment": {
       /**
        * do not break:
