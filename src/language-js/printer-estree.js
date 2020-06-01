@@ -657,11 +657,13 @@ function printPathNoParens(path, options, print, args) {
       const hasTrailingCommentInBinaryish = (node) => {
         if (isBinaryish(node) && !node.comments) {
           return hasTrailingCommentInBinaryish(node.left);
-        } else {
-          return hasTrailingComment(node);
         }
+        return hasTrailingComment(node);
       };
-      if (parent.type === "ExpressionStatement" && hasTrailingCommentInBinaryish(n)) {
+      if (
+        parent.type === "ExpressionStatement" &&
+        hasTrailingCommentInBinaryish(n)
+      ) {
         const [{ parts: headParts }, ...tail] = parts;
         parts = [...headParts, ...tail];
       }
