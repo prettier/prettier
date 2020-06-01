@@ -64,7 +64,6 @@ function concat(parts) {
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
-
   if (
     isVueNonHtmlBlock(node, options) &&
     !isScriptLikeTag(node) &&

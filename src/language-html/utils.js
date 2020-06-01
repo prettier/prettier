@@ -95,7 +95,7 @@ function shouldPreserveContent(node, options) {
   }
 
   if (
-    isVueCustomBlock(node, options) &&
+    isVueNonHtmlBlock(node, options) &&
     (options.embeddedLanguageFormatting === "off" ||
       !inferScriptParser(node, options))
   ) {
