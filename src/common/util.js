@@ -708,6 +708,7 @@ function* getContinuousCount(str, target) {
  * @returns {number}
  */
 function getMaxContinuousCount(str, target) {
+  // `Math.max(...getContinuousCount(str, target))` crashes on huge file
   let max = 0;
   for (const count of getContinuousCount(str, target)) {
     max = Math.max(max, count);

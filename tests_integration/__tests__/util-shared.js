@@ -45,4 +45,7 @@ test("sharedUtil.getMaxContinuousCount", () => {
   expect(getMaxContinuousCount(fixture, "([a\\-f])")).toEqual(0);
   expect(getMaxContinuousCount(fixture, "[a\\-f]")).toEqual(0);
   expect(getMaxContinuousCount(fixture, "a\\-f")).toEqual(0);
+
+  // Should not crash on huge files
+  expect(getMaxContinuousCount("ab".repeat(1e6), "b")).toEqual(1);
 });
