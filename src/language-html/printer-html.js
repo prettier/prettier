@@ -76,11 +76,14 @@ function embed(path, print, textToDoc, options) {
 
     if (parser) {
       try {
-        printed = concat([
-          hardline,
-          stripTrailingHardline(textToDoc(content, { parser }), true),
-          hardline,
-        ]);
+        const doc = textToDoc(content, { parser });
+        if (doc) {
+          printed = concat([
+            hardline,
+            stripTrailingHardline(doc, true),
+            hardline,
+          ]);
+        }
       } catch (_) {
         // Do nothing
       }
