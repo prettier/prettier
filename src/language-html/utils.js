@@ -58,15 +58,6 @@ function shouldPreserveContent(node, options) {
     return false;
   }
 
-  if (
-    node.type === "element" &&
-    node.fullName === "template" &&
-    node.attrMap.lang &&
-    node.attrMap.lang !== "html"
-  ) {
-    return true;
-  }
-
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
@@ -96,8 +87,8 @@ function shouldPreserveContent(node, options) {
 
   if (
     isVueNonHtmlBlock(node, options) &&
-    (options.embeddedLanguageFormatting === "off" ||
-      !inferScriptParser(node, options))
+    !isScriptLikeTag(node) &&
+    node.type !== "interpolation"
   ) {
     return true;
   }
