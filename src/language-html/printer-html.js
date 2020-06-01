@@ -68,7 +68,7 @@ function embed(path, print, textToDoc, options) {
   switch (node.type) {
     case "element": {
       if (isScriptLikeTag(node) || node.type === "interpolation") {
-        // Fall to "text"
+        // Fallback to "text"
         return;
       }
 
@@ -85,7 +85,7 @@ function embed(path, print, textToDoc, options) {
           return;
         }
 
-        // `textToDoc` don't throw on `production` mode;
+        // `textToDoc` don't throw on `production` mode
         if (!doc) {
           return;
         }
