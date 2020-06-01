@@ -548,7 +548,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "SwitchStatement" ||
           parent.type === "DoWhileStatement");
 
-      let parts = printBinaryishExpressions(
+      const parts = printBinaryishExpressions(
         path,
         print,
         options,
@@ -648,25 +648,6 @@ function printPathNoParens(path, options, print, args) {
       //   )
 
       const hasJSX = isJSXNode(n.right);
-
-      // For alignment expression statements with trailing comments like:
-      //
-      // foo +
-      //   bar + // comment
-      //   baz;
-      const hasTrailingCommentInBinaryish = (node) => {
-        if (isBinaryish(node) && !node.comments) {
-          return hasTrailingCommentInBinaryish(node.left);
-        }
-        return hasTrailingComment(node);
-      };
-      if (
-        parent.type === "ExpressionStatement" &&
-        hasTrailingCommentInBinaryish(n)
-      ) {
-        const [{ parts: headParts }, ...tail] = parts;
-        parts = [...headParts, ...tail];
-      }
 
       const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
 
@@ -4894,6 +4875,7 @@ function printBinaryishExpressions(
 ) {
   let parts = [];
   const node = path.getValue();
+  const parent = path.getParentNode();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
   if (isBinaryish(node)) {
@@ -4963,7 +4945,6 @@ function printBinaryishExpressions(
 
     // If there's only a single binary expression, we want to create a group
     // in order to avoid having a small right part like -1 be on its own line.
-    const parent = path.getParentNode();
     const shouldGroup =
       !(isInsideParenthesis && node.type === "LogicalExpression") &&
       parent.type !== node.type &&
@@ -4981,6 +4962,25 @@ function printBinaryishExpressions(
   } else {
     // Our stopping case. Simply print the node normally.
     parts.push(path.call(print));
+  }
+
+  // For alignment expression statements with trailing comments like:
+  //
+  // foo +
+  //   bar + // comment
+  //   baz;
+  const hasTrailingCommentInBinaryish = (node) => {
+    if (isBinaryish(node) && !node.comments) {
+      return hasTrailingCommentInBinaryish(node.left);
+    }
+    return hasTrailingComment(node);
+  };
+  if (
+    parent.type === "ExpressionStatement" &&
+    hasTrailingCommentInBinaryish(node)
+  ) {
+    const [{ parts: headParts }, ...tail] = parts;
+    parts = [...headParts, ...tail];
   }
 
   return parts;
