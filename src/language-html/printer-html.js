@@ -64,41 +64,42 @@ function concat(parts) {
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
-  if (
-    isVueNonHtmlBlock(node, options) &&
-    !isScriptLikeTag(node) &&
-    node.type !== "interpolation"
-  ) {
-    const content = getNodeContent(node, options);
-
-    const parser = inferScriptParser(node, options);
-    let printed;
-
-    if (parser) {
-      try {
-        const doc = textToDoc(content, { parser });
-        if (doc) {
-          printed = concat([
-            hardline,
-            stripTrailingHardline(doc, true),
-            hardline,
-          ]);
-        }
-      } catch (_) {
-        // Do nothing
-      }
-    }
-
-    return concat([
-      printOpeningTagPrefix(node, options),
-      group(printOpeningTag(path, options, print)),
-      printed || replaceEndOfLineWith(content, literalline),
-      printClosingTag(node, options),
-      printClosingTagSuffix(node, options),
-    ]);
-  }
 
   switch (node.type) {
+    case "element": {
+      if (isScriptLikeTag(node) || node.type === "interpolation") {
+        // Fall to "text"
+        return;
+      }
+
+      if (isVueNonHtmlBlock(node, options)) {
+        const parser = inferScriptParser(node, options);
+        if (!parser) {
+          return;
+        }
+
+        let doc;
+        try {
+          doc = textToDoc(getNodeContent(node, options), { parser });
+        } catch (_) {
+          return;
+        }
+
+        // `textToDoc` don't throw on `production` mode;
+        if (!doc) {
+          return;
+        }
+
+        return concat([
+          printOpeningTagPrefix(node, options),
+          group(printOpeningTag(path, options, print)),
+          concat([hardline, stripTrailingHardline(doc, true), hardline]),
+          printClosingTag(node, options),
+          printClosingTagSuffix(node, options),
+        ]);
+      }
+      break;
+    }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent);
