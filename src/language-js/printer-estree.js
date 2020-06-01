@@ -548,7 +548,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "SwitchStatement" ||
           parent.type === "DoWhileStatement");
 
-      const parts = printBinaryishExpressions(
+      let parts = printBinaryishExpressions(
         path,
         print,
         options,
@@ -648,6 +648,19 @@ function printPathNoParens(path, options, print, args) {
       //   )
 
       const hasJSX = isJSXNode(n.right);
+
+      const hasTrailingCommentInBinaryish = (node) => {
+        if (isBinaryish(node) && !node.comments) {
+          return hasTrailingCommentInBinaryish(node.left);
+        } else {
+          return hasTrailingComment(node);
+        }
+      };
+      if (hasTrailingCommentInBinaryish(n) && parent.type === "ExpressionStatement") {
+        const [{ parts: headParts }, ...tail] = parts;
+        parts = [...headParts, ...tail];
+      }
+
       const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
 
       const groupId = Symbol("logicalChain-" + ++uid);
