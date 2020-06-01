@@ -718,15 +718,15 @@ function getMaxContinuousCount(str, target) {
 
 function getMinNotPresentContinuousCount(str, target) {
   let max = 0;
-  const countPresent = new Map();
+  const countPresent = new Set();
 
   for (const count of getContinuousCount(str, target)) {
     max = Math.max(max, count);
-    countPresent.set(count, true);
+    countPresent.add(count);
   }
 
   for (let count = 1; count < max; count++) {
-    if (!countPresent.get(count)) {
+    if (!countPresent.has(count)) {
       return count;
     }
   }
