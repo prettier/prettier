@@ -648,7 +648,6 @@ function printPathNoParens(path, options, print, args) {
       //   )
 
       const hasJSX = isJSXNode(n.right);
-
       const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
 
       const groupId = Symbol("logicalChain-" + ++uid);
