@@ -204,17 +204,19 @@ function embed(path, print, textToDoc, options) {
       }
       break;
     }
-    case "yaml":
-      return markAsRoot(
-        concat([
-          "---",
-          hardline,
-          node.value.trim().length === 0
-            ? ""
-            : textToDoc(node.value, { parser: "yaml" }),
-          "---",
-        ])
-      );
+    case "front-matter":
+      if (node.lang === "yaml") {
+        return markAsRoot(
+          concat([
+            "---",
+            hardline,
+            node.value.trim().length === 0
+              ? ""
+              : textToDoc(node.value, { parser: "yaml" }),
+            "---",
+          ])
+        );
+      }
   }
 }
 
@@ -234,6 +236,8 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
+    case "front-matter":
+      return concat(replaceEndOfLineWith(node.raw, literalline));
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);

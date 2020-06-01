@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`custom-block-lang.vue - {"plugins":[{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]} format 1`] = `
+exports[`custom-block-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-plugins: [{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -21,10 +20,9 @@ WORLD!
 ================================================================================
 `;
 
-exports[`script-lang.vue - {"plugins":[{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]} format 1`] = `
+exports[`script-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-plugins: [{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -42,10 +40,9 @@ world!
 ================================================================================
 `;
 
-exports[`style-lang.vue - {"plugins":[{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]} format 1`] = `
+exports[`style-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-plugins: [{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -63,10 +60,9 @@ world!
 ================================================================================
 `;
 
-exports[`template-lang.vue - {"plugins":[{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]} format 1`] = `
+exports[`template-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
-plugins: [{"languages":[{"name":"uppercase-rocks","parsers":["uppercase-rocks"]}],"parsers":{"uppercase-rocks":{"astFormat":"uppercase-rocks"}},"printers":{"uppercase-rocks":{}}}]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

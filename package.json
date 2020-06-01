@@ -21,11 +21,11 @@
   ],
   "dependencies": {
     "@angular/compiler": "9.1.9",
-    "@babel/code-frame": "7.8.3",
-    "@babel/parser": "7.9.6",
+    "@babel/code-frame": "7.10.1",
+    "@babel/parser": "7.10.1",
     "@glimmer/syntax": "0.53.0",
     "@iarna/toml": "2.2.5",
-    "@typescript-eslint/typescript-estree": "2.34.0",
+    "@typescript-eslint/typescript-estree": "3.0.2",
     "angular-estree-parser": "2.0.3",
     "angular-html-parser": "1.7.0",
     "camelcase": "6.0.0",
@@ -82,8 +82,8 @@
     "yaml-unist-parser": "1.2.1"
   },
   "devDependencies": {
-    "@babel/core": "7.9.6",
-    "@babel/preset-env": "7.9.6",
+    "@babel/core": "7.10.1",
+    "@babel/preset-env": "7.10.1",
     "@rollup/plugin-alias": "3.1.0",
     "@rollup/plugin-babel": "5.0.2",
     "@rollup/plugin-commonjs": "12.0.0",
@@ -102,7 +102,7 @@
     "eslint-plugin-import": "2.20.2",
     "eslint-plugin-prettier": "3.1.3",
     "eslint-plugin-react": "7.20.0",
-    "eslint-plugin-unicorn": "20.0.0",
+    "eslint-plugin-unicorn": "20.1.0",
     "execa": "4.0.2",
     "jest": "26.0.1",
     "jest-snapshot-serializer-ansi": "1.0.0",
@@ -110,7 +110,7 @@
     "jest-watch-typeahead": "0.6.0",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
-    "rollup": "2.10.9",
+    "rollup": "2.11.2",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-terser": "6.1.0",
     "shelljs": "0.8.4",
@@ -118,7 +118,7 @@
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.13",
     "tempy": "0.5.0",
-    "terser-webpack-plugin": "3.0.1",
+    "terser-webpack-plugin": "3.0.2",
     "webpack": "4.43.0"
   },
   "scripts": {

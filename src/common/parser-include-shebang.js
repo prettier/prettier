@@ -1,15 +1,18 @@
 "use strict";
 
+const { getShebang } = require("./util");
+
 function includeShebang(text, ast) {
-  if (!text.startsWith("#!")) {
+  const shebang = getShebang(text);
+
+  if (!shebang) {
     return;
   }
+  const index = shebang.length;
 
-  const index = text.indexOf("\n");
-  const shebang = text.slice(2, index);
   const comment = {
     type: "Line",
-    value: shebang,
+    value: shebang.slice(2),
     range: [0, index],
     loc: {
       start: {

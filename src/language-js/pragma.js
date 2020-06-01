@@ -1,18 +1,7 @@
 "use strict";
 
 const docblock = require("jest-docblock");
-
-// Logic from `/src/common/parser-include-shebang.js`
-function getShebang(text) {
-  if (!text.startsWith("#!")) {
-    return "";
-  }
-  const index = text.indexOf("\n");
-  if (index === -1) {
-    return "";
-  }
-  return text.slice(0, index);
-}
+const { getShebang } = require("../common/util");
 
 function hasPragma(text) {
   const shebang = getShebang(text);

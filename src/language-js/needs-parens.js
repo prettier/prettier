@@ -475,11 +475,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        // TypeScript workaround for https://github.com/JamesHenry/typescript-estree/issues/2
-        // See corresponding workaround in printer.js case: "Literal"
-        ((options.parser !== "typescript" && !parent.directive) ||
-          (options.parser === "typescript" &&
-            options.originalText.charAt(options.locStart(node) - 1) === "("))
+        !parent.directive
       ) {
         // To avoid becoming a directive
         const grandParent = path.getParentNode(1);
@@ -629,15 +625,20 @@ function needsParens(path, options) {
       }
 
     case "OptionalMemberExpression":
-    case "OptionalCallExpression":
+    case "OptionalCallExpression": {
+      const parentParent = path.getParentNode(1);
       if (
         (parent.type === "MemberExpression" && name === "object") ||
         ((parent.type === "CallExpression" ||
           parent.type === "NewExpression") &&
-          name === "callee")
+          name === "callee") ||
+        (parent.type === "TSNonNullExpression" &&
+          parentParent.type === "MemberExpression" &&
+          parentParent.object === parent)
       ) {
         return true;
       }
+    }
     // fallthrough
     case "CallExpression":
     case "MemberExpression":
@@ -704,6 +705,9 @@ function needsParens(path, options) {
     case "JSXElement":
       return (
         name === "callee" ||
+        (parent.type === "BinaryExpression" &&
+          parent.operator === "<" &&
+          name === "left") ||
         (parent.type !== "ArrayExpression" &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&

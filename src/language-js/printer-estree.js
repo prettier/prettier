@@ -93,6 +93,7 @@ const {
   printMemberLookup,
   printBindExpressionCallee,
 } = require("./print/misc");
+const { printModuleSource, printModuleSpecifiers } = require("./print/module");
 
 const needsQuoteProps = new WeakMap();
 
@@ -487,7 +488,7 @@ function printPathNoParens(path, options, print, args) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement":
-      // Detect Flow-parsed directives
+      // Detect Flow and TypeScript directives
       if (n.directive) {
         return concat([nodeStr(n.expression, options, true), semi]);
       }
@@ -973,91 +974,39 @@ function printPathNoParens(path, options, print, args) {
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);
+    case "DeclareExportDeclaration":
+      return concat(["declare ", printExportDeclaration(path, options, print)]);
     case "ExportAllDeclaration":
-      parts.push("export ");
+      parts.push("export");
 
       if (n.exportKind === "type") {
-        parts.push("type ");
+        parts.push(" type");
       }
 
-      parts.push("* ");
+      parts.push(" *");
 
       if (n.exported) {
-        parts.push("as ", path.call(print, "exported"), " ");
+        parts.push(" as ", path.call(print, "exported"));
       }
 
-      parts.push("from ", path.call(print, "source"), semi);
+      parts.push(printModuleSource(path, options, print), semi);
 
       return concat(parts);
 
     case "ExportNamespaceSpecifier":
+      return concat(["* as ", path.call(print, "exported")]);
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
     case "ImportDeclaration": {
-      parts.push("import ");
+      parts.push("import");
 
       if (n.importKind && n.importKind !== "value") {
-        parts.push(n.importKind + " ");
+        parts.push(" ", n.importKind);
       }
 
-      const standalones = [];
-      const grouped = [];
       if (n.specifiers && n.specifiers.length > 0) {
-        path.each((specifierPath) => {
-          const value = specifierPath.getValue();
-          if (
-            value.type === "ImportDefaultSpecifier" ||
-            value.type === "ImportNamespaceSpecifier"
-          ) {
-            standalones.push(print(specifierPath));
-          } else {
-            grouped.push(print(specifierPath));
-          }
-        }, "specifiers");
-
-        if (standalones.length > 0) {
-          parts.push(join(", ", standalones));
-        }
-
-        if (standalones.length > 0 && grouped.length > 0) {
-          parts.push(", ");
-        }
-
-        if (
-          grouped.length === 1 &&
-          standalones.length === 0 &&
-          n.specifiers &&
-          !n.specifiers.some((node) => node.comments)
-        ) {
-          parts.push(
-            concat([
-              "{",
-              options.bracketSpacing ? " " : "",
-              concat(grouped),
-              options.bracketSpacing ? " " : "",
-              "}",
-            ])
-          );
-        } else if (grouped.length >= 1) {
-          parts.push(
-            group(
-              concat([
-                "{",
-                indent(
-                  concat([
-                    options.bracketSpacing ? line : softline,
-                    join(concat([",", line]), grouped),
-                  ])
-                ),
-                ifBreak(shouldPrintComma(options) ? "," : ""),
-                options.bracketSpacing ? line : softline,
-                "}",
-              ])
-            )
-          );
-        }
-
-        parts.push(" from ");
+        parts.push(printModuleSpecifiers(path, options, print));
+        parts.push(printModuleSource(path, options, print));
       } else if (
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
@@ -1068,10 +1017,12 @@ function printPathNoParens(path, options, print, args) {
           )
         )
       ) {
-        parts.push("{} from ");
+        parts.push(" {}", printModuleSource(path, options, print));
+      } else {
+        parts.push(" ", path.call(print, "source"));
       }
 
-      parts.push(path.call(print, "source"), semi);
+      parts.push(semi);
 
       return concat(parts);
     }
@@ -1613,13 +1564,17 @@ function printPathNoParens(path, options, print, args) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
     case "BigIntLiteral":
-      // babel: n.extra.raw, typescript: n.raw, flow: n.bigint
-      return (n.bigint || (n.extra ? n.extra.raw : n.raw)).toLowerCase();
+      // babel: n.extra.raw, flow: n.bigint
+      return (n.bigint || n.extra.raw).toLowerCase();
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
-    case "Literal": {
+    case "Literal":
       if (n.regex) {
         return printRegex(n.regex);
+      }
+      // typescript
+      if (n.bigint) {
+        return n.raw.toLowerCase();
       }
       if (typeof n.value === "number") {
         return printNumber(n.raw);
@@ -1627,18 +1582,7 @@ function printPathNoParens(path, options, print, args) {
       if (typeof n.value !== "string") {
         return "" + n.value;
       }
-      // TypeScript workaround for https://github.com/JamesHenry/typescript-estree/issues/2
-      // See corresponding workaround in needs-parens.js
-      const grandParent = path.getParentNode(1);
-      const isTypeScriptDirective =
-        options.parser === "typescript" &&
-        typeof n.value === "string" &&
-        grandParent &&
-        (grandParent.type === "Program" ||
-          grandParent.type === "BlockStatement");
-
-      return nodeStr(n, options, isTypeScriptDirective);
-    }
+      return nodeStr(n, options);
     case "Directive":
       return path.call(print, "value"); // Babel 6
     case "DirectiveLiteral":
@@ -2580,9 +2524,10 @@ function printPathNoParens(path, options, print, args) {
     case "DeclareVariable":
       return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
     case "DeclareExportAllDeclaration":
-      return concat(["declare export * from ", path.call(print, "source")]);
-    case "DeclareExportDeclaration":
-      return concat(["declare ", printExportDeclaration(path, options, print)]);
+      return concat([
+        "declare export *",
+        printModuleSource(path, options, print),
+      ]);
     case "DeclareOpaqueType":
     case "OpaqueType": {
       parts.push(
@@ -4237,77 +4182,9 @@ function printExportDeclaration(path, options, print) {
       parts.push(semi);
     }
   } else {
-    if (decl.specifiers && decl.specifiers.length > 0) {
-      const specifiers = [];
-      const defaultSpecifiers = [];
-      const namespaceSpecifiers = [];
-      path.each((specifierPath) => {
-        const specifierType = path.getValue().type;
-        if (specifierType === "ExportSpecifier") {
-          specifiers.push(print(specifierPath));
-        } else if (specifierType === "ExportDefaultSpecifier") {
-          defaultSpecifiers.push(print(specifierPath));
-        } else if (specifierType === "ExportNamespaceSpecifier") {
-          namespaceSpecifiers.push(concat(["* as ", print(specifierPath)]));
-        }
-      }, "specifiers");
-
-      const isNamespaceFollowed =
-        namespaceSpecifiers.length !== 0 && specifiers.length !== 0;
-
-      const isDefaultFollowed =
-        defaultSpecifiers.length !== 0 &&
-        (namespaceSpecifiers.length !== 0 || specifiers.length !== 0);
-
-      const canBreak =
-        specifiers.length > 1 ||
-        defaultSpecifiers.length > 0 ||
-        (decl.specifiers && decl.specifiers.some((node) => node.comments));
-
-      let printed = "";
-      if (specifiers.length !== 0) {
-        if (canBreak) {
-          printed = group(
-            concat([
-              "{",
-              indent(
-                concat([
-                  options.bracketSpacing ? line : softline,
-                  join(concat([",", line]), specifiers),
-                ])
-              ),
-              ifBreak(shouldPrintComma(options) ? "," : ""),
-              options.bracketSpacing ? line : softline,
-              "}",
-            ])
-          );
-        } else {
-          printed = concat([
-            "{",
-            options.bracketSpacing ? " " : "",
-            concat(specifiers),
-            options.bracketSpacing ? " " : "",
-            "}",
-          ]);
-        }
-      }
-
-      parts.push(
-        decl.exportKind === "type" ? "type " : "",
-        concat(defaultSpecifiers),
-        concat([isDefaultFollowed ? ", " : ""]),
-        concat(namespaceSpecifiers),
-        concat([isNamespaceFollowed ? ", " : ""]),
-        printed
-      );
-    } else {
-      parts.push("{}");
-    }
-
-    if (decl.source) {
-      parts.push(" from ", path.call(print, "source"));
-    }
-
+    parts.push(decl.exportKind === "type" ? "type " : "");
+    parts.push(printModuleSpecifiers(path, options, print));
+    parts.push(printModuleSource(path, options, print));
     parts.push(semi);
   }
 
