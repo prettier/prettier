@@ -4,6 +4,12 @@ a = (
   + (minVerticalFraction * yRange)
 ) - offset;
 
+a +
+ a +
+ a + // comment
+ a +
+ a;
+
 a &&
   longLongLongLongLongLongLongLongLong &&
   longLongLongLongLongLongLongLongLong &&  // comment
