@@ -219,6 +219,37 @@ function stripTrailingHardline(doc, withInnerParts = false) {
   return doc;
 }
 
+function normalizeParts(parts) {
+  const newParts = [];
+
+  const restParts = parts.slice();
+  while (restParts.length !== 0) {
+    const part = restParts.shift();
+
+    if (!part) {
+      continue;
+    }
+
+    if (part.type === "concat") {
+      restParts.unshift(...part.parts);
+      continue;
+    }
+
+    if (
+      newParts.length !== 0 &&
+      typeof newParts[newParts.length - 1] === "string" &&
+      typeof part === "string"
+    ) {
+      newParts.push(newParts.pop() + part);
+      continue;
+    }
+
+    newParts.push(part);
+  }
+
+  return newParts;
+}
+
 module.exports = {
   isEmpty,
   willBreak,
@@ -229,4 +260,5 @@ module.exports = {
   propagateBreaks,
   removeLines,
   stripTrailingHardline,
+  normalizeParts,
 };

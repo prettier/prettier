@@ -115,7 +115,7 @@ const {
     addAlignmentToDoc,
     dedent,
   },
-  utils: { willBreak, isLineNext, isEmpty, removeLines },
+  utils: { willBreak, isLineNext, isEmpty, removeLines, normalizeParts },
   printer: { printDocToString },
 } = require("../document");
 
@@ -4956,13 +4956,7 @@ function printBinaryishExpressions(
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts = comments.printComments(
-        path,
-        () => parts,
-        options,
-        false, // needsSemi
-        true // shouldReturnParts
-      );
+      parts = normalizeParts(comments.printComments(path, () => concat(parts), options).parts);
     }
   } else {
     // Our stopping case. Simply print the node normally.

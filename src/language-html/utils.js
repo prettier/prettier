@@ -603,37 +603,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function normalizeParts(parts) {
-  const newParts = [];
-
-  const restParts = parts.slice();
-  while (restParts.length !== 0) {
-    const part = restParts.shift();
-
-    if (!part) {
-      continue;
-    }
-
-    if (part.type === "concat") {
-      restParts.unshift(...part.parts);
-      continue;
-    }
-
-    if (
-      newParts.length !== 0 &&
-      typeof newParts[newParts.length - 1] === "string" &&
-      typeof part === "string"
-    ) {
-      newParts.push(newParts.pop() + part);
-      continue;
-    }
-
-    newParts.push(part);
-  }
-
-  return newParts;
-}
-
 function identity(x) {
   return x;
 }
@@ -705,7 +674,6 @@ module.exports = {
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
   isUnknownNamespace,
-  normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
   shouldNotPrintClosingTag,
