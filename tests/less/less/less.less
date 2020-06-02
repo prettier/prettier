@@ -254,7 +254,10 @@ a:hover {
 // Usage
 body {
   color: #444;
-  background: url("@{images}/white-sand.png");
+  width: 100px;
+  background: url('/foo/@{images}/bar');
+  background: url("@{images}/white-sand.${width}.png");
+  background: url(@images);
 }
 
 
