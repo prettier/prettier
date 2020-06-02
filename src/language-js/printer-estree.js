@@ -4956,30 +4956,17 @@ function printBinaryishExpressions(
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && node.comments) {
-      parts = comments.printComments(path, () => concat(parts), options);
+      parts = comments.printComments(
+        path,
+        () => parts,
+        options,
+        false, // needsSemi
+        true, // shouldReturnParts
+      );
     }
   } else {
     // Our stopping case. Simply print the node normally.
     parts.push(path.call(print));
-  }
-
-  // For alignment expression statements with trailing comments like:
-  //
-  // foo +
-  //   bar + // comment
-  //   baz;
-  const hasTrailingCommentInBinaryish = (node) => {
-    if (isBinaryish(node) && !node.comments) {
-      return hasTrailingCommentInBinaryish(node.left);
-    }
-    return isBinaryish(node) && hasTrailingComment(node);
-  };
-  if (
-    parent.type === "ExpressionStatement" &&
-    hasTrailingCommentInBinaryish(node)
-  ) {
-    const [{ parts: headParts }, ...tail] = parts;
-    parts = [...headParts, ...tail];
   }
 
   return parts;
