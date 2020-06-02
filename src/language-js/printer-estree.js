@@ -4961,7 +4961,7 @@ function printBinaryishExpressions(
         () => parts,
         options,
         false, // needsSemi
-        true, // shouldReturnParts
+        true // shouldReturnParts
       );
     }
   } else {

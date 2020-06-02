@@ -483,7 +483,13 @@ function prependCursorPlaceholder(path, options, printed) {
   return printed;
 }
 
-function printComments(path, print, options, needsSemi, shouldReturnParts = false) {
+function printComments(
+  path,
+  print,
+  options,
+  needsSemi,
+  shouldReturnParts = false
+) {
   const value = path.getValue();
   const printed = print(path);
   const comments = value && value.comments;
@@ -493,7 +499,9 @@ function printComments(path, print, options, needsSemi, shouldReturnParts = fals
   }
 
   const leadingParts = [];
-  const trailingParts = shouldReturnParts ? [...printed] : [needsSemi ? ";" : "", printed];
+  const trailingParts = shouldReturnParts
+    ? [...printed]
+    : [needsSemi ? ";" : "", printed];
 
   path.each((commentPath) => {
     const comment = commentPath.getValue();
@@ -520,11 +528,9 @@ function printComments(path, print, options, needsSemi, shouldReturnParts = fals
   }, "comments");
 
   const parts = leadingParts.concat(trailingParts);
-  return shouldReturnParts ? parts : prependCursorPlaceholder(
-    path,
-    options,
-    concat(parts),
-  );
+  return shouldReturnParts
+    ? parts
+    : prependCursorPlaceholder(path, options, concat(parts));
 }
 
 module.exports = {
