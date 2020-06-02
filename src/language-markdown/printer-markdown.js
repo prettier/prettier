@@ -103,13 +103,20 @@ function genericPrint(path, options, print) {
             ).replace(/_/g, "\\_")
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
+      const isFirstSentence = (node, name, index) =>
+        node.type === "sentence" && index === 0;
+      const isLastChildAutolink = (node, name, index) =>
+        isAutolink(node.children[index - 1], options);
+
       if (
         escapedValue !== node.value &&
-        path.match(
-          undefined,
-          (node, name, index) => node.type === "sentence" && index === 0,
-          (node, name, index) => isAutolink(node.children[index - 1], options)
-        )
+        (path.match(undefined, isFirstSentence, isLastChildAutolink) ||
+          path.match(
+            undefined,
+            isFirstSentence,
+            (node, name, index) => node.type === "emphasis" && index === 0,
+            isLastChildAutolink
+          ))
       ) {
         // backslash is parsed as part of autolinks, so we need to remove it
         escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
