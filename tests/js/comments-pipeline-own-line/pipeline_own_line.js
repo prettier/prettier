@@ -11,3 +11,11 @@ bifornCringerMoshedPerplexSawder(
 ) // comment
 |> kochabCooieGameOnOboleUnweave
 |> glimseGlyphsHazardNoopsTieTie;
+
+bifornCringerMoshedPerplexSawder(
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie
+)
+|> foo // comment
+|> kochabCooieGameOnOboleUnweave
+|> glimseGlyphsHazardNoopsTieTie;

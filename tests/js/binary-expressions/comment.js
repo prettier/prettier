@@ -21,3 +21,7 @@ a ||
   longLongLongLongLongLongLongLongLong ||  // comment
   longLongLongLongLongLongLongLongLong ||
   longLongLongLongLongLongLongLongLong
+
+var a = x(abifornCringerMoshedPerplexSawder
++ kochabCooieGameOnOboleUnweave // f
++ glimseGlyphsHazardNoopsTieTie+bifornCringerMoshedPerplexSawder);

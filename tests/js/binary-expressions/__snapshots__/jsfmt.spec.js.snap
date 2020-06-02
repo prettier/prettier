@@ -234,6 +234,10 @@ a ||
   longLongLongLongLongLongLongLongLong ||
   longLongLongLongLongLongLongLongLong
 
+var a = x(abifornCringerMoshedPerplexSawder
++ kochabCooieGameOnOboleUnweave // f
++ glimseGlyphsHazardNoopsTieTie+bifornCringerMoshedPerplexSawder);
+
 =====================================output=====================================
 a =
   // Comment 1
@@ -258,6 +262,13 @@ a ||
   longLongLongLongLongLongLongLongLong || // comment
   longLongLongLongLongLongLongLongLong ||
   longLongLongLongLongLongLongLongLong;
+
+var a = x(
+  abifornCringerMoshedPerplexSawder +
+    kochabCooieGameOnOboleUnweave + // f
+    glimseGlyphsHazardNoopsTieTie +
+    bifornCringerMoshedPerplexSawder
+);
 
 ================================================================================
 `;

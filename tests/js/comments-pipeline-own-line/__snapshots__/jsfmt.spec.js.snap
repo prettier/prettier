@@ -20,6 +20,14 @@ bifornCringerMoshedPerplexSawder(
 |> kochabCooieGameOnOboleUnweave
 |> glimseGlyphsHazardNoopsTieTie;
 
+bifornCringerMoshedPerplexSawder(
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie
+)
+|> foo // comment
+|> kochabCooieGameOnOboleUnweave
+|> glimseGlyphsHazardNoopsTieTie;
+
 =====================================output=====================================
 function pipeline() {
   0 |>
@@ -32,6 +40,14 @@ bifornCringerMoshedPerplexSawder(
   glimseGlyphsHazardNoopsTieTie,
   averredBathersBoxroomBuggyNurl
 )  // comment
+  |> kochabCooieGameOnOboleUnweave
+  |> glimseGlyphsHazardNoopsTieTie;
+
+bifornCringerMoshedPerplexSawder(
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie
+)
+  |> foo  // comment
   |> kochabCooieGameOnOboleUnweave
   |> glimseGlyphsHazardNoopsTieTie;
 
