@@ -1554,22 +1554,10 @@ function printPathNoParens(path, options, print, args) {
         const needsForcedTrailingComma =
           canHaveTrailingComma && lastElem === null;
 
-        const shouldBreak =
+        let shouldBreak =
           n.elements.length > 1 &&
           n.elements.every((element, i, elements) => {
             const elementType = element && element.type;
-
-            if (n.type === "ArrayExpression") {
-              let i = 0;
-              let node = path.getNode(i);
-              while (node) {
-                const parent = path.getParentNode(i++);
-                if (parent && isJestEachTemplateLiteral(node, parent)) {
-                  return false;
-                }
-                node = parent;
-              }
-            }
 
             if (
               elementType !== "ArrayExpression" &&
@@ -1588,6 +1576,18 @@ function printPathNoParens(path, options, print, args) {
 
             return element[itemsKey] && element[itemsKey].length > 1;
           });
+
+        if (n.type === "ArrayExpression") {
+          let i = 0;
+          let node = path.getNode(i);
+          while (node && shouldBreak) {
+            const parent = path.getParentNode(i++);
+            if (parent && isJestEachTemplateLiteral(node, parent)) {
+              shouldBreak = false;
+            }
+            node = parent;
+          }
+        }
 
         parts.push(
           group(
