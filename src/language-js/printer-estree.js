@@ -1159,9 +1159,12 @@ function printPathNoParens(path, options, print, args) {
         printCallArguments(path, options, print),
       ]);
 
-      // We group here when the callee is itself a call expression.
-      // See `isLongCurriedCallExpression` for more info.
-      if (isCallOrOptionalCallExpression(n.callee)) {
+      if (
+        // We group here when the callee is itself a call expression.
+        // See `isLongCurriedCallExpression` for more info.
+        isCallOrOptionalCallExpression(n.callee) ||
+        isBinaryish(path.getParentNode())
+      ) {
         return group(contents);
       }
 
