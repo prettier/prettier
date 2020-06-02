@@ -4972,7 +4972,7 @@ function printBinaryishExpressions(
     if (isBinaryish(node) && !node.comments) {
       return hasTrailingCommentInBinaryish(node.left);
     }
-    return hasTrailingComment(node);
+    return isBinaryish(node) && hasTrailingComment(node);
   };
   if (
     parent.type === "ExpressionStatement" &&

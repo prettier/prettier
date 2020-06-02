@@ -3,3 +3,11 @@ function pipeline() {
 	// Comment
 	|> x
 }
+
+bifornCringerMoshedPerplexSawder(
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie,
+  averredBathersBoxroomBuggyNurl
+) // comment
+|> kochabCooieGameOnOboleUnweave
+|> glimseGlyphsHazardNoopsTieTie;
