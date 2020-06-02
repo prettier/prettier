@@ -20,34 +20,36 @@ const urls = [
   "http://www.example.com:80/_a_/*",
 ];
 
+const wrappers = [
+  (url) => url,
+
+  (url) => `_${url}_`,
+  (url) => `*${url}*`,
+  (url) => `_${url}*`,
+  (url) => `*${url}_`,
+
+  (url) => `_ ${url}_`,
+  (url) => `* ${url}*`,
+  (url) => `_ ${url}*`,
+  (url) => `* ${url}_`,
+
+  (url) => `_${url} _`,
+  (url) => `*${url} *`,
+  (url) => `_${url} *`,
+  (url) => `*${url} _`,
+
+  (url) => `_ ${url} _`,
+  (url) => `* ${url} *`,
+  (url) => `_ ${url} *`,
+  (url) => `* ${url} _`,
+];
+
+const cases = flat(urls.map((url) => wrappers.map((fn) => fn(url))));
+
 run_spec(
   {
     dirname: __dirname,
-    snippets: flat(
-      urls.map((url) => [
-        url,
-
-        `_${url}_`,
-        `*${url}*`,
-        `_${url}*`,
-        `*${url}_`,
-
-        `_ ${url}_`,
-        `* ${url}*`,
-        `_ ${url}*`,
-        `* ${url}_`,
-
-        `_${url} _`,
-        `*${url} *`,
-        `_${url} *`,
-        `*${url} _`,
-
-        `_ ${url} _`,
-        `* ${url} *`,
-        `_ ${url} *`,
-        `* ${url} _`,
-      ])
-    ).map((code) => ({ code, name: code })),
+    snippets: cases.map((code) => ({ code, name: code })),
   },
   ["markdown"]
 );
