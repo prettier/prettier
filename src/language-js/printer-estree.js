@@ -1022,11 +1022,16 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ", path.call(print, "source"));
       }
 
+      if (Array.isArray(n.attributes) && n.attributes.length !== 0) {
+        parts.push(" with ", concat(path.map(print, "attributes")));
+      }
+
       parts.push(semi);
 
       return concat(parts);
     }
-
+    case "ImportAttribute":
+      return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
     case "Import":
       return "import";
     case "TSModuleBlock":
