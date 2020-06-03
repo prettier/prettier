@@ -1273,7 +1273,7 @@ value
 value
   |> await #
   |> doubleSay(#, ", ")
-  |> capitalize  // This is a function call.
+  |> capitalize // This is a function call.
   |> # + "!"
   |> new User.Message(#)
   |> await #
