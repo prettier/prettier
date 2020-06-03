@@ -67,6 +67,15 @@ printWidth: 80
   -fb-sprite: url(fbglyph:cross-outline, fig-white);
 }
 
+.number {
+  background-image: url(http://123.com);
+  background: url(path/to/123.jpg);
+  background: url(#123.foo);
+  background: no-repeat center/80% url(http://123.com);
+  background: no-repeat center/80% url(path/to/123.jpg);
+  background: no-repeat center/80% url(#123.foo);
+}
+
 =====================================output=====================================
 .stringContentIsNotModifiedEvenIfInvalid {
   background: url("@images");
@@ -106,6 +115,15 @@ printWidth: 80
 .invalidUnquotedUrlsButWeParseThemAnyway {
   background: url(--var(foo-bar, #dadce0));
   -fb-sprite: url(fbglyph:cross-outline, fig-white);
+}
+
+.number {
+  background-image: url(http://123.com);
+  background: url(path/to/123.jpg);
+  background: url(#123.foo);
+  background: no-repeat center/80% url(http://123.com);
+  background: no-repeat center/80% url(path/to/123.jpg);
+  background: no-repeat center/80% url(#123.foo);
 }
 
 ================================================================================
