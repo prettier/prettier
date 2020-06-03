@@ -32,6 +32,15 @@ $font-family-rich:
   // emoji
   'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;
 
+// #7109
+.test {
+    background:
+        /////// foo
+        // bar
+
+        radial-gradient(circle farthest-corner at 5% 10%, #000000, transparent 50%);
+}
+
 // TODO: make these pretty
 selector {
 prop: 
