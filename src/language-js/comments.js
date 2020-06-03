@@ -121,7 +121,14 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
     handleVariableDeclaratorComments(enclosingNode, followingNode, comment) ||
-    handleBinaryExpression(enclosingNode, followingNode, comment)
+    handleBinaryExpression(enclosingNode, followingNode, comment) ||
+    handleImportDeclarationComments(
+      text,
+      enclosingNode,
+      precedingNode,
+      comment,
+      options
+    )
   );
 }
 
@@ -175,6 +182,13 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       text,
       enclosingNode,
       followingNode,
+      comment,
+      options
+    ) ||
+    handleImportDeclarationComments(
+      text,
+      enclosingNode,
+      precedingNode,
       comment,
       options
     )

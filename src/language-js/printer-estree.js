@@ -6,6 +6,7 @@ const assert = require("assert");
 const comments = require("../main/comments");
 const {
   shouldFlatten,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacter,
   hasNewline,
   hasNewlineInRange,
@@ -1008,31 +1009,110 @@ function printPathNoParens(path, options, print, args) {
       if (n.specifiers && n.specifiers.length > 0) {
         parts.push(printModuleSpecifiers(path, options, print));
         parts.push(printModuleSource(path, options, print));
-      } else if (
-        (n.importKind && n.importKind === "type") ||
-        // import {} from 'x'
-        /{\s*}/.test(
-          stripComments(
-            options.originalText.slice(
-              options.locStart(n),
-              options.locStart(n.source)
-            )
-          )
-        )
-      ) {
-        const dangling = comments.printDanglingComments(
-          path,
-          options,
-          /* sameLine */ false
-        );
-        parts.push(" {");
-        const printedComments = dangling ? concat([dangling, softline]) : "";
-        parts.push(printedComments);
-        parts.push("}");
-        parts.push(printModuleSource(path, options, print));
       } else {
-        parts.push(" ", path.call(print, "source"));
+        const characterIndexAfterImport = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          options.originalText,
+          options.locStart(n) + "import".length
+        );
+        const openBrace = options.originalText[characterIndexAfterImport];
+        const tokenIndexAfterToken = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          options.originalText,
+          characterIndexAfterImport + 1
+        );
+        const token2 = options.originalText[tokenIndexAfterToken];
+        const tokenIndexAfterToken2 = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          options.originalText,
+          tokenIndexAfterToken + 1
+        );
+        const token3 = options.originalText.slice(
+          tokenIndexAfterToken2,
+          tokenIndexAfterToken2 + 4
+        );
+
+        const tokens = {
+          openBrace: [characterIndexAfterImport, characterIndexAfterImport + 1],
+          closeBrace: [tokenIndexAfterToken, tokenIndexAfterToken + 1],
+          from: [tokenIndexAfterToken2, tokenIndexAfterToken2 + 4],
+        };
+        if (openBrace === "{") {
+          const printDanglingCommentsBetween = (start, end) =>
+            comments.printDanglingComments(
+              path,
+              options,
+              /* sameIndent */ true,
+              (comment) => {
+                console.log({
+                  comment,
+                  locStart: options.locStart(comment),
+                  start,
+                  locEnd: options.locEnd(comment),
+                  end,
+                });
+                return (
+                  options.locStart(comment) >= start &&
+                  options.locEnd(comment) <= end
+                );
+              }
+            );
+          const specifiersParts = [
+            " ",
+            printDanglingCommentsBetween(
+              options.locStart(n) + "import".length,
+              characterIndexAfterImport
+            ),
+            " { ",
+            printDanglingCommentsBetween(
+              characterIndexAfterImport + 1,
+              tokenIndexAfterToken
+            ),
+            " } ",
+            printDanglingCommentsBetween(
+              tokenIndexAfterToken + 1,
+              tokenIndexAfterToken2
+            ),
+            " from ",
+            printDanglingCommentsBetween(
+              tokenIndexAfterToken2 + 4,
+              options.locStart(n.source)
+            ),
+            " ",
+            path.call(print, "source"),
+          ];
+          parts.push(...specifiersParts);
+        } else {
+          const comment = comments.printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true
+          );
+          parts.push(" ", comment, " ", path.call(print, "source"));
+        }
       }
+
+      // if (
+      //   (n.importKind && n.importKind === "type") ||
+      //   // import {} from 'x'
+      //   /{\s*}/.test(stripComments())
+      // ) {
+      //   console.log(
+      //     options.originalText.slice(
+      //       options.locStart(n) + 6,
+      //       options.locStart(n.source)
+      //     )
+      //   );
+      //   const dangling = comments.printDanglingComments(
+      //     path,
+      //     options,
+      //     /* sameLine */ false
+      //   );
+      //   parts.push(" {");
+      //   const printedComments = dangling ? concat([dangling, softline]) : "";
+      //   parts.push(printedComments);
+      //   parts.push("}");
+      //   parts.push(printModuleSource(path, options, print));
+      // } else {
+      //   parts.push(" ", path.call(print, "source"));
+      // }
 
       if (Array.isArray(n.attributes) && n.attributes.length !== 0) {
         parts.push(" with ", concat(path.map(print, "attributes")));
