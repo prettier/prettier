@@ -285,13 +285,12 @@ export const Group = styled.div\`
   }
 \`;
 
-const yesFrame = (
-  ...args: Interpolation<ThemedStyledProps<{}, Theme>>[]
-) => css\`
-  \${ChatRoot}[data-frame="yes"] & {
-    \${css({}, ...args)}
-  }
-\`;
+const yesFrame = (...args: Interpolation<ThemedStyledProps<{}, Theme>>[]) =>
+  css\`
+    \${ChatRoot}[data-frame="yes"] & {
+      \${css({}, ...args)}
+    }
+  \`;
 
 ================================================================================
 `;

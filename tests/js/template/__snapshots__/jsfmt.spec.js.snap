@@ -15,11 +15,13 @@ printWidth: 80
 \`;
 
 =====================================output=====================================
-() => a\`
+() =>
+  a\`
 	a
 \`;
 
-() => \`
+() =>
+  \`
 	a
 \`;
 
@@ -46,18 +48,22 @@ new Error(formatErrorMessage\`
 \`);
 
 =====================================output=====================================
-insertRule(\`*, *:before, *:after {
+insertRule(
+  \`*, *:before, *:after {
   box-sizing: inherit;
-}\`);
+}\`
+);
 
 insertRule\`*, *:before, *:after {
   box-sizing: inherit;
 }\`;
 
-new Error(formatErrorMessage\`
+new Error(
+  formatErrorMessage\`
   This a really bad error.
   Which has more than one line.
-\`);
+\`
+);
 
 ================================================================================
 `;
@@ -130,7 +136,8 @@ var o = {
 };
 
 var x = {
-  y: () => Relay.QL\`
+  y: () =>
+    Relay.QL\`
     query {
       \${foo},
       field,
@@ -171,7 +178,8 @@ module.exports = Relay.createContainer(
   // ...
   {
     fragments: {
-      nodes: ({ solution_type, time_frame }) => Relay.QL\`
+      nodes: ({ solution_type, time_frame }) =>
+        Relay.QL\`
         fragment on RelatedNode @relay(plural: true) {
           __typename
           \${OptimalSolutionsSection.getFragment("node", {
@@ -321,11 +329,14 @@ this._pipe.write(
   \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
 );
 
-this._pipe.write(\`
+this._pipe.write(
+  \`
   \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
-\`);
+\`
+);
 
-() => \`
+() =>
+  \`
   a
 \`;
 
@@ -337,7 +348,8 @@ this._pipe.write(\`
 (): {
   someLong: boolean,
   t: boolean,
-} => \`
+} =>
+  \`
   a
 \`;
 
@@ -349,7 +361,8 @@ this._pipe.write(\`
     a
   \`;
 
-(someLong: boolean, t: boolean) => \`
+(someLong: boolean, t: boolean) =>
+  \`
     a
   \`;
 

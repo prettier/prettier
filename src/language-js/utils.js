@@ -775,9 +775,9 @@ function templateLiteralHasNewLines(template) {
 
 function isTemplateOnItsOwnLine(n, text, options) {
   return (
-    ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
-      (n.type === "TaggedTemplateExpression" &&
-        templateLiteralHasNewLines(n.quasi))) &&
+    n.type === "TemplateLiteral" &&
+    templateLiteralHasNewLines(n) &&
+    hasLeadingOwnLineComment(options.originalText, n, options) &&
     !hasNewline(text, options.locStart(n), { backwards: true })
   );
 }
