@@ -66,6 +66,18 @@ module.exports = {
 
   util: sharedUtil,
 
+  // Internal shared
+  __internal: {
+    errors: require("./common/errors"),
+    coreOptions: require("./main/core-options"),
+    createIgnorer: require("./common/create-ignorer"),
+    optionsModule: require("./main/options"),
+    optionsNormalizer: require("./main/options-normalizer"),
+    utils: {
+      arrayify: require("./utils/arrayify"),
+    },
+  },
+
   /* istanbul ignore next */
   __debug: {
     parse: withPlugins(core.parse),

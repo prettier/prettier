@@ -3,6 +3,7 @@
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
+const support = require("../main/support");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
@@ -781,9 +782,12 @@ function addLeadingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function addDanglingComment(node, comment) {
+function addDanglingComment(node, comment, marker) {
   comment.leading = false;
   comment.trailing = false;
+  if (marker) {
+    comment.marker = marker;
+  }
   addCommentHelper(node, comment);
 }
 
@@ -820,6 +824,37 @@ function replaceEndOfLineWith(text, replacement) {
   return parts;
 }
 
+function getParserName(lang, options) {
+  const supportInfo = support.getSupportInfo({ plugins: options.plugins });
+  const language = supportInfo.languages.find(
+    (language) =>
+      language.name.toLowerCase() === lang ||
+      (language.aliases && language.aliases.includes(lang)) ||
+      (language.extensions &&
+        language.extensions.find((ext) => ext === `.${lang}`))
+  );
+  if (language) {
+    return language.parsers[0];
+  }
+
+  return null;
+}
+
+function isFrontMatterNode(node) {
+  return node && node.type === "front-matter";
+}
+
+function getShebang(text) {
+  if (!text.startsWith("#!")) {
+    return "";
+  }
+  const index = text.indexOf("\n");
+  if (index === -1) {
+    return text;
+  }
+  return text.slice(0, index);
+}
+
 module.exports = {
   replaceEndOfLineWith,
   getStringWidth,
@@ -828,6 +863,7 @@ module.exports = {
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
+  getParserName,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -863,4 +899,6 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isWithinParentArrayProperty,
+  isFrontMatterNode,
+  getShebang,
 };

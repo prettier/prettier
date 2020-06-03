@@ -160,13 +160,16 @@ function print(path, options, print) {
         : value;
       return concat([n.name, "=", quotedValue]);
     }
+
     case "ConcatStatement": {
+      const quote = options.singleQuote ? "'" : '"';
       return concat([
-        '"',
-        concat(path.map((partPath) => print(partPath), "parts")),
-        '"',
+        quote,
+        ...path.map((partPath) => print(partPath), "parts"),
+        quote,
       ]);
     }
+
     case "Hash": {
       return concat([join(line, path.map(print, "pairs"))]);
     }

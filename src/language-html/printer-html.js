@@ -20,6 +20,8 @@ const {
   softline,
 } = builders;
 const {
+  htmlTrimPreserveIndentation,
+  splitByHtmlWhitespace,
   countChars,
   countParents,
   dedentString,
@@ -30,6 +32,7 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isVueCustomBlock,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -69,11 +72,25 @@ function embed(path, print, textToDoc, options) {
             parser === "markdown"
               ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
               : node.value;
+          const textToDocOptions = { parser };
+          if (options.parser === "html" && parser === "babel") {
+            let sourceType = "script";
+            const { attrMap } = node.parent;
+            if (
+              attrMap &&
+              (attrMap.type === "module" ||
+                (attrMap.type === "text/babel" &&
+                  attrMap["data-type"] === "module"))
+            ) {
+              sourceType = "module";
+            }
+            textToDocOptions.__babelSourceType = sourceType;
+          }
           return builders.concat([
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(textToDoc(value, { parser })),
+              stripTrailingHardline(textToDoc(value, textToDocOptions)),
               printClosingTagSuffix(node, options),
             ]),
           ]);
@@ -97,6 +114,25 @@ function embed(path, print, textToDoc, options) {
           needsToBorrowPrevClosingTagEndMarker(node.parent.next)
             ? " "
             : line,
+        ]);
+      } else if (isVueCustomBlock(node.parent, options)) {
+        const parser = inferScriptParser(node.parent, options);
+        let printed;
+        if (parser) {
+          try {
+            printed = textToDoc(node.value, { parser });
+          } catch (error) {
+            // Do nothing
+          }
+        }
+        if (printed == null) {
+          printed = node.value;
+        }
+        return concat([
+          parser ? breakParent : "",
+          printOpeningTagPrefix(node),
+          stripTrailingHardline(printed, true),
+          printClosingTagSuffix(node),
         ]);
       }
       break;
@@ -154,23 +190,28 @@ function embed(path, print, textToDoc, options) {
       }
       break;
     }
-    case "yaml":
-      return markAsRoot(
-        concat([
-          "---",
-          hardline,
-          node.value.trim().length === 0
-            ? ""
-            : textToDoc(node.value, { parser: "yaml" }),
-          "---",
-        ])
-      );
+    case "front-matter":
+      if (node.lang === "yaml") {
+        return markAsRoot(
+          concat([
+            "---",
+            hardline,
+            node.value.trim().length === 0
+              ? ""
+              : textToDoc(node.value, { parser: "yaml" }),
+            "---",
+          ])
+        );
+      }
   }
 }
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
+
   switch (node.type) {
+    case "front-matter":
+      return concat(replaceEndOfLineWith(node.raw, literalline));
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -225,7 +266,8 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId,
                         })
-                      : isScriptLikeTag(node) &&
+                      : (isScriptLikeTag(node) ||
+                          isVueCustomBlock(node, options)) &&
                         node.parent.type === "root" &&
                         options.parser === "vue" &&
                         !options.vueIndentScriptAndStyle
@@ -264,7 +306,7 @@ function genericPrint(path, options, print) {
                           node.isWhitespaceSensitive &&
                           node.isIndentationSensitive)) &&
                       new RegExp(
-                        `\\n\\s{${
+                        `\\n[\\t ]{${
                           options.tabWidth *
                           countParents(
                             path,
@@ -775,6 +817,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    */
   return (
     node.prev &&
+    node.prev.type !== "docType" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -920,11 +963,10 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
       : replaceEndOfLineWith(
-          dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
+          dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : // https://infra.spec.whatwg.org/#ascii-whitespace
-      join(line, value.split(/[\t\n\f\r ]+/)).parts;
+    : join(line, splitByHtmlWhitespace(value)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

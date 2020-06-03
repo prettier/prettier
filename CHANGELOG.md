@@ -1,3 +1,44 @@
+# 2.0.5
+
+[diff](https://github.com/prettier/prettier/compare/2.0.4...2.0.5)
+
+#### Less: Fix formatting of `:extend` ([#7984](https://github.com/prettier/prettier/pull/7984) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```less
+// Input
+.class {
+  &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class all);
+}
+
+// Prettier 2.0.4
+.class {
+  &:extend(
+    .some-class .some-other-class .some-very-loooooooooooooong-class all
+  );
+}
+
+// Prettier 2.0.4 (Second format)
+.class {
+  &: extend(
+    .some-class .some-other-class .some-very-loooooooooooooong-class all
+  );
+}
+
+// Prettier 2.0.5
+.class {
+  &:extend(
+    .some-class .some-other-class .some-very-loooooooooooooong-class all
+  );
+}
+```
+
+#### Editor integration: Use [`resolve`](https://www.npmjs.com/package/resolve) if builtin `require.resolve` is overridden ([#8072](https://github.com/prettier/prettier/pull/8072) by [@fisker](https://github.com/fisker))
+
+This fixes issues that the users of Atom and WebStorm faced with 2.0.4.
+
+Prettier now switches to using the `resolve` module for resolving configuration files and plugins if it detects that `require.resolve` isn't Node's builtin function (doesn't support the second argument), which happens in environments like editor extensions. To force the fallback, set the `PRETTIER_FALLBACK_RESOLVE` environment variable to `true`.
+
 # 2.0.4
 
 [diff](https://github.com/prettier/prettier/compare/2.0.3...2.0.4)

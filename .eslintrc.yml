@@ -58,14 +58,18 @@ rules:
     - exceptRange: true
   unicorn/better-regex: error
   unicorn/new-for-builtins: error
+  unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
-  unicorn/prefer-set-has: error
   unicorn/prefer-string-slice: error
 overrides:
   - files:
       - scripts/**/*.js
     rules:
       no-console: off
+  - files:
+      - scripts/build/shims/*.js
+    parserOptions:
+      sourceType: module
   - files:
       - "{tests,tests_config,tests_integration}/**/*.js"
     env:
@@ -76,3 +80,10 @@ overrides:
       strict: off
     globals:
       run_spec: false
+  - files:
+      - src/cli/**/*.js
+    rules:
+      no-restricted-modules:
+        - error
+        - patterns:
+            - ".."

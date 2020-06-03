@@ -212,4 +212,7 @@ function fixWindowsSlashes(pattern) {
   return isWindows ? pattern.replace(/\\/g, "/") : pattern;
 }
 
-module.exports = expandPatterns;
+module.exports = {
+  expandPatterns,
+  fixWindowsSlashes,
+};
