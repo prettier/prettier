@@ -1558,7 +1558,6 @@ function printPathNoParens(path, options, print, args) {
           n.elements.length > 1 &&
           n.elements.every((element, i, elements) => {
             const elementType = element && element.type;
-
             if (
               elementType !== "ArrayExpression" &&
               elementType !== "ObjectExpression"
@@ -1579,7 +1578,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (n.type === "ArrayExpression") {
           let i = 0;
-          let node = path.getNode(i);
+          let node = n;
           while (node && shouldBreak) {
             const parent = path.getParentNode(i++);
             if (parent && isJestEachTemplateLiteral(node, parent)) {
