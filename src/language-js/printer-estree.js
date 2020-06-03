@@ -4877,7 +4877,6 @@ function printBinaryishExpressions(
 ) {
   let parts = [];
   const node = path.getValue();
-  const parent = path.getParentNode();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
   if (isBinaryish(node)) {
@@ -4947,6 +4946,7 @@ function printBinaryishExpressions(
 
     // If there's only a single binary expression, we want to create a group
     // in order to avoid having a small right part like -1 be on its own line.
+    const parent = path.getParentNode();
     const shouldGroup =
       !(isInsideParenthesis && node.type === "LogicalExpression") &&
       parent.type !== node.type &&
