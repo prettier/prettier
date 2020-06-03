@@ -3,7 +3,7 @@
 const {
   cjkPattern,
   kPattern,
-  punctuationPattern
+  punctuationPattern,
 } = require("./constants.evaluate");
 const { getLast } = require("../common/util");
 
@@ -23,13 +23,13 @@ const INLINE_NODE_TYPES = [
   "whitespace",
   "word",
   "break",
-  "inlineMath"
+  "inlineMath",
 ];
 
 const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
   "tableCell",
   "paragraph",
-  "heading"
+  "heading",
 ]);
 
 const kRegex = new RegExp(kPattern);
@@ -52,13 +52,13 @@ function splitText(text, options) {
     ? text
     : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
   )
-    .split(/([ \t\n]+)/)
+    .split(/([\t\n ]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {
         nodes.push({
           type: "whitespace",
-          value: /\n/.test(token) ? "\n" : " "
+          value: /\n/.test(token) ? "\n" : " ",
         });
         return;
       }
@@ -89,7 +89,7 @@ function splitText(text, options) {
                 hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
                 hasTrailingPunctuation: punctuationRegex.test(
                   getLast(innerToken)
-                )
+                ),
               });
             }
             return;
@@ -103,7 +103,7 @@ function splitText(text, options) {
                   value: innerToken,
                   kind: KIND_CJK_PUNCTUATION,
                   hasLeadingPunctuation: true,
-                  hasTrailingPunctuation: true
+                  hasTrailingPunctuation: true,
                 }
               : {
                   type: "word",
@@ -112,7 +112,7 @@ function splitText(text, options) {
                     ? KIND_K_LETTER
                     : KIND_CJ_LETTER,
                   hasLeadingPunctuation: false,
-                  hasTrailingPunctuation: false
+                  hasTrailingPunctuation: false,
                 }
           );
         });
@@ -135,7 +135,7 @@ function splitText(text, options) {
       } else if (
         !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
         // disallow leading/trailing full-width whitespace
-        ![lastNode.value, node.value].some(value => /\u3000/.test(value))
+        ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
       ) {
         nodes.push({ type: "whitespace", value: "" });
       }
@@ -160,6 +160,34 @@ function getOrderedListItemInfo(orderListItem, originalText) {
     .match(/^\s*(\d+)(\.|\))(\s*)/);
 
   return { numberText, marker, leadingSpaces };
+}
+
+function hasGitDiffFriendlyOrderedList(node, options) {
+  if (!node.ordered) {
+    return false;
+  }
+
+  if (node.children.length < 2) {
+    return false;
+  }
+
+  const firstNumber = Number(
+    getOrderedListItemInfo(node.children[0], options.originalText).numberText
+  );
+
+  const secondNumber = Number(
+    getOrderedListItemInfo(node.children[1], options.originalText).numberText
+  );
+
+  if (firstNumber === 0 && node.children.length > 2) {
+    const thirdNumber = Number(
+      getOrderedListItemInfo(node.children[2], options.originalText).numberText
+    );
+
+    return secondNumber === 1 && thirdNumber === 1;
+  }
+
+  return secondNumber === 1;
 }
 
 // workaround for https://github.com/remarkjs/remark/issues/351
@@ -202,21 +230,11 @@ function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
     parentStack = parentStack || [];
 
-    let newNode = handler(node, index, parentStack);
-    if (Array.isArray(newNode)) {
-      return newNode;
-    }
-
-    newNode = Object.assign({}, newNode);
+    const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
-      newNode.children = newNode.children.reduce((nodes, child, index) => {
-        let newNodes = preorder(child, index, [newNode].concat(parentStack));
-        if (!Array.isArray(newNodes)) {
-          newNodes = [newNodes];
-        }
-        nodes.push.apply(nodes, newNodes);
-        return nodes;
-      }, []);
+      newNode.children = newNode.children.map((child, index) => {
+        return preorder(child, index, [newNode].concat(parentStack));
+      });
     }
 
     return newNode;
@@ -229,6 +247,7 @@ module.exports = {
   punctuationPattern,
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
+  hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES
+  INLINE_NODE_WRAPPER_TYPES,
 };

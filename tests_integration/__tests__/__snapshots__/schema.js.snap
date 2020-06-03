@@ -3,31 +3,23 @@
 exports[`schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "allOf": Array [
-    Object {
-      "$ref": "#/definitions/optionsDefinition",
-    },
-    Object {
-      "$ref": "#/definitions/overridesDefinition",
-    },
-  ],
   "definitions": Object {
     "optionsDefinition": Object {
       "properties": Object {
         "arrowParens": Object {
-          "default": "avoid",
+          "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",
           "oneOf": Array [
-            Object {
-              "description": "Omit parens when possible. Example: \`x => x\`",
-              "enum": Array [
-                "avoid",
-              ],
-            },
             Object {
               "description": "Always include parens. Example: \`(x) => x\`",
               "enum": Array [
                 "always",
+              ],
+            },
+            Object {
+              "description": "Omit parens when possible. Example: \`x => x\`",
+              "enum": Array [
+                "avoid",
               ],
             },
           ],
@@ -43,17 +35,28 @@ Object {
 This option cannot be used with --range-start and --range-end.",
           "type": "integer",
         },
-        "endOfLine": Object {
+        "embeddedLanguageFormatting": Object {
           "default": "auto",
-          "description": "Which end of line characters to apply.",
+          "description": "Control how Prettier formats quoted code embedded in the file.",
           "oneOf": Array [
             Object {
-              "description": "Maintain existing
-(mixed values within one file are normalised by looking at what's used after the first line)",
+              "description": "Format embedded code if Prettier can automatically identify it.",
               "enum": Array [
                 "auto",
               ],
             },
+            Object {
+              "description": "Never automatically format embedded code.",
+              "enum": Array [
+                "off",
+              ],
+            },
+          ],
+        },
+        "endOfLine": Object {
+          "default": "lf",
+          "description": "Which end of line characters to apply.",
+          "oneOf": Array [
             Object {
               "description": "Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos",
               "enum": Array [
@@ -70,6 +73,13 @@ This option cannot be used with --range-start and --range-end.",
               "description": "Carriage Return character only (\\\\r), used very rarely",
               "enum": Array [
                 "cr",
+              ],
+            },
+            Object {
+              "description": "Maintain existing
+(mixed values within one file are normalised by looking at what's used after the first line)",
+              "enum": Array [
+                "auto",
               ],
             },
           ],
@@ -138,6 +148,12 @@ This option cannot be used with --range-start and --range-end.",
               "description": "Flow",
               "enum": Array [
                 "babel-flow",
+              ],
+            },
+            Object {
+              "description": "TypeScript",
+              "enum": Array [
+                "babel-ts",
               ],
             },
             Object {
@@ -339,19 +355,19 @@ in order for it to be formatted.",
           "type": "integer",
         },
         "trailingComma": Object {
-          "default": "none",
+          "default": "es5",
           "description": "Print trailing commas wherever possible when multi-line.",
           "oneOf": Array [
-            Object {
-              "description": "No trailing commas.",
-              "enum": Array [
-                "none",
-              ],
-            },
             Object {
               "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
               "enum": Array [
                 "es5",
+              ],
+            },
+            Object {
+              "description": "No trailing commas.",
+              "enum": Array [
+                "none",
               ],
             },
             Object {
@@ -365,6 +381,11 @@ in order for it to be formatted.",
         "useTabs": Object {
           "default": false,
           "description": "Indent with tabs instead of spaces.",
+          "type": "boolean",
+        },
+        "vueIndentScriptAndStyle": Object {
+          "default": false,
+          "description": "Indent script and style tags in Vue files.",
           "type": "boolean",
         },
       },
@@ -422,7 +443,22 @@ in order for it to be formatted.",
       "type": "object",
     },
   },
+  "oneOf": Array [
+    Object {
+      "allOf": Array [
+        Object {
+          "$ref": "#/definitions/optionsDefinition",
+        },
+        Object {
+          "$ref": "#/definitions/overridesDefinition",
+        },
+      ],
+      "type": "object",
+    },
+    Object {
+      "type": "string",
+    },
+  ],
   "title": "Schema for .prettierrc",
-  "type": "object",
 }
 `;

@@ -1,2 +1,7 @@
+extends:
+  - plugin:react/recommended
 rules:
   import/no-extraneous-dependencies: off
+  react/display-name: off
+  react/no-deprecated: off
+  react/prop-types: off

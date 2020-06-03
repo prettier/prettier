@@ -13,7 +13,7 @@ const Cache = require("./cache");
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
-process.on("unhandledRejection", err => {
+process.on("unhandledRejection", (err) => {
   // No need to print it twice.
   if (!loggedErrors.has(err)) {
     console.error(err);
@@ -21,6 +21,7 @@ process.on("unhandledRejection", err => {
   process.exit(1);
 });
 
+const CACHE_VERSION = "v24"; // This need update when updating build scripts
 const CACHED = chalk.bgYellow.black(" CACHED ");
 const OK = chalk.bgGreen.black("  DONE  ");
 const FAIL = chalk.bgRed.black("  FAIL  ");
@@ -29,7 +30,7 @@ function fitTerminal(input) {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - stringWidth(OK) + 1;
   if (input.length < WIDTH) {
-    input += Array(WIDTH - input.length).join(chalk.dim("."));
+    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
 }
@@ -39,11 +40,11 @@ async function createBundle(bundleConfig, cache) {
   process.stdout.write(fitTerminal(output));
 
   return bundler(bundleConfig, cache)
-    .catch(error => {
+    .catch((error) => {
       console.log(FAIL + "\n");
       handleError(error);
     })
-    .then(result => {
+    .then((result) => {
       if (result.cached) {
         console.log(CACHED);
       } else {
@@ -66,7 +67,7 @@ async function cacheFiles() {
     for (const bundleConfig of bundleConfigs) {
       await execa("cp", [
         path.join("dist", bundleConfig.output),
-        path.join(".cache", "files")
+        path.join(".cache", "files"),
       ]);
     }
   } catch (err) {
@@ -77,12 +78,11 @@ async function cacheFiles() {
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
   pkg.bin = "./bin-prettier.js";
-  pkg.engines.node = ">=4";
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {
     prepublishOnly:
-      "node -e \"assert.equal(require('.').version, require('..').version)\""
+      "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
   pkg.files = ["*.js"];
   await util.writeJson("dist/package.json", pkg);
@@ -99,7 +99,7 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", "v18");
+  const bundleCache = new Cache(".cache/", CACHE_VERSION);
   await bundleCache.load();
 
   console.log(chalk.inverse(" Building packages "));
@@ -107,14 +107,14 @@ async function run(params) {
     await createBundle(bundleConfig, bundleCache);
   }
 
-  await bundleCache.save();
   await cacheFiles();
+  await bundleCache.save();
 
   await preparePackage();
 }
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["purge-cache"]
+    boolean: ["purge-cache"],
   })
 );

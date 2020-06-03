@@ -7,14 +7,23 @@ function clean(ast, newObj, parent) {
     "comments",
     "leadingComments",
     "trailingComments",
+    "innerComments",
     "extra",
     "start",
     "end",
     "flags",
-    "errors"
-  ].forEach(name => {
+    "errors",
+  ].forEach((name) => {
     delete newObj[name];
   });
+
+  if (ast.loc && ast.loc.source === null) {
+    delete newObj.loc.source;
+  }
+
+  if (ast.type === "Program") {
+    delete newObj.sourceType;
+  }
 
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();
@@ -48,7 +57,7 @@ function clean(ast, newObj, parent) {
       type: "Identifier",
       name: ast.parameter.name,
       typeAnnotation: newObj.parameter.typeAnnotation,
-      decorators: newObj.decorators
+      decorators: newObj.decorators,
     };
   }
 
@@ -96,22 +105,22 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "JSXElement" &&
     ast.openingElement.name.name === "style" &&
-    ast.openingElement.attributes.some(attr => attr.name.name === "jsx")
+    ast.openingElement.attributes.some((attr) => attr.name.name === "jsx")
   ) {
     const templateLiterals = newObj.children
       .filter(
-        child =>
+        (child) =>
           child.type === "JSXExpressionContainer" &&
           child.expression.type === "TemplateLiteral"
       )
-      .map(container => container.expression);
+      .map((container) => container.expression);
 
     const quasis = templateLiterals.reduce(
       (quasis, templateLiteral) => quasis.concat(templateLiteral.quasis),
       []
     );
 
-    quasis.forEach(q => delete q.value);
+    quasis.forEach((q) => delete q.value);
   }
 
   // CSS template literals in css prop
@@ -121,7 +130,7 @@ function clean(ast, newObj, parent) {
     ast.value.type === "JSXExpressionContainer" &&
     ast.value.expression.type === "TemplateLiteral"
   ) {
-    newObj.value.expression.quasis.forEach(q => delete q.value);
+    newObj.value.expression.quasis.forEach((q) => delete q.value);
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
@@ -150,7 +159,7 @@ function clean(ast, newObj, parent) {
       }
 
       if (templateLiteral) {
-        templateLiteral.quasis.forEach(q => delete q.value);
+        templateLiteral.quasis.forEach((q) => delete q.value);
       }
     });
   }
@@ -168,7 +177,7 @@ function clean(ast, newObj, parent) {
           ast.tag.name === "html")) ||
       ast.tag.type === "CallExpression")
   ) {
-    newObj.quasi.quasis.forEach(quasi => delete quasi.value);
+    newObj.quasi.quasis.forEach((quasi) => delete quasi.value);
   }
   if (ast.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
@@ -179,18 +188,22 @@ function clean(ast, newObj, parent) {
     const hasLanguageComment =
       ast.leadingComments &&
       ast.leadingComments.some(
-        comment =>
+        (comment) =>
           comment.type === "CommentBlock" &&
           ["GraphQL", "HTML"].some(
-            languageName => comment.value === ` ${languageName} `
+            (languageName) => comment.value === ` ${languageName} `
           )
       );
     if (
       hasLanguageComment ||
       (parent.type === "CallExpression" && parent.callee.name === "graphql")
     ) {
-      newObj.quasis.forEach(quasi => delete quasi.value);
+      newObj.quasis.forEach((quasi) => delete quasi.value);
     }
+  }
+
+  if (ast.type === "InterpreterDirective") {
+    newObj.value = newObj.value.trimEnd();
   }
 }
 
