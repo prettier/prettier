@@ -37,8 +37,6 @@ In older IDE versions, select Custom and do the following configuration:
 - **Environment variables**: add `COMPILE_PARTIAL=true` if you want to run Prettier on partials (like `_component.scss`)
 - **Auto-save edited files to trigger the watcher**: Uncheck to reformat on Save only.
 
-## WebStorm 2017.3 or earlier
-
 ## Using Prettier with ESLint
 
 If you are using ESLint with [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier), use the `Fix ESLint Problems` action to reformat the current file – find it using _Find Action_ (`Cmd/Ctrl-Shift-A`) or [add a keyboard shortcut](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) to it in _Preferences | Keymap_ and then use it.
