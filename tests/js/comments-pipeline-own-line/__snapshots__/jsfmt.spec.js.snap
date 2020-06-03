@@ -28,6 +28,23 @@ bifornCringerMoshedPerplexSawder(
 |> kochabCooieGameOnOboleUnweave
 |> glimseGlyphsHazardNoopsTieTie;
 
+bifornCringerMoshedPerplexSawder[
+  askTrovenaBeenaDependsRowans +
+  glimseGlyphsHazardNoopsTieTie +
+  averredBathersBoxroomBuggyNurl
+] // comment
+|> kochabCooieGameOnOboleUnweave
+|> glimseGlyphsHazardNoopsTieTie;
+
+bifornCringerMoshedPerplexSawder[
+  askTrovenaBeenaDependsRowans +
+  glimseGlyphsHazardNoopsTieTie +
+  averredBathersBoxroomBuggyNurl
+]
+|> foo // comment
+|> kochabCooieGameOnOboleUnweave
+|> glimseGlyphsHazardNoopsTieTie;
+
 =====================================output=====================================
 function pipeline() {
   0 |>
@@ -47,6 +64,23 @@ bifornCringerMoshedPerplexSawder(
   askTrovenaBeenaDependsRowans,
   glimseGlyphsHazardNoopsTieTie
 )
+  |> foo  // comment
+  |> kochabCooieGameOnOboleUnweave
+  |> glimseGlyphsHazardNoopsTieTie;
+
+bifornCringerMoshedPerplexSawder[
+  askTrovenaBeenaDependsRowans +
+    glimseGlyphsHazardNoopsTieTie +
+    averredBathersBoxroomBuggyNurl
+]  // comment
+  |> kochabCooieGameOnOboleUnweave
+  |> glimseGlyphsHazardNoopsTieTie;
+
+bifornCringerMoshedPerplexSawder[
+  askTrovenaBeenaDependsRowans +
+    glimseGlyphsHazardNoopsTieTie +
+    averredBathersBoxroomBuggyNurl
+]
   |> foo  // comment
   |> kochabCooieGameOnOboleUnweave
   |> glimseGlyphsHazardNoopsTieTie;
