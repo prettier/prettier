@@ -1159,12 +1159,9 @@ function printPathNoParens(path, options, print, args) {
         printCallArguments(path, options, print),
       ]);
 
-      if (
-        // We group here when the callee is itself a call expression.
-        // See `isLongCurriedCallExpression` for more info.
-        isCallOrOptionalCallExpression(n.callee) ||
-        isBinaryish(path.getParentNode())
-      ) {
+      // We group here when the callee is itself a call expression.
+      // See `isLongCurriedCallExpression` for more info.
+      if (isCallOrOptionalCallExpression(n.callee)) {
         return group(contents);
       }
 
@@ -4905,7 +4902,7 @@ function printBinaryishExpressions(
         )
       );
     } else {
-      parts.push(path.call(print, "left"));
+      parts.push(group(path.call(print, "left")));
     }
 
     const shouldInline = shouldInlineLogicalExpression(node);
