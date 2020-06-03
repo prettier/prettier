@@ -264,8 +264,6 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// input is formatted correctly according to prettier@1.18.2
-
 (() => {
   pipe(
     timelines,
@@ -309,8 +307,6 @@ printWidth: 80
 })();
 
 =====================================output=====================================
-// input is formatted correctly according to prettier@1.18.2
-
 (() => {
   pipe(timelines, everyCommitTimestamps, A.sort(ordDate), A.head);
 

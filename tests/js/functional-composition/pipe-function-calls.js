@@ -1,5 +1,3 @@
-// input is formatted correctly according to prettier@1.18.2
-
 (() => {
   pipe(
     timelines,
