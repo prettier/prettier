@@ -26,7 +26,7 @@ function makeAlign(ind, n, options) {
     : !n
     ? ind
     : n.type === "root"
-    ? Object.assign({}, ind, { root: ind })
+    ? { ...ind, root: ind }
     : typeof n === "string"
     ? generateInd(ind, { type: "stringAlign", n }, options)
     : generateInd(ind, { type: "numberAlign", n }, options);
@@ -70,7 +70,7 @@ function generateInd(ind, newPart, options) {
 
   flushSpaces();
 
-  return Object.assign({}, ind, { value, length, queue });
+  return { ...ind, value, length, queue };
 
   function addTabs(count) {
     value += "\t".repeat(count);
@@ -121,13 +121,13 @@ function trim(out) {
   while (
     out.length > 0 &&
     typeof out[out.length - 1] === "string" &&
-    out[out.length - 1].match(/^[ \t]*$/)
+    out[out.length - 1].match(/^[\t ]*$/)
   ) {
     trimCount += out.pop().length;
   }
 
   if (out.length && typeof out[out.length - 1] === "string") {
-    const trimmed = out[out.length - 1].replace(/[ \t]*$/, "");
+    const trimmed = out[out.length - 1].replace(/[\t ]*$/, "");
     trimCount += out[out.length - 1].length - trimmed.length;
     out[out.length - 1] = trimmed;
   }
@@ -153,10 +153,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
       continue;
     }
 
-    const x = cmds.pop();
-    const ind = x[0];
-    const mode = x[1];
-    const doc = x[2];
+    const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -253,15 +250,15 @@ function printDocToString(doc, options) {
   let lineSuffix = [];
 
   while (cmds.length !== 0) {
-    const x = cmds.pop();
-    const ind = x[0];
-    const mode = x[1];
-    const doc = x[2];
+    const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
-      out.push(doc);
-
-      pos += getStringWidth(doc);
+      const formatted =
+        newLine !== "\n" && doc.includes("\n")
+          ? doc.replace(/\n/g, newLine)
+          : doc;
+      out.push(formatted);
+      pos += getStringWidth(formatted);
     } else {
       switch (doc.type) {
         case "cursor":
@@ -293,7 +290,7 @@ function printDocToString(doc, options) {
                 cmds.push([
                   ind,
                   doc.break ? MODE_BREAK : MODE_FLAT,
-                  doc.contents
+                  doc.contents,
                 ]);
 
                 break;
@@ -378,12 +375,12 @@ function printDocToString(doc, options) {
         case "fill": {
           const rem = width - pos;
 
-          const parts = doc.parts;
+          const { parts } = doc;
           if (parts.length === 0) {
             break;
           }
 
-          const content = parts[0];
+          const [content, whitespace] = parts;
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
           const contentFits = fits(contentFlatCmd, [], rem, options, true);
@@ -397,7 +394,6 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const whitespace = parts[1];
           const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace];
           const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace];
 
@@ -425,7 +421,7 @@ function printDocToString(doc, options) {
           const firstAndSecondContentFlatCmd = [
             ind,
             MODE_FLAT,
-            concat([content, whitespace, secondContent])
+            concat([content, whitespace, secondContent]),
           ];
           const firstAndSecondContentFits = fits(
             firstAndSecondContentFlatCmd,
@@ -498,7 +494,7 @@ function printDocToString(doc, options) {
             case MODE_BREAK:
               if (lineSuffix.length) {
                 cmds.push([ind, mode, doc]);
-                [].push.apply(cmds, lineSuffix.reverse());
+                cmds.push(...lineSuffix.reverse());
                 lineSuffix = [];
                 break;
               }
@@ -539,7 +535,7 @@ function printDocToString(doc, options) {
     return {
       formatted: beforeCursor + aroundCursor + afterCursor,
       cursorNodeStart: beforeCursor.length,
-      cursorNodeText: aroundCursor
+      cursorNodeText: aroundCursor,
     };
   }
 

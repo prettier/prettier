@@ -1,10 +1,47 @@
 "use strict";
 
-const { getLast } = require("../common/util");
+const {
+  getLast,
+  getNextNonSpaceNonCommentCharacter,
+} = require("../common/util");
 const { composeLoc, locEnd } = require("./loc");
+const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
-  visitNode(ast, node => {
+  // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+  if (options.parser !== "typescript" && options.parser !== "flow") {
+    const startOffsetsOfTypeCastedNodes = new Set();
+
+    // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
+    // E.g.: /** @type {Foo} */ (foo).bar();
+    // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
+
+    visitNode(ast, (node) => {
+      if (
+        node.leadingComments &&
+        node.leadingComments.some(isTypeCastComment)
+      ) {
+        startOffsetsOfTypeCastedNodes.add(node.start);
+      }
+    });
+
+    visitNode(ast, (node) => {
+      if (
+        node.type === "ParenthesizedExpression" &&
+        !startOffsetsOfTypeCastedNodes.has(node.start)
+      ) {
+        const { expression } = node;
+        if (!expression.extra) {
+          expression.extra = {};
+        }
+        expression.extra.parenthesized = true;
+        expression.extra.parenStart = node.start;
+        return expression;
+      }
+    });
+  }
+
+  visitNode(ast, (node) => {
     switch (node.type) {
       case "LogicalExpression": {
         // We remove unneeded parens around same-operator LogicalExpressions
@@ -23,16 +60,54 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        return node.typeAnnotation;
+        return { ...node.typeAnnotation, ...composeLoc(node) };
       }
       case "TSUnionType":
       case "TSIntersectionType":
         if (node.types.length === 1) {
           // override loc, so that comments are attached properly
-          return Object.assign({}, node.types[0], {
-            loc: node.loc,
-            range: node.range
-          });
+          return { ...node.types[0], ...composeLoc(node) };
+        }
+        break;
+      // flow & typescript
+      case "ImportExpression":
+        return {
+          ...node,
+          type: "CallExpression",
+          callee: {
+            type: "Import",
+            ...composeLoc(node, 6),
+          },
+          arguments: [node.source],
+        };
+      case "TSTypeParameter":
+        // babel-ts
+        if (typeof node.name === "string") {
+          node.name = {
+            type: "Identifier",
+            name: node.name,
+            ...composeLoc(node, node.name.length),
+          };
+        }
+        break;
+      case "SequenceExpression":
+        // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
+        if (node.end && node.end > getLast(node.expressions).end) {
+          node.end = getLast(node.expressions).end;
+        }
+        break;
+      case "ClassProperty":
+        // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
+        if (
+          node.key &&
+          node.key.type === "TSPrivateIdentifier" &&
+          getNextNonSpaceNonCommentCharacter(
+            options.originalText,
+            node.key,
+            locEnd
+          ) === "?"
+        ) {
+          node.optional = true;
         }
         break;
     }
@@ -51,14 +126,15 @@ function postprocess(ast, options) {
     if (Array.isArray(toBeOverriddenNode.range)) {
       toBeOverriddenNode.range = [
         toBeOverriddenNode.range[0],
-        toOverrideNode.range[1]
+        toOverrideNode.range[1],
       ];
     } else {
       toBeOverriddenNode.end = toOverrideNode.end;
     }
-    toBeOverriddenNode.loc = Object.assign({}, toBeOverriddenNode.loc, {
-      end: toBeOverriddenNode.loc.end
-    });
+    toBeOverriddenNode.loc = {
+      ...toBeOverriddenNode.loc,
+      end: toBeOverriddenNode.loc.end,
+    };
   }
 }
 
@@ -102,27 +178,19 @@ function rebalanceLogicalTree(node) {
     return node;
   }
 
-  return rebalanceLogicalTree(
-    Object.assign(
-      {
-        type: "LogicalExpression",
-        operator: node.operator,
-        left: rebalanceLogicalTree(
-          Object.assign(
-            {
-              type: "LogicalExpression",
-              operator: node.operator,
-              left: node.left,
-              right: node.right.left
-            },
-            composeLoc(node.left, node.right.left)
-          )
-        ),
-        right: node.right.right
-      },
-      composeLoc(node)
-    )
-  );
+  return rebalanceLogicalTree({
+    type: "LogicalExpression",
+    operator: node.operator,
+    left: rebalanceLogicalTree({
+      type: "LogicalExpression",
+      operator: node.operator,
+      left: node.left,
+      right: node.right.left,
+      ...composeLoc(node.left, node.right.left),
+    }),
+    right: node.right.right,
+    ...composeLoc(node),
+  });
 }
 
 module.exports = postprocess;

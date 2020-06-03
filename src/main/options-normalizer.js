@@ -5,8 +5,8 @@ const leven = require("leven");
 const chalk = require("chalk");
 
 const cliDescriptor = {
-  key: key => (key.length === 1 ? `-${key}` : `--${key}`),
-  value: value => vnopts.apiDescriptor.value(value),
+  key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
+  value: (value) => vnopts.apiDescriptor.value(value),
   pair: ({ key, value }) =>
     value === false
       ? `--no-${key}`
@@ -14,7 +14,7 @@ const cliDescriptor = {
       ? cliDescriptor.key(key)
       : value === ""
       ? `${cliDescriptor.key(key)} without an argument`
-      : `${cliDescriptor.key(key)}=${value}`
+      : `${cliDescriptor.key(key)}=${value}`,
 };
 
 class FlagSchema extends vnopts.ChoiceSchema {
@@ -26,14 +26,14 @@ class FlagSchema extends vnopts.ChoiceSchema {
     if (
       typeof value === "string" &&
       value.length !== 0 &&
-      this._flags.indexOf(value) === -1
+      !this._flags.includes(value)
     ) {
-      const suggestion = this._flags.find(flag => leven(flag, value) < 3);
+      const suggestion = this._flags.find((flag) => leven(flag, value) < 3);
       if (suggestion) {
         utils.logger.warn(
           [
             `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
-            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`
+            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
           ].join(" ")
         );
         return suggestion;
@@ -57,7 +57,7 @@ function normalizeOptions(
     ? vnopts.levenUnknownHandler
     : Array.isArray(passThrough)
     ? (key, value) =>
-        passThrough.indexOf(key) === -1 ? undefined : { [key]: value }
+        !passThrough.includes(key) ? undefined : { [key]: value }
     : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
@@ -65,7 +65,7 @@ function normalizeOptions(
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,
     unknown,
-    descriptor
+    descriptor,
   });
 
   const shouldSuppressDuplicateDeprecationWarnings = logger !== false;
@@ -97,7 +97,7 @@ function optionInfosToSchemas(optionInfos, { isCLI }) {
       schemas.push(
         vnopts.AliasSchema.create({
           name: optionInfo.alias,
-          sourceName: optionInfo.name
+          sourceName: optionInfo.name,
         })
       );
     }
@@ -115,7 +115,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     case "int":
       SchemaConstructor = vnopts.IntegerSchema;
       if (isCLI) {
-        parameters.preprocess = value => Number(value);
+        parameters.preprocess = (value) => Number(value);
       }
       break;
     case "string":
@@ -123,13 +123,14 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       break;
     case "choice":
       SchemaConstructor = vnopts.ChoiceSchema;
-      parameters.choices = optionInfo.choices.map(choiceInfo =>
+      parameters.choices = optionInfo.choices.map((choiceInfo) =>
         typeof choiceInfo === "object" && choiceInfo.redirect
-          ? Object.assign({}, choiceInfo, {
+          ? {
+              ...choiceInfo,
               redirect: {
-                to: { key: optionInfo.name, value: choiceInfo.redirect }
-              }
-            })
+                to: { key: optionInfo.name, value: choiceInfo.redirect },
+              },
+            }
           : choiceInfo
       );
       break;
@@ -139,7 +140,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     case "flag":
       SchemaConstructor = FlagSchema;
       parameters.flags = optionInfos
-        .map(optionInfo =>
+        .map((optionInfo) =>
           [].concat(
             optionInfo.alias || [],
             optionInfo.description ? optionInfo.name : [],
@@ -166,14 +167,14 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   }
 
   if (optionInfo.redirect) {
-    handlers.redirect = value =>
+    handlers.redirect = (value) =>
       !value
         ? undefined
         : {
             to: {
               key: optionInfo.redirect.option,
-              value: optionInfo.redirect.value
-            }
+              value: optionInfo.redirect.value,
+            },
           };
   }
 
@@ -183,7 +184,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
 
   // allow CLI overriding, e.g., prettier package.json --tab-width 1 --tab-width 2
   if (isCLI && !optionInfo.array) {
-    const originalPreprocess = parameters.preprocess || (x => x);
+    const originalPreprocess = parameters.preprocess || ((x) => x);
     parameters.preprocess = (value, schema, utils) =>
       schema.preprocess(
         originalPreprocess(
@@ -194,14 +195,12 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   }
 
   return optionInfo.array
-    ? vnopts.ArraySchema.create(
-        Object.assign(
-          isCLI ? { preprocess: v => [].concat(v) } : {},
-          handlers,
-          { valueSchema: SchemaConstructor.create(parameters) }
-        )
-      )
-    : SchemaConstructor.create(Object.assign({}, parameters, handlers));
+    ? vnopts.ArraySchema.create({
+        ...(isCLI ? { preprocess: (v) => [].concat(v) } : {}),
+        ...handlers,
+        valueSchema: SchemaConstructor.create(parameters),
+      })
+    : SchemaConstructor.create({ ...parameters, ...handlers });
 }
 
 function normalizeApiOptions(options, optionInfos, opts) {
@@ -209,14 +208,10 @@ function normalizeApiOptions(options, optionInfos, opts) {
 }
 
 function normalizeCliOptions(options, optionInfos, opts) {
-  return normalizeOptions(
-    options,
-    optionInfos,
-    Object.assign({ isCLI: true }, opts)
-  );
+  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
 }
 
 module.exports = {
   normalizeApiOptions,
-  normalizeCliOptions
+  normalizeCliOptions,
 };

@@ -23,18 +23,13 @@ const remarkMath = require("remark-math");
  * interface InlineCode { children: Array<Sentence> }
  */
 function createParse({ isMDX }) {
-  return text => {
+  return (text) => {
     const processor = unified()
-      .use(
-        remarkParse,
-        Object.assign(
-          {
-            footnotes: true,
-            commonmark: true
-          },
-          isMDX && { blocks: [mdx.BLOCKS_REGEX] }
-        )
-      )
+      .use(remarkParse, {
+        footnotes: true,
+        commonmark: true,
+        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
+      })
       .use(frontMatter)
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
@@ -49,17 +44,17 @@ function identity(x) {
 }
 
 function htmlToJsx() {
-  return ast =>
+  return (ast) =>
     mapAst(ast, (node, _index, [parent]) => {
       if (
         node.type !== "html" ||
         node.value.match(mdx.COMMENT_REGEX) ||
-        INLINE_NODE_WRAPPER_TYPES.indexOf(parent.type) !== -1
+        INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
       ) {
         return node;
       }
 
-      return Object.assign({}, node, { type: "jsx" });
+      return { ...node, type: "jsx" };
     });
 }
 
@@ -85,16 +80,16 @@ function liquid() {
   proto.inlineTokenizers.liquid = tokenizer;
 
   function tokenizer(eat, value) {
-    const match = value.match(/^({%[\s\S]*?%}|{{[\s\S]*?}})/);
+    const match = value.match(/^({%[\S\s]*?%}|{{[\S\s]*?}})/);
 
     if (match) {
       return eat(match[0])({
         type: "liquidNode",
-        value: match[0]
+        value: match[0],
       });
     }
   }
-  tokenizer.locator = function(value, fromIndex) {
+  tokenizer.locator = function (value, fromIndex) {
     return value.indexOf("{", fromIndex);
   };
 }
@@ -102,24 +97,19 @@ function liquid() {
 const baseParser = {
   astFormat: "mdast",
   hasPragma: pragma.hasPragma,
-  locStart: node => node.position.start.offset,
-  locEnd: node => node.position.end.offset,
-  preprocess: text => text.replace(/\n\s+$/, "\n") // workaround for https://github.com/remarkjs/remark/issues/350
+  locStart: (node) => node.position.start.offset,
+  locEnd: (node) => node.position.end.offset,
+  preprocess: (text) => text.replace(/\n\s+$/, "\n"), // workaround for https://github.com/remarkjs/remark/issues/350
 };
 
-const markdownParser = Object.assign({}, baseParser, {
-  parse: createParse({ isMDX: false })
-});
+const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
 
-const mdxParser = Object.assign({}, baseParser, {
-  parse: createParse({ isMDX: true })
-});
+const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
 
 module.exports = {
   parsers: {
     remark: markdownParser,
-    // TODO: Delete this in 2.0
     markdown: markdownParser,
-    mdx: mdxParser
-  }
+    mdx: mdxParser,
+  },
 };

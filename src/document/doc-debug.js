@@ -7,7 +7,7 @@ function flattenDoc(doc) {
     for (let i = 0; i < doc.parts.length; ++i) {
       const doc2 = doc.parts[i];
       if (typeof doc2 !== "string" && doc2.type === "concat") {
-        [].push.apply(res, flattenDoc(doc2).parts);
+        res.push(...flattenDoc(doc2).parts);
       } else {
         const flattened = flattenDoc(doc2);
         if (flattened !== "") {
@@ -16,23 +16,25 @@ function flattenDoc(doc) {
       }
     }
 
-    return Object.assign({}, doc, { parts: res });
+    return { ...doc, parts: res };
   } else if (doc.type === "if-break") {
-    return Object.assign({}, doc, {
+    return {
+      ...doc,
       breakContents:
         doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
       flatContents:
-        doc.flatContents != null ? flattenDoc(doc.flatContents) : null
-    });
+        doc.flatContents != null ? flattenDoc(doc.flatContents) : null,
+    };
   } else if (doc.type === "group") {
-    return Object.assign({}, doc, {
+    return {
+      ...doc,
       contents: flattenDoc(doc.contents),
       expandedStates: doc.expandedStates
         ? doc.expandedStates.map(flattenDoc)
-        : doc.expandedStates
-    });
+        : doc.expandedStates,
+    };
   } else if (doc.contents) {
-    return Object.assign({}, doc, { contents: flattenDoc(doc.contents) });
+    return { ...doc, contents: flattenDoc(doc.contents) };
   }
   return doc;
 }
@@ -124,7 +126,7 @@ function printDoc(doc) {
 }
 
 module.exports = {
-  printDocToDebug: function(doc) {
+  printDocToDebug(doc) {
     return printDoc(flattenDoc(doc));
-  }
+  },
 };

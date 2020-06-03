@@ -83,9 +83,9 @@ function group(contents, opts) {
   return {
     type: "group",
     id: opts.id,
-    contents: contents,
+    contents,
     break: !!opts.shouldBreak,
-    expandedStates: opts.expandedStates
+    expandedStates: opts.expandedStates,
   };
 }
 
@@ -120,10 +120,7 @@ function dedent(contents) {
  * @returns Doc
  */
 function conditionalGroup(states, opts) {
-  return group(
-    states[0],
-    Object.assign(opts || {}, { expandedStates: states })
-  );
+  return group(states[0], { ...opts, expandedStates: states });
 }
 
 /**
@@ -160,7 +157,7 @@ function ifBreak(breakContents, flatContents, opts) {
     type: "if-break",
     breakContents,
     flatContents,
-    groupId: opts.groupId
+    groupId: opts.groupId,
   };
 }
 
@@ -183,7 +180,7 @@ const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent]);
 const literalline = concat([
   { type: "line", hard: true, literal: true },
-  breakParent
+  breakParent,
 ]);
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
@@ -248,5 +245,5 @@ module.exports = {
   addAlignmentToDoc,
   markAsRoot,
   dedentToRoot,
-  dedent
+  dedent,
 };

@@ -59,24 +59,27 @@ function locEnd(node) {
   return loc;
 }
 
-function composeLoc(startNode, endNode = startNode) {
-  const loc = {};
-  if (typeof startNode.start === "number") {
-    loc.start = startNode.start;
-    loc.end = endNode.end;
-  }
-  if (Array.isArray(startNode.range)) {
-    loc.range = [startNode.range[0], endNode.range[1]];
-  }
-  loc.loc = {
-    start: startNode.loc.start,
-    end: endNode.loc.end
+function composeLoc(startNode, endNodeOrLength = startNode) {
+  const length = typeof endNodeOrLength === "number" ? endNodeOrLength : -1;
+  const start = locStart(startNode);
+  const end = length !== -1 ? start + length : locEnd(endNodeOrLength);
+  const startLoc = startNode.loc.start;
+  return {
+    start,
+    end,
+    range: [start, end],
+    loc: {
+      start: startLoc,
+      end:
+        length !== -1
+          ? { line: startLoc.line, column: startLoc.column + length }
+          : endNodeOrLength.loc.end,
+    },
   };
-  return loc;
 }
 
 module.exports = {
   locStart,
   locEnd,
-  composeLoc
+  composeLoc,
 };
