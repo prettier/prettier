@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js - {"useTabs":true,"tabWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+tabWidth: Infinity
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne(),
+
+// This template literal triggers \`addAlignmentToDoc\` in \`src/language-js/printer-estree.js\`
+\`
+  \${foo}
+    bar
+    \${
+            foo
+                  }
+    \${
+              bar
+      \`
+                      \${foo}
+            \${
+                  foo
+}
+      \`
+    }
+    foo
+\`);
+
+=====================================output=====================================
+foo(
+	reallyLongArg(),
+	omgSoManyParameters(),
+	IShouldRefactorThis(),
+	isThereSeriouslyAnotherOne(),
+
+	// This template literal triggers \`addAlignmentToDoc\` in \`src/language-js/printer-estree.js\`
+	\`
+  \${foo}
+    bar
+    \${foo}
+    \${bar\`
+                      \${foo}
+            \${foo}
+      \`}
+    foo
+\`
+);
+
+================================================================================
+`;
+
+exports[`test.js - {"useTabs":true,"tabWidth":-2} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+tabWidth: -2
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne(),
+
+// This template literal triggers \`addAlignmentToDoc\` in \`src/language-js/printer-estree.js\`
+\`
+  \${foo}
+    bar
+    \${
+            foo
+                  }
+    \${
+              bar
+      \`
+                      \${foo}
+            \${
+                  foo
+}
+      \`
+    }
+    foo
+\`);
+
+=====================================output=====================================
+foo(
+	reallyLongArg(),
+	omgSoManyParameters(),
+	IShouldRefactorThis(),
+	isThereSeriouslyAnotherOne(),
+
+	// This template literal triggers \`addAlignmentToDoc\` in \`src/language-js/printer-estree.js\`
+	\`
+  \${foo}
+    bar
+    \${foo}
+    \${bar\`
+                      \${foo}
+            \${foo}
+      \`}
+    foo
+\`
+);
+
+================================================================================
+`;
+
+exports[`test.js - {"useTabs":true,"tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+tabWidth: 0
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne(),
+
+// This template literal triggers \`addAlignmentToDoc\` in \`src/language-js/printer-estree.js\`
+\`
+  \${foo}
+    bar
+    \${
+            foo
+                  }
+    \${
+              bar
+      \`
+                      \${foo}
+            \${
+                  foo
+}
+      \`
+    }
+    foo
+\`);
+
+=====================================output=====================================
+foo(
+	reallyLongArg(),
+	omgSoManyParameters(),
+	IShouldRefactorThis(),
+	isThereSeriouslyAnotherOne(),
+
+	// This template literal triggers \`addAlignmentToDoc\` in \`src/language-js/printer-estree.js\`
+	\`
+  \${foo}
+    bar
+    \${foo}
+    \${bar\`
+                      \${foo}
+            \${foo}
+      \`}
+    foo
+\`
+);
+
+================================================================================
+`;

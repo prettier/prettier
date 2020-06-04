@@ -209,6 +209,7 @@ function join(sep, arr) {
  * @param {number} tabWidth
  */
 function addAlignmentToDoc(doc, size, tabWidth) {
+  tabWidth = Math.max(tabWidth, 1);
   let aligned = doc;
   if (size > 0) {
     // Use indent to add tabs for all the levels of tabs we need
