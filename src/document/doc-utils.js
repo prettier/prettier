@@ -14,13 +14,15 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       continue;
     }
 
-    const shouldRecurse = !onEnter || onEnter(doc) !== false;
-
     if (onExit) {
       docsStack.push(doc, traverseDocOnExitStackMarker);
     }
 
-    if (shouldRecurse) {
+    if (
+      // Should Recurse
+      !onEnter ||
+      onEnter(doc) !== false
+    ) {
       // When there are multiple parts to process,
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
