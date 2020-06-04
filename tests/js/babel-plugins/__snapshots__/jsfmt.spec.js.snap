@@ -1138,6 +1138,30 @@ super.f(?); // partial application allowed for call on |SuperProperty|
 ================================================================================
 `;
 
+exports[`pipeline-operator-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bifornCringerMoshedPerplexSawder
+|> foo1
+|> foo2 /* comment1 */
+|> foo3 /* comment2 */
+|> kochabCooieGameOnOboleUnweave
+|> glimseGlyphsHazardNoopsTieTie;
+
+=====================================output=====================================
+bifornCringerMoshedPerplexSawder
+  |> foo1
+  |> foo2 /* comment1 */
+  |> foo3 /* comment2 */
+  |> kochabCooieGameOnOboleUnweave
+  |> glimseGlyphsHazardNoopsTieTie;
+
+================================================================================
+`;
+
 exports[`pipeline-operator-fsharp.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
