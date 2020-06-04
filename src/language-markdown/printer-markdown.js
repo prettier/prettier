@@ -20,7 +20,7 @@ const {
     indent,
     group,
   },
-  utils: { mapDoc },
+  utils: { mapDoc, normalizeParts },
   printer: { printDocToString },
 } = require("../document");
 const {
@@ -911,20 +911,6 @@ function printTitle(title, options, printSpace) {
       : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
-}
-
-function normalizeParts(parts) {
-  return parts.reduce((current, part) => {
-    const lastPart = privateUtil.getLast(current);
-
-    if (typeof lastPart === "string" && typeof part === "string") {
-      current.splice(-1, 1, lastPart + part);
-    } else {
-      current.push(part);
-    }
-
-    return current;
-  }, []);
 }
 
 function clamp(value, min, max) {
