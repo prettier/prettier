@@ -849,14 +849,16 @@ function handleImportDeclarationComments(
   options
 ) {
   if (
-    !precedingNode &&
     enclosingNode &&
     enclosingNode.type === "ImportDeclaration" &&
-    (!enclosingNode.specifiers || enclosingNode.specifiers.length === 0)
+    (!enclosingNode.specifiers || enclosingNode.specifiers.length === 0) &&
+    options.locStart(comment) > options.locStart(enclosingNode) &&
+    options.locEnd(comment) < options.locEnd(enclosingNode)
   ) {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
+
   if (
     precedingNode &&
     precedingNode.type === "ImportSpecifier" &&

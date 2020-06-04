@@ -7,8 +7,7 @@ const {
   hasIgnoreComment,
   hasNodeIgnoreComment,
   skipWhitespace,
-  skipInlineComment,
-  skipTrailingComment,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
 } = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const handleComments = require("./comments");
@@ -1048,33 +1047,41 @@ function shouldPrintComma(options, level) {
   }
 }
 
-/**
- * @param {string} text
- * @param {number} idx
- * @returns {number | false}
- */
-function getNextNonCommentCharacterIndexWithStartIndex(text, idx) {
-  /** @type {number | false} */
-  let oldIdx = null;
-  /** @type {number | false} */
-  let nextIdx = idx;
-  while (nextIdx !== oldIdx) {
-    oldIdx = nextIdx;
-    nextIdx = skipInlineComment(text, nextIdx);
-    nextIdx = skipTrailingComment(text, nextIdx);
-  }
-  return nextIdx;
-}
+function getExpectTokensInRange(text, expectTokens, start, end) {
+  const foundTokens = [];
 
-function stripComments(text) {
-  let result = "";
-  let index = 0;
-  while (index < text.length) {
-    index = getNextNonCommentCharacterIndexWithStartIndex(text, index);
-    result += text.charAt(index);
-    index++;
+  let index = start;
+  while (index < end && foundTokens.length < expectTokens.length) {
+    const characterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+      text,
+      index
+    );
+
+    if (characterIndex === false || characterIndex > end) {
+      return;
+    }
+
+    const expectToken = expectTokens[foundTokens.length];
+    const tokenText = text.slice(
+      characterIndex,
+      characterIndex + expectToken.length
+    );
+
+    if (tokenText !== expectToken) {
+      return;
+    }
+
+    const rangeEnd = characterIndex + tokenText.length;
+    foundTokens.push({
+      token: tokenText,
+      start: characterIndex,
+      end: rangeEnd,
+    });
+
+    index = rangeEnd;
   }
-  return result;
+
+  return foundTokens.length === expectTokens.length ? foundTokens : undefined;
 }
 
 module.exports = {
@@ -1135,5 +1142,5 @@ module.exports = {
   rawText,
   returnArgumentHasLeadingComment,
   shouldPrintComma,
-  stripComments,
+  getExpectTokensInRange,
 };

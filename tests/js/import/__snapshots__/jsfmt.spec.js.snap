@@ -333,23 +333,20 @@ import "a";
 import /* comment */ "a";
 import // comment
 "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ /* comment */ /* comment */ "a";
-import {
-  // comment
+import { /* comment */ } from "a";
+import /* comment */ {} from "a";
+import {} /* comment */ from "a";
+import /* comment */ { /* comment */ } /* comment */ from "a";
+import { // comment
 } from "a";
-import {} from // comment
-"a";
-import {
-  // comment
-} from "a";
-import {
-  // comment
-  // comment
-  // comment
-} from "a";
+import // comment
+{} from "a";
+import {} // comment
+from "a";
+import // comment
+{ // comment
+} // comment
+from "a";
 
 import {} from // comment ends with from
 "a";
@@ -425,23 +422,20 @@ import "a";
 import /* comment */ "a";
 import // comment
 "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ "a";
-import {} from /* comment */ /* comment */ /* comment */ "a";
-import {
-  // comment
+import { /* comment */ } from "a";
+import /* comment */ {} from "a";
+import {} /* comment */ from "a";
+import /* comment */ { /* comment */ } /* comment */ from "a";
+import { // comment
 } from "a";
-import {} from // comment
-"a";
-import {
-  // comment
-} from "a";
-import {
-  // comment
-  // comment
-  // comment
-} from "a";
+import // comment
+{} from "a";
+import {} // comment
+from "a";
+import // comment
+{ // comment
+} // comment
+from "a";
 
 import {} from // comment ends with from
 "a";

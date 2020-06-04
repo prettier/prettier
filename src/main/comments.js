@@ -476,6 +476,16 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent(concat([hardline, join(hardline, parts)]));
 }
 
+function printDanglingCommentsInRange(path, options, sameIndent, [start, end]) {
+  return printDanglingComments(
+    path,
+    options,
+    /* sameIndent */ true,
+    (comment) =>
+      options.locStart(comment) >= start && options.locEnd(comment) <= end
+  );
+}
+
 function prependCursorPlaceholder(path, options, printed) {
   if (path.getNode() === options.cursorNode && path.getValue()) {
     return concat([cursor, printed, cursor]);
@@ -530,5 +540,6 @@ module.exports = {
   attach,
   printComments,
   printDanglingComments,
+  printDanglingCommentsInRange,
   getSortedChildNodes,
 };
