@@ -858,7 +858,7 @@ function normalizeDoc(doc) {
     }
     return {
       ...currentDoc,
-      parts: normalizeParts(parts),
+      parts: normalizeParts(currentDoc.parts),
     };
   });
 }
