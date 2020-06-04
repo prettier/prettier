@@ -1,6 +1,6 @@
 "use strict";
 
-// Using a unique symbol to compare by reference.
+// Using a unique symbol to compare
 const traverseDocOnExitStackMarker = Symbol("traverseDocOnExitStackMarker");
 
 function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
