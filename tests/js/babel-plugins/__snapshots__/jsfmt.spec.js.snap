@@ -1271,9 +1271,9 @@ value
 // https://github.com/js-choi/proposal-smart-pipelines
 
 value
-|> await #
-|> doubleSay(#, ", ")
-|> capitalize  // This is a function call.
+  |> await #
+  |> doubleSay(#, ", ")
+  |> capitalize  // This is a function call.
   |> # + "!"
   |> new User.Message(#)
   |> await #

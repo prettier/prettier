@@ -3,7 +3,7 @@
 const clean = require("./clean");
 const {
   builders,
-  utils: { stripTrailingHardline, mapDoc },
+  utils: { stripTrailingHardline, mapDoc, normalizeParts },
 } = require("../document");
 const {
   breakParent,
@@ -35,7 +35,6 @@ const {
   isVueCustomBlock,
   isScriptLikeTag,
   isTextLikeNode,
-  normalizeParts,
   preferHardlineAsLeadingSpaces,
   shouldNotPrintClosingTag,
   shouldPreserveContent,
