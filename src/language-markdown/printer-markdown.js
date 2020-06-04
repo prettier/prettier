@@ -20,7 +20,7 @@ const {
     indent,
     group,
   },
-  utils: { mapDoc, normalizeParts },
+  utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
 const {
@@ -849,18 +849,6 @@ function shouldRemainTheSameContent(path) {
     (ancestorNode.type !== "linkReference" ||
       ancestorNode.referenceType !== "full")
   );
-}
-
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-    return {
-      ...currentDoc,
-      parts: normalizeParts(currentDoc.parts),
-    };
-  });
 }
 
 function printUrl(url, dangerousCharOrChars) {
