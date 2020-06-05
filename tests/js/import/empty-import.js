@@ -6,7 +6,8 @@ import // comment
 import { /* comment */ } from 'a';
 import /* comment */ {} from 'a';
 import {} /* comment */ from 'a';
-import /* comment */ {/* comment */} /* comment */ from 'a';
+import {} from /* comment */ 'a';
+import /* comment */ {/* comment */} /* comment */ from /* comment */ 'a';
 import {
   // comment
 } from 'a';
@@ -15,14 +16,21 @@ import // comment
 import {}
 // comment
 from 'a';
+import {} from 
+// comment
+'a';
 import
 // comment
 {
 // comment
 }
 // comment
-from 'a';
+from
+// comment
+'a';
 
+import // {} from 
+'a';
 import {} from // comment ends with from
 'a';
 import {} from /* comment ends with from */ 'a';
