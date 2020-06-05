@@ -250,6 +250,18 @@ function normalizeParts(parts) {
   return newParts;
 }
 
+function normalizeDoc(doc) {
+  return mapDoc(doc, (currentDoc) => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+    return {
+      ...currentDoc,
+      parts: normalizeParts(currentDoc.parts),
+    };
+  });
+}
+
 module.exports = {
   isEmpty,
   willBreak,
@@ -261,4 +273,5 @@ module.exports = {
   removeLines,
   stripTrailingHardline,
   normalizeParts,
+  normalizeDoc,
 };

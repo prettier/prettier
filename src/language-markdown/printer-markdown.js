@@ -20,7 +20,7 @@ const {
     indent,
     group,
   },
-  utils: { mapDoc },
+  utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
 const {
@@ -851,32 +851,6 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-
-    if (currentDoc.type === "concat" && currentDoc.parts.length === 1) {
-      return currentDoc.parts[0];
-    }
-
-    const parts = currentDoc.parts.reduce((parts, part) => {
-      if (part.type === "concat") {
-        parts.push(...part.parts);
-      } else if (part !== "") {
-        parts.push(part);
-      }
-      return parts;
-    }, []);
-
-    return {
-      ...currentDoc,
-      parts: normalizeParts(parts),
-    };
-  });
-}
-
 function printUrl(url, dangerousCharOrChars) {
   const dangerousChars = [" "].concat(dangerousCharOrChars || []);
   return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
@@ -911,20 +885,6 @@ function printTitle(title, options, printSpace) {
       : '"';
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
-}
-
-function normalizeParts(parts) {
-  return parts.reduce((current, part) => {
-    const lastPart = privateUtil.getLast(current);
-
-    if (typeof lastPart === "string" && typeof part === "string") {
-      current.splice(-1, 1, lastPart + part);
-    } else {
-      current.push(part);
-    }
-
-    return current;
-  }, []);
 }
 
 function clamp(value, min, max) {
