@@ -50,6 +50,7 @@ const {
   hasNgSideEffect,
   hasPrettierIgnore,
   hasTrailingComment,
+  hasTrailingLineComment,
   identity,
   isBinaryish,
   isCallOrOptionalCallExpression,
@@ -648,7 +649,15 @@ function printPathNoParens(path, options, print, args) {
       //   )
 
       const hasJSX = isJSXNode(n.right);
-      const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
+      const firstGroupIndex = parts.findIndex((part) => part.type === "group");
+      // Separate the leftmost expression, possibly with its leading comments.
+      const headParts = parts.slice(
+        0,
+        firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
+      );
+      const rest = concat(
+        parts.slice(headParts.length, hasJSX ? -1 : undefined)
+      );
 
       const groupId = Symbol("logicalChain-" + ++uid);
       const chain = group(
@@ -656,7 +665,7 @@ function printPathNoParens(path, options, print, args) {
           // Don't include the initial expression in the indentation
           // level. The first item is guaranteed to be the first
           // left-most expression.
-          parts.length > 0 ? parts[0] : "",
+          ...headParts,
           indent(rest),
         ]),
         { id: groupId }
@@ -4945,7 +4954,7 @@ function printBinaryishExpressions(
     const right = shouldInline
       ? concat([operator, " ", path.call(print, "right"), rightSuffix])
       : concat([
-          lineBeforeOperator ? softline : "",
+          lineBeforeOperator ? line : "",
           operator,
           lineBeforeOperator ? " " : line,
           path.call(print, "right"),
@@ -4955,13 +4964,18 @@ function printBinaryishExpressions(
     // If there's only a single binary expression, we want to create a group
     // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
+    const shouldBreak = hasTrailingLineComment(node.left);
     const shouldGroup =
-      !(isInsideParenthesis && node.type === "LogicalExpression") &&
-      parent.type !== node.type &&
-      node.left.type !== node.type &&
-      node.right.type !== node.type;
+      shouldBreak ||
+      (!(isInsideParenthesis && node.type === "LogicalExpression") &&
+        parent.type !== node.type &&
+        node.left.type !== node.type &&
+        node.right.type !== node.type);
 
-    parts.push(" ", shouldGroup ? group(right) : right);
+    parts.push(
+      lineBeforeOperator ? "" : " ",
+      shouldGroup ? group(right, { shouldBreak }) : right
+    );
 
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,
@@ -4973,7 +4987,7 @@ function printBinaryishExpressions(
     }
   } else {
     // Our stopping case. Simply print the node normally.
-    parts.push(path.call(print));
+    parts.push(group(path.call(print)));
   }
 
   return parts;
