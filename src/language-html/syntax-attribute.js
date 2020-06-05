@@ -62,7 +62,7 @@ function printImgSrcset(value) {
 const prefixDelimiters = ["__", "--", "_", "-"];
 
 function getClassPrefix(className) {
-  const startIndex = className.search(/[^-_]/);
+  const startIndex = className.search(/[^_-]/);
   if (startIndex !== -1) {
     for (const delimiter of prefixDelimiters) {
       const delimiterIndex = className.indexOf(delimiter, startIndex);
@@ -79,7 +79,7 @@ function printClassNames(value) {
 
   // Try keeping consecutive classes with the same prefix on one line.
   const groupedByPrefix = [];
-  let previousPrefix = undefined;
+  let previousPrefix;
   for (let i = 0; i < classNames.length; i++) {
     const prefix = getClassPrefix(classNames[i]);
     if (
