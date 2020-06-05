@@ -15,14 +15,14 @@ describe("normalizeDoc", () => {
       concat(["foo", fill(["bar"])]),
     ],
     [
-      "flattens nested concats",
-      concat(["foo", "", concat(["bar", "", concat(["baz", ""])])]),
-      concat(["foobarbaz"]),
+      "flattens nested concat",
+      concat(["foo ", "", concat(["bar ", "", concat(["baz", ""])])]),
+      concat(["foo bar baz"]),
     ],
     [
-      "flattens nested concats in other docs",
-      group(concat(["foo", concat(["bar", "", concat(["baz", ""])])])),
-      group(concat(["foobarbaz"])),
+      "flattens nested concat in other docs",
+      group(concat(["foo ", concat(["bar ", "", concat(["baz", ""])])])),
+      group(concat(["foo bar baz"])),
     ],
     [
       "keeps groups",
