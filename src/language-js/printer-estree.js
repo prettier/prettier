@@ -3737,7 +3737,10 @@ function printPropertyKey(path, options, print) {
         ((isStringLiteral(prop.key) &&
           !isStringPropSafeToUnquote(prop, options)) ||
           (isNumericLiteral(prop.key) &&
-            (options.parser === "flow" || options.parser === "babel-flow")))
+            (options.parser === "flow" ||
+              options.parser === "babel-flow" ||
+              options.parser === "typescript" ||
+              options.parser === "babel-ts")))
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }

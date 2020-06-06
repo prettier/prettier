@@ -734,6 +734,25 @@ function returnArgumentHasLeadingComment(options, argument) {
   return false;
 }
 
+// Note: Quoting/unquoting numbers in TypeScript is not safe.
+//
+// let a = { 1: 1, 2: 2 }
+// let b = { '1': 1, '2': 2 }
+//
+// declare let aa: keyof typeof a;
+// declare let bb: keyof typeof b;
+//
+// aa = bb;
+// ^^
+// Type '"1" | "2"' is not assignable to type '1 | 2'.
+//   Type '"1"' is not assignable to type '1 | 2'.(2322)
+//
+// And in Flow, you get:
+//
+// const x = {
+//   0: 1
+//   ^ Non-string literal property keys not supported. [unsupported-syntax]
+// }
 function isStringPropSafeToUnquote(node, options) {
   return (
     options.parser !== "json" &&
@@ -748,7 +767,12 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (!node.key.value.startsWith("-") &&
         String(Number(node.key.value)) === node.key.value &&
-        !(options.parser === "flow" || options.parser === "babel-flow")))
+        !(
+          options.parser === "flow" ||
+          options.parser === "babel-flow" ||
+          options.parser === "typescript" ||
+          options.parser === "babel-ts"
+        )))
   );
 }
 
