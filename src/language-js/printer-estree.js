@@ -3734,21 +3734,16 @@ function printPropertyKey(path, options, print) {
       (prop) =>
         !prop.computed &&
         prop.key &&
-        ((isStringLiteral(prop.key) &&
-          !isStringPropSafeToUnquote(prop, options)) ||
-          (isNumericLiteral(prop.key) &&
-            (options.parser === "flow" ||
-              options.parser === "babel-flow" ||
-              options.parser === "typescript" ||
-              options.parser === "babel-ts")))
+        isStringLiteral(prop.key) &&
+        !isStringPropSafeToUnquote(prop, options)
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
 
   if (
     (key.type === "Identifier" ||
-      isNumericLiteral(key) ||
-      key.type === "BigIntLiteral") &&
+      ((isNumericLiteral(key) || key.type === "BigIntLiteral") &&
+        !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {

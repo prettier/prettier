@@ -423,14 +423,14 @@ const d = {
 };
 
 const e = {
-  '1': null,
-  '100': null,
-  '1000': null,
-  '1e+100': null,
-  '2': null,
-  '8': null,
-  '15': null,
-  'NaN': null,
+  1: null,
+  1e2: null,
+  1e3: null,
+  1e100: null,
+  0b10: null,
+  0o10: null,
+  0xf: null,
+  NaN: null,
 };
 
 const f = {
@@ -560,14 +560,14 @@ const d = {
 };
 
 const e = {
-  "1": null,
-  "100": null,
-  "1000": null,
-  "1e+100": null,
-  "2": null,
-  "8": null,
-  "15": null,
-  "NaN": null,
+  1: null,
+  1e2: null,
+  1e3: null,
+  1e100: null,
+  0b10: null,
+  0o10: null,
+  0xf: null,
+  NaN: null,
 };
 
 const f = {
@@ -929,13 +929,13 @@ obj = {
 
 =====================================output=====================================
 obj = {
-  'foo': '',
-  '1': '',
+  foo: '',
+  1: '',
 };
 
 obj = {
-  'bar': '',
-  '1': '',
+  bar: '',
+  1: '',
 };
 
 obj = {
@@ -970,13 +970,13 @@ obj = {
 
 =====================================output=====================================
 obj = {
-  "foo": "",
-  "1": "",
+  foo: "",
+  1: "",
 };
 
 obj = {
-  "bar": "",
-  "1": "",
+  bar: "",
+  1: "",
 };
 
 obj = {
