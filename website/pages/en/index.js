@@ -275,6 +275,7 @@ const UsersSection = ({ language }) => {
           >
             See All Others
           </a>
+          &nbsp;&nbsp;&nbsp;
           <a
             className="button"
             href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
