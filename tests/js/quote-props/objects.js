@@ -55,3 +55,8 @@ const g = {
   NaN: null,
   'a-a': null,
 }
+
+const h = {
+  "-1": null,
+  "-0xa": null,
+}

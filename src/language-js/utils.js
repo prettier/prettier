@@ -746,7 +746,8 @@ function isStringPropSafeToUnquote(node, options) {
         (options.parser === "typescript" || options.parser === "babel-ts") &&
         node.type === "ClassProperty"
       )) ||
-      (String(Number(node.key.value)) === node.key.value &&
+      (!node.key.value.startsWith("-") &&
+        String(Number(node.key.value)) === node.key.value &&
         !(options.parser === "flow" || options.parser === "babel-flow")))
   );
 }
