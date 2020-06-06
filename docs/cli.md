@@ -19,6 +19,8 @@ prettier --write .
 
 This command formats all files supported by Prettier in the current directory and its subdirectories.
 
+It’s recommended to always make sure that `prettier --write .` works out in your project. Use a `.prettierignore` file to ignore things that should not be formatted.
+
 A more complicated example:
 
 ```bash
@@ -29,7 +31,7 @@ prettier --single-quote --trailing-comma all --write docs package.json "{app,__{
 
 > It's usually better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This allows sharing those settings across different ways to run Prettier (CLI, [editor integrations](editors.md), etc.).
 
-Given a list of paths/patterns, Prettier CLI first treats every entry in it as a literal path.
+Given a list of paths/patterns, the Prettier CLI first treats every entry in it as a literal path.
 
 - If the path points to an existing file, Prettier CLI proceeds with that file and doesn't resolve the path as a glob pattern.
 
