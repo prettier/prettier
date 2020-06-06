@@ -89,6 +89,7 @@ function clean(ast, newObj, parent) {
     typeof ast.key === "object" &&
     ast.key &&
     (ast.key.type === "Literal" ||
+      ast.key.type === "NumericLiteral" ||
       ast.key.type === "StringLiteral" ||
       ast.key.type === "Identifier")
   ) {

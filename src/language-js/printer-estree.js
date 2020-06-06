@@ -68,12 +68,13 @@ const {
   isMemberExpressionChain,
   isMemberish,
   isNgForOf,
+  isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleFlowType,
   isSimpleTemplateLiteral,
   isStringLiteral,
-  isStringPropSafeToCoerceToIdentifier,
+  isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
@@ -3733,19 +3734,27 @@ function printPropertyKey(path, options, print) {
       (prop) =>
         !prop.computed &&
         prop.key &&
-        isStringLiteral(prop.key) &&
-        !isStringPropSafeToCoerceToIdentifier(prop, options)
+        ((isStringLiteral(prop.key) &&
+          !isStringPropSafeToUnquote(prop, options)) ||
+          (isNumericLiteral(prop.key) &&
+            (options.parser === "flow" || options.parser === "babel-flow")))
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
 
   if (
-    key.type === "Identifier" &&
+    (key.type === "Identifier" || isNumericLiteral(key)) &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
     // a -> "a"
-    const prop = printString(JSON.stringify(key.name), options);
+    // 1e2 -> "100"
+    const prop = printString(
+      JSON.stringify(
+        key.type === "Identifier" ? key.name : key.value.toString()
+      ),
+      options
+    );
     return path.call(
       (keyPath) => comments.printComments(keyPath, () => prop, options),
       "key"
@@ -3753,11 +3762,12 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
-    isStringPropSafeToCoerceToIdentifier(node, options) &&
+    isStringPropSafeToUnquote(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
     // 'a' -> a
+    // '1e+100' -> 1e+100
     return path.call(
       (keyPath) => comments.printComments(keyPath, () => key.value, options),
       "key"

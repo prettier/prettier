@@ -734,18 +734,20 @@ function returnArgumentHasLeadingComment(options, argument) {
   return false;
 }
 
-function isStringPropSafeToCoerceToIdentifier(node, options) {
+function isStringPropSafeToUnquote(node, options) {
   return (
-    isStringLiteral(node.key) &&
-    isIdentifierName(node.key.value) &&
-    rawText(node.key).slice(1, -1) === node.key.value &&
     options.parser !== "json" &&
-    // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
-    // See https://github.com/microsoft/TypeScript/pull/20075
-    !(
-      (options.parser === "typescript" || options.parser === "babel-ts") &&
-      node.type === "ClassProperty"
-    )
+    isStringLiteral(node.key) &&
+    rawText(node.key).slice(1, -1) === node.key.value &&
+    ((isIdentifierName(node.key.value) &&
+      // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
+      // See https://github.com/microsoft/TypeScript/pull/20075
+      !(
+        (options.parser === "typescript" || options.parser === "babel-ts") &&
+        node.type === "ClassProperty"
+      )) ||
+      (String(Number(node.key.value)) === node.key.value &&
+        !(options.parser === "flow" || options.parser === "babel-flow")))
   );
 }
 
@@ -1103,7 +1105,7 @@ module.exports = {
   isSimpleFlowType,
   isSimpleTemplateLiteral,
   isStringLiteral,
-  isStringPropSafeToCoerceToIdentifier,
+  isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
