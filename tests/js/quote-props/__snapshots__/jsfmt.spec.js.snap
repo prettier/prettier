@@ -294,7 +294,7 @@ const f = {
   1: null,
   "1E2": null,
   "1e+3": null,
-  1e+100: null,
+  1e100: null,
   "0b10": null,
   "0o10": null,
   "0xf": null,

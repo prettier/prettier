@@ -3767,9 +3767,14 @@ function printPropertyKey(path, options, print) {
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
     // 'a' -> a
-    // '1e+100' -> 1e+100
+    // '1e+100' -> 1e100
     return path.call(
-      (keyPath) => comments.printComments(keyPath, () => key.value, options),
+      (keyPath) =>
+        comments.printComments(
+          keyPath,
+          () => (/^\d/.test(key.value) ? printNumber(key.value) : key.value),
+          options
+        ),
       "key"
     );
   }
