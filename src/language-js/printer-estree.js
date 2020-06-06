@@ -3746,12 +3746,15 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
-    (key.type === "Identifier" || isNumericLiteral(key)) &&
+    (key.type === "Identifier" ||
+      isNumericLiteral(key) ||
+      key.type === "BigIntLiteral") &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
     // a -> "a"
     // 1e2 -> "100"
+    // 2n -> "2"
     const prop = printString(
       JSON.stringify(
         key.type === "Identifier" ? key.name : key.value.toString()

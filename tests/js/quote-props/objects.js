@@ -30,6 +30,7 @@ const e = {
   0b10: null,
   0o10: null,
   0xf: null,
+  2n: null,
   NaN: null,
 }
 
@@ -41,6 +42,7 @@ const f = {
   "0b10": null,
   "0o10": null,
   "0xf": null,
+  "2n": null,
   "NaN": null,
 }
 
@@ -53,6 +55,7 @@ const g = {
   0o10: null,
   0xf: null,
   NaN: null,
+  2n: null,
   'a-a': null,
 }
 
