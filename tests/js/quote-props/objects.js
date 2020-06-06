@@ -6,6 +6,12 @@ const b = {
   'b': "b"
 };
 
+const b2 = {
+  // Escapes should stay as escapes and not be unquoted.
+  '\u0062': "b",
+  '\u0031': "1"
+};
+
 const c = {
   c1: "c1",
   'c2': "c2"
