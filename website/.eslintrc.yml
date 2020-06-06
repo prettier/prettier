@@ -5,3 +5,6 @@ rules:
   react/display-name: off
   react/no-deprecated: off
   react/prop-types: off
+settings:
+  react:
+    version: "16"
