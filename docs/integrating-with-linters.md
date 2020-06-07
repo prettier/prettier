@@ -19,9 +19,9 @@ When searching for both Prettier and your linter on the Internet you’ll probab
 
 First, we have plugins that let you run Prettier as if it was a linter rule:
 
-- [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier)
-- [`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier)
-- [`stylelint-prettier`](https://github.com/prettier/stylelint-prettier)
+- [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)
+- [tslint-plugin-prettier](https://github.com/ikatyang/tslint-plugin-prettier)
+- [stylelint-prettier](https://github.com/prettier/stylelint-prettier)
 
 These plugins were especially useful when Prettier was new. By running Prettier inside your linters, you didn’t have to set up any new infrastructure and you could re-use your editor intergrations for the linters. But these days you can run `prettier --check .` and most editors have Prettier support.
 
@@ -33,8 +33,8 @@ The downsides of those plugins are:
 
 Finally, we have tools that runs `prettier` and then immediately for example `eslint --fix` on files.
 
-- [`prettier-eslint`](https://github.com/prettier/prettier-eslint)
-- [`prettier-tslint`](https://github.com/azz/prettier-tslint)
-- [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint)
+- [prettier-eslint](https://github.com/prettier/prettier-eslint)
+- [prettier-tslint](https://github.com/azz/prettier-tslint)
+- [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint)
 
 This is useful if some aspect of Prettier’s output makes Prettier completely unusable to you. Then you can have for example `eslint --fix` fix that up for you. The downside is that these tools are much slower than just running Prettier.
