@@ -3750,9 +3750,14 @@ function printPropertyKey(path, options, print) {
     // a -> "a"
     // 1e2 -> "100"
     // 2n -> "2"
+    // 0b10n -> "2"
     const prop = printString(
       JSON.stringify(
-        key.type === "Identifier" ? key.name : key.value.toString()
+        key.type === "Identifier"
+          ? key.name
+          : key.type === "BigIntLiteral"
+          ? BigInt(key.value).toString()
+          : key.value.toString()
       ),
       options
     );
