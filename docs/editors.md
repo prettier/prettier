@@ -3,6 +3,10 @@ id: editors
 title: Editor Integration
 ---
 
+To get the most out of Prettier, it’s recommended to run it from your editor.
+
+If your editor does not support Prettier, you can instead [run Prettier with a file watcher](watching-files.md).
+
 ## Visual Studio Code
 
 `prettier-vscode` can be installed using the extension sidebar – it’s called “Prettier - Code formatter.” [Check its repository for configuration and shortcuts](https://github.com/prettier/prettier-vscode).
