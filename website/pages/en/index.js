@@ -58,9 +58,9 @@ const HomeSplash = (props) => {
             <div className="section promoSection">
               <div className="promoRow">
                 <div className="pluginRowBlock">
-                  <Button href="/playground/">Try It Out</Button>&nbsp;
+                  <Button href="/playground/">Try It Online</Button>&nbsp;
                   <Button href={"/docs/" + props.language + "/install.html"}>
-                    Get Started
+                    Installation
                   </Button>
                 </div>
               </div>
