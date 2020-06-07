@@ -23,7 +23,7 @@ First, we have plugins that let you run Prettier as if it was a linter rule:
 - [tslint-plugin-prettier](https://github.com/ikatyang/tslint-plugin-prettier)
 - [stylelint-prettier](https://github.com/prettier/stylelint-prettier)
 
-These plugins were especially useful when Prettier was new. By running Prettier inside your linters, you didn’t have to set up any new infrastructure and you could re-use your editor intergrations for the linters. But these days you can run `prettier --check .` and most editors have Prettier support.
+These plugins were especially useful when Prettier was new. By running Prettier inside your linters, you didn’t have to set up any new infrastructure and you could re-use your editor integrations for the linters. But these days you can run `prettier --check .` and most editors have Prettier support.
 
 The downsides of those plugins are:
 
