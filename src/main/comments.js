@@ -60,7 +60,9 @@ function getSortedChildNodes(node, options, resultArray) {
           (n) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
-            n !== "followingNode"
+            n !== "followingNode" &&
+            n !== "tokens" &&
+            n !== "comments"
         )
         .map((n) => node[n]));
 
