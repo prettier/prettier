@@ -1295,11 +1295,15 @@ label {
 }
 
 .foo{
-  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
 }
 
 .bar{
-  width: pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
 }
 
 =====================================output=====================================
@@ -2298,9 +2302,8 @@ label {
       2,
       someVeryLongFunctionNameForJustAPow(
         2,
+        // This next pow is really powerful
         someVeryLongFunctionNameForJustAPow(
-          2,
-          someVeryLongFunctionNameForJustAPow(
             2,
             someVeryLongFunctionNameForJustAPow(
               2,
@@ -2314,7 +2317,10 @@ label {
                       2,
                       someVeryLongFunctionNameForJustAPow(
                         2,
-                        someVeryLongFunctionNameForJustAPow(2, 2)
+                        someVeryLongFunctionNameForJustAPow(
+                          2,
+                          someVeryLongFunctionNameForJustAPow(2, 2)
+                        )
                       )
                     )
                   )
@@ -2322,7 +2328,6 @@ label {
               )
             )
           )
-        )
       )
     )
   );
@@ -2335,10 +2340,11 @@ label {
       2,
       pow(
         2,
+        // This next pow is really powerful
         pow(
-          2,
-          pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
-        )
+            2,
+            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+          )
       )
     )
   );
@@ -3429,11 +3435,15 @@ label {
 }
 
 .foo{
-  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
 }
 
 .bar{
-  width: pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
 }
 
 =====================================output=====================================
@@ -4432,9 +4442,8 @@ label {
       2,
       someVeryLongFunctionNameForJustAPow(
         2,
+        // This next pow is really powerful
         someVeryLongFunctionNameForJustAPow(
-          2,
-          someVeryLongFunctionNameForJustAPow(
             2,
             someVeryLongFunctionNameForJustAPow(
               2,
@@ -4448,7 +4457,10 @@ label {
                       2,
                       someVeryLongFunctionNameForJustAPow(
                         2,
-                        someVeryLongFunctionNameForJustAPow(2, 2)
+                        someVeryLongFunctionNameForJustAPow(
+                          2,
+                          someVeryLongFunctionNameForJustAPow(2, 2)
+                        )
                       )
                     )
                   )
@@ -4456,7 +4468,6 @@ label {
               )
             )
           )
-        )
       )
     )
   );
@@ -4469,10 +4480,11 @@ label {
       2,
       pow(
         2,
+        // This next pow is really powerful
         pow(
-          2,
-          pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
-        )
+            2,
+            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+          )
       )
     )
   );
@@ -4530,31 +4542,6 @@ a {
   background-image: url("../test/" + "static/test.jpg");
   background-image: url($test-path + $test-path);
 }
-
-================================================================================
-`;
-
-exports[`value-paren.scss - {"trailingComma":"none"} format 1`] = `
-====================================options=====================================
-parsers: ["scss"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
-
-=====================================output=====================================
-
-================================================================================
-`;
-
-exports[`value-paren.scss format 1`] = `
-====================================options=====================================
-parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-
-=====================================output=====================================
 
 ================================================================================
 `;
