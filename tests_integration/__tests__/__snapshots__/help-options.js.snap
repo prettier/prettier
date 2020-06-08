@@ -43,6 +43,24 @@ exports[`show detailed usage with --help check (stdout) 1`] = `
 
 exports[`show detailed usage with --help check (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help cjk-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help cjk-spacing (stdout) 1`] = `
+"--cjk-spacing <always|preserve>
+
+  Print spaces between CJK characters and non-CJK characters.
+
+Valid options:
+
+  always     Print spaces wherever between CJK and non-CJK.
+  preserve   Print spaces as-is.
+
+Default: preserve
+"
+`;
+
+exports[`show detailed usage with --help cjk-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help color (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help color (stdout) 1`] = `

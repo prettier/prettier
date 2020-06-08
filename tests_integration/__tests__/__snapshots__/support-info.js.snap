@@ -85,6 +85,14 @@ Object {
       "default": true,
       "type": "boolean",
     },
+    "cjkSpacing": Object {
+      "choices": Array [
+        "always",
+        "preserve",
+      ],
+      "default": "preserve",
+      "type": "choice",
+    },
     "cursorOffset": Object {
       "default": -1,
       "range": Object {
@@ -724,6 +732,27 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Markdown\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Print spaces wherever between CJK and non-CJK.\\",
+          \\"since\\": \\"2.1.0\\",
+          \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\": \\"Print spaces as-is.\\",
+          \\"since\\": \\"2.1.0\\",
+          \\"value\\": \\"preserve\\"
+        }
+      ],
+      \\"default\\": \\"preserve\\",
+      \\"description\\": \\"Print spaces between CJK characters and non-CJK characters.\\",
+      \\"name\\": \\"cjkSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.1.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"Special\\",

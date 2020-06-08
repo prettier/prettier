@@ -29,6 +29,24 @@ Object {
           "description": "Print spaces between brackets.",
           "type": "boolean",
         },
+        "cjkSpacing": Object {
+          "default": "preserve",
+          "description": "Print spaces between CJK characters and non-CJK characters.",
+          "oneOf": Array [
+            Object {
+              "description": "Print spaces wherever between CJK and non-CJK.",
+              "enum": Array [
+                "always",
+              ],
+            },
+            Object {
+              "description": "Print spaces as-is.",
+              "enum": Array [
+                "preserve",
+              ],
+            },
+          ],
+        },
         "cursorOffset": Object {
           "default": -1,
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.

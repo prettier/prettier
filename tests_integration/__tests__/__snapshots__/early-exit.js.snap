@@ -71,6 +71,9 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --cjk-spacing <always|preserve>
+                           Print spaces between CJK characters and non-CJK characters.
+                           Defaults to preserve.
   --embedded-language-formatting <auto|off>
                            Control how Prettier formats quoted code embedded in the file.
                            Defaults to auto.
@@ -230,6 +233,9 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --cjk-spacing <always|preserve>
+                           Print spaces between CJK characters and non-CJK characters.
+                           Defaults to preserve.
   --embedded-language-formatting <auto|off>
                            Control how Prettier formats quoted code embedded in the file.
                            Defaults to auto.
