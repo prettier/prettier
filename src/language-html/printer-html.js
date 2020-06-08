@@ -80,7 +80,10 @@ function embed(path, print, textToDoc, options) {
 
         let doc;
         try {
-          doc = textToDoc(getNodeContent(node, options), { parser });
+          doc = textToDoc(
+            htmlTrimPreserveIndentation(getNodeContent(node, options)),
+            { parser }
+          );
         } catch (_) {
           return;
         }

@@ -163,3 +163,44 @@ WORLD!
 
 ================================================================================
 `;
+
+exports[`whitspace.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<custom lang="uppercase-rocks">
+  hello,
+  world!
+</custom>
+
+=====================================output=====================================
+<custom lang="uppercase-rocks">
+  hello,
+  world!
+</custom>
+
+================================================================================
+`;
+
+exports[`whitspace.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<custom lang="uppercase-rocks">
+  hello,
+  world!
+</custom>
+
+=====================================output=====================================
+<custom lang="uppercase-rocks">
+  HELLO,
+  WORLD!
+</custom>
+
+================================================================================
+`;

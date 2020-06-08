@@ -1,21 +1,23 @@
 "use strict";
 
+const name = "uppercase-rocks";
+
 module.exports = {
   languages: [
     {
-      name: "uppercase-rocks",
-      parsers: ["uppercase-rocks"],
+      name,
+      parsers: [name],
     },
   ],
   parsers: {
-    "uppercase-rocks": {
+    [name]: {
       parse: (text) => ({ value: text }),
-      astFormat: "uppercase-rocks",
+      astFormat: name,
     },
   },
   printers: {
-    "uppercase-rocks": {
-      print: (path) => path.getValue().value.trim().toUpperCase(),
+    [name]: {
+      print: (path) => path.getValue().value.toUpperCase(),
     },
   },
 };
