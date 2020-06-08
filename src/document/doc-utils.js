@@ -59,7 +59,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 
 function mapDoc(doc, cb) {
   if (doc.type === "concat" || doc.type === "fill") {
-    const parts = doc.parts.map(part => mapDoc(part, cb));
+    const parts = doc.parts.map((part) => mapDoc(part, cb));
     return cb({ ...doc, parts });
   } else if (doc.type === "if-break") {
     const breakContents = doc.breakContents && mapDoc(doc.breakContents, cb);
@@ -182,27 +182,72 @@ function removeLines(doc) {
   return mapDoc(doc, removeLinesFn);
 }
 
-function stripTrailingHardline(doc) {
+function getInnerParts(doc) {
+  let { parts } = doc;
+  let lastPart;
+  // Avoid a falsy element like ""
+  for (let i = doc.parts.length; i > 0 && !lastPart; i--) {
+    lastPart = parts[i - 1];
+  }
+  if (lastPart.type === "group") {
+    parts = lastPart.contents.parts;
+  }
+  return parts;
+}
+
+function stripTrailingHardline(doc, withInnerParts = false) {
   // HACK remove ending hardline, original PR: #1984
   if (doc.type === "concat" && doc.parts.length !== 0) {
-    const lastPart = doc.parts[doc.parts.length - 1];
+    const parts = withInnerParts ? getInnerParts(doc) : doc.parts;
+    const lastPart = parts[parts.length - 1];
     if (lastPart.type === "concat") {
       if (
         lastPart.parts.length === 2 &&
         lastPart.parts[0].hard &&
         lastPart.parts[1].type === "break-parent"
       ) {
-        return { type: "concat", parts: doc.parts.slice(0, -1) };
+        return { type: "concat", parts: parts.slice(0, -1) };
       }
 
       return {
         type: "concat",
-        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart))
+        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart)),
       };
     }
   }
 
   return doc;
+}
+
+function normalizeParts(parts) {
+  const newParts = [];
+
+  const restParts = parts.slice();
+  while (restParts.length !== 0) {
+    const part = restParts.shift();
+
+    if (!part) {
+      continue;
+    }
+
+    if (part.type === "concat") {
+      restParts.unshift(...part.parts);
+      continue;
+    }
+
+    if (
+      newParts.length !== 0 &&
+      typeof newParts[newParts.length - 1] === "string" &&
+      typeof part === "string"
+    ) {
+      newParts.push(newParts.pop() + part);
+      continue;
+    }
+
+    newParts.push(part);
+  }
+
+  return newParts;
 }
 
 module.exports = {
@@ -214,5 +259,6 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
-  stripTrailingHardline
+  stripTrailingHardline,
+  normalizeParts,
 };

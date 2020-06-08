@@ -4,26 +4,31 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
-const globby = require("globby");
+
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
-const uniq = require("lodash/uniq");
+const flat = require("lodash/flatten");
+// eslint-disable-next-line no-restricted-modules
+const prettier = require("../index");
+// eslint-disable-next-line no-restricted-modules
+const { getStream } = require("../common/third-party");
+const {
+  createIgnorer,
+  errors,
+  coreOptions,
+  optionsModule,
+  optionsNormalizer,
+  utils: { arrayify },
+} = require("./prettier-internal");
 
 const minimist = require("./minimist");
-const prettier = require("../../index");
-const createIgnorer = require("../common/create-ignorer");
-const errors = require("../common/errors");
+const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
 const constant = require("./constant");
-const coreOptions = require("../main/core-options");
-const optionsModule = require("../main/options");
-const optionsNormalizer = require("../main/options-normalizer");
-const thirdParty = require("../common/third-party");
-const arrayify = require("../utils/arrayify");
-const isTTY = require("../utils/is-tty");
+const isTTY = require("./is-tty");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -49,7 +54,7 @@ function cliifyOptions(object, apiDetailedOptionMap) {
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-    context: 2
+    context: 2,
   });
 }
 
@@ -110,7 +115,7 @@ function logFileInfoOrDie(context) {
     ignorePath: context.argv["ignore-path"],
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
-    pluginSearchDirs: context.argv["plugin-search-dir"]
+    pluginSearchDirs: context.argv["plugin-search-dir"],
   };
   context.logger.log(
     prettier.format(
@@ -175,7 +180,7 @@ function format(context, input, opt) {
         "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
-      const stringify = obj => JSON.stringify(obj, null, 2);
+      const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
         prettier.__debug.parse(input, opt, /* massage */ true).ast
       );
@@ -220,11 +225,11 @@ function format(context, input, opt) {
       .add("format", () => {
         prettier.formatWithCursor(input, opt);
       })
-      .on("cycle", event => {
+      .on("cycle", (event) => {
         const results = {
           benchmark: String(event.target),
           hz: event.target.hz,
-          ms: event.target.times.cycle * 1000
+          ms: event.target.times.cycle * 1000,
         };
         context.logger.debug(
           "'--debug-benchmark' measurements for formatWithCursor: " +
@@ -251,7 +256,7 @@ function format(context, input, opt) {
     const results = {
       repeat,
       hz: 1000 / averageMs,
-      ms: averageMs
+      ms: averageMs,
     };
     context.logger.debug(
       "'--debug-repeat' measurements for formatWithCursor: " +
@@ -279,7 +284,7 @@ function getOptionsOrDie(context, filePath) {
 
     const options = prettier.resolveConfig.sync(filePath, {
       editorconfig: context.argv.editorconfig,
-      config: context.argv.config
+      config: context.argv.config,
     });
 
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -306,9 +311,9 @@ function getOptionsForFile(context, filepath) {
       context,
       options &&
         optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
-          logger: context.logger
+          logger: context.logger,
         })
-    )
+    ),
   };
 
   context.logger.debug(
@@ -333,7 +338,7 @@ function parseArgsToOptions(context, overrideDefaults) {
       minimist(context.args, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
-        default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
+        default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
       { logger: false }
@@ -370,10 +375,12 @@ function formatStdin(context) {
     ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
     : path.relative(process.cwd(), filepath);
 
-  thirdParty
-    .getStream(process.stdin)
-    .then(input => {
-      if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+  getStream(process.stdin)
+    .then((input) => {
+      if (
+        relativeFilepath &&
+        ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+      ) {
         writeOutput(context, { formatted: input });
         return;
       }
@@ -386,7 +393,7 @@ function formatStdin(context) {
 
       writeOutput(context, format(context, input, options), options);
     })
-    .catch(error => {
+    .catch((error) => {
       handleError(context, relativeFilepath || "stdin", error);
     });
 }
@@ -403,109 +410,6 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-/**
- * Get stats of a given path.
- * @param {string} filePath The path to target file.
- * @returns {fs.Stats|undefined} The stats.
- * @private
- */
-function statSafeSync(filePath) {
-  try {
-    return fs.statSync(filePath);
-  } catch (error) {
-    /* istanbul ignore next */
-    if (error.code !== "ENOENT") {
-      throw error;
-    }
-  }
-}
-
-// `dot pattern` and `expand directories` support need handle differently
-// for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
-// see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
-const isWindows = path.sep === "\\";
-const globbyOptions = { dot: true, expandDirectories: false, absolute: true };
-function eachFilename(context, maybePatterns, callback) {
-  const withNodeModules = context.argv["with-node-modules"] === true;
-  // TODO: use `ignore` option for `globby`
-  const extraPatterns = [
-    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-    ...(withNodeModules ? [] : ["!**/node_modules/**", "!./node_modules/**"]),
-    "!**/.{git,svn,hg}/**",
-    "!./.{git,svn,hg}/**"
-  ];
-
-  // Ignores files in version control systems directories and `node_modules`
-  const ignoredDirectories = [".git", ".svn", ".hg"];
-  if (!withNodeModules) {
-    ignoredDirectories.push("node_modules");
-  }
-
-  let files = [];
-  const cwd = process.cwd();
-  const patterns = [];
-
-  for (const pattern of maybePatterns) {
-    const absolutePath = path.resolve(cwd, pattern);
-    const stat = statSafeSync(absolutePath);
-    if (
-      stat &&
-      stat.isFile() &&
-      !path
-        .relative(cwd, absolutePath)
-        .split(path.sep)
-        .some(directory => ignoredDirectories.includes(directory))
-    ) {
-      files.push(absolutePath);
-    } else {
-      // Ignore `dot pattern` for now
-      if (pattern !== ".") {
-        // workaround for fast-glob on Windows ref:
-        // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-        patterns.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
-      }
-    }
-  }
-
-  if (patterns.length > 0) {
-    try {
-      // Don't use `files.push(...)`, there is limitation on the number of arguments.
-      files = [
-        ...files,
-        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
-      ];
-    } catch (error) {
-      context.logger.error(
-        `Unable to expand glob patterns: ${[
-          ...maybePatterns,
-          ...extraPatterns
-        ].join(" ")}\n${error.message}`
-      );
-      // Don't exit the process if one pattern failed
-      process.exitCode = 2;
-    }
-  }
-
-  if (files.length === 0) {
-    context.logger.error(
-      `No matching files. Patterns tried: ${[
-        ...maybePatterns,
-        ...extraPatterns
-      ].join(" ")}`
-    );
-    process.exitCode = 2;
-    return;
-  }
-
-  files = uniq(files.map(file => path.relative(cwd, file)))
-    // keeping file order for backward compatibility
-    .sort((a, b) => a.localeCompare(b));
-
-  for (const file of files) {
-    callback(file);
-  }
-}
-
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -517,13 +421,22 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  eachFilename(context, context.filePatterns, filename => {
+  for (const pathOrError of expandPatterns(context)) {
+    if (typeof pathOrError === "object") {
+      context.logger.error(pathOrError.error);
+      // Don't exit, but set the exit code to 2
+      process.exitCode = 2;
+      continue;
+    }
+
+    const filename = pathOrError;
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
     const ignoreFilename = context.argv["ignore-path"]
       ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
       : filename;
-    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
+
+    const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
@@ -531,12 +444,12 @@ function formatFiles(context) {
         context.argv.check ||
         context.argv["list-different"])
     ) {
-      return;
+      continue;
     }
 
     const options = {
       ...getOptionsForFile(context, filename),
-      filepath: filename
+      filepath: filename,
     };
 
     if (isTTY()) {
@@ -555,12 +468,12 @@ function formatFiles(context) {
       );
       // Don't exit the process if one file failed
       process.exitCode = 2;
-      return;
+      continue;
     }
 
     if (fileIgnored) {
       writeOutput(context, { formatted: input }, options);
-      return;
+      continue;
     }
 
     const start = Date.now();
@@ -569,11 +482,11 @@ function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, { ...options, filepath: filename });
+      result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error);
-      return;
+      continue;
     }
 
     const isDifferent = output !== input;
@@ -618,7 +531,7 @@ function formatFiles(context) {
       context.logger.log(filename);
       numberOfUnformattedFilesFound += 1;
     }
-  });
+  }
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
@@ -644,24 +557,24 @@ function formatFiles(context) {
 
 function getOptionsWithOpposites(options) {
   // Add --no-foo after --foo.
-  const optionsWithOpposites = options.map(option => [
+  const optionsWithOpposites = options.map((option) => [
     option.description ? option : null,
     option.oppositeDescription
       ? {
           ...option,
           name: `no-${option.name}`,
           type: "boolean",
-          description: option.oppositeDescription
+          description: option.oppositeDescription,
         }
-      : null
+      : null,
   ]);
-  return flattenArray(optionsWithOpposites).filter(Boolean);
+  return flat(optionsWithOpposites).filter(Boolean);
 }
 
 function createUsage(context) {
   const options = getOptionsWithOpposites(context.detailedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
-    option =>
+    (option) =>
       !(
         option.type === "boolean" &&
         option.oppositeDescription &&
@@ -669,22 +582,24 @@ function createUsage(context) {
       )
   );
 
-  const groupedOptions = groupBy(options, option => option.category);
+  const groupedOptions = groupBy(options, (option) => option.category);
 
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    category => !constant.categoryOrder.includes(category)
+    (category) => !constant.categoryOrder.includes(category)
   );
   const allCategories = [
     ...firstCategories,
     ...restCategories,
-    ...lastCategories
+    ...lastCategories,
   ];
 
-  const optionsUsage = allCategories.map(category => {
+  const optionsUsage = allCategories.map((category) => {
     const categoryOptions = groupedOptions[category]
-      .map(option => createOptionUsage(context, option, OPTION_USAGE_THRESHOLD))
+      .map((option) =>
+        createOptionUsage(context, option, OPTION_USAGE_THRESHOLD)
+      )
       .join("\n");
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
@@ -736,27 +651,23 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter(choice => !choice.deprecated && choice.since !== null)
-        .map(choice => choice.value)
+        .filter((choice) => !choice.deprecated && choice.since !== null)
+        .map((choice) => choice.value)
         .join("|")}>`;
     default:
       return `<${option.type}>`;
   }
 }
 
-function flattenArray(array) {
-  return [].concat(...array);
-}
-
 function createChoiceUsages(choices, margin, indentation) {
   const activeChoices = choices.filter(
-    choice => !choice.deprecated && choice.since !== null
+    (choice) => !choice.deprecated && choice.since !== null
   );
   const threshold =
     activeChoices
-      .map(choice => choice.value.length)
+      .map((choice) => choice.value.length)
       .reduce((current, length) => Math.max(current, length), 0) + margin;
-  return activeChoices.map(choice =>
+  return activeChoices.map((choice) =>
     indent(
       createOptionUsageRow(choice.value, choice.description, threshold),
       indentation
@@ -766,7 +677,7 @@ function createChoiceUsages(choices, margin, indentation) {
 
 function createDetailedUsage(context, flag) {
   const option = getOptionsWithOpposites(context.detailedOptions).find(
-    option => option.name === flag || option.alias === flag
+    (option) => option.name === flag || option.alias === flag
   );
 
   const header = createOptionUsageHeader(option);
@@ -790,7 +701,7 @@ function createDetailedUsage(context, flag) {
   const pluginDefaults =
     option.pluginDefaults && Object.keys(option.pluginDefaults).length
       ? `\nPlugin defaults:${Object.keys(option.pluginDefaults).map(
-          key =>
+          (key) =>
             `\n* ${key}: ${createDefaultValueDisplay(
               option.pluginDefaults[key]
             )}`
@@ -802,7 +713,7 @@ function createDetailedUsage(context, flag) {
 function getOptionDefaultValue(context, optionName) {
   // --no-option
   if (!(optionName in context.detailedOptionMap)) {
-    return undefined;
+    return;
   }
 
   const option = context.detailedOptionMap[optionName];
@@ -815,8 +726,6 @@ function getOptionDefaultValue(context, optionName) {
   if (optionCamelName in context.apiDefaultOptions) {
     return context.apiDefaultOptions[optionCamelName];
   }
-
-  return undefined;
 }
 
 function indent(str, spaces) {
@@ -828,7 +737,7 @@ function createLogger(logLevel) {
     warn: createLogFunc("warn", "yellow"),
     error: createLogFunc("error", "red"),
     debug: createLogFunc("debug", "blue"),
-    log: createLogFunc("log")
+    log: createLogFunc("log"),
   };
 
   function createLogFunc(loggerName, color) {
@@ -837,7 +746,7 @@ function createLogger(logLevel) {
     }
 
     const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
-    return function(message, opts) {
+    return function (message, opts) {
       opts = { newline: true, ...opts };
       const stream = process[loggerName === "log" ? "stdout" : "stderr"];
       stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
@@ -877,17 +786,17 @@ function normalizeDetailedOption(name, option) {
     ...option,
     choices:
       option.choices &&
-      option.choices.map(choice => {
+      option.choices.map((choice) => {
         const newChoice = {
           description: "",
           deprecated: false,
-          ...(typeof choice === "object" ? choice : { value: choice })
+          ...(typeof choice === "object" ? choice : { value: choice }),
         };
         if (newChoice.value === true) {
           newChoice.value = ""; // backward compatibility for original boolean option
         }
         return newChoice;
-      })
+      }),
   };
 }
 
@@ -904,16 +813,16 @@ function createMinimistOptions(detailedOptions) {
     // we use vnopts' AliasSchema to handle aliases for better error messages
     alias: {},
     boolean: detailedOptions
-      .filter(option => option.type === "boolean")
-      .map(option => [option.name].concat(option.alias || []))
+      .filter((option) => option.type === "boolean")
+      .map((option) => [option.name].concat(option.alias || []))
       .reduce((a, b) => a.concat(b)),
     string: detailedOptions
-      .filter(option => option.type !== "boolean")
-      .map(option => [option.name].concat(option.alias || []))
+      .filter((option) => option.type !== "boolean")
+      .map((option) => [option.name].concat(option.alias || []))
       .reduce((a, b) => a.concat(b)),
     default: detailedOptions
       .filter(
-        option =>
+        (option) =>
           !option.deprecated &&
           (!option.forwardToApi ||
             option.name === "plugin" ||
@@ -923,7 +832,7 @@ function createMinimistOptions(detailedOptions) {
       .reduce(
         (current, option) => ({ [option.name]: option.default, ...current }),
         {}
-      )
+      ),
   };
 }
 
@@ -931,21 +840,21 @@ function createApiDetailedOptionMap(detailedOptions) {
   return fromPairs(
     detailedOptions
       .filter(
-        option => option.forwardToApi && option.forwardToApi !== option.name
+        (option) => option.forwardToApi && option.forwardToApi !== option.name
       )
-      .map(option => [option.forwardToApi, option])
+      .map((option) => [option.forwardToApi, option])
   );
 }
 
 function createDetailedOptionMap(supportOptions) {
   return fromPairs(
-    supportOptions.map(option => {
+    supportOptions.map((option) => {
       const newOption = {
         ...option,
         name: option.cliName || dashify(option.name),
         description: option.cliDescription || option.description,
         category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
-        forwardToApi: option.name
+        forwardToApi: option.name,
       };
 
       if (option.deprecated) {
@@ -964,16 +873,20 @@ function createDetailedOptionMap(supportOptions) {
 /**
  * @typedef {Object} Context
  * @property logger
- * @property args
+ * @property {string[]} args
  * @property argv
- * @property filePatterns
- * @property supportOptions
+ * @property {string[]} filePatterns
+ * @property {any[]} supportOptions
  * @property detailedOptions
  * @property detailedOptionMap
  * @property apiDefaultOptions
+ * @property languages
+ * @property {Partial<Context>[]} stack
  */
+
+/** @returns {Context} */
 function createContext(args) {
-  const context = { args };
+  const context = { args, stack: [] };
 
   updateContextArgv(context);
   normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
@@ -986,7 +899,7 @@ function createContext(args) {
     context.argv["plugin-search-dir"]
   );
 
-  return context;
+  return /** @type {Context} */ (context);
 }
 
 function initContext(context) {
@@ -994,18 +907,23 @@ function initContext(context) {
   normalizeContextArgv(context);
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo({
+  const { options: supportOptions, languages } = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
     plugins,
-    pluginSearchDirs
-  }).options;
+    pluginSearchDirs,
+  });
 
   const detailedOptionMap = normalizeDetailedOptionMap({
     ...createDetailedOptionMap(supportOptions),
-    ...constant.options
+    ...constant.options,
   });
 
   const detailedOptions = arrayify(detailedOptionMap, "name");
@@ -1015,29 +933,42 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     ...fromPairs(
       supportOptions
         .filter(({ deprecated }) => !deprecated)
-        .map(option => [option.name, option.default])
-    )
+        .map((option) => [option.name, option.default])
+    ),
   };
 
-  context.supportOptions = supportOptions;
-  context.detailedOptions = detailedOptions;
-  context.detailedOptionMap = detailedOptionMap;
-  context.apiDefaultOptions = apiDefaultOptions;
+  Object.assign(context, {
+    supportOptions,
+    detailedOptions,
+    detailedOptionMap,
+    apiDefaultOptions,
+    languages,
+  });
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function pushContextPlugins(context, plugins, pluginSearchDirs) {
-  context._supportOptions = context.supportOptions;
-  context._detailedOptions = context.detailedOptions;
-  context._detailedOptionMap = context.detailedOptionMap;
-  context._apiDefaultOptions = context.apiDefaultOptions;
+  context.stack.push(
+    pick(context, [
+      "supportOptions",
+      "detailedOptions",
+      "detailedOptionMap",
+      "apiDefaultOptions",
+      "languages",
+    ])
+  );
   updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
+/**
+ * @param {Context} context
+ */
 function popContextPlugins(context) {
-  context.supportOptions = context._supportOptions;
-  context.detailedOptions = context._detailedOptions;
-  context.detailedOptionMap = context._detailedOptionMap;
-  context.apiDefaultOptions = context._apiDefaultOptions;
+  Object.assign(context, context.stack.pop());
 }
 
 function updateContextArgv(context, plugins, pluginSearchDirs) {
@@ -1053,11 +984,11 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
 function normalizeContextArgv(context, keys) {
   const detailedOptions = !keys
     ? context.detailedOptions
-    : context.detailedOptions.filter(option => keys.includes(option.name));
+    : context.detailedOptions.filter((option) => keys.includes(option.name));
   const argv = !keys ? context.argv : pick(context.argv, keys);
 
   context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
-    logger: context.logger
+    logger: context.logger,
   });
 }
 //------------------------------context-util-end--------------------------------
@@ -1073,5 +1004,5 @@ module.exports = {
   initContext,
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
-  normalizeDetailedOptionMap
+  normalizeDetailedOptionMap,
 };

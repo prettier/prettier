@@ -3,9 +3,9 @@
 exports[`support relative paths (stderr) 1`] = `""`;
 
 exports[`support relative paths (stdout) 1`] = `
-"level1-glob/level2-glob/level3-glob/shouldNotBeIgnored.scss
+"shouldNotBeIgnored.js
+level1-glob/level2-glob/level3-glob/shouldNotBeIgnored.scss
 level1-glob/shouldNotBeIgnored.js
-shouldNotBeIgnored.js
 "
 `;
 

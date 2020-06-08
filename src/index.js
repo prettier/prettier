@@ -18,7 +18,7 @@ function _withPlugins(
     const opts = args[optsArgIdx] || {};
     args[optsArgIdx] = {
       ...opts,
-      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs)
+      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs),
     };
     return fn(...args);
   };
@@ -27,6 +27,7 @@ function _withPlugins(
 function withPlugins(fn, optsArgIdx) {
   const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
+    // @ts-ignore
     resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
   }
   return resultingFn;
@@ -55,12 +56,27 @@ module.exports = {
     plugins.clearCache();
   },
 
-  getFileInfo: withPlugins(getFileInfo),
-  getSupportInfo: withPlugins(getSupportInfo, 0),
+  getFileInfo: /** @type {typeof getFileInfo} */ (withPlugins(getFileInfo)),
+  getSupportInfo: /** @type {typeof getSupportInfo} */ (withPlugins(
+    getSupportInfo,
+    0
+  )),
 
   version,
 
   util: sharedUtil,
+
+  // Internal shared
+  __internal: {
+    errors: require("./common/errors"),
+    coreOptions: require("./main/core-options"),
+    createIgnorer: require("./common/create-ignorer"),
+    optionsModule: require("./main/options"),
+    optionsNormalizer: require("./main/options-normalizer"),
+    utils: {
+      arrayify: require("./utils/arrayify"),
+    },
+  },
 
   /* istanbul ignore next */
   __debug: {
@@ -68,6 +84,6 @@ module.exports = {
     formatAST: withPlugins(core.formatAST),
     formatDoc: withPlugins(core.formatDoc),
     printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString)
-  }
+    printDocToString: withPlugins(core.printDocToString),
+  },
 };

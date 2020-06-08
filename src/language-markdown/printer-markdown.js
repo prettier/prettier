@@ -18,10 +18,10 @@ const {
     fill,
     align,
     indent,
-    group
+    group,
   },
   utils: { mapDoc },
-  printer: { printDocToString }
+  printer: { printDocToString },
 } = require("../document");
 const {
   getFencedCodeBlockValue,
@@ -29,13 +29,17 @@ const {
   splitText,
   punctuationPattern,
   INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES
+  INLINE_NODE_WRAPPER_TYPES,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
 
-const TRAILING_HARDLINE_NODES = ["importExport"];
+const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
-const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
+const SIBLING_NODE_TYPES = new Set([
+  "listItem",
+  "definition",
+  "footnoteDefinition",
+]);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -48,7 +52,7 @@ function genericPrint(path, options, print) {
           node.position.end.offset
         ),
         options
-      ).map(node =>
+      ).map((node) =>
         node.type === "word"
           ? node.value
           : node.value === ""
@@ -59,30 +63,35 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
+    case "front-matter":
+      return options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
     case "root":
       if (node.children.length === 0) {
         return "";
       }
       return concat([
         normalizeDoc(printRoot(path, options, print)),
-        !TRAILING_HARDLINE_NODES.includes(getLastDescendantNode(node).type)
+        !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
           ? hardline
-          : ""
+          : "",
       ]);
     case "paragraph":
       return printChildren(path, options, print, {
-        postprocessor: fill
+        postprocessor: fill,
       });
     case "sentence":
       return printChildren(path, options, print);
     case "word":
       return node.value
-        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
+        .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
             [
               `(^|${punctuationPattern})(_+)`,
-              `(_+)(${punctuationPattern}|$)`
+              `(_+)(${punctuationPattern}|$)`,
             ].join("|"),
             "g"
           ),
@@ -99,7 +108,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([-+*]|#{1,6}|[0-9]+[.)])$/.test(nextNode.value)
+        nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
@@ -160,7 +169,7 @@ function genericPrint(path, options, print) {
             "](",
             printUrl(node.url, ")"),
             printTitle(node.title, options),
-            ")"
+            ")",
           ]);
         default:
           return options.originalText.slice(
@@ -175,14 +184,14 @@ function genericPrint(path, options, print) {
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
-        ")"
+        ")",
       ]);
     case "blockquote":
       return concat(["> ", align("> ", printChildren(path, options, print))]);
     case "heading":
       return concat([
         "#".repeat(node.depth) + " ",
-        printChildren(path, options, print)
+        printChildren(path, options, print),
       ]);
     case "code": {
       if (node.isIndented) {
@@ -192,7 +201,7 @@ function genericPrint(path, options, print) {
           alignment,
           concat([
             alignment,
-            concat(replaceEndOfLineWith(node.value, hardline))
+            concat(replaceEndOfLineWith(node.value, hardline)),
           ])
         );
       }
@@ -216,7 +225,7 @@ function genericPrint(path, options, print) {
           )
         ),
         hardline,
-        style
+        style,
       ]);
     }
     case "yaml":
@@ -232,7 +241,7 @@ function genericPrint(path, options, print) {
         privateUtil.getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
+      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
       return concat(
         replaceEndOfLineWith(
           value,
@@ -264,7 +273,7 @@ function genericPrint(path, options, print) {
           ) {
             return concat([
               prefix,
-              printListItem(childPath, options, print, prefix)
+              printListItem(childPath, options, print, prefix),
             ]);
           }
 
@@ -273,7 +282,7 @@ function genericPrint(path, options, print) {
             align(
               " ".repeat(prefix.length),
               printListItem(childPath, options, print, prefix)
-            )
+            ),
           ]);
 
           function getPrefix() {
@@ -293,7 +302,7 @@ function genericPrint(path, options, print) {
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
           }
-        }
+        },
       });
     }
     case "thematicBreak": {
@@ -316,7 +325,7 @@ function genericPrint(path, options, print) {
           ? concat(["[", node.identifier, "]"])
           : node.referenceType === "collapsed"
           ? "[]"
-          : ""
+          : "",
       ]);
     case "imageReference":
       switch (node.referenceType) {
@@ -327,7 +336,7 @@ function genericPrint(path, options, print) {
             "![",
             node.alt,
             "]",
-            node.referenceType === "collapsed" ? "[]" : ""
+            node.referenceType === "collapsed" ? "[]" : "",
           ]);
       }
     case "definition": {
@@ -341,9 +350,9 @@ function genericPrint(path, options, print) {
               printUrl(node.url),
               node.title === null
                 ? ""
-                : concat([lineOrSpace, printTitle(node.title, options, false)])
+                : concat([lineOrSpace, printTitle(node.title, options, false)]),
             ])
-          )
+          ),
         ])
       );
     }
@@ -375,14 +384,14 @@ function genericPrint(path, options, print) {
                       return index === 0
                         ? group(concat([softline, childPath.call(print)]))
                         : childPath.call(print);
-                    }
+                    },
                   })
                 ),
                 nextNode && nextNode.type === "footnoteDefinition"
                   ? softline
-                  : ""
+                  : "",
               ])
-            )
+            ),
       ]);
     }
     case "table":
@@ -406,10 +415,10 @@ function genericPrint(path, options, print) {
         node.value
           ? concat([
               concat(replaceEndOfLineWith(node.value, hardline)),
-              hardline
+              hardline,
             ])
           : "",
-        "$$"
+        "$$",
       ]);
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
@@ -442,8 +451,8 @@ function printListItem(path, options, print, listPrefix) {
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
         return concat([alignment, align(alignment, childPath.call(print))]);
-      }
-    })
+      },
+    }),
   ]);
 }
 
@@ -466,7 +475,7 @@ function getNthListSiblingIndex(node, parentNode) {
   return getNthSiblingIndex(
     node,
     parentNode,
-    siblingNode => siblingNode.ordered === node.ordered
+    (siblingNode) => siblingNode.ordered === node.ordered
   );
 }
 
@@ -509,17 +518,6 @@ function getAncestorNode(path, typeOrTypes) {
 }
 
 function printLine(path, value, options) {
-  const greatGrandParentNode = path.getParentNode(2);
-  if (greatGrandParentNode && greatGrandParentNode.type === "listItem") {
-    const parentNode = path.getParentNode();
-    const grandParentNode = path.getParentNode(1);
-    const index = grandParentNode.children.indexOf(parentNode);
-    const prevGrandParentNode = grandParentNode.children[index - 1];
-    if (prevGrandParentNode && prevGrandParentNode.type === "break") {
-      return "";
-    }
-  }
-
   if (options.proseWrap === "preserve" && value === "\n") {
     return hardline;
   }
@@ -541,10 +539,10 @@ function printTable(path, options, print) {
   const node = path.getValue();
   const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
 
-  path.map(rowPath => {
+  path.map((rowPath) => {
     const rowContents = [];
 
-    rowPath.map(cellPath => {
+    rowPath.map((cellPath) => {
       rowContents.push(
         printDocToString(cellPath.call(print), options).formatted
       );
@@ -566,8 +564,8 @@ function printTable(path, options, print) {
     printSeparator(),
     join(
       hardlineWithoutBreakParent,
-      contents.slice(1).map(rowContents => printRow(rowContents))
-    )
+      contents.slice(1).map((rowContents) => printRow(rowContents))
+    ),
   ]);
 
   if (options.proseWrap !== "never") {
@@ -582,8 +580,8 @@ function printTable(path, options, print) {
       hardlineWithoutBreakParent,
       contents
         .slice(1)
-        .map(rowContents => printRow(rowContents, /* isCompact */ true))
-    )
+        .map((rowContents) => printRow(rowContents, /* isCompact */ true))
+    ),
   ]);
 
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
@@ -607,7 +605,7 @@ function printTable(path, options, print) {
           }
         })
       ),
-      " |"
+      " |",
     ]);
   }
 
@@ -629,7 +627,7 @@ function printTable(path, options, print) {
               }
             })
       ),
-      " |"
+      " |",
     ]);
   }
 
@@ -671,7 +669,7 @@ function printRoot(path, options, print) {
         if (ignoreStart !== null) {
           ignoreRanges.push({
             start: ignoreStart,
-            end: { index, offset: childNode.position.start.offset }
+            end: { index, offset: childNode.position.start.offset },
           });
           ignoreStart = null;
         }
@@ -694,7 +692,7 @@ function printRoot(path, options, print) {
               ignoreRange.start.offset,
               ignoreRange.end.offset
             ),
-            children[ignoreRange.end.index].value
+            children[ignoreRange.end.index].value,
           ]);
         }
 
@@ -709,7 +707,7 @@ function printRoot(path, options, print) {
       }
 
       return childPath.call(print);
-    }
+    },
   });
 }
 
@@ -717,7 +715,7 @@ function printChildren(path, options, print, events) {
   events = events || {};
 
   const postprocessor = events.postprocessor || concat;
-  const processor = events.processor || (childPath => childPath.call(print));
+  const processor = events.processor || ((childPath) => childPath.call(print));
 
   const node = path.getValue();
   const parts = [];
@@ -733,16 +731,13 @@ function printChildren(path, options, print, events) {
         parts,
         prevNode: lastChildNode,
         parentNode: node,
-        options
+        options,
       };
 
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        if (
-          lastChildNode &&
-          TRAILING_HARDLINE_NODES.includes(lastChildNode.type)
-        ) {
+        if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
           }
@@ -801,7 +796,7 @@ function shouldNotPrePrintHardline(node, data) {
 
 function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.includes(node.type);
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
 
   const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;
@@ -846,7 +841,7 @@ function shouldPrePrintTripleHardline(node, data) {
 function shouldRemainTheSameContent(path) {
   const ancestorNode = getAncestorNode(path, [
     "linkReference",
-    "imageReference"
+    "imageReference",
   ]);
 
   return (
@@ -857,7 +852,7 @@ function shouldRemainTheSameContent(path) {
 }
 
 function normalizeDoc(doc) {
-  return mapDoc(doc, currentDoc => {
+  return mapDoc(doc, (currentDoc) => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -877,14 +872,14 @@ function normalizeDoc(doc) {
 
     return {
       ...currentDoc,
-      parts: normalizeParts(parts)
+      parts: normalizeParts(parts),
     };
   });
 }
 
 function printUrl(url, dangerousCharOrChars) {
   const dangerousChars = [" "].concat(dangerousCharOrChars || []);
-  return new RegExp(dangerousChars.map(x => `\\${x}`).join("|")).test(url)
+  return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
     ? `<${url}>`
     : url;
 }
@@ -942,6 +937,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
+    isFrontMatterNode(ast) ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||
@@ -961,7 +957,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[ \t\n]+/g, " ");
+    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
   }
 
   // for insert pragma
@@ -970,9 +966,7 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      ((parent.children[0].type === "yaml" ||
-        parent.children[0].type === "toml") &&
-        parent.children[1] === ast)) &&
+      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)
   ) {
@@ -997,5 +991,5 @@ module.exports = {
   embed,
   massageAstNode: clean,
   hasPrettierIgnore,
-  insertPragma: pragma.insertPragma
+  insertPragma: pragma.insertPragma,
 };

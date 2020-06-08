@@ -31,15 +31,17 @@ a.js
 
 exports[`fixtures-2: Should match \`a.js\` and \`!b.js\` (write) 1`] = `Array []`;
 
-exports[`fixtures-2: Should match all js files (stderr) 1`] = `""`;
+exports[`fixtures-2: Should match all js files and all supported files in the '!dir.js' directory (stderr) 1`] = `""`;
 
-exports[`fixtures-2: Should match all js files (stdout) 1`] = `
+exports[`fixtures-2: Should match all js files and all supported files in the '!dir.js' directory (stdout) 1`] = `
 "!b.js
 a.js
+!dir.js/1.css
+!dir.js/2.css
 "
 `;
 
-exports[`fixtures-2: Should match all js files (write) 1`] = `Array []`;
+exports[`fixtures-2: Should match all js files and all supported files in the '!dir.js' directory (write) 1`] = `Array []`;
 
 exports[`fixtures-2: Should only match \`!b.js\` (stderr) 1`] = `""`;
 
@@ -50,14 +52,23 @@ exports[`fixtures-2: Should only match \`!b.js\` (stdout) 1`] = `
 
 exports[`fixtures-2: Should only match \`!b.js\` (write) 1`] = `Array []`;
 
-exports[`fixtures-3: Should exclude \`.svn\` (stderr) 1`] = `""`;
+exports[`fixtures-3: Should exclude \`.svn\` (existing) (stderr) 1`] = `""`;
 
-exports[`fixtures-3: Should exclude \`.svn\` (stdout) 1`] = `
+exports[`fixtures-3: Should exclude \`.svn\` (existing) (stdout) 1`] = `
 "outside.js
 "
 `;
 
-exports[`fixtures-3: Should exclude \`.svn\` (write) 1`] = `Array []`;
+exports[`fixtures-3: Should exclude \`.svn\` (existing) (write) 1`] = `Array []`;
+
+exports[`fixtures-3: Should exclude \`.svn\` (nonexisting) (stderr) 1`] = `""`;
+
+exports[`fixtures-3: Should exclude \`.svn\` (nonexisting) (stdout) 1`] = `
+"outside.js
+"
+`;
+
+exports[`fixtures-3: Should exclude \`.svn\` (nonexisting) (write) 1`] = `Array []`;
 
 exports[`fixtures-3: Should match \`outside.js\`, \`dir/inside.js\` and \`dir/node_modules/in-node_modules.js\` (stderr) 1`] = `""`;
 

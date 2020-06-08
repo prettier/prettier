@@ -5,12 +5,12 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/Markdown"), data => ({
+  createLanguage(require("linguist-languages/data/Markdown"), (data) => ({
     since: "1.8.0",
     parsers: ["markdown"],
     vscodeLanguageIds: ["markdown"],
     filenames: data.filenames.concat(["README"]),
-    extensions: data.extensions.filter(extension => extension !== ".mdx")
+    extensions: data.extensions.filter((extension) => extension !== ".mdx"),
   })),
   createLanguage(require("linguist-languages/data/Markdown"), () => ({
     name: "MDX",
@@ -18,16 +18,16 @@ const languages = [
     parsers: ["mdx"],
     vscodeLanguageIds: ["mdx"],
     filenames: [],
-    extensions: [".mdx"]
-  }))
+    extensions: [".mdx"],
+  })),
 ];
 
 const printers = {
-  mdast: printer
+  mdast: printer,
 };
 
 module.exports = {
   languages,
   options,
-  printers
+  printers,
 };
