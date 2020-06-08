@@ -1282,6 +1282,26 @@ label {
   @include margin-bottom-1\\/3;
 }
 
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent){
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
+}
+
+.foo{
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+}
+
+.bar{
+  width: pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+}
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -2257,6 +2277,71 @@ $my-map: (
 
 label {
   @include margin-bottom-1\\/3;
+}
+
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent) {
+  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+}
+
+.foo {
+  width: someVeryLongFunctionNameForJustAPow(
+    2,
+    someVeryLongFunctionNameForJustAPow(
+      2,
+      someVeryLongFunctionNameForJustAPow(
+        2,
+        someVeryLongFunctionNameForJustAPow(
+          2,
+          someVeryLongFunctionNameForJustAPow(
+            2,
+            someVeryLongFunctionNameForJustAPow(
+              2,
+              someVeryLongFunctionNameForJustAPow(
+                2,
+                someVeryLongFunctionNameForJustAPow(
+                  2,
+                  someVeryLongFunctionNameForJustAPow(
+                    2,
+                    someVeryLongFunctionNameForJustAPow(
+                      2,
+                      someVeryLongFunctionNameForJustAPow(
+                        2,
+                        someVeryLongFunctionNameForJustAPow(2, 2)
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+.bar {
+  width: pow(
+    2,
+    pow(
+      2,
+      pow(
+        2,
+        pow(
+          2,
+          pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+        )
+      )
+    )
+  );
 }
 
 ================================================================================
@@ -3331,6 +3416,26 @@ label {
   @include margin-bottom-1\\/3;
 }
 
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent){
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
+}
+
+.foo{
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+}
+
+.bar{
+  width: pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+}
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -4308,6 +4413,71 @@ label {
   @include margin-bottom-1\\/3;
 }
 
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent) {
+  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+}
+
+.foo {
+  width: someVeryLongFunctionNameForJustAPow(
+    2,
+    someVeryLongFunctionNameForJustAPow(
+      2,
+      someVeryLongFunctionNameForJustAPow(
+        2,
+        someVeryLongFunctionNameForJustAPow(
+          2,
+          someVeryLongFunctionNameForJustAPow(
+            2,
+            someVeryLongFunctionNameForJustAPow(
+              2,
+              someVeryLongFunctionNameForJustAPow(
+                2,
+                someVeryLongFunctionNameForJustAPow(
+                  2,
+                  someVeryLongFunctionNameForJustAPow(
+                    2,
+                    someVeryLongFunctionNameForJustAPow(
+                      2,
+                      someVeryLongFunctionNameForJustAPow(
+                        2,
+                        someVeryLongFunctionNameForJustAPow(2, 2)
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+.bar {
+  width: pow(
+    2,
+    pow(
+      2,
+      pow(
+        2,
+        pow(
+          2,
+          pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+        )
+      )
+    )
+  );
+}
+
 ================================================================================
 `;
 
@@ -4360,6 +4530,31 @@ a {
   background-image: url("../test/" + "static/test.jpg");
   background-image: url($test-path + $test-path);
 }
+
+================================================================================
+`;
+
+exports[`value-paren.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+
+=====================================output=====================================
+
+================================================================================
+`;
+
+exports[`value-paren.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+=====================================output=====================================
 
 ================================================================================
 `;
