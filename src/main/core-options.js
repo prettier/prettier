@@ -246,6 +246,14 @@ const options = {
     default: false,
     description: "Indent with tabs instead of spaces.",
   },
+  preserveAst: {
+    since: "2.1.0",
+    category: CATEGORY_OTHER,
+    type: "boolean",
+    default: false,
+    description:
+      "Whether Prettier will (potentially) modify the AST to attach comments.",
+  },
   embeddedLanguageFormatting: {
     since: "2.1.0",
     category: CATEGORY_GLOBAL,

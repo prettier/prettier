@@ -53,9 +53,21 @@ function ensureAllCommentsPrinted(astComments) {
 }
 
 function attachComments(text, ast, opts) {
-  const astComments = ast.comments;
+  let astComments = ast.comments;
   if (astComments) {
-    delete ast.comments;
+    if (opts.preserveAst) {
+      opts._commentCache = { astComments, cache: new comments.CommentMap() };
+      if (Array.isArray(astComments)) {
+        // Make a 2-level shallow copy of the comments so they
+        // can be safely mutated
+        astComments = astComments.map((comment) => ({
+          ...comment,
+          _cache: opts._commentCache.cache,
+        }));
+      }
+    } else {
+      delete ast.comments;
+    }
     comments.attach(astComments, ast, text, opts);
   }
   ast.tokens = [];

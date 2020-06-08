@@ -764,8 +764,14 @@ function isNodeIgnoreComment(comment) {
 }
 
 function addCommentHelper(node, comment) {
-  const comments = node.comments || (node.comments = []);
-  comments.push(comment);
+  if (comment._cache) {
+    // If the comment has a `_cache` property, we should not mutate the AST.
+    // Use the cache instead.
+    comment._cache.attachCommentToNode(node, comment);
+  } else {
+    const comments = node.comments || (node.comments = []);
+    comments.push(comment);
+  }
   comment.printed = false;
 
   // For some reason, TypeScript parses `// x` inside of JSXText as a comment

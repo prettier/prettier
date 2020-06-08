@@ -483,6 +483,70 @@ function prependCursorPlaceholder(path, options, printed) {
   return printed;
 }
 
+class CommentMap {
+  constructor() {
+    this.commentMap = new Map();
+  }
+  getCommentsForNode(node) {
+    node = getOriginalNode(node);
+    const localComments = node && node.comments;
+    const storedComments = this.commentMap.get(node);
+
+    if (!localComments && !storedComments) {
+      return null;
+    }
+
+    return (localComments || []).concat(storedComments || []);
+  }
+  setCommentsForNode(node, comments) {
+    node = getOriginalNode(node);
+    this.commentMap.set(node, comments);
+  }
+  attachCommentToNode(node, comment) {
+    node = getOriginalNode(node);
+    const storedComments = this.commentMap.get(node);
+    if (storedComments) {
+      storedComments.push(comment);
+    } else {
+      this.setCommentsForNode(node, [comment]);
+    }
+  }
+}
+
+function getOriginalNode(value) {
+  if (value && typeof value === "object" && "_originalNode" in value) {
+    return value._originalNode;
+  }
+  return value;
+}
+
+function getAugmenter(options) {
+  if (options._commentCache && options._commentCache.cache) {
+    const { cache } = options._commentCache;
+
+    return function augmenter(value) {
+      const originalNode = getOriginalNode(value);
+      if (
+        Array.isArray(value) &&
+        value.some((v) => cache.commentMap.has(getOriginalNode(v)))
+      ) {
+        // If we're storing extra information about any element in the array,
+        // we return an augmented array.
+        return value.map(augmenter);
+      }
+      if (cache.commentMap.has(originalNode)) {
+        return {
+          ...originalNode,
+          comments: cache.getCommentsForNode(originalNode),
+          _originalNode: originalNode,
+        };
+      }
+      return value;
+    };
+  }
+  return null;
+}
+
 function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
@@ -531,4 +595,6 @@ module.exports = {
   printComments,
   printDanglingComments,
   getSortedChildNodes,
+  getAugmenter,
+  CommentMap,
 };

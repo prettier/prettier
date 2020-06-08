@@ -266,6 +266,11 @@ Multiple values are accepted.",
           },
           "type": "array",
         },
+        "preserveAst": Object {
+          "default": false,
+          "description": "Whether Prettier will (potentially) modify the AST to attach comments.",
+          "type": "boolean",
+        },
         "printWidth": Object {
           "default": 80,
           "description": "The line length where Prettier will try wrap.",
