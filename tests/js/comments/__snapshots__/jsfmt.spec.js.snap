@@ -495,13 +495,12 @@ c;
 
 a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 =====================================output=====================================
-a = b || /** Comment */ c
+a = b /** Comment */ || c
 
 a = b /** Comment */ || c
 
 a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
   c
 
 a =
@@ -512,13 +511,12 @@ a =
   b ||
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
 
-a = b && /** Comment */ c
+a = b /** Comment */ && c
 
 a = b /** Comment */ && c
 
 a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
   c
 
 a =
@@ -529,13 +527,12 @@ a =
   b &&
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
 
-a = b + /** Comment */ c
+a = b /** Comment */ + c
 
 a = b /** Comment */ + c
 
 a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
   c
 
 a =
@@ -597,13 +594,12 @@ c;
 
 a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 =====================================output=====================================
-a = b || /** Comment */ c;
+a = b /** Comment */ || c;
 
 a = b /** Comment */ || c;
 
 a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
   c;
 
 a =
@@ -614,13 +610,12 @@ a =
   b ||
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 
-a = b && /** Comment */ c;
+a = b /** Comment */ && c;
 
 a = b /** Comment */ && c;
 
 a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
   c;
 
 a =
@@ -631,13 +626,12 @@ a =
   b &&
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 
-a = b + /** Comment */ c;
+a = b /** Comment */ + c;
 
 a = b /** Comment */ + c;
 
 a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
   c;
 
 a =
@@ -2144,10 +2138,10 @@ const rootEpic = (actions, store) =>
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   "^\\\\s*" + // beginning of the line
-  "name\\\\s*=\\\\s*" + // name =
-  "['\\"]" + // opening quotation mark
-  escapeStringRegExp(target.name) + // target name
-  "['\\"]" + // closing quotation mark
+    "name\\\\s*=\\\\s*" + // name =
+    "['\\"]" + // opening quotation mark
+    escapeStringRegExp(target.name) + // target name
+    "['\\"]" + // closing quotation mark
     ",?$" // optional trailing comma
 )
 
@@ -2307,10 +2301,10 @@ const rootEpic = (actions, store) =>
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   "^\\\\s*" + // beginning of the line
-  "name\\\\s*=\\\\s*" + // name =
-  "['\\"]" + // opening quotation mark
-  escapeStringRegExp(target.name) + // target name
-  "['\\"]" + // closing quotation mark
+    "name\\\\s*=\\\\s*" + // name =
+    "['\\"]" + // opening quotation mark
+    escapeStringRegExp(target.name) + // target name
+    "['\\"]" + // closing quotation mark
     ",?$" // optional trailing comma
 );
 

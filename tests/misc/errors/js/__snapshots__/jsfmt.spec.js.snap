@@ -11,6 +11,13 @@ exports[`html-like-comments.js error test 1`] = `
   6 | "
 `;
 
+exports[`module-attributes.js error test 1`] = `
+"The only accepted module attribute is \`type\` (1:33)
+> 1 | import foo from \\"foo.json\\" with foo: \\"json\\";
+    |                                 ^
+  2 | "
+`;
+
 exports[`partial-template-strings.js error test 1`] = `
 "Unexpected token (6:42)
   4 | 
@@ -66,6 +73,24 @@ exports[`snippet: #6 error test 1`] = `
     |            ^
   6 |   }
   7 | }"
+`;
+
+exports[`snippet: #7 error test 1`] = `
+"Unexpected token (1:7)
+> 1 | const #{ a, b } = #{ a: 1, b: 2 };
+    |       ^"
+`;
+
+exports[`snippet: #8 error test 1`] = `
+"Unexpected token (1:7)
+> 1 | const #[a, b] = #[1, 2];
+    |       ^"
+`;
+
+exports[`snippet: #9 error test 1`] = `
+"Tuple expressions starting with '[|' are only allowed when the 'syntaxType' option of the 'recordAndTuple' plugin is set to 'bar' (1:1)
+> 1 | [| 1 |]
+    | ^"
 `;
 
 exports[`static-import-source-should-not-has-extra-token.js error test 1`] = `

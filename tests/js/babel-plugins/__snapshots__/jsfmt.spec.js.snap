@@ -720,6 +720,34 @@ obj.a.b &&= c;
 ================================================================================
 `;
 
+exports[`module-attributes-dynamic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("foo.json", { with: { type: "json" } })
+
+=====================================output=====================================
+import("foo.json", { with: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`module-attributes-static.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import foo from "foo.json" with type: "json";
+
+=====================================output=====================================
+import foo from "foo.json" with type: "json";
+
+================================================================================
+`;
+
 exports[`nullish-coalescing-operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1243,9 +1271,9 @@ value
 // https://github.com/js-choi/proposal-smart-pipelines
 
 value
-|> await #
-|> doubleSay(#, ", ")
-|> capitalize  // This is a function call.
+  |> await #
+  |> doubleSay(#, ", ")
+  |> capitalize  // This is a function call.
   |> # + "!"
   |> new User.Message(#)
   |> await #
@@ -1423,6 +1451,46 @@ class Counter extends HTMLElement {
     this.#x++;
   }
 }
+
+================================================================================
+`;
+
+exports[`record-tuple-record.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const record1 = #{
+    a: 1,
+    b: 2,
+    c: 3,
+};
+
+const record2 = #{...record1, b: 5};
+
+=====================================output=====================================
+const record1 = #{
+  a: 1,
+  b: 2,
+  c: 3,
+};
+
+const record2 = #{ ...record1, b: 5 };
+
+================================================================================
+`;
+
+exports[`record-tuple-tuple.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const tuple1 = #[1, 2, 3];
+
+=====================================output=====================================
+const tuple1 = #[1, 2, 3];
 
 ================================================================================
 `;
