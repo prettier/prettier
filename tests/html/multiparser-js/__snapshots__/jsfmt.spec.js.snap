@@ -54,25 +54,19 @@ printWidth: 80
 
 =====================================output=====================================
 <script>
-  document.write(
-    /* HTML */ \`
-      <script>
-        document.write(
-          /* HTML */ \\\`
-            <!-- foo1 -->
-            <script>
-              document.write(
-                /* HTML */ \\\\\\\`<!-- bar1 -->
-                  bar
-                  <!-- bar2 -->\\\\\\\`
-              );
-            <\\\\/script>
-            <!-- foo2 -->
-          \\\`
-        );
-      <\\/script>
-    \`
-  );
+  document.write(/* HTML */ \`
+    <script>
+      document.write(/* HTML */ \\\`
+        <!-- foo1 -->
+        <script>
+          document.write(/* HTML */ \\\\\\\`<!-- bar1 -->
+            bar
+            <!-- bar2 -->\\\\\\\`);
+        <\\\\/script>
+        <!-- foo2 -->
+      \\\`);
+    <\\/script>
+  \`);
 </script>
 
 ================================================================================

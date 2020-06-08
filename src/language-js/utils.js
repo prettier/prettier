@@ -769,15 +769,9 @@ function isJestEachTemplateLiteral(node, parentNode) {
   );
 }
 
-function templateLiteralHasNewLines(template) {
-  return template.quasis.some((quasi) => quasi.value.raw.includes("\n"));
-}
-
 function isTemplateOnItsOwnLine(n, text, options) {
   return (
-    n.type === "TemplateLiteral" &&
-    templateLiteralHasNewLines(n) &&
-    hasLeadingOwnLineComment(options.originalText, n, options) &&
+    (n.type === "TemplateLiteral" || n.type === "TaggedTemplateExpression") &&
     !hasNewline(text, options.locStart(n), { backwards: true })
   );
 }
