@@ -709,6 +709,10 @@ function genericPrint(path, options, print) {
 
         // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
         if (isInlineValueCommentNode(iNode)) {
+          if (parentNode.type === "value-paren_group") {
+            parts.push(dedent(hardline));
+            continue;
+          }
           parts.push(hardline);
           continue;
         }
