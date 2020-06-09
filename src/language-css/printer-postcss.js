@@ -908,7 +908,7 @@ function genericPrint(path, options, print) {
       return concat([
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
-        prevNode.value[prevNode.value.length - 1] === "\\" ||
+        (prevNode && prevNode.value[prevNode.value.length - 1] === "\\") ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""
