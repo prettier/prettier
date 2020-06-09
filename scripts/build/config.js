@@ -47,6 +47,10 @@ const parsers = [
       // prevent terser generate extra .LICENSE file
       extractComments: false,
       terserOptions: {
+        // https://github.com/webpack-contrib/terser-webpack-plugin/issues/107
+        output: {
+          ascii_only: true,
+        },
         mangle: {
           // postcss need keep_fnames when minify
           keep_fnames: true,
