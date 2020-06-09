@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`block-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bifornCringerMoshedPerplexSawder
+|> foo1
+|> foo2 /* comment1 */
+|> foo3 /* comment2 */
+|> kochabCooieGameOnOboleUnweave
+|> glimseGlyphsHazardNoopsTieTie;
+
+=====================================output=====================================
+bifornCringerMoshedPerplexSawder
+  |> foo1
+  |> foo2 /* comment1 */
+  |> foo3 /* comment2 */
+  |> kochabCooieGameOnOboleUnweave
+  |> glimseGlyphsHazardNoopsTieTie;
+
+================================================================================
+`;
+
 exports[`fsharp_style_pipeline_operator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

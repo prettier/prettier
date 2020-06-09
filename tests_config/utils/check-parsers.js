@@ -14,14 +14,19 @@ const categoryParsers = new Map([
     {
       parsers: ["angular", "__ng_interpolation", "__ng_action"],
       verifyParsers: [],
+      extensions: [".html", ".ng"],
     },
   ],
-  ["css", { parsers: ["css"], verifyParsers: ["less", "scss"] }],
+  [
+    "css",
+    { parsers: ["css"], verifyParsers: ["less", "scss"], extensions: [".css"] },
+  ],
   [
     "flow",
     {
       parsers: ["flow", "babel-flow"],
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
     },
   ],
   [
@@ -29,41 +34,82 @@ const categoryParsers = new Map([
     {
       parsers: ["flow", "babel-flow"],
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
     },
   ],
-  ["graphql", { parsers: ["graphql"], verifyParsers: [] }],
-  ["handlebars", { parsers: ["glimmer"], verifyParsers: [] }],
-  ["html", { parsers: ["html"], verifyParsers: [] }],
+  [
+    "graphql",
+    { parsers: ["graphql"], verifyParsers: [], extensions: [".graphql"] },
+  ],
+  [
+    "handlebars",
+    { parsers: ["glimmer"], verifyParsers: [], extensions: [".hbs"] },
+  ],
+  ["html", { parsers: ["html"], verifyParsers: [], extensions: [".html"] }],
+  ["mjml", { parsers: ["html"], verifyParsers: [], extensions: [".mjml"] }],
   [
     "js",
     {
       parsers: ["babel"],
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
     },
   ],
-  ["json", { parsers: ["json", "json5", "json-stringify"], verifyParsers: [] }],
+  [
+    "json",
+    {
+      parsers: ["json", "json5", "json-stringify"],
+      verifyParsers: [],
+      extensions: [".json"],
+    },
+  ],
   [
     "jsx",
     {
       parsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".js"],
     },
   ],
-  ["less", { parsers: ["less"], verifyParsers: ["css", "scss"] }],
-  ["lwc", { parsers: ["lwc"], verifyParsers: [] }],
-  ["markdown", { parsers: ["markdown"], verifyParsers: [] }],
-  ["mdx", { parsers: ["mdx"], verifyParsers: [] }],
-  ["scss", { parsers: ["scss"], verifyParsers: ["css", "less"] }],
-  ["stylefmt-repo", { parsers: ["css", "scss"], verifyParsers: [] }],
+  [
+    "less",
+    {
+      parsers: ["less"],
+      verifyParsers: ["css", "scss"],
+      extensions: [".less"],
+    },
+  ],
+  ["lwc", { parsers: ["lwc"], verifyParsers: [], extensions: [".html"] }],
+  [
+    "markdown",
+    { parsers: ["markdown"], verifyParsers: [], extensions: [".md"] },
+  ],
+  ["mdx", { parsers: ["mdx"], verifyParsers: [], extensions: [".mdx"] }],
+  [
+    "scss",
+    {
+      parsers: ["scss"],
+      verifyParsers: ["css", "less"],
+      extensions: [".scss"],
+    },
+  ],
+  [
+    "stylefmt-repo",
+    { parsers: ["css", "scss"], verifyParsers: [], extensions: [".css"] },
+  ],
   [
     "typescript",
     {
       parsers: ["typescript", "babel-ts"],
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      extensions: [".ts", ".tsx"],
     },
   ],
-  ["vue", { parsers: ["vue"], verifyParsers: [] }],
-  ["yaml", { parsers: ["yaml"], verifyParsers: [] }],
+  [
+    "vue",
+    { parsers: ["vue"], verifyParsers: [], extensions: [".vue", ".html"] },
+  ],
+  ["yaml", { parsers: ["yaml"], verifyParsers: [], extensions: [".yml"] }],
 ]);
 
 const getParserCategories = (parser) => {
@@ -77,7 +123,7 @@ const getParserCategories = (parser) => {
   return categories;
 };
 
-const checkParser = (dirname, parsers = []) => {
+const checkParser = ({ dirname, files }, parsers = []) => {
   const category = getCategory(dirname);
   const categoryAllowedParsers = categoryParsers.get(category);
 
@@ -88,6 +134,7 @@ const checkParser = (dirname, parsers = []) => {
   const {
     parsers: allowedParsers = [],
     verifyParsers: allowedVerifyParsers = [],
+    extensions = [],
   } = categoryAllowedParsers;
 
   const [parser, ...verifyParsers] = parsers;
@@ -132,6 +179,19 @@ const checkParser = (dirname, parsers = []) => {
           `
         );
       }
+    }
+  }
+
+  for (const { name, filename } of files) {
+    const ext = path.extname(filename);
+    if (!extensions.includes(ext)) {
+      throw new Error(
+        outdent`
+          File "${name}" should not tested in "${dirname}".
+          Allowed extensions: ${extensions.join(",")}.
+          Please rename it or config to allow test "${ext}" file in "${__filename}".
+        `
+      );
     }
   }
 };

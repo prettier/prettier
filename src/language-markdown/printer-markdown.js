@@ -20,7 +20,7 @@ const {
     indent,
     group,
   },
-  utils: { mapDoc },
+  utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
 const {
@@ -31,7 +31,7 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
@@ -63,6 +63,11 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
+    case "front-matter":
+      return options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
     case "root":
       if (node.children.length === 0) {
         return "";
@@ -846,32 +851,6 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-
-    if (currentDoc.type === "concat" && currentDoc.parts.length === 1) {
-      return currentDoc.parts[0];
-    }
-
-    const parts = currentDoc.parts.reduce((parts, part) => {
-      if (part.type === "concat") {
-        parts.push(...part.parts);
-      } else if (part !== "") {
-        parts.push(part);
-      }
-      return parts;
-    }, []);
-
-    return {
-      ...currentDoc,
-      parts: normalizeParts(parts),
-    };
-  });
-}
-
 function printUrl(url, dangerousCharOrChars) {
   const dangerousChars = [" "].concat(dangerousCharOrChars || []);
   return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
@@ -908,20 +887,6 @@ function printTitle(title, options, printSpace) {
   return `${quote}${title}${quote}`;
 }
 
-function normalizeParts(parts) {
-  return parts.reduce((current, part) => {
-    const lastPart = privateUtil.getLast(current);
-
-    if (typeof lastPart === "string" && typeof part === "string") {
-      current.splice(-1, 1, lastPart + part);
-    } else {
-      current.push(part);
-    }
-
-    return current;
-  }, []);
-}
-
 function clamp(value, min, max) {
   return value < min ? min : value > max ? max : value;
 }
@@ -932,6 +897,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
+    isFrontMatterNode(ast) ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||
@@ -960,9 +926,7 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      ((parent.children[0].type === "yaml" ||
-        parent.children[0].type === "toml") &&
-        parent.children[1] === ast)) &&
+      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)
   ) {

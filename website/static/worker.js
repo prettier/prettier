@@ -162,7 +162,7 @@ function handleMessage(message) {
       supportInfo: JSON.parse(
         JSON.stringify(
           prettier.getSupportInfo({
-            showUnreleased: /-pr\./.test(prettier.version),
+            showUnreleased: true,
           })
         )
       ),

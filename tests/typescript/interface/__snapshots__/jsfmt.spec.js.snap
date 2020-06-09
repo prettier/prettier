@@ -33,7 +33,7 @@ abstract interface I {}
 ================================================================================
 `;
 
-exports[`comments.js - {"semi":false} format 1`] = `
+exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -54,7 +54,7 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,128 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`ignore.js - {"semi":false} format 1`] = `
+exports[`comments-generic.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface ReallyReallyLongName<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface // 3
+{}
+
+
+=====================================output=====================================
+interface ReallyReallyLongName<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {
+  // 3
+}
+
+================================================================================
+`;
+
+exports[`comments-generic.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface ReallyReallyLongName<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface // 3
+{}
+
+
+=====================================output=====================================
+interface ReallyReallyLongName<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {
+  // 3
+}
+
+================================================================================
+`;
+
+exports[`ignore.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -143,7 +264,7 @@ interface T<T> {
 ================================================================================
 `;
 
-exports[`ignore.js format 1`] = `
+exports[`ignore.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

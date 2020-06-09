@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js format 1`] = `
+exports[`comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ a;
 ================================================================================
 `;
 
-exports[`default.js format 1`] = `
+exports[`default.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,7 @@ export * as utilities from "./utilities.js";
 ================================================================================
 `;
 
-exports[`export-class.js format 1`] = `
+exports[`export-class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

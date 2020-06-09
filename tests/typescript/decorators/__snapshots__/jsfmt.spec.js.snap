@@ -63,7 +63,7 @@ class Decorated {}
 ================================================================================
 `;
 
-exports[`decorators.js format 1`] = `
+exports[`decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -189,7 +189,7 @@ class Class5 {
 ================================================================================
 `;
 
-exports[`decorators-comments.js format 1`] = `
+exports[`decorators-comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
