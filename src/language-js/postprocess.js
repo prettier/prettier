@@ -69,17 +69,6 @@ function postprocess(ast, options) {
           return { ...node.types[0], ...composeLoc(node) };
         }
         break;
-      // flow & typescript
-      case "ImportExpression":
-        return {
-          ...node,
-          type: "CallExpression",
-          callee: {
-            type: "Import",
-            ...composeLoc(node, 6),
-          },
-          arguments: [node.source],
-        };
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {
