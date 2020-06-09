@@ -29,7 +29,7 @@
     "angular-estree-parser": "2.0.3",
     "angular-html-parser": "1.7.0",
     "camelcase": "6.0.0",
-    "chalk": "4.0.0",
+    "chalk": "4.1.0",
     "ci-info": "watson/ci-info#f43f6a1cefff47fb361c88cf4b943fdbcaafe540",
     "cjk-regex": "2.0.0",
     "cosmiconfig": "6.0.0",
