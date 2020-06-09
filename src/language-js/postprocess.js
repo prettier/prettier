@@ -69,17 +69,6 @@ function postprocess(ast, options) {
           return { ...node.types[0], ...composeLoc(node) };
         }
         break;
-      // Convert `babel` `import()` to `ImportExpression`
-      case "CallExpression":
-        if (node.callee.type === "Import") {
-          return {
-            ...node,
-            type: "ImportExpression",
-            source: node.arguments[0],
-            arguments: undefined,
-          };
-        }
-        break;
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {

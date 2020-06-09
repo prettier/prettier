@@ -90,7 +90,7 @@ function printCallArguments(path, options, print) {
   let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
-  const argumentPrint = (argPath, index) => {
+  const printArgument = (argPath, index) => {
     const arg = argPath.getNode();
     const parts = [print(argPath)];
 
@@ -115,16 +115,13 @@ function printCallArguments(path, options, print) {
     return concat(parts);
   };
   const printedArguments = isDynamicImport
-    ? path.call(argumentPrint, "source")
-    : path.map(argumentPrint, "arguments");
+    ? [path.call((path) => printArgument(path, 0), "source")]
+    : path.map(printArgument, "arguments");
 
   const maybeTrailingComma =
     // Dynamic imports cannot have trailing commas
-    !(
-      node.type === "ImportExpression" &&
-      node.callee &&
-      node.callee.type === "Import"
-    ) && shouldPrintComma(options, "all")
+    !(isDynamicImport || (node.callee && node.callee.type === "Import")) &&
+    shouldPrintComma(options, "all")
       ? ","
       : "";
 
@@ -161,7 +158,7 @@ function printCallArguments(path, options, print) {
     // We want to print the last argument with a special flag
     let printedExpanded;
     let i = 0;
-    const argumentCallBack = (argPath) => {
+    const printArgument = (argPath) => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
           concat([
@@ -181,9 +178,9 @@ function printCallArguments(path, options, print) {
     };
 
     if (isDynamicImport) {
-      path.call(argumentCallBack, "source");
+      path.call(printArgument, "source");
     } else {
-      path.each(argumentCallBack, "arguments");
+      path.each(printArgument, "arguments");
     }
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
@@ -219,10 +216,6 @@ function printCallArguments(path, options, print) {
         { shouldBreak }
       ),
     ]);
-  }
-
-  if (isDynamicImport) {
-    console.log({ printedArguments });
   }
 
   const contents = concat([
