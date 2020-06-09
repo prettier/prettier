@@ -902,10 +902,17 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-colon": {
+      const parentNode = path.getParentNode();
+      const index = parentNode && parentNode.groups.indexOf(node);
+      const prevNode = index && parentNode.groups[index - 1];
       return concat([
         node.value,
+        // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
+        prevNode.value[prevNode.value.length - 1] === "\\" ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
-        insideValueFunctionNode(path, "url") ? "" : line,
+        insideValueFunctionNode(path, "url")
+          ? ""
+          : line,
       ]);
     }
     case "value-comma": {
