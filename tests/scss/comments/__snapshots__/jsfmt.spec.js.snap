@@ -146,7 +146,7 @@ prop
           "sidebar content content" //
           "footer footer footer";
 
-        grid-template-areas: 
+        grid-template-areas:
           "header header header" //
           "sidebar content content" //
           "footer footer footer";
@@ -155,7 +155,7 @@ prop
 // #8052
 $font-family-rich:
   // custom
-  'Noto Sans TC', 'Noto Sans SC', 'Noto Sans JP', 
+  'Noto Sans TC', 'Noto Sans SC', 'Noto Sans JP',
   // Safari for OS X and iOS (San Francisco)
   -apple-system, BlinkMacSystemFont,
   // fallback
@@ -174,21 +174,21 @@ $font-family-rich:
 
 // TODO: make these pretty
 selector {
-prop: 
+prop:
 /* block */
 value;
 
 prop
 // inline
-: 
+:
 value;
 
-prop/* block */: 
+prop/* block */:
 value;
 
 prop
 /* block */
-: 
+:
 value;
 
 prop/* before */: // after
@@ -198,6 +198,7 @@ value;
 prop/* before */: /* after*/
 value;
 }
+
 =====================================output=====================================
 selector {
   prop: // comment
@@ -225,13 +226,13 @@ $font-family-rich:
   // custom
   "Noto Sans TC", "Noto Sans SC", "Noto Sans JP",
   // Safari for OS X and iOS (San Francisco)
-    -apple-system,
+  -apple-system,
   BlinkMacSystemFont,
   // fallback
-    Roboto,
+  Roboto,
   "Helvetica Neue", Helvetica, Arial, sans-serif,
   // emoji
-    "Apple Color Emoji",
+  "Apple Color Emoji",
   "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
 // #7109
@@ -244,7 +245,7 @@ $font-family-rich:
 
 // TODO: make these pretty
 selector {
-  prop: 
+  prop:
 /* block */ value;
 
   prop // inline

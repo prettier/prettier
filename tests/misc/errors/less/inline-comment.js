@@ -3,6 +3,6 @@
 a{
 	prop
 // inline
-: 
+:
 value;
 }

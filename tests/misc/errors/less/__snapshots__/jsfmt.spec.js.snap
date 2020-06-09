@@ -6,7 +6,7 @@ exports[`inline-comment.js error test 1`] = `
   4 | 	prop
 > 5 | // inline
     |    ^
-  6 | : 
+  6 | :
   7 | value;
   8 | }"
 `;
