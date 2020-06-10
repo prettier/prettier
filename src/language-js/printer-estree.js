@@ -449,12 +449,17 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "Program":
+    case "Program": {
+      const hasContents =
+        !n.body.every(({ type }) => type === "EmptyStatement") || n.comments;
+
       // Babel 6
       if (n.directives) {
-        path.each((childPath) => {
+        const directivesCount = n.directives.length;
+        path.map((childPath, index) => {
           parts.push(print(childPath), semi, hardline);
           if (
+            (index < directivesCount - 1 || hasContents) &&
             isNextLineEmpty(
               options.originalText,
               childPath.getValue(),
@@ -477,14 +482,12 @@ function printPathNoParens(path, options, print, args) {
       );
 
       // Only force a trailing newline if there were any contents.
-      if (
-        !n.body.every(({ type }) => type === "EmptyStatement") ||
-        n.comments
-      ) {
+      if (hasContents) {
         parts.push(hardline);
       }
 
       return concat(parts);
+    }
     // Babel extension.
     case "EmptyStatement":
       return "";
