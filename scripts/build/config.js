@@ -47,7 +47,7 @@ const parsers = [
       // prevent terser generate extra .LICENSE file
       extractComments: false,
       terserOptions: {
-        // https://github.com/webpack-contrib/terser-webpack-plugin/issues/107
+        // prevent U+FFFE in the output
         output: {
           ascii_only: true,
         },
