@@ -41,7 +41,12 @@ async function createBundle(bundleConfig, cache) {
   process.stdout.write(fitTerminal(output));
 
   try {
-    const result = await bundler(bundleConfig, cache);
+    const { cached } = await bundler(bundleConfig, cache);
+
+    if (cached) {
+      console.log(CACHED);
+      return;
+    }
 
     // Files include U+FFEE can't load in Chrome Extension
     // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
@@ -54,11 +59,7 @@ async function createBundle(bundleConfig, cache) {
       }
     }
 
-    if (result.cached) {
-      console.log(CACHED);
-    } else {
-      console.log(OK);
-    }
+    console.log(OK);
   } catch (error) {
     console.log(FAIL + "\n");
     handleError(error);
