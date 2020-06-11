@@ -48,14 +48,14 @@ async function createBundle(bundleConfig, cache) {
       return;
     }
 
-    // Files include U+FFEE can't load in Chrome Extension
+    // Files including U+FFEE can't load in Chrome Extension
     // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
     // details https://github.com/prettier/prettier/pull/8534
     if (target === "universal") {
       const file = path.join("dist", output);
       const content = fs.readFileSync(file, "utf8");
       if (content.includes("\ufffe")) {
-        throw new Error("Bundled umd file should not has U+FFFE character.");
+        throw new Error("Bundled umd file should not have U+FFFE character.");
       }
     }
 
