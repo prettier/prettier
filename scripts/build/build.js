@@ -4,6 +4,7 @@ const chalk = require("chalk");
 const execa = require("execa");
 const minimist = require("minimist");
 const path = require("path");
+const fs = require("fs");
 const stringWidth = require("string-width");
 
 const bundler = require("./bundler");
@@ -36,21 +37,32 @@ function fitTerminal(input) {
 }
 
 async function createBundle(bundleConfig, cache) {
-  const { output } = bundleConfig;
+  const { output, target } = bundleConfig;
   process.stdout.write(fitTerminal(output));
 
-  return bundler(bundleConfig, cache)
-    .catch((error) => {
-      console.log(FAIL + "\n");
-      handleError(error);
-    })
-    .then((result) => {
-      if (result.cached) {
-        console.log(CACHED);
-      } else {
-        console.log(OK);
+  try {
+    const result = await bundler(bundleConfig, cache);
+
+    // Files include U+FFEE can't load in Chrome Extension
+    // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
+    // details https://github.com/prettier/prettier/pull/8534
+    if (target === "universal") {
+      const file = path.join("dist", bundleConfig.output);
+      const content = fs.readFileSync(file, "utf8");
+      if (content.includes("\ufffe")) {
+        throw new Error("Bundled umd file should not has U+FFFE character.");
       }
-    });
+    }
+
+    if (result.cached) {
+      console.log(CACHED);
+    } else {
+      console.log(OK);
+    }
+  } catch (error) {
+    console.log(FAIL + "\n");
+    handleError(error);
+  }
 }
 
 function handleError(error) {
