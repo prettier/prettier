@@ -47,10 +47,10 @@ const parsers = [
       // prevent terser generate extra .LICENSE file
       extractComments: false,
       terserOptions: {
-        // prevent U+FFFE in the output
-        output: {
-          ascii_only: true,
-        },
+        // // prevent U+FFFE in the output
+        // output: {
+        //   ascii_only: true,
+        // },
         mangle: {
           // postcss need keep_fnames when minify
           keep_fnames: true,
