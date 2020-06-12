@@ -74,31 +74,35 @@ function _getFileInfo({
     return fileInfo;
   }
 
+  if (resolveConfig) {
+    if (sync) {
+      const resolvedConfig = config.resolveConfig.sync(filePath);
+      if (resolvedConfig && resolvedConfig.parser) {
+        fileInfo.inferredParser = resolvedConfig.parser;
+        return fileInfo;
+      }
+    } else {
+      return config.resolveConfig(filePath).then((resolvedConfig) => {
+        if (resolvedConfig && resolvedConfig.parser) {
+          fileInfo.inferredParser = resolvedConfig.parser;
+        } else {
+          const inferredParser = options.inferParser(filePath, plugins);
+
+          if (inferredParser) {
+            fileInfo.inferredParser = inferredParser;
+          }
+        }
+        return fileInfo;
+      });
+    }
+  }
+
   const inferredParser = options.inferParser(filePath, plugins);
 
   if (inferredParser) {
     fileInfo.inferredParser = inferredParser;
-    return fileInfo;
   }
-
-  if (!resolveConfig) {
-    return fileInfo;
-  }
-
-  if (sync) {
-    const resolvedConfig = config.resolveConfig.sync(filePath);
-    if (resolvedConfig && resolvedConfig.parser) {
-      fileInfo.inferredParser = resolvedConfig.parser;
-    }
-    return fileInfo;
-  }
-
-  return config.resolveConfig(filePath).then((resolvedConfig) => {
-    if (resolvedConfig && resolvedConfig.parser) {
-      fileInfo.inferredParser = resolvedConfig.parser;
-    }
-    return fileInfo;
-  });
+  return fileInfo;
 }
 
 function normalizeFilePath(filePath, ignorePath) {

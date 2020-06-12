@@ -176,8 +176,7 @@ test("API getFileInfo with resolveConfig", () => {
     })
   ).resolves.toMatchObject({
     ignored: false,
-    // Bug: should be `not-babel`
-    inferredParser: "babel",
+    inferredParser: "not-babel",
   });
 });
 
