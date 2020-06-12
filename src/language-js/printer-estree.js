@@ -1555,7 +1555,7 @@ function printPathNoParens(path, options, print, args) {
           canHaveTrailingComma && lastElem === null;
 
         const shouldBreak =
-          !options.isJestEachTemplateLiteral &&
+          !options.__inJestEach &&
           n.elements.length > 1 &&
           n.elements.every((element, i, elements) => {
             const elementType = element && element.type;
@@ -3888,9 +3888,9 @@ function printJestEachTemplateLiteral(path, options, print) {
     headerNames.length > 1 ||
     headerNames.some((headerName) => headerName.length !== 0)
   ) {
-    options.isJestEachTemplateLiteral = true;
+    options.__inJestEach = true;
     const expressions = path.map(print, "expressions");
-    options.isJestEachTemplateLiteral = false;
+    options.__inJestEach = false;
     const parts = [];
     const stringifiedExpressions = expressions.map(
       (doc) =>
