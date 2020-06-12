@@ -431,9 +431,18 @@ function printTrailingComment(commentPath, options) {
       locStart
     );
 
-    return lineSuffix(
+    const printed = lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
+
+    if (
+      options.printer.shouldIndentComment &&
+      options.printer.shouldIndentComment(commentPath)
+    ) {
+     return indent(printed);
+    }
+
+    return printed;
   }
 
   let printed = concat([" ", contents]);

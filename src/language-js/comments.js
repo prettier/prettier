@@ -943,16 +943,6 @@ function handleTSMappedTypeComments(
 }
 
 function handleTernaryComment(enclosingNode, precedingNode, comment) {
-  const isTernaryTest = (node, ternary) => {
-    if (!node || !ternary) {
-      return false;
-    }
-    const isTernary =
-      ternary.type === "ConditionalExpression" ||
-      ternary.type === "TSConditionalType";
-    const testField = ternary.test ? "test" : "extendsType";
-    return isTernary && node === ternary[testField];
-  }
   if (isTernaryTest(precedingNode, enclosingNode)) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -1037,6 +1027,23 @@ function isTypeCastComment(comment) {
   );
 }
 
+function isTernaryTest(node, ternary) {
+  if (!node || !ternary) {
+    return false;
+  }
+  const isTernary =
+    ternary.type === "ConditionalExpression" ||
+    ternary.type === "TSConditionalType";
+  const testField = ternary.test ? "test" : "extendsType";
+  return isTernary && node === ternary[testField];
+}
+
+function shouldIndentComment(path) {
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  return parent && parentParent && isTernaryTest(parent, parentParent);
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
@@ -1046,4 +1053,5 @@ module.exports = {
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,
+  shouldIndentComment,
 };
