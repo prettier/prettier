@@ -1,29 +1,23 @@
 "use strict";
 const path = require('path');
 
-const CACHE_DIR = "./.cache";
-
-
 module.exports = {
-  async onPreBuild({ utils }) {
-    const CACHE_DIR = path.join(__dirname, '../../.cache')
+  async onPreBuild({ constants, utils }) {
+    const CACHE_DIR = path.join(constants.PUBLISH_DIR, '../.cache')
 
-    console.log(`Restoring cache ${CACHE_DIR}`);
-    try {
-      await utils.cache.restore([CACHE_DIR]);
-      console.log(`Cache restored ${CACHE_DIR}`);
-    } catch (error) {
-      console.error(error);
+    if (await utils.cache.restore([CACHE_DIR])) {
+      console.log('Cache Restored.');
+    } else {
+      console.log('No cache found. Building fresh.');
     }
   },
   async onPostBuild({ utils }) {
-    const CACHE_DIR = path.join(__dirname, '../../.cache')
-    console.log(`Saving  Cache ${CACHE_DIR}`);
-    try {
-      await utils.cache.save([CACHE_DIR]);
-      console.log(`Cache Saved  ${CACHE_DIR}`);
-    } catch (error) {
-      console.error(error);
+    const CACHE_DIR = path.join(constants.PUBLISH_DIR, '../.cache')
+
+    if (await utils.cache.save(cacheDirs)) {
+      console.log('Stored the cache to speed up future builds.');
+    } else {
+      console.log('No build found.');
     }
   },
 };
