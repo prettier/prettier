@@ -67,7 +67,8 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
-    handleLabeledStatementComments(enclosingNode, comment)
+    handleLabeledStatementComments(enclosingNode, comment) ||
+    handleTernaryComment(enclosingNode, precedingNode, comment)
   );
 }
 
@@ -938,6 +939,24 @@ function handleTSMappedTypeComments(
     return true;
   }
 
+  return false;
+}
+
+function handleTernaryComment(enclosingNode, precedingNode, comment) {
+  const isTernaryTest = (node, ternary) => {
+    if (!node || !ternary) {
+      return false;
+    }
+    const isTernary =
+      ternary.type === "ConditionalExpression" ||
+      ternary.type === "TSConditionalType";
+    const testField = ternary.test ? "test" : "extendsType";
+    return isTernary && node === ternary[testField];
+  }
+  if (isTernaryTest(precedingNode, enclosingNode)) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
   return false;
 }
 
