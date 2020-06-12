@@ -2439,7 +2439,7 @@ function printPathNoParens(path, options, print, args) {
       const parentNode = path.getParentNode();
 
       if (isJestEachTemplateLiteral(n, parentNode)) {
-        const printed = printJestEachTemplateLiteral(options, path, print);
+        const printed = printJestEachTemplateLiteral(path, options, print);
         if (printed) {
           return printed;
         }
@@ -3875,7 +3875,7 @@ function printMethodInternal(path, options, print) {
   return concat(parts);
 }
 
-function printJestEachTemplateLiteral(options, path, print) {
+function printJestEachTemplateLiteral(path, options, print) {
   /**
    * a    | b    | expected
    * ${1} | ${1} | ${2}
