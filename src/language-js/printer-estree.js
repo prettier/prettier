@@ -1554,7 +1554,8 @@ function printPathNoParens(path, options, print, args) {
         const needsForcedTrailingComma =
           canHaveTrailingComma && lastElem === null;
 
-        let shouldBreak =
+        const shouldBreak =
+          !options.isJestEachTemplateLiteral &&
           n.elements.length > 1 &&
           n.elements.every((element, i, elements) => {
             const elementType = element && element.type;
@@ -1575,18 +1576,6 @@ function printPathNoParens(path, options, print, args) {
 
             return element[itemsKey] && element[itemsKey].length > 1;
           });
-
-        if (n.type === "ArrayExpression") {
-          let i = 0;
-          let node = n;
-          while (node && shouldBreak) {
-            const parent = path.getParentNode(i++);
-            if (parent && isJestEachTemplateLiteral(node, parent)) {
-              shouldBreak = false;
-            }
-            node = parent;
-          }
-        }
 
         parts.push(
           group(
@@ -2447,17 +2436,18 @@ function printPathNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
-      let expressions = path.map(print, "expressions");
       const parentNode = path.getParentNode();
 
       if (isJestEachTemplateLiteral(n, parentNode)) {
-        const printed = printJestEachTemplateLiteral(n, expressions, options);
+        const printed = printJestEachTemplateLiteral(options, path, print);
         if (printed) {
           return printed;
         }
       }
 
+      let expressions = path.map(print, "expressions");
       const isSimple = isSimpleTemplateLiteral(n);
+
       if (isSimple) {
         expressions = expressions.map(
           (doc) =>
@@ -3885,18 +3875,22 @@ function printMethodInternal(path, options, print) {
   return concat(parts);
 }
 
-function printJestEachTemplateLiteral(node, expressions, options) {
+function printJestEachTemplateLiteral(options, path, print) {
   /**
    * a    | b    | expected
    * ${1} | ${1} | ${2}
    * ${1} | ${2} | ${3}
    * ${2} | ${1} | ${3}
    */
+  const node = path.getNode();
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
     headerNames.some((headerName) => headerName.length !== 0)
   ) {
+    options.isJestEachTemplateLiteral = true;
+    const expressions = path.map(print, "expressions");
+    options.isJestEachTemplateLiteral = false;
     const parts = [];
     const stringifiedExpressions = expressions.map(
       (doc) =>
