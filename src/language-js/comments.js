@@ -1031,46 +1031,44 @@ function isTypeCastComment(comment) {
   );
 }
 
+function isTernaryExpression(node) {
+  if (!node) {
+    return false;
+  }
+  return (
+    node.type === "ConditionalExpression" || node.type === "TSConditionalType"
+  );
+}
+
+/**
+ * Check if node matches the ternary test node
+ */
 function isTernaryTest(node, ternary) {
   if (!node || !ternary) {
     return false;
   }
-  const isTernary =
-    ternary.type === "ConditionalExpression" ||
-    ternary.type === "TSConditionalType";
   const testField = ternary.test ? "test" : "extendsType";
-  return isTernary && node === ternary[testField];
+  return isTernaryExpression(ternary) && node === ternary[testField];
+}
+
+function isCommentParentTernaryTest(commentPath) {
+  return isTernaryTest(
+    commentPath.getParentNode(),
+    commentPath.getParentNode(1)
+  );
 }
 
 function shouldIndentComment(path) {
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
-  const parentParentParent = path.getParentNode(2);
-  const isNestedTernary =
-    parentParentParent &&
-    (parentParentParent.type === "ConditionalExpression" ||
-    parentParentParent.type === "TSConditionalType")
   return (
-    parent &&
-    parentParent &&
-    isTernaryTest(parent, parentParent) &&
-    !isNestedTernary
+    isCommentParentTernaryTest(path) &&
+    isTernaryExpression(path.getParentNode(2))
   );
 }
 
 function shouldDedentComment(path) {
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
-  const parentParentParent = path.getParentNode(2);
-  const isNestedTernary =
-    parentParentParent &&
-    (parentParentParent.type === "ConditionalExpression" ||
-    parentParentParent.type === "TSConditionalType")
   return (
-    parent &&
-    parentParent &&
-    isTernaryTest(parent, parentParent) &&
-    isNestedTernary
+    isCommentParentTernaryTest(path) &&
+    !isTernaryExpression(path.getParentNode(2))
   );
 }
 
