@@ -44,6 +44,20 @@ const { configureStore } = process.env.NODE_ENV === "production"
   ? require("./configureProdStore") // a
   : require("./configureDevStore"); // b
 
+test
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
 =====================================output=====================================
 var inspect =
   4 === util.inspect.length
@@ -68,8 +82,8 @@ var inspect =
       };
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
-  ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split("/").length).join("../") }
+  // Making sure that the publicPath goes back to to build folder.
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const extractTextPluginOptions2 = shouldUseRelativeAssetPaths
@@ -85,6 +99,20 @@ const { configureStore } =
   process.env.NODE_ENV === "production"
     ? require("./configureProdStore") // a
     : require("./configureDevStore"); // b
+
+test
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
 
 ================================================================================
 `;
