@@ -1,5 +1,6 @@
 "use strict";
 
+const ignore = require("ignore");
 const createIgnorer = require("./create-ignorer");
 const options = require("../main/options");
 const config = require("../config/resolve-config");
@@ -29,9 +30,10 @@ async function getFileInfo(filePath, opts) {
   const ignorer = await createIgnorer(opts.ignorePath, opts.withNodeModules);
   return _getFileInfo({
     ignorer,
-    filePath: normalizeFilePath(filePath, opts.ignorePath),
+    filePath,
     plugins: opts.plugins,
     resolveConfig: opts.resolveConfig,
+    ignorePath: opts.ignorePath,
     sync: false,
   });
 }
@@ -51,9 +53,10 @@ getFileInfo.sync = function (filePath, opts) {
   const ignorer = createIgnorer.sync(opts.ignorePath, opts.withNodeModules);
   return _getFileInfo({
     ignorer,
-    filePath: normalizeFilePath(filePath, opts.ignorePath),
+    filePath,
     plugins: opts.plugins,
     resolveConfig: opts.resolveConfig,
+    ignorePath: opts.ignorePath,
     sync: true,
   });
 };
@@ -63,17 +66,13 @@ function _getFileInfo({
   filePath,
   plugins,
   resolveConfig = false,
+  ignorePath,
   sync = false,
 }) {
-  let ignored = true;
-  try {
-    ignored = ignorer.ignores(path.relative(process.cwd(), filePath));
-  } catch (_) {
-    // Invalid path
-  }
-
+  const relativeFilePath = normalizeFilePath(filePath, ignorePath);
   const fileInfo = {
-    ignored,
+    ignored:
+      ignore.isPathValid(relativeFilePath) && ignorer.ignores(relativeFilePath),
     inferredParser: options.inferParser(filePath, plugins) || null,
   };
 
@@ -98,9 +97,10 @@ function _getFileInfo({
 }
 
 function normalizeFilePath(filePath, ignorePath) {
-  return ignorePath
-    ? path.relative(path.dirname(ignorePath), filePath)
-    : filePath;
+  return path.relative(
+    ignorePath ? path.dirname(ignorePath) : process.cwd(),
+    filePath
+  );
 }
 
 module.exports = getFileInfo;

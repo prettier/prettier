@@ -4,7 +4,7 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
-
+const { isPathValid } = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
@@ -379,7 +379,7 @@ function formatStdin(context) {
     .then((input) => {
       if (
         relativeFilepath &&
-        ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+        isIgnored(ignorer, fixWindowsSlashes(relativeFilepath))
       ) {
         writeOutput(context, { formatted: input });
         return;
@@ -410,6 +410,10 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
+function isIgnored(ignorer, file) {
+  return isPathValid(file) && ignorer.ignores(file);
+}
+
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -436,7 +440,7 @@ function formatFiles(context) {
       ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
       : filename;
 
-    const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
+    const fileIgnored = isIgnored(ignorer, fixWindowsSlashes(ignoreFilename));
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
