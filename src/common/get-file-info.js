@@ -70,6 +70,7 @@ function _getFileInfo({
   sync = false,
 }) {
   const relativeFilePath = normalizeFilePath(filePath, ignorePath);
+
   const fileInfo = {
     ignored:
       ignore.isPathValid(relativeFilePath) && ignorer.ignores(relativeFilePath),
