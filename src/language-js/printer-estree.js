@@ -5397,4 +5397,5 @@ module.exports = {
   getGapRegex: handleComments.getGapRegex,
   getCommentChildNodes: handleComments.getCommentChildNodes,
   shouldIndentComment: handleComments.shouldIndentComment,
+  shouldDedentComment: handleComments.shouldDedentComment,
 };

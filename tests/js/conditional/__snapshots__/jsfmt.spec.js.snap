@@ -58,6 +58,29 @@ test
   ? foo
   : bar;
 
+test
+  // ?
+  // comment
+  ? foo
+  : test2
+  // comment
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : test
+  /* comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
 =====================================output=====================================
 var inspect =
   4 === util.inspect.length
@@ -109,6 +132,29 @@ test
 test
   /* comment
      comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
+test
+  // ?
+  // comment
+  ? foo
+  : test2
+  // comment
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : test
+  /* comment
      comment
      comment */
   ? foo

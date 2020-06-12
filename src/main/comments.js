@@ -9,6 +9,7 @@ const {
   indent,
   lineSuffix,
   join,
+  dedent,
   cursor,
 } = require("../document").builders;
 const {
@@ -439,7 +440,14 @@ function printTrailingComment(commentPath, options) {
       options.printer.shouldIndentComment &&
       options.printer.shouldIndentComment(commentPath)
     ) {
-     return indent(printed);
+      return indent(printed);
+    }
+
+    if (
+      options.printer.shouldDedentComment &&
+      options.printer.shouldDedentComment(commentPath)
+    ) {
+      return dedent(printed);
     }
 
     return printed;

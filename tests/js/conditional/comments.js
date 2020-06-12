@@ -49,3 +49,26 @@ test
      comment */
   ? foo
   : bar;
+
+test
+  // ?
+  // comment
+  ? foo
+  : test2
+  // comment
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : test
+  /* comment
+     comment
+     comment */
+  ? foo
+  : bar;

@@ -1045,7 +1045,33 @@ function isTernaryTest(node, ternary) {
 function shouldIndentComment(path) {
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
-  return parent && parentParent && isTernaryTest(parent, parentParent);
+  const parentParentParent = path.getParentNode(2);
+  const isNestedTernary =
+    parentParentParent &&
+    (parentParentParent.type === "ConditionalExpression" ||
+    parentParentParent.type === "TSConditionalType")
+  return (
+    parent &&
+    parentParent &&
+    isTernaryTest(parent, parentParent) &&
+    !isNestedTernary
+  );
+}
+
+function shouldDedentComment(path) {
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  const parentParentParent = path.getParentNode(2);
+  const isNestedTernary =
+    parentParentParent &&
+    (parentParentParent.type === "ConditionalExpression" ||
+    parentParentParent.type === "TSConditionalType")
+  return (
+    parent &&
+    parentParent &&
+    isTernaryTest(parent, parentParent) &&
+    isNestedTernary
+  );
 }
 
 module.exports = {
@@ -1058,4 +1084,5 @@ module.exports = {
   getGapRegex,
   getCommentChildNodes,
   shouldIndentComment,
+  shouldDedentComment,
 };
