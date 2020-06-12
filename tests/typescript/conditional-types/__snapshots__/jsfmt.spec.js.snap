@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = test extends B
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+type A = test extends B
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
+=====================================output=====================================
+type A = test extends B
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+type A = test extends B
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
+================================================================================
+`;
+
 exports[`conditonal-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
