@@ -12,6 +12,6 @@
 /website/static/playground.js
 /website/static/lib
 .DS_Store
-coverage
+/coverage
 .idea
 package-lock.json

@@ -107,6 +107,16 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
 <!-- prettier-ignore-end -->
 ```
 
+## YAML
+
+To ignore a part of a YAML file, `# prettier-ignore` should be placed on the line immediately above the ignored node:
+
+```yaml
+# prettier-ignore
+key  : value
+hello: world
+```
+
 ## GraphQL
 
 ```graphql

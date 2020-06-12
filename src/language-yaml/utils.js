@@ -163,7 +163,7 @@ function hasEndComments(node) {
 function splitWithSingleSpace(text) {
   const parts = [];
 
-  let lastPart = undefined;
+  let lastPart;
   for (const part of text.split(/( +)/g)) {
     if (part !== " ") {
       if (lastPart === " ") {

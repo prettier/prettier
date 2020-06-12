@@ -2,8 +2,14 @@
 
 const fs = require("fs");
 const path = require("path");
-const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
+const checkParsers = require("./utils/check-parsers");
+const visualizeRange = require("./utils/visualize-range");
+const createSnapshot = require("./utils/create-snapshot");
+const composeOptionsForSnapshot = require("./utils/compose-options-for-snapshot");
+const visualizeEndOfLine = require("./utils/visualize-end-of-line");
+const consistentEndOfLine = require("./utils/consistent-end-of-line");
+const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
 
 const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
@@ -22,22 +28,21 @@ const prettier = !TEST_STANDALONE
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    "class_comment/comments.js",
-    ["comments/dangling_array.js", (options) => options.semi === false],
-    ["comments/jsx.js", (options) => options.semi === false],
-    "comments/return-statement.js",
-    "comments/tagged-template-literal.js",
-    "comments_closure_typecast/iife.js",
-    "markdown_footnoteDefinition/multiline.md",
-    "markdown_spec/example-234.md",
-    "markdown_spec/example-235.md",
-    "multiparser_html_js/script-tag-escaping.html",
+    "js/class-comment/misc.js",
+    ["js/comments/dangling_array.js", (options) => options.semi === false],
+    ["js/comments/jsx.js", (options) => options.semi === false],
+    "js/comments/return-statement.js",
+    "js/comments/tagged-template-literal.js",
+    "js/comments-closure-typecast/iife.js",
+    "markdown/footnoteDefinition/multiline.md",
+    "markdown/spec/example-234.md",
+    "markdown/spec/example-235.md",
+    "html/multiparser-js/script-tag-escaping.html",
     [
-      "multiparser_js_markdown/codeblock.js",
+      "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
     ],
-    ["no-semi/comments.js", (options) => options.semi === false],
-    "yaml_prettier_ignore/document.yml",
+    ["js/no-semi/comments.js", (options) => options.semi === false],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -56,13 +61,13 @@ global.run_spec = (fixtures, parsers, options) => {
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
-    "parser-inference"
+    "misc/parser-inference"
   );
 
   // `IS_ERROR_TESTS` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TESTS = isTestDirectory(dirname, "errors");
+  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [];
@@ -102,7 +107,13 @@ global.run_spec = (fixtures, parsers, options) => {
     })
     .filter(Boolean);
 
-  const stringifiedOptions = stringifyOptions(options);
+  // Make sure tests are in correct location
+  // only runs on local and one task on CI
+  if (!isCI || process.env.ENABLE_CODE_COVERAGE) {
+    checkParsers({ dirname, files }, parsers);
+  }
+
+  const stringifiedOptions = stringifyOptionsForTitle(options);
 
   for (const { name, filename, code, output } of [...files, ...snippets]) {
     describe(`${name}${
@@ -163,19 +174,31 @@ global.run_spec = (fixtures, parsers, options) => {
         if (typeof output === "string") {
           expect(formatted).toEqual(output);
         } else {
+          let codeForSnapshot = hasEndOfLine
+            ? code
+                .replace(RANGE_START_PLACEHOLDER, "")
+                .replace(RANGE_END_PLACEHOLDER, "")
+            : source;
+          let codeOffset = 0;
+
+          if (
+            typeof baseOptions.rangeStart === "number" ||
+            typeof baseOptions.rangeEnd === "number"
+          ) {
+            codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
+            codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
+          }
+
+          if (hasEndOfLine) {
+            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+          }
+
           expect(
-            raw(
-              createSnapshot(
-                hasEndOfLine
-                  ? visualizeEndOfLine(
-                      code
-                        .replace(RANGE_START_PLACEHOLDER, "")
-                        .replace(RANGE_END_PLACEHOLDER, "")
-                    )
-                  : source,
-                hasEndOfLine ? visualizedOutput : formattedWithCursor,
-                { ...baseOptions, parsers }
-              )
+            createSnapshot(
+              codeForSnapshot,
+              hasEndOfLine ? visualizedOutput : formattedWithCursor,
+              composeOptionsForSnapshot(baseOptions, parsers),
+              { codeOffset }
             )
           ).toMatchSnapshot();
         }
@@ -234,7 +257,7 @@ global.run_spec = (fixtures, parsers, options) => {
           const { cursorOffset, ...parseOptions } = mainOptions;
           const originalAst = parse(input, parseOptions);
           const formattedAst = parse(formatted, parseOptions);
-          expect(originalAst).toEqual(formattedAst);
+          expect(formattedAst).toEqual(originalAst);
         });
       }
     });
@@ -256,99 +279,4 @@ function format(source, filename, options) {
         CURSOR_PLACEHOLDER +
         result.formatted.slice(result.cursorOffset)
     : result.formatted;
-}
-
-function consistentEndOfLine(text) {
-  let firstEndOfLine;
-  return text.replace(/\r\n?|\n/g, (endOfLine) => {
-    if (!firstEndOfLine) {
-      firstEndOfLine = endOfLine;
-    }
-    return firstEndOfLine;
-  });
-}
-
-function visualizeEndOfLine(text) {
-  return text.replace(/\r\n?|\n/g, (endOfLine) => {
-    switch (endOfLine) {
-      case "\n":
-        return "<LF>\n";
-      case "\r\n":
-        return "<CRLF>\n";
-      case "\r":
-        return "<CR>\n";
-      default:
-        throw new Error(`Unexpected end of line ${JSON.stringify(endOfLine)}`);
-    }
-  });
-}
-
-function createSnapshot(input, output, options) {
-  const separatorWidth = 80;
-  const printWidthIndicator =
-    options.printWidth > 0 && Number.isFinite(options.printWidth)
-      ? " ".repeat(options.printWidth) + "| printWidth"
-      : [];
-  return []
-    .concat(
-      printSeparator(separatorWidth, "options"),
-      printOptions(
-        omit(
-          options,
-          (k) =>
-            k === "rangeStart" ||
-            k === "rangeEnd" ||
-            k === "cursorOffset" ||
-            k === "disableBabelTS"
-        )
-      ),
-      printWidthIndicator,
-      printSeparator(separatorWidth, "input"),
-      input,
-      printSeparator(separatorWidth, "output"),
-      output,
-      printSeparator(separatorWidth)
-    )
-    .join("\n");
-}
-
-function printSeparator(width, description) {
-  description = description || "";
-  const leftLength = Math.floor((width - description.length) / 2);
-  const rightLength = width - leftLength - description.length;
-  return "=".repeat(leftLength) + description + "=".repeat(rightLength);
-}
-
-function printOptions(options) {
-  const keys = Object.keys(options).sort();
-  return keys.map((key) => `${key}: ${stringify(options[key])}`).join("\n");
-  function stringify(value) {
-    return value === Infinity
-      ? "Infinity"
-      : Array.isArray(value)
-      ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
-      : JSON.stringify(value);
-  }
-}
-
-function omit(obj, fn) {
-  return Object.keys(obj).reduce((reduced, key) => {
-    const value = obj[key];
-    if (!fn(key, value)) {
-      reduced[key] = value;
-    }
-    return reduced;
-  }, {});
-}
-
-function stringifyOptions(options) {
-  const string = JSON.stringify(options || {}, (key, value) =>
-    key === "disableBabelTS"
-      ? undefined
-      : value === Infinity
-      ? "Infinity"
-      : value
-  );
-
-  return string === "{}" ? "" : string;
 }

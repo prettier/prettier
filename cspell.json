@@ -322,6 +322,7 @@
         "standalones",
         "Stankiewicz",
         "starturl",
+        "stylefmt",
         "styleguides",
         "stylelint",
         "stylelintrc",
@@ -386,7 +387,7 @@
     ],
     "ignoreRegExpList": [
         "<!-- prettier-ignore -->\\n(`{3,})\\w*\\n[\\s\\S]+?\\1",
-        "\\[(\\*{2})?@\\w+?\\1\\]",
+        "\\[(\\*{2})?@[-\\w]+?\\1\\]",
         "\\[`\\w+`\\]",
         "ve{2,}r{2,}y",
         "ve+r+y+long\\w*",

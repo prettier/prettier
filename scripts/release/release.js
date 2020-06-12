@@ -6,7 +6,7 @@ const { exec, execSync } = require("child_process");
 
 async function run() {
   const chalk = require("chalk");
-  const dedent = require("dedent");
+  const { string: outdentString } = require("outdent");
   const minimist = require("minimist");
   const semver = require("semver");
 
@@ -40,6 +40,7 @@ async function run() {
     require("./steps/push-to-git"),
     require("./steps/publish-to-npm"),
     require("./steps/bump-prettier"),
+    require("./steps/update-dependents-count"),
     require("./steps/post-publish-steps"),
   ];
 
@@ -48,7 +49,7 @@ async function run() {
       await step(params);
     }
   } catch (error) {
-    const message = dedent(error.message.trim());
+    const message = outdentString(error.message.trim());
     const stack = error.stack.replace(message, "");
     console.error(`${chalk.red("error")} ${message}\n${stack}`);
     process.exit(1);

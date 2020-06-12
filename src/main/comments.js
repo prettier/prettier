@@ -377,7 +377,7 @@ function getQuasiRange(expr) {
   return { start: expr.range[0], end: expr.range[1] };
 }
 
-function printLeadingComment(commentPath, print, options) {
+function printLeadingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
   if (!contents) {
@@ -403,31 +403,16 @@ function printLeadingComment(commentPath, print, options) {
   return concat([contents, hardline]);
 }
 
-function printTrailingComment(commentPath, print, options) {
+function printTrailingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
   if (!contents) {
     return "";
   }
-  const isBlock =
-    options.printer.isBlockComment && options.printer.isBlockComment(comment);
+  const { printer, originalText, locStart } = options;
+  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
-  // We don't want the line to break
-  // when the parentParentNode is a ClassDeclaration/-Expression
-  // And the parentNode is in the superClass property
-  const parentNode = commentPath.getNode(1);
-  const parentParentNode = commentPath.getNode(2);
-  const isParentSuperClass =
-    parentParentNode &&
-    (parentParentNode.type === "ClassDeclaration" ||
-      parentParentNode.type === "ClassExpression") &&
-    parentParentNode.superClass === parentNode;
-
-  if (
-    hasNewline(options.originalText, options.locStart(comment), {
-      backwards: true,
-    })
-  ) {
+  if (hasNewline(originalText, locStart(comment), { backwards: true })) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
@@ -441,23 +426,24 @@ function printTrailingComment(commentPath, print, options) {
     // always at the end of another expression.
 
     const isLineBeforeEmpty = isPreviousLineEmpty(
-      options.originalText,
+      originalText,
       comment,
-      options.locStart
+      locStart
     );
 
     return lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
-  } else if (isBlock || isParentSuperClass) {
-    // Trailing block comments never need a newline
-    return concat([" ", contents]);
   }
 
-  return concat([
-    lineSuffix(concat([" ", contents])),
-    !isBlock ? breakParent : "",
-  ]);
+  let printed = concat([" ", contents]);
+
+  // Trailing block comments never need a newline
+  if (!isBlock) {
+    printed = concat([lineSuffix(printed), breakParent]);
+  }
+
+  return printed;
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
@@ -514,7 +500,7 @@ function printComments(path, print, options, needsSemi) {
     const { leading, trailing } = comment;
 
     if (leading) {
-      const contents = printLeadingComment(commentPath, print, options);
+      const contents = printLeadingComment(commentPath, options);
       if (!contents) {
         return;
       }
@@ -529,7 +515,7 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, print, options));
+      trailingParts.push(printTrailingComment(commentPath, options));
     }
   }, "comments");
 

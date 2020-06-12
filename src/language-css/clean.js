@@ -1,5 +1,7 @@
 "use strict";
 
+const { isFrontMatterNode } = require("../common/util");
+
 function clean(ast, newObj, parent) {
   [
     "raw", // front-matter
@@ -13,7 +15,7 @@ function clean(ast, newObj, parent) {
     delete newObj[name];
   });
 
-  if (ast.type === "yaml") {
+  if (isFrontMatterNode(ast) && ast.lang === "yaml") {
     delete newObj.value;
   }
 
@@ -24,8 +26,7 @@ function clean(ast, newObj, parent) {
     parent.nodes.length !== 0 &&
     // first non-front-matter comment
     (parent.nodes[0] === ast ||
-      ((parent.nodes[0].type === "yaml" || parent.nodes[0].type === "toml") &&
-        parent.nodes[1] === ast))
+      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast))
   ) {
     /**
      * something
@@ -38,6 +39,10 @@ function clean(ast, newObj, parent) {
     if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
       return null;
     }
+  }
+
+  if (ast.type === "value-root") {
+    delete newObj.text;
   }
 
   if (

@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("path");
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 /**
  * @typedef {Object} Bundle
@@ -16,9 +15,9 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {Object?} terserOptions - options for `terser`
+ * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
- * @property {Object} namedExports - for cases where rollup can't infer what's exported
  * @property {string[]} ignore - paths of CJS modules to ignore
  */
 
@@ -39,22 +38,6 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-angular.js",
-    alias: {
-      // Force using the CJS file, instead of ESM; i.e. get the file
-      // from `"main"` instead of `"module"` (rollup default) of package.json
-      entries: [
-        {
-          find: "lines-and-columns",
-          replacement: require.resolve("lines-and-columns"),
-        },
-        {
-          find: "@angular/compiler/src",
-          replacement: path.resolve(
-            `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-          ),
-        },
-      ],
-    },
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -81,28 +64,7 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    alias: {
-      entries: [
-        // `handlebars` causes webpack warning by using `require.extensions`
-        // `dist/handlebars.js` also complaint on `window` variable
-        // use cjs build instead
-        // https://github.com/prettier/prettier/issues/6656
-        {
-          find: "handlebars",
-          replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
-        },
-      ],
-    },
     commonjs: {
-      namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
-          "parse",
-          "parseWithoutProcessing",
-        ],
-        [require.resolve(
-          "@glimmer/syntax/dist/modules/es2017/index.js"
-        )]: "default",
-      },
       ignore: ["source-map"],
     },
   },
@@ -111,16 +73,6 @@ const parsers = [
   },
   {
     input: "src/language-yaml/parser-yaml.js",
-    alias: {
-      // Force using the CJS file, instead of ESM; i.e. get the file
-      // from `"main"` instead of `"module"` (rollup default) of package.json
-      entries: [
-        {
-          find: "lines-and-columns",
-          replacement: require.resolve("lines-and-columns"),
-        },
-      ],
-    },
   },
 ].map((parser) => ({
   type: "plugin",
@@ -147,6 +99,7 @@ const coreBundles = [
     type: "core",
     output: "doc.js",
     target: "universal",
+    minify: false,
   },
   {
     input: "standalone.js",
