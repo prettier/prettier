@@ -943,6 +943,10 @@ function handleTSMappedTypeComments(
 }
 
 function handleTernaryComment(enclosingNode, precedingNode, comment) {
+  // test
+  //   // comment
+  //   ? first
+  //   : second
   if (isTernaryTest(precedingNode, enclosingNode)) {
     addTrailingComment(precedingNode, comment);
     return true;
