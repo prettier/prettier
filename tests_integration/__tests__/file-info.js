@@ -152,7 +152,7 @@ test("API getFileInfo with resolveConfig", () => {
   });
   expect(prettier.getFileInfo(file3)).resolves.toMatchObject({
     ignored: false,
-    inferredParser: 'babel',
+    inferredParser: "babel",
   });
   expect(
     prettier.getFileInfo(file1, {
@@ -171,7 +171,7 @@ test("API getFileInfo with resolveConfig", () => {
     inferredParser: "babel",
   });
   expect(
-    prettier.getFileInfo(file2, {
+    prettier.getFileInfo(file3, {
       resolveConfig: true,
     })
   ).resolves.toMatchObject({
