@@ -408,6 +408,15 @@ function hasTrailingComment(node) {
   return node.comments && node.comments.some((comment) => comment.trailing);
 }
 
+function hasTrailingLineComment(node) {
+  return (
+    node.comments &&
+    node.comments.some(
+      (comment) => comment.trailing && !handleComments.isBlockComment(comment)
+    )
+  );
+}
+
 function isCallOrOptionalCallExpression(node) {
   return (
     node.type === "CallExpression" || node.type === "OptionalCallExpression"
@@ -985,6 +994,10 @@ function isSimpleCallArgument(node, depth) {
     return node.elements.every((x) => x === null || plusTwo(x));
   }
 
+  if (node.type === "ImportExpression") {
+    return plusTwo(node.source, depth);
+  }
+
   if (
     node.type === "CallExpression" ||
     node.type === "OptionalCallExpression" ||
@@ -1065,6 +1078,7 @@ module.exports = {
   hasNode,
   hasPrettierIgnore,
   hasTrailingComment,
+  hasTrailingLineComment,
   identity,
   isBinaryish,
   isCallOrOptionalCallExpression,

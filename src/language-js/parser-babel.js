@@ -31,8 +31,10 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
-      "privateIn",
       ["decorators", { decoratorsBeforeExport: false }],
+      "privateIn",
+      ["moduleAttributes", { version: "may-2020" }],
+      ["recordAndTuple", { syntaxType: "hash" }],
       ...extraPlugins,
     ],
   };
@@ -85,12 +87,14 @@ function createParse(parseMethod, ...pluginCombinations) {
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error
         error.message.replace(/ \(.*\)/, ""),
-        {
-          start: {
-            line: error.loc.line,
-            column: error.loc.column + 1,
-          },
-        }
+        error.loc
+          ? {
+              start: {
+                line: error.loc.line,
+                column: error.loc.column + 1,
+              },
+            }
+          : { start: { line: 0, column: 0 } }
       );
     }
     delete ast.tokens;
@@ -129,7 +133,16 @@ function rethrowSomeRecoveredErrors(ast) {
     for (const error of ast.errors) {
       if (
         typeof error.message === "string" &&
-        error.message.startsWith("Did not expect a type annotation here.")
+        (error.message.startsWith(
+          // UnexpectedTypeAnnotation
+          // https://github.com/babel/babel/blob/2f31ecf85d85cb100fa08d4d9a09de0fe4a117e4/packages/babel-parser/src/plugins/typescript/index.js#L88
+          "Did not expect a type annotation here."
+        ) ||
+          error.message.startsWith(
+            // ModuleAttributeDifferentFromType
+            // https://github.com/babel/babel/blob/bda759ac3dce548f021ca24e9182b6e6f7c218e3/packages/babel-parser/src/parser/location.js#L99
+            "The only accepted module attribute is `type`"
+          ))
       ) {
         throw error;
       }

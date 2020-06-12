@@ -625,15 +625,20 @@ function needsParens(path, options) {
       }
 
     case "OptionalMemberExpression":
-    case "OptionalCallExpression":
+    case "OptionalCallExpression": {
+      const parentParent = path.getParentNode(1);
       if (
         (parent.type === "MemberExpression" && name === "object") ||
         ((parent.type === "CallExpression" ||
           parent.type === "NewExpression") &&
-          name === "callee")
+          name === "callee") ||
+        (parent.type === "TSNonNullExpression" &&
+          parentParent.type === "MemberExpression" &&
+          parentParent.object === parent)
       ) {
         return true;
       }
+    }
     // fallthrough
     case "CallExpression":
     case "MemberExpression":
@@ -700,6 +705,9 @@ function needsParens(path, options) {
     case "JSXElement":
       return (
         name === "callee" ||
+        (parent.type === "BinaryExpression" &&
+          parent.operator === "<" &&
+          name === "left") ||
         (parent.type !== "ArrayExpression" &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&
