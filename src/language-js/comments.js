@@ -1061,14 +1061,14 @@ function isCommentParentTernaryTest(commentPath) {
 function shouldIndentComment(path) {
   return (
     isCommentParentTernaryTest(path) &&
-    isTernaryExpression(path.getParentNode(2))
+    !isTernaryExpression(path.getParentNode(2))
   );
 }
 
 function shouldDedentComment(path) {
   return (
     isCommentParentTernaryTest(path) &&
-    !isTernaryExpression(path.getParentNode(2))
+    isTernaryExpression(path.getParentNode(2))
   );
 }
 
