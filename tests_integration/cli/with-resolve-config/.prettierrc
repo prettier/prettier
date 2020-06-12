@@ -7,6 +7,10 @@
     {
       "files": "*.bar",
       "options": { "parser": "babel" }
+    },
+    {
+      "files": "*.js",
+      "options": { "parser": "not-babel" }
     }
   ]
 }
