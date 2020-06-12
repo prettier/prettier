@@ -286,7 +286,7 @@ test("API getFileInfo with ignorePath", () => {
     })
   ).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
 });
 
@@ -309,7 +309,7 @@ test("API getFileInfo.sync with ignorePath", () => {
     })
   ).toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
 });
 
@@ -353,7 +353,7 @@ test("API getFileInfo with withNodeModules", () => {
   );
   expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
   expect(
     prettier.getFileInfo(file, {

@@ -67,27 +67,38 @@ function _getFileInfo({
 }) {
   const fileInfo = {
     ignored: ignorer.ignores(filePath),
-    inferredParser: options.inferParser(filePath, plugins) || null,
+    inferredParser: null,
   };
 
-  if (!fileInfo.inferredParser && resolveConfig) {
-    if (!sync) {
-      return config.resolveConfig(filePath).then((resolvedConfig) => {
-        if (resolvedConfig && resolvedConfig.parser) {
-          fileInfo.inferredParser = resolvedConfig.parser;
-        }
+  if (fileInfo.ignored) {
+    return fileInfo;
+  }
 
-        return fileInfo;
-      });
-    }
+  const inferredParser = options.inferParser(filePath, plugins);
 
+  if (inferredParser) {
+    fileInfo.inferredParser = inferredParser;
+    return fileInfo;
+  }
+
+  if (!resolveConfig) {
+    return fileInfo;
+  }
+
+  if (sync) {
     const resolvedConfig = config.resolveConfig.sync(filePath);
     if (resolvedConfig && resolvedConfig.parser) {
       fileInfo.inferredParser = resolvedConfig.parser;
     }
+    return fileInfo;
   }
 
-  return fileInfo;
+  return config.resolveConfig(filePath).then((resolvedConfig) => {
+    if (resolvedConfig && resolvedConfig.parser) {
+      fileInfo.inferredParser = resolvedConfig.parser;
+    }
+    return fileInfo;
+  });
 }
 
 function normalizeFilePath(filePath, ignorePath) {
