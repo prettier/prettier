@@ -28,6 +28,8 @@ const e = {
   1: null,
   1.5: null,
   1.0: null,
+  .1: null,
+  1.: null,
   999999999999999999999: null,
   0.99999999999999999: null,
   1E2: null,
@@ -48,6 +50,8 @@ const f = {
   // one where `String(Number(key)) === key`), but we came to the conclusion
   // that it is unexpected.
   "1.0": null,
+  ".1": null,
+  "1.": null,
   "999999999999999999999": null,
   "0.99999999999999999": null,
   "1E2": null,
@@ -71,6 +75,8 @@ Object.entries({
   // numbers into decimal (which completely valid), “information/intent” is
   // lost. Either way, writing code like this is super confusing.
   1.0: '1.0', // 1
+  .1: '.1', // 0.1
+  1.: '1.', // 1
   999999999999999999999: '999999999999999999999', // 1e+21
   0.99999999999999999: '0.99999999999999999', // 1
   1E2: '1E2', // 100
