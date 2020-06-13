@@ -72,6 +72,7 @@ const {
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleFlowType,
+  isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,
   isStringPropSafeToUnquote,
@@ -3742,22 +3743,20 @@ function printPropertyKey(path, options, print) {
 
   if (
     (key.type === "Identifier" ||
-      ((isNumericLiteral(key) || key.type === "BigIntLiteral") &&
+      (isNumericLiteral(key) &&
+        isSimpleNumber(rawText(key)) &&
+        // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
+        String(key.value) === rawText(key) &&
         !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
     // a -> "a"
-    // 1e2 -> "100"
-    // 2n -> "2"
-    // 0b10n -> "2"
+    // 1 -> "1"
+    // 1.5 -> "1.5"
     const prop = printString(
       JSON.stringify(
-        key.type === "Identifier"
-          ? key.name
-          : key.type === "BigIntLiteral"
-          ? BigInt(key.value).toString()
-          : key.value.toString()
+        key.type === "Identifier" ? key.name : key.value.toString()
       ),
       options
     );
@@ -3773,7 +3772,8 @@ function printPropertyKey(path, options, print) {
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
     // 'a' -> a
-    // '1e+100' -> 1e100
+    // '1' -> 1
+    // '1.5' -> 1.5
     return path.call(
       (keyPath) =>
         comments.printComments(

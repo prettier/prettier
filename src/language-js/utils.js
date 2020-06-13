@@ -765,7 +765,7 @@ function isStringPropSafeToUnquote(node, options) {
         (options.parser === "typescript" || options.parser === "babel-ts") &&
         node.type === "ClassProperty"
       )) ||
-      (!node.key.value.startsWith("-") &&
+      (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
         !(
           options.parser === "flow" ||
@@ -774,6 +774,11 @@ function isStringPropSafeToUnquote(node, options) {
           options.parser === "babel-ts"
         )))
   );
+}
+
+// Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
+function isSimpleNumber(numberString) {
+  return /^(\d+|\d+\.\d+)$/.test(numberString);
 }
 
 function isJestEachTemplateLiteral(node, parentNode) {
@@ -1128,6 +1133,7 @@ module.exports = {
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleFlowType,
+  isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,
   isStringPropSafeToUnquote,
