@@ -272,10 +272,10 @@ const UsersSection = ({ language }) => {
             className="button"
             href={siteConfig.baseUrl + language + "/users/"}
             target="_self"
+            style={{ marginRight: "10px" }}
           >
             See All Others
           </a>
-          &nbsp;&nbsp;&nbsp;
           <a
             className="button"
             href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
@@ -295,24 +295,6 @@ const UsersSection = ({ language }) => {
         >
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
-              href="https://npmjs.com/package/prettier"
-              className="growOnHover"
-            >
-              <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
-            </a>
-            <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>
-                More than <strong data-placeholder="dependent-npm">5000</strong>{" "}
-                tools and integrations on npm
-              </p>
-              <Button href="https://www.npmjs.com/browse/depended/prettier">
-                Install Them
-              </Button>
-            </div>
-          </div>
-
-          <div style={{ display: "flex", marginTop: "22px" }}>
-            <a
               href="https://github.com/prettier/prettier"
               className="growOnHover"
             >
@@ -321,11 +303,29 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">1.6M</strong>{" "}
+                <strong data-placeholder="dependent-github">1.7M</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
                 Check Them Out
+              </Button>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", marginTop: "22px" }}>
+            <a
+              href="https://npmjs.com/package/prettier"
+              className="growOnHover"
+            >
+              <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
+            </a>
+            <div style={{ marginLeft: ".7em", width: "260px" }}>
+              <p>
+                More than <strong data-placeholder="dependent-npm">5000</strong>{" "}
+                dependent packages on npm
+              </p>
+              <Button href="https://www.npmjs.com/browse/depended/prettier">
+                See them all
               </Button>
             </div>
           </div>

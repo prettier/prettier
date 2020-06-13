@@ -3,13 +3,15 @@ id: cli
 title: CLI
 ---
 
-Use the `prettier` command to run Prettier from the command line. Run it without any arguments to see the [options](options.md).
-
-To format a file in-place, use `--write`. You may want to consider committing your code before doing that, just in case.
+Use the `prettier` command to run Prettier from the command line.
 
 ```bash
 prettier [options] [file/dir/glob ...]
 ```
+
+> To run your locally installed Prettier – prefix with `npx`, such as `npx prettier --help`.
+
+To format a file in-place, use `--write`. You might want to commit your code before doing that the first time, just in case.
 
 In practice, this may look something like:
 
@@ -19,7 +21,7 @@ prettier --write .
 
 This command formats all files supported by Prettier in the current directory and its subdirectories.
 
-It’s recommended to always make sure that `prettier --write .` works out in your project. Use a `.prettierignore` file to ignore things that should not be formatted.
+It’s recommended to always make sure that `prettier --write .` works out in your project. Use a [.prettierignore](ignore.md) file to ignore things that should not be formatted.
 
 A more complicated example:
 
@@ -27,9 +29,11 @@ A more complicated example:
 prettier --single-quote --trailing-comma all --write docs package.json "{app,__{tests,mocks}__}/**/*.js"
 ```
 
-> Don't forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
+> Don’t forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
 
-> It's usually better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This allows sharing those settings across different ways to run Prettier (CLI, [editor integrations](editors.md), etc.).
+> It’s better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
+
+## File patterns
 
 Given a list of paths/patterns, the Prettier CLI first treats every entry in it as a literal path.
 
@@ -89,7 +93,7 @@ If you're worried that Prettier will change the correctness of your code, add `-
 
 ## `--find-config-path` and `--config`
 
-If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost when prettier attempts to look up a [configuration file](configuration.md). In order to skip this, you may ask prettier to find the config file once, and re-use it later on.
+If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost when Prettier attempts to look up a [configuration file](configuration.md). In order to skip this, you may ask Prettier to find the config file once, and re-use it later on.
 
 ```bash
 prettier --find-config-path ./my/file.js
@@ -102,17 +106,17 @@ This will provide you with a path to the configuration file, which you can pass 
 prettier --config ./my/.prettierrc --write ./my/file.js
 ```
 
-You can also use `--config` if your configuration file lives somewhere where prettier cannot find it, such as a `config/` directory.
+You can also use `--config` if your configuration file lives somewhere where Prettier cannot find it, such as a `config/` directory.
 
 If you don't have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
 
 ## `--ignore-path`
 
-Path to a file containing patterns that describe files to ignore. By default, prettier looks for `./.prettierignore`.
+Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.prettierignore`.
 
 ## `--require-pragma`
 
-Require a special comment, called a pragma, to be present in the file's first docblock comment in order for prettier to format it.
+Require a special comment, called a pragma, to be present in the file's first docblock comment in order for Prettier to format it.
 
 ```js
 /**

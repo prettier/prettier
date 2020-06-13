@@ -3,7 +3,11 @@ id: options
 title: Options
 ---
 
-Prettier ships with a handful of customizable format options, usable in both the CLI and API.
+Prettier ships with a handful of format options.
+
+**To learn more about Prettier’s stance on options – see the [Option Philosophy](option-philosophy.md).**
+
+If you change any options, it’s recommended to do it via a [configuration file](configuration.md). This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
 
 ## Print Width
 
@@ -13,9 +17,11 @@ Specify the line length that the printer will wrap on.
 >
 > In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don't strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
 >
-> Prettier, on the other hand, strives to fit the most code into every line. With the print width set to 120, prettier may produce overly compact, or otherwise undesirable code.
+> Prettier’s printWidth option does not work the same way. It is not the hard upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
 >
-> See the [print width rationale](rationale.md#print-width) for more information.
+> Remember, computers are dumb. You need to explicitly tell them what to do, while humans can make their own (implicit) judgements, for example on when to break a line.
+>
+> In other words, don’t try to use printWidth as if it was ESLint’s [max-len](https://eslint.org/docs/rules/max-len) – they’re not the same. max-len just says what the maximum allowed line length is, but not what the generally preferred length is – which is what printWidth specifies.
 
 | Default | CLI Override          | API Override        |
 | ------- | --------------------- | ------------------- |

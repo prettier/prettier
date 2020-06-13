@@ -3,6 +3,8 @@ id: api
 title: API
 ---
 
+If you want to run Prettier programmatically, check this page out.
+
 ```js
 const prettier = require("prettier");
 ```

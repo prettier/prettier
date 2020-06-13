@@ -7,6 +7,8 @@ To get the most out of Prettier, it’s recommended to run it from your editor.
 
 If your editor does not support Prettier, you can instead [run Prettier with a file watcher](watching-files.md).
 
+**Note!** It’s important to [install](install.md) Prettier locally in every project, so each project gets the correct Prettier version.
+
 ## Visual Studio Code
 
 `prettier-vscode` can be installed using the extension sidebar – it’s called “Prettier - Code formatter.” [Check its repository for configuration and shortcuts](https://github.com/prettier/prettier-vscode).
@@ -39,3 +41,7 @@ Install the [JavaScript Prettier extension](https://github.com/madskristensen/Ja
 
 Atom users can install the [prettier-atom](https://github.com/prettier/prettier-atom) package, or one of the more minimalistic [mprettier](https://github.com/t9md/atom-mprettier) and
 [miniprettier](https://github.com/duailibe/atom-miniprettier) packages.
+
+## Espresso
+
+Espresso users can install the [espresso-prettier](https://github.com/eablokker/espresso-prettier) plugin.

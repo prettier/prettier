@@ -185,7 +185,7 @@ This practice is also common in [standard] which uses a semicolon-free style.
 
 ### Print width
 
-The [`--print-width`](options.md#print-width) is more of a guideline to Prettier than a hard rule. It generally means “try to make lines this long, go shorter if needed and longer in special cases.”
+The [`--print-width`](options.md#print-width) is more of a guideline to Prettier than a hard rule. It is not the upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
 
 There are some edge cases, such as really long string literals, regexps, comments and variable names, which cannot be broken across lines (without using code transforms which [Prettier doesn’t do](#what-prettier-is-_not_-concerned-about)). Or if you nest your code 50 levels deep your lines are of course going to be mostly indentation :)
 
