@@ -15,7 +15,7 @@ Check out the above links for instructions on how to install and set things up.
 
 ## Notes
 
-When searching for both Prettier and your linter on the Internet you’ll probably find more related projects. These are generally not recommended, but can be useful in certain circumstances.
+When searching for both Prettier and your linter on the Internet you’ll probably find more related projects. These are **generally not recommended,** but can be useful in certain circumstances.
 
 First, we have plugins that let you run Prettier as if it was a linter rule:
 
@@ -27,7 +27,7 @@ These plugins were especially useful when Prettier was new. By running Prettier 
 
 The downsides of those plugins are:
 
-- You end up with a lot of red squiggly lines in your editor, which gets annoying. Prettier is supposed to make you forget about formatting but now you get it in your face all the time instead.
+- You end up with a lot of red squiggly lines in your editor, which gets annoying. Prettier is supposed to make you forget about formatting – and not be in your face about it!
 - They are slower than running Prettier directly.
 - They’re yet one layer of indirection where things may break.
 
@@ -37,4 +37,4 @@ Finally, we have tools that runs `prettier` and then immediately for example `es
 - [prettier-tslint](https://github.com/azz/prettier-tslint)
 - [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint)
 
-This is useful if some aspect of Prettier’s output makes Prettier completely unusable to you. Then you can have for example `eslint --fix` fix that up for you. The downside is that these tools are much slower than just running Prettier.
+Those are useful if some aspect of Prettier’s output makes Prettier completely unusable to you. Then you can have for example `eslint --fix` fix that up for you. The downside is that these tools are much slower than just running Prettier.

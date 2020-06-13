@@ -88,7 +88,7 @@ let g:ale_fix_on_save = 1
 It’s recommended to use a [config file](configuration.md), but you can also add options in your `.vimrc`:
 
 ```vim
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
 ```
 
 ## [coc-prettier](https://github.com/neoclide/coc-prettier)
@@ -127,7 +127,7 @@ Update your `coc-settings.json` for languages that you want format on save.
 If you want something really bare-bones, you can create a custom key binding. In this example, `gp` (mnemonic: "get pretty") is used to run prettier (with options) in the currently active buffer:
 
 ```vim
-nnoremap gp :silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>
+nnoremap gp :silent %!prettier --stdin-filepath %<CR>
 ```
 
 Note that if there’s a syntax error in your code, the whole buffer will be replaced with an error message. You’ll need to press `u` to get your code back.

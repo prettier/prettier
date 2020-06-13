@@ -76,8 +76,8 @@ Formatting from the command line is a good way to get started, but you get the m
 See [Editor Integration](editors.md) for how to set up your editor. If your editor does not support Prettier, you can instead [run Prettier with a file watcher](watching-files.md).
 
 > **Note:** Don’t skip the regular local install! Editor plugins will pick up your local version of Prettier, making sure you use the correct version in every project. (You wouldn’t want your editor accidentally causing lots of changes because it’s using a newer version of Prettier than your project!)
-
-And being able to run Prettier from the command line is still a good fallback, and needed for CI setups.
+>
+> And being able to run Prettier from the command line is still a good fallback, and needed for CI setups.
 
 ## ESLint (and other linters)
 
