@@ -3744,9 +3744,9 @@ function printPropertyKey(path, options, print) {
   if (
     (key.type === "Identifier" ||
       (isNumericLiteral(key) &&
-        isSimpleNumber(rawText(key)) &&
+        isSimpleNumber(printNumber(rawText(key))) &&
         // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
-        String(key.value) === rawText(key) &&
+        String(key.value) === printNumber(rawText(key)) &&
         !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))

@@ -27,9 +27,9 @@ const e = {
   NaN: null,
   1: null,
   1.5: null,
-  1.0: null,
   .1: null,
   1.: null,
+  1.0: null,
   999999999999999999999: null,
   0.99999999999999999: null,
   1E2: null,
@@ -52,9 +52,9 @@ const f = {
   // These should never be unquoted. `1e+100` technically could (it’s the only
   // one where `String(Number(key)) === key`), but we came to the conclusion
   // that it is unexpected.
-  "1.0": null,
   ".1": null,
   "1.": null,
+  "1.0": null,
   "999999999999999999999": null,
   "0.99999999999999999": null,
   "1E2": null,
@@ -73,13 +73,14 @@ Object.entries({
   NaN: 'NaN',
   1: '1',
   1.5: '1.5',
+  // Prettier will normalize these to `0.1` and `1` – then they can be quoted.
+  .1: '.1',
+  1.: '1.',
   // These should never be quoted. The _actual_ keys are shown as comments.
   // Copy-paste this into the console to verify. If we were to convert these
   // numbers into decimal (which completely valid), “information/intent” is
   // lost. Either way, writing code like this is super confusing.
   1.0: '1.0', // 1
-  .1: '.1', // 0.1
-  1.: '1.', // 1
   999999999999999999999: '999999999999999999999', // 1e+21
   0.99999999999999999: '0.99999999999999999', // 1
   1E2: '1E2', // 100
