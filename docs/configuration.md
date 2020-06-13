@@ -12,7 +12,7 @@ Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for co
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found.
 
-Prettier intentionally doesn’t support any kind of global configuration. This is to make sure that when a project is copied to another computer, Prettier's behavior stays the same. Otherwise, Prettier wouldn’t be able to guarantee that everybody in a team gets the same consistent results.
+Prettier intentionally doesn’t support any kind of global configuration. This is to make sure that when a project is copied to another computer, Prettier’s behavior stays the same. Otherwise, Prettier wouldn’t be able to guarantee that everybody in a team gets the same consistent results.
 
 The options you can use in the configuration file are the same as the [API options](options.md).
 
@@ -118,7 +118,7 @@ Sharing a Prettier configuration is simple: just publish a module that exports a
 }
 ```
 
-If you don't want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
+If you don’t want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
 
 ```json
 "@company/prettier-config"
@@ -167,8 +167,8 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 }
 ```
 
-**Note:** _Never_ put the `parser` option at the top level of your configuration. _Only_ use it inside `overrides`. Otherwise you effectively disable Prettier's automatic file extension based parser inference. This forces Prettier to use the parser you specified for _all_ types of files – even when it doesn't make sense, such as trying to parse a CSS file as JavaScript.
+**Note:** _Never_ put the `parser` option at the top level of your configuration. _Only_ use it inside `overrides`. Otherwise you effectively disable Prettier’s automatic file extension based parser inference. This forces Prettier to use the parser you specified for _all_ types of files – even when it doesn’t make sense, such as trying to parse a CSS file as JavaScript.
 
 ## Configuration Schema
 
-If you'd like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+If you’d like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.

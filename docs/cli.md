@@ -37,7 +37,7 @@ prettier --single-quote --trailing-comma all --write docs package.json "{app,__{
 
 Given a list of paths/patterns, the Prettier CLI first treats every entry in it as a literal path.
 
-- If the path points to an existing file, Prettier CLI proceeds with that file and doesn't resolve the path as a glob pattern.
+- If the path points to an existing file, Prettier CLI proceeds with that file and doesn’t resolve the path as a glob pattern.
 
 - If the path points to an existing directory, Prettier CLI recursively finds supported files in that directory. This resolution process is based on file extensions and well-known file names that Prettier and its [plugins](plugins.md) associate with supported languages.
 
@@ -45,7 +45,7 @@ Given a list of paths/patterns, the Prettier CLI first treats every entry in it 
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt out from this behavior use `--with-node-modules` flag.
 
-To escape special characters in globs, one of the two escaping syntaxes can be used: `prettier "\[my-dir]/*.js"` or `prettier "[[]my-dir]/*.js"`. Both match all JS files in a directory named `[my-dir]`, however the latter syntax is preferable as the former doesn't work on Windows, where backslashes are treated as path separators.
+To escape special characters in globs, one of the two escaping syntaxes can be used: `prettier "\[my-dir]/*.js"` or `prettier "[[]my-dir]/*.js"`. Both match all JS files in a directory named `[my-dir]`, however the latter syntax is preferable as the former doesn’t work on Windows, where backslashes are treated as path separators.
 
 ## `--check`
 
@@ -84,8 +84,8 @@ If you need to pipe the list of unformatted files to another command, you can u
 | Code | Information                         |
 | ---- | ----------------------------------- |
 | 0    | Everything formatted properly       |
-| 1    | Something wasn't formatted properly |
-| 2    | Something's wrong with Prettier     |
+| 1    | Something wasn’t formatted properly |
+| 2    | Something’s wrong with Prettier     |
 
 ## `--debug-check`
 
@@ -108,7 +108,7 @@ prettier --config ./my/.prettierrc --write ./my/file.js
 
 You can also use `--config` if your configuration file lives somewhere where Prettier cannot find it, such as a `config/` directory.
 
-If you don't have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
+If you don’t have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
 
 ## `--ignore-path`
 
@@ -116,7 +116,7 @@ Path to a file containing patterns that describe files to ignore. By default, Pr
 
 ## `--require-pragma`
 
-Require a special comment, called a pragma, to be present in the file's first docblock comment in order for Prettier to format it.
+Require a special comment, called a pragma, to be present in the file’s first docblock comment in order for Prettier to format it.
 
 ```js
 /**
@@ -164,7 +164,7 @@ This option adds support to editor integrations where users define their default
 
 ## `--no-editorconfig`
 
-Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
+Don’t take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
 
 ## `--with-node-modules`
 

@@ -38,7 +38,7 @@ autocmd BufWritePre,TextChanged,InsertLeave *.js Neoformat
 
 See `:help autocmd-events` in Vim for details.
 
-It's recommended to use a [config file](configuration.md), but you can also add options in your `.vimrc`:
+It’s recommended to use a [config file](configuration.md), but you can also add options in your `.vimrc`:
 
 ```vim
 autocmd FileType javascript setlocal formatprg=prettier\ --single-quote\ --trailing-comma\ es5
@@ -71,7 +71,7 @@ let g:ale_fixers = {
 \}
 ```
 
-ALE supports both _linters_ and _fixers_. If you don't specify which _linters_ to run, **all available tools for all supported languages will be run**, and you might get a correctly formatted file with a bunch of lint errors. To disable this behavior you can tell ALE to run only linters you've explicitly configured (more info in the [FAQ](https://github.com/dense-analysis/ale/blob/ed8104b6ab10f63c78e49b60d2468ae2656250e9/README.md#faq-disable-linters)):
+ALE supports both _linters_ and _fixers_. If you don’t specify which _linters_ to run, **all available tools for all supported languages will be run**, and you might get a correctly formatted file with a bunch of lint errors. To disable this behavior you can tell ALE to run only linters you've explicitly configured (more info in the [FAQ](https://github.com/dense-analysis/ale/blob/ed8104b6ab10f63c78e49b60d2468ae2656250e9/README.md#faq-disable-linters)):
 
 ```vim
 let g:ale_linters_explicit = 1
@@ -85,7 +85,7 @@ To have ALE run Prettier on save:
 let g:ale_fix_on_save = 1
 ```
 
-It's recommended to use a [config file](configuration.md), but you can also add options in your `.vimrc`:
+It’s recommended to use a [config file](configuration.md), but you can also add options in your `.vimrc`:
 
 ```vim
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
@@ -130,6 +130,6 @@ If you want something really bare-bones, you can create a custom key binding. In
 nnoremap gp :silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>
 ```
 
-Note that if there's a syntax error in your code, the whole buffer will be replaced with an error message. You'll need to press `u` to get your code back.
+Note that if there’s a syntax error in your code, the whole buffer will be replaced with an error message. You’ll need to press `u` to get your code back.
 
-Another disadvantage of this approach is that the cursor position won't be preserved.
+Another disadvantage of this approach is that the cursor position won’t be preserved.
