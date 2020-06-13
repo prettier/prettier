@@ -46,7 +46,7 @@ autocmd FileType javascript setlocal formatprg=prettier\ --single-quote\ --trail
 let g:neoformat_try_formatprg = 1
 ```
 
-Each space in prettier options should be escaped with `\`.
+Each space in Prettier options should be escaped with `\`.
 
 ## [ALE](https://github.com/dense-analysis/ale)
 
