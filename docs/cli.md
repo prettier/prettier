@@ -9,7 +9,7 @@ Use the `prettier` command to run Prettier from the command line.
 prettier [options] [file/dir/glob ...]
 ```
 
-> To run your locally installed Prettier – prefix with `npx`, such as `npx prettier --help`.
+> To run your locally installed Prettier – prefix with `npx`, such as `npx prettier --help`, or `yarn prettier --help` if you use Yarn.
 
 To format a file in-place, use `--write`. You might want to commit your code before doing that the first time, just in case.
 

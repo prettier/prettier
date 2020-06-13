@@ -4,13 +4,13 @@ title: Plugins
 original_id: plugins
 ---
 
-Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
+Plugins are ways of adding new languages to Prettier. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
 
 ## Using Plugins
 
 Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` or `@<scope>/prettier-plugin-` to be registered.
 
-> `<scope>` should be replaced by a name, read more about [NPM scope](https://docs.npmjs.com/misc/scope.html).
+> `<scope>` should be replaced by a name, read more about [npm scope](https://docs.npmjs.com/misc/scope.html).
 
 When plugins cannot be found automatically, you can load them with:
 

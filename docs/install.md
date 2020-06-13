@@ -5,9 +5,20 @@ title: Install
 
 First, install Prettier locally:
 
-```sh
+<!--DOCUSAURUS_CODE_TABS-->
+<!--npm-->
+
+```bash
 npm install --save-dev --save-exact prettier
 ```
+
+<!--yarn-->
+
+```bash
+yarn add --dev --exact prettier
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 Then, create an empty config file to let editors and other tooling know you are using Prettier:
 
@@ -29,11 +40,24 @@ coverage
 
 Now, format all files with Prettier:
 
+<!--DOCUSAURUS_CODE_TABS-->
+<!--npm-->
+
 ```bash
 npx prettier --write .
 ```
 
 > What is that `npx` thing? `npx` ships with `npm` and lets you run locally installed tools. We’ll leave off the `npx` part for brevity throughout the rest of this file!
+
+<!--yarn-->
+
+```bash
+yarn prettier --write .
+```
+
+> What is `yarn` doing at the start? `yarn prettier` runs the locally installed version of Prettier. We’ll leave off the `yarn` part for brevity throughout the rest of this file!
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 `prettier --write .` is great for formatting everything, but for a big project it might take a little while. You may run `prettier --write app/` to format a certain directory, or `prettier --write app/components/Button.js` to format a certain files. Or `prettier --write "app/**/*.test.js"` to format all tests in a directory.
 
