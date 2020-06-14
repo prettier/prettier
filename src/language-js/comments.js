@@ -1084,11 +1084,9 @@ function isTypeCastComment(comment) {
 }
 
 function isTernaryExpression(node) {
-  if (!node) {
-    return false;
-  }
   return (
-    node.type === "ConditionalExpression" || node.type === "TSConditionalType"
+    node &&
+    (node.type === "ConditionalExpression" || node.type === "TSConditionalType")
   );
 }
 
@@ -1096,11 +1094,11 @@ function isTernaryExpression(node) {
  * Check if node matches the ternary test node
  */
 function isTernaryTest(node, ternary) {
-  if (!node || !ternary) {
+  if (!node || !isTernaryExpression(ternary)) {
     return false;
   }
   const testField = ternary.test ? "test" : "extendsType";
-  return isTernaryExpression(ternary) && node === ternary[testField];
+  return node === ternary[testField];
 }
 
 function isCommentParentTernaryTest(commentPath) {
