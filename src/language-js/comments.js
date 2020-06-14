@@ -75,7 +75,7 @@ function handleOwnLineComment(
       options
     ) ||
     handleLabeledStatementComments(enclosingNode, comment) ||
-    handleTernaryComment(
+    handleTernaryTrailingComments(
       enclosingNode,
       precedingNode,
       comment,
@@ -974,7 +974,7 @@ function hasQuestionInRange(text, start, end, comments, options) {
   return false;
 }
 
-function handleTernaryComment(
+function handleTernaryTrailingComments(
   enclosingNode,
   precedingNode,
   comment,
