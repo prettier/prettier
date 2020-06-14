@@ -34,3 +34,16 @@ type B  = test extends B
      comment */
   ? foo
   : bar;
+
+type A = B extends test ?
+  // comment
+  foo
+  : bar;
+
+type A = B extends test ?
+  // comment
+  first
+  : B extends test
+  // comment
+  ? first
+  : second;

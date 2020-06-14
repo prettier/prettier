@@ -42,12 +42,33 @@ test
   ? foo
   : bar;
 
+test ?
+  // comment
+  foo
+  : bar;
+
+test ?
+  // comment
+  first
+  : test
+  // comment
+  ? first
+  : second;
+
 test
   /* comment
      comment
      comment
      comment */
   ? foo
+  : bar;
+
+test ?
+  /* comment
+     comment
+     comment
+     comment */
+  foo
   : bar;
 
 test

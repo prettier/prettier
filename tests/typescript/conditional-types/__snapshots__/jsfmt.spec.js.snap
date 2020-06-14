@@ -43,6 +43,19 @@ type B  = test extends B
   ? foo
   : bar;
 
+type A = B extends test ?
+  // comment
+  foo
+  : bar;
+
+type A = B extends test ?
+  // comment
+  first
+  : B extends test
+  // comment
+  ? first
+  : second;
+
 =====================================output=====================================
 type A = test extends B
   // ?
@@ -80,6 +93,19 @@ type B = test extends B
      comment */
   ? foo
   : bar;
+
+type A = B extends test
+  ? // comment
+    foo
+  : bar;
+
+type A = B extends test
+  ? // comment
+    first
+  : B extends test
+  // comment
+  ? first
+  : second;
 
 ================================================================================
 `;

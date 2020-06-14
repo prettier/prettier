@@ -8,7 +8,14 @@ const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util-shared");
 
-function handleOwnLineComment(comment, text, options, ast, isLastComment) {
+function handleOwnLineComment(
+  comment,
+  text,
+  options,
+  ast,
+  isLastComment,
+  comments
+) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
     handleLastFunctionArgComments(
@@ -68,7 +75,14 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       options
     ) ||
     handleLabeledStatementComments(enclosingNode, comment) ||
-    handleTernaryComment(enclosingNode, precedingNode, comment)
+    handleTernaryComment(
+      enclosingNode,
+      precedingNode,
+      comment,
+      comments,
+      text,
+      options
+    )
   );
 }
 
@@ -942,12 +956,52 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function handleTernaryComment(enclosingNode, precedingNode, comment) {
+function hasQuestionInRange(text, start, end, comments, options) {
+  for (let i = start; i < end; ++i) {
+    if (text.charAt(i) === "?") {
+      let hasQuestion = true;
+      // Ignore "?" in comments
+      for (const comment of comments) {
+        const commentStart = options.locStart(comment);
+        const commentEnd = options.locEnd(comment);
+        for (let j = commentStart; j < commentEnd; ++j) {
+          if (j === i) {
+            hasQuestion = false;
+          }
+        }
+      }
+      return hasQuestion;
+    }
+  }
+  return false;
+}
+
+function handleTernaryComment(
+  enclosingNode,
+  precedingNode,
+  comment,
+  comments,
+  text,
+  options
+) {
   // test
   //   // comment
   //   ? first
   //   : second
-  if (isTernaryTest(precedingNode, enclosingNode)) {
+  if (
+    isTernaryTest(precedingNode, enclosingNode) &&
+    // test ?
+    //   // comment
+    //   first
+    //   : second
+    !hasQuestionInRange(
+      text,
+      options.locEnd(precedingNode),
+      options.locStart(comment),
+      comments,
+      options
+    )
+  ) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
