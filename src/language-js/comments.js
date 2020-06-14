@@ -964,10 +964,8 @@ function hasQuestionInRange(text, start, end, comments, options) {
       for (const comment of comments) {
         const commentStart = options.locStart(comment);
         const commentEnd = options.locEnd(comment);
-        for (let j = commentStart; j < commentEnd; ++j) {
-          if (j === i) {
-            hasQuestion = false;
-          }
+        if (commentStart < i && i < commentEnd) {
+          hasQuestion = false;
         }
       }
       return hasQuestion;
