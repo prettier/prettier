@@ -32,7 +32,6 @@ function parseValueNodes(nodes) {
   for (let i = 0; i < nodes.length; ++i) {
     const node = nodes[i];
 
-
     if (
       node.type === "number" &&
       node.unit === ".." &&
