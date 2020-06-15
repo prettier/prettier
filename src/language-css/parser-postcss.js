@@ -32,6 +32,20 @@ function parseValueNodes(nodes) {
   for (let i = 0; i < nodes.length; ++i) {
     const node = nodes[i];
 
+
+    if (
+      node.type === "number" &&
+      node.unit === ".." &&
+      node.value[node.value.length - 1] === "."
+    ) {
+      // Work around postcss bug parsing `50...` as `50.` with unit `..`
+      // Set the unit to `...` to "accidentally" work in the same way that cases where the node already had a unit work.
+      // For example, 50px... is parsed as `50` with unit `px...` already by postcss-values-parser.
+      node.value = node.value.slice(0, -1);
+
+      node.unit = "...";
+    }
+
     if (node.type === "func" && node.value === "url") {
       const groups = (node.group && node.group.groups) || [];
 
