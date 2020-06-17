@@ -17,7 +17,11 @@ module.exports = {
   },
   printers: {
     [name]: {
-      print: (path) => path.getValue().value.toUpperCase(),
+      print: (path) =>
+        path.getValue().value.toUpperCase() +
+        // Just for test
+        // See https://github.com/prettier/prettier/pull/8465#issuecomment-645273859
+        "\n\r\n",
     },
   },
 };

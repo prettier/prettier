@@ -92,6 +92,11 @@ function embed(path, print, textToDoc, options) {
           return;
         }
 
+        // See https://github.com/prettier/prettier/pull/8465#issuecomment-645273859
+        if (typeof doc === "string") {
+          doc = doc.replace(/(?:\r?\n)*$/, "");
+        }
+
         return concat([
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
