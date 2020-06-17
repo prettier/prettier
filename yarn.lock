@@ -6514,12 +6514,10 @@ regjsparser@^0.6.4:
   dependencies:
     jsesc "~0.5.0"
 
-remark-math@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-1.0.6.tgz#49eb3dd15d298734c9ae21673115389793af4d1b"
-  integrity sha512-I43wU/QOQpXvVFXKjA4FHp5xptK65+5F6yolm8+69/JV0EqSOB64wURUZ3JK50JtnTL8FvwLiH2PZ+fvsBxviA==
-  dependencies:
-    trim-trailing-lines "^1.1.0"
+remark-math@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-2.0.1.tgz#6edc884ba3b40710c2ae31ce93cd88c9959ac8b9"
+  integrity sha512-FokDg5BmlPbKaAdD4IfSVuRgYH6FBPeIn0zxZA6oZ6epc4qOSjoSJPyhsH0H/WKABuaCVMJuF5O2STti6UmBQw==
 
 remark-parse@5.0.0:
   version "5.0.0"
@@ -7576,7 +7574,7 @@ tr46@^2.0.0:
   dependencies:
     punycode "^2.1.1"
 
-trim-trailing-lines@^1.0.0, trim-trailing-lines@^1.1.0:
+trim-trailing-lines@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/trim-trailing-lines/-/trim-trailing-lines-1.1.2.tgz#d2f1e153161152e9f02fabc670fb40bec2ea2e3a"
   integrity sha512-MUjYItdrqqj2zpcHFTkMa9WAv4JHTI6gnRQGPFLrt5L9a6tRMiDnIqYl8JBvu2d2Tc3lWJKQwlGCp0K8AvCM+Q==
