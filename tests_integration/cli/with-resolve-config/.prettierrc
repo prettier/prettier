@@ -2,15 +2,11 @@
   "overrides": [
     {
       "files": "*.foo",
-      "options": { "parser": "json" }
-    },
-    {
-      "files": "*.bar",
-      "options": { "parser": "babel" }
+      "options": { "parser": "foo-parser" }
     },
     {
       "files": "*.js",
-      "options": { "parser": "not-babel" }
+      "options": { "parser": "override-js-parser" }
     }
   ]
 }
