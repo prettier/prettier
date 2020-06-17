@@ -70,7 +70,7 @@
     "postcss-values-parser": "2.0.1",
     "regexp-util": "1.2.2",
     "remark-math": "1.0.6",
-    "remark-parse": "5.0.0",
+    "remark-parse": "6.0.3",
     "resolve": "1.17.0",
     "semver": "7.3.2",
     "string-width": "4.2.0",
