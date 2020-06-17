@@ -39,6 +39,16 @@ $parameters: (
 );
 $value: dummy($parameters...);
 
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50....);
+  width: min(50px 20px 30px...);
+}
+
 =====================================output=====================================
 body {
   test: foo(return-list($list)...);
@@ -71,6 +81,16 @@ $parameters: (
   "b": 42
 );
 $value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 0.5 50...);
+  background-color: rgba(50 50 50 0.5...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50...);
+  width: min(50px 20px 30px...);
+}
 
 ================================================================================
 `;
@@ -113,6 +133,16 @@ $parameters: (
 );
 $value: dummy($parameters...);
 
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50....);
+  width: min(50px 20px 30px...);
+}
+
 =====================================output=====================================
 body {
   test: foo(return-list($list)...);
@@ -145,6 +175,16 @@ $parameters: (
   "b": 42,
 );
 $value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 0.5 50...);
+  background-color: rgba(50 50 50 0.5...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50...);
+  width: min(50px 20px 30px...);
+}
 
 ================================================================================
 `;
@@ -357,67 +397,6 @@ printWidth: 80
 
 =====================================output=====================================
 @import "rounded-corners", "text-shadow";
-
-================================================================================
-`;
-
-exports[`inline_arbitrary_arguments.scss - {"trailingComma":"none"} format 1`] = `
-====================================options=====================================
-parsers: ["scss"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
-body {
-  background-color: rgba(50, 50, 50, 50);
-  background-color: rgba(50 50 50 50...);
-  background-color: rgba(50 50 .50 50...);
-  background-color: rgba(50 50 50. .50...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50....);
-  width: min(50px 20px 30px...);
-}
-
-=====================================output=====================================
-body {
-  background-color: rgba(50, 50, 50, 50);
-  background-color: rgba(50 50 50 50...);
-  background-color: rgba(50 50 0.5 50...);
-  background-color: rgba(50 50 50 0.5...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50...);
-  width: min(50px 20px 30px...);
-}
-
-================================================================================
-`;
-
-exports[`inline_arbitrary_arguments.scss format 1`] = `
-====================================options=====================================
-parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-body {
-  background-color: rgba(50, 50, 50, 50);
-  background-color: rgba(50 50 50 50...);
-  background-color: rgba(50 50 .50 50...);
-  background-color: rgba(50 50 50. .50...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50....);
-  width: min(50px 20px 30px...);
-}
-
-=====================================output=====================================
-body {
-  background-color: rgba(50, 50, 50, 50);
-  background-color: rgba(50 50 50 50...);
-  background-color: rgba(50 50 0.5 50...);
-  background-color: rgba(50 50 50 0.5...);
-  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
-  background-color: rgba(50 50 50 50...);
-  width: min(50px 20px 30px...);
-}
 
 ================================================================================
 `;
