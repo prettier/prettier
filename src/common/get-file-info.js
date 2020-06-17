@@ -94,7 +94,7 @@ function _getFileInfo({
     if (sync) {
       resolvedConfig = config.resolveConfig.sync(filePath);
     } else {
-      return config.resolveConfig.then((resolvedConfig) => {
+      return config.resolveConfig(filePath).then((resolvedConfig) => {
         fileInfo.inferredParser = getFileParser(
           resolvedConfig,
           filePath,
