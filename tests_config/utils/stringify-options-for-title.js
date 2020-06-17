@@ -2,7 +2,7 @@
 
 function stringifyOptions(options) {
   const string = JSON.stringify(options || {}, (key, value) =>
-    key === "disableBabelTS"
+    key === "disableBabelTS" || key === "plugins"
       ? undefined
       : value === Infinity
       ? "Infinity"

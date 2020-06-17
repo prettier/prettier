@@ -58,15 +58,6 @@ function shouldPreserveContent(node, options) {
     return false;
   }
 
-  if (
-    node.type === "element" &&
-    node.fullName === "template" &&
-    node.attrMap.lang &&
-    node.attrMap.lang !== "html"
-  ) {
-    return true;
-  }
-
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
@@ -95,9 +86,9 @@ function shouldPreserveContent(node, options) {
   }
 
   if (
-    isVueCustomBlock(node, options) &&
-    (options.embeddedLanguageFormatting === "off" ||
-      !inferScriptParser(node, options))
+    isVueNonHtmlBlock(node, options) &&
+    !isScriptLikeTag(node) &&
+    node.type !== "interpolation"
   ) {
     return true;
   }
@@ -434,7 +425,7 @@ function inferScriptParser(node, options) {
     return inferStyleParser(node) || "css";
   }
 
-  if (options && isVueCustomBlock(node, options)) {
+  if (options && isVueNonHtmlBlock(node, options)) {
     return (
       _inferScriptParser(node) ||
       inferStyleParser(node) ||
@@ -633,12 +624,23 @@ function unescapeQuoteEntities(text) {
 // See https://vue-loader.vuejs.org/spec.html for detail
 const vueRootElementsSet = new Set(["template", "style", "script"]);
 function isVueCustomBlock(node, options) {
+  return isVueSfcBlock(node, options) && !vueRootElementsSet.has(node.fullName);
+}
+
+function isVueSfcBlock(node, options) {
   return (
     options.parser === "vue" &&
     node.type === "element" &&
     node.parent.type === "root" &&
-    !vueRootElementsSet.has(node.fullName) &&
     node.fullName.toLowerCase() !== "html"
+  );
+}
+
+function isVueNonHtmlBlock(node, options) {
+  return (
+    isVueSfcBlock(node, options) &&
+    (isVueCustomBlock(node, options) ||
+      (node.attrMap.lang && node.attrMap.lang !== "html"))
   );
 }
 
@@ -665,6 +667,7 @@ module.exports = {
   identity,
   inferScriptParser,
   isVueCustomBlock,
+  isVueNonHtmlBlock,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
