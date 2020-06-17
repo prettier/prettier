@@ -138,6 +138,9 @@ test("API getFileInfo with resolveConfig", () => {
   const file2 = path.resolve(
     path.join(__dirname, "../cli/with-resolve-config/file.bar")
   );
+  const file3 = path.resolve(
+    path.join(__dirname, "../cli/with-resolve-config/file.js")
+  );
 
   expect(prettier.getFileInfo(file1)).resolves.toMatchObject({
     ignored: false,
@@ -146,6 +149,10 @@ test("API getFileInfo with resolveConfig", () => {
   expect(prettier.getFileInfo(file2)).resolves.toMatchObject({
     ignored: false,
     inferredParser: null,
+  });
+  expect(prettier.getFileInfo(file3)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "babel",
   });
   expect(
     prettier.getFileInfo(file1, {
@@ -161,6 +168,15 @@ test("API getFileInfo with resolveConfig", () => {
     })
   ).resolves.toMatchObject({
     ignored: false,
+    inferredParser: "babel",
+  });
+  expect(
+    prettier.getFileInfo(file3, {
+      resolveConfig: true,
+    })
+  ).resolves.toMatchObject({
+    ignored: false,
+    // Bug: should be `not-babel`
     inferredParser: "babel",
   });
 });
@@ -286,7 +302,7 @@ test("API getFileInfo with ignorePath", () => {
     })
   ).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
 });
 
@@ -309,7 +325,7 @@ test("API getFileInfo.sync with ignorePath", () => {
     })
   ).toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
 });
 
@@ -353,7 +369,7 @@ test("API getFileInfo with withNodeModules", () => {
   );
   expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
   expect(
     prettier.getFileInfo(file, {
