@@ -777,6 +777,10 @@ function genericPrint(path, options, print) {
 
           continue;
         }
+        // allow function(returns-list($list)...)
+        if (iNextNode && iNextNode.value === "...") {
+          continue;
+        }
 
         // Be default all values go through `line`
         parts.push(line);
