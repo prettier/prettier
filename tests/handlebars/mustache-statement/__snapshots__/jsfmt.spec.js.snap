@@ -37,18 +37,29 @@ singleQuote: true
 <div
   class="a-first-class
     {{if this.optionOne "optionOne"}}
-    
+
     {{if this.optionTwo "optionTwo"}}
-    
+
     {{if this.optionThree "optionThree"}}
-    
+
     {{if this.optionFour "optionFour"}}
-    
+
     {{if this.optionFive "optionFive"}}
-    
+
     {{this.class}}"
   ...attributes >
 </div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+
 
 =====================================output=====================================
 <GlimmerComponent
@@ -116,6 +127,15 @@ singleQuote: true
   ...attributes
 >
 </div>
+
+<div>
+  {{classic-component-with-many-properties
+    class='hello'
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
 ================================================================================
 `;
 
@@ -155,18 +175,29 @@ printWidth: 80
 <div
   class="a-first-class
     {{if this.optionOne "optionOne"}}
-    
+
     {{if this.optionTwo "optionTwo"}}
-    
+
     {{if this.optionThree "optionThree"}}
-    
+
     {{if this.optionFour "optionFour"}}
-    
+
     {{if this.optionFive "optionFive"}}
-    
+
     {{this.class}}"
   ...attributes >
 </div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+
 
 =====================================output=====================================
 <GlimmerComponent
@@ -233,6 +264,15 @@ printWidth: 80
    {{this.class}}"
   ...attributes
 >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
 </div>
 ================================================================================
 `;
