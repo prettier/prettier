@@ -994,6 +994,10 @@ function isSimpleCallArgument(node, depth) {
     return node.elements.every((x) => x === null || plusTwo(x));
   }
 
+  if (node.type === "ImportExpression") {
+    return plusTwo(node.source, depth);
+  }
+
   if (
     node.type === "CallExpression" ||
     node.type === "OptionalCallExpression" ||

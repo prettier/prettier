@@ -449,12 +449,17 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "Program":
+    case "Program": {
+      const hasContents =
+        !n.body.every(({ type }) => type === "EmptyStatement") || n.comments;
+
       // Babel 6
       if (n.directives) {
-        path.each((childPath) => {
+        const directivesCount = n.directives.length;
+        path.map((childPath, index) => {
           parts.push(print(childPath), semi, hardline);
           if (
+            (index < directivesCount - 1 || hasContents) &&
             isNextLineEmpty(
               options.originalText,
               childPath.getValue(),
@@ -477,14 +482,12 @@ function printPathNoParens(path, options, print, args) {
       );
 
       // Only force a trailing newline if there were any contents.
-      if (
-        !n.body.every(({ type }) => type === "EmptyStatement") ||
-        n.comments
-      ) {
+      if (hasContents) {
         parts.push(hardline);
       }
 
       return concat(parts);
+    }
     // Babel extension.
     case "EmptyStatement":
       return "";
@@ -1107,25 +1110,25 @@ function printPathNoParens(path, options, print, args) {
         printReturnAndThrowArgument(path, options, print),
       ]);
     case "NewExpression":
+    case "ImportExpression":
     case "OptionalCallExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
+      const isDynamicImport = n.type === "ImportExpression";
 
       const optional = printOptionalToken(path);
+      const args = isDynamicImport ? [n.source] : n.arguments;
       if (
         // We want to keep CommonJS- and AMD-style require calls, and AMD-style
         // define calls, as a unit.
         // e.g. `define(["some/lib", (lib) => {`
-        (!isNew &&
+        (!isDynamicImport &&
+          !isNew &&
           n.callee.type === "Identifier" &&
           (n.callee.name === "require" || n.callee.name === "define")) ||
         // Template literals as single arguments
-        (n.arguments.length === 1 &&
-          isTemplateOnItsOwnLine(
-            n.arguments[0],
-            options.originalText,
-            options
-          )) ||
+        (args.length === 1 &&
+          isTemplateOnItsOwnLine(args[0], options.originalText, options)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (!isNew && isTestCall(n, path.getParentNode()))
@@ -1135,7 +1138,13 @@ function printPathNoParens(path, options, print, args) {
           path.call(print, "callee"),
           optional,
           printFunctionTypeParameters(path, options, print),
-          concat(["(", join(", ", path.map(print, "arguments")), ")"]),
+          concat([
+            "(",
+            isDynamicImport
+              ? path.call(print, "source")
+              : join(", ", path.map(print, "arguments")),
+            ")",
+          ]),
         ]);
       }
 
@@ -1146,6 +1155,7 @@ function printPathNoParens(path, options, print, args) {
       //
       // Here, we ensure that such comments stay between the Identifier and the Callee.
       const isIdentifierWithFlowAnnotation =
+        n.callee &&
         n.callee.type === "Identifier" &&
         hasFlowAnnotationComment(n.callee.trailingComments);
       if (isIdentifierWithFlowAnnotation) {
@@ -1155,6 +1165,7 @@ function printPathNoParens(path, options, print, args) {
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
       if (
+        !isDynamicImport &&
         !isNew &&
         isMemberish(n.callee) &&
         !path.call((path) => pathNeedsParens(path, options), "callee")
@@ -1164,7 +1175,7 @@ function printPathNoParens(path, options, print, args) {
 
       const contents = concat([
         isNew ? "new " : "",
-        path.call(print, "callee"),
+        isDynamicImport ? "import" : path.call(print, "callee"),
         optional,
         isIdentifierWithFlowAnnotation
           ? `/*:: ${n.callee.trailingComments[0].value.slice(2).trim()} */`
@@ -1175,7 +1186,7 @@ function printPathNoParens(path, options, print, args) {
 
       // We group here when the callee is itself a call expression.
       // See `isLongCurriedCallExpression` for more info.
-      if (isCallOrOptionalCallExpression(n.callee)) {
+      if (isDynamicImport || isCallOrOptionalCallExpression(n.callee)) {
         return group(contents);
       }
 
@@ -1491,6 +1502,7 @@ function printPathNoParens(path, options, print, args) {
           canHaveTrailingComma && lastElem === null;
 
         const shouldBreak =
+          !options.__inJestEach &&
           n.elements.length > 1 &&
           n.elements.every((element, i, elements) => {
             const elementType = element && element.type;
@@ -2365,17 +2377,18 @@ function printPathNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
-      let expressions = path.map(print, "expressions");
       const parentNode = path.getParentNode();
 
       if (isJestEachTemplateLiteral(n, parentNode)) {
-        const printed = printJestEachTemplateLiteral(n, expressions, options);
+        const printed = printJestEachTemplateLiteral(path, options, print);
         if (printed) {
           return printed;
         }
       }
 
+      let expressions = path.map(print, "expressions");
       const isSimple = isSimpleTemplateLiteral(n);
+
       if (isSimple) {
         expressions = expressions.map(
           (doc) =>
@@ -3817,18 +3830,22 @@ function printMethodInternal(path, options, print) {
   return concat(parts);
 }
 
-function printJestEachTemplateLiteral(node, expressions, options) {
+function printJestEachTemplateLiteral(path, options, print) {
   /**
    * a    | b    | expected
    * ${1} | ${1} | ${2}
    * ${1} | ${2} | ${3}
    * ${2} | ${1} | ${3}
    */
+  const node = path.getNode();
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
     headerNames.some((headerName) => headerName.length !== 0)
   ) {
+    options.__inJestEach = true;
+    const expressions = path.map(print, "expressions");
+    options.__inJestEach = false;
     const parts = [];
     const stringifiedExpressions = expressions.map(
       (doc) =>

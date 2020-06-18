@@ -407,7 +407,8 @@ function handleConditionalExpressionComments(
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
     enclosingNode &&
-    enclosingNode.type === "ConditionalExpression" &&
+    (enclosingNode.type === "ConditionalExpression" ||
+      enclosingNode.type === "TSConditionalType") &&
     followingNode
   ) {
     addLeadingComment(followingNode, comment);
