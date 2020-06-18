@@ -21,7 +21,7 @@ Check out the [prettier-emacs](https://github.com/prettier/prettier-emacs) repo,
 
 ## Vim
 
-Vim users can install either [vim-prettier](https://github.com/prettier/vim-prettier), which is Prettier specific, or one of the generalized language/format engines [Neoformat](https://github.com/sbdchd/neoformat), [ALE](https://github.com/w0rp/ale) and [coc-prettier](https://github.com/neoclide/coc-prettier) that support Prettier.
+[vim-prettier](https://github.com/prettier/vim-prettier) is a Prettier-specific Vim plugin. [Neoformat](https://github.com/sbdchd/neoformat), [ALE](https://github.com/w0rp/ale), and [coc-prettier](https://github.com/neoclide/coc-prettier) are multi-language Vim linter/formatter plugins that support Prettier.
 
 For more details see [the Vim setup guide](vim.md).
 
