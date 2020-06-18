@@ -4280,6 +4280,9 @@ B
 }
 @supports not (selector(:before) or not (not (selector(:before)))) {
 }
+@supports selector(selector(:focus-visible)) {}
+@supports selector(:::selector(:focus-visible)) {}
+@supports selector(--selector(:focus-visible)) {}
 
 =====================================output=====================================
 @supports (transform-origin: 5% 5%) {
@@ -4525,6 +4528,12 @@ B
 ) {
 }
 @supports not (selector(:before) or not (not (selector(:before)))) {
+}
+@supports selector(selector(:focus-visible)) {
+}
+@supports selector(:::selector(:focus-visible)) {
+}
+@supports selector(--selector(:focus-visible)) {
 }
 
 ================================================================================

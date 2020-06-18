@@ -14,7 +14,7 @@ const {
 } = require("./utils");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
-const getHighestAncestor = node => {
+const getHighestAncestor = (node) => {
   while (node.parent) {
     node = node.parent;
   }
