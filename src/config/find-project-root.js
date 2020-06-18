@@ -13,17 +13,12 @@ const markerExists = (directory) =>
   fs.readdirSync(directory).some((file) => MARKERS.has(file));
 
 function findProjectRoot(directory) {
-  while (directory) {
-    if (markerExists(directory)) {
-      return directory;
-    }
-
+  while (!markerExists(directory)) {
     const parentDirectory = path.resolve(directory, "..");
-    if (parentDirectory !== directory) {
-      directory = parentDirectory;
-    } else {
+    if (parentDirectory === directory) {
       break;
     }
+    directory = parentDirectory;
   }
 
   return directory;
