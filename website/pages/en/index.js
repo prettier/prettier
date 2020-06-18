@@ -60,7 +60,7 @@ const HomeSplash = (props) => {
                 <div className="pluginRowBlock">
                   <Button href="/playground/">Try It Online</Button>&nbsp;
                   <Button href={"/docs/" + props.language + "/install.html"}>
-                    Installation
+                    Install Prettier
                   </Button>
                 </div>
               </div>
@@ -303,7 +303,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">1.7M</strong>{" "}
+                <strong data-placeholder="dependent-github">1.7 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">

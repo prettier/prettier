@@ -9,7 +9,7 @@ Use the `prettier` command to run Prettier from the command line.
 prettier [options] [file/dir/glob ...]
 ```
 
-> To run your locally installed Prettier – prefix with `npx`, such as `npx prettier --help`, or `yarn prettier --help` if you use Yarn.
+> To run your locally installed version of Prettier, prefix the command with `npx` or `yarn` (if you use Yarn), i.e. `npx prettier --help`, or `yarn prettier --help`.
 
 To format a file in-place, use `--write`. (Note: This overwrites your files!)
 
@@ -31,7 +31,7 @@ prettier --single-quote --trailing-comma all --write docs package.json "{app,__{
 
 > Don’t forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
 
-> It’s better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
+> It’s better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This way the Prettier CLI, [editor integrations](editors.md), and other tooling can all know what options you use.
 
 ## File patterns
 

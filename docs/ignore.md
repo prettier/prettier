@@ -3,7 +3,7 @@ id: ignore
 title: Ignoring Code
 ---
 
-Use `.prettierignore` to ignore certain files and folders completely.
+Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
 
 Use “prettier-ignore” comments to ignore parts of files.
 
