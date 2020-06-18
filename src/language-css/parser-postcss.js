@@ -192,7 +192,7 @@ function parseNestedValue(node, options) {
   if (node && typeof node === "object") {
     for (const key in node) {
       if (key !== "parent") {
-        parseNestedValue(node[key]), options;
+        parseNestedValue(node[key], options);
         if (key === "nodes") {
           node.group = flattenGroups(parseValueNode(node, options));
           delete node[key];
