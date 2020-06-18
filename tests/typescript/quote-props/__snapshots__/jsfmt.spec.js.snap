@@ -2,7 +2,7 @@
 
 exports[`types.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 quoteProps: "as-needed"
                                                                                 | printWidth
@@ -33,7 +33,7 @@ type U = {
 
 exports[`types.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 quoteProps: "consistent"
                                                                                 | printWidth
@@ -64,7 +64,7 @@ type U = {
 
 exports[`types.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 quoteProps: "preserve"
                                                                                 | printWidth
