@@ -753,6 +753,13 @@ function returnArgumentHasLeadingComment(options, argument) {
 //   0: 1
 //   ^ Non-string literal property keys not supported. [unsupported-syntax]
 // }
+//
+// Angular does not support unquoted numbers in expressions.
+//
+// So we play it safe and only unquote numbers for the "babel" parser.
+// (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
+//
+// Identifiers can be unquoted in more circumstances, though.
 function isStringPropSafeToUnquote(node, options) {
   return (
     options.parser !== "json" &&
@@ -767,12 +774,7 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
-        !(
-          options.parser === "flow" ||
-          options.parser === "babel-flow" ||
-          options.parser === "typescript" ||
-          options.parser === "babel-ts"
-        )))
+        options.parser === "babel"))
   );
 }
 

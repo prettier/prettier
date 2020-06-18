@@ -3747,6 +3747,8 @@ function printPropertyKey(path, options, print) {
         isSimpleNumber(printNumber(rawText(key))) &&
         // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
         String(key.value) === printNumber(rawText(key)) &&
+        // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
+        // mentioned in `isStringPropSafeToUnquote`).
         !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
