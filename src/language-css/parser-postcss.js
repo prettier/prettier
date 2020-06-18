@@ -14,12 +14,12 @@ const {
 } = require("./utils");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
-function getHighestAncestor(node) {
-  if (!node.parent) {
-    return node;
+const getHighestAncestor = node => {
+  while (node.parent) {
+    node = node.parent;
   }
-  return getHighestAncestor(node.parent);
-}
+  return node;
+};
 
 function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
