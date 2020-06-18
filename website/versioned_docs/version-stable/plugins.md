@@ -1,12 +1,8 @@
 ---
 id: version-stable-plugins
-title: Plugins (Beta)
+title: Plugins
 original_id: plugins
 ---
-
-## IN BETA
-
-> The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
 Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
 
@@ -32,7 +28,7 @@ When plugins cannot be found automatically, you can load them with:
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"]
+    plugins: ["./foo-plugin"],
   });
   ```
 
@@ -46,6 +42,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
 
@@ -53,11 +50,13 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
+- [`prettier-plugin-package`](https://github.com/shellscape/prettier-plugin-package) by [**@shellscape**](https://github.com/shellscape)
 - [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) by [**@matzkoh**](https://github.com/matzkoh)
 - [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) by [**@simonhaenisch**](https://github.com/simonhaenisch)
 
 ## Developing Plugins
 
@@ -71,7 +70,7 @@ Prettier plugins are regular JavaScript modules with five exports:
 
 ### `languages`
 
-Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo-version).
+Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo).
 
 It **must** include `name` and `parsers`.
 
@@ -82,8 +81,8 @@ export const languages = [
     name: "InterpretedDanceScript",
     // Parsers that can parse this language.
     // This can be built-in parsers, or parsers you have contributed via this plugin.
-    parsers: ["dance-parse"]
-  }
+    parsers: ["dance-parse"],
+  },
 ];
 ```
 
@@ -102,8 +101,8 @@ export const parsers = {
     hasPragma,
     locStart,
     locEnd,
-    preprocess
-  }
+    preprocess,
+  },
 };
 ```
 
@@ -142,8 +141,8 @@ export const printers = {
   "dance-ast": {
     print,
     embed,
-    insertPragma
-  }
+    insertPragma,
+  },
 };
 ```
 
@@ -252,7 +251,6 @@ function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEn
 function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
 function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
-function mapDoc(doc: object, callback: function): void;
 ```
 
 ### Tutorials
@@ -268,7 +266,7 @@ const prettier = require("prettier");
 const code = "(add 1 2)";
 prettier.format(code, {
   parser: "lisp",
-  plugins: ["."]
+  plugins: ["."],
 });
 ```
 

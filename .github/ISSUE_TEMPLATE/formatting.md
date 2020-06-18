@@ -26,19 +26,22 @@ Tip! Don't write this stuff manually.
 
 -->
 
-**Prettier 1.18.2**
+**Prettier 2.0.5**
 [Playground link](https://prettier.io/playground/#.....)
+
 ```sh
 # Options (if any):
 --single-quote
 ```
 
 **Input:**
+
 ```jsx
 // code snippet
 ```
 
 **Output:**
+
 ```jsx
 // code snippet
 ```

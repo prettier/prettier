@@ -12,3 +12,8 @@ const isAnySuccessfulAttempt$: Observable<boolean> = this._quizService.isAnySucc
   }),
 );
 const isAnySuccessfulAttempt2$: Observable<boolean> = this._someMethodWithLongName();
+const fooooooooooooooo: SomeThing<boolean | string> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<boolean & string> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<keyof string> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<string[]> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<string["anchor"]> = looooooooooooooooooooooooooooooongNameFunc();
