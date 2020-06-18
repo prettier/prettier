@@ -70,10 +70,8 @@ The promise will be rejected if there was an error parsing the configuration fil
 The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
-prettier.resolveConfigFile().then((filePath) => {
-  prettier.resolveConfig(filePath).then((options) => {
-    const formatted = prettier.format(text, options);
-  });
+prettier.resolveConfigFile(filePath).then((configFile) => {
+  // you got the path of the configuration file
 });
 ```
 
