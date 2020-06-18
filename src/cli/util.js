@@ -116,6 +116,7 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
+    resolveConfig: true,
   };
   context.logger.log(
     prettier.format(

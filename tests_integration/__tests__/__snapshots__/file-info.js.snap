@@ -119,3 +119,13 @@ exports[`extracts file-info with with ignored=true for a file in node_modules (s
 `;
 
 exports[`extracts file-info with with ignored=true for a file in node_modules (write) 1`] = `Array []`;
+
+exports[`file-info should try resolve config (stderr) 1`] = `""`;
+
+exports[`file-info should try resolve config (stdout) 1`] = `
+"{ \\"ignored\\": false, \\"inferredParser\\": \\"override-js-parser\\" }
+
+"
+`;
+
+exports[`file-info should try resolve config (write) 1`] = `Array []`;
