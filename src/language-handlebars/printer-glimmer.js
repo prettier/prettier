@@ -115,11 +115,13 @@ function print(path, options, print) {
       );
     }
     case "MustacheStatement": {
-      const shouldBreakOpeningMustache = isParentOfSomeType(path, [
+      const isParentOfSpecifiedTypes = isParentOfSomeType(path, [
         "AttrNode",
         "ConcatStatement",
         "ElementNode",
       ]);
+      const shouldBreakOpeningMustache =
+        isParentOfSpecifiedTypes && doesNotHaveHashParams(n);
 
       return group(
         concat([
@@ -647,6 +649,10 @@ function locationToOffset(source, line, column) {
     seenLines += 1;
     seenChars = nextLine + 1;
   }
+}
+
+function doesNotHaveHashParams(node) {
+  return node.hash.pairs.length === 0;
 }
 
 module.exports = {
