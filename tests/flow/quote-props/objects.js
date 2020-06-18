@@ -38,12 +38,15 @@ const e = {
   0b10: null,
   0o10: null,
   0xf: null,
-  2n: null,
+  // Commented out because Flow does not parse BigInt as object keys.
+  // 2n: null,
 }
 
 const f = {
-  // These should be unquoted for quoteProps=as-needed.
+  // This should be unquoted for quoteProps=as-needed.
   "NaN": null,
+  // Flow does parses number keys, but errors on them during type checking so
+  // don’t unquote them:
   "1": null,
   "1.5": null,
   // These should never be unquoted. `1e+100` technically could (it’s the only
@@ -86,11 +89,12 @@ Object.entries({
   0b10: '0b10', // 2
   0o10: '0o10', // 8
   0xf: '0xf', // 15
-  2n: '2n', // 2
+  // Commented out because Flow does not parse BigInt as object keys.
+  // 2n: '2n', // 2
   0xb_b: '0xb_b', // 187
-  0xb_b_bn: '0xb_b_bn', // 3003
-  0xan: '0xan', // 10
-  0b100000000000_000000000000000011n: '0b100000000000_000000000000000011n' // 536870915
+  // 0xb_b_bn: '0xb_b_bn', // 3003
+  // 0xan: '0xan', // 10
+  // 0b100000000000_000000000000000011n: '0b100000000000_000000000000000011n' // 536870915
 })
 
 // Negative numbers cannot be unquoted.
