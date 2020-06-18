@@ -429,10 +429,6 @@ em {
   transform: scale(1.2);
 }
 
-.footerSection {
-  background: #1a2b34 !important;
-}
-
 .mainContainer .wrapper .post h2 {
   font-size: 2em;
 }

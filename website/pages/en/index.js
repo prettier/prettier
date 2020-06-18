@@ -254,7 +254,7 @@ const UsersSection = ({ language }) => {
     });
 
   return (
-    <div className="usersSection productShowcaseSection lightBackground">
+    <div className="usersSection productShowcaseSection">
       <Container>
         <h2>Used By People You Rely On</h2>
         <div style={{ textAlign: "right" }} />

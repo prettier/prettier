@@ -48,6 +48,8 @@ npx prettier --write .
 ```
 
 > What is that `npx` thing? `npx` ships with `npm` and lets you run locally installed tools. We’ll leave off the `npx` part for brevity throughout the rest of this file!
+>
+> Note: If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not good for Prettier! It’s important to have a locked down version of Prettier in your package.json. And it’s faster, too!
 
 <!--yarn-->
 

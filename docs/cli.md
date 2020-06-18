@@ -11,7 +11,7 @@ prettier [options] [file/dir/glob ...]
 
 > To run your locally installed Prettier – prefix with `npx`, such as `npx prettier --help`, or `yarn prettier --help` if you use Yarn.
 
-To format a file in-place, use `--write`. You might want to commit your code before doing that the first time, just in case.
+To format a file in-place, use `--write`. (Note: This overwrites your files!)
 
 In practice, this may look something like:
 
@@ -21,7 +21,7 @@ prettier --write .
 
 This command formats all files supported by Prettier in the current directory and its subdirectories.
 
-It’s recommended to always make sure that `prettier --write .` works out in your project. Use a [.prettierignore](ignore.md) file to ignore things that should not be formatted.
+It’s recommended to always make sure that `prettier --write .` only formats what you want in your project. Use a [.prettierignore](ignore.md) file to ignore things that should not be formatted.
 
 A more complicated example:
 

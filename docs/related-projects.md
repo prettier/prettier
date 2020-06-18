@@ -10,17 +10,17 @@ title: Related Projects
 - [prettier-eslint](https://github.com/prettier/prettier-eslint) passes `prettier` output to `eslint --fix`
 - [prettier-standard](https://github.com/sheerun/prettier-standard) uses `prettierx` and `prettier-eslint` to format code with `standard` rules
 
-## TSLint Integrations
-
-- [tslint-config-prettier](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
-- [tslint-plugin-prettier](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
-- [prettier-tslint](https://github.com/azz/prettier-tslint) passes `prettier` output to `tslint --fix`
-
 ## stylelint Integrations
 
 - [stylelint-config-prettier](https://github.com/prettier/stylelint-config-prettier) turns off all rules that are unnecessary or might conflict with Prettier.
 - [stylelint-prettier](https://github.com/prettier/stylelint-prettier) runs Prettier as a stylelint rule and reports differences as individual stylelint issues
 - [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) passes `prettier` output to `stylelint --fix`
+
+## TSLint Integrations
+
+- [tslint-config-prettier](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
+- [tslint-plugin-prettier](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
+- [prettier-tslint](https://github.com/azz/prettier-tslint) passes `prettier` output to `tslint --fix`
 
 ## Forks
 

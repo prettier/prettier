@@ -29,13 +29,13 @@ Install it along with [husky](https://github.com/typicode/husky):
 <!--npm-->
 
 ```bash
-npm install --save-dev husky
+npm install --save-dev pretty-quick husky
 ```
 
 <!--yarn-->
 
 ```bash
-yarn add --dev husky
+yarn add --dev pretty-quick husky
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
