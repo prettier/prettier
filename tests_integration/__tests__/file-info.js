@@ -461,3 +461,23 @@ test("API getFileInfo with hand-picked plugins", () => {
     inferredParser: "foo",
   });
 });
+
+test("API getFileInfo with ignorePath and resolveConfig should infer parser with correct filepath", () => {
+  const dir = path.join(__dirname, "../cli/ignore-and-config/");
+  const filePath = path.join(dir, "config-dir/foo");
+  const ignorePath = path.join(dir, "ignore-path-dir/.prettierignore");
+  const options = {
+    resolveConfig: true,
+    ignorePath,
+  };
+
+  expect(prettier.getFileInfo(filePath, options)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
+  });
+
+  expect(prettier.getFileInfo.sync(filePath, options)).toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
+  });
+});
