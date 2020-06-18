@@ -6,11 +6,10 @@
 const fs = require("fs");
 const path = require("path");
 
-const MARKERS = new Set([".git", ".hg"]);
+const MARKERS = [".git", ".hg"];
 
 const markerExists = (directory) =>
-  fs.existsSync(directory) &&
-  fs.readdirSync(directory).some((file) => MARKERS.has(file));
+  MARKERS.some((mark) => fs.existsSync(path.join(directory, mark)));
 
 function findProjectRoot(directory) {
   while (!markerExists(directory)) {
