@@ -1,10 +1,6 @@
 "use strict";
 
-const {
-  getParserName,
-  getMaxContinuousCount,
-  isFrontMatterNode,
-} = require("../common/util");
+const { getParserName, getMaxContinuousCount } = require("../common/util");
 const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc },
@@ -42,12 +38,11 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
-  if (isFrontMatterNode(node)) {
-    return printFrontMatter(node);
-  }
-
-  // MDX
   switch (node.type) {
+    case "front-matter":
+      return printFrontMatter(node, textToDoc);
+
+    // MDX
     case "importExport":
       return concat([textToDoc(node.value, { parser: "babel" }), hardline]);
     case "jsx":
