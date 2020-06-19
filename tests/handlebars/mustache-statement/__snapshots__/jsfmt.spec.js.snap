@@ -67,6 +67,10 @@ singleQuote: true
   )}}
 </div>
 
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
+</div>
+
 =====================================output=====================================
 <GlimmerComponent
   @progress={{
@@ -152,6 +156,15 @@ singleQuote: true
     )
   }}
 </div>
+
+<div>
+  {{a-helper
+    'that takes some arguments'
+    this.anotherOne
+    'why not'
+    @aLastOneLongEnoughToBreak
+  }}
+</div>
 ================================================================================
 `;
 
@@ -219,6 +232,10 @@ printWidth: 80
     header=(component header)
     language=(component language)
   )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
 </div>
 
 =====================================output=====================================
@@ -304,6 +321,15 @@ printWidth: 80
       header=(component header)
       language=(component language)
     )
+  }}
+</div>
+
+<div>
+  {{a-helper
+    "that takes some arguments"
+    this.anotherOne
+    "why not"
+    @aLastOneLongEnoughToBreak
   }}
 </div>
 ================================================================================
