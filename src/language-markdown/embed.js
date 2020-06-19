@@ -49,7 +49,7 @@ function embed(path, print, textToDoc, options) {
   // MDX
   switch (node.type) {
     case "importExport":
-      return textToDoc(node.value, { parser: "babel" });
+      return concat([textToDoc(node.value, { parser: "babel" }), hardline]);
     case "jsx":
       return textToDoc(`<$>${node.value}</$>`, {
         parser: "__js_expression",
