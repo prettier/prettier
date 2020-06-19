@@ -1,3 +1,4 @@
 {
-  "main": "./main.js"
+  "name": "prettier-plugin-uppercase-rocks",
+  "main": "./index.js"
 }
