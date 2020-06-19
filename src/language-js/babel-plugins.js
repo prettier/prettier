@@ -57,7 +57,7 @@ function cleanPlugins(combinations) {
 }
 
 function* generateCombinations(text, parserPluginCombinations) {
-  let plugins = [...commonPlugins, parserPluginCombinations];
+  let plugins = [...commonPlugins, [...parserPluginCombinations]];
 
   plugins = normalizePlugins(plugins);
 

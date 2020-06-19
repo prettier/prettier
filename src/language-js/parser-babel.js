@@ -31,7 +31,9 @@ function createParse(parseMethod, parserPluginCombinations) {
 
     const combinations = generatePluginCombinations(
       text,
-      parserPluginCombinations
+      typeof parserPluginCombinations === "function"
+        ? parserPluginCombinations(text)
+        : parserPluginCombinations
     );
 
     let ast;
@@ -60,7 +62,13 @@ function createParse(parseMethod, parserPluginCombinations) {
   };
 }
 
-const parse = createParse("parse", [["jsx", "flow"]]);
+const parse = createParse("parse", function* (text) {
+  if (text.includes("@flow")) {
+    yield ["jsx"];
+  }
+
+  yield ["jsx", "flow"];
+});
 const parseFlow = createParse("parse", [
   ["jsx", ["flow", { all: true, enums: true }]],
 ]);
