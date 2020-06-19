@@ -20,7 +20,7 @@ function babelOptions({ sourceType, plugins = [] }) {
   };
 }
 
-function createParse(parseMethod, ...parserPluginCombinations) {
+function createParse(parseMethod, parserPluginCombinations) {
   return (text, parsers, opts) => {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
@@ -60,17 +60,15 @@ function createParse(parseMethod, ...parserPluginCombinations) {
   };
 }
 
-const parse = createParse("parse", ["jsx", "flow"]);
+const parse = createParse("parse", [["jsx", "flow"]]);
 const parseFlow = createParse("parse", [
-  "jsx",
-  ["flow", { all: true, enums: true }],
+  ["jsx", ["flow", { all: true, enums: true }]],
 ]);
-const parseTypeScript = createParse(
-  "parse",
+const parseTypeScript = createParse("parse", [
   ["jsx", "typescript"],
-  ["typescript"]
-);
-const parseExpression = createParse("parseExpression", ["jsx"]);
+  ["typescript"],
+]);
+const parseExpression = createParse("parseExpression", [["jsx"]]);
 
 function tryCombinations(fn, combinations) {
   let error;
