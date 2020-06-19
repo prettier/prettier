@@ -50,4 +50,10 @@
   }}
 </div>
 
-
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>

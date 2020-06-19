@@ -59,7 +59,13 @@ singleQuote: true
   }}
 </div>
 
-
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
 
 =====================================output=====================================
 <GlimmerComponent
@@ -136,6 +142,16 @@ singleQuote: true
     thirdParam=this.someValue
   }}
 </div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
+  }}
+</div>
 ================================================================================
 `;
 
@@ -197,7 +213,13 @@ printWidth: 80
   }}
 </div>
 
-
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
 
 =====================================output=====================================
 <GlimmerComponent
@@ -272,6 +294,16 @@ printWidth: 80
     param=this.someValue
     secondParam=this.someValue
     thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
   }}
 </div>
 ================================================================================
