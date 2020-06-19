@@ -94,6 +94,12 @@ function* generateCombinations(text, parserPluginCombinations) {
   }
 
   plugins = cleanPlugins(plugins);
+
+  // requires at least one combination
+  if (plugins.length === 0) {
+    return yield [[]];
+  }
+
   for (const combinations of cartesian(plugins)) {
     yield flat(combinations).map(({ name, options }) => [name, options]);
   }
