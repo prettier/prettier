@@ -56,8 +56,18 @@ function textToDoc(
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
+
   const doc = printAstToDoc(ast, nextOptions);
-  return shouldStripTrailingHardline ? stripTrailingHardline(doc, true) : doc;
+
+  if (shouldStripTrailingHardline) {
+    if (typeof doc === "string") {
+      return doc.replace(/(?:\r?\n)*$/, "");
+    }
+
+    return stripTrailingHardline(doc, true);
+  }
+
+  return doc;
 }
 
 module.exports = {

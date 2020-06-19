@@ -192,10 +192,6 @@ function getInnerParts(doc) {
 }
 
 function stripTrailingHardline(doc, withInnerParts = false) {
-  if (typeof doc === "string") {
-    return doc.replace(/(?:\r?\n)*$/, "");
-  }
-
   // HACK remove ending hardline, original PR: #1984
   if (doc.type === "concat" && doc.parts.length !== 0) {
     const parts = withInnerParts ? getInnerParts(doc) : doc.parts;
