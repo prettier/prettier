@@ -61,6 +61,20 @@ getFileInfo.sync = function (filePath, opts) {
   });
 };
 
+function getFileParser(resolvedConfig, filePath, plugins) {
+  if (resolvedConfig && resolvedConfig.parser) {
+    return resolvedConfig.parser;
+  }
+
+  const inferredParser = options.inferParser(filePath, plugins);
+
+  if (inferredParser) {
+    return inferredParser;
+  }
+
+  return null;
+}
+
 function _getFileInfo({
   ignorer,
   filePath,
@@ -69,31 +83,37 @@ function _getFileInfo({
   ignorePath,
   sync = false,
 }) {
-  const relativeFilePath = normalizeFilePath(filePath, ignorePath);
+  const normalizedFilePath = normalizeFilePath(filePath, ignorePath);
 
   const fileInfo = {
     ignored:
-      ignore.isPathValid(relativeFilePath) && ignorer.ignores(relativeFilePath),
-    inferredParser: options.inferParser(filePath, plugins) || null,
+      ignore.isPathValid(normalizedFilePath) &&
+      ignorer.ignores(normalizedFilePath),
+    inferredParser: null,
   };
 
-  if (!fileInfo.inferredParser && resolveConfig) {
-    if (!sync) {
-      return config.resolveConfig(filePath).then((resolvedConfig) => {
-        if (resolvedConfig && resolvedConfig.parser) {
-          fileInfo.inferredParser = resolvedConfig.parser;
-        }
+  if (fileInfo.ignored) {
+    return fileInfo;
+  }
 
+  let resolvedConfig;
+
+  if (resolveConfig) {
+    if (sync) {
+      resolvedConfig = config.resolveConfig.sync(filePath);
+    } else {
+      return config.resolveConfig(filePath).then((resolvedConfig) => {
+        fileInfo.inferredParser = getFileParser(
+          resolvedConfig,
+          filePath,
+          plugins
+        );
         return fileInfo;
       });
     }
-
-    const resolvedConfig = config.resolveConfig.sync(filePath);
-    if (resolvedConfig && resolvedConfig.parser) {
-      fileInfo.inferredParser = resolvedConfig.parser;
-    }
   }
 
+  fileInfo.inferredParser = getFileParser(resolvedConfig, filePath, plugins);
   return fileInfo;
 }
 
