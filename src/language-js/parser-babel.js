@@ -6,9 +6,9 @@ const locFns = require("./loc");
 const postprocess = require("./postprocess");
 const { generateCombinations, babelPlugins } = require("./babel-plugins");
 
-function babelOptions({ sourceType, plugins = [] }) {
+function babelOptions(options) {
   return {
-    sourceType,
+    sourceType: "module",
     allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
@@ -16,7 +16,7 @@ function babelOptions({ sourceType, plugins = [] }) {
     allowUndeclaredExports: true,
     errorRecovery: true,
     createParenthesizedExpressions: true,
-    plugins,
+    ...options,
   };
 }
 
