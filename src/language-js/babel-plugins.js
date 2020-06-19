@@ -87,6 +87,8 @@ function cleanPlugins(combinations) {
 function* generateCombinations(text, parserPluginCombinations) {
   let plugins = [...commonPlugins, [...parserPluginCombinations]];
 
+  plugins = filterPlugins(plugins, ({ test }) => test(text));
+
   if (!text.includes("|>")) {
     plugins = filterPlugins(plugins, ({ name }) => name !== "pipelineOperator");
   }
