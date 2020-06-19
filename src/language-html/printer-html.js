@@ -81,7 +81,8 @@ function embed(path, print, textToDoc, options) {
         try {
           doc = textToDoc(
             htmlTrimPreserveIndentation(getNodeContent(node, options)),
-            { parser }
+            { parser },
+            { stripTrailingHardline: true }
           );
         } catch (_) {
           return;
@@ -130,7 +131,9 @@ function embed(path, print, textToDoc, options) {
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              textToDoc(value, textToDocOptions),
+              textToDoc(value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
               printClosingTagSuffix(node, options),
             ]),
           ]);
@@ -140,14 +143,18 @@ function embed(path, print, textToDoc, options) {
           indent(
             concat([
               line,
-              textToDoc(node.value, {
-                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-                ...(options.parser === "angular"
-                  ? { parser: "__ng_interpolation", trailingComma: "none" }
-                  : options.parser === "vue"
-                  ? { parser: "__vue_expression" }
-                  : { parser: "__js_expression" }),
-              }),
+              textToDoc(
+                node.value,
+                {
+                  __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+                  ...(options.parser === "angular"
+                    ? { parser: "__ng_interpolation", trailingComma: "none" }
+                    : options.parser === "vue"
+                    ? { parser: "__vue_expression" }
+                    : { parser: "__js_expression" }),
+                },
+                { stripTrailingHardline: true }
+              ),
             ])
           ),
           node.parent.next &&
@@ -194,7 +201,11 @@ function embed(path, print, textToDoc, options) {
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(code, { __isInHtmlAttribute: true, ...opts }),
+          textToDoc(
+            code,
+            { __isInHtmlAttribute: true, ...opts },
+            { stripTrailingHardline: true }
+          ),
         options
       );
       if (embeddedAttributeValueDoc) {
@@ -1020,7 +1031,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
-    originalTextToDoc(code, { __onHtmlBindingRoot, ...opts });
+    originalTextToDoc(
+      code,
+      { __onHtmlBindingRoot, ...opts },
+      { stripTrailingHardline: true }
+    );
 
   if (
     node.fullName === "srcset" &&
@@ -1040,10 +1055,14 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        textToDoc(value, {
-          parser: "css",
-          __isHTMLStyleAttribute: true,
-        })
+        textToDoc(
+          value,
+          {
+            parser: "css",
+            __isHTMLStyleAttribute: true,
+          },
+          { stripTrailingHardline: true }
+        )
       );
     }
   }
@@ -1077,23 +1096,35 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       return printMaybeHug(
-        textToDoc(value, {
-          parser: isVueEventBindingExpression(value)
-            ? "__js_expression"
-            : "__vue_event_binding",
-        })
+        textToDoc(
+          value,
+          {
+            parser: isVueEventBindingExpression(value)
+              ? "__js_expression"
+              : "__vue_event_binding",
+          },
+          { stripTrailingHardline: true }
+        )
       );
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(getValue(), { parser: "__vue_expression" })
+        textToDoc(
+          getValue(),
+          { parser: "__vue_expression" },
+          { stripTrailingHardline: true }
+        )
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(getValue(), { parser: "__js_expression" })
+        textToDoc(
+          getValue(),
+          { parser: "__js_expression" },
+          { stripTrailingHardline: true }
+        )
       );
     }
   }
@@ -1101,7 +1132,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, { ...opts, trailingComma: "none" });
+      textToDoc(
+        code,
+        { ...opts, trailingComma: "none" },
+        { stripTrailingHardline: true }
+      );
 
     /**
      *     *directive="angularDirective"

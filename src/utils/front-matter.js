@@ -47,7 +47,9 @@ function print(node, textToDoc) {
   if (node.lang === "yaml") {
     const value = node.value.trim();
     const doc = value
-      ? replaceNewlinesWithLiterallines(textToDoc(value, { parser: "yaml" }))
+      ? replaceNewlinesWithLiterallines(
+          textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
+        )
       : "";
     return markAsRoot(
       concat(["---", hardline, doc, doc ? hardline : "", "---"])

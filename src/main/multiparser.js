@@ -11,14 +11,27 @@ function printSubtree(path, print, options, printAstToDoc) {
     return options.printer.embed(
       path,
       print,
-      (text, partialNextOptions) =>
-        textToDoc(text, partialNextOptions, options, printAstToDoc),
+      (text, partialNextOptions, textToDocOptions) =>
+        textToDoc(
+          text,
+          partialNextOptions,
+          options,
+          printAstToDoc,
+          textToDocOptions
+        ),
       options
     );
   }
 }
 
-function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
+function textToDoc(
+  text,
+  partialNextOptions,
+  parentOptions,
+  printAstToDoc,
+  // TODO: remove `stripTrailingHardline` in v3.0.0
+  { stripTrailingHardline: shouldStripTrailingHardline = false } = {}
+) {
   const nextOptions = normalize(
     {
       ...parentOptions,
@@ -43,7 +56,8 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
-  return stripTrailingHardline(printAstToDoc(ast, nextOptions), true);
+  const doc = printAstToDoc(ast, nextOptions);
+  return shouldStripTrailingHardline ? stripTrailingHardline(doc, true) : doc;
 }
 
 module.exports = {

@@ -44,7 +44,11 @@ function embed(path, print, textToDoc, options) {
                 "-id" +
                 currVal;
         }, "");
-        const doc = textToDoc(text, { parser: "scss" });
+        const doc = textToDoc(
+          text,
+          { parser: "scss" },
+          { stripTrailingHardline: true }
+        );
         return transformCssDoc(doc, path, print);
       }
 
@@ -107,7 +111,11 @@ function embed(path, print, textToDoc, options) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            doc = textToDoc(text, { parser: "graphql" });
+            doc = textToDoc(
+              text,
+              { parser: "graphql" },
+              { stripTrailingHardline: true }
+            );
           }
 
           if (doc) {
@@ -193,7 +201,11 @@ function embed(path, print, textToDoc, options) {
   }
 
   function printMarkdown(text) {
-    const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
+    const doc = textToDoc(
+      text,
+      { parser: "markdown", __inJsTemplate: true },
+      { stripTrailingHardline: true }
+    );
     return escapeTemplateCharacters(doc, true);
   }
 }
@@ -578,12 +590,16 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
 
   const contentDoc = mapDoc(
     stripTrailingHardline(
-      textToDoc(text, {
-        parser,
-        __onHtmlRoot(root) {
-          topLevelCount = root.children.length;
+      textToDoc(
+        text,
+        {
+          parser,
+          __onHtmlRoot(root) {
+            topLevelCount = root.children.length;
+          },
         },
-      })
+        { stripTrailingHardline: true }
+      )
     ),
     (doc) => {
       if (typeof doc !== "string") {
