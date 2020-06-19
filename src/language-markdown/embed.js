@@ -7,9 +7,10 @@ const {
 } = require("../common/util");
 const {
   builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc, stripTrailingHardline },
+  utils: { mapDoc },
 } = require("../document");
 const { getFencedCodeBlockValue } = require("./utils");
+const { print: printFrontMatter } = require("../utils/front-matter");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -41,16 +42,8 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
-  if (isFrontMatterNode(node) && node.lang === "yaml") {
-    const doc =
-      node.value && node.value.trim()
-        ? replaceNewlinesWithLiterallines(
-            textToDoc(node.value, { parser: "yaml" })
-          )
-        : "";
-    return markAsRoot(
-      concat(["---", hardline, doc, doc ? hardline : "", "---"])
-    );
+  if (isFrontMatterNode(node)) {
+    return printFrontMatter(node);
   }
 
   // MDX
