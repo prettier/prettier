@@ -4,7 +4,7 @@ const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
-const generatePluginCombinations = require("./babel-plugins");
+const { generateCombinations, babelPlugins } = require("./babel-plugins");
 
 function babelOptions({ sourceType, plugins = [] }) {
   return {
@@ -29,7 +29,7 @@ function createParse(parseMethod, parserPluginCombinations) {
     const sourceType =
       opts && opts.__babelSourceType === "script" ? "script" : "module";
 
-    const combinations = generatePluginCombinations(
+    const combinations = generateCombinations(
       text,
       typeof parserPluginCombinations === "function"
         ? parserPluginCombinations(text)
@@ -64,19 +64,19 @@ function createParse(parseMethod, parserPluginCombinations) {
 
 const parse = createParse("parse", function* (text) {
   if (text.includes("@flow")) {
-    yield ["jsx"];
+    yield [babelPlugins.jsx];
   }
 
-  yield ["jsx", "flow"];
+  yield [babelPlugins.jsx, babelPlugins.flow];
 });
 const parseFlow = createParse("parse", [
-  ["jsx", ["flow", { all: true, enums: true }]],
+  [babelPlugins.jsx, babelPlugins.flowWithOptions],
 ]);
-const parseTypeScript = createParse("parse", function* (text) {
-  yield ["jsx", "typescript"];
-  yield ["typescript"];
+const parseTypeScript = createParse("parse", function* () {
+  yield [babelPlugins.jsx, babelPlugins.typescript];
+  yield [babelPlugins.typescript];
 });
-const parseExpression = createParse("parseExpression", [["jsx"]]);
+const parseExpression = createParse("parseExpression", [[babelPlugins.jsx]]);
 
 function tryCombinations(fn, combinations) {
   let error;

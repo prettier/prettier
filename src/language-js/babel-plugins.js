@@ -71,4 +71,12 @@ function* generateCombinations(text, parserPluginCombinations) {
   }
 }
 
-module.exports = generateCombinations;
+module.exports = {
+  generateCombinations,
+  babelPlugins: {
+    jsx: "jsx",
+    flow: "flow",
+    flowWithOptions: ["flow", { all: true, enums: true }],
+    typescript: "typescript",
+  },
+};
