@@ -121,7 +121,7 @@ function print(path, options, print) {
         "ElementNode",
       ]);
       const shouldBreakOpeningMustache =
-        isParentOfSpecifiedTypes && doesNotHaveHashParams(n);
+        isParentOfSpecifiedTypes && doesNotHaveHashParams(n) && isNotYield(n);
 
       return group(
         concat([
@@ -653,6 +653,12 @@ function locationToOffset(source, line, column) {
 
 function doesNotHaveHashParams(node) {
   return node.hash.pairs.length === 0;
+}
+
+function isNotYield(node) {
+  const isYield =
+    node.path.type === "PathExpression" && node.path.original === "yield";
+  return !isYield;
 }
 
 module.exports = {
