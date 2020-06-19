@@ -118,10 +118,15 @@ function print(path, options, print) {
       const isParentOfSpecifiedTypes = isParentOfSomeType(path, [
         "AttrNode",
         "ConcatStatement",
-        "ElementNode",
       ]);
+
+      const isChildOfElementNodeAndDoesNotHaveParams =
+        isParentOfSomeType(path, ["ElementNode"]) &&
+        doesNotHaveHashParams(n) &&
+        doesNotHavePositionalParams(n);
+
       const shouldBreakOpeningMustache =
-        isParentOfSpecifiedTypes && doesNotHaveHashParams(n) && isNotYield(n);
+        isParentOfSpecifiedTypes || isChildOfElementNodeAndDoesNotHaveParams;
 
       return group(
         concat([
@@ -655,10 +660,8 @@ function doesNotHaveHashParams(node) {
   return node.hash.pairs.length === 0;
 }
 
-function isNotYield(node) {
-  const isYield =
-    node.path.type === "PathExpression" && node.path.original === "yield";
-  return !isYield;
+function doesNotHavePositionalParams(node) {
+  return node.params.length === 0;
 }
 
 module.exports = {
