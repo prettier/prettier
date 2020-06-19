@@ -45,6 +45,21 @@ jobs:
           name: dist
           path: dist
 
+      # This step calls `git reset`
+      # It should be the last step
+      # The cache step might saving the result of master branch, need investigate
+      - name: Check Sizes
+        if: >-
+          github.event_name == 'pull_request' &&
+          (
+            github.actor == 'dependabot' ||
+            contains(github.event.comment.body, '/size')
+          )
+        uses: preactjs/compressed-size-action@v2.0.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          compression: none
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
