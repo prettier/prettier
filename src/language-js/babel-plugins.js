@@ -12,22 +12,52 @@ const createPlugin = (name, options = {}, test = () => true) => ({
 // When adding a plugin, please add a test in `tests/js/babel-plugins`,
 // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
 const noConflictPlugins = [
-  createPlugin("doExpressions"),
-  createPlugin("classProperties"),
-  createPlugin("exportDefaultFrom"),
-  createPlugin("functionBind"),
-  createPlugin("functionSent"),
-  createPlugin("numericSeparator"),
-  createPlugin("classPrivateProperties"),
-  createPlugin("throwExpressions"),
-  createPlugin("logicalAssignment"),
-  createPlugin("classPrivateMethods"),
-  createPlugin("v8intrinsic"),
-  createPlugin("partialApplication"),
-  createPlugin("decorators", { decoratorsBeforeExport: false }),
-  createPlugin("privateIn"),
-  createPlugin("moduleAttributes", { version: "may-2020" }),
-  createPlugin("recordAndTuple", { syntaxType: "hash" }),
+  createPlugin("doExpressions", undefined, (text) => text.includes("do")),
+  createPlugin("classProperties", undefined, (text) => text.includes("class")),
+  createPlugin(
+    "exportDefaultFrom",
+    undefined,
+    (text) => text.includes("export") && text.includes("from")
+  ),
+  createPlugin("functionBind", undefined, (text) => text.includes("::")),
+  createPlugin("functionSent", undefined, (text) => text.includes("sent")),
+  createPlugin("numericSeparator", undefined, (text) =>
+    /[\dA-Fa-f]_[\dA-Fa-f]/.test(text)
+  ),
+  createPlugin(
+    "classPrivateProperties",
+    undefined,
+    (text) => text.includes("class") && text.includes("#")
+  ),
+  createPlugin("throwExpressions", undefined, (text) => text.includes("throw")),
+  createPlugin(
+    "logicalAssignment",
+    undefined,
+    (text) => text.includes("||=") || text.includes("&&=")
+  ),
+  createPlugin(
+    "classPrivateMethods",
+    undefined,
+    (text) => text.includes("class") && text.includes("#")
+  ),
+  createPlugin("v8intrinsic", undefined, (text) => text.includes("%")),
+  createPlugin("partialApplication", undefined, (text) => text.includes("?")),
+  createPlugin("decorators", { decoratorsBeforeExport: false }, (text) =>
+    text.includes("@")
+  ),
+  createPlugin(
+    "privateIn",
+    undefined,
+    (text) => text.includes("#") && text.includes("in")
+  ),
+  createPlugin("moduleAttributes", { version: "may-2020" }, (text) =>
+    text.includes("import")
+  ),
+  createPlugin(
+    "recordAndTuple",
+    { syntaxType: "hash" },
+    (text) => text.includes("#[") || text.includes("#{")
+  ),
 ];
 
 const conflictPlugins = [
@@ -70,7 +100,7 @@ function* generateCombinations(text, parserPluginCombinations) {
 module.exports = {
   generateCombinations,
   babelPlugins: {
-    jsx: createPlugin("jsx"),
+    jsx: createPlugin("jsx", undefined, (text) => /<\/|\/>/.test(text)),
     flow: createPlugin("flow"),
     flowWithOptions: createPlugin("flow", { all: true, enums: true }),
     typescript: createPlugin("typescript"),

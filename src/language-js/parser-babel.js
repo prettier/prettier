@@ -31,9 +31,7 @@ function createParse(parseMethod, parserPluginCombinations) {
 
     const combinations = generateCombinations(
       text,
-      typeof parserPluginCombinations === "function"
-        ? parserPluginCombinations(text)
-        : parserPluginCombinations
+      parserPluginCombinations(text)
     );
 
     let ast;
@@ -63,20 +61,36 @@ function createParse(parseMethod, parserPluginCombinations) {
 }
 
 const parse = createParse("parse", function* (text) {
-  if (text.includes("@flow")) {
-    yield [babelPlugins.jsx];
+  const plugins = [];
+  const jsxPlugin = babelPlugins.jsx;
+
+  if (jsxPlugin.test(text)) {
+    plugins.push(jsxPlugin);
   }
 
-  yield [babelPlugins.jsx, babelPlugins.flow];
+  if (!text.includes("@flow")) {
+    yield plugins;
+  }
+
+  yield [...plugins, babelPlugins.flow];
 });
-const parseFlow = createParse("parse", [
-  [babelPlugins.jsx, babelPlugins.flowWithOptions],
-]);
-const parseTypeScript = createParse("parse", function* () {
-  yield [babelPlugins.jsx, babelPlugins.typescript];
+const parseFlow = createParse("parse", (text) => {
+  return [
+    babelPlugins.jsx.test(text)
+      ? [babelPlugins.jsx, babelPlugins.flowWithOptions]
+      : [babelPlugins.flowWithOptions],
+  ];
+});
+const parseTypeScript = createParse("parse", function* (text) {
+  if (babelPlugins.jsx.test(text)) {
+    yield [babelPlugins.jsx, babelPlugins.typescript];
+  }
+
   yield [babelPlugins.typescript];
 });
-const parseExpression = createParse("parseExpression", [[babelPlugins.jsx]]);
+const parseExpression = createParse("parseExpression", (text) => {
+  return babelPlugins.jsx.test(text) ? [[babelPlugins.jsx]] : [];
+});
 
 function tryCombinations(fn, combinations) {
   let error;
