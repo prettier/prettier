@@ -34,6 +34,12 @@ describe("extracts file-info with ignored=true for a file in .prettierignore", (
   });
 });
 
+describe("file-info should try resolve config", () => {
+  runPrettier("cli/with-resolve-config/", ["--file-info", "file.js"]).test({
+    status: 0,
+  });
+});
+
 describe("extracts file-info with ignored=true for a file in a hand-picked .prettierignore", () => {
   runPrettier("cli/ignore-path/", [
     "--file-info",

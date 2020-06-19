@@ -7,7 +7,7 @@ const fs = require("fs");
 const { isPathValid } = require("ignore");
 const chalk = require("chalk");
 const readline = require("readline");
-const stringify = require("json-stable-stringify");
+const stringify = require("fast-json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
@@ -116,6 +116,7 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
+    resolveConfig: true,
   };
   context.logger.log(
     prettier.format(
