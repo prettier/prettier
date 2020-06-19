@@ -1,12 +1,15 @@
 "use strict";
-
+const {
+  builders: { hardline, concat },
+} = require("../document");
 const { print: printFrontMatter } = require("../utils/front-matter");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
 
   if (node.type === "front-matter") {
-    return printFrontMatter(node, textToDoc);
+    const doc = printFrontMatter(node, textToDoc);
+    return doc ? concat([doc, hardline]) : "";
   }
 }
 
