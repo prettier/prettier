@@ -72,10 +72,10 @@ const parse = createParse("parse", function* (text) {
 const parseFlow = createParse("parse", [
   ["jsx", ["flow", { all: true, enums: true }]],
 ]);
-const parseTypeScript = createParse("parse", [
-  ["jsx", "typescript"],
-  ["typescript"],
-]);
+const parseTypeScript = createParse("parse", function* (text) {
+  yield ["jsx", "typescript"];
+  yield ["typescript"];
+});
 const parseExpression = createParse("parseExpression", [["jsx"]]);
 
 function tryCombinations(fn, combinations) {
