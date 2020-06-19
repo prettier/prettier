@@ -52,7 +52,7 @@ jobs:
         if: >-
           github.event_name == 'pull_request' &&
           (
-            github.actor == 'dependabot' ||
+            startsWith(github.head_ref, 'dependabot/npm_and_yarn/') ||
             contains(github.event.comment.body, '/size')
           )
         uses: preactjs/compressed-size-action@v2.0.1
