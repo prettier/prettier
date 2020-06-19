@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`html-like-comments.js error test 1`] = `
-"Unexpected token (3:1)
+"Unexpected token (3:2)
   1 | // Only support HTML-like comment in HTML
   2 | alert(
 > 3 | <!-- comment
-    | ^
+    |  ^
   4 | 'hello world'
   5 | )
   6 | "
@@ -88,9 +88,9 @@ exports[`snippet: #8 error test 1`] = `
 `;
 
 exports[`snippet: #9 error test 1`] = `
-"Tuple expressions starting with '[|' are only allowed when the 'syntaxType' option of the 'recordAndTuple' plugin is set to 'bar' (1:1)
+"Unexpected token (1:2)
 > 1 | [| 1 |]
-    | ^"
+    |  ^"
 `;
 
 exports[`static-import-source-should-not-has-extra-token.js error test 1`] = `

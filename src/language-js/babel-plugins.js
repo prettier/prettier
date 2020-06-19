@@ -35,10 +35,10 @@ const noConflictPlugins = [
     undefined,
     (text) => text.includes("||=") || text.includes("&&=")
   ),
-  createPlugin(
-    "classPrivateMethods",
-    undefined,
-    (text) => text.includes("class") && text.includes("#")
+  createPlugin("classPrivateMethods", undefined, (text) =>
+    // Not sure about this, tests/js/private-in, didn't use class
+    // text.includes("class") &&
+    text.includes("#")
   ),
   createPlugin("v8intrinsic", undefined, (text) => text.includes("%")),
   createPlugin("partialApplication", undefined, (text) => text.includes("?")),
