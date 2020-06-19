@@ -2,6 +2,9 @@
 
 const { normalize } = require("./options");
 const comments = require("./comments");
+const {
+  utils: { stripTrailingHardline },
+} = require("../document");
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -40,7 +43,7 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
-  return printAstToDoc(ast, nextOptions);
+  return stripTrailingHardline(printAstToDoc(ast, nextOptions), true);
 }
 
 module.exports = {

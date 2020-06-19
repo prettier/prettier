@@ -3,7 +3,7 @@
 const clean = require("./clean");
 const {
   builders,
-  utils: { stripTrailingHardline, mapDoc, normalizeParts },
+  utils: { mapDoc, normalizeParts },
 } = require("../document");
 const {
   breakParent,
@@ -42,6 +42,7 @@ const {
   unescapeQuoteEntities,
 } = require("./utils");
 const { replaceEndOfLineWith } = require("../common/util");
+const { print: printFrontMatter } = require("../utils/front-matter");
 const preprocess = require("./preprocess");
 const assert = require("assert");
 const { insertPragma } = require("./pragma");
@@ -95,7 +96,9 @@ function embed(path, print, textToDoc, options) {
         return concat([
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          concat([hardline, stripTrailingHardline(doc, true), hardline]),
+          hardline,
+          doc,
+          hardline,
           printClosingTag(node, options),
           printClosingTagSuffix(node, options),
         ]);
@@ -128,7 +131,7 @@ function embed(path, print, textToDoc, options) {
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(textToDoc(value, textToDocOptions)),
+              textToDoc(value, textToDocOptions),
               printClosingTagSuffix(node, options),
             ]),
           ]);
@@ -210,18 +213,7 @@ function embed(path, print, textToDoc, options) {
       break;
     }
     case "front-matter":
-      if (node.lang === "yaml") {
-        return markAsRoot(
-          concat([
-            "---",
-            hardline,
-            node.value.trim().length === 0
-              ? ""
-              : textToDoc(node.value, { parser: "yaml" }),
-            "---",
-          ])
-        );
-      }
+      return printFrontMatter(node, textToDoc);
   }
 }
 
@@ -1086,11 +1078,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       return printMaybeHug(
-        isVueEventBindingExpression(value)
-          ? textToDoc(value, { parser: "__js_expression" })
-          : stripTrailingHardline(
-              textToDoc(value, { parser: "__vue_event_binding" })
-            )
+        textToDoc(value, {
+          parser: isVueEventBindingExpression(value)
+            ? "__js_expression"
+            : "__vue_event_binding",
+        })
       );
     }
 

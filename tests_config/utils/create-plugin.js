@@ -1,6 +1,6 @@
 "use strict";
 
-function createPlugin({ name, print }) {
+function createPlugin({ name, print, finalNewLine = true }) {
   return {
     languages: [
       {
@@ -16,7 +16,8 @@ function createPlugin({ name, print }) {
     },
     printers: {
       [name]: {
-        print: (path) => print(path.getValue().value) + "\n",
+        print: (path) =>
+          print(path.getValue().value) + finalNewLine ? "\n" : "",
       },
     },
   };

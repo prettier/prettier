@@ -1,5 +1,10 @@
 "use strict";
 
+const {
+  builders: { hardline, literalline, concat, markAsRoot },
+  utils: { mapDoc },
+} = require("../document");
+
 const escape = require("escape-string-regexp");
 
 const DELIMITER_MAP = {
@@ -38,4 +43,28 @@ function parse(text) {
   };
 }
 
-module.exports = parse;
+function print(node, textToDoc) {
+  if (node.lang === "yaml") {
+    const value = node.value.trim();
+    const doc = value
+      ? replaceNewlinesWithLiterallines(textToDoc(value, { parser: "yaml" }))
+      : "";
+    return markAsRoot(
+      concat(["---", hardline, doc, doc ? hardline : "", "---"])
+    );
+  }
+}
+
+function replaceNewlinesWithLiterallines(doc) {
+  return mapDoc(doc, (currentDoc) =>
+    typeof currentDoc === "string" && currentDoc.includes("\n")
+      ? concat(
+          currentDoc
+            .split(/(\n)/g)
+            .map((v, i) => (i % 2 === 0 ? v : literalline))
+        )
+      : currentDoc
+  );
+}
+
+module.exports = { parse, print };

@@ -3,7 +3,7 @@
 const remarkParse = require("remark-parse");
 const unified = require("unified");
 const pragma = require("./pragma");
-const parseFrontMatter = require("../utils/front-matter");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");

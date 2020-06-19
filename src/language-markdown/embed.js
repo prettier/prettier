@@ -7,7 +7,7 @@ const {
 } = require("../common/util");
 const {
   builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc },
+  utils: { mapDoc, stripTrailingHardline },
 } = require("../document");
 const { getFencedCodeBlockValue } = require("./utils");
 
@@ -34,6 +34,7 @@ function embed(path, print, textToDoc, options) {
           node.lang,
           hardline,
           replaceNewlinesWithLiterallines(doc),
+          hardline,
           style,
         ])
       );
@@ -41,17 +42,14 @@ function embed(path, print, textToDoc, options) {
   }
 
   if (isFrontMatterNode(node) && node.lang === "yaml") {
+    const doc =
+      node.value && node.value.trim()
+        ? replaceNewlinesWithLiterallines(
+            textToDoc(node.value, { parser: "yaml" })
+          )
+        : "";
     return markAsRoot(
-      concat([
-        "---",
-        hardline,
-        node.value && node.value.trim()
-          ? replaceNewlinesWithLiterallines(
-              textToDoc(node.value, { parser: "yaml" })
-            )
-          : "",
-        "---",
-      ])
+      concat(["---", hardline, doc, doc ? hardline : "", "---"])
     );
   }
 

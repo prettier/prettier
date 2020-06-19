@@ -1,6 +1,6 @@
 "use strict";
 
-const parseFrontMatter = require("../utils/front-matter");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
 const {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,

@@ -107,7 +107,7 @@ function embed(path, print, textToDoc, options) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            doc = stripTrailingHardline(textToDoc(text, { parser: "graphql" }));
+            doc = textToDoc(text, { parser: "graphql" });
           }
 
           if (doc) {
@@ -194,7 +194,7 @@ function embed(path, print, textToDoc, options) {
 
   function printMarkdown(text) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return stripTrailingHardline(escapeTemplateCharacters(doc, true));
+    return escapeTemplateCharacters(doc, true);
   }
 }
 
