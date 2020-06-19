@@ -16,7 +16,6 @@ const {
   join,
   line,
   literalline,
-  markAsRoot,
   softline,
 } = builders;
 const {
