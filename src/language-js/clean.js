@@ -78,7 +78,9 @@ function clean(ast, newObj, parent) {
     delete newObj.closingElement;
   }
 
-  // We change {'key': value} into {key: value}
+  // We change {'key': value} into {key: value}.
+  // And {key: value} into {'key': value}.
+  // Also for (some) number keys.
   if (
     (ast.type === "Property" ||
       ast.type === "ObjectProperty" ||
@@ -89,6 +91,7 @@ function clean(ast, newObj, parent) {
     typeof ast.key === "object" &&
     ast.key &&
     (ast.key.type === "Literal" ||
+      ast.key.type === "NumericLiteral" ||
       ast.key.type === "StringLiteral" ||
       ast.key.type === "Identifier")
   ) {

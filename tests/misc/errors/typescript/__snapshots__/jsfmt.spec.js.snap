@@ -16,6 +16,20 @@ exports[`invalid-jsx-1.ts error test 1`] = `
   4 | "
 `;
 
+exports[`module-attributes-dynamic.ts error test 1`] = `
+"Dynamic import must have one specifier as an argument. (1:8)
+> 1 | import(\\"foo.json\\", { with: { type: \\"json\\" } })
+    |        ^
+  2 | "
+`;
+
+exports[`module-attributes-static.ts error test 1`] = `
+"';' expected. (1:28)
+> 1 | import foo from \\"foo.json\\" with type: \\"json\\";
+    |                            ^
+  2 | "
+`;
+
 exports[`snippet: #0 error test 1`] = `
 "Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
 > 1 | let x1 = <div>}</div>;

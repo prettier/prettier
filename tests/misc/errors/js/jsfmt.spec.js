@@ -27,6 +27,18 @@ run_spec(
           }
         }
       `,
+
+      // Using a record or tuple literal on the `lhs` is a `SyntaxError`
+      "const #{ a, b } = #{ a: 1, b: 2 };",
+      "const #[a, b] = #[1, 2];",
+      // holes
+      // "const x = #[,];", // Should be error, babel didn't throw
+      // __proto__
+      // "const x = #{ __proto__: foo };", // Should be error, babel didn't throw
+
+      // Don't support `syntaxType: "bar"`
+      "[| 1 |]",
+      // "{| a: 1 |}", // babel didn't throw on this
     ],
   },
   ["babel"]

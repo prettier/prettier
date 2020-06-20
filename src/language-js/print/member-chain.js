@@ -154,7 +154,10 @@ function printMemberChain(path, options, print) {
       printCallArguments(path, options, print),
     ]),
   });
-  path.call((callee) => rec(callee), "callee");
+
+  if (node.callee) {
+    path.call((callee) => rec(callee), "callee");
+  }
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
@@ -234,7 +237,10 @@ function printMemberChain(path, options, print) {
       hasSeenCallExpression = false;
     }
 
-    if (isCallOrOptionalCallExpression(printedNodes[i].node)) {
+    if (
+      isCallOrOptionalCallExpression(printedNodes[i].node) ||
+      printedNodes[i].node.type === "ImportExpression"
+    ) {
       hasSeenCallExpression = true;
     }
     currentGroup.push(printedNodes[i]);

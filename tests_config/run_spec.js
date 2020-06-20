@@ -31,7 +31,6 @@ const unstableTests = new Map(
     "js/class-comment/misc.js",
     ["js/comments/dangling_array.js", (options) => options.semi === false],
     ["js/comments/jsx.js", (options) => options.semi === false],
-    "js/comments/binary-expressions-single-comments.js",
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/comments-closure-typecast/iife.js",
