@@ -14,7 +14,7 @@ const {
     group,
     dedentToRoot,
   },
-  utils: { mapDoc, stripTrailingHardline },
+  utils: { mapDoc },
 } = require("../document");
 
 function embed(path, print, textToDoc, options) {
@@ -256,12 +256,7 @@ function transformCssDoc(quasisDoc, path, print) {
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
-  return concat([
-    "`",
-    indent(concat([hardline, stripTrailingHardline(newDoc)])),
-    softline,
-    "`",
-  ]);
+  return concat(["`", indent(concat([hardline, newDoc])), softline, "`"]);
 }
 
 // Search all the placeholders in the quasisDoc tree
@@ -589,17 +584,15 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   let topLevelCount = 0;
 
   const contentDoc = mapDoc(
-    stripTrailingHardline(
-      textToDoc(
-        text,
-        {
-          parser,
-          __onHtmlRoot(root) {
-            topLevelCount = root.children.length;
-          },
+    textToDoc(
+      text,
+      {
+        parser,
+        __onHtmlRoot(root) {
+          topLevelCount = root.children.length;
         },
-        { stripTrailingHardline: true }
-      )
+      },
+      { stripTrailingHardline: true }
     ),
     (doc) => {
       if (typeof doc !== "string") {
