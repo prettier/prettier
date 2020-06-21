@@ -21,18 +21,22 @@ function babelOptions(options) {
 }
 
 function createParse(parseMethod, parserPluginCombinations) {
-  return (text, parsers, opts) => {
+  return (text, parsers, opts = {}) => {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
     const parse = babel[parseMethod];
 
     const sourceType =
-      opts && opts.__babelSourceType === "script" ? "script" : "module";
+      opts.__babelSourceType === "script" ? "script" : "module";
 
     const combinations = generateCombinations(
       text,
       parserPluginCombinations(text)
     );
+
+    if (opts.__testBabelPluginCombinations) {
+      return [...combinations];
+    }
 
     let ast;
     try {
