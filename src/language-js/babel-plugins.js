@@ -55,9 +55,15 @@ const noConflictPlugins = [
 
 const conflictPlugins = [
   [
-    createPlugin("pipelineOperator", { proposal: "smart" }),
-    createPlugin("pipelineOperator", { proposal: "minimal" }),
-    createPlugin("pipelineOperator", { proposal: "fsharp" }),
+    createPlugin("pipelineOperator", { proposal: "smart" }, (text) =>
+      text.includes("|>")
+    ),
+    createPlugin("pipelineOperator", { proposal: "minimal" }, (text) =>
+      text.includes("|>")
+    ),
+    createPlugin("pipelineOperator", { proposal: "fsharp" }, (text) =>
+      text.includes("|>")
+    ),
   ].map((plugin) => [plugin]),
 ];
 
@@ -72,20 +78,14 @@ function filterPlugins(combinations, predicate) {
 function cleanPlugins(combinations) {
   return combinations.filter(
     (conflictGroup) =>
-      conflictGroup.every((plugins) => plugins.length !== 0) &&
+      conflictGroup.some((plugins) => plugins.length !== 0) &&
       conflictGroup.length !== 0
   );
 }
 
 function* generateCombinations(text, parserPluginCombinations) {
   let plugins = [...commonPlugins, [...parserPluginCombinations]];
-
   plugins = filterPlugins(plugins, ({ test }) => test(text));
-
-  if (!text.includes("|>")) {
-    plugins = filterPlugins(plugins, ({ name }) => name !== "pipelineOperator");
-  }
-
   plugins = cleanPlugins(plugins);
 
   // requires at least one combination
