@@ -77,11 +77,11 @@ function filterPlugins(combinations, predicate) {
 }
 
 function cleanPlugins(combinations) {
-  return combinations
-    .map((conflictGroup) =>
-      conflictGroup.filter((plugins) => plugins.length !== 0)
-    )
-    .filter((conflictGroup) => conflictGroup.length !== 0);
+  return combinations.filter(
+    (conflictGroup) =>
+      conflictGroup.every((plugins) => plugins.length !== 0) &&
+      conflictGroup.length !== 0
+  );
 }
 
 function* generateCombinations(text, parserPluginCombinations) {
