@@ -34,6 +34,12 @@ describe("extracts file-info with ignored=true for a file in .prettierignore", (
   });
 });
 
+describe("file-info should try resolve config", () => {
+  runPrettier("cli/with-resolve-config/", ["--file-info", "file.js"]).test({
+    status: 0,
+  });
+});
+
 describe("extracts file-info with ignored=true for a file in a hand-picked .prettierignore", () => {
   runPrettier("cli/", [
     "--file-info",
@@ -459,5 +465,25 @@ test("API getFileInfo with hand-picked plugins", () => {
   ).resolves.toMatchObject({
     ignored: false,
     inferredParser: "foo",
+  });
+});
+
+test("API getFileInfo with ignorePath and resolveConfig should infer parser with correct filepath", () => {
+  const dir = path.join(__dirname, "../cli/ignore-and-config/");
+  const filePath = path.join(dir, "config-dir/foo");
+  const ignorePath = path.join(dir, "ignore-path-dir/.prettierignore");
+  const options = {
+    resolveConfig: true,
+    ignorePath,
+  };
+
+  expect(prettier.getFileInfo(filePath, options)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
+  });
+
+  expect(prettier.getFileInfo.sync(filePath, options)).toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
   });
 });
