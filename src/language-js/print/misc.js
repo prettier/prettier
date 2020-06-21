@@ -58,9 +58,18 @@ function printBindExpressionCallee(path, options, print) {
   return concat(["::", path.call(print, "callee")]);
 }
 
+function printTSAsExpression(path, options, print) {
+  return concat([
+    path.call(print, "expression"),
+      " as ",
+    path.call(print, "typeAnnotation"),
+  ]);
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
+  printTSAsExpression,
 };
