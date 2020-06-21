@@ -421,9 +421,7 @@ function handleConditionalExpressionComments(
 
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
-    enclosingNode &&
-    (enclosingNode.type === "ConditionalExpression" ||
-      enclosingNode.type === "TSConditionalType") &&
+    isTernaryExpression(enclosingNode) &&
     followingNode
   ) {
     addLeadingComment(followingNode, comment);
@@ -1073,6 +1071,20 @@ function getCommentChildNodes(node, options) {
   }
 }
 
+function shouldIndentComment(path) {
+  return (
+    isCommentParentTernaryTest(path) &&
+    !isTernaryExpression(path.getParentNode(2))
+  );
+}
+
+function shouldDedentComment(path) {
+  return (
+    isCommentParentTernaryTest(path) &&
+    isTernaryExpression(path.getParentNode(2))
+  );
+}
+
 function isTypeCastComment(comment) {
   return (
     isBlockComment(comment) &&
@@ -1106,20 +1118,6 @@ function isCommentParentTernaryTest(commentPath) {
   return isTernaryTest(
     commentPath.getParentNode(),
     commentPath.getParentNode(1)
-  );
-}
-
-function shouldIndentComment(path) {
-  return (
-    isCommentParentTernaryTest(path) &&
-    !isTernaryExpression(path.getParentNode(2))
-  );
-}
-
-function shouldDedentComment(path) {
-  return (
-    isCommentParentTernaryTest(path) &&
-    isTernaryExpression(path.getParentNode(2))
   );
 }
 
