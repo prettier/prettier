@@ -93,3 +93,69 @@ test
      comment */
   ? foo
   : bar;
+test /* comment
+  comment
+      comment
+*/
+  ? foo
+  : bar;
+
+test
+  ? /* comment
+          comment
+    comment
+          comment
+  */
+    foo
+  : bar;
+
+test
+  ? /* comment
+       comment
+       comment
+       comment
+    */
+    foo
+  : test
+  ? /* comment
+  comment
+    comment */
+    foo
+  : bar;
+
+test
+  ? /* comment */
+    foo
+  : bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  test
+  ? foo
+  : /* comment
+  comment
+    comment
+   */
+    bar;
+
+test
+  ? foo
+  : /* comment */
+  bar;
+
+test ? test /* c
+c */? foo : bar : bar;

@@ -1,6 +1,7 @@
 "use strict";
 
 const assert = require("assert");
+const flat = require("lodash/flatten");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
@@ -68,12 +69,14 @@ const {
   isMemberExpressionChain,
   isMemberish,
   isNgForOf,
+  isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleFlowType,
+  isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,
-  isStringPropSafeToCoerceToIdentifier,
+  isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
@@ -115,6 +118,7 @@ const {
     lineSuffixBoundary,
     addAlignmentToDoc,
     dedent,
+    breakParent,
   },
   utils: { willBreak, isLineNext, isEmpty, removeLines, normalizeParts },
   printer: { printDocToString },
@@ -366,8 +370,28 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
+  const comments = flat([
+    ...operatorOptions.testNodePropertyNames.map(
+      (propertyName) => node[propertyName].comments
+    ),
+    consequentNode.comments,
+    alternateNode.comments,
+  ]).filter(Boolean);
+  const shouldBreak = comments.some(
+    (comment) =>
+      handleComments.isBlockComment(comment) &&
+      hasNewlineInRange(
+        options.originalText,
+        options.locStart(comment),
+        options.locEnd(comment)
+      )
+  );
   const maybeGroup = (doc) =>
-    parent === firstNonConditionalParent ? group(doc) : doc;
+    parent === firstNonConditionalParent
+      ? group(doc, { shouldBreak })
+      : shouldBreak
+      ? concat([doc, breakParent])
+      : doc;
 
   // Break the closing paren to keep the chain right after it:
   // (a
@@ -1502,6 +1526,7 @@ function printPathNoParens(path, options, print, args) {
           canHaveTrailingComma && lastElem === null;
 
         const shouldBreak =
+          !options.__inJestEach &&
           n.elements.length > 1 &&
           n.elements.every((element, i, elements) => {
             const elementType = element && element.type;
@@ -2376,17 +2401,18 @@ function printPathNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
-      let expressions = path.map(print, "expressions");
       const parentNode = path.getParentNode();
 
       if (isJestEachTemplateLiteral(n, parentNode)) {
-        const printed = printJestEachTemplateLiteral(n, expressions, options);
+        const printed = printJestEachTemplateLiteral(path, options, print);
         if (printed) {
           return printed;
         }
       }
 
+      let expressions = path.map(print, "expressions");
       const isSimple = isSimpleTemplateLiteral(n);
+
       if (isSimple) {
         expressions = expressions.map(
           (doc) =>
@@ -3745,18 +3771,32 @@ function printPropertyKey(path, options, print) {
         !prop.computed &&
         prop.key &&
         isStringLiteral(prop.key) &&
-        !isStringPropSafeToCoerceToIdentifier(prop, options)
+        !isStringPropSafeToUnquote(prop, options)
     );
     needsQuoteProps.set(parent, objectHasStringProp);
   }
 
   if (
-    key.type === "Identifier" &&
+    (key.type === "Identifier" ||
+      (isNumericLiteral(key) &&
+        isSimpleNumber(printNumber(rawText(key))) &&
+        // Avoid converting 999999999999999999999 to 1e+21, 0.99999999999999999 to 1 and 1.0 to 1.
+        String(key.value) === printNumber(rawText(key)) &&
+        // Quoting number keys is safe in JS and Flow, but not in TypeScript (as
+        // mentioned in `isStringPropSafeToUnquote`).
+        !(options.parser === "typescript" || options.parser === "babel-ts"))) &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
     // a -> "a"
-    const prop = printString(JSON.stringify(key.name), options);
+    // 1 -> "1"
+    // 1.5 -> "1.5"
+    const prop = printString(
+      JSON.stringify(
+        key.type === "Identifier" ? key.name : key.value.toString()
+      ),
+      options
+    );
     return path.call(
       (keyPath) => comments.printComments(keyPath, () => prop, options),
       "key"
@@ -3764,13 +3804,20 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
-    isStringPropSafeToCoerceToIdentifier(node, options) &&
+    isStringPropSafeToUnquote(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
   ) {
     // 'a' -> a
+    // '1' -> 1
+    // '1.5' -> 1.5
     return path.call(
-      (keyPath) => comments.printComments(keyPath, () => key.value, options),
+      (keyPath) =>
+        comments.printComments(
+          keyPath,
+          () => (/^\d/.test(key.value) ? printNumber(key.value) : key.value),
+          options
+        ),
       "key"
     );
   }
@@ -3828,18 +3875,22 @@ function printMethodInternal(path, options, print) {
   return concat(parts);
 }
 
-function printJestEachTemplateLiteral(node, expressions, options) {
+function printJestEachTemplateLiteral(path, options, print) {
   /**
    * a    | b    | expected
    * ${1} | ${1} | ${2}
    * ${1} | ${2} | ${3}
    * ${2} | ${1} | ${3}
    */
+  const node = path.getNode();
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
     headerNames.some((headerName) => headerName.length !== 0)
   ) {
+    options.__inJestEach = true;
+    const expressions = path.map(print, "expressions");
+    options.__inJestEach = false;
     const parts = [];
     const stringifiedExpressions = expressions.map(
       (doc) =>
