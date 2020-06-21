@@ -303,6 +303,10 @@ const result =
 
 If possible, prefer comments that operate on line ranges (e.g. `eslint-disable` and `eslint-enable`) or on the statement level (e.g. `/* istanbul ignore next */`), they are even safer. It's possible to disallow using `eslint-disable-line` and `eslint-disable-next-line` comments using [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments).
 
+## Disclaimer about non-standard syntax
+
+Prettier is often able to recognize and format non-standard syntax such as ECMAScript early-stage proposals and Markdown syntax extensions not defined by any specification. The support for such syntax is considered best-effort and experimental. Incompatibilities may be introduced in any release and should not be viewed as breaking changes.
+
 ## What Prettier is _not_ concerned about
 
 Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let's focus on the printing and do it really well!
