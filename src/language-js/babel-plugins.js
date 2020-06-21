@@ -9,6 +9,11 @@ const createPlugin = (name, options = {}, test = () => true) => ({
   test,
 });
 
+// `privateIn` requires `classPrivateProperties` or `classPrivateMethods`
+const privateInTest = (text) => text.includes("#") && text.includes("in");
+const classPrivatePropertiesTest = (text) =>
+  privateInTest(text) || (text.includes("class") && text.includes("#"));
+
 // When adding a plugin, please add a test in `tests/js/babel-plugins`,
 // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
 const noConflictPlugins = [
@@ -24,32 +29,20 @@ const noConflictPlugins = [
   createPlugin("numericSeparator", undefined, (text) =>
     /[\dA-Fa-f]_[\dA-Fa-f]/.test(text)
   ),
-  createPlugin(
-    "classPrivateProperties",
-    undefined,
-    (text) => text.includes("class") && text.includes("#")
-  ),
+  createPlugin("classPrivateProperties", undefined, classPrivatePropertiesTest),
   createPlugin("throwExpressions", undefined, (text) => text.includes("throw")),
   createPlugin(
     "logicalAssignment",
     undefined,
     (text) => text.includes("||=") || text.includes("&&=")
   ),
-  createPlugin("classPrivateMethods", undefined, (text) =>
-    // Not sure about this, tests/js/private-in, didn't use class
-    // text.includes("class") &&
-    text.includes("#")
-  ),
+  createPlugin("classPrivateMethods", undefined, classPrivatePropertiesTest),
   createPlugin("v8intrinsic", undefined, (text) => text.includes("%")),
   createPlugin("partialApplication", undefined, (text) => text.includes("?")),
   createPlugin("decorators", { decoratorsBeforeExport: false }, (text) =>
     text.includes("@")
   ),
-  createPlugin(
-    "privateIn",
-    undefined,
-    (text) => text.includes("#") && text.includes("in")
-  ),
+  createPlugin("privateIn", undefined, privateInTest),
   createPlugin("moduleAttributes", { version: "may-2020" }, (text) =>
     text.includes("import")
   ),
