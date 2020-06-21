@@ -59,11 +59,25 @@ function printBindExpressionCallee(path, options, print) {
 }
 
 function printTSAsExpression(path, options, print) {
-  return concat([
+  const node = path.getValue();
+  const name = path.getName();
+  const parent = path.getParentNode();
+
+  const content = concat([
     path.call(print, "expression"),
-      " as ",
+    " as ",
     path.call(print, "typeAnnotation"),
   ]);
+
+  const shouldIndent =
+    node.expression.type !== "ObjectExpression" &&
+    node.expression.type !== "ArrayExpression" &&
+    ((parent.type === "VariableDeclarator" && name === "init") ||
+      (parent.type === "AssignmentExpression" && name === "right"));
+  if (shouldIndent) {
+    return group(indent(concat([softline, content])));
+  }
+  return content;
 }
 
 module.exports = {
