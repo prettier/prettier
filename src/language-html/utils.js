@@ -287,7 +287,6 @@ function forceBreakContent(node) {
       (["body", "script", "style"].includes(node.name) ||
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
-      node.firstChild === node.lastChild &&
       hasLeadingLineBreak(node.firstChild) &&
       (!node.lastChild.isTrailingSpaceSensitive ||
         hasTrailingLineBreak(node.lastChild)))
