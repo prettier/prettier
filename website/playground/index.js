@@ -1,7 +1,7 @@
 import "codemirror-graphql/mode";
 
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 import Playground from "./Playground";
 import VersionLink from "./VersionLink";

@@ -117,7 +117,9 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     const [, title] = titleMatch;
     const categoryInTitle = title.split(":").shift().trim();
-    if (CHANGELOG_CATEGORIES.includes(categoryInTitle.toLowerCase())) {
+    if (
+      [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())
+    ) {
       showErrorMessage(
         `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`
       );

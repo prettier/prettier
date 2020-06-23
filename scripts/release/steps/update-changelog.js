@@ -1,7 +1,7 @@
 "use strict";
 
 const chalk = require("chalk");
-const dedent = require("dedent");
+const { outdent, string: outdentString } = require("outdent");
 const fs = require("fs");
 const semver = require("semver");
 const { waitForEnter, runYarn, logPromise } = require("../utils");
@@ -20,7 +20,7 @@ function getBlogPostInfo(version) {
 
 function writeChangelog({ version, previousVersion, releaseNotes }) {
   const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
-  const newEntry = dedent`
+  const newEntry = outdent`
     # ${version}
 
     [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
@@ -45,7 +45,7 @@ module.exports = async function ({ version, previousVersion }) {
       return;
     }
     console.warn(
-      dedent(chalk`
+      outdentString(chalk`
         {yellow warning} The file {bold ${blogPost.file}} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
 
         Press ENTER to continue.
@@ -53,7 +53,7 @@ module.exports = async function ({ version, previousVersion }) {
     );
   } else {
     console.log(
-      dedent(chalk`
+      outdentString(chalk`
         {yellow.bold A manual step is necessary.}
 
         You can copy the entries from {bold changelog_unreleased/*/pr-*.md} to {bold CHANGELOG.md}

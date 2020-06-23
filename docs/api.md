@@ -70,10 +70,8 @@ The promise will be rejected if there was an error parsing the configuration fil
 The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
-prettier.resolveConfigFile().then((filePath) => {
-  prettier.resolveConfig(filePath).then((options) => {
-    const formatted = prettier.format(text, options);
-  });
+prettier.resolveConfigFile(filePath).then((configFile) => {
+  // you got the path of the configuration file
 });
 ```
 
@@ -97,6 +95,8 @@ When Prettier loads configuration files and plugins, the file system structure i
 The promise will be rejected if the type of `filePath` is not `string`.
 
 Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
+
+If the given `filePath` is ignored, the `inferredParser` is always `null`.
 
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 

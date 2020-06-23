@@ -3,7 +3,7 @@
 const clean = require("./clean");
 const {
   builders,
-  utils: { stripTrailingHardline, mapDoc },
+  utils: { stripTrailingHardline, mapDoc, normalizeParts },
 } = require("../document");
 const {
   breakParent,
@@ -20,6 +20,8 @@ const {
   softline,
 } = builders;
 const {
+  htmlTrimPreserveIndentation,
+  splitByHtmlWhitespace,
   countChars,
   countParents,
   dedentString,
@@ -30,9 +32,10 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isVueCustomBlock,
+  isVueNonHtmlBlock,
   isScriptLikeTag,
   isTextLikeNode,
-  normalizeParts,
   preferHardlineAsLeadingSpaces,
   shouldNotPrintClosingTag,
   shouldPreserveContent,
@@ -60,7 +63,50 @@ function concat(parts) {
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
+
   switch (node.type) {
+    case "element": {
+      if (isScriptLikeTag(node) || node.type === "interpolation") {
+        // Fall through to "text"
+        return;
+      }
+
+      if (isVueNonHtmlBlock(node, options)) {
+        const parser = inferScriptParser(node, options);
+        if (!parser) {
+          return;
+        }
+
+        let doc;
+        try {
+          doc = textToDoc(
+            htmlTrimPreserveIndentation(getNodeContent(node, options)),
+            { parser }
+          );
+        } catch (_) {
+          return;
+        }
+
+        // `textToDoc` don't throw on `production` mode
+        if (!doc) {
+          return;
+        }
+
+        // See https://github.com/prettier/prettier/pull/8465#issuecomment-645273859
+        if (typeof doc === "string") {
+          doc = doc.replace(/(?:\r?\n)*$/, "");
+        }
+
+        return concat([
+          printOpeningTagPrefix(node, options),
+          group(printOpeningTag(path, options, print)),
+          concat([hardline, stripTrailingHardline(doc, true), hardline]),
+          printClosingTag(node, options),
+          printClosingTagSuffix(node, options),
+        ]);
+      }
+      break;
+    }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent);
@@ -69,11 +115,25 @@ function embed(path, print, textToDoc, options) {
             parser === "markdown"
               ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
               : node.value;
+          const textToDocOptions = { parser };
+          if (options.parser === "html" && parser === "babel") {
+            let sourceType = "script";
+            const { attrMap } = node.parent;
+            if (
+              attrMap &&
+              (attrMap.type === "module" ||
+                (attrMap.type === "text/babel" &&
+                  attrMap["data-type"] === "module"))
+            ) {
+              sourceType = "module";
+            }
+            textToDocOptions.__babelSourceType = sourceType;
+          }
           return builders.concat([
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(textToDoc(value, { parser })),
+              stripTrailingHardline(textToDoc(value, textToDocOptions)),
               printClosingTagSuffix(node, options),
             ]),
           ]);
@@ -154,23 +214,28 @@ function embed(path, print, textToDoc, options) {
       }
       break;
     }
-    case "yaml":
-      return markAsRoot(
-        concat([
-          "---",
-          hardline,
-          node.value.trim().length === 0
-            ? ""
-            : textToDoc(node.value, { parser: "yaml" }),
-          "---",
-        ])
-      );
+    case "front-matter":
+      if (node.lang === "yaml") {
+        return markAsRoot(
+          concat([
+            "---",
+            hardline,
+            node.value.trim().length === 0
+              ? ""
+              : textToDoc(node.value, { parser: "yaml" }),
+            "---",
+          ])
+        );
+      }
   }
 }
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
+
   switch (node.type) {
+    case "front-matter":
+      return concat(replaceEndOfLineWith(node.raw, literalline));
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -182,6 +247,17 @@ function genericPrint(path, options, print) {
       ]);
     case "element":
     case "ieConditionalComment": {
+      if (shouldPreserveContent(node, options)) {
+        return concat(
+          [].concat(
+            printOpeningTagPrefix(node, options),
+            group(printOpeningTag(path, options, print)),
+            replaceEndOfLineWith(getNodeContent(node, options), literalline),
+            printClosingTag(node, options),
+            printClosingTagSuffix(node, options)
+          )
+        );
+      }
       /**
        * do not break:
        *
@@ -225,7 +301,8 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId,
                         })
-                      : isScriptLikeTag(node) &&
+                      : (isScriptLikeTag(node) ||
+                          isVueCustomBlock(node, options)) &&
                         node.parent.type === "root" &&
                         options.parser === "vue" &&
                         !options.vueIndentScriptAndStyle
@@ -264,7 +341,7 @@ function genericPrint(path, options, print) {
                           node.isWhitespaceSensitive &&
                           node.isIndentationSensitive)) &&
                       new RegExp(
-                        `\\n\\s{${
+                        `\\n[\\t ]{${
                           options.tabWidth *
                           countParents(
                             path,
@@ -511,34 +588,6 @@ function printChildren(path, options, print) {
       );
     }
 
-    if (shouldPreserveContent(child, options)) {
-      return concat(
-        [].concat(
-          printOpeningTagPrefix(child, options),
-          group(printOpeningTag(childPath, options, print)),
-          replaceEndOfLineWith(
-            options.originalText.slice(
-              child.startSourceSpan.end.offset +
-                (child.firstChild &&
-                needsToBorrowParentOpeningTagEndMarker(child.firstChild)
-                  ? -printOpeningTagEndMarker(child).length
-                  : 0),
-              child.endSourceSpan.start.offset +
-                (child.lastChild &&
-                needsToBorrowParentClosingTagStartMarker(child.lastChild)
-                  ? printClosingTagStartMarker(child, options).length
-                  : needsToBorrowLastChildClosingTagEndMarker(child)
-                  ? -printClosingTagEndMarker(child.lastChild, options).length
-                  : 0)
-            ),
-            literalline
-          ),
-          printClosingTag(child, options),
-          printClosingTagSuffix(child, options)
-        )
-      );
-    }
-
     return print(childPath);
   }
 
@@ -603,6 +652,23 @@ function printChildren(path, options, print) {
       ? line
       : softline;
   }
+}
+
+function getNodeContent(node, options) {
+  return options.originalText.slice(
+    node.startSourceSpan.end.offset +
+      (node.firstChild &&
+      needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+        ? -printOpeningTagEndMarker(node).length
+        : 0),
+    node.endSourceSpan.start.offset +
+      (node.lastChild &&
+      needsToBorrowParentClosingTagStartMarker(node.lastChild)
+        ? printClosingTagStartMarker(node, options).length
+        : needsToBorrowLastChildClosingTagEndMarker(node)
+        ? -printClosingTagEndMarker(node.lastChild, options).length
+        : 0)
+  );
 }
 
 function printOpeningTag(path, options, print) {
@@ -775,6 +841,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    */
   return (
     node.prev &&
+    node.prev.type !== "docType" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -920,11 +987,10 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
       : replaceEndOfLineWith(
-          dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
+          dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : // https://infra.spec.whatwg.org/#ascii-whitespace
-      join(line, value.split(/[\t\n\f\r ]+/)).parts;
+    : join(line, splitByHtmlWhitespace(value)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

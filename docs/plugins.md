@@ -57,6 +57,8 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
 - [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) by [**@simonhaenisch**](https://github.com/simonhaenisch)
+- [`prettier-plugin-pkg`](https://github.com/rx-ts/prettier/tree/master/packages/pkg) by [**@JounQin**](https://github.com/JounQin)
+- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 
 ## Developing Plugins
 
@@ -182,7 +184,7 @@ function embed(
 ): Doc | null;
 ```
 
-If you don't want to switch to a different parser, simply return `null` or `undefined`.
+If an `embed` function is included, it will be called _first_ on every node. If the `embed` function returns a falsy value, the current plugin's `print` function is called. Otherwise, the `Doc` returned by the `embed` function is used. The `embed` function is passed `textToDoc` which can be called with a suitable `options` argument to obtain the `Doc` produced by a different plugin (which can then be directly returned or used inside a larger `Doc` construction). For example, to print embedded JavaScript, a plugin might return `textToDoc(javaScriptText, { parser: "babel" })` from the `embed` function.
 
 A plugin can implement how a pragma comment is inserted in the resulting code when the `--insert-pragma` option is used, in the `insertPragma` function. Its signature is:
 

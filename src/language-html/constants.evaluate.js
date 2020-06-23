@@ -35,6 +35,8 @@ const CSS_DISPLAY_TAGS = {
   // there's no css display for these elements but they behave these ways
   video: "inline-block",
   audio: "inline-block",
+  select: "inline-block",
+  optgroup: "inline-block",
 };
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");

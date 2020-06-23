@@ -5,6 +5,9 @@ const { getLast, skipEverythingButNewLine } = require("../common/util");
 
 function calculateLocStart(node, text) {
   if (node.source) {
+    if (typeof node.source.sourceIndex === "number") {
+      return node.source.sourceIndex; // value-* nodes have this
+    }
     return lineColumnToIndex(node.source.start, text) - 1;
   }
   return null;
@@ -25,26 +28,69 @@ function calculateLocEnd(node, text) {
 }
 
 function calculateLoc(node, text) {
-  if (node && typeof node === "object") {
-    if (node.source) {
-      node.source.startOffset = calculateLocStart(node, text);
-      node.source.endOffset = calculateLocEnd(node, text);
+  if (node.source) {
+    node.source.startOffset = calculateLocStart(node, text);
+    node.source.endOffset = calculateLocEnd(node, text);
+  }
+
+  for (const key in node) {
+    const child = node[key];
+
+    if (key === "source" || !child || typeof child !== "object") {
+      continue;
     }
 
-    for (const key in node) {
-      calculateLoc(node[key], text);
+    if (child.type === "value-root" || child.type === "value-unknown") {
+      calculateValueNodeLoc(
+        child,
+        getValueRootOffset(node),
+        child.text || child.value
+      );
+    } else {
+      calculateLoc(child, text);
     }
   }
 }
 
+function calculateValueNodeLoc(node, rootOffset, text) {
+  if (node.source) {
+    node.source.startOffset = calculateLocStart(node, text) + rootOffset;
+    node.source.endOffset = calculateLocEnd(node, text) + rootOffset;
+  }
+
+  for (const key in node) {
+    const child = node[key];
+
+    if (key === "source" || !child || typeof child !== "object") {
+      continue;
+    }
+
+    calculateValueNodeLoc(child, rootOffset, text);
+  }
+}
+
+function getValueRootOffset(node) {
+  return (
+    node.source.startOffset +
+    (typeof node.prop === "string" ? node.prop.length : 0) +
+    (node.type === "css-atrule" && typeof node.name === "string"
+      ? 1 + node.name.length + getLeadingWhitespaceLength(node.raws.afterName)
+      : 0) +
+    (node.type !== "css-atrule" &&
+    node.raws &&
+    typeof node.raws.between === "string"
+      ? node.raws.between.length
+      : 0)
+  );
+}
+
 /**
- * Workaround for a bug: quotes in inline comments corrupt loc data of subsequent nodes.
- * This function replaces the quotes with U+FFFE and U+FFFF. Later, when the comments are printed,
- * their content is extracted from the original text or restored by replacing the placeholder
- * characters back with quotes.
+ * Workaround for a bug: quotes and asterisks in inline comments corrupt loc data of subsequent nodes.
+ * This function replaces the quotes and asterisks with spaces. Later, when the comments are printed,
+ * their content is extracted from the original text.
  * - https://github.com/prettier/prettier/issues/7780
  * - https://github.com/shellscape/postcss-less/issues/145
- * - About noncharacters (U+FFFE and U+FFFF): http://www.unicode.org/faq/private_use.html#nonchar1
+ * - https://github.com/prettier/prettier/issues/8130
  * @param text {string}
  */
 function replaceQuotesInInlineComments(text) {
@@ -140,7 +186,7 @@ function replaceQuotesInInlineComments(text) {
         continue;
 
       case "comment-inline":
-        if (c === '"' || c === "'") {
+        if (c === '"' || c === "'" || c === "*") {
           inlineCommentContainsQuotes = true;
         }
         if (c === "\n" || c === "\r") {
@@ -157,19 +203,19 @@ function replaceQuotesInInlineComments(text) {
   for (const [start, end] of inlineCommentsToReplace) {
     text =
       text.slice(0, start) +
-      text.slice(start, end).replace(/'/g, "\ufffe").replace(/"/g, "\uffff") +
+      text.slice(start, end).replace(/["'*]/g, " ") +
       text.slice(end);
   }
 
   return text;
 }
 
-function restoreQuotesInInlineComments(text) {
-  return text.replace(/\ufffe/g, "'").replace(/\uffff/g, '"');
+function getLeadingWhitespaceLength(string) {
+  const m = string.match(/^\s*/);
+  return m ? m[0].length : 0;
 }
 
 module.exports = {
   calculateLoc,
   replaceQuotesInInlineComments,
-  restoreQuotesInInlineComments,
 };

@@ -6,12 +6,36 @@ const {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
+const { getParserName, isFrontMatterNode } = require("../common/util");
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
+
+// https://infra.spec.whatwg.org/#ascii-whitespace
+const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
+const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
+const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
+const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
+const htmlTrimLeadingBlankLines = (string) =>
+  string.replace(/^[\t\f\r ]*?\n/g, "");
+const htmlTrimPreserveIndentation = (string) =>
+  htmlTrimLeadingBlankLines(htmlTrimEnd(string));
+const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
+const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+const getLeadingAndTrailingHtmlWhitespace = (string) => {
+  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
+    /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
+  );
+  return {
+    leadingWhitespace,
+    trailingWhitespace,
+    text,
+  };
+};
+const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
 
 function arrayToMap(array) {
   const map = Object.create(null);
@@ -34,15 +58,6 @@ function shouldPreserveContent(node, options) {
     return false;
   }
 
-  if (
-    node.type === "element" &&
-    node.fullName === "template" &&
-    node.attrMap.lang &&
-    node.attrMap.lang !== "html"
-  ) {
-    return true;
-  }
-
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
@@ -60,29 +75,20 @@ function shouldPreserveContent(node, options) {
     return true;
   }
 
-  // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
-  // custom blocks can be written in other languages so we should preserve them to not break the code
-  if (
-    options.parser === "vue" &&
-    node.type === "element" &&
-    node.parent.type === "root" &&
-    ![
-      "template",
-      "style",
-      "script",
-      // vue parser can be used for vue dom template as well, so we should still format top-level <html>
-      "html",
-    ].includes(node.fullName)
-  ) {
-    return true;
-  }
-
   // TODO: handle non-text children in <pre>
   if (
     isPreLikeNode(node) &&
     node.children.some(
       (child) => child.type !== "text" && child.type !== "interpolation"
     )
+  ) {
+    return true;
+  }
+
+  if (
+    isVueNonHtmlBlock(node, options) &&
+    !isScriptLikeTag(node) &&
+    node.type !== "interpolation"
   ) {
     return true;
   }
@@ -141,10 +147,6 @@ function isScriptLikeTag(node) {
   );
 }
 
-function isFrontMatterNode(node) {
-  return node.type === "yaml" || node.type === "toml";
-}
-
 function canHaveInterpolation(node) {
   return node.children && !isScriptLikeTag(node);
 }
@@ -161,7 +163,7 @@ function isIndentationSensitiveNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-function isLeadingSpaceSensitiveNode(node) {
+function isLeadingSpaceSensitiveNode(node, options) {
   const isLeadingSpaceSensitive = _isLeadingSpaceSensitiveNode();
 
   if (
@@ -202,6 +204,7 @@ function isLeadingSpaceSensitiveNode(node) {
       (node.parent.type === "root" ||
         (isPreLikeNode(node) && node.parent) ||
         isScriptLikeTag(node.parent) ||
+        isVueCustomBlock(node.parent, options) ||
         !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
     ) {
       return false;
@@ -218,7 +221,7 @@ function isLeadingSpaceSensitiveNode(node) {
   }
 }
 
-function isTrailingSpaceSensitiveNode(node) {
+function isTrailingSpaceSensitiveNode(node, options) {
   if (isFrontMatterNode(node)) {
     return false;
   }
@@ -244,6 +247,7 @@ function isTrailingSpaceSensitiveNode(node) {
     (node.parent.type === "root" ||
       (isPreLikeNode(node) && node.parent) ||
       isScriptLikeTag(node.parent) ||
+      isVueCustomBlock(node.parent, options) ||
       !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
     return false;
@@ -361,59 +365,72 @@ function hasNonTextChild(node) {
   return node.children && node.children.some((child) => child.type !== "text");
 }
 
-function inferScriptParser(node) {
+function _inferScriptParser(node) {
+  const { type, lang } = node.attrMap;
+  if (
+    type === "module" ||
+    type === "text/javascript" ||
+    type === "text/babel" ||
+    type === "application/javascript" ||
+    lang === "jsx"
+  ) {
+    return "babel";
+  }
+
+  if (type === "application/x-typescript" || lang === "ts" || lang === "tsx") {
+    return "typescript";
+  }
+
+  if (type === "text/markdown") {
+    return "markdown";
+  }
+
+  if (type === "text/html") {
+    return "html";
+  }
+
+  if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
+    return "json";
+  }
+
+  if (type === "text/x-handlebars-template") {
+    return "glimmer";
+  }
+}
+
+function inferStyleParser(node) {
+  const { lang } = node.attrMap;
+  if (lang === "postcss" || lang === "css") {
+    return "css";
+  }
+
+  if (lang === "scss") {
+    return "scss";
+  }
+
+  if (lang === "less") {
+    return "less";
+  }
+}
+
+function inferScriptParser(node, options) {
   if (node.name === "script" && !node.attrMap.src) {
-    if (
-      (!node.attrMap.lang && !node.attrMap.type) ||
-      node.attrMap.type === "module" ||
-      node.attrMap.type === "text/javascript" ||
-      node.attrMap.type === "text/babel" ||
-      node.attrMap.type === "application/javascript" ||
-      node.attrMap.lang === "jsx"
-    ) {
+    if (!node.attrMap.lang && !node.attrMap.type) {
       return "babel";
     }
-
-    if (
-      node.attrMap.type === "application/x-typescript" ||
-      node.attrMap.lang === "ts" ||
-      node.attrMap.lang === "tsx"
-    ) {
-      return "typescript";
-    }
-
-    if (node.attrMap.type === "text/markdown") {
-      return "markdown";
-    }
-
-    if (
-      node.attrMap.type.endsWith("json") ||
-      node.attrMap.type.endsWith("importmap")
-    ) {
-      return "json";
-    }
-
-    if (node.attrMap.type === "text/x-handlebars-template") {
-      return "glimmer";
-    }
+    return _inferScriptParser(node);
   }
 
   if (node.name === "style") {
-    if (
-      !node.attrMap.lang ||
-      node.attrMap.lang === "postcss" ||
-      node.attrMap.lang === "css"
-    ) {
-      return "css";
-    }
+    return inferStyleParser(node) || "css";
+  }
 
-    if (node.attrMap.lang === "scss") {
-      return "scss";
-    }
-
-    if (node.attrMap.lang === "less") {
-      return "less";
-    }
+  if (options && isVueNonHtmlBlock(node, options)) {
+    return (
+      _inferScriptParser(node) ||
+      inferStyleParser(node) ||
+      getParserName(node.attrMap.lang, options)
+    );
   }
 
   return null;
@@ -504,7 +521,15 @@ function getNodeCssStyleDisplay(node, options) {
       return "inline";
     case "ignore":
       return "block";
-    default:
+    default: {
+      // See https://github.com/prettier/prettier/issues/8151
+      if (
+        options.parser === "vue" &&
+        node.parent &&
+        node.parent.type === "root"
+      ) {
+        return "block";
+      }
       return (
         (node.type === "element" &&
           (!node.namespace ||
@@ -513,6 +538,7 @@ function getNodeCssStyleDisplay(node, options) {
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
+    }
   }
 }
 
@@ -541,11 +567,11 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (/\S/.test(lineText[0])) {
+    if (!HTML_WHITESPACE.has(lineText[0])) {
       return 0;
     }
 
-    const indentation = lineText.match(/^\s*/)[0].length;
+    const indentation = getLeadingHtmlWhitespace(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -566,37 +592,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .split("\n")
         .map((lineText) => lineText.slice(minIndent))
         .join("\n");
-}
-
-function normalizeParts(parts) {
-  const newParts = [];
-
-  const restParts = parts.slice();
-  while (restParts.length !== 0) {
-    const part = restParts.shift();
-
-    if (!part) {
-      continue;
-    }
-
-    if (part.type === "concat") {
-      restParts.unshift(...part.parts);
-      continue;
-    }
-
-    if (
-      newParts.length !== 0 &&
-      typeof newParts[newParts.length - 1] === "string" &&
-      typeof part === "string"
-    ) {
-      newParts.push(newParts.pop() + part);
-      continue;
-    }
-
-    newParts.push(part);
-  }
-
-  return newParts;
 }
 
 function identity(x) {
@@ -625,9 +620,38 @@ function unescapeQuoteEntities(text) {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
 }
 
+// top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
+// See https://vue-loader.vuejs.org/spec.html for detail
+const vueRootElementsSet = new Set(["template", "style", "script"]);
+function isVueCustomBlock(node, options) {
+  return isVueSfcBlock(node, options) && !vueRootElementsSet.has(node.fullName);
+}
+
+function isVueSfcBlock(node, options) {
+  return (
+    options.parser === "vue" &&
+    node.type === "element" &&
+    node.parent.type === "root" &&
+    node.fullName.toLowerCase() !== "html"
+  );
+}
+
+function isVueNonHtmlBlock(node, options) {
+  return (
+    isVueSfcBlock(node, options) &&
+    (isVueCustomBlock(node, options) ||
+      (node.attrMap.lang && node.attrMap.lang !== "html"))
+  );
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
+  htmlTrim,
+  htmlTrimPreserveIndentation,
+  splitByHtmlWhitespace,
+  hasHtmlWhitespace,
+  getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   countChars,
   countParents,
@@ -642,8 +666,9 @@ module.exports = {
   hasPrettierIgnore,
   identity,
   inferScriptParser,
+  isVueCustomBlock,
+  isVueNonHtmlBlock,
   isDanglingSpaceSensitiveNode,
-  isFrontMatterNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
@@ -652,7 +677,6 @@ module.exports = {
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
   isUnknownNamespace,
-  normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
   shouldNotPrintClosingTag,
