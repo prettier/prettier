@@ -3764,6 +3764,195 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`tags2.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<noscript
+>noscript</noscript><details
+><summary>summary long long long long </summary>details</details><dialog open
+>dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
+><param name="autoplay" value="true"
+></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+
+
+=====================================output=====================================
+<noscript>noscript</noscript>
+<details>
+  <summary>summary long long long long</summary>
+  details
+</details>
+<dialog open>dialog</dialog>
+<object data="horse.wav">
+  <param name="autoplay" value="true" />
+  <param name="autoplay" value="true" />
+</object>
+
+<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>
+<progress value=".5" max="1"></progress>
+
+================================================================================
+`;
+
+exports[`tags2.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<noscript
+>noscript</noscript><details
+><summary>summary long long long long </summary>details</details><dialog open
+>dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
+><param name="autoplay" value="true"
+></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+
+
+=====================================output=====================================
+<noscript>noscript</noscript
+><details><summary>summary long long long long </summary>details</details
+><dialog open>dialog</dialog
+><object data="horse.wav"
+  ><param name="autoplay" value="true" /><param
+    name="autoplay"
+    value="true" /></object
+
+><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter
+><progress value=".5" max="1"></progress>
+
+================================================================================
+`;
+
+exports[`tags2.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+
+<noscript
+>noscript</noscript><details
+><summary>summary long long long long </summary>details</details><dialog open
+>dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
+><param name="autoplay" value="true"
+></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+
+
+=====================================output=====================================
+<noscript>noscript</noscript>
+<details>
+  <summary>summary long long long long</summary>
+  details
+</details>
+<dialog open>dialog</dialog>
+<object data="horse.wav">
+  <param name="autoplay" value="true" />
+  <param name="autoplay" value="true" /></object
+
+><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+
+================================================================================
+`;
+
+exports[`tags2.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+
+<noscript
+>noscript</noscript><details
+><summary>summary long long long long </summary>details</details><dialog open
+>dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
+><param name="autoplay" value="true"
+></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+
+
+=====================================output=====================================
+<noscript>
+  noscript
+</noscript>
+<details>
+  <summary>
+    summary
+    long
+    long
+    long
+    long
+  </summary>
+  details
+</details>
+<dialog
+  open
+>
+  dialog
+</dialog>
+<object
+  data="horse.wav"
+>
+  <param
+    name="autoplay"
+    value="true"
+  />
+  <param
+    name="autoplay"
+    value="true"
+  /></object
+
+><meter
+  min="0"
+  max="1"
+  low=".4"
+  high=".7"
+  optimum=".5"
+  value=".2"
+></meter
+><progress
+  value=".5"
+  max="1"
+></progress>
+
+================================================================================
+`;
+
+exports[`tags2.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<noscript
+>noscript</noscript><details
+><summary>summary long long long long </summary>details</details><dialog open
+>dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
+><param name="autoplay" value="true"
+></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+
+
+=====================================output=====================================
+<noscript>noscript</noscript>
+<details>
+  <summary>summary long long long long</summary>
+  details
+</details>
+<dialog open>dialog</dialog>
+<object data="horse.wav">
+  <param name="autoplay" value="true" />
+  <param name="autoplay" value="true" /></object
+
+><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter
+><progress value=".5" max="1"></progress>
+
+================================================================================
+`;
+
 exports[`textarea.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
