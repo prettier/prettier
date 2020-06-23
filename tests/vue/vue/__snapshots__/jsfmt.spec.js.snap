@@ -1914,9 +1914,7 @@ semi: false
     <template>
       <div></div>
     </template>
-    <div>
-      Do not go out, you'll got yourself cloned by bad bad people.
-    </div>
+    <div>Do not go out, you'll got yourself cloned by bad bad people.</div>
   </div>
 </template>
 
@@ -1947,9 +1945,7 @@ trailingComma: "none"
     <template>
       <div></div>
     </template>
-    <div>
-      Do not go out, you'll got yourself cloned by bad bad people.
-    </div>
+    <div>Do not go out, you'll got yourself cloned by bad bad people.</div>
   </div>
 </template>
 
@@ -1979,9 +1975,7 @@ printWidth: 80
     <template>
       <div></div>
     </template>
-    <div>
-      Do not go out, you'll got yourself cloned by bad bad people.
-    </div>
+    <div>Do not go out, you'll got yourself cloned by bad bad people.</div>
   </div>
 </template>
 
@@ -3127,9 +3121,7 @@ semi: false
         <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>
@@ -3193,9 +3185,7 @@ trailingComma: "none"
         <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>
@@ -3258,9 +3248,7 @@ printWidth: 80
         <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>

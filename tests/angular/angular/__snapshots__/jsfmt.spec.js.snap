@@ -4791,9 +4791,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -5323,17 +5321,11 @@ bindon-ngModel
 <hr />
 <h2 id="safe-navigation-operator">Safe navigation operator <i>?.</i></h2>
 
-<div>
-  The title is {{ title }}
-</div>
+<div>The title is {{ title }}</div>
 
-<div>
-  The current hero's name is {{ currentHero?.name }}
-</div>
+<div>The current hero's name is {{ currentHero?.name }}</div>
 
-<div>
-  The current hero's name is {{ currentHero.name }}
-</div>
+<div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
 The null hero's name is {{nullHero.name}}
@@ -5345,9 +5337,7 @@ See console log:
 <!--No hero, div not displayed, no error -->
 <div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
-<div>
-  The null hero's name is {{ nullHero && nullHero.name }}
-</div>
+<div>The null hero's name is {{ nullHero && nullHero.name }}</div>
 
 <div>
   <!-- No hero, no problem! -->
@@ -5362,9 +5352,7 @@ See console log:
 
 <div>
   <!--No hero, no text -->
-  <div *ngIf="hero">
-    The hero's name is {{ hero!.name }}
-  </div>
+  <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -5375,16 +5363,12 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    The hero's marker is {{ $any(hero).marker }}
-  </div>
+  <div>The hero's marker is {{ $any(hero).marker }}</div>
 </div>
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    Undeclared members is {{ $any(this).member }}
-  </div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6373,9 +6357,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -6995,17 +6977,11 @@ bindon-ngModel
   <i>?.</i>
 </h2>
 
-<div>
-  The title is {{ title }}
-</div>
+<div>The title is {{ title }}</div>
 
-<div>
-  The current hero's name is {{ currentHero?.name }}
-</div>
+<div>The current hero's name is {{ currentHero?.name }}</div>
 
-<div>
-  The current hero's name is {{ currentHero.name }}
-</div>
+<div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
 The null hero's name is {{nullHero.name}}
@@ -7017,9 +6993,7 @@ See console log:
 <!--No hero, div not displayed, no error -->
 <div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
-<div>
-  The null hero's name is {{ nullHero && nullHero.name }}
-</div>
+<div>The null hero's name is {{ nullHero && nullHero.name }}</div>
 
 <div>
   <!-- No hero, no problem! -->
@@ -7037,9 +7011,7 @@ See console log:
 
 <div>
   <!--No hero, no text -->
-  <div *ngIf="hero">
-    The hero's name is {{ hero!.name }}
-  </div>
+  <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -7054,16 +7026,12 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    The hero's marker is {{ $any(hero).marker }}
-  </div>
+  <div>The hero's marker is {{ $any(hero).marker }}</div>
 </div>
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    Undeclared members is {{ $any(this).member }}
-  </div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -11431,9 +11399,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -11963,17 +11929,11 @@ bindon-ngModel
 <hr />
 <h2 id="safe-navigation-operator">Safe navigation operator <i>?.</i></h2>
 
-<div>
-  The title is {{ title }}
-</div>
+<div>The title is {{ title }}</div>
 
-<div>
-  The current hero's name is {{ currentHero?.name }}
-</div>
+<div>The current hero's name is {{ currentHero?.name }}</div>
 
-<div>
-  The current hero's name is {{ currentHero.name }}
-</div>
+<div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
 The null hero's name is {{nullHero.name}}
@@ -11985,9 +11945,7 @@ See console log:
 <!--No hero, div not displayed, no error -->
 <div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
-<div>
-  The null hero's name is {{ nullHero && nullHero.name }}
-</div>
+<div>The null hero's name is {{ nullHero && nullHero.name }}</div>
 
 <div>
   <!-- No hero, no problem! -->
@@ -12002,9 +11960,7 @@ See console log:
 
 <div>
   <!--No hero, no text -->
-  <div *ngIf="hero">
-    The hero's name is {{ hero!.name }}
-  </div>
+  <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -12015,16 +11971,12 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    The hero's marker is {{ $any(hero).marker }}
-  </div>
+  <div>The hero's marker is {{ $any(hero).marker }}</div>
 </div>
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    Undeclared members is {{ $any(this).member }}
-  </div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -12973,9 +12925,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -13505,17 +13455,11 @@ bindon-ngModel
 <hr />
 <h2 id="safe-navigation-operator">Safe navigation operator <i>?.</i></h2>
 
-<div>
-  The title is {{ title }}
-</div>
+<div>The title is {{ title }}</div>
 
-<div>
-  The current hero's name is {{ currentHero?.name }}
-</div>
+<div>The current hero's name is {{ currentHero?.name }}</div>
 
-<div>
-  The current hero's name is {{ currentHero.name }}
-</div>
+<div>The current hero's name is {{ currentHero.name }}</div>
 
 <!--
 The null hero's name is {{nullHero.name}}
@@ -13527,9 +13471,7 @@ See console log:
 <!--No hero, div not displayed, no error -->
 <div *ngIf="nullHero">The null hero's name is {{ nullHero.name }}</div>
 
-<div>
-  The null hero's name is {{ nullHero && nullHero.name }}
-</div>
+<div>The null hero's name is {{ nullHero && nullHero.name }}</div>
 
 <div>
   <!-- No hero, no problem! -->
@@ -13544,9 +13486,7 @@ See console log:
 
 <div>
   <!--No hero, no text -->
-  <div *ngIf="hero">
-    The hero's name is {{ hero!.name }}
-  </div>
+  <div *ngIf="hero">The hero's name is {{ hero!.name }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -13557,16 +13497,12 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    The hero's marker is {{ $any(hero).marker }}
-  </div>
+  <div>The hero's marker is {{ $any(hero).marker }}</div>
 </div>
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>
-    Undeclared members is {{ $any(this).member }}
-  </div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
