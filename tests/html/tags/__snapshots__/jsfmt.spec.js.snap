@@ -3771,14 +3771,11 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 <noscript
 >noscript</noscript><details
 ><summary>summary long long long long </summary>details</details><dialog open
 >dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"
-></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
-
+><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
 
 =====================================output=====================================
 <noscript>noscript</noscript>
@@ -3791,7 +3788,6 @@ printWidth: 80
   <param name="autoplay" value="true" />
   <param name="autoplay" value="true" />
 </object>
-
 <meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>
 <progress value=".5" max="1"></progress>
 
@@ -3805,14 +3801,11 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 <noscript
 >noscript</noscript><details
 ><summary>summary long long long long </summary>details</details><dialog open
 >dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"
-></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
-
+><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
 
 =====================================output=====================================
 <noscript>noscript</noscript
@@ -3822,7 +3815,6 @@ printWidth: 80
   ><param name="autoplay" value="true" /><param
     name="autoplay"
     value="true" /></object
-
 ><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter
 ><progress value=".5" max="1"></progress>
 
@@ -3834,14 +3826,11 @@ exports[`tags2.html - {"printWidth":"Infinity"} format 1`] = `
 parsers: ["html"]
 printWidth: Infinity
 =====================================input======================================
-
 <noscript
 >noscript</noscript><details
 ><summary>summary long long long long </summary>details</details><dialog open
 >dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"
-></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
-
+><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
 
 =====================================output=====================================
 <noscript>noscript</noscript>
@@ -3853,7 +3842,6 @@ printWidth: Infinity
 <object data="horse.wav">
   <param name="autoplay" value="true" />
   <param name="autoplay" value="true" /></object
-
 ><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
 
 ================================================================================
@@ -3865,14 +3853,11 @@ parsers: ["html"]
 printWidth: 1
  | printWidth
 =====================================input======================================
-
 <noscript
 >noscript</noscript><details
 ><summary>summary long long long long </summary>details</details><dialog open
 >dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"
-></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
-
+><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
 
 =====================================output=====================================
 <noscript>
@@ -3904,7 +3889,6 @@ printWidth: 1
     name="autoplay"
     value="true"
   /></object
-
 ><meter
   min="0"
   max="1"
@@ -3927,14 +3911,11 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 <noscript
 >noscript</noscript><details
 ><summary>summary long long long long </summary>details</details><dialog open
 >dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"
-></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
-
+><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
 
 =====================================output=====================================
 <noscript>noscript</noscript>
@@ -3946,7 +3927,6 @@ printWidth: 80
 <object data="horse.wav">
   <param name="autoplay" value="true" />
   <param name="autoplay" value="true" /></object
-
 ><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter
 ><progress value=".5" max="1"></progress>
 
