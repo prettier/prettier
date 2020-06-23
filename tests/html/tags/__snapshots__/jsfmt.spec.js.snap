@@ -739,7 +739,7 @@ printWidth: 80
     <option>Dark Green</option>
   </optgroup>
 </select>
-<input list="colors" />
+<input list="colors">
 <datalist id="colors">
   <option>Blue</option>
   <option>Green</option>
@@ -767,7 +767,7 @@ printWidth: 80
     ><option>Dark Blue</option><option>Dark Green</option></optgroup
   ></select
 >
-<input list="colors" />
+<input list="colors">
 <datalist id="colors"><option>Blue</option><option>Green</option></datalist>
 
 ================================================================================
@@ -788,7 +788,7 @@ printWidth: Infinity
   ><option>Green</option
   ><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup>
 </select>
-<input list="colors" />
+<input list="colors">
 <datalist id="colors">
   <option>Blue</option>
   <option>Green</option>
@@ -827,7 +827,7 @@ printWidth: 1
 </select>
 <input
   list="colors"
-/>
+>
 <datalist
   id="colors"
 >
@@ -860,7 +860,7 @@ printWidth: 80
     <option>Dark Blue</option><option>Dark Green</option>
   </optgroup>
 </select>
-<input list="colors" />
+<input list="colors">
 <datalist id="colors">
   <option>Blue</option>
   <option>Green</option>
@@ -1072,8 +1072,8 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><br /></pre>
-<pre><hr /></pre>
+<pre><br></pre>
+<pre><hr></pre>
 
 ================================================================================
 `;
@@ -1281,8 +1281,8 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><br /></pre>
-<pre><hr /></pre>
+<pre><br></pre>
+<pre><hr></pre>
 
 ================================================================================
 `;
@@ -1480,8 +1480,8 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><br /></pre>
-<pre><hr /></pre>
+<pre><br></pre>
+<pre><hr></pre>
 
 ================================================================================
 `;
@@ -1714,10 +1714,10 @@ ___________________________
 <!-- #6028 -->
 <pre>
   <br
-/></pre>
+></pre>
 <pre>
   <hr
-/></pre>
+></pre>
 
 ================================================================================
 `;
@@ -1924,8 +1924,8 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><br /></pre>
-<pre><hr /></pre>
+<pre><br></pre>
+<pre><hr></pre>
 
 ================================================================================
 `;
@@ -2064,22 +2064,22 @@ printWidth: 80
 <span><input type="checkbox"/></span>
 
 =====================================output=====================================
-<br />
-<br />
-<br />
-<br />
-<br attribute-a />
+<br>
+<br>
+<br>
+<br>
+<br attribute-a>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
-/>
-<br attribute-a="value" />
-<br attribute-a="value" />
+>
+<br attribute-a="value">
+<br attribute-a="value">
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value"
-/>
+>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value"
-/>
+>
 <br
   attribute-a="value"
   attribute-b="value"
@@ -2087,7 +2087,7 @@ printWidth: 80
   attribute-d="value"
   attribute-e="value"
   attribute-f="value"
-/>
+>
 <div>string</div>
 <div>
   very very very very very very very very very very very very very very very
@@ -2134,8 +2134,8 @@ printWidth: 80
   very long string
 </div>
 <video width="320" height="240" controls>
-  <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" />
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
   Your browser does not support the video tag.
 </video>
 <div><div>string</div></div>
@@ -2191,11 +2191,11 @@ printWidth: 80
 </span>
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
-/>
+>
 123
 <div>
   123
-  <meta attr />
+  <meta attr>
   456
 </div>
 <p>
@@ -2204,11 +2204,11 @@ printWidth: 80
 </p>
 <p>
   x
-  <meta a />
+  <meta a>
 </p>
 <p>
   x
-  <meta />
+  <meta>
 </p>
 <span></span>
 
@@ -2217,25 +2217,25 @@ printWidth: 80
 ></label>
 |
 <span></span>
-<br />
+<br>
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
-<br />
-<br />
+<br>
+<br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)">
   Disabled Cancel
 </button>
-<br />
-<br />
+<br>
+<br>
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
-<br />
-<br />
+<br>
+<br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)">
   Disabled Cancel
 </button>
-<br />
-<br />
+<br>
+<br>
 <p>
   "
   <span [innerHTML]="title"></span>
@@ -2283,11 +2283,11 @@ printWidth: 80
 <div>Should not insert empty line before this div</div>
 
 <!-- self-closing -->
-<span><input type="checkbox" /></span>
+<span><input type="checkbox"></span>
 <span>
-  <span><input type="checkbox" /></span>
+  <span><input type="checkbox"></span>
 </span>
-<span><input type="checkbox" /></span>
+<span><input type="checkbox"></span>
 
 ================================================================================
 `;
@@ -2426,22 +2426,22 @@ printWidth: 80
 <span><input type="checkbox"/></span>
 
 =====================================output=====================================
-<br />
-<br />
-<br />
-<br />
-<br attribute-a />
+<br>
+<br>
+<br>
+<br>
+<br attribute-a>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
-/>
-<br attribute-a="value" />
-<br attribute-a="value" />
+>
+<br attribute-a="value">
+<br attribute-a="value">
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value"
-/>
+>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value"
-/>
+>
 <br
   attribute-a="value"
   attribute-b="value"
@@ -2449,7 +2449,7 @@ printWidth: 80
   attribute-d="value"
   attribute-e="value"
   attribute-f="value"
-/>
+>
 <div>string</div>
 <div
   >very very very very very very very very very very very very very very very
@@ -2491,8 +2491,8 @@ printWidth: 80
   very long string</div
 >
 <video width="320" height="240" controls>
-  <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" />
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
   Your browser does not support the video tag.
 </video>
 <div><div>string</div></div>
@@ -2536,11 +2536,11 @@ printWidth: 80
 <span>*<b>200</b></span>
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
-/>123
-<div>123<meta attr />456</div>
+>123
+<div>123<meta attr>456</div>
 <p>x<span a="b"></span></p>
-<p>x<meta a /></p>
-<p>x<meta /></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 <span></span>
 
 <label
@@ -2548,21 +2548,21 @@ printWidth: 80
 ></label>
 |
 <span></span>
-<br />
+<br>
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
-<br /><br />
+<br><br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)"
   >Disabled Cancel</button
 >
-<br /><br />
+<br><br>
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
-<br /><br />
+<br><br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)"
   >Disabled Cancel</button
 >
-<br /><br />
+<br><br>
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li
   >12345678901234567890123456789012345678901234567890123456789012345678901234567890</li
@@ -2602,11 +2602,11 @@ printWidth: 80
 ><div>Should not insert empty line before this div</div>
 
 <!-- self-closing -->
-<span><input type="checkbox" /> </span>
+<span><input type="checkbox"> </span>
 <span
-  ><span><input type="checkbox" /></span
+  ><span><input type="checkbox"></span
 ></span>
-<span><input type="checkbox" /></span>
+<span><input type="checkbox"></span>
 
 ================================================================================
 `;
@@ -2743,17 +2743,17 @@ printWidth: Infinity
 <span><input type="checkbox"/></span>
 
 =====================================output=====================================
-<br />
-<br />
-<br />
-<br />
-<br attribute-a />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute />
-<br attribute-a="value" />
-<br attribute-a="value" />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value" />
-<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value" />
-<br attribute-a="value" attribute-b="value" attribute-c="value" attribute-d="value" attribute-e="value" attribute-f="value" />
+<br>
+<br>
+<br>
+<br>
+<br attribute-a>
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute>
+<br attribute-a="value">
+<br attribute-a="value">
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value">
+<br very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value">
+<br attribute-a="value" attribute-b="value" attribute-c="value" attribute-d="value" attribute-e="value" attribute-f="value">
 <div>string</div>
 <div>very very very very very very very very very very very very very very very very long string</div>
 <div very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute>string</div>
@@ -2763,8 +2763,8 @@ printWidth: Infinity
 <div attribute="value" attributea="value" attributeb="value" attributec="value" attributed="value" attributef="value">string</div>
 <div attribute="value" attributea="value" attributeb="value" attributec="value" attributed="value" attributef="value">very very very very very very very very very very very very very very very very long string</div>
 <video width="320" height="240" controls>
-  <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" />
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
   Your browser does not support the video tag.
 </video>
 <div><div>string</div></div>
@@ -2815,24 +2815,24 @@ printWidth: Infinity
   789
 </ul>
 <span>*<b>200</b></span>
-<img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong" />123
-<div>123<meta attr />456</div>
+<img src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong">123
+<div>123<meta attr>456</div>
 <p>x<span a="b"></span></p>
-<p>x<meta a /></p>
-<p>x<meta /></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 <span></span>
 
 <label aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa></label> |
 <span></span>
-<br />
-<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button> <br /><br />
+<br>
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button> <br><br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)">Disabled Cancel</button>
-<br /><br />
-<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button> <br /><br />
+<br><br>
+<button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button> <br><br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)">Disabled Cancel</button>
-<br /><br />
+<br><br>
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>12345678901234567890123456789012345678901234567890123456789012345678901234567890</li>
 <div>
@@ -2869,11 +2869,11 @@ printWidth: Infinity
 <div>Should not insert empty line before this div</div>
 
 <!-- self-closing -->
-<span><input type="checkbox" /> </span>
+<span><input type="checkbox"> </span>
 <span
-  ><span><input type="checkbox" /></span
+  ><span><input type="checkbox"></span
 ></span>
-<span><input type="checkbox" /></span>
+<span><input type="checkbox"></span>
 
 ================================================================================
 `;
@@ -3011,28 +3011,28 @@ printWidth: 1
 <span><input type="checkbox"/></span>
 
 =====================================output=====================================
-<br />
-<br />
-<br />
-<br />
+<br>
+<br>
+<br>
+<br>
 <br
   attribute-a
-/>
+>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
-/>
+>
 <br
   attribute-a="value"
-/>
+>
 <br
   attribute-a="value"
-/>
+>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value"
-/>
+>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value"
-/>
+>
 <br
   attribute-a="value"
   attribute-b="value"
@@ -3040,7 +3040,7 @@ printWidth: 1
   attribute-d="value"
   attribute-e="value"
   attribute-f="value"
-/>
+>
 <div>
   string
 </div>
@@ -3146,11 +3146,11 @@ printWidth: 1
   <source
     src="movie.mp4"
     type="video/mp4"
-  />
+  >
   <source
     src="movie.ogg"
     type="video/ogg"
-  />
+  >
   Your
   browser
   does
@@ -3257,11 +3257,11 @@ printWidth: 1
 >
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
-/>123
+>123
 <div>
   123<meta
     attr
-  />456
+  >456
 </div>
 <p>
   x<span
@@ -3271,10 +3271,10 @@ printWidth: 1
 <p>
   x<meta
     a
-  />
+  >
 </p>
 <p>
-  x<meta />
+  x<meta>
 </p>
 <span></span>
 
@@ -3283,13 +3283,13 @@ printWidth: 1
 ></label>
 |
 <span></span>
-<br />
+<br>
 <button
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 >
   12345678901234567890
 </button>
-<br /><br />
+<br><br>
 
 <button
   bind-disabled="isUnchanged"
@@ -3298,13 +3298,13 @@ printWidth: 1
   Disabled
   Cancel
 </button>
-<br /><br />
+<br><br>
 <button
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 >
   12345678901234567890
 </button>
-<br /><br />
+<br><br>
 
 <button
   bind-disabled="isUnchanged"
@@ -3313,7 +3313,7 @@ printWidth: 1
   Disabled
   Cancel
 </button>
-<br /><br />
+<br><br>
 <p>
   "<span
     [innerHTML]="title"
@@ -3415,17 +3415,17 @@ printWidth: 1
 <span
   ><input
     type="checkbox"
-  />
+  >
 </span>
 <span
   ><span
     ><input
-      type="checkbox" /></span
+      type="checkbox"></span
 ></span>
 <span
   ><input
     type="checkbox"
-/></span>
+></span>
 
 ================================================================================
 `;
@@ -3563,22 +3563,22 @@ printWidth: 80
 <span><input type="checkbox"/></span>
 
 =====================================output=====================================
-<br />
-<br />
-<br />
-<br />
-<br attribute-a />
+<br>
+<br>
+<br>
+<br>
+<br attribute-a>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute
-/>
-<br attribute-a="value" />
-<br attribute-a="value" />
+>
+<br attribute-a="value">
+<br attribute-a="value">
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="value"
-/>
+>
 <br
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-attribute="very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-value"
-/>
+>
 <br
   attribute-a="value"
   attribute-b="value"
@@ -3586,7 +3586,7 @@ printWidth: 80
   attribute-d="value"
   attribute-e="value"
   attribute-f="value"
-/>
+>
 <div>string</div>
 <div>
   very very very very very very very very very very very very very very very
@@ -3633,8 +3633,8 @@ printWidth: 80
   very long string
 </div>
 <video width="320" height="240" controls>
-  <source src="movie.mp4" type="video/mp4" />
-  <source src="movie.ogg" type="video/ogg" />
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
   Your browser does not support the video tag.
 </video>
 <div><div>string</div></div>
@@ -3687,11 +3687,11 @@ printWidth: 80
 <span>*<b>200</b></span>
 <img
   src="longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
-/>123
-<div>123<meta attr />456</div>
+>123
+<div>123<meta attr>456</div>
 <p>x<span a="b"></span></p>
-<p>x<meta a /></p>
-<p>x<meta /></p>
+<p>x<meta a></p>
+<p>x<meta></p>
 <span></span>
 
 <label
@@ -3699,21 +3699,21 @@ printWidth: 80
 ></label>
 |
 <span></span>
-<br />
+<br>
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
-<br /><br />
+<br><br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)">
   Disabled Cancel
 </button>
-<br /><br />
+<br><br>
 <button xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>12345678901234567890</button>
-<br /><br />
+<br><br>
 
 <button bind-disabled="isUnchanged" on-click="onSave($event)">
   Disabled Cancel
 </button>
-<br /><br />
+<br><br>
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 <li>
   12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -3755,11 +3755,11 @@ printWidth: 80
 <div>Should not insert empty line before this div</div>
 
 <!-- self-closing -->
-<span><input type="checkbox" /> </span>
+<span><input type="checkbox"> </span>
 <span
-  ><span><input type="checkbox" /></span
+  ><span><input type="checkbox"></span
 ></span>
-<span><input type="checkbox" /></span>
+<span><input type="checkbox"></span>
 
 ================================================================================
 `;
