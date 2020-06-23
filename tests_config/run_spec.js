@@ -34,7 +34,6 @@ const unstableTests = new Map(
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/comments-closure-typecast/iife.js",
-    "markdown/footnoteDefinition/multiline.md",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     "html/multiparser-js/script-tag-escaping.html",

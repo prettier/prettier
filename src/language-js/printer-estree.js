@@ -1,6 +1,7 @@
 "use strict";
 
 const assert = require("assert");
+const flat = require("lodash/flatten");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
@@ -117,6 +118,7 @@ const {
     lineSuffixBoundary,
     addAlignmentToDoc,
     dedent,
+    breakParent,
   },
   utils: { willBreak, isLineNext, isEmpty, removeLines, normalizeParts },
   printer: { printDocToString },
@@ -368,8 +370,28 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
+  const comments = flat([
+    ...operatorOptions.testNodePropertyNames.map(
+      (propertyName) => node[propertyName].comments
+    ),
+    consequentNode.comments,
+    alternateNode.comments,
+  ]).filter(Boolean);
+  const shouldBreak = comments.some(
+    (comment) =>
+      handleComments.isBlockComment(comment) &&
+      hasNewlineInRange(
+        options.originalText,
+        options.locStart(comment),
+        options.locEnd(comment)
+      )
+  );
   const maybeGroup = (doc) =>
-    parent === firstNonConditionalParent ? group(doc) : doc;
+    parent === firstNonConditionalParent
+      ? group(doc, { shouldBreak })
+      : shouldBreak
+      ? concat([doc, breakParent])
+      : doc;
 
   // Break the closing paren to keep the chain right after it:
   // (a
