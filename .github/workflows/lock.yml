@@ -18,10 +18,3 @@ jobs:
           issue-lock-labels: "locked-due-to-inactivity"
           issue-lock-comment: ""
           issue-lock-reason: "resolved"
-          # pr-lock-inactive-days: '365'
-          # pr-exclude-created-before: ''
-          # pr-exclude-labels: ''
-          # pr-lock-labels: ''
-          # pr-lock-comment: ''
-          # pr-lock-reason: 'resolved'
-          # process-only: ''
