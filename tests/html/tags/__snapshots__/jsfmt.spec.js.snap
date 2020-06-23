@@ -784,9 +784,12 @@ printWidth: Infinity
 
 =====================================output=====================================
 <select>
-  <option>Blue</option
-  ><option>Green</option
-  ><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup>
+  <option>Blue</option>
+  <option>Green</option>
+  <optgroup label="Darker">
+    <option>Dark Blue</option>
+    <option>Dark Green</option>
+  </optgroup>
 </select>
 <input list="colors" />
 <datalist id="colors">
@@ -809,20 +812,23 @@ printWidth: 1
 
 =====================================output=====================================
 <select>
-  <option
-    >Blue</option
-  ><option
-    >Green</option
-  ><optgroup
+  <option>
+    Blue
+  </option>
+  <option>
+    Green
+  </option>
+  <optgroup
     label="Darker"
   >
-    <option
-      >Dark
-      Blue</option
-    ><option
-      >Dark
-      Green</option
-    >
+    <option>
+      Dark
+      Blue
+    </option>
+    <option>
+      Dark
+      Green
+    </option>
   </optgroup>
 </select>
 <input
@@ -831,12 +837,12 @@ printWidth: 1
 <datalist
   id="colors"
 >
-  <option
-    >Blue</option
-  >
-  <option
-    >Green</option
-  >
+  <option>
+    Blue
+  </option>
+  <option>
+    Green
+  </option>
 </datalist>
 
 ================================================================================
@@ -854,10 +860,11 @@ printWidth: 80
 
 =====================================output=====================================
 <select>
-  <option>Blue</option
-  ><option>Green</option
-  ><optgroup label="Darker">
-    <option>Dark Blue</option><option>Dark Green</option>
+  <option>Blue</option>
+  <option>Green</option>
+  <optgroup label="Darker">
+    <option>Dark Blue</option>
+    <option>Dark Green</option>
   </optgroup>
 </select>
 <input list="colors" />
