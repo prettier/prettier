@@ -20,7 +20,7 @@ const bundles = require("./config");
 
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const plugins = bundles
-  .filter((bundle) => bundle.type === "plugin")
+  .filter(({ type }) => type === "plugin")
   .map(({ input }) => path.join(PROJECT_ROOT, input));
 
 const EXTERNALS = [
