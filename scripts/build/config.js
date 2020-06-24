@@ -112,9 +112,9 @@ const coreBundles = [
     target: "universal",
   },
   {
-    input: "src/cli/index.js",
+    input: "src/prettier-prefer-local.js",
     type: "core",
-    output: "cli.js",
+    output: "bin-prettier.js",
     target: "node",
     externals: [
       path.resolve("src/index.js"),
