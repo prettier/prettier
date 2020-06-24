@@ -143,6 +143,10 @@ function embed(path, print, textToDoc, options) {
         ]);
       }
 
+      if (isHandlebars(path)) {
+        return printHandlebarsTemplateLiteral(path, print, textToDoc, options);
+      }
+
       const htmlParser = isHtml(path)
         ? "html"
         : isAngularComponentTemplate(path)
@@ -652,6 +656,63 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
       trailingWhitespace,
       "`",
     ])
+  );
+}
+
+/*
+ * ember-cli-htmlbars
+ * hbs`...`
+ * Handlebars comment block
+ */
+function isHandlebars(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  return (
+    hasLanguageComment(node, "hbs") ||
+    (parent &&
+      parent.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "Identifier" &&
+      parent.tag.name === "hbs")
+  );
+}
+
+function printHandlebarsTemplateLiteral(path, print, textToDoc, options) {
+  const node = path.getValue();
+
+  const text = node.quasis.map((quasi) => quasi.value.cooked).join("");
+
+  const expressionDocs = path.map(print, "expressions");
+
+  if (expressionDocs.length === 0 && text.trim().length === 0) {
+    return "``";
+  }
+
+  const contentDoc = textToDoc(text, { parser: "glimmer" });
+
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
+
+  const linebreak =
+    options.htmlWhitespaceSensitivity === "ignore"
+      ? hardline
+      : leadingWhitespace && trailingWhitespace
+      ? line
+      : null;
+
+  if (linebreak) {
+    return group(
+      concat([
+        "`",
+        indent(concat([linebreak, group(contentDoc)])),
+        linebreak,
+        "`",
+      ])
+    );
+  }
+
+  return group(
+    concat(["`", leadingWhitespace, group(contentDoc), trailingWhitespace, "`"])
   );
 }
 
