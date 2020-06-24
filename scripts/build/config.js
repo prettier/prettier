@@ -115,7 +115,14 @@ const coreBundles = [
     input: "bin-prettier.js",
     type: "core",
     target: "node",
+    replace: {
+      // `import-local`
+      "require(path.join(globalDir, 'package.json'))":
+        "eval('require')(path.join(globalDir, 'package.json'))",
+      "require(localFile)": "eval('require')(localFile)",
+    },
     externals: [
+      path.resolve("package.json"),
       path.resolve("src/index.js"),
       path.resolve("src/common/third-party.js"),
     ],
