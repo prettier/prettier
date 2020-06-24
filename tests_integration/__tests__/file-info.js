@@ -313,12 +313,12 @@ test("API getFileInfo with ignorePath", () => {
   return Promise.all([
     expect(prettier.getFileInfo(file)).resolves.toMatchObject({
       ignored: false,
-      inferredParser: "babylon",
+      inferredParser: "babel",
     }),
 
     expect(prettier.getFileInfo(file, { ignorePath })).resolves.toMatchObject({
       ignored: true,
-      inferredParser: "babylon",
+      inferredParser: "babel",
     }),
   ]);
 });
@@ -337,12 +337,12 @@ test("API getFileInfo with ignorePath containing relative paths", () => {
   return Promise.all([
     expect(prettier.getFileInfo(file)).resolves.toMatchObject({
       ignored: false,
-      inferredParser: "babylon",
+      inferredParser: "babel",
     }),
 
     expect(prettier.getFileInfo(file, { ignorePath })).resolves.toMatchObject({
       ignored: true,
-      inferredParser: "babylon",
+      inferredParser: "babel",
     }),
   ]);
 });
