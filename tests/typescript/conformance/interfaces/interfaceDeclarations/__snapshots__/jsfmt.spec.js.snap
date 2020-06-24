@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interfaceWithMultipleBaseTypes2.ts - typescript-verify 1`] = `
+exports[`interfaceWithMultipleBaseTypes2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface Base {
     x: {
         a?: string; b: string;
@@ -24,7 +29,8 @@ interface Derived2 extends Base, Base2 {
 interface Derived3 extends Base, Base2 {
     x: { a: string; b: string }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface Base {
   x: {
     a?: string;
@@ -51,4 +57,5 @@ interface Derived3 extends Base, Base2 {
   x: { a: string; b: string };
 }
 
+================================================================================
 `;

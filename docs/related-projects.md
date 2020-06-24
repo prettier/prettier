@@ -19,7 +19,7 @@ title: Related Projects
 
 ## stylelint Integrations
 
-- [`stylelint-prettier`](https://github.com/BPScott/stylelint-prettier) runs Prettier as a stylelint rule and reports differences as individual stylelint issues
+- [`stylelint-prettier`](https://github.com/prettier/stylelint-prettier) runs Prettier as a stylelint rule and reports differences as individual stylelint issues
 - [`stylelint-config-prettier`](https://github.com/prettier/stylelint-config-prettier) turns off all rules that are unnecessary or might conflict with Prettier.
 - [`prettier-stylelint`](https://github.com/hugomrdias/prettier-stylelint) passes `prettier` output to `stylelint --fix`
 
@@ -38,3 +38,4 @@ title: Related Projects
 - [`pretty-quick`](https://github.com/azz/pretty-quick) formats your changed files with Prettier
 - [`prettier-chrome`](https://github.com/u3u/prettier-chrome) an extension that can be formatted using Prettier in Chrome
 - [`prettylint`](https://github.com/ikatyang/prettylint) run Prettier as a linter
+- [`jest-runner-prettier`](https://github.com/keplersj/jest-runner-prettier) run Prettier as a Jest runner

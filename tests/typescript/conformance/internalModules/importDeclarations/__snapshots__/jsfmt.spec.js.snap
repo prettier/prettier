@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`circularImportAlias.ts - typescript-verify 1`] = `
+exports[`circularImportAlias.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // expected no error
 
 module B {
@@ -19,17 +24,18 @@ var c: { name: string };
 var c = new B.a.C();
 
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // expected no error
 
-namespace B {
+module B {
   export import a = A;
   export class D extends a.C {
     id: number;
   }
 }
 
-namespace A {
+module A {
   export class C {
     name: string;
   }
@@ -39,9 +45,15 @@ namespace A {
 var c: { name: string };
 var c = new B.a.C();
 
+================================================================================
 `;
 
-exports[`exportImportAlias.ts - typescript-verify 1`] = `
+exports[`exportImportAlias.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // expect no errors here
 
 module A {
@@ -109,22 +121,23 @@ var o: { name: string };
 var o = new M.D('Hello');
 
 var p: { x: number; y: number; }
-var p: M.D.Point;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var p: M.D.Point;
+=====================================output=====================================
 // expect no errors here
 
-namespace A {
+module A {
   export var x = "hello world";
   export class Point {
     constructor(public x: number, public y: number) {}
   }
-  export namespace B {
+  export module B {
     export interface Id {
       name: string;
     }
   }
 }
 
-namespace C {
+module C {
   export import a = A;
 }
 
@@ -133,19 +146,19 @@ var b: { x: number; y: number } = new C.a.Point(0, 0);
 var c: { name: string };
 var c: C.a.B.Id;
 
-namespace X {
+module X {
   export function Y() {
     return 42;
   }
 
-  export namespace Y {
+  export module Y {
     export class Point {
       constructor(public x: number, public y: number) {}
     }
   }
 }
 
-namespace Z {
+module Z {
   // 'y' should be a fundule here
   export import y = X.Y;
 }
@@ -153,12 +166,12 @@ namespace Z {
 var m: number = Z.y();
 var n: { x: number; y: number } = new Z.y.Point(0, 0);
 
-namespace K {
+module K {
   export class L {
     constructor(public name: string) {}
   }
 
-  export namespace L {
+  export module L {
     export var y = 12;
     export interface Point {
       x: number;
@@ -167,7 +180,7 @@ namespace K {
   }
 }
 
-namespace M {
+module M {
   export import D = K.L;
 }
 
@@ -177,15 +190,28 @@ var o = new M.D("Hello");
 var p: { x: number; y: number };
 var p: M.D.Point;
 
+================================================================================
 `;
 
-exports[`exportInterface.ts - typescript-verify 1`] = `
-export interface I {}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`exportInterface.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export interface I {}
+=====================================output=====================================
 export interface I {}
 
+================================================================================
 `;
 
-exports[`importAliasIdentifiers.ts - typescript-verify 1`] = `
+exports[`importAliasIdentifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 module moduleA {
     export class Point {
         constructor(public x: number, public y: number) { }
@@ -231,8 +257,9 @@ import funlias = fundule;
 
 var p: funlias.Point;
 var p: fundule.Point;
-var p: { x: number; y: number; };~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-namespace moduleA {
+var p: { x: number; y: number; };
+=====================================output=====================================
+module moduleA {
   export class Point {
     constructor(public x: number, public y: number) {}
   }
@@ -248,7 +275,7 @@ class clodule {
   name: string;
 }
 
-namespace clodule {
+module clodule {
   export interface Point {
     x: number;
     y: number;
@@ -266,7 +293,7 @@ function fundule() {
   return { x: 0, y: 0 };
 }
 
-namespace fundule {
+module fundule {
   export interface Point {
     x: number;
     y: number;
@@ -280,9 +307,15 @@ var p: funlias.Point;
 var p: fundule.Point;
 var p: { x: number; y: number };
 
+================================================================================
 `;
 
-exports[`invalidImportAliasIdentifiers.ts - typescript-verify 1`] = `
+exports[`invalidImportAliasIdentifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // none of these should work, since non are actually modules
 
 var V = 12;
@@ -306,7 +339,8 @@ interface I {
 }
 
 import i = I;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // none of these should work, since non are actually modules
 
 var V = 12;
@@ -321,7 +355,7 @@ import c = C;
 
 enum E {
   Red,
-  Blue
+  Blue,
 }
 
 import e = E;
@@ -332,9 +366,15 @@ interface I {
 
 import i = I;
 
+================================================================================
 `;
 
-exports[`shadowedInternalModule.ts - typescript-verify 1`] = `
+exports[`shadowedInternalModule.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // all errors imported modules conflict with local variables
 
 module A {
@@ -367,10 +407,11 @@ module Z {
     import Y = X.Y;
 
     var Y = 12;
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 // all errors imported modules conflict with local variables
 
-namespace A {
+module A {
   export var Point = { x: 0, y: 0 };
   export interface Point {
     x: number;
@@ -378,13 +419,13 @@ namespace A {
   }
 }
 
-namespace B {
+module B {
   var A = { x: 0, y: 0 };
   import Point = A;
 }
 
-namespace X {
-  export namespace Y {
+module X {
+  export module Y {
     export interface Point {
       x: number;
       y: number;
@@ -396,10 +437,11 @@ namespace X {
   }
 }
 
-namespace Z {
+module Z {
   import Y = X.Y;
 
   var Y = 12;
 }
 
+================================================================================
 `;

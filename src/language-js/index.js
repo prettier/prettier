@@ -6,86 +6,73 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/javascript"), {
-    override: {
-      since: "0.0.0",
-      parsers: ["babylon", "flow"],
-      vscodeLanguageIds: ["javascript"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/javascript"), {
-    override: {
-      name: "Flow",
-      since: "0.0.0",
-      parsers: ["babylon", "flow"],
-      vscodeLanguageIds: ["javascript"],
-
-      aliases: [],
-      filenames: [],
-      extensions: [".js.flow"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/jsx"), {
-    override: {
-      since: "0.0.0",
-      parsers: ["babylon", "flow"],
-      vscodeLanguageIds: ["javascriptreact"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/typescript"), {
-    override: {
-      since: "1.4.0",
-      parsers: ["typescript"],
-      vscodeLanguageIds: ["typescript", "typescriptreact"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/json"), {
-    override: {
-      name: "JSON.stringify",
-      since: "1.13.0",
-      parsers: ["json-stringify"],
-      vscodeLanguageIds: ["json"],
-
-      extensions: [], // .json file defaults to json instead of json-stringify
-      filenames: ["package.json", "package-lock.json", "composer.json"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/json"), {
-    override: {
+  createLanguage(require("linguist-languages/data/JavaScript"), (data) => ({
+    since: "0.0.0",
+    parsers: ["babel", "flow"],
+    vscodeLanguageIds: ["javascript", "mongo"],
+    interpreters: data.interpreters.concat(["nodejs"]),
+  })),
+  createLanguage(require("linguist-languages/data/JavaScript"), () => ({
+    name: "Flow",
+    since: "0.0.0",
+    parsers: ["babel", "flow"],
+    vscodeLanguageIds: ["javascript"],
+    aliases: [],
+    filenames: [],
+    extensions: [".js.flow"],
+  })),
+  createLanguage(require("linguist-languages/data/JSX"), () => ({
+    since: "0.0.0",
+    parsers: ["babel", "flow"],
+    vscodeLanguageIds: ["javascriptreact"],
+  })),
+  createLanguage(require("linguist-languages/data/TypeScript"), () => ({
+    since: "1.4.0",
+    parsers: ["typescript", "babel-ts"],
+    vscodeLanguageIds: ["typescript"],
+  })),
+  createLanguage(require("linguist-languages/data/TSX"), () => ({
+    since: "1.4.0",
+    parsers: ["typescript", "babel-ts"],
+    vscodeLanguageIds: ["typescriptreact"],
+  })),
+  createLanguage(require("linguist-languages/data/JSON"), () => ({
+    name: "JSON.stringify",
+    since: "1.13.0",
+    parsers: ["json-stringify"],
+    vscodeLanguageIds: ["json"],
+    extensions: [], // .json file defaults to json instead of json-stringify
+    filenames: ["package.json", "package-lock.json", "composer.json"],
+  })),
+  createLanguage(require("linguist-languages/data/JSON"), (data) => ({
+    since: "1.5.0",
+    parsers: ["json"],
+    vscodeLanguageIds: ["json"],
+    filenames: data.filenames.concat([".prettierrc"]),
+  })),
+  createLanguage(
+    require("linguist-languages/data/JSON with Comments"),
+    (data) => ({
       since: "1.5.0",
       parsers: ["json"],
-      vscodeLanguageIds: ["json"]
-    },
-    extend: {
-      filenames: [".prettierrc"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/json-with-comments"), {
-    override: {
-      since: "1.5.0",
-      parsers: ["json"],
-      vscodeLanguageIds: ["jsonc"]
-    },
-    extend: {
-      filenames: [".eslintrc"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/json5"), {
-    override: {
-      since: "1.13.0",
-      parsers: ["json5"],
-      vscodeLanguageIds: ["json5"]
-    }
-  })
+      vscodeLanguageIds: ["jsonc"],
+      filenames: data.filenames.concat([".eslintrc"]),
+    })
+  ),
+  createLanguage(require("linguist-languages/data/JSON5"), () => ({
+    since: "1.13.0",
+    parsers: ["json5"],
+    vscodeLanguageIds: ["json5"],
+  })),
 ];
 
 const printers = {
   estree: estreePrinter,
-  "estree-json": estreeJsonPrinter
+  "estree-json": estreeJsonPrinter,
 };
 
 module.exports = {
   languages,
   options,
-  printers
+  printers,
 };

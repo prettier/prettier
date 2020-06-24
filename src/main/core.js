@@ -7,24 +7,25 @@ const massageAST = require("./massage-ast");
 const comments = require("./comments");
 const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
+const {
+  guessEndOfLine,
+  convertEndOfLineToChars,
+} = require("../common/end-of-line");
 const rangeUtil = require("./range-util");
 const privateUtil = require("../common/util");
 const {
   printer: { printDocToString },
-  debug: { printDocToDebug }
-} = require("../doc");
+  debug: { printDocToDebug },
+} = require("../document");
 
-const UTF8BOM = 0xfeff;
+const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
-
-function guessLineEnding(text) {
-  const index = text.indexOf("\n");
-  if (index >= 0 && text.charAt(index - 1) === "\r") {
-    return "\r\n";
-  }
-  return "\n";
-}
+const PLACEHOLDERS = {
+  cursorOffset: "<<<PRETTIER_CURSOR>>>",
+  rangeStart: "<<<PRETTIER_RANGE_START>>>",
+  rangeEnd: "<<<PRETTIER_RANGE_END>>>",
+};
 
 function ensureAllCommentsPrinted(astComments) {
   if (!astComments) {
@@ -32,14 +33,14 @@ function ensureAllCommentsPrinted(astComments) {
   }
 
   for (let i = 0; i < astComments.length; ++i) {
-    if (astComments[i].value.trim() === "prettier-ignore") {
+    if (privateUtil.isNodeIgnoreComment(astComments[i])) {
       // If there's a prettier-ignore, we're not printing that sub-tree so we
       // don't know if the comments was printed or not.
       return;
     }
   }
 
-  astComments.forEach(comment => {
+  astComments.forEach((comment) => {
     if (!comment.printed) {
       throw new Error(
         'Comment "' +
@@ -58,7 +59,7 @@ function attachComments(text, ast, opts) {
     comments.attach(astComments, ast, text, opts);
   }
   ast.tokens = [];
-  opts.originalText = opts.parser === "yaml" ? text : text.trimRight();
+  opts.originalText = opts.parser === "yaml" ? text : text.trimEnd();
   return astComments;
 }
 
@@ -70,9 +71,7 @@ function coreFormat(text, opts, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
   const parsed = parser.parse(text, opts);
-  const ast = parsed.ast;
-
-  const originalText = text;
+  const { ast } = parsed;
   text = parsed.text;
 
   if (opts.cursorOffset >= 0) {
@@ -84,7 +83,6 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
-  opts.newLine = guessLineEnding(originalText);
 
   const result = printDocToString(doc, opts);
 
@@ -97,7 +95,7 @@ function coreFormat(text, opts, addAlignmentSize) {
       result.cursorNodeStart -= result.formatted.indexOf(trimmed);
     }
 
-    result.formatted = trimmed + opts.newLine;
+    result.formatted = trimmed + convertEndOfLineToChars(opts.endOfLine);
   }
 
   if (opts.cursorOffset >= 0) {
@@ -134,7 +132,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     if (oldCursorNodeText === newCursorNodeText) {
       return {
         formatted: result.formatted,
-        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode
+        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
       };
     }
 
@@ -158,7 +156,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     let cursorOffset = newCursorNodeStart;
     for (const entry of cursorNodeDiff) {
       if (entry.removed) {
-        if (entry.value.indexOf(CURSOR) > -1) {
+        if (entry.value.includes(CURSOR)) {
           break;
         }
       } else {
@@ -174,12 +172,10 @@ function coreFormat(text, opts, addAlignmentSize) {
 
 function formatRange(text, opts) {
   const parsed = parser.parse(text, opts);
-  const ast = parsed.ast;
+  const { ast } = parsed;
   text = parsed.text;
 
-  const range = rangeUtil.calculateRange(text, opts, ast);
-  const rangeStart = range.rangeStart;
-  const rangeEnd = range.rangeEnd;
+  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
@@ -189,7 +185,7 @@ function formatRange(text, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1
   );
-  const indentString = text.slice(rangeStart2, rangeStart);
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
   const alignmentSize = privateUtil.getAlignmentSize(
     indentString,
@@ -198,26 +194,26 @@ function formatRange(text, opts) {
 
   const rangeResult = coreFormat(
     rangeString,
-    Object.assign({}, opts, {
+    {
+      ...opts,
       rangeStart: 0,
       rangeEnd: Infinity,
-      printWidth: opts.printWidth - alignmentSize,
       // track the cursor offset only if it's within our range
       cursorOffset:
         opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
           ? opts.cursorOffset - rangeStart
-          : -1
-    }),
+          : -1,
+    },
     alignmentSize
   );
 
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
-  const rangeTrimmed = rangeResult.formatted.trimRight();
-  const formatted =
-    text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
+  const rangeTrimmed = rangeResult.formatted.trimEnd();
+  const rangeLeft = text.slice(0, rangeStart);
+  const rangeRight = text.slice(rangeEnd);
 
-  let cursorOffset = opts.cursorOffset;
+  let { cursorOffset } = opts;
   if (opts.cursorOffset >= rangeEnd) {
     // handle the case where the cursor was past the end of the range
     cursorOffset =
@@ -227,6 +223,44 @@ function formatRange(text, opts) {
     cursorOffset = rangeResult.cursorOffset + rangeStart;
   }
   // keep the cursor as it was if it was before the start of the range
+
+  let formatted;
+  if (opts.endOfLine === "lf") {
+    formatted = rangeLeft + rangeTrimmed + rangeRight;
+  } else {
+    const eol = convertEndOfLineToChars(opts.endOfLine);
+    if (cursorOffset >= 0) {
+      const parts = [rangeLeft, rangeTrimmed, rangeRight];
+      let partIndex = 0;
+      let partOffset = cursorOffset;
+      while (partIndex < parts.length) {
+        const part = parts[partIndex];
+        if (partOffset < part.length) {
+          parts[partIndex] =
+            parts[partIndex].slice(0, partOffset) +
+            PLACEHOLDERS.cursorOffset +
+            parts[partIndex].slice(partOffset);
+          break;
+        }
+        partIndex++;
+        partOffset -= part.length;
+      }
+      const [newRangeLeft, newRangeTrimmed, newRangeRight] = parts;
+      formatted = (
+        newRangeLeft.replace(/\n/g, eol) +
+        newRangeTrimmed +
+        newRangeRight.replace(/\n/g, eol)
+      ).replace(PLACEHOLDERS.cursorOffset, (_, index) => {
+        cursorOffset = index;
+        return "";
+      });
+    } else {
+      formatted =
+        rangeLeft.replace(/\n/g, eol) +
+        rangeTrimmed +
+        rangeRight.replace(/\n/g, eol);
+    }
+  }
 
   return { formatted, cursorOffset };
 }
@@ -238,23 +272,83 @@ function format(text, opts) {
     return { formatted: text };
   }
 
-  if (opts.rangeStart > 0 || opts.rangeEnd < text.length) {
-    return formatRange(text, opts);
+  if (opts.endOfLine === "auto") {
+    opts.endOfLine = guessEndOfLine(text);
   }
 
-  const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
+  const hasCursor = opts.cursorOffset >= 0;
+  const hasRangeStart = opts.rangeStart > 0;
+  const hasRangeEnd = opts.rangeEnd < text.length;
+
+  // get rid of CR/CRLF parsing
+  if (text.includes("\r")) {
+    const offsetKeys = [
+      hasCursor && "cursorOffset",
+      hasRangeStart && "rangeStart",
+      hasRangeEnd && "rangeEnd",
+    ]
+      .filter(Boolean)
+      .sort((aKey, bKey) => opts[aKey] - opts[bKey]);
+
+    for (let i = offsetKeys.length - 1; i >= 0; i--) {
+      const key = offsetKeys[i];
+      text =
+        text.slice(0, opts[key]) + PLACEHOLDERS[key] + text.slice(opts[key]);
+    }
+
+    text = text.replace(/\r\n?/g, "\n");
+
+    for (let i = 0; i < offsetKeys.length; i++) {
+      const key = offsetKeys[i];
+      text = text.replace(PLACEHOLDERS[key], (_, index) => {
+        opts[key] = index;
+        return "";
+      });
+    }
+  }
+
+  const hasUnicodeBOM = text.charAt(0) === BOM;
   if (hasUnicodeBOM) {
-    text = text.substring(1);
+    text = text.slice(1);
+    if (hasCursor) {
+      opts.cursorOffset++;
+    }
+    if (hasRangeStart) {
+      opts.rangeStart++;
+    }
+    if (hasRangeEnd) {
+      opts.rangeEnd++;
+    }
   }
 
-  if (opts.insertPragma && opts.printer.insertPragma && !hasPragma) {
-    text = opts.printer.insertPragma(text);
+  if (!hasCursor) {
+    opts.cursorOffset = -1;
+  }
+  if (opts.rangeStart < 0) {
+    opts.rangeStart = 0;
+  }
+  if (opts.rangeEnd > text.length) {
+    opts.rangeEnd = text.length;
   }
 
-  const result = coreFormat(text, opts);
+  const result =
+    hasRangeStart || hasRangeEnd
+      ? formatRange(text, opts)
+      : coreFormat(
+          opts.insertPragma && opts.printer.insertPragma && !hasPragma
+            ? opts.printer.insertPragma(text)
+            : text,
+          opts
+        );
+
   if (hasUnicodeBOM) {
-    result.formatted = String.fromCharCode(UTF8BOM) + result.formatted;
+    result.formatted = BOM + result.formatted;
+
+    if (hasCursor) {
+      result.cursorOffset++;
+    }
   }
+
   return result;
 }
 
@@ -266,6 +360,9 @@ module.exports = {
 
   parse(text, opts, massage) {
     opts = normalizeOptions(opts);
+    if (text.includes("\r")) {
+      text = text.replace(/\r\n?/g, "\n");
+    }
     const parsed = parser.parse(text, opts);
     if (massage) {
       parsed.ast = massageAST(parsed.ast, opts);
@@ -282,14 +379,14 @@ module.exports = {
   // Doesn't handle shebang for now
   formatDoc(doc, opts) {
     const debug = printDocToDebug(doc);
-    opts = normalizeOptions(Object.assign({}, opts, { parser: "babylon" }));
+    opts = normalizeOptions({ ...opts, parser: "babel" });
     return format(debug, opts).formatted;
   },
 
   printToDoc(text, opts) {
     opts = normalizeOptions(opts);
     const parsed = parser.parse(text, opts);
-    const ast = parsed.ast;
+    const { ast } = parsed;
     text = parsed.text;
     attachComments(text, ast, opts);
     return printAstToDoc(ast, opts);
@@ -297,5 +394,5 @@ module.exports = {
 
   printDocToString(doc, opts) {
     return printDocToString(doc, normalizeOptions(opts));
-  }
+  },
 };

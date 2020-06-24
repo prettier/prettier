@@ -1,6 +1,16 @@
--   id: prettier
-    name: prettier
-    entry: prettier --write
-    language: node
-    # From https://github.com/prettier/prettier/blob/7a7eb170/docs/index.md
-    files: \.(css|less|scss|html|ts|tsx|graphql|gql|json|js|jsx|md)$
+- id: prettier
+  name: prettier
+  entry: prettier --write --list-different
+  language: node
+  files: "\\.(\
+    css|less|scss\
+    |graphql|gql\
+    |html\
+    |js|jsx\
+    |json\
+    |md|markdown|mdown|mkdn\
+    |mdx\
+    |ts|tsx\
+    |vue\
+    |yaml|yml\
+    )$"

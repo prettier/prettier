@@ -3,31 +3,23 @@
 exports[`schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "allOf": Array [
-    Object {
-      "$ref": "#/definitions/optionsDefinition",
-    },
-    Object {
-      "$ref": "#/definitions/overridesDefinition",
-    },
-  ],
   "definitions": Object {
     "optionsDefinition": Object {
       "properties": Object {
         "arrowParens": Object {
-          "default": "avoid",
+          "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",
           "oneOf": Array [
-            Object {
-              "description": "Omit parens when possible. Example: \`x => x\`",
-              "enum": Array [
-                "avoid",
-              ],
-            },
             Object {
               "description": "Always include parens. Example: \`(x) => x\`",
               "enum": Array [
                 "always",
+              ],
+            },
+            Object {
+              "description": "Omit parens when possible. Example: \`x => x\`",
+              "enum": Array [
+                "avoid",
               ],
             },
           ],
@@ -43,10 +35,83 @@ Object {
 This option cannot be used with --range-start and --range-end.",
           "type": "integer",
         },
+        "embeddedLanguageFormatting": Object {
+          "default": "auto",
+          "description": "Control how Prettier formats quoted code embedded in the file.",
+          "oneOf": Array [
+            Object {
+              "description": "Format embedded code if Prettier can automatically identify it.",
+              "enum": Array [
+                "auto",
+              ],
+            },
+            Object {
+              "description": "Never automatically format embedded code.",
+              "enum": Array [
+                "off",
+              ],
+            },
+          ],
+        },
+        "endOfLine": Object {
+          "default": "lf",
+          "description": "Which end of line characters to apply.",
+          "oneOf": Array [
+            Object {
+              "description": "Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos",
+              "enum": Array [
+                "lf",
+              ],
+            },
+            Object {
+              "description": "Carriage Return + Line Feed characters (\\\\r\\\\n), common on Windows",
+              "enum": Array [
+                "crlf",
+              ],
+            },
+            Object {
+              "description": "Carriage Return character only (\\\\r), used very rarely",
+              "enum": Array [
+                "cr",
+              ],
+            },
+            Object {
+              "description": "Maintain existing
+(mixed values within one file are normalised by looking at what's used after the first line)",
+              "enum": Array [
+                "auto",
+              ],
+            },
+          ],
+        },
         "filepath": Object {
           "default": undefined,
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
+        },
+        "htmlWhitespaceSensitivity": Object {
+          "default": "css",
+          "description": "How to handle whitespaces in HTML.",
+          "oneOf": Array [
+            Object {
+              "description": "Respect the default value of CSS display property.",
+              "enum": Array [
+                "css",
+              ],
+            },
+            Object {
+              "description": "Whitespaces are considered sensitive.",
+              "enum": Array [
+                "strict",
+              ],
+            },
+            Object {
+              "description": "Whitespaces are considered insensitive.",
+              "enum": Array [
+                "ignore",
+              ],
+            },
+          ],
         },
         "insertPragma": Object {
           "default": false,
@@ -56,6 +121,11 @@ This option cannot be used with --range-start and --range-end.",
         "jsxBracketSameLine": Object {
           "default": false,
           "description": "Put > on the last line instead of at a new line.",
+          "type": "boolean",
+        },
+        "jsxSingleQuote": Object {
+          "default": false,
+          "description": "Use single quotes in JSX.",
           "type": "boolean",
         },
         "parser": Object {
@@ -71,7 +141,19 @@ This option cannot be used with --range-start and --range-end.",
             Object {
               "description": "JavaScript",
               "enum": Array [
-                "babylon",
+                "babel",
+              ],
+            },
+            Object {
+              "description": "Flow",
+              "enum": Array [
+                "babel-flow",
+              ],
+            },
+            Object {
+              "description": "TypeScript",
+              "enum": Array [
+                "babel-ts",
               ],
             },
             Object {
@@ -152,6 +234,18 @@ This option cannot be used with --range-start and --range-end.",
                 "html",
               ],
             },
+            Object {
+              "description": "Angular",
+              "enum": Array [
+                "angular",
+              ],
+            },
+            Object {
+              "description": "Lightning Web Components",
+              "enum": Array [
+                "lwc",
+              ],
+            },
           ],
         },
         "pluginSearchDirs": Object {
@@ -201,6 +295,30 @@ Multiple values are accepted.",
             },
           ],
         },
+        "quoteProps": Object {
+          "default": "as-needed",
+          "description": "Change when properties in objects are quoted.",
+          "oneOf": Array [
+            Object {
+              "description": "Only add quotes around object properties where required.",
+              "enum": Array [
+                "as-needed",
+              ],
+            },
+            Object {
+              "description": "If at least one property in an object requires quotes, quote all properties.",
+              "enum": Array [
+                "consistent",
+              ],
+            },
+            Object {
+              "description": "Respect the input use of quotes in object properties.",
+              "enum": Array [
+                "preserve",
+              ],
+            },
+          ],
+        },
         "rangeEnd": Object {
           "default": Infinity,
           "description": "Format code ending at a given character offset (exclusive).
@@ -237,19 +355,19 @@ in order for it to be formatted.",
           "type": "integer",
         },
         "trailingComma": Object {
-          "default": "none",
+          "default": "es5",
           "description": "Print trailing commas wherever possible when multi-line.",
           "oneOf": Array [
-            Object {
-              "description": "No trailing commas.",
-              "enum": Array [
-                "none",
-              ],
-            },
             Object {
               "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
               "enum": Array [
                 "es5",
+              ],
+            },
+            Object {
+              "description": "No trailing commas.",
+              "enum": Array [
+                "none",
               ],
             },
             Object {
@@ -263,6 +381,11 @@ in order for it to be formatted.",
         "useTabs": Object {
           "default": false,
           "description": "Indent with tabs instead of spaces.",
+          "type": "boolean",
+        },
+        "vueIndentScriptAndStyle": Object {
+          "default": false,
+          "description": "Indent script and style tags in Vue files.",
           "type": "boolean",
         },
       },
@@ -320,7 +443,22 @@ in order for it to be formatted.",
       "type": "object",
     },
   },
+  "oneOf": Array [
+    Object {
+      "allOf": Array [
+        Object {
+          "$ref": "#/definitions/optionsDefinition",
+        },
+        Object {
+          "$ref": "#/definitions/overridesDefinition",
+        },
+      ],
+      "type": "object",
+    },
+    Object {
+      "type": "string",
+    },
+  ],
   "title": "Schema for .prettierrc",
-  "type": "object",
 }
 `;

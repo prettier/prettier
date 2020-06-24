@@ -7,7 +7,7 @@ Prettier offers an escape hatch to ignore a block of code or prevent entire file
 
 ## Ignoring Files
 
-To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the [`--ignore-path` CLI option](cli.md#ignore-path).
+To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the [`--ignore-path` CLI option](cli.md#--ignore-path). `.prettierignore` uses [gitignore syntax](https://git-scm.com/docs/gitignore#_pattern_format).
 
 ## JavaScript
 
@@ -53,6 +53,25 @@ matrix(
 </div>
 ```
 
+## HTML
+
+```html
+<!-- prettier-ignore -->
+<div         class="x"       >hello world</div            >
+
+<!-- prettier-ignore-attribute -->
+<div
+  (mousedown)="       onStart    (    )         "
+  (mouseup)="         onEnd      (    )         "
+></div>
+
+<!-- prettier-ignore-attribute (mouseup) -->
+<div
+  (mousedown)="onStart()"
+  (mouseup)="         onEnd      (    )         "
+></div>
+```
+
 ## CSS
 
 ```css
@@ -88,6 +107,16 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
 <!-- prettier-ignore-end -->
 ```
 
+## YAML
+
+To ignore a part of a YAML file, `# prettier-ignore` should be placed on the line immediately above the ignored node:
+
+```yaml
+# prettier-ignore
+key  : value
+hello: world
+```
+
 ## GraphQL
 
 ```graphql
@@ -97,4 +126,19 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
     reaction {content}
   }
 }
+```
+
+## Handlebars
+
+<!-- prettier-ignore -->
+```hbs
+{{! prettier-ignore }}
+<div>
+  "hello! my parent was ignored"
+  {{#my-crazy-component     "shall"     be="preserved"}}
+    <This
+      is  =  "also preserved as is"
+    />
+  {{/my-crazy-component}}
+</div>
 ```

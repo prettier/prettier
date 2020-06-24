@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unionTypeCallSignatures.ts - typescript-verify 1`] = `
+exports[`unionTypeCallSignatures.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
@@ -75,7 +80,8 @@ strOrNum = unionWithRestParameter3(); // error no call signature
 var unionWithRestParameter4: { (...a: string[]): string; } | { (a: string, b: string): number; };
 strOrNum = unionWithRestParameter4("hello"); // error supplied parameters do not match any call signature
 strOrNum = unionWithRestParameter4("hello", "world");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
@@ -173,9 +179,15 @@ var unionWithRestParameter4:
 strOrNum = unionWithRestParameter4("hello"); // error supplied parameters do not match any call signature
 strOrNum = unionWithRestParameter4("hello", "world");
 
+================================================================================
 `;
 
-exports[`unionTypeCallSignatures3.ts - typescript-verify 1`] = `
+exports[`unionTypeCallSignatures3.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿function f1(s: string) { }
 function f2(s?: string) { }
 function f3(...s: string[]) { }
@@ -187,7 +199,8 @@ function f7(s: string, ...sRest: string[]) { }
 var fUnion: typeof f1 | typeof f2 | typeof f3 | typeof f4 | typeof f5 | typeof f6 | typeof f7;
 
 fUnion(""); // All constituents can be called by passing a single string.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿function f1(s: string) {}
 function f2(s?: string) {}
 function f3(...s: string[]) {}
@@ -207,9 +220,15 @@ var fUnion:
 
 fUnion(""); // All constituents can be called by passing a single string.
 
+================================================================================
 `;
 
-exports[`unionTypeCallSignatures4.ts - typescript-verify 1`] = `
+exports[`unionTypeCallSignatures4.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿type F1 = (a: string, b?: string) => void;
 type F2 = (a: string, b?: string, c?: string) => void;
 type F3 = (a: string, ...rest: string[]) => void;
@@ -235,7 +254,8 @@ var f12345: F1 | F2 | F3 | F4 | F5;
 f12345("a");  // error
 f12345("a", "b");
 f12345("a", "b", "c");  // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿type F1 = (a: string, b?: string) => void;
 type F2 = (a: string, b?: string, c?: string) => void;
 type F3 = (a: string, ...rest: string[]) => void;
@@ -262,9 +282,15 @@ f12345("a"); // error
 f12345("a", "b");
 f12345("a", "b", "c"); // error
 
+================================================================================
 `;
 
-exports[`unionTypeConstructSignatures.ts - typescript-verify 1`] = `
+exports[`unionTypeConstructSignatures.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
@@ -335,7 +361,8 @@ strOrNum = new unionWithRestParameter3('hello', 10); // error no call signature
 strOrNum = new unionWithRestParameter3('hello', 10, 11); // error no call signature
 strOrNum = new unionWithRestParameter3('hello', "hello"); // error no call signature
 strOrNum = new unionWithRestParameter3(); // error no call signature
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿var numOrDate: number | Date;
 var strOrBoolean: string | boolean;
 var strOrNum: string | number;
@@ -429,9 +456,15 @@ strOrNum = new unionWithRestParameter3("hello", 10, 11); // error no call signat
 strOrNum = new unionWithRestParameter3("hello", "hello"); // error no call signature
 strOrNum = new unionWithRestParameter3(); // error no call signature
 
+================================================================================
 `;
 
-exports[`unionTypeEquivalence.ts - typescript-verify 1`] = `
+exports[`unionTypeEquivalence.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿// A | B is equivalent to A if B is a subtype of A
 class C { }
 class D extends C { foo() { } }
@@ -450,7 +483,8 @@ var AB : string | number;
 var BC : number | boolean;
 var z1: typeof AB | boolean;
 var z1: string | typeof BC;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿// A | B is equivalent to A if B is a subtype of A
 class C {}
 class D extends C {
@@ -472,9 +506,15 @@ var BC: number | boolean;
 var z1: typeof AB | boolean;
 var z1: string | typeof BC;
 
+================================================================================
 `;
 
-exports[`unionTypeFromArrayLiteral.ts - typescript-verify 1`] = `
+exports[`unionTypeFromArrayLiteral.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿// The resulting type an array literal expression is determined as follows:
 // If the array literal is empty, the resulting type is an array type with the element type Undefined.
 // Otherwise, if the array literal is contextually typed by a type that has a property with the numeric name ‘0’, the resulting type is a tuple type constructed from the types of the element expressions.
@@ -498,7 +538,8 @@ var arr6 = [c, d];  // (C | D)[]
 var arr7 = [c, d, e]; // (C | D)[]
 var arr8 = [c, e]; // C[]
 var arr9 = [e, f]; // (E|F)[]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿// The resulting type an array literal expression is determined as follows:
 // If the array literal is empty, the resulting type is an array type with the element type Undefined.
 // Otherwise, if the array literal is contextually typed by a type that has a property with the numeric name ‘0’, the resulting type is a tuple type constructed from the types of the element expressions.
@@ -531,9 +572,15 @@ var arr7 = [c, d, e]; // (C | D)[]
 var arr8 = [c, e]; // C[]
 var arr9 = [e, f]; // (E|F)[]
 
+================================================================================
 `;
 
-exports[`unionTypeIndexSignature.ts - typescript-verify 1`] = `
+exports[`unionTypeIndexSignature.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿var numOrDate: number | Date;
 var anyVar: number;
 
@@ -557,7 +604,8 @@ numOrDate = unionOfDifferentReturnType1[10]; // number | Date
 var unionOfTypesWithAndWithoutStringSignature1: { [a: number]: number; } | boolean;
 anyVar = unionOfTypesWithAndWithoutStringSignature1["hello"]; // any
 anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿var numOrDate: number | Date;
 var anyVar: number;
 
@@ -588,9 +636,15 @@ var unionOfTypesWithAndWithoutStringSignature1:
 anyVar = unionOfTypesWithAndWithoutStringSignature1["hello"]; // any
 anyVar = unionOfTypesWithAndWithoutStringSignature1[10]; // any
 
+================================================================================
 `;
 
-exports[`unionTypePropertyAccessibility.ts - typescript-verify 1`] = `
+exports[`unionTypePropertyAccessibility.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Default {
     member: string;
 }
@@ -638,7 +692,8 @@ v12.member;
 v13.member;
 v14.member;
 v15.member;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Default {
   member: string;
 }
@@ -687,4 +742,5 @@ v13.member;
 v14.member;
 v15.member;
 
+================================================================================
 `;

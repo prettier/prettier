@@ -2,10 +2,11 @@
 
 const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
-const hasPragma = require("./pragma").hasPragma;
+const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
+const postprocess = require("./postprocess");
 
-function parse(text /*, parsers, opts*/) {
+function parse(text, parsers, opts) {
   const jsx = isProbablyJsx(text);
   let ast;
   try {
@@ -24,28 +25,23 @@ function parse(text /*, parsers, opts*/) {
       }
 
       throw createError(e.message, {
-        start: { line: e.lineNumber, column: e.column + 1 }
+        start: { line: e.lineNumber, column: e.column + 1 },
       });
     }
   }
 
-  delete ast.tokens;
   includeShebang(text, ast);
-  return ast;
+  return postprocess(ast, { ...opts, originalText: text });
 }
 
 function tryParseTypeScript(text, jsx) {
-  const parser = require("typescript-estree");
+  const parser = require("@typescript-eslint/typescript-estree");
   return parser.parse(text, {
     loc: true,
     range: true,
-    tokens: true,
     comment: true,
     useJSXTextNode: true,
-    ecmaFeatures: { jsx },
-    // Override logger function with noop,
-    // to avoid unsupported version errors being logged
-    loggerFn: () => {}
+    jsx,
   });
 }
 
@@ -57,17 +53,17 @@ function isProbablyJsx(text) {
     [
       "(^[^\"'`]*</)", // Contains "</" when probably not in a string
       "|",
-      "(^[^/]{2}.*/>)" // Contains "/>" on line not starting with "//"
+      "(^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
     "m"
   ).test(text);
 }
 
-const parser = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
+const parser = { parse, astFormat: "estree", hasPragma, ...locFns };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    typescript: parser
-  }
+    typescript: parser,
+  },
 };

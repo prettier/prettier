@@ -22,12 +22,13 @@ shell.mkdir("-p", docs);
 if (isPullRequest) {
   // --- Build prettier for PR ---
   const pkg = require("../package.json");
-  pkg.version = `999.999.999-pr.${process.env.REVIEW_ID}`;
-  pipe(JSON.stringify(pkg, null, 2)).to("package.json");
+  const newPkg = { ...pkg, version: `999.999.999-pr.${process.env.REVIEW_ID}` };
+  pipe(JSON.stringify(newPkg, null, 2)).to("package.json");
   shell.exec("yarn build");
+  pipe(JSON.stringify(pkg, null, 2) + "\n").to("package.json"); // restore
 }
-shell.exec(`cp ${prettierPath}/standalone.js ${docs}/`);
-shell.exec(`cp ${prettierPath}/parser-*.js ${docs}/`);
+shell.cp(`${prettierPath}/standalone.js`, `${docs}/`);
+shell.cp(`${prettierPath}/parser-*.js`, `${docs}/`);
 
 // --- Site ---
 shell.cd("website");

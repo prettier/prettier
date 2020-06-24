@@ -2,13 +2,14 @@
 
 const {
   builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc }
-} = require("../doc");
+  utils: { mapDoc },
+} = require("../document");
+const { isFrontMatterNode } = require("../common/util");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
 
-  if (node.type === "yaml") {
+  if (isFrontMatterNode(node) && node.lang === "yaml") {
     return markAsRoot(
       concat([
         "---",
@@ -19,7 +20,7 @@ function embed(path, print, textToDoc /*, options */) {
             )
           : "",
         "---",
-        hardline
+        hardline,
       ])
     );
   }
@@ -27,16 +28,14 @@ function embed(path, print, textToDoc /*, options */) {
   return null;
 
   function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(
-      doc,
-      currentDoc =>
-        typeof currentDoc === "string" && currentDoc.includes("\n")
-          ? concat(
-              currentDoc
-                .split(/(\n)/g)
-                .map((v, i) => (i % 2 === 0 ? v : literalline))
-            )
-          : currentDoc
+    return mapDoc(doc, (currentDoc) =>
+      typeof currentDoc === "string" && currentDoc.includes("\n")
+        ? concat(
+            currentDoc
+              .split(/(\n)/g)
+              .map((v, i) => (i % 2 === 0 ? v : literalline))
+          )
+        : currentDoc
     );
   }
 }

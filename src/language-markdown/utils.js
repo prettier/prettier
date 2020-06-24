@@ -3,9 +3,34 @@
 const {
   cjkPattern,
   kPattern,
-  punctuationPattern
+  punctuationPattern,
 } = require("./constants.evaluate");
 const { getLast } = require("../common/util");
+
+const INLINE_NODE_TYPES = [
+  "liquidNode",
+  "inlineCode",
+  "emphasis",
+  "strong",
+  "delete",
+  "link",
+  "linkReference",
+  "image",
+  "imageReference",
+  "footnote",
+  "footnoteReference",
+  "sentence",
+  "whitespace",
+  "word",
+  "break",
+  "inlineMath",
+];
+
+const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
+  "tableCell",
+  "paragraph",
+  "heading",
+]);
 
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
@@ -27,13 +52,13 @@ function splitText(text, options) {
     ? text
     : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
   )
-    .split(/([ \t\n]+)/)
+    .split(/([\t\n ]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {
         nodes.push({
           type: "whitespace",
-          value: /\n/.test(token) ? "\n" : " "
+          value: /\n/.test(token) ? "\n" : " ",
         });
         return;
       }
@@ -64,7 +89,7 @@ function splitText(text, options) {
                 hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
                 hasTrailingPunctuation: punctuationRegex.test(
                   getLast(innerToken)
-                )
+                ),
               });
             }
             return;
@@ -78,7 +103,7 @@ function splitText(text, options) {
                   value: innerToken,
                   kind: KIND_CJK_PUNCTUATION,
                   hasLeadingPunctuation: true,
-                  hasTrailingPunctuation: true
+                  hasTrailingPunctuation: true,
                 }
               : {
                   type: "word",
@@ -87,7 +112,7 @@ function splitText(text, options) {
                     ? KIND_K_LETTER
                     : KIND_CJ_LETTER,
                   hasLeadingPunctuation: false,
-                  hasTrailingPunctuation: false
+                  hasTrailingPunctuation: false,
                 }
           );
         });
@@ -110,7 +135,7 @@ function splitText(text, options) {
       } else if (
         !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
         // disallow leading/trailing full-width whitespace
-        ![lastNode.value, node.value].some(value => /\u3000/.test(value))
+        ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
       ) {
         nodes.push({ type: "whitespace", value: "" });
       }
@@ -135,6 +160,34 @@ function getOrderedListItemInfo(orderListItem, originalText) {
     .match(/^\s*(\d+)(\.|\))(\s*)/);
 
   return { numberText, marker, leadingSpaces };
+}
+
+function hasGitDiffFriendlyOrderedList(node, options) {
+  if (!node.ordered) {
+    return false;
+  }
+
+  if (node.children.length < 2) {
+    return false;
+  }
+
+  const firstNumber = Number(
+    getOrderedListItemInfo(node.children[0], options.originalText).numberText
+  );
+
+  const secondNumber = Number(
+    getOrderedListItemInfo(node.children[1], options.originalText).numberText
+  );
+
+  if (firstNumber === 0 && node.children.length > 2) {
+    const thirdNumber = Number(
+      getOrderedListItemInfo(node.children[2], options.originalText).numberText
+    );
+
+    return secondNumber === 1 && thirdNumber === 1;
+  }
+
+  return secondNumber === 1;
 }
 
 // workaround for https://github.com/remarkjs/remark/issues/351
@@ -177,7 +230,7 @@ function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
     parentStack = parentStack || [];
 
-    const newNode = Object.assign({}, handler(node, index, parentStack));
+    const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) => {
         return preorder(child, index, [newNode].concat(parentStack));
@@ -188,10 +241,26 @@ function mapAst(ast, handler) {
   })(ast, null, null);
 }
 
+function isAutolink(node, options) {
+  if (!node || node.type !== "link" || node.children.length !== 1) {
+    return false;
+  }
+  const child = node.children[0];
+  return (
+    child &&
+    options.locStart(node) === options.locStart(child) &&
+    options.locEnd(node) === options.locEnd(child)
+  );
+}
+
 module.exports = {
   mapAst,
   splitText,
   punctuationPattern,
   getFencedCodeBlockValue,
-  getOrderedListItemInfo
+  getOrderedListItemInfo,
+  hasGitDiffFriendlyOrderedList,
+  INLINE_NODE_TYPES,
+  INLINE_NODE_WRAPPER_TYPES,
+  isAutolink,
 };

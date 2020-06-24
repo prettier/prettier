@@ -5,15 +5,34 @@ const comments = require("./comments");
 const FastPath = require("../common/fast-path");
 const multiparser = require("./multiparser");
 
-const doc = require("../doc");
+const doc = require("../document");
 const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
-const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
+const { concat, hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;
 
-function printAstToDoc(ast, options, addAlignmentSize = 0) {
-  const printer = options.printer;
+/**
+ * Takes an abstract syntax tree (AST) and recursively converts it to a
+ * document (series of printing primitives).
+ *
+ * This is done by descending down the AST recursively. The recursion
+ * involves two functions that call each other:
+ *
+ * 1. printGenerically(), which is defined as an inner function here.
+ *    It basically takes care of node caching.
+ * 2. callPluginPrintFunction(), which checks for some options, and
+ *    ultimately calls the print() function provided by the plugin.
+ *
+ * The plugin function will call printGenerically() again for child nodes
+ * of the current node, which will do its housekeeping, then call the
+ * plugin function again, and so on.
+ *
+ * All the while, these functions pass a "path" variable around, which
+ * is a stack-like data structure (FastPath) that maintains the current
+ * state of the recursion. It is called "path", because it represents
+ * the path to the current node through the Abstract Syntax Tree.
+ */
+function printAstToDoc(ast, options, alignmentSize = 0) {
+  const { printer } = options;
 
   if (printer.preprocess) {
     ast = printer.preprocess(ast, options);
@@ -32,12 +51,17 @@ function printAstToDoc(ast, options, addAlignmentSize = 0) {
     // We let JSXElement print its comments itself because it adds () around
     // UnionTypeAnnotation has to align the child without the comments
     let res;
-    if (printer.willPrintOwnComments && printer.willPrintOwnComments(path)) {
-      res = genericPrint(path, options, printGenerically, args);
+    if (
+      printer.willPrintOwnComments &&
+      printer.willPrintOwnComments(path, options)
+    ) {
+      res = callPluginPrintFunction(path, options, printGenerically, args);
     } else {
+      // printComments will call the plugin print function and check for
+      // comments to print
       res = comments.printComments(
         path,
-        p => genericPrint(p, options, printGenerically, args),
+        (p) => callPluginPrintFunction(p, options, printGenerically, args),
         options,
         args && args.needsSemi
       );
@@ -51,12 +75,12 @@ function printAstToDoc(ast, options, addAlignmentSize = 0) {
   }
 
   let doc = printGenerically(new FastPath(ast));
-  if (addAlignmentSize > 0) {
+  if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
     doc = addAlignmentToDoc(
-      docUtils.removeLines(concat([hardline, doc])),
-      addAlignmentSize,
+      concat([hardline, doc]),
+      alignmentSize,
       options.tabWidth
     );
   }
@@ -65,11 +89,11 @@ function printAstToDoc(ast, options, addAlignmentSize = 0) {
   return doc;
 }
 
-function genericPrint(path, options, printPath, args) {
+function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   const node = path.getValue();
-  const printer = options.printer;
+  const { printer } = options;
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {

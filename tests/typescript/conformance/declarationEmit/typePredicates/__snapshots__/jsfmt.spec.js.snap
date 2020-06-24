@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declarationEmitThisPredicatesWithPrivateName01.ts - typescript-verify 1`] = `
+exports[`declarationEmitThisPredicatesWithPrivateName01.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @declaration: true
 // @module: commonjs
 
@@ -11,7 +16,8 @@ export class C {
 }
 
 class D extends C {
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 // @declaration: true
 // @module: commonjs
 
@@ -23,4 +29,5 @@ export class C {
 
 class D extends C {}
 
+================================================================================
 `;

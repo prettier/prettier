@@ -1,6 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classExpression.ts - typescript-verify 1`] = `
+exports[`abstract.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+abstract class AbstractSocket {
+  createSocket?(): Promise<string>
+}
+
+=====================================output=====================================
+abstract class AbstractSocket {
+  createSocket?(): Promise<string>;
+}
+
+================================================================================
+`;
+
+exports[`classExpression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x = class C {
 }
 
@@ -11,18 +34,25 @@ var y = {
 
 var z = class C4 {
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x = class C {};
 
 var y = {
-  foo: class C2 {}
+  foo: class C2 {},
 };
 
 var z = class C4 {};
 
+================================================================================
 `;
 
-exports[`mixinAccessModifiers.ts - typescript-verify 1`] = `
+exports[`mixinAccessModifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @declaration: true
 
 type Constructable = new (...args: any[]) => object;
@@ -131,7 +161,8 @@ class C6 extends Mix(Public, Public2) {
 		C6.s
 	}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @declaration: true
 
 type Constructable = new (...args: any[]) => object;
@@ -241,9 +272,15 @@ class C6 extends Mix(Public, Public2) {
   }
 }
 
+================================================================================
 `;
 
-exports[`mixinClassesAnnotated.ts - typescript-verify 1`] = `
+exports[`mixinClassesAnnotated.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @declaration: true
 
 type Constructor<T> = new(...args: any[]) => T;
@@ -304,7 +341,8 @@ class Thing3 extends Thing2 {
         this.print();
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @declaration: true
 
 type Constructor<T> = new (...args: any[]) => T;
@@ -369,9 +407,15 @@ class Thing3 extends Thing2 {
   }
 }
 
+================================================================================
 `;
 
-exports[`mixinClassesAnonymous.ts - typescript-verify 1`] = `
+exports[`mixinClassesAnonymous.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Constructor<T> = new(...args: any[]) => T;
 
 class Base {
@@ -436,7 +480,8 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
         timestamp = new Date();
     };
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Constructor<T> = new (...args: any[]) => T;
 
 class Base {
@@ -503,9 +548,15 @@ const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
   };
 };
 
+================================================================================
 `;
 
-exports[`mixinClassesMembers.ts - typescript-verify 1`] = `
+exports[`mixinClassesMembers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @declaration: true
 
 declare class C1 {
@@ -605,7 +656,8 @@ class C3 extends Mixed3 {
     }
     f() { return super.f(); }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @declaration: true
 
 declare class C1 {
@@ -708,9 +760,15 @@ class C3 extends Mixed3 {
   }
 }
 
+================================================================================
 `;
 
-exports[`nestedClassDeclaration.ts - typescript-verify 1`] = `
+exports[`nestedClassDeclaration.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // nested classes are not allowed
 
 class C {
@@ -721,7 +779,8 @@ function foo() {
     class C3 {
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // nested classes are not allowed
 
 class C {
@@ -732,4 +791,5 @@ function foo() {
   class C3 {}
 }
 
+================================================================================
 `;

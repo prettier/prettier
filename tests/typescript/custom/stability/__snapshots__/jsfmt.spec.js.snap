@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`moduleBlock.ts - typescript-verify 1`] = `
+exports[`moduleBlock.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 module m2 {
     function fn() {
         return 1;
@@ -23,8 +28,9 @@ module m2 {
         return "require";
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-namespace m2 {
+
+=====================================output=====================================
+module m2 {
   function fn() {
     return 1;
   }
@@ -36,7 +42,7 @@ namespace m2 {
   }
 }
 
-namespace m2 {
+module m2 {
   export function exports() {
     return 1;
   }
@@ -46,4 +52,5 @@ namespace m2 {
   }
 }
 
+================================================================================
 `;

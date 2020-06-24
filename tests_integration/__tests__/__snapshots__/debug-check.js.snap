@@ -4,6 +4,17 @@ exports[`checks stdin with --debug-check (write) 1`] = `Array []`;
 
 exports[`doesn't crash when --debug-check is passed (write) 1`] = `Array []`;
 
+exports[`should not exit non-zero for already prettified code with --debug-check + --check (stderr) 1`] = `""`;
+
+exports[`should not exit non-zero for already prettified code with --debug-check + --check (stdout) 1`] = `
+"Checking formatting...
+issue-4599.js
+All matched files use Prettier code style!
+"
+`;
+
+exports[`should not exit non-zero for already prettified code with --debug-check + --check (write) 1`] = `Array []`;
+
 exports[`should not exit non-zero for already prettified code with --debug-check + --list-different (stderr) 1`] = `""`;
 
 exports[`should not exit non-zero for already prettified code with --debug-check + --list-different (stdout) 1`] = `

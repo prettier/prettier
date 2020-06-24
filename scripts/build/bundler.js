@@ -4,17 +4,20 @@ const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("rollup-plugin-node-resolve");
-const alias = require("rollup-plugin-alias");
-const commonjs = require("rollup-plugin-commonjs");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
+const rollupPluginAlias = require("@rollup/plugin-alias");
+const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
-const json = require("rollup-plugin-json");
-const replace = require("rollup-plugin-replace");
-const uglify = require("rollup-plugin-uglify");
-const babel = require("rollup-plugin-babel");
+const json = require("@rollup/plugin-json");
+const replace = require("@rollup/plugin-replace");
+const { terser } = require("rollup-plugin-terser");
+const { babel } = require("@rollup/plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
+const externals = require("./rollup-plugins/externals");
+
+const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 const EXTERNALS = [
   "assert",
@@ -30,50 +33,84 @@ const EXTERNALS = [
   "url",
   "util",
   "readline",
+  "tty",
+];
 
-  // See comment in jest.config.js
-  "graceful-fs"
+const entries = [
+  // Force using the CJS file, instead of ESM; i.e. get the file
+  // from `"main"` instead of `"module"` (rollup default) of package.json
+  {
+    find: "outdent",
+    replacement: require.resolve("outdent"),
+  },
+  {
+    find: "lines-and-columns",
+    replacement: require.resolve("lines-and-columns"),
+  },
+  // `handlebars` causes webpack warning by using `require.extensions`
+  // `dist/handlebars.js` also complaint on `window` variable
+  // use cjs build instead
+  // https://github.com/prettier/prettier/issues/6656
+  {
+    find: "handlebars",
+    replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
+  },
+  {
+    find: "@angular/compiler/src",
+    replacement: path.resolve(
+      `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+    ),
+  },
 ];
 
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
     plugins: bundle.babelPlugins || [],
-    compact: bundle.type === "plugin" ? false : "auto"
+    compact: bundle.type === "plugin" ? false : "auto",
   };
   if (bundle.type === "core") {
     config.plugins.push(
       require.resolve("./babel-plugins/transform-custom-require")
     );
   }
-  const targets = { node: 4 };
+  const targets = { node: "10" };
   if (bundle.target === "universal") {
-    // From https://jamie.build/last-2-versions
-    targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
+    targets.browsers = [
+      ">0.5%",
+      "not ie 11",
+      "not safari 5.1",
+      "not op_mini all",
+    ];
   }
   config.presets = [
-    [require.resolve("@babel/preset-env"), { targets, modules: false }]
+    [
+      require.resolve("@babel/preset-env"),
+      {
+        targets,
+        exclude: ["transform-async-to-generator"],
+        modules: false,
+      },
+    ],
   ];
+  config.plugins.push([
+    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    { loose: true, useBuiltIns: true },
+  ]);
   return config;
 }
 
 function getRollupConfig(bundle) {
-  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
-  const paths = (bundle.external || []).reduce(
-    (paths, filepath) =>
-      Object.assign(paths, { [filepath]: relative(filepath) }),
-    { "graceful-fs": "fs" }
-  );
-
   const config = {
-    entry: bundle.input,
-    paths,
+    input: bundle.input,
 
     onwarn(warning) {
       if (
         // We use `eval("require")` to enable dynamic requires in the
         // custom parser API
         warning.code === "EVAL" ||
+        // ignore `MIXED_EXPORTS` warn
+        warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
           warning.importer.startsWith("node_modules"))
       ) {
@@ -91,41 +128,61 @@ function getRollupConfig(bundle) {
       }
 
       console.warn(warning);
-    }
+    },
   };
 
   const replaceStrings = {
-    "process.env.NODE_ENV": JSON.stringify("production")
+    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
+    "process.env.NODE_ENV": JSON.stringify("production"),
   };
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
     replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
+    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
+    // `parser-typescript.js` will contain a path of working directory
+    // See #8268
+    replaceStrings.__filename = JSON.stringify(
+      "/prettier-security-filename-placeholder.js"
+    );
+    replaceStrings.__dirname = JSON.stringify(
+      "/prettier-security-dirname-placeholder"
+    );
   }
   Object.assign(replaceStrings, bundle.replace);
 
-  const babelConfig = getBabelConfig(bundle);
+  const babelConfig = { babelHelpers: "bundled", ...getBabelConfig(bundle) };
+
+  const alias = { ...bundle.alias };
+  alias.entries = [...entries, ...(alias.entries || [])];
 
   config.plugins = [
-    replace(replaceStrings),
+    replace({
+      values: replaceStrings,
+      delimiters: ["", ""],
+    }),
     executable(),
     evaluate(),
     json(),
-    bundle.alias && alias(bundle.alias),
+    rollupPluginAlias(alias),
     bundle.target === "universal" &&
       nativeShims(path.resolve(__dirname, "shims")),
-    resolve({
+    nodeResolve({
       extensions: [".js", ".json"],
-      preferBuiltins: bundle.target === "node"
+      preferBuiltins: bundle.target === "node",
     }),
-    commonjs(bundle.commonjs || {}),
+    commonjs({
+      ignoreGlobal: bundle.target === "node",
+      ...bundle.commonjs,
+    }),
+    externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
-    babelConfig && babel(babelConfig),
-    bundle.type === "plugin" && uglify()
+    babel(babelConfig),
+    bundle.minify !== false && bundle.target === "universal" && terser(),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
-    config.external = EXTERNALS.concat(bundle.external);
+    config.external = EXTERNALS;
   }
 
   return config;
@@ -133,14 +190,15 @@ function getRollupConfig(bundle) {
 
 function getRollupOutputOptions(bundle) {
   const options = {
-    dest: `dist/${bundle.output}`,
-    useStrict: typeof bundle.strict === "undefined" ? true : bundle.strict
+    file: `dist/${bundle.output}`,
+    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
   };
+
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
     options.format = "umd";
-    options.moduleName =
+    options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
   }
   return options;
@@ -152,7 +210,7 @@ function getWebpackConfig(bundle) {
   }
 
   const root = path.resolve(__dirname, "..", "..");
-  return {
+  const config = {
     entry: path.resolve(root, bundle.input),
     module: {
       rules: [
@@ -160,28 +218,35 @@ function getWebpackConfig(bundle) {
           test: /\.js$/,
           use: {
             loader: "babel-loader",
-            options: getBabelConfig(bundle)
-          }
-        }
-      ]
+            options: getBabelConfig(bundle),
+          },
+        },
+      ],
     },
     output: {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
       library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd"
+      libraryTarget: "umd",
+      // https://github.com/webpack/webpack/issues/6642
+      globalObject: 'new Function("return this")()',
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production")
-      })
-    ]
   };
+
+  if (bundle.terserOptions) {
+    const TerserPlugin = require("terser-webpack-plugin");
+
+    config.optimization = {
+      minimizer: [new TerserPlugin(bundle.terserOptions)],
+    };
+  }
+
+  return config;
 }
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
-    webpack(config, err => {
+    webpack(config, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -192,15 +257,19 @@ function runWebpack(config) {
 }
 
 module.exports = async function createBundle(bundle, cache) {
+  const inputOptions = getRollupConfig(bundle);
+  const outputOptions = getRollupOutputOptions(bundle);
+
   const useCache = await cache.checkBundle(
     bundle.output,
-    getRollupConfig(bundle)
+    inputOptions,
+    outputOptions
   );
   if (useCache) {
     try {
       await execa("cp", [
         path.join(cache.cacheDir, "files", bundle.output),
-        "dist"
+        "dist",
       ]);
       return { cached: true };
     } catch (err) {
@@ -211,8 +280,8 @@ module.exports = async function createBundle(bundle, cache) {
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
-    const result = await rollup(getRollupConfig(bundle));
-    await result.write(getRollupOutputOptions(bundle));
+    const result = await rollup(inputOptions);
+    await result.write(outputOptions);
   }
 
   return { bundled: true };

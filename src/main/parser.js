@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const ConfigError = require("../common/errors").ConfigError;
+const { ConfigError } = require("../common/errors");
 const jsLoc = require("../language-js/loc");
 
 const { locStart, locEnd } = jsLoc;
@@ -34,24 +34,32 @@ function resolveParser(opts, parsers) {
       parse: opts.parser,
       astFormat: "estree",
       locStart,
-      locEnd
+      locEnd,
     };
   }
 
   if (typeof opts.parser === "string") {
-    if (parsers.hasOwnProperty(opts.parser)) {
+    if (Object.prototype.hasOwnProperty.call(parsers, opts.parser)) {
       return parsers[opts.parser];
     }
-    try {
-      return {
-        parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
-        astFormat: "estree",
-        locStart,
-        locEnd
-      };
-    } catch (err) {
-      /* istanbul ignore next */
-      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
+
+    /* istanbul ignore next */
+    if (process.env.PRETTIER_TARGET === "universal") {
+      throw new ConfigError(
+        `Couldn't resolve parser "${opts.parser}". Parsers must be explicitly added to the standalone bundle.`
+      );
+    } else {
+      try {
+        return {
+          parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
+          astFormat: "estree",
+          locStart,
+          locEnd,
+        };
+      } catch (err) {
+        /* istanbul ignore next */
+        throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
+      }
     }
   }
 }
@@ -67,7 +75,7 @@ function parse(text, opts) {
         enumerable: true,
         get() {
           return parsers[parserName].parse;
-        }
+        },
       }),
     {}
   );
@@ -81,15 +89,15 @@ function parse(text, opts) {
 
     return {
       text,
-      ast: parser.parse(text, parsersForCustomParserApi, opts)
+      ast: parser.parse(text, parsersForCustomParserApi, opts),
     };
   } catch (error) {
-    const loc = error.loc;
+    const { loc } = error;
 
     if (loc) {
       const codeFrame = require("@babel/code-frame");
       error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
-        highlightCode: true
+        highlightCode: true,
       });
       error.message += "\n" + error.codeFrame;
       throw error;

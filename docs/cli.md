@@ -3,23 +3,83 @@ id: cli
 title: CLI
 ---
 
-Run Prettier through the CLI with this script. Run it without any arguments to see the [options](options.md).
+Use the `prettier` command to run Prettier from the command line. Run it without any arguments to see the [options](options.md).
 
 To format a file in-place, use `--write`. You may want to consider committing your code before doing that, just in case.
 
 ```bash
-prettier [opts] [filename ...]
+prettier [options] [file/dir/glob ...]
 ```
 
 In practice, this may look something like:
 
 ```bash
-prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
+prettier --write .
 ```
 
-Don't forget the quotes around the globs! The quotes make sure that Prettier expands the globs rather than your shell, for cross-platform usage. The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer) is used.
+This command formats all files supported by Prettier in the current directory and its subdirectories.
 
-Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+A more complicated example:
+
+```bash
+prettier --single-quote --trailing-comma all --write docs package.json "{app,__{tests,mocks}__}/**/*.js"
+```
+
+> Don't forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
+
+> It's usually better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This allows sharing those settings across different ways to run Prettier (CLI, [editor integrations](editors.md), etc.).
+
+Given a list of paths/patterns, Prettier CLI first treats every entry in it as a literal path.
+
+- If the path points to an existing file, Prettier CLI proceeds with that file and doesn't resolve the path as a glob pattern.
+
+- If the path points to an existing directory, Prettier CLI recursively finds supported files in that directory. This resolution process is based on file extensions and well-known file names that Prettier and its [plugins](plugins.md) associate with supported languages.
+
+- Otherwise, the entry is resolved as a glob pattern using the [glob syntax from the `fast-glob` module](https://github.com/mrmlnc/fast-glob#pattern-syntax).
+
+Prettier CLI will ignore files located in `node_modules` directory. To opt out from this behavior use `--with-node-modules` flag.
+
+To escape special characters in globs, one of the two escaping syntaxes can be used: `prettier "\[my-dir]/*.js"` or `prettier "[[]my-dir]/*.js"`. Both match all JS files in a directory named `[my-dir]`, however the latter syntax is preferable as the former doesn't work on Windows, where backslashes are treated as path separators.
+
+## `--check`
+
+When you want to check if your files are formatted, you can run Prettier with the `--check` flag (or `-c`).
+This will output a human-friendly message and a list of unformatted files, if any.
+
+```bash
+prettier --check "src/**/*.js"
+```
+
+Console output if all files are formatted:
+
+```console
+Checking formatting...
+All matched files use Prettier code style!
+```
+
+Console output if some of the files require re-formatting:
+
+```console
+Checking formatting...
+src/fileA.js
+src/fileB.js
+Code style issues found in the above file(s). Forgot to run Prettier?
+```
+
+The command will return exit code 1 in the second case, which is helpful inside the CI pipelines.
+Human-friendly status messages help project contributors react on possible problems.
+To minimise the number of times `prettier --check` finds unformatted files, you may be interested in configuring a [pre-commit hook](precommit.md) in your repo.
+Applying this practice will minimise the number of times the CI fails because of code formatting problems.
+
+If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#--list-different) flag instead of `--check`.
+
+### Exit codes
+
+| Code | Information                         |
+| ---- | ----------------------------------- |
+| 0    | Everything formatted properly       |
+| 1    | Something wasn't formatted properly |
+| 2    | Something's wrong with Prettier     |
 
 ## `--debug-check`
 
@@ -72,6 +132,8 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 prettier --single-quote --list-different "src/**/*.js"
 ```
 
+You can also use [`--check`](cli.md#--check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
+
 ## `--no-config`
 
 Do not look for a configuration file. The default settings will be used.
@@ -96,7 +158,7 @@ This option adds support to editor integrations where users define their default
 
 ## `--no-editorconfig`
 
-Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](./api.md) for details.
+Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
 
 ## `--with-node-modules`
 
@@ -130,7 +192,7 @@ _abc.css_
 
 _shell_
 
-```bash
+```console
 $ cat abc.css | prettier --stdin-filepath abc.css
 .name {
   display: none;

@@ -1,21 +1,19 @@
 ---
 id: plugins
-title: Plugins (Beta)
+title: Plugins
 ---
-
-## IN BETA
-
-> The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
 Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
 
 ## Using Plugins
 
-Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` to be registered.
+Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` or `@<scope>/prettier-plugin-` to be registered.
+
+> `<scope>` should be replaced by a name, read more about [NPM scope](https://docs.npmjs.com/misc/scope.html).
 
 When plugins cannot be found automatically, you can load them with:
 
-- The [CLI](./cli.md), via the `--plugin` and `--plugin-search-dir`:
+- The [CLI](cli.md), via the `--plugin` and `--plugin-search-dir`:
 
   ```bash
   prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
@@ -23,32 +21,44 @@ When plugins cannot be found automatically, you can load them with:
 
   > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
 
-- Or the [API](./api.md), via the `plugins` and `pluginSearchDirs` options:
+- Or the [API](api.md), via the `plugins` and `pluginSearchDirs` options:
 
   ```js
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"]
+    plugins: ["./foo-plugin"],
   });
   ```
 
-Prettier expects each of `pluginSearchDirs` to contain `node_modules` subdirectory, where `@prettier/plugin-*` and `prettier-plugin-*` will be searched. For instance, this can be your project directory or the location of global npm modules.
+Prettier expects each of `pluginSearchDirs` to contain `node_modules` subdirectory, where `@prettier/plugin-*`, `@*/prettier-plugin-*` and `prettier-plugin-*` will be searched. For instance, this can be your project directory or the location of global npm modules.
 
 Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
 
 ## Official Plugins
 
-- [`@prettier/plugin-python`](https://github.com/prettier/plugin-python)
 - [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
+- [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
+- [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
 
+- [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
-- [`prettier-plugin-java`](https://github.com/thorbenvh8/prettier-java) by [**@thorbenvh8**](https://github.com/thorbenvh8)
+- [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
+- [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
+- [`prettier-plugin-package`](https://github.com/shellscape/prettier-plugin-package) by [**@shellscape**](https://github.com/shellscape)
+- [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) by [**@matzkoh**](https://github.com/matzkoh)
 - [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
-- [`prettier-plugin-ruby`](https://github.com/iamsolankiamit/prettier-ruby) by [**@iamsolankiamit**](https://github.com/iamsolankiamit)
+- [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
+- [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
+- [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
+- [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) by [**@simonhaenisch**](https://github.com/simonhaenisch)
+- [`prettier-plugin-pkg`](https://github.com/rx-ts/prettier/tree/master/packages/pkg) by [**@JounQin**](https://github.com/JounQin)
+- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 
 ## Developing Plugins
 
@@ -62,7 +72,7 @@ Prettier plugins are regular JavaScript modules with five exports:
 
 ### `languages`
 
-Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](./api.md#prettiergetsupportinfo-version).
+Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo).
 
 It **must** include `name` and `parsers`.
 
@@ -73,8 +83,8 @@ export const languages = [
     name: "InterpretedDanceScript",
     // Parsers that can parse this language.
     // This can be built-in parsers, or parsers you have contributed via this plugin.
-    parsers: ["dance-parse"]
-  }
+    parsers: ["dance-parse"],
+  },
 ];
 ```
 
@@ -93,8 +103,8 @@ export const parsers = {
     hasPragma,
     locStart,
     locEnd,
-    preprocess
-  }
+    preprocess,
+  },
 };
 ```
 
@@ -133,8 +143,8 @@ export const printers = {
   "dance-ast": {
     print,
     embed,
-    insertPragma
-  }
+    insertPragma,
+  },
 };
 ```
 
@@ -174,7 +184,7 @@ function embed(
 ): Doc | null;
 ```
 
-If you don't want to switch to a different parser, simply return `null` or `undefined`.
+If an `embed` function is included, it will be called _first_ on every node. If the `embed` function returns a falsy value, the current plugin's `print` function is called. Otherwise, the `Doc` returned by the `embed` function is used. The `embed` function is passed `textToDoc` which can be called with a suitable `options` argument to obtain the `Doc` produced by a different plugin (which can then be directly returned or used inside a larger `Doc` construction). For example, to print embedded JavaScript, a plugin might return `textToDoc(javaScriptText, { parser: "babel" })` from the `embed` function.
 
 A plugin can implement how a pragma comment is inserted in the resulting code when the `--insert-pragma` option is used, in the `insertPragma` function. Its signature is:
 
@@ -219,20 +229,35 @@ defaultOptions: {
 
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
+<!-- prettier-ignore -->
 ```ts
-skipWhitespace(text: string, index: number, options: object): number;
-skipSpaces(text: string, index: number, options: object): number;
-skipNewline(text: string, index: number, options: object): number;
-hasNewline(text: string, index: number, options: object): boolean;
-hasNewlineInRange(text: string, start: number, start: number): boolean;
-hasSpaces(text: string, index: number, options: object): number;
-makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes: boolean): string;
-getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
-isNextLineEmptyAfterIndex(text: string, index: number): boolean;
-isNextLineEmpty(text: string, node: object, options: object): boolean;
-isPreviousLineEmpty(text: string, node: object, options: object): boolean;
-mapDoc(doc: object, callback: function): void;
+type Quote = '"' | "'";
+type SkipOptions = { backwards?: boolean };
+function getMaxContinuousCount(str: string, target: string): number;
+function getStringWidth(text: string): number;
+function getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
+function getIndentSize(value: string, tabWidth: number): number;
+function skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
+function skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipInlineComment(text: string, index: number | false): number | false;
+function skipTrailingComment(text: string, index: number | false): number | false;
+function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
+function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
+function hasNewlineInRange(text: string, start: number, end: number): boolean;
+function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
+function makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
+function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEnd: (node: N) => number): number | false;
+function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
+function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
 ```
+
+### Tutorials
+
+- [How to write a plugin for Prettier](https://medium.com/@fvictorio/how-to-write-a-plugin-for-prettier-a0d98c845e70): Teaches you how to write a very basic Prettier plugin for TOML.
 
 ## Testing Plugins
 
@@ -243,7 +268,7 @@ const prettier = require("prettier");
 const code = "(add 1 2)";
 prettier.format(code, {
   parser: "lisp",
-  plugins: ["."]
+  plugins: ["."],
 });
 ```
 

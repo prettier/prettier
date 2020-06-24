@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interfaceDeclaration.ts - typescript-verify 1`] = `
+exports[`interfaceDeclaration.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface abstract {
     abstract(): void,
     concrete(): number
@@ -11,7 +16,8 @@ interface X {
 }
 
 interface nil {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface abstract {
   abstract(): void;
   concrete(): number;
@@ -23,4 +29,5 @@ interface X {
 
 interface nil {}
 
+================================================================================
 `;

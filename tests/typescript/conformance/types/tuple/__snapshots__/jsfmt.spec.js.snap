@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`contextualTypeWithTuple.ts - typescript-verify 1`] = `
+exports[`contextualTypeWithTuple.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿// no error
 var numStrTuple: [number, string] = [5, "hello"];
 var numStrTuple2: [number, string] = [5, "foo", true];
@@ -26,7 +31,8 @@ unionTuple = unionTuple1;
 unionTuple = unionTuple2;
 unionTuple2 = unionTuple;
 numStrTuple = unionTuple3;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿// no error
 var numStrTuple: [number, string] = [5, "hello"];
 var numStrTuple2: [number, string] = [5, "foo", true];
@@ -53,9 +59,15 @@ unionTuple = unionTuple2;
 unionTuple2 = unionTuple;
 numStrTuple = unionTuple3;
 
+================================================================================
 `;
 
-exports[`indexerWithTuple.ts - typescript-verify 1`] = `
+exports[`indexerWithTuple.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿var strNumTuple: [string, number] = ["foo", 10]; 
 var numTupleTuple: [number, [string, number]] = [10, ["bar", 20]];
 var unionTuple1: [number, string| number] = [10, "foo"]; 
@@ -88,7 +100,8 @@ var eleUnion23 = unionTuple2[idx0]; // string | number | boolean
 var eleUnion24 = unionTuple2[idx1]; // string | number | boolean
 var eleUnion25 = unionTuple2["0"]; // boolean
 var eleUnion26 = unionTuple2["1"]; // string | number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿var strNumTuple: [string, number] = ["foo", 10];
 var numTupleTuple: [number, [string, number]] = [10, ["bar", 20]];
 var unionTuple1: [number, string | number] = [10, "foo"];
@@ -122,37 +135,71 @@ var eleUnion24 = unionTuple2[idx1]; // string | number | boolean
 var eleUnion25 = unionTuple2["0"]; // boolean
 var eleUnion26 = unionTuple2["1"]; // string | number
 
+================================================================================
 `;
 
-exports[`tupleElementTypes1.ts - typescript-verify 1`] = `
-var [a, b]: [number, any] = [undefined, undefined];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`tupleElementTypes1.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var [a, b]: [number, any] = [undefined, undefined];
 
+=====================================output=====================================
+var [a, b]: [number, any] = [undefined, undefined];
+
+================================================================================
 `;
 
-exports[`tupleElementTypes2.ts - typescript-verify 1`] = `
+exports[`tupleElementTypes2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f([a, b]: [number, any]) { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f([a, b]: [number, any]) {}
 
+================================================================================
 `;
 
-exports[`tupleElementTypes3.ts - typescript-verify 1`] = `
-var [a, b] = [0, undefined];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`tupleElementTypes3.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var [a, b] = [0, undefined];
 
+=====================================output=====================================
+var [a, b] = [0, undefined];
+
+================================================================================
 `;
 
-exports[`tupleElementTypes4.ts - typescript-verify 1`] = `
+exports[`tupleElementTypes4.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f([a, b] = [0, undefined]) { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f([a, b] = [0, undefined]) {}
 
+================================================================================
 `;
 
-exports[`typeInferenceWithTupleType.ts - typescript-verify 1`] = `
+exports[`typeInferenceWithTupleType.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 ﻿function combine<T, U>(x: T, y: U): [T, U] {
     return [x, y];
 }
@@ -177,7 +224,8 @@ var zipResult = zip(["foo", "bar"], [5, 6]);
 var zipResultEle = zipResult[0]; // [string, number]
 var zipResultEleEle = zipResult[0][0]; // string
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ﻿function combine<T, U>(x: T, y: U): [T, U] {
   return [x, y];
 }
@@ -202,31 +250,45 @@ var zipResult = zip(["foo", "bar"], [5, 6]);
 var zipResultEle = zipResult[0]; // [string, number]
 var zipResultEleEle = zipResult[0][0]; // string
 
+================================================================================
 `;
 
-exports[`wideningTuples1.ts - typescript-verify 1`] = `
+exports[`wideningTuples1.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 //@noImplicitAny: true
 declare function foo<T extends [any]>(x: T): T;
 
 var y = foo([undefined]);
 y = [""];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 //@noImplicitAny: true
 declare function foo<T extends [any]>(x: T): T;
 
 var y = foo([undefined]);
 y = [""];
 
+================================================================================
 `;
 
-exports[`wideningTuples2.ts - typescript-verify 1`] = `
+exports[`wideningTuples2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 //@noImplicitAny: true
 var foo: () => [any] = function bar() {
     let intermediate = bar();
     intermediate = [""];
     return [undefined];
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 //@noImplicitAny: true
 var foo: () => [any] = function bar() {
   let intermediate = bar();
@@ -234,65 +296,101 @@ var foo: () => [any] = function bar() {
   return [undefined];
 };
 
+================================================================================
 `;
 
-exports[`wideningTuples3.ts - typescript-verify 1`] = `
+exports[`wideningTuples3.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 //@noImplicitAny: true
 var a: [any];
 
 var b = a = [undefined, null];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 //@noImplicitAny: true
 var a: [any];
 
 var b = (a = [undefined, null]);
 
+================================================================================
 `;
 
-exports[`wideningTuples4.ts - typescript-verify 1`] = `
+exports[`wideningTuples4.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var a: [any];
 
 var b = a = [undefined, null];
 b = ["", ""];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var a: [any];
 
 var b = (a = [undefined, null]);
 b = ["", ""];
 
+================================================================================
 `;
 
-exports[`wideningTuples5.ts - typescript-verify 1`] = `
-//@noImplicitAny: true
-var [a, b] = [undefined, null];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`wideningTuples5.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 //@noImplicitAny: true
 var [a, b] = [undefined, null];
 
+=====================================output=====================================
+//@noImplicitAny: true
+var [a, b] = [undefined, null];
+
+================================================================================
 `;
 
-exports[`wideningTuples6.ts - typescript-verify 1`] = `
+exports[`wideningTuples6.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var [a, b] = [undefined, null];
 a = "";
 b = "";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var [a, b] = [undefined, null];
 a = "";
 b = "";
 
+================================================================================
 `;
 
-exports[`wideningTuples7.ts - typescript-verify 1`] = `
+exports[`wideningTuples7.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 //@noImplicitAny: true
 var foo = function bar() {
     let intermediate: [string];
     return intermediate = [undefined];
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 //@noImplicitAny: true
 var foo = function bar() {
   let intermediate: [string];
   return (intermediate = [undefined]);
 };
 
+================================================================================
 `;

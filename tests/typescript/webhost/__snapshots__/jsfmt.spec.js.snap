@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`webtsc.ts - typescript-verify 1`] = `
+exports[`webtsc.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /// <reference path='..\\..\\src\\compiler\\tsc.ts'/>
 
 namespace TypeScript.WebTsc {
@@ -105,7 +110,8 @@ namespace TypeScript.WebTsc {
         };
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /// <reference path='..\\..\\src\\compiler\\tsc.ts'/>
 
 namespace TypeScript.WebTsc {
@@ -194,7 +200,7 @@ namespace TypeScript.WebTsc {
       exit(exitCode?: number): void {
         WScript.Quit(exitCode);
       },
-      useCaseSensitiveFileNames: false
+      useCaseSensitiveFileNames: false,
     };
   }
 
@@ -216,4 +222,5 @@ namespace TypeScript.WebTsc {
   }
 }
 
+================================================================================
 `;

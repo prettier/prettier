@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`newKeyword.ts - typescript-verify 1`] = `
+exports[`newKeyword.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x: { y: new <T, U> () => [T, U] };
 
 interface I {
@@ -8,7 +13,8 @@ interface I {
     new (x: string);
     new (x: number): number;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x: { y: new <T, U>() => [T, U] };
 
 interface I {
@@ -17,4 +23,5 @@ interface I {
   new (x: number): number;
 }
 
+================================================================================
 `;
