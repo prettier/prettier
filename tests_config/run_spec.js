@@ -3,6 +3,9 @@
 const fs = require("fs");
 const path = require("path");
 const { isCI } = require("ci-info");
+const prettier = !TEST_STANDALONE
+  ? require("prettier/local")
+  : require("prettier/standalone");
 const checkParsers = require("./utils/check-parsers");
 const visualizeRange = require("./utils/visualize-range");
 const createSnapshot = require("./utils/create-snapshot");
@@ -20,10 +23,6 @@ const TEST_CRLF =
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
-
-const prettier = !TEST_STANDALONE
-  ? require("prettier/local")
-  : require("prettier/standalone");
 
 // TODO: these test files need fix
 const unstableTests = new Map(

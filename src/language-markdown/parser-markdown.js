@@ -2,11 +2,11 @@
 
 const remarkParse = require("remark-parse");
 const unified = require("unified");
-const pragma = require("./pragma");
+const remarkMath = require("remark-math");
 const parseFrontMatter = require("../utils/front-matter");
+const pragma = require("./pragma");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
-const remarkMath = require("remark-math");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:

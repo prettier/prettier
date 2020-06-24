@@ -1,9 +1,9 @@
 "use strict";
 
+const createLanguage = require("../utils/create-language");
 const estreePrinter = require("./printer-estree");
 const estreeJsonPrinter = require("./printer-estree-json");
 const options = require("./options");
-const createLanguage = require("../utils/create-language");
 
 const languages = [
   createLanguage(require("linguist-languages/data/JavaScript"), (data) => ({

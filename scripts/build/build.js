@@ -1,10 +1,10 @@
 "use strict";
 
+const path = require("path");
+const fs = require("fs");
 const chalk = require("chalk");
 const execa = require("execa");
 const minimist = require("minimist");
-const path = require("path");
-const fs = require("fs");
 const stringWidth = require("string-width");
 
 const bundler = require("./bundler");

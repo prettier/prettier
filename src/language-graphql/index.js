@@ -1,8 +1,8 @@
 "use strict";
 
+const createLanguage = require("../utils/create-language");
 const printer = require("./printer-graphql");
 const options = require("./options");
-const createLanguage = require("../utils/create-language");
 
 const languages = [
   createLanguage(require("linguist-languages/data/GraphQL"), () => ({

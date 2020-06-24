@@ -1,7 +1,5 @@
 "use strict";
 
-const clean = require("./clean");
-
 const {
   concat,
   group,
@@ -12,6 +10,8 @@ const {
   line,
   softline,
 } = require("../document").builders;
+
+const clean = require("./clean");
 
 const {
   getNextNode,

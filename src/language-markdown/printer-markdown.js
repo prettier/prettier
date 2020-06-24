@@ -1,9 +1,6 @@
 "use strict";
 
 const privateUtil = require("../common/util");
-const embed = require("./embed");
-const pragma = require("./pragma");
-const preprocess = require("./preprocess");
 const {
   builders: {
     breakParent,
@@ -23,6 +20,10 @@ const {
   utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
+const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
+const embed = require("./embed");
+const pragma = require("./pragma");
+const preprocess = require("./preprocess");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -31,7 +32,6 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
 } = require("./utils");
-const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
