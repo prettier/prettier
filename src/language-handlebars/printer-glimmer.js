@@ -1,6 +1,7 @@
 "use strict";
 
 const clean = require("./clean");
+const preprocess = require("./preprocess");
 
 const {
   concat,
@@ -251,9 +252,18 @@ function print(path, options, print) {
         }
       }
 
+      let text = n.chars;
+      /* if `{{my-component}}` (or any text starting with a mustache)
+       * makes it to the TextNode,
+       * it means it was escaped,
+       * so let's print it escaped, ie.; `\{{my-component}}` */
+      if (text.startsWith("{{") && text.includes("}}")) {
+        text = "\\" + text;
+      }
+
       return concat([
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-        n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+        text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ]);
     }
@@ -652,4 +662,5 @@ function locationToOffset(source, line, column) {
 module.exports = {
   print,
   massageAstNode: clean,
+  preprocess,
 };
