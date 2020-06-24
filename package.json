@@ -105,7 +105,7 @@
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-unicorn": "20.1.0",
     "execa": "4.0.2",
-    "jest": "26.0.1",
+    "jest": "26.1.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.6.0",
