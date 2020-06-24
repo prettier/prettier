@@ -25,8 +25,11 @@ describe("CLI", () => {
         "package.json",
       ]) {
         let content = fs.readFileSync(path.join(prettierRootDir, file), "utf8");
-        while (content.includes(version)) {
-          content = content.replace(version, "global-version");
+        // Currently, the `prettier --version` output the version from `index.js`
+        if (file === "index.js") {
+          while (content.includes(version)) {
+            content = content.replace(version, "global-version");
+          }
         }
         fs.writeFileSync(path.join(workingDirectory, file), content);
       }
