@@ -2,7 +2,7 @@
   "name": "prettier",
   "version": "2.1.0-dev",
   "description": "Prettier is an opinionated code formatter",
-  "bin": "./bin-prettier.js",
+  "bin": "./bin/prettier.js",
   "repository": "prettier/prettier",
   "homepage": "https://prettier.io",
   "author": "James Long",
@@ -16,8 +16,8 @@
   "files": [
     "index.js",
     "standalone.js",
-    "bin-prettier.js",
-    "src"
+    "src",
+    "bin"
   ],
   "dependencies": {
     "@angular/compiler": "9.1.11",

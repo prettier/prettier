@@ -90,6 +90,7 @@ async function cacheFiles() {
 
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
+  pkg.bin = "./bin-prettier.js";
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {
@@ -99,6 +100,7 @@ async function preparePackage() {
   pkg.files = ["*.js"];
   await util.writeJson("dist/package.json", pkg);
 
+  await util.copyFile("./bin/prettier.js", "./dist/bin-prettier.js");
   await util.copyFile("./README.md", "./dist/README.md");
   await util.copyFile("./LICENSE", "./dist/LICENSE");
 }
