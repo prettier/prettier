@@ -122,7 +122,6 @@ const coreBundles = [
       "require(localFile)": "eval('require')(localFile)",
     },
     externals: [
-      path.resolve("package.json"),
       path.resolve("src/index.js"),
       path.resolve("src/common/third-party.js"),
     ],

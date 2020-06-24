@@ -9,56 +9,51 @@ describe("CLI", () => {
     expect(() => fs.accessSync(prettierCli, fs.constants.X_OK)).not.toThrow();
   });
 
-  const packageJson = require(path.join(prettierRootDir, "package.json"));
-  const version = packageJson.version;
-
-  test("CLI version should read from `package.json`.", () => {
-    const randomVersion = version + Math.random();
-
-    fs.writeFileSync(
-      packageJsonFile,
-      JSON.stringify({
-        ...packageJson,
-        version: randomVersion,
-      })
-    );
-
-    const actualVersion = (await execa(`node ${prettierCli} --version`, { cwd: prettierRootDir })).stdout
-
-    fs.writeFileSync(
-      packageJsonFile,
-      JSON.stringify({
-        ...packageJson,
-        version,
-      })
-    );
-
-    expect(actualVersion).toBe(randomVersion);
-  });
-
   if (isProduction) {
     test("prefer local installation", async () => {
       const workingDirectory = path.join(prettierRootDir, "../..");
+      const { version } = require(path.join(prettierRootDir, "package.json"));
 
-      // copy bin file
       const binFilename = path.basename(prettierCli);
       const binFile = path.join(workingDirectory, binFilename);
-      fs.writeFileSync(fs.readFileSync(prettierCli));
 
-      // write package.json
-      const packageJsonFile = path.join(workingDirectory, "package.json");
+      // copy bin file and deps
+      for (const file of [
+        binFilename,
+        "index.js",
+        "third-party.js",
+        "package.json",
+      ]) {
+        let content = fs.readFileSync(path.join(prettierRootDir, file), "utf8");
+        while (content.includes(version)) {
+          content = content.replace(version, "global-version");
+        }
+        fs.writeFileSync(path.join(workingDirectory, file), content);
+      }
+
+      expect(
+        (
+          await execa(`node ${binFile} --version`, {
+            cwd: workingDirectory,
+          })
+        ).stdout
+      ).toBe(version);
+
+      // Remove `importLocal`
       fs.writeFileSync(
-        packageJsonFile,
-        JSON.stringify({
-          ...packageJson,
-          version: "global",
-        })
+        binFile,
+        fs
+          .readFileSync(binFile, "utf8")
+          .replace("importLocal(__filename)", "false")
       );
 
       expect(
-        (await execa.sync(`node ${binFile} --version`, { cwd: prettierRootDir })).stdout
-      ).toBe(version);
+        (
+          await execa(`node ${binFile} --version`, {
+            cwd: workingDirectory,
+          })
+        ).stdout
+      ).toBe("global-version");
     });
   }
-
 });
