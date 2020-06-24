@@ -2,7 +2,7 @@
   "name": "prettier",
   "version": "2.1.0-dev",
   "description": "Prettier is an opinionated code formatter",
-  "bin": "./bin/prettier.js",
+  "bin": "./bin-prettier.js",
   "repository": "prettier/prettier",
   "homepage": "https://prettier.io",
   "author": "James Long",
@@ -16,8 +16,8 @@
   "files": [
     "index.js",
     "standalone.js",
-    "src",
-    "bin"
+    "bin-prettier.js",
+    "src"
   ],
   "dependencies": {
     "@angular/compiler": "9.1.11",
@@ -52,6 +52,7 @@
     "html-tag-names": "1.1.5",
     "html-void-elements": "1.0.5",
     "ignore": "4.0.6",
+    "import-local": "3.0.2",
     "jest-docblock": "26.0.0",
     "leven": "3.1.0",
     "lines-and-columns": "1.1.6",
