@@ -36,7 +36,7 @@ describe("CLI", () => {
 
       expect(
         (
-          await execa(`node ${binFile} --version`, {
+          await execa.node(binFile, ["--version"], {
             cwd: workingDirectory,
           })
         ).stdout
@@ -52,7 +52,7 @@ describe("CLI", () => {
 
       expect(
         (
-          await execa(`node ${binFile} --version`, {
+          await execa.node(binFile, ["--version"], {
             cwd: workingDirectory,
           })
         ).stdout
