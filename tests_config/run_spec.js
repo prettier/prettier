@@ -1,5 +1,7 @@
 "use strict";
 
+const { TEST_STANDALONE } = process.env;
+
 const fs = require("fs");
 const path = require("path");
 const { isCI } = require("ci-info");
@@ -14,7 +16,6 @@ const visualizeEndOfLine = require("./utils/visualize-end-of-line");
 const consistentEndOfLine = require("./utils/consistent-end-of-line");
 const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
 
-const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
 const DEEP_COMPARE = isCI || process.env.DEEP_COMPARE;
 const TEST_CRLF =
