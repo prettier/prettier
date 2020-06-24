@@ -32,6 +32,7 @@ function embed(path, print, textToDoc, options) {
         concat([
           style,
           node.lang,
+          node.meta ? " " + node.meta : "",
           hardline,
           replaceNewlinesWithLiterallines(doc),
           style,

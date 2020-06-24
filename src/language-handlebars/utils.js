@@ -1,22 +1,6 @@
 "use strict";
 
-// http://w3c.github.io/html/single-page.html#void-elements
-const voidTags = new Set([
-  "area",
-  "base",
-  "br",
-  "col",
-  "embed",
-  "hr",
-  "img",
-  "input",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr",
-]);
+const htmlVoidElements = require("html-void-elements");
 
 function isUppercase(string) {
   return string.toUpperCase() === string;
@@ -30,6 +14,7 @@ function isGlimmerComponent(node) {
   );
 }
 
+const voidTags = new Set(htmlVoidElements);
 function isVoid(node) {
   return (
     (isGlimmerComponent(node) &&
