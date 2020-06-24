@@ -116,11 +116,18 @@ function print(path, options, print) {
       );
     }
     case "MustacheStatement": {
-      const shouldBreakOpeningMustache = isParentOfSomeType(path, [
+      const isParentOfSpecifiedTypes = isParentOfSomeType(path, [
         "AttrNode",
         "ConcatStatement",
-        "ElementNode",
       ]);
+
+      const isChildOfElementNodeAndDoesNotHaveParams =
+        isParentOfSomeType(path, ["ElementNode"]) &&
+        doesNotHaveHashParams(n) &&
+        doesNotHavePositionalParams(n);
+
+      const shouldBreakOpeningMustache =
+        isParentOfSpecifiedTypes || isChildOfElementNodeAndDoesNotHaveParams;
 
       return group(
         concat([
@@ -657,6 +664,14 @@ function locationToOffset(source, line, column) {
     seenLines += 1;
     seenChars = nextLine + 1;
   }
+}
+
+function doesNotHaveHashParams(node) {
+  return node.hash.pairs.length === 0;
+}
+
+function doesNotHavePositionalParams(node) {
+  return node.params.length === 0;
 }
 
 module.exports = {

@@ -50,6 +50,27 @@ singleQuote: true
   ...attributes >
 </div>
 
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
+</div>
+
 =====================================output=====================================
 <GlimmerComponent
   @progress={{
@@ -116,6 +137,34 @@ singleQuote: true
   ...attributes
 >
 </div>
+
+<div>
+  {{classic-component-with-many-properties
+    class='hello'
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
+  }}
+</div>
+
+<div>
+  {{a-helper
+    'that takes some arguments'
+    this.anotherOne
+    'why not'
+    @aLastOneLongEnoughToBreak
+  }}
+</div>
 ================================================================================
 `;
 
@@ -166,6 +215,27 @@ printWidth: 80
     
     {{this.class}}"
   ...attributes >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
 </div>
 
 =====================================output=====================================
@@ -233,6 +303,34 @@ printWidth: 80
    {{this.class}}"
   ...attributes
 >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
+  }}
+</div>
+
+<div>
+  {{a-helper
+    "that takes some arguments"
+    this.anotherOne
+    "why not"
+    @aLastOneLongEnoughToBreak
+  }}
 </div>
 ================================================================================
 `;
