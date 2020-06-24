@@ -44,6 +44,7 @@
     "src/standalone.js",
     "index.js",
     "standalone.js",
+    "bin-prettier.js",
     "bin/",
     "dist/",
     "docs/",
