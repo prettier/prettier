@@ -219,14 +219,7 @@ function attach(comments, ast, text, options) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
-        pluginHandleOwnLineComment(
-          comment,
-          text,
-          options,
-          ast,
-          isLastComment,
-          comments
-        )
+        pluginHandleOwnLineComment(comment, text, options, ast, isLastComment)
       ) {
         // We're good
       } else if (followingNode) {

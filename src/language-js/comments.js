@@ -8,14 +8,7 @@ const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util-shared");
 
-function handleOwnLineComment(
-  comment,
-  text,
-  options,
-  ast,
-  isLastComment,
-  comments
-) {
+function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
     handleLastFunctionArgComments(
@@ -79,7 +72,6 @@ function handleOwnLineComment(
       enclosingNode,
       precedingNode,
       comment,
-      comments,
       text,
       options
     )
@@ -955,29 +947,18 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function hasQuestionInRange(text, start, end, comments, options) {
-  for (let i = start; i < end; ++i) {
-    if (text.charAt(i) === "?") {
-      let hasQuestion = true;
-      // Ignore "?" in comments
-      for (const comment of comments) {
-        const commentStart = options.locStart(comment);
-        const commentEnd = options.locEnd(comment);
-        if (commentStart < i && i < commentEnd) {
-          hasQuestion = false;
-        }
-      }
-      return hasQuestion;
-    }
-  }
-  return false;
+function hasQuestionBetweenTestAndComment(testNode, comment, text, options) {
+  const idx = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    options.locEnd(testNode)
+  );
+  return idx < options.locStart(comment);
 }
 
 function handleTernaryTrailingComments(
   enclosingNode,
   precedingNode,
   comment,
-  comments,
   text,
   options
 ) {
@@ -991,13 +972,7 @@ function handleTernaryTrailingComments(
     //   // comment
     //   first
     //   : second
-    !hasQuestionInRange(
-      text,
-      options.locEnd(precedingNode),
-      options.locStart(comment),
-      comments,
-      options
-    )
+    !hasQuestionBetweenTestAndComment(precedingNode, comment, text, options)
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
