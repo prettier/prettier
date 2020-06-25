@@ -323,7 +323,7 @@ test("API getFileInfo with ignorePath", () => {
   ]);
 });
 
-test("API getFileInfo with ignorePath containing relative paths", () => {
+test("API getFileInfo with ignorePath containing relative paths", async () => {
   const file = path.resolve(
     path.join(
       __dirname,
@@ -334,17 +334,17 @@ test("API getFileInfo with ignorePath containing relative paths", () => {
     path.join(__dirname, "../cli/ignore-relative-path/.prettierignore")
   );
 
-  return Promise.all([
-    expect(prettier.getFileInfo(file)).resolves.toMatchObject({
-      ignored: false,
-      inferredParser: "babel",
-    }),
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "babel",
+  });
 
-    expect(prettier.getFileInfo(file, { ignorePath })).resolves.toMatchObject({
-      ignored: true,
-      inferredParser: null,
-    }),
-  ]);
+  await expect(
+    prettier.getFileInfo(file, { ignorePath })
+  ).resolves.toMatchObject({
+    ignored: true,
+    inferredParser: null,
+  });
 });
 
 test("API getFileInfo.sync with ignorePath", () => {
