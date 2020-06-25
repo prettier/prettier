@@ -302,7 +302,7 @@ describe("API getFileInfo resolveConfig when no config is present", () => {
   });
 });
 
-test("API getFileInfo with ignorePath", () => {
+test("API getFileInfo with ignorePath", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/ignore-path/regular-module.js")
   );
@@ -310,17 +310,17 @@ test("API getFileInfo with ignorePath", () => {
     path.join(__dirname, "../cli/ignore-path/.prettierignore")
   );
 
-  return Promise.all([
-    expect(prettier.getFileInfo(file)).resolves.toMatchObject({
-      ignored: false,
-      inferredParser: "babel",
-    }),
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "babel",
+  });
 
-    expect(prettier.getFileInfo(file, { ignorePath })).resolves.toMatchObject({
-      ignored: true,
-      inferredParser: null,
-    }),
-  ]);
+  await expect(
+    prettier.getFileInfo(file, { ignorePath })
+  ).resolves.toMatchObject({
+    ignored: true,
+    inferredParser: null,
+  });
 });
 
 test("API getFileInfo with ignorePath containing relative paths", async () => {
