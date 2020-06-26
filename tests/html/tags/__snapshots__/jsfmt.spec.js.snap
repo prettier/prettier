@@ -3778,25 +3778,60 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<noscript
->noscript</noscript><details
-><summary>summary long long long long </summary>details</details><dialog open
->dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<noscript>noscript</noscript>
-<details>
-  <summary>summary long long long long</summary>
-  details
-</details>
-<dialog open>dialog</dialog>
-<object data="horse.wav">
-  <param name="autoplay" value="true" />
-  <param name="autoplay" value="true" />
-</object>
-<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>
-<progress value=".5" max="1"></progress>
+<div>
+  before
+  <noscript>noscript</noscript>
+  after
+</div>
+
+<div>
+  before
+  <details>
+    <summary>summary long long long long</summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog open>dialog long long long long long long long long</dialog>
+  after
+</div>
+
+<div>
+  before
+  <object data="horse.wav">
+    <param name="autoplay" value="true" />
+    <param name="autoplay" value="true" />
+  </object>
+  after
+</div>
+
+<div>
+  before
+  <meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>
+  after
+</div>
+
+<div>
+  before
+  <progress value=".5" max="1"></progress>
+  after
+</div>
 
 ================================================================================
 `;
@@ -3808,22 +3843,53 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<noscript
->noscript</noscript><details
-><summary>summary long long long long </summary>details</details><dialog open
->dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<noscript>noscript</noscript
-><details><summary>summary long long long long </summary>details</details
-><dialog open>dialog</dialog
-><object data="horse.wav"
-  ><param name="autoplay" value="true" /><param
-    name="autoplay"
-    value="true" /></object
-><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter
-><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div
+  >before<details
+    ><summary>summary long long long long </summary>details</details
+  >after</div
+>
+
+<div
+  >before<dialog open>dialog long long long long long long long long </dialog
+  >after</div
+>
+
+<div
+  >before<object data="horse.wav"
+    ><param name="autoplay" value="true" /><param
+      name="autoplay"
+      value="true" /></object
+  >after</div
+>
+
+<div
+  >before<meter
+    min="0"
+    max="1"
+    low=".4"
+    high=".7"
+    optimum=".5"
+    value=".2"
+  ></meter
+  >after</div
+>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 ================================================================================
 `;
@@ -3833,23 +3899,46 @@ exports[`tags2.html - {"printWidth":"Infinity"} format 1`] = `
 parsers: ["html"]
 printWidth: Infinity
 =====================================input======================================
-<noscript
->noscript</noscript><details
-><summary>summary long long long long </summary>details</details><dialog open
->dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<noscript>noscript</noscript>
-<details>
-  <summary>summary long long long long</summary>
-  details
-</details>
-<dialog open>dialog</dialog>
-<object data="horse.wav">
-  <param name="autoplay" value="true" />
-  <param name="autoplay" value="true" /></object
-><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div>
+  before
+  <details>
+    <summary>summary long long long long</summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog open>dialog long long long long long long long long</dialog>
+  after
+</div>
+
+<div>
+  before<object data="horse.wav">
+    <param name="autoplay" value="true" />
+    <param name="autoplay" value="true" /></object
+  >after
+</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 ================================================================================
 `;
@@ -3860,54 +3949,90 @@ parsers: ["html"]
 printWidth: 1
  | printWidth
 =====================================input======================================
-<noscript
->noscript</noscript><details
-><summary>summary long long long long </summary>details</details><dialog open
->dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<noscript>
-  noscript
-</noscript>
-<details>
-  <summary>
-    summary
+<div>
+  before<noscript>noscript</noscript>after
+</div>
+
+<div>
+  before
+  <details>
+    <summary>
+      summary
+      long
+      long
+      long
+      long
+    </summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog
+    open
+  >
+    dialog
     long
     long
     long
     long
-  </summary>
-  details
-</details>
-<dialog
-  open
->
-  dialog
-</dialog>
-<object
-  data="horse.wav"
->
-  <param
-    name="autoplay"
-    value="true"
-  />
-  <param
-    name="autoplay"
-    value="true"
-  /></object
-><meter
-  min="0"
-  max="1"
-  low=".4"
-  high=".7"
-  optimum=".5"
-  value=".2"
-></meter
-><progress
-  value=".5"
-  max="1"
-></progress>
+    long
+    long
+    long
+    long
+  </dialog>
+  after
+</div>
+
+<div>
+  before<object
+    data="horse.wav"
+  >
+    <param
+      name="autoplay"
+      value="true"
+    />
+    <param
+      name="autoplay"
+      value="true"
+    /></object
+  >after
+</div>
+
+<div>
+  before<meter
+    min="0"
+    max="1"
+    low=".4"
+    high=".7"
+    optimum=".5"
+    value=".2"
+  ></meter
+  >after
+</div>
+
+<div>
+  before<progress
+    value=".5"
+    max="1"
+  ></progress
+  >after
+</div>
 
 ================================================================================
 `;
@@ -3918,24 +4043,56 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<noscript
->noscript</noscript><details
-><summary>summary long long long long </summary>details</details><dialog open
->dialog</dialog><object data="horse.wav"><param name="autoplay" value="true"
-><param name="autoplay" value="true"></object><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<noscript>noscript</noscript>
-<details>
-  <summary>summary long long long long</summary>
-  details
-</details>
-<dialog open>dialog</dialog>
-<object data="horse.wav">
-  <param name="autoplay" value="true" />
-  <param name="autoplay" value="true" /></object
-><meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter
-><progress value=".5" max="1"></progress>
+<div>before<noscript>noscript</noscript>after</div>
+
+<div>
+  before
+  <details>
+    <summary>summary long long long long</summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog open>dialog long long long long long long long long</dialog>
+  after
+</div>
+
+<div>
+  before<object data="horse.wav">
+    <param name="autoplay" value="true" />
+    <param name="autoplay" value="true" /></object
+  >after
+</div>
+
+<div>
+  before<meter
+    min="0"
+    max="1"
+    low=".4"
+    high=".7"
+    optimum=".5"
+    value=".2"
+  ></meter
+  >after
+</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
 
 ================================================================================
 `;
