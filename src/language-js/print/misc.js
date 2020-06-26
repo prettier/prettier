@@ -73,7 +73,9 @@ function printTSAsExpression(path, options, print) {
     node.expression.type !== "ObjectExpression" &&
     node.expression.type !== "ArrayExpression" &&
     ((parent.type === "VariableDeclarator" && name === "init") ||
-      (parent.type === "AssignmentExpression" && name === "right"));
+      (parent.type === "AssignmentExpression" && name === "right") ||
+      ((parent.type === "Property" || parent.type === "ObjectProperty") &&
+        name === "value"));
   if (shouldIndent) {
     return group(indent(concat([softline, content])));
   }

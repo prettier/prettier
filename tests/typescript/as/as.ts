@@ -42,6 +42,9 @@ const value6 = [
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
 ] as SomeType;
+averredBathersBoxroomBuggyNurl = {
+  anodyneCondosMalateOverateRetinol: annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave
+};
 
 const iter1 = createIterator(this.controller, child, this.tag as SyncFunctionComponent);
 const iter2 = createIterator(self.controller, child, self.tag as SyncFunctionComponent);

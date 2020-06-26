@@ -50,6 +50,9 @@ const value6 = [
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
 ] as SomeType;
+averredBathersBoxroomBuggyNurl = {
+  anodyneCondosMalateOverateRetinol: annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave
+};
 
 const iter1 = createIterator(this.controller, child, this.tag as SyncFunctionComponent);
 const iter2 = createIterator(self.controller, child, self.tag as SyncFunctionComponent);
@@ -118,6 +121,10 @@ const value6 = [
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier,
 ] as SomeType;
+averredBathersBoxroomBuggyNurl = {
+  anodyneCondosMalateOverateRetinol:
+    annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave,
+};
 
 const iter1 = createIterator(
   this.controller,
@@ -252,9 +259,10 @@ const defaultMaskGetter =
 angular.module("foo").directive("formIsolator", () => {
   return {
     name: "form",
-    controller: class FormIsolatorController {
-      $addControl = angular.noop;
-    } as ng.IControllerConstructor,
+    controller:
+      class FormIsolatorController {
+        $addControl = angular.noop;
+      } as ng.IControllerConstructor,
   };
 });
 
@@ -320,7 +328,8 @@ averredBathersBoxroomBuggyNurl.anodyneCondosMalateOverateRetinol =
   annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave;
 
 averredBathersBoxroomBuggyNurl = {
-  anodyneCondosMalateOverateRetinol: annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave,
+  anodyneCondosMalateOverateRetinol:
+    annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave,
 };
 
 averredBathersBoxroomBuggyNurl(
