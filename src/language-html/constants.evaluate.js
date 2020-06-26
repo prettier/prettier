@@ -43,7 +43,8 @@ const CSS_DISPLAY_TAGS = {
   video: "inline-block",
   audio: "inline-block",
   select: "inline-block",
-  optgroup: "inline-block",
+  option: "block",
+  optgroup: "block",
 };
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");

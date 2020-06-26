@@ -241,6 +241,18 @@ function mapAst(ast, handler) {
   })(ast, null, null);
 }
 
+function isAutolink(node, options) {
+  if (!node || node.type !== "link" || node.children.length !== 1) {
+    return false;
+  }
+  const child = node.children[0];
+  return (
+    child &&
+    options.locStart(node) === options.locStart(child) &&
+    options.locEnd(node) === options.locEnd(child)
+  );
+}
+
 module.exports = {
   mapAst,
   splitText,
@@ -250,4 +262,5 @@ module.exports = {
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
+  isAutolink,
 };
