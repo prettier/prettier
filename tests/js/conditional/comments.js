@@ -159,3 +159,15 @@ test
 
 test ? test /* c
 c */? foo : bar : bar;
+
+(async () => {
+  (await test)
+  // comment
+  ?
+  foo :  bar;
+});
+
+(test)
+// comment
+?
+foo : bar;

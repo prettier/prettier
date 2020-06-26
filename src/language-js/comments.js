@@ -952,7 +952,7 @@ function hasQuestionBetweenTestAndComment(testNode, comment, text, options) {
     text,
     options.locEnd(testNode)
   );
-  return idx < options.locStart(comment);
+  return text[idx] === "?" && idx < options.locStart(comment);
 }
 
 function handleTernaryTrailingComments(
