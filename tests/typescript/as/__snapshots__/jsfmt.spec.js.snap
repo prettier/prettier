@@ -69,12 +69,13 @@ start + (yearSelectTotal as number);
 (start + yearSelectTotal) as number;
 scrollTop > (visibilityHeight as number);
 (scrollTop > visibilityHeight) as number;
-export default class Column<T> extends (RcTable.Column as React.ComponentClass<
-  ColumnProps<T>,
-  ColumnProps<T>,
-  ColumnProps<T>,
-  ColumnProps<T>
->) {}
+export default class Column<T> extends (RcTable.Column as
+  React.ComponentClass<
+    ColumnProps<T>,
+    ColumnProps<T>,
+    ColumnProps<T>,
+    ColumnProps<T>
+  >) {}
 export const MobxTypedForm = class extends (Form as { new (): any }) {};
 export abstract class MobxTypedForm1 extends (Form as { new (): any }) {}
 ({} as {});
@@ -333,7 +334,8 @@ averredBathersBoxroomBuggyNurl = {
 };
 
 averredBathersBoxroomBuggyNurl(
-  anodyneCondosMalateOverateRetinol.annularCooeedSplicesWalksWayWay as kochabCooieGameOnOboleUnweave
+  anodyneCondosMalateOverateRetinol.annularCooeedSplicesWalksWayWay as
+    kochabCooieGameOnOboleUnweave
 );
 
 ================================================================================

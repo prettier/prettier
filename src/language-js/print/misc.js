@@ -63,10 +63,21 @@ function printTSAsExpression(path, options, print) {
   const name = path.getName();
   const parent = path.getParentNode();
 
+  const shouldIndentTypeAnnotation =
+    node.expression.type !== "ConditionalExpression" &&
+    node.expression.type !== "ObjectExpression" &&
+    node.expression.type !== "ArrayExpression" &&
+    parent.type !== "VariableDeclarator" &&
+    parent.type !== "AssignmentExpression" &&
+    parent.type !== "Property" &&
+    parent.type !== "ObjectProperty";
+  const printedTypeAnnotation = path.call(print, "typeAnnotation");
   const content = concat([
     path.call(print, "expression"),
     " as ",
-    path.call(print, "typeAnnotation"),
+    shouldIndentTypeAnnotation
+      ? group(indent(concat([softline, printedTypeAnnotation])))
+      : printedTypeAnnotation,
   ]);
 
   const shouldIndent =
