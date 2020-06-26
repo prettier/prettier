@@ -4,8 +4,11 @@ const createError = require("../common/parser-create-error");
 const postprocess = require("./postprocess");
 
 function parse(text, parsers, options) {
-  const glimmer = require("@glimmer/syntax").preprocess;
-  const { traverse } = require("@glimmer/syntax");
+  const glimmer = require("@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers")
+    .preprocess;
+  const {
+    traverse,
+  } = require("@glimmer/syntax/dist/commonjs/es2017/lib/traversal/traverse");
   let ast;
   try {
     ast = glimmer(text, { mode: "codemod" });
