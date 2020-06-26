@@ -3912,7 +3912,11 @@ printWidth: Infinity
 <div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<div>before<noscript>noscript</noscript>after</div>
+<div>
+  before
+  <noscript>noscript</noscript>
+  after
+</div>
 
 <div>
   before
@@ -3963,7 +3967,11 @@ printWidth: 1
 
 =====================================output=====================================
 <div>
-  before<noscript>noscript</noscript>after
+  before
+  <noscript>
+    noscript
+  </noscript>
+  after
 </div>
 
 <div>
@@ -4056,7 +4064,11 @@ printWidth: 80
 <div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<div>before<noscript>noscript</noscript>after</div>
+<div>
+  before
+  <noscript>noscript</noscript>
+  after
+</div>
 
 <div>
   before
