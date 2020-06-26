@@ -6,9 +6,8 @@ const postprocess = require("./postprocess");
 function parse(text, parsers, options) {
   const glimmer = require("@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers")
     .preprocess;
-  const {
-    traverse,
-  } = require("@glimmer/syntax/dist/commonjs/es2017/lib/traversal/traverse");
+  const traverse = require("@glimmer/syntax/dist/commonjs/es2017/lib/traversal/traverse")
+    .default;
   let ast;
   try {
     ast = glimmer(text, { mode: "codemod" });
