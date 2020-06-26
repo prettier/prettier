@@ -1,7 +1,7 @@
 "use strict";
 
-const printer = require("./printer-html");
 const createLanguage = require("../utils/create-language");
+const printer = require("./printer-html");
 const options = require("./options");
 
 const languages = [

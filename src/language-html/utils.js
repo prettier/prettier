@@ -1,15 +1,14 @@
 "use strict";
 
+const htmlTagNames = require("html-tag-names");
+const htmlElementAttributes = require("html-element-attributes");
+const { getParserName, isFrontMatterNode } = require("../common/util");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
-const { getParserName, isFrontMatterNode } = require("../common/util");
-
-const htmlTagNames = require("html-tag-names");
-const htmlElementAttributes = require("html-element-attributes");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);

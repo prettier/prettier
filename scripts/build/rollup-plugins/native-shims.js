@@ -1,8 +1,8 @@
 "use strict";
 
-const builtins = require("builtin-modules");
 const fs = require("fs");
 const path = require("path");
+const builtins = require("builtin-modules");
 
 const EMPTY = "export default {};";
 const PREFIX = "\0shim:";

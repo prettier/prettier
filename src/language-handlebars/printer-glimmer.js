@@ -1,8 +1,5 @@
 "use strict";
 
-const clean = require("./clean");
-const preprocess = require("./preprocess");
-
 const {
   concat,
   group,
@@ -14,6 +11,8 @@ const {
   softline,
 } = require("../document").builders;
 
+const clean = require("./clean");
+const preprocess = require("./preprocess");
 const {
   getNextNode,
   getPreviousNode,

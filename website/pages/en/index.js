@@ -2,8 +2,8 @@
 
 const React = require("react");
 const PropTypes = require("prop-types");
-const { MarkdownBlock, Container } = require("../../core/CompLibrary.js");
 const AnimatedLogo = require("@sandhose/prettier-animated-logo");
+const { MarkdownBlock, Container } = require("../../core/CompLibrary.js");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 

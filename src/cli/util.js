@@ -1,12 +1,12 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
+const readline = require("readline");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
-const fs = require("fs");
 
 const chalk = require("chalk");
-const readline = require("readline");
 const stringify = require("fast-json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");

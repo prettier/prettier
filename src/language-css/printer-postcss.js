@@ -1,8 +1,5 @@
 "use strict";
 
-const clean = require("./clean");
-const embed = require("./embed");
-const { insertPragma } = require("./pragma");
 const {
   printNumber,
   printString,
@@ -11,7 +8,6 @@ const {
   isFrontMatterNode,
 } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
-
 const {
   builders: {
     concat,
@@ -27,6 +23,9 @@ const {
   },
   utils: { removeLines },
 } = require("../document");
+const clean = require("./clean");
+const embed = require("./embed");
+const { insertPragma } = require("./pragma");
 
 const {
   getAncestorNode,

@@ -1,11 +1,11 @@
 "use strict";
 
+const { getLast } = require("../common/util");
 const {
   cjkPattern,
   kPattern,
   punctuationPattern,
 } = require("./constants.evaluate");
-const { getLast } = require("../common/util");
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
