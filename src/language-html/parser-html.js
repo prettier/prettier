@@ -1,16 +1,16 @@
 "use strict";
 
 const { parse: parseFrontMatter } = require("../utils/front-matter");
+const createError = require("../common/parser-create-error");
+const { getParserName } = require("../common/util");
 const {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   isUnknownNamespace,
 } = require("./utils");
 const { hasPragma } = require("./pragma");
-const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
-const { getParserName } = require("../common/util");
 
 function ngHtmlParser(
   input,

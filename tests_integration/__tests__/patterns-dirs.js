@@ -1,5 +1,7 @@
 "use strict";
 
+const path = require("path");
+const fs = require("fs");
 const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
@@ -56,8 +58,6 @@ testPatterns("Exclude yarn.lock when expanding directories", ["."], {
   stdout: expect.not.stringContaining("yarn.lock"),
 });
 
-const path = require("path");
-const fs = require("fs");
 if (path.sep === "/") {
   // Don't use snapshots in these tests as they're conditionally executed on non-Windows only.
 

@@ -1,7 +1,5 @@
 "use strict";
 
-const { isBlockComment, hasLeadingComment } = require("./comments");
-
 const {
   builders: {
     indent,
@@ -16,6 +14,7 @@ const {
   },
   utils: { mapDoc },
 } = require("../document");
+const { isBlockComment, hasLeadingComment } = require("./comments");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();

@@ -1,12 +1,12 @@
 "use strict";
 
 const path = require("path");
-const tempy = require("tempy");
 const fs = require("fs");
+const tempy = require("tempy");
 const fromPairs = require("lodash/fromPairs");
 
-const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
+const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
@@ -30,6 +30,12 @@ describe("extracts file-info for a known markdown file with no extension", () =>
 
 describe("extracts file-info with ignored=true for a file in .prettierignore", () => {
   runPrettier("cli/ignore-path/", ["--file-info", "regular-module.js"]).test({
+    status: 0,
+  });
+});
+
+describe("file-info should try resolve config", () => {
+  runPrettier("cli/with-resolve-config/", ["--file-info", "file.js"]).test({
     status: 0,
   });
 });
@@ -459,5 +465,25 @@ test("API getFileInfo with hand-picked plugins", () => {
   ).resolves.toMatchObject({
     ignored: false,
     inferredParser: "foo",
+  });
+});
+
+test("API getFileInfo with ignorePath and resolveConfig should infer parser with correct filepath", () => {
+  const dir = path.join(__dirname, "../cli/ignore-and-config/");
+  const filePath = path.join(dir, "config-dir/foo");
+  const ignorePath = path.join(dir, "ignore-path-dir/.prettierignore");
+  const options = {
+    resolveConfig: true,
+    ignorePath,
+  };
+
+  expect(prettier.getFileInfo(filePath, options)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
+  });
+
+  expect(prettier.getFileInfo.sync(filePath, options)).toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
   });
 });
