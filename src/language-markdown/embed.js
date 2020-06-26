@@ -5,8 +5,8 @@ const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc },
 } = require("../document");
-const { getFencedCodeBlockValue } = require("./utils");
 const { print: printFrontMatter } = require("../utils/front-matter");
+const { getFencedCodeBlockValue } = require("./utils");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();

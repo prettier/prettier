@@ -1,11 +1,10 @@
 "use strict";
 
+const escape = require("escape-string-regexp");
 const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc },
 } = require("../document");
-
-const escape = require("escape-string-regexp");
 
 const DELIMITER_MAP = {
   "---": "yaml",

@@ -1,10 +1,10 @@
 "use strict";
 
-const { normalize } = require("./options");
-const comments = require("./comments");
 const {
   utils: { stripTrailingHardline },
 } = require("../document");
+const { normalize } = require("./options");
+const comments = require("./comments");
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
