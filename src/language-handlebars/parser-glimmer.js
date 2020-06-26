@@ -1,11 +1,14 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const postprocess = require("./postprocess");
 
-function parse(text) {
+function parse(text, parsers, options) {
+  const glimmer = require("@glimmer/syntax").preprocess;
+  const { traverse } = require("@glimmer/syntax");
+  let ast;
   try {
-    const glimmer = require("@glimmer/syntax").preprocess;
-    return glimmer(text, { mode: "codemod" });
+    ast = glimmer(text, { mode: "codemod" });
     /* istanbul ignore next */
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);
@@ -17,6 +20,8 @@ function parse(text) {
       throw error;
     }
   }
+
+  return postprocess(ast, options, traverse);
 }
 
 module.exports = {
