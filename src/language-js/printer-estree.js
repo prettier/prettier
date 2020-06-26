@@ -24,6 +24,28 @@ const {
   isNextLineEmpty,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util-shared");
+const {
+  builders: {
+    concat,
+    join,
+    line,
+    hardline,
+    softline,
+    literalline,
+    group,
+    indent,
+    align,
+    conditionalGroup,
+    fill,
+    ifBreak,
+    lineSuffixBoundary,
+    addAlignmentToDoc,
+    dedent,
+    breakParent,
+  },
+  utils: { willBreak, isLineNext, isEmpty, removeLines, normalizeParts },
+  printer: { printDocToString },
+} = require("../document");
 const embed = require("./embed");
 const clean = require("./clean");
 const { insertPragma } = require("./pragma");
@@ -100,29 +122,6 @@ const {
 const { printModuleSource, printModuleSpecifiers } = require("./print/module");
 
 const needsQuoteProps = new WeakMap();
-
-const {
-  builders: {
-    concat,
-    join,
-    line,
-    hardline,
-    softline,
-    literalline,
-    group,
-    indent,
-    align,
-    conditionalGroup,
-    fill,
-    ifBreak,
-    lineSuffixBoundary,
-    addAlignmentToDoc,
-    dedent,
-    breakParent,
-  },
-  utils: { willBreak, isLineNext, isEmpty, removeLines, normalizeParts },
-  printer: { printDocToString },
-} = require("../document");
 
 let uid = 0;
 
