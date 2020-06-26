@@ -171,3 +171,11 @@ c */? foo : bar : bar;
 // comment
 ?
 foo : bar;
+
+(test) ?
+// comment
+foo :  bar;
+
+test ?
+// comment
+foo :  bar;

@@ -947,12 +947,32 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function hasQuestionBetweenTestAndComment(testNode, comment, text, options) {
+function hasQuestionBetweenTestAndComment(
+  testNode,
+  comment,
+  text,
+  options,
+  n = 0
+) {
+  const testNodeLocEnd = options.locEnd(testNode) + n;
+  const commentLocStart = options.locStart(comment);
   const idx = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
     text,
-    options.locEnd(testNode)
+    testNodeLocEnd
   );
-  return text[idx] === "?" && idx < options.locStart(comment);
+  if (testNodeLocEnd < commentLocStart) {
+    if (text[idx] === "?") {
+      return idx < commentLocStart;
+    }
+    return hasQuestionBetweenTestAndComment(
+      testNode,
+      comment,
+      text,
+      options,
+      n + 1
+    );
+  }
+  return false;
 }
 
 function handleTernaryTrailingComments(

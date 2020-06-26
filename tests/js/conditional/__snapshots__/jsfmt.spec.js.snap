@@ -180,6 +180,14 @@ c */? foo : bar : bar;
 ?
 foo : bar;
 
+(test) ?
+// comment
+foo :  bar;
+
+test ?
+// comment
+foo :  bar;
+
 =====================================output=====================================
 var inspect =
   4 === util.inspect.length
@@ -354,6 +362,16 @@ async () => {
 test
   // comment
   ? foo
+  : bar;
+
+test
+  ? // comment
+    foo
+  : bar;
+
+test
+  ? // comment
+    foo
   : bar;
 
 ================================================================================
