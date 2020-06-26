@@ -1,6 +1,6 @@
 "use strict";
 
-const PREPROCESS_PIPELINE = [addBackslash];
+const PIPELINE = [addBackslash];
 
 /* VISITORS */
 
@@ -21,7 +21,7 @@ function addBackslash(/* options*/) {
 }
 
 function postprocess(ast, options, traverse) {
-  for (const fn of PREPROCESS_PIPELINE) {
+  for (const fn of PIPELINE) {
     const visitor = fn(options);
     traverse(ast, visitor);
   }
