@@ -688,7 +688,9 @@ function printHandlebarsTemplateLiteral(path, print, textToDoc, options) {
     return "``";
   }
 
-  const contentDoc = textToDoc(text, { parser: "glimmer" });
+  const contentDoc = stripTrailingHardline(
+    textToDoc(text, { parser: "glimmer" })
+  );
 
   const leadingWhitespace = /^\s/.test(text) ? " " : "";
   const trailingWhitespace = /\s$/.test(text) ? " " : "";
