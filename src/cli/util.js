@@ -1,17 +1,17 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
+const readline = require("readline");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
-const fs = require("fs");
-const { isPathValid } = require("ignore");
 const chalk = require("chalk");
-const readline = require("readline");
 const stringify = require("fast-json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
 const flat = require("lodash/flatten");
+const { isPathValid } = require("ignore");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 // eslint-disable-next-line no-restricted-modules

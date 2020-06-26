@@ -1,5 +1,6 @@
 "use strict";
 
+const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const {
   getLast,
   hasNewline,
@@ -8,7 +9,6 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const handleComments = require("./comments");
 
 // We match any whitespace except line terminators because

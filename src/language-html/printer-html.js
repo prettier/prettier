@@ -1,10 +1,12 @@
 "use strict";
 
-const clean = require("./clean");
+const assert = require("assert");
 const {
   builders,
   utils: { stripTrailingHardline, mapDoc, normalizeParts },
 } = require("../document");
+const { replaceEndOfLineWith } = require("../common/util");
+const clean = require("./clean");
 const {
   breakParent,
   dedentToRoot,
@@ -41,9 +43,7 @@ const {
   shouldPreserveContent,
   unescapeQuoteEntities,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
 const preprocess = require("./preprocess");
-const assert = require("assert");
 const { insertPragma } = require("./pragma");
 const {
   printVueFor,

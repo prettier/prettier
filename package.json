@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "9.1.11",
+    "@angular/compiler": "10.0.0",
     "@babel/code-frame": "7.10.3",
     "@babel/parser": "7.10.3",
     "@glimmer/syntax": "0.54.0",
@@ -42,7 +42,6 @@
     "fast-glob": "3.2.4",
     "fast-json-stable-stringify": "2.1.0",
     "find-parent-dir": "0.3.0",
-    "find-project-root": "1.1.1",
     "flow-parser": "0.127.0",
     "get-stream": "5.1.0",
     "globby": "11.0.1",
@@ -76,7 +75,6 @@
     "resolve": "1.17.0",
     "semver": "7.3.2",
     "string-width": "4.2.0",
-    "tslib": "1.13.0",
     "typescript": "3.9.5",
     "unicode-regex": "3.0.0",
     "unified": "9.0.0",
@@ -105,7 +103,7 @@
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-unicorn": "20.1.0",
     "execa": "4.0.2",
-    "jest": "26.0.1",
+    "jest": "26.1.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.6.0",

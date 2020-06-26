@@ -2,8 +2,8 @@
 
 const path = require("path");
 
-const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
+const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 

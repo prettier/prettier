@@ -1,10 +1,10 @@
 "use strict";
 
+const path = require("path");
 const ignore = require("ignore");
-const createIgnorer = require("./create-ignorer");
 const options = require("../main/options");
 const config = require("../config/resolve-config");
-const path = require("path");
+const createIgnorer = require("./create-ignorer");
 
 /**
  * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} FileInfoOptions

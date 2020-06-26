@@ -1,12 +1,12 @@
 "use strict";
 
 const path = require("path");
-const tempy = require("tempy");
 const fs = require("fs");
+const tempy = require("tempy");
 const fromPairs = require("lodash/fromPairs");
 
-const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
+const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
