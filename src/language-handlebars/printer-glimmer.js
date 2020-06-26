@@ -13,7 +13,6 @@ const {
 
 const clean = require("./clean");
 const preprocess = require("./preprocess");
-
 const {
   getNextNode,
   getPreviousNode,
