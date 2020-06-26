@@ -3778,7 +3778,7 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div>before<noscript>noscript</noscript>after</div>
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
 <div>before<details><summary>summary long long long long </summary>details</details>after</div>
 
@@ -3793,7 +3793,7 @@ printWidth: 80
 =====================================output=====================================
 <div>
   before
-  <noscript>noscript</noscript>
+  <noscript>noscript long long long long long long long long</noscript>
   after
 </div>
 
@@ -3843,7 +3843,7 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div>before<noscript>noscript</noscript>after</div>
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
 <div>before<details><summary>summary long long long long </summary>details</details>after</div>
 
@@ -3856,7 +3856,10 @@ printWidth: 80
 <div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<div>before<noscript>noscript</noscript>after</div>
+<div
+  >before<noscript>noscript long long long long long long long long</noscript
+  >after</div
+>
 
 <div
   >before<details
@@ -3899,7 +3902,7 @@ exports[`tags2.html - {"printWidth":"Infinity"} format 1`] = `
 parsers: ["html"]
 printWidth: Infinity
 =====================================input======================================
-<div>before<noscript>noscript</noscript>after</div>
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
 <div>before<details><summary>summary long long long long </summary>details</details>after</div>
 
@@ -3912,11 +3915,7 @@ printWidth: Infinity
 <div>before<progress value=".5" max="1"></progress>after</div>
 
 =====================================output=====================================
-<div>
-  before
-  <noscript>noscript</noscript>
-  after
-</div>
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
 <div>
   before
@@ -3953,7 +3952,7 @@ parsers: ["html"]
 printWidth: 1
  | printWidth
 =====================================input======================================
-<div>before<noscript>noscript</noscript>after</div>
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
 <div>before<details><summary>summary long long long long </summary>details</details>after</div>
 
@@ -3967,11 +3966,17 @@ printWidth: 1
 
 =====================================output=====================================
 <div>
-  before
-  <noscript>
-    noscript
-  </noscript>
-  after
+  before<noscript
+    >noscript
+    long
+    long
+    long
+    long
+    long
+    long
+    long
+    long</noscript
+  >after
 </div>
 
 <div>
@@ -4051,7 +4056,7 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div>before<noscript>noscript</noscript>after</div>
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
 
 <div>before<details><summary>summary long long long long </summary>details</details>after</div>
 
@@ -4065,9 +4070,8 @@ printWidth: 80
 
 =====================================output=====================================
 <div>
-  before
-  <noscript>noscript</noscript>
-  after
+  before<noscript>noscript long long long long long long long long</noscript
+  >after
 </div>
 
 <div>

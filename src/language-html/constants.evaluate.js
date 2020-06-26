@@ -31,7 +31,9 @@ const CSS_DISPLAY_TAGS = {
   track: "block",
   script: "block",
   param: "block",
-  noscript: "block",
+
+  // `noscript` is inline
+  // noscript: "inline",
 
   // there's no css display for these elements but they behave these ways
   details: "block",
