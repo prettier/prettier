@@ -1,5 +1,6 @@
 extends:
   - plugin:react/recommended
+  - prettier/react
 rules:
   import/no-extraneous-dependencies: off
   react/display-name: off
