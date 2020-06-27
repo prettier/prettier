@@ -51,7 +51,7 @@ npx prettier --write .
 
 > What is that `npx` thing? `npx` ships with `npm` and lets you run locally installed tools. We’ll leave off the `npx` part for brevity throughout the rest of this file!
 >
-> Note: If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not good for Prettier! It’s important to have a locked down version of Prettier in your package.json. And it’s faster, too!
+> Note: If you forget to install Prettier first, `npx` will temporarily download the latest version. That’s not a good idea when using Prettier, because we change how code is formatted in each release! It’s important to have a locked down version of Prettier in your `package.json`. And it’s faster, too.
 
 <!--yarn-->
 
@@ -63,7 +63,7 @@ yarn prettier --write .
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-`prettier --write .` is great for formatting everything, but for a big project it might take a little while. You may run `prettier --write app/` to format a certain directory, or `prettier --write app/components/Button.js` to format a certain files. Or `prettier --write "app/**/*.test.js"` to format all tests in a directory.
+`prettier --write .` is great for formatting everything, but for a big project it might take a little while. You may run `prettier --write app/` to format a certain directory, or `prettier --write app/components/Button.js` to format a certain file. Or use a _glob_ like `prettier --write "app/**/*.test.js"` to format all tests in a directory (see [fast-glob](https://github.com/mrmlnc/fast-glob#pattern-syntax) for supported glob syntax).
 
 If you have a CI setup, run the following as part of it to make sure that everyone runs Prettier. This avoids merge conflicts and other collaboration issues!
 
@@ -75,7 +75,7 @@ prettier --check .
 
 ## Set up your editor
 
-Formatting from the command line is a good way to get started, but you get the most from Prettier by running it from your editor, either via a keyboard shortcut or on save. When a line has gotten so long while coding that it won’t fit your screen, just hit a key and watch it magically be wrapped into multiple lines. Or when you paste some code and the indentation gets all messed up, let Prettier fix it up for you without leaving your editor.
+Formatting from the command line is a good way to get started, but you get the most from Prettier by running it from your editor, either via a keyboard shortcut or automatically whenever you save a file. When a line has gotten so long while coding that it won’t fit your screen, just hit a key and watch it magically be wrapped into multiple lines! Or when you paste some code and the indentation gets all messed up, let Prettier fix it up for you without leaving your editor.
 
 See [Editor Integration](editors.md) for how to set up your editor. If your editor does not support Prettier, you can instead [run Prettier with a file watcher](watching-files.md).
 
