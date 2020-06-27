@@ -21,14 +21,6 @@ const {
   isSimpleCallArgument,
 } = require("../utils");
 
-const printCallArguments = require("./call-arguments");
-const {
-  printOptionalToken,
-  printFunctionTypeParameters,
-  printMemberLookup,
-  printBindExpressionCallee,
-} = require("./misc");
-
 const {
   builders: {
     concat,
@@ -41,6 +33,13 @@ const {
   },
   utils: { willBreak },
 } = require("../../document");
+const printCallArguments = require("./call-arguments");
+const {
+  printOptionalToken,
+  printFunctionTypeParameters,
+  printMemberLookup,
+  printBindExpressionCallee,
+} = require("./misc");
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:

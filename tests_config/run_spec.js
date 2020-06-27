@@ -1,8 +1,13 @@
 "use strict";
 
+const { TEST_STANDALONE } = process.env;
+
 const fs = require("fs");
 const path = require("path");
 const { isCI } = require("ci-info");
+const prettier = !TEST_STANDALONE
+  ? require("prettier/local")
+  : require("prettier/standalone");
 const checkParsers = require("./utils/check-parsers");
 const visualizeRange = require("./utils/visualize-range");
 const createSnapshot = require("./utils/create-snapshot");
@@ -11,7 +16,6 @@ const visualizeEndOfLine = require("./utils/visualize-end-of-line");
 const consistentEndOfLine = require("./utils/consistent-end-of-line");
 const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
 
-const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
 const DEEP_COMPARE = isCI || process.env.DEEP_COMPARE;
 const TEST_CRLF =
@@ -20,10 +24,6 @@ const TEST_CRLF =
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
 const RANGE_END_PLACEHOLDER = "<<<PRETTIER_RANGE_END>>>";
-
-const prettier = !TEST_STANDALONE
-  ? require("prettier/local")
-  : require("prettier/standalone");
 
 // TODO: these test files need fix
 const unstableTests = new Map(
@@ -34,7 +34,6 @@ const unstableTests = new Map(
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
     "js/comments-closure-typecast/iife.js",
-    "markdown/footnoteDefinition/multiline.md",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     "html/multiparser-js/script-tag-escaping.html",

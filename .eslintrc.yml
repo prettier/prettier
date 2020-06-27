@@ -9,6 +9,8 @@ extends:
 plugins:
   - import
   - unicorn
+settings:
+  import/internal-regex: ^linguist-languages/
 rules:
   curly: error
   dot-notation: error
@@ -19,6 +21,7 @@ rules:
   import/no-extraneous-dependencies:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]
+  import/order: error
   no-else-return: error
   no-inner-declarations: error
   no-unneeded-ternary: error

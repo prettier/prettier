@@ -2,9 +2,9 @@
 
 // Docs: https://docusaurus.io/docs/en/site-config.html
 
-const parseYaml = require("js-yaml").safeLoad;
 const path = require("path");
 const fs = require("fs");
+const parseYaml = require("js-yaml").safeLoad;
 
 const PACKAGE = require("../package");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
