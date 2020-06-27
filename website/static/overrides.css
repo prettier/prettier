@@ -573,3 +573,14 @@ a {
 .showcaseSection .logos img {
   max-height: 64px;
 }
+
+/* DOCUSAURUS_CODE_TABS */
+.tabs {
+  border-top: none;
+}
+.nav-tabs {
+  border-bottom: none;
+}
+.tabs .nav-tabs > div {
+  padding: 4px 12px;
+}
