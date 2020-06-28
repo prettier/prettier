@@ -4,7 +4,8 @@ env:
   node: true
 extends:
   - eslint:recommended
-  - plugin:prettier/recommended
+  - prettier
+  - prettier/unicorn
 plugins:
   - import
   - unicorn
