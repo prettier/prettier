@@ -83,3 +83,5 @@ yetAnotherProp={{@yetAnotherProp}}
     />`;
 
 hbs`\``
+
+hbs`${a}`;
