@@ -3,7 +3,7 @@
 const {
   getLast,
   getNextNonSpaceNonCommentCharacter,
-  getShebang
+  getShebang,
 } = require("../common/util");
 const { composeLoc, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
@@ -186,7 +186,6 @@ function rebalanceLogicalTree(node) {
     ...composeLoc(node),
   });
 }
-
 
 function includeShebang(ast, options) {
   const shebang = getShebang(options.originalText);
