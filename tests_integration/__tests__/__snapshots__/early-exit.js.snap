@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`node version error (stderr) 1`] = `
-"prettier requires at least version 10.13.0 of Node, please upgrade
+"prettier requires at least version 10.13.0 < 11 || >=12 <13 || >=14 of Node, please upgrade
 "
 `;
 
