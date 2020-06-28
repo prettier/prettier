@@ -144,7 +144,13 @@ function embed(path, print, textToDoc, options) {
       }
 
       if (isHandlebars(path)) {
-        return printHandlebarsTemplateLiteral(path, print, textToDoc, options);
+        return printHtmlTemplateLiteral(
+          path,
+          print,
+          textToDoc,
+          "glimmer",
+          options
+        );
       }
 
       const htmlParser = isHtml(path)
@@ -674,47 +680,6 @@ function isHandlebars(path) {
       parent.type === "TaggedTemplateExpression" &&
       parent.tag.type === "Identifier" &&
       parent.tag.name === "hbs")
-  );
-}
-
-function printHandlebarsTemplateLiteral(path, print, textToDoc, options) {
-  const node = path.getValue();
-
-  const text = node.quasis.map((quasi) => quasi.value.cooked).join("");
-
-  const expressionDocs = path.map(print, "expressions");
-
-  if (expressionDocs.length === 0 && text.trim().length === 0) {
-    return "``";
-  }
-
-  const contentDoc = stripTrailingHardline(
-    escapeTemplateCharacters(textToDoc(text, { parser: "glimmer" }), false)
-  );
-
-  const leadingWhitespace = /^\s/.test(text) ? " " : "";
-  const trailingWhitespace = /\s$/.test(text) ? " " : "";
-
-  const linebreak =
-    options.htmlWhitespaceSensitivity === "ignore"
-      ? hardline
-      : leadingWhitespace && trailingWhitespace
-      ? line
-      : null;
-
-  if (linebreak) {
-    return group(
-      concat([
-        "`",
-        indent(concat([linebreak, group(contentDoc)])),
-        linebreak,
-        "`",
-      ])
-    );
-  }
-
-  return group(
-    concat(["`", leadingWhitespace, group(contentDoc), trailingWhitespace, "`"])
   );
 }
 
