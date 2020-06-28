@@ -81,3 +81,5 @@ hbs`<MyElement prop={{@prop}} anotherProp={{@anotherProp}}
 yetAnotherProp={{@yetAnotherProp}}
        {{modifier}}
     />`;
+
+hbs`\``

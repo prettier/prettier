@@ -91,6 +91,8 @@ yetAnotherProp={{@yetAnotherProp}}
        {{modifier}}
     />\`;
 
+hbs\`\\\`\`
+
 =====================================output=====================================
 import { hbs } from "ember-cli-htmlbars";
 
@@ -232,6 +234,10 @@ hbs\`
   />
 \`;
 
+hbs\`
+  \\\`
+\`;
+
 ================================================================================
 `;
 
@@ -324,6 +330,8 @@ hbs\`<MyElement prop={{@prop}} anotherProp={{@anotherProp}}
 yetAnotherProp={{@yetAnotherProp}}
        {{modifier}}
     />\`;
+
+hbs\`\\\`\`
 
 =====================================output=====================================
 import { hbs } from "ember-cli-htmlbars";
@@ -435,6 +443,8 @@ hbs\`<MyElement
   yetAnotherProp={{@yetAnotherProp}}
   {{modifier}}
 />\`;
+
+hbs\`\\\`\`;
 
 ================================================================================
 `;
