@@ -947,30 +947,17 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function hasQuestionBetweenTestAndComment(
-  testNode,
-  comment,
-  text,
-  options,
-  n = 0
-) {
-  const testNodeLocEnd = options.locEnd(testNode) + n;
+function hasQuestionBetweenTestAndComment(testNode, comment, text, options) {
+  const testNodeLocEnd = options.locEnd(testNode);
   const commentLocStart = options.locStart(comment);
-  const idx = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-    text,
-    testNodeLocEnd
-  );
-  if (testNodeLocEnd < commentLocStart) {
+  for (let i = testNodeLocEnd; i < commentLocStart; i++) {
+    const idx = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+      text,
+      i
+    );
     if (text[idx] === "?") {
       return idx < commentLocStart;
     }
-    return hasQuestionBetweenTestAndComment(
-      testNode,
-      comment,
-      text,
-      options,
-      n + 1
-    );
   }
   return false;
 }
