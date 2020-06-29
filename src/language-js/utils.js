@@ -837,101 +837,6 @@ function needsHardlineAfterDanglingComment(node) {
   );
 }
 
-// If we have nested conditional expressions, we want to print them in JSX mode
-// if there's at least one JSXElement somewhere in the tree.
-//
-// A conditional expression chain like this should be printed in normal mode,
-// because there aren't JSXElements anywhere in it:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : "Unknown";
-//
-// But a conditional expression chain like this should be printed in JSX mode,
-// because there is a JSXElement in the last ConditionalExpression:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : <span className="warning">Unknown</span>;
-//
-// This type of ConditionalExpression chain is structured like this in the AST:
-//
-// ConditionalExpression {
-//   test: ...,
-//   consequent: ...,
-//   alternate: ConditionalExpression {
-//     test: ...,
-//     consequent: ...,
-//     alternate: ConditionalExpression {
-//       test: ...,
-//       consequent: ...,
-//       alternate: ...,
-//     }
-//   }
-// }
-//
-// We want to traverse over that shape and convert it into a flat structure so
-// that we can find if there's a JSXElement somewhere inside.
-function getConditionalChainContents(node) {
-  // Given this code:
-  //
-  // // Using a ConditionalExpression as the consequent is uncommon, but should
-  // // be handled.
-  // A ? B : C ? D : E ? F ? G : H : I
-  //
-  // which has this AST:
-  //
-  // ConditionalExpression {
-  //   test: Identifier(A),
-  //   consequent: Identifier(B),
-  //   alternate: ConditionalExpression {
-  //     test: Identifier(C),
-  //     consequent: Identifier(D),
-  //     alternate: ConditionalExpression {
-  //       test: Identifier(E),
-  //       consequent: ConditionalExpression {
-  //         test: Identifier(F),
-  //         consequent: Identifier(G),
-  //         alternate: Identifier(H),
-  //       },
-  //       alternate: Identifier(I),
-  //     }
-  //   }
-  // }
-  //
-  // we should return this Array:
-  //
-  // [
-  //   Identifier(A),
-  //   Identifier(B),
-  //   Identifier(C),
-  //   Identifier(D),
-  //   Identifier(E),
-  //   Identifier(F),
-  //   Identifier(G),
-  //   Identifier(H),
-  //   Identifier(I)
-  // ];
-  //
-  // This loses the information about whether each node was the test,
-  // consequent, or alternate, but we don't care about that here- we are only
-  // flattening this structure to find if there's any JSXElements inside.
-  const nonConditionalExpressions = [];
-
-  function recurse(node) {
-    if (node.type === "ConditionalExpression") {
-      recurse(node.test);
-      recurse(node.consequent);
-      recurse(node.alternate);
-    } else {
-      nonConditionalExpressions.push(node);
-    }
-  }
-  recurse(node);
-
-  return nonConditionalExpressions;
-}
-
-function conditionalExpressionChainContainsJSX(node) {
-  return Boolean(getConditionalChainContents(node).find(isJSXNode));
-}
-
 // Logic to check for args with multiple anonymous functions. For instance,
 // the following call should be split on multiple lines for readability:
 // source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
@@ -1096,7 +1001,6 @@ function shouldPrintComma(options, level) {
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
   getParentExportDeclaration,
