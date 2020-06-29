@@ -951,12 +951,12 @@ function hasQuestionBetweenTestAndComment(testNode, comment, text, options) {
   const testNodeLocEnd = options.locEnd(testNode);
   const commentLocStart = options.locStart(comment);
   for (let i = testNodeLocEnd; i < commentLocStart; i++) {
-    const idx = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    i = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
       text,
       i
     );
-    if (text[idx] === "?") {
-      return idx < commentLocStart;
+    if (text[i] === "?") {
+      return i < commentLocStart;
     }
   }
   return false;
