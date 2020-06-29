@@ -267,9 +267,21 @@ function print(path, options, print) {
         text = "\\" + text;
       }
 
+      const trimmedValue = text
+        .replace(/^\s+/g, leadingSpace)
+        .replace(/\s+$/, trailingSpace);
+
+      // Glimmer parser treats attribute values with mustaches differently
+      // they're a ConcatStatement rather than a single TextNode
+      // if the attribute value is a plain string, we only trim it and avoid inserting hardlines
+      // since they're not rendered correctly within attributes
+      if (isParentOfSomeType(path, ["AttrNode"])) {
+        return concat([trimmedValue]);
+      }
+
       return concat([
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-        text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+        trimmedValue,
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ]);
     }

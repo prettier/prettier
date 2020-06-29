@@ -407,6 +407,33 @@ sometimes{{nogaps}}areimportant<Hello></Hello>
 
 </div>
 
+<div class="attr
+"></div>
+
+<div class="
+attr"></div>
+
+<div class="
+attr
+"></div>
+
+<div class="
+
+
+
+attr
+
+
+"></div>
+
+<div class="
+    attr
+      attr
+
+  attr
+                       attr
+          attr
+"></div>
 =====================================output=====================================
 <SomeComponent />
 {{name}}
@@ -445,6 +472,23 @@ sometimes{{nogaps
 
 <div class="a list of classes">
 </div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div
+  class="attr
+      attr
+
+  attr
+                       attr
+          attr"
+></div>
 ================================================================================
 `;
 
