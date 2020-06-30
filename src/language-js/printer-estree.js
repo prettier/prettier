@@ -5256,7 +5256,7 @@ function shouldPrintArrowFunctionBodyOnSameLine(path, options) {
         "Property",
         "ObjectExpression",
         "ArrayExpression",
-        "ReturnStatement"
+        "ReturnStatement",
       ].includes(parent.type)
     ) {
       return true;
