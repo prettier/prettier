@@ -41,12 +41,12 @@ class FastPath {
     return getLast(this.stack);
   }
 
-  getNode(count) {
-    return getNodeHelper(this, ~~count);
+  getNode(count = 0) {
+    return getNodeHelper(this, count);
   }
 
-  getParentNode(count) {
-    return getNodeHelper(this, ~~count + 1);
+  getParentNode(count = 0) {
+    return getNodeHelper(this, count + 1);
   }
 
   // Temporarily push properties named by string arguments given after the
@@ -68,8 +68,8 @@ class FastPath {
     return result;
   }
 
-  callParent(callback, count) {
-    const stackIndex = getNodeStackIndexHelper(this.stack, ~~count + 1);
+  callParent(callback, count = 0) {
+    const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
     const result = callback(this);
     this.stack.push(...parentValues);

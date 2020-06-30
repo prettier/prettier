@@ -1,11 +1,11 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("./comments");
 const FastPath = require("../common/fast-path");
+const doc = require("../document");
+const comments = require("./comments");
 const multiparser = require("./multiparser");
 
-const doc = require("../document");
 const docBuilders = doc.builders;
 const { concat, hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;
@@ -61,7 +61,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       // comments to print
       res = comments.printComments(
         path,
-        p => callPluginPrintFunction(p, options, printGenerically, args),
+        (p) => callPluginPrintFunction(p, options, printGenerically, args),
         options,
         args && args.needsSemi
       );

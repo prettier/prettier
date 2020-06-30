@@ -2,11 +2,12 @@
 
 const remarkParse = require("remark-parse");
 const unified = require("unified");
-const pragma = require("./pragma");
+const remarkMath = require("remark-math");
+const footnotes = require("remark-footnotes");
 const parseFrontMatter = require("../utils/front-matter");
+const pragma = require("./pragma");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
-const remarkMath = require("remark-math");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -23,18 +24,19 @@ const remarkMath = require("remark-math");
  * interface InlineCode { children: Array<Sentence> }
  */
 function createParse({ isMDX }) {
-  return text => {
+  return (text) => {
     const processor = unified()
       .use(remarkParse, {
-        footnotes: true,
         commonmark: true,
-        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] })
+        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
       })
+      .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
-      .use(isMDX ? htmlToJsx : identity);
+      .use(isMDX ? htmlToJsx : identity)
+      .use(looseItems);
     return processor.runSync(processor.parse(text));
   };
 }
@@ -44,7 +46,7 @@ function identity(x) {
 }
 
 function htmlToJsx() {
-  return ast =>
+  return (ast) =>
     mapAst(ast, (node, _index, [parent]) => {
       if (
         node.type !== "html" ||
@@ -80,26 +82,58 @@ function liquid() {
   proto.inlineTokenizers.liquid = tokenizer;
 
   function tokenizer(eat, value) {
-    const match = value.match(/^({%[\s\S]*?%}|{{[\s\S]*?}})/);
+    const match = value.match(/^({%[\S\s]*?%}|{{[\S\s]*?}})/);
 
     if (match) {
       return eat(match[0])({
         type: "liquidNode",
-        value: match[0]
+        value: match[0],
       });
     }
   }
-  tokenizer.locator = function(value, fromIndex) {
+  tokenizer.locator = function (value, fromIndex) {
     return value.indexOf("{", fromIndex);
+  };
+}
+
+function looseItems() {
+  const proto = this.Parser.prototype;
+  const originalList = proto.blockTokenizers.list;
+
+  function fixListNodes(value, node, parent) {
+    if (node.type === "listItem") {
+      node.loose = node.spread || value.charAt(value.length - 1) === "\n";
+      if (node.loose) {
+        parent.loose = true;
+      }
+    }
+    return node;
+  }
+
+  proto.blockTokenizers.list = function list(realEat, value, silent) {
+    function eat(subvalue) {
+      const realAdd = realEat(subvalue);
+
+      function add(node, parent) {
+        return realAdd(fixListNodes(subvalue, node, parent), parent);
+      }
+      add.reset = function (node, parent) {
+        return realAdd.reset(fixListNodes(subvalue, node, parent), parent);
+      };
+
+      return add;
+    }
+    eat.now = realEat.now;
+    return originalList.call(this, eat, value, silent);
   };
 }
 
 const baseParser = {
   astFormat: "mdast",
   hasPragma: pragma.hasPragma,
-  locStart: node => node.position.start.offset,
-  locEnd: node => node.position.end.offset,
-  preprocess: text => text.replace(/\n\s+$/, "\n") // workaround for https://github.com/remarkjs/remark/issues/350
+  locStart: (node) => node.position.start.offset,
+  locEnd: (node) => node.position.end.offset,
+  preprocess: (text) => text.replace(/\n\s+$/, "\n"), // workaround for https://github.com/remarkjs/remark/issues/350
 };
 
 const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
@@ -110,6 +144,6 @@ module.exports = {
   parsers: {
     remark: markdownParser,
     markdown: markdownParser,
-    mdx: mdxParser
-  }
+    mdx: mdxParser,
+  },
 };
