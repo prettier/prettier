@@ -5244,8 +5244,12 @@ function shouldPrintArrowFunctionBodyOnSameLine(path, options) {
     return true;
   }
 
-  // Some arrow function with only `CallExpression` or `NewExpression` in body
-  if (n.body.type === "CallExpression" || n.body.type === "NewExpression") {
+  // Some arrow function with only `CallExpression` `OptionalCallExpression` or `NewExpression` in body
+  if (
+    n.body.type === "CallExpression" ||
+    n.body.type === "OptionalCallExpression" ||
+    n.body.type === "NewExpression"
+  ) {
     const parent = path.getParentNode();
     if (
       [

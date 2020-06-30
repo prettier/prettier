@@ -9,6 +9,9 @@ printWidth: 80
 () => foo({
 key: value});
 
+() => foo?.bar({
+key: value});
+
 () => new Foo({
 key: value});
 
@@ -100,6 +103,10 @@ new Foo(
 
 =====================================output=====================================
 () => foo({
+  key: value,
+});
+
+() => foo?.bar({
   key: value,
 });
 

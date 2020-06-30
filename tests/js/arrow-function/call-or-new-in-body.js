@@ -1,6 +1,9 @@
 () => foo({
 key: value});
 
+() => foo?.bar({
+key: value});
+
 () => new Foo({
 key: value});
 
