@@ -68,3 +68,24 @@ key: value});
 
 (loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog) => new Foo({
 key: value});
+
+// #5733
+expect(
+  () => new GraphQLObjectType({
+      field1: 'foo',
+      field2: 'bar'
+  })
+);
+() => new GraphQLObjectType({
+  field1: 'foo',
+  field2: 'bar'
+});
+new Foo(
+  () => new FooBar({
+    field1: 1,
+    field2: 2
+  })
+);
+() =>  foo({
+  bar,
+});
