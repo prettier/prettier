@@ -217,10 +217,18 @@ function print(path, options, print) {
         }
       }
 
-      // preserve a space inside of an attribute node where whitespace present,
-      // when next to mustache statement.
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
+        // TODO: format style and srcset attributes
+        if (
+          (isParentOfSomeType(path, ["AttrNode"]) &&
+            path.getParentNode().name !== "class") ||
+          (isParentOfSomeType(path, ["ConcatStatement"]) &&
+            path.getParentNode(1).name !== "class")
+        ) {
+          return concat([n.chars]);
+        }
+
         let leadingSpace = "";
         let trailingSpace = "";
 
