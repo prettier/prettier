@@ -220,12 +220,8 @@ function print(path, options, print) {
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
         // TODO: format style and srcset attributes
-        if (
-          (isParentOfSomeType(path, ["AttrNode"]) &&
-            path.getParentNode().name !== "class") ||
-          (isParentOfSomeType(path, ["ConcatStatement"]) &&
-            path.getParentNode(1).name !== "class")
-        ) {
+        // and cleanup concat that is not necessary
+        if (!isInAttributeOfType(path, "class")) {
           return concat([n.chars]);
         }
 
@@ -522,6 +518,15 @@ function printInverse(path, print) {
 }
 
 /* TextNode print helpers */
+
+function isInAttributeOfType(path, type) {
+  return (
+    (isParentOfSomeType(path, ["AttrNode"]) &&
+      path.getParentNode().name === type) ||
+    (isParentOfSomeType(path, ["ConcatStatement"]) &&
+      path.getParentNode(1).name === type)
+  );
+}
 
 function countNewLines(string) {
   /* istanbul ignore next */
