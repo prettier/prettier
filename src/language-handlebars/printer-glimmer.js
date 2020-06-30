@@ -217,13 +217,13 @@ function print(path, options, print) {
         }
       }
 
-      let leadingSpace = "";
-      let trailingSpace = "";
-
       // preserve a space inside of an attribute node where whitespace present,
       // when next to mustache statement.
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
+        let leadingSpace = "";
+        let trailingSpace = "";
+
         if (isParentOfSomeType(path, ["ConcatStatement"])) {
           if (isPreviousNodeOfSomeType(path, ["MustacheStatement"])) {
             leadingSpace = " ";
@@ -232,30 +232,42 @@ function print(path, options, print) {
             trailingSpace = " ";
           }
         }
-      } else {
-        if (
-          trailingLineBreaksCount === 0 &&
-          isNextNodeOfSomeType(path, ["MustacheStatement"])
-        ) {
-          trailingSpace = " ";
-        }
 
-        if (
-          leadingLineBreaksCount === 0 &&
-          isPreviousNodeOfSomeType(path, ["MustacheStatement"])
-        ) {
-          leadingSpace = " ";
-        }
+        return concat([
+          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+          n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+          ...generateHardlines(
+            trailingLineBreaksCount,
+            maxLineBreaksToPreserve
+          ),
+        ]);
+      }
 
-        if (isFirstElement) {
-          leadingLineBreaksCount = 0;
-          leadingSpace = "";
-        }
+      let leadingSpace = "";
+      let trailingSpace = "";
 
-        if (isLastElement) {
-          trailingLineBreaksCount = 0;
-          trailingSpace = "";
-        }
+      if (
+        trailingLineBreaksCount === 0 &&
+        isNextNodeOfSomeType(path, ["MustacheStatement"])
+      ) {
+        trailingSpace = " ";
+      }
+
+      if (
+        leadingLineBreaksCount === 0 &&
+        isPreviousNodeOfSomeType(path, ["MustacheStatement"])
+      ) {
+        leadingSpace = " ";
+      }
+
+      if (isFirstElement) {
+        leadingLineBreaksCount = 0;
+        leadingSpace = "";
+      }
+
+      if (isLastElement) {
+        trailingLineBreaksCount = 0;
+        trailingSpace = "";
       }
 
       let text = n.chars;
