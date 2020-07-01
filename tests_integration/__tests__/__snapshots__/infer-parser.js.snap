@@ -6,8 +6,7 @@ exports[`--check with unknown path and no parser multiple files (stderr) 1`] = `
 `;
 
 exports[`--check with unknown path and no parser multiple files (stdout) 1`] = `
-"Checking formatting...
-foo.js
+"foo.js
 Code style issues found in the above file(s). Forgot to run Prettier?
 "
 `;
@@ -17,11 +16,7 @@ exports[`--check with unknown path and no parser specific file (stderr) 1`] = `
 "
 `;
 
-exports[`--check with unknown path and no parser specific file (stdout) 1`] = `
-"Checking formatting...
-All matched files use Prettier code style!
-"
-`;
+exports[`--check with unknown path and no parser specific file (stdout) 1`] = `""`;
 
 exports[`--list-different with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO
@@ -39,8 +34,7 @@ exports[`--write and --check with unknown path and no parser multiple files (std
 `;
 
 exports[`--write and --check with unknown path and no parser multiple files (stdout) 1`] = `
-"Checking formatting...
-foo.js
+"foo.js
 Code style issues fixed in the above file(s).
 "
 `;
@@ -60,11 +54,7 @@ exports[`--write and --check with unknown path and no parser specific file (stde
 "
 `;
 
-exports[`--write and --check with unknown path and no parser specific file (stdout) 1`] = `
-"Checking formatting...
-All matched files use Prettier code style!
-"
-`;
+exports[`--write and --check with unknown path and no parser specific file (stdout) 1`] = `""`;
 
 exports[`--write and --list-different with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO

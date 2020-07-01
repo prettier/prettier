@@ -56,7 +56,7 @@ This will output a human-friendly message and a list of unformatted files, if an
 prettier --check "src/**/*.js"
 ```
 
-Console output if all files are formatted:
+Console output if all files are formatted (these messages will be suppressed when redirecting output to a file or program):
 
 ```console
 Checking formatting...

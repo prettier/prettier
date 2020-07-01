@@ -418,7 +418,7 @@ function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv.check) {
+  if (context.argv.check && isTTY()) {
     context.logger.log("Checking formatting...");
   }
 
@@ -536,13 +536,17 @@ function formatFiles(context) {
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
-    context.logger.log(
-      numberOfUnformattedFilesFound === 0
-        ? "All matched files use Prettier code style!"
-        : context.argv.write
-        ? "Code style issues fixed in the above file(s)."
-        : "Code style issues found in the above file(s). Forgot to run Prettier?"
-    );
+    if (numberOfUnformattedFilesFound === 0) {
+      if (isTTY()) {
+        context.logger.log("All matched files use Prettier code style!");
+      }
+    } else {
+      context.logger.log(
+        context.argv.write
+          ? "Code style issues fixed in the above file(s)."
+          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+      );
+    }
   }
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write
