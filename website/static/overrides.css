@@ -1,6 +1,6 @@
 html body {
-  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo", -apple-system,
-    BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   overflow-x: hidden;
 }
