@@ -118,6 +118,7 @@ function conditionalExpressionChainContainsJSX(node) {
  * The following is the shared logic for
  * ternary operators, namely ConditionalExpression
  * and TSConditionalType
+ * @typedef {import("../../document/doc-builders").Doc} Doc
  * @typedef {Object} OperatorOptions
  * @property {() => Array<string | Doc>} beforeParts - Parts to print before the `?`.
  * @property {(breakClosingParen: boolean) => Array<string | Doc>} afterParts - Parts to print after the conditional expression.
@@ -130,7 +131,7 @@ function conditionalExpressionChainContainsJSX(node) {
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
  * @param {OperatorOptions} operatorOptions
- * @returns Doc
+ * @returns {Doc}
  */
 function printTernaryOperator(path, options, print, operatorOptions) {
   const node = path.getValue();
