@@ -120,10 +120,6 @@ function postprocess(ast, options) {
     } else {
       toBeOverriddenNode.end = toOverrideNode.end;
     }
-    toBeOverriddenNode.loc = {
-      ...toBeOverriddenNode.loc,
-      end: toBeOverriddenNode.loc.end,
-    };
   }
 }
 
