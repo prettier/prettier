@@ -13,13 +13,7 @@ function locStart(node, opts) {
     }
   }
 
-  if (node.range) {
-    return node.range[0];
-  }
-
-  if (typeof node.start === "number") {
-    return node.start;
-  }
+  return node.range ? node.range[0] : node.start;
 }
 
 function locEnd(node) {
@@ -35,8 +29,6 @@ function composeLoc(startNode, endNodeOrLength = startNode) {
       : locEnd(endNodeOrLength);
 
   return {
-    start,
-    end,
     range: [start, end],
   };
 }
