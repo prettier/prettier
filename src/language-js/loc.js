@@ -23,17 +23,8 @@ function locStart(node, opts) {
 }
 
 function locEnd(node) {
-  const loc = node.range
-    ? node.range[1]
-    : typeof node.end === "number"
-    ? node.end
-    : null;
-
-  if (node.typeAnnotation) {
-    return Math.max(loc, locEnd(node.typeAnnotation));
-  }
-
-  return loc;
+  const end = node.range ? node.range[1] : node.end;
+  return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
 }
 
 function composeLoc(startNode, endNodeOrLength = startNode) {
