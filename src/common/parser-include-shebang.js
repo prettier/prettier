@@ -14,16 +14,6 @@ function includeShebang(text, ast) {
     type: "Line",
     value: shebang.slice(2),
     range: [0, index],
-    loc: {
-      start: {
-        line: 1,
-        column: 0,
-      },
-      end: {
-        line: 1,
-        column: index,
-      },
-    },
   };
 
   ast.comments = [comment].concat(ast.comments);
