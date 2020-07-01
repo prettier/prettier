@@ -37,21 +37,16 @@ function locEnd(node) {
 }
 
 function composeLoc(startNode, endNodeOrLength = startNode) {
-  const length = typeof endNodeOrLength === "number" ? endNodeOrLength : -1;
   const start = locStart(startNode);
-  const end = length !== -1 ? start + length : locEnd(endNodeOrLength);
-  const startLoc = startNode.loc.start;
+  const end =
+    typeof endNodeOrLength === "number"
+      ? start + endNodeOrLength
+      : locEnd(endNodeOrLength);
+
   return {
     start,
     end,
     range: [start, end],
-    loc: {
-      start: startLoc,
-      end:
-        length !== -1
-          ? { line: startLoc.line, column: startLoc.column + length }
-          : endNodeOrLength.loc.end,
-    },
   };
 }
 
