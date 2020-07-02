@@ -1,8 +1,6 @@
 "use strict";
 
-const transform = require("@glimmer/syntax").traverse;
-
-const PREPROCESS_PIPELINE = [addBackslash];
+const PIPELINE = [addBackslash];
 
 /* VISITORS */
 
@@ -22,13 +20,13 @@ function addBackslash(/* options*/) {
   };
 }
 
-function preprocess(ast, options) {
-  for (const fn of PREPROCESS_PIPELINE) {
+function postprocess(ast, options, traverse) {
+  for (const fn of PIPELINE) {
     const visitor = fn(options);
-    transform(ast, visitor);
+    traverse(ast, visitor);
   }
 
   return ast;
 }
 
-module.exports = preprocess;
+module.exports = postprocess;
