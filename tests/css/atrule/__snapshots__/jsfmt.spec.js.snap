@@ -4283,6 +4283,17 @@ B
 @supports selector(selector(:focus-visible)) {}
 @supports selector(:::selector(:focus-visible)) {}
 @supports selector(--selector(:focus-visible)) {}
+@supports not (transform-origin: 10em 10em 10em) {}
+@supports not (not (transform-origin: 2px)) {}
+@supports (display: grid) and (not (display: inline-grid)) {}
+@supports (display: table-cell) and (display: list-item) and (display:run-in) {}
+@supports (display: table-cell) and ((display: list-item) and (display:run-in)) {}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) {}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) or
+          (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {}
+
+@supports (transform-style: preserve-3d) or ((-moz-transform-style: preserve-3d) or
+          ((-o-transform-style: preserve-3d) or (-webkit-transform-style: preserve-3d))) {}
 
 =====================================output=====================================
 @supports (transform-origin: 5% 5%) {
@@ -4534,6 +4545,31 @@ B
 @supports selector(:::selector(:focus-visible)) {
 }
 @supports selector(--selector(:focus-visible)) {
+}
+@supports not (transform-origin: 10em 10em 10em) {
+}
+@supports not (not (transform-origin: 2px)) {
+}
+@supports (display: grid) and (not (display: inline-grid)) {
+}
+@supports (display: table-cell) and (display: list-item) and (display: run-in) {
+}
+@supports (display: table-cell) and ((display: list-item) and (display: run-in)) {
+}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) {
+}
+@supports (transform-style: preserve) or (-moz-transform-style: preserve) or
+  (-o-transform-style: preserve) or (-webkit-transform-style: preserve) {
+}
+
+@supports (transform-style: preserve-3d) or
+  (
+    (-moz-transform-style: preserve-3d) or
+      (
+        (-o-transform-style: preserve-3d) or
+          (-webkit-transform-style: preserve-3d)
+      )
+  ) {
 }
 
 ================================================================================
