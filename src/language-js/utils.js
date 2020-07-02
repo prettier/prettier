@@ -998,6 +998,170 @@ function shouldPrintComma(options, level) {
   }
 }
 
+// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
+// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
+// already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
+  node = getLeftMost(node);
+  switch (node.type) {
+    case "FunctionExpression":
+    case "ClassExpression":
+    case "DoExpression":
+      return forbidFunctionClassAndDoExpr;
+    case "ObjectExpression":
+      return true;
+    case "MemberExpression":
+    case "OptionalMemberExpression":
+      return startsWithNoLookaheadToken(
+        node.object,
+        forbidFunctionClassAndDoExpr
+      );
+    case "TaggedTemplateExpression":
+      if (node.tag.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
+    case "CallExpression":
+    case "OptionalCallExpression":
+      if (node.callee.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(
+        node.callee,
+        forbidFunctionClassAndDoExpr
+      );
+    case "ConditionalExpression":
+      return startsWithNoLookaheadToken(
+        node.test,
+        forbidFunctionClassAndDoExpr
+      );
+    case "UpdateExpression":
+      return (
+        !node.prefix &&
+        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
+      );
+    case "BindExpression":
+      return (
+        node.object &&
+        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
+      );
+    case "SequenceExpression":
+      return startsWithNoLookaheadToken(
+        node.expressions[0],
+        forbidFunctionClassAndDoExpr
+      );
+    case "TSAsExpression":
+      return startsWithNoLookaheadToken(
+        node.expression,
+        forbidFunctionClassAndDoExpr
+      );
+    default:
+      return false;
+  }
+}
+
+const equalityOperators = {
+  "==": true,
+  "!=": true,
+  "===": true,
+  "!==": true,
+};
+const multiplicativeOperators = {
+  "*": true,
+  "/": true,
+  "%": true,
+};
+const bitshiftOperators = {
+  ">>": true,
+  ">>>": true,
+  "<<": true,
+};
+
+function shouldFlatten(parentOp, nodeOp) {
+  if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
+    return false;
+  }
+
+  // ** is right-associative
+  // x ** y ** z --> x ** (y ** z)
+  if (parentOp === "**") {
+    return false;
+  }
+
+  // x == y == z --> (x == y) == z
+  if (equalityOperators[parentOp] && equalityOperators[nodeOp]) {
+    return false;
+  }
+
+  // x * y % z --> (x * y) % z
+  if (
+    (nodeOp === "%" && multiplicativeOperators[parentOp]) ||
+    (parentOp === "%" && multiplicativeOperators[nodeOp])
+  ) {
+    return false;
+  }
+
+  // x * y / z --> (x * y) / z
+  // x / y * z --> (x / y) * z
+  if (
+    nodeOp !== parentOp &&
+    multiplicativeOperators[nodeOp] &&
+    multiplicativeOperators[parentOp]
+  ) {
+    return false;
+  }
+
+  // x << y << z --> (x << y) << z
+  if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
+    return false;
+  }
+
+  return true;
+}
+
+const PRECEDENCE = {};
+[
+  ["|>"],
+  ["??"],
+  ["||"],
+  ["&&"],
+  ["|"],
+  ["^"],
+  ["&"],
+  ["==", "===", "!=", "!=="],
+  ["<", ">", "<=", ">=", "in", "instanceof"],
+  [">>", "<<", ">>>"],
+  ["+", "-"],
+  ["*", "/", "%"],
+  ["**"],
+].forEach((tier, i) => {
+  tier.forEach((op) => {
+    PRECEDENCE[op] = i;
+  });
+});
+
+function getPrecedence(op) {
+  return PRECEDENCE[op];
+}
+
+function getLeftMost(node) {
+  if (node.left) {
+    return getLeftMost(node.left);
+  }
+  return node;
+}
+
+function isBitwiseOperator(operator) {
+  return (
+    !!bitshiftOperators[operator] ||
+    operator === "|" ||
+    operator === "^" ||
+    operator === "&"
+  );
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1057,4 +1221,8 @@ module.exports = {
   rawText,
   returnArgumentHasLeadingComment,
   shouldPrintComma,
+  isBitwiseOperator,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
+  getPrecedence,
 };
