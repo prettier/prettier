@@ -3,16 +3,14 @@
 const assert = require("assert");
 
 const {
-  isBitwiseOperator,
-  startsWithNoLookaheadToken,
-  getPrecedence,
-  shouldFlatten,
-} = require("../common/util");
-const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
   hasNode,
+  isBitwiseOperator,
+  startsWithNoLookaheadToken,
+  shouldFlatten,
+  getPrecedence,
 } = require("./utils");
 
 function needsParens(path, options) {
