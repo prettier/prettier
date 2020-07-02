@@ -7,6 +7,9 @@ key: value});
 () => new Foo({
 key: value});
 
+const a1 = () => new Foo({
+key: value});
+
 call(() => foo({
 key: value}));
 
@@ -70,6 +73,12 @@ key: value});
 key: value});
 
 (loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog) => new Foo({
+key: value});
+
+a = (greeting = "hello", greeted = '"World"', silent = false, onMouseOver) => foo({
+key: value});
+
+a = ({greeting = "hello", greeted = '"World"', silent = false, onMouseOver}) => foo({
 key: value});
 
 // #5733
