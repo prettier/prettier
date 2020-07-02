@@ -67,9 +67,9 @@ Console output if some of the files require re-formatting:
 
 ```console
 Checking formatting...
-src/fileA.js
-src/fileB.js
-Code style issues found in the above file(s). Forgot to run Prettier?
+[warn] src/fileA.js
+[warn] src/fileB.js
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
 ```
 
 The command will return exit code 1 in the second case, which is helpful inside the CI pipelines.
