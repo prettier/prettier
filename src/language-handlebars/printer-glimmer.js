@@ -221,7 +221,7 @@ function print(path, options, print) {
       if (inAttrNode) {
         // TODO: format style and srcset attributes
         // and cleanup concat that is not necessary
-        if (!isInAttributeOfType(path, "class")) {
+        if (!isInAttributeOfName(path, "class")) {
           return concat([n.chars]);
         }
 
@@ -519,12 +519,12 @@ function printInverse(path, print) {
 
 /* TextNode print helpers */
 
-function isInAttributeOfType(path, type) {
+function isInAttributeOfName(path, type) {
   return (
     (isParentOfSomeType(path, ["AttrNode"]) &&
-      path.getParentNode().name === type) ||
+      path.getParentNode().name.toLowerCase() === type) ||
     (isParentOfSomeType(path, ["ConcatStatement"]) &&
-      path.getParentNode(1).name === type)
+      path.getParentNode(1).name.toLowerCase() === type)
   );
 }
 
