@@ -125,10 +125,6 @@ function postprocess(ast, options) {
     } else {
       toBeOverriddenNode.end = toOverrideNode.end;
     }
-    toBeOverriddenNode.loc = {
-      ...toBeOverriddenNode.loc,
-      end: toBeOverriddenNode.loc.end,
-    };
   }
 }
 
@@ -190,28 +186,13 @@ function rebalanceLogicalTree(node) {
 function includeShebang(ast, options) {
   const shebang = getShebang(options.originalText);
 
-  if (!shebang) {
-    return;
+  if (shebang) {
+    ast.comments.unshift({
+      type: "Line",
+      value: shebang.slice(2),
+      range: [0, shebang.length],
+    });
   }
-  const index = shebang.length;
-
-  const comment = {
-    type: "Line",
-    value: shebang.slice(2),
-    range: [0, index],
-    loc: {
-      start: {
-        line: 1,
-        column: 0,
-      },
-      end: {
-        line: 1,
-        column: index,
-      },
-    },
-  };
-
-  ast.comments = [comment, ...ast.comments];
 }
 
 module.exports = postprocess;

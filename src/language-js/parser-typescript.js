@@ -35,7 +35,6 @@ function parse(text, parsers, opts) {
 function tryParseTypeScript(text, jsx) {
   const parser = require("@typescript-eslint/typescript-estree");
   return parser.parse(text, {
-    loc: true,
     range: true,
     comment: true,
     useJSXTextNode: true,

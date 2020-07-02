@@ -266,12 +266,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@7.10.3":
-  version "7.10.3"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.10.3.tgz#7e71d892b0d6e7d04a1af4c3c79d72c1f10f5315"
-  integrity sha512-oJtNJCMFdIMwXGmx+KxuaD7i3b8uS7TTFYW/FNG2BT8m+fmGHoiPYoH0Pe3gya07WuFmM5FCDIr1x0irkD/hyA==
-
-"@babel/parser@^7.1.0", "@babel/parser@^7.10.4", "@babel/parser@^7.7.5":
+"@babel/parser@7.10.4", "@babel/parser@^7.1.0", "@babel/parser@^7.10.4", "@babel/parser@^7.7.5":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.10.4.tgz#9eedf27e1998d87739fb5028a5120557c06a1a64"
   integrity sha512-8jHII4hf+YVDsskTF6WuMB3X4Eh+PsUkC2ljq22so5rHvH+T8BzyL94VOdyFLNR8tBSVXOTbNHOKpR4TfRxVtA==
@@ -1590,10 +1585,10 @@ angular-estree-parser@2.0.3:
     lines-and-columns "^1.1.6"
     tslib "^1.9.3"
 
-angular-html-parser@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.7.0.tgz#3ac852c1af4ff7719cfa9b8a199ce28f1e35b5aa"
-  integrity sha512-/yjeqDQXGblZuFMI6vpDgiIDuv816QpIqa/mCotc0I4R0F5t5sfX1ntZ8VsBVQOUYRjPw8ggYlPZto76gHtf7Q==
+angular-html-parser@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.7.1.tgz#735cb9f2f01151e6d612b580812256a289e728a4"
+  integrity sha512-bDOeuWyKNuvggsBcN9jG7bFCuy5L3vHGoJ5+djuvo6vhQiCTu01smwOlh2WBa3ZjdttBY/vtb9XWfCoaMdKL6Q==
   dependencies:
     tslib "^1.9.3"
 

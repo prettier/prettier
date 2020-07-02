@@ -35,7 +35,9 @@ rules:
     - error
     - never
   prefer-arrow-callback: error
-  prefer-const: error
+  prefer-const:
+    - error
+    - destructuring: all
   prefer-destructuring:
     - error
     - VariableDeclarator:
