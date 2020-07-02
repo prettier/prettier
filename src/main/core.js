@@ -6,7 +6,7 @@ const {
   printer: { printDocToString },
   debug: { printDocToDebug },
 } = require("../document");
-const privateUtil = require("../common/util");
+const { isNodeIgnoreComment, getAlignmentSize } = require("../common/util");
 const {
   guessEndOfLine,
   convertEndOfLineToChars,
@@ -33,7 +33,7 @@ function ensureAllCommentsPrinted(astComments) {
   }
 
   for (let i = 0; i < astComments.length; ++i) {
-    if (privateUtil.isNodeIgnoreComment(astComments[i])) {
+    if (isNodeIgnoreComment(astComments[i])) {
       // If there's a prettier-ignore, we're not printing that sub-tree so we
       // don't know if the comments was printed or not.
       return;
@@ -187,10 +187,7 @@ function formatRange(text, opts) {
   );
   const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
-  const alignmentSize = privateUtil.getAlignmentSize(
-    indentString,
-    opts.tabWidth
-  );
+  const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
   const rangeResult = coreFormat(
     rangeString,

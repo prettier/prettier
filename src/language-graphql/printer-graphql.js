@@ -10,8 +10,7 @@ const {
   indent,
   ifBreak,
 } = require("../document").builders;
-const { hasIgnoreComment } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
+const { hasIgnoreComment, isNextLineEmpty } = require("../common/util");
 const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {

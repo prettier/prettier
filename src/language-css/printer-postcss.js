@@ -6,8 +6,8 @@ const {
   hasIgnoreComment,
   hasNewline,
   isFrontMatterNode,
+  isNextLineEmpty,
 } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
 const {
   builders: {
     concat,

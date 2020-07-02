@@ -16,12 +16,10 @@ const {
   skipNewline,
   skipSpaces,
   isPreviousLineEmpty,
-} = require("../common/util");
-const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("../common/util-shared");
+} = require("../common/util");
 const childNodesCacheKey = Symbol("child-nodes");
 
 function getSortedChildNodes(node, options, resultArray) {
