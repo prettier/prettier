@@ -1,5 +1,5 @@
 "use strict";
-
+/** @type {any} */
 const assert = require("assert");
 const {
   concat,
