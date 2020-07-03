@@ -2,12 +2,15 @@
 
 const assert = require("assert");
 
-const util = require("../common/util");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
   hasNode,
+  isBitwiseOperator,
+  startsWithNoLookaheadToken,
+  shouldFlatten,
+  getPrecedence,
 } = require("./utils");
 
 function needsParens(path, options) {
@@ -139,15 +142,12 @@ function needsParens(path, options) {
     (parent.type === "ArrowFunctionExpression" &&
     parent.body === node &&
     node.type !== "SequenceExpression" && // these have parens added anyway
-      util.startsWithNoLookaheadToken(
+      startsWithNoLookaheadToken(
         node,
         /* forbidFunctionClassAndDoExpr */ false
       )) ||
     (parent.type === "ExpressionStatement" &&
-      util.startsWithNoLookaheadToken(
-        node,
-        /* forbidFunctionClassAndDoExpr */ true
-      ))
+      startsWithNoLookaheadToken(node, /* forbidFunctionClassAndDoExpr */ true))
   ) {
     return true;
   }
@@ -204,7 +204,10 @@ function needsParens(path, options) {
       }
 
     case "BinaryExpression": {
-      if (parent.type === "UpdateExpression") {
+      if (
+        parent.type === "UpdateExpression" ||
+        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
+      ) {
         return true;
       }
 
@@ -224,6 +227,15 @@ function needsParens(path, options) {
       };
       if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
+      }
+      if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
+        const grandParent = path.getParentNode(1);
+        if (
+          grandParent.type === "BinaryExpression" &&
+          grandParent.operator === "|>"
+        ) {
+          return true;
+        }
       }
     }
     // fallthrough
@@ -278,9 +290,9 @@ function needsParens(path, options) {
           }
 
           const po = parent.operator;
-          const pp = util.getPrecedence(po);
+          const pp = getPrecedence(po);
           const no = node.operator;
-          const np = util.getPrecedence(no);
+          const np = getPrecedence(no);
 
           if (pp > np) {
             return true;
@@ -291,7 +303,7 @@ function needsParens(path, options) {
             return true;
           }
 
-          if (pp === np && !util.shouldFlatten(po, no)) {
+          if (pp === np && !shouldFlatten(po, no)) {
             return true;
           }
 
@@ -301,7 +313,7 @@ function needsParens(path, options) {
 
           // Add parenthesis when working with bitwise operators
           // It's not strictly needed but helps with code understanding
-          if (util.isBitwiseOperator(po)) {
+          if (isBitwiseOperator(po)) {
             return true;
           }
 
@@ -352,7 +364,6 @@ function needsParens(path, options) {
       switch (parent.type) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
-        case "BinaryExpression":
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
@@ -372,6 +383,13 @@ function needsParens(path, options) {
 
         case "ConditionalExpression":
           return parent.test === node;
+
+        case "BinaryExpression": {
+          if (!node.argument && parent.operator === "|>") {
+            return false;
+          }
+          return true;
+        }
 
         default:
           return false;
@@ -438,7 +456,16 @@ function needsParens(path, options) {
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
-        ancestor.type === "NullableTypeAnnotation"
+        ancestor.type === "NullableTypeAnnotation" ||
+        // See #5283
+        (parent.type === "FunctionTypeParam" &&
+          parent.name === null &&
+          node.params &&
+          node.params.some(
+            (param) =>
+              param.typeAnnotation &&
+              param.typeAnnotation.type === "NullableTypeAnnotation"
+          ))
       );
     }
 
@@ -448,11 +475,7 @@ function needsParens(path, options) {
       if (
         typeof node.value === "string" &&
         parent.type === "ExpressionStatement" &&
-        // TypeScript workaround for https://github.com/JamesHenry/typescript-estree/issues/2
-        // See corresponding workaround in printer.js case: "Literal"
-        ((options.parser !== "typescript" && !parent.directive) ||
-          (options.parser === "typescript" &&
-            options.originalText.charAt(options.locStart(node) - 1) === "("))
+        !parent.directive
       ) {
         // To avoid becoming a directive
         const grandParent = path.getParentNode(1);
@@ -561,6 +584,13 @@ function needsParens(path, options) {
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
+        case "PipelineTopicExpression":
+          return !!(node.extra && node.extra.parenthesized);
+
+        case "BinaryExpression":
+          return (
+            parent.operator !== "|>" || (node.extra && node.extra.parenthesized)
+          );
         case "NewExpression":
         case "CallExpression":
         case "OptionalCallExpression":
@@ -575,7 +605,6 @@ function needsParens(path, options) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "LogicalExpression":
-        case "BinaryExpression":
         case "AwaitExpression":
         case "TSTypeAssertion":
           return true;
@@ -596,15 +625,20 @@ function needsParens(path, options) {
       }
 
     case "OptionalMemberExpression":
-    case "OptionalCallExpression":
+    case "OptionalCallExpression": {
+      const parentParent = path.getParentNode(1);
       if (
         (parent.type === "MemberExpression" && name === "object") ||
         ((parent.type === "CallExpression" ||
           parent.type === "NewExpression") &&
-          name === "callee")
+          name === "callee") ||
+        (parent.type === "TSNonNullExpression" &&
+          parentParent.type === "MemberExpression" &&
+          parentParent.object === parent)
       ) {
         return true;
       }
+    }
     // fallthrough
     case "CallExpression":
     case "MemberExpression":
@@ -653,7 +687,9 @@ function needsParens(path, options) {
       if (
         parent.type === "NGRoot" ||
         parent.type === "NGMicrosyntaxExpression" ||
-        parent.type === "ObjectProperty" ||
+        (parent.type === "ObjectProperty" &&
+          // Preserve parens for compatibility with AngularJS expressions
+          !(node.extra && node.extra.parenthesized)) ||
         parent.type === "ArrayExpression" ||
         ((parent.type === "CallExpression" ||
           parent.type === "OptionalCallExpression") &&
@@ -669,6 +705,9 @@ function needsParens(path, options) {
     case "JSXElement":
       return (
         name === "callee" ||
+        (parent.type === "BinaryExpression" &&
+          parent.operator === "<" &&
+          name === "left") ||
         (parent.type !== "ArrayExpression" &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&
@@ -729,7 +768,6 @@ function isStatement(node) {
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
     node.type === "ExpressionStatement" ||
-    node.type === "ForAwaitStatement" ||
     node.type === "ForInStatement" ||
     node.type === "ForOfStatement" ||
     node.type === "ForStatement" ||

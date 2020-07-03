@@ -13,7 +13,7 @@ module.exports = function (modules = []) {
 
     load(importee) {
       if (requires[importee]) {
-        return `export default eval("require")("./${requires[importee]}");`;
+        return `module.exports = eval("require")("./${requires[importee]}");`;
       }
     },
   };

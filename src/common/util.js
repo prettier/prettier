@@ -3,6 +3,7 @@
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
+const support = require("../main/support");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
@@ -73,7 +74,7 @@ const skipToLineEnd = skip(",; \t");
 /**
  * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
  */
-const skipEverythingButNewLine = skip(/[^\r\n]/);
+const skipEverythingButNewLine = skip(/[^\n\r]/);
 
 /**
  * @param {string} text
@@ -318,170 +319,6 @@ function setLocEnd(node, index) {
   }
 }
 
-const PRECEDENCE = {};
-[
-  ["|>"],
-  ["??"],
-  ["||"],
-  ["&&"],
-  ["|"],
-  ["^"],
-  ["&"],
-  ["==", "===", "!=", "!=="],
-  ["<", ">", "<=", ">=", "in", "instanceof"],
-  [">>", "<<", ">>>"],
-  ["+", "-"],
-  ["*", "/", "%"],
-  ["**"],
-].forEach((tier, i) => {
-  tier.forEach((op) => {
-    PRECEDENCE[op] = i;
-  });
-});
-
-function getPrecedence(op) {
-  return PRECEDENCE[op];
-}
-
-const equalityOperators = {
-  "==": true,
-  "!=": true,
-  "===": true,
-  "!==": true,
-};
-const multiplicativeOperators = {
-  "*": true,
-  "/": true,
-  "%": true,
-};
-const bitshiftOperators = {
-  ">>": true,
-  ">>>": true,
-  "<<": true,
-};
-
-function shouldFlatten(parentOp, nodeOp) {
-  if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
-    return false;
-  }
-
-  // ** is right-associative
-  // x ** y ** z --> x ** (y ** z)
-  if (parentOp === "**") {
-    return false;
-  }
-
-  // x == y == z --> (x == y) == z
-  if (equalityOperators[parentOp] && equalityOperators[nodeOp]) {
-    return false;
-  }
-
-  // x * y % z --> (x * y) % z
-  if (
-    (nodeOp === "%" && multiplicativeOperators[parentOp]) ||
-    (parentOp === "%" && multiplicativeOperators[nodeOp])
-  ) {
-    return false;
-  }
-
-  // x * y / z --> (x * y) / z
-  // x / y * z --> (x / y) * z
-  if (
-    nodeOp !== parentOp &&
-    multiplicativeOperators[nodeOp] &&
-    multiplicativeOperators[parentOp]
-  ) {
-    return false;
-  }
-
-  // x << y << z --> (x << y) << z
-  if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
-    return false;
-  }
-
-  return true;
-}
-
-function isBitwiseOperator(operator) {
-  return (
-    !!bitshiftOperators[operator] ||
-    operator === "|" ||
-    operator === "^" ||
-    operator === "&"
-  );
-}
-
-// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
-// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
-// already necessary grouping parentheses.
-function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
-  node = getLeftMost(node);
-  switch (node.type) {
-    case "FunctionExpression":
-    case "ClassExpression":
-    case "DoExpression":
-      return forbidFunctionClassAndDoExpr;
-    case "ObjectExpression":
-      return true;
-    case "MemberExpression":
-    case "OptionalMemberExpression":
-      return startsWithNoLookaheadToken(
-        node.object,
-        forbidFunctionClassAndDoExpr
-      );
-    case "TaggedTemplateExpression":
-      if (node.tag.type === "FunctionExpression") {
-        // IIFEs are always already parenthesized
-        return false;
-      }
-      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
-    case "CallExpression":
-    case "OptionalCallExpression":
-      if (node.callee.type === "FunctionExpression") {
-        // IIFEs are always already parenthesized
-        return false;
-      }
-      return startsWithNoLookaheadToken(
-        node.callee,
-        forbidFunctionClassAndDoExpr
-      );
-    case "ConditionalExpression":
-      return startsWithNoLookaheadToken(
-        node.test,
-        forbidFunctionClassAndDoExpr
-      );
-    case "UpdateExpression":
-      return (
-        !node.prefix &&
-        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
-      );
-    case "BindExpression":
-      return (
-        node.object &&
-        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
-      );
-    case "SequenceExpression":
-      return startsWithNoLookaheadToken(
-        node.expressions[0],
-        forbidFunctionClassAndDoExpr
-      );
-    case "TSAsExpression":
-      return startsWithNoLookaheadToken(
-        node.expression,
-        forbidFunctionClassAndDoExpr
-      );
-    default:
-      return false;
-  }
-}
-
-function getLeftMost(node) {
-  if (node.left) {
-    return getLeftMost(node.left);
-  }
-  return node;
-}
-
 /**
  * @param {string} value
  * @param {number} tabWidth
@@ -520,7 +357,7 @@ function getIndentSize(value, tabWidth) {
 
   return getAlignmentSize(
     // All the leading whitespaces
-    value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
+    value.slice(lastNewlineIndex + 1).match(/^[\t ]*/)[0],
     tabWidth
   );
 }
@@ -624,7 +461,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
-  const regex = /\\([\s\S])|(['"])/g;
+  const regex = /\\([\S\s])|(["'])/g;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
@@ -650,7 +487,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
     // Unescape any unnecessarily escaped character.
     // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
     return unescapeUnnecessaryEscapes &&
-      /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
+      /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/.test(escaped)
       ? escaped
       : "\\" + escaped;
   });
@@ -781,9 +618,12 @@ function addLeadingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function addDanglingComment(node, comment) {
+function addDanglingComment(node, comment, marker) {
   comment.leading = false;
   comment.trailing = false;
+  if (marker) {
+    comment.marker = marker;
+  }
   addCommentHelper(node, comment);
 }
 
@@ -820,14 +660,43 @@ function replaceEndOfLineWith(text, replacement) {
   return parts;
 }
 
+function getParserName(lang, options) {
+  const supportInfo = support.getSupportInfo({ plugins: options.plugins });
+  const language = supportInfo.languages.find(
+    (language) =>
+      language.name.toLowerCase() === lang ||
+      (language.aliases && language.aliases.includes(lang)) ||
+      (language.extensions &&
+        language.extensions.find((ext) => ext === `.${lang}`))
+  );
+  if (language) {
+    return language.parsers[0];
+  }
+
+  return null;
+}
+
+function isFrontMatterNode(node) {
+  return node && node.type === "front-matter";
+}
+
+function getShebang(text) {
+  if (!text.startsWith("#!")) {
+    return "";
+  }
+  const index = text.indexOf("\n");
+  if (index === -1) {
+    return text;
+  }
+  return text.slice(0, index);
+}
+
 module.exports = {
   replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getPrecedence,
-  shouldFlatten,
-  isBitwiseOperator,
+  getParserName,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -849,7 +718,6 @@ module.exports = {
   hasSpaces,
   setLocStart,
   setLocEnd,
-  startsWithNoLookaheadToken,
   getAlignmentSize,
   getIndentSize,
   getPreferredQuote,
@@ -863,4 +731,6 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isWithinParentArrayProperty,
+  isFrontMatterNode,
+  getShebang,
 };

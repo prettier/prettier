@@ -1,6 +1,6 @@
 html body {
-  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo", -apple-system,
-    BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   overflow-x: hidden;
 }
@@ -429,10 +429,6 @@ em {
   transform: scale(1.2);
 }
 
-.footerSection {
-  background: #1a2b34 !important;
-}
-
 .mainContainer .wrapper .post h2 {
   font-size: 2em;
 }
@@ -572,4 +568,19 @@ a {
 .hljs-selector-pseudo,
 .hljs-comment {
   color: #cda144;
+}
+
+.showcaseSection .logos img {
+  max-height: 64px;
+}
+
+/* DOCUSAURUS_CODE_TABS */
+.tabs {
+  border-top: none;
+}
+.nav-tabs {
+  border-bottom: none;
+}
+.tabs .nav-tabs > div {
+  padding: 4px 12px;
 }

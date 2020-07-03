@@ -1,9 +1,6 @@
 "use strict";
 
 const privateUtil = require("../common/util");
-const embed = require("./embed");
-const pragma = require("./pragma");
-const preprocess = require("./preprocess");
 const {
   builders: {
     breakParent,
@@ -20,9 +17,13 @@ const {
     indent,
     group,
   },
-  utils: { mapDoc },
+  utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
+const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
+const embed = require("./embed");
+const pragma = require("./pragma");
+const preprocess = require("./preprocess");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -30,12 +31,16 @@ const {
   punctuationPattern,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
+  isAutolink,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
 
-const TRAILING_HARDLINE_NODES = ["importExport"];
+const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
-const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
+const SIBLING_NODE_TYPES = new Set([
+  "listItem",
+  "definition",
+  "footnoteDefinition",
+]);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -59,13 +64,18 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
+    case "front-matter":
+      return options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      );
     case "root":
       if (node.children.length === 0) {
         return "";
       }
       return concat([
         normalizeDoc(printRoot(path, options, print)),
-        !TRAILING_HARDLINE_NODES.includes(getLastDescendantNode(node).type)
+        !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
           ? hardline
           : "",
       ]);
@@ -75,9 +85,9 @@ function genericPrint(path, options, print) {
       });
     case "sentence":
       return printChildren(path, options, print);
-    case "word":
-      return node.value
-        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
+    case "word": {
+      let escapedValue = node.value
+        .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
             [
@@ -92,6 +102,30 @@ function genericPrint(path, options, print) {
               : `${underscore2}${text2}`
             ).replace(/_/g, "\\_")
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
+
+      const isFirstSentence = (node, name, index) =>
+        node.type === "sentence" && index === 0;
+      const isLastChildAutolink = (node, name, index) =>
+        isAutolink(node.children[index - 1], options);
+
+      if (
+        escapedValue !== node.value &&
+        (path.match(undefined, isFirstSentence, isLastChildAutolink) ||
+          path.match(
+            undefined,
+            isFirstSentence,
+            (node, name, index) => node.type === "emphasis" && index === 0,
+            isLastChildAutolink
+          ))
+      ) {
+        // backslash is parsed as part of autolinks, so we need to remove it
+        escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
+          prefix.replace(/\\/g, "")
+        );
+      }
+
+      return escapedValue;
+    }
     case "whitespace": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
@@ -99,30 +133,35 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([-+*]|#{1,6}|[0-9]+[.)])$/.test(nextNode.value)
+        nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
       return printLine(path, node.value, { proseWrap });
     }
     case "emphasis": {
-      const parentNode = path.getParentNode();
-      const index = parentNode.children.indexOf(node);
-      const prevNode = parentNode.children[index - 1];
-      const nextNode = parentNode.children[index + 1];
-      const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-        (prevNode &&
-          prevNode.type === "sentence" &&
-          prevNode.children.length > 0 &&
-          privateUtil.getLast(prevNode.children).type === "word" &&
-          !privateUtil.getLast(prevNode.children).hasTrailingPunctuation) ||
-        (nextNode &&
-          nextNode.type === "sentence" &&
-          nextNode.children.length > 0 &&
-          nextNode.children[0].type === "word" &&
-          !nextNode.children[0].hasLeadingPunctuation);
-      const style =
-        hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+      let style;
+      if (isAutolink(node.children[0], options)) {
+        style = options.originalText[node.position.start.offset];
+      } else {
+        const parentNode = path.getParentNode();
+        const index = parentNode.children.indexOf(node);
+        const prevNode = parentNode.children[index - 1];
+        const nextNode = parentNode.children[index + 1];
+        const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
+          (prevNode &&
+            prevNode.type === "sentence" &&
+            prevNode.children.length > 0 &&
+            privateUtil.getLast(prevNode.children).type === "word" &&
+            !privateUtil.getLast(prevNode.children).hasTrailingPunctuation) ||
+          (nextNode &&
+            nextNode.type === "sentence" &&
+            nextNode.children.length > 0 &&
+            nextNode.children[0].type === "word" &&
+            !nextNode.children[0].hasLeadingPunctuation);
+        style =
+          hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+      }
       return concat([style, printChildren(path, options, print), style]);
     }
     case "strong":
@@ -135,7 +174,7 @@ function genericPrint(path, options, print) {
         "`"
       );
       const style = "`".repeat(backtickCount || 1);
-      const gap = backtickCount ? " " : "";
+      const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
     }
     case "link":
@@ -208,6 +247,7 @@ function genericPrint(path, options, print) {
       return concat([
         style,
         node.lang || "",
+        node.meta ? " " + node.meta : "",
         hardline,
         concat(
           replaceEndOfLineWith(
@@ -232,7 +272,7 @@ function genericPrint(path, options, print) {
         privateUtil.getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
+      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
       return concat(
         replaceEndOfLineWith(
           value,
@@ -369,7 +409,7 @@ function genericPrint(path, options, print) {
           : group(
               concat([
                 align(
-                  " ".repeat(options.tabWidth),
+                  " ".repeat(4),
                   printChildren(path, options, print, {
                     processor: (childPath, index) => {
                       return index === 0
@@ -728,10 +768,7 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        if (
-          lastChildNode &&
-          TRAILING_HARDLINE_NODES.includes(lastChildNode.type)
-        ) {
+        if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
           }
@@ -790,7 +827,7 @@ function shouldNotPrePrintHardline(node, data) {
 
 function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.includes(node.type);
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
 
   const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;
@@ -845,32 +882,6 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-
-    if (currentDoc.type === "concat" && currentDoc.parts.length === 1) {
-      return currentDoc.parts[0];
-    }
-
-    const parts = currentDoc.parts.reduce((parts, part) => {
-      if (part.type === "concat") {
-        parts.push(...part.parts);
-      } else if (part !== "") {
-        parts.push(part);
-      }
-      return parts;
-    }, []);
-
-    return {
-      ...currentDoc,
-      parts: normalizeParts(parts),
-    };
-  });
-}
-
 function printUrl(url, dangerousCharOrChars) {
   const dangerousChars = [" "].concat(dangerousCharOrChars || []);
   return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
@@ -889,6 +900,10 @@ function printTitle(title, options, printSpace) {
   if (printSpace) {
     return " " + printTitle(title, options, false);
   }
+
+  // title is escaped after `remark-parse` v7
+  title = title.replace(/\\(["')])/g, "$1");
+
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
@@ -903,22 +918,9 @@ function printTitle(title, options, printSpace) {
       : options.singleQuote
       ? "'"
       : '"';
+  title = title.replace(/\\/, "\\\\");
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
-}
-
-function normalizeParts(parts) {
-  return parts.reduce((current, part) => {
-    const lastPart = privateUtil.getLast(current);
-
-    if (typeof lastPart === "string" && typeof part === "string") {
-      current.splice(-1, 1, lastPart + part);
-    } else {
-      current.push(part);
-    }
-
-    return current;
-  }, []);
 }
 
 function clamp(value, min, max) {
@@ -931,6 +933,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
+    isFrontMatterNode(ast) ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||
@@ -944,13 +947,34 @@ function clean(ast, newObj, parent) {
     delete newObj.isAligned;
   }
 
+  if (ast.type === "list" || ast.type === "listItem") {
+    delete newObj.spread;
+    delete newObj.loose;
+  }
+
   // texts can be splitted or merged
   if (ast.type === "text") {
     return null;
   }
 
   if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[ \t\n]+/g, " ");
+    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+  }
+
+  if (ast.type === "definition" || ast.type === "linkReference") {
+    newObj.label = ast.label
+      .trim()
+      .replace(/[\t\n ]+/g, " ")
+      .toLowerCase();
+  }
+
+  if (
+    (ast.type === "definition" ||
+      ast.type === "link" ||
+      ast.type === "image") &&
+    ast.title
+  ) {
+    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
   }
 
   // for insert pragma
@@ -959,9 +983,7 @@ function clean(ast, newObj, parent) {
     parent.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
-      ((parent.children[0].type === "yaml" ||
-        parent.children[0].type === "toml") &&
-        parent.children[1] === ast)) &&
+      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
     ast.type === "html" &&
     pragma.startWithPragma(ast.value)
   ) {

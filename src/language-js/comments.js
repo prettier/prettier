@@ -184,7 +184,9 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
 }
 
 function addBlockStatementFirstComment(node, comment) {
-  const body = node.body.filter((n) => n.type !== "EmptyStatement");
+  const body = (node.body || node.properties).filter(
+    (n) => n.type !== "EmptyStatement"
+  );
   if (body.length === 0) {
     addDanglingComment(node, comment);
   } else {
@@ -405,7 +407,8 @@ function handleConditionalExpressionComments(
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
     enclosingNode &&
-    enclosingNode.type === "ConditionalExpression" &&
+    (enclosingNode.type === "ConditionalExpression" ||
+      enclosingNode.type === "TSConditionalType") &&
     followingNode
   ) {
     addLeadingComment(followingNode, comment);
@@ -438,20 +441,48 @@ function handleClassComments(
   if (
     enclosingNode &&
     (enclosingNode.type === "ClassDeclaration" ||
-      enclosingNode.type === "ClassExpression") &&
-    enclosingNode.decorators &&
-    enclosingNode.decorators.length > 0 &&
-    !(followingNode && followingNode.type === "Decorator")
+      enclosingNode.type === "ClassExpression" ||
+      enclosingNode.type === "DeclareClass" ||
+      enclosingNode.type === "DeclareInterface" ||
+      enclosingNode.type === "InterfaceDeclaration" ||
+      enclosingNode.type === "TSInterfaceDeclaration")
   ) {
-    if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
-      addLeadingComment(enclosingNode, comment);
-    } else {
+    if (
+      enclosingNode.decorators &&
+      enclosingNode.decorators.length > 0 &&
+      !(followingNode && followingNode.type === "Decorator")
+    ) {
       addTrailingComment(
         enclosingNode.decorators[enclosingNode.decorators.length - 1],
         comment
       );
+      return true;
     }
-    return true;
+
+    if (enclosingNode.body && followingNode === enclosingNode.body) {
+      addBlockStatementFirstComment(enclosingNode.body, comment);
+      return true;
+    }
+
+    // Don't add leading comments to `implements`, `extends`, `mixins` to
+    // avoid printing the comment after the keyword.
+    if (followingNode) {
+      for (const prop of ["implements", "extends", "mixins"]) {
+        if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
+          if (
+            precedingNode &&
+            (precedingNode === enclosingNode.id ||
+              precedingNode === enclosingNode.typeParameters ||
+              precedingNode === enclosingNode.superClass)
+          ) {
+            addTrailingComment(precedingNode, comment);
+          } else {
+            addDanglingComment(enclosingNode, comment, prop);
+          }
+          return true;
+        }
+      }
+    }
   }
   return false;
 }
@@ -951,7 +982,7 @@ function getGapRegex(enclosingNode) {
   ) {
     // Support degenerate single-element unions and intersections.
     // E.g.: `type A = /* 1 */ & B`
-    return /^[\s(&|]*$/;
+    return /^[\s&(|]*$/;
   }
 }
 

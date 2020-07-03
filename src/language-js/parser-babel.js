@@ -5,9 +5,9 @@ const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
-function babelOptions(extraPlugins = []) {
+function babelOptions({ sourceType, extraPlugins = [] }) {
   return {
-    sourceType: "module",
+    sourceType,
     allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
@@ -16,32 +16,45 @@ function babelOptions(extraPlugins = []) {
     errorRecovery: true,
     createParenthesizedExpressions: true,
     plugins: [
+      // When adding a plugin, please add a test in `tests/js/babel-plugins`,
+      // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+
       "doExpressions",
-      "objectRestSpread",
       "classProperties",
       "exportDefaultFrom",
-      "exportNamespaceFrom",
-      "asyncGenerators",
       "functionBind",
       "functionSent",
-      "dynamicImport",
       "numericSeparator",
-      "importMeta",
-      "optionalCatchBinding",
-      "optionalChaining",
       "classPrivateProperties",
-      ["pipelineOperator", { proposal: "minimal" }],
-      "nullishCoalescingOperator",
-      "bigInt",
       "throwExpressions",
       "logicalAssignment",
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
       ["decorators", { decoratorsBeforeExport: false }],
+      "privateIn",
+      ["moduleAttributes", { version: "may-2020" }],
+      ["recordAndTuple", { syntaxType: "hash" }],
       ...extraPlugins,
     ],
   };
+}
+
+function resolvePluginsConflict(
+  condition,
+  pluginCombinations,
+  conflictPlugins
+) {
+  if (!condition) {
+    return pluginCombinations;
+  }
+  const combinations = [];
+  for (const combination of pluginCombinations) {
+    for (const plugin of conflictPlugins) {
+      combinations.push([...combination, plugin]);
+    }
+  }
+  return combinations;
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
@@ -49,23 +62,50 @@ function createParse(parseMethod, ...pluginCombinations) {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
+    const sourceType =
+      opts && opts.__babelSourceType === "script" ? "script" : "module";
+
     let ast;
     try {
+      const combinations = resolvePluginsConflict(
+        text.includes("|>"),
+        pluginCombinations,
+        [
+          ["pipelineOperator", { proposal: "smart" }],
+          ["pipelineOperator", { proposal: "minimal" }],
+          ["pipelineOperator", { proposal: "fsharp" }],
+        ]
+      );
       ast = tryCombinations(
         (options) => babel[parseMethod](text, options),
-        pluginCombinations.map(babelOptions)
+        combinations.map((extraPlugins) =>
+          babelOptions({ sourceType, extraPlugins })
+        )
       );
-    } catch (error) {
+    } catch (_error) {
+      // babel@7.10.4 throws `undefined`, when parsing
+      // ```js
+      // alert(
+      // <!-- comment
+      // 'hello world'
+      // )
+      // ```
+      // #8688
+
+      const error = _error || { message: "Unknown error" };
+
       throw createError(
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error
         error.message.replace(/ \(.*\)/, ""),
-        {
-          start: {
-            line: error.loc.line,
-            column: error.loc.column + 1,
-          },
-        }
+        error.loc
+          ? {
+              start: {
+                line: error.loc.line,
+                column: error.loc.column + 1,
+              },
+            }
+          : { start: { line: 0, column: 0 } }
       );
     }
     delete ast.tokens;
@@ -89,7 +129,7 @@ function tryCombinations(fn, combinations) {
   let error;
   for (let i = 0; i < combinations.length; i++) {
     try {
-      return fn(combinations[i]);
+      return rethrowSomeRecoveredErrors(fn(combinations[i]));
     } catch (_error) {
       if (!error) {
         error = _error;
@@ -97,6 +137,29 @@ function tryCombinations(fn, combinations) {
     }
   }
   throw error;
+}
+
+function rethrowSomeRecoveredErrors(ast) {
+  if (ast.errors) {
+    for (const error of ast.errors) {
+      if (
+        typeof error.message === "string" &&
+        (error.message.startsWith(
+          // UnexpectedTypeAnnotation
+          // https://github.com/babel/babel/blob/2f31ecf85d85cb100fa08d4d9a09de0fe4a117e4/packages/babel-parser/src/plugins/typescript/index.js#L88
+          "Did not expect a type annotation here."
+        ) ||
+          error.message.startsWith(
+            // ModuleAttributeDifferentFromType
+            // https://github.com/babel/babel/blob/bda759ac3dce548f021ca24e9182b6e6f7c218e3/packages/babel-parser/src/parser/location.js#L99
+            "The only accepted module attribute is `type`"
+          ))
+      ) {
+        throw error;
+      }
+    }
+  }
+  return ast;
 }
 
 function parseJson(text, parsers, opts) {
@@ -115,11 +178,10 @@ function assertJsonNode(node, parent) {
     case "ObjectExpression":
       return node.properties.forEach(assertJsonChildNode);
     case "ObjectProperty":
-      // istanbul ignore if
       if (node.computed) {
         throw createJsonError("computed");
       }
-      // istanbul ignore if
+
       if (node.shorthand) {
         throw createJsonError("shorthand");
       }
@@ -129,7 +191,6 @@ function assertJsonNode(node, parent) {
         case "+":
         case "-":
           return assertJsonChildNode(node.argument);
-        // istanbul ignore next
         default:
           throw createJsonError("operator");
       }
@@ -143,7 +204,6 @@ function assertJsonNode(node, parent) {
     case "NumericLiteral":
     case "StringLiteral":
       return;
-    // istanbul ignore next
     default:
       throw createJsonError();
   }
@@ -152,7 +212,6 @@ function assertJsonNode(node, parent) {
     return assertJsonNode(child, node);
   }
 
-  // istanbul ignore next
   function createJsonError(attribute) {
     const name = !attribute
       ? node.type

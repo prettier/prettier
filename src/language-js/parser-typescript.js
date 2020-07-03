@@ -1,7 +1,6 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const includeShebang = require("../common/parser-include-shebang");
 const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
@@ -30,14 +29,12 @@ function parse(text, parsers, opts) {
     }
   }
 
-  includeShebang(text, ast);
   return postprocess(ast, { ...opts, originalText: text });
 }
 
 function tryParseTypeScript(text, jsx) {
   const parser = require("@typescript-eslint/typescript-estree");
   return parser.parse(text, {
-    loc: true,
     range: true,
     comment: true,
     useJSXTextNode: true,

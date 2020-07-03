@@ -1,5 +1,24 @@
 "use strict";
 
+const docBuilders = require("../document").builders;
+const {
+  conditionalGroup,
+  breakParent,
+  concat,
+  dedent,
+  dedentToRoot,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  join,
+  line,
+  lineSuffix,
+  literalline,
+  markAsRoot,
+  softline,
+} = docBuilders;
+const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
 const {
   getAncestorCount,
@@ -20,25 +39,6 @@ const {
   defineShortcut,
   mapNode,
 } = require("./utils");
-const docBuilders = require("../document").builders;
-const {
-  conditionalGroup,
-  breakParent,
-  concat,
-  dedent,
-  dedentToRoot,
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  join,
-  line,
-  lineSuffix,
-  literalline,
-  markAsRoot,
-  softline,
-} = docBuilders;
-const { replaceEndOfLineWith } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -107,10 +107,9 @@ function genericPrint(path, options, print) {
     hasPrettierIgnore(path)
       ? concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              node.position.start.offset,
-              node.position.end.offset
-            ),
+            options.originalText
+              .slice(node.position.start.offset, node.position.end.offset)
+              .trimEnd(),
             literalline
           )
         )
@@ -132,7 +131,26 @@ function genericPrint(path, options, print) {
     hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
       ? align(
           node.type === "sequenceItem" ? 2 : 0,
-          concat([hardline, join(hardline, path.map(print, "endComments"))])
+          concat([
+            hardline,
+            join(
+              hardline,
+              path.map(
+                (path) =>
+                  concat([
+                    isPreviousLineEmpty(
+                      options.originalText,
+                      path.getValue(),
+                      options.locStart
+                    )
+                      ? hardline
+                      : "",
+                    print(path),
+                  ]),
+                "endComments"
+              )
+            ),
+          ])
         )
       : "",
   ]);

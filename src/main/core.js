@@ -2,22 +2,21 @@
 
 const diff = require("diff");
 
+const {
+  printer: { printDocToString },
+  debug: { printDocToDebug },
+} = require("../document");
+const privateUtil = require("../common/util");
+const {
+  guessEndOfLine,
+  convertEndOfLineToChars,
+} = require("../common/end-of-line");
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
 const comments = require("./comments");
 const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
-const {
-  guessEndOfLine,
-  convertEndOfLineToChars,
-} = require("../common/end-of-line");
 const rangeUtil = require("./range-util");
-const privateUtil = require("../common/util");
-const {
-  utils: { mapDoc },
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = require("../document");
 
 const BOM = "\uFEFF";
 
@@ -85,17 +84,7 @@ function coreFormat(text, opts, addAlignmentSize) {
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
 
-  const eol = convertEndOfLineToChars(opts.endOfLine);
-  const result = printDocToString(
-    opts.endOfLine === "lf"
-      ? doc
-      : mapDoc(doc, (currentDoc) =>
-          typeof currentDoc === "string" && currentDoc.includes("\n")
-            ? currentDoc.replace(/\n/g, eol)
-            : currentDoc
-        ),
-    opts
-  );
+  const result = printDocToString(doc, opts);
 
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
@@ -186,8 +175,7 @@ function formatRange(text, opts) {
   const { ast } = parsed;
   text = parsed.text;
 
-  const range = rangeUtil.calculateRange(text, opts, ast);
-  const { rangeStart, rangeEnd } = range;
+  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
@@ -197,7 +185,7 @@ function formatRange(text, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1
   );
-  const indentString = text.slice(rangeStart2, rangeStart);
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
   const alignmentSize = privateUtil.getAlignmentSize(
     indentString,

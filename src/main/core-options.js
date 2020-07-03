@@ -1,6 +1,6 @@
 "use strict";
 
-const dedent = require("dedent");
+const { outdent } = require("outdent");
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -55,7 +55,7 @@ const options = {
     type: "int",
     default: -1,
     range: { start: -1, end: Infinity, step: 1 },
-    description: dedent`
+    description: outdent`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
     `,
@@ -87,7 +87,7 @@ const options = {
       },
       {
         value: "auto",
-        description: dedent`
+        description: outdent`
           Maintain existing
           (mixed values within one file are normalised by looking at what's used after the first line)
         `,
@@ -177,7 +177,7 @@ const options = {
     array: true,
     default: [{ value: [] }],
     category: CATEGORY_GLOBAL,
-    description: dedent`
+    description: outdent`
       Custom directory that contains prettier plugins in node_modules subdirectory.
       Overrides default behavior when plugins are searched relatively to the location of Prettier.
       Multiple values are accepted.
@@ -201,7 +201,7 @@ const options = {
     type: "int",
     default: Infinity,
     range: { start: 0, end: Infinity, step: 1 },
-    description: dedent`
+    description: outdent`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
@@ -214,7 +214,7 @@ const options = {
     type: "int",
     default: 0,
     range: { start: 0, end: Infinity, step: 1 },
-    description: dedent`
+    description: outdent`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
@@ -226,7 +226,7 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
-    description: dedent`
+    description: outdent`
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
     `,
@@ -245,6 +245,25 @@ const options = {
     type: "boolean",
     default: false,
     description: "Indent with tabs instead of spaces.",
+  },
+  embeddedLanguageFormatting: {
+    since: "2.1.0",
+    category: CATEGORY_GLOBAL,
+    type: "choice",
+    default: [{ since: "2.1.0", value: "auto" }],
+    description:
+      "Control how Prettier formats quoted code embedded in the file.",
+    choices: [
+      {
+        value: "auto",
+        description:
+          "Format embedded code if Prettier can automatically identify it.",
+      },
+      {
+        value: "off",
+        description: "Never automatically format embedded code.",
+      },
+    ],
   },
 };
 

@@ -1,11 +1,11 @@
 "use strict";
 
+const { getLast } = require("../common/util");
 const {
   cjkPattern,
   kPattern,
   punctuationPattern,
 } = require("./constants.evaluate");
-const { getLast } = require("../common/util");
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
@@ -52,7 +52,7 @@ function splitText(text, options) {
     ? text
     : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
   )
-    .split(/([ \t\n]+)/)
+    .split(/([\t\n ]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {
@@ -241,6 +241,18 @@ function mapAst(ast, handler) {
   })(ast, null, null);
 }
 
+function isAutolink(node, options) {
+  if (!node || node.type !== "link" || node.children.length !== 1) {
+    return false;
+  }
+  const child = node.children[0];
+  return (
+    child &&
+    options.locStart(node) === options.locStart(child) &&
+    options.locEnd(node) === options.locEnd(child)
+  );
+}
+
 module.exports = {
   mapAst,
   splitText,
@@ -250,4 +262,5 @@ module.exports = {
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
+  isAutolink,
 };

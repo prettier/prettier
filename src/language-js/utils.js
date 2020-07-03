@@ -1,5 +1,6 @@
 "use strict";
 
+const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const {
   getLast,
   hasNewline,
@@ -8,7 +9,6 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const handleComments = require("./comments");
 
 // We match any whitespace except line terminators because
@@ -145,11 +145,30 @@ function isLiteral(node) {
     node.type === "Literal" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
+    node.type === "BigIntLiteral" ||
     node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "TemplateLiteral" ||
     node.type === "TSTypeLiteral" ||
     node.type === "JSXText"
+  );
+}
+
+function isLiteralLikeValue(node) {
+  return (
+    isLiteral(node) ||
+    (node.type === "Identifier" && /^[A-Z_]+$/.test(node.name)) ||
+    (node.type === "ArrayExpression" &&
+      node.elements.every(
+        (element) => element !== null && isLiteralLikeValue(element)
+      )) ||
+    (node.type === "ObjectExpression" &&
+      node.properties.every(
+        (property) =>
+          !property.computed &&
+          property.value &&
+          isLiteralLikeValue(property.value)
+      ))
   );
 }
 
@@ -289,7 +308,6 @@ const binaryishNodeTypes = new Set([
   "BinaryExpression",
   "LogicalExpression",
   "NGPipeExpression",
-  "TSAsExpression",
 ]);
 function isBinaryish(node) {
   return binaryishNodeTypes.has(node.type);
@@ -303,24 +321,23 @@ function isMemberish(node) {
   );
 }
 
+const flowTypeAnnotations = new Set([
+  "AnyTypeAnnotation",
+  "NullLiteralTypeAnnotation",
+  "GenericTypeAnnotation",
+  "ThisTypeAnnotation",
+  "NumberTypeAnnotation",
+  "VoidTypeAnnotation",
+  "EmptyTypeAnnotation",
+  "MixedTypeAnnotation",
+  "BooleanTypeAnnotation",
+  "BooleanLiteralTypeAnnotation",
+  "StringTypeAnnotation",
+]);
 function isSimpleFlowType(node) {
-  const flowTypeAnnotations = [
-    "AnyTypeAnnotation",
-    "NullLiteralTypeAnnotation",
-    "GenericTypeAnnotation",
-    "ThisTypeAnnotation",
-    "NumberTypeAnnotation",
-    "VoidTypeAnnotation",
-    "EmptyTypeAnnotation",
-    "MixedTypeAnnotation",
-    "BooleanTypeAnnotation",
-    "BooleanLiteralTypeAnnotation",
-    "StringTypeAnnotation",
-  ];
-
   return (
     node &&
-    flowTypeAnnotations.includes(node.type) &&
+    flowTypeAnnotations.has(node.type) &&
     !(node.type === "GenericTypeAnnotation" && node.typeParameters)
   );
 }
@@ -389,6 +406,15 @@ function hasLeadingComment(node) {
 
 function hasTrailingComment(node) {
   return node.comments && node.comments.some((comment) => comment.trailing);
+}
+
+function hasTrailingLineComment(node) {
+  return (
+    node.comments &&
+    node.comments.some(
+      (comment) => comment.trailing && !handleComments.isBlockComment(comment)
+    )
+  );
 }
 
 function isCallOrOptionalCallExpression(node) {
@@ -708,18 +734,53 @@ function returnArgumentHasLeadingComment(options, argument) {
   return false;
 }
 
-function isStringPropSafeToCoerceToIdentifier(node, options) {
+// Note: Quoting/unquoting numbers in TypeScript is not safe.
+//
+// let a = { 1: 1, 2: 2 }
+// let b = { '1': 1, '2': 2 }
+//
+// declare let aa: keyof typeof a;
+// declare let bb: keyof typeof b;
+//
+// aa = bb;
+// ^^
+// Type '"1" | "2"' is not assignable to type '1 | 2'.
+//   Type '"1"' is not assignable to type '1 | 2'.(2322)
+//
+// And in Flow, you get:
+//
+// const x = {
+//   0: 1
+//   ^ Non-string literal property keys not supported. [unsupported-syntax]
+// }
+//
+// Angular does not support unquoted numbers in expressions.
+//
+// So we play it safe and only unquote numbers for the "babel" parser.
+// (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
+//
+// Identifiers can be unquoted in more circumstances, though.
+function isStringPropSafeToUnquote(node, options) {
   return (
-    isStringLiteral(node.key) &&
-    isIdentifierName(node.key.value) &&
     options.parser !== "json" &&
-    // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
-    // See https://github.com/microsoft/TypeScript/pull/20075
-    !(
-      (options.parser === "typescript" || options.parser === "babel-ts") &&
-      node.type === "ClassProperty"
-    )
+    isStringLiteral(node.key) &&
+    rawText(node.key).slice(1, -1) === node.key.value &&
+    ((isIdentifierName(node.key.value) &&
+      // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
+      // See https://github.com/microsoft/TypeScript/pull/20075
+      !(
+        (options.parser === "typescript" || options.parser === "babel-ts") &&
+        node.type === "ClassProperty"
+      )) ||
+      (isSimpleNumber(node.key.value) &&
+        String(Number(node.key.value)) === node.key.value &&
+        options.parser === "babel"))
   );
+}
+
+// Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
+function isSimpleNumber(numberString) {
+  return /^(\d+|\d+\.\d+)$/.test(numberString);
 }
 
 function isJestEachTemplateLiteral(node, parentNode) {
@@ -733,7 +794,7 @@ function isJestEachTemplateLiteral(node, parentNode) {
    *
    * Ref: https://github.com/facebook/jest/pull/6102
    */
-  const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
+  const jestEachTriggerRegex = /^[fx]?(describe|it|test)$/;
   return (
     parentNode.type === "TaggedTemplateExpression" &&
     parentNode.quasi === node &&
@@ -774,101 +835,6 @@ function needsHardlineAfterDanglingComment(node) {
   return (
     lastDanglingComment && !handleComments.isBlockComment(lastDanglingComment)
   );
-}
-
-// If we have nested conditional expressions, we want to print them in JSX mode
-// if there's at least one JSXElement somewhere in the tree.
-//
-// A conditional expression chain like this should be printed in normal mode,
-// because there aren't JSXElements anywhere in it:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : "Unknown";
-//
-// But a conditional expression chain like this should be printed in JSX mode,
-// because there is a JSXElement in the last ConditionalExpression:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : <span className="warning">Unknown</span>;
-//
-// This type of ConditionalExpression chain is structured like this in the AST:
-//
-// ConditionalExpression {
-//   test: ...,
-//   consequent: ...,
-//   alternate: ConditionalExpression {
-//     test: ...,
-//     consequent: ...,
-//     alternate: ConditionalExpression {
-//       test: ...,
-//       consequent: ...,
-//       alternate: ...,
-//     }
-//   }
-// }
-//
-// We want to traverse over that shape and convert it into a flat structure so
-// that we can find if there's a JSXElement somewhere inside.
-function getConditionalChainContents(node) {
-  // Given this code:
-  //
-  // // Using a ConditionalExpression as the consequent is uncommon, but should
-  // // be handled.
-  // A ? B : C ? D : E ? F ? G : H : I
-  //
-  // which has this AST:
-  //
-  // ConditionalExpression {
-  //   test: Identifier(A),
-  //   consequent: Identifier(B),
-  //   alternate: ConditionalExpression {
-  //     test: Identifier(C),
-  //     consequent: Identifier(D),
-  //     alternate: ConditionalExpression {
-  //       test: Identifier(E),
-  //       consequent: ConditionalExpression {
-  //         test: Identifier(F),
-  //         consequent: Identifier(G),
-  //         alternate: Identifier(H),
-  //       },
-  //       alternate: Identifier(I),
-  //     }
-  //   }
-  // }
-  //
-  // we should return this Array:
-  //
-  // [
-  //   Identifier(A),
-  //   Identifier(B),
-  //   Identifier(C),
-  //   Identifier(D),
-  //   Identifier(E),
-  //   Identifier(F),
-  //   Identifier(G),
-  //   Identifier(H),
-  //   Identifier(I)
-  // ];
-  //
-  // This loses the information about whether each node was the test,
-  // consequent, or alternate, but we don't care about that here- we are only
-  // flattening this structure to find if there's any JSXElements inside.
-  const nonConditionalExpressions = [];
-
-  function recurse(node) {
-    if (node.type === "ConditionalExpression") {
-      recurse(node.test);
-      recurse(node.consequent);
-      recurse(node.alternate);
-    } else {
-      nonConditionalExpressions.push(node);
-    }
-  }
-  recurse(node);
-
-  return nonConditionalExpressions;
-}
-
-function conditionalExpressionChainContainsJSX(node) {
-  return Boolean(getConditionalChainContents(node).find(isJSXNode));
 }
 
 // Logic to check for args with multiple anonymous functions. For instance,
@@ -920,10 +886,12 @@ function isLongCurriedCallExpression(path) {
  * @returns {boolean}
  */
 function isSimpleCallArgument(node, depth) {
-  if (depth >= 2) {
+  if (depth >= 3) {
     return false;
   }
-  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);
+
+  const plusOne = (node) => isSimpleCallArgument(node, depth + 1);
+  const plusTwo = (node) => isSimpleCallArgument(node, depth + 2);
 
   const regexpPattern =
     (node.type === "Literal" && node.regex && node.regex.pattern) ||
@@ -935,60 +903,66 @@ function isSimpleCallArgument(node, depth) {
 
   if (
     node.type === "Literal" ||
+    node.type === "BigIntLiteral" ||
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
+    node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "Identifier" ||
     node.type === "ThisExpression" ||
     node.type === "Super" ||
-    node.type === "BigIntLiteral" ||
     node.type === "PrivateName" ||
     node.type === "ArgumentPlaceholder" ||
-    node.type === "RegExpLiteral" ||
     node.type === "Import"
   ) {
     return true;
   }
+
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return node.expressions.every(plusTwo);
   }
+
   if (node.type === "ObjectExpression") {
     return node.properties.every(
-      (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
+      (p) => !p.computed && (p.shorthand || (p.value && plusTwo(p.value)))
     );
   }
+
   if (node.type === "ArrayExpression") {
-    return node.elements.every((x) => x == null || isChildSimple(x));
+    return node.elements.every((x) => x === null || plusTwo(x));
   }
+
+  if (node.type === "ImportExpression") {
+    return plusTwo(node.source, depth);
+  }
+
   if (
     node.type === "CallExpression" ||
     node.type === "OptionalCallExpression" ||
     node.type === "NewExpression"
   ) {
-    return (
-      isSimpleCallArgument(node.callee, depth) &&
-      node.arguments.every(isChildSimple)
-    );
+    return plusOne(node.callee, depth) && node.arguments.every(plusTwo);
   }
+
   if (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression"
   ) {
-    return (
-      isSimpleCallArgument(node.object, depth) &&
-      isSimpleCallArgument(node.property, depth)
-    );
+    return plusOne(node.object, depth) && plusOne(node.property, depth);
   }
+
   if (
     node.type === "UnaryExpression" &&
     (node.operator === "!" || node.operator === "-")
   ) {
-    return isSimpleCallArgument(node.argument, depth);
+    return plusOne(node.argument, depth);
   }
+
   if (node.type === "TSNonNullExpression") {
-    return isSimpleCallArgument(node.expression, depth);
+    return plusOne(node.expression, depth);
   }
+
   return false;
 }
 
@@ -1004,10 +978,193 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
+function shouldPrintComma(options, level) {
+  level = level || "es5";
+
+  switch (options.trailingComma) {
+    case "all":
+      if (level === "all") {
+        return true;
+      }
+    // fallthrough
+    case "es5":
+      if (level === "es5") {
+        return true;
+      }
+    // fallthrough
+    case "none":
+    default:
+      return false;
+  }
+}
+
+// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
+// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
+// already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
+  node = getLeftMost(node);
+  switch (node.type) {
+    case "FunctionExpression":
+    case "ClassExpression":
+    case "DoExpression":
+      return forbidFunctionClassAndDoExpr;
+    case "ObjectExpression":
+      return true;
+    case "MemberExpression":
+    case "OptionalMemberExpression":
+      return startsWithNoLookaheadToken(
+        node.object,
+        forbidFunctionClassAndDoExpr
+      );
+    case "TaggedTemplateExpression":
+      if (node.tag.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
+    case "CallExpression":
+    case "OptionalCallExpression":
+      if (node.callee.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
+      }
+      return startsWithNoLookaheadToken(
+        node.callee,
+        forbidFunctionClassAndDoExpr
+      );
+    case "ConditionalExpression":
+      return startsWithNoLookaheadToken(
+        node.test,
+        forbidFunctionClassAndDoExpr
+      );
+    case "UpdateExpression":
+      return (
+        !node.prefix &&
+        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
+      );
+    case "BindExpression":
+      return (
+        node.object &&
+        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
+      );
+    case "SequenceExpression":
+      return startsWithNoLookaheadToken(
+        node.expressions[0],
+        forbidFunctionClassAndDoExpr
+      );
+    case "TSAsExpression":
+      return startsWithNoLookaheadToken(
+        node.expression,
+        forbidFunctionClassAndDoExpr
+      );
+    default:
+      return false;
+  }
+}
+
+const equalityOperators = {
+  "==": true,
+  "!=": true,
+  "===": true,
+  "!==": true,
+};
+const multiplicativeOperators = {
+  "*": true,
+  "/": true,
+  "%": true,
+};
+const bitshiftOperators = {
+  ">>": true,
+  ">>>": true,
+  "<<": true,
+};
+
+function shouldFlatten(parentOp, nodeOp) {
+  if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
+    return false;
+  }
+
+  // ** is right-associative
+  // x ** y ** z --> x ** (y ** z)
+  if (parentOp === "**") {
+    return false;
+  }
+
+  // x == y == z --> (x == y) == z
+  if (equalityOperators[parentOp] && equalityOperators[nodeOp]) {
+    return false;
+  }
+
+  // x * y % z --> (x * y) % z
+  if (
+    (nodeOp === "%" && multiplicativeOperators[parentOp]) ||
+    (parentOp === "%" && multiplicativeOperators[nodeOp])
+  ) {
+    return false;
+  }
+
+  // x * y / z --> (x * y) / z
+  // x / y * z --> (x / y) * z
+  if (
+    nodeOp !== parentOp &&
+    multiplicativeOperators[nodeOp] &&
+    multiplicativeOperators[parentOp]
+  ) {
+    return false;
+  }
+
+  // x << y << z --> (x << y) << z
+  if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
+    return false;
+  }
+
+  return true;
+}
+
+const PRECEDENCE = {};
+[
+  ["|>"],
+  ["??"],
+  ["||"],
+  ["&&"],
+  ["|"],
+  ["^"],
+  ["&"],
+  ["==", "===", "!=", "!=="],
+  ["<", ">", "<=", ">=", "in", "instanceof"],
+  [">>", "<<", ">>>"],
+  ["+", "-"],
+  ["*", "/", "%"],
+  ["**"],
+].forEach((tier, i) => {
+  tier.forEach((op) => {
+    PRECEDENCE[op] = i;
+  });
+});
+
+function getPrecedence(op) {
+  return PRECEDENCE[op];
+}
+
+function getLeftMost(node) {
+  if (node.left) {
+    return getLeftMost(node.left);
+  }
+  return node;
+}
+
+function isBitwiseOperator(operator) {
+  return (
+    !!bitshiftOperators[operator] ||
+    operator === "|" ||
+    operator === "^" ||
+    operator === "&"
+  );
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -1023,6 +1180,7 @@ module.exports = {
   hasNode,
   hasPrettierIgnore,
   hasTrailingComment,
+  hasTrailingLineComment,
   identity,
   isBinaryish,
   isCallOrOptionalCallExpression,
@@ -1038,6 +1196,7 @@ module.exports = {
   isJSXWhitespaceExpression,
   isLastStatement,
   isLiteral,
+  isLiteralLikeValue,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
   isMeaningfulJSXText,
@@ -1048,9 +1207,10 @@ module.exports = {
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleFlowType,
+  isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,
-  isStringPropSafeToCoerceToIdentifier,
+  isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
@@ -1060,4 +1220,9 @@ module.exports = {
   needsHardlineAfterDanglingComment,
   rawText,
   returnArgumentHasLeadingComment,
+  shouldPrintComma,
+  isBitwiseOperator,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
+  getPrecedence,
 };

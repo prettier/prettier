@@ -3,11 +3,11 @@
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
 // <!--[if ... ]> ... <![endif]-->
-const IE_CONDITIONAL_START_END_COMMENT_REGEX = /^(\[if([^\]]*?)\]>)([\s\S]*?)<!\s*\[endif\]$/;
+const IE_CONDITIONAL_START_END_COMMENT_REGEX = /^(\[if([^\]]*?)]>)([\S\s]*?)<!\s*\[endif]$/;
 // <!--[if ... ]><!-->
-const IE_CONDITIONAL_START_COMMENT_REGEX = /^\[if([^\]]*?)\]><!$/;
+const IE_CONDITIONAL_START_COMMENT_REGEX = /^\[if([^\]]*?)]><!$/;
 // <!--<![endif]-->
-const IE_CONDITIONAL_END_COMMENT_REGEX = /^<!\s*\[endif\]$/;
+const IE_CONDITIONAL_END_COMMENT_REGEX = /^<!\s*\[endif]$/;
 
 const REGEX_PARSE_TUPLES = [
   [IE_CONDITIONAL_START_END_COMMENT_REGEX, parseIeConditionalStartEndComment],
