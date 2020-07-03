@@ -20,6 +20,7 @@ const {
     indent,
     dedent,
     ifBreak,
+    breakParent,
   },
   utils: { removeLines },
 } = require("../document");
@@ -511,7 +512,11 @@ function genericPrint(path, options, print) {
       ) {
         const start = options.locStart(parentNode.open) + 1;
         const end = options.locEnd(parentNode.close) - 1;
-        return options.originalText.slice(start, end).trim();
+        const selector = options.originalText.slice(start, end).trim();
+
+        return lastLineHasInlineComment(selector)
+          ? concat([breakParent, selector])
+          : selector;
       }
 
       return node.value;
