@@ -501,6 +501,19 @@ function genericPrint(path, options, print) {
         return options.originalText.slice(start, end).trim();
       }
 
+      // Same reason above
+      const grandParent = path.getParentNode(1);
+      if (
+        parentNode.type === "value-paren_group" &&
+        grandParent &&
+        grandParent.type === "value-func" &&
+        grandParent.value === "selector"
+      ) {
+        const start = options.locStart(parentNode.open) + 1;
+        const end = options.locEnd(parentNode.close) - 1;
+        return options.originalText.slice(start, end).trim();
+      }
+
       return node.value;
     }
     // postcss-values-parser
