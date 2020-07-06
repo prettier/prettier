@@ -1431,9 +1431,7 @@ ___________________________
              ||     ||
 ___________________________
   </pre>
-  <figcaption id="cow-caption">
-    A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.
-  </figcaption>
+  <figcaption id="cow-caption">A cow saying, "I'm an expert in my field." The cow is illustrated using preformatted text characters.</figcaption>
 </figure>
 <pre data-attr-1="foo" data-attr-2="foo" data-attr-3="foo" data-attr-4="foo" data-attr-5="foo" data-attr-6="foo">
      Foo     Bar
@@ -2812,9 +2810,7 @@ printWidth: Infinity
   <app-footer [input]="something"></app-footer>
 </div>
 <x:root><span>tag name in other namespace should also lower cased</span></x:root>
-<div>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".
-</div>
+<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".</div>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   <strong>seddoeiusmod</strong>.

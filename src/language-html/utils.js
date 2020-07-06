@@ -283,6 +283,7 @@ function forceBreakContent(node) {
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
+      node.firstChild.type !== "text" &&
       hasLeadingLineBreak(node.firstChild) &&
       (!node.lastChild.isTrailingSpaceSensitive ||
         hasTrailingLineBreak(node.lastChild)))
