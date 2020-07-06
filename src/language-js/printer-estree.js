@@ -5,7 +5,6 @@ const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
-  shouldFlatten,
   getNextNonSpaceNonCommentCharacter,
   hasNewline,
   hasNewlineInRange,
@@ -15,7 +14,6 @@ const {
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
-  startsWithNoLookaheadToken,
   getIndentSize,
   getPreferredQuote,
 } = require("../common/util");
@@ -105,6 +103,8 @@ const {
   rawText,
   returnArgumentHasLeadingComment,
   shouldPrintComma,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
 } = require("./utils");
 
 const printMemberChain = require("./print/member-chain");

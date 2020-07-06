@@ -12,7 +12,6 @@ const {
 } = require("../document").builders;
 
 const clean = require("./clean");
-const preprocess = require("./preprocess");
 const {
   getNextNode,
   getPreviousNode,
@@ -676,5 +675,4 @@ function doesNotHavePositionalParams(node) {
 module.exports = {
   print,
   massageAstNode: clean,
-  preprocess,
 };

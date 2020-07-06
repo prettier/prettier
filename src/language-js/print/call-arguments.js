@@ -1,8 +1,11 @@
 "use strict";
 
 const comments = require("../../main/comments");
-const { getLast, getPenultimate } = require("../../common/util");
-const { isNextLineEmpty } = require("../../common/util-shared");
+const {
+  getLast,
+  getPenultimate,
+  isNextLineEmpty,
+} = require("../../common/util");
 const {
   hasLeadingComment,
   hasTrailingComment,

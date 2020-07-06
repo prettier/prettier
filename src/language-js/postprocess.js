@@ -3,11 +3,16 @@
 const {
   getLast,
   getNextNonSpaceNonCommentCharacter,
+  getShebang,
 } = require("../common/util");
 const { composeLoc, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
+  if (options.parser === "typescript" || options.parser === "flow") {
+    includeShebang(ast, options);
+  }
+
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   if (options.parser !== "typescript" && options.parser !== "flow") {
     const startOffsetsOfTypeCastedNodes = new Set();
@@ -120,10 +125,6 @@ function postprocess(ast, options) {
     } else {
       toBeOverriddenNode.end = toOverrideNode.end;
     }
-    toBeOverriddenNode.loc = {
-      ...toBeOverriddenNode.loc,
-      end: toBeOverriddenNode.loc.end,
-    };
   }
 }
 
@@ -180,6 +181,18 @@ function rebalanceLogicalTree(node) {
     right: node.right.right,
     ...composeLoc(node),
   });
+}
+
+function includeShebang(ast, options) {
+  const shebang = getShebang(options.originalText);
+
+  if (shebang) {
+    ast.comments.unshift({
+      type: "Line",
+      value: shebang.slice(2),
+      range: [0, shebang.length],
+    });
+  }
 }
 
 module.exports = postprocess;

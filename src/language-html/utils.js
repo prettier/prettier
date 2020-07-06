@@ -53,10 +53,6 @@ function mapObject(object, fn) {
 }
 
 function shouldPreserveContent(node, options) {
-  if (!node.endSourceSpan) {
-    return false;
-  }
-
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
