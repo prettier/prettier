@@ -187,11 +187,10 @@ const render10 = (props) => (
   </div>
 );
 
-const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) =>
-  this.someLongCallWithParams(aaaaaa, bbbbbbb).anotherLongCallWithParams(
-    cccccccccccc,
-    dddddddddddddddddddddd
-  );
+const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) => this.someLongCallWithParams(
+  aaaaaa,
+  bbbbbbb
+).anotherLongCallWithParams(cccccccccccc, dddddddddddddddddddddd);
 
 React.render(
   <BaseForm
