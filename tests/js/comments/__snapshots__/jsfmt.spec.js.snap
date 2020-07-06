@@ -2202,12 +2202,13 @@ throw new ProcessSystemError({
 })
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
-  // Log errors and continue.
-  .catch((err, stream) => {
-    getLogger().error(err)
-    return stream
-  })
+const rootEpic = (actions, store) =>
+  combineEpics(...epics)(actions, store)
+    // Log errors and continue.
+    .catch((err, stream) => {
+      getLogger().error(err)
+      return stream
+    })
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
@@ -2364,12 +2365,13 @@ throw new ProcessSystemError({
 });
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) => combineEpics(...epics)(actions, store)
-  // Log errors and continue.
-  .catch((err, stream) => {
-    getLogger().error(err);
-    return stream;
-  });
+const rootEpic = (actions, store) =>
+  combineEpics(...epics)(actions, store)
+    // Log errors and continue.
+    .catch((err, stream) => {
+      getLogger().error(err);
+      return stream;
+    });
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(

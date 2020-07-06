@@ -168,9 +168,10 @@ new Foo(
   key: value,
 });
 
-() => foo?.bar({
-  key: value,
-});
+() =>
+  foo?.bar({
+    key: value,
+  });
 
 () => new Foo({
   key: value,

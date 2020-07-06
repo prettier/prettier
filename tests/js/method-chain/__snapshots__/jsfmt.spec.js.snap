@@ -1035,10 +1035,11 @@ somePromise
   .catch((err) => handleError(err));
 
 // you can still force multi-line chaining with a comment:
-const sha256 = (data) => crypto // breakme
-  .createHash("sha256")
-  .update(data)
-  .digest("hex");
+const sha256 = (data) =>
+  crypto // breakme
+    .createHash("sha256")
+    .update(data)
+    .digest("hex");
 
 // examples from https://github.com/prettier/prettier/pull/4765
 
