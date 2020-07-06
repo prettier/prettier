@@ -106,6 +106,14 @@ a = a || ((
       key: value,
 }));
 
+function bar(a = (
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+})) {}
+
 // #5733
 expect(
   () => new GraphQLObjectType({

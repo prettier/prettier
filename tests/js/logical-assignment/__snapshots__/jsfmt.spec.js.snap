@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow-function.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a ||= ((
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+}));
+
+=====================================output=====================================
+a ||= (
+  greeting = "hello",
+  greeted = '"World"',
+  silent = false,
+  onMouseOver
+) => new Foo({
+  key: value,
+});
+
+================================================================================
+`;
+
 exports[`logical-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
