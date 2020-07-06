@@ -89,6 +89,31 @@ key: value});
 a = ({greeting = "hello", greeted = '"World"', silent = false, onMouseOver}) => foo({
 key: value});
 
+const foo = test
+  ? (
+      greeting = "hello",
+      greeted = '"World"',
+      silent = false,
+onMouseOver
+) => foo({
+      key: value,
+})
+  : (
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+});
+
+a = a || ((
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+}));
+
 // #5733
 expect(
   () => new GraphQLObjectType({
@@ -280,6 +305,35 @@ a = ({
 }) => foo({
   key: value,
 });
+
+const foo = test
+  ? (
+      greeting = "hello",
+      greeted = '"World"',
+      silent = false,
+      onMouseOver
+    ) => foo({
+      key: value,
+    })
+  : (
+      greeting = "hello",
+      greeted = '"World"',
+      silent = false,
+      onMouseOver
+    ) => new Foo({
+      key: value,
+    });
+
+a =
+  a ||
+  ((
+    greeting = "hello",
+    greeted = '"World"',
+    silent = false,
+    onMouseOver
+  ) => new Foo({
+    key: value,
+  }));
 
 // #5733
 expect(
