@@ -176,10 +176,9 @@ new Foo(
   key: value,
 });
 
-const a1 = () =>
-  new Foo({
-    key: value,
-  });
+const a1 = () => new Foo({
+  key: value,
+});
 
 call(() =>
   foo({

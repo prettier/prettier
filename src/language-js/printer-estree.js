@@ -5261,7 +5261,7 @@ function shouldPrintArrowFunctionBodyOnSameLine(path, options) {
         "ObjectExpression",
         "ArrayExpression",
         "ReturnStatement",
-        "VariableDeclaration",
+        "VariableDeclarator",
         "ConditionalExpression",
         "LogicalExpression",
         "YieldExpression",
