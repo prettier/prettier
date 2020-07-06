@@ -114,6 +114,26 @@ function bar(a = (
       key: value,
 })) {}
 
+function* bar() {
+yield (
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+})
+}
+
+async function* bar() {
+await ((
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+}))
+}
+
 // #5733
 expect(
   () => new GraphQLObjectType({

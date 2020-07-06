@@ -5264,6 +5264,8 @@ function shouldPrintArrowFunctionBodyOnSameLine(path, options) {
         "VariableDeclaration",
         "ConditionalExpression",
         "LogicalExpression",
+        "YieldExpression",
+        "AwaitExpression",
       ].includes(parent.type)
     ) {
       return true;
