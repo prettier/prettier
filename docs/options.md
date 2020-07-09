@@ -97,6 +97,14 @@ Use single quotes instead of double quotes in JSX.
 | ------- | -------------------- | ------------------------ |
 | `false` | `--jsx-single-quote` | `jsxSingleQuote: <bool>` |
 
+## JSX Self Closing Tags
+
+Convert empty tags to self closing tags.
+
+| Default | CLI Override              | API Override                 |
+| ------- | ------------------------- | ---------------------------- |
+| `false` | `--jsx-self-closing-tags` | `jsxSelfClosingTags: <bool>` |
+
 ## Trailing Commas
 
 _Default value changed from `none` to `es5` in v2.0.0_
