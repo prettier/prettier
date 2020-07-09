@@ -5,7 +5,7 @@ const {
   getNextNonSpaceNonCommentCharacter,
   getShebang,
 } = require("../common/util");
-const { composeLoc, locEnd } = require("./loc");
+const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
@@ -26,22 +26,22 @@ function postprocess(ast, options) {
         node.leadingComments &&
         node.leadingComments.some(isTypeCastComment)
       ) {
-        startOffsetsOfTypeCastedNodes.add(node.start);
+        startOffsetsOfTypeCastedNodes.add(locStart(node));
       }
     });
 
     visitNode(ast, (node) => {
-      if (
-        node.type === "ParenthesizedExpression" &&
-        !startOffsetsOfTypeCastedNodes.has(node.start)
-      ) {
-        const { expression } = node;
-        if (!expression.extra) {
-          expression.extra = {};
+      if (node.type === "ParenthesizedExpression") {
+        const start = locStart(node);
+        if (!startOffsetsOfTypeCastedNodes.has(start)) {
+          const { expression } = node;
+          if (!expression.extra) {
+            expression.extra = {};
+          }
+          expression.extra.parenthesized = true;
+          expression.extra.parenStart = start;
+          return expression;
         }
-        expression.extra.parenthesized = true;
-        expression.extra.parenStart = node.start;
-        return expression;
       }
     });
   }
