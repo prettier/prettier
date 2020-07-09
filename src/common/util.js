@@ -296,30 +296,6 @@ function hasSpaces(text, index, opts) {
 }
 
 /**
- * @param {{range?: [number, number], start?: number}} node
- * @param {number} index
- */
-function setLocStart(node, index) {
-  if (node.range) {
-    node.range[0] = index;
-  } else {
-    node.start = index;
-  }
-}
-
-/**
- * @param {{range?: [number, number], end?: number}} node
- * @param {number} index
- */
-function setLocEnd(node, index) {
-  if (node.range) {
-    node.range[1] = index;
-  } else {
-    node.end = index;
-  }
-}
-
-/**
  * @param {string} value
  * @param {number} tabWidth
  * @param {number=} startIndex
@@ -716,8 +692,6 @@ module.exports = {
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
-  setLocStart,
-  setLocEnd,
   getAlignmentSize,
   getIndentSize,
   getPreferredQuote,
