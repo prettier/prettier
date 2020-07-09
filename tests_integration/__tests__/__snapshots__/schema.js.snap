@@ -123,6 +123,11 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Put > on the last line instead of at a new line.",
           "type": "boolean",
         },
+        "jsxSelfClosingTags": Object {
+          "default": false,
+          "description": "Prefer self closing tags in JSX.",
+          "type": "boolean",
+        },
         "jsxSingleQuote": Object {
           "default": false,
           "description": "Use single quotes in JSX.",

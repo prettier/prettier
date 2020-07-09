@@ -97,4 +97,11 @@ module.exports = {
       },
     ],
   },
+  jsxSelfClosingTags: {
+    since: "2.1.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Prefer self closing tags in JSX.",
+  },
 };
