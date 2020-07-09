@@ -84,12 +84,17 @@ function postprocess(ast, options) {
           };
         }
         break;
-      case "SequenceExpression":
+      case "SequenceExpression": {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
-        if (node.end && node.end > getLast(node.expressions).end) {
-          node.end = getLast(node.expressions).end;
+        const lastExpression = getLast(node.expressions);
+        if (locEnd(node) > locEnd(lastExpression)) {
+          return {
+            ...node,
+            ...composeLoc(node, lastExpression),
+          };
         }
         break;
+      }
       case "ClassProperty":
         // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
         if (
