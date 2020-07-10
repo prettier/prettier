@@ -8,6 +8,7 @@ module.exports = function (babel) {
   return {
     visitor: {
       CallExpression(path) {
+        const { node } = path;
         if (
           t.isIdentifier(node.callee, { name: "eval" }) &&
           node.arguments.length === 1 &&
