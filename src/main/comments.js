@@ -344,9 +344,7 @@ function breakTies(tiesToBreak, text, options) {
 
   for (const node of [precedingNode, followingNode]) {
     if (node.comments && node.comments.length > 1) {
-      node.comments.sort(
-        (a, b) => options.locStart(a) - options.locStart(b)
-      );
+      node.comments.sort((a, b) => options.locStart(a) - options.locStart(b));
     }
   }
 
