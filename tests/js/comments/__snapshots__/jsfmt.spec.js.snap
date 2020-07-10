@@ -3486,6 +3486,105 @@ class Foo {
 ================================================================================
 `;
 
+exports[`multi-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// #8323
+
+import { MapViewProps } from 'react-native-maps'; /*
+comment 14 
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from 'typescript';
+
+x; /* 
+1 */ /* 2 */
+
+y
+
+x; /*1*//*2*/
+y;
+=====================================output=====================================
+// #8323
+
+import { MapViewProps } from "react-native-maps" /*
+comment 14 
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from "typescript"
+
+x /* 
+1 */ /* 2 */
+
+y
+
+x /*1*/ /*2*/
+y
+
+================================================================================
+`;
+
+exports[`multi-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #8323
+
+import { MapViewProps } from 'react-native-maps'; /*
+comment 14 
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from 'typescript';
+
+x; /* 
+1 */ /* 2 */
+
+y
+
+x; /*1*//*2*/
+y;
+=====================================output=====================================
+// #8323
+
+import { MapViewProps } from "react-native-maps"; /*
+comment 14 
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from "typescript";
+
+x; /* 
+1 */ /* 2 */
+
+y;
+
+x; /*1*/ /*2*/
+y;
+
+================================================================================
+`;
+
 exports[`preserve-new-line-last.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
