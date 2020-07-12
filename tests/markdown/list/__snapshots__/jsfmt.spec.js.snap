@@ -2147,6 +2147,157 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`marker.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+* hello1
+
+* hello2
+
+
+* hello3
+
+* hello4
+
+
+* hello5
+
+* hello6
+
+=====================================output=====================================
+- hello1
+
+- hello2
+
+- hello3
+
+- hello4
+
+- hello5
+
+- hello6
+
+================================================================================
+`;
+
+exports[`marker.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+* hello1
+
+* hello2
+
+
+* hello3
+
+* hello4
+
+
+* hello5
+
+* hello6
+
+=====================================output=====================================
+-   hello1
+
+-   hello2
+
+-   hello3
+
+-   hello4
+
+-   hello5
+
+-   hello6
+
+================================================================================
+`;
+
+exports[`marker.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+* hello1
+
+* hello2
+
+
+* hello3
+
+* hello4
+
+
+* hello5
+
+* hello6
+
+=====================================output=====================================
+- hello1
+
+- hello2
+
+- hello3
+
+- hello4
+
+- hello5
+
+- hello6
+
+================================================================================
+`;
+
+exports[`marker.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+* hello1
+
+* hello2
+
+
+* hello3
+
+* hello4
+
+
+* hello5
+
+* hello6
+
+=====================================output=====================================
+- hello1
+
+- hello2
+
+- hello3
+
+- hello4
+
+- hello5
+
+- hello6
+
+================================================================================
+`;
+
 exports[`multiline.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
