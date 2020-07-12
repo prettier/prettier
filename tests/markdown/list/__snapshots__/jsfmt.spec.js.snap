@@ -3758,3 +3758,106 @@ proseWrap: "always"
 
 ================================================================================
 `;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- I am Fine
+- Well, not really
+- Wanna know why
+- Not really
+	- Oops
+	- There goes another rubber tree plan.
+
+=====================================output=====================================
+- I am Fine
+- Well, not really
+- Wanna know why
+- Not really
+  - Oops
+  - There goes another rubber tree plan.
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- I am Fine
+- Well, not really
+- Wanna know why
+- Not really
+	- Oops
+	- There goes another rubber tree plan.
+
+=====================================output=====================================
+-   I am Fine
+-   Well, not really
+-   Wanna know why
+-   Not really
+    -   Oops
+    -   There goes another rubber tree plan.
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- I am Fine
+- Well, not really
+- Wanna know why
+- Not really
+	- Oops
+	- There goes another rubber tree plan.
+
+=====================================output=====================================
+- I am Fine
+- Well, not really
+- Wanna know why
+- Not really
+     - Oops
+     - There goes another rubber tree plan.
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- I am Fine
+- Well, not really
+- Wanna know why
+- Not really
+	- Oops
+	- There goes another rubber tree plan.
+
+=====================================output=====================================
+- I am Fine
+- Well, not really
+- Wanna know why
+- Not really
+  - Oops
+  - There goes another rubber tree plan.
+
+================================================================================
+`;
