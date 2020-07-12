@@ -212,14 +212,12 @@ function escapeTemplateCharacters(doc, raw) {
       return currentDoc;
     }
 
-    const parts = [];
-
-    currentDoc.parts.forEach((part) => {
+    const parts = currentDoc.parts.map((part) => {
       if (typeof part === "string") {
-        parts.push(raw ? part.replace(/(\\*)`/g, "$1$1\\`") : uncook(part));
-      } else {
-        parts.push(part);
+        return raw ? part.replace(/(\\*)`/g, "$1$1\\`") : uncook(part);
       }
+
+      return part;
     });
 
     return { ...currentDoc, parts };
