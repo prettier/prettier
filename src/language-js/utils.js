@@ -1147,8 +1147,8 @@ function getPrecedence(op) {
 }
 
 function getLeftMost(node) {
-  if (node.left) {
-    return getLeftMost(node.left);
+  while (node.left) {
+    node = node.left;
   }
   return node;
 }
