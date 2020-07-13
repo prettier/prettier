@@ -347,6 +347,15 @@ function breakTies(tiesToBreak, text, options) {
 
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
+
+  if (comment.printed) {
+    throw new Error(
+      'Comment "' +
+        comment.value.trim() +
+        '" already printed. Please report this error!'
+    );
+  }
+
   comment.printed = true;
   return options.printer.printComment(commentPath, options);
 }
