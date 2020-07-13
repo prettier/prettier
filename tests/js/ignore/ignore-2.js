@@ -11,3 +11,9 @@ function HelloWorld() {
     </div>
   );
 }
+
+a = <div {.../* prettier-ignore */b}/>
+a = <div {...b/* prettier-ignore */}/>
+a = <div {.../* prettier-ignore */{}}/>
+a = <div {...{/* prettier-ignore */}}/>
+a = <div {...{}/* prettier-ignore */}/>
