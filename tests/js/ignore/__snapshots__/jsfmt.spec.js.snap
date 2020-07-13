@@ -2,7 +2,7 @@
 
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -151,7 +151,7 @@ const response = {
 
 exports[`ignore-2.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
