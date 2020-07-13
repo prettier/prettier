@@ -194,39 +194,13 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`class-name.hbs - {"singleQuote":true} format 1`] = `
+exports[`trimming-and-whitespace.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-<div class='class and other'></div>
-<div class=' class and other '></div>
-<div CLASs=' class and other '></div>
-<p class=" a list of
-
-
-weirdly formatted
-
-
-classes">String</p>
-<p class=" a list of
-
-
-weirdly formatted
-
-
-{{this.classes}}">String</p>
-<p CLASS=" a list of
-
-
-weirdly formatted
-
-
-{{this.classes}}">String</p>
-
-=====================================output=====================================
 <div class='class and other'></div>
 <div class='class and other'></div>
 <div CLASs='class and other'></div>
@@ -263,37 +237,60 @@ weirdly formatted
 `;
 
 exports[`class-name.hbs format 1`] = `
+=======
+<div class="attr
+"></div>
+
+<div class="
+attr"></div>
+
+<div class="
+attr
+"></div>
+
+<div class="
+
+
+
+attr
+
+
+"></div>
+
+<div class="
+    attr
+      attr
+
+  attr
+                       attr
+          attr
+"></div>
+=====================================output=====================================
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div
+  class='attr
+      attr
+
+  attr
+                       attr
+          attr'
+></div>
+================================================================================
+`;
+
+exports[`trimming-and-whitespace.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div class='class and other'></div>
-<div class=' class and other '></div>
-<div CLASs=' class and other '></div>
-<p class=" a list of
-
-
-weirdly formatted
-
-
-classes">String</p>
-<p class=" a list of
-
-
-weirdly formatted
-
-
-{{this.classes}}">String</p>
-<p CLASS=" a list of
-
-
-weirdly formatted
-
-
-{{this.classes}}">String</p>
-
-=====================================output=====================================
 <div class="class and other"></div>
 <div class="class and other"></div>
 <div CLASs="class and other"></div>
@@ -326,5 +323,50 @@ weirdly formatted
 >
   String
 </p>
+=======
+<div class="attr
+"></div>
+
+<div class="
+attr"></div>
+
+<div class="
+attr
+"></div>
+
+<div class="
+
+
+
+attr
+
+
+"></div>
+
+<div class="
+    attr
+      attr
+
+  attr
+                       attr
+          attr
+"></div>
+=====================================output=====================================
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div
+  class="attr
+      attr
+
+  attr
+                       attr
+          attr"
+></div>
 ================================================================================
 `;
