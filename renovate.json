@@ -7,7 +7,7 @@
     "website/**/index.html",
     "website/**/package.json"
   ],
-  "commitMessageExtra": "-> {{#if isMajor}}{{{newMajor}}}{{else}}{{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}{{/if}} - {{prettyDepType}}",
+  "commitMessageExtra": "-> {{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
   "commitMessagePrefix": "prettierx:",
   "commitMessageTopic": "{{depName}}"
 }
