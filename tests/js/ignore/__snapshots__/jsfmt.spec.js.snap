@@ -2,7 +2,7 @@
 
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -151,7 +151,7 @@ const response = {
 
 exports[`ignore-2.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -175,11 +175,8 @@ function HelloWorld() {
 function HelloWorld() {
   return (
     <div
-      {
-        ...{} /*
-      // @ts-ignore */ /* prettier-ignore */ /*
-      // @ts-ignore */ /* prettier-ignore */
-      }
+      {...{} /*
+      // @ts-ignore */ /* prettier-ignore */}
       invalidProp="HelloWorld"
     >
       test
