@@ -38,3 +38,110 @@ printWidth: 80
 <div title="My other 'title'"></div>
 ================================================================================
 `;
+
+exports[`trimming-and-whitespace.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div class="attr
+"></div>
+
+<div class="
+attr"></div>
+
+<div class="
+attr
+"></div>
+
+<div class="
+
+
+
+attr
+
+
+"></div>
+
+<div class="
+    attr
+      attr
+
+  attr
+                       attr
+          attr
+"></div>
+=====================================output=====================================
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div
+  class='attr
+      attr
+
+  attr
+                       attr
+          attr'
+></div>
+================================================================================
+`;
+
+exports[`trimming-and-whitespace.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div class="attr
+"></div>
+
+<div class="
+attr"></div>
+
+<div class="
+attr
+"></div>
+
+<div class="
+
+
+
+attr
+
+
+"></div>
+
+<div class="
+    attr
+      attr
+
+  attr
+                       attr
+          attr
+"></div>
+=====================================output=====================================
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div
+  class="attr
+      attr
+
+  attr
+                       attr
+          attr"
+></div>
+================================================================================
+`;
