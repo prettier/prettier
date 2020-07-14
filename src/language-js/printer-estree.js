@@ -1919,7 +1919,7 @@ function printPathNoParens(path, options, print, args) {
           (p) => {
             const printed = concat(["...", print(p)]);
             const n = p.getValue();
-            if (!n.comments || !n.comments.length) {
+            if (!n.comments || !n.comments.length || !willPrintOwnComments(p)) {
               return printed;
             }
             return concat([
