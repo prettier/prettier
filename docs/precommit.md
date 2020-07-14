@@ -69,42 +69,7 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 Read more at the [pre-commit](https://pre-commit.com) website.
 
-## Option 4. [precise-commits](https://github.com/JamesHenry/precise-commits)
-
-**Use Case:** Great for when you want partial file formatting on your changed/staged files.
-
-Install it along with [husky](https://github.com/typicode/husky):
-
-<!--DOCUSAURUS_CODE_TABS-->
-<!--npm-->
-
-```bash
-npm install --save-dev precise-commits husky
-```
-
-<!--yarn-->
-
-```bash
-yarn add --dev precise-commits husky
-```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
-
-and add this config to your `package.json`:
-
-```json
-{
-  "husky": {
-    "hooks": {
-      "pre-commit": "precise-commits"
-    }
-  }
-}
-```
-
-Read more at the [precise-commits](https://github.com/JamesHenry/precise-commits#2-precommit-hook) repo.
-
-## Option 5. [git-format-staged](https://github.com/hallettj/git-format-staged)
+## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
 **Use Case:** Great for when you want to format partially-staged files, and other options do not provide a good fit for your project.
 
@@ -148,13 +113,13 @@ Add or remove file extensions to suit your project. Note that regardless of whic
 
 To read about how git-format-staged works see [Automatic Code Formatting for Partially-Staged Files](https://www.olioapps.com/blog/automatic-code-formatting/).
 
-## Option 6. Shell script
+## Option 5. Shell script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 
 ```sh
 #!/bin/sh
-FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.jsx" | sed ’s| |\\ |g')
+FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.jsx" | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files

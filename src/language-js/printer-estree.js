@@ -5,7 +5,6 @@ const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
-  shouldFlatten,
   getNextNonSpaceNonCommentCharacter,
   hasNewline,
   hasNewlineInRange,
@@ -15,7 +14,6 @@ const {
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
-  startsWithNoLookaheadToken,
   getIndentSize,
   getPreferredQuote,
 } = require("../common/util");
@@ -105,6 +103,8 @@ const {
   rawText,
   returnArgumentHasLeadingComment,
   shouldPrintComma,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
 } = require("./utils");
 
 const printMemberChain = require("./print/member-chain");
@@ -1919,7 +1919,7 @@ function printPathNoParens(path, options, print, args) {
           (p) => {
             const printed = concat(["...", print(p)]);
             const n = p.getValue();
-            if (!n.comments || !n.comments.length) {
+            if (!n.comments || !n.comments.length || !willPrintOwnComments(p)) {
               return printed;
             }
             return concat([
@@ -2850,9 +2850,9 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
       const value = path.getValue();
-      const commentStart = value.range
-        ? options.originalText.slice(0, value.range[0]).lastIndexOf("/*")
-        : -1;
+      const commentStart = options.originalText
+        .slice(0, options.locStart(value))
+        .lastIndexOf("/*");
       // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
       // because we know for sure that this is a type definition.
       const commentSyntax =

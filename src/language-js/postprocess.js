@@ -3,11 +3,16 @@
 const {
   getLast,
   getNextNonSpaceNonCommentCharacter,
+  getShebang,
 } = require("../common/util");
-const { composeLoc, locEnd } = require("./loc");
+const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
+  if (options.parser === "typescript" || options.parser === "flow") {
+    includeShebang(ast, options);
+  }
+
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   if (options.parser !== "typescript" && options.parser !== "flow") {
     const startOffsetsOfTypeCastedNodes = new Set();
@@ -21,22 +26,22 @@ function postprocess(ast, options) {
         node.leadingComments &&
         node.leadingComments.some(isTypeCastComment)
       ) {
-        startOffsetsOfTypeCastedNodes.add(node.start);
+        startOffsetsOfTypeCastedNodes.add(locStart(node));
       }
     });
 
     visitNode(ast, (node) => {
-      if (
-        node.type === "ParenthesizedExpression" &&
-        !startOffsetsOfTypeCastedNodes.has(node.start)
-      ) {
-        const { expression } = node;
-        if (!expression.extra) {
-          expression.extra = {};
+      if (node.type === "ParenthesizedExpression") {
+        const start = locStart(node);
+        if (!startOffsetsOfTypeCastedNodes.has(start)) {
+          const { expression } = node;
+          if (!expression.extra) {
+            expression.extra = {};
+          }
+          expression.extra.parenthesized = true;
+          expression.extra.parenStart = start;
+          return expression;
         }
-        expression.extra.parenthesized = true;
-        expression.extra.parenStart = node.start;
-        return expression;
       }
     });
   }
@@ -79,12 +84,17 @@ function postprocess(ast, options) {
           };
         }
         break;
-      case "SequenceExpression":
+      case "SequenceExpression": {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
-        if (node.end && node.end > getLast(node.expressions).end) {
-          node.end = getLast(node.expressions).end;
+        const lastExpression = getLast(node.expressions);
+        if (locEnd(node) > locEnd(lastExpression)) {
+          return {
+            ...node,
+            ...composeLoc(node, lastExpression),
+          };
         }
         break;
+      }
       case "ClassProperty":
         // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
         if (
@@ -120,10 +130,6 @@ function postprocess(ast, options) {
     } else {
       toBeOverriddenNode.end = toOverrideNode.end;
     }
-    toBeOverriddenNode.loc = {
-      ...toBeOverriddenNode.loc,
-      end: toBeOverriddenNode.loc.end,
-    };
   }
 }
 
@@ -180,6 +186,18 @@ function rebalanceLogicalTree(node) {
     right: node.right.right,
     ...composeLoc(node),
   });
+}
+
+function includeShebang(ast, options) {
+  const shebang = getShebang(options.originalText);
+
+  if (shebang) {
+    ast.comments.unshift({
+      type: "Line",
+      value: shebang.slice(2),
+      range: [0, shebang.length],
+    });
+  }
 }
 
 module.exports = postprocess;

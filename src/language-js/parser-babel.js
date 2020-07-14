@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function babelOptions({ sourceType, extraPlugins = [] }) {
@@ -82,7 +82,18 @@ function createParse(parseMethod, ...pluginCombinations) {
           babelOptions({ sourceType, extraPlugins })
         )
       );
-    } catch (error) {
+    } catch (_error) {
+      // babel@7.10.4 throws `undefined`, when parsing
+      // ```js
+      // alert(
+      // <!-- comment
+      // 'hello world'
+      // )
+      // ```
+      // #8688
+
+      const error = _error || { message: "Unknown error" };
+
       throw createError(
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error
@@ -214,7 +225,7 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = { parse, astFormat: "estree", hasPragma, ...locFns };
+const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 const babelFlow = { ...babel, parse: parseFlow };
 const babelTypeScript = { ...babel, parse: parseTypeScript };
 const babelExpression = { ...babel, parse: parseExpression };
@@ -235,7 +246,8 @@ module.exports = {
     "json-stringify": {
       parse: parseJson,
       astFormat: "estree-json",
-      ...locFns,
+      locStart,
+      locEnd,
     },
     /** @internal */
     __js_expression: babelExpression,

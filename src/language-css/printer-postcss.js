@@ -6,8 +6,8 @@ const {
   hasIgnoreComment,
   hasNewline,
   isFrontMatterNode,
+  isNextLineEmpty,
 } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
 const {
   builders: {
     concat,
@@ -20,6 +20,7 @@ const {
     indent,
     dedent,
     ifBreak,
+    breakParent,
   },
   utils: { removeLines },
 } = require("../document");
@@ -500,6 +501,23 @@ function genericPrint(path, options, print) {
         const start = options.locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
         return options.originalText.slice(start, end).trim();
+      }
+
+      // Same reason above
+      const grandParent = path.getParentNode(1);
+      if (
+        parentNode.type === "value-paren_group" &&
+        grandParent &&
+        grandParent.type === "value-func" &&
+        grandParent.value === "selector"
+      ) {
+        const start = options.locStart(parentNode.open) + 1;
+        const end = options.locEnd(parentNode.close) - 1;
+        const selector = options.originalText.slice(start, end).trim();
+
+        return lastLineHasInlineComment(selector)
+          ? concat([breakParent, selector])
+          : selector;
       }
 
       return node.value;
