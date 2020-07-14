@@ -1,7 +1,7 @@
 // #8323
 
 import { MapViewProps } from 'react-native-maps'; /*
-comment 14 
+comment 14
 */ /* comment1
 10
 */ /*/ comment 13 */
@@ -10,7 +10,7 @@ comment 14
  ****/
 import * as ts from 'typescript';
 
-x; /* 
+x; /*
 1 */ /* 2 */
 
 y
