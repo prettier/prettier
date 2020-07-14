@@ -103,7 +103,7 @@
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.0",
     "eslint-plugin-prettier": "3.1.4",
-    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react": "7.20.3",
     "execa": "3.4.0",
     "jest": "25.4.0",
     "jest-junit": "10.0.0",
