@@ -533,10 +533,9 @@ printWidth: 80
 >text after
 
 <!-- #8626 -->
-<object data="horse.wav"
-  ><param name="autoplay" value="true" /><param
-    name="autoplay"
-    value="true" /></object
+<object data="horse.wav">
+  <param name="autoplay" value="true" />
+  <param name="autoplay" value="true" /></object
 >1
 
 <span><img src="1.png" /><img src="1.png" /></span>1
