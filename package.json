@@ -73,7 +73,7 @@
     "parse-srcset": "1.0.2",
     "postcss-less": "2.0.0",
     "postcss-media-query-parser": "0.2.3",
-    "postcss-scss": "2.0.0",
+    "postcss-scss": "2.1.1",
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "1.5.0",
     "regexp-util": "1.2.2",
