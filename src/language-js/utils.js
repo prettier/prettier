@@ -978,24 +978,11 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
-function shouldPrintComma(options, level) {
-  level = level || "es5";
-
-  switch (options.trailingComma) {
-    case "all":
-      if (level === "all") {
-        return true;
-      }
-    // fallthrough
-    case "es5":
-      if (level === "es5") {
-        return true;
-      }
-    // fallthrough
-    case "none":
-    default:
-      return false;
-  }
+function shouldPrintComma(options, level = "es5") {
+  return (
+    (options.trailingComma === "all" && (level === "all" || level === "es5")) ||
+    (options.trailingComma === "es5" && level === "es5")
+  );
 }
 
 // Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr

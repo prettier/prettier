@@ -75,14 +75,7 @@ const {
 } = require("./utils");
 
 function shouldPrintComma(options) {
-  switch (options.trailingComma) {
-    case "all":
-    case "es5":
-      return true;
-    case "none":
-    default:
-      return false;
-  }
+  return options.trailingComma === "all" || options.trailingComma === "es5";
 }
 
 function genericPrint(path, options, print) {
