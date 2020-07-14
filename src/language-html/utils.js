@@ -269,6 +269,7 @@ function forceNextEmptyLine(node) {
   return (
     isFrontMatterNode(node) ||
     (node.next &&
+      node.sourceSpan.end &&
       node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
   );
 }

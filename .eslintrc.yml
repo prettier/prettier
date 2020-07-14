@@ -78,6 +78,12 @@ overrides:
       - "{tests,tests_config,tests_integration}/**/*.js"
     env:
       jest: true
+    plugins:
+      - jest
+    rules:
+      jest/valid-expect:
+        - error
+        - alwaysAwait: true
   - files:
       - tests/**/*.js
     rules:

@@ -3723,6 +3723,348 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`tags2.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+=====================================output=====================================
+<div>
+  before
+  <noscript>noscript long long long long long long long long</noscript>
+  after
+</div>
+
+<div>
+  before
+  <details>
+    <summary>summary long long long long</summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog open>dialog long long long long long long long long</dialog>
+  after
+</div>
+
+<div>
+  before
+  <object data="horse.wav">
+    <param name="autoplay" value="true" />
+    <param name="autoplay" value="true" />
+  </object>
+  after
+</div>
+
+<div>
+  before
+  <meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>
+  after
+</div>
+
+<div>
+  before
+  <progress value=".5" max="1"></progress>
+  after
+</div>
+
+================================================================================
+`;
+
+exports[`tags2.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+=====================================output=====================================
+<div
+  >before<noscript>noscript long long long long long long long long</noscript
+  >after</div
+>
+
+<div
+  >before<details
+    ><summary>summary long long long long </summary>details</details
+  >after</div
+>
+
+<div
+  >before<dialog open>dialog long long long long long long long long </dialog
+  >after</div
+>
+
+<div
+  >before<object data="horse.wav"
+    ><param name="autoplay" value="true" /><param
+      name="autoplay"
+      value="true" /></object
+  >after</div
+>
+
+<div
+  >before<meter
+    min="0"
+    max="1"
+    low=".4"
+    high=".7"
+    optimum=".5"
+    value=".2"
+  ></meter
+  >after</div
+>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+================================================================================
+`;
+
+exports[`tags2.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+=====================================output=====================================
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
+
+<div>
+  before
+  <details>
+    <summary>summary long long long long</summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog open>dialog long long long long long long long long</dialog>
+  after
+</div>
+
+<div>
+  before<object data="horse.wav">
+    <param name="autoplay" value="true" />
+    <param name="autoplay" value="true" /></object
+  >after
+</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+================================================================================
+`;
+
+exports[`tags2.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+=====================================output=====================================
+<div>
+  before<noscript
+    >noscript
+    long
+    long
+    long
+    long
+    long
+    long
+    long
+    long</noscript
+  >after
+</div>
+
+<div>
+  before
+  <details>
+    <summary>
+      summary
+      long
+      long
+      long
+      long
+    </summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog
+    open
+  >
+    dialog
+    long
+    long
+    long
+    long
+    long
+    long
+    long
+    long
+  </dialog>
+  after
+</div>
+
+<div>
+  before<object
+    data="horse.wav"
+  >
+    <param
+      name="autoplay"
+      value="true"
+    />
+    <param
+      name="autoplay"
+      value="true"
+    /></object
+  >after
+</div>
+
+<div>
+  before<meter
+    min="0"
+    max="1"
+    low=".4"
+    high=".7"
+    optimum=".5"
+    value=".2"
+  ></meter
+  >after
+</div>
+
+<div>
+  before<progress
+    value=".5"
+    max="1"
+  ></progress
+  >after
+</div>
+
+================================================================================
+`;
+
+exports[`tags2.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+=====================================output=====================================
+<div>
+  before<noscript>noscript long long long long long long long long</noscript
+  >after
+</div>
+
+<div>
+  before
+  <details>
+    <summary>summary long long long long</summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog open>dialog long long long long long long long long</dialog>
+  after
+</div>
+
+<div>
+  before<object data="horse.wav">
+    <param name="autoplay" value="true" />
+    <param name="autoplay" value="true" /></object
+  >after
+</div>
+
+<div>
+  before<meter
+    min="0"
+    max="1"
+    low=".4"
+    high=".7"
+    optimum=".5"
+    value=".2"
+  ></meter
+  >after
+</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+================================================================================
+`;
+
 exports[`textarea.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
