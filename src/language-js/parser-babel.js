@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function babelOptions({ sourceType, extraPlugins = [] }) {
@@ -225,7 +225,7 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = { parse, astFormat: "estree", hasPragma, ...locFns };
+const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 const babelFlow = { ...babel, parse: parseFlow };
 const babelTypeScript = { ...babel, parse: parseTypeScript };
 const babelExpression = { ...babel, parse: parseExpression };
@@ -246,7 +246,8 @@ module.exports = {
     "json-stringify": {
       parse: parseJson,
       astFormat: "estree-json",
-      ...locFns,
+      locStart,
+      locEnd,
     },
     /** @internal */
     __js_expression: babelExpression,

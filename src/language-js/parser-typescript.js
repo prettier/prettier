@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function parse(text, parsers, opts) {
@@ -56,7 +56,7 @@ function isProbablyJsx(text) {
   ).test(text);
 }
 
-const parser = { parse, astFormat: "estree", hasPragma, ...locFns };
+const parser = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
