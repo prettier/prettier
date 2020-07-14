@@ -53,7 +53,7 @@
     "flow-parser": "0.111.3",
     "get-stream": "5.1.0",
     "globby": "6.1.0",
-    "graphql": "15.0.0",
+    "graphql": "15.3.0",
     "html-element-attributes": "2.2.1",
     "html-styles": "1.0.0",
     "html-tag-names": "1.1.5",
