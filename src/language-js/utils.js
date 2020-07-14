@@ -980,8 +980,8 @@ function isTSXFile(options) {
 
 function shouldPrintComma(options, level = "es5") {
   return (
-    (options.trailingComma === "all" && (level === "all" || level === "es5")) ||
-    (options.trailingComma === "es5" && level === "es5")
+    (options.trailingComma === "es5" && level === "es5") ||
+    (options.trailingComma === "all" && (level === "all" || level === "es5"))
   );
 }
 

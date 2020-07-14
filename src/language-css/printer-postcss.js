@@ -75,7 +75,7 @@ const {
 } = require("./utils");
 
 function shouldPrintComma(options) {
-  return options.trailingComma === "all" || options.trailingComma === "es5";
+  return options.trailingComma === "es5" || options.trailingComma === "all";
 }
 
 function genericPrint(path, options, print) {
