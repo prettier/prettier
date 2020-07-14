@@ -654,7 +654,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
-    prevSibling.expression.comments.find(
+    prevSibling.expression.comments.some(
       (comment) => comment.value.trim() === "prettier-ignore"
     )
   );
