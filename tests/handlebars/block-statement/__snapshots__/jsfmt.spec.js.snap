@@ -148,13 +148,9 @@ singleQuote: true
   hello
 {{/block}}
 
-<MyComponent as |firstName|>
-  {{firstName}}
-</MyComponent>
+<MyComponent as |firstName|>{{firstName}}</MyComponent>
 
-<MyComponent as |firstName lastName|>
-  {{firstName}} {{lastName}}
-</MyComponent>
+<MyComponent as |firstName lastName|>{{firstName}} {{lastName}}</MyComponent>
 ================================================================================
 `;
 
@@ -305,13 +301,9 @@ printWidth: 80
   hello
 {{/block}}
 
-<MyComponent as |firstName|>
-  {{firstName}}
-</MyComponent>
+<MyComponent as |firstName|>{{firstName}}</MyComponent>
 
-<MyComponent as |firstName lastName|>
-  {{firstName}} {{lastName}}
-</MyComponent>
+<MyComponent as |firstName lastName|>{{firstName}} {{lastName}}</MyComponent>
 ================================================================================
 `;
 
@@ -332,14 +324,8 @@ singleQuote: true
 =====================================output=====================================
 <div id='comments'>
   {{#each comments}}
-    <h2>
-      <a href='/posts/{{permalink}}#{{id}}'>
-        {{title}}
-      </a>
-    </h2>
-    <div>
-      {{body}}
-    </div>
+    <h2><a href='/posts/{{permalink}}#{{id}}'>{{title}}</a></h2>
+    <div>{{body}}</div>
   {{/each}}
 </div>
 ================================================================================
@@ -361,14 +347,8 @@ printWidth: 80
 =====================================output=====================================
 <div id="comments">
   {{#each comments}}
-    <h2>
-      <a href="/posts/{{permalink}}#{{id}}">
-        {{title}}
-      </a>
-    </h2>
-    <div>
-      {{body}}
-    </div>
+    <h2><a href="/posts/{{permalink}}#{{id}}">{{title}}</a></h2>
+    <div>{{body}}</div>
   {{/each}}
 </div>
 ================================================================================
@@ -575,21 +555,15 @@ singleQuote: true
 
 {{#if a}}
   a
-  <div>
-    b
-  </div>
+  <div>b</div>
   c
 {{else}}
   {{#if c}}
     a
     b
-    <div>
-      c
-    </div>
+    <div>c</div>
   {{/if}}
-  <div>
-    a
-  </div>
+  <div>a</div>
   b
   c
 {{/if}}
@@ -796,21 +770,15 @@ printWidth: 80
 
 {{#if a}}
   a
-  <div>
-    b
-  </div>
+  <div>b</div>
   c
 {{else}}
   {{#if c}}
     a
     b
-    <div>
-      c
-    </div>
+    <div>c</div>
   {{/if}}
-  <div>
-    a
-  </div>
+  <div>a</div>
   b
   c
 {{/if}}
@@ -833,9 +801,7 @@ singleQuote: true
 =====================================output=====================================
 <ul>
   {{#each speakers key='@index' as |speaker|}}
-    <li>
-      {{speaker}}
-    </li>
+    <li>{{speaker}}</li>
   {{/each}}
 </ul>
 ================================================================================
@@ -856,9 +822,7 @@ printWidth: 80
 =====================================output=====================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}
-    <li>
-      {{speaker}}
-    </li>
+    <li>{{speaker}}</li>
   {{/each}}
 </ul>
 ================================================================================

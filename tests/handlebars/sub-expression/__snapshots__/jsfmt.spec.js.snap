@@ -63,7 +63,8 @@ singleQuote: true
       hashPair=(does not need a line break due to being under 80 chars long)
     )
   }}
-></div>
+>
+</div>
 
 {{#block
   (concat
@@ -161,7 +162,8 @@ printWidth: 80
       hashPair=(does not need a line break due to being under 80 chars long)
     )
   }}
-></div>
+>
+</div>
 
 {{#block
   (concat

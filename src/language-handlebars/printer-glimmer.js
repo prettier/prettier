@@ -68,17 +68,17 @@ function print(path, options, print) {
 
       const isWhitespaceOnly = n.children.every((n) => isWhitespaceNode(n));
 
-      return concat([
-        group(printStartingTag(path, print)),
-        group(
-          concat([
-            isWhitespaceOnly ? "" : indent(printChildren(path, options, print)),
-            n.children.length ? hardline : "",
-            concat(["</", n.tag, ">"]),
-          ])
-        ),
-        bim,
-      ]);
+      return group(
+        concat([
+          group(printStartingTag(path, print)),
+          group(
+            isWhitespaceOnly ? "" : indent(printChildren(path, options, print))
+          ),
+          softline,
+          printClosingTag(path, print),
+          bim,
+        ])
+      );
     }
     case "BlockStatement": {
       const pp = path.getParentNode(1);
@@ -317,6 +317,12 @@ function printStartingTag(path, print) {
     printBlockParams(node),
     printStartingTagEndMarker(node),
   ]);
+}
+
+function printClosingTag(path, print) {
+  const node = path.getValue();
+
+  return concat(["</", node.tag, ">"]);
 }
 
 function printAttributesLike(path, print) {

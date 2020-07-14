@@ -359,9 +359,7 @@ singleQuote: true
 </div>
 
 =====================================output=====================================
-<div {{hello param hash=key}} {{goodbye param}}>
-  Hello
-</div>
+<div {{hello param hash=key}} {{goodbye param}}>Hello</div>
 
 <div
   {{hello
@@ -378,8 +376,7 @@ singleQuote: true
     param
     param
   }}
->
-  Hello
+>Hello
 </div>
 
 <div
@@ -390,8 +387,7 @@ singleQuote: true
     hashPair=value
     hashPair=value
   }}
->
-  Hello
+>Hello
 </div>
 
 <div
@@ -406,8 +402,7 @@ singleQuote: true
     hashPair=value
     hashPair=value
   }}
->
-  Hello
+>Hello
 </div>
 ================================================================================
 `;
@@ -435,9 +430,7 @@ printWidth: 80
 </div>
 
 =====================================output=====================================
-<div {{hello param hash=key}} {{goodbye param}}>
-  Hello
-</div>
+<div {{hello param hash=key}} {{goodbye param}}>Hello</div>
 
 <div
   {{hello
@@ -454,8 +447,7 @@ printWidth: 80
     param
     param
   }}
->
-  Hello
+>Hello
 </div>
 
 <div
@@ -466,8 +458,7 @@ printWidth: 80
     hashPair=value
     hashPair=value
   }}
->
-  Hello
+>Hello
 </div>
 
 <div
@@ -482,8 +473,7 @@ printWidth: 80
     hashPair=value
     hashPair=value
   }}
->
-  Hello
+>Hello
 </div>
 ================================================================================
 `;

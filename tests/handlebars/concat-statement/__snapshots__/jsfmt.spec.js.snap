@@ -28,16 +28,13 @@ singleQuote: true
 <div class="  class-m   {{myClass}}     class-n {{myClass}}class-o   "></div>
 <div class="  class-p  class-q"></div>
 =====================================output=====================================
-<div class='hello {{if goodbye true}}'>
-  Hello
-</div>
+<div class='hello {{if goodbye true}}'>Hello</div>
 
 <div
   class='hello {{if goodbye true}} {{if goodbye false}} {{if goodbye true}} {{
     if goodbye false
   }} {{if goodbye true}}'
->
-  Hello
+>Hello
 </div>
 
 <a href='/{{url}}/{{url}}'></a>
@@ -82,16 +79,13 @@ printWidth: 80
 <div class="  class-m   {{myClass}}     class-n {{myClass}}class-o   "></div>
 <div class="  class-p  class-q"></div>
 =====================================output=====================================
-<div class="hello {{if goodbye true}}">
-  Hello
-</div>
+<div class="hello {{if goodbye true}}">Hello</div>
 
 <div
   class="hello {{if goodbye true}} {{if goodbye false}} {{if goodbye true}} {{
     if goodbye false
   }} {{if goodbye true}}"
->
-  Hello
+>Hello
 </div>
 
 <a href="/{{url}}/{{url}}"></a>
@@ -129,22 +123,19 @@ singleQuote: true
   class='a very long list of classes that exceeds {{
     eighty
   }} chars with emtpy spaces'
->
-  hey
+>hey
 </div>
 <a
   href='a-very-long-href-from-a-third-party-marketing-platform{{
     id
   }}longer-than-eighty-chars'
->
-  Link
+>Link
 </a>
 <button
   class='uk-padding-remove uk-button uk-button-default uk-button-small uk-width-1-{{
     intl.locales.length
   }} {{if (contains locale intl.locale) 'uk-button-primary'}}'
->
-  test
+>test
 </button>
 ================================================================================
 `;
@@ -168,22 +159,19 @@ printWidth: 80
   class="a very long list of classes that exceeds {{
     eighty
   }} chars with emtpy spaces"
->
-  hey
+>hey
 </div>
 <a
   href="a-very-long-href-from-a-third-party-marketing-platform{{
     id
   }}longer-than-eighty-chars"
->
-  Link
+>Link
 </a>
 <button
   class="uk-padding-remove uk-button uk-button-default uk-button-small uk-width-1-{{
     intl.locales.length
   }} {{if (contains locale intl.locale) "uk-button-primary"}}"
->
-  test
+>test
 </button>
 ================================================================================
 `;

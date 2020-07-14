@@ -160,62 +160,39 @@ printWidth: 80
 
 {{! Wrapping tags }}
 <div>
-  <first>
-    f
-  </first>
+  <first>f</first>
 
-  <first>
-    f
-  </first>
+  <first>f</first>
 
-  <first>
-    f
-  </first>
+  <first>f</first>
 
-  <first>
-    f
-  </first>
+  <first>f</first>
 
-  <first>
-    f
-  </first>
+  <first>f</first>
 
-  <first>
-    f
-  </first>
+  <first>f</first>
 </div>
 
 {{! Wrapping tags }}
 <div>
-  <first>
-    f
+  <first>f
   </first>
-  <first>
-    f
+  <first>f
   </first>
-  <first>
-    f
+  <first>f
   </first>
-  <first>
-    f
+  <first>f
   </first>
-  <first>
-    f
+  <first>f
   </first>
-  <first>
-    f
-  </first>
+  <first>f</first>
 </div>
 
 {{! Wrapping tags }}
 <div>
-  <first>
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  </first>
+  <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>
 
-  <first>
-    f
-  </first>
+  <first>f</first>
 </div>
 
 <div>
@@ -238,17 +215,11 @@ printWidth: 80
 
 <div>
   Please state your
-  <b>
-    name
-  </b>
+  <b>name</b>
   and
-  <b>
-    occupation
-  </b>
+  <b>occupation</b>
   for the board of
-  <b>
-    school
-  </b>
+  <b>school</b>
   directors.
 </div>
 
@@ -256,26 +227,19 @@ printWidth: 80
   First second third
   <div
     attr="a very long string attribute that will overflow because it is very long"
-  >
-    Something
+  >Something
   </div>
 </div>
 
 <div>
-  <div>
-    First
-  </div>
+  <div>First</div>
   Second
-  <div>
-    Third
-  </div>
+  <div>Third</div>
 </div>
 
 <div>
   First
-  <div>
-    Second
-  </div>
+  <div>Second</div>
   Third
 </div>
 
@@ -296,26 +260,18 @@ printWidth: 80
 
 {{! translation leave text around tag }}
 <div>
-  <span>
-    First
-  </span>
+  <span>First</span>
   ,
   (
-  <span>
-    Second
-  </span>
+  <span>Second</span>
   )
 </div>
 
 <div>
-  <span>
-    First second third fourth fifth sixth seventh
-  </span>
+  <span>First second third fourth fifth sixth seventh</span>
   ,
   (
-  <span>
-    Second
-  </span>
+  <span>Second</span>
   )
 </div>
 
@@ -341,17 +297,11 @@ printWidth: 80
 
 {{! whitespace on newline }}
 <div>
-  <div>
-    First
-  </div>
+  <div>First</div>
 
-  <div>
-    Second
-  </div>
+  <div>Second</div>
 
-  <div>
-    Third
-  </div>
+  <div>Third</div>
 </div>
 
 {{! around multiline element }}
@@ -377,13 +327,9 @@ printWidth: 80
 
 {{! dont preserve blank lines when contains text }}
 <div>
-  <div>
-    Zeroth
-  </div>
+  <div>Zeroth</div>
 
-  <div>
-    First
-  </div>
+  <div>First</div>
 
   Second
 </div>
@@ -398,13 +344,9 @@ printWidth: 80
 {{! single expression child tags }}
 <div>
   You currently have
-  <strong>
-    {{dashboardStr}}
-  </strong>
+  <strong>{{dashboardStr}}</strong>
   and
-  <strong>
-    {{userStr}}
-  </strong>
+  <strong>{{userStr}}</strong>
 </div>
 
 {{! expression does not break }}

@@ -79,65 +79,49 @@ printWidth: 80
 =====================================output=====================================
 <p>
   Welcome to the
-  <strong>
-    Ember.js Guides
-  </strong>
+  <strong>Ember.js Guides</strong>
   .
   This documentation will take you from total beginner to Ember expert.
 </p>
 
 {{! newlines text }}
-<div>
-  hi
+<div>hi
   there
   how
 
   are you
 
 
-  are you fine today?
-</div>
+  are you fine today?</div>
 
 {{! newlines text spaced }}
-<div>
-  space above
+<div>space above
 
-  space below
-</div>
+  space below</div>
 
 {{! newlines elems spaced }}
 <div>
-  <span>
-    space above
-  </span>
+  <span>space above</span>
 
-  <span>
-    space below
-  </span>
+  <span>space below</span>
 </div>
 
 {{! newlines mixed }}
 <div>
   hi
-  <span>
-    there
-  </span>
+  <span>there</span>
 
   how
 
   are
-  <strong>
-    you
-  </strong>
+  <strong>you</strong>
 
   are you fine today?
 </div>
 
 {{! newlines elems }}
 <div>
-  <div>
-    <div></div>
-  </div>
+  <div><div></div></div>
 
   hi
 

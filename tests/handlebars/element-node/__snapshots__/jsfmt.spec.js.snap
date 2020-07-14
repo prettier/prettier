@@ -44,21 +44,32 @@ singleQuote: true
 <div></div>
 <img />
 
+<span>adjacent without space</span>foo
+<span>adjacent with space</span> foo
+
+<div>
+  <div>
+    <div>
+      testing deeply nested content
+    </div>
+  </div>
+</div>
+
+<div>
+  <span>
+    <strong>{{name}}</strong>’s{{' '}}
+  </span>
+  Hello <strong>world</strong>.<br />
+  <Text>You {{type}}ed this shipment to</Text>
+</div>
 =====================================output=====================================
-<div class='attribute' {{modifier}} {{! comment}}>
-  Hello
-</div>
+<div class='attribute' {{modifier}} {{! comment}}>Hello</div>
 
-<div>
-  Hello
-</div>
+<div>Hello</div>
 
-<div>
-  hi
-</div>
+<div>hi</div>
 
-<div>
-  A long enough string to trigger a line break that would prevent wrapping.
+<div>A long enough string to trigger a line break that would prevent wrapping.
 </div>
 
 <div>
@@ -75,12 +86,29 @@ singleQuote: true
   {{/block}}
 </div>
 
-<div>
-  {{hello}}
-</div>
+<div>{{hello}}</div>
 
 <div></div>
 <img />
+
+<span>adjacent without space</span>
+foo
+<span>adjacent with space</span>
+foo
+
+<div><div><div>testing deeply nested content</div></div></div>
+
+<div>
+  <span>
+    <strong>{{name}}</strong>
+    ’s{{' '}}
+  </span>
+  Hello
+  <strong>world</strong>
+  .
+  <br />
+  <Text>You {{type}}ed this shipment to</Text>
+</div>
 ================================================================================
 `;
 
@@ -127,21 +155,32 @@ printWidth: 80
 <div></div>
 <img />
 
+<span>adjacent without space</span>foo
+<span>adjacent with space</span> foo
+
+<div>
+  <div>
+    <div>
+      testing deeply nested content
+    </div>
+  </div>
+</div>
+
+<div>
+  <span>
+    <strong>{{name}}</strong>’s{{' '}}
+  </span>
+  Hello <strong>world</strong>.<br />
+  <Text>You {{type}}ed this shipment to</Text>
+</div>
 =====================================output=====================================
-<div class="attribute" {{modifier}} {{! comment}}>
-  Hello
-</div>
+<div class="attribute" {{modifier}} {{! comment}}>Hello</div>
 
-<div>
-  Hello
-</div>
+<div>Hello</div>
 
-<div>
-  hi
-</div>
+<div>hi</div>
 
-<div>
-  A long enough string to trigger a line break that would prevent wrapping.
+<div>A long enough string to trigger a line break that would prevent wrapping.
 </div>
 
 <div>
@@ -158,11 +197,28 @@ printWidth: 80
   {{/block}}
 </div>
 
-<div>
-  {{hello}}
-</div>
+<div>{{hello}}</div>
 
 <div></div>
 <img />
+
+<span>adjacent without space</span>
+foo
+<span>adjacent with space</span>
+foo
+
+<div><div><div>testing deeply nested content</div></div></div>
+
+<div>
+  <span>
+    <strong>{{name}}</strong>
+    ’s{{" "}}
+  </span>
+  Hello
+  <strong>world</strong>
+  .
+  <br />
+  <Text>You {{type}}ed this shipment to</Text>
+</div>
 ================================================================================
 `;

@@ -37,25 +37,19 @@ printWidth: 40
 {{! after }}
 <span>
   foo
-  <span>
-    bar
-  </span>
+  <span>bar</span>
 </span>
 
 {{! before }}
 <span>
-  <span>
-    bar
-  </span>
+  <span>bar</span>
   foo
 </span>
 
 {{! within }}
 <span>
   foo
-  <span>
-    bar
-  </span>
+  <span>bar</span>
 </span>
 
 {{! break components }}
@@ -63,32 +57,18 @@ printWidth: 40
   <SuperSelect>
     <p>
       foo
-      <span>
-        bar bar bar
-      </span>
+      <span>bar bar bar</span>
     </p>
-    <h1>
-      <span>
-        <em>
-          yep
-        </em>
-      </span>
-    </h1>
+    <h1><span><em>yep</em></span></h1>
   </SuperSelect>
-  <h2>
-    nope
-  </h2>
+  <h2>nope</h2>
 </div>
 
 <div>
   hello
-  <strong>
-    hi
-  </strong>
+  <strong>hi</strong>
 
-  <foo>
-    sdkflsdfjk
-  </foo>
+  <foo>sdkflsdfjk</foo>
 </div>
 ;
 ================================================================================
@@ -127,19 +107,13 @@ hey
 {{/component}}
 {{#component propA}}
   for {{propB}}
-  <span>
-    name
-  </span>
+  <span>name</span>
   do {{propC}} f
 {{/component}}
 {{propA}} {{propB}}
 {{propC}}{{propD}}
-<span>
-  {{propE}} {{propF}}
-</span>
-<span>
-  {{propG}}{{propH}}
-</span>
+<span>{{propE}} {{propF}}</span>
+<span>{{propG}}{{propH}}</span>
 
 hey
 ================================================================================
@@ -154,12 +128,8 @@ printWidth: 40
 <p>Your username is @{{name}}</p>
 <p>Hi {{firstName}} {{lastName}}</p>
 =====================================output=====================================
-<p>
-  Your username is @{{name}}
-</p>
-<p>
-  Hi {{firstName}} {{lastName}}
-</p>
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
 ================================================================================
 `;
 
@@ -222,8 +192,7 @@ printWidth: 40
 {{! TO FIX }}
 <HEAD>
   <META CHARSET="utf-8" />
-  <TITLE>
-    My tITlE
+  <TITLE>My tITlE
   </TITLE>
   <META
     NAME="description"
@@ -258,9 +227,7 @@ printWidth: 40
     alt="about fedco bottom image"
     style="float: left;"
   />
-  <strong>
-    We are a cooperative
-  </strong>
+  <strong>We are a cooperative</strong>
   , one of the few seed companies so organized
   in the United States. Because we do not have an individual owner or beneficiary,
   profit is not our primary goal. Consumers own 60% of the cooperative and worker
@@ -301,9 +268,7 @@ vestibulum facilisis in porta turpis. Ut faucibus lectus sit amet urna consectet
 Sam vitae neque quis ex dapibus faucibus at sed ligula. Nulla sit amet aliquet nibh.
 Vestibulum at congue mi. Suspendisse vitae odio vitae massa hendrerit mattis sed eget dui.
 Sed eu scelerisque neque. Donec
-  <b>
-    maximus
-  </b>
+  <b>maximus</b>
   rhoncus pellentesque. Aenean purus turpis, vehicula 
 euismod ante vel, ultricies eleifend dui. Class aptent taciti sociosqu ad litora torquent per 
 conubia nostra, per inceptos himenaeos. Donec in ornare velit.
@@ -315,11 +280,7 @@ vestibulum facilisis in porta turpis. Ut faucibus lectus sit amet urna consectet
 Sam vitae neque quis ex dapibus faucibus at sed ligula. Nulla sit amet aliquet nibh.
 Vestibulum at congue mi. Suspendisse vitae odio vitae massa hendrerit mattis sed eget dui.
 Sed eu scelerisque neque. Donec
-  <a href="#">
-    <b>
-      maximus
-    </b>
-  </a>
+  <a href="#"><b>maximus</b></a>
   rhoncus pellentesque. Aenean purus turpis, vehicula 
 euismod ante vel, ultricies eleifend dui. Class aptent taciti sociosqu ad litora torquent per 
 conubia nostra, per inceptos himenaeos. Donec in ornare velit.
@@ -350,9 +311,7 @@ printWidth: 40
   Nihil aut odit omnis. Quam maxime est molestiae. Maxime dolorem dolores voluptas quaerat ut qui sunt vitae error.
 </span>
 <!-- non-breaking narrow whitespaces -->
-<span>
-  Prix : 32 €
-</span>
+<span>Prix : 32 €</span>
 ================================================================================
 `;
 
@@ -432,19 +391,13 @@ sometimes{{nogaps
 
 <HelloWorld />
 
-<HelloWorld>
-  some {{text}}
-</HelloWorld>
+<HelloWorld>some {{text}}</HelloWorld>
 
-<HelloWorld>
-  some {{text}}
-</HelloWorld>
+<HelloWorld>some {{text}}</HelloWorld>
 
-<div class="a list of classes">
-</div>
+<div class="a list of classes"></div>
 
-<div class="a list of classes">
-</div>
+<div class="a list of classes"></div>
 ================================================================================
 `;
 
@@ -459,8 +412,7 @@ printWidth: 40
 <span>This is your name: {{name}} ({{role}})</span>
 
 =====================================output=====================================
-<span>
-  This is your name: {{name}}.
+<span>This is your name: {{name}}.
 </span>
 <span>
   This is your name: {{name}} (employee)
@@ -496,31 +448,15 @@ printWidth: 40
 </div>
 
 =====================================output=====================================
-<span>
-  123
-</span>
-<span>
-  123
-</span>
-<span>
-  123
-</span>
-<span>
-  123
-</span>
+<span>123</span>
+<span>123</span>
+<span>123</span>
+<span>123</span>
 
-<div>
-  123
-</div>
-<div>
-  123
-</div>
-<div>
-  123
-</div>
-<div>
-  123
-</div>
+<div>123</div>
+<div>123</div>
+<div>123</div>
+<div>123</div>
 ================================================================================
 `;
 
@@ -555,15 +491,9 @@ printWidth: 40
 <table>
   <thead>
     <tr>
-      <th>
-        A
-      </th>
-      <th>
-        B
-      </th>
-      <th>
-        C
-      </th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
     </tr>
   </thead>
 </table>
@@ -571,15 +501,11 @@ printWidth: 40
 <table>
   <thead>
     <tr>
-      <th>
-        A
+      <th>A
       </th>
-      <th>
-        B
+      <th>B
       </th>
-      <th>
-        C
-      </th>
+      <th>C</th>
     </tr>
   </thead>
 </table>
@@ -587,27 +513,16 @@ printWidth: 40
 <table>
   <thead>
     <tr>
-      <th>
-        A
-      </th>
+      <th>A</th>
 
-      <th>
-        B
-      </th>
+      <th>B</th>
 
-      <th>
-        C
-      </th>
+      <th>C</th>
     </tr>
   </thead>
 </table>
 
-<table>
-  <thead>
-    <tr>
-    </tr>
-  </thead>
-</table>
+<table><thead><tr></tr></thead></table>
 ================================================================================
 `;
 

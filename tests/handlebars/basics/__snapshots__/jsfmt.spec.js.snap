@@ -48,16 +48,12 @@ singleQuote: true
 
 <Form as |f|>
   <f.input @title='hello' />
-  <f.input>
-    hello
-  </f.input>
+  <f.input>hello</f.input>
 </Form>
 
 <this.label @title='hello' />
 
-<button onclick={{action next}}>
-  Next
-</button>
+<button onclick={{action next}}>Next</button>
 
 <button disabled class='disabled'></button>
 
@@ -65,13 +61,10 @@ singleQuote: true
 
 <img alt='' />
 
-<div ...attributes>
-  Hello
-</div>
+<div ...attributes>Hello</div>
 
 <ul class='list-unstyled
-  one-tab'>
-</ul>
+  one-tab'></ul>
 ================================================================================
 `;
 
@@ -122,16 +115,12 @@ printWidth: 80
 
 <Form as |f|>
   <f.input @title="hello" />
-  <f.input>
-    hello
-  </f.input>
+  <f.input>hello</f.input>
 </Form>
 
 <this.label @title="hello" />
 
-<button onclick={{action next}}>
-  Next
-</button>
+<button onclick={{action next}}>Next</button>
 
 <button disabled class="disabled"></button>
 
@@ -139,13 +128,10 @@ printWidth: 80
 
 <img alt="" />
 
-<div ...attributes>
-  Hello
-</div>
+<div ...attributes>Hello</div>
 
 <ul class="list-unstyled
-  one-tab">
-</ul>
+  one-tab"></ul>
 ================================================================================
 `;
 
@@ -218,16 +204,10 @@ singleQuote: true
 
 =====================================output=====================================
 <div class='entry'>
-  <h1>
-    {{title}}
-  </h1>
-  <h2>
-    By {{author.name}}
-  </h2>
+  <h1>{{title}}</h1>
+  <h2>By {{author.name}}</h2>
 
-  <div class='body'>
-    {{body}}
-  </div>
+  <div class='body'>{{body}}</div>
 </div>
 ================================================================================
 `;
@@ -249,16 +229,10 @@ printWidth: 80
 
 =====================================output=====================================
 <div class="entry">
-  <h1>
-    {{title}}
-  </h1>
-  <h2>
-    By {{author.name}}
-  </h2>
+  <h1>{{title}}</h1>
+  <h2>By {{author.name}}</h2>
 
-  <div class="body">
-    {{body}}
-  </div>
+  <div class="body">{{body}}</div>
 </div>
 ================================================================================
 `;
@@ -273,9 +247,7 @@ singleQuote: true
 <p>{{{raw}}}</p>
 
 =====================================output=====================================
-<p>
-  {{{raw}}}
-</p>
+<p>{{{raw}}}</p>
 ================================================================================
 `;
 
@@ -288,9 +260,7 @@ printWidth: 80
 <p>{{{raw}}}</p>
 
 =====================================output=====================================
-<p>
-  {{{raw}}}
-</p>
+<p>{{{raw}}}</p>
 ================================================================================
 `;
 
