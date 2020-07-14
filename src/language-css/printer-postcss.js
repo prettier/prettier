@@ -102,12 +102,13 @@ function genericPrint(path, options, print) {
       return concat([node.raw, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
+      const after = node.raws.after.trim();
 
-      if (nodes.parts.length) {
-        return concat([nodes, options.__isHTMLStyleAttribute ? "" : hardline]);
-      }
-
-      return nodes;
+      return concat([
+        nodes,
+        after ? ` ${after}` : "",
+        nodes.parts.length && !options.__isHTMLStyleAttribute ? hardline : "",
+      ]);
     }
     case "css-comment": {
       const isInlineComment = node.inline || node.raws.inline;
