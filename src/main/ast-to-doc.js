@@ -1,11 +1,11 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("./comments");
 const FastPath = require("../common/fast-path");
+const doc = require("../document");
+const comments = require("./comments");
 const multiparser = require("./multiparser");
 
-const doc = require("../document");
 const docBuilders = doc.builders;
 const { concat, hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;

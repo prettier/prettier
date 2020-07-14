@@ -645,6 +645,69 @@ a =
 ================================================================================
 `;
 
+exports[`binary-expressions-parens.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+Math.min(
+  (
+    /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+     * deployment of v0.38.0. To see the error, remove this comment and
+     * run flow */
+    document.body.scrollHeight -
+    (window.scrollY + window.innerHeight)
+  ) - devsite_footer_height,
+  0,
+)
+
+=====================================output=====================================
+Math.min(
+  /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+   * deployment of v0.38.0. To see the error, remove this comment and
+   * run flow */
+  document.body.scrollHeight -
+    (window.scrollY + window.innerHeight) -
+    devsite_footer_height,
+  0
+)
+
+================================================================================
+`;
+
+exports[`binary-expressions-parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Math.min(
+  (
+    /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+     * deployment of v0.38.0. To see the error, remove this comment and
+     * run flow */
+    document.body.scrollHeight -
+    (window.scrollY + window.innerHeight)
+  ) - devsite_footer_height,
+  0,
+)
+
+=====================================output=====================================
+Math.min(
+  /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+   * deployment of v0.38.0. To see the error, remove this comment and
+   * run flow */
+  document.body.scrollHeight -
+    (window.scrollY + window.innerHeight) -
+    devsite_footer_height,
+  0
+);
+
+================================================================================
+`;
+
 exports[`binary-expressions-single-comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -671,22 +734,28 @@ a = b + // TODO this is a very very very very long comment that makes it go > 80
 c;
 =====================================output=====================================
 a =
-  b || c // Comment
+  b || // Comment
+  c
 
 a =
-  b || c // TODO this is a very very very very long comment that makes it go > 80 columns
+  b || // TODO this is a very very very very long comment that makes it go > 80 columns
+  c
 
 a =
-  b && c // Comment
+  b && // Comment
+  c
 
 a =
-  b && c // TODO this is a very very very very long comment that makes it go > 80 columns
+  b && // TODO this is a very very very very long comment that makes it go > 80 columns
+  c
 
 a =
-  b + c // Comment
+  b + // Comment
+  c
 
 a =
-  b + c // TODO this is a very very very very long comment that makes it go > 80 columns
+  b + // TODO this is a very very very very long comment that makes it go > 80 columns
+  c
 
 ================================================================================
 `;
@@ -716,22 +785,28 @@ a = b + // TODO this is a very very very very long comment that makes it go > 80
 c;
 =====================================output=====================================
 a =
-  b || c; // Comment
+  b || // Comment
+  c;
 
 a =
-  b || c; // TODO this is a very very very very long comment that makes it go > 80 columns
+  b || // TODO this is a very very very very long comment that makes it go > 80 columns
+  c;
 
 a =
-  b && c; // Comment
+  b && // Comment
+  c;
 
 a =
-  b && c; // TODO this is a very very very very long comment that makes it go > 80 columns
+  b && // TODO this is a very very very very long comment that makes it go > 80 columns
+  c;
 
 a =
-  b + c; // Comment
+  b + // Comment
+  c;
 
 a =
-  b + c; // TODO this is a very very very very long comment that makes it go > 80 columns
+  b + // TODO this is a very very very very long comment that makes it go > 80 columns
+  c;
 
 ================================================================================
 `;

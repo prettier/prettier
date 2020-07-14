@@ -1,5 +1,5 @@
 "use strict";
-
+/** @type {any} */
 const assert = require("assert");
 const {
   concat,
@@ -16,12 +16,10 @@ const {
   skipNewline,
   skipSpaces,
   isPreviousLineEmpty,
-} = require("../common/util");
-const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("../common/util-shared");
+} = require("../common/util");
 const childNodesCacheKey = Symbol("child-nodes");
 
 function getSortedChildNodes(node, options, resultArray) {
@@ -359,7 +357,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
   const startPos = options.locStart(comment) - 1;
 
   for (let i = 1; i < quasis.length; ++i) {
-    if (startPos < getQuasiRange(quasis[i]).start) {
+    if (startPos < options.locStart(quasis[i])) {
       return i - 1;
     }
   }
@@ -368,15 +366,6 @@ function findExpressionIndexForComment(quasis, comment, options) {
   // Let's just return the first one.
   /* istanbul ignore next */
   return 0;
-}
-
-function getQuasiRange(expr) {
-  if (expr.start !== undefined) {
-    // Babel
-    return { start: expr.start, end: expr.end };
-  }
-  // Flow
-  return { start: expr.range[0], end: expr.range[1] };
 }
 
 function printLeadingComment(commentPath, options) {

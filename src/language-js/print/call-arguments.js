@@ -1,8 +1,11 @@
 "use strict";
 
 const comments = require("../../main/comments");
-const { getLast, getPenultimate } = require("../../common/util");
-const { isNextLineEmpty } = require("../../common/util-shared");
+const {
+  getLast,
+  getPenultimate,
+  isNextLineEmpty,
+} = require("../../common/util");
 const {
   hasLeadingComment,
   hasTrailingComment,
@@ -29,7 +32,8 @@ const {
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();
-  const args = node.arguments;
+  const isDynamicImport = node.type === "ImportExpression";
+  const args = isDynamicImport ? [node.source] : node.arguments;
 
   if (args.length === 0) {
     return concat([
@@ -89,7 +93,7 @@ function printCallArguments(path, options, print) {
   let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
-  const printedArguments = path.map((argPath, index) => {
+  const printArgument = (argPath, index) => {
     const arg = argPath.getNode();
     const parts = [print(argPath)];
 
@@ -112,11 +116,14 @@ function printCallArguments(path, options, print) {
     );
 
     return concat(parts);
-  }, "arguments");
+  };
+  const printedArguments = isDynamicImport
+    ? [path.call((path) => printArgument(path, 0), "source")]
+    : path.map(printArgument, "arguments");
 
   const maybeTrailingComma =
     // Dynamic imports cannot have trailing commas
-    !(node.callee && node.callee.type === "Import") &&
+    !(isDynamicImport || (node.callee && node.callee.type === "Import")) &&
     shouldPrintComma(options, "all")
       ? ","
       : "";
@@ -154,7 +161,7 @@ function printCallArguments(path, options, print) {
     // We want to print the last argument with a special flag
     let printedExpanded;
     let i = 0;
-    path.each((argPath) => {
+    const printArgument = (argPath) => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
           concat([
@@ -171,7 +178,13 @@ function printCallArguments(path, options, print) {
           .concat(argPath.call((p) => print(p, { expandLastArg: true })));
       }
       i++;
-    }, "arguments");
+    };
+
+    if (isDynamicImport) {
+      path.call(printArgument, "source");
+    } else {
+      path.each(printArgument, "arguments");
+    }
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 

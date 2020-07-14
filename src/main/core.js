@@ -2,21 +2,21 @@
 
 const diff = require("diff");
 
+const {
+  printer: { printDocToString },
+  debug: { printDocToDebug },
+} = require("../document");
+const { isNodeIgnoreComment, getAlignmentSize } = require("../common/util");
+const {
+  guessEndOfLine,
+  convertEndOfLineToChars,
+} = require("../common/end-of-line");
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
 const comments = require("./comments");
 const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
-const {
-  guessEndOfLine,
-  convertEndOfLineToChars,
-} = require("../common/end-of-line");
 const rangeUtil = require("./range-util");
-const privateUtil = require("../common/util");
-const {
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = require("../document");
 
 const BOM = "\uFEFF";
 
@@ -33,7 +33,7 @@ function ensureAllCommentsPrinted(astComments) {
   }
 
   for (let i = 0; i < astComments.length; ++i) {
-    if (privateUtil.isNodeIgnoreComment(astComments[i])) {
+    if (isNodeIgnoreComment(astComments[i])) {
       // If there's a prettier-ignore, we're not printing that sub-tree so we
       // don't know if the comments was printed or not.
       return;
@@ -187,10 +187,7 @@ function formatRange(text, opts) {
   );
   const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
-  const alignmentSize = privateUtil.getAlignmentSize(
-    indentString,
-    opts.tabWidth
-  );
+  const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
   const rangeResult = coreFormat(
     rangeString,

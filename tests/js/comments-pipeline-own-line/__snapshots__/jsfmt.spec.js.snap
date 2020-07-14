@@ -56,7 +56,7 @@ bifornCringerMoshedPerplexSawder(
   askTrovenaBeenaDependsRowans,
   glimseGlyphsHazardNoopsTieTie,
   averredBathersBoxroomBuggyNurl
-)  // comment
+) // comment
   |> kochabCooieGameOnOboleUnweave
   |> glimseGlyphsHazardNoopsTieTie;
 
@@ -64,7 +64,7 @@ bifornCringerMoshedPerplexSawder(
   askTrovenaBeenaDependsRowans,
   glimseGlyphsHazardNoopsTieTie
 )
-  |> foo  // comment
+  |> foo // comment
   |> kochabCooieGameOnOboleUnweave
   |> glimseGlyphsHazardNoopsTieTie;
 
@@ -72,7 +72,7 @@ bifornCringerMoshedPerplexSawder[
   askTrovenaBeenaDependsRowans +
     glimseGlyphsHazardNoopsTieTie +
     averredBathersBoxroomBuggyNurl
-]  // comment
+] // comment
   |> kochabCooieGameOnOboleUnweave
   |> glimseGlyphsHazardNoopsTieTie;
 
@@ -81,7 +81,7 @@ bifornCringerMoshedPerplexSawder[
     glimseGlyphsHazardNoopsTieTie +
     averredBathersBoxroomBuggyNurl
 ]
-  |> foo  // comment
+  |> foo // comment
   |> kochabCooieGameOnOboleUnweave
   |> glimseGlyphsHazardNoopsTieTie;
 
