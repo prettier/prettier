@@ -21,7 +21,7 @@ function getPenultimate(arr) {
 
 /**
  * @param {string | RegExp} chars
- * @returns {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @returns {(text: string, index: number, opts?: SkipOptions) => number}
  */
 function skip(chars) {
   return (text, index, opts) => {
@@ -29,8 +29,8 @@ function skip(chars) {
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
-    if (index === false) {
-      return false;
+    if (index < 0) {
+      return -Infinity;
     }
 
     const { length } = text;
@@ -55,35 +55,35 @@ function skip(chars) {
       // actually skipped valid characters.
       return cursor;
     }
-    return false;
+    return -Infinity;
   };
 }
 
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipWhitespace = skip(/\s/);
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipSpaces = skip(" \t");
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipToLineEnd = skip(",; \t");
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipEverythingButNewLine = skip(/[^\n\r]/);
 
 /**
  * @param {string} text
- * @param {number | false} index
- * @returns {number | false}
+ * @param {number} index
+ * @returns {number}
  */
 function skipInlineComment(text, index) {
-  if (index === false) {
-    return false;
+  if (index < 0) {
+    return -Infinity;
   }
 
   if (text.charAt(index) === "/" && text.charAt(index + 1) === "*") {
@@ -98,12 +98,12 @@ function skipInlineComment(text, index) {
 
 /**
  * @param {string} text
- * @param {number | false} index
- * @returns {number | false}
+ * @param {number} index
+ * @returns {number}
  */
 function skipTrailingComment(text, index) {
-  if (index === false) {
-    return false;
+  if (index < 0) {
+    return -Infinity;
   }
 
   if (text.charAt(index) === "/" && text.charAt(index + 1) === "/") {
@@ -117,14 +117,14 @@ function skipTrailingComment(text, index) {
 // want to skip one newline. It's simple to implement.
 /**
  * @param {string} text
- * @param {number | false} index
+ * @param {number} index
  * @param {SkipOptions=} opts
- * @returns {number | false}
+ * @returns {number}
  */
 function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
-  if (index === false) {
-    return false;
+  if (index < 0) {
+    return -Infinity;
   }
 
   const atIndex = text.charAt(index);
@@ -193,7 +193,6 @@ function hasNewlineInRange(text, start, end) {
  * @param {(node: N) => number} locStart
  */
 function isPreviousLineEmpty(text, node, locStart) {
-  /** @type {number | false} */
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
@@ -208,9 +207,7 @@ function isPreviousLineEmpty(text, node, locStart) {
  * @returns {boolean}
  */
 function isNextLineEmptyAfterIndex(text, index) {
-  /** @type {number | false} */
-  let oldIdx = null;
-  /** @type {number | false} */
+  let oldIdx = -Infinity;
   let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
@@ -221,7 +218,7 @@ function isNextLineEmptyAfterIndex(text, index) {
   }
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
-  return idx !== false && hasNewline(text, idx);
+  return idx >= 0 && hasNewline(text, idx);
 }
 
 /**
@@ -238,12 +235,10 @@ function isNextLineEmpty(text, node, locEnd) {
 /**
  * @param {string} text
  * @param {number} idx
- * @returns {number | false}
+ * @returns {number}
  */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
-  /** @type {number | false} */
-  let oldIdx = null;
-  /** @type {number | false} */
+  let oldIdx = -Infinity;
   let nextIdx = idx;
   while (nextIdx !== oldIdx) {
     oldIdx = nextIdx;
@@ -260,7 +255,7 @@ function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
  * @param {string} text
  * @param {N} node
  * @param {(node: N) => number} locEnd
- * @returns {number | false}
+ * @returns {number}
  */
 function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
