@@ -42,6 +42,7 @@
     // in other sources:
     "src/index.js",
     "src/standalone.js",
+    "src/languages.js",
     "index.js",
     "standalone.js",
     "bin/",
