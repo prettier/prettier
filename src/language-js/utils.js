@@ -978,6 +978,11 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
+/**
+ * @param {any} options
+ * @param {("es5" | "all")} level
+ * @returns {boolean}
+ */
 function shouldPrintComma(options, level = "es5") {
   return (
     (options.trailingComma === "es5" && level === "es5") ||
