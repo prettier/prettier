@@ -676,8 +676,9 @@ function printPathNoParens(path, options, print, args) {
             options.locEnd
           );
           return (
+            nextCharacter !== false &&
             options.originalText.slice(nextCharacter, nextCharacter + 2) ===
-            "=>"
+              "=>"
           );
         }
       );
