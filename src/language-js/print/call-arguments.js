@@ -202,7 +202,9 @@ function printCallArguments(path, options, print) {
           shouldGroupFirst
             ? concat([
                 "(",
+                // @ts-ignore - TBD printedExpanded may be undefined (...)
                 group(printedExpanded[0], { shouldBreak: true }),
+                // @ts-ignore - TBD printedExpanded may be undefined (...)
                 concat(printedExpanded.slice(1)),
                 ")",
               ])
