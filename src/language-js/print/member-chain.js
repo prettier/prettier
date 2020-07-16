@@ -80,9 +80,9 @@ function printMemberChain(path, options, print) {
     // if it is cut off by a parenthesis, we only account for one typed empty
     // line after that parenthesis
     if (nextChar === ")") {
-      return isNextLineEmptyAfterIndex(
-        originalText,
-        nextCharIndex + 1
+      return (
+        nextCharIndex !== false &&
+        isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1)
       );
     }
 
