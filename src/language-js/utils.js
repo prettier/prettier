@@ -130,6 +130,7 @@ function getLeftSidePathName(path, node) {
   if (node.expression) {
     return ["expression"];
   }
+  // @ts-ignore - TBD (...)
   throw new Error("Unexpected node has no left side", node);
 }
 
