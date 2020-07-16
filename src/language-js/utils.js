@@ -980,7 +980,7 @@ function isTSXFile(options) {
 
 /**
  * @param {any} options
- * @param {("es5" | "all")} level
+ * @param {("es5" | "all")} [level]
  * @returns {boolean}
  */
 function shouldPrintComma(options, level = "es5") {
