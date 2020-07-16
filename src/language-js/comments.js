@@ -930,6 +930,11 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
+/**
+ * @param {any} node
+ * @param {(comment: any) => boolean} fn
+ * @returns boolean
+ */
 function hasLeadingComment(node, fn = () => true) {
   if (node.leadingComments) {
     return node.leadingComments.some(fn);
