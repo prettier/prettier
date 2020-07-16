@@ -578,7 +578,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
     comment,
     options.locEnd
   );
-  if (text.slice(index, index + 2) === "=>") {
+  if (index !== false && text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
@@ -672,9 +672,12 @@ function handleLastFunctionArgComments(
         text,
         options.locEnd(enclosingNode.id)
       );
-      return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-        text,
-        functionParamLeftParenIndex + 1
+      return (
+        functionParamLeftParenIndex !== false &&
+        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          text,
+          functionParamLeftParenIndex + 1
+        )
       );
     })();
     if (options.locStart(comment) > functionParamRightParenIndex) {
