@@ -1,5 +1,6 @@
 "use strict";
-/** @type {any} */
+
+/** @type {import("assert")} */
 const assert = require("assert");
 const {
   concat,
