@@ -194,7 +194,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`class.hbs - {"singleQuote":true} format 1`] = `
+exports[`class-name.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -204,15 +204,65 @@ singleQuote: true
 <div class='class and other'></div>
 <div class=' class and other '></div>
 <div CLASs=' class and other '></div>
+<p class=" a list of
+
+
+weirdly formatted
+
+
+classes">String</p>
+<p class=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
+<p CLASS=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
 
 =====================================output=====================================
 <div class='class and other'></div>
 <div class='class and other'></div>
 <div CLASs='class and other'></div>
+<p class='a list of
+
+
+weirdly formatted
+
+
+classes'>
+  String
+</p>
+<p
+  class='a list of
+
+
+weirdly formatted
+
+  {{this.classes}}'
+>
+  String
+</p>
+<p
+  CLASS='a list of
+
+
+weirdly formatted
+
+  {{this.classes}}'
+>
+  String
+</p>
 ================================================================================
 `;
 
-exports[`class.hbs format 1`] = `
+exports[`class-name.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -221,10 +271,60 @@ printWidth: 80
 <div class='class and other'></div>
 <div class=' class and other '></div>
 <div CLASs=' class and other '></div>
+<p class=" a list of
+
+
+weirdly formatted
+
+
+classes">String</p>
+<p class=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
+<p CLASS=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
 
 =====================================output=====================================
 <div class="class and other"></div>
 <div class="class and other"></div>
 <div CLASs="class and other"></div>
+<p class="a list of
+
+
+weirdly formatted
+
+
+classes">
+  String
+</p>
+<p
+  class="a list of
+
+
+weirdly formatted
+
+  {{this.classes}}"
+>
+  String
+</p>
+<p
+  CLASS="a list of
+
+
+weirdly formatted
+
+  {{this.classes}}"
+>
+  String
+</p>
 ================================================================================
 `;
