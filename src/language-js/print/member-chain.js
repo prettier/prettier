@@ -82,8 +82,7 @@ function printMemberChain(path, options, print) {
     if (nextChar === ")") {
       return isNextLineEmptyAfterIndex(
         originalText,
-        nextCharIndex + 1,
-        options.locEnd
+        nextCharIndex + 1
       );
     }
 
