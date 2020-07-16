@@ -4064,7 +4064,8 @@ function printExportDeclaration(path, options, print) {
       decl.declaration.type !== "TSInterfaceDeclaration" &&
       decl.declaration.type !== "DeclareClass" &&
       decl.declaration.type !== "DeclareFunction" &&
-      decl.declaration.type !== "TSDeclareFunction"
+      decl.declaration.type !== "TSDeclareFunction" &&
+      decl.declaration.type !== "EnumDeclaration"
     ) {
       parts.push(semi);
     }
