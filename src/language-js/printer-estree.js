@@ -1,5 +1,7 @@
 "use strict";
 
+/** @typedef {import("../document").Doc} Doc */
+
 /** @type {import("assert")} */
 const assert = require("assert");
 
@@ -257,6 +259,7 @@ function printPathNoParens(path, options, print, args) {
     return htmlBinding;
   }
 
+  /** @type{Doc[]} */
   let parts = [];
   switch (n.type) {
     case "JsExpressionRoot":
@@ -4039,6 +4042,7 @@ function printReturnType(path, print, options) {
 function printExportDeclaration(path, options, print) {
   const decl = path.getValue();
   const semi = options.semi ? ";" : "";
+  /** @type{Doc[]} */
   const parts = ["export "];
 
   const isDefault = decl.default || decl.type === "ExportDefaultDeclaration";
@@ -4761,6 +4765,7 @@ function printBinaryishExpressions(
   isNested,
   isInsideParenthesis
 ) {
+  /** @type{Doc[]} */
   let parts = [];
   const node = path.getValue();
 
