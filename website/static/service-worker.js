@@ -1,23 +1,18 @@
 /* eslint-env serviceworker */
-/* global toolbox */
+/* global toolbox parsesLocation */
 
 "use strict";
 
+importScripts("lib/parsers-location.js");
 importScripts("https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js");
+
+const parsers = Object.keys(parsesLocation).map((file) => `lib/${file}`);
 
 toolbox.precache([
   // Scripts
   "lib/standalone.js",
-  "lib/parser-angular.js",
-  "lib/parser-babel.js",
-  "lib/parser-flow.js",
-  "lib/parser-glimmer.js",
-  "lib/parser-graphql.js",
-  "lib/parser-html.js",
-  "lib/parser-markdown.js",
-  "lib/parser-postcss.js",
-  "lib/parser-typescript.js",
-  "lib/parser-yaml.js",
+  "lib/parsers-location.js",
+  ...parsers,
   "playground.js",
   "https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js",
 
