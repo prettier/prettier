@@ -1,12 +1,12 @@
 /* eslint-env serviceworker */
-/* global toolbox parsesLocation */
+/* global toolbox parsersLocation */
 
 "use strict";
 
 importScripts("lib/parsers-location.js");
 importScripts("https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js");
 
-const parsers = Object.keys(parsesLocation).map((file) => `lib/${file}`);
+const parsers = Object.keys(parsersLocation).map((file) => `lib/${file}`);
 
 toolbox.precache([
   // Scripts
