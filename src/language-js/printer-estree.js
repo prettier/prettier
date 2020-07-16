@@ -1,5 +1,6 @@
 "use strict";
 
+/** @type {import("assert")} */
 const assert = require("assert");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
