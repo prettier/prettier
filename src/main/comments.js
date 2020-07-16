@@ -2,6 +2,7 @@
 
 /** @type {import("assert")} */
 const assert = require("assert");
+
 const {
   concat,
   line,
@@ -12,6 +13,7 @@ const {
   join,
   cursor,
 } = require("../document").builders;
+
 const {
   hasNewline,
   skipNewline,
@@ -21,6 +23,7 @@ const {
   addDanglingComment,
   addTrailingComment,
 } = require("../common/util");
+
 const childNodesCacheKey = Symbol("child-nodes");
 
 function getSortedChildNodes(node, options, resultArray) {
