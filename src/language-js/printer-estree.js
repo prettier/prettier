@@ -485,7 +485,9 @@ function printPathNoParens(path, options, print, args) {
       //   )
 
       const hasJSX = isJSXNode(n.right);
-      const firstGroupIndex = parts.findIndex((part) => part.type === "group");
+      const firstGroupIndex = parts.findIndex(
+        (part) => typeof part !== "string" && part.type === "group"
+      );
       // Separate the leftmost expression, possibly with its leading comments.
       const headParts = parts.slice(
         0,
