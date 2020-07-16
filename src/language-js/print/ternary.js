@@ -23,6 +23,8 @@ const {
  * @typedef {import("../../document").Doc} Doc
  * @typedef {import("../../common/fast-path")} FastPath
  *
+ * @typedef {any} Options - Prettier options (TBD ...)
+ *
  * @typedef {Object} OperatorOptions
  * @property {() => Array<string | Doc>} beforeParts - Parts to print before the `?`.
  * @property {(breakClosingParen: boolean) => Array<string | Doc>} afterParts - Parts to print after the conditional expression.
