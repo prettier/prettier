@@ -1,10 +1,10 @@
 "use strict";
 
-const execa = require("execa");
 const path = require("path");
+const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("@rollup/plugin-node-resolve");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
@@ -16,8 +16,12 @@ const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
+const bundles = require("./config");
 
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const plugins = bundles
+  .filter(({ type }) => type === "plugin")
+  .map(({ input }) => path.join(PROJECT_ROOT, input));
 
 const EXTERNALS = [
   "assert",
@@ -167,7 +171,7 @@ function getRollupConfig(bundle) {
     rollupPluginAlias(alias),
     bundle.target === "universal" &&
       nativeShims(path.resolve(__dirname, "shims")),
-    resolve({
+    nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
     }),
@@ -175,7 +179,10 @@ function getRollupConfig(bundle) {
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
     }),
-    externals(bundle.externals),
+    externals([
+      ...(bundle.externals || []),
+      ...(bundle.type !== "plugin" ? plugins : []),
+    ]),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
     bundle.minify !== false && bundle.target === "universal" && terser(),

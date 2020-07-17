@@ -3,7 +3,11 @@ id: options
 title: Options
 ---
 
-Prettier ships with a handful of customizable format options, usable in both the CLI and API.
+Prettier ships with a handful of format options.
+
+**To learn more about Prettier’s stance on options – see the [Option Philosophy](option-philosophy.md).**
+
+If you change any options, it’s recommended to do it via a [configuration file](configuration.md). This way the Prettier CLI, [editor integrations](editors.md) and other tooling knows what options you use.
 
 ## Print Width
 
@@ -11,17 +15,19 @@ Specify the line length that the printer will wrap on.
 
 > **For readability we recommend against using more than 80 characters:**
 >
-> In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don't strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
+> In code styleguides, maximum line length rules are often set to 100 or 120. However, when humans write code, they don’t strive to reach the maximum number of columns on every line. Developers often use whitespace to break up long lines for readability. In practice, the average line length often ends up well below the maximum.
 >
-> Prettier, on the other hand, strives to fit the most code into every line. With the print width set to 120, prettier may produce overly compact, or otherwise undesirable code.
+> Prettier’s printWidth option does not work the same way. It is not the hard upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified printWidth.
 >
-> See the [print width rationale](rationale.md#print-width) for more information.
+> Remember, computers are dumb. You need to explicitly tell them what to do, while humans can make their own (implicit) judgements, for example on when to break a line.
+>
+> In other words, don’t try to use printWidth as if it was ESLint’s [max-len](https://eslint.org/docs/rules/max-len) – they’re not the same. max-len just says what the maximum allowed line length is, but not what the generally preferred length is – which is what printWidth specifies.
 
 | Default | CLI Override          | API Override        |
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
 
-(If you don't want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
+(If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
 ## Tab Width
 
@@ -194,9 +200,9 @@ These options cannot be used with `cursorOffset`.
 
 Specify which parser to use.
 
-Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
+Prettier automatically infers the parser from the input file path, so you shouldn’t have to change this setting.
 
-Both the `babel` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel`. Almost the same applies to `typescript` and `babel-ts`. `babel-ts` might support JavaScript features (proposals) not yet supported by TypeScript, but it's less permissive when it comes to invalid code and less battle-tested than the `typescript` parser.
+Both the `babel` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel`. Almost the same applies to `typescript` and `babel-ts`. `babel-ts` might support JavaScript features (proposals) not yet supported by TypeScript, but it’s less permissive when it comes to invalid code and less battle-tested than the `typescript` parser.
 
 Valid options:
 
@@ -240,13 +246,13 @@ For example, the following will use the CSS parser:
 cat foo | prettier --stdin-filepath foo.css
 ```
 
-This option is only useful in the CLI and API. It doesn't make sense to use it in a configuration file.
+This option is only useful in the CLI and API. It doesn’t make sense to use it in a configuration file.
 
 | Default | CLI Override                | API Override           |
 | ------- | --------------------------- | ---------------------- |
 | None    | `--stdin-filepath <string>` | `filepath: "<string>"` |
 
-## Require pragma
+## Require Pragma
 
 _First available in v1.7.0_
 
@@ -349,7 +355,7 @@ If you want to make sure that your entire git repository only contains Linux-sty
 1. Ensure Prettier’s `endOfLine` option is set to `lf` (this is a default value since v2.0.0)
 1. Configure [a pre-commit hook](precommit.md) that will run Prettier
 1. Configure Prettier to run in your CI pipeline using [`--check` flag](cli.md#--check). If you use Travis CI, set [the `autocrlf` option](https://docs.travis-ci.com/user/customizing-the-build#git-end-of-line-conversion-control) to `input` in `.travis.yml`.
-1. Add `* text=auto eol=lf` to the repo's `.gitattributes` file.
+1. Add `* text=auto eol=lf` to the repo’s `.gitattributes` file.
    You may need to ask Windows users to re-clone your repo after this change to ensure git has not converted `LF` to `CRLF` on checkout.
 
 All modern text editors in all operating systems are able to correctly display line endings when `\n` (`LF`) is used.
@@ -361,7 +367,7 @@ Valid options:
 - `"crlf"` - Carriage Return + Line Feed characters (`\r\n`), common on Windows
 - `"cr"` - Carriage Return character only (`\r`), used very rarely
 - `"auto"` - Maintain existing line endings
-  (mixed values within one file are normalised by looking at what's used after the first line)
+  (mixed values within one file are normalised by looking at what’s used after the first line)
 
 | Default | CLI Override                                                | API Override                                               |
 | ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |

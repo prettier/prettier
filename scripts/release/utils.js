@@ -2,8 +2,8 @@
 
 require("readline").emitKeypressEvents(process.stdin);
 
-const chalk = require("chalk");
 const fs = require("fs");
+const chalk = require("chalk");
 const execa = require("execa");
 const stringWidth = require("string-width");
 

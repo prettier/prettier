@@ -3,7 +3,7 @@ id: plugins
 title: Plugins
 ---
 
-Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
+Plugins are ways of adding new languages to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
 
 ## Using Plugins
 
@@ -166,7 +166,7 @@ function print(
 ): Doc;
 ```
 
-Check out [prettier-python's printer](https://github.com/prettier/prettier-python/blob/034ba8a9551f3fa22cead41b323be0b28d06d13b/src/printer.js#L174) as an example.
+Check out [prettier-python’s printer](https://github.com/prettier/prettier-python/blob/034ba8a9551f3fa22cead41b323be0b28d06d13b/src/printer.js#L174) as an example.
 
 Embedding refers to printing one language inside another. Examples of this are CSS-in-JS and Markdown code blocks. Plugins can switch to alternate languages using the `embed` function. Its signature is:
 
@@ -184,7 +184,7 @@ function embed(
 ): Doc | null;
 ```
 
-If you don't want to switch to a different parser, simply return `null` or `undefined`.
+If an `embed` function is included, it will be called _first_ on every node. If the `embed` function returns a falsy value, the current plugin’s `print` function is called. Otherwise, the `Doc` returned by the `embed` function is used. The `embed` function is passed `textToDoc` which can be called with a suitable `options` argument to obtain the `Doc` produced by a different plugin (which can then be directly returned or used inside a larger `Doc` construction). For example, to print embedded JavaScript, a plugin might return `textToDoc(javaScriptText, { parser: "babel" })` from the `embed` function.
 
 A plugin can implement how a pragma comment is inserted in the resulting code when the `--insert-pragma` option is used, in the `insertPragma` function. Its signature is:
 
@@ -217,7 +217,7 @@ options: {
 
 ### `defaultOptions`
 
-If your plugin requires different default values for some of Prettier's core options, you can specify them in `defaultOptions`:
+If your plugin requires different default values for some of Prettier’s core options, you can specify them in `defaultOptions`:
 
 ```
 defaultOptions: {

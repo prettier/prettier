@@ -60,6 +60,12 @@ class Playground extends React.Component {
     );
 
     const options = Object.assign(defaultOptions, original.options);
+
+    // backwards support for old parser `babylon`
+    if (options.parser === "babylon") {
+      options.parser = "babel";
+    }
+
     const content = original.content || getCodeSample(options.parser);
     const selection = {};
 

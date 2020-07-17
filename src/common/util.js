@@ -296,194 +296,6 @@ function hasSpaces(text, index, opts) {
 }
 
 /**
- * @param {{range?: [number, number], start?: number}} node
- * @param {number} index
- */
-function setLocStart(node, index) {
-  if (node.range) {
-    node.range[0] = index;
-  } else {
-    node.start = index;
-  }
-}
-
-/**
- * @param {{range?: [number, number], end?: number}} node
- * @param {number} index
- */
-function setLocEnd(node, index) {
-  if (node.range) {
-    node.range[1] = index;
-  } else {
-    node.end = index;
-  }
-}
-
-const PRECEDENCE = {};
-[
-  ["|>"],
-  ["??"],
-  ["||"],
-  ["&&"],
-  ["|"],
-  ["^"],
-  ["&"],
-  ["==", "===", "!=", "!=="],
-  ["<", ">", "<=", ">=", "in", "instanceof"],
-  [">>", "<<", ">>>"],
-  ["+", "-"],
-  ["*", "/", "%"],
-  ["**"],
-].forEach((tier, i) => {
-  tier.forEach((op) => {
-    PRECEDENCE[op] = i;
-  });
-});
-
-function getPrecedence(op) {
-  return PRECEDENCE[op];
-}
-
-const equalityOperators = {
-  "==": true,
-  "!=": true,
-  "===": true,
-  "!==": true,
-};
-const multiplicativeOperators = {
-  "*": true,
-  "/": true,
-  "%": true,
-};
-const bitshiftOperators = {
-  ">>": true,
-  ">>>": true,
-  "<<": true,
-};
-
-function shouldFlatten(parentOp, nodeOp) {
-  if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
-    return false;
-  }
-
-  // ** is right-associative
-  // x ** y ** z --> x ** (y ** z)
-  if (parentOp === "**") {
-    return false;
-  }
-
-  // x == y == z --> (x == y) == z
-  if (equalityOperators[parentOp] && equalityOperators[nodeOp]) {
-    return false;
-  }
-
-  // x * y % z --> (x * y) % z
-  if (
-    (nodeOp === "%" && multiplicativeOperators[parentOp]) ||
-    (parentOp === "%" && multiplicativeOperators[nodeOp])
-  ) {
-    return false;
-  }
-
-  // x * y / z --> (x * y) / z
-  // x / y * z --> (x / y) * z
-  if (
-    nodeOp !== parentOp &&
-    multiplicativeOperators[nodeOp] &&
-    multiplicativeOperators[parentOp]
-  ) {
-    return false;
-  }
-
-  // x << y << z --> (x << y) << z
-  if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
-    return false;
-  }
-
-  return true;
-}
-
-function isBitwiseOperator(operator) {
-  return (
-    !!bitshiftOperators[operator] ||
-    operator === "|" ||
-    operator === "^" ||
-    operator === "&"
-  );
-}
-
-// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
-// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
-// already necessary grouping parentheses.
-function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
-  node = getLeftMost(node);
-  switch (node.type) {
-    case "FunctionExpression":
-    case "ClassExpression":
-    case "DoExpression":
-      return forbidFunctionClassAndDoExpr;
-    case "ObjectExpression":
-      return true;
-    case "MemberExpression":
-    case "OptionalMemberExpression":
-      return startsWithNoLookaheadToken(
-        node.object,
-        forbidFunctionClassAndDoExpr
-      );
-    case "TaggedTemplateExpression":
-      if (node.tag.type === "FunctionExpression") {
-        // IIFEs are always already parenthesized
-        return false;
-      }
-      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
-    case "CallExpression":
-    case "OptionalCallExpression":
-      if (node.callee.type === "FunctionExpression") {
-        // IIFEs are always already parenthesized
-        return false;
-      }
-      return startsWithNoLookaheadToken(
-        node.callee,
-        forbidFunctionClassAndDoExpr
-      );
-    case "ConditionalExpression":
-      return startsWithNoLookaheadToken(
-        node.test,
-        forbidFunctionClassAndDoExpr
-      );
-    case "UpdateExpression":
-      return (
-        !node.prefix &&
-        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
-      );
-    case "BindExpression":
-      return (
-        node.object &&
-        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
-      );
-    case "SequenceExpression":
-      return startsWithNoLookaheadToken(
-        node.expressions[0],
-        forbidFunctionClassAndDoExpr
-      );
-    case "TSAsExpression":
-      return startsWithNoLookaheadToken(
-        node.expression,
-        forbidFunctionClassAndDoExpr
-      );
-    default:
-      return false;
-  }
-}
-
-function getLeftMost(node) {
-  if (node.left) {
-    return getLeftMost(node.left);
-  }
-  return node;
-}
-
-/**
  * @param {string} value
  * @param {number} tabWidth
  * @param {number=} startIndex
@@ -782,9 +594,12 @@ function addLeadingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function addDanglingComment(node, comment) {
+function addDanglingComment(node, comment, marker) {
   comment.leading = false;
   comment.trailing = false;
+  if (marker) {
+    comment.marker = marker;
+  }
   addCommentHelper(node, comment);
 }
 
@@ -828,7 +643,7 @@ function getParserName(lang, options) {
       language.name.toLowerCase() === lang ||
       (language.aliases && language.aliases.includes(lang)) ||
       (language.extensions &&
-        language.extensions.find((ext) => ext === `.${lang}`))
+        language.extensions.some((ext) => ext === `.${lang}`))
   );
   if (language) {
     return language.parsers[0];
@@ -837,14 +652,26 @@ function getParserName(lang, options) {
   return null;
 }
 
+function isFrontMatterNode(node) {
+  return node && node.type === "front-matter";
+}
+
+function getShebang(text) {
+  if (!text.startsWith("#!")) {
+    return "";
+  }
+  const index = text.indexOf("\n");
+  if (index === -1) {
+    return text;
+  }
+  return text.slice(0, index);
+}
+
 module.exports = {
   replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getPrecedence,
-  shouldFlatten,
-  isBitwiseOperator,
   getParserName,
   getPenultimate,
   getLast,
@@ -865,9 +692,6 @@ module.exports = {
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
-  setLocStart,
-  setLocEnd,
-  startsWithNoLookaheadToken,
   getAlignmentSize,
   getIndentSize,
   getPreferredQuote,
@@ -881,4 +705,6 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isWithinParentArrayProperty,
+  isFrontMatterNode,
+  getShebang,
 };
