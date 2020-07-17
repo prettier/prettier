@@ -97,12 +97,16 @@ function printPrettierIgnoredNode(node, options) {
     locEnd,
   } = options;
 
+
   const start = locStart(node);
   const end = locEnd(node);
 
-  for (const comment of comments) {
-    if (locStart(comment) >= start && locEnd(comment) <= end) {
-      comment.printed = true;
+  // Embed parsers not adding comments to `options`
+  if (comments) {
+    for (const comment of comments) {
+      if (locStart(comment) >= start && locEnd(comment) <= end) {
+        comment.printed = true;
+      }
     }
   }
 

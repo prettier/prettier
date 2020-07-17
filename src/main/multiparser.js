@@ -37,6 +37,7 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const { ast } = result;
   text = result.text;
 
+  // TODO: ensure comments printed
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
