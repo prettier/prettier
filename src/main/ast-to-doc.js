@@ -97,7 +97,6 @@ function printPrettierIgnoredNode(node, options) {
     locEnd,
   } = options;
 
-
   const start = locStart(node);
   const end = locEnd(node);
 
