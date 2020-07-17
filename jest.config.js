@@ -19,6 +19,7 @@ module.exports = {
     ? // Can't test plugins on standalone
       [
         "<rootDir>/tests/vue/with-plugins/",
+        "<rootDir>/tests/vue/broken-plugins/",
         "<rootDir>/tests/misc/errors/broken-plugin/",
       ]
     : [],
