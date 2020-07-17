@@ -90,7 +90,12 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
 }
 
 function printPrettierIgnoredNode(node, options) {
-  const { originalText, comments, locStart, locEnd } = options;
+  const {
+    originalText,
+    [Symbol.for("comments")]: comments,
+    locStart,
+    locEnd,
+  } = options;
 
   const start = locStart(node);
   const end = locEnd(node);
