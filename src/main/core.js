@@ -32,14 +32,6 @@ function ensureAllCommentsPrinted(astComments) {
     return;
   }
 
-  for (let i = 0; i < astComments.length; ++i) {
-    if (isNodeIgnoreComment(astComments[i])) {
-      // If there's a prettier-ignore, we're not printing that sub-tree so we
-      // don't know if the comments was printed or not.
-      return;
-    }
-  }
-
   astComments.forEach((comment) => {
     if (!comment.printed) {
       throw new Error(
@@ -59,6 +51,7 @@ function attachComments(text, ast, opts) {
     comments.attach(astComments, ast, text, opts);
   }
   ast.tokens = [];
+  opts.comments = astComments || [];
   opts.originalText = opts.parser === "yaml" ? text : text.trimEnd();
   return astComments;
 }

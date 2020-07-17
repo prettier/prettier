@@ -89,6 +89,21 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   return doc;
 }
 
+function printPrettierIgnoredNode(node, options) {
+  const { originalText, comments, locStart, locEnd } = options;
+
+  const start = locStart(node);
+  const end = locEnd(node);
+
+  for (const comment of comments) {
+    if (locStart(comment) >= start && locEnd(comment) <= end) {
+      comment.printed = true;
+    }
+  }
+
+  return originalText.slice(start, end);
+}
+
 function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
@@ -97,10 +112,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
-    return options.originalText.slice(
-      options.locStart(node),
-      options.locEnd(node)
-    );
+    return printPrettierIgnoredNode(node, options);
   }
 
   if (node) {
