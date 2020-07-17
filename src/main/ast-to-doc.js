@@ -74,7 +74,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     return res;
   }
 
-  let doc = printGenerically(new FastPath(ast));
+  let doc = printGenerically(new FastPath(ast, comments.getAugmenter(options)));
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()

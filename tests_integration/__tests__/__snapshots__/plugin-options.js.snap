@@ -23,10 +23,10 @@ exports[` 1`] = `
 -   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
 +   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc|foo-parser>
                              Which parser to use.
+    --preserve-ast           Whether Prettier will (potentially) modify the AST to attach comments.
+                             Defaults to false.
     --print-width <int>      The line length where Prettier will try wrap.
-                             Defaults to 80.
-    --prose-wrap <always|never|preserve>
-                             How to wrap prose."
+                             Defaults to 80."
 `;
 
 exports[`include plugin's parsers to the values of the \`parser\` option\` (stderr) 1`] = `""`;

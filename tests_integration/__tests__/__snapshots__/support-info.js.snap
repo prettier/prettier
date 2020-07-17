@@ -170,6 +170,10 @@ Object {
       "default": Array [],
       "type": "path",
     },
+    "preserveAst": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "printWidth": Object {
       "default": 80,
       "range": Object {
@@ -899,6 +903,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.10.0\\",
       \\"type\\": \\"path\\"
+    },
+    {
+      \\"category\\": \\"Other\\",
+      \\"default\\": false,
+      \\"description\\": \\"Whether Prettier will (potentially) modify the AST to attach comments.\\",
+      \\"name\\": \\"preserveAst\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.1.0\\",
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Global\\",

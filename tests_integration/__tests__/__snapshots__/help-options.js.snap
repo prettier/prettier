@@ -408,6 +408,19 @@ Default: []
 
 exports[`show detailed usage with --help plugin-search-dir (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help preserve-ast (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help preserve-ast (stdout) 1`] = `
+"--preserve-ast
+
+  Whether Prettier will (potentially) modify the AST to attach comments.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help preserve-ast (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help print-width (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help print-width (stdout) 1`] = `

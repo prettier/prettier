@@ -86,6 +86,8 @@ Format options:
                            Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
+  --preserve-ast           Whether Prettier will (potentially) modify the AST to attach comments.
+                           Defaults to false.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>
@@ -245,6 +247,8 @@ Format options:
                            Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
+  --preserve-ast           Whether Prettier will (potentially) modify the AST to attach comments.
+                           Defaults to false.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
   --prose-wrap <always|never|preserve>

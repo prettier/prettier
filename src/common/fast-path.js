@@ -17,8 +17,19 @@ function getNodeStackIndexHelper(stack, count) {
 }
 
 class FastPath {
-  constructor(value) {
-    this.stack = [value];
+  constructor(value, augmenter) {
+    this.augmenter = augmenter;
+    this.stack = [this._augmentNode(value)];
+  }
+
+  // Sometimes there may be additional information associated with a node
+  // that isn't stored in the actual AST. This function returns a modified
+  // node with extra information (if available).
+  _augmentNode(value) {
+    if (this.augmenter) {
+      return this.augmenter(value);
+    }
+    return value;
   }
 
   // The name of the current property is always the penultimate element of
@@ -38,15 +49,15 @@ class FastPath {
   // The value of the current property is always the final element of
   // this.stack.
   getValue() {
-    return getLast(this.stack);
+    return this._augmentNode(getLast(this.stack));
   }
 
   getNode(count = 0) {
-    return getNodeHelper(this, count);
+    return this._augmentNode(getNodeHelper(this, count));
   }
 
   getParentNode(count = 0) {
-    return getNodeHelper(this, count + 1);
+    return this._augmentNode(getNodeHelper(this, count + 1));
   }
 
   // Temporarily push properties named by string arguments given after the
@@ -60,7 +71,7 @@ class FastPath {
     let value = getLast(stack);
 
     for (const name of names) {
-      value = value[name];
+      value = this._augmentNode(value[name]);
       stack.push(name, value);
     }
     const result = callback(this);
@@ -86,13 +97,13 @@ class FastPath {
     let value = getLast(stack);
 
     for (const name of names) {
-      value = value[name];
+      value = this._augmentNode(value[name]);
       stack.push(name, value);
     }
 
     for (let i = 0; i < value.length; ++i) {
       if (i in value) {
-        stack.push(i, value[i]);
+        stack.push(i, this._augmentNode(value[i]));
         // If the callback needs to know the value of i, call
         // path.getName(), assuming path is the parameter name.
         callback(this);
@@ -112,7 +123,7 @@ class FastPath {
     let value = getLast(stack);
 
     for (const name of names) {
-      value = value[name];
+      value = this._augmentNode(value[name]);
       stack.push(name, value);
     }
 
@@ -120,7 +131,7 @@ class FastPath {
 
     for (let i = 0; i < value.length; ++i) {
       if (i in value) {
-        stack.push(i, value[i]);
+        stack.push(i, this._augmentNode(value[i]));
         result[i] = callback(this, i);
         stack.length -= 2;
       }
