@@ -33,7 +33,7 @@ const parsers = [
   {
     input: "src/language-js/parser-typescript.js",
     replace: {
-      'require("@microsoft/typescript-etw")': "undefined",
+      "require(etwModulePath)": "undefined",
     },
   },
   {
