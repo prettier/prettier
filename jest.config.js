@@ -17,7 +17,10 @@ module.exports = {
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns: TEST_STANDALONE
     ? // Can't test plugins on standalone
-      ["<rootDir>/tests/vue/with-plugins/"]
+      [
+        "<rootDir>/tests/vue/with-plugins/",
+        "<rootDir>/tests/misc/errors/broken-plugin/",
+      ]
     : [],
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
