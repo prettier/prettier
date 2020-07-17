@@ -6,7 +6,7 @@ const {
   printer: { printDocToString },
   debug: { printDocToDebug },
 } = require("../document");
-const { isNodeIgnoreComment, getAlignmentSize } = require("../common/util");
+const { getAlignmentSize } = require("../common/util");
 const {
   guessEndOfLine,
   convertEndOfLineToChars,
