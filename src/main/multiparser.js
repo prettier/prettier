@@ -37,11 +37,13 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const { ast } = result;
   text = result.text;
 
-  // TODO: ensure comments printed
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
-  return printAstToDoc(ast, nextOptions);
+  nextOptions[Symbol.for("comments")] = astComments || [];
+  const doc = printAstToDoc(ast, nextOptions);
+  comments.ensureAllCommentsPrinted(astComments);
+  return doc;
 }
 
 module.exports = {

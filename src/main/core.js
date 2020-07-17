@@ -27,23 +27,6 @@ const PLACEHOLDERS = {
   rangeEnd: "<<<PRETTIER_RANGE_END>>>",
 };
 
-function ensureAllCommentsPrinted(astComments) {
-  if (!astComments) {
-    return;
-  }
-
-  astComments.forEach((comment) => {
-    if (!comment.printed) {
-      throw new Error(
-        'Comment "' +
-          comment.value.trim() +
-          '" was not printed. Please report this error!'
-      );
-    }
-    delete comment.printed;
-  });
-}
-
 function attachComments(text, ast, opts) {
   const astComments = ast.comments;
   if (astComments) {
@@ -79,7 +62,7 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const result = printDocToString(doc, opts);
 
-  ensureAllCommentsPrinted(astComments);
+  comments.ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();

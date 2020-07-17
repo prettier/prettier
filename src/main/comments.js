@@ -521,9 +521,27 @@ function printComments(path, print, options, needsSemi) {
   );
 }
 
+function ensureAllCommentsPrinted(astComments) {
+  if (!astComments) {
+    return;
+  }
+
+  astComments.forEach((comment) => {
+    if (!comment.printed) {
+      throw new Error(
+        'Comment "' +
+          comment.value.trim() +
+          '" was not printed. Please report this error!'
+      );
+    }
+    delete comment.printed;
+  });
+}
+
 module.exports = {
   attach,
   printComments,
   printDanglingComments,
   getSortedChildNodes,
+  ensureAllCommentsPrinted,
 };
