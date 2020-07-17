@@ -32,9 +32,6 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-typescript.js",
-    replace: {
-      "require(etwModulePath)": "undefined",
-    },
   },
   {
     input: "src/language-js/parser-angular.js",
