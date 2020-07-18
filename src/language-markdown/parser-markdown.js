@@ -133,7 +133,6 @@ const baseParser = {
   hasPragma: pragma.hasPragma,
   locStart: (node) => node.position.start.offset,
   locEnd: (node) => node.position.end.offset,
-  preprocess: (text) => text.replace(/\n\s+$/, "\n"), // workaround for https://github.com/remarkjs/remark/issues/350
 };
 
 const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
