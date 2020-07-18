@@ -1,5 +1,5 @@
 const plugins = [
-  require.resolve(
+  require(
     "../../../tests_config/prettier-plugins/prettier-plugin-uppercase-rocks/"
   ),
 ];

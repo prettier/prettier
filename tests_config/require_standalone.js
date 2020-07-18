@@ -28,10 +28,17 @@ vm.runInContext(sources.join(";"), sandbox);
 module.exports = {
   formatWithCursor(input, options) {
     return vm.runInNewContext(
-      `prettier.formatWithCursor(
-        $$$input,
-        Object.assign({ plugins: prettierPlugins }, $$$options)
-      );`,
+      `
+        const { plugins = [] } = $$$options;
+        const options = {
+          ...$$$options,
+          plugins: [
+            ...Object.values(prettierPlugins),
+            ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
+          ],
+        };
+        prettier.formatWithCursor($$$input, options);
+      `,
       { $$$input: input, $$$options: options, ...sandbox }
     );
   },
@@ -39,11 +46,17 @@ module.exports = {
   __debug: {
     parse(input, options, massage) {
       return vm.runInNewContext(
-        `prettier.__debug.parse(
-          $$$input,
-          Object.assign({ plugins: prettierPlugins }, $$$options),
-          ${JSON.stringify(massage)}
-        );`,
+        `
+          const { plugins = [] } = $$$options;
+          const options = {
+            ...$$$options,
+            plugins: [
+              ...Object.values(prettierPlugins),
+              ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
+            ],
+          };
+          prettier.__debug.parse($$$input, options, ${JSON.stringify(massage)});
+        `,
         { $$$input: input, $$$options: options, ...sandbox }
       );
     },
