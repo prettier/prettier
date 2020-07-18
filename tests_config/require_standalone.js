@@ -29,12 +29,11 @@ module.exports = {
   formatWithCursor(input, options) {
     return vm.runInNewContext(
       `
-        const { plugins = [] } = $$$options;
         const options = {
           ...$$$options,
           plugins: [
             ...Object.values(prettierPlugins),
-            ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
+            ...($$$options.plugins || []),
           ],
         };
         prettier.formatWithCursor($$$input, options);
@@ -47,12 +46,11 @@ module.exports = {
     parse(input, options, massage) {
       return vm.runInNewContext(
         `
-          const { plugins = [] } = $$$options;
           const options = {
             ...$$$options,
             plugins: [
               ...Object.values(prettierPlugins),
-              ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
+              ...($$$options.plugins || []),
             ],
           };
           prettier.__debug.parse($$$input, options, ${JSON.stringify(massage)});
