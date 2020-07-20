@@ -41,6 +41,7 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
   nextOptions[Symbol.for("comments")] = astComments || [];
+  nextOptions[Symbol.for("tokens")] = ast.tokens || [];
   const doc = printAstToDoc(ast, nextOptions);
   comments.ensureAllCommentsPrinted(astComments);
   return doc;

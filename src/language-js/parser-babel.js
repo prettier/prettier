@@ -37,6 +37,7 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       ["recordAndTuple", { syntaxType: "hash" }],
       ...extraPlugins,
     ],
+    tokens: true,
   };
 }
 
@@ -97,7 +98,7 @@ function createParse(parseMethod, ...pluginCombinations) {
           : { start: { line: 0, column: 0 } }
       );
     }
-    delete ast.tokens;
+
     return postprocess(ast, { ...opts, originalText: text });
   };
 }
