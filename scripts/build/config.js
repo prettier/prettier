@@ -32,9 +32,6 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-typescript.js",
-    replace: {
-      'require("@microsoft/typescript-etw")': "undefined",
-    },
   },
   {
     input: "src/language-js/parser-angular.js",
@@ -110,6 +107,10 @@ const coreBundles = [
     name: "prettier",
     type: "core",
     target: "universal",
+    // TODO: Find a better way to remove parsers
+    replace: Object.fromEntries(
+      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"])
+    ),
   },
   {
     input: "bin/prettier.js",

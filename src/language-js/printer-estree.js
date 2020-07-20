@@ -881,7 +881,7 @@ function printPathNoParens(path, options, print, args) {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
 
-      const hasContent = n.body.find((node) => node.type !== "EmptyStatement");
+      const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
       const hasDirectives = n.directives && n.directives.length > 0;
 
       const parent = path.getParentNode();
@@ -4064,7 +4064,8 @@ function printExportDeclaration(path, options, print) {
       decl.declaration.type !== "TSInterfaceDeclaration" &&
       decl.declaration.type !== "DeclareClass" &&
       decl.declaration.type !== "DeclareFunction" &&
-      decl.declaration.type !== "TSDeclareFunction"
+      decl.declaration.type !== "TSDeclareFunction" &&
+      decl.declaration.type !== "EnumDeclaration"
     ) {
       parts.push(semi);
     }

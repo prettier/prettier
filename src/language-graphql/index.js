@@ -16,8 +16,15 @@ const printers = {
   graphql: printer,
 };
 
+const parsers = {
+  get graphql() {
+    return require("./parser-graphql").parsers.graphql;
+  },
+};
+
 module.exports = {
   languages,
   options,
   printers,
+  parsers,
 };

@@ -14,8 +14,15 @@ const languages = [
   })),
 ];
 
+const parsers = {
+  get yaml() {
+    return require("./parser-yaml").parsers.yaml;
+  },
+};
+
 module.exports = {
   languages,
   printers: { yaml: printer },
   options,
+  parsers,
 };
