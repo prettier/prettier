@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`html-like-comments.js error test 1`] = `
-"Unknown error (0:0)
+"Unexpected token (3:1)
   1 | // Only support HTML-like comment in HTML
   2 | alert(
-  3 | <!-- comment"
+> 3 | <!-- comment
+    | ^
+  4 | 'hello world'
+  5 | )
+  6 | "
 `;
 
 exports[`module-attributes.js error test 1`] = `

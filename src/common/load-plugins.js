@@ -6,8 +6,8 @@ const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
 const globby = require("globby");
 const mem = require("mem");
+const internalPlugins = require("../languages");
 const thirdParty = require("./third-party");
-const internalPlugins = require("./internal-plugins");
 const resolve = require("./resolve");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });

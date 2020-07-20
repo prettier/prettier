@@ -643,7 +643,7 @@ function getParserName(lang, options) {
       language.name.toLowerCase() === lang ||
       (language.aliases && language.aliases.includes(lang)) ||
       (language.extensions &&
-        language.extensions.find((ext) => ext === `.${lang}`))
+        language.extensions.some((ext) => ext === `.${lang}`))
   );
   if (language) {
     return language.parsers[0];

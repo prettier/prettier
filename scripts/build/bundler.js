@@ -181,7 +181,7 @@ function getRollupConfig(bundle) {
     }),
     externals([
       ...(bundle.externals || []),
-      ...(bundle.target === "node" ? plugins : []),
+      ...(bundle.type !== "plugin" ? plugins : []),
     ]),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),

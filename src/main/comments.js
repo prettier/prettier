@@ -344,6 +344,12 @@ function breakTies(tiesToBreak, text, options) {
     }
   });
 
+  for (const node of [precedingNode, followingNode]) {
+    if (node.comments && node.comments.length > 1) {
+      node.comments.sort((a, b) => options.locStart(a) - options.locStart(b));
+    }
+  }
+
   tiesToBreak.length = 0;
 }
 
@@ -517,9 +523,27 @@ function printComments(path, print, options, needsSemi) {
   );
 }
 
+function ensureAllCommentsPrinted(astComments) {
+  if (!astComments) {
+    return;
+  }
+
+  astComments.forEach((comment) => {
+    if (!comment.printed) {
+      throw new Error(
+        'Comment "' +
+          comment.value.trim() +
+          '" was not printed. Please report this error!'
+      );
+    }
+    delete comment.printed;
+  });
+}
+
 module.exports = {
   attach,
   printComments,
   printDanglingComments,
   getSortedChildNodes,
+  ensureAllCommentsPrinted,
 };

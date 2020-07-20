@@ -83,18 +83,7 @@ function createParse(parseMethod, ...pluginCombinations) {
           babelOptions({ sourceType, extraPlugins })
         )
       );
-    } catch (_error) {
-      // babel@7.10.4 throws `undefined`, when parsing
-      // ```js
-      // alert(
-      // <!-- comment
-      // 'hello world'
-      // )
-      // ```
-      // #8688
-
-      const error = _error || { message: "Unknown error" };
-
+    } catch (error) {
       throw createError(
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error

@@ -26,8 +26,21 @@ const printers = {
   mdast: printer,
 };
 
+const parsers = {
+  get remark() {
+    return require("./parser-markdown").parsers.remark;
+  },
+  get markdown() {
+    return require("./parser-markdown").parsers.remark;
+  },
+  get mdx() {
+    return require("./parser-markdown").parsers.mdx;
+  },
+};
+
 module.exports = {
   languages,
   options,
   printers,
+  parsers,
 };
