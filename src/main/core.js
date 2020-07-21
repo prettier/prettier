@@ -33,8 +33,8 @@ function attachComments(text, ast, opts) {
     delete ast.comments;
     comments.attach(astComments, ast, text, opts);
   }
-  ast.tokens = [];
   opts[Symbol.for("comments")] = astComments || [];
+  opts[Symbol.for("tokens")] = ast.tokens || [];
   opts.originalText = text;
   return astComments;
 }
