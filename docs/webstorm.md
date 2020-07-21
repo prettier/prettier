@@ -11,7 +11,7 @@ To run Prettier on save in WebStorm 2020.1 or above, open _Preferences | Languag
 
 By default, only JavaScript and TypeScript files will be formatted automatically. You can further configure what files will be updated using the [glob pattern](https://github.com/isaacs/node-glob#glob-primer).
 
-Don't forget to install Prettier first.
+Don’t forget to install Prettier first.
 
 To use Prettier in IntelliJ IDEA, PhpStorm, PyCharm, and other JetBrains IDEs, please install this [plugin](https://plugins.jetbrains.com/plugin/10456-prettier).
 
@@ -30,7 +30,7 @@ In older IDE versions, select Custom and do the following configuration:
 - **Name**: _Prettier_ or any other name
 - **File Type**: _JavaScript_ (or _Any_ if you want to run Prettier on all files)
 - **Scope**: _Project Files_
-- **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
+- **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project’s `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
 - **Arguments**: `--write [other options] $FilePath$`
 - **Output paths to refresh**: `$FilePathRelativeToProjectRoot$`
 - **Working directory**: `$ProjectFileDir$`

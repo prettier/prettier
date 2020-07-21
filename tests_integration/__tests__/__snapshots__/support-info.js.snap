@@ -692,7 +692,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"1.14.0\\",
       \\"tmScope\\": \\"source.yaml\\",
       \\"type\\": \\"data\\",
-      \\"vscodeLanguageIds\\": [\\"yaml\\", \\"ansible\\"]
+      \\"vscodeLanguageIds\\": [\\"yaml\\", \\"ansible\\", \\"home-assistant\\"]
     }
   ],
   \\"options\\": [

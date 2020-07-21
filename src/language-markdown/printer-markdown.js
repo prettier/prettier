@@ -1,6 +1,11 @@
 "use strict";
 
-const privateUtil = require("../common/util");
+const {
+  getLast,
+  getMinNotPresentContinuousCount,
+  getMaxContinuousCount,
+  getStringWidth,
+} = require("../common/util");
 const {
   builders: {
     breakParent,
@@ -152,8 +157,8 @@ function genericPrint(path, options, print) {
           (prevNode &&
             prevNode.type === "sentence" &&
             prevNode.children.length > 0 &&
-            privateUtil.getLast(prevNode.children).type === "word" &&
-            !privateUtil.getLast(prevNode.children).hasTrailingPunctuation) ||
+            getLast(prevNode.children).type === "word" &&
+            !getLast(prevNode.children).hasTrailingPunctuation) ||
           (nextNode &&
             nextNode.type === "sentence" &&
             nextNode.children.length > 0 &&
@@ -169,10 +174,7 @@ function genericPrint(path, options, print) {
     case "delete":
       return concat(["~~", printChildren(path, options, print), "~~"]);
     case "inlineCode": {
-      const backtickCount = privateUtil.getMinNotPresentContinuousCount(
-        node.value,
-        "`"
-      );
+      const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
@@ -239,10 +241,7 @@ function genericPrint(path, options, print) {
       // fenced code block
       const styleUnit = options.__inJsTemplate ? "~" : "`";
       const style = styleUnit.repeat(
-        Math.max(
-          3,
-          privateUtil.getMaxContinuousCount(node.value, styleUnit) + 1
-        )
+        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
       );
       return concat([
         style,
@@ -268,8 +267,7 @@ function genericPrint(path, options, print) {
     case "html": {
       const parentNode = path.getParentNode();
       const value =
-        parentNode.type === "root" &&
-        privateUtil.getLast(parentNode.children) === node
+        parentNode.type === "root" && getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
@@ -586,7 +584,7 @@ function printTable(path, options, print) {
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
-        Math.max(width, privateUtil.getStringWidth(rowContents[columnIndex]))
+        Math.max(width, getStringWidth(rowContents[columnIndex]))
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
@@ -663,17 +661,17 @@ function printTable(path, options, print) {
   }
 
   function alignLeft(text, width) {
-    const spaces = width - privateUtil.getStringWidth(text);
+    const spaces = width - getStringWidth(text);
     return concat([text, " ".repeat(spaces)]);
   }
 
   function alignRight(text, width) {
-    const spaces = width - privateUtil.getStringWidth(text);
+    const spaces = width - getStringWidth(text);
     return concat([" ".repeat(spaces), text]);
   }
 
   function alignCenter(text, width) {
-    const spaces = width - privateUtil.getStringWidth(text);
+    const spaces = width - getStringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);

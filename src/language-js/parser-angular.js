@@ -1,6 +1,6 @@
 "use strict";
 
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 
 function createParser(_parse) {
   const parse = (text, parsers, options) => {
@@ -14,7 +14,7 @@ function createParser(_parse) {
           : node,
     };
   };
-  return { astFormat: "estree", parse, ...locFns };
+  return { astFormat: "estree", parse, locStart, locEnd };
 }
 
 module.exports = {

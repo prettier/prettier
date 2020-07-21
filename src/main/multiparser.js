@@ -56,8 +56,11 @@ function textToDoc(
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
+  nextOptions[Symbol.for("comments")] = astComments || [];
+  nextOptions[Symbol.for("tokens")] = ast.tokens || [];
 
   const doc = printAstToDoc(ast, nextOptions);
+  comments.ensureAllCommentsPrinted(astComments);
 
   if (shouldStripTrailingHardline) {
     if (typeof doc === "string") {

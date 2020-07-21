@@ -6,8 +6,8 @@ const {
   hasIgnoreComment,
   hasNewline,
   isFrontMatterNode,
+  isNextLineEmpty,
 } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
 const {
   builders: {
     concat,
@@ -20,6 +20,7 @@ const {
     indent,
     dedent,
     ifBreak,
+    breakParent,
   },
   utils: { removeLines },
 } = require("../document");
@@ -74,14 +75,7 @@ const {
 } = require("./utils");
 
 function shouldPrintComma(options) {
-  switch (options.trailingComma) {
-    case "all":
-    case "es5":
-      return true;
-    case "none":
-    default:
-      return false;
-  }
+  return options.trailingComma === "es5" || options.trailingComma === "all";
 }
 
 function genericPrint(path, options, print) {
@@ -101,12 +95,13 @@ function genericPrint(path, options, print) {
       return concat([node.raw, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
+      const after = node.raws.after.trim();
 
-      if (nodes.parts.length) {
-        return concat([nodes, options.__isHTMLStyleAttribute ? "" : hardline]);
-      }
-
-      return nodes;
+      return concat([
+        nodes,
+        after ? ` ${after}` : "",
+        nodes.parts.length && !options.__isHTMLStyleAttribute ? hardline : "",
+      ]);
     }
     case "css-comment": {
       const isInlineComment = node.inline || node.raws.inline;
@@ -499,6 +494,23 @@ function genericPrint(path, options, print) {
         const start = options.locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
         return options.originalText.slice(start, end).trim();
+      }
+
+      // Same reason above
+      const grandParent = path.getParentNode(1);
+      if (
+        parentNode.type === "value-paren_group" &&
+        grandParent &&
+        grandParent.type === "value-func" &&
+        grandParent.value === "selector"
+      ) {
+        const start = options.locStart(parentNode.open) + 1;
+        const end = options.locEnd(parentNode.close) - 1;
+        const selector = options.originalText.slice(start, end).trim();
+
+        return lastLineHasInlineComment(selector)
+          ? concat([breakParent, selector])
+          : selector;
       }
 
       return node.value;
