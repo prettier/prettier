@@ -255,6 +255,24 @@ Default: .prettierignore
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help import-formatting (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help import-formatting (stdout) 1`] = `
+"--import-formatting <auto|oneline>
+
+  Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\"Organize Imports\\" feature.
+
+Valid options:
+
+  auto      automatic formatting, like Prettier
+  oneline   keep import statements on one line
+
+Default: auto
+"
+`;
+
+exports[`show detailed usage with --help import-formatting (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help indent-chains (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help indent-chains (stdout) 1`] = `

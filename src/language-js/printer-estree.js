@@ -1142,16 +1142,19 @@ function printPathNoParens(path, options, print, args) {
         }
 
         if (
-          grouped.length === 1 &&
-          standalones.length === 0 &&
-          n.specifiers &&
-          !n.specifiers.some(node => node.comments)
+          // prettierx: importFormatting
+          options.importFormatting === "oneline" ||
+          (grouped.length === 1 &&
+            standalones.length === 0 &&
+            n.specifiers &&
+            !n.specifiers.some(node => node.comments))
         ) {
           parts.push(
             concat([
               "{",
               options.bracketSpacing ? " " : "",
-              concat(grouped),
+              // prettierx: importFormatting
+              join(", ", grouped),
               options.bracketSpacing ? " " : "",
               "}"
             ])

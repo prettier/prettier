@@ -123,6 +123,24 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "importFormatting": Object {
+          "default": "auto",
+          "description": "Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\"Organize Imports\\" feature.",
+          "oneOf": Array [
+            Object {
+              "description": "automatic formatting, like Prettier",
+              "enum": Array [
+                "auto",
+              ],
+            },
+            Object {
+              "description": "keep import statements on one line",
+              "enum": Array [
+                "oneline",
+              ],
+            },
+          ],
+        },
         "indentChains": Object {
           "default": true,
           "description": "Print indents at the start of chained calls.",

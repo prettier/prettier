@@ -139,6 +139,14 @@ Object {
       "default": "css",
       "type": "choice",
     },
+    "importFormatting": Object {
+      "choices": Array [
+        "auto",
+        "oneline",
+      ],
+      "default": "auto",
+      "type": "choice",
+    },
     "indentChains": Object {
       "default": true,
       "type": "boolean",
@@ -887,6 +895,24 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"htmlWhitespaceSensitivity\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"automatic formatting, like Prettier\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"keep import statements on one line\\",
+          \\"value\\": \\"oneline\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\\\\\"Organize Imports\\\\\\" feature.\\",
+      \\"name\\": \\"importFormatting\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"choice\\"
     },
     {

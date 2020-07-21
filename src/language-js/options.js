@@ -32,6 +32,24 @@ module.exports = {
     oppositeDescription: "Do not print indents at the start of chained calls."
   },
   parenSpacing: commonOptions.parenSpacing,
+  importFormatting: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "auto",
+    description:
+      "Formatting of import statements, may be `oneline` to avoid confict with" +
+      ' VSCode "Organize Imports" feature.',
+    choices: [
+      {
+        value: "auto",
+        description: "automatic formatting, like Prettier"
+      },
+      {
+        value: "oneline",
+        description: "keep import statements on one line"
+      }
+    ]
+  },
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,
