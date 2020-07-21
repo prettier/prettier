@@ -26,8 +26,13 @@
     "  it is specified as optional in peerDependenciesMeta",
     "* explicit yaml@1.8.3 version is needed due to a prod build issue",
     "  between @babel/parser & yaml@1.9.0 update",
+    "* yaml resolutions entry is added to avoid issue with yaml",
+    "  when testing from the command line",
     "<!-- -->"
   ],
+  "resolutions": {
+    "*/yaml": "1.8.3"
+  },
   "dependencies": {
     "@angular/compiler": "8.2.14",
     "@babel/code-frame": "7.10.4",
