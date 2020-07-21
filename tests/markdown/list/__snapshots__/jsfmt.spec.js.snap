@@ -3926,3 +3926,242 @@ proseWrap: "always"
 
 ================================================================================
 `;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+    \`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+- Text
+
+  [title](link)
+
+- Text
+
+  - foo
+  - foo
+  - bar
+
+- Text
+
+  # foo
+
+- Text
+
+  \`\`\`
+  foo
+  \`\`\`
+
+- Text
+
+  \`foo\`
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+    \`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+-   Text
+
+    [title](link)
+
+-   Text
+
+    -   foo
+    -   foo
+    -   bar
+
+-   Text
+
+    # foo
+
+-   Text
+
+    \`\`\`
+    foo
+    \`\`\`
+
+-   Text
+
+    \`foo\`
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+    \`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+- Text
+
+     [title](link)
+
+- Text
+
+     - foo
+     - foo
+     - bar
+
+- Text
+
+     # foo
+
+- Text
+
+     \`\`\`
+     foo
+     \`\`\`
+
+- Text
+
+     \`foo\`
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+    \`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+- Text
+
+  [title](link)
+
+- Text
+
+  - foo
+  - foo
+  - bar
+
+- Text
+
+  # foo
+
+- Text
+
+  \`\`\`
+  foo
+  \`\`\`
+
+- Text
+
+  \`foo\`
+
+================================================================================
+`;
