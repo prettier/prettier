@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`catch.ts format 1`] = `
+exports[`type-annotation.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
