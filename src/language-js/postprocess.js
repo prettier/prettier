@@ -71,8 +71,8 @@ function postprocess(ast, options) {
       case "TSUnionType":
       case "TSIntersectionType":
         if (node.types.length === 1) {
-          // override loc, so that comments are attached properly
           const [firstType] = node.types;
+          // override loc, so that comments are attached properly
           firstType.range = composeLoc(node);
           return firstType;
         }
