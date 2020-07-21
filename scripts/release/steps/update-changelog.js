@@ -1,8 +1,8 @@
 "use strict";
 
+const fs = require("fs");
 const chalk = require("chalk");
 const { outdent, string: outdentString } = require("outdent");
-const fs = require("fs");
 const semver = require("semver");
 const { waitForEnter, runYarn, logPromise } = require("../utils");
 

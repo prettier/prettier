@@ -495,13 +495,12 @@ c;
 
 a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 =====================================output=====================================
-a = b || /** Comment */ c
+a = b /** Comment */ || c
 
 a = b /** Comment */ || c
 
 a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
   c
 
 a =
@@ -512,13 +511,12 @@ a =
   b ||
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
 
-a = b && /** Comment */ c
+a = b /** Comment */ && c
 
 a = b /** Comment */ && c
 
 a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
   c
 
 a =
@@ -529,13 +527,12 @@ a =
   b &&
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
 
-a = b + /** Comment */ c
+a = b /** Comment */ + c
 
 a = b /** Comment */ + c
 
 a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
   c
 
 a =
@@ -597,13 +594,12 @@ c;
 
 a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 =====================================output=====================================
-a = b || /** Comment */ c;
+a = b /** Comment */ || c;
 
 a = b /** Comment */ || c;
 
 a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
   c;
 
 a =
@@ -614,13 +610,12 @@ a =
   b ||
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 
-a = b && /** Comment */ c;
+a = b /** Comment */ && c;
 
 a = b /** Comment */ && c;
 
 a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
   c;
 
 a =
@@ -631,13 +626,12 @@ a =
   b &&
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
 
-a = b + /** Comment */ c;
+a = b /** Comment */ + c;
 
 a = b /** Comment */ + c;
 
 a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
   c;
 
 a =
@@ -647,6 +641,69 @@ a =
 a =
   b +
   /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+================================================================================
+`;
+
+exports[`binary-expressions-parens.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+Math.min(
+  (
+    /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+     * deployment of v0.38.0. To see the error, remove this comment and
+     * run flow */
+    document.body.scrollHeight -
+    (window.scrollY + window.innerHeight)
+  ) - devsite_footer_height,
+  0,
+)
+
+=====================================output=====================================
+Math.min(
+  /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+   * deployment of v0.38.0. To see the error, remove this comment and
+   * run flow */
+  document.body.scrollHeight -
+    (window.scrollY + window.innerHeight) -
+    devsite_footer_height,
+  0
+)
+
+================================================================================
+`;
+
+exports[`binary-expressions-parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Math.min(
+  (
+    /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+     * deployment of v0.38.0. To see the error, remove this comment and
+     * run flow */
+    document.body.scrollHeight -
+    (window.scrollY + window.innerHeight)
+  ) - devsite_footer_height,
+  0,
+)
+
+=====================================output=====================================
+Math.min(
+  /* $FlowFixMe(>=0.38.0 site=www) - Flow error detected during the
+   * deployment of v0.38.0. To see the error, remove this comment and
+   * run flow */
+  document.body.scrollHeight -
+    (window.scrollY + window.innerHeight) -
+    devsite_footer_height,
+  0
+);
 
 ================================================================================
 `;
@@ -677,22 +734,28 @@ a = b + // TODO this is a very very very very long comment that makes it go > 80
 c;
 =====================================output=====================================
 a =
-  b || c // Comment
+  b || // Comment
+  c
 
 a =
-  b || c // TODO this is a very very very very long comment that makes it go > 80 columns
+  b || // TODO this is a very very very very long comment that makes it go > 80 columns
+  c
 
 a =
-  b && c // Comment
+  b && // Comment
+  c
 
 a =
-  b && c // TODO this is a very very very very long comment that makes it go > 80 columns
+  b && // TODO this is a very very very very long comment that makes it go > 80 columns
+  c
 
 a =
-  b + c // Comment
+  b + // Comment
+  c
 
 a =
-  b + c // TODO this is a very very very very long comment that makes it go > 80 columns
+  b + // TODO this is a very very very very long comment that makes it go > 80 columns
+  c
 
 ================================================================================
 `;
@@ -722,22 +785,28 @@ a = b + // TODO this is a very very very very long comment that makes it go > 80
 c;
 =====================================output=====================================
 a =
-  b || c; // Comment
+  b || // Comment
+  c;
 
 a =
-  b || c; // TODO this is a very very very very long comment that makes it go > 80 columns
+  b || // TODO this is a very very very very long comment that makes it go > 80 columns
+  c;
 
 a =
-  b && c; // Comment
+  b && // Comment
+  c;
 
 a =
-  b && c; // TODO this is a very very very very long comment that makes it go > 80 columns
+  b && // TODO this is a very very very very long comment that makes it go > 80 columns
+  c;
 
 a =
-  b + c; // Comment
+  b + // Comment
+  c;
 
 a =
-  b + c; // TODO this is a very very very very long comment that makes it go > 80 columns
+  b + // TODO this is a very very very very long comment that makes it go > 80 columns
+  c;
 
 ================================================================================
 `;
@@ -1003,6 +1072,71 @@ render?.(
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
+
+================================================================================
+`;
+
+exports[`class.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// #8718
+class C {
+    ma() {} /* D */ /* E */
+    mb() {}
+}
+
+class D {
+    ma() {} /* D */ /* E */ /* F */
+    mb() {}
+}
+
+=====================================output=====================================
+// #8718
+class C {
+  ma() {} /* D */ /* E */
+  mb() {}
+}
+
+class D {
+  ma() {} /* D */ /* E */ /* F */
+  mb() {}
+}
+
+================================================================================
+`;
+
+exports[`class.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #8718
+class C {
+    ma() {} /* D */ /* E */
+    mb() {}
+}
+
+class D {
+    ma() {} /* D */ /* E */ /* F */
+    mb() {}
+}
+
+=====================================output=====================================
+// #8718
+class C {
+  ma() {} /* D */ /* E */
+  mb() {}
+}
+
+class D {
+  ma() {} /* D */ /* E */ /* F */
+  mb() {}
+}
 
 ================================================================================
 `;
@@ -2144,10 +2278,10 @@ const rootEpic = (actions, store) =>
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   "^\\\\s*" + // beginning of the line
-  "name\\\\s*=\\\\s*" + // name =
-  "['\\"]" + // opening quotation mark
-  escapeStringRegExp(target.name) + // target name
-  "['\\"]" + // closing quotation mark
+    "name\\\\s*=\\\\s*" + // name =
+    "['\\"]" + // opening quotation mark
+    escapeStringRegExp(target.name) + // target name
+    "['\\"]" + // closing quotation mark
     ",?$" // optional trailing comma
 )
 
@@ -2307,10 +2441,10 @@ const rootEpic = (actions, store) =>
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
   "^\\\\s*" + // beginning of the line
-  "name\\\\s*=\\\\s*" + // name =
-  "['\\"]" + // opening quotation mark
-  escapeStringRegExp(target.name) + // target name
-  "['\\"]" + // closing quotation mark
+    "name\\\\s*=\\\\s*" + // name =
+    "['\\"]" + // opening quotation mark
+    escapeStringRegExp(target.name) + // target name
+    "['\\"]" + // closing quotation mark
     ",?$" // optional trailing comma
 );
 
@@ -3348,6 +3482,107 @@ class Foo {
     lol4 /*string*/
   ) {} /* string*/
 }
+
+================================================================================
+`;
+
+exports[`multi-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// #8323
+
+import { MapViewProps } from 'react-native-maps'; /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from 'typescript';
+
+x; /*
+1 */ /* 2 */
+
+y
+
+x; /*1*//*2*/
+y;
+
+=====================================output=====================================
+// #8323
+
+import { MapViewProps } from "react-native-maps" /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from "typescript"
+
+x /*
+1 */ /* 2 */
+
+y
+
+x /*1*/ /*2*/
+y
+
+================================================================================
+`;
+
+exports[`multi-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #8323
+
+import { MapViewProps } from 'react-native-maps'; /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from 'typescript';
+
+x; /*
+1 */ /* 2 */
+
+y
+
+x; /*1*//*2*/
+y;
+
+=====================================output=====================================
+// #8323
+
+import { MapViewProps } from "react-native-maps"; /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from "typescript";
+
+x; /*
+1 */ /* 2 */
+
+y;
+
+x; /*1*/ /*2*/
+y;
 
 ================================================================================
 `;

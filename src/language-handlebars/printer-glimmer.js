@@ -1,7 +1,5 @@
 "use strict";
 
-const clean = require("./clean");
-
 const {
   concat,
   group,
@@ -13,6 +11,7 @@ const {
   softline,
 } = require("../document").builders;
 
+const clean = require("./clean");
 const {
   getNextNode,
   getPreviousNode,
@@ -115,11 +114,18 @@ function print(path, options, print) {
       );
     }
     case "MustacheStatement": {
-      const shouldBreakOpeningMustache = isParentOfSomeType(path, [
+      const isParentOfSpecifiedTypes = isParentOfSomeType(path, [
         "AttrNode",
         "ConcatStatement",
-        "ElementNode",
       ]);
+
+      const isChildOfElementNodeAndDoesNotHaveParams =
+        isParentOfSomeType(path, ["ElementNode"]) &&
+        doesNotHaveHashParams(n) &&
+        doesNotHavePositionalParams(n);
+
+      const shouldBreakOpeningMustache =
+        isParentOfSpecifiedTypes || isChildOfElementNodeAndDoesNotHaveParams;
 
       return group(
         concat([
@@ -251,9 +257,18 @@ function print(path, options, print) {
         }
       }
 
+      let text = n.chars;
+      /* if `{{my-component}}` (or any text starting with a mustache)
+       * makes it to the TextNode,
+       * it means it was escaped,
+       * so let's print it escaped, ie.; `\{{my-component}}` */
+      if (text.startsWith("{{") && text.includes("}}")) {
+        text = "\\" + text;
+      }
+
       return concat([
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-        n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+        text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ]);
     }
@@ -647,6 +662,14 @@ function locationToOffset(source, line, column) {
     seenLines += 1;
     seenChars = nextLine + 1;
   }
+}
+
+function doesNotHaveHashParams(node) {
+  return node.hash.pairs.length === 0;
+}
+
+function doesNotHavePositionalParams(node) {
+  return node.params.length === 0;
 }
 
 module.exports = {

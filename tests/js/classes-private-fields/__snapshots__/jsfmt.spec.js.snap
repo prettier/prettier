@@ -1,5 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`optional-chaining.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11669
+
+delete obj?.#x.a
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11669
+
+delete obj?.#x.a
+
+================================================================================
+`;
+
+exports[`optional-chaining.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11669
+
+delete obj?.#x.a
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11669
+
+delete obj?.#x.a;
+
+================================================================================
+`;
+
 exports[`private_fields.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

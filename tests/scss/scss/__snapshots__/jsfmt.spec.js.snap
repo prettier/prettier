@@ -1,5 +1,194 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arbitrary-arguments.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  'c': 'kittens',
+  'a': true,
+  'b': 42
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50....);
+  width: min(50px 20px 30px...);
+}
+
+=====================================output=====================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  "c": "kittens",
+  "a": true,
+  "b": 42
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 0.5 50...);
+  background-color: rgba(50 50 50 0.5...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50...);
+  width: min(50px 20px 30px...);
+}
+
+================================================================================
+`;
+
+exports[`arbitrary-arguments.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  'c': 'kittens',
+  'a': true,
+  'b': 42
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 .50 50...);
+  background-color: rgba(50 50 50. .50...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50....);
+  width: min(50px 20px 30px...);
+}
+
+=====================================output=====================================
+body {
+  test: foo(return-list($list)...);
+}
+body {
+  test: foo(bar($list)...);
+}
+body {
+  test: foo($list...);
+}
+@mixin syntax-colors($args...) {
+  @debug meta.keywords($args);
+  // (string: #080, comment: #800, variable: $60b)
+
+  @each $name, $color in meta.keywords($args) {
+    pre span.stx-#{$name} {
+      color: $color;
+    }
+  }
+}
+$form-selectors: "input.name", "input.address", "input.zip" !default;
+@include order(150px, $form-selectors...);
+@mixin linear-gradient($direction, $gradients...) {
+  background-color: nth($gradients, 1);
+  background-image: linear-gradient($direction, $gradients...);
+}
+$parameters: (
+  "c": "kittens",
+  "a": true,
+  "b": 42,
+);
+$value: dummy($parameters...);
+
+body {
+  background-color: rgba(50, 50, 50, 50);
+  background-color: rgba(50 50 50 50...);
+  background-color: rgba(50 50 0.5 50...);
+  background-color: rgba(50 50 50 0.5...);
+  // Input is not technically valid ( output is ), but still nice to know that the \`.\` gets dropped as it would for \`50.\`
+  background-color: rgba(50 50 50 50...);
+  width: min(50px 20px 30px...);
+}
+
+================================================================================
+`;
+
 exports[`comments.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -1282,6 +1471,30 @@ label {
   @include margin-bottom-1\\/3;
 }
 
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent){
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
+}
+
+.foo{
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+}
+
+.bar{
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+}
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -2203,16 +2416,16 @@ a {
 
 $my-list: "foo",
   // Comment
-    "bar"; // Comment
+  "bar"; // Comment
 
 $my-map: (
   "foo": 1,
   // Comment
-    "bar": 2,
+  "bar": 2,
   // Comment
-    "buz": calc(1 + 2),
+  "buz": calc(1 + 2),
   // Buz
-    "baz": 4,
+  "baz": 4,
   // Baz
 );
 
@@ -2225,13 +2438,13 @@ $my-map: (
 }
 
 @import // Comment
-    "mixins",
+  "mixins",
   "variables",
   // Comment
-    "reset",
+  "reset",
   "scaffolding", "type",
   // Comment
-    "bar",
+  "bar",
   "tabs";
 
 @mixin placeholder {
@@ -2257,6 +2470,73 @@ $my-map: (
 
 label {
   @include margin-bottom-1\\/3;
+}
+
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent) {
+  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+}
+
+.foo {
+  width: someVeryLongFunctionNameForJustAPow(
+    2,
+    someVeryLongFunctionNameForJustAPow(
+      2,
+      someVeryLongFunctionNameForJustAPow(
+        2,
+        // This next pow is really powerful
+        someVeryLongFunctionNameForJustAPow(
+            2,
+            someVeryLongFunctionNameForJustAPow(
+              2,
+              someVeryLongFunctionNameForJustAPow(
+                2,
+                someVeryLongFunctionNameForJustAPow(
+                  2,
+                  someVeryLongFunctionNameForJustAPow(
+                    2,
+                    someVeryLongFunctionNameForJustAPow(
+                      2,
+                      someVeryLongFunctionNameForJustAPow(
+                        2,
+                        someVeryLongFunctionNameForJustAPow(
+                          2,
+                          someVeryLongFunctionNameForJustAPow(2, 2)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+      )
+    )
+  );
+}
+
+.bar {
+  width: pow(
+    2,
+    pow(
+      2,
+      pow(
+        2,
+        // This next pow is really powerful
+        pow(
+            2,
+            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+          )
+      )
+    )
+  );
 }
 
 ================================================================================
@@ -3331,6 +3611,30 @@ label {
   @include margin-bottom-1\\/3;
 }
 
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent){
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
+}
+
+.foo{
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+}
+
+.bar{
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
+}
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -4252,16 +4556,16 @@ a {
 
 $my-list: "foo",
   // Comment
-    "bar"; // Comment
+  "bar"; // Comment
 
 $my-map: (
   "foo": 1,
   // Comment
-    "bar": 2,
+  "bar": 2,
   // Comment
-    "buz": calc(1 + 2),
+  "buz": calc(1 + 2),
   // Buz
-    "baz": 4,
+  "baz": 4,
   // Baz
 );
 
@@ -4274,13 +4578,13 @@ $my-map: (
 }
 
 @import // Comment
-    "mixins",
+  "mixins",
   "variables",
   // Comment
-    "reset",
+  "reset",
   "scaffolding", "type",
   // Comment
-    "bar",
+  "bar",
   "tabs";
 
 @mixin placeholder {
@@ -4306,6 +4610,73 @@ $my-map: (
 
 label {
   @include margin-bottom-1\\/3;
+}
+
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent) {
+  @return someVeryLongFunctionNameForJustAPow($base, $exponent);
+}
+
+.foo {
+  width: someVeryLongFunctionNameForJustAPow(
+    2,
+    someVeryLongFunctionNameForJustAPow(
+      2,
+      someVeryLongFunctionNameForJustAPow(
+        2,
+        // This next pow is really powerful
+        someVeryLongFunctionNameForJustAPow(
+            2,
+            someVeryLongFunctionNameForJustAPow(
+              2,
+              someVeryLongFunctionNameForJustAPow(
+                2,
+                someVeryLongFunctionNameForJustAPow(
+                  2,
+                  someVeryLongFunctionNameForJustAPow(
+                    2,
+                    someVeryLongFunctionNameForJustAPow(
+                      2,
+                      someVeryLongFunctionNameForJustAPow(
+                        2,
+                        someVeryLongFunctionNameForJustAPow(
+                          2,
+                          someVeryLongFunctionNameForJustAPow(2, 2)
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+      )
+    )
+  );
+}
+
+.bar {
+  width: pow(
+    2,
+    pow(
+      2,
+      pow(
+        2,
+        // This next pow is really powerful
+        pow(
+            2,
+            pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))
+          )
+      )
+    )
+  );
 }
 
 ================================================================================

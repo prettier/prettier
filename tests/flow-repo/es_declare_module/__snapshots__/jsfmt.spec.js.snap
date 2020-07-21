@@ -2,7 +2,7 @@
 
 exports[`es_declare_module.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

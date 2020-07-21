@@ -14,7 +14,15 @@ const {
 } = require("./utils");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
-function parseValueNodes(nodes) {
+const getHighestAncestor = (node) => {
+  while (node.parent) {
+    node = node.parent;
+  }
+  return node;
+};
+
+function parseValueNode(valueNode, options) {
+  const { nodes } = valueNode;
   let parenGroup = {
     open: null,
     close: null,
@@ -31,6 +39,30 @@ function parseValueNodes(nodes) {
 
   for (let i = 0; i < nodes.length; ++i) {
     const node = nodes[i];
+
+    if (
+      isSCSS(options.parser, node.value) &&
+      node.type === "number" &&
+      node.unit === ".." &&
+      node.value[node.value.length - 1] === "."
+    ) {
+      // Work around postcss bug parsing `50...` as `50.` with unit `..`
+      // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
+      // For example, 50px... is parsed as `50` with unit `px...` already by postcss-values-parser.
+      node.value = node.value.slice(0, -1);
+      node.unit = "...";
+    }
+
+    if (node.type === "func" && node.value === "selector") {
+      node.group.groups = [
+        parseSelector(
+          getHighestAncestor(valueNode).text.slice(
+            node.group.open.sourceIndex + 1,
+            node.group.close.sourceIndex
+          )
+        ),
+      ];
+    }
 
     if (node.type === "func" && node.value === "url") {
       const groups = (node.group && node.group.groups) || [];
@@ -125,13 +157,16 @@ function flattenGroups(node) {
   return node;
 }
 
-function addTypePrefix(node, prefix) {
+function addTypePrefix(node, prefix, skipPrefix) {
   if (node && typeof node === "object") {
     delete node.parent;
     for (const key in node) {
-      addTypePrefix(node[key], prefix);
+      addTypePrefix(node[key], prefix, skipPrefix);
       if (key === "type" && typeof node[key] === "string") {
-        if (!node[key].startsWith(prefix)) {
+        if (
+          !node[key].startsWith(prefix) &&
+          (!skipPrefix || !skipPrefix.test(node[key]))
+        ) {
           node[key] = prefix + node[key];
         }
       }
@@ -153,21 +188,23 @@ function addMissingType(node) {
   return node;
 }
 
-function parseNestedValue(node) {
+function parseNestedValue(node, options) {
   if (node && typeof node === "object") {
-    delete node.parent;
     for (const key in node) {
-      parseNestedValue(node[key]);
-      if (key === "nodes") {
-        node.group = flattenGroups(parseValueNodes(node[key]));
-        delete node[key];
+      if (key !== "parent") {
+        parseNestedValue(node[key], options);
+        if (key === "nodes") {
+          node.group = flattenGroups(parseValueNode(node, options));
+          delete node[key];
+        }
       }
     }
+    delete node.parent;
   }
   return node;
 }
 
-function parseValue(value) {
+function parseValue(value, options) {
   const valueParser = require("postcss-values-parser");
 
   let result = null;
@@ -183,9 +220,9 @@ function parseValue(value) {
 
   result.text = value;
 
-  const parsedResult = parseNestedValue(result);
+  const parsedResult = parseNestedValue(result, options);
 
-  return addTypePrefix(parsedResult, "value-");
+  return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
 
 function parseSelector(selector) {
@@ -321,7 +358,7 @@ function parseNestedCSS(node, options) {
 
       // Ignore LESS mixins
       if (node.mixin) {
-        node.selector = parseValue(selector);
+        node.selector = parseValue(selector, options);
 
         return node;
       }
@@ -366,7 +403,7 @@ function parseNestedCSS(node, options) {
         };
       }
 
-      node.value = parseValue(value);
+      node.value = parseValue(value, options);
     }
 
     if (
@@ -423,7 +460,7 @@ function parseNestedCSS(node, options) {
           node.variable = true;
           const parts = node.name.split(":");
           node.name = parts[0];
-          node.value = parseValue(parts.slice(1).join(":"));
+          node.value = parseValue(parts.slice(1).join(":"), options);
         }
 
         // Missing whitespace between variable and colon
@@ -433,7 +470,7 @@ function parseNestedCSS(node, options) {
           node.params[0] === ":"
         ) {
           node.variable = true;
-          node.value = parseValue(node.params.slice(1));
+          node.value = parseValue(node.params.slice(1), options);
         }
 
         // Less variable
@@ -466,7 +503,7 @@ function parseNestedCSS(node, options) {
 
       if (name === "at-root") {
         if (/^\(\s*(without|with)\s*:[\S\s]+\)$/.test(params)) {
-          node.params = parseValue(params);
+          node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
           delete node.params;
@@ -478,7 +515,7 @@ function parseNestedCSS(node, options) {
       if (lowercasedName === "import") {
         node.import = true;
         delete node.filename;
-        node.params = parseValue(params);
+        node.params = parseValue(params, options);
         return node;
       }
 
@@ -505,7 +542,7 @@ function parseNestedCSS(node, options) {
         // Remove unnecessary spaces before SCSS control, mixin and function directives
         params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
 
-        node.value = parseValue(params);
+        node.value = parseValue(params, options);
         delete node.params;
 
         return node;
