@@ -59,6 +59,7 @@ function ngHtmlParser(
 
   if (options.parser === "vue" && !isVueHtml) {
     const shouldParseAsHTML = (node) => {
+      /* istanbul ignore next */
       if (!node) {
         return false;
       }
@@ -99,6 +100,7 @@ function ngHtmlParser(
           const endOffset = endSourceSpan.start.offset;
           for (const error of result.errors) {
             const { offset } = error.span.start;
+            /* istanbul ignore next */
             if (startOffset < offset && offset < endOffset) {
               errors = [error];
               break;
@@ -145,6 +147,7 @@ function ngHtmlParser(
     } else if (node instanceof Text) {
       node.type = "text";
     } else {
+      /* istanbul ignore next */
       throw new Error(`Unexpected node ${JSON.stringify(node)}`);
     }
   };
@@ -299,6 +302,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     );
     const firstText = subAst.children[0];
     if (firstText.length === offset) {
+      /* istanbul ignore next */
       subAst.children.shift();
     } else {
       firstText.sourceSpan = new ParseSourceSpan(
