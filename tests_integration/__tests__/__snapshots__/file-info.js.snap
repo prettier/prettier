@@ -130,12 +130,12 @@ exports[`file-info should try resolve config (stdout) 1`] = `
 
 exports[`file-info should try resolve config (write) 1`] = `Array []`;
 
-exports[`non-exists ignored path (stderr) 1`] = `""`;
+exports[`non-exists ignore path (stderr) 1`] = `""`;
 
-exports[`non-exists ignored path (stdout) 1`] = `
+exports[`non-exists ignore path (stdout) 1`] = `
 "{ \\"ignored\\": false, \\"inferredParser\\": \\"babel\\" }
 
 "
 `;
 
-exports[`non-exists ignored path (write) 1`] = `Array []`;
+exports[`non-exists ignore path (write) 1`] = `Array []`;
