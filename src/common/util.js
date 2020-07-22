@@ -283,6 +283,8 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   );
 }
 
+// Not using, but it's public utils
+/* istanbul ignore next */
 /**
  * @param {string} text
  * @param {number} index
@@ -609,6 +611,8 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
+// Not using
+/* istanbul ignore next */
 function isWithinParentArrayProperty(path, propertyName) {
   const node = path.getValue();
   const parent = path.getParentNode();
