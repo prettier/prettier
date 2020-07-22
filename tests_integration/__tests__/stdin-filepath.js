@@ -64,6 +64,22 @@ function f() {
   });
 });
 
+describe("apply editorconfig for stdin-filepath with a deep path", () => {
+  runPrettier(
+    "cli",
+    ["--stdin-filepath", "config/editorconfig/" + "a/".repeat(30)+ "three.js"],
+    {
+      input: `
+function f() {
+  console.log("should be indented with a tab");
+}
+`.trim(), // js
+    }
+  ).test({
+    status: 0,
+  });
+});
+
 describe("don’t apply editorconfig outside project for stdin-filepath with nonexistent directory", () => {
   runPrettier(
     "cli",
