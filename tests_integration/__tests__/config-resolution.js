@@ -250,22 +250,31 @@ test("API resolveConfig.sync overrides work with absolute paths", () => {
 });
 
 test("API resolveConfig.sync overrides excludeFiles", () => {
-  const notOverrided = path.join(__dirname, "../cli/config/overrides-exclude-files/foo");
+  const notOverrided = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/foo"
+  );
   expect(prettier.resolveConfig.sync(notOverrided)).toMatchObject({
     singleQuote: true,
-    trailingComma: "all"
+    trailingComma: "all",
   });
 
-  const singleQuote = path.join(__dirname, "../cli/config/overrides-exclude-files/single-quote.js");
+  const singleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/single-quote.js"
+  );
   expect(prettier.resolveConfig.sync(singleQuote)).toMatchObject({
     singleQuote: true,
-    trailingComma: "es5"
+    trailingComma: "es5",
   });
 
-  const doubleQuote = path.join(__dirname, "../cli/config/overrides-exclude-files/double-quote.js");
+  const doubleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/double-quote.js"
+  );
   expect(prettier.resolveConfig.sync(doubleQuote)).toMatchObject({
     singleQuote: false,
-    trailingComma: "es5"
+    trailingComma: "es5",
   });
 });
 

@@ -54,4 +54,4 @@ describe("cosmiconfig", () => {
 
 test("isCI", () => {
   expect(typeof isCI()).toEqual("boolean");
-})
+});
