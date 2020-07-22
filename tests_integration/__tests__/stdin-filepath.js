@@ -1,5 +1,6 @@
 "use strict";
 
+const {isCI} = require("ci-info");
 const runPrettier = require("../runPrettier");
 
 describe("format correctly if stdin content compatible with stdin-filepath", () => {
@@ -63,6 +64,40 @@ function f() {
     status: 0,
   });
 });
+
+describe("apply editorconfig for stdin-filepath with a deep path", () => {
+  runPrettier(
+    "cli",
+    ["--stdin-filepath", "config/editorconfig/" + "a/".repeat(30)+ "three.js"],
+    {
+      input: `
+function f() {
+  console.log("should be indented with a tab");
+}
+`.trim(), // js
+    }
+  ).test({
+    status: 0,
+  });
+});
+
+if (isCI) {
+  describe("apply editorconfig for stdin-filepath in root", () => {
+    runPrettier(
+      "cli",
+      ["--stdin-filepath", "/foo.js"],
+      {
+        input: `
+function f() {
+  console.log("should be indented with a tab");
+}
+`.trim(), // js
+      }
+    ).test({
+      status: 0,
+    });
+  });
+}
 
 describe("apply editorconfig for stdin-filepath with a deep path", () => {
   runPrettier(
