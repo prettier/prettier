@@ -250,11 +250,11 @@ test("API resolveConfig.sync overrides work with absolute paths", () => {
 });
 
 test("API resolveConfig.sync overrides excludeFiles", () => {
-  const notOverrided = path.join(
+  const notOverride = path.join(
     __dirname,
     "../cli/config/overrides-exclude-files/foo"
   );
-  expect(prettier.resolveConfig.sync(notOverrided)).toMatchObject({
+  expect(prettier.resolveConfig.sync(notOverride)).toMatchObject({
     singleQuote: true,
     trailingComma: "all",
   });
