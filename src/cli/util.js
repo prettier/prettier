@@ -464,8 +464,8 @@ function formatFiles(context) {
     let input;
     try {
       input = fs.readFileSync(filename, "utf8");
+      /* istanbul ignore next */
     } catch (error) {
-      /* istanbul ignore start */
       // Add newline to split errors from filename line.
       context.logger.log("");
 
@@ -475,7 +475,6 @@ function formatFiles(context) {
       // Don't exit the process if one file failed
       process.exitCode = 2;
       continue;
-      /* istanbul ignore end */
     }
 
     if (fileIgnored) {
@@ -514,14 +513,13 @@ function formatFiles(context) {
 
         try {
           fs.writeFileSync(filename, output, "utf8");
+          /* istanbul ignore next */
         } catch (error) {
-          /* istanbul ignore start */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
           // Don't exit the process if one file failed
           process.exitCode = 2;
-          /* istanbul ignore end */
         }
       } else if (!context.argv.check && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
@@ -530,7 +528,7 @@ function formatFiles(context) {
       if (result.filepath) {
         context.logger.log(result.filepath);
       } else {
-        /* istanbul ignore start */
+        /* istanbul ignore next */
         process.exitCode = 2;
       }
     } else if (!context.argv.check && !context.argv["list-different"]) {
