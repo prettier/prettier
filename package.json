@@ -24,10 +24,9 @@
   "// prettierx dependencies notes": [
     "* typescript is moved to devDependencies, and",
     "  it is specified as optional in peerDependenciesMeta",
-    "* explicit yaml@1.8.3 version is needed due to a prod build issue",
-    "  between @babel/parser & yaml@1.9.0 update",
-    "* yaml resolutions entry is added to avoid issue with yaml",
-    "  when testing from the command line",
+    "* at this point, explicit, outdated yaml version and",
+    "  yaml resolutions entry are included to avoid a",
+    "  test failure with recent yaml@1.10.0 update",
     "<!-- -->"
   ],
   "resolutions": {
