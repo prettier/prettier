@@ -83,14 +83,18 @@ function f() {
 
 if (isCI) {
   describe("apply editorconfig for stdin-filepath in root", () => {
-    runPrettier("cli", ["--stdin-filepath", "/foo.js"], {
-      input: `
+    const code = `
 function f() {
   console.log("should be indented with a tab");
 }
-`.trim(), // js
+`.trim();
+    runPrettier("cli", ["--stdin-filepath", "/foo.js"], {
+      input: code, // js
     }).test({
       status: 0,
+      stdout: code + "\n",
+      stderr: "",
+      write: [],
     });
   });
 }
