@@ -29,6 +29,7 @@ function skip(chars) {
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
+    /* istanbul ignore next */
     if (index === false) {
       return false;
     }
@@ -82,6 +83,7 @@ const skipEverythingButNewLine = skip(/[^\n\r]/);
  * @returns {number | false}
  */
 function skipInlineComment(text, index) {
+  /* istanbul ignore next */
   if (index === false) {
     return false;
   }
@@ -102,6 +104,7 @@ function skipInlineComment(text, index) {
  * @returns {number | false}
  */
 function skipTrailingComment(text, index) {
+  /* istanbul ignore next */
   if (index === false) {
     return false;
   }
@@ -129,6 +132,7 @@ function skipNewline(text, index, opts) {
 
   const atIndex = text.charAt(index);
   if (backwards) {
+    /* istanbul ignore next */
     if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
       return index - 2;
     }
@@ -141,6 +145,7 @@ function skipNewline(text, index, opts) {
       return index - 1;
     }
   } else {
+    /* istanbul ignore next */
     if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
     }
@@ -584,7 +589,8 @@ function addCommentHelper(node, comment) {
 
   // For some reason, TypeScript parses `// x` inside of JSXText as a comment
   // We already "print" it via the raw text, we don't need to re-print it as a
-  // comment
+  // comment=
+  /* istanbul ignore next */
   if (node.type === "JSXText") {
     comment.printed = true;
   }
