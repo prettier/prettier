@@ -361,9 +361,11 @@ function applyConfigPrecedence(context, options) {
       case "prefer-file":
         return options || parseArgsToOptions(context);
     }
-    /* istanbul ignore next */
   } catch (error) {
+    /* istanbul ignore next */
     context.logger.error(error.toString());
+
+    /* istanbul ignore next */
     process.exit(2);
   }
 }
@@ -464,16 +466,21 @@ function formatFiles(context) {
     let input;
     try {
       input = fs.readFileSync(filename, "utf8");
-      /* istanbul ignore next */
     } catch (error) {
       // Add newline to split errors from filename line.
+      /* istanbul ignore next */
       context.logger.log("");
 
+      /* istanbul ignore next */
       context.logger.error(
         `Unable to read file: ${filename}\n${error.message}`
       );
+
       // Don't exit the process if one file failed
+      /* istanbul ignore next */
       process.exitCode = 2;
+
+      /* istanbul ignore next */
       continue;
     }
 
@@ -513,22 +520,24 @@ function formatFiles(context) {
 
         try {
           fs.writeFileSync(filename, output, "utf8");
-          /* istanbul ignore next */
         } catch (error) {
+          /* istanbul ignore next */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
+
           // Don't exit the process if one file failed
+          /* istanbul ignore next */
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
+      /* istanbul ignore else */
       if (result.filepath) {
         context.logger.log(result.filepath);
       } else {
-        /* istanbul ignore next */
         process.exitCode = 2;
       }
     } else if (!context.argv.check && !context.argv["list-different"]) {
@@ -804,8 +813,8 @@ function normalizeDetailedOption(name, option) {
           deprecated: false,
           ...(typeof choice === "object" ? choice : { value: choice }),
         };
+        /* istanbul ignore next */
         if (newChoice.value === true) {
-          /* istanbul ignore next */
           newChoice.value = ""; // backward compatibility for original boolean option
         }
         return newChoice;

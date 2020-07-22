@@ -111,6 +111,7 @@ function* expandPatternsInternal(context) {
     } catch ({ message }) {
       /* istanbul ignore next */
       yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
+      /* istanbul ignore next */
       continue;
     }
 

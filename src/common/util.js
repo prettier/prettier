@@ -589,7 +589,7 @@ function addCommentHelper(node, comment) {
 
   // For some reason, TypeScript parses `// x` inside of JSXText as a comment
   // We already "print" it via the raw text, we don't need to re-print it as a
-  // comment=
+  // comment
   /* istanbul ignore next */
   if (node.type === "JSXText") {
     comment.printed = true;
