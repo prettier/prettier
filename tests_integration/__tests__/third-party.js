@@ -2,7 +2,7 @@
 
 const path = require("path");
 const { thirdParty } = require("../env");
-const { cosmiconfig, cosmiconfigSync } = require(thirdParty);
+const { cosmiconfig, cosmiconfigSync, isCI } = require(thirdParty);
 
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `cosmiconfigOptions`
@@ -51,3 +51,7 @@ describe("cosmiconfig", () => {
     });
   }
 });
+
+test("isCI", () => {
+  expect(typeof isCI()).toEqual("boolean");
+})
