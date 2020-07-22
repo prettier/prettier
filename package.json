@@ -24,14 +24,8 @@
   "// prettierx dependencies notes": [
     "* typescript is moved to devDependencies, and",
     "  it is specified as optional in peerDependenciesMeta",
-    "* at this point, explicit, outdated yaml version and",
-    "  yaml resolutions entry are included to avoid a",
-    "  test failure with recent yaml@1.10.0 update",
     "<!-- -->"
   ],
-  "resolutions": {
-    "*/yaml": "1.8.3"
-  },
   "dependencies": {
     "@angular/compiler": "8.2.14",
     "@babel/code-frame": "7.10.4",
@@ -89,8 +83,7 @@
     "unicode-regex": "3.0.0",
     "unified": "9.0.0",
     "vnopts": "1.0.2",
-    "yaml": "1.8.3",
-    "yaml-unist-parser": "1.1.1"
+    "yaml-unist-parser": "1.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
