@@ -19,11 +19,12 @@ module.exports = {
     ? ["<rootDir>/tests_integration/"]
     : [],
   collectCoverage: ENABLE_CODE_COVERAGE,
-  collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
+  collectCoverageFrom: ["src/**/*.js", "index.js"],
   coveragePathIgnorePatterns: [
-    "<rootDir>/standalone.js",
+    "<rootDir>/src/standalone.js",
     "<rootDir>/src/document/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js",
+    "<rootDir>/node_modules/",
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
