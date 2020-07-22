@@ -361,8 +361,8 @@ function applyConfigPrecedence(context, options) {
       case "prefer-file":
         return options || parseArgsToOptions(context);
     }
-  } catch (error) {
     /* istanbul ignore next */
+  } catch (error) {
     context.logger.error(error.toString());
     process.exit(2);
   }
