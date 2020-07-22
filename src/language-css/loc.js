@@ -4,11 +4,7 @@ const lineColumnToIndex = require("../utils/line-column-to-index");
 const { getLast, skipEverythingButNewLine } = require("../common/util");
 
 function calculateLocStart(node, text) {
-  return (
-    node.source &&
-    node.source.start &&
-    lineColumnToIndex(node.source.start, text) - 1
-  );
+  return node.source ? lineColumnToIndex(node.source.start, text) - 1 : null;
 }
 
 function calculateLocEnd(node, text) {
@@ -22,6 +18,7 @@ function calculateLocEnd(node, text) {
   if (node.source && node.source.end) {
     return lineColumnToIndex(node.source.end, text);
   }
+  return null;
 }
 
 function calculateLoc(node, text) {
