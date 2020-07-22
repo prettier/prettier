@@ -109,6 +109,7 @@ function parseValueNode(valueNode, options) {
       }
       parenGroup.close = node;
 
+      /* istanbul ignore next */
       if (commaGroupStack.length === 1) {
         throw new Error("Unbalanced parenthesis");
       }
@@ -294,6 +295,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
+    /* istanbul ignore next */
     if (!node.raws) {
       node.raws = {};
     }
@@ -581,9 +583,6 @@ function parseWithParser(parse, text, options) {
   try {
     result = parse(text);
   } catch (e) {
-    if (typeof e.line !== "number") {
-      throw e;
-    }
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
