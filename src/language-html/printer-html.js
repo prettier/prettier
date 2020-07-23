@@ -438,10 +438,8 @@ function genericPrint(path, options, print) {
         ]),
       ]);
     }
-    case "yaml":
-    case "toml":
-      return concat(replaceEndOfLineWith(node.raw, literalline));
     default:
+      /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
   }
 }
