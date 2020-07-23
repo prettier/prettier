@@ -941,9 +941,6 @@ function genericPrint(path, options, print) {
           : line,
       ]);
     }
-    case "value-comma": {
-      return concat([node.value, " "]);
-    }
     case "value-string": {
       return printString(
         node.raws.quote + node.value + node.raws.quote,
