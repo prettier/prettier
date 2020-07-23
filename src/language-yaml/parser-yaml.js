@@ -30,9 +30,13 @@ const parser = {
   astFormat: "yaml",
   parse,
   hasPragma,
-  locStart: (node) => node.position.start.offset,
+  locStart(node) {
+    return node.position.start.offset;
+  },
   /* istanbul ignore next */
-  locEnd: (node) => node.position.end.offset,
+  locEnd(node) {
+    return node.position.end.offset;
+  },
 };
 
 module.exports = {
