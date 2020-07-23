@@ -192,13 +192,13 @@ global.run_spec = (fixtures, parsers, options) => {
             codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
           }
 
-          if (hasEndOfLine) {
-            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
-          }
-
           // We snapshot the linux version
           if (mainOptions.endOfLine === "auto" && os.EOL === "\r\n") {
             codeForSnapshot = codeForSnapshot.replace(/\r\n/g, "\n");
+          }
+
+          if (hasEndOfLine) {
+            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
           }
 
           expect(
