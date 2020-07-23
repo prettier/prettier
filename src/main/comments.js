@@ -377,6 +377,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
 function printLeadingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
+  /* istanbul ignore next */
   if (!contents) {
     return "";
   }
@@ -403,6 +404,7 @@ function printLeadingComment(commentPath, options) {
 function printTrailingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
+  /* istanbul ignore next */
   if (!contents) {
     return "";
   }
@@ -498,6 +500,7 @@ function printComments(path, print, options, needsSemi) {
 
     if (leading) {
       const contents = printLeadingComment(commentPath, options);
+      /* istanbul ignore next */
       if (!contents) {
         return;
       }
