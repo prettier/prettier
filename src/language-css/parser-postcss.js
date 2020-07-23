@@ -583,6 +583,10 @@ function parseWithParser(parse, text, options) {
   try {
     result = parse(text);
   } catch (e) {
+    /* istanbul ignore next */
+    if (typeof e.line !== "number") {
+      throw e;
+    }
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
