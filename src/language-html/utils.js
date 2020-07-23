@@ -431,8 +431,6 @@ function inferScriptParser(node, options) {
       getParserName(node.attrMap.lang, options)
     );
   }
-
-  return null;
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
