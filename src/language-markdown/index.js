@@ -27,6 +27,7 @@ const printers = {
 };
 
 const parsers = {
+  /* istanbul ignore next */
   get remark() {
     return require("./parser-markdown").parsers.remark;
   },

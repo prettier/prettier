@@ -385,6 +385,9 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
+    // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
+    /* istanbul ignore next */
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -436,7 +439,9 @@ function genericPrint(path, options, print) {
     // MDX
     case "importExport":
     case "jsx":
-      return node.value; // fallback to the original text if multiparser failed
+      // fallback to the original text if multiparser failed
+      // or `embeddedLanguageFormatting: "off"`
+      return node.value; 
     case "math":
       return concat([
         "$$",
@@ -461,6 +466,7 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
+      /* istanbul ignore next */
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
 }
