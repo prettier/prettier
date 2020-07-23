@@ -775,8 +775,9 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
+        // Can't find a case to pass `shouldPrePrintTripleHardline`
+        /* istanbul ignore next */
         if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
-          /* istanbul ignore next */
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
           }
@@ -785,6 +786,10 @@ function printChildren(path, options, print, events) {
             shouldPrePrintDoubleHardline(childNode, data) ||
             shouldPrePrintTripleHardline(childNode, data)
           ) {
+            parts.push(hardline);
+          }
+
+          if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
           }
         }
