@@ -165,9 +165,7 @@ global.run_spec = (fixtures, parsers, options) => {
 
       const formattedWithCursor = format(input, filename, mainOptions);
       const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
-      const visualizedOutput = visualizeEndOfLine(
-        formattedWithCursor
-      );
+      const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
 
       test("format", () => {
         expect(visualizedOutput).toEqual(
