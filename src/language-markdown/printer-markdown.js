@@ -258,12 +258,6 @@ function genericPrint(path, options, print) {
         style,
       ]);
     }
-    case "yaml":
-    case "toml":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
-      );
     case "html": {
       const parentNode = path.getParentNode();
       const value =
