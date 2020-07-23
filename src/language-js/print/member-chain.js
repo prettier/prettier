@@ -324,6 +324,7 @@ function printMemberChain(path, options, print) {
   }
 
   function printIndentedGroup(groups) {
+    /* istanbul ignore next */
     if (groups.length === 0) {
       return "";
     }
