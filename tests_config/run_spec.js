@@ -184,6 +184,9 @@ global.run_spec = (fixtures, parsers, options) => {
             typeof baseOptions.rangeStart === "number" ||
             typeof baseOptions.rangeEnd === "number"
           ) {
+            if (TEST_CRLF) {
+              codeForSnapshot = codeForSnapshot.replace(/\n/g, "\r\n");
+            }
             codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
             codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
           }
