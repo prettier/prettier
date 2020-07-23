@@ -32,5 +32,9 @@
   "
   @click="doSomething()"
   @click="doSomething;"
+  @click="a.b;"
+  @click="a[1];"
+  @click="a['b'];"
+  @click="a[null];"
 ></div>
 </template>
