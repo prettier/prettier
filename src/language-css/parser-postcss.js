@@ -271,6 +271,7 @@ function parseMediaQuery(params) {
     result = mediaParser(params);
   } catch (e) {
     // Ignore bad media queries
+    /* istanbul ignore next */
     return {
       type: "selector-unknown",
       value: params,
