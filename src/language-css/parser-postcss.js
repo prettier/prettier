@@ -353,19 +353,7 @@ function parseNestedCSS(node, options) {
       node.raws.params = params;
     }
 
-    // Ignore LESS mixin declaration
     if (selector.trim().length > 0) {
-      if (selector.startsWith("@") && selector.endsWith(":")) {
-        return node;
-      }
-
-      // Ignore LESS mixins
-      if (node.mixin) {
-        node.selector = parseValue(selector, options);
-
-        return node;
-      }
-
       // Check on SCSS nested property
       if (isSCSSNestedPropertyNode(node)) {
         node.isSCSSNesterProperty = true;
