@@ -65,13 +65,16 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        return { ...node.typeAnnotation, ...composeLoc(node) };
+        node.typeAnnotation.range = composeLoc(node);
+        return node.typeAnnotation;
       }
       case "TSUnionType":
       case "TSIntersectionType":
         if (node.types.length === 1) {
+          const [firstType] = node.types;
           // override loc, so that comments are attached properly
-          return { ...node.types[0], ...composeLoc(node) };
+          firstType.range = composeLoc(node);
+          return firstType;
         }
         break;
       case "TSTypeParameter":
@@ -80,7 +83,7 @@ function postprocess(ast, options) {
           node.name = {
             type: "Identifier",
             name: node.name,
-            ...composeLoc(node, node.name.length),
+            range: composeLoc(node, node.name.length),
           };
         }
         break;
@@ -88,10 +91,7 @@ function postprocess(ast, options) {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
         const lastExpression = getLast(node.expressions);
         if (locEnd(node) > locEnd(lastExpression)) {
-          return {
-            ...node,
-            ...composeLoc(node, lastExpression),
-          };
+          node.range = composeLoc(node, lastExpression);
         }
         break;
       }
@@ -122,14 +122,7 @@ function postprocess(ast, options) {
     if (options.originalText[locEnd(toOverrideNode)] === ";") {
       return;
     }
-    if (Array.isArray(toBeOverriddenNode.range)) {
-      toBeOverriddenNode.range = [
-        toBeOverriddenNode.range[0],
-        toOverrideNode.range[1],
-      ];
-    } else {
-      toBeOverriddenNode.end = toOverrideNode.end;
-    }
+    toBeOverriddenNode.range = composeLoc(toBeOverriddenNode, toOverrideNode);
   }
 }
 
@@ -176,10 +169,10 @@ function rebalanceLogicalTree(node) {
       operator: node.operator,
       left: node.left,
       right: node.right.left,
-      ...composeLoc(node.left, node.right.left),
+      range: composeLoc(node.left, node.right.left),
     }),
     right: node.right.right,
-    ...composeLoc(node),
+    range: composeLoc(node),
   });
 }
 
