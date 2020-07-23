@@ -4,6 +4,7 @@ const { TEST_STANDALONE } = process.env;
 
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 const { isCI } = require("ci-info");
 const prettier = !TEST_STANDALONE
   ? require("prettier/local")
@@ -164,7 +165,9 @@ global.run_spec = (fixtures, parsers, options) => {
 
       const formattedWithCursor = format(input, filename, mainOptions);
       const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
-      const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
+      const visualizedOutput = visualizeEndOfLine(
+        formattedWithCursor
+      );
 
       test("format", () => {
         expect(visualizedOutput).toEqual(
@@ -193,6 +196,11 @@ global.run_spec = (fixtures, parsers, options) => {
 
           if (hasEndOfLine) {
             codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+          }
+
+          // We snapshot the linux version
+          if (mainOptions.endOfLine === "auto" && os.EOL === "\r\n") {
+            codeForSnapshot = codeForSnapshot.replace(/\r\n/g, "\n");
           }
 
           expect(
