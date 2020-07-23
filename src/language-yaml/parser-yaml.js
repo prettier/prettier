@@ -17,10 +17,12 @@ function parse(text) {
 
     return root;
   } catch (error) {
-    // istanbul ignore next
-    throw error && error.position
-      ? createError(error.message, error.position)
-      : error;
+    if (error && error.position) {
+      throw createError(error.message, error.position);
+    }
+
+    /* istanbul ignore next */
+    throw error;
   }
 }
 
@@ -29,6 +31,7 @@ const parser = {
   parse,
   hasPragma,
   locStart: (node) => node.position.start.offset,
+  /* istanbul ignore next */
   locEnd: (node) => node.position.end.offset,
 };
 
