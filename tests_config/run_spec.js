@@ -42,6 +42,7 @@ const unstableTests = new Map(
       (options) => options.proseWrap === "always",
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
+    "misc/embedded_language_formatting/mdx/import-export.mdx",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
