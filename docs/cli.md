@@ -204,3 +204,7 @@ $ cat abc.css | prettier --stdin-filepath abc.css
   display: none;
 }
 ```
+
+## `--ignore-unknown`
+
+Ignore unknown files.
