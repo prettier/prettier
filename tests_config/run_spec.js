@@ -192,9 +192,22 @@ global.run_spec = (fixtures, parsers, options) => {
             codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
           }
 
-          // Snapshot the `\n` result on windows
+          // When `TEST_CRLF` and `endOfLine: "auto"`, the eol is always `\r\n`,
+          // Replace it with guess result from original input
           if (TEST_CRLF && mainOptions.endOfLine === "auto") {
-            resultForSnapshot = resultForSnapshot.replace(/\r\n/g, "\n");
+            const {
+              guessEndOfLine,
+              convertEndOfLineToChars,
+            } = require("../src/common/end-of-line");
+            const originalAutoResult = convertEndOfLineToChars(
+              guessEndOfLine(code)
+            );
+            if (originalAutoResult !== "\r\n") {
+              resultForSnapshot = resultForSnapshot.replace(
+                /\r\n?/g,
+                originalAutoResult
+              );
+            }
           }
 
           if (hasEndOfLine) {
