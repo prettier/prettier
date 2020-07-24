@@ -38,6 +38,7 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       ...extraPlugins,
     ],
     tokens: true,
+    ranges: true,
   };
 }
 

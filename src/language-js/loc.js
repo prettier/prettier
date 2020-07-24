@@ -28,9 +28,7 @@ function composeLoc(startNode, endNodeOrLength = startNode) {
       ? start + endNodeOrLength
       : locEnd(endNodeOrLength);
 
-  return {
-    range: [start, end],
-  };
+  return [start, end];
 }
 
 module.exports = {

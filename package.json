@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "10.0.4",
+    "@angular/compiler": "10.0.5",
     "@babel/code-frame": "7.10.4",
     "@babel/parser": "7.10.5",
     "@glimmer/syntax": "0.55.0",
@@ -109,7 +109,7 @@
     "jest-watch-typeahead": "0.6.0",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
-    "rollup": "2.22.1",
+    "rollup": "2.22.2",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-terser": "6.1.0",
     "shelljs": "0.8.4",
