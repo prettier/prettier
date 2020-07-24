@@ -60,6 +60,9 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
+    if (context.argv["ignore-unknown"]) {
+      return;
+    }
     if (context.argv.write && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);

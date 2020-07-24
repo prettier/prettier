@@ -206,6 +206,10 @@ const options = {
     category: coreOptions.CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)",
   },
+  "ignore-unknown": {
+    type: "boolean",
+    description: "Ignore unknown files.",
+  },
 };
 
 const usageSummary = outdent`
