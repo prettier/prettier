@@ -60,7 +60,6 @@ function resolveParser(opts, parsers) {
         locEnd,
       };
     } catch (err) {
-      /* istanbul ignore next */
       throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
