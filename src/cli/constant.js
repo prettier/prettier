@@ -174,6 +174,10 @@ const options = {
     default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore.",
   },
+  "ignore-unknown": {
+    type: "boolean",
+    description: "Ignore unknown files.",
+  },
   "list-different": {
     type: "boolean",
     category: coreOptions.CATEGORY_OUTPUT,
@@ -205,10 +209,6 @@ const options = {
     type: "boolean",
     category: coreOptions.CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)",
-  },
-  "ignore-unknown": {
-    type: "boolean",
-    description: "Ignore unknown files.",
   },
 };
 
