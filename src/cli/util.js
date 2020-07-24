@@ -119,8 +119,9 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
-    resolveConfig: true,
+    resolveConfig: context.argv.config !== false,
   };
+
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),

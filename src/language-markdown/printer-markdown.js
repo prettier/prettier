@@ -435,10 +435,7 @@ function genericPrint(path, options, print) {
     case "jsx":
       // fallback to the original text if multiparser failed
       // or `embeddedLanguageFormatting: "off"`
-      // TODO: remove next comment when enable `tests/misc/embedded_language_formatting/mdx/jsfmt.spec.js` test
-      // #8819
-      /* istanbul ignore next */
-      return node.value;
+      return concat([node.value, hardline]);
     case "math":
       return concat([
         "$$",
