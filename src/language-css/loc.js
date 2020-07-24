@@ -4,6 +4,11 @@ const lineColumnToIndex = require("../utils/line-column-to-index");
 const { getLast, skipEverythingButNewLine } = require("../common/util");
 
 function calculateLocStart(node, text) {
+  // value-* nodes have this
+  if (typeof node.sourceIndex === "number") {
+    return node.sourceIndex;
+  }
+
   return node.source ? lineColumnToIndex(node.source.start, text) - 1 : null;
 }
 
