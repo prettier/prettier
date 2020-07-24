@@ -40,6 +40,18 @@ describe("file-info should try resolve config", () => {
   });
 });
 
+describe("file-info should not try resolve config with --no-config", () => {
+  runPrettier("cli/with-resolve-config/", [
+    "--file-info",
+    "file.js",
+    "--no-config",
+  ]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
 describe("extracts file-info with ignored=true for a file in a hand-picked .prettierignore", () => {
   runPrettier("cli/", [
     "--file-info",
