@@ -44,14 +44,6 @@ function clean(ast, newObj, parent) {
     return null;
   }
 
-  // We convert <div></div> to <div />
-  if (ast.type === "JSXOpeningElement") {
-    delete newObj.selfClosing;
-  }
-  if (ast.type === "JSXElement") {
-    delete newObj.closingElement;
-  }
-
   // We change {'key': value} into {key: value}.
   // And {key: value} into {'key': value}.
   // Also for (some) number keys.
