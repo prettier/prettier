@@ -6,11 +6,11 @@ describe("ignore-unknown dir", () => {
   runPrettier("cli/ignore-unknown", [
     ".",
     "--ignore-unknown",
-    "--list-different"
+    "--list-different",
   ]).test({
     status: "non-zero",
     stderr: "",
-    write: []
+    write: [],
   });
 });
 
@@ -18,11 +18,11 @@ describe("ignore-unknown pattern", () => {
   runPrettier("cli/ignore-unknown", [
     "*",
     "--ignore-unknown",
-    "--list-different"
+    "--list-different",
   ]).test({
     status: "non-zero",
     stderr: "",
-    write: []
+    write: [],
   });
 });
 
@@ -31,19 +31,15 @@ describe("ignore-unknown write", () => {
     ".",
     "--ignore-unknown",
     "--write",
-    "--list-different"
+    "--list-different",
   ]).test({
     status: 0,
-    stderr: ""
+    stderr: "",
   });
 });
 
 describe("ignore-unknown check", () => {
-  runPrettier("cli/ignore-unknown", [
-    ".",
-    "--ignore-unknown",
-    "--check",
-  ]).test({
-    status: 1
+  runPrettier("cli/ignore-unknown", [".", "--ignore-unknown", "--check"]).test({
+    status: 1,
   });
 });
