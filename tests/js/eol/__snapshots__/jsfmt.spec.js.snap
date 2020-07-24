@@ -10,6 +10,7 @@ printWidth: 80
 (function(){return        <|>15})()<LF>
 
 =====================================output=====================================
+** The EOL of output might not real when \`TEST_CRLF\` **
 (function () {<LF>
   return <|>15;<LF>
 })();<LF>
@@ -86,6 +87,7 @@ printWidth: 80
   7 | let    x<LF>
   8 | 
 =====================================output=====================================
+** The EOL of output might not real when \`TEST_CRLF\` **
 <LF>
 <LF>
 class a {<LF>
@@ -203,6 +205,7 @@ printWidth: 80
   8 | let    x <LF>
   9 | 
 =====================================output=====================================
+** The EOL of output might not real when \`TEST_CRLF\` **
 <LF>
 <LF>
 <LF>
