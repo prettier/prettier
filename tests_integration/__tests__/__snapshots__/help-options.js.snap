@@ -260,7 +260,7 @@ exports[`show detailed usage with --help import-formatting (stderr) 1`] = `""`;
 exports[`show detailed usage with --help import-formatting (stdout) 1`] = `
 "--import-formatting <auto|oneline>
 
-  Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\"Organize Imports\\" feature.
+  Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\"Organize Imports\\" feature.
 
 Valid options:
 

@@ -125,7 +125,7 @@ This option cannot be used with --range-start and --range-end.",
         },
         "importFormatting": Object {
           "default": "auto",
-          "description": "Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\"Organize Imports\\" feature.",
+          "description": "Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\"Organize Imports\\" feature.",
           "oneOf": Array [
             Object {
               "description": "automatic formatting, like Prettier",

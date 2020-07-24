@@ -77,7 +77,7 @@ Format options:
                            How to handle whitespaces in HTML.
                            Defaults to css.
   --import-formatting <auto|oneline>
-                           Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\"Organize Imports\\" feature.
+                           Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\"Organize Imports\\" feature.
                            Defaults to auto.
   --no-indent-chains       Do not print indents at the start of chained calls.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
@@ -252,7 +252,7 @@ Format options:
                            How to handle whitespaces in HTML.
                            Defaults to css.
   --import-formatting <auto|oneline>
-                           Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\"Organize Imports\\" feature.
+                           Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\"Organize Imports\\" feature.
                            Defaults to auto.
   --no-indent-chains       Do not print indents at the start of chained calls.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.

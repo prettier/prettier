@@ -910,7 +910,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         }
       ],
       \\"default\\": \\"auto\\",
-      \\"description\\": \\"Formatting of import statements, may be \`oneline\` to avoid confict with VSCode \\\\\\"Organize Imports\\\\\\" feature.\\",
+      \\"description\\": \\"Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\\\\\"Organize Imports\\\\\\" feature.\\",
       \\"name\\": \\"importFormatting\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"choice\\"

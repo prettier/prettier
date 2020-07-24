@@ -37,7 +37,7 @@ module.exports = {
     type: "choice",
     default: "auto",
     description:
-      "Formatting of import statements, may be `oneline` to avoid confict with" +
+      "Formatting of import statements, may be `oneline` to avoid conflict with" +
       ' VSCode "Organize Imports" feature.',
     choices: [
       {
