@@ -179,23 +179,33 @@ global.run_spec = (fixtures, parsers, options) => {
                 .replace(RANGE_END_PLACEHOLDER, "")
             : source;
           let codeOffset = 0;
+          let resultForSnapshot = formattedWithCursor;
 
           if (
             typeof baseOptions.rangeStart === "number" ||
             typeof baseOptions.rangeEnd === "number"
           ) {
+            if (TEST_CRLF && hasEndOfLine) {
+              codeForSnapshot = codeForSnapshot.replace(/\n/g, "\r\n");
+            }
             codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
             codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
           }
 
+          // Snapshot the `\n` result on windows
+          if (TEST_CRLF && mainOptions.endOfLine === "auto") {
+            resultForSnapshot = resultForSnapshot.replace(/\r\n/g, "\n");
+          }
+
           if (hasEndOfLine) {
             codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+            resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
           }
 
           expect(
             createSnapshot(
               codeForSnapshot,
-              hasEndOfLine ? visualizedOutput : formattedWithCursor,
+              resultForSnapshot,
               composeOptionsForSnapshot(baseOptions, parsers),
               { codeOffset }
             )
