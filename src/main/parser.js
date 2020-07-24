@@ -13,6 +13,8 @@ const ownDescriptor = Object.getOwnPropertyDescriptor;
 function getParsers(options) {
   const parsers = {};
   for (const plugin of options.plugins) {
+    // TODO: test this with plugins
+    /* istanbul ignore next */
     if (!plugin.parsers) {
       continue;
     }

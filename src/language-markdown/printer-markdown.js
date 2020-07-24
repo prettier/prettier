@@ -258,12 +258,6 @@ function genericPrint(path, options, print) {
         style,
       ]);
     }
-    case "yaml":
-    case "toml":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
-      );
     case "html": {
       const parentNode = path.getParentNode();
       const value =
@@ -437,13 +431,13 @@ function genericPrint(path, options, print) {
     case "liquidNode":
       return concat(replaceEndOfLineWith(node.value, hardline));
     // MDX
-    // TODO: remove next comment when enable `tests/misc/embedded_language_formatting/mdx/jsfmt.spec.js` test
-    // #8819
-    /* istanbul ignore next */
     case "importExport":
     case "jsx":
       // fallback to the original text if multiparser failed
       // or `embeddedLanguageFormatting: "off"`
+      // TODO: remove next comment when enable `tests/misc/embedded_language_formatting/mdx/jsfmt.spec.js` test
+      // #8819
+      /* istanbul ignore next */
       return node.value;
     case "math":
       return concat([
@@ -775,6 +769,8 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
+        // Can't find a case to pass `shouldPrePrintTripleHardline`
+        /* istanbul ignore next */
         if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
