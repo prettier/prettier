@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Ignored file (stderr) 1`] = `""`;
+
+exports[`Ignored file (stdout) 1`] = `""`;
+
+exports[`Ignored file (write) 1`] = `Array []`;
+
+exports[`None exist file (stderr) 1`] = `
+"[error] No files matching the pattern were found: \\"non-exist-file\\".
+"
+`;
+
+exports[`None exist file (stdout) 1`] = `""`;
+
+exports[`None exist file (write) 1`] = `Array []`;
+
+exports[`Not matching pattern (stderr) 1`] = `
+"[error] No files matching the pattern were found: \\"*.non-exist-pattern\\".
+"
+`;
+
+exports[`Not matching pattern (stdout) 1`] = `""`;
+
+exports[`Not matching pattern (write) 1`] = `Array []`;
+
 exports[`ignore-unknown check (stderr) 1`] = `
 "[warn] javascript.js
 [warn] Code style issues found in the above file(s). Forgot to run Prettier?
