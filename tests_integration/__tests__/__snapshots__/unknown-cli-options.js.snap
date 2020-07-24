@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Exit on unknown options "--unknown -0"} (stdout) 1`] = `
+"Invalid option \\"--unknown\\".
+"
+`;
+
+exports[`Exit on unknown options "--unknown"} (stdout) 1`] = `
+"Invalid option \\"--unknown\\".
+"
+`;
+
+exports[`Exit on unknown options "-0"} (stdout) 1`] = `
+"Invalid option \\"-0\\".
+"
+`;
