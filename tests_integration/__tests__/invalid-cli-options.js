@@ -14,6 +14,14 @@ for (const options of [
   unknownOptions,
 ]) {
   describe(`Exit on unknown options "${options.join(" ")}"}`, () => {
-    runPrettier(__dirname, [".", ...options]).test(assertion);
+    runPrettier(__dirname, ["foo.js", ...options]).test(assertion);
   });
 }
+
+describe("Not unknown options", () => {
+  runPrettier(__dirname, ["foo.js", "foo--bar"]).test({
+    status: 2,
+    stdout: "",
+    write: [],
+  });
+});

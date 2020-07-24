@@ -14,3 +14,9 @@ exports[`Exit on unknown options "-0"} (stdout) 1`] = `
 "Invalid option \\"-0\\".
 "
 `;
+
+exports[`Not unknown options (stderr) 1`] = `
+"[error] No files matching the pattern were found: \\"foo.js\\".
+[error] No files matching the pattern were found: \\"foo--bar\\".
+"
+`;

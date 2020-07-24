@@ -22,7 +22,7 @@ module.exports = function (args, options) {
     ...options,
     default: newDefaults,
     unknown(option) {
-      if (/-{1,2}/.test(option)) {
+      if (option.startsWith("-")) {
         console.log(`Invalid option "${option}".`);
         process.exit(1);
       }
