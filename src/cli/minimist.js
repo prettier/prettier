@@ -18,16 +18,7 @@ module.exports = function (args, options) {
     ...fromPairs(booleanWithoutDefault.map((key) => [key, PLACEHOLDER])),
   };
 
-  const parsed = minimist(args, {
-    ...options,
-    default: newDefaults,
-    unknown(option) {
-      if (option.startsWith("-")) {
-        console.log(`Invalid option "${option}".`);
-        process.exit(1);
-      }
-    },
-  });
+  const parsed = minimist(args, { ...options, default: newDefaults });
 
   return fromPairs(
     Object.entries(parsed).filter(([, value]) => value !== PLACEHOLDER)

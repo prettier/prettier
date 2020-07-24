@@ -31,7 +31,7 @@ describe("unknown options are warned", () => {
     "file.js",
     "--unknown",
   ]).test({
-    status: 0,
+    status: 1,
   });
 });
 
@@ -42,7 +42,7 @@ describe("unknown negated options are warned", () => {
     "file.js",
     "--no-unknown",
   ]).test({
-    status: 0,
+    status: 1,
   });
 });
 

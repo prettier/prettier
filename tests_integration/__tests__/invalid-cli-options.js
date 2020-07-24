@@ -2,10 +2,15 @@
 
 const runPrettier = require("../runPrettier");
 
-const unknownOptions = ["--unknown", "-0"];
+const unknownOptions = [
+  "--unknown",
+  "-0",
+  // TODO: this should not be a flag
+  "---unknown",
+];
 const assertion = {
   status: 1,
-  stderr: "",
+  stdout: "",
   write: [],
 };
 
@@ -18,10 +23,18 @@ for (const options of [
   });
 }
 
-describe("Not unknown options", () => {
-  runPrettier(__dirname, ["foo.js", "foo--bar"]).test({
-    status: 2,
-    stdout: "",
-    write: [],
+for (const option of ["-no-conf", "--html-whitespace", "--tab"]) {
+  describe(`Should suggest right option "${option}"}`, () => {
+    runPrettier(__dirname, ["foo.js", option]).test(assertion);
   });
-});
+}
+
+for (const option of ["-", "--", "un-known", "un--known"]) {
+  describe(`Not unknown option "${option}"`, () => {
+    runPrettier(__dirname, ["foo.js", option]).test({
+      status: 2,
+      stdout: "",
+      write: [],
+    });
+  });
+}
