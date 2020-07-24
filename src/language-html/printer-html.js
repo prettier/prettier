@@ -932,6 +932,7 @@ function printOpeningTagEndMarker(node) {
 
 function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
+  /* istanbul ignore next */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
