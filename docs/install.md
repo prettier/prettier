@@ -103,7 +103,7 @@ For example, you can add the following to your `package.json` to have ESLint and
     }
   },
   "lint-staged": {
-    "**/*": ["eslint --fix", "prettier --write"]
+    "**/*": ["eslint --fix", "prettier --write --ignore-unknown"]
   }
 }
 ```

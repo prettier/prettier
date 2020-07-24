@@ -103,7 +103,7 @@ and add this config to your `package.json`:
 {
   "husky": {
     "hooks": {
-      "pre-commit": "git-format-staged -f 'prettier --stdin --stdin-filepath \"{}\"' ."
+      "pre-commit": "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
     }
   }
 }
