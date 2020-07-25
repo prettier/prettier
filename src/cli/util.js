@@ -923,7 +923,7 @@ function initContext(context) {
 function updateContextOptions(context, plugins, pluginSearchDirs) {
   const { options: supportOptions, languages } = prettier.getSupportInfo({
     showDeprecated: true,
-    showUnreleased: true,
+    showUnreleased: false,
     showInternal: true,
     plugins,
     pluginSearchDirs,

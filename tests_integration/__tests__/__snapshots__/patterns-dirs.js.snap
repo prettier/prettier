@@ -96,6 +96,23 @@ dir2/node-shebang
 "
 `;
 
+exports[`Experimental plugins \`*\` (glimmer only, for now) (stderr) 1`] = `
+"[error] No parser could be inferred for file: alpha.handlebars
+[error] No parser could be inferred for file: alpha.hbs
+[error] No parser could be inferred for file: unknown.unknown
+"
+`;
+
+exports[`Experimental plugins \`*\` (glimmer only, for now) (stdout) 1`] = `
+"javascript.js
+"
+`;
+
+exports[`Experimental plugins \`.\` (glimmer only, for now) (stdout) 1`] = `
+"javascript.js
+"
+`;
+
 exports[`Negative patterns 1: prettier dir1 '!dir1/nested1' (stdout) 1`] = `
 "dir1/a1.js
 dir1/b1.js

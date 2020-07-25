@@ -58,6 +58,20 @@ testPatterns("Exclude yarn.lock when expanding directories", ["."], {
   stdout: expect.not.stringContaining("yarn.lock"),
 });
 
+describe("Experimental plugins `.` (glimmer only, for now)", () => {
+  runPrettier("cli/dirs/experimental-plugins", [".", "-l"]).test({
+    write: [],
+    stderr: "",
+    status: 1,
+  });
+});
+describe("Experimental plugins `*` (glimmer only, for now)", () => {
+  runPrettier("cli/dirs/experimental-plugins", ["*", "-l"]).test({
+    write: [],
+    status: 1,
+  });
+});
+
 if (path.sep === "/") {
   // Don't use snapshots in these tests as they're conditionally executed on non-Windows only.
 
