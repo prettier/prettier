@@ -14,6 +14,14 @@ describe("ignore-unknown dir", () => {
   });
 });
 
+describe("ignore-unknown alias", () => {
+  runPrettier("cli/ignore-unknown", [".", "-i", "--list-different"]).test({
+    status: "non-zero",
+    stderr: "",
+    write: [],
+  });
+});
+
 describe("ignore-unknown pattern", () => {
   runPrettier("cli/ignore-unknown", [
     "*",

@@ -176,6 +176,7 @@ const options = {
   },
   "ignore-unknown": {
     type: "boolean",
+    alias: "i",
     description: "Ignore unknown files.",
   },
   "list-different": {
