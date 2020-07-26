@@ -25,6 +25,8 @@
     "* typescript is moved to devDependencies, and",
     "  it is specified as optional in peerDependenciesMeta",
     "* codecov is removed from devDependencies",
+    "* cspell@3 with extra entries in cspell.json is used",
+    "  to work with Node.js 8",
     "<!-- -->"
   ],
   "dependencies": {
@@ -95,6 +97,7 @@
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
     "cross-env": "7.0.2",
+    "cspell": "3.2.17",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-formatter-friendly": "7.0.0",
@@ -161,6 +164,6 @@
     "build-extra-dist": "node --max-old-space-size=8192 ./scripts/build/build.js",
     "build": "echo 'use build-extra-dist for prettierx' && exit 1",
     "check-deps": "node ./scripts/check-deps.js",
-    "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
+    "spellcheck": "cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
   }
 }

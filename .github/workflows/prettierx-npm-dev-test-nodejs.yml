@@ -43,3 +43,6 @@ jobs:
       - run: npx cross-env EFF_NO_LINK_RULES=true eslint . --format friendly
       # subset of lint:prettier from prettier@2 package scripts:
       - run: npx prettier --check *.md docs/*.md .github/workflows/*.yml
+      # equivalent to spellcheck task (lint:spellcheck task from prettier@2):
+      - run: npx cspell bin/**/*.js scripts/**/*.js src/**/*.js
+      - run: npx cspell docs/**/*.md website/blog/**/*.md changelog_unreleased/**/*.md
