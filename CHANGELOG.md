@@ -10,6 +10,9 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.13.1
 
+- fix a spelling error in description of importFormatting opt
+- Update unified -> 9.1.0 - dependency (#279)
+
 [compare prettierx-0.13.0...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.13.0...dev)
 
 ## prettierx 0.13.0
