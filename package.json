@@ -24,6 +24,7 @@
   "// prettierx dependencies notes": [
     "* typescript is moved to devDependencies, and",
     "  it is specified as optional in peerDependenciesMeta",
+    "* codecov is removed from devDependencies",
     "<!-- -->"
   ],
   "dependencies": {
