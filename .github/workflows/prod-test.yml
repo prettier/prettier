@@ -39,6 +39,9 @@ jobs:
       - name: Build Package
         run: yarn build
 
+      - name: Copy stable version third-party.js to dist
+        run: cp node_modules/prettier/third-party.js dist
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
