@@ -748,13 +748,12 @@ function printAttributes(path, options, print) {
      *     /></span>
      */
     (node.isSelfClosing &&
-      needsToBorrowLastChildClosingTagEndMarker(node.parent))
+      needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
+    forceNotToBreakAttrContent
   ) {
     parts.push(node.isSelfClosing ? " " : "");
-  } else if (node.isSelfClosing) {
-    parts.push(forceNotToBreakAttrContent ? " " : line);
   } else {
-    parts.push(forceNotToBreakAttrContent ? "" : softline);
+    parts.push(node.isSelfClosing ? line : softline);
   }
 
   return concat(parts);
