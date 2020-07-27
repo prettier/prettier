@@ -197,7 +197,7 @@ These options cannot be used with `cursorOffset`.
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |
 | `Infinity` | `--range-end <int>`   | `rangeEnd: <int>`   |
 
-## Align object properties
+## break before else
 
 Align colons in multiline object literals (not applied with any of the JSON parsers).
 
@@ -258,6 +258,19 @@ Always add a line break before else.
 | Default | CLI Override          | API Override              |
 | ------- | --------------------- | ------------------------- |
 | `false` | `--break-before-else` | `breakBeforeElse: <bool>` |
+
+## Formatting of import statements
+
+Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.
+
+Valid options:
+
+- `"auto"` - automatic formatting, like Prettier
+- `"oneline"` - keep import statements on one line
+
+| Default  | CLI Override                                         | API Override                                         |
+| -------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| `"auto"` | <code>--import-formatting <auto&#124;oneline></code> | <code>importFormatting: "<auto&#124;oneline>"</code> |
 
 ## Parser
 
