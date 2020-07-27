@@ -975,13 +975,15 @@ ___________________________
 
 <!-- #6028 -->
 <pre><br></pre>
-<pre><hr></pre>
+<PRE><HR></PRE>
 <pre><br/></pre>
-<pre><hr/></pre>
+<PRE><HR/></PRE>
 <pre><br /></pre>
-<pre><hr /></pre>
+<PRE><HR /></PRE>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<PRE><DIV></DIV></PRE>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 =====================================output=====================================
 <pre>
@@ -1085,14 +1087,16 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><b/></pre>
-<pre><h/></pre>
+<pre><br></pre>
+<pre><HR></pre>
 <pre><br/></pre>
-<pre><hr/></pre>
+<pre><HR/></pre>
 <pre><br /></pre>
-<pre><hr /></pre>
+<pre><HR /></pre>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<pre><DIV></DIV></pre>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 ================================================================================
 `;
@@ -1196,13 +1200,15 @@ ___________________________
 
 <!-- #6028 -->
 <pre><br></pre>
-<pre><hr></pre>
+<PRE><HR></PRE>
 <pre><br/></pre>
-<pre><hr/></pre>
+<PRE><HR/></PRE>
 <pre><br /></pre>
-<pre><hr /></pre>
+<PRE><HR /></PRE>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<PRE><DIV></DIV></PRE>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 =====================================output=====================================
 <pre>
@@ -1306,14 +1312,16 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><b/></pre>
-<pre><h/></pre>
+<pre><br></pre>
+<pre><HR></pre>
 <pre><br/></pre>
-<pre><hr/></pre>
+<pre><HR/></pre>
 <pre><br /></pre>
-<pre><hr /></pre>
+<pre><HR /></pre>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<pre><DIV></DIV></pre>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 ================================================================================
 `;
@@ -1415,13 +1423,15 @@ ___________________________
 
 <!-- #6028 -->
 <pre><br></pre>
-<pre><hr></pre>
+<PRE><HR></PRE>
 <pre><br/></pre>
-<pre><hr/></pre>
+<PRE><HR/></PRE>
 <pre><br /></pre>
-<pre><hr /></pre>
+<PRE><HR /></PRE>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<PRE><DIV></DIV></PRE>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 =====================================output=====================================
 <pre>
@@ -1515,14 +1525,16 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><b/></pre>
-<pre><h/></pre>
+<pre><br></pre>
+<pre><HR></pre>
 <pre><br/></pre>
-<pre><hr/></pre>
+<pre><HR/></pre>
 <pre><br /></pre>
-<pre><hr /></pre>
+<pre><HR /></pre>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<pre><DIV></DIV></pre>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 ================================================================================
 `;
@@ -1625,13 +1637,15 @@ ___________________________
 
 <!-- #6028 -->
 <pre><br></pre>
-<pre><hr></pre>
+<PRE><HR></PRE>
 <pre><br/></pre>
-<pre><hr/></pre>
+<PRE><HR/></PRE>
 <pre><br /></pre>
-<pre><hr /></pre>
+<PRE><HR /></PRE>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<PRE><DIV></DIV></PRE>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 =====================================output=====================================
 <pre>
@@ -1759,14 +1773,16 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><b/></pre>
-<pre><h/></pre>
+<pre><br></pre>
+<pre><HR></pre>
 <pre><br/></pre>
-<pre><hr/></pre>
+<pre><HR/></pre>
 <pre><br /></pre>
-<pre><hr /></pre>
+<pre><HR /></pre>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<pre><DIV></DIV></pre>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 ================================================================================
 `;
@@ -1869,13 +1885,15 @@ ___________________________
 
 <!-- #6028 -->
 <pre><br></pre>
-<pre><hr></pre>
+<PRE><HR></PRE>
 <pre><br/></pre>
-<pre><hr/></pre>
+<PRE><HR/></PRE>
 <pre><br /></pre>
-<pre><hr /></pre>
+<PRE><HR /></PRE>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<PRE><DIV></DIV></PRE>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 =====================================output=====================================
 <pre>
@@ -1979,14 +1997,16 @@ ___________________________
 </details>
 
 <!-- #6028 -->
-<pre><b/></pre>
-<pre><h/></pre>
+<pre><br></pre>
+<pre><HR></pre>
 <pre><br/></pre>
-<pre><hr/></pre>
+<pre><HR/></pre>
 <pre><br /></pre>
-<pre><hr /></pre>
+<pre><HR /></pre>
 <pre><span></span></pre>
-<pre><div></div></pre>
+<pre><DIV></DIV></pre>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 ================================================================================
 `;
