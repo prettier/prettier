@@ -689,13 +689,6 @@ function printAttributes(path, options, print) {
       : "";
   }
 
-  const forceNotToBreakAttrContent =
-    node.type === "element" &&
-    node.fullName === "script" &&
-    node.attrs.length === 1 &&
-    node.attrs[0].fullName === "src" &&
-    node.children.length === 0;
-
   const ignoreAttributeData =
     node.prev &&
     node.prev.type === "comment" &&
@@ -705,7 +698,7 @@ function printAttributes(path, options, print) {
     typeof ignoreAttributeData === "boolean"
       ? () => ignoreAttributeData
       : Array.isArray(ignoreAttributeData)
-      ? (attr) => ignoreAttributeData.includes(attr.rawName)
+      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
       : () => false;
 
   const printedAttributes = path.map((attributePath) => {
@@ -722,6 +715,13 @@ function printAttributes(path, options, print) {
         )
       : print(attributePath);
   }, "attrs");
+
+  const forceNotToBreakAttrContent =
+    node.type === "element" &&
+    node.fullName === "script" &&
+    node.attrs.length === 1 &&
+    node.attrs[0].fullName === "src" &&
+    node.children.length === 0;
 
   const parts = [
     indent(
