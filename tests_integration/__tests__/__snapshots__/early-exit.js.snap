@@ -63,7 +63,7 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
@@ -222,7 +222,7 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
