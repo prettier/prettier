@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("prettier/local");
+const prettier = require("prettier-local");
 const docBuilders = prettier.doc.builders;
 const docUtils = prettier.doc.utils;
 

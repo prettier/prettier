@@ -6,8 +6,8 @@ const fs = require("fs");
 const path = require("path");
 const { isCI } = require("ci-info");
 const prettier = !TEST_STANDALONE
-  ? require("prettier/local")
-  : require("prettier/standalone");
+  ? require("prettier-local")
+  : require("prettier-standalone");
 const checkParsers = require("./utils/check-parsers");
 const visualizeRange = require("./utils/visualize-range");
 const createSnapshot = require("./utils/create-snapshot");
