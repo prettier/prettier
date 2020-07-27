@@ -655,20 +655,25 @@ function printChildren(path, options, print) {
 }
 
 function getNodeContent(node, options) {
-  return options.originalText.slice(
-    node.startSourceSpan.end.offset +
-      (node.firstChild &&
-      needsToBorrowParentOpeningTagEndMarker(node.firstChild)
-        ? -printOpeningTagEndMarker(node).length
-        : 0),
-    node.endSourceSpan.start.offset +
-      (node.lastChild &&
-      needsToBorrowParentClosingTagStartMarker(node.lastChild)
-        ? printClosingTagStartMarker(node, options).length
-        : needsToBorrowLastChildClosingTagEndMarker(node)
-        ? -printClosingTagEndMarker(node.lastChild, options).length
-        : 0)
-  );
+  let start = node.startSourceSpan.end.offset;
+  if (
+    node.firstChild &&
+    needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+  ) {
+    start -= printOpeningTagEndMarker(node).length;
+  }
+
+  let end = node.endSourceSpan.start.offset;
+  if (
+    node.lastChild &&
+    needsToBorrowParentClosingTagStartMarker(node.lastChild)
+  ) {
+    end += printClosingTagStartMarker(node, options).length;
+  } else if (needsToBorrowLastChildClosingTagEndMarker(node)) {
+    end -= printClosingTagEndMarker(node.lastChild, options).length;
+  }
+
+  return options.originalText.slice(start, end);
 }
 
 function printOpeningTag(path, options, print) {
