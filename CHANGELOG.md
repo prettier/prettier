@@ -8,7 +8,7 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.13.2-dev
+## prettierx 0.14.0-dev
 
 [compare prettierx-0.13.1...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.13.1...dev)
 
@@ -17,7 +17,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 - fix a spelling error in description of importFormatting opt
 - Update unified -> 9.1.0 - dependency (#279)
 
-[compare prettierx-0.13.0...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.13.0...dev)
+[compare prettierx-0.14.0...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.14.0...dev)
 
 ## prettierx 0.13.0
 
