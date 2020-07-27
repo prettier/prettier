@@ -2,9 +2,7 @@
   "name": "prettierx",
   "version": "0.14.0-dev",
   "description": "prettierx - less opinionated code formatter fork of prettier",
-  "bin": {
-    "prettierx": "./bin/prettierx.js"
-  },
+  "bin": "./bin/prettierx.js",
   "repository": "brodybits/prettierx",
   "homepage": "https://github.com/brodybits/prettierx",
   "author": "James Long",
