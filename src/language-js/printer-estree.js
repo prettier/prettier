@@ -263,14 +263,14 @@ function getPropertyPadding(options, path) {
   }
 
   const n = path.getValue();
-  const type = n.type;
+  const { type } = n;
 
   // grandparent node:
   const parentObject = path.getParentNode(1);
 
   // THIS IS A HACK:
   const shouldBreak = options.originalText
-    .substring(options.locStart(parentObject), options.locEnd(parentObject))
+    .slice(options.locStart(parentObject), options.locEnd(parentObject))
     .match(/\{\s*(\/.*)?\n/);
 
   if (!shouldBreak) {
@@ -292,7 +292,7 @@ function getPropertyPadding(options, path) {
   //   return "";
   // }
 
-  const properties = parentObject.properties;
+  const { properties } = parentObject;
   const lengths = properties.map(p => {
     if (!p.key) {
       return 0;
