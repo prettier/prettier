@@ -1,2 +1,5 @@
-run_spec(__dirname, ["typescript"]);
-run_spec(__dirname, ["typescript"], { semi: false });
+run_spec(__dirname, ["typescript"], { disableBabelTS: ["abstract.ts"] });
+run_spec(__dirname, ["typescript"], {
+  semi: false,
+  disableBabelTS: ["abstract.ts"]
+});

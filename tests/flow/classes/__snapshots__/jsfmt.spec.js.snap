@@ -149,7 +149,7 @@ type Foo = {
   a: string, // exists in TestClass
   b: string, // doesn't exist
   c?: ?string, // exists in TestClass, optional
-  d?: number // doesn't exist
+  d?: number, // doesn't exist
 };
 
 class TestClass {

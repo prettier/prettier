@@ -67,7 +67,7 @@ class Node {
   }
 
   clone(overrides) {
-    return new Node(overrides ? Object.assign({}, this, overrides) : this);
+    return new Node(overrides ? { ...this, ...overrides } : this);
   }
 
   get firstChild() {

@@ -9,7 +9,7 @@ printWidth: 80
 export default (function() {} + foo)\`\`;
 
 =====================================output=====================================
-export default (function() {} + foo)\`\`;
+export default (function () {} + foo)\`\`;
 
 ================================================================================
 `;
@@ -65,7 +65,7 @@ printWidth: 80
 export default (function() {}).toString();
 
 =====================================output=====================================
-export default (function() {}.toString());
+export default (function () {}.toString());
 
 ================================================================================
 `;

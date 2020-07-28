@@ -73,7 +73,7 @@ module.exports = true;
 function F() {
   this.x = 0;
 }
-F.prototype.m = function() {
+F.prototype.m = function () {
   this.y = 0;
 };
 

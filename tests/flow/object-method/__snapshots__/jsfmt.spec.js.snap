@@ -68,7 +68,7 @@ module.exports = id(
 const id = require("./id");
 
 export type ObjectType = {
-  +m: () => void
+  +m: () => void,
 };
 
 function methodCaller(x: ObjectType) {
@@ -113,11 +113,11 @@ function f() {
 
 var a = {
   p: 0,
-  f
+  f,
 };
 
 var b = {
-  f
+  f,
 };
 
 a.f(); // okey-dokie

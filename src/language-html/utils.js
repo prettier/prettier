@@ -30,6 +30,10 @@ function mapObject(object, fn) {
 }
 
 function shouldPreserveContent(node, options) {
+  if (!node.endSourceSpan) {
+    return false;
+  }
+
   if (
     node.type === "element" &&
     node.fullName === "template" &&
@@ -62,13 +66,13 @@ function shouldPreserveContent(node, options) {
     options.parser === "vue" &&
     node.type === "element" &&
     node.parent.type === "root" &&
-    [
+    ![
       "template",
       "style",
       "script",
       // vue parser can be used for vue dom template as well, so we should still format top-level <html>
       "html"
-    ].indexOf(node.fullName) === -1
+    ].includes(node.fullName)
   ) {
     return true;
   }
@@ -87,7 +91,7 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
-  if (node.type === "attribute" || isTextLikeNode(node)) {
+  if (node.type === "attribute") {
     return false;
   }
 
@@ -194,6 +198,7 @@ function isLeadingSpaceSensitiveNode(node) {
     if (
       !node.prev &&
       (node.parent.type === "root" ||
+        (isPreLikeNode(node) && node.parent) ||
         isScriptLikeTag(node.parent) ||
         !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
     ) {
@@ -235,6 +240,7 @@ function isTrailingSpaceSensitiveNode(node) {
   if (
     !node.next &&
     (node.parent.type === "root" ||
+      (isPreLikeNode(node) && node.parent) ||
       isScriptLikeTag(node.parent) ||
       !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
@@ -272,7 +278,7 @@ function forceBreakContent(node) {
     forceBreakChildren(node) ||
     (node.type === "element" &&
       node.children.length !== 0 &&
-      (["body", "script", "style"].indexOf(node.name) !== -1 ||
+      (["body", "script", "style"].includes(node.name) ||
         node.children.some(child => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
@@ -287,7 +293,7 @@ function forceBreakChildren(node) {
   return (
     node.type === "element" &&
     node.children.length !== 0 &&
-    (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
+    (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
 }
@@ -328,7 +334,8 @@ function hasTrailingLineBreak(node) {
     (node.next
       ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
       : node.parent.type === "root" ||
-        node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
+        (node.parent.endSourceSpan &&
+          node.parent.endSourceSpan.start.line > node.sourceSpan.end.line))
   );
 }
 
@@ -339,7 +346,7 @@ function preferHardlineAsSurroundingSpaces(node) {
     case "directive":
       return true;
     case "element":
-      return ["script", "select"].indexOf(node.name) !== -1;
+      return ["script", "select"].includes(node.name);
   }
   return false;
 }
@@ -359,7 +366,8 @@ function inferScriptParser(node) {
       node.attrMap.type === "module" ||
       node.attrMap.type === "text/javascript" ||
       node.attrMap.type === "text/babel" ||
-      node.attrMap.type === "application/javascript"
+      node.attrMap.type === "application/javascript" ||
+      node.attrMap.lang === "jsx"
     ) {
       return "babel";
     }
@@ -381,6 +389,10 @@ function inferScriptParser(node) {
       node.attrMap.type.endsWith("importmap")
     ) {
       return "json";
+    }
+
+    if (node.attrMap.type === "text/x-handlebars-template") {
+      return "glimmer";
     }
   }
 
@@ -493,17 +505,27 @@ function getNodeCssStyleDisplay(node, options) {
     default:
       return (
         (node.type === "element" &&
-          (!node.namespace || isInSvgForeignObject) &&
+          (!node.namespace ||
+            isInSvgForeignObject ||
+            isUnknownNamespace(node)) &&
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
   }
 }
 
+function isUnknownNamespace(node) {
+  return (
+    node.type === "element" &&
+    !node.hasExplicitNamespace &&
+    !["html", "svg"].includes(node.namespace)
+  );
+}
+
 function getNodeCssStyleWhiteSpace(node) {
   return (
     (node.type === "element" &&
-      !node.namespace &&
+      (!node.namespace || isUnknownNamespace(node)) &&
       CSS_WHITE_SPACE_TAGS[node.name]) ||
     CSS_WHITE_SPACE_DEFAULT
   );
@@ -556,7 +578,7 @@ function normalizeParts(parts) {
     }
 
     if (part.type === "concat") {
-      Array.prototype.unshift.apply(restParts, part.parts);
+      restParts.unshift(...part.parts);
       continue;
     }
 
@@ -627,6 +649,7 @@ module.exports = {
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
+  isUnknownNamespace,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,

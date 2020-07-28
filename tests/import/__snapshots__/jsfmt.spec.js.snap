@@ -27,7 +27,7 @@ import {
   itGo,
   multiLine,
   andMore,
-  soWeCanGetItTo80Columns
+  soWeCanGetItTo80Columns,
 } from ".";
 import { fitsIn, oneLine } from ".";
 
@@ -62,7 +62,7 @@ import {
   itGo,
   multiLine,
   andMore,
-  soWeCanGetItTo80Columns
+  soWeCanGetItTo80Columns,
 } from ".";
 import {fitsIn, oneLine} from ".";
 
@@ -126,25 +126,25 @@ import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b,
 } from "";
 
 import {
   //comment1
   //comment2
   //comment3
-  a as b1
+  a as b1,
 } from "";
 
 import {
   //comment2 //comment1
   //comment3
-  a as b2
+  a as b2,
 } from "";
 
 import {
   //comment3 //comment2 //comment1
-  a as b3
+  a as b3,
 } from "";
 
 import {
@@ -152,7 +152,7 @@ import {
   FN1, // comment 2
   /* comment 3 */ FN2,
   // FN3,
-  FN4 /* comment 4 */
+  FN4 /* comment 4 */,
   // FN4,
   // FN5
 } from "./module";
@@ -161,13 +161,13 @@ import {
   ExecutionResult,
   DocumentNode,
   /* tslint:disable */
-  SelectionSetNode
+  SelectionSetNode,
   /* tslint:enable */
 } from "graphql";
 
 import x, {
   // comment
-  y
+  y,
 } from "z";
 
 ================================================================================
@@ -231,25 +231,25 @@ import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b,
 } from "";
 
 import {
   //comment1
   //comment2
   //comment3
-  a as b1
+  a as b1,
 } from "";
 
 import {
   //comment2 //comment1
   //comment3
-  a as b2
+  a as b2,
 } from "";
 
 import {
   //comment3 //comment2 //comment1
-  a as b3
+  a as b3,
 } from "";
 
 import {
@@ -257,7 +257,7 @@ import {
   FN1, // comment 2
   /* comment 3 */ FN2,
   // FN3,
-  FN4 /* comment 4 */
+  FN4 /* comment 4 */,
   // FN4,
   // FN5
 } from "./module";
@@ -266,13 +266,13 @@ import {
   ExecutionResult,
   DocumentNode,
   /* tslint:disable */
-  SelectionSetNode
+  SelectionSetNode,
   /* tslint:enable */
 } from "graphql";
 
 import x, {
   // comment
-  y
+  y,
 } from "z";
 
 ================================================================================
@@ -322,11 +322,11 @@ import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomet
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import { somethingSuperLongsomethingSuperLong1 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
-  somethingSuperLongsomethingSuperLong2
+  somethingSuperLongsomethingSuperLong2,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {
   a2,
-  somethingSuperLongsomethingSuperLong3
+  somethingSuperLongsomethingSuperLong3,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
 ================================================================================
@@ -348,11 +348,11 @@ import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomet
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {somethingSuperLongsomethingSuperLong1} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
-  somethingSuperLongsomethingSuperLong2
+  somethingSuperLongsomethingSuperLong2,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {
   a2,
-  somethingSuperLongsomethingSuperLong3
+  somethingSuperLongsomethingSuperLong3,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
 ================================================================================

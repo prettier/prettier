@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const globby = require("globby");
-const format = require("../src/cli-util").format;
+const { format } = require("../src/cli-util");
 
 function tryFormat(file) {
   const content = fs.readFileSync(file, "utf8");

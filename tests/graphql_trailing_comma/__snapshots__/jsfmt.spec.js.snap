@@ -4,6 +4,7 @@ exports[`trailing.graphql 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 query Query(
@@ -123,7 +124,6 @@ exports[`trailing.graphql 3`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 query Query(

@@ -1,86 +1,105 @@
 "use strict";
 
-const semver = require("semver");
+const semver = {
+  compare: require("semver/functions/compare"),
+  lt: require("semver/functions/lt"),
+  gte: require("semver/functions/gte")
+};
 const arrayify = require("../utils/arrayify");
+/* [prettierx merge] not needed at this point:
 const currentVersion = require("../../package.json").version;
+// */
 const coreOptions = require("./core-options").options;
 
-function getSupportInfo(version, opts) {
-  opts = Object.assign(
-    {
-      plugins: [],
-      showUnreleased: false,
-      showDeprecated: false,
-      showInternal: false
-    },
-    opts
-  );
-
-  if (!version) {
-    // pre-release version is smaller than the normal version in semver,
-    // we need to treat it as the normal one so as to test new features.
-    version = currentVersion.split("-", 1)[0];
-  }
-
-  const plugins = opts.plugins;
+/**
+ * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
+ * of this function created by `withPlugins`. Don't pass them here directly.
+ * @param {object} param0
+ * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
+ * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
+ * @param {boolean=} param0.showUnreleased
+ * @param {boolean=} param0.showDeprecated
+ * @param {boolean=} param0.showInternal
+ */
+function getSupportInfo({
+  plugins = [],
+  showUnreleased = false,
+  showDeprecated = false,
+  showInternal = false
+} = {}) {
+  // [prettierx merge] quick workaround:
+  const version = "2.0.0";
+  /* [prettierx merge] ignore for now:
+  // pre-release version is smaller than the normal version in semver,
+  // we need to treat it as the normal one so as to test new features.
+  const version = currentVersion.split("-", 1)[0];
+  // */
 
   const options = arrayify(
-    Object.assign(
-      plugins.reduce(
-        (currentOptions, plugin) =>
-          Object.assign(currentOptions, plugin.options),
-        {}
-      ),
-      coreOptions
-    ),
+    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )
+    .filter(option => filterSince(option) && filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
+    /** [prettierx merge] GONE:
     //* .filter(filterSince)
     .filter(filterDeprecated)
     .map(mapDeprecated)
+    // */
     .map(mapInternal)
     .map(option => {
-      const newOption = Object.assign({}, option);
+      option = { ...option };
 
+      /** [prettierx merge] GONE:
       if (Array.isArray(newOption.default)) {
         newOption.default =
           newOption.default.length === 1
             ? newOption.default[0].value
             : newOption.default
                 //* .filter(filterSince)
+      // */
+      if (Array.isArray(option.default)) {
+        option.default =
+          option.default.length === 1
+            ? option.default[0].value
+            : option.default
+                .filter(filterSince)
                 .sort((info1, info2) =>
                   semver.compare(info2.since, info1.since)
                 )[0].value;
       }
 
+      /** [prettierx merge] GONE:
       if (Array.isArray(newOption.choices)) {
         newOption.choices = newOption.choices
           //* .filter(filterSince)
           .filter(filterDeprecated)
           .map(mapDeprecated);
+      // */
+      if (Array.isArray(option.choices)) {
+        option.choices = option.choices.filter(
+          option => filterSince(option) && filterDeprecated(option)
+        );
       }
 
-      return newOption;
-    })
-    .map(option => {
       const filteredPlugins = plugins.filter(
         plugin =>
           plugin.defaultOptions &&
           plugin.defaultOptions[option.name] !== undefined
       );
+
       const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
         reduced[plugin.name] = plugin.defaultOptions[option.name];
         return reduced;
       }, {});
-      return Object.assign(option, { pluginDefaults });
-    });
 
-  /** ** Old parsers not supported by prettierx:
+      //* [prettierx merge] GONE:
+      /** ** Old parsers not supported by prettierx:
   const usePostCssParser = semver.lt(version, "1.7.1");
   const useBabylonParser = semver.lt(version, "1.16.0");
   //* ** */
 
+      /* [prettierx merge] GONE:
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
     //* .filter(filterSince)
@@ -117,44 +136,54 @@ function getSupportInfo(version, opts) {
       }
       //* ** */
 
+      /* [prettierx merge] GONE:
       return language;
     });
 
   return { languages, options };
+  //* ** */
 
-  //* function filterSince(object) {
-  //*   return (
-  //*     opts.showUnreleased ||
-  //*     !("since" in object) ||
-  //*     (object.since && semver.gte(version, object.since))
-  //*   );
-  //* }
+      //* [prettierx merge] GONE:
+      //* function filterSince(object) {
+      //*   return (
+      //*     opts.showUnreleased ||
+      //*     !("since" in object) ||
+      //*     (object.since && semver.gte(version, object.since))
+      //*   );
+      //* }
+      return { ...option, pluginDefaults };
+    });
+
+  const languages = plugins
+    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
+    .filter(filterSince);
+
+  return { languages, options };
+
+  function filterSince(object) {
+    return (
+      showUnreleased ||
+      !("since" in object) ||
+      (object.since && semver.gte(version, object.since))
+    );
+  }
+
+  // [prettierx merge...]
   function filterDeprecated(object) {
     // filter deprecated as if this was prettier version 1.16.0:
     const version = "1.16.0";
     return (
-      opts.showDeprecated ||
+      showDeprecated ||
       !("deprecated" in object) ||
       (object.deprecated && semver.lt(version, object.deprecated))
     );
   }
-  function mapDeprecated(object) {
-    if (!object.deprecated || opts.showDeprecated) {
-      return object;
-    }
-    const newObject = Object.assign({}, object);
-    delete newObject.deprecated;
-    delete newObject.redirect;
-    return newObject;
-  }
+
   function mapInternal(object) {
-    if (opts.showInternal) {
+    if (showInternal) {
       return object;
     }
-    const newObject = Object.assign({}, object);
-    delete newObject.cliName;
-    delete newObject.cliCategory;
-    delete newObject.cliDescription;
+    const { cliName, cliCategory, cliDescription, ...newObject } = object;
     return newObject;
   }
 }

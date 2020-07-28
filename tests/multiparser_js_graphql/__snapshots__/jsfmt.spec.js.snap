@@ -552,7 +552,7 @@ gql\`
 
   \${FRIENDS_FRAGMENT}
   \${generateFragment({
-    totally: "a good idea"
+    totally: "a good idea",
   })}
 
   \${fragment}

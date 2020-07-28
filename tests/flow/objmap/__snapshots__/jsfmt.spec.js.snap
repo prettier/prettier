@@ -31,7 +31,7 @@ declare function keyMirror<O>(o: O): $ObjMapi<O, <K>(k: K) => K>;
 
 var o = keyMirror({
   FOO: null,
-  BAR: null
+  BAR: null,
 });
 
 (o.FOO: "FOO"); // ok
@@ -39,8 +39,8 @@ var o = keyMirror({
 
 promiseAllByKey({
   foo: Promise.resolve(0),
-  bar: "bar"
-}).then(o => {
+  bar: "bar",
+}).then((o) => {
   (o.foo: string); // error, number ~> string
   (o.bar: "bar"); // ok
 });

@@ -12,7 +12,8 @@ describe("write cursorOffset to stderr with --cursor-offset <int>", () => {
 
 describe("cursorOffset should not be affected by full-width character", () => {
   runPrettier("cli", ["--cursor-offset", "21", "--parser", "babel"], {
-    input: `const x = ["中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文"];`
+    input:
+      'const x = ["中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文", "中文"];'
     //                              ^ offset = 21                              ^ width = 80
   }).test({
     /**

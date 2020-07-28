@@ -24,7 +24,7 @@ function filterOutVoids<T>(arr: Array<?T>): Array<T> {
 }
 
 function filterOutSmall(arr: Array<?number>): Array<?number> {
-  return arr.filter(num => num && num > 10);
+  return arr.filter((num) => num && num > 10);
 }
 
 ================================================================================
@@ -57,7 +57,7 @@ console.log(filteredItems);
 
 function filterItems(items: Array<string | number>): Array<string | number> {
   return items
-    .map(item => {
+    .map((item) => {
       if (typeof item === "string") {
         return item.length > 2 ? item : null;
       } else {

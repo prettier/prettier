@@ -297,11 +297,11 @@ import { takeUntil } from "rxjs/operator/takeUntil";
 
 function test(observable) {
   return observable
-    ::filter(data => data.someTest)
+    ::filter((data) => data.someTest)
     ::throttle(() =>
       interval(10)
         ::take(1)
-        ::takeUntil(observable::filter(data => someOtherTest))
+        ::takeUntil(observable::filter((data) => someOtherTest))
     )
     ::map(someFunction);
 }
@@ -344,11 +344,11 @@ import { takeUntil } from "rxjs/operator/takeUntil"
 
 function test(observable) {
   return observable
-    ::filter(data => data.someTest)
+    ::filter((data) => data.someTest)
     ::throttle(() =>
       interval(10)
         ::take(1)
-        ::takeUntil(observable::filter(data => someOtherTest))
+        ::takeUntil(observable::filter((data) => someOtherTest))
     )
     ::map(someFunction)
 }

@@ -10,14 +10,11 @@ function createParser(_parse) {
       type: "NGRoot",
       node:
         options.parser === "__ng_action" && node.type !== "NGChainedExpression"
-          ? Object.assign({}, node, {
-              type: "NGChainedExpression",
-              expressions: [node]
-            })
+          ? { ...node, type: "NGChainedExpression", expressions: [node] }
           : node
     };
   };
-  return Object.assign({ astFormat: "estree", parse }, locFns);
+  return { astFormat: "estree", parse, ...locFns };
 }
 
 module.exports = {

@@ -67,23 +67,23 @@ let tests = [
 
 let tests = [
   // global
-  function() {
+  function () {
     copyProperties(); // error, unknown global
   },
 
   // annotation
-  function(copyProperties: Object$Assign) {
+  function (copyProperties: Object$Assign) {
     let result = {};
     result.baz = false;
     (copyProperties(result, { foo: "a" }, { bar: 123 }): {
       foo: string,
       bar: number,
-      baz: boolean
+      baz: boolean,
     });
   },
 
   // module from lib
-  function() {
+  function () {
     const copyProperties = require("copyProperties");
     let x = { foo: "a" };
     let y = { bar: 123 };
@@ -91,16 +91,16 @@ let tests = [
   },
 
   // too few args
-  function(copyProperties: Object$Assign) {
+  function (copyProperties: Object$Assign) {
     copyProperties();
     (copyProperties({ foo: "a" }): { foo: number }); // err, num !~> string
   },
 
   // passed as a function
-  function(copyProperties: Object$Assign) {
+  function (copyProperties: Object$Assign) {
     function x(cb: Function) {}
     x(copyProperties);
-  }
+  },
 ];
 
 ================================================================================
@@ -131,16 +131,16 @@ let tests = [
 /* @flow */
 
 let tests = [
-  function() {
+  function () {
     let x: ?string = null;
     invariant(x, "truthy only"); // error, forgot to require invariant
   },
 
-  function(invariant: Function) {
+  function (invariant: Function) {
     let x: ?string = null;
     invariant(x);
     (x: string);
-  }
+  },
 ];
 
 ================================================================================
@@ -226,12 +226,12 @@ let tests = [
 
 let tests = [
   // global
-  function() {
+  function () {
     mergeInto(); // error, unknown global
   },
 
   // annotation
-  function(mergeInto: $Facebookism$MergeInto) {
+  function (mergeInto: $Facebookism$MergeInto) {
     let result = {};
     result.baz = false;
     (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
@@ -239,22 +239,22 @@ let tests = [
   },
 
   // module from lib
-  function() {
+  function () {
     const mergeInto = require("mergeInto");
     let result: { foo?: string, bar?: number, baz: boolean } = { baz: false };
     (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
   },
 
   // too few args
-  function(mergeInto: $Facebookism$MergeInto) {
+  function (mergeInto: $Facebookism$MergeInto) {
     mergeInto();
   },
 
   // passed as a function
-  function(mergeInto: $Facebookism$MergeInto) {
+  function (mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {}
     x(mergeInto);
-  }
+  },
 ];
 
 ================================================================================

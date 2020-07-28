@@ -8,8 +8,7 @@
  */
 
 const React = require("react");
-const CompLibrary = require("../../core/CompLibrary");
-const Container = CompLibrary.Container;
+const { Container } = require("../../core/CompLibrary");
 
 const CWD = process.cwd();
 
@@ -22,9 +21,7 @@ const devVersion = isMasterDevVersion ? masterVersion : null;
 const latestVersion = isMasterDevVersion
   ? rootPackageJson.devDependencies.prettier
   : masterVersion;
-
-const latestDocsVersion = versions[0];
-const pastDocsVersions = versions.slice(1);
+const [latestDocsVersion, ...pastDocsVersions] = versions;
 
 function Versions(props) {
   const { config: siteConfig } = props;

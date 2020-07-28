@@ -66,7 +66,7 @@ let tests = [
 
 let tests = [
   // objects on RHS
-  function() {
+  function () {
     "foo" in {};
     "foo" in { foo: null };
     0 in {};
@@ -74,20 +74,20 @@ let tests = [
   },
 
   // arrays on RHS
-  function() {
+  function () {
     "foo" in [];
     0 in [];
     "length" in [];
   },
 
   // primitive classes on RHS
-  function() {
+  function () {
     "foo" in new String("bar");
     "foo" in new Number(123);
   },
 
   // primitives on RHS
-  function() {
+  function () {
     "foo" in 123; // error
     "foo" in "bar"; // error
     "foo" in void 0; // error
@@ -95,7 +95,7 @@ let tests = [
   },
 
   // bogus stuff on LHS
-  function() {
+  function () {
     null in {}; // error
     void 0 in {}; // error
     ({} in {}); // error
@@ -104,7 +104,7 @@ let tests = [
   },
 
   // in predicates
-  function() {
+  function () {
     if ("foo" in 123) {
     } // error
     if (!"foo" in {}) {
@@ -114,10 +114,10 @@ let tests = [
   },
 
   // annotations on RHS
-  function(x: Object, y: mixed) {
+  function (x: Object, y: mixed) {
     "foo" in x; // ok
     "foo" in y; // error
-  }
+  },
 ];
 
 ================================================================================

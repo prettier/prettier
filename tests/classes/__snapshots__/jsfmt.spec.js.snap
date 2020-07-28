@@ -88,7 +88,7 @@ class InMemoryAppender extends log4javascript.Appender
   implements ICachedLogMessageProvider {}
 
 class Foo extends Immutable.Record({
-  ipaddress: ""
+  ipaddress: "",
 }) {
   ipaddress: string;
 }
@@ -197,7 +197,7 @@ class C {
 }
 
 ({
-  name /*comment*/() {}
+  name /*comment*/() {},
 });
 
 ================================================================================
@@ -258,7 +258,7 @@ class B {
     this.props.foofoofoofoofoofoo && this.props.barbarbarbar;
 
   someInstanceProperty2 = {
-    foo: this.props.foofoofoofoofoofoo && this.props.barbarbarbar
+    foo: this.props.foofoofoofoofoofoo && this.props.barbarbarbar,
   };
 
   someInstanceProperty3 = "foo";

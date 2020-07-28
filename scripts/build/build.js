@@ -29,7 +29,7 @@ function fitTerminal(input) {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - stringWidth(OK) + 1;
   if (input.length < WIDTH) {
-    input += Array(WIDTH - input.length).join(chalk.dim("."));
+    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
 }
@@ -76,6 +76,8 @@ async function cacheFiles() {
 
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
+  // [prettierx merge ...]
+  // pkg.bin = "./bin-prettier.js";
   // [prettierx]
   pkg.bin = "./bin-prettierx.js";
   // [prettierx] use line like this to specify a different minimum
@@ -102,7 +104,7 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", "v19");
+  const bundleCache = new Cache(".cache/", "v21");
   await bundleCache.load();
 
   console.log(chalk.inverse(" Building packages "));

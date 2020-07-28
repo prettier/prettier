@@ -20,7 +20,7 @@ describe("multiple patterns with non exists pattern", () => {
     "non-existent.js",
     "-l"
   ]).test({
-    status: 1
+    status: 2
   });
 });
 

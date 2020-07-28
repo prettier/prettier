@@ -19,7 +19,8 @@ function startWithPragma(text) {
 
 module.exports = {
   startWithPragma,
-  hasPragma: text => startWithPragma(parseFrontMatter(text).content.trimLeft()),
+  hasPragma: text =>
+    startWithPragma(parseFrontMatter(text).content.trimStart()),
   insertPragma: text => {
     const extracted = parseFrontMatter(text);
     const pragma = `<!-- @${pragmas[0]} -->`;

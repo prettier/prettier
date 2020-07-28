@@ -7,30 +7,6 @@ const getLast = require("../utils/get-last");
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
 
-function isExportDeclaration(node) {
-  if (node) {
-    switch (node.type) {
-      case "ExportDefaultDeclaration":
-      case "ExportDefaultSpecifier":
-      case "DeclareExportDeclaration":
-      case "ExportNamedDeclaration":
-      case "ExportAllDeclaration":
-        return true;
-    }
-  }
-
-  return false;
-}
-
-function getParentExportDeclaration(path) {
-  const parentNode = path.getParentNode();
-  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
-    return parentNode;
-  }
-
-  return null;
-}
-
 function getPenultimate(arr) {
   if (arr.length > 1) {
     return arr[arr.length - 2];
@@ -56,7 +32,7 @@ function skip(chars) {
       return false;
     }
 
-    const length = text.length;
+    const { length } = text;
     let cursor = index;
     while (cursor >= 0 && cursor < length) {
       const c = text.charAt(cursor);
@@ -64,7 +40,7 @@ function skip(chars) {
         if (!chars.test(c)) {
           return cursor;
         }
-      } else if (chars.indexOf(c) === -1) {
+      } else if (!chars.includes(c)) {
         return cursor;
       }
 
@@ -779,20 +755,6 @@ function hasNodeIgnoreComment(node) {
   );
 }
 
-function matchAncestorTypes(path, types, index) {
-  index = index || 0;
-  types = types.slice();
-  while (types.length) {
-    const parent = path.getParentNode(index);
-    const type = types.shift();
-    if (!parent || parent.type !== type) {
-      return false;
-    }
-    index++;
-  }
-  return true;
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
@@ -859,8 +821,6 @@ module.exports = {
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
-  isExportDeclaration,
-  getParentExportDeclaration,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -891,7 +851,6 @@ module.exports = {
   hasIgnoreComment,
   hasNodeIgnoreComment,
   makeString,
-  matchAncestorTypes,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,

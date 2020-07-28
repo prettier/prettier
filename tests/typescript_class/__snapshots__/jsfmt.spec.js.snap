@@ -14,6 +14,13 @@ class foo {
   constructor(export a: number) {}
 }
 
+class A {
+    'constructor': typeof A
+    static Foo() {
+        return new A()
+    }
+}
+
 =====================================output=====================================
 class foo {
   constructor(static a: number) {}
@@ -21,6 +28,13 @@ class foo {
 
 class foo {
   constructor(export a: number) {}
+}
+
+class A {
+  "constructor": typeof A;
+  static Foo() {
+    return new A();
+  }
 }
 
 ================================================================================
@@ -235,6 +249,60 @@ class User {
 =====================================output=====================================
 class User {
   "username": string;
+}
+
+================================================================================
+`;
+
+exports[`standard_private_fields.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Square {
+    #sideLength: number;
+    readonly #area: number;
+    #unit?: string;
+
+    constructor(sideLength: number, unit?: string) {
+        this.#sideLength = sideLength;
+        this.#area = this.#sideLength ** 2;
+        if (unit) {
+          this.#unit = unit;
+        }
+    }
+
+    equals(other: any) {
+        return this.#sideLength === other.#sideLength;
+    }
+
+    getArea() {
+      return this.#area + (this.#unit ?? 'px') + '²';
+    }
+}
+
+=====================================output=====================================
+class Square {
+  #sideLength: number;
+  readonly #area: number;
+  #unit?: string;
+
+  constructor(sideLength: number, unit?: string) {
+    this.#sideLength = sideLength;
+    this.#area = this.#sideLength ** 2;
+    if (unit) {
+      this.#unit = unit;
+    }
+  }
+
+  equals(other: any) {
+    return this.#sideLength === other.#sideLength;
+  }
+
+  getArea() {
+    return this.#area + (this.#unit ?? "px") + "²";
+  }
 }
 
 ================================================================================

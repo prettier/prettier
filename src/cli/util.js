@@ -4,14 +4,19 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
-const globby = require("globby");
+
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
+const fromPairs = require("lodash/fromPairs");
+const pick = require("lodash/pick");
+const groupBy = require("lodash/groupBy");
+const flat = require("lodash/flatten");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
 const createIgnorer = require("../common/create-ignorer");
+const expandPatterns = require("./expand-patterns");
 const errors = require("../common/errors");
 const constant = require("./constant");
 const coreOptions = require("../main/core-options");
@@ -26,15 +31,11 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv, detailedOptions) {
-  return detailedOptions
-    .filter(option => option.forwardToApi)
-    .reduce(
-      (current, option) =>
-        Object.assign(current, {
-          [option.forwardToApi]: argv[option.name]
-        }),
-      {}
-    );
+  return fromPairs(
+    detailedOptions
+      .filter(({ forwardToApi }) => forwardToApi)
+      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
+  );
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {
@@ -55,18 +56,18 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv["write"] && isTTY()) {
+    if (context.argv.write && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
     }
-    if (!context.argv["check"] && !context.argv["list-different"]) {
+    if (!context.argv.check && !context.argv["list-different"]) {
       process.exitCode = 2;
     }
     context.logger.error(error.message);
     return;
   }
 
-  if (context.argv["write"]) {
+  if (context.argv.write) {
     // Add newline to split errors from filename line.
     process.stdout.write("\n");
   }
@@ -109,7 +110,7 @@ function logFileInfoOrDie(context) {
   const options = {
     ignorePath: context.argv["ignore-path"],
     withNodeModules: context.argv["with-node-modules"],
-    plugins: context.argv["plugin"],
+    plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"]
   };
   context.logger.log(
@@ -132,7 +133,7 @@ function writeOutput(context, result, options) {
 }
 
 function listDifferent(context, input, options, filename) {
-  if (!context.argv["check"] && !context.argv["list-different"]) {
+  if (!context.argv.check && !context.argv["list-different"]) {
     return;
   }
 
@@ -143,7 +144,7 @@ function listDifferent(context, input, options, filename) {
       );
     }
     if (!prettier.check(input, options)) {
-      if (!context.argv["write"]) {
+      if (!context.argv.write) {
         context.logger.log(filename);
         process.exitCode = 1;
       }
@@ -183,6 +184,7 @@ function format(context, input, opt) {
         prettier.__debug.parse(pp, opt, /* massage */ true).ast
       );
 
+      /* istanbul ignore next */
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
         const astDiff =
@@ -200,7 +202,7 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
-  /* istanbul ignore if */
+  /* istanbul ignore next */
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
@@ -263,7 +265,7 @@ function format(context, input, opt) {
 
 function getOptionsOrDie(context, filePath) {
   try {
-    if (context.argv["config"] === false) {
+    if (context.argv.config === false) {
       context.logger.debug(
         "'--no-config' option found, skip loading config file."
       );
@@ -271,14 +273,14 @@ function getOptionsOrDie(context, filePath) {
     }
 
     context.logger.debug(
-      context.argv["config"]
-        ? `load config file from '${context.argv["config"]}'`
+      context.argv.config
+        ? `load config file from '${context.argv.config}'`
         : `resolve config from '${filePath}'`
     );
 
     const options = prettier.resolveConfig.sync(filePath, {
-      editorconfig: context.argv["editorconfig"],
-      config: context.argv["config"]
+      editorconfig: context.argv.editorconfig,
+      config: context.argv.config
     });
 
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -299,16 +301,16 @@ function getOptionsForFile(context, filepath) {
     pushContextPlugins(context, options.plugins);
   }
 
-  const appliedOptions = Object.assign(
-    { filepath },
-    applyConfigPrecedence(
+  const appliedOptions = {
+    filepath,
+    ...applyConfigPrecedence(
       context,
       options &&
         optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger
         })
     )
-  );
+  };
 
   context.logger.debug(
     `applied config-precedence (${context.argv["config-precedence"]}): ` +
@@ -329,14 +331,11 @@ function parseArgsToOptions(context, overrideDefaults) {
   );
   return getOptions(
     optionsNormalizer.normalizeCliOptions(
-      minimist(
-        context.args,
-        Object.assign({
-          string: minimistOptions.string,
-          boolean: minimistOptions.boolean,
-          default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
-        })
-      ),
+      minimist(context.args, {
+        string: minimistOptions.string,
+        boolean: minimistOptions.boolean,
+        default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
+      }),
       context.detailedOptions,
       { logger: false }
     ),
@@ -350,7 +349,7 @@ function applyConfigPrecedence(context, options) {
       case "cli-override":
         return parseArgsToOptions(context, options);
       case "file-override":
-        return Object.assign({}, parseArgsToOptions(context), options);
+        return { ...parseArgsToOptions(context), ...options };
       case "prefer-file":
         return options || parseArgsToOptions(context);
     }
@@ -366,7 +365,11 @@ function formatStdin(context) {
     : process.cwd();
 
   const ignorer = createIgnorerFromContextOrDie(context);
-  const relativeFilepath = path.relative(process.cwd(), filepath);
+  // If there's an ignore-path set, the filename must be relative to the
+  // ignore path, not the current working directory.
+  const relativeFilepath = context.argv["ignore-path"]
+    ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
+    : path.relative(process.cwd(), filepath);
 
   thirdParty
     .getStream(process.stdin)
@@ -401,36 +404,6 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function eachFilename(context, patterns, callback) {
-  // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-  const ignoreNodeModules = context.argv["with-node-modules"] !== true;
-  if (ignoreNodeModules) {
-    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-  }
-  patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
-
-  try {
-    const filePaths = globby
-      .sync(patterns, { dot: true, nodir: true })
-      .map(filePath => path.relative(process.cwd(), filePath));
-
-    if (filePaths.length === 0) {
-      context.logger.error(
-        `No matching files. Patterns tried: ${patterns.join(" ")}`
-      );
-      process.exitCode = 2;
-      return;
-    }
-    filePaths.forEach(filePath => callback(filePath));
-  } catch (error) {
-    context.logger.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
-    );
-    // Don't exit the process if one pattern failed
-    process.exitCode = 2;
-  }
-}
-
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -438,25 +411,39 @@ function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv["check"]) {
+  if (context.argv.check) {
     context.logger.log("Checking formatting...");
   }
 
-  eachFilename(context, context.filePatterns, filename => {
-    const fileIgnored = ignorer.filter([filename]).length === 0;
+  for (const pathOrError of expandPatterns(context)) {
+    if (typeof pathOrError === "object") {
+      context.logger.error(pathOrError.error);
+      // Don't exit, but set the exit code to 2
+      process.exitCode = 2;
+      continue;
+    }
+
+    const filename = pathOrError;
+    // If there's an ignore-path set, the filename must be relative to the
+    // ignore path, not the current working directory.
+    const ignoreFilename = context.argv["ignore-path"]
+      ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
+      : filename;
+    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
-        context.argv["write"] ||
-        context.argv["check"] ||
+        context.argv.write ||
+        context.argv.check ||
         context.argv["list-different"])
     ) {
-      return;
+      continue;
     }
 
-    const options = Object.assign(getOptionsForFile(context, filename), {
+    const options = {
+      ...getOptionsForFile(context, filename),
       filepath: filename
-    });
+    };
 
     if (isTTY()) {
       context.logger.log(filename, { newline: false });
@@ -474,12 +461,12 @@ function formatFiles(context) {
       );
       // Don't exit the process if one file failed
       process.exitCode = 2;
-      return;
+      continue;
     }
 
     if (fileIgnored) {
       writeOutput(context, { formatted: input }, options);
-      return;
+      continue;
     }
 
     const start = Date.now();
@@ -488,15 +475,11 @@ function formatFiles(context) {
     let output;
 
     try {
-      result = format(
-        context,
-        input,
-        Object.assign({}, options, { filepath: filename })
-      );
+      result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error);
-      return;
+      continue;
     }
 
     const isDifferent = output !== input;
@@ -507,11 +490,11 @@ function formatFiles(context) {
       readline.cursorTo(process.stdout, 0, null);
     }
 
-    if (context.argv["write"]) {
+    if (context.argv.write) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
-        if (!context.argv["check"] && !context.argv["list-different"]) {
+        if (!context.argv.check && !context.argv["list-different"]) {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
@@ -524,7 +507,7 @@ function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
-      } else if (!context.argv["check"] && !context.argv["list-different"]) {
+      } else if (!context.argv.check && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
@@ -533,25 +516,22 @@ function formatFiles(context) {
       } else {
         process.exitCode = 2;
       }
-    } else if (!context.argv["check"] && !context.argv["list-different"]) {
+    } else if (!context.argv.check && !context.argv["list-different"]) {
       writeOutput(context, result, options);
     }
 
-    if (
-      (context.argv["check"] || context.argv["list-different"]) &&
-      isDifferent
-    ) {
+    if ((context.argv.check || context.argv["list-different"]) && isDifferent) {
       context.logger.log(filename);
       numberOfUnformattedFilesFound += 1;
     }
-  });
+  }
 
   // Print check summary based on expected exit code
-  if (context.argv["check"]) {
+  if (context.argv.check) {
     context.logger.log(
       numberOfUnformattedFilesFound === 0
         ? "All matched files use Prettier code style!"
-        : context.argv["write"]
+        : context.argv.write
         ? "Code style issues fixed in the above file(s)."
         : "Code style issues found in the above file(s). Forgot to run Prettier?"
     );
@@ -559,10 +539,10 @@ function formatFiles(context) {
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write
   if (
-    (context.argv["check"] || context.argv["list-different"]) &&
+    (context.argv.check || context.argv["list-different"]) &&
     numberOfUnformattedFilesFound > 0 &&
     !process.exitCode &&
-    !context.argv["write"]
+    !context.argv.write
   ) {
     process.exitCode = 1;
   }
@@ -573,14 +553,15 @@ function getOptionsWithOpposites(options) {
   const optionsWithOpposites = options.map(option => [
     option.description ? option : null,
     option.oppositeDescription
-      ? Object.assign({}, option, {
+      ? {
+          ...option,
           name: `no-${option.name}`,
           type: "boolean",
           description: option.oppositeDescription
-        })
+        }
       : null
   ]);
-  return flattenArray(optionsWithOpposites).filter(Boolean);
+  return flat(optionsWithOpposites).filter(Boolean);
 }
 
 function createUsage(context) {
@@ -599,11 +580,13 @@ function createUsage(context) {
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    category =>
-      firstCategories.indexOf(category) === -1 &&
-      lastCategories.indexOf(category) === -1
+    category => !constant.categoryOrder.includes(category)
   );
-  const allCategories = firstCategories.concat(restCategories, lastCategories);
+  const allCategories = [
+    ...firstCategories,
+    ...restCategories,
+    ...lastCategories
+  ];
 
   const optionsUsage = allCategories.map(category => {
     const categoryOptions = groupedOptions[category]
@@ -659,17 +642,12 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter(choice => choice.since !== null)
-        .filter(choice => !choice.deprecated)
+        .filter(choice => !choice.deprecated && choice.since !== null)
         .map(choice => choice.value)
         .join("|")}>`;
     default:
       return `<${option.type}>`;
   }
-}
-
-function flattenArray(array) {
-  return [].concat.apply([], array);
 }
 
 function createChoiceUsages(choices, margin, indentation) {
@@ -747,23 +725,6 @@ function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
 }
 
-function groupBy(array, getKey) {
-  return array.reduce((obj, item) => {
-    const key = getKey(item);
-    const previousItems = key in obj ? obj[key] : [];
-    return Object.assign({}, obj, { [key]: previousItems.concat(item) });
-  }, Object.create(null));
-}
-
-function pick(object, keys) {
-  return !keys
-    ? object
-    : keys.reduce(
-        (reduced, key) => Object.assign(reduced, { [key]: object[key] }),
-        {}
-      );
-}
-
 function createLogger(logLevel) {
   return {
     warn: createLogFunc("warn", "yellow"),
@@ -779,7 +740,7 @@ function createLogger(logLevel) {
 
     const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     return function(message, opts) {
-      opts = Object.assign({ newline: true }, opts);
+      opts = { newline: true, ...opts };
       const stream = process[loggerName === "log" ? "stdout" : "stderr"];
       stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
     };
@@ -813,31 +774,31 @@ function createLogger(logLevel) {
 }
 
 function normalizeDetailedOption(name, option) {
-  return Object.assign({ category: coreOptions.CATEGORY_OTHER }, option, {
+  return {
+    category: coreOptions.CATEGORY_OTHER,
+    ...option,
     choices:
       option.choices &&
       option.choices.map(choice => {
-        const newChoice = Object.assign(
-          { description: "", deprecated: false },
-          typeof choice === "object" ? choice : { value: choice }
-        );
+        const newChoice = {
+          description: "",
+          deprecated: false,
+          ...(typeof choice === "object" ? choice : { value: choice })
+        };
         if (newChoice.value === true) {
           newChoice.value = ""; // backward compatibility for original boolean option
         }
         return newChoice;
       })
-  });
+  };
 }
 
 function normalizeDetailedOptionMap(detailedOptionMap) {
-  return Object.keys(detailedOptionMap)
-    .sort()
-    .reduce((normalized, name) => {
-      const option = detailedOptionMap[name];
-      return Object.assign(normalized, {
-        [name]: normalizeDetailedOption(name, option)
-      });
-    }, {});
+  return fromPairs(
+    Object.entries(detailedOptionMap)
+      .sort(([leftName], [rightName]) => leftName.localeCompare(rightName))
+      .map(([name, option]) => [name, normalizeDetailedOption(name, option)])
+  );
 }
 
 function createMinimistOptions(detailedOptions) {
@@ -853,79 +814,85 @@ function createMinimistOptions(detailedOptions) {
       .map(option => [option.name].concat(option.alias || []))
       .reduce((a, b) => a.concat(b)),
     default: detailedOptions
-      .filter(option => !option.deprecated)
       .filter(
         option =>
-          !option.forwardToApi ||
-          option.name === "plugin" ||
-          option.name === "plugin-search-dir"
+          !option.deprecated &&
+          (!option.forwardToApi ||
+            option.name === "plugin" ||
+            option.name === "plugin-search-dir") &&
+          option.default !== undefined
       )
-      .filter(option => option.default !== undefined)
       .reduce(
-        (current, option) =>
-          Object.assign({ [option.name]: option.default }, current),
+        (current, option) => ({ [option.name]: option.default, ...current }),
         {}
       )
   };
 }
 
 function createApiDetailedOptionMap(detailedOptions) {
-  return detailedOptions.reduce(
-    (current, option) =>
-      option.forwardToApi && option.forwardToApi !== option.name
-        ? Object.assign(current, { [option.forwardToApi]: option })
-        : current,
-    {}
+  return fromPairs(
+    detailedOptions
+      .filter(
+        option => option.forwardToApi && option.forwardToApi !== option.name
+      )
+      .map(option => [option.forwardToApi, option])
   );
 }
 
 function createDetailedOptionMap(supportOptions) {
-  return supportOptions.reduce((reduced, option) => {
-    const newOption = Object.assign({}, option, {
-      name: option.cliName || dashify(option.name),
-      description: option.cliDescription || option.description,
-      category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
-      forwardToApi: option.name
-    });
+  return fromPairs(
+    supportOptions.map(option => {
+      const newOption = {
+        ...option,
+        name: option.cliName || dashify(option.name),
+        description: option.cliDescription || option.description,
+        category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
+        forwardToApi: option.name
+      };
 
-    if (option.deprecated) {
-      delete newOption.forwardToApi;
-      delete newOption.description;
-      delete newOption.oppositeDescription;
-      newOption.deprecated = true;
-    }
+      if (option.deprecated) {
+        delete newOption.forwardToApi;
+        delete newOption.description;
+        delete newOption.oppositeDescription;
+        newOption.deprecated = true;
+      }
 
-    return Object.assign(reduced, { [newOption.name]: newOption });
-  }, {});
+      return [newOption.name, newOption];
+    })
+  );
 }
 
 //-----------------------------context-util-start-------------------------------
 /**
  * @typedef {Object} Context
  * @property logger
- * @property args
+ * @property {string[]} args
  * @property argv
- * @property filePatterns
- * @property supportOptions
+ * @property {string[]} filePatterns
+ * @property {any[]} supportOptions
  * @property detailedOptions
  * @property detailedOptionMap
  * @property apiDefaultOptions
+ * @property languages
+ * @property {Partial<Context>[]} stack
  */
+
+/** @returns {Context} */
 function createContext(args) {
-  const context = { args };
+  const context = { args, stack: [] };
 
   updateContextArgv(context);
   normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
 
-  context.logger = createLogger(context.argv["loglevel"]);
+  context.logger = createLogger(context.argv.loglevel);
 
   updateContextArgv(
     context,
-    context.argv["plugin"],
+    context.argv.plugin,
     context.argv["plugin-search-dir"]
   );
 
-  return context;
+  return /** @type {Context} */ (context);
 }
 
 function initContext(context) {
@@ -933,48 +900,68 @@ function initContext(context) {
   normalizeContextArgv(context);
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo(null, {
+  const { options: supportOptions, languages } = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
     plugins,
     pluginSearchDirs
-  }).options;
+  });
 
-  const detailedOptionMap = normalizeDetailedOptionMap(
-    Object.assign({}, createDetailedOptionMap(supportOptions), constant.options)
-  );
+  const detailedOptionMap = normalizeDetailedOptionMap({
+    ...createDetailedOptionMap(supportOptions),
+    ...constant.options
+  });
 
   const detailedOptions = arrayify(detailedOptionMap, "name");
 
-  const apiDefaultOptions = supportOptions
-    .filter(optionInfo => !optionInfo.deprecated)
-    .reduce(
-      (reduced, optionInfo) =>
-        Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
-      Object.assign({}, optionsModule.hiddenDefaults)
-    );
+  const apiDefaultOptions = {
+    ...optionsModule.hiddenDefaults,
+    ...fromPairs(
+      supportOptions
+        .filter(({ deprecated }) => !deprecated)
+        .map(option => [option.name, option.default])
+    )
+  };
 
-  context.supportOptions = supportOptions;
-  context.detailedOptions = detailedOptions;
-  context.detailedOptionMap = detailedOptionMap;
-  context.apiDefaultOptions = apiDefaultOptions;
+  Object.assign(context, {
+    supportOptions,
+    detailedOptions,
+    detailedOptionMap,
+    apiDefaultOptions,
+    languages
+  });
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function pushContextPlugins(context, plugins, pluginSearchDirs) {
-  context._supportOptions = context.supportOptions;
-  context._detailedOptions = context.detailedOptions;
-  context._detailedOptionMap = context.detailedOptionMap;
-  context._apiDefaultOptions = context.apiDefaultOptions;
+  context.stack.push(
+    pick(context, [
+      "supportOptions",
+      "detailedOptions",
+      "detailedOptionMap",
+      "apiDefaultOptions",
+      "languages"
+    ])
+  );
   updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
+/**
+ * @param {Context} context
+ */
 function popContextPlugins(context) {
-  context.supportOptions = context._supportOptions;
-  context.detailedOptions = context._detailedOptions;
-  context.detailedOptionMap = context._detailedOptionMap;
-  context.apiDefaultOptions = context._apiDefaultOptions;
+  Object.assign(context, context.stack.pop());
 }
 
 function updateContextArgv(context, plugins, pluginSearchDirs) {
@@ -984,15 +971,13 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
   const argv = minimist(context.args, minimistOptions);
 
   context.argv = argv;
-  context.filePatterns = argv["_"];
+  context.filePatterns = argv._;
 }
 
 function normalizeContextArgv(context, keys) {
   const detailedOptions = !keys
     ? context.detailedOptions
-    : context.detailedOptions.filter(
-        option => keys.indexOf(option.name) !== -1
-      );
+    : context.detailedOptions.filter(option => keys.includes(option.name));
   const argv = !keys ? context.argv : pick(context.argv, keys);
 
   context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {

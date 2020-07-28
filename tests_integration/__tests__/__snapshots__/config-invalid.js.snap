@@ -19,7 +19,7 @@ exports[`show warning with unknown option (stdout) 1`] = `""`;
 exports[`show warning with unknown option (write) 1`] = `Array []`;
 
 exports[`throw error for unsupported extension (stderr) 1`] = `
-"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: No sync loader specified for extension \\".unsupported\\"
+"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: No loader specified for extension \\".unsupported\\"
 "
 `;
 

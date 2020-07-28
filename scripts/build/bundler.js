@@ -4,11 +4,11 @@ const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("rollup-plugin-node-resolve");
+const resolve = require("@rollup/plugin-node-resolve");
 const alias = require("@rollup/plugin-alias");
-const commonjs = require("rollup-plugin-commonjs");
+const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
-const json = require("rollup-plugin-json");
+const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
@@ -31,6 +31,7 @@ const EXTERNALS = [
   "url",
   "util",
   "readline",
+  "tty",
 
   // See comment in jest.config.js
   "graceful-fs"
@@ -47,14 +48,29 @@ function getBabelConfig(bundle) {
       require.resolve("./babel-plugins/transform-custom-require")
     );
   }
-  const targets = { node: 4 };
+  const targets = { node: "10" };
   if (bundle.target === "universal") {
-    // From https://jamie.build/last-2-versions
-    targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
+    targets.browsers = [
+      ">0.5%",
+      "not ie 11",
+      "not safari 5.1",
+      "not op_mini all"
+    ];
   }
   config.presets = [
-    [require.resolve("@babel/preset-env"), { targets, modules: false }]
+    [
+      require.resolve("@babel/preset-env"),
+      {
+        targets,
+        exclude: ["transform-async-to-generator"],
+        modules: false
+      }
+    ]
   ];
+  config.plugins.push([
+    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    { loose: true, useBuiltIns: true }
+  ]);
   return config;
 }
 
@@ -117,12 +133,10 @@ function getRollupConfig(bundle) {
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node"
     }),
-    commonjs(
-      Object.assign(
-        bundle.target === "node" ? { ignoreGlobal: true } : {},
-        bundle.commonjs
-      )
-    ),
+    commonjs({
+      ignoreGlobal: bundle.target === "node",
+      ...bundle.commonjs
+    }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),

@@ -18,18 +18,8 @@
       "integrating-with-linters",
       "ignore"
     ],
-    "Configuring Prettier": [
-      "options",
-      "configuration"
-    ],
-    "Editors": [
-      "editors",
-      "webstorm",
-      "vim"
-    ],
-    "Misc": [
-      "technical-details",
-      "related-projects"
-    ]
+    "Configuring Prettier": ["options", "configuration"],
+    "Editors": ["editors", "webstorm", "vim"],
+    "Misc": ["technical-details", "related-projects", "for-enterprise"]
   }
 }

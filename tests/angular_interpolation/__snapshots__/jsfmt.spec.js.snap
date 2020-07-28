@@ -4,6 +4,7 @@ exports[`logical-expression.ng 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [
@@ -24,6 +25,7 @@ exports[`pipe-expression.ng 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [

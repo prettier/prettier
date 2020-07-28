@@ -1,7 +1,11 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS } = require("./utils");
+const {
+  HTML_ELEMENT_ATTRIBUTES,
+  HTML_TAGS,
+  isUnknownNamespace
+} = require("./utils");
 const { hasPragma } = require("./pragma");
 const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
@@ -69,7 +73,7 @@ function ngHtmlParser(
     const namespace = node.name.startsWith(":")
       ? node.name.slice(1).split(":")[0]
       : null;
-    const rawName = node.nameSpan ? node.nameSpan.toString() : node.name;
+    const rawName = node.nameSpan.toString();
     const hasExplicitNamespace = rawName.startsWith(`${namespace}:`);
     const name = hasExplicitNamespace
       ? rawName.slice(namespace.length + 1)
@@ -112,7 +116,8 @@ function ngHtmlParser(
       if (
         normalizeTagName &&
         (!node.namespace ||
-          node.namespace === node.tagDefinition.implicitNamespacePrefix)
+          node.namespace === node.tagDefinition.implicitNamespacePrefix ||
+          isUnknownNamespace(node))
       ) {
         node.name = lowerCaseIfFn(
           node.name,
@@ -154,7 +159,8 @@ function ngHtmlParser(
       );
       if (
         !node.namespace ||
-        node.namespace === tagDefinition.implicitNamespacePrefix
+        node.namespace === tagDefinition.implicitNamespacePrefix ||
+        isUnknownNamespace(node)
       ) {
         node.tagDefinition = tagDefinition;
       } else {
@@ -224,22 +230,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     return subAst;
   };
 
-  const isFakeElement = node => node.type === "element" && !node.nameSpan;
   return ast.map(node => {
-    if (node.children && node.children.some(isFakeElement)) {
-      const newChildren = [];
-
-      for (const child of node.children) {
-        if (isFakeElement(child)) {
-          Array.prototype.push.apply(newChildren, child.children);
-        } else {
-          newChildren.push(child);
-        }
-      }
-
-      return node.clone({ children: newChildren });
-    }
-
     if (node.type === "comment") {
       const ieConditionalComment = parseIeConditionalComment(
         node,

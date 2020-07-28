@@ -2,10 +2,7 @@
 
 const React = require("react");
 const PropTypes = require("prop-types");
-
-const CompLibrary = require("../../core/CompLibrary.js");
-const MarkdownBlock = CompLibrary.MarkdownBlock;
-const Container = CompLibrary.Container;
+const { MarkdownBlock, Container } = require("../../core/CompLibrary.js");
 const AnimatedLogo = require("@sandhose/prettier-animated-logo");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
@@ -43,7 +40,7 @@ Button.propTypes = {
 function Tidelift() {
   return (
     <a className="tidelift" href={siteConfig.tideliftUrl}>
-      GET PROFESSIONALLY SUPPORTED PRETTIER
+      PRETTIER FOR ENTERPRISE
     </a>
   );
 }
@@ -301,7 +298,7 @@ class GetStartedSection extends React.Component {
                   </div>
                 </li>
                 <li>
-                  Run prettier when commiting files:
+                  Run prettier when committing files:
                   <div className="yarnOnly">
                     <MarkdownBlock>
                       {bash`yarn add pretty-quick husky --dev`}
@@ -364,7 +361,7 @@ const UsersSection = ({ language }) => {
     })
     .map((user, i) => {
       return (
-        <a key={i} className="growOnHover" href={user.infoLink}>
+        <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
           <img className="user" src={user.greyImage} title={user.caption} />
         </a>
       );

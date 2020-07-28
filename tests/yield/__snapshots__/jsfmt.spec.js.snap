@@ -14,9 +14,9 @@ function *f() {
 
 =====================================output=====================================
 function* f() {
-  yield a => a;
-  yield async a => a;
-  yield async a => a;
+  yield (a) => a;
+  yield async (a) => a;
+  yield async (a) => a;
 }
 
 ================================================================================
@@ -67,6 +67,38 @@ async function f3() {
   a = (await 1) ? 1 : 1;
   a = (await 1) ? 1 : 1;
   a = 1 ? await 1 : await 1;
+}
+
+================================================================================
+`;
+
+exports[`jsx.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function* f() {
+  yield <div>generator</div>
+  yield (<div>generator</div>)
+  yield <div><p>generator</p></div>
+  yield (<div><p>generator</p></div>)
+}
+
+=====================================output=====================================
+function* f() {
+  yield <div>generator</div>;
+  yield <div>generator</div>;
+  yield (
+    <div>
+      <p>generator</p>
+    </div>
+  );
+  yield (
+    <div>
+      <p>generator</p>
+    </div>
+  );
 }
 
 ================================================================================

@@ -200,7 +200,7 @@ namespace TypeScript.WebTsc {
       exit(exitCode?: number): void {
         WScript.Quit(exitCode);
       },
-      useCaseSensitiveFileNames: false
+      useCaseSensitiveFileNames: false,
     };
   }
 

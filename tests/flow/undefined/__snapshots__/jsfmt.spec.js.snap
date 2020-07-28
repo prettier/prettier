@@ -112,7 +112,7 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: number) {
+  function (x: number) {
     var id;
     var name = id ? "John" : undefined;
     (name: boolean); // error, string or void
@@ -121,7 +121,7 @@ let tests = [
     (bar[x]: boolean); // error, string or void
   },
 
-  function(x: number) {
+  function (x: number) {
     var undefined = "foo";
     (undefined: string); // ok
 
@@ -132,7 +132,7 @@ let tests = [
 
     const bar = [undefined, "bar"];
     (bar[x]: boolean); // error, string only
-  }
+  },
 ];
 
 ================================================================================

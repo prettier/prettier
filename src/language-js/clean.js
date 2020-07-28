@@ -7,6 +7,7 @@ function clean(ast, newObj, parent) {
     "comments",
     "leadingComments",
     "trailingComments",
+    "innerComments",
     "extra",
     "start",
     "end",
@@ -15,6 +16,10 @@ function clean(ast, newObj, parent) {
   ].forEach(name => {
     delete newObj[name];
   });
+
+  if (ast.loc && ast.loc.source === null) {
+    delete newObj.loc.source;
+  }
 
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();
@@ -35,11 +40,6 @@ function clean(ast, newObj, parent) {
     ast.expression.value === " "
   ) {
     return null;
-  }
-
-  // We remove unneeded parens around same-operator LogicalExpressions
-  if (isUnbalancedLogicalTree(newObj)) {
-    return rebalanceLogicalTree(newObj);
   }
 
   // (TypeScript) Ignore `static` in `constructor(static p) {}`
@@ -197,34 +197,6 @@ function clean(ast, newObj, parent) {
       newObj.quasis.forEach(quasi => delete quasi.value);
     }
   }
-}
-
-function isUnbalancedLogicalTree(newObj) {
-  return (
-    newObj.type === "LogicalExpression" &&
-    newObj.right.type === "LogicalExpression" &&
-    newObj.operator === newObj.right.operator
-  );
-}
-
-function rebalanceLogicalTree(newObj) {
-  if (isUnbalancedLogicalTree(newObj)) {
-    return rebalanceLogicalTree({
-      type: "LogicalExpression",
-      operator: newObj.operator,
-      left: rebalanceLogicalTree({
-        type: "LogicalExpression",
-        operator: newObj.operator,
-        left: newObj.left,
-        right: newObj.right.left,
-        loc: {}
-      }),
-      right: newObj.right.right,
-      loc: {}
-    });
-  }
-
-  return newObj;
 }
 
 module.exports = clean;

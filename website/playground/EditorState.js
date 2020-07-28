@@ -6,20 +6,17 @@ import * as storage from "./storage";
 export default class extends React.Component {
   constructor() {
     super();
-    this.state = Object.assign(
-      {
-        showSidebar: false,
-        showAst: false,
-        showDoc: false,
-        showSecondFormat: false,
-        toggleSidebar: () => this.setState(stateToggler("showSidebar")),
-        toggleAst: () => this.setState(stateToggler("showAst")),
-        toggleDoc: () => this.setState(stateToggler("showDoc")),
-        toggleSecondFormat: () =>
-          this.setState(stateToggler("showSecondFormat"))
-      },
-      storage.get("editor_state")
-    );
+    this.state = {
+      showSidebar: false,
+      showAst: false,
+      showDoc: false,
+      showSecondFormat: false,
+      toggleSidebar: () => this.setState(stateToggler("showSidebar")),
+      toggleAst: () => this.setState(stateToggler("showAst")),
+      toggleDoc: () => this.setState(stateToggler("showDoc")),
+      toggleSecondFormat: () => this.setState(stateToggler("showSecondFormat")),
+      ...storage.get("editor_state")
+    };
   }
 
   componentDidUpdate(_, prevState) {

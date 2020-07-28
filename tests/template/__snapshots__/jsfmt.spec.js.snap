@@ -126,7 +126,7 @@ var x = {
 var o = {
   [\`key\`]: () => {
     // Comment
-  }
+  },
 };
 
 var x = {
@@ -135,7 +135,7 @@ var x = {
       \${foo},
       field,
     }
-  \`
+  \`,
 };
 
 ================================================================================
@@ -176,11 +176,11 @@ module.exports = Relay.createContainer(
           __typename
           \${OptimalSolutionsSection.getFragment("node", {
             solution_type,
-            time_frame
+            time_frame,
           })}
         }
-      \`
-    }
+      \`,
+    },
   }
 );
 
@@ -226,7 +226,7 @@ line 2
 line n
 \${foo({
   many: keys,
-  many: keys
+  many: keys,
 })}
 line n + 1
 line n + 2
@@ -336,14 +336,14 @@ this._pipe.write(\`
 
 (): {
   someLong: boolean,
-  t: boolean
+  t: boolean,
 } => \`
   a
 \`;
 
 (): {
   someLong: boolean,
-  t: boolean
+  t: boolean,
 } =>
   \`
     a
@@ -450,7 +450,7 @@ b()\`\`;
 (b ? c : d)\`\`;
 
 // "FunctionExpression"
-(function() {})\`\`;
+(function () {})\`\`;
 
 // "LogicalExpression"
 (b || c)\`\`;

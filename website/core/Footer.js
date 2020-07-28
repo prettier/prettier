@@ -44,6 +44,10 @@ class Footer extends React.Component {
             <h5>Docs</h5>
             <a href={this.url("/index.html")}>About</a>
             <a href={this.url("/install.html")}>Usage</a>
+            <br />
+            <a href="https://www.netlify.com">
+              <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" />
+            </a>
           </div>
           <div>
             <h5>Community</h5>

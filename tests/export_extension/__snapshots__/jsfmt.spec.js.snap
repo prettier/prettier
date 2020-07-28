@@ -23,11 +23,11 @@ export c, { foo } from "mod";
 export * as d, { bar } from "mod";
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
 export Bar, {
-  barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+  barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr,
 } from "barrrrrrrrrrrrrrrrrrrrrrrrrrrr";
 export {
   foooooooooooooooooooooooooooooooooooooooooooooo,
-  fooooooooooooooooooooooooooooooooooooooooooooooo
+  fooooooooooooooooooooooooooooooooooooooooooooooo,
 } from "fooooooooooooooooooooooooooooo";
 
 ================================================================================

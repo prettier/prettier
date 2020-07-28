@@ -14,3 +14,6 @@ a = [
 f?.(<div/>);
 (<div/>)();
 (<div/>)?.();
+
+new Foo(<Component/>);
+new Foo((<Component/>))

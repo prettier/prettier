@@ -109,7 +109,7 @@ function ugly() {
     key: "value",
     anotherKey: "another value",
     firstNumber: 1,
-    secondNumber: 2
+    secondNumber: 2,
   };
 }
 
@@ -439,12 +439,12 @@ const y =       [
 
 const y = [
   {
-    a: 1
+    a: 1,
   },
   {
     a: 1,
-    b: 2
-  }
+    b: 2,
+  },
 ];
 
 ================================================================================

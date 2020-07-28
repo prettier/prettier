@@ -72,6 +72,7 @@ $KeepScssVar: val;
 
     @KeepDetachedRuleset();
 
+    &:extend(.Keep ALL);
     &:EXTEND(.Keep ALL);
 
     .Keep;
@@ -79,6 +80,8 @@ $KeepScssVar: val;
     .Keep(4PX)!IMPORTANT;
     .Keep() when (@Keep=Keep);
     .Keep() when (@Keep=12PX);
+    .Keep() when (@Keep="12px");
+    .Keep() when (@Keep="12PX");
     .Keep() when (@Keep=Keep12PX);
 }
 

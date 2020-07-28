@@ -1,11 +1,7 @@
 ---
 id: plugins
-title: Plugins (Beta)
+title: Plugins
 ---
-
-## IN BETA
-
-> The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
 Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
 
@@ -45,6 +41,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
 
@@ -71,7 +68,7 @@ Prettier plugins are regular JavaScript modules with five exports:
 
 ### `languages`
 
-Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo-version).
+Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo).
 
 It **must** include `name` and `parsers`.
 
@@ -252,7 +249,6 @@ function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEn
 function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
 function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
-function mapDoc(doc: object, callback: function): void;
 ```
 
 ### Tutorials

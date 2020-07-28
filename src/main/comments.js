@@ -3,13 +3,14 @@
 const assert = require("assert");
 const {
   concat,
+  line,
   hardline,
   breakParent,
   indent,
   lineSuffix,
   join,
   cursor
-} = require("../doc").builders;
+} = require("../document").builders;
 const {
   hasNewline,
   skipNewline,
@@ -29,7 +30,7 @@ function getSortedChildNodes(node, options, resultArray) {
   const { printer, locStart, locEnd } = options;
 
   if (resultArray) {
-    if (node && printer.canAttachComment && printer.canAttachComment(node)) {
+    if (printer.canAttachComment && printer.canAttachComment(node)) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -49,20 +50,18 @@ function getSortedChildNodes(node, options, resultArray) {
     return node[childNodesCacheKey];
   }
 
-  let childNodes;
-
-  if (printer.getCommentChildNodes) {
-    childNodes = printer.getCommentChildNodes(node);
-  } else if (node && typeof node === "object") {
-    childNodes = Object.keys(node)
-      .filter(
-        n =>
-          n !== "enclosingNode" &&
-          n !== "precedingNode" &&
-          n !== "followingNode"
-      )
-      .map(n => node[n]);
-  }
+  const childNodes =
+    (printer.getCommentChildNodes &&
+      printer.getCommentChildNodes(node, options)) ||
+    (typeof node === "object" &&
+      Object.keys(node)
+        .filter(
+          n =>
+            n !== "enclosingNode" &&
+            n !== "precedingNode" &&
+            n !== "followingNode"
+        )
+        .map(n => node[n]));
 
   if (!childNodes) {
     return;
@@ -139,7 +138,7 @@ function decorateComment(node, comment, options) {
     comment.enclosingNode &&
     comment.enclosingNode.type === "TemplateLiteral"
   ) {
-    const quasis = comment.enclosingNode.quasis;
+    const { quasis } = comment.enclosingNode;
     const commentIndex = findExpressionIndexForComment(
       quasis,
       comment,
@@ -301,7 +300,12 @@ function breakTies(tiesToBreak, text, options) {
   if (tieCount === 0) {
     return;
   }
-  const { precedingNode, followingNode } = tiesToBreak[0];
+  const { precedingNode, followingNode, enclosingNode } = tiesToBreak[0];
+
+  const gapRegExp =
+    (options.printer.getGapRegex &&
+      options.printer.getGapRegex(enclosingNode)) ||
+    /^[\s(]*$/;
 
   let gapEndPos = options.locStart(followingNode);
 
@@ -321,7 +325,8 @@ function breakTies(tiesToBreak, text, options) {
     assert.strictEqual(comment.followingNode, followingNode);
 
     const gap = text.slice(options.locEnd(comment), gapEndPos);
-    if (/^[\s(]*$/.test(gap)) {
+
+    if (gapRegExp.test(gap)) {
       gapEndPos = options.locStart(comment);
     } else {
       // The gap string contained something other than whitespace or open
@@ -383,10 +388,15 @@ function printLeadingComment(commentPath, print, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    return concat([
-      contents,
-      hasNewline(options.originalText, options.locEnd(comment)) ? hardline : " "
-    ]);
+    const lineBreak = hasNewline(options.originalText, options.locEnd(comment))
+      ? hasNewline(options.originalText, options.locStart(comment), {
+          backwards: true
+        })
+        ? hardline
+        : line
+      : " ";
+
+    return concat([contents, lineBreak]);
   }
 
   return concat([contents, hardline]);

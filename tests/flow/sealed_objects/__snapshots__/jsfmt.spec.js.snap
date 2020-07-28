@@ -47,7 +47,7 @@ var s6: string = o6.y; // ok  (indexers make object types extensible)
 
 var o7: { x: number, y?: string } = ({ x: 0, y: 0 }: {
   x: number,
-  [_: any]: number
+  [_: any]: number,
 }); // error
 
 ================================================================================

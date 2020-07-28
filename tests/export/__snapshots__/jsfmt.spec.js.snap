@@ -27,7 +27,7 @@ export {
   itGo,
   multiLine,
   andMore,
-  soWeCanGetItTo80Columns
+  soWeCanGetItTo80Columns,
 };
 export { fitsIn, oneLine };
 
@@ -62,7 +62,7 @@ export {
   itGo,
   multiLine,
   andMore,
-  soWeCanGetItTo80Columns
+  soWeCanGetItTo80Columns,
 };
 export {fitsIn, oneLine};
 

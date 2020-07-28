@@ -55,13 +55,13 @@ type ObjAssignT = { foo: string } & { bar: string };
 type ReadableStreamOptions = {
   highWaterMark?: number,
   encoding?: ?string,
-  objectMode?: boolean
+  objectMode?: boolean,
 };
 
 type WritableStreamOptions = {
   highWaterMark?: number,
   decodeString?: boolean,
-  objectMode?: boolean
+  objectMode?: boolean,
 };
 
 // used in test_fun.js

@@ -13,7 +13,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidMount() {
-    const options = Object.assign({}, this.props);
+    const options = { ...this.props };
     delete options.ruler;
     delete options.rulerColor;
     delete options.value;
@@ -126,7 +126,7 @@ function getIndexPosition(text, indexes) {
 function createOverlay(start, end) {
   return {
     token(stream) {
-      const line = stream.lineOracle.line;
+      const { line } = stream.lineOracle;
 
       if (line < start.line || line > end.line) {
         stream.skipToEnd();

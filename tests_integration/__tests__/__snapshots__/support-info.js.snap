@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`API getSupportInfo() with version 0.0.0 1`] = `
+exports[`API getSupportInfo() 1`] = `
 Object {
   "languages": Object {
     "Angular": Array [
@@ -23,9 +18,6 @@ Object {
     ],
     "HTML": Array [
       "html",
-    ],
-    "Handlebars": Array [
-      "glimmer",
     ],
     "JSON": Array [
       "json",
@@ -67,9 +59,11 @@ Object {
     ],
     "TSX": Array [
       "typescript",
+      "babel-ts",
     ],
     "TypeScript": Array [
       "typescript",
+      "babel-ts",
     ],
     "Vue": Array [
       "vue",
@@ -89,10 +83,10 @@ Object {
     },
     "arrowParens": Object {
       "choices": Array [
-        "avoid",
         "always",
+        "avoid",
       ],
-      "default": "avoid",
+      "default": "always",
       "type": "choice",
     },
     "bracketSpacing": Object {
@@ -114,12 +108,12 @@ Object {
     },
     "endOfLine": Object {
       "choices": Array [
-        "auto",
         "lf",
         "crlf",
         "cr",
+        "auto",
       ],
-      "default": "auto",
+      "default": "lf",
       "type": "choice",
     },
     "filepath": Object {
@@ -172,6 +166,7 @@ Object {
         "flow",
         "babel",
         "babel-flow",
+        "babel-ts",
         "typescript",
         "css",
         "less",
@@ -184,7 +179,6 @@ Object {
         "mdx",
         "vue",
         "yaml",
-        "glimmer",
         "html",
         "angular",
         "lwc",
@@ -272,11 +266,11 @@ Object {
     },
     "trailingComma": Object {
       "choices": Array [
-        "none",
         "es5",
+        "none",
         "all",
       ],
-      "default": "none",
+      "default": "es5",
       "type": "choice",
     },
     "useTabs": Object {
@@ -295,41 +289,6 @@ Object {
 }
 `;
 
-exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
 exports[`CLI --support-info (stderr) 1`] = `""`;
 
 exports[`CLI --support-info (stdout) 1`] = `
@@ -345,6 +304,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".js\\",
         \\"._js\\",
         \\".bones\\",
+        \\".cjs\\",
         \\".es\\",
         \\".es6\\",
         \\".frag\\",
@@ -367,8 +327,10 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [
         \\"chakra\\",
         \\"d8\\",
+        \\"gjs\\",
         \\"js\\",
         \\"node\\",
+        \\"qjs\\",
         \\"rhino\\",
         \\"v8\\",
         \\"v8-shell\\",
@@ -390,7 +352,17 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"color\\": \\"#f1e05a\\",
       \\"extensions\\": [\\".js.flow\\"],
       \\"filenames\\": [],
-      \\"interpreters\\": [\\"chakra\\", \\"d8\\", \\"js\\", \\"node\\", \\"rhino\\", \\"v8\\", \\"v8-shell\\"],
+      \\"interpreters\\": [
+        \\"chakra\\",
+        \\"d8\\",
+        \\"gjs\\",
+        \\"js\\",
+        \\"node\\",
+        \\"qjs\\",
+        \\"rhino\\",
+        \\"v8\\",
+        \\"v8-shell\\"
+      ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
       \\"parsers\\": [\\"babel\\", \\"flow\\"],
@@ -423,7 +395,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
       \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",
-      \\"parsers\\": [\\"typescript\\"],
+      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.ts\\",
       \\"type\\": \\"programming\\",
@@ -437,7 +409,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"TypeScript\\",
       \\"linguistLanguageId\\": 94901924,
       \\"name\\": \\"TSX\\",
-      \\"parsers\\": [\\"typescript\\"],
+      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.tsx\\",
       \\"type\\": \\"programming\\",
@@ -607,19 +579,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"vscodeLanguageIds\\": [\\"scss\\"]
     },
     {
-      \\"aceMode\\": \\"handlebars\\",
-      \\"aliases\\": [\\"hbs\\", \\"htmlbars\\"],
-      \\"extensions\\": [\\".handlebars\\", \\".hbs\\"],
-      \\"group\\": \\"HTML\\",
-      \\"linguistLanguageId\\": 155,
-      \\"name\\": \\"Handlebars\\",
-      \\"parsers\\": [\\"glimmer\\"],
-      \\"since\\": null,
-      \\"tmScope\\": \\"text.html.handlebars\\",
-      \\"type\\": \\"markup\\",
-      \\"vscodeLanguageIds\\": [\\"handlebars\\"]
-    },
-    {
       \\"aceMode\\": \\"text\\",
       \\"extensions\\": [\\".graphql\\", \\".gql\\", \\".graphqls\\"],
       \\"linguistLanguageId\\": 139,
@@ -754,6 +713,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".syntax\\",
         \\".yaml\\",
         \\".yaml-tmlanguage\\",
+        \\".yaml.sed\\",
         \\".yml.mysql\\"
       ],
       \\"filenames\\": [\\".clang-format\\", \\".clang-tidy\\", \\".gemrc\\", \\"glide.lock\\"],
@@ -788,15 +748,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
         {
-          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
-          \\"value\\": \\"avoid\\"
-        },
-        {
           \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
           \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
+          \\"value\\": \\"avoid\\"
         }
       ],
-      \\"default\\": \\"avoid\\",
+      \\"default\\": \\"always\\",
       \\"description\\": \\"Include parentheses around a sole arrow function parameter.\\",
       \\"name\\": \\"arrowParens\\",
       \\"pluginDefaults\\": {},
@@ -835,10 +795,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         {
-          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
-          \\"value\\": \\"auto\\"
-        },
-        {
           \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
           \\"value\\": \\"lf\\"
         },
@@ -849,9 +805,13 @@ exports[`CLI --support-info (stdout) 1`] = `
         {
           \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
           \\"value\\": \\"cr\\"
+        },
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
         }
       ],
-      \\"default\\": \\"auto\\",
+      \\"default\\": \\"lf\\",
       \\"description\\": \\"Which end of line characters to apply.\\",
       \\"name\\": \\"endOfLine\\",
       \\"pluginDefaults\\": {},
@@ -966,6 +926,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
         { \\"description\\": \\"Flow\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel-flow\\" },
+        { \\"description\\": \\"TypeScript\\", \\"since\\": \\"2.0.0\\", \\"value\\": \\"babel-ts\\" },
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",
@@ -986,7 +947,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
-        { \\"description\\": \\"Handlebars\\", \\"since\\": null, \\"value\\": \\"glimmer\\" },
         { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
         { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
         {
@@ -1148,17 +1108,17 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
-        { \\"description\\": \\"No trailing commas.\\", \\"value\\": \\"none\\" },
         {
           \\"description\\": \\"Trailing commas where valid in ES5 (objects, arrays, etc.)\\",
           \\"value\\": \\"es5\\"
         },
+        { \\"description\\": \\"No trailing commas.\\", \\"value\\": \\"none\\" },
         {
           \\"description\\": \\"Trailing commas wherever possible (including function arguments).\\",
           \\"value\\": \\"all\\"
         }
       ],
-      \\"default\\": \\"none\\",
+      \\"default\\": \\"es5\\",
       \\"description\\": \\"Print trailing commas wherever possible when multi-line.\\",
       \\"name\\": \\"trailingComma\\",
       \\"pluginDefaults\\": {},

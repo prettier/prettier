@@ -2,7 +2,7 @@
 
 const {
   builders: { concat, group }
-} = require("../doc");
+} = require("../document");
 
 /**
  *     v-for="... in ..."

@@ -142,7 +142,7 @@ test ? <></> : x;
   <></>
 </a>;
 const obj = {
-  foo: <></>
+  foo: <></>,
 };
 const fragmentVar = <></>;
 function fun3() {

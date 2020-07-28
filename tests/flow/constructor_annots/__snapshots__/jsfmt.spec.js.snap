@@ -37,7 +37,7 @@ Foo.y = 0; // has static property y
 Foo.prototype = {
   m() {
     return 0;
-  }
+  },
 };
 
 // exporting Foo directly doesn't work

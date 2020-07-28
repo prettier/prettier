@@ -42,9 +42,9 @@ var EventEmitter = require("events").EventEmitter;
 
 // This pattern seems to cause the trouble.
 var Bad = Object.assign({}, EventEmitter.prototype, {
-  foo: function(): string {
+  foo: function (): string {
     return "hi";
-  }
+  },
 });
 
 // Calling Bad.foo() in the same file doesn't error
@@ -53,16 +53,16 @@ var bad: number = Bad.foo();
 // Doesn't repro if I extend the class myself
 class MyEventEmitter extends events$EventEmitter {}
 var Good = Object.assign({}, MyEventEmitter.prototype, {
-  foo: function(): string {
+  foo: function (): string {
     return "hi";
-  }
+  },
 });
 // Calling Good.foo() in the same file doesn't error
 var good: number = Good.foo();
 
 module.exports = {
   Bad: Bad,
-  Good: Good
+  Good: Good,
 };
 
 ================================================================================
@@ -129,7 +129,7 @@ printWidth: 80
 
 (Object.assign.apply(null, [{}, { a: 1 }, { b: "foo" }]): {
   a: number,
-  b: string
+  b: string,
 });
 
 ================================================================================
@@ -193,7 +193,7 @@ declare var tup: [{ foo: string }, { bar: number }];
 (Object.assign({}, ...[{ a: 1 }, { b: "foo" }], ...[{ c: true }]): {
   a: number,
   b: true,
-  c: boolean
+  c: boolean,
 }); // Error: 'foo' => true
 
 ================================================================================
@@ -232,11 +232,11 @@ class MyReactThing extends React.Component {
 var React = require("react");
 
 type DefaultProps = {
-  foo: number
+  foo: number,
 };
 
 type Props = {
-  foo: number
+  foo: number,
 };
 
 class MyReactThing extends React.Component {

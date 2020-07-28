@@ -37,11 +37,8 @@ export class ClipboardButton extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, copy, ...rest } = this.props;
     const { showTooltip, tooltipText } = this.state;
-    const rest = Object.assign({}, this.props);
-    delete rest.children;
-    delete rest.copy;
 
     return (
       <Button ref={this.ref} {...rest}>

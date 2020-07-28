@@ -116,7 +116,8 @@ function hashString(string) {
 }
 
 function getRollupConfig(rollupConfig) {
-  return Object.assign({}, rollupConfig, {
+  return {
+    ...rollupConfig,
     onwarn() {},
     plugins: rollupConfig.plugins.filter(
       plugin =>
@@ -125,7 +126,7 @@ function getRollupConfig(rollupConfig) {
         // This is really slow, we need this "preflight" to be fast
         plugin.name !== "babel"
     )
-  });
+  };
 }
 
 module.exports = Cache;

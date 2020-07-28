@@ -12,37 +12,39 @@ module.exports = [
     parsers: {
       // JS - Babel
       get babel() {
-        return eval("require")("../language-js/parser-babylon").parsers.babel;
+        return eval("require")("../language-js/parser-babel").parsers.babel;
       },
       get "babel-flow"() {
-        return eval("require")("../language-js/parser-babylon").parsers[
+        return eval("require")("../language-js/parser-babel").parsers[
           "babel-flow"
         ];
       },
-      get babylon() {
-        return eval("require")("../language-js/parser-babylon").parsers.babel;
+      get "babel-ts"() {
+        return eval("require")("../language-js/parser-babel").parsers[
+          "babel-ts"
+        ];
       },
       get json() {
-        return eval("require")("../language-js/parser-babylon").parsers.json;
+        return eval("require")("../language-js/parser-babel").parsers.json;
       },
       get json5() {
-        return eval("require")("../language-js/parser-babylon").parsers.json5;
+        return eval("require")("../language-js/parser-babel").parsers.json5;
       },
       get "json-stringify"() {
-        return eval("require")("../language-js/parser-babylon").parsers[
+        return eval("require")("../language-js/parser-babel").parsers[
           "json-stringify"
         ];
       },
       get __js_expression() {
-        return eval("require")("../language-js/parser-babylon").parsers
+        return eval("require")("../language-js/parser-babel").parsers
           .__js_expression;
       },
       get __vue_expression() {
-        return eval("require")("../language-js/parser-babylon").parsers
+        return eval("require")("../language-js/parser-babel").parsers
           .__vue_expression;
       },
       get __vue_event_binding() {
-        return eval("require")("../language-js/parser-babylon").parsers
+        return eval("require")("../language-js/parser-babel").parsers
           .__vue_event_binding;
       },
       // JS - Flow
@@ -51,13 +53,6 @@ module.exports = [
       },
       // JS - TypeScript
       get typescript() {
-        return eval("require")("../language-js/parser-typescript").parsers
-          .typescript;
-      },
-      /**
-       * TODO: Remove this old alias in a major version
-       */
-      get "typescript-eslint"() {
         return eval("require")("../language-js/parser-typescript").parsers
           .typescript;
       },
@@ -131,7 +126,6 @@ module.exports = [
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;
       },
-      // TODO: Delete this in 2.0
       get markdown() {
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;

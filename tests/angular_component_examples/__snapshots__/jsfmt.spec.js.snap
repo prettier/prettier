@@ -4,6 +4,7 @@ exports[`test.component.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @Component({
@@ -27,11 +28,9 @@ class     TestComponent {}
 =====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {
@@ -52,7 +51,6 @@ exports[`test.component.ts 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @Component({
@@ -76,11 +74,9 @@ class     TestComponent {}
 =====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {

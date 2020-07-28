@@ -56,7 +56,7 @@ printWidth: 80
   "\\0",
   "🐶",
 
-  "\\uD801\\uDC28"
+  "\\uD801\\uDC28",
 ];
 
 ================================================================================
@@ -191,26 +191,13 @@ const Bar = styled.div\`
 
 =====================================output=====================================
 foo(
-  \`a long string \${1 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3} with expr\`
+  \`a long string \${
+    1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3
+  } with expr\`
 );
 
-const x = \`a long string \${1 +
+const x = \`a long string \${
+  1 +
   2 +
   3 +
   2 +
@@ -222,17 +209,19 @@ const x = \`a long string \${1 +
   2 +
   3 +
   2 +
-  (function() {
+  (function () {
     return 3;
   })() +
   3 +
   2 +
   3 +
   2 +
-  3} with expr\`;
+  3
+} with expr\`;
 
 foo(
-  \`a long string \${1 +
+  \`a long string \${
+    1 +
     2 +
     3 +
     2 +
@@ -244,7 +233,7 @@ foo(
     2 +
     3 +
     2 +
-    (function() {
+    (function () {
       const x = 5;
 
       return x;
@@ -253,7 +242,8 @@ foo(
     2 +
     3 +
     2 +
-    3} with expr\`
+    3
+  } with expr\`
 );
 
 pipe.write(
@@ -271,7 +261,7 @@ const env = \${JSON.stringify(
     role: "client",
     adsfafa: "sdfsdff",
     asdfasff: "wefwefw",
-    fefef: "sf sdfs fdsfdsf s dfsfds"
+    fefef: "sf sdfs fdsfdsf s dfsfds",
   },
   null,
   "\\t"
@@ -282,7 +272,7 @@ const env = \${JSON.stringify(
 f(
   \`\${{
     a: 4,
-    b: 9
+    b: 9,
   }}\`
 );
 
@@ -299,17 +289,17 @@ const makeBody = (store, assets, html) =>
           store.getState(),
           null,
           2
-        )};\`
+        )};\`,
       ]}
       content={[
-        { id: "app-container", dangerouslySetInnerHTML: { __html: html } }
+        { id: "app-container", dangerouslySetInnerHTML: { __html: html } },
       ]}
     />
   )}\`;
 
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
 const Bar = styled.div\`
-  color: \${props =>
+  color: \${(props) =>
     props.highlight.length > 0
       ? palette(["text", "dark", "tertiary"])(props)
       : palette(["text", "dark", "primary"])(props)} !important;
@@ -385,26 +375,13 @@ const Bar = styled.div\`
 
 =====================================output=====================================
 foo(
-  \`a long string \${1 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3} with expr\`,
+  \`a long string \${
+    1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3
+  } with expr\`,
 );
 
-const x = \`a long string \${1 +
+const x = \`a long string \${
+  1 +
   2 +
   3 +
   2 +
@@ -416,17 +393,19 @@ const x = \`a long string \${1 +
   2 +
   3 +
   2 +
-  (function() {
+  (function () {
     return 3;
   })() +
   3 +
   2 +
   3 +
   2 +
-  3} with expr\`;
+  3
+} with expr\`;
 
 foo(
-  \`a long string \${1 +
+  \`a long string \${
+    1 +
     2 +
     3 +
     2 +
@@ -438,7 +417,7 @@ foo(
     2 +
     3 +
     2 +
-    (function() {
+    (function () {
       const x = 5;
 
       return x;
@@ -447,7 +426,8 @@ foo(
     2 +
     3 +
     2 +
-    3} with expr\`,
+    3
+  } with expr\`,
 );
 
 pipe.write(
@@ -503,7 +483,7 @@ const makeBody = (store, assets, html) =>
 
 // https://github.com/prettier/prettier/issues/1626#issue-229655106
 const Bar = styled.div\`
-  color: \${props =>
+  color: \${(props) =>
     props.highlight.length > 0
       ? palette(["text", "dark", "tertiary"])(props)
       : palette(["text", "dark", "primary"])(props)} !important;

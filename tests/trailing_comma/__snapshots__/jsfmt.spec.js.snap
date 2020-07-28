@@ -4,6 +4,7 @@ exports[`dynamic-import.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 import(
@@ -41,7 +42,6 @@ exports[`dynamic-import.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 import(
@@ -60,6 +60,7 @@ exports[`es5.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 function send_single_email(
@@ -153,7 +154,6 @@ exports[`es5.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 function send_single_email(
@@ -200,6 +200,7 @@ exports[`function-calls.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const a = (param1, param2, param3) => {}
@@ -305,7 +306,6 @@ exports[`function-calls.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const a = (param1, param2, param3) => {}
@@ -358,6 +358,7 @@ exports[`jsx.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -411,7 +412,6 @@ exports[`jsx.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -438,6 +438,7 @@ exports[`object.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const a = {
@@ -547,7 +548,6 @@ exports[`object.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const a = {
@@ -602,6 +602,7 @@ exports[`trailing_whitespace.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 let example = [
@@ -686,10 +687,10 @@ function supersupersupersuperLongF(
   a;
 }
 
-this.getAttribute(function(s) /*string*/ {
+this.getAttribute(function (s) /*string*/ {
   console.log();
 });
-this.getAttribute(function(s) /*string*/ {
+this.getAttribute(function (s) /*string*/ {
   console.log();
 });
 
@@ -785,10 +786,10 @@ function supersupersupersuperLongF(
   a;
 }
 
-this.getAttribute(function(s) /*string*/ {
+this.getAttribute(function (s) /*string*/ {
   console.log();
 });
-this.getAttribute(function(s) /*string*/ {
+this.getAttribute(function (s) /*string*/ {
   console.log();
 });
 
@@ -799,7 +800,6 @@ exports[`trailing_whitespace.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 let example = [
@@ -884,10 +884,10 @@ function supersupersupersuperLongF(
   a;
 }
 
-this.getAttribute(function(s) /*string*/ {
+this.getAttribute(function (s) /*string*/ {
   console.log();
 });
-this.getAttribute(function(s) /*string*/ {
+this.getAttribute(function (s) /*string*/ {
   console.log();
 });
 

@@ -1,9 +1,7 @@
 "use strict";
 
 const React = require("react");
-
-const CompLibrary = require("../../../core/CompLibrary.js");
-const Container = CompLibrary.Container;
+const { Container } = require("../../../core/CompLibrary.js");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
@@ -56,5 +54,7 @@ class Users extends React.Component {
 Users.defaultProps = {
   language: "en"
 };
+
+Users.title = "Who's using Prettier?";
 
 module.exports = Users;

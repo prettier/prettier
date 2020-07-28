@@ -30,6 +30,7 @@ describe("ignores node_modules by default for file list", () => {
   runPrettier("cli/with-node-modules", [
     "node_modules/node-module.js",
     "not_node_modules/file.js",
+    "nested/node_modules/node-module.js",
     "regular-module.js",
     "-l"
   ]).test({
@@ -41,6 +42,7 @@ describe("doesn't ignore node_modules with --with-node-modules flag for file lis
   runPrettier("cli/with-node-modules", [
     "node_modules/node-module.js",
     "not_node_modules/file.js",
+    "nested/node_modules/node-module.js",
     "regular-module.js",
     "-l",
     "--with-node-modules"

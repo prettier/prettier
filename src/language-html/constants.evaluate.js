@@ -1,24 +1,29 @@
 "use strict";
 
 const htmlStyles = require("html-styles");
+const fromPairs = require("lodash/fromPairs");
+const flat = require("lodash/flatten");
 
 const getCssStyleTags = property =>
-  htmlStyles
-    .filter(htmlStyle => htmlStyle.style[property])
-    .map(htmlStyle =>
-      htmlStyle.selectorText
-        .split(",")
-        .map(selector => selector.trim())
-        .filter(selector => /^[a-zA-Z0-9]+$/.test(selector))
-        .reduce((reduced, tagName) => {
-          reduced[tagName] = htmlStyle.style[property];
-          return reduced;
-        }, {})
+  fromPairs(
+    flat(
+      htmlStyles
+        .filter(htmlStyle => htmlStyle.style[property])
+        .map(htmlStyle =>
+          htmlStyle.selectorText
+            .split(",")
+            .map(selector => selector.trim())
+            .filter(selector => /^[a-zA-Z0-9]+$/.test(selector))
+            .map(tagName => [tagName, htmlStyle.style[property]])
+        )
     )
-    .reduce((reduced, value) => Object.assign(reduced, value), {});
+  );
 
-const CSS_DISPLAY_TAGS = Object.assign({}, getCssStyleTags("display"), {
+const CSS_DISPLAY_TAGS = {
+  ...getCssStyleTags("display"),
+
   // TODO: send PR to upstream
+
   button: "inline-block",
 
   // special cases for some css display=none elements
@@ -30,7 +35,7 @@ const CSS_DISPLAY_TAGS = Object.assign({}, getCssStyleTags("display"), {
   // there's no css display for these elements but they behave these ways
   video: "inline-block",
   audio: "inline-block"
-});
+};
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
 const CSS_WHITE_SPACE_DEFAULT = "normal";

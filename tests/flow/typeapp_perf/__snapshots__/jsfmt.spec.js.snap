@@ -42,7 +42,7 @@ type B<T> = A & {
   +f: () => B<T>,
   +g: () => B<T>,
   +h: () => B<T>,
-  +i: () => B<T>
+  +i: () => B<T>,
 };
 
 declare var b: B<any>;
@@ -94,7 +94,7 @@ type B<T> = A & {
   +f: (x: B<T>) => void,
   +g: (x: B<T>) => void,
   +h: (x: B<T>) => void,
-  +i: (x: B<T>) => void
+  +i: (x: B<T>) => void,
 };
 
 declare var b: B<any>;

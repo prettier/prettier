@@ -1,9 +1,244 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`angularjs.html 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html 2`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html 3`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div
+  ng-if="
+    $ctrl.shouldShowWarning &&
+    !$ctrl.loading
+  "
+>
+  Warning!
+</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl
+      .error
+      .message &&
+    !(
+      $ctrl
+        .error
+        .kind ===
+        'validator' &&
+      $ctrl
+        .form
+        .$valid &&
+      $ctrl
+        .error
+        .form ===
+        $ctrl.form
+    )
+  "
+>
+  <div
+    ng-if="
+      $ctrl
+        .error
+        .html
+    "
+    ng-bind-html="$ctrl.error.message"
+  ></div>
+  <div
+    ng-if="
+      !$ctrl
+        .error
+        .html
+    "
+    ng-bind="$ctrl.error.message"
+  ></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html 4`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html 5`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
 exports[`attr-name.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -18,7 +253,6 @@ exports[`attr-name.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -80,6 +314,7 @@ exports[`attributes.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -340,8 +575,7 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -351,7 +585,6 @@ exports[`attributes.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -612,8 +845,7 @@ trailingComma: "es5"
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -1192,17 +1424,14 @@ printWidth: 1
     formatted
   "
   i18n="
-    @@customId
-  "
+    @@customId"
   i18n="
     Some
-    description@@customIdWithDescription
-  "
+    description@@customIdWithDescription"
   i18n="
     some
     meaning|Some
-    description@@customIdWithDescription
-  "
+    description@@customIdWithDescription"
   i18n="
     some
     meaning|Some
@@ -1215,8 +1444,7 @@ printWidth: 1
     the
     configured
     print
-    width@@customIdWithDescription
-  "
+    width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -1487,8 +1715,7 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -1759,8 +1986,7 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -1770,6 +1996,7 @@ exports[`first-lf.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -1862,7 +2089,6 @@ exports[`first-lf.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -2313,6 +2539,7 @@ exports[`ignore-attribute.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -2371,7 +2598,6 @@ exports[`ignore-attribute.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -2630,6 +2856,7 @@ exports[`interpolation.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -2796,7 +3023,6 @@ exports[`interpolation.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -3674,6 +3900,7 @@ exports[`real-world.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -4408,7 +4635,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -4418,13 +4645,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left:8px">
+  <div style="margin-left: 8px;">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -4448,7 +4675,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px;" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -4760,7 +4987,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -4814,7 +5041,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -4823,7 +5050,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -4856,9 +5083,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
@@ -5202,7 +5429,6 @@ exports[`real-world.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -5937,7 +6163,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -5947,13 +6173,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left:8px">
+  <div style="margin-left: 8px;">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -5977,7 +6203,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px;" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -6289,7 +6515,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -6343,7 +6569,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -6352,7 +6578,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -6385,9 +6611,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
@@ -7498,7 +7724,9 @@ can be found in the LICENSE file at http://angular.io/license
   Binding</a
 ><br />
 <div
-  style="margin-left:8px"
+  style="
+    margin-left: 8px;
+  "
 >
   <a
     href="#attribute-binding"
@@ -7532,7 +7760,9 @@ can be found in the LICENSE file at http://angular.io/license
   Directives
 </div>
 <div
-  style="margin-left:8px"
+  style="
+    margin-left: 8px;
+  "
 >
   <a
     href="#ngModel"
@@ -7559,7 +7789,9 @@ can be found in the LICENSE file at http://angular.io/license
     >NgFor</a
   ><br />
   <div
-    style="margin-left:8px"
+    style="
+      margin-left: 8px;
+    "
   >
     <a
       href="#ngFor-index"
@@ -7645,7 +7877,9 @@ can be found in the LICENSE file at http://angular.io/license
     src="{{
       heroImageUrl
     }}"
-    style="height:30px"
+    style="
+      height: 30px;
+    "
   />
 </h3>
 
@@ -10876,7 +11110,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <a href="#property-binding">Property Binding</a>
 <br />
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#attribute-binding">Attribute Binding</a>
   <br />
   <a href="#class-binding">Class Binding</a>
@@ -10891,7 +11125,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#ngModel">NgModel (two-way) Binding</a>
   <br />
   <a href="#ngClass">NgClass Binding</a>
@@ -10902,7 +11136,7 @@ can be found in the LICENSE file at http://angular.io/license
   <br />
   <a href="#ngFor">NgFor</a>
   <br />
-  <div style="margin-left:8px">
+  <div style="margin-left: 8px;">
     <a href="#ngFor-index">NgFor with index</a>
     <br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a>
@@ -10939,7 +11173,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px;" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -12536,7 +12770,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -12546,13 +12780,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
+<div style="margin-left: 8px;">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left:8px">
+  <div style="margin-left: 8px;">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -12576,7 +12810,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px;" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -12888,7 +13122,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -12942,7 +13176,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -12951,7 +13185,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -12984,9 +13218,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
@@ -13330,6 +13564,7 @@ exports[`tag-name.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>
@@ -13344,7 +13579,6 @@ exports[`tag-name.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>

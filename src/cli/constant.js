@@ -187,10 +187,6 @@ const options = {
     default: "log",
     choices: ["silent", "error", "warn", "log", "debug"]
   },
-  stdin: {
-    type: "boolean",
-    description: "Force reading input from stdin."
-  },
   "support-info": {
     type: "boolean",
     description: "Print support information as JSON."
@@ -212,8 +208,9 @@ const options = {
   }
 };
 
+// [prettierx merge ...]
 const usageSummary = dedent`
-  Usage: prettierx [options] [file/glob ...]
+  Usage: prettierx [options] [file/glob/dir ...]
 
   By default, output is written to stdout.
   Stdin is read if it is piped to Prettier and no files are given.

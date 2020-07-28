@@ -16,24 +16,24 @@ describe("show usage with --help", () => {
   });
 });
 
-describe(`show detailed usage with --help l (alias)`, () => {
+describe("show detailed usage with --help l (alias)", () => {
   runPrettier("cli", ["--help", "l"]).test({
     status: 0
   });
 });
 
-describe(`show detailed usage with plugin options (automatic resolution)`, () => {
+describe("show detailed usage with plugin options (automatic resolution)", () => {
   runPrettier("plugins/automatic", [
     "--help",
     "tab-width",
     "--parser=bar",
-    `--plugin-search-dir=.`
+    "--plugin-search-dir=."
   ]).test({
     status: 0
   });
 });
 
-describe(`show detailed usage with plugin options (manual resolution)`, () => {
+describe("show detailed usage with plugin options (manual resolution)", () => {
   runPrettier("cli", [
     "--help",
     "tab-width",

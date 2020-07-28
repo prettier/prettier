@@ -8,7 +8,7 @@ module.exports = async function({ version }) {
 
   const builtPkg = await readJson("dist/package.json");
   if (builtPkg.version !== version) {
-    throw Error(
+    throw new Error(
       `Expected ${version} in dist/package.json but found ${builtPkg.version}`
     );
   }

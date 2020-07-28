@@ -97,7 +97,7 @@ const o = {
   qux: 42,
   qux(): string {
     return "hello";
-  } // last wins
+  }, // last wins
 };
 
 // check

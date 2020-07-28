@@ -5,7 +5,7 @@ const prettier = require("prettier/local");
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
-    runPrettier("cli/infer-parser/", ["--stdin"], { input: "foo" }).test({
+    runPrettier("cli/infer-parser/", [], { input: "foo" }).test({
       status: 2,
       stdout: "",
       write: []
@@ -13,7 +13,7 @@ describe("stdin no path and no parser", () => {
   });
 
   describe("--check logs error but exits with 0", () => {
-    runPrettier("cli/infer-parser/", ["--check", "--stdin"], {
+    runPrettier("cli/infer-parser/", ["--check"], {
       input: "foo"
     }).test({
       status: 0,
@@ -23,7 +23,7 @@ describe("stdin no path and no parser", () => {
   });
 
   describe("--list-different logs error but exits with 0", () => {
-    runPrettier("cli/infer-parser/", ["--list-different", "--stdin"], {
+    runPrettier("cli/infer-parser/", ["--list-different"], {
       input: "foo"
     }).test({
       status: 0,
@@ -35,7 +35,7 @@ describe("stdin no path and no parser", () => {
 
 describe("stdin with unknown path and no parser", () => {
   describe("logs error and exits with 2", () => {
-    runPrettier("cli/infer-parser/", ["--stdin", "--stdin-filepath", "foo"], {
+    runPrettier("cli/infer-parser/", ["--stdin-filepath", "foo"], {
       input: "foo"
     }).test({
       status: 2,
@@ -45,11 +45,9 @@ describe("stdin with unknown path and no parser", () => {
   });
 
   describe("--check logs error but exits with 0", () => {
-    runPrettier(
-      "cli/infer-parser/",
-      ["--check", "--stdin", "--stdin-filepath", "foo"],
-      { input: "foo" }
-    ).test({
+    runPrettier("cli/infer-parser/", ["--check", "--stdin-filepath", "foo"], {
+      input: "foo"
+    }).test({
       status: 0,
       stdout: "",
       write: []
@@ -59,7 +57,7 @@ describe("stdin with unknown path and no parser", () => {
   describe("--list-different logs error but exits with 0", () => {
     runPrettier(
       "cli/infer-parser/",
-      ["--list-different", "--stdin", "--stdin-filepath", "foo"],
+      ["--list-different", "--stdin-filepath", "foo"],
       { input: "foo" }
     ).test({
       status: 0,

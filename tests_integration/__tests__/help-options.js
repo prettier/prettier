@@ -7,17 +7,16 @@ const util = require("../../src/cli/util");
 const arrayify = require("../../src/utils/arrayify");
 
 arrayify(
-  Object.assign(
-    {},
-    util.createDetailedOptionMap(
-      prettier.getSupportInfo(null, {
+  {
+    ...util.createDetailedOptionMap(
+      prettier.getSupportInfo({
         showDeprecated: true,
         showUnreleased: true,
         showInternal: true
       }).options
     ),
-    util.normalizeDetailedOptionMap(constant.options)
-  ),
+    ...util.normalizeDetailedOptionMap(constant.options)
+  },
   "name"
 ).forEach(option => {
   const optionNames = [
