@@ -628,27 +628,25 @@ function printPathNoParens(path, options, print, args) {
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug = !n.expression.comments;
-      if (shouldHug) {
-        return concat(["(", path.call(print, "expression"), ")"]);
-      }
-      // [prettierx merge] fix needed here for
-      // parenSpace option support
-      /* ** [prettierx merge] skip for now:
       // [prettierx] parenSpace option support (...)
-      return concat([
-        // [prettierx] parenSpace option support (...)
-        "(",
-        parenSpace,
-        path.call(print, "expression"),
-        parenSpace,
-        ")"
-      ]);
-      // */
-      return group(
-        concat([
+      if (shouldHug) {
+        return concat([
+          // [prettierx] parenSpace option support (...)
           "(",
-          indent(concat([softline, path.call(print, "expression")])),
-          softline,
+          parenSpace,
+          path.call(print, "expression"),
+          parenSpace,
+          ")"
+        ]);
+      }
+      return group(
+        // [prettierx] parenSpace option support (...)
+        concat([
+          // [prettierx] parenSpace option support (...)
+          "(",
+          // [prettierx] parenSpace option support (...)
+          indent(concat([parenLine, path.call(print, "expression")])),
+          parenLine,
           ")"
         ])
       );
