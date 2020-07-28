@@ -1,6 +1,11 @@
 name: Prod_Test
 
-on: [pull_request]
+# [prettierx]
+on:
+  push:
+    branches: [dev, dev-*, prettierx-*]
+  pull_request:
+    branches: [dev, dev-*, prettierx-*]
 
 jobs:
   build:
