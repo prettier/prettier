@@ -23,8 +23,6 @@
     "* typescript is moved to devDependencies, and",
     "  it is specified as optional in peerDependenciesMeta",
     "* codecov is removed from devDependencies",
-    "* cspell@3 with extra entries in cspell.json is used",
-    "  to work with Node.js 8",
     "<!-- -->"
   ],
   "dependencies": {
