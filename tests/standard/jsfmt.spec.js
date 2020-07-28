@@ -1,4 +1,7 @@
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
+  // [TBD] issue with babel-ts parser:
+  disableBabelTS: ["incorrect-ternaries.js"],
+  // "Standard JS":
   endOfLine: "lf",
   yieldStarSpacing: true,
   generatorStarSpacing: true,
@@ -6,5 +9,8 @@ run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
   singleQuote: true,
   jsxSingleQuote: true,
   semi: false,
-  alignTernaryLines: false
+  alignTernaryLines: false,
+  trailingComma: "none",
+  // recommended:
+  arrowParens: "avoid"
 });

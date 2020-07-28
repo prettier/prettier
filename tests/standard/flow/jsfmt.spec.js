@@ -1,10 +1,12 @@
 run_spec(__dirname, ["babel", "babel-flow", "flow"], {
+  // "Standard JS":
   yieldStarSpacing: true,
   generatorStarSpacing: true,
   spaceBeforeFunctionParen: true,
   singleQuote: true,
   jsxSingleQuote: true,
-  semi: false
+  semi: false,
+  trailingComma: "none"
 });
 
 /* using prettierx with typescript parser seems to omit a semicolon
