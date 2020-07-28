@@ -5,10 +5,6 @@
 
 Unofficial fork, intended to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
 
-Language parsers are supported with old language parsers deprecated as if this were `prettier` version `1.18.0`.
-
-Minimum Node.js version supported: Node.js 8 - deprecated; Node.js 10 is recommended as described in: [`brodybits/prettierx#6`](https://github.com/brodybits/prettierx/issues/6)
-
 ## prettierx as a Prettier plugin
 
 Provides the additional formatting options in a prettier plugin (or two).
@@ -58,10 +54,15 @@ The following options should be used to _format_ the code according to [standard
 - `--no-semi` (`semi: false`)
 - `--yield-star-spacing` (`yieldStarSpacing: true`)
 - `--no-align-ternary-lines` (`alignTernaryLines: false`)
+- `--trailing-comma none` (`trailingComma: "none"`)
 
 Note that this tool does _not_ follow any of the other [standard js](https://standardjs.com/) rules. It is recommended to use this tool together with eslint, in some form, to achive correct formatting according to [standard js](https://standardjs.com/).
 
 Any known conflicts with [standard js](https://standardjs.com/) will be tracked in [open issues with the `conflict-with-standard` tag](https://github.com/brodybits/prettierx/issues?q=is%3Aissue+label%3Aconflict-with-standard+is%3Aopen).
+
+## other recommended settings
+
+- `--arrow-parens avoid` (`arrowParens: "avoid"`)
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ## Prettier 2.0
