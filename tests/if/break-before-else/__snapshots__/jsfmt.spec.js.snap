@@ -5,6 +5,7 @@ exports[`comment_before_else.js 1`] = `
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 if (cond) {
@@ -46,6 +47,7 @@ exports[`else.js 1`] = `
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 // Both functions below should be formatted exactly the same
@@ -96,6 +98,7 @@ exports[`if_comments.js 1`] = `
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 async function f1() {
@@ -169,15 +172,9 @@ async function f1() {
 }
 
 async function f2() {
-  if (untrackedChoice === 0)
-    /* Cancel */
-    null;
-  else if (untrackedChoice === 1)
-    /* Add */
-    shouldAmend = true;
-  else if (untrackedChoice === 2)
-    /* Allow Untracked */
-    allowUntracked = true;
+  if (untrackedChoice === 0) /* Cancel */ null;
+  else if (untrackedChoice === 1) /* Add */ shouldAmend = true;
+  else if (untrackedChoice === 2) /* Allow Untracked */ allowUntracked = true;
 }
 
 async function f3() {
@@ -226,6 +223,7 @@ exports[`trailing_comment.js 1`] = `
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 if (code === 92 /* '\\' */) {}

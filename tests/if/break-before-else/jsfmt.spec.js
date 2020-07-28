@@ -6,5 +6,7 @@ const dirpath = `${__dirname}/..`;
 
 run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   // [prettierx] test with --break-before-else
-  breakBeforeElse: true
+  breakBeforeElse: true,
+  // recommended:
+  trailingComma: "none" // ("Standard JS")
 });
