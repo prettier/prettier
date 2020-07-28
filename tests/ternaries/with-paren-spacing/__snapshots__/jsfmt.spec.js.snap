@@ -3,9 +3,11 @@
 exports[`binary.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrowParens: "avoid"
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
@@ -46,9 +48,11 @@ room = room.map( ( row, rowIndex ) =>
 exports[`crewdress.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrowParens: "avoid"
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 let isSpace = false
@@ -80,9 +84,11 @@ const dress = isSpace
 exports[`func-call.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrowParens: "avoid"
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 fn(
@@ -110,9 +116,11 @@ fn(
 exports[`indent.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrowParens: "avoid"
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
@@ -326,7 +334,7 @@ a
 
 a
   ? {
-      a: function() {
+      a: function () {
         return a
           ? {
               a: [
@@ -343,7 +351,7 @@ a
                         },
                         a ? 0 : 1
                       ],
-                      function() {
+                      function () {
                         return a
                           ? {
                               a: 0
@@ -360,7 +368,7 @@ a
             }
           : [
               a
-                ? function() {
+                ? function () {
                     a
                       ? a(
                           a
@@ -396,7 +404,7 @@ a
                             ? {
                                 a: 0
                               }
-                            : ( function( a ) {
+                            : ( function ( a ) {
                                 return a()
                                   ? [
                                       {
@@ -416,20 +424,20 @@ a
                                     ] );
                               } )(
                                 a
-                                  ? function( a ) {
-                                      return function() {
+                                  ? function ( a ) {
+                                      return function () {
                                         return 0;
                                       };
                                     }
-                                  : function( a ) {
-                                      return function() {
+                                  : function ( a ) {
+                                      return function () {
                                         return 1;
                                       };
                                     }
                               )
                         );
                   }
-                : function() {}
+                : function () {}
             ];
       }
     }
@@ -441,9 +449,11 @@ a
 exports[`nested.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrowParens: "avoid"
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 let icecream = what == "cone"
@@ -643,12 +653,106 @@ a
 ================================================================================
 `;
 
-exports[`parenthesis.js 1`] = `
+exports[`nested-in-condition.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrowParens: "avoid"
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = (
+  $number % 10 >= 2 && ( $number % 100 < 10 || $number % 100 >= 20 )
+    ? kochabCooieGameOnOboleUnweave
+    : annularCooeedSplicesWalksWayWay
+ )
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (
+  bifornCringerMoshedPerplexSawder
+    ? askTrovenaBeenaDependsRowans
+    : glimseGlyphsHazardNoopsTieTie
+ )
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(
+  bifornCringerMoshedPerplexSawder
+    ? askTrovenaBeenaDependsRowans
+    : glimseGlyphsHazardNoopsTieTie
+ ) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+================================================================================
+`;
+
+exports[`parenthesis.js 1`] = `
+====================================options=====================================
+alignTernaryLines: true
+arrowParens: "avoid"
+parenSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
@@ -684,9 +788,11 @@ a =>
 exports[`test.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrowParens: "avoid"
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
