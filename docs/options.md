@@ -221,7 +221,7 @@ Put a space before function parenthesis, in all declarations. (Default is to put
 
 ## Generator star spacing
 
-Add spaces around the star (\*) in generator functions (before and after - from eslint).
+Add spaces around the star (\*) in generator functions (before and after - from eslint). (Default is after only.)
 
 | Default | CLI Override               | API Override                   |
 | ------- | -------------------------- | ------------------------------ |

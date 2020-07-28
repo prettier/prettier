@@ -27,7 +27,7 @@ class Example {
 // * "space-before-function-paren": [ "error", "always" ],
 // * "semi": [ "error", "never" ],
 
-function * generator() {}
+function * generator () {}
 var anonymous = function * () {};
 var shorthand = { * generator() {} };
 class Example {
@@ -100,10 +100,10 @@ var shorthand = { *generator() {} };
 // * "space-before-function-paren": [ "error", "always" ],
 // * "semi": [ "error", "never" ],
 
-function * generator() {}
+function * generator () {}
 var anonymous = function * () {};
 var shorthand = { * generator() {} };
-function * generator() {}
+function * generator () {}
 var anonymous = function * () {};
 var shorthand = { * generator() {} };
 

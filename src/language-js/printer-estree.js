@@ -4800,16 +4800,12 @@ function printFunctionDeclaration(path, print, options) {
   }
 
   if (n.generator) {
-    // [prettierx merge] update needed here to fix
-    // generatorStarSpacing option support
-    /* ** [prettierx merge] skip for now:
-    // [prettierx] generatorStarSpacing option support (...)
+    // [prettierx] support generatorStarSpacing option (...)
+    parts.push("function");
     if (options.generatorStarSpacing) {
       parts.push(" ");
     }
-    parts.push("*");
-    // */
-    parts.push("function* ");
+    parts.push("* ");
   } else {
     parts.push("function ");
   }
@@ -4822,16 +4818,10 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        // [prettierx] for spaceBeforeFunctionParen option support (...)
-        (n.id || n.typeParameters) && options.spaceBeforeFunctionParen ||
-        // [prettierx merge] fix needed here for
-        // generatorStarSpacing option support
-        // [prettierx] generatorStarSpacing option support (...)
-        (options.generatorStarSpacing &&
-          !n.id &&
-          (n.typeParameters
-            ? n.typeParameters.type !== "TSTypeParameterDeclaration"
-            : true))
+        // [prettierx] spaceBeforeFunctionParen & generatorStarSpacing
+        // option support (...)
+        (n.id || n.typeParameters) &&
+        (options.spaceBeforeFunctionParen || options.generatorStarSpacing)
           ? " "
           : "",
         printFunctionParams(path, print, options),
