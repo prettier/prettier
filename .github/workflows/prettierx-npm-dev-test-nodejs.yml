@@ -1,6 +1,5 @@
 # This workflow will do a clean install of npm dependencies and
 # run tests across different versions of node
-# (with lint in the end, until replaced by .github/workflows/lint.yml from prettier@2.0.0)
 # For more information see:
 # https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
@@ -36,12 +35,3 @@ jobs:
       - run: npm test
         env:
           CI: true
-      # to be replaced by .github/workflows/lint.yml
-      # from prettier@2.0.0:
-      # lint from package scripts - should work across prettier@1.x & prettier@2.x:
-      - run: npx cross-env EFF_NO_LINK_RULES=true eslint . --format friendly
-      # subset of lint:prettier from prettier@2 package scripts:
-      - run: npx prettier --check *.md docs/*.md .github/workflows/*.yml
-      # equivalent to spellcheck task (lint:spellcheck task from prettier@2):
-      - run: npx cspell bin/**/*.js scripts/**/*.js src/**/*.js
-      - run: npx cspell docs/**/*.md website/blog/**/*.md changelog_unreleased/**/*.md
