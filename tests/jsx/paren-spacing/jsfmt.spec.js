@@ -8,5 +8,8 @@ run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   singleQuote: false,
   jsxSingleQuote: false,
   // [prettierx] test with --paren-spacing
-  parenSpacing: true
+  parenSpacing: true,
+  // recommended:
+  arrowParens: "avoid",
+  trailingComma: "none" // ("Standard JS")
 });

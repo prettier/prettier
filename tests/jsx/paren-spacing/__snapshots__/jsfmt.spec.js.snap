@@ -2,11 +2,13 @@
 
 exports[`array-iter.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const UsersList = ({ users }) => (
@@ -81,11 +83,13 @@ const TodoList = ( { todos } ) => (
 
 exports[`attr-comments.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <Component
@@ -124,7 +128,7 @@ singleQuote: false
 <Component
   propFn={
     // comment
-    function( arg ) {
+    function ( arg ) {
       fn( arg );
     }
   }
@@ -158,11 +162,13 @@ singleQuote: false
 
 exports[`conditional-expression.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -296,6 +302,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -442,16 +452,25 @@ cable ? (
   ) : null }
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
 exports[`expression.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <View
@@ -624,7 +643,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  { function() {
+  { function () {
     return (
       <SomethingElse>
         <span />
@@ -736,11 +755,13 @@ singleQuote: false
 
 exports[`flow_fix_me.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const aDiv = (
@@ -761,11 +782,13 @@ const aDiv = (
 
 exports[`html_escape.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
@@ -782,11 +805,13 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 
 exports[`hug.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div>
@@ -865,11 +890,13 @@ singleQuote: false
 
 exports[`logical-expression.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div>
@@ -944,11 +971,13 @@ singleQuote: false
 
 exports[`object-property.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const tabs = [
@@ -985,11 +1014,13 @@ const tabs = [
 
 exports[`open-break.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <td
@@ -1030,11 +1061,13 @@ onClick={() => {
 
 exports[`parens.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a = [
@@ -1054,6 +1087,9 @@ f?.(<div/>);
 (<div/>)();
 (<div/>)?.();
 
+new Foo(<Component/>);
+new Foo((<Component/>))
+
 =====================================output=====================================
 a = [
   <path
@@ -1072,16 +1108,21 @@ f?.( <div /> );
 ( <div /> )();
 ( <div /> )?.();
 
+new Foo( <Component /> );
+new Foo( <Component /> );
+
 ================================================================================
 `;
 
 exports[`quotes.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div id="&quot;'<>&amp;quot;" />;
@@ -1168,11 +1209,13 @@ singleQuote: false
 
 exports[`return-statement.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const NonBreakingArrowExpression = () => <div />;
@@ -1250,11 +1293,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -1283,11 +1326,13 @@ class BreakingClass extends React.component {
 
 exports[`self-closing.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <Foo></Foo>;
@@ -1302,11 +1347,13 @@ singleQuote: false
 
 exports[`spacing.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 jsxSingleQuote: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 singleQuote: false
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const Labels = {
