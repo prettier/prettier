@@ -1395,7 +1395,7 @@ foo --;<LF>
 /* This is a comment with whitespace at the beginning but not the end*/<LF>
 <LF>
 // "template-curly-spacing": [ "error", "never" ],<LF>
-<LF>
+// (blank line here causes issues with CI for some reason)<LF>
 \`hello, \${ people.name}!\`;<LF>
 \`hello, \${people.name }!\`;<LF>
 \`hello, \${ people.name }!\`;<LF>
@@ -1775,7 +1775,7 @@ foo--<LF>
 /* This is a comment with whitespace at the beginning but not the end*/<LF>
 <LF>
 // "template-curly-spacing": [ "error", "never" ],<LF>
-<LF>
+// (blank line here causes issues with CI for some reason)<LF>
 ;\`hello, \${people.name}!\`<LF>
 ;\`hello, \${people.name}!\`<LF>
 ;\`hello, \${people.name}!\`<LF>

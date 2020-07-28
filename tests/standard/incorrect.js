@@ -323,7 +323,7 @@ foo --;
 /* This is a comment with whitespace at the beginning but not the end*/
 
 // "template-curly-spacing": [ "error", "never" ],
-
+// (blank line here causes issues with CI for some reason)
 `hello, ${ people.name}!`;
 `hello, ${people.name }!`;
 `hello, ${ people.name }!`;
