@@ -5,6 +5,7 @@ exports[`o.js 1`] = `
 alignObjectProperties: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 o = {

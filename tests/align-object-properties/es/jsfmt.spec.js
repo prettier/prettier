@@ -1,3 +1,5 @@
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
-  alignObjectProperties: true
+  // "Standard JS":
+  alignObjectProperties: true,
+  trailingComma: "none"
 });

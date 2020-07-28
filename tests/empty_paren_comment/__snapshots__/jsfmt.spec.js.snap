@@ -157,14 +157,14 @@ let f4 = () => doThing(a, /* ... */ b);
 
 =====================================output=====================================
 let f1 = (/* ... */) => {};
-( function(/* ... */) {} )(/* ... */);
+( function (/* ... */) {} )(/* ... */);
 function f2(/* ... */) {}
 
 const obj = {
   f(/* ... */) {},
   f: (/* ... */) => {},
-  f: function(/* ... */) {},
-  f: function f(/* ... */) {}
+  f: function (/* ... */) {},
+  f: function f(/* ... */) {},
 };
 
 class Foo {
@@ -173,7 +173,7 @@ class Foo {
   f = (/* ... */) => {};
   static f(/* ... */) {}
   static f = (/* ... */) => {};
-  static f = function(/* ... */) {};
+  static f = function (/* ... */) {};
   static f = function f(/* ... */) {};
 }
 

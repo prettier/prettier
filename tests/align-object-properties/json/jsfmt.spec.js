@@ -1,6 +1,8 @@
 run_spec(__dirname, ["json", "json-stringify"], {
-  alignObjectProperties: true
+  alignObjectProperties: true,
+  trailingComma: "none" // ("Standard JS")
 });
 run_spec(__dirname, ["json5"], {
-  alignObjectProperties: true
+  alignObjectProperties: true,
+  trailingComma: "none" // ("Standard JS")
 });

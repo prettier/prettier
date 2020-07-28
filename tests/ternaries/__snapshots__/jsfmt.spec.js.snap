@@ -195,11 +195,11 @@ let isSpace = false;
 const dress = isSpace
   ? {
       spaceSuit: 3,
-      oxygenCylinders: 6
+      oxygenCylinders: 6,
     }
   : {
       shirts: 3,
-      paints: 3
+      paints: 3,
     };
 
 ================================================================================
@@ -229,11 +229,11 @@ let isSpace = false;
 const dress = isSpace
     ? {
           spaceSuit: 3,
-          oxygenCylinders: 6
+          oxygenCylinders: 6,
       }
     : {
           shirts: 3,
-          paints: 3
+          paints: 3,
       };
 
 ================================================================================
@@ -263,11 +263,11 @@ let isSpace = false;
 const dress = isSpace
 	? {
 			spaceSuit: 3,
-			oxygenCylinders: 6
+			oxygenCylinders: 6,
 	  }
 	: {
 			shirts: 3,
-			paints: 3
+			paints: 3,
 	  };
 
 ================================================================================
@@ -298,11 +298,11 @@ let isSpace = false;
 const dress = isSpace
 	? {
 			spaceSuit: 3,
-			oxygenCylinders: 6
+			oxygenCylinders: 6,
 	  }
 	: {
 			shirts: 3,
-			paints: 3
+			paints: 3,
 	  };
 
 ================================================================================
@@ -2578,7 +2578,8 @@ a
 
 exports[`nested-in-condition.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+alignTernaryLines: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2666,7 +2667,8 @@ const value = (
 
 exports[`nested-in-condition.js 2`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+alignTernaryLines: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
@@ -2755,7 +2757,8 @@ const value = (
 
 exports[`nested-in-condition.js 3`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+alignTernaryLines: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 useTabs: true
                                                                                 | printWidth
@@ -2844,7 +2847,8 @@ const value = (
 
 exports[`nested-in-condition.js 4`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+alignTernaryLines: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
 useTabs: true

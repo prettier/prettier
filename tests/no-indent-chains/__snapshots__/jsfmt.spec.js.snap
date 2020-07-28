@@ -2,6 +2,7 @@
 
 exports[`member-chain.js 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 indentChains: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -111,6 +112,7 @@ const sel = this.connections
 
 exports[`member-chain.js 2`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 indentChains: false
 parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]

@@ -13,7 +13,7 @@ const foo = function<T>(bar: T) {
 }
 
 =====================================output=====================================
-const foo = function<T>(bar: T) {
+const foo = function <T> (bar: T) {
   return bar;
 };
 

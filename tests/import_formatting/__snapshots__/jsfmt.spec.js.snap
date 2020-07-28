@@ -22,6 +22,7 @@ exports[`long_import.js 2`] = `
 importFormatting: "auto"
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 import abc, { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";

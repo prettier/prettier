@@ -5,6 +5,7 @@ exports[`arrow.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 () => a\`
@@ -32,6 +33,7 @@ exports[`call.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 insertRule(\`*, *:before, *:after {
@@ -69,6 +71,7 @@ exports[`comment.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 \`
@@ -109,6 +112,7 @@ exports[`faulty-locations.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 var o = {
@@ -150,6 +154,7 @@ exports[`graphql.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 module.exports = Relay.createContainer(
@@ -197,6 +202,7 @@ exports[`indent.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const foo = () => {
@@ -251,6 +257,7 @@ exports[`inline.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
@@ -376,6 +383,7 @@ exports[`parenthesis.js 1`] = `
 parenSpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 // "ArrowFunctionExpression"
@@ -458,7 +466,7 @@ b()\`\`;
 ( b ? c : d )\`\`;
 
 // "FunctionExpression"
-( function() {} )\`\`;
+( function () {} )\`\`;
 
 // "LogicalExpression"
 ( b || c )\`\`;
