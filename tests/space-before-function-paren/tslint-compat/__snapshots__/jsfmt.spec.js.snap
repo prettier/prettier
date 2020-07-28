@@ -5,6 +5,7 @@ exports[`tsbaz.ts 1`] = `
 parsers: ["typescript"]
 printWidth: 80
 spaceBeforeFunctionParen: true
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 // Results of using spaceBeforeFunctionParen: true setting
@@ -85,7 +86,7 @@ function baz<T> (a: T) {
 }
 
 // tslint seems to miss this one:
-var baz = function<T> (a: T) {
+var baz = function <T> (a: T) {
   // ...
 };
 
@@ -123,6 +124,7 @@ exports[`tsbaz.ts 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 // Results of using spaceBeforeFunctionParen: true setting
@@ -190,7 +192,7 @@ function foo() {
   // ...
 }
 
-var bar = function() {
+var bar = function () {
   // ...
 };
 
@@ -203,7 +205,7 @@ function baz<T>(a: T) {
 }
 
 // tslint seems to miss this one:
-var baz = function<T>(a: T) {
+var baz = function <T>(a: T) {
   // ...
 };
 
@@ -243,6 +245,7 @@ parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
 spaceBeforeFunctionParen: true
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 // Results of using spaceBeforeFunctionParen: true setting
@@ -323,7 +326,7 @@ function baz< T > ( a: T ) {
 }
 
 // tslint seems to miss this one:
-var baz = function< T > ( a: T ) {
+var baz = function < T > ( a: T ) {
   // ...
 };
 
@@ -362,6 +365,7 @@ exports[`tsbaz.ts 4`] = `
 parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 // Results of using spaceBeforeFunctionParen: true setting
@@ -429,7 +433,7 @@ function foo() {
   // ...
 }
 
-var bar = function() {
+var bar = function () {
   // ...
 };
 
@@ -442,7 +446,7 @@ function baz< T >( a: T ) {
 }
 
 // tslint seems to miss this one:
-var baz = function< T >( a: T ) {
+var baz = function < T >( a: T ) {
   // ...
 };
 

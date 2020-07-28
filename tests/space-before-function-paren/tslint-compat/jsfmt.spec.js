@@ -1,12 +1,23 @@
-run_spec(__dirname, ["typescript"], { spaceBeforeFunctionParen: true });
-
-run_spec(__dirname, ["typescript"]);
-
 run_spec(__dirname, ["typescript"], {
+  // "Standard JS":
   spaceBeforeFunctionParen: true,
-  parenSpacing: true
+  trailingComma: "none"
 });
 
 run_spec(__dirname, ["typescript"], {
-  parenSpacing: true
+  // "Standard JS":
+  trailingComma: "none"
+});
+
+run_spec(__dirname, ["typescript"], {
+  parenSpacing: true,
+  // "Standard JS":
+  spaceBeforeFunctionParen: true,
+  trailingComma: "none"
+});
+
+run_spec(__dirname, ["typescript"], {
+  parenSpacing: true,
+  // "Standard JS":
+  trailingComma: "none"
 });

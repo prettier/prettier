@@ -213,7 +213,7 @@ Align colons in multiline object literals (not applied with any of the JSON pars
 
 ## Space before function parentheses
 
-Put a space before function parenthesis.
+Put a space before function parenthesis, in all declarations. (Default is to put a space before function parenthesis for anonymous functions only.)
 
 | Default | CLI Override                    | API Override                       |
 | ------- | ------------------------------- | ---------------------------------- |

@@ -4822,11 +4822,9 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        // [prettierx merge] update needed here to fix
-        // spaceBeforeFunctionParen option support
-        // [prettierx] spaceBeforeFunctionParen option support (...)
-        options.spaceBeforeFunctionParen ||
-        // [prettierx merge] update needed here to fix
+        // [prettierx] for spaceBeforeFunctionParen option support (...)
+        (n.id || n.typeParameters) && options.spaceBeforeFunctionParen ||
+        // [prettierx merge] fix needed here for
         // generatorStarSpacing option support
         // [prettierx] generatorStarSpacing option support (...)
         (options.generatorStarSpacing &&

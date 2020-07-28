@@ -5,6 +5,7 @@ exports[`eslint.js 1`] = `
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 spaceBeforeFunctionParen: true
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 /*eslint space-before-function-paren: "error"*/
@@ -79,6 +80,7 @@ exports[`eslint.js 2`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 /*eslint space-before-function-paren: "error"*/
@@ -121,7 +123,7 @@ function foo() {
   // ...
 }
 
-var bar = function() {
+var bar = function () {
   // ...
 };
 
