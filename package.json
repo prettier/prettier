@@ -157,7 +157,7 @@
     "lint:changelog": "node ./scripts/lint-changelog.js",
     "lint:prettier": "prettier \"**/*.{md,json,yml,html,css}\" --check",
     "lint:dist": "eslint --no-eslintrc --no-ignore --env=es6,browser --parser-options=ecmaVersion:2016 \"dist/!(bin-prettier|index|third-party).js\"",
-    "lint:spellcheck": "cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md",
+    "lint:spellcheck": "cspell package.json {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md",
     "lint:deps": "node ./scripts/check-deps.js",
     "build-extra-dist": "node --max-old-space-size=8192 ./scripts/build/build.js",
     "build": "echo 'use build-extra-dist for prettierx' && exit 1",
