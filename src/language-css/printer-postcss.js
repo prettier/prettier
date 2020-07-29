@@ -314,10 +314,12 @@ function genericPrint(path, options, print) {
       return adjustNumbers(adjustStrings(node.value, options));
     }
     case "media-feature-expression": {
+      // prettierx: parenSpace option support (...)
       const parenSpace = options.parenSpacing ? " " : "";
       if (!node.nodes) {
         return node.value;
       }
+      // prettierx: parenSpace option support (...)
       return concat([
         "(",
         parenSpace,
@@ -451,11 +453,13 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "selector-pseudo": {
+      // prettierx: parenSpace option support (...)
       const parenSpace = options.parenSpacing ? " " : "";
       return concat([
         maybeToLowerCase(node.value),
         node.nodes && node.nodes.length > 0
           ? concat([
+              // prettierx: parenSpace option support (...)
               "(",
               parenSpace,
               join(", ", path.map(print, "nodes")),
@@ -774,6 +778,7 @@ function genericPrint(path, options, print) {
       return group(indent(fill(parts)));
     }
     case "value-paren_group": {
+      // prettierx: parenSpace option support (...)
       const parenSpace = options.parenSpacing ? " " : "";
       const parenLine = options.parenSpacing ? line : softline;
       const parentNode = path.getParentNode();
@@ -789,6 +794,7 @@ function genericPrint(path, options, print) {
             node.groups[0].groups[0].value.startsWith("data:")))
       ) {
         return concat([
+          // prettierx: parenSpace option support (...)
           node.open ? concat([path.call(print, "open"), parenSpace]) : "",
           join(",", path.map(print, "groups")),
           node.close ? concat([parenSpace, path.call(print, "close")]) : ""
@@ -809,6 +815,7 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
+      // prettierx: parenSpace option support (...)
       if (node.groups.length === 0) {
         return group(
           concat([
@@ -828,6 +835,7 @@ function genericPrint(path, options, print) {
           node.open ? path.call(print, "open") : "",
           indent(
             concat([
+              // prettierx: parenSpace option support (...)
               parenLine,
               join(
                 concat([",", line]),
@@ -863,6 +871,7 @@ function genericPrint(path, options, print) {
               ? ","
               : ""
           ),
+          // prettierx: parenSpace option support (...)
           parenLine,
           node.close ? path.call(print, "close") : ""
         ]),
