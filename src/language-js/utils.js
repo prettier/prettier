@@ -890,7 +890,7 @@ function isSimpleCallArgument(node, depth) {
     return false;
   }
 
-  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);	
+  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);
 
   const regexpPattern =
     (node.type === "Literal" && node.regex && node.regex.pattern) ||
@@ -941,14 +941,20 @@ function isSimpleCallArgument(node, depth) {
     node.type === "OptionalCallExpression" ||
     node.type === "NewExpression"
   ) {
-    return isSimpleCallArgument(node.callee, depth) && node.arguments.every(isChildSimple);
+    return (
+      isSimpleCallArgument(node.callee, depth) &&
+      node.arguments.every(isChildSimple)
+    );
   }
 
   if (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression"
   ) {
-    return isSimpleCallArgument(node.object, depth) && isSimpleCallArgument(node.property, depth);
+    return (
+      isSimpleCallArgument(node.object, depth) &&
+      isSimpleCallArgument(node.property, depth)
+    );
   }
 
   if (

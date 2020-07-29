@@ -378,13 +378,13 @@ function printMemberChain(path, options, print) {
   }
 
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
-    const lastGroupNode = getLast(getLast(groups)).node;	
-    const lastGroupDoc = getLast(printedGroups);	
-    return (	
-      isCallOrOptionalCallExpression(lastGroupNode) &&	
-      willBreak(lastGroupDoc) &&	
-      callExpressions	
-        .slice(0, -1)	
+    const lastGroupNode = getLast(getLast(groups)).node;
+    const lastGroupDoc = getLast(printedGroups);
+    return (
+      isCallOrOptionalCallExpression(lastGroupNode) &&
+      willBreak(lastGroupDoc) &&
+      callExpressions
+        .slice(0, -1)
         .some((n) => n.arguments.some(isFunctionOrArrowExpression))
     );
   }
