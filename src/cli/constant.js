@@ -208,9 +208,9 @@ const options = {
   }
 };
 
-// [prettierx merge ...]
+// [prettierx]
 const usageSummary = dedent`
-  Usage: prettierx [options] [file/glob/dir ...]
+  Usage: prettierx [options] [file/dir/glob ...]
 
   By default, output is written to stdout.
   Stdin is read if it is piped to Prettier and no files are given.
