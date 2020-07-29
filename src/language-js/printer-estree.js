@@ -615,7 +615,9 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "expression"),
         isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi
       ]);
-    // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
+    // prettierx: parenSpace option support (...)
+    // Babel non-standard node. Used for Closure-style type casts.
+    // See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug = !n.expression.comments;
       // [prettierx] parenSpace option support (...)
