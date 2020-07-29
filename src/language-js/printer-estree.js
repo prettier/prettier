@@ -459,22 +459,12 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     }
   }
 
-  // [prettierx merge ...]
+  // prettierx: with options for parenSpace support in ternaries (...)
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
-  /* ** [prettierx merge] from prettier 2.0.0:
-  const maybeGroup = doc =>
-    parent === firstNonConditionalParent ? group(doc) : doc;
-  // */
-  // [prettierx] with options for parenSpace support in ternaries
   const maybeGroup = (doc, options) =>
-    // [prettierx merge] quick merge workaround solution:
-    !operatorOptions.bogusDeprecatedOption
-      ? parent === firstNonConditionalParent
-        ? group(doc, options)
-        : doc
-      : group(doc, options); // Always group in normal mode.
+    parent === firstNonConditionalParent ? group(doc, options) : doc;
 
   // Break the closing paren to keep the chain right after it:
   // (a
