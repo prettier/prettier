@@ -24,7 +24,6 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "exportDefaultFrom",
       "functionBind",
       "functionSent",
-      "numericSeparator",
       "classPrivateProperties",
       "throwExpressions",
       "logicalAssignment",
