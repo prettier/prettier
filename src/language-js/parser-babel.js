@@ -26,7 +26,6 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "functionSent",
       "classPrivateProperties",
       "throwExpressions",
-      "logicalAssignment",
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
