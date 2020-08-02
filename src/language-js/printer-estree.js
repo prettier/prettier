@@ -2314,6 +2314,13 @@ function printPathNoParens(path, options, print, args) {
 
       /* istanbul ignore next */
       return "";
+    case "TSNamedTupleMember":
+      return concat([
+        path.call(print, "label"),
+        n.optional ? "?" : "",
+        ": ",
+        path.call(print, "elementType"),
+      ]);
     case "TSTupleType":
     case "TupleTypeAnnotation": {
       const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
