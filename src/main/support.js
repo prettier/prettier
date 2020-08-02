@@ -5,11 +5,17 @@ const semver = {
   lt: require("semver/functions/lt"),
   gte: require("semver/functions/gte")
 };
+
 const arrayify = require("../utils/arrayify");
-/* [prettierx merge] not needed at this point:
+
+/* ** [prettierx] not needed from package.json:
 const currentVersion = require("../../package.json").version;
 // */
+
 const coreOptions = require("./core-options").options;
+
+// [prettierx] quick workaround:
+const currentVersion = "2.0.0";
 
 /**
  * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
@@ -27,13 +33,10 @@ function getSupportInfo({
   showDeprecated = false,
   showInternal = false
 } = {}) {
-  // [prettierx merge] quick workaround:
-  const version = "2.0.0";
-  /* [prettierx merge] ignore for now:
+  // [prettierx tbd ...]
   // pre-release version is smaller than the normal version in semver,
   // we need to treat it as the normal one so as to test new features.
   const version = currentVersion.split("-", 1)[0];
-  // */
 
   const options = arrayify(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
@@ -41,23 +44,10 @@ function getSupportInfo({
   )
     .filter(option => filterSince(option) && filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    /** [prettierx merge] GONE:
-    //* .filter(filterSince)
-    .filter(filterDeprecated)
-    .map(mapDeprecated)
-    // */
     .map(mapInternal)
     .map(option => {
       option = { ...option };
 
-      /** [prettierx merge] GONE:
-      if (Array.isArray(newOption.default)) {
-        newOption.default =
-          newOption.default.length === 1
-            ? newOption.default[0].value
-            : newOption.default
-                //* .filter(filterSince)
-      // */
       if (Array.isArray(option.default)) {
         option.default =
           option.default.length === 1
@@ -69,13 +59,6 @@ function getSupportInfo({
                 )[0].value;
       }
 
-      /** [prettierx merge] GONE:
-      if (Array.isArray(newOption.choices)) {
-        newOption.choices = newOption.choices
-          //* .filter(filterSince)
-          .filter(filterDeprecated)
-          .map(mapDeprecated);
-      // */
       if (Array.isArray(option.choices)) {
         option.choices = option.choices.filter(
           option => filterSince(option) && filterDeprecated(option)
@@ -93,64 +76,6 @@ function getSupportInfo({
         return reduced;
       }, {});
 
-      //* [prettierx merge] GONE:
-      /** ** Old parsers not supported by prettierx:
-  const usePostCssParser = semver.lt(version, "1.7.1");
-  const useBabylonParser = semver.lt(version, "1.16.0");
-  //* ** */
-
-      /* [prettierx merge] GONE:
-  const languages = plugins
-    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
-    //* .filter(filterSince)
-    .map(language => {
-      // Prevent breaking changes
-      if (language.name === "Markdown") {
-        return Object.assign({}, language, {
-          parsers: ["markdown"]
-        });
-      }
-      if (language.name === "TypeScript") {
-        return Object.assign({}, language, {
-          parsers: ["typescript"]
-        });
-      }
-
-      /** ** Old parsers not supported by prettierx:
-      // "babylon" was renamed to "babel" in 1.16.0
-      if (useBabylonParser && language.parsers.indexOf("babel") !== -1) {
-        return Object.assign({}, language, {
-          parsers: language.parsers.map(parser =>
-            parser === "babel" ? "babylon" : parser
-          )
-        });
-      }
-
-      if (
-        usePostCssParser &&
-        (language.name === "CSS" || language.group === "CSS")
-      ) {
-        return Object.assign({}, language, {
-          parsers: ["postcss"]
-        });
-      }
-      //* ** */
-
-      /* [prettierx merge] GONE:
-      return language;
-    });
-
-  return { languages, options };
-  //* ** */
-
-      //* [prettierx merge] GONE:
-      //* function filterSince(object) {
-      //*   return (
-      //*     opts.showUnreleased ||
-      //*     !("since" in object) ||
-      //*     (object.since && semver.gte(version, object.since))
-      //*   );
-      //* }
       return { ...option, pluginDefaults };
     });
 
@@ -168,10 +93,8 @@ function getSupportInfo({
     );
   }
 
-  // [prettierx merge...]
+  // [prettierx tbd ...]
   function filterDeprecated(object) {
-    // filter deprecated as if this was prettier version 1.16.0:
-    const version = "1.16.0";
     return (
       showDeprecated ||
       !("deprecated" in object) ||
