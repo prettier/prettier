@@ -251,8 +251,8 @@ function genericPrint(path, options, printPath, args) {
   return concat(parts);
 }
 
-// [prettierx merge from prettier@1.19.0] (...)
-// [prettierx] for alignObjectProperties option:
+// [prettierx] for alignObjectProperties option
+// (with parenSpacing support):
 function getPropertyPadding(options, path) {
   if (!options.alignObjectProperties) {
     return "";
@@ -286,6 +286,8 @@ function getPropertyPadding(options, path) {
       ? n.extra.raw.length
       : undefined;
 
+  const computedPropertyOverhead = options.parenSpacing ? 4 : 2;
+
   // FUTURE TBD from arijs/prettier-miscellaneous#10
   // (does not seem to be needed to pass the tests):
   // if (nameLength === undefined) {
@@ -297,7 +299,11 @@ function getPropertyPadding(options, path) {
     if (!p.key) {
       return 0;
     }
-    return p.key.loc.end.column - p.key.loc.start.column + (p.computed ? 2 : 0);
+    return (
+      p.key.loc.end.column -
+      p.key.loc.start.column +
+      (p.computed ? computedPropertyOverhead : 0)
+    );
   });
 
   const maxLength = Math.max.apply(null, lengths);
@@ -1634,6 +1640,14 @@ function printPathNoParens(path, options, print, args) {
           "key"
         );
 
+        // [prettierx] FUTURE TBD: it should be possible to refactor the code
+        // to use the same printPropertyKey call for both
+        // computed & non-computed properties
+
+        // [prettierx] calculate this overhead in case it is needed,
+        // with parenSpacing support:
+        const computedPropertyOverhead = options.parenSpacing ? 4 : 2;
+
         // [prettierx] compose left part,
         // for alignObjectProperties option
         const propertyLeftPart = n.computed
@@ -1647,7 +1661,7 @@ function printPathNoParens(path, options, print, args) {
               // [prettierx] parenSpace option support (...)
               parenSpace,
               "]",
-              propertyPadding.slice(2)
+              propertyPadding.slice(computedPropertyOverhead)
             ])
           : concat([
               // [prettierx] normal property key,
@@ -4011,7 +4025,9 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    return concat(["[", path.call(print, "key"), "]"]);
+    // [prettierx] parenSpacing option support (...)
+    const parenSpace = options.parenSpacing ? " " : "";
+    return concat(["[", parenSpace, path.call(print, "key"), parenSpace, "]"]);
   }
 
   const parent = path.getParentNode();
