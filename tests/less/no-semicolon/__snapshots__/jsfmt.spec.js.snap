@@ -1,15 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logical-assignment.js format 1`] = `
+exports[`url.less format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-a ||= b;
+@import ur
+  l(//fonts.googleapis.com/css?family=Open+Sans:400,400italic);
 
 =====================================output=====================================
-a ||= b;
+@import ur
+  l(//fonts.googleapis.com/css?family=Open+Sans:400,400italic);
 
 ================================================================================
 `;

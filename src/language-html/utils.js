@@ -53,10 +53,6 @@ function mapObject(object, fn) {
 }
 
 function shouldPreserveContent(node, options) {
-  if (!node.endSourceSpan) {
-    return false;
-  }
-
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
@@ -273,6 +269,7 @@ function forceNextEmptyLine(node) {
   return (
     isFrontMatterNode(node) ||
     (node.next &&
+      node.sourceSpan.end &&
       node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
   );
 }
@@ -287,6 +284,7 @@ function forceBreakContent(node) {
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
+      node.firstChild.type !== "text" &&
       hasLeadingLineBreak(node.firstChild) &&
       (!node.lastChild.isTrailingSpaceSensitive ||
         hasTrailingLineBreak(node.lastChild)))

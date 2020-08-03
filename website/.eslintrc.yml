@@ -1,5 +1,6 @@
 extends:
   - plugin:react/recommended
+  - prettier/react
 settings:
   react:
     version: "16"

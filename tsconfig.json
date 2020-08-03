@@ -11,7 +11,7 @@
   },
   "exclude": [
     "coverage/",
-    "test*.js",
+    "test*.*",
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",
@@ -31,13 +31,13 @@
     "src/language-markdown",
     "src/language-yaml",
     // [TBD] JavaScript sources affected by JSDoc issues in src/language-*:
-    "src/common/internal-plugins.js",
     "src/common/load-plugins.js",
     "src/cli/index.js",
     "src/cli/expand-patterns.js",
     "src/cli/util.js",
     "src/cli/constant.js",
     "src/cli/prettier-internal.js",
+    "src/languages.js",
     // [TBD] top-level JavaScript sources affected by JSDoc issues
     // in other sources:
     "src/index.js",

@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function babelOptions({ sourceType, extraPlugins = [] }) {
@@ -37,6 +37,8 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       ["recordAndTuple", { syntaxType: "hash" }],
       ...extraPlugins,
     ],
+    tokens: true,
+    ranges: true,
   };
 }
 
@@ -97,7 +99,7 @@ function createParse(parseMethod, ...pluginCombinations) {
           : { start: { line: 0, column: 0 } }
       );
     }
-    delete ast.tokens;
+
     return postprocess(ast, { ...opts, originalText: text });
   };
 }
@@ -214,7 +216,7 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = { parse, astFormat: "estree", hasPragma, ...locFns };
+const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 const babelFlow = { ...babel, parse: parseFlow };
 const babelTypeScript = { ...babel, parse: parseTypeScript };
 const babelExpression = { ...babel, parse: parseExpression };
@@ -235,7 +237,8 @@ module.exports = {
     "json-stringify": {
       parse: parseJson,
       astFormat: "estree-json",
-      ...locFns,
+      locStart,
+      locEnd,
     },
     /** @internal */
     __js_expression: babelExpression,

@@ -116,8 +116,9 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
-    resolveConfig: true,
+    resolveConfig: context.argv.config !== false,
   };
+
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
@@ -528,21 +529,27 @@ function formatFiles(context) {
       writeOutput(context, result, options);
     }
 
-    if ((context.argv.check || context.argv["list-different"]) && isDifferent) {
-      context.logger.log(filename);
+    if (isDifferent) {
+      if (context.argv.check) {
+        context.logger.warn(filename);
+      } else if (context.argv["list-different"]) {
+        context.logger.log(filename);
+      }
       numberOfUnformattedFilesFound += 1;
     }
   }
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
-    context.logger.log(
-      numberOfUnformattedFilesFound === 0
-        ? "All matched files use Prettier code style!"
-        : context.argv.write
-        ? "Code style issues fixed in the above file(s)."
-        : "Code style issues found in the above file(s). Forgot to run Prettier?"
-    );
+    if (numberOfUnformattedFilesFound === 0) {
+      context.logger.log("All matched files use Prettier code style!");
+    } else {
+      context.logger.warn(
+        context.argv.write
+          ? "Code style issues fixed in the above file(s)."
+          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+      );
+    }
   }
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write

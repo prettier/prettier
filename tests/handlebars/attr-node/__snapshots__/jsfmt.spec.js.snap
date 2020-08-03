@@ -1,5 +1,160 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`attribute.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div title='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div title='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+
+=====================================output=====================================
+<div title='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div title='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+================================================================================
+`;
+
+exports[`attribute.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div title='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div title='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+
+=====================================output=====================================
+<div title="
+
+  a title with random
+
+
+  newlines"></div>
+
+<div TITLE="
+
+  a title with random
+
+
+  newlines"></div>
+
+<div title="
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+"></div>
+
+<div TITLE="
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+"></div>
+================================================================================
+`;
+
 exports[`brackets.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -39,109 +194,137 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trimming-and-whitespace.hbs - {"singleQuote":true} format 1`] = `
+exports[`class-name.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-<div class="attr
-"></div>
-
-<div class="
-attr"></div>
-
-<div class="
-attr
-"></div>
-
-<div class="
+<div class='class and other'></div>
+<div class=' class and other '></div>
+<div CLASs=' class and other '></div>
+<p class=" a list of
 
 
+weirdly formatted
 
-attr
+
+classes">String</p>
+<p class=" a list of
 
 
-"></div>
+weirdly formatted
 
-<div class="
-    attr
-      attr
 
-  attr
-                       attr
-          attr
-"></div>
+{{this.classes}}">String</p>
+<p CLASS=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
+
 =====================================output=====================================
-<div class='attr'></div>
+<div class='class and other'></div>
+<div class='class and other'></div>
+<div CLASs='class and other'></div>
+<p class='a list of
 
-<div class='attr'></div>
 
-<div class='attr'></div>
+weirdly formatted
 
-<div class='attr'></div>
 
-<div
-  class='attr
-      attr
+classes'>
+  String
+</p>
+<p
+  class='a list of
 
-  attr
-                       attr
-          attr'
-></div>
+
+weirdly formatted
+
+  {{this.classes}}'
+>
+  String
+</p>
+<p
+  CLASS='a list of
+
+
+weirdly formatted
+
+  {{this.classes}}'
+>
+  String
+</p>
 ================================================================================
 `;
 
-exports[`trimming-and-whitespace.hbs format 1`] = `
+exports[`class-name.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div class="attr
-"></div>
-
-<div class="
-attr"></div>
-
-<div class="
-attr
-"></div>
-
-<div class="
+<div class='class and other'></div>
+<div class=' class and other '></div>
+<div CLASs=' class and other '></div>
+<p class=" a list of
 
 
+weirdly formatted
 
-attr
+
+classes">String</p>
+<p class=" a list of
 
 
-"></div>
+weirdly formatted
 
-<div class="
-    attr
-      attr
 
-  attr
-                       attr
-          attr
-"></div>
+{{this.classes}}">String</p>
+<p CLASS=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
+
 =====================================output=====================================
-<div class="attr"></div>
+<div class="class and other"></div>
+<div class="class and other"></div>
+<div CLASs="class and other"></div>
+<p class="a list of
 
-<div class="attr"></div>
 
-<div class="attr"></div>
+weirdly formatted
 
-<div class="attr"></div>
 
-<div
-  class="attr
-      attr
+classes">
+  String
+</p>
+<p
+  class="a list of
 
-  attr
-                       attr
-          attr"
-></div>
+
+weirdly formatted
+
+  {{this.classes}}"
+>
+  String
+</p>
+<p
+  CLASS="a list of
+
+
+weirdly formatted
+
+  {{this.classes}}"
+>
+  String
+</p>
 ================================================================================
 `;

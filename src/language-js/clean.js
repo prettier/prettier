@@ -11,15 +11,13 @@ function clean(ast, newObj, parent) {
     "extra",
     "start",
     "end",
+    "loc",
     "flags",
     "errors",
+    "tokens",
   ].forEach((name) => {
     delete newObj[name];
   });
-
-  if (ast.loc && ast.loc.source === null) {
-    delete newObj.loc.source;
-  }
 
   if (ast.type === "Program") {
     delete newObj.sourceType;

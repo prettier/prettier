@@ -30,7 +30,7 @@ async function update() {
     githubPage
       .replace(/\n/g, "")
       .match(
-        /<svg.*?octicon-gist.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
       )[1]
       .replace(/,/g, "")
   );
@@ -60,7 +60,7 @@ function formatNumber(value) {
   if (value < 1e6) {
     return Math.floor(value / 1e2) / 10 + "k";
   }
-  return Math.floor(value / 1e5) / 10 + "M";
+  return Math.floor(value / 1e5) / 10 + " million";
 }
 
 module.exports = async function () {
