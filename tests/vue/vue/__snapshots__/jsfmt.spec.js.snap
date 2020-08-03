@@ -42,6 +42,7 @@ semi: false
   @click="doSomething()"
   @click="doSomething;"
   #default="{foo:{bar:{baz}}}"
+  :value='\`"cool\${foo}"\`'
 ></div>
 </template>
 
@@ -105,6 +106,7 @@ semi: false
     @click="doSomething()"
     @click="doSomething;"
     #default="{ foo: { bar: { baz } } }"
+    :value='\`"cool\${foo}"\`'
   ></div>
 </template>
 
@@ -153,6 +155,7 @@ trailingComma: "none"
   @click="doSomething()"
   @click="doSomething;"
   #default="{foo:{bar:{baz}}}"
+  :value='\`"cool\${foo}"\`'
 ></div>
 </template>
 
@@ -216,6 +219,7 @@ trailingComma: "none"
     @click="doSomething()"
     @click="doSomething;"
     #default="{ foo: { bar: { baz } } }"
+    :value='\`"cool\${foo}"\`'
   ></div>
 </template>
 
@@ -263,6 +267,7 @@ printWidth: 80
   @click="doSomething()"
   @click="doSomething;"
   #default="{foo:{bar:{baz}}}"
+  :value='\`"cool\${foo}"\`'
 ></div>
 </template>
 
@@ -326,6 +331,7 @@ printWidth: 80
     @click="doSomething()"
     @click="doSomething;"
     #default="{ foo: { bar: { baz } } }"
+    :value='\`"cool\${foo}"\`'
   ></div>
 </template>
 
