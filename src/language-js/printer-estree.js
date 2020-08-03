@@ -4352,12 +4352,8 @@ function printArgumentsList(path, options, print) {
   ) {
     return concat([
       "(",
-      // [prettierx] parenSpace option support (...)
-      parenSpace,
       path.call(print, "arguments", 0),
       ", ",
-      // [prettierx] parenSpace option support (...)
-      parenSpace,
       path.call(print, "arguments", 1),
       ")"
     ]);
