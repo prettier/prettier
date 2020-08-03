@@ -216,34 +216,24 @@ function print(path, options, print) {
         }
       }
 
-      const inAttrNode = path.stack.includes("attributes");
+      let text = n.chars;
+      /* if `{{my-component}}` (or any text starting with a mustache)
+       * makes it to the TextNode,
+       * it means it was escaped,
+       * so let's print it escaped, ie.; `\{{my-component}}` */
+      if (text.startsWith("{{") && text.includes("}}")) {
+        text = "\\" + text;
+      }
+
+      const inAttrNode = isParentOfSomeType(path, ["AttrNode"]);
       if (inAttrNode) {
-        // TODO: format style and srcset attributes
-        // and cleanup concat that is not necessary
-        if (!isInAttributeOfName(path, "class")) {
-          return concat([n.chars]);
+        // TODO: take care of style and srcset
+        if (isInAttributeOfName(path, "class")) {
+          // always trim and collapse whitespace in class attribute
+          return concat([text.trim().replace(/\s+/g, " ")]);
         }
 
-        let leadingSpace = "";
-        let trailingSpace = "";
-
-        if (isParentOfSomeType(path, ["ConcatStatement"])) {
-          if (isPreviousNodeOfSomeType(path, ["MustacheStatement"])) {
-            leadingSpace = " ";
-          }
-          if (isNextNodeOfSomeType(path, ["MustacheStatement"])) {
-            trailingSpace = " ";
-          }
-        }
-
-        return concat([
-          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-          n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
-          ...generateHardlines(
-            trailingLineBreaksCount,
-            maxLineBreaksToPreserve
-          ),
-        ]);
+        return concat([n.chars]);
       }
 
       let leadingSpace = "";
@@ -273,30 +263,14 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
-      let text = n.chars;
-      /* if `{{my-component}}` (or any text starting with a mustache)
-       * makes it to the TextNode,
-       * it means it was escaped,
-       * so let's print it escaped, ie.; `\{{my-component}}` */
-      if (text.startsWith("{{") && text.includes("}}")) {
-        text = "\\" + text;
-      }
-
-      const trimmedValue = text
-        .replace(/^\s+/g, leadingSpace)
-        .replace(/\s+$/, trailingSpace);
-
-      // Glimmer parser treats attribute values with mustaches differently
-      // they're a ConcatStatement rather than a single TextNode
-      // if the attribute value is a plain string, we only trim it and avoid inserting hardlines
-      // since they're not rendered correctly within attributes
-      if (isParentOfSomeType(path, ["AttrNode"])) {
-        return concat([trimmedValue]);
+      // preserve title
+      if (isInAttributeOfName(path, "title")) {
+        return concat([n.chars]);
       }
 
       return concat([
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-        trimmedValue,
+        text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ]);
     }
