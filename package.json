@@ -32,7 +32,7 @@
     "chalk": "4.1.0",
     "ci-info": "watson/ci-info#f43f6a1cefff47fb361c88cf4b943fdbcaafe540",
     "cjk-regex": "2.0.0",
-    "cosmiconfig": "6.0.0",
+    "cosmiconfig": "7.0.0",
     "dashify": "2.0.0",
     "diff": "4.0.2",
     "editorconfig": "0.15.3",
