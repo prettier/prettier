@@ -3,7 +3,7 @@
 const assert = require("assert");
 const {
   builders,
-  utils: { stripTrailingHardline, mapDoc, normalizeParts },
+  utils: { stripTrailingHardline, mapDoc, traverseDoc, normalizeParts },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
 const clean = require("./clean");
@@ -200,16 +200,33 @@ function embed(path, print, textToDoc, options) {
           textToDoc(code, { __isInHtmlAttribute: true, ...opts }),
         options
       );
+
       if (embeddedAttributeValueDoc) {
+        let singleQuoteCount = 0;
+        let doubleQuoteCount = 0;
+
+        traverseDoc(embeddedAttributeValueDoc, (doc) => {
+          if (typeof doc === "string") {
+            singleQuoteCount += countChars(doc, "'");
+            doubleQuoteCount += countChars(doc, '"');
+          }
+        });
+
+        const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
+
         return concat([
           node.rawName,
-          '="',
+          `=${quote}`,
           group(
             mapDoc(embeddedAttributeValueDoc, (doc) =>
-              typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+              typeof doc === "string"
+                ? quote === '"'
+                  ? doc.replace(/"/g, "&quot;")
+                  : doc.replace(/'/g, "&apos;")
+                : doc
             )
           ),
-          '"',
+          quote,
         ]);
       }
       break;
@@ -431,6 +448,7 @@ function genericPrint(path, options, print) {
       const singleQuoteCount = countChars(value, "'");
       const doubleQuoteCount = countChars(value, '"');
       const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
+
       return concat([
         node.rawName,
         concat([
