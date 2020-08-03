@@ -3368,11 +3368,13 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameter": {
       const parent = path.getParentNode();
       if (parent.type === "TSMappedType") {
-        parts.push("[", path.call(print, "name"));
+        // [prettierx] parenSpacing option support (...)
+        parts.push("[", parenSpace, path.call(print, "name"));
         if (n.constraint) {
           parts.push(" in ", path.call(print, "constraint"));
         }
-        parts.push("]");
+        // [prettierx] parenSpacing option support (...)
+        parts.push(parenSpace, "]");
         return concat(parts);
       }
 
@@ -3584,7 +3586,11 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         path.call(print, "objectType"),
         "[",
+        // [prettierx] parenSpacing option support (...)
+        parenSpace,
         path.call(print, "indexType"),
+        // [prettierx] parenSpacing option support (...)
+        parenSpace,
         "]"
       ]);
     case "TSConstructSignatureDeclaration":
