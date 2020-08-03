@@ -34,7 +34,9 @@ function embed(path, print, textToDoc, options) {
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
+
         let placeholderID = 0;
+
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
           return idx === 0
             ? currVal
@@ -44,8 +46,11 @@ function embed(path, print, textToDoc, options) {
                 "-id" +
                 currVal;
         }, "");
+
         const doc = textToDoc(text, { parser: "css" });
-        return transformCssDoc(doc, path, print);
+
+        // [prettierx] parenSpace option support (...)
+        return transformCssDoc(doc, path, print, options);
       }
 
       /*
@@ -227,7 +232,8 @@ function escapeTemplateCharacters(doc, raw) {
   });
 }
 
-function transformCssDoc(quasisDoc, path, print) {
+// [prettierx] parenSpace option support (...)
+function transformCssDoc(quasisDoc, path, print, options) {
   const parentNode = path.getValue();
 
   const isEmpty =
@@ -239,7 +245,10 @@ function transformCssDoc(quasisDoc, path, print) {
   const expressionDocs = parentNode.expressions
     ? path.map(print, "expressions")
     : [];
-  const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
+
+  // [prettierx] parenSpace option support (...)
+  const newDoc = replacePlaceholders(quasisDoc, expressionDocs, options);
+
   /* istanbul ignore if */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
@@ -256,7 +265,7 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
-function replacePlaceholders(quasisDoc, expressionDocs) {
+function replacePlaceholders(quasisDoc, expressionDocs, options) {
   if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
   }
@@ -300,10 +309,14 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const suffix = placeholderMatch[2];
       const expression = expressions[placeholderID];
 
+      // [prettierx] parenSpace option support (...)
+      const parenSpace = options.parenSpacing ? " " : "";
+
       replaceCounter++;
       parts = parts
         .slice(0, atPlaceholderIndex)
-        .concat(["${", expression, "}" + suffix])
+        // [prettierx] parenSpace option support (...)
+        .concat(["${", parenSpace, expression, parenSpace, "}" + suffix])
         .concat(rest);
     }
     return { ...doc, parts };
@@ -553,6 +566,9 @@ let htmlTemplateLiteralCounter = 0;
 function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   const node = path.getValue();
 
+  // [prettierx] parenSpace option support (...)
+  const parenSpace = options.parenSpacing ? " " : "";
+
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
@@ -609,7 +625,14 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
 
         const placeholderIndex = +component;
         parts.push(
-          concat(["${", group(expressionDocs[placeholderIndex]), "}"])
+          // [prettierx] parenSpace option support (...)
+          concat([
+            "${",
+            parenSpace,
+            group(expressionDocs[placeholderIndex]),
+            parenSpace,
+            "}"
+          ])
         );
       }
 

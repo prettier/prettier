@@ -4222,14 +4222,21 @@ function printJestEachTemplateLiteral(node, expressions, options) {
     headerNames.some(headerName => headerName.length !== 0)
   ) {
     const parts = [];
+
+    // [prettierx] parenSpace option support (...)
+    const parenSpace = options.parenSpacing ? " " : "";
+
     const stringifiedExpressions = expressions.map(
       doc =>
+        // [prettierx] parenSpace option support (...)
         "${" +
+        parenSpace +
         printDocToString(doc, {
           ...options,
           printWidth: Infinity,
           endOfLine: "lf"
         }).formatted +
+        parenSpace +
         "}"
     );
 

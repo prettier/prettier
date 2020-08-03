@@ -342,6 +342,83 @@ new ( function () {} )();
 ================================================================================
 `;
 
+exports[`html-template-literals.js 1`] = `
+====================================options=====================================
+parenSpacing: true
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const nestedFun = /* HTML */ \`\${outerExpr(1)}
+  <script>
+    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+  </script>\`;
+
+const nestedFun2 = /* HTML */ \`\${outerExpr(1)}
+  <script>
+    const tpl = html\\\`\\\\n<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\\n\\\`;
+  </script>\`;
+
+setFoo(
+  html\`<div>one</div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+    <div>nested</div>
+  </div>\`,
+  secondArgument
+);
+
+=====================================output=====================================
+const nestedFun = /* HTML */ \`\${ outerExpr( 1 ) }
+  <script>
+    const tpl = html\\\`<div>\\\${ innerExpr( 1 ) } \${ outerExpr( 2 ) }</div>\\\`;
+  </script>\`;
+
+const nestedFun2 = /* HTML */ \`\${ outerExpr( 1 ) }
+  <script>
+    const tpl = html\\\` <div>\\\${ innerExpr( 1 ) } \${ outerExpr( 2 ) }</div> \\\`;
+  </script>\`;
+
+setFoo(
+  html\`<div>one</div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+    <div>nested</div>
+  </div>\`,
+  secondArgument
+);
+
+================================================================================
+`;
+
 exports[`import-export.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
@@ -369,6 +446,35 @@ export a, { b } from "./baz";
 export default () => {};
 
 export default ( function f() {} );
+
+================================================================================
+`;
+
+exports[`jest-test-each.js 1`] = `
+====================================options=====================================
+parenSpacing: true
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+test.each\`
+  a    | b    | expected
+  \${1} | \${1} | \${2}
+  \${1} | \${2} | \${3}
+  \${2} | \${1} | \${3}
+\`('returns $expected when $a is added $b', ({a, b, expected}) => {
+  expect(a + b).toBe(expected);
+});
+
+=====================================output=====================================
+test.each\`
+  a      | b      | expected
+  \${ 1 } | \${ 1 } | \${ 2 }
+  \${ 1 } | \${ 2 } | \${ 3 }
+  \${ 2 } | \${ 1 } | \${ 3 }
+\`( "returns $expected when $a is added $b", ( { a, b, expected } ) => {
+  expect( a + b ).toBe( expected );
+} );
 
 ================================================================================
 `;
@@ -653,6 +759,21 @@ const headerResolve = css.resolve\`
 }
 \`;
 
+styled.input\`
+	border: 1px solid
+		\${(props) => (props.isError?props.theme.colors.error:props.theme.colors.borderColor)};
+	:focus {
+		outline: \${(props) =>
+				props.isError
+        ?props.theme.colors.error
+        :props.theme.colors.outline}
+	}
+\`;
+
+const value = \`
+  Hello \${(props) => (props.isError?props.theme.colors.error:props.theme.colors.borderColor)};
+\`;
+
 return (<div css={\`
   color: blue;
   font-size: 17 px;
@@ -691,6 +812,23 @@ const headerResolve = css.resolve\`
     left: 0;
     right: 0;
   }
+\`;
+
+styled.input\`
+  border: 1px solid
+    \${ ( props ) =>
+      props.isError
+        ? props.theme.colors.error
+        : props.theme.colors.borderColor };
+  :focus {
+    outline: \${ ( props ) =>
+      props.isError ? props.theme.colors.error : props.theme.colors.outline };
+  }
+\`;
+
+const value = \`
+  Hello \${ ( props ) =>
+    props.isError ? props.theme.colors.error : props.theme.colors.borderColor };
 \`;
 
 return (

@@ -21,6 +21,21 @@ const headerResolve = css.resolve`
 }
 `;
 
+styled.input`
+	border: 1px solid
+		${(props) => (props.isError?props.theme.colors.error:props.theme.colors.borderColor)};
+	:focus {
+		outline: ${(props) =>
+				props.isError
+        ?props.theme.colors.error
+        :props.theme.colors.outline}
+	}
+`;
+
+const value = `
+  Hello ${(props) => (props.isError?props.theme.colors.error:props.theme.colors.borderColor)};
+`;
+
 return (<div css={`
   color: blue;
   font-size: 17 px;
