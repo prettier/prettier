@@ -27,3 +27,12 @@ exports[`module-attributes-static.js error test 1`] = `
     |                            ^^^^
   2 | "
 `;
+
+exports[`number.js error test 1`] = `
+"Unexpected token ILLEGAL (3:5)
+  1 | // https://github.com/babel/babel/pull/11854
+  2 | 
+> 3 | a = 09e1_1;
+    |     ^^^^
+  4 | "
+`;
