@@ -181,10 +181,10 @@ function MyComponent(props) {
 
 =====================================output=====================================
 function helloWorld() {
-  useEffect(() => {
+  useEffect( () => {
     // do something
-  }, [ props.value ]);
-  useEffect(() => {
+  }, [ props.value ] );
+  useEffect( () => {
     // do something
   }, [
     props.value,
@@ -198,14 +198,14 @@ function helloWorld() {
     props.value,
     props.value,
     props.value
-  ]);
+  ] );
 }
 
 function helloWorldWithReact() {
-  React.useEffect(() => {
+  React.useEffect( () => {
     // do something
-  }, [ props.value ]);
-  React.useEffect(() => {
+  }, [ props.value ] );
+  React.useEffect( () => {
     // do something
   }, [
     props.value,
@@ -219,7 +219,7 @@ function helloWorldWithReact() {
     props.value,
     props.value,
     props.value
-  ]);
+  ] );
 }
 
 function MyComponent( props ) {
