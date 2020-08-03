@@ -230,13 +230,7 @@ weirdly formatted
 <div class='class and other'></div>
 <div class='class and other'></div>
 <div CLASs='class and other'></div>
-<p class='a list of
-
-
-weirdly formatted
-
-
-classes'>
+<p class='a list of weirdly formatted classes'>
   String
 </p>
 <p
@@ -297,13 +291,7 @@ weirdly formatted
 <div class="class and other"></div>
 <div class="class and other"></div>
 <div CLASs="class and other"></div>
-<p class="a list of
-
-
-weirdly formatted
-
-
-classes">
+<p class="a list of weirdly formatted classes">
   String
 </p>
 <p
@@ -326,5 +314,98 @@ weirdly formatted
 >
   String
 </p>
+================================================================================
+`;
+
+exports[`trimming-and-whitespace.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div class="attr
+"></div>
+
+<div class="
+attr"></div>
+
+<div class="
+attr
+"></div>
+
+<div class="
+
+
+
+attr
+
+
+"></div>
+
+<div class="
+    attr
+      attr
+
+  attr
+                       attr
+          attr
+"></div>
+=====================================output=====================================
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div class='attr'></div>
+
+<div class='attr attr attr attr attr'></div>
+================================================================================
+`;
+
+exports[`trimming-and-whitespace.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div class="attr
+"></div>
+
+<div class="
+attr"></div>
+
+<div class="
+attr
+"></div>
+
+<div class="
+
+
+
+attr
+
+
+"></div>
+
+<div class="
+    attr
+      attr
+
+  attr
+                       attr
+          attr
+"></div>
+=====================================output=====================================
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr"></div>
+
+<div class="attr attr attr attr attr"></div>
 ================================================================================
 `;

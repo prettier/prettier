@@ -69,8 +69,7 @@ singleQuote: true
   Hello
 </div>
 
-<ul class='list-unstyled
-  one-tab'>
+<ul class='list-unstyled one-tab'>
 </ul>
 ================================================================================
 `;
@@ -143,8 +142,7 @@ printWidth: 80
   Hello
 </div>
 
-<ul class="list-unstyled
-  one-tab">
+<ul class="list-unstyled one-tab">
 </ul>
 ================================================================================
 `;

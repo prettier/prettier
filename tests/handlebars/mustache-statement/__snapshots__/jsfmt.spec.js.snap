@@ -125,15 +125,15 @@ singleQuote: true
   class='a-first-class
   {{if this.optionOne 'optionOne'}}
 
-   {{if this.optionTwo 'optionTwo'}}
+  {{if this.optionTwo 'optionTwo'}}
 
-   {{if this.optionThree 'optionThree'}}
+  {{if this.optionThree 'optionThree'}}
 
-   {{if this.optionFour 'optionFour'}}
+  {{if this.optionFour 'optionFour'}}
 
-   {{if this.optionFive 'optionFive'}}
+  {{if this.optionFive 'optionFive'}}
 
-   {{this.class}}'
+  {{this.class}}'
   ...attributes
 >
 </div>
@@ -292,15 +292,15 @@ printWidth: 80
   class="a-first-class
   {{if this.optionOne "optionOne"}}
 
-   {{if this.optionTwo "optionTwo"}}
+  {{if this.optionTwo "optionTwo"}}
 
-   {{if this.optionThree "optionThree"}}
+  {{if this.optionThree "optionThree"}}
 
-   {{if this.optionFour "optionFour"}}
+  {{if this.optionFour "optionFour"}}
 
-   {{if this.optionFive "optionFive"}}
+  {{if this.optionFive "optionFive"}}
 
-   {{this.class}}"
+  {{this.class}}"
   ...attributes
 >
 </div>
