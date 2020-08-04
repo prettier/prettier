@@ -2,7 +2,7 @@
 
 exports[`angular_async.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -77,7 +77,7 @@ function x() {
 exports[`angular_async.js 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -151,7 +151,7 @@ function x() {
 
 exports[`angular_fakeAsync.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -215,7 +215,7 @@ function x() {
 exports[`angular_fakeAsync.js 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -278,7 +278,7 @@ function x() {
 
 exports[`angularjs_inject.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -348,7 +348,7 @@ function x() {
 exports[`angularjs_inject.js 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -417,7 +417,7 @@ function x() {
 
 exports[`jest-each.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -562,7 +562,7 @@ test.each([
 exports[`jest-each.js 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -706,7 +706,7 @@ test.each([
 
 exports[`test_declarations.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -990,7 +990,7 @@ it(
 exports[`test_declarations.js 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
