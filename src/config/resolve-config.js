@@ -40,7 +40,9 @@ const getExplorerMemoized = mem(
         ".prettierrc.yaml",
         ".prettierrc.yml",
         ".prettierrc.js",
+        ".prettierrc.cjs",
         "prettier.config.js",
+        "prettier.config.cjs",
         ".prettierrc.toml",
       ],
       loaders: {

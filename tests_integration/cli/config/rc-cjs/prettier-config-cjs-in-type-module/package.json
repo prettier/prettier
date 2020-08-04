@@ -1,0 +1,5 @@
+{
+  "name": "prettier-cjs-config-test",
+  "private": true,
+  "type": "module"
+}
