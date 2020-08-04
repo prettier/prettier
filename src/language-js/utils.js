@@ -146,6 +146,7 @@ function isLiteral(node) {
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
     node.type === "BigIntLiteral" ||
+    node.type === "DecimalLiteral" ||
     node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "TemplateLiteral" ||
@@ -904,6 +905,7 @@ function isSimpleCallArgument(node, depth) {
   if (
     node.type === "Literal" ||
     node.type === "BigIntLiteral" ||
+    node.type === "DecimalLiteral" ||
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
