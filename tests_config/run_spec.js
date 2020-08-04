@@ -224,7 +224,9 @@ global.run_spec = (fixtures, parsers, options) => {
                 options.disableBabelTS.files.includes(name)))
           ) {
             if (options.disableBabelTS.shouldNotThrowError) {
-              expect(typeof format(input, filename, verifyOptions)).toBe("string");
+              expect(typeof format(input, filename, verifyOptions)).toBe(
+                "string"
+              );
             } else {
               expect(() => {
                 format(input, filename, verifyOptions);
