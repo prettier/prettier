@@ -16,4 +16,6 @@ module.exports = [
   require("./language-html"),
   // YAML
   require("./language-yaml"),
+  // XML
+  require("./language-xml"),
 ];

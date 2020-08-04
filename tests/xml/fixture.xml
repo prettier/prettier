@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "https://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<?xml-model href="project.rnc" type="application/relax-ng-compact-syntax"?>
+<!-- foo -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="200"
+  height="100"
+  viewBox="0 0 200 100"
+>
+  <title>Style inheritance and the use element</title>
+  <desc _attr="attr">
+    &anp; &#12345;
+    <![CDATA[
+      foo
+    ]]>
+    bar
+  </desc>
+  <?pagebreak?>
+  <style></style>
+  <style type="text/css">
+    circle          { stroke-opacity: 0.7; }
+    .special circle { stroke: green; }
+    use             { stroke: purple;
+                      fill: orange; }
+  </style>
+  <?pagebreak?>
+    <g class="special" style="fill: blue">
+        <circle id="c" cy="50" cx="50" r="40" stroke-width="20" />
+    </g>
+  <use xlink:href="#c" x="100" />
+  <ignored>
+    <!-- prettier-ignore-start -->
+      <   ignored   />
+    <!-- prettier-ignore-end -->
+  </ignored>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at est eget enim consectetur accumsan. Aliquam pretium sodales ipsum quis dignissim. Sed id sem vel diam luctus fringilla. Aliquam quis egestas magna. Curabitur molestie lorem et odio porta, et molestie libero laoreet. Morbi rhoncus sagittis cursus. Nullam vehicula pretium consequat. Praesent porta ante at posuere sollicitudin. Nullam commodo tempor arcu, at condimentum neque elementum ut.
+  </p>
+  <span>
+    content
+  </span>
+  <div>
+    even more
+    <content />
+  </div>
+</svg>
+<!-- bar -->

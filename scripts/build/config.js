@@ -75,6 +75,9 @@ const parsers = [
   {
     input: "src/language-yaml/parser-yaml.js",
   },
+  {
+    input: "src/language-xml/parser-xml.js",
+  },
 ].map((parser) => ({
   type: "plugin",
   target: "universal",

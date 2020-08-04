@@ -156,6 +156,7 @@ const options = {
         since: "1.17.0",
         description: "Lightning Web Components",
       },
+      { value: "xml", since: "0.0.0", description: "XML" },
     ],
   },
   plugins: {
