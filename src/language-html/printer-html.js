@@ -42,6 +42,7 @@ const {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  isPreLikeNode,
 } = require("./utils");
 const preprocess = require("./preprocess");
 const { insertPragma } = require("./pragma");
@@ -874,7 +875,8 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild &&
     node.lastChild.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
-    !isTextLikeNode(getLastDescendant(node.lastChild))
+    !isTextLikeNode(getLastDescendant(node.lastChild)) &&
+    !isPreLikeNode(node)
   );
 }
 
