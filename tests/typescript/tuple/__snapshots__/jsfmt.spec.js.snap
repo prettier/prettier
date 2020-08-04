@@ -16,6 +16,15 @@ type ValidateArgs = [
 	...string[],
 ];
 
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	...string[],
+	string,
+];
+
 =====================================output=====================================
 type ValidateArgs = [
   {
@@ -23,7 +32,16 @@ type ValidateArgs = [
   },
   string,
   string,
-  ...string[]
+  ...string[],
+];
+
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  ...string[],
+  string,
 ];
 
 ================================================================================
@@ -45,6 +63,15 @@ type ValidateArgs = [
 	...string[],
 ];
 
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	...string[],
+	string,
+];
+
 =====================================output=====================================
 type ValidateArgs = [
   {
@@ -53,6 +80,15 @@ type ValidateArgs = [
   string,
   string,
   ...string[]
+];
+
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  ...string[],
+  string
 ];
 
 ================================================================================
@@ -73,6 +109,15 @@ type ValidateArgs = [
 	...string[],
 ];
 
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	...string[],
+	string,
+];
+
 =====================================output=====================================
 type ValidateArgs = [
   {
@@ -81,6 +126,15 @@ type ValidateArgs = [
   string,
   string,
   ...string[]
+];
+
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  ...string[],
+  string
 ];
 
 ================================================================================

@@ -1,4 +1,0 @@
-let x: [
-  foo,
-  ...loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong,
-];

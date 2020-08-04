@@ -1,9 +1,3 @@
 run_spec(__dirname, ["typescript"], { trailingComma: "none" });
 run_spec(__dirname, ["typescript"]);
-run_spec(__dirname, ["typescript"], {
-  trailingComma: "all",
-  disableBabelTS: {
-    files: ["no-trailing-comma-after-rest.ts"],
-    shouldNotThrowError: true,
-  },
-});
+run_spec(__dirname, ["typescript"], { trailingComma: "all" });
