@@ -6,7 +6,7 @@ module.exports = function (ast, newNode) {
 
   // (Glimmer/HTML) ignore TextNode whitespace
   if (ast.type === "TextNode") {
-    const trimmed = ast.chars.trim();
+    const trimmed = ast.chars.trim().replace(/\s+/g, " ");
     if (!trimmed) {
       return null;
     }
