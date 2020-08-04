@@ -217,11 +217,19 @@ global.run_spec = (fixtures, parsers, options) => {
             options &&
             (options.disableBabelTS === true ||
               (Array.isArray(options.disableBabelTS) &&
-                options.disableBabelTS.includes(name)))
+                options.disableBabelTS.includes(name)) ||
+              (options.disableBabelTS &&
+                options.disableBabelTS.toString() === "[object Object]" &&
+                Array.isArray(options.disableBabelTS.files) &&
+                options.disableBabelTS.files.includes(name)))
           ) {
-            expect(() => {
-              format(input, filename, verifyOptions);
-            }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+            if (options.disableBabelTS.shouldNotThrowError) {
+              expect(typeof format(input, filename, verifyOptions)).toBe("string");
+            } else {
+              expect(() => {
+                format(input, filename, verifyOptions);
+              }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+            }
           } else {
             const verifyOutput = format(input, filename, verifyOptions);
             expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);

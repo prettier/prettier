@@ -1,0 +1,4 @@
+let x: [
+  foo,
+  ...loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong,
+];

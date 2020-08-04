@@ -2324,7 +2324,9 @@ function printPathNoParens(path, options, print, args) {
     case "TSTupleType":
     case "TupleTypeAnnotation": {
       const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
+      // TODO: Remove after not-last rest tuple type elements by typescript-estree
       const hasRest =
+        options.parser !== "babel-ts" &&
         n[typesField].length > 0 &&
         getLast(n[typesField]).type === "TSRestType";
       return group(
