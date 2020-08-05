@@ -9,9 +9,11 @@ extends:
 plugins:
   - import
   - unicorn
+  - prettier-internal-rules
 settings:
   import/internal-regex: ^linguist-languages/
 rules:
+  prettier-internal-rules/require-json-extensions: error
   curly: error
   dot-notation: error
   eqeqeq:
