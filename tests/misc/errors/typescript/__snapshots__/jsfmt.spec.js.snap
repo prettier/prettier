@@ -32,6 +32,14 @@ exports[`module-attributes-static.ts error test 1`] = `
   2 | "
 `;
 
+exports[`newline-before-arrow.js error test 1`] = `
+"';' expected. (1:7)
+> 1 | async x
+    |       ^
+  2 | => x
+  3 | "
+`;
+
 exports[`snippet: #0 error test 1`] = `
 "Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
 > 1 | let x1 = <div>}</div>;
