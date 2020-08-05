@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const parseYaml = require("js-yaml").safeLoad;
 
-const PACKAGE = require("../package");
+const PACKAGE = require("../package.json");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
 function loadYaml(fsPath) {
