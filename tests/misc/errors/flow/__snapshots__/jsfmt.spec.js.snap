@@ -35,6 +35,14 @@ exports[`module-attributes-static.js error test 1`] = `
   2 | "
 `;
 
+exports[`newline-before-arrow.js error test 1`] = `
+"Illegal newline before arrow (2:1)
+  1 | async x
+> 2 | => x
+    | ^^
+  3 | "
+`;
+
 exports[`number.js error test 1`] = `
 "Unexpected token ILLEGAL (3:5)
   1 | // https://github.com/babel/babel/pull/11854
