@@ -22,7 +22,6 @@
     "src/main/multiparser.js",
     "src/main/options.js",
     // [TBD] src/language-* source directory trees with known JSDoc type issues:
-    "src/language-html",
     // [TBD] JavaScript sources affected by JSDoc issues in src/language-*:
     "src/common/load-plugins.js",
     "src/cli/index.js",
