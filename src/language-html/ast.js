@@ -33,6 +33,7 @@ class Node {
   }
 
   map(fn) {
+    /** @type{any} */
     let newNode = null;
 
     for (const NODES_KEY in NODES_KEYS) {

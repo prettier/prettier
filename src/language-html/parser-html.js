@@ -96,6 +96,7 @@ function ngHtmlParser(
             startSourceSpan.start.offset === node.startSourceSpan.start.offset
         );
       for (let i = 0; i < rootNodes.length; i++) {
+        /** @type {any} */
         const node = rootNodes[i];
         const { endSourceSpan, startSourceSpan } = node;
         const isUnclosedNode = endSourceSpan === null;
