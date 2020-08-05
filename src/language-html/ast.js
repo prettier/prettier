@@ -67,6 +67,9 @@ class Node {
     return fn(newNode || this);
   }
 
+  /**
+   * @param {Object} [overrides]
+   */
   clone(overrides) {
     return new Node(overrides ? { ...this, ...overrides } : this);
   }
