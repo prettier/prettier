@@ -25,7 +25,6 @@
     // [TBD] src/language-* source directory trees with known JSDoc type issues:
     "src/language-css",
     "src/language-graphql",
-    "src/language-handlebars",
     "src/language-html",
     "src/language-js",
     "src/language-markdown",
