@@ -172,7 +172,7 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 
 ## `--write`
 
-This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow.
+This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow. You can also use `-w` alias.
 
 ## `--loglevel`
 

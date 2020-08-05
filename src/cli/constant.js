@@ -203,6 +203,7 @@ const options = {
   },
   write: {
     type: "boolean",
+    alias: "w",
     category: coreOptions.CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)",
   },

@@ -50,7 +50,7 @@ function printCallArguments(path, options, print) {
     args[0].params.length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
-    !args.find((arg) => arg.comments)
+    !args.some((arg) => arg.comments)
   ) {
     return concat([
       "(",
@@ -64,7 +64,7 @@ function printCallArguments(path, options, print) {
   // func(
   //   ({
   //     a,
-
+  //
   //     b
   //   }) => {}
   // );

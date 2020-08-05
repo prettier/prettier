@@ -5,7 +5,7 @@ const printer = require("./printer-yaml");
 const options = require("./options");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/YAML"), (data) => ({
+  createLanguage(require("linguist-languages/data/YAML.json"), (data) => ({
     since: "1.14.0",
     parsers: ["yaml"],
     vscodeLanguageIds: ["yaml", "ansible", "home-assistant"],
@@ -14,8 +14,15 @@ const languages = [
   })),
 ];
 
+const parsers = {
+  get yaml() {
+    return require("./parser-yaml").parsers.yaml;
+  },
+};
+
 module.exports = {
   languages,
   printers: { yaml: printer },
   options,
+  parsers,
 };

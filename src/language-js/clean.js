@@ -14,6 +14,7 @@ function clean(ast, newObj, parent) {
     "loc",
     "flags",
     "errors",
+    "tokens",
   ].forEach((name) => {
     delete newObj[name];
   });
@@ -24,6 +25,10 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();
+  }
+
+  if (ast.type === "DecimalLiteral") {
+    newObj.value = Number(newObj.value);
   }
 
   // We remove extra `;` and add them when needed

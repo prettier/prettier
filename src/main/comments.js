@@ -62,7 +62,9 @@ function getSortedChildNodes(node, options, resultArray) {
           (n) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
-            n !== "followingNode"
+            n !== "followingNode" &&
+            n !== "tokens" &&
+            n !== "comments"
         )
         .map((n) => node[n]));
 
@@ -525,9 +527,27 @@ function printComments(path, print, options, needsSemi) {
   );
 }
 
+function ensureAllCommentsPrinted(astComments) {
+  if (!astComments) {
+    return;
+  }
+
+  astComments.forEach((comment) => {
+    if (!comment.printed) {
+      throw new Error(
+        'Comment "' +
+          comment.value.trim() +
+          '" was not printed. Please report this error!'
+      );
+    }
+    delete comment.printed;
+  });
+}
+
 module.exports = {
   attach,
   printComments,
   printDanglingComments,
   getSortedChildNodes,
+  ensureAllCommentsPrinted,
 };

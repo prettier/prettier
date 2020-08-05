@@ -162,6 +162,7 @@ function isLiteral(node) {
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
     node.type === "BigIntLiteral" ||
+    node.type === "DecimalLiteral" ||
     node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "TemplateLiteral" ||
@@ -670,7 +671,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
-    prevSibling.expression.comments.find(
+    prevSibling.expression.comments.some(
       (comment) => comment.value.trim() === "prettier-ignore"
     )
   );
@@ -922,6 +923,7 @@ function isSimpleCallArgument(node, depth) {
   if (
     node.type === "Literal" ||
     node.type === "BigIntLiteral" ||
+    node.type === "DecimalLiteral" ||
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
@@ -996,24 +998,16 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
-function shouldPrintComma(options, level) {
-  level = level || "es5";
-
-  switch (options.trailingComma) {
-    case "all":
-      if (level === "all") {
-        return true;
-      }
-    // fallthrough
-    case "es5":
-      if (level === "es5") {
-        return true;
-      }
-    // fallthrough
-    case "none":
-    default:
-      return false;
-  }
+/**
+ * @param {any} options
+ * @param {("es5" | "all")} [level]
+ * @returns {boolean}
+ */
+function shouldPrintComma(options, level = "es5") {
+  return (
+    (options.trailingComma === "es5" && level === "es5") ||
+    (options.trailingComma === "all" && (level === "all" || level === "es5"))
+  );
 }
 
 // Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
