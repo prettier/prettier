@@ -237,6 +237,17 @@ function needsParens(path, options) {
         case "CallExpression":
         case "NewExpression":
         case "OptionalCallExpression":
+          // [prettierx] parenSpace option support (...)
+          // Logical and Binary expressions already got their parens if parent is CallExpression
+          if (
+            (parent.type === "CallExpression" ||
+              parent.type === "OptionalCallExpression") &&
+            name === "callee" &&
+            (node.type === "LogicalExpression" ||
+              node.type === "BinaryExpression")
+          ) {
+            return false;
+          }
           return name === "callee";
 
         case "ClassExpression":
@@ -686,7 +697,10 @@ function needsParens(path, options) {
         parent.type === "UnaryExpression" ||
         ((parent.type === "MemberExpression" ||
           parent.type === "OptionalMemberExpression") &&
-          !parent.computed)
+          !parent.computed) ||
+        (parent.type === "CallExpression" &&
+          name === "callee" &&
+          parent.callee === node)
       ) {
         return false;
       }

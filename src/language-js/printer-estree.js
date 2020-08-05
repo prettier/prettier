@@ -692,7 +692,7 @@ function printPathNoParens(path, options, print, args) {
         return concat(parts);
       }
 
-      // [prettierx merge from prettier@1.19.0]
+      // [prettierx] parenSpace option support
       // (...)
       //
       // Break between the parens in
@@ -704,29 +704,10 @@ function printPathNoParens(path, options, print, args) {
       //     c
       //   ).call()
       //
-      // [prettierx] note: this code has diverged from the
-      // upstream Prettier source, with an extra else block
-      //
-      // FUTURE TBD find a way to improve the conditional logic here and
-      // ideally reduce or remove the divergence from Prettier source
-      // [prettierx merge from prettier@1.19.0] (...)
       if (
         ((parent.type === "CallExpression" ||
           parent.type === "OptionalCallExpression") &&
           parent.callee === n) ||
-        // [prettierx merge from prettier@1.19.0] (...)
-        // [prettierx] additional bogus condition for the sake of
-        // easier merge from upstream Prettier
-        parent.type === "bogus" // (false)
-      ) {
-        return group(
-          concat([
-            // [prettierx] parenSpace option support (...)
-            indent(concat([parenLine, concat(parts)])),
-            parenLine
-          ])
-        );
-      } else if (
         parent.type === "UnaryExpression" ||
         ((parent.type === "MemberExpression" ||
           parent.type === "OptionalMemberExpression") &&
