@@ -1,0 +1,7 @@
+{
+  "name": "eslint-plugin-prettier-internal-rules",
+  "version": "1.0.0",
+  "description": "Prettier internal eslint rules",
+  "license": "MIT",
+  "main": "./index.js"
+}
