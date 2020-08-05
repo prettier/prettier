@@ -6,12 +6,15 @@ const estreeJsonPrinter = require("./printer-estree-json");
 const options = require("./options");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/JavaScript.json"), (data) => ({
-    since: "0.0.0",
-    parsers: ["babel", "flow"],
-    vscodeLanguageIds: ["javascript", "mongo"],
-    interpreters: data.interpreters.concat(["nodejs"]),
-  })),
+  createLanguage(
+    require("linguist-languages/data/JavaScript.json"),
+    (data) => ({
+      since: "0.0.0",
+      parsers: ["babel", "flow"],
+      vscodeLanguageIds: ["javascript", "mongo"],
+      interpreters: data.interpreters.concat(["nodejs"]),
+    })
+  ),
   createLanguage(require("linguist-languages/data/JavaScript.json"), () => ({
     name: "Flow",
     since: "0.0.0",
