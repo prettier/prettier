@@ -465,6 +465,10 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
+/**
+ * @param {any} path
+ * @param {(any) => boolean} predicate
+ */
 function countParents(path, predicate) {
   let counter = 0;
   for (let i = path.stack.length - 1; i >= 0; i--) {
