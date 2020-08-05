@@ -26,7 +26,6 @@
     "src/language-handlebars",
     "src/language-html",
     "src/language-js",
-    "src/language-markdown",
     "src/language-yaml",
     // [TBD] JavaScript sources affected by JSDoc issues in src/language-*:
     "src/common/load-plugins.js",
