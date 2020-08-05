@@ -33,6 +33,7 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "privateIn",
       ["moduleAttributes", { version: "may-2020" }],
       ["recordAndTuple", { syntaxType: "hash" }],
+      "decimal",
       ...extraPlugins,
     ],
     tokens: true,
