@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`member-expressions.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// asi with MemberExpression & BinaryExpression:
+x ; (a + b).c
+
+// asi with MemberExpression & LogicalExpression:
+x ; (a || b).c
+
+// no asi:
+x ; ab.c
+
+// asi with MemberExpression, computed property & BinaryExpression:
+x ; (a + b)[c]
+
+=====================================output=====================================
+// asi with MemberExpression & BinaryExpression:
+x
+;(a + b).c
+
+// asi with MemberExpression & LogicalExpression:
+x
+;(a || b).c
+
+// no asi:
+x
+ab.c
+
+// asi with MemberExpression, computed property & BinaryExpression:
+x
+;(a + b)[c]
+
+================================================================================
+`;
