@@ -10,5 +10,5 @@ run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   // [prettierx] recommended option:
   arrowParens: "avoid",
   // [prettierx] "Standard JS" setting:
-  trailingComma: "none"
+  trailingComma: "none",
 });

@@ -6,7 +6,7 @@ run_spec(__dirname, ["babel", "babel-flow", "flow"], {
   singleQuote: true,
   jsxSingleQuote: true,
   semi: false,
-  trailingComma: "none"
+  trailingComma: "none",
 });
 
 /* using prettierx with typescript parser seems to omit a semicolon
@@ -23,5 +23,5 @@ run_spec(__dirname, ["typescript"], {
   spaceBeforeFunctionParen: true,
   singleQuote: true,
   jsxSingleQuote: true,
-  semi: false
+  semi: false,
 });

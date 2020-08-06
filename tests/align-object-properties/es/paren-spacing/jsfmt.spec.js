@@ -10,5 +10,5 @@ run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   // prettierx: test with --paren-spacing
   parenSpacing: true,
   // "Standard JS":
-  trailingComma: "none"
+  trailingComma: "none",
 });

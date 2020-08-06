@@ -8,5 +8,5 @@ run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   // [prettierx] test with --break-before-else
   breakBeforeElse: true,
   // recommended:
-  trailingComma: "none" // ("Standard JS")
+  trailingComma: "none", // ("Standard JS")
 });

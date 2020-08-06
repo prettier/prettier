@@ -12,5 +12,5 @@ run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
   alignTernaryLines: false,
   trailingComma: "none",
   // recommended:
-  arrowParens: "avoid"
+  arrowParens: "avoid",
 });

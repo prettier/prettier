@@ -1,7 +1,7 @@
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
-  generatorStarSpacing: true
+  generatorStarSpacing: true,
 });
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
   generatorStarSpacing: true,
-  spaceBeforeFunctionParen: true
+  spaceBeforeFunctionParen: true,
 });

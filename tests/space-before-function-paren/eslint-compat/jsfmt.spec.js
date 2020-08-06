@@ -1,9 +1,9 @@
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
   // "Standard JS":
   spaceBeforeFunctionParen: true,
-  trailingComma: "none"
+  trailingComma: "none",
 });
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
   // "Standard JS":
-  trailingComma: "none"
+  trailingComma: "none",
 });

@@ -1,7 +1,7 @@
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
-  importFormatting: "oneline"
+  importFormatting: "oneline",
 });
 run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
   importFormatting: "auto",
-  trailingComma: "none"
+  trailingComma: "none",
 });

@@ -11,5 +11,5 @@ run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   parenSpacing: true,
   // recommended:
   arrowParens: "avoid",
-  trailingComma: "none" // ("Standard JS")
+  trailingComma: "none", // ("Standard JS")
 });

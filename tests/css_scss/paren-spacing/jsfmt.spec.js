@@ -6,5 +6,5 @@ const dirpath = `${__dirname}/..`;
 
 run_spec(dirpath, ["scss"], {
   // [prettierx] test with --paren-spacing
-  parenSpacing: true
+  parenSpacing: true,
 });

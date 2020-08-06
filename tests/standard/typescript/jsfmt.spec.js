@@ -4,7 +4,7 @@ run_spec(__dirname, ["typescript"], {
   spaceBeforeFunctionParen: true,
   singleQuote: true,
   jsxSingleQuote: true,
-  semi: false
+  semi: false,
 });
 
 run_spec(__dirname, ["typescript"], {
@@ -14,5 +14,5 @@ run_spec(__dirname, ["typescript"], {
   spaceBeforeFunctionParen: true,
   singleQuote: true,
   jsxSingleQuote: true,
-  semi: false
+  semi: false,
 });
