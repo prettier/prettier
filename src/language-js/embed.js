@@ -632,7 +632,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
             parenSpace,
             group(expressionDocs[placeholderIndex]),
             parenSpace,
-            "}"
+            "}",
           ])
         );
       }

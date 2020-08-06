@@ -330,7 +330,7 @@ function genericPrint(path, options, print) {
         parenSpace,
         concat(path.map(print, "nodes")),
         parenSpace,
-        ")"
+        ")",
       ]);
     }
     case "media-feature": {
@@ -470,7 +470,7 @@ function genericPrint(path, options, print) {
               parenSpace,
               join(", ", path.map(print, "nodes")),
               parenSpace,
-              ")"
+              ")",
             ])
           : "",
       ]);
@@ -812,7 +812,7 @@ function genericPrint(path, options, print) {
           // prettierx: parenSpace option support (...)
           node.open ? concat([path.call(print, "open"), parenSpace]) : "",
           join(",", path.map(print, "groups")),
-          node.close ? concat([parenSpace, path.call(print, "close")]) : ""
+          node.close ? concat([parenSpace, path.call(print, "close")]) : "",
         ]);
       }
 
@@ -835,7 +835,7 @@ function genericPrint(path, options, print) {
         return group(
           concat([
             node.open ? path.call(print, "open") : "",
-            node.close ? path.call(print, "close") : ""
+            node.close ? path.call(print, "close") : "",
           ])
         );
       }

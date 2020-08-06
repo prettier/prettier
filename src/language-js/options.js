@@ -32,7 +32,7 @@ module.exports = {
     type: "boolean",
     default: true,
     description: "Print indents at the start of chained calls.",
-    oppositeDescription: "Do not print indents at the start of chained calls."
+    oppositeDescription: "Do not print indents at the start of chained calls.",
   },
   parenSpacing: commonOptions.parenSpacing,
   importFormatting: {
@@ -45,13 +45,13 @@ module.exports = {
     choices: [
       {
         value: "auto",
-        description: "automatic formatting, like Prettier"
+        description: "automatic formatting, like Prettier",
       },
       {
         value: "oneline",
-        description: "keep import statements on one line"
-      }
-    ]
+        description: "keep import statements on one line",
+      },
+    ],
   },
   jsxBracketSameLine: {
     since: "0.17.0",
@@ -73,40 +73,40 @@ module.exports = {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
-    description: "Align colons in multiline object literals."
+    description: "Align colons in multiline object literals.",
   },
   alignTernaryLines: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: true,
     description: "Align ternary lines.",
-    oppositeDescription: "Do not align ternary lines."
+    oppositeDescription: "Do not align ternary lines.",
   },
   generatorStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description:
-      "Add spaces around the star ('*') in generator functions (before and after - from eslint)."
+      "Add spaces around the star ('*') in generator functions (before and after - from eslint).",
   },
   yieldStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description:
-      "Add spaces around the star ('*') in `yield*` expressions (before and after - from eslint)."
+      "Add spaces around the star ('*') in `yield*` expressions (before and after - from eslint).",
   },
   spaceBeforeFunctionParen: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
-    description: "Put a space before function parenthesis."
+    description: "Put a space before function parenthesis.",
   },
   breakBeforeElse: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
-    description: "Always add a line break before else."
+    description: "Always add a line break before else.",
   },
   singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {
