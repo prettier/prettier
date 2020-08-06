@@ -1,3 +1,5 @@
+/* globals prettier prettierPlugins parsersLocation */
+
 "use strict";
 
 self.PRETTIER_DEBUG = true;
@@ -11,9 +13,7 @@ function importScriptOnce(url) {
 }
 
 importScripts("lib/parsers-location.js");
-const { parsersLocation } = self;
 importScripts("lib/standalone.js");
-const { prettier } = self;
 
 // this is required to only load parsers when we need them
 const parsers = Object.create(null);
@@ -24,7 +24,7 @@ for (const file in parsersLocation) {
     Object.defineProperty(parsers, parserName, {
       get() {
         importScriptOnce(url);
-        return self.prettierPlugins[property].parsers[parserName];
+        return prettierPlugins[property].parsers[parserName];
       },
     });
   }
