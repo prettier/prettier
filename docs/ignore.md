@@ -83,6 +83,7 @@ let ignore_end = 6;
 
 will be transformed to:
 
+<!-- prettier-ignore -->
 ```js
 // prettier-ignore-start
 let i_like         = 1;

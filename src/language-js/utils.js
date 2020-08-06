@@ -657,7 +657,8 @@ function hasJsxIgnoreComment(path) {
     prevSibling.expression.comments &&
     prevSibling.expression.comments.some(
       (comment) => comment.value.trim() === "prettier-ignore"
-    ) && "next"
+    ) &&
+    "next"
   );
 }
 
