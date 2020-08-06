@@ -1,5 +1,6 @@
 "use strict";
 
+/** @type {Array<(any) => any>} */
 const PIPELINE = [addBackslash];
 
 /* VISITORS */

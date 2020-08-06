@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`default-escaped.js error test 1`] = `
+"Unexpected identifier, expected the token \`{\` (1:8)
+> 1 | export asyn\\\\u{63} from \\"async\\";
+    |        ^^^^^^^^^^
+  2 | "
+`;
+
 exports[`dynamic-import.js error test 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:24)
 > 1 | import('./prettier.mjs', {})
@@ -26,6 +33,14 @@ exports[`module-attributes-static.js error test 1`] = `
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";
     |                            ^^^^
   2 | "
+`;
+
+exports[`newline-before-arrow.js error test 1`] = `
+"Illegal newline before arrow (2:1)
+  1 | async x
+> 2 | => x
+    | ^^
+  3 | "
 `;
 
 exports[`number.js error test 1`] = `
