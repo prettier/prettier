@@ -80,9 +80,9 @@ Valid options:
 - `"consistent"` - If at least one property in an object requires quotes, quote all properties.
 - `"preserve"` - Respect the input use of quotes in object properties.
 
-| Default       | CLI Override                                                         | API Override                                                         |
-| ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
+| Default       | CLI Override                                    | API Override                                    |
+| ------------- | ----------------------------------------------- | ----------------------------------------------- |
+| `"as-needed"` | `--quote-props <as-needed|consistent|preserve>` | `quoteProps: "<as-needed|consistent|preserve>"` |
 
 ## JSX Quotes
 
@@ -104,9 +104,9 @@ Valid options:
 - `"none"` - No trailing commas.
 - `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-| Default | CLI Override                                           | API Override                                           |
-| ------- | ------------------------------------------------------ | ------------------------------------------------------ |
-| `"es5"` | <code>--trailing-comma <es5&#124;none&#124;all></code> | <code>trailingComma: "<es5&#124;none&#124;all>"</code> |
+| Default | CLI Override                      | API Override                      |
+| ------- | --------------------------------- | --------------------------------- |
+| `"es5"` | `--trailing-comma <es5|none|all>` | `trailingComma: "<es5|none|all>"` |
 
 ## Bracket Spacing
 
@@ -130,7 +130,7 @@ Valid options:
 - `true` - Example:
 
 <!-- prettier-ignore -->
-```
+```jsx
 <button
   className="prettier-class"
   id="prettier-id"
@@ -142,7 +142,7 @@ Valid options:
 - `false` - Example:
 
 <!-- prettier-ignore -->
-```
+```jsx
 <button
   className="prettier-class"
   id="prettier-id"
@@ -167,9 +167,9 @@ Valid options:
 - `"always"` - Always include parens. Example: `(x) => x`
 - `"avoid"` - Omit parens when possible. Example: `x => x`
 
-| Default    | CLI Override                                    | API Override                                    |
-| ---------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
+| Default    | CLI Override                    | API Override                    |
+| ---------- | ------------------------------- | ------------------------------- |
+| `"always"` | `--arrow-parens <always|avoid>` | `arrowParens: "<always|avoid>"` |
 
 At first glance, avoiding parentheses may look like a better choice because of less visual noise.
 However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
@@ -293,9 +293,9 @@ Valid options:
 - `"never"` - Do not wrap prose.
 - `"preserve"` - Wrap prose as-is. _First available in v1.9.0_
 
-| Default      | CLI Override                                                | API Override                                                |
-| ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `"preserve"` | <code>--prose-wrap <always&#124;never&#124;preserve></code> | <code>proseWrap: "<always&#124;never&#124;preserve>"</code> |
+| Default      | CLI Override                           | API Override                           |
+| ------------ | -------------------------------------- | -------------------------------------- |
+| `"preserve"` | `--prose-wrap <always|never|preserve>` | `proseWrap: "<always|never|preserve>"` |
 
 ## HTML Whitespace Sensitivity
 
@@ -311,9 +311,9 @@ Valid options:
 - `"strict"` - Whitespaces are considered sensitive.
 - `"ignore"` - Whitespaces are considered insensitive.
 
-| Default | CLI Override                                                             | API Override                                                            |
-| ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
-| `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
+| Default | CLI Override                                        | API Override                                       |
+| ------- | --------------------------------------------------- | -------------------------------------------------- |
+| `"css"` | `--html-whitespace-sensitivity <css|strict|ignore>` | `htmlWhitespaceSensitivity: "<css|strict|ignore>"` |
 
 ## Vue files script and style tags indentation
 
@@ -347,7 +347,7 @@ If you want to make sure that your entire git repository only contains Linux-sty
 
 1. Ensure Prettier’s `endOfLine` option is set to `lf` (this is a default value since v2.0.0)
 1. Configure [a pre-commit hook](precommit.md) that will run Prettier
-1. Configure Prettier to run in your CI pipeline using [`--check` flag](cli.md#check)
+1. Configure Prettier to run in your CI pipeline using [`--check` flag](cli.md#--check). If you use Travis CI, set [the `autocrlf` option](https://docs.travis-ci.com/user/customizing-the-build#git-end-of-line-conversion-control) to `input` in `.travis.yml`.
 1. Add `* text=auto eol=lf` to the repo's `.gitattributes` file.
    You may need to ask Windows users to re-clone your repo after this change to ensure git has not converted `LF` to `CRLF` on checkout.
 
@@ -362,6 +362,6 @@ Valid options:
 - `"auto"` - Maintain existing line endings
   (mixed values within one file are normalised by looking at what's used after the first line)
 
-| Default | CLI Override                                                | API Override                                               |
-| ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
-| `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
+| Default | CLI Override                      | API Override                     |
+| ------- | --------------------------------- | -------------------------------- |
+| `"lf"`  | `--end-of-line <lf|crlf|cr|auto>` | `endOfLine: "<lf|crlf|cr|auto>"` |

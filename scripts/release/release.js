@@ -15,7 +15,7 @@ async function run() {
   const params = minimist(process.argv.slice(2), {
     string: ["version"],
     boolean: ["dry"],
-    alias: { v: "version" }
+    alias: { v: "version" },
   });
 
   const previousVersion = execSync("git describe --tags --abbrev=0")
@@ -40,7 +40,7 @@ async function run() {
     require("./steps/push-to-git"),
     require("./steps/publish-to-npm"),
     require("./steps/bump-prettier"),
-    require("./steps/post-publish-steps")
+    require("./steps/post-publish-steps"),
   ];
 
   try {
@@ -58,10 +58,10 @@ async function run() {
 exec(
   [
     "git fetch --tags", // Fetch git tags to get the previous version number (i.e. the latest tag)
-    "yarn install" // Install script's dependencies before any require
+    "yarn install", // Install script's dependencies before any require
   ].join(" && "),
   { cwd: __dirname },
-  error => {
+  (error) => {
     if (error) {
       console.error(error);
       process.exit(1);

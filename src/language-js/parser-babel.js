@@ -39,8 +39,8 @@ function babelOptions(extraPlugins = []) {
       "v8intrinsic",
       "partialApplication",
       ["decorators", { decoratorsBeforeExport: false }],
-      ...extraPlugins
-    ]
+      ...extraPlugins,
+    ],
   };
 }
 
@@ -52,7 +52,7 @@ function createParse(parseMethod, ...pluginCombinations) {
     let ast;
     try {
       ast = tryCombinations(
-        options => babel[parseMethod](text, options),
+        (options) => babel[parseMethod](text, options),
         pluginCombinations.map(babelOptions)
       );
     } catch (error) {
@@ -63,8 +63,8 @@ function createParse(parseMethod, ...pluginCombinations) {
         {
           start: {
             line: error.loc.line,
-            column: error.loc.column + 1
-          }
+            column: error.loc.column + 1,
+          },
         }
       );
     }
@@ -76,7 +76,7 @@ function createParse(parseMethod, ...pluginCombinations) {
 const parse = createParse("parse", ["jsx", "flow"]);
 const parseFlow = createParse("parse", [
   "jsx",
-  ["flow", { all: true, enums: true }]
+  ["flow", { all: true, enums: true }],
 ]);
 const parseTypeScript = createParse(
   "parse",
@@ -160,8 +160,8 @@ function assertJsonNode(node, parent) {
     return createError(`${name} is not allowed in JSON.`, {
       start: {
         line: node.loc.start.line,
-        column: node.loc.start.column + 1
-      }
+        column: node.loc.start.column + 1,
+      },
     });
   }
 }
@@ -181,19 +181,19 @@ module.exports = {
       ...babelExpression,
       hasPragma() {
         return true;
-      }
+      },
     },
     json5: babelExpression,
     "json-stringify": {
       parse: parseJson,
       astFormat: "estree-json",
-      ...locFns
+      ...locFns,
     },
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */
     __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */
-    __vue_event_binding: babel
-  }
+    __vue_event_binding: babel,
+  },
 };

@@ -157,10 +157,7 @@ function replaceQuotesInInlineComments(text) {
   for (const [start, end] of inlineCommentsToReplace) {
     text =
       text.slice(0, start) +
-      text
-        .slice(start, end)
-        .replace(/'/g, "\ufffe")
-        .replace(/"/g, "\uffff") +
+      text.slice(start, end).replace(/'/g, "\ufffe").replace(/"/g, "\uffff") +
       text.slice(end);
   }
 
@@ -174,5 +171,5 @@ function restoreQuotesInInlineComments(text) {
 module.exports = {
   calculateLoc,
   replaceQuotesInInlineComments,
-  restoreQuotesInInlineComments
+  restoreQuotesInInlineComments,
 };

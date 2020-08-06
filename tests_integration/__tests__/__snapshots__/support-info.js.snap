@@ -477,6 +477,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"text/javascript\\",
       \\"codemirrorMode\\": \\"javascript\\",
       \\"extensions\\": [
+        \\".jsonc\\",
         \\".sublime-build\\",
         \\".sublime-commands\\",
         \\".sublime-completions\\",

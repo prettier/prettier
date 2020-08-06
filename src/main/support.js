@@ -3,7 +3,7 @@
 const semver = {
   compare: require("semver/functions/compare"),
   lt: require("semver/functions/lt"),
-  gte: require("semver/functions/gte")
+  gte: require("semver/functions/gte"),
 };
 
 const arrayify = require("../utils/arrayify");
@@ -31,7 +31,7 @@ function getSupportInfo({
   plugins = [],
   showUnreleased = false,
   showDeprecated = false,
-  showInternal = false
+  showInternal = false,
 } = {}) {
   // [prettierx tbd ...]
   // pre-release version is smaller than the normal version in semver,
@@ -42,10 +42,10 @@ function getSupportInfo({
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )
-    .filter(option => filterSince(option) && filterDeprecated(option))
+    .filter((option) => filterSince(option) && filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .map(mapInternal)
-    .map(option => {
+    .map((option) => {
       option = { ...option };
 
       if (Array.isArray(option.default)) {
@@ -61,12 +61,12 @@ function getSupportInfo({
 
       if (Array.isArray(option.choices)) {
         option.choices = option.choices.filter(
-          option => filterSince(option) && filterDeprecated(option)
+          (option) => filterSince(option) && filterDeprecated(option)
         );
       }
 
       const filteredPlugins = plugins.filter(
-        plugin =>
+        (plugin) =>
           plugin.defaultOptions &&
           plugin.defaultOptions[option.name] !== undefined
       );
@@ -112,5 +112,5 @@ function getSupportInfo({
 }
 
 module.exports = {
-  getSupportInfo
+  getSupportInfo,
 };

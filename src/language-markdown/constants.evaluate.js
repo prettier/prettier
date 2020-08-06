@@ -14,8 +14,8 @@ const cjkPattern = cjkRegex()
         "Other_Symbol",
         "Modifier_Letter",
         "Modifier_Symbol",
-        "Nonspacing_Mark"
-      ]
+        "Nonspacing_Mark",
+      ],
     })
   )
   .toString();
@@ -42,8 +42,8 @@ const punctuationCharset = unicodeRegex({
     /* Pf */ "Final_Punctuation",
     /* Pi */ "Initial_Punctuation",
     /* Po */ "Other_Punctuation",
-    /* Ps */ "Open_Punctuation"
-  ]
+    /* Ps */ "Open_Punctuation",
+  ],
 }).union(asciiPunctuationCharset);
 
 const punctuationPattern = punctuationCharset.toString();
@@ -51,5 +51,5 @@ const punctuationPattern = punctuationCharset.toString();
 module.exports = {
   cjkPattern,
   kPattern,
-  punctuationPattern
+  punctuationPattern,
 };

@@ -91,14 +91,18 @@ f(
 
 // this should remain as-is
 <div>
-  {/* prettier-ignore */
-  foo ( )}
+  {
+    /* prettier-ignore */
+    foo ( )
+  }
 </div>;
 
 // this should remain as-is
 <div>
-  {/* prettier-ignore */
-  x     ?   <Y/> : <Z/>}
+  {
+    /* prettier-ignore */
+    x     ?   <Y/> : <Z/>
+  }
 </div>;
 
 push(

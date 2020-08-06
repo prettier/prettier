@@ -1674,3 +1674,16 @@ label {
 
 // should not parse as custom-selector
 @custom-selector     :--icon #id;
+
+// extend #7977
+.class {
+  &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class all);
+}
+.class {
+  &:extend(
+    .some-class .some-other-class .some-very-loooooooooooooong-class all
+  );
+}
+.class {
+  &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class .some-very-loooooooooooooong-class all);
+}

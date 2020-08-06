@@ -86,8 +86,9 @@ function group(contents, opts) {
     // [prettierx merge ...]
     contents,
     break: !!opts.shouldBreak,
+    // [prettierx merge from prettier@2.0.5 / support --paren-spacing]
     addedLine: !!opts.addedLine,
-    expandedStates: opts.expandedStates
+    expandedStates: opts.expandedStates,
   };
 }
 
@@ -159,7 +160,7 @@ function ifBreak(breakContents, flatContents, opts) {
     type: "if-break",
     breakContents,
     flatContents,
-    groupId: opts.groupId
+    groupId: opts.groupId,
   };
 }
 
@@ -182,7 +183,7 @@ const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent]);
 const literalline = concat([
   { type: "line", hard: true, literal: true },
-  breakParent
+  breakParent,
 ]);
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
@@ -247,5 +248,5 @@ module.exports = {
   addAlignmentToDoc,
   markAsRoot,
   dedentToRoot,
-  dedent
+  dedent,
 };

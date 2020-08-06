@@ -10,7 +10,7 @@ const {
   line,
   group,
   indent,
-  ifBreak
+  ifBreak,
 } = require("../document").builders;
 
 const {
@@ -21,7 +21,7 @@ const {
   isNextNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
-  isWhitespaceNode
+  isWhitespaceNode,
 } = require("./utils");
 
 // http://w3c.github.io/html/single-page.html#void-elements
@@ -39,7 +39,7 @@ const voidTags = [
   "param",
   "source",
   "track",
-  "wbr"
+  "wbr",
 ];
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
@@ -79,7 +79,7 @@ function print(path, options, print) {
       const hasChildren = n.children.length > 0;
 
       const hasNonWhitespaceChildren = n.children.some(
-        n => !isWhitespaceNode(n)
+        (n) => !isWhitespaceNode(n)
       );
 
       const isVoid =
@@ -98,7 +98,7 @@ function print(path, options, print) {
             join(line, path.map(print, "modifiers")),
 
             n.comments.length ? line : "",
-            join(line, path.map(print, "comments"))
+            join(line, path.map(print, "comments")),
           ])
         );
 
@@ -112,7 +112,7 @@ function print(path, options, print) {
             printParams(path, print),
             n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
-            ifBreak(closeTagForBreak, closeTagForNoBreak)
+            ifBreak(closeTagForBreak, closeTagForNoBreak),
           ])
         ),
         !isVoid
@@ -122,11 +122,11 @@ function print(path, options, print) {
                   ? indent(printChildren(path, options, print))
                   : "",
                 ifBreak(hasChildren ? hardline : "", ""),
-                concat(["</", n.tag, ">"])
+                concat(["</", n.tag, ">"]),
               ])
             )
           : "",
-        nextNode && nextNode.type === "ElementNode" ? hardline : ""
+        nextNode && nextNode.type === "ElementNode" ? hardline : "",
       ]);
     }
     case "BlockStatement": {
@@ -142,7 +142,7 @@ function print(path, options, print) {
         n.inverse.body.length === 1 &&
         n.inverse.body[0].type === "BlockStatement" &&
         n.inverse.body[0].path.parts[0] === "if";
-      const indentElse = hasElseIf ? a => a : indent;
+      const indentElse = hasElseIf ? (a) => a : indent;
       const inverseElseStatement =
         (n.inverseStrip.open ? "{{~" : "{{") +
         "else" +
@@ -153,7 +153,7 @@ function print(path, options, print) {
             ? concat([
                 n.openStrip.open ? "{{~else " : "{{else ",
                 printPathParams(path, print),
-                n.openStrip.close ? "~}}" : "}}"
+                n.openStrip.close ? "~}}" : "}}",
               ])
             : printOpenBlock(path, print, n.openStrip),
           indent(concat([hardline, path.call(print, "program")])),
@@ -165,21 +165,21 @@ function print(path, options, print) {
             : "",
           isElseIf
             ? ""
-            : concat([hardline, printCloseBlock(path, print, n.closeStrip)])
+            : concat([hardline, printCloseBlock(path, print, n.closeStrip)]),
         ]);
       } else if (isElseIf) {
         return concat([
           concat([
             n.openStrip.open ? "{{~else" : "{{else ",
             printPathParams(path, print),
-            n.openStrip.close ? "~}}" : "}}"
+            n.openStrip.close ? "~}}" : "}}",
           ]),
-          indent(concat([hardline, path.call(print, "program")]))
+          indent(concat([hardline, path.call(print, "program")])),
         ]);
       }
 
       const hasNonWhitespaceChildren = n.program.body.some(
-        n => !isWhitespaceNode(n)
+        (n) => !isWhitespaceNode(n)
       );
 
       return concat([
@@ -188,9 +188,9 @@ function print(path, options, print) {
           concat([
             indent(concat([softline, path.call(print, "program")])),
             hasNonWhitespaceChildren ? hardline : softline,
-            printCloseBlock(path, print, n.closeStrip)
+            printCloseBlock(path, print, n.closeStrip),
           ])
-        )
+        ),
       ]);
     }
     case "ElementModifierStatement": {
@@ -207,7 +207,7 @@ function print(path, options, print) {
       const leading = isParentOfSomeType(path, [
         "AttrNode",
         "ConcatStatement",
-        "ElementNode"
+        "ElementNode",
       ])
         ? [opening, indent(softline)]
         : [opening];
@@ -249,9 +249,11 @@ function print(path, options, print) {
       return concat([
         '"',
         concat(
-          path.map(partPath => print(partPath), "parts").filter(a => a !== "")
+          path
+            .map((partPath) => print(partPath), "parts")
+            .filter((a) => a !== "")
         ),
-        '"'
+        '"',
       ]);
     }
     case "Hash": {
@@ -359,7 +361,10 @@ function print(path, options, print) {
           n.chars
             .replace(/^[\s ]+/g, leadingSpace)
             .replace(/[\s ]+$/, trailingSpace),
-          ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve)
+          ...generateHardlines(
+            trailingLineBreaksCount,
+            maxLineBreaksToPreserve
+          ),
         ].filter(Boolean)
       );
     }
@@ -457,7 +462,7 @@ function printStringLiteral(stringLiteral, options) {
   return concat([
     enclosingQuote.quote,
     escapedStringLiteral,
-    enclosingQuote.quote
+    enclosingQuote.quote,
   ]);
 }
 
@@ -507,7 +512,7 @@ function printOpenBlock(
       printPathParams(path, print),
       printBlockParams(path),
       softline,
-      isCloseStrip ? "~}}" : "}}"
+      isCloseStrip ? "~}}" : "}}",
     ])
   );
 }
@@ -520,7 +525,7 @@ function printCloseBlock(
   return concat([
     isOpenStrip ? "{{~/" : "{{/",
     path.call(print, "path"),
-    isCloseStrip ? "~}}" : "}}"
+    isCloseStrip ? "~}}" : "}}",
   ]);
 }
 
@@ -581,5 +586,5 @@ function locationToOffset(source, line, column) {
 
 module.exports = {
   print,
-  massageAstNode: clean
+  massageAstNode: clean,
 };

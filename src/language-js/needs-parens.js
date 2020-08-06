@@ -7,7 +7,7 @@ const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
-  hasNode
+  hasNode,
 } = require("./utils");
 
 function needsParens(path, options) {
@@ -208,7 +208,7 @@ function needsParens(path, options) {
         return true;
       }
 
-      const isLeftOfAForStatement = node => {
+      const isLeftOfAForStatement = (node) => {
         let i = 0;
         while (node) {
           const parent = path.getParentNode(i++);
@@ -769,7 +769,6 @@ function isStatement(node) {
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
     node.type === "ExpressionStatement" ||
-    node.type === "ForAwaitStatement" ||
     node.type === "ForInStatement" ||
     node.type === "ForOfStatement" ||
     node.type === "ForStatement" ||
@@ -799,9 +798,12 @@ function isStatement(node) {
 function includesFunctionTypeInObjectType(node) {
   return hasNode(
     node,
-    n1 =>
+    (n1) =>
       (n1.type === "ObjectTypeAnnotation" &&
-        hasNode(n1, n2 => n2.type === "FunctionTypeAnnotation" || undefined)) ||
+        hasNode(
+          n1,
+          (n2) => n2.type === "FunctionTypeAnnotation" || undefined
+        )) ||
       undefined
   );
 }
@@ -879,7 +881,7 @@ function shouldWrapFunctionForExportDefault(path, options) {
   }
 
   return path.call(
-    childPath => shouldWrapFunctionForExportDefault(childPath, options),
+    (childPath) => shouldWrapFunctionForExportDefault(childPath, options),
     ...getLeftSidePathName(path, node)
   );
 }

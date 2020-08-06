@@ -10,3 +10,6 @@ insert_final_newline = true
 
 [cspell.json]
 indent_size = 4
+
+[website/blog/*.md]
+trim_trailing_whitespace = false

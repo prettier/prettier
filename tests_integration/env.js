@@ -18,5 +18,5 @@ const thirdParty = isProduction
 
 module.exports = {
   thirdParty,
-  prettierCli
+  prettierCli,
 };

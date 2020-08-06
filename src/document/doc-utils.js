@@ -59,7 +59,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 
 function mapDoc(doc, cb) {
   if (doc.type === "concat" || doc.type === "fill") {
-    const parts = doc.parts.map(part => mapDoc(part, cb));
+    const parts = doc.parts.map((part) => mapDoc(part, cb));
     return cb({ ...doc, parts });
   } else if (doc.type === "if-break") {
     const breakContents = doc.breakContents && mapDoc(doc.breakContents, cb);
@@ -197,7 +197,7 @@ function stripTrailingHardline(doc) {
 
       return {
         type: "concat",
-        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart))
+        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart)),
       };
     }
   }
@@ -214,5 +214,5 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
-  stripTrailingHardline
+  stripTrailingHardline,
 };
