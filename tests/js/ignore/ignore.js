@@ -60,6 +60,15 @@ function a() {
           // prettier-ignore
         )
       }
+
+  // prettier-ignore-start
+  let i_like         = 1;
+  let my_assignments = 2;
+  let sorted         = 3;
+  // prettier-ignore-end
+  let but_not    = 4;
+  let after      = 5;
+  let ignore_end = 6;
 }
 
 const response = {

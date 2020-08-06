@@ -61,6 +61,39 @@ matrix(
 )
 ```
 
+### Range Ignore
+
+_available in v2.1.0+_
+
+JavaScript code within `// prettier-ignore-start` and `// prettier-ignore-end` will be excluded in the abstract syntax tree from formatting.
+
+For example:
+
+<!-- prettier-ignore -->
+```js
+// prettier-ignore-start
+let i_like         = 1;
+let my_assignments = 2;
+let sorted         = 3;
+// prettier-ignore-end
+let but_not    = 4;
+let after      = 5;
+let ignore_end = 6;
+```
+
+will be transformed to:
+
+```js
+// prettier-ignore-start
+let i_like         = 1;
+let my_assignments = 2;
+let sorted         = 3;
+// prettier-ignore-end
+let but_not = 4;
+let after = 5;
+let ignore_end = 6;
+```
+
 ## JSX
 
 ```jsx

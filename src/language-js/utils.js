@@ -657,7 +657,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling.expression.comments &&
     prevSibling.expression.comments.some(
       (comment) => comment.value.trim() === "prettier-ignore"
-    )
+    ) && "next"
   );
 }
 
@@ -675,6 +675,7 @@ function isEmptyJSXElement(node) {
   return isLiteral(child) && !isMeaningfulJSXText(child);
 }
 
+/** @return {false | "next" | "start" | "end"} */
 function hasPrettierIgnore(path) {
   return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
 }
@@ -701,7 +702,7 @@ function isFlowAnnotationComment(text, typeAnnotation, options) {
 
 function hasLeadingOwnLineComment(text, node, options) {
   if (isJSXNode(node)) {
-    return hasNodeIgnoreComment(node);
+    return hasNodeIgnoreComment(node) === "next";
   }
 
   const res =
