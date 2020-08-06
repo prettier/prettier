@@ -19,5 +19,6 @@ module.exports = () => {
   shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
   shell.config.silent = false;
 
-  return path.join(tmpDir, "node_modules/prettier");
+  // [prettierx]
+  return path.join(tmpDir, "node_modules/prettierx");
 };

@@ -1,10 +1,12 @@
 "use strict";
 
-const installPrettier = require("./scripts/install-prettier");
+// [prettierx]
+const installPrettier = require("./scripts/install-prettierx");
 
 const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
 if (process.env.NODE_ENV === "production") {
-  process.env.PRETTIER_DIR = installPrettier();
+  // [prettierx]
+  process.env.PRETTIERX_DIR = installPrettier();
 }
 
 module.exports = {
