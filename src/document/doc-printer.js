@@ -19,17 +19,27 @@ function makeIndent(ind, options) {
 }
 
 function makeAlign(ind, n, options) {
-  return n === -Infinity
-    ? ind.root || rootIndent()
-    : n < 0
-    ? generateInd(ind, { type: "dedent" }, options)
-    : !n
-    ? ind
-    : n.type === "root"
-    ? { ...ind, root: ind }
-    : typeof n === "string"
-    ? generateInd(ind, { type: "stringAlign", n }, options)
-    : generateInd(ind, { type: "numberAlign", n }, options);
+  if (n === -Infinity) {
+    return ind.root || rootIndent();
+  }
+
+  if (n < 0) {
+    return generateInd(ind, { type: "dedent" }, options);
+  }
+
+  if (!n) {
+    return ind;
+  }
+
+  if (n.type === "root") {
+    return { ...ind, root: ind };
+  }
+
+  return generateInd(
+    ind,
+    { type: typeof n === "string" ? "stringAlign" : "numberAlign", n },
+    options
+  );
 }
 
 function generateInd(ind, newPart, options) {
