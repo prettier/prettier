@@ -582,7 +582,7 @@ function hasNodeIgnoreComment(node) {
 /** @return {false | "next" | "start" | "end"} */
 function isNodeIgnoreComment(comment) {
   const match = comment.value.match(/\s*prettier-ignore(?:-(start|end))?\s*/);
-  return match === null ? false : match[1] ? match[1] : "next";
+  return match === null ? false : (match[1] && comment.leading) ? match[1] : "next";
 }
 
 function addCommentHelper(node, comment) {
