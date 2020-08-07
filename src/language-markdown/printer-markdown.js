@@ -219,7 +219,6 @@ function genericPrint(path, options, print) {
         ")",
       ]);
     case "blockquote":
-      // @ts-ignore
       return concat(["> ", align("> ", printChildren(path, options, print))]);
     case "heading":
       return concat([
@@ -231,7 +230,6 @@ function genericPrint(path, options, print) {
         // indented code block
         const alignment = " ".repeat(4);
         return align(
-          // @ts-ignore
           alignment,
           concat([
             alignment,
@@ -311,7 +309,6 @@ function genericPrint(path, options, print) {
           return concat([
             prefix,
             align(
-              // @ts-ignore
               " ".repeat(prefix.length),
               printListItem(childPath, options, print, prefix)
             ),
@@ -410,7 +407,6 @@ function genericPrint(path, options, print) {
           : group(
               concat([
                 align(
-                  // @ts-ignore
                   " ".repeat(4),
                   printChildren(path, options, print, {
                     processor: (childPath, index) => {
@@ -479,14 +475,12 @@ function printListItem(path, options, print, listPrefix) {
     printChildren(path, options, print, {
       processor: (childPath, index) => {
         if (index === 0 && childPath.getValue().type !== "list") {
-          // @ts-ignore
           return align(" ".repeat(prefix.length), childPath.call(print));
         }
 
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
-        // @ts-ignore
         return concat([alignment, align(alignment, childPath.call(print))]);
       },
     }),

@@ -56,7 +56,7 @@ function indent(contents) {
 }
 
 /**
- * @param {number} n
+ * @param {number | string} n
  * @param {Doc} contents
  * @returns Doc
  */
