@@ -540,15 +540,13 @@ function _print(node, parentNode, path, options, print) {
   }
 
   function indent(doc) {
-    // @ts-ignore
     return docBuilders.align(" ".repeat(options.tabWidth), doc);
   }
 }
 
 function align(n, doc) {
   return typeof n === "number" && n > 0
-    ? // @ts-ignore
-      docBuilders.align(" ".repeat(n), doc)
+    ? docBuilders.align(" ".repeat(n), doc)
     : docBuilders.align(n, doc);
 }
 
