@@ -45,3 +45,45 @@ function foo({
   }
 
   this_shall_not_be_ignored   =  22;
+
+// If else statements
+// prettier-ignore-start
+if(after == 10) {}
+else if  ((after == 20)||after==1) {
+  after  = 11;
+} else {after =    12;}
+// prettier-ignore-end
+
+function isNodeIgnoreComment(comment){
+  const match = comment.value.match(/\s*prettier-ignore(?:-(start|end))?\s*/);
+  
+  // Ternary statements, in a local scope
+  // prettier-ignore-start
+  const ignore = match === null ? false : match[1] && comment.leading ? match[1] : "next";
+  // prettier-ignore-end
+
+  return ignore;
+}
+this_shall_not_be_ignored   =  24;
+
+// Template literals and function chaining
+// prettier-ignore-start
+const content = `
+const env = ${ JSON.stringify({
+  assetsRootUrl: env.assetsRootUrl,
+	env: env.env,
+	role: "client",
+	adsfafa: "sdfsdff",
+	asdfasff: "wefwefw",
+  fefef: "sf sdfs fdsfdsf s dfsfds"
+}, null, "\t") });
+`;
+
+function foo() {
+  return a
+  .b()
+  .c()
+  // Comment
+  ?.d()
+}
+// prettier-ignore-end
