@@ -126,7 +126,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
   }
 
   // Escape hatch
-  if (options.ignoring || ignore === "next") {
+  if ((node && options.ignoring) || ignore === "next") {
     return printPrettierIgnoredNode(node, options);
   }
 

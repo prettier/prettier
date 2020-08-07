@@ -16,7 +16,7 @@ route('password-forgot', '/password-forgot/', require('./pages/password-forgot/p
 route('restore-password', '/restore-password/:token', require('./pages/restore-password/restore-password'));
 /* prettier-ignore-end */
 
-let  this_shall_not_be_ignored   =  2;
+let  this_shall_not_be_ignored   =  21;
 
 // prettier-ignore-start
 appApplication.post(
@@ -32,3 +32,16 @@ appApplication.post(
   }
 );
 // prettier-ignore-end
+
+function foo({
+  a   =   0,
+  // prettier-ignore-start
+  b          = 1,
+  // prettier-ignore-end
+    c = 1
+               }) {
+                 console.log(a)
+                 console.log(b)
+  }
+
+  this_shall_not_be_ignored   =  22;
