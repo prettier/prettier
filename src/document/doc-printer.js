@@ -18,28 +18,26 @@ function makeIndent(ind, options) {
   return generateInd(ind, { type: "indent" }, options);
 }
 
-function makeAlign(ind, n, options) {
+function makeAlign(indent, n, options) {
   if (n === -Infinity) {
-    return ind.root || rootIndent();
+    return indent.root || rootIndent();
   }
 
   if (n < 0) {
-    return generateInd(ind, { type: "dedent" }, options);
+    return generateInd(indent, { type: "dedent" }, options);
   }
 
   if (!n) {
-    return ind;
+    return indent;
   }
 
   if (n.type === "root") {
-    return { ...ind, root: ind };
+    return { ...indent, root: indent };
   }
 
-  return generateInd(
-    ind,
-    { type: typeof n === "string" ? "stringAlign" : "numberAlign", n },
-    options
-  );
+  const alignType = typeof n === "string" ? "stringAlign" : "numberAlign";
+
+  return generateInd(indent, { type: alignType, n }, options);
 }
 
 function generateInd(ind, newPart, options) {
