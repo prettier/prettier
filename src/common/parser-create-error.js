@@ -5,6 +5,7 @@ function createError(message, loc) {
   const error = new SyntaxError(
     message + " (" + loc.start.line + ":" + loc.start.column + ")"
   );
+  // @ts-ignore - TBD (...)
   error.loc = loc;
   return error;
 }

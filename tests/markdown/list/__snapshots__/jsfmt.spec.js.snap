@@ -2783,6 +2783,181 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`nested-tab.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
+exports[`nested-tab.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+-   Top level list item 1
+-   Top level list item 2
+    -   Nested List item 1
+    -   Nested List item 2
+        -   Sub-Nested List item 1
+        -   Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+-   Top level list item 1
+-   Top level list item 2
+    -   Nested List item 1
+    -   Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
+exports[`nested-tab.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+- Top level list item 1
+- Top level list item 2
+     - Nested List item 1
+     - Nested List item 2
+          - Sub-Nested List item 1
+          - Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+- Top level list item 1
+- Top level list item 2
+     - Nested List item 1
+     - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
+exports[`nested-tab.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
 exports[`ordered.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

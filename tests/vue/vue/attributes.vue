@@ -36,5 +36,6 @@
   @click="a[1];"
   @click="a['b'];"
   @click="a[null];"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>

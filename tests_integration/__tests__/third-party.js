@@ -4,6 +4,8 @@ const path = require("path");
 const { thirdParty } = require("../env");
 const { cosmiconfig, cosmiconfigSync, isCI } = require(thirdParty);
 
+expect.addSnapshotSerializer(require("../path-serializer"));
+
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `cosmiconfigOptions`
 describe("cosmiconfig", () => {
@@ -50,6 +52,15 @@ describe("cosmiconfig", () => {
       expect(filepath).toBe(file);
     });
   }
+
+  // #8815, please make sure this error contains code frame
+  test("Invalid json file", () => {
+    expect(() => {
+      cosmiconfigSync("prettier").search(
+        path.join(__dirname, "../cli/config/invalid/broken-json")
+      );
+    }).toThrowErrorMatchingSnapshot();
+  });
 });
 
 test("isCI", () => {

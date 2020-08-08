@@ -45,6 +45,7 @@ semi: false
   @click="a[1];"
   @click="a['b'];"
   @click="a[null];"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>
 
@@ -111,6 +112,7 @@ semi: false
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 
@@ -162,6 +164,7 @@ trailingComma: "none"
   @click="a[1];"
   @click="a['b'];"
   @click="a[null];"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>
 
@@ -228,6 +231,7 @@ trailingComma: "none"
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 
@@ -278,6 +282,7 @@ printWidth: 80
   @click="a[1];"
   @click="a['b'];"
   @click="a[null];"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>
 
@@ -344,6 +349,7 @@ printWidth: 80
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 

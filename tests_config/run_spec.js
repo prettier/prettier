@@ -194,7 +194,8 @@ global.run_spec = (fixtures, parsers, options) => {
 
           // When `TEST_CRLF` and `endOfLine: "auto"`, the eol is always `\r\n`,
           // Replace it with guess result from original input
-          if (TEST_CRLF && mainOptions.endOfLine === "auto") {
+          let resultNote = "";
+          if (mainOptions.endOfLine === "auto") {
             const {
               guessEndOfLine,
               convertEndOfLineToChars,
@@ -203,16 +204,25 @@ global.run_spec = (fixtures, parsers, options) => {
               guessEndOfLine(code)
             );
             if (originalAutoResult !== "\r\n") {
-              resultForSnapshot = resultForSnapshot.replace(
-                /\r\n?/g,
-                originalAutoResult
-              );
+              resultNote +=
+                "** The EOL of output might not real when `TEST_CRLF` **";
+
+              if (TEST_CRLF) {
+                resultForSnapshot = resultForSnapshot.replace(
+                  /\r\n?/g,
+                  originalAutoResult
+                );
+              }
             }
           }
 
           if (hasEndOfLine) {
             codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
             resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
+          }
+
+          if (resultNote) {
+            resultForSnapshot = `${resultNote}\n${resultForSnapshot}`;
           }
 
           expect(
