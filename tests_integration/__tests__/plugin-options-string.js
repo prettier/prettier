@@ -58,11 +58,7 @@ describe("external options from config file should work", () => {
 describe("Non exists plugin", () => {
   runPrettier(
     "plugins/options-string",
-    [
-      "--plugin=--invalid--",
-      "--stdin-filepath",
-      "example.foo",
-    ],
+    ["--plugin=--invalid--", "--stdin-filepath", "example.foo"],
     { input: "hello-world" }
   ).test({
     stdout: "",
