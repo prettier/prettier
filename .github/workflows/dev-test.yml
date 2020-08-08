@@ -21,11 +21,8 @@ jobs:
           - "12"
           - "10"
         include:
-          # only enable coverage on the fastest job and windows
+          # only enable coverage on the fastest job
           - os: "ubuntu-latest"
-            node: "14"
-            ENABLE_CODE_COVERAGE: true
-          - os: "windows-latest"
             node: "14"
             ENABLE_CODE_COVERAGE: true
         exclude:
