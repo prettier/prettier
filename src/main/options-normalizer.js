@@ -54,7 +54,14 @@ function normalizeOptions(
   { logger, isCLI = false, passThrough = false } = {}
 ) {
   const unknown = !passThrough
-    ? vnopts.levenUnknownHandler
+    ? (key, value, options) => {
+        // Don't suggest `_` for unknown flags
+        const { _, ...schemas } = options.schemas;
+        return vnopts.levenUnknownHandler(key, value, {
+          ...options,
+          schemas,
+        });
+      }
     : Array.isArray(passThrough)
     ? (key, value) =>
         !passThrough.includes(key) ? undefined : { [key]: value }
