@@ -284,13 +284,13 @@ function format(text, opts) {
   if (hasUnicodeBOM) {
     text = text.slice(1);
     if (hasCursor) {
-      opts.cursorOffset++;
+      opts.cursorOffset--;
     }
     if (hasRangeStart) {
-      opts.rangeStart++;
+      opts.rangeStart--;
     }
     if (hasRangeEnd) {
-      opts.rangeEnd++;
+      opts.rangeEnd--;
     }
   }
 
