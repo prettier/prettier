@@ -2,7 +2,7 @@
 
 exports[`private-in.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
