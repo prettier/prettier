@@ -179,23 +179,56 @@ global.run_spec = (fixtures, parsers, options) => {
                 .replace(RANGE_END_PLACEHOLDER, "")
             : source;
           let codeOffset = 0;
+          let resultForSnapshot = formattedWithCursor;
 
           if (
             typeof baseOptions.rangeStart === "number" ||
             typeof baseOptions.rangeEnd === "number"
           ) {
+            if (TEST_CRLF && hasEndOfLine) {
+              codeForSnapshot = codeForSnapshot.replace(/\n/g, "\r\n");
+            }
             codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
             codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
           }
 
+          // When `TEST_CRLF` and `endOfLine: "auto"`, the eol is always `\r\n`,
+          // Replace it with guess result from original input
+          let resultNote = "";
+          if (mainOptions.endOfLine === "auto") {
+            const {
+              guessEndOfLine,
+              convertEndOfLineToChars,
+            } = require("../src/common/end-of-line");
+            const originalAutoResult = convertEndOfLineToChars(
+              guessEndOfLine(code)
+            );
+            if (originalAutoResult !== "\r\n") {
+              resultNote +=
+                "** The EOL of output might not real when `TEST_CRLF` **";
+
+              if (TEST_CRLF) {
+                resultForSnapshot = resultForSnapshot.replace(
+                  /\r\n?/g,
+                  originalAutoResult
+                );
+              }
+            }
+          }
+
           if (hasEndOfLine) {
             codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+            resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
+          }
+
+          if (resultNote) {
+            resultForSnapshot = `${resultNote}\n${resultForSnapshot}`;
           }
 
           expect(
             createSnapshot(
               codeForSnapshot,
-              hasEndOfLine ? visualizedOutput : formattedWithCursor,
+              resultForSnapshot,
               composeOptionsForSnapshot(baseOptions, parsers),
               { codeOffset }
             )
