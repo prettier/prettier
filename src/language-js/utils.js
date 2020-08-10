@@ -12,11 +12,14 @@ const {
 const handleComments = require("./comments");
 
 /**
- * @typedef {import("estree").Node} ESTreeNode
- * @typedef {import("@babel/types").Node} BabelNode
- * @typedef {import("@typescript-eslint/types").TSESTree.Node} TSNode
- * @typedef {import("angular-estree-parser/lib/types").NGNode} NGNode
- * @typedef {ESTreeNode | BabelNode | TSNode | NGNode} Node
+ * @typedef {import("./types/estree").Node} Node
+ * @typedef {import("./types/estree").TemplateLiteral} TemplateLiteral
+ * @typedef {import("./types/estree").Comment} Comment
+ * @typedef {import("./types/estree").MemberExpression} MemberExpression
+ * @typedef {import("./types/estree").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("./types/estree").CallExpression} CallExpression
+ * @typedef {import("./types/estree").BindExpression} BindExpression
+ * @typedef {import("./types/estree").Property} Property
  */
 
 // We match any whitespace except line terminators because
@@ -46,8 +49,12 @@ function hasFlowShorthandAnnotationComment(node) {
   );
 }
 
+/**
+ * @param {Comment[]} comments
+ * @returns {boolean}
+ */
 function hasFlowAnnotationComment(comments) {
-  return comments && comments[0].value.match(FLOW_ANNOTATION);
+  return comments && FLOW_ANNOTATION.test(comments[0].value);
 }
 
 function hasNode(node, fn) {
@@ -63,6 +70,10 @@ function hasNode(node, fn) {
     : Object.keys(node).some((key) => hasNode(node[key], fn));
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function hasNakedLeftSide(node) {
   return (
     node.type === "AssignmentExpression" ||
@@ -134,6 +145,10 @@ const exportDeclarationTypes = new Set([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ]);
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isExportDeclaration(node) {
   return node && exportDeclarationTypes.has(node.type);
 }
@@ -147,6 +162,10 @@ function getParentExportDeclaration(path) {
   return null;
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isLiteral(node) {
   return (
     node.type === "BooleanLiteral" ||
@@ -164,6 +183,10 @@ function isLiteral(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isLiteralLikeValue(node) {
   return (
     isLiteral(node) ||
@@ -182,6 +205,10 @@ function isLiteralLikeValue(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
@@ -189,6 +216,10 @@ function isNumericLiteral(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isStringLiteral(node) {
   return (
     node.type === "StringLiteral" ||
@@ -196,10 +227,18 @@ function isStringLiteral(node) {
   );
 }
 
-function isObjectType(n) {
-  return n.type === "ObjectTypeAnnotation" || n.type === "TSTypeLiteral";
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isObjectType(node) {
+  return node.type === "ObjectTypeAnnotation" || node.type === "TSTypeLiteral";
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isFunctionOrArrowExpression(node) {
   return (
     node.type === "FunctionExpression" ||
@@ -207,6 +246,10 @@ function isFunctionOrArrowExpression(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isFunctionOrArrowExpressionWithBody(node) {
   return (
     node.type === "FunctionExpression" ||
@@ -215,12 +258,20 @@ function isFunctionOrArrowExpressionWithBody(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isTemplateLiteral(node) {
   return node.type === "TemplateLiteral";
 }
 
 // `inject` is used in AngularJS 1.x, `async` in Angular 2+
 // example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isAngularTestWrapper(node) {
   return (
     (node.type === "CallExpression" ||
@@ -232,6 +283,10 @@ function isAngularTestWrapper(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isJSXNode(node) {
   return node.type === "JSXElement" || node.type === "JSXFragment";
 }
@@ -262,6 +317,10 @@ function isJSXWhitespaceExpression(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isMemberExpressionChain(node) {
   if (
     node.type !== "MemberExpression" &&
@@ -319,15 +378,23 @@ const binaryishNodeTypes = new Set([
   "LogicalExpression",
   "NGPipeExpression",
 ]);
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isBinaryish(node) {
   return binaryishNodeTypes.has(node.type);
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isMemberish(node) {
   return (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression" ||
-    (node.type === "BindExpression" && node.object)
+    (node.type === "BindExpression" && Boolean(node.object))
   );
 }
 
@@ -344,6 +411,10 @@ const flowTypeAnnotations = new Set([
   "BooleanLiteralTypeAnnotation",
   "StringTypeAnnotation",
 ]);
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isSimpleFlowType(node) {
   return (
     node &&
@@ -354,6 +425,10 @@ function isSimpleFlowType(node) {
 
 const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
 
+/**
+ * @param {CallExpression} node
+ * @returns {boolean}
+ */
 function isSkipOrOnlyBlock(node) {
   return (
     (node.callee.type === "MemberExpression" ||
@@ -366,12 +441,12 @@ function isSkipOrOnlyBlock(node) {
   );
 }
 
-function isUnitTestSetUp(n) {
+function isUnitTestSetUp(node) {
   const unitTestSetUpRe = /^(before|after)(Each|All)$/;
   return (
-    n.callee.type === "Identifier" &&
-    unitTestSetUpRe.test(n.callee.name) &&
-    n.arguments.length === 1
+    node.callee.type === "Identifier" &&
+    unitTestSetUpRe.test(node.callee.name) &&
+    node.arguments.length === 1
   );
 }
 
@@ -427,6 +502,10 @@ function hasTrailingLineComment(node) {
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isCallOrOptionalCallExpression(node) {
   return (
     node.type === "CallExpression" || node.type === "OptionalCallExpression"
@@ -465,9 +544,6 @@ function isNgForOf(node, index, parentNode) {
 }
 
 /**
- * @typedef {import("estree").TemplateLiteral} ESTreeTemplateLiteral
- * @typedef {import("@babel/types").TemplateLiteral} BabelTemplateLiteral
- * @typedef {ESTreeTemplateLiteral | BabelTemplateLiteral} TemplateLiteral
  *
  * @param {TemplateLiteral} node
  * @returns {boolean}
@@ -609,6 +685,11 @@ function classChildNeedsASIProtection(node) {
   }
 }
 
+/**
+ * @param {string} tokenNode
+ * @param {string} keyword
+ * @returns {string}
+ */
 function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
   if (tokenNode === "+") {
     return "+" + keyword;
@@ -639,6 +720,10 @@ const containsNonJsxWhitespaceRegex = new RegExp(
 
 // Meaningful if it contains non-whitespace characters,
 // or it contains whitespace without a new line.
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isMeaningfulJSXText(node) {
   return (
     isLiteral(node) &&
@@ -802,6 +887,11 @@ function isSimpleNumber(numberString) {
   return /^(\d+|\d+\.\d+)$/.test(numberString);
 }
 
+/**
+ * @param {Node} node
+ * @param {Node} parentNode
+ * @returns {boolean}
+ */
 function isJestEachTemplateLiteral(node, parentNode) {
   /**
    * describe.each`table`(name, fn)
@@ -831,6 +921,10 @@ function isJestEachTemplateLiteral(node, parentNode) {
   );
 }
 
+/**
+ * @param {TemplateLiteral} template
+ * @returns {boolean}
+ */
 function templateLiteralHasNewLines(template) {
   return template.quasis.some((quasi) => quasi.value.raw.includes("\n"));
 }
@@ -1014,6 +1108,11 @@ function shouldPrintComma(options, level = "es5") {
 // Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
 // holds) `function`, `class`, or `do {}`. Will be overzealous if there's
 // already necessary grouping parentheses.
+/**
+ * @param {Node} node
+ * @param {boolean} forbidFunctionClassAndDoExpr
+ * @returns {boolean}
+ */
 function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
   node = getLeftMost(node);
   switch (node.type) {
