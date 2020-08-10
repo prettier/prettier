@@ -28,12 +28,14 @@ const languages = [
   })),
   createLanguage(require("linguist-languages/data/TypeScript"), () => ({
     since: "1.4.0",
-    parsers: ["typescript", "babel-ts"],
+    // [prettierx] use babel-ts for TypeScript by default here
+    parsers: ["babel-ts", "typescript"],
     vscodeLanguageIds: ["typescript"],
   })),
   createLanguage(require("linguist-languages/data/TSX"), () => ({
     since: "1.4.0",
-    parsers: ["typescript", "babel-ts"],
+    // [prettierx] use babel-ts for TypeScript by default here
+    parsers: ["babel-ts", "typescript"],
     vscodeLanguageIds: ["typescriptreact"],
   })),
   createLanguage(require("linguist-languages/data/JSON"), () => ({
