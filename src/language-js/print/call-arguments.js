@@ -159,7 +159,7 @@ function printCallArguments(path, options, print) {
       shouldBreakForArrowFunction;
 
     // We want to print the last argument with a special flag
-    let printedExpanded;
+    let printedExpanded = [];
     let i = 0;
     const printArgument = (argPath) => {
       if (shouldGroupFirst && i === 0) {
@@ -202,9 +202,7 @@ function printCallArguments(path, options, print) {
           shouldGroupFirst
             ? concat([
                 "(",
-                // @ts-ignore - TBD printedExpanded may be undefined (...)
                 group(printedExpanded[0], { shouldBreak: true }),
-                // @ts-ignore - TBD printedExpanded may be undefined (...)
                 concat(printedExpanded.slice(1)),
                 ")",
               ])
