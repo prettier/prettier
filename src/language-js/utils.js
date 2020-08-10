@@ -11,21 +11,6 @@ const {
 } = require("../common/util");
 const handleComments = require("./comments");
 
-/**
- * @typedef {import("estree").BaseNode} BaseNode
- * @typedef {import("estree").BaseExpression} BaseExpression
- * @typedef {import("estree").Expression} Expression
- *
- * @typedef {Object} MemberExpressionNode
- * @mixes BaseExpression
- * @property {Expression} object
- * @property {Expression} property
- *
- * @typedef {Object} TemplateLiteralNode
- * @mixes BaseNode
- * @property {MemberExpressionNode[]} expressions
- */
-
 // We match any whitespace except line terminators because
 // Flow annotation comments cannot be split across lines. For example:
 //
@@ -471,7 +456,7 @@ function isNgForOf(node, index, parentNode) {
   );
 }
 
-/** @param node {TemplateLiteralNode} */
+/** @param node {import("estree").TemplateLiteral} */
 function isSimpleTemplateLiteral(node) {
   if (node.expressions.length === 0) {
     return false;
@@ -900,7 +885,7 @@ function isLongCurriedCallExpression(path) {
 }
 
 /**
- * @param {MemberExpressionNode} node
+ * @param {import('estree').Node} node
  * @param {number} depth
  * @returns {boolean}
  */
