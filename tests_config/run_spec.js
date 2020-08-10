@@ -52,11 +52,30 @@ const unstableTests = new Map(
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
+
   if (!testFunction) {
     return false;
   }
 
   return testFunction(options);
+};
+
+const shouldThrowOnVerify = (filename, options) => {
+  if (options.parser !== "babel-ts") {
+    return false;
+  }
+
+  const { disableBabelTS } = options;
+
+  if (disableBabelTS === true) {
+    return true;
+  }
+
+  if (Array.isArray(disableBabelTS) && disableBabelTS.includes(filename)) {
+    return true;
+  }
+
+  return false;
 };
 
 const isTestDirectory = (dirname, name) =>
@@ -149,135 +168,127 @@ global.run_spec = (fixtures, parsers, options) => {
       }
 
       const eolReplacedCode = TEST_CRLF ? code.replace(/\n/g, "\r\n") : code;
-      const firstFormatResult = format(eolReplacedCode, formatOptions);
+      const firstFormat = format(eolReplacedCode, formatOptions);
 
       test("format", () => {
         // Make sure output has consistent EOL
-        expect(firstFormatResult.eolVisualizedOutput).toEqual(
-          visualizeEndOfLine(
-            consistentEndOfLine(firstFormatResult.outputWithCursor)
-          )
+        expect(firstFormat.eolVisualizedOutput).toEqual(
+          visualizeEndOfLine(consistentEndOfLine(firstFormat.outputWithCursor))
         );
 
         if (typeof output === "string") {
-          expect(firstFormatResult.output).toEqual(output);
-        } else {
-          const hasEndOfLine = "endOfLine" in formatOptions;
-          let codeForSnapshot = hasEndOfLine
-            ? code
-                .replace(RANGE_START_PLACEHOLDER, "")
-                .replace(RANGE_END_PLACEHOLDER, "")
-            : firstFormatResult.inputWithCursor;
-          let codeOffset = 0;
-          let resultForSnapshot = firstFormatResult.outputWithCursor;
-          const { rangeStart, rangeEnd } = firstFormatResult.options;
-
-          if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
-            if (TEST_CRLF && hasEndOfLine) {
-              codeForSnapshot = codeForSnapshot.replace(/\n/g, "\r\n");
-            }
-            codeForSnapshot = visualizeRange(codeForSnapshot, {
-              rangeStart,
-              rangeEnd,
-            });
-            codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
-          }
-
-          // When `TEST_CRLF` and `endOfLine: "auto"`, the eol is always `\r\n`,
-          // Replace it with guess result from original input
-          let resultNote = "";
-          if (formatOptions.endOfLine === "auto") {
-            const {
-              guessEndOfLine,
-              convertEndOfLineToChars,
-            } = require("../src/common/end-of-line");
-            const originalAutoResult = convertEndOfLineToChars(
-              guessEndOfLine(code)
-            );
-            if (originalAutoResult !== "\r\n") {
-              resultNote +=
-                "** The EOL of output might not real when `TEST_CRLF` **";
-
-              if (TEST_CRLF) {
-                resultForSnapshot = resultForSnapshot.replace(
-                  /\r\n?/g,
-                  originalAutoResult
-                );
-              }
-            }
-          }
-
-          if (hasEndOfLine) {
-            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
-            resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
-          }
-
-          if (resultNote) {
-            resultForSnapshot = `${resultNote}\n${resultForSnapshot}`;
-          }
-
-          expect(
-            createSnapshot(
-              codeForSnapshot,
-              resultForSnapshot,
-              composeOptionsForSnapshot(firstFormatResult.options, parsers),
-              { codeOffset }
-            )
-          ).toMatchSnapshot();
+          expect(firstFormat.output).toEqual(output);
+          return;
         }
+
+        const hasEndOfLine = "endOfLine" in formatOptions;
+        let codeForSnapshot = hasEndOfLine
+          ? code
+              .replace(RANGE_START_PLACEHOLDER, "")
+              .replace(RANGE_END_PLACEHOLDER, "")
+          : firstFormat.inputWithCursor;
+        let codeOffset = 0;
+        let resultForSnapshot = firstFormat.outputWithCursor;
+        const { rangeStart, rangeEnd } = firstFormat.options;
+
+        if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
+          if (TEST_CRLF && hasEndOfLine) {
+            codeForSnapshot = codeForSnapshot.replace(/\n/g, "\r\n");
+          }
+          codeForSnapshot = visualizeRange(codeForSnapshot, {
+            rangeStart,
+            rangeEnd,
+          });
+          codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
+        }
+
+        // When `TEST_CRLF` and `endOfLine: "auto"`, the eol is always `\r\n`,
+        // Replace it with guess result from original input
+        let resultNote = "";
+        if (formatOptions.endOfLine === "auto") {
+          const {
+            guessEndOfLine,
+            convertEndOfLineToChars,
+          } = require("../src/common/end-of-line");
+          const originalAutoResult = convertEndOfLineToChars(
+            guessEndOfLine(code)
+          );
+          if (originalAutoResult !== "\r\n") {
+            resultNote +=
+              "** The EOL of output might not real when `TEST_CRLF` **";
+
+            if (TEST_CRLF) {
+              resultForSnapshot = resultForSnapshot.replace(
+                /\r\n?/g,
+                originalAutoResult
+              );
+            }
+          }
+        }
+
+        if (hasEndOfLine) {
+          codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+          resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
+        }
+
+        if (resultNote) {
+          resultForSnapshot = `${resultNote}\n${resultForSnapshot}`;
+        }
+
+        expect(
+          createSnapshot(
+            codeForSnapshot,
+            resultForSnapshot,
+            composeOptionsForSnapshot(firstFormat.options, parsers),
+            { codeOffset }
+          )
+        ).toMatchSnapshot();
       });
 
       for (const parser of verifyParsers) {
-        const verifyOptions = { ...firstFormatResult.options, parser };
+        const verifyOptions = { ...firstFormat.options, parser };
+        const verifyFormat = () => format(firstFormat.input, verifyOptions);
+
         test(`verify (${parser})`, () => {
-          if (
-            parser === "babel-ts" &&
-            formatOptions &&
-            (formatOptions.disableBabelTS === true ||
-              (Array.isArray(formatOptions.disableBabelTS) &&
-                formatOptions.disableBabelTS.includes(name)))
-          ) {
-            expect(() => {
-              format(firstFormatResult.input, verifyOptions);
-            }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
-          } else {
-            const verifyFormatResult = format(
-              firstFormatResult.input,
-              verifyOptions
+          if (shouldThrowOnVerify(filename, verifyOptions)) {
+            expect(verifyFormat).toThrow(
+              TEST_STANDALONE ? undefined : SyntaxError
             );
-            expect(verifyFormatResult.eolVisualizedOutput).toEqual(
-              firstFormatResult.eolVisualizedOutput
-            );
+            return;
           }
+
+          const { eolVisualizedOutput: verifyOutput } = verifyFormat();
+          const { eolVisualizedOutput: firstOutput } = firstFormat;
+          expect(verifyOutput).toEqual(firstOutput);
         });
       }
 
       const isUnstableTest = isUnstable(filename, formatOptions);
       if (
         DEEP_COMPARE &&
-        (firstFormatResult.changed || isUnstableTest) &&
+        (firstFormat.changed || isUnstableTest) &&
         // No range and cursor
-        firstFormatResult.input === eolReplacedCode
+        firstFormat.input === eolReplacedCode
       ) {
         test("second format", () => {
-          const secondOutput = format(firstFormatResult.output, formatOptions);
+          const { eolVisualizedOutput: firstOutput, output } = firstFormat;
+          const { eolVisualizedOutput: secondOutput } = format(
+            output,
+            formatOptions
+          );
           if (isUnstableTest) {
             // To keep eye on failed tests, this assert never supposed to pass,
             // if it fails, just remove the file from `unstableTests`
-            expect(secondOutput.eolVisualizedOutput).not.toEqual(
-              firstFormatResult.eolVisualizedOutput
-            );
+            expect(secondOutput).not.toEqual(firstOutput);
           } else {
-            expect(secondOutput.eolVisualizedOutput).toEqual(
-              firstFormatResult.eolVisualizedOutput
-            );
+            expect(secondOutput).toEqual(firstOutput);
           }
         });
       }
 
-      if (AST_COMPARE && firstFormatResult.changed) {
+      if (AST_COMPARE && firstFormat.changed) {
         test("compare AST", () => {
-          const { input, output } = firstFormatResult;
+          const { input, output } = firstFormat;
           const originalAst = parse(input, formatOptions);
           const formattedAst = parse(output, formatOptions);
           expect(formattedAst).toEqual(originalAst);
