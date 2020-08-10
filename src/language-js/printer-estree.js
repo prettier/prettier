@@ -4440,13 +4440,16 @@ function printArgumentsList(path, options, print) {
       ? ","
       : "";
 
-  function allArgsBrokenOut() {
+  // [prettierx] with lastArgAddedLine arg for --paren-spacing option support
+  function allArgsBrokenOut(lastArgAddedLine) {
     return group(
       concat([
         "(",
+        // [prettierx] keep break here, regardless of --paren-spacing option
         indent(concat([line, concat(printedArguments)])),
         maybeTrailingComma,
-        line,
+        // [prettierx] keep break here, unless lastArgAddedLine is true
+        lastArgAddedLine ? "" : line,
         ")",
       ]),
       { shouldBreak: true }
@@ -4505,41 +4508,26 @@ function printArgumentsList(path, options, print) {
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
-    // [prettierx merge from prettier@1.19.0] (...)
-    // [prettierx] simpleConcat not used:
-    // const simpleConcat = concat(["(", concat(printedExpanded), ")"]);
+    // [prettierx] with --paren-spacing option support (...)
+    const simpleConcat = concat([
+      "(",
+      parenSpace,
+      concat(printedExpanded),
+      lastArgAddedLine ? "" : parenSpace,
+      ")",
+    ]);
 
     return concat([
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
-          // [prettierx merge from prettier@1.19.0] (...)
-          // [prettierx] parenSpace option support (...)
-          concat([
-            ifBreak(
-              // [prettierx] parenSpace option support (...)
-              indent(concat(["(", parenLine, concat(printedExpanded)])),
-              concat(["(", parenSpace, concat(printedExpanded)])
-            ),
-            // [prettierx] parenSpace option support (...)
-            somePrintedArgumentsWillBreak
-              ? concat([
-                  ifBreak(maybeTrailingComma),
-                  lastArgAddedLine ? "" : parenLine,
-                ])
-              : lastArgAddedLine
-              ? ""
-              : parenSpace,
-            ")",
-          ]),
-          // [prettierx merge from prettier@1.19.0] (...)
-          // [prettierx] parenSpace option support (...)
-          // [prettierx] simpleConcat not used:
-          // !somePrintedArgumentsWillBreak &&
-          // !node.typeArguments &&
-          // !node.typeParameters
-          //   ? simpleConcat
-          //   : ifBreak(allArgsBrokenOut(), simpleConcat),
+          // [prettierx] with --paren-spacing option support (...)
+          !somePrintedArgumentsWillBreak &&
+          !node.typeArguments &&
+          !node.typeParameters
+            ? simpleConcat
+            : ifBreak(allArgsBrokenOut(lastArgAddedLine), simpleConcat),
+
           // [prettierx] parenSpace option support (...)
           shouldGroupFirst
             ? concat([
