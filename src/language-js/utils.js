@@ -11,6 +11,42 @@ const {
 } = require("../common/util");
 const handleComments = require("./comments");
 
+/**
+ * @typedef {import("@babel/types").SequenceExpression} SequenceExpression
+ *
+ * @typedef {import("@typescript-eslint/types").TSESTree.Literal} Literal
+ *
+ * @typedef {import("@babel/types").RegExpLiteral} RegExpLiteral
+ * @typedef {import("@babel/types").BigIntLiteral} BigIntLiteral
+ *
+ * @typedef {import("@babel/types").DecimalLiteral} DecimalLiteral
+ * @typedef {import("@babel/types").BooleanLiteral} BooleanLiteral
+ * @typedef {import("@babel/types").NullLiteral} NullLiteral
+ * @typedef {import("@babel/types").NumericLiteral} NumericLiteral
+ * @typedef {import("@babel/types").StringLiteral} StringLiteral
+ * @typedef {import("@babel/types").Identifier} Identifier
+ * @typedef {import("@babel/types").ThisExpression} ThisExpression
+ * @typedef {import("@babel/types").Super} Super
+ * @typedef {import("@babel/types").PrivateName} PrivateName
+ * @typedef {import("@babel/types").ArgumentPlaceholder} ArgumentPlaceholder
+ * @typedef {import("@babel/types").Import} Import
+ * @typedef {import("@babel/types").TemplateLiteral} TemplateLiteral
+ * @typedef {import("@babel/types").ObjectExpression} ObjectExpression
+ * @typedef {import("@babel/types").ArrayExpression} ArrayExpression
+ *
+ * @typedef {import("estree").ImportExpression} ImportExpression
+ *
+ * @typedef {import("@babel/types").CallExpression} CallExpression
+ * @typedef {import("@babel/types").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("@babel/types").NewExpression} NewExpression
+ * @typedef {import("@babel/types").MemberExpression} MemberExpression
+ * @typedef {import("@babel/types").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("@babel/types").UnaryExpression} UnaryExpression
+ * @typedef {import("@babel/types").TSNonNullExpression} TSNonNullExpression
+ *
+ * @typedef {Literal | BigIntLiteral | RegExpLiteral | DecimalLiteral | BooleanLiteral | NullLiteral | NumericLiteral | StringLiteral | Identifier | ThisExpression | Super | PrivateName | ArgumentPlaceholder | Import | TemplateLiteral | ObjectExpression | ArrayExpression | ImportExpression | CallExpression | OptionalCallExpression | NewExpression | MemberExpression | OptionalMemberExpression | UnaryExpression | TSNonNullExpression} ESNode
+ */
+
 // We match any whitespace except line terminators because
 // Flow annotation comments cannot be split across lines. For example:
 //
@@ -456,7 +492,10 @@ function isNgForOf(node, index, parentNode) {
   );
 }
 
-/** @param node {import("estree").TemplateLiteral} */
+/**
+ * @param {SequenceExpression} node
+ * @returns {boolean}
+ */
 function isSimpleTemplateLiteral(node) {
   if (node.expressions.length === 0) {
     return false;
@@ -464,6 +503,7 @@ function isSimpleTemplateLiteral(node) {
 
   return node.expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
+    // @ts-ignore
     if (expr.comments) {
       return false;
     }
@@ -478,6 +518,7 @@ function isSimpleTemplateLiteral(node) {
       expr.type === "MemberExpression" ||
       expr.type === "OptionalMemberExpression"
     ) {
+      /** @type {any} */
       let head = expr;
       while (
         head.type === "MemberExpression" ||
@@ -491,7 +532,9 @@ function isSimpleTemplateLiteral(node) {
         ) {
           return false;
         }
+
         head = head.object;
+
         if (head.comments) {
           return false;
         }
@@ -885,7 +928,7 @@ function isLongCurriedCallExpression(path) {
 }
 
 /**
- * @param {import('estree').Node} node
+ * @param {ESNode} node
  * @param {number} depth
  * @returns {boolean}
  */
@@ -930,6 +973,7 @@ function isSimpleCallArgument(node, depth) {
 
   if (node.type === "ObjectExpression") {
     return node.properties.every(
+      /** @param {any} p */
       (p) => !p.computed && (p.shorthand || (p.value && plusTwo(p.value)))
     );
   }
