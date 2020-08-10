@@ -27,6 +27,7 @@ module.exports = {
     ],
   },
   bracketSpacing: commonOptions.bracketSpacing,
+  // [prettierx ...]
   indentChains: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
@@ -69,6 +70,7 @@ module.exports = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them.",
   },
+  // [prettierx ...]
   alignObjectProperties: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",

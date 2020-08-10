@@ -450,6 +450,7 @@ function printTrailingComment(commentPath, print, options) {
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
   } else if (
+    // [prettierx]: --break-before-else option (...)
     options.breakBeforeElse &&
     parentParentNode.type === "IfStatement" &&
     parentParentNode.alternate

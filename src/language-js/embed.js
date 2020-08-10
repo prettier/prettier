@@ -265,6 +265,7 @@ function transformCssDoc(quasisDoc, path, print, options) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
+// [prettierx] with --paren-spacing option support (...)
 function replacePlaceholders(quasisDoc, expressionDocs, options) {
   if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
