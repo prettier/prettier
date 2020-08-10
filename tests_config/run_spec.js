@@ -250,7 +250,7 @@ global.run_spec = (fixtures, parsers, options) => {
         const verifyFormat = () => format(firstFormat.input, verifyOptions);
 
         test(`verify (${parser})`, () => {
-          if (shouldThrowOnVerify(filename, verifyOptions)) {
+          if (shouldThrowOnVerify(name, verifyOptions)) {
             expect(verifyFormat).toThrow(
               TEST_STANDALONE ? undefined : SyntaxError
             );
