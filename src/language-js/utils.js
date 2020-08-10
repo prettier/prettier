@@ -12,9 +12,18 @@ const {
 const handleComments = require("./comments");
 
 /**
+ * @typedef {import("estree").TemplateLiteral} ESTreeTemplateLiteral
+ *
+ * @typedef {import("@babel/types").TemplateLiteral} BabelTemplateLiteral
+ *
+ * @typedef {ESTreeTemplateLiteral | BabelTemplateLiteral} TemplateLiteral
+ *
  * @typedef {import("@babel/types").Node} BabelNode
+ *
  * @typedef {import("@typescript-eslint/types").TSESTree.Node} TSNode
+ *
  * @typedef {import("angular-estree-parser/lib/types").NGNode} NGNode
+ *
  * @typedef {BabelNode | TSNode | NGNode} Node
  */
 
@@ -464,10 +473,6 @@ function isNgForOf(node, index, parentNode) {
 }
 
 /**
- * @typedef {import("estree").TemplateLiteral} ESTreeTemplateLiteral
- * @typedef {import("@babel/types").TemplateLiteral} BabelTemplateLiteral
- * @typedef {ESTreeTemplateLiteral | BabelTemplateLiteral} TemplateLiteral
- *
  * @param {TemplateLiteral} node
  * @returns {boolean}
  */
