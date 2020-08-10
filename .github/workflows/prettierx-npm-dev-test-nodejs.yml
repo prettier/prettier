@@ -3,13 +3,15 @@
 # For more information see:
 # https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: npm dev test Node.js CI
+name: npm clean dev test
 
 on:
   push:
-    branches: [dev, dev-*, prettierx-*]
+    branches:
+      - dev
+      - dev-*
+      - prettierx-*
   pull_request:
-    branches: [dev, dev-*, prettierx-*]
 
 jobs:
   build:

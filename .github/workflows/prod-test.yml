@@ -1,17 +1,16 @@
 name: Prod
 
-# [prettierx]
 on:
-  # [prettierx merge from prettier@2.0.5 ...]
-  # push:
-  #   branches:
-  #     - master
-  #     - patch-release
-  # pull_request:
+  # [prettierx ...]
   push:
-    branches: [dev, dev-*, prettierx-*]
+    branches:
+      # [prettierx ...]
+      # - master
+      # - patch-release
+      - dev
+      - dev-*
+      - prettierx-*
   pull_request:
-    branches: [dev, dev-*, prettierx-*]
 
 jobs:
   build:
