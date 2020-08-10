@@ -1010,7 +1010,6 @@ function isSimpleCallArgument(node, depth) {
   const plusTwo = (node) => isSimpleCallArgument(node, depth + 2);
 
   const regexpPattern =
-    // @ts-ignore
     (node.type === "Literal" && node.regex && node.regex.pattern) ||
     (node.type === "RegExpLiteral" && node.pattern);
 
