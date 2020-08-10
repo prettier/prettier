@@ -15,7 +15,8 @@ const languages = [
   createLanguage(require("linguist-languages/data/JavaScript"), () => ({
     name: "Flow",
     since: "0.0.0",
-    parsers: ["babel", "flow"],
+    parsers: ["babel", "flow"], // [prettierx] must use Babel by default
+    // (since the flow-parser is now an optional dependency in prettierx)
     vscodeLanguageIds: ["javascript"],
     aliases: [],
     filenames: [],

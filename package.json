@@ -23,8 +23,8 @@
     "* installing dependencies from GitHub is not desired in prettierx",
     "  due to a possible issue with firewalls in certain organizations",
     "* latest updates of ci-info from GitHub are not needed for prettierx",
-    "* typescript is moved to devDependencies, and",
-    "  it is specified as optional in peerDependenciesMeta",
+    "* flow-parser & typescript are moved to devDependencies, and",
+    "  they are specified as optional in peerDependenciesMeta",
     "* codecov is removed from devDependencies",
     "<!-- -->"
   ],
@@ -52,7 +52,6 @@
     "fast-glob": "3.2.4",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.122.0",
     "get-stream": "6.0.0",
     "globby": "11.0.1",
     "graphql": "15.3.0",
@@ -109,6 +108,7 @@
     "eslint-plugin-react": "7.20.5",
     "eslint-plugin-unicorn": "21.0.0",
     "execa": "4.0.3",
+    "flow-parser": "0.122.0",
     "jest": "26.3.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
@@ -129,6 +129,9 @@
     "webpack": "4.44.1"
   },
   "peerDependenciesMeta": {
+    "flow-parser": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }
