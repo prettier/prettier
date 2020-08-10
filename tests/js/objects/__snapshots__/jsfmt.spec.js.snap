@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escape sequence-key.js format 1`] = `
+exports[`escape-sequence-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -113,6 +113,32 @@ const a3 = {
 ================================================================================
 `;
 
+exports[`invalid-accessor-generator.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid, but recoverable
+// https://github.com/babel/babel/pull/11921/
+
+({
+    get *iterator() { },
+    set *iterator(iter) { }
+});
+
+=====================================output=====================================
+// Invalid, but recoverable
+// https://github.com/babel/babel/pull/11921/
+
+({
+  get iterator() {},
+  set iterator(iter) {},
+});
+
+================================================================================
+`;
+
 exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -165,7 +191,7 @@ group(
 ================================================================================
 `;
 
-exports[`right_break.js format 1`] = `
+exports[`right-break.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
