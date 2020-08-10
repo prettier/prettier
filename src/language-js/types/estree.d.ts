@@ -3,7 +3,7 @@ import * as Babel from "@babel/types";
 import { TSESTree as TSTree } from "@typescript-eslint/types";
 import * as NGTree from "angular-estree-parser/lib/types";
 
-export type Node = Babel.Node | TSTree.Node | NGTree.NGNode;
+export type Node = ESTree.Node | Babel.Node | TSTree.Node | NGTree.NGNode;
 export type TemplateLiteral =
   | ESTree.TemplateLiteral
   | Babel.TemplateLiteral
