@@ -266,9 +266,10 @@ function isTemplateLiteral(node) {
   return node.type === "TemplateLiteral";
 }
 
-// `inject` is used in AngularJS 1.x, `async` in Angular 2+
-// example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
 /**
+ * Note: `inject` is used in AngularJS 1.x, `async` in Angular 2+
+ * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
+ *
  * @param {Node} node
  * @returns {boolean}
  */
@@ -1107,10 +1108,11 @@ function shouldPrintComma(options, level = "es5") {
   );
 }
 
-// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
-// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
-// already necessary grouping parentheses.
 /**
+ * Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
+ * holds) `function`, `class`, or `do {}`. Will be overzealous if there's
+ * already necessary grouping parentheses.
+ *
  * @param {Node} node
  * @param {boolean} forbidFunctionClassAndDoExpr
  * @returns {boolean}
