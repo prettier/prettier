@@ -12,11 +12,10 @@ const {
 const handleComments = require("./comments");
 
 /**
- * @typedef {import("estree").Node} ESTreeNode
  * @typedef {import("@babel/types").Node} BabelNode
  * @typedef {import("@typescript-eslint/types").TSESTree.Node} TSNode
  * @typedef {import("angular-estree-parser/lib/types").NGNode} NGNode
- * @typedef {ESTreeNode | BabelNode | TSNode | NGNode} Node
+ * @typedef {BabelNode | TSNode | NGNode} Node
  */
 
 // We match any whitespace except line terminators because
@@ -913,7 +912,6 @@ function isSimpleCallArgument(node, depth) {
   const plusTwo = (node) => isSimpleCallArgument(node, depth + 2);
 
   const regexpPattern =
-    // @ts-ignore
     (node.type === "Literal" && node.regex && node.regex.pattern) ||
     (node.type === "RegExpLiteral" && node.pattern);
 
