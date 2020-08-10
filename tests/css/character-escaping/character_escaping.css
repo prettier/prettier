@@ -51,3 +51,8 @@
     animation-name: \@mymove;
     content: "\21D3";
 }
+
+.grid {
+  grid-template-rows:
+    [row-1-00\:00] auto;
+}

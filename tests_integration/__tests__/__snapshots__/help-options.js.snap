@@ -634,7 +634,7 @@ exports[`show detailed usage with --help with-node-modules (write) 1`] = `Array 
 exports[`show detailed usage with --help write (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help write (stdout) 1`] = `
-"--write
+"-w, --write
 
   Edit files in-place. (Beware!)
 "

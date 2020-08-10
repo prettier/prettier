@@ -117,6 +117,20 @@ async function foo() {
 ================================================================================
 `;
 
+exports[`module-attributes.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script src="foo.wasm" type="module" withtype="webassembly"></script>
+
+=====================================output=====================================
+<script src="foo.wasm" type="module" withtype="webassembly"></script>
+
+================================================================================
+`;
+
 exports[`script.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]

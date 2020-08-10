@@ -296,3 +296,59 @@ export type SCMRawResource = [
 
 ================================================================================
 `;
+
+exports[`tuple-rest-not-last.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;

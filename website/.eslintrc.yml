@@ -1,5 +1,12 @@
+env:
+  browser: true
+  worker: true
 extends:
   - plugin:react/recommended
+  - prettier/react
+settings:
+  react:
+    version: "16"
 rules:
   import/no-extraneous-dependencies: off
   react/display-name: off

@@ -60,6 +60,11 @@ printWidth: 80
     content: "\\21D3";
 }
 
+.grid {
+  grid-template-rows:
+    [row-1-00\\:00] auto;
+}
+
 =====================================output=====================================
 #♥ {
 }
@@ -154,6 +159,10 @@ printWidth: 80
 .bar\\/baz {
   animation-name: \\@mymove;
   content: "\\21D3";
+}
+
+.grid {
+  grid-template-rows: [row-1-00\\:00] auto;
 }
 
 ================================================================================

@@ -3,7 +3,7 @@ id: plugins
 title: Plugins
 ---
 
-Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
+Plugins are ways of adding new languages to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
 
 ## Using Plugins
 
@@ -416,7 +416,7 @@ options: {
 
 ### `defaultOptions`
 
-If your plugin requires different default values for some of Prettier's core options, you can specify them in `defaultOptions`:
+If your plugin requires different default values for some of Prettier’s core options, you can specify them in `defaultOptions`:
 
 ```
 defaultOptions: {

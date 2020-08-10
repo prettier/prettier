@@ -6,13 +6,13 @@ original_id: webstorm
 
 ## Using Prettier in WebStorm
 
-Use the `Reformat with Prettier` action (`Alt-Shift-Cmd-P` on macOS or `Alt-Shift-Ctrl-P` on Windows and Linux) to format the selected code, a file, or a whole directory.
+Use the `Reformat with Prettier` action (`Opt-Shift-Cmd-P` on macOS or `Alt-Shift-Ctrl-P` on Windows and Linux) to format the selected code, a file, or a whole directory.
 
 To run Prettier on save in WebStorm 2020.1 or above, open _Preferences | Languages & Frameworks | JavaScript | Prettier_ and enable the option `Run on save for files`.
 
 By default, only JavaScript and TypeScript files will be formatted automatically. You can further configure what files will be updated using the [glob pattern](https://github.com/isaacs/node-glob#glob-primer).
 
-Don't forget to install Prettier first.
+Don’t forget to install Prettier first.
 
 To use Prettier in IntelliJ IDEA, PhpStorm, PyCharm, and other JetBrains IDEs, please install this [plugin](https://plugins.jetbrains.com/plugin/10456-prettier).
 
@@ -31,14 +31,12 @@ In older IDE versions, select Custom and do the following configuration:
 - **Name**: _Prettier_ or any other name
 - **File Type**: _JavaScript_ (or _Any_ if you want to run Prettier on all files)
 - **Scope**: _Project Files_
-- **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
-- **Arguments**: `--write [other options] $FilePathRelativeToProjectRoot$`
+- **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project’s `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
+- **Arguments**: `--write [other options] $FilePath$`
 - **Output paths to refresh**: `$FilePathRelativeToProjectRoot$`
 - **Working directory**: `$ProjectFileDir$`
 - **Environment variables**: add `COMPILE_PARTIAL=true` if you want to run Prettier on partials (like `_component.scss`)
 - **Auto-save edited files to trigger the watcher**: Uncheck to reformat on Save only.
-
-![Example](/docs/assets/webstorm/file-watcher-prettier.png)
 
 ## Using Prettier with ESLint
 
@@ -51,7 +49,7 @@ Make sure that the ESLint integration is enabled in _Preferences | Languages & F
 Go to _Preferences | Tools | External Tools_ and click **+** to add a new tool. Let’s name it **Prettier**.
 
 - **Program**: `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns), if Prettier is installed globally
-- **Parameters**: `--write [other options] $FilePathRelativeToProjectRoot$`
+- **Parameters**: `--write [other options] $FilePath$`
 - **Working directory**: `$ProjectFileDir$`
 
 > If Prettier is installed locally in your project, replace the path in **Program** with `$ProjectFileDir$/node_modules/.bin/prettier` on macOS and Linux or `$ProjectFileDir$\node_modules\.bin\prettier.cmd` on Windows.
