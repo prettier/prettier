@@ -112,7 +112,7 @@
     "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
-    "rollup": "2.23.0",
+    "rollup": "2.23.1",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-terser": "6.1.0",
     "shelljs": "0.8.4",
