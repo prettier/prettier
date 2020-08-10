@@ -53,7 +53,7 @@
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
     "flow-parser": "0.122.0",
-    "get-stream": "5.2.0",
+    "get-stream": "6.0.0",
     "globby": "11.0.1",
     "graphql": "15.3.0",
     "html-element-attributes": "2.2.1",
