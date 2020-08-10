@@ -144,6 +144,7 @@ const exportDeclarationTypes = new Set([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ]);
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -377,6 +378,7 @@ const binaryishNodeTypes = new Set([
   "LogicalExpression",
   "NGPipeExpression",
 ]);
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -410,6 +412,7 @@ const flowTypeAnnotations = new Set([
   "BooleanLiteralTypeAnnotation",
   "StringTypeAnnotation",
 ]);
+
 /**
  * @param {Node} node
  * @returns {boolean}
