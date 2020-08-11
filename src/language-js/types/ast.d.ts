@@ -5,10 +5,11 @@ import * as NGTree from "angular-estree-parser/lib/types";
 
 type AnyNode = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
 
-export type TemplateLiteral =
+type AnyTemplateLiteral =
   | ESTree.TemplateLiteral
   | Babel.TemplateLiteral
   | TSESTree.TemplateLiteral;
+
 export type Comment = ESTree.Comment | Babel.Comment | TSESTree.Comment;
 export type CallExpression =
   | ESTree.CallExpression
@@ -43,6 +44,13 @@ type PrettierEsComment = Comment & {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
+};
+
+export type TemplateLiteral = AnyTemplateLiteral & {
+  extra?: any;
+  comments?: PrettierEsComment[];
+  trailingComments?: ReadonlyArray<PrettierEsComment>;
+  leadingComments?: ReadonlyArray<PrettierEsComment>;
 };
 
 export type Node = AnyNode & {
