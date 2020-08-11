@@ -7,9 +7,42 @@ const NODES_KEYS = {
 };
 
 class Node {
-  constructor(props = {}) {
-    for (const key of Object.keys(props)) {
-      const value = props[key];
+  constructor({
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    index = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    siblings = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    prev = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    next = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    parent = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    hasExplicitNamespace = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    name = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    namespace = undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    children = undefined,
+    ...opts
+  } = {}) {
+    // explicit properties needed here due to:
+    // https://github.com/microsoft/TypeScript/issues/26811
+    this.index = index;
+    this.siblings = siblings;
+    this.prev = prev;
+    this.next = next;
+    this.parent = parent;
+    this.hasExplicitNamespace = hasExplicitNamespace;
+    this.name = name;
+    this.namespace = namespace;
+
+    this.children = children && cloneAndUpdateNodes(children, this);
+
+    for (const key of Object.keys(opts)) {
+      const value = opts[key];
       if (key in NODES_KEYS) {
         this._setNodes(key, value);
       } else {
