@@ -1295,6 +1295,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/ci-info@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ci-info/-/ci-info-2.0.0.tgz#51848cc0f5c30c064f4b25f7f688bf35825b3971"
+  integrity sha512-5R2/MHILQLDCzTuhs1j4Qqq8AaKUf7Ma4KSSkCtc12+fMs47zfa34qhto9goxpyX00tQK1zxB885VCiawZ5Qhg==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -1310,10 +1315,22 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
+"@types/find-parent-dir@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@types/find-parent-dir/-/find-parent-dir-0.3.0.tgz#0a8e9b1eb4fa77e6761d7a078daaed92ad2868f1"
+  integrity sha512-jz1cHlySrflg1Xf6fhy8xe/Bc//eO7wkg7OQePQei4vIYHm9IIQs0Ed8pakV6qVuihTnmy+Le+xUYDardq7yNg==
+
 "@types/graceful-fs@^4.1.2":
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.3.tgz#039af35fe26bec35003e8d86d2ee9c586354348f"
   integrity sha512-AiHRaEB50LQg0pZmm659vNBb9f4SJ0qrAnteuzhSeAUcJKxoYgEnprg/83kppCnc2zvtCKbdZry1a5pVY3lOTQ==
+  dependencies:
+    "@types/node" "*"
+
+"@types/iarna__toml@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/iarna__toml/-/iarna__toml-2.0.0.tgz#21ee108f44ce543fba847d8b0f9ae31ba38e24a5"
+  integrity sha512-+48FAf1zzwpUflRc1A/+j1BKQiBxUudZczH+jETuQ9BrOzJwA0Du3fJc1jvNymJQ5i5rr8jrHlNzlzF339wT8w==
   dependencies:
     "@types/node" "*"
 
@@ -1353,6 +1370,11 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/minimatch@3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
+  integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/node@*":
   version "14.0.14"
