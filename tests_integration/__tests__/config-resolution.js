@@ -308,3 +308,27 @@ test(".cjs config file", async () => {
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 });
+
+test(".json5 config file", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
+  const config = {
+    trailingComma: "all",
+    printWidth: +81,
+    tabWidth: 3,
+  };
+  const file = path.join(parentDirectory, "json5/foo.js");
+
+  expect(prettier.resolveConfig.sync(file)).toEqual(config);
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+});
+
+test(".json5 config file(invalid)", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
+  const file = path.join(parentDirectory, "invalid/foo.js");
+  const error = /JSON5: invalid end of input at 2:1/
+
+  expect(() => {
+    prettier.resolveConfig.sync(file)
+  }).toThrowError(error);
+  await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
+});

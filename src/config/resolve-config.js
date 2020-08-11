@@ -6,6 +6,7 @@ const mem = require("mem");
 const thirdParty = require("../common/third-party");
 
 const loadToml = require("../utils/load-toml");
+const loadJson5 = require("../utils/load-json5");
 const resolve = require("../common/resolve");
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 
@@ -37,6 +38,7 @@ const getExplorerMemoized = mem(
         "package.json",
         ".prettierrc",
         ".prettierrc.json",
+        ".prettierrc.json5",
         ".prettierrc.yaml",
         ".prettierrc.yml",
         ".prettierrc.js",
@@ -47,6 +49,7 @@ const getExplorerMemoized = mem(
       ],
       loaders: {
         ".toml": loadToml,
+        ".json5": loadJson5,
       },
     });
 
