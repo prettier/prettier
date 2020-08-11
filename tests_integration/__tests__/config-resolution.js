@@ -313,7 +313,7 @@ test(".json5 config file", async () => {
   const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
   const config = {
     trailingComma: "all",
-    printWidth: +81,
+    printWidth: 81,
     tabWidth: 3,
   };
   const file = path.join(parentDirectory, "json5/foo.js");
