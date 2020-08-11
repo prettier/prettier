@@ -1,5 +1,6 @@
 "use strict";
 
+/** @param {string} text */
 function guessEndOfLine(text) {
   const index = text.indexOf("\r");
   if (index >= 0) {
@@ -8,6 +9,7 @@ function guessEndOfLine(text) {
   return "lf";
 }
 
+/** @param {string} value */
 function convertEndOfLineToChars(value) {
   switch (value) {
     case "cr":

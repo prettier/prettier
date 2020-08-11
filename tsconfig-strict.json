@@ -10,7 +10,10 @@
   },
   "include": [
     "src/common/common-options.js",
+    "src/common/end-of-line.js",
     "src/common/errors.js",
+    "src/common/parser-create-error.js",
+    "src/common/resolve.js",
     "src/common/third-party.js",
   ]
 }
