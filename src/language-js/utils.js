@@ -12,14 +12,22 @@ const {
 const handleComments = require("./comments");
 
 /**
+ * @typedef {import("./types/estree").PrettierEsNode} PrettierEsNode
  * @typedef {import("./types/estree").Node} Node
  * @typedef {import("./types/estree").TemplateLiteral} TemplateLiteral
  * @typedef {import("./types/estree").Comment} Comment
  * @typedef {import("./types/estree").MemberExpression} MemberExpression
  * @typedef {import("./types/estree").OptionalMemberExpression} OptionalMemberExpression
  * @typedef {import("./types/estree").CallExpression} CallExpression
- * @typedef {import("./types/estree").BindExpression} BindExpression
+ * @typedef {import("./types/estree").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("./types/estree").Expression} Expression
  * @typedef {import("./types/estree").Property} Property
+ * @typedef {import("./types/estree").ObjectTypeProperty} ObjectTypeProperty
+ * @typedef {import("./types/estree").JSXElement} JSXElement
+ * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("./types/estree").Literal} Literal
+ *
+ * @typedef {import("../common/fast-path")} FastPath
  */
 
 // We match any whitespace except line terminators because
@@ -37,6 +45,10 @@ const FLOW_SHORTHAND_ANNOTATION = new RegExp(
 );
 const FLOW_ANNOTATION = new RegExp(`^${NON_LINE_TERMINATING_WHITE_SPACE}*::`);
 
+/**
+ * @param {Node & PrettierEsNode} node
+ * @returns {boolean}
+ */
 function hasFlowShorthandAnnotationComment(node) {
   // https://flow.org/en/docs/types/comments/
   // Syntax example: const r = new (window.Request /*: Class<Request> */)("");
@@ -45,7 +57,7 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
-    node.trailingComments[0].value.match(FLOW_SHORTHAND_ANNOTATION)
+    FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
 }
 
@@ -57,6 +69,11 @@ function hasFlowAnnotationComment(comments) {
   return comments && FLOW_ANNOTATION.test(comments[0].value);
 }
 
+/**
+ * @param {Node} node
+ * @param {(Node) => boolean} fn
+ * @returns {boolean}
+ */
 function hasNode(node, fn) {
   if (!node || typeof node !== "object") {
     return false;
@@ -153,6 +170,10 @@ function isExportDeclaration(node) {
   return node && exportDeclarationTypes.has(node.type);
 }
 
+/**
+ * @param {FastPath} path
+ * @returns {Node | null}
+ */
 function getParentExportDeclaration(path) {
   const parentNode = path.getParentNode();
   if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
@@ -339,6 +360,11 @@ function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
 
+/**
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @returns {boolean}
+ */
 function sameLocStart(nodeA, nodeB, options) {
   return options.locStart(nodeA) === options.locStart(nodeB);
 }
@@ -352,6 +378,10 @@ function isFunctionNotation(node, options) {
 // Hack to differentiate between the following two which have the same ast
 // type T = { method: () => void };
 // type T = { method(): void };
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isObjectTypePropertyAFunction(node, options) {
   return (
     (node.type === "ObjectTypeProperty" ||
@@ -444,6 +474,10 @@ function isSkipOrOnlyBlock(node) {
   );
 }
 
+/**
+ * @param {CallExpression} node
+ * @returns {boolean}
+ */
 function isUnitTestSetUp(node) {
   const unitTestSetUpRe = /^(before|after)(Each|All)$/;
   return (
@@ -488,14 +522,26 @@ function isTestCall(n, parent) {
   return false;
 }
 
+/**
+ * @param {Node & PrettierEsNode} node
+ * @returns {boolean}
+ */
 function hasLeadingComment(node) {
   return node.comments && node.comments.some((comment) => comment.leading);
 }
 
+/**
+ * @param {Node & PrettierEsNode} node
+ * @returns {boolean}
+ */
 function hasTrailingComment(node) {
   return node.comments && node.comments.some((comment) => comment.trailing);
 }
 
+/**
+ * @param {Node & PrettierEsNode} node
+ * @returns {boolean}
+ */
 function hasTrailingLineComment(node) {
   return (
     node.comments &&
@@ -506,7 +552,7 @@ function hasTrailingLineComment(node) {
 }
 
 /**
- * @param {Node} node
+ * @param {CallExpression | OptionalCallExpression} node
  * @returns {boolean}
  */
 function isCallOrOptionalCallExpression(node) {
@@ -515,6 +561,10 @@ function isCallOrOptionalCallExpression(node) {
   );
 }
 
+/**
+ * @param {Node & PrettierEsNode} node
+ * @returns {boolean}
+ */
 function hasDanglingComments(node) {
   return (
     node.comments &&
@@ -523,6 +573,10 @@ function hasDanglingComments(node) {
 }
 
 /** identify if an angular expression seems to have side effects */
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
 function hasNgSideEffect(path) {
   return hasNode(path.getValue(), (node) => {
     switch (node.type) {
@@ -602,15 +656,18 @@ function isSimpleTemplateLiteral(node) {
   });
 }
 
-function getFlowVariance(path) {
-  if (!path.variance) {
+/**
+ * @param {ObjectTypeProperty} node
+ */
+function getFlowVariance(node) {
+  if (!node.variance) {
     return null;
   }
 
   // Babel 7.0 currently uses variance node type, and flow should
   // follow suit soon:
   // https://github.com/babel/babel/issues/4722
-  const variance = path.variance.kind || path.variance;
+  const variance = node.variance.kind || node.variance;
 
   switch (variance) {
     case "plus":
@@ -623,6 +680,10 @@ function getFlowVariance(path) {
   }
 }
 
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
 function classPropMayCauseASIProblems(path) {
   const node = path.getNode();
 
@@ -735,6 +796,10 @@ function isMeaningfulJSXText(node) {
   );
 }
 
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -765,6 +830,10 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
+/**
+ * @param {JSXElement} node
+ * @returns {boolean}
+ */
 function isEmptyJSXElement(node) {
   if (node.children.length === 0) {
     return true;
@@ -779,10 +848,18 @@ function isEmptyJSXElement(node) {
   return isLiteral(child) && !isMeaningfulJSXText(child);
 }
 
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
 function hasPrettierIgnore(path) {
   return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
 }
 
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
 function isLastStatement(path) {
   const parent = path.getParentNode();
   if (!parent) {
@@ -795,6 +872,11 @@ function isLastStatement(path) {
   return body && body[body.length - 1] === node;
 }
 
+/**
+ * @param {string} text
+ * @param {Node} typeAnnotation
+ * @returns {boolean}
+ */
 function isFlowAnnotationComment(text, typeAnnotation, options) {
   const start = options.locStart(typeAnnotation);
   const end = skipWhitespace(text, options.locEnd(typeAnnotation));
@@ -805,6 +887,11 @@ function isFlowAnnotationComment(text, typeAnnotation, options) {
   );
 }
 
+/**
+ * @param {string} text
+ * @param {Node & PrettierEsNode} node
+ * @returns {boolean}
+ */
 function hasLeadingOwnLineComment(text, node, options) {
   if (isJSXNode(node)) {
     return hasNodeIgnoreComment(node);
@@ -932,6 +1019,11 @@ function templateLiteralHasNewLines(template) {
   return template.quasis.some((quasi) => quasi.value.raw.includes("\n"));
 }
 
+/**
+ * @param {TemplateLiteral | TaggedTemplateExpression} n
+ * @param {string} text
+ * @returns {boolean}
+ */
 function isTemplateOnItsOwnLine(n, text, options) {
   return (
     ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
@@ -941,6 +1033,10 @@ function isTemplateOnItsOwnLine(n, text, options) {
   );
 }
 
+/**
+ * @param {Node & PrettierEsNode} node
+ * @returns {boolean}
+ */
 function needsHardlineAfterDanglingComment(node) {
   if (!node.comments) {
     return false;
@@ -956,6 +1052,10 @@ function needsHardlineAfterDanglingComment(node) {
 // Logic to check for args with multiple anonymous functions. For instance,
 // the following call should be split on multiple lines for readability:
 // source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
+/**
+ * @param {Node[]} args
+ * @returns {boolean}
+ */
 function isFunctionCompositionArgs(args) {
   if (args.length <= 1) {
     return false;
@@ -984,6 +1084,10 @@ function isFunctionCompositionArgs(args) {
 // `connect(a, b, c)(d)`
 // In the above call expression, the second call is the parent node and the
 // first call is the current node.
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
 function isLongCurriedCallExpression(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
