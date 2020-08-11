@@ -85,7 +85,7 @@
   "devDependencies": {
     "@babel/core": "7.11.1",
     "@babel/preset-env": "7.11.0",
-    "@glimmer/reference": "0.56.0",
+    "@glimmer/reference": "0.56.1",
     "@rollup/plugin-alias": "3.1.1",
     "@rollup/plugin-babel": "5.1.0",
     "@rollup/plugin-commonjs": "14.0.0",
@@ -106,7 +106,7 @@
     "eslint-plugin-react": "7.20.5",
     "eslint-plugin-unicorn": "21.0.0",
     "execa": "4.0.3",
-    "jest": "26.2.2",
+    "jest": "26.3.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.6.0",
@@ -121,7 +121,7 @@
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.13",
     "tempy": "0.6.0",
-    "terser-webpack-plugin": "4.0.0",
+    "terser-webpack-plugin": "4.1.0",
     "webpack": "4.44.1"
   },
   "scripts": {
