@@ -183,7 +183,7 @@ function ngHtmlParser(
   };
 
   const restoreNameAndValue = (node) => {
-    if (node instanceof Element) {
+    if (node.type === "element") {
       restoreName(node);
       node.attrs.forEach((attr) => {
         restoreName(attr);
@@ -196,11 +196,11 @@ function ngHtmlParser(
           }
         }
       });
-    } else if (node instanceof Comment) {
+    } else if (node.type === "comment") {
       node.value = node.sourceSpan
         .toString()
         .slice("<!--".length, -"-->".length);
-    } else if (node instanceof Text) {
+    } else if (node.type === "text") {
       node.value = node.sourceSpan.toString();
     }
   };
@@ -210,7 +210,7 @@ function ngHtmlParser(
     return fn(lowerCasedText) ? lowerCasedText : text;
   };
   const normalizeName = (node) => {
-    if (node instanceof Element) {
+    if (node.type === "element") {
       if (
         normalizeTagName &&
         (!node.namespace ||
@@ -251,7 +251,7 @@ function ngHtmlParser(
   };
 
   const addTagDefinition = (node) => {
-    if (node instanceof Element) {
+    if (node.type === "element") {
       const tagDefinition = getHtmlTagDefinition(
         isTagNameCaseSensitive ? node.name : node.name.toLowerCase()
       );
