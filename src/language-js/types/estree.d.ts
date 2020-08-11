@@ -4,6 +4,7 @@ import * as TSESTree from "@typescript-eslint/types/dist/ts-estree";
 import * as NGTree from "angular-estree-parser/lib/types";
 
 export type Node = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
+
 export type TemplateLiteral =
   | ESTree.TemplateLiteral
   | Babel.TemplateLiteral
