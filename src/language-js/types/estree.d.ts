@@ -48,8 +48,8 @@ type PrettierEsComment = Comment & {
 export type Node = AnyNode & {
   extra?: any;
   comments?: PrettierEsComment[];
-  trailingComments?: any;
-  // leadingComments?: PrettierEsComment[];
+  trailingComments?: ReadonlyArray<PrettierEsComment>;
+  leadingComments?: ReadonlyArray<PrettierEsComment>;
 };
 
 export { ESTree, Babel, TSESTree, NGTree };
