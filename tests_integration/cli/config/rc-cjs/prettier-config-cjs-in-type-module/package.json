@@ -1,5 +1,5 @@
 {
-  "name": "prettier-cjs-config-test",
+  "name": "prettier-config-cjs-in-type-module",
   "private": true,
   "type": "module"
 }
