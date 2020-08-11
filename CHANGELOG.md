@@ -18,7 +18,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 - parse TypeScript using Babel by default
 - move the `flow-parser` parser to `peerDependenciesMeta`, as an optional dependency (note that Prettier and `prettierx` use Babel to parse Flow by default)
 - update documentation of `--space-before-function-paren` and `--generator-star-spacing` features
-- apply some additional source code clanup
+- apply some additional source code cleanup
 - update some dependencies
 
 [compare prettierx-0.13.1...prettierx-0.14.0](https://github.com/brodybits/prettierx/compare/prettierx-0.13.1...prettierx-0.14.0)
