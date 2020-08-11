@@ -18,6 +18,8 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 - parse TypeScript using Babel by default
 - move the `flow-parser` parser to `peerDependenciesMeta`, as an optional dependency (note that Prettier and `prettierx` use Babel to parse Flow by default)
 - update documentation of `--space-before-function-paren` and `--generator-star-spacing` features
+- apply some updates for `--paren-spacing` feature from `wp-prettier-2.0.5` branch of the `wp-prettier` fork
+- resolve a limited number of issues related to the `--paren-spacing` feature
 - apply some additional source code cleanup
 - update some dependencies
 
