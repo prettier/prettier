@@ -1052,10 +1052,6 @@ function needsHardlineAfterDanglingComment(node) {
 // Logic to check for args with multiple anonymous functions. For instance,
 // the following call should be split on multiple lines for readability:
 // source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
-/**
- * @param {Node[]} args
- * @returns {boolean}
- */
 function isFunctionCompositionArgs(args) {
   if (args.length <= 1) {
     return false;
