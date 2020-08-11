@@ -650,16 +650,19 @@ function hasJsxIgnoreComment(path) {
     break;
   }
 
-  return (
+  if (
     prevSibling &&
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
     prevSibling.expression.comments.some(
       (comment) => comment.value.trim() === "prettier-ignore"
-    ) &&
-    "next"
-  );
+    )
+  ) {
+    return "next";
+  }
+
+  return false;
 }
 
 function isEmptyJSXElement(node) {
