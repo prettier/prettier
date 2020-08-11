@@ -10,7 +10,8 @@ type AnyTemplateLiteral =
   | Babel.TemplateLiteral
   | TSESTree.TemplateLiteral;
 
-export type Comment = ESTree.Comment | Babel.Comment | TSESTree.Comment;
+type AnyComment = ESTree.Comment | Babel.Comment | TSESTree.Comment;
+
 export type CallExpression =
   | ESTree.CallExpression
   | Babel.CallExpression
@@ -40,7 +41,7 @@ export type TaggedTemplateExpression =
   | TSESTree.TaggedTemplateExpression;
 export type Literal = ESTree.Literal | Babel.Literal | TSESTree.Literal;
 
-type PrettierEsComment = Comment & {
+export type Comment = AnyComment & {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
@@ -48,16 +49,16 @@ type PrettierEsComment = Comment & {
 
 export type TemplateLiteral = AnyTemplateLiteral & {
   extra?: any;
-  comments?: PrettierEsComment[];
-  trailingComments?: ReadonlyArray<PrettierEsComment>;
-  leadingComments?: ReadonlyArray<PrettierEsComment>;
+  comments?: Comment[];
+  trailingComments?: ReadonlyArray<Comment>;
+  leadingComments?: ReadonlyArray<Comment>;
 };
 
 export type Node = AnyNode & {
   extra?: any;
-  comments?: PrettierEsComment[];
-  trailingComments?: ReadonlyArray<PrettierEsComment>;
-  leadingComments?: ReadonlyArray<PrettierEsComment>;
+  comments?: Comment[];
+  trailingComments?: ReadonlyArray<Comment>;
+  leadingComments?: ReadonlyArray<Comment>;
 };
 
 export { ESTree, Babel, TSESTree, NGTree };
