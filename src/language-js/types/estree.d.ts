@@ -3,7 +3,7 @@ import * as Babel from "@babel/types";
 import * as TSESTree from "@typescript-eslint/types/dist/ts-estree";
 import * as NGTree from "angular-estree-parser/lib/types";
 
-export type Node = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
+type AnyNode = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
 
 export type TemplateLiteral =
   | ESTree.TemplateLiteral
@@ -45,12 +45,11 @@ type PrettierEsComment = Comment & {
   leading?: boolean;
 };
 
-export type PrettierEsNode = Node & {
+export type Node = AnyNode & {
   extra?: any;
-  raw?: string;
   comments?: PrettierEsComment[];
-  trailingComments?: PrettierEsComment[];
-  leadingComments?: PrettierEsComment[];
+  trailingComments?: any;
+  // leadingComments?: PrettierEsComment[];
 };
 
 export { ESTree, Babel, TSESTree, NGTree };

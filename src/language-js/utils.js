@@ -12,7 +12,6 @@ const {
 const handleComments = require("./comments");
 
 /**
- * @typedef {import("./types/estree").PrettierEsNode} PrettierEsNode
  * @typedef {import("./types/estree").Node} Node
  * @typedef {import("./types/estree").TemplateLiteral} TemplateLiteral
  * @typedef {import("./types/estree").Comment} Comment
@@ -46,7 +45,7 @@ const FLOW_SHORTHAND_ANNOTATION = new RegExp(
 const FLOW_ANNOTATION = new RegExp(`^${NON_LINE_TERMINATING_WHITE_SPACE}*::`);
 
 /**
- * @param {PrettierEsNode} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasFlowShorthandAnnotationComment(node) {
@@ -523,7 +522,7 @@ function isTestCall(n, parent) {
 }
 
 /**
- * @param {PrettierEsNode} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasLeadingComment(node) {
@@ -531,7 +530,7 @@ function hasLeadingComment(node) {
 }
 
 /**
- * @param {PrettierEsNode} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasTrailingComment(node) {
@@ -539,7 +538,7 @@ function hasTrailingComment(node) {
 }
 
 /**
- * @param {PrettierEsNode} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasTrailingLineComment(node) {
@@ -562,7 +561,7 @@ function isCallOrOptionalCallExpression(node) {
 }
 
 /**
- * @param {PrettierEsNode} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasDanglingComments(node) {
@@ -889,7 +888,7 @@ function isFlowAnnotationComment(text, typeAnnotation, options) {
 
 /**
  * @param {string} text
- * @param {PrettierEsNode} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node, options) {
@@ -1034,7 +1033,7 @@ function isTemplateOnItsOwnLine(n, text, options) {
 }
 
 /**
- * @param {PrettierEsNode} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {
