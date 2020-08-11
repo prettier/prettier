@@ -325,10 +325,10 @@ test(".json5 config file", async () => {
 test(".json5 config file(invalid)", async () => {
   const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
   const file = path.join(parentDirectory, "invalid/foo.js");
-  const error = /JSON5: invalid end of input at 2:1/
+  const error = /JSON5: invalid end of input at 2:1/;
 
   expect(() => {
-    prettier.resolveConfig.sync(file)
+    prettier.resolveConfig.sync(file);
   }).toThrowError(error);
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
