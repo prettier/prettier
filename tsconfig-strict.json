@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "target": "es2015",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "strict": true
+  },
+  "include": [
+    "src/common/common-options.js",
+    "src/common/errors.js"
+  ]
+}
