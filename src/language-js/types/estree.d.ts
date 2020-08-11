@@ -43,6 +43,7 @@ type PrettierEsComment = Comment & {
   trailing?: boolean;
   leading?: boolean;
 };
+
 export interface PrettierEsNode {
   extra?: any;
   raw?: string;
