@@ -46,7 +46,7 @@ const FLOW_SHORTHAND_ANNOTATION = new RegExp(
 const FLOW_ANNOTATION = new RegExp(`^${NON_LINE_TERMINATING_WHITE_SPACE}*::`);
 
 /**
- * @param {Node & PrettierEsNode} node
+ * @param {PrettierEsNode} node
  * @returns {boolean}
  */
 function hasFlowShorthandAnnotationComment(node) {
@@ -523,7 +523,7 @@ function isTestCall(n, parent) {
 }
 
 /**
- * @param {Node & PrettierEsNode} node
+ * @param {PrettierEsNode} node
  * @returns {boolean}
  */
 function hasLeadingComment(node) {
@@ -531,7 +531,7 @@ function hasLeadingComment(node) {
 }
 
 /**
- * @param {Node & PrettierEsNode} node
+ * @param {PrettierEsNode} node
  * @returns {boolean}
  */
 function hasTrailingComment(node) {
@@ -539,7 +539,7 @@ function hasTrailingComment(node) {
 }
 
 /**
- * @param {Node & PrettierEsNode} node
+ * @param {PrettierEsNode} node
  * @returns {boolean}
  */
 function hasTrailingLineComment(node) {
@@ -562,7 +562,7 @@ function isCallOrOptionalCallExpression(node) {
 }
 
 /**
- * @param {Node & PrettierEsNode} node
+ * @param {PrettierEsNode} node
  * @returns {boolean}
  */
 function hasDanglingComments(node) {
@@ -889,7 +889,7 @@ function isFlowAnnotationComment(text, typeAnnotation, options) {
 
 /**
  * @param {string} text
- * @param {Node & PrettierEsNode} node
+ * @param {PrettierEsNode} node
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node, options) {
@@ -1034,7 +1034,7 @@ function isTemplateOnItsOwnLine(n, text, options) {
 }
 
 /**
- * @param {Node & PrettierEsNode} node
+ * @param {PrettierEsNode} node
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {

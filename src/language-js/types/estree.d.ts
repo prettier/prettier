@@ -45,12 +45,12 @@ type PrettierEsComment = Comment & {
   leading?: boolean;
 };
 
-export interface PrettierEsNode {
+export type PrettierEsNode = Node & {
   extra?: any;
   raw?: string;
   comments?: PrettierEsComment[];
   trailingComments?: PrettierEsComment[];
   leadingComments?: PrettierEsComment[];
-}
+};
 
 export { ESTree, Babel, TSESTree, NGTree };
