@@ -12,19 +12,19 @@ const {
 const handleComments = require("./comments");
 
 /**
- * @typedef {import("./types/estree").Node} Node
- * @typedef {import("./types/estree").TemplateLiteral} TemplateLiteral
- * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("./types/estree").MemberExpression} MemberExpression
- * @typedef {import("./types/estree").OptionalMemberExpression} OptionalMemberExpression
- * @typedef {import("./types/estree").CallExpression} CallExpression
- * @typedef {import("./types/estree").OptionalCallExpression} OptionalCallExpression
- * @typedef {import("./types/estree").Expression} Expression
- * @typedef {import("./types/estree").Property} Property
- * @typedef {import("./types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("./types/estree").JSXElement} JSXElement
- * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("./types/estree").Literal} Literal
+ * @typedef {import("./types/ast").Node} Node
+ * @typedef {import("./types/ast").TemplateLiteral} TemplateLiteral
+ * @typedef {import("./types/ast").Comment} Comment
+ * @typedef {import("./types/ast").MemberExpression} MemberExpression
+ * @typedef {import("./types/ast").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("./types/ast").CallExpression} CallExpression
+ * @typedef {import("./types/ast").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("./types/ast").Expression} Expression
+ * @typedef {import("./types/ast").Property} Property
+ * @typedef {import("./types/ast").ObjectTypeProperty} ObjectTypeProperty
+ * @typedef {import("./types/ast").JSXElement} JSXElement
+ * @typedef {import("./types/ast").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("./types/ast").Literal} Literal
  *
  * @typedef {import("../common/fast-path")} FastPath
  */
