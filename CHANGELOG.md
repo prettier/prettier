@@ -8,9 +8,16 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.14.0-dev
+## prettierx 0.14.0
 
-[compare prettierx-0.13.1...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.13.1...dev)
+- merge updates from Prettier 2.0.0 ... 2.0.5, with some workarounds
+- parse TypeScript using Babel by default
+- move the `flow-parser` parser to `peerDependenciesMeta`, as an optional dependency (note that Prettier and `prettierx` use Babel to parse Flow by default)
+- update documentation of `--space-before-function-paren` and `--generator-star-spacing` features
+- apply some additional source code clanup
+- update some dependencies
+
+[compare prettierx-0.13.1...prettierx-0.14.0](https://github.com/brodybits/prettierx/compare/prettierx-0.13.1...prettierx-0.14.0)
 
 ### prettier 2.0.5
 
