@@ -58,7 +58,6 @@ export type Node = AnyNode & {
   extra?: any;
   comments?: Comment[];
   trailingComments?: ReadonlyArray<Comment>;
-  leadingComments?: ReadonlyArray<Comment>;
 };
 
 export { ESTree, Babel, TSESTree, NGTree };
