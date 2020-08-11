@@ -484,7 +484,7 @@ export type a =
 
 - yaml@1.8.3 explicitly in dependencies - needed for extra npm dist build test to keep working, due to an issue between @babel/parser & recent yaml@1.9.0 update
 - update and fix some comments for prettierx-specific code
-- remove lib enrty from package files (not needed)
+- remove lib entry from package files (not needed)
 
 [compare prettierx-0.11.2...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.11.2...dev)
 
