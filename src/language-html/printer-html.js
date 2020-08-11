@@ -698,8 +698,10 @@ function printAttributes(path, options, print) {
       needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
     forceNotToBreakAttrContent
   ) {
+    // @ts-ignore
     parts.push(node.isSelfClosing ? " " : "");
   } else {
+    // @ts-ignore
     parts.push(node.isSelfClosing ? line : softline);
   }
 

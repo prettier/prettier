@@ -24,6 +24,7 @@ function parseIeConditionalComment(node, parseHtml) {
     let match;
     for (const [regex, parse] of REGEX_PARSE_TUPLES) {
       if ((match = node.value.match(regex))) {
+        // @ts-ignore
         return parse(node, parseHtml, match);
       }
     }

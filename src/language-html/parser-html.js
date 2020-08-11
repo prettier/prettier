@@ -301,6 +301,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
+    // @ts-ignore
     rawAst.children.unshift(frontMatter);
   }
 
@@ -355,6 +356,7 @@ function createParser({
   normalizeAttributeName = false,
   allowHtmComponentClosingTags = false,
   isTagNameCaseSensitive = false,
+  // @ts-ignore
   getTagContentType,
 } = {}) {
   return {
@@ -376,6 +378,7 @@ function createParser({
 
 module.exports = {
   parsers: {
+    // @ts-ignore
     html: createParser({
       recognizeSelfClosing: true,
       normalizeTagName: true,
