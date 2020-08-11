@@ -135,7 +135,7 @@
     "perf:repeat-inspect": "yarn && yarn build && cross-env NODE_ENV=production node --inspect-brk ./dist/bin-prettier.js --debug-repeat ${PERF_REPEAT:-1000} --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
     "perf:benchmark": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js --debug-benchmark --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
     "lint": "run-p lint:*",
-    "lint:typecheck": "tsc && tsc -b tsconfig-strict.json",
+    "lint:typecheck": "tsc -b tsconfig-strict.json && tsc",
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.js",
     "lint:prettier": "prettier \"**/*.{md,json,yml,html,css,js}\" \"!test*\" --check",
