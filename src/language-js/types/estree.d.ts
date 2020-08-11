@@ -39,16 +39,16 @@ export type TaggedTemplateExpression =
 export type Literal = ESTree.Literal | Babel.Literal | TSESTree.Literal;
 
 type PrettierEsComment = Comment & {
-  printed: boolean;
-  trailing: boolean;
-  leading: boolean;
+  printed?: boolean;
+  trailing?: boolean;
+  leading?: boolean;
 };
 export interface PrettierEsNode {
-  extra: any;
-  raw: string;
-  comments: PrettierEsComment[];
-  trailingComments: PrettierEsComment[];
-  leadingComments: PrettierEsComment[];
+  extra?: any;
+  raw?: string;
+  comments?: PrettierEsComment[];
+  trailingComments?: PrettierEsComment[];
+  leadingComments?: PrettierEsComment[];
 }
 
 export { ESTree, Babel, TSESTree, NGTree };
