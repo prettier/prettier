@@ -19,13 +19,8 @@ module.exports = {
     ? ["<rootDir>/tests_integration/"]
     : [],
   collectCoverage: ENABLE_CODE_COVERAGE,
-  collectCoverageFrom: ["src/**/*.js", "index.js"],
-  coveragePathIgnorePatterns: [
-    "<rootDir>/src/standalone.js",
-    "<rootDir>/src/document/doc-debug.js",
-    "<rootDir>/src/main/massage-ast.js",
-    "<rootDir>/node_modules/",
-  ],
+  collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
+  coveragePathIgnorePatterns: ["<rootDir>/src/document/doc-debug.js"],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
     "prettier/local": "<rootDir>/tests_config/require_prettier.js",
