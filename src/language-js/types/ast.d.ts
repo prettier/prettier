@@ -3,6 +3,14 @@ import * as Babel from "@babel/types";
 import * as TSESTree from "@typescript-eslint/types/dist/ts-estree";
 import * as NGTree from "angular-estree-parser/lib/types";
 
+// WORKAROUND PATCH FOR typescript-eslint issue:
+// https://github.com/typescript-eslint/typescript-eslint/issues/2388
+// REMOVE with TypeScript 4.0.0:
+import * as ts from 'typescript';
+declare module 'typescript' {
+  type NamedTupleMember = Node;
+}
+
 type AnyNode = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
 
 type AnyTemplateLiteral =
