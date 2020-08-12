@@ -3,11 +3,11 @@ import * as Babel from "@babel/types";
 import { TSESTree } from "@typescript-eslint/types";
 import * as NGTree from "angular-estree-parser/lib/types";
 
-// WORKAROUND PATCH FOR typescript-eslint issue:
+// WORKAROUND HACK for typescript-eslint issue:
 // https://github.com/typescript-eslint/typescript-eslint/issues/2388
-// REMOVE with TypeScript 4.0.0:
-import * as ts from 'typescript';
-declare module 'typescript' {
+// MUST REMOVE to avoid errors with TypeScript 4.0.0:
+import * as ts from "typescript";
+declare module "typescript" {
   type NamedTupleMember = Node;
 }
 
