@@ -4,6 +4,7 @@ const path = require("path");
 
 const editorconfig = require("editorconfig");
 
+// @ts-ignore - TODO (...)
 const editorConfigToPrettier = require("editorconfig-to-prettier");
 
 const mem = require("mem");
@@ -51,7 +52,9 @@ function getLoadFunction(opts) {
 }
 
 function clearCache() {
+  // @ts-ignore - TODO (...)
   mem.clear(editorconfigSyncWithCache);
+  // @ts-ignore - TODO (...)
   mem.clear(editorconfigAsyncWithCache);
 }
 

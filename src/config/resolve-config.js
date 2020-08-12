@@ -151,6 +151,7 @@ async function resolveConfigFile(filePath) {
 resolveConfigFile.sync = (filePath) => {
   const { search } = getExplorer({ sync: true });
   const result = search(filePath);
+  // @ts-ignore - TODO (...)
   return result ? result.filepath : null;
 };
 
@@ -188,7 +189,9 @@ function mergeOverrides(configResult, filePath) {
  * @param {string[]} excludedPatterns
  */
 function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
+  // @ts-ignore - TODO (...)
   const patternList = [].concat(patterns);
+  // @ts-ignore - TODO (...)
   const excludedPatternList = [].concat(excludedPatterns || []);
   const opts = { matchBase: true, dot: true };
 
