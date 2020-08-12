@@ -216,6 +216,16 @@ function clean(ast, newObj, parent) {
     ) {
       newObj.quasis.forEach((quasi) => delete quasi.value);
     }
+
+    // TODO: check parser
+    // `flow` and `typescript` don't have `leadingComments`
+    if (!ast.leadingComments) {
+      newObj.quasis.forEach((quasi) => {
+        if (quasi.value) {
+          delete quasi.value.cooked;
+        }
+      });
+    }
   }
 
   if (ast.type === "InterpreterDirective") {
