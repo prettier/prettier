@@ -1,6 +1,6 @@
 import * as ESTree from "estree";
 import * as Babel from "@babel/types";
-import * as TSESTree from "@typescript-eslint/types/dist/ts-estree";
+import { TSESTree } from "@typescript-eslint/types";
 import * as NGTree from "angular-estree-parser/lib/types";
 
 // WORKAROUND PATCH FOR typescript-eslint issue:
