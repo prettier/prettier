@@ -11,27 +11,25 @@ declare module "typescript" {
   type NamedTupleMember = Node;
 }
 
-type ASTComment = ESTree.Comment | Babel.Comment | TSESTree.Comment;
+type AdditionalFields = {
+  extra?: {
+    parenthesized?: boolean;
+    parenStart?: number;
+    raw?: string;
+  };
+  comments?: Comment[];
+  trailingComments?: ReadonlyArray<Comment> | Comment[];
+  leadingComments?: ReadonlyArray<Comment> | Comment[];
+};
 
-export type Comment = ASTComment & {
+export type Comment = (ESTree.Comment | Babel.Comment | TSESTree.Comment) & {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
 };
 
-type NodeComments = {
-  comments?: Comment[];
-  trailingComments?: ReadonlyArray<Comment>;
-  leadingComments?: ReadonlyArray<Comment>;
-};
-
-type AdditionalFields = {
-  extra?: any;
-} & NodeComments;
-
-type ASTNode = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
-
-export type Node = ASTNode & AdditionalFields;
+export type Node = (ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode) &
+  AdditionalFields;
 
 export type TemplateLiteral = (
   | ESTree.TemplateLiteral
