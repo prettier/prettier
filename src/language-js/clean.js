@@ -42,7 +42,8 @@ function clean(ast, newObj, parent) {
   }
   if (
     ast.type === "JSXExpressionContainer" &&
-    ast.expression.type === "Literal" &&
+    (ast.expression.type === "Literal" ||
+      ast.expression.type === "StringLiteral") &&
     ast.expression.value === " "
   ) {
     return null;
