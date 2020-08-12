@@ -9,9 +9,22 @@ const loadToml = require("../utils/load-toml");
 const resolve = require("../common/resolve");
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 
+/**
+ * @typedef {object} ConfigOptions
+ * @property {string?} config
+ * @property {boolean?} useCache
+ * @property {boolean?} sync
+ * @property {boolean?} editorconfig
+ *
+ * @typedef {{config: string} | {cache: boolean} | {sync: boolean}} ExplorerOptions
+ */
+
 const getExplorerMemoized = mem(
   (opts) => {
-    const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+    const cosmiconfig = opts.sync
+      ? thirdParty.cosmiconfigSync
+      : thirdParty.cosmiconfig;
+
     const explorer = cosmiconfig("prettier", {
       cache: opts.cache,
       transform: (result) => {
@@ -55,13 +68,18 @@ const getExplorerMemoized = mem(
   { cacheKey: JSON.stringify }
 );
 
-/** @param {{ cache: boolean, sync: boolean }} opts */
+/** @param {ExplorerOptions} opts */
 function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
   opts = { sync: false, cache: false, ...opts };
   return getExplorerMemoized(opts);
 }
 
+/**
+ * @param {string} filePath
+ * @param {ConfigOptions} opts
+ * @param {boolean} sync
+ */
 function _resolveConfig(filePath, opts, sync) {
   opts = { useCache: true, ...opts };
   const loadOpts = {
@@ -106,8 +124,12 @@ function _resolveConfig(filePath, opts, sync) {
   return Promise.all(arr).then(unwrapAndMerge);
 }
 
+/**
+ * @type {((filePath: string, opts: ConfigOptions) => boolean) & {sync: Function}}
+ */
 const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 
+/** @type{(filePath: string, opts: ConfigOptions) => boolean} */
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
@@ -115,12 +137,14 @@ function clearCache() {
   resolveEditorConfig.clearCache();
 }
 
+/** @param {string} filePath */
 async function resolveConfigFile(filePath) {
   const { search } = getExplorer({ sync: false });
   const result = await search(filePath);
   return result ? result.filepath : null;
 }
 
+/** @param {string} filePath */
 resolveConfigFile.sync = (filePath) => {
   const { search } = getExplorer({ sync: true });
   const result = search(filePath);
@@ -148,7 +172,14 @@ function mergeOverrides(configResult, filePath) {
   return options;
 }
 
-// Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
+/**
+ * Based on eslint:
+ * https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
+ *
+ * @param {string} filePath
+ * @param {string[]} patterns
+ * @param {string[]} excludedPatterns
+ */
 function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = [].concat(patterns);
   const excludedPatternList = [].concat(excludedPatterns || []);
