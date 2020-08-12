@@ -24,7 +24,12 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "BigIntLiteral") {
-    newObj.value = newObj.value.toLowerCase();
+    if (newObj.value) {
+      newObj.value = newObj.value.toLowerCase();
+    }
+    if (newObj.bigint) {
+      newObj.bigint = newObj.bigint.toLowerCase();
+    }
   }
 
   if (ast.type === "DecimalLiteral") {
