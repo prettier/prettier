@@ -15,6 +15,7 @@
     "src/common/parser-create-error.js",
     "src/common/resolve.js",
     "src/common/third-party.js",
+    "src/config/*.js",
     "src/utils/*.js"
   ]
 }
