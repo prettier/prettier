@@ -31,7 +31,7 @@ type AdditionalFields = {
 
 type ASTNode = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
 
-export type Node = ASTNode & WithExtra & WithComments;
+export type Node = ASTNode & AdditionalFields;
 
 export type TemplateLiteral = (
   | ESTree.TemplateLiteral
@@ -73,7 +73,7 @@ export type Expression = (
 ) &
   AdditionalFields;
 
-export type BindExpression = Babel.BindExpression & WithExtra & WithComments;
+export type BindExpression = Babel.BindExpression & AdditionalFields;
 
 export type Property = (ESTree.Property | Babel.Property | TSESTree.Property) &
   AdditionalFields;
