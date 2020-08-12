@@ -3,8 +3,11 @@
 const path = require("path");
 
 const editorconfig = require("editorconfig");
-const mem = require("mem");
+
 const editorConfigToPrettier = require("editorconfig-to-prettier");
+
+const mem = require("mem");
+
 const findProjectRoot = require("./find-project-root");
 
 /** @type{(fn: Function) => Function} */
