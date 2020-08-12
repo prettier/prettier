@@ -33,6 +33,11 @@ getFileContentOrNull.sync = function (filename) {
   }
 };
 
+/**
+ * @param {string} filename
+ * @param {object & {message: string}} error
+ * @returns {Error}
+ */
 function createError(filename, error) {
   return new Error(`Unable to read ${filename}: ${error.message}`);
 }

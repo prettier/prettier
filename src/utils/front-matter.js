@@ -2,11 +2,13 @@
 
 const escape = require("escape-string-regexp");
 
+/** @type Object.<string, string> */
 const DELIMITER_MAP = {
   "---": "yaml",
   "+++": "toml",
 };
 
+/** @param {string} text */
 function parse(text) {
   const delimiterRegex = Object.keys(DELIMITER_MAP).map(escape).join("|");
 
