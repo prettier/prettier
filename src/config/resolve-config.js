@@ -94,6 +94,8 @@ function _resolveConfig(filePath, opts, sync) {
     loadEditorConfig(filePath),
   ];
 
+  //* ** TODO make this function type more specific:
+  /** @type {(...args: any[]) => any} */
   const unwrapAndMerge = ([result, editorConfigured]) => {
     const merged = {
       ...editorConfigured,
@@ -102,7 +104,8 @@ function _resolveConfig(filePath, opts, sync) {
 
     ["plugins", "pluginSearchDirs"].forEach((optionName) => {
       if (Array.isArray(merged[optionName])) {
-        merged[optionName] = merged[optionName].map((value) =>
+        // TODO use a more specific argument type in map function:
+        merged[optionName] = merged[optionName].map((/** @type{any} */ value) =>
           typeof value === "string" && value.startsWith(".") // relative path
             ? path.resolve(path.dirname(result.filepath), value)
             : value
@@ -151,6 +154,10 @@ resolveConfigFile.sync = (filePath) => {
   return result ? result.filepath : null;
 };
 
+/**
+ * @param {any} configResult - TODO (...)
+ * @param {string} filePath
+ */
 function mergeOverrides(configResult, filePath) {
   const { config, filepath: configPath } = configResult || {};
   const { overrides, ...options } = config || {};
