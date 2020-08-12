@@ -145,7 +145,7 @@ function clean(ast, newObj, parent) {
     ast.value.type === "Literal" &&
     /["']|&quot;|&apos;/.test(ast.value.value)
   ) {
-    delete newObj.value.value;
+    newObj.value.value = newObj.value.value.replace(/["']|&quot;|&apos;/g, '"');
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
