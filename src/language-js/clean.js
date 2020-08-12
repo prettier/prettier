@@ -138,6 +138,16 @@ function clean(ast, newObj, parent) {
     newObj.value.expression.quasis.forEach((q) => delete q.value);
   }
 
+  // We change quotes
+  if (
+    ast.type === "JSXAttribute" &&
+    ast.value &&
+    ast.value.type === "Literal" &&
+    /["']|&quot;|&apos;/.test(ast.value.value)
+  ) {
+    delete newObj.value.value;
+  }
+
   // Angular Components: Inline HTML template and Inline CSS styles
   const expression = ast.expression || ast.callee;
   if (
