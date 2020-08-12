@@ -11,61 +11,89 @@ declare module "typescript" {
   type NamedTupleMember = Node;
 }
 
-type AnyNode = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
+type ASTComment = ESTree.Comment | Babel.Comment | TSESTree.Comment;
 
-type AnyTemplateLiteral =
-  | ESTree.TemplateLiteral
-  | Babel.TemplateLiteral
-  | TSESTree.TemplateLiteral;
-
-type AnyComment = ESTree.Comment | Babel.Comment | TSESTree.Comment;
-
-export type CallExpression =
-  | ESTree.CallExpression
-  | Babel.CallExpression
-  | TSESTree.CallExpression;
-export type OptionalCallExpression =
-  | Babel.OptionalCallExpression
-  | TSESTree.OptionalCallExpression;
-export type MemberExpression =
-  | ESTree.MemberExpression
-  | Babel.MemberExpression
-  | TSESTree.MemberExpression;
-export type OptionalMemberExpression =
-  | Babel.OptionalMemberExpression
-  | TSESTree.OptionalMemberExpression;
-export type Expression =
-  | ESTree.Expression
-  | Babel.Expression
-  | TSESTree.Expression;
-export type BindExpression = Babel.BindExpression;
-export type Property = ESTree.Property | Babel.Property | TSESTree.Property;
-export type ClassPrivateProperty = Babel.ClassPrivateProperty;
-export type ObjectTypeProperty = Babel.ObjectTypeProperty;
-export type JSXElement = Babel.JSXElement | TSESTree.JSXElement;
-export type TaggedTemplateExpression =
-  | ESTree.TaggedTemplateExpression
-  | Babel.TaggedTemplateExpression
-  | TSESTree.TaggedTemplateExpression;
-export type Literal = ESTree.Literal | Babel.Literal | TSESTree.Literal;
-
-export type Comment = AnyComment & {
+export type Comment = ASTComment & {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
 };
 
-export type TemplateLiteral = AnyTemplateLiteral & {
-  extra?: any;
+type NodeComments = {
   comments?: Comment[];
   trailingComments?: ReadonlyArray<Comment>;
   leadingComments?: ReadonlyArray<Comment>;
 };
 
-export type Node = AnyNode & {
+type AdditionalFields = {
   extra?: any;
-  comments?: Comment[];
-  trailingComments?: ReadonlyArray<Comment>;
-};
+} & NodeComments;
+
+type ASTNode = ESTree.Node | Babel.Node | TSESTree.Node | NGTree.NGNode;
+
+export type Node = ASTNode & WithExtra & WithComments;
+
+export type TemplateLiteral = (
+  | ESTree.TemplateLiteral
+  | Babel.TemplateLiteral
+  | TSESTree.TemplateLiteral
+) &
+  AdditionalFields;
+
+export type CallExpression = (
+  | ESTree.CallExpression
+  | Babel.CallExpression
+  | TSESTree.CallExpression
+) &
+  AdditionalFields;
+
+export type OptionalCallExpression = (
+  | Babel.OptionalCallExpression
+  | TSESTree.OptionalCallExpression
+) &
+  AdditionalFields;
+
+export type MemberExpression = (
+  | ESTree.MemberExpression
+  | Babel.MemberExpression
+  | TSESTree.MemberExpression
+) &
+  AdditionalFields;
+
+export type OptionalMemberExpression = (
+  | Babel.OptionalMemberExpression
+  | TSESTree.OptionalMemberExpression
+) &
+  AdditionalFields;
+
+export type Expression = (
+  | ESTree.Expression
+  | Babel.Expression
+  | TSESTree.Expression
+) &
+  AdditionalFields;
+
+export type BindExpression = Babel.BindExpression & WithExtra & WithComments;
+
+export type Property = (ESTree.Property | Babel.Property | TSESTree.Property) &
+  AdditionalFields;
+
+export type ClassPrivateProperty = Babel.ClassPrivateProperty &
+  AdditionalFields;
+
+export type ObjectTypeProperty = Babel.ObjectTypeProperty & AdditionalFields;
+
+export type JSXElement = (Babel.JSXElement | TSESTree.JSXElement) &
+  AdditionalFields;
+
+export type TaggedTemplateExpression = (
+  | ESTree.TaggedTemplateExpression
+  | Babel.TaggedTemplateExpression
+  | TSESTree.TaggedTemplateExpression
+) &
+  AdditionalFields;
+
+export type Literal = (ESTree.Literal | Babel.Literal | TSESTree.Literal) &
+  AdditionalFields;
 
 export { ESTree, Babel, TSESTree, NGTree };
