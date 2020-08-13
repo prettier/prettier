@@ -4225,6 +4225,7 @@ function printClass(path, options, print) {
     (n.implements && n.implements.length !== 0);
 
   const partsGroup = [];
+  const extendsParts = [];
 
   if (n.id) {
     partsGroup.push(" ", path.call(print, "id"));
@@ -4255,7 +4256,7 @@ function printClass(path, options, print) {
         n.typeParameters != null &&
         !hasTypeParametersComments &&
         !hasIdComments;
-      partsGroup.push(
+      extendsParts.push(
         (shouldGroup ? group : identity)(
           concat([
             line,
@@ -4288,9 +4289,9 @@ function printClass(path, options, print) {
       "superClass"
     );
     if (groupMode) {
-      partsGroup.push(line, group(printedWithComments));
+      extendsParts.push(line, group(printedWithComments));
     } else {
-      partsGroup.push(" ", printedWithComments);
+      extendsParts.push(" ", printedWithComments);
     }
   } else {
     printList("extends");
@@ -4300,14 +4301,21 @@ function printClass(path, options, print) {
   printList("implements");
 
   if (groupMode) {
-    const shouldIndent =
+    const shouldIndentExtends = !(
       extendsCount >= 2 ||
       n.typeParameters == null ||
       hasTypeParametersComments ||
-      hasIdComments;
-    parts.push(group((shouldIndent ? indent : identity)(concat(partsGroup))));
+      hasIdComments
+    );
+    const indentForExtendsGroup = shouldIndentExtends ? indent : identity;
+    const printed = ifBreak(
+      indentForExtendsGroup(concat(extendsParts)),
+      concat(extendsParts)
+    );
+    const indentForOuterGroup = shouldIndentExtends ? identity : indent;
+    parts.push(group(indentForOuterGroup(concat([...partsGroup, printed]))));
   } else {
-    parts.push(...partsGroup);
+    parts.push(...partsGroup, ...extendsParts);
   }
 
   parts.push(" ", path.call(print, "body"));

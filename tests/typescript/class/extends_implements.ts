@@ -38,6 +38,8 @@ class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
   extends FOOOOOOOOOOOOOOOOO
   implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
 
+class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> implements Foo {}
+
 class ImplementsInterfaceAndExtendsAbstractClass2<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
