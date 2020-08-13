@@ -4232,6 +4232,16 @@ function printClass(path, options, print) {
 
   partsGroup.push(path.call(print, "typeParameters"));
 
+  const hasIdComments =
+    n.id && Array.isArray(n.id.comments) && n.id.comments.length !== 0;
+  const hasTypeParametersComments =
+    n.typeParameters &&
+    Array.isArray(n.typeParameters.comments) &&
+    n.typeParameters.comments.length !== 0;
+  const extendsCount = ["superClass", "extends", "mixins", "implements"].filter(
+    (key) => !!n[key]
+  ).length;
+
   function printList(listName) {
     if (n[listName] && n[listName].length !== 0) {
       const printedLeadingComments = comments.printDanglingComments(
@@ -4240,15 +4250,27 @@ function printClass(path, options, print) {
         /* sameIndent */ true,
         ({ marker }) => marker === listName
       );
+      const shouldGroup =
+        extendsCount <= 1 &&
+        n.typeParameters != null &&
+        !hasTypeParametersComments &&
+        !hasIdComments;
       partsGroup.push(
-        line,
-        printedLeadingComments,
-        printedLeadingComments && hardline,
-        listName,
-        group(
-          indent(
-            concat([line, join(concat([",", line]), path.map(print, listName))])
-          )
+        (shouldGroup ? group : identity)(
+          concat([
+            line,
+            printedLeadingComments,
+            printedLeadingComments && hardline,
+            listName,
+            group(
+              indent(
+                concat([
+                  line,
+                  join(concat([",", line]), path.map(print, listName)),
+                ])
+              )
+            ),
+          ])
         )
       );
     }
@@ -4278,7 +4300,12 @@ function printClass(path, options, print) {
   printList("implements");
 
   if (groupMode) {
-    parts.push(group(indent(concat(partsGroup))));
+    const shouldIndent =
+      extendsCount >= 2 ||
+      n.typeParameters == null ||
+      hasTypeParametersComments ||
+      hasIdComments;
+    parts.push(group((shouldIndent ? indent : identity)(concat(partsGroup))));
   } else {
     parts.push(...partsGroup);
   }
