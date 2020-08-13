@@ -4301,19 +4301,24 @@ function printClass(path, options, print) {
   printList("implements");
 
   if (groupMode) {
-    const shouldIndentExtends = !(
+    const shouldIndentExtendsParts = !(
       extendsCount >= 2 ||
       n.typeParameters == null ||
       hasTypeParametersComments ||
       hasIdComments
     );
-    const indentForExtendsGroup = shouldIndentExtends ? indent : identity;
-    const printed = ifBreak(
-      indentForExtendsGroup(concat(extendsParts)),
-      concat(extendsParts)
-    );
-    const indentForOuterGroup = shouldIndentExtends ? identity : indent;
-    parts.push(group(indentForOuterGroup(concat([...partsGroup, printed]))));
+    const printedExtends = concat(extendsParts);
+    if (shouldIndentExtendsParts) {
+      parts.push(
+        group(
+          concat(
+            partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
+          )
+        )
+      );
+    } else {
+      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+    }
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
