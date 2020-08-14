@@ -86,7 +86,7 @@
     "@babel/preset-env": "7.11.0",
     "@glimmer/reference": "0.56.1",
     "@rollup/plugin-alias": "3.1.1",
-    "@rollup/plugin-babel": "5.1.0",
+    "@rollup/plugin-babel": "5.2.0",
     "@rollup/plugin-commonjs": "14.0.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "8.4.0",
