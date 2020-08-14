@@ -4258,7 +4258,9 @@ function printClass(path, options, print) {
         !hasTypeParametersComments &&
         !hasIdComments;
       extendsParts.push(
-        shouldGroup ? ifBreak(" ", line, { groupId: Symbol.for("typeParameters") }) : line,
+        shouldGroup
+          ? ifBreak(" ", line, { groupId: Symbol.for("typeParameters") })
+          : line,
         printedLeadingComments,
         printedLeadingComments && hardline,
         listName,
