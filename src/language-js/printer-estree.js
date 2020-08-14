@@ -4199,7 +4199,8 @@ function printTypeParameters(path, options, print, paramsKey) {
       ),
       softline,
       ">",
-    ])
+    ]),
+    { id: Symbol.for("typeParameters") }
   );
 }
 
@@ -4257,21 +4258,14 @@ function printClass(path, options, print) {
         !hasTypeParametersComments &&
         !hasIdComments;
       extendsParts.push(
-        (shouldGroup ? group : identity)(
-          concat([
-            line,
-            printedLeadingComments,
-            printedLeadingComments && hardline,
-            listName,
-            group(
-              indent(
-                concat([
-                  line,
-                  join(concat([",", line]), path.map(print, listName)),
-                ])
-              )
-            ),
-          ])
+        shouldGroup ? ifBreak(" ", line, { groupId: Symbol.for("typeParameters") }) : line,
+        printedLeadingComments,
+        printedLeadingComments && hardline,
+        listName,
+        group(
+          indent(
+            concat([line, join(concat([",", line]), path.map(print, listName))])
+          )
         )
       );
     }
