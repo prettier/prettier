@@ -7,12 +7,7 @@ const support = require("../main/support");
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
-function getPenultimate(arr) {
-  if (arr.length > 1) {
-    return arr[arr.length - 2];
-  }
-  return null;
-}
+const getPenultimate = (arr) => arr[arr.length - 2];
 
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
