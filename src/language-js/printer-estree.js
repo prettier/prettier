@@ -2605,6 +2605,7 @@ function printPathNoParens(path, options, print, args) {
       parts.push("interface");
 
       const partsGroup = [];
+      const extendsParts = [];
 
       if (n.type !== "InterfaceTypeAnnotation") {
         partsGroup.push(
@@ -2614,9 +2615,16 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
+      const shouldIndentOnlyHeritageClauses =
+        n.typeParameters && !hasTrailingLineComment(n.typeParameters);
+
       if (n.extends && n.extends.length !== 0) {
-        partsGroup.push(
-          line,
+        extendsParts.push(
+          shouldIndentOnlyHeritageClauses
+            ? ifBreak(" ", line, {
+                groupId: getTypeParametersGroupId(n.typeParameters),
+              })
+            : line,
           "extends ",
           (n.extends.length === 1 ? identity : indent)(
             join(concat([",", line]), path.map(print, "extends"))
@@ -2628,9 +2636,22 @@ function printPathNoParens(path, options, print, args) {
         (n.id && hasTrailingComment(n.id)) ||
         (n.extends && n.extends.length !== 0)
       ) {
-        parts.push(group(indent(concat(partsGroup))));
+        const printedExtends = concat(extendsParts);
+        if (shouldIndentOnlyHeritageClauses) {
+          parts.push(
+            group(
+              concat(
+                partsGroup.concat(
+                  ifBreak(indent(printedExtends), printedExtends)
+                )
+              )
+            )
+          );
+        } else {
+          parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+        }
       } else {
-        parts.push(...partsGroup);
+        parts.push(...partsGroup.concat(extendsParts));
       }
 
       parts.push(" ", path.call(print, "body"));
