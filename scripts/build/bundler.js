@@ -199,6 +199,7 @@ function getRollupOutputOptions(bundle) {
   const options = {
     // Avoid warning form #8797
     exports: "auto",
+    interop: "auto",
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
   };
