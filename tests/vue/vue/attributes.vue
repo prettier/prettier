@@ -33,5 +33,6 @@
   @click="doSomething()"
   @click="doSomething;"
   #default="{foo:{bar:{baz}}}"
+  :value='`"cool${foo}"`'
 ></div>
 </template>
