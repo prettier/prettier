@@ -117,7 +117,6 @@
         "Filipe",
         "finalizer",
         "Fiorini",
-        "fisker",
         "fnames",
         "foldgutter",
         "formatprg",
@@ -327,8 +326,6 @@
         "softline",
         "softlines",
         "Sorin",
-        "Sosuke",
-        "sosukesuzuki",
         "srcset",
         "Stachowiak",
         "staged's",
@@ -404,7 +401,8 @@
         "\\[`\\w+`\\]",
         "ve{2,}r{2,}y",
         "ve+r+y+long\\w*",
-        "\\/.*?\\/"
+        "\\/.*?\\/",
+        "\"?author.*\"?: \".*\""
     ],
     "ignorePaths": [
         "cspell.json",
