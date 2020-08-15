@@ -4111,8 +4111,12 @@ function printTypeScriptModifiers(path, options, print) {
   return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
-function getTypeParametersGroupId(node, options) {
-  return Symbol.for("prettier.typeParameters" + options.locStart(node));
+const typeParametersGroupIds = new WeakMap();
+function getTypeParametersGroupId(node) {
+  if (!typeParametersGroupIds.has(node)) {
+    typeParametersGroupIds.set(node, Symbol("typeParameters"));
+  }
+  return typeParametersGroupIds.get(node);
 }
 
 function printTypeParameters(path, options, print, paramsKey) {
@@ -4204,7 +4208,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       softline,
       ">",
     ]),
-    { id: getTypeParametersGroupId(n, options) }
+    { id: getTypeParametersGroupId(n) }
   );
 }
 
@@ -4257,7 +4261,7 @@ function printClass(path, options, print) {
       extendsParts.push(
         shouldIndentOnlyHeritageClauses
           ? ifBreak(" ", line, {
-              groupId: getTypeParametersGroupId(n.typeParameters, options),
+              groupId: getTypeParametersGroupId(n.typeParameters),
             })
           : line,
         printedLeadingComments,
