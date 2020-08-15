@@ -4111,6 +4111,10 @@ function printTypeScriptModifiers(path, options, print) {
   return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
+function getTypeParametersGroupId(node, options) {
+  return Symbol.for("prettier.typeParameters" + options.locStart(node));
+}
+
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
 
@@ -4200,7 +4204,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       softline,
       ">",
     ]),
-    { id: Symbol.for("typeParameters") }
+    { id: getTypeParametersGroupId(n, options) }
   );
 }
 
@@ -4234,15 +4238,13 @@ function printClass(path, options, print) {
 
   partsGroup.push(path.call(print, "typeParameters"));
 
-  const hasIdComments =
-    n.id && Array.isArray(n.id.comments) && n.id.comments.length !== 0;
-  const hasTypeParametersComments =
+  const hasMultipleHeritage =
+    ["superClass", "extends", "mixins", "implements"].filter((key) => !!n[key])
+      .length > 1;
+  const shouldIndentOnlyHeritageClauses =
     n.typeParameters &&
-    Array.isArray(n.typeParameters.comments) &&
-    n.typeParameters.comments.length !== 0;
-  const extendsCount = ["superClass", "extends", "mixins", "implements"].filter(
-    (key) => !!n[key]
-  ).length;
+    !hasTrailingLineComment(n.typeParameters) &&
+    !hasMultipleHeritage;
 
   function printList(listName) {
     if (n[listName] && n[listName].length !== 0) {
@@ -4252,14 +4254,11 @@ function printClass(path, options, print) {
         /* sameIndent */ true,
         ({ marker }) => marker === listName
       );
-      const shouldGroup =
-        extendsCount <= 1 &&
-        n.typeParameters != null &&
-        !hasTypeParametersComments &&
-        !hasIdComments;
       extendsParts.push(
-        shouldGroup
-          ? ifBreak(" ", line, { groupId: Symbol.for("typeParameters") })
+        shouldIndentOnlyHeritageClauses
+          ? ifBreak(" ", line, {
+              groupId: getTypeParametersGroupId(n.typeParameters, options),
+            })
           : line,
         printedLeadingComments,
         printedLeadingComments && hardline,
@@ -4297,14 +4296,8 @@ function printClass(path, options, print) {
   printList("implements");
 
   if (groupMode) {
-    const shouldIndentExtendsParts = !(
-      extendsCount >= 2 ||
-      n.typeParameters == null ||
-      hasTypeParametersComments ||
-      hasIdComments
-    );
     const printedExtends = concat(extendsParts);
-    if (shouldIndentExtendsParts) {
+    if (shouldIndentOnlyHeritageClauses) {
       parts.push(
         group(
           concat(
