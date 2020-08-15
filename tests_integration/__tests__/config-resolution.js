@@ -285,3 +285,26 @@ test("API resolveConfig de-references to an external module", () => {
     semi: false,
   });
 });
+
+test(".cjs config file", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-cjs");
+
+  const config = {
+    trailingComma: "all",
+    singleQuote: true,
+  };
+
+  for (const directoryName of [
+    "prettierrc-cjs-in-type-module",
+    "prettierrc-cjs-in-type-commonjs",
+    "prettierrc-cjs-in-type-none",
+    "prettier-config-cjs-in-type-commonjs",
+    "prettier-config-cjs-in-type-none",
+    "prettier-config-cjs-in-type-module",
+  ]) {
+    const file = path.join(parentDirectory, directoryName, "foo.js");
+
+    expect(prettier.resolveConfig.sync(file)).toEqual(config);
+    await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+  }
+});

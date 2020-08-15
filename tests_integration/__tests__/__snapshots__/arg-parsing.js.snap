@@ -45,3 +45,13 @@ exports[`unknown options are warned (stdout) 1`] = `
 `;
 
 exports[`unknown options are warned (write) 1`] = `Array []`;
+
+exports[`unknown options not suggestion \`_\` (stderr) 1`] = `
+"[warn] Ignored unknown option -a. Did you mean -c?
+"
+`;
+
+exports[`unknown options not suggestion \`_\` (stdout) 1`] = `
+"console.log(\\"could be single quote and without semi\\");
+"
+`;

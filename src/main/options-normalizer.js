@@ -3,6 +3,7 @@
 const vnopts = require("vnopts");
 const leven = require("leven");
 const chalk = require("chalk");
+const flat = require("lodash/flatten");
 
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
@@ -54,7 +55,14 @@ function normalizeOptions(
   { logger, isCLI = false, passThrough = false } = {}
 ) {
   const unknown = !passThrough
-    ? vnopts.levenUnknownHandler
+    ? (key, value, options) => {
+        // Don't suggest `_` for unknown flags
+        const { _, ...schemas } = options.schemas;
+        return vnopts.levenUnknownHandler(key, value, {
+          ...options,
+          schemas,
+        });
+      }
     : Array.isArray(passThrough)
     ? (key, value) =>
         !passThrough.includes(key) ? undefined : { [key]: value }
@@ -139,15 +147,15 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       break;
     case "flag":
       SchemaConstructor = FlagSchema;
-      parameters.flags = optionInfos
-        .map((optionInfo) =>
-          [].concat(
-            optionInfo.alias || [],
-            optionInfo.description ? optionInfo.name : [],
-            optionInfo.oppositeDescription ? `no-${optionInfo.name}` : []
-          )
+      parameters.flags = flat(
+        optionInfos.map((optionInfo) =>
+          [
+            optionInfo.alias,
+            optionInfo.description && optionInfo.name,
+            optionInfo.oppositeDescription && `no-${optionInfo.name}`,
+          ].filter(Boolean)
         )
-        .reduce((a, b) => a.concat(b), []);
+      );
       break;
     case "path":
       SchemaConstructor = vnopts.StringSchema;
