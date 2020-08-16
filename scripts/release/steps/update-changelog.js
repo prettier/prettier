@@ -35,19 +35,9 @@ function replaceVersionInBlogPost({ blogPost, version, previousVersion }) {
   const newBlogPostData = blogPostData
     .split("\n")
     .map((line) => {
-      const trimmed = line.trim();
-      const isComments =
-        trimmed.startsWith("// ") ||
-        trimmed.startsWith("# ") ||
-        (trimmed.startsWith("<!-- ") && trimmed.endsWith(" -->")) ||
-        (trimmed.startsWith("/* ") && trimmed.endsWith(" */")) ||
-        (trimmed.startsWith("{{!-- ") && trimmed.endsWith(" --}}"));
-      if (!isComments) {
-        return line;
-      }
       return line
-        .replace(/Prettier stable/g, `Prettier ${previousVersion}`)
-        .replace(/Prettier master/g, `Prettier ${version}`);
+        .replace(/prettier stable/gi, `Prettier ${previousVersion}`)
+        .replace(/prettier master/gi, `Prettier ${version}`);
     })
     .join("\n");
   fs.writeFileSync(blogPost, newBlogPostData);
