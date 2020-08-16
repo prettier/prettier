@@ -31,6 +31,6 @@ test("API getFileInfo should ignore files contains emoji", async () => {
     )
   ).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "css",
+    inferredParser: null,
   });
 });
