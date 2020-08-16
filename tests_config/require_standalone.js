@@ -7,7 +7,7 @@ const globby = require("globby");
 const sandbox = vm.createContext();
 
 const source = globby
-  .sync(["standalone.js", "parser-*.js"], {
+  .sync(["standalone.js", "parser-!(*.module).js"], {
     cwd: process.env.PRETTIER_DIR,
     absolute: true,
   })
