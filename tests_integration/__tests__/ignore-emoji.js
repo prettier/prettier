@@ -21,8 +21,8 @@ describe("stdin", () => {
   });
 });
 
-test("API getFileInfo should ignore files contains emoji", () => {
-  expect(
+test("API getFileInfo should ignore files contains emoji", async () => {
+  await expect(
     prettier.getFileInfo(
       path.join(__dirname, "../cli/ignore-emoji/ignored/我的样式.css"),
       {
