@@ -40,7 +40,7 @@ function replaceVersionInBlogPost({ blogPost, version, previousVersion }) {
         trimmed.startsWith("// ") ||
         trimmed.startsWith("# ") ||
         (trimmed.startsWith("<!-- ") && trimmed.endsWith(" -->")) ||
-        (trimmed.startsWith("/* ") && trimmed.endsWith(" /*")) ||
+        (trimmed.startsWith("/* ") && trimmed.endsWith(" */")) ||
         (trimmed.startsWith("{{!-- ") && trimmed.endsWith(" --}}"));
       if (!isComments) {
         return line;
