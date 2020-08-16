@@ -35,9 +35,11 @@ if (isPullRequest) {
 }
 
 shell.cp(`${prettierPath}/standalone.js`, `${docs}/`);
-shell.cp(`${prettierPath}/parser-*.js`, `${docs}/`);
+shell.cp(`${prettierPath}/parser-!(*.module).js`, `${docs}/`);
 
-const parserModules = globby.sync(["parser-*.js"], { cwd: prettierPath });
+const parserModules = globby.sync(["parser-!(*.module).js"], {
+  cwd: prettierPath,
+});
 const parsers = {};
 for (const file of parserModules) {
   const plugin = require(path.join(prettierPath, file));
