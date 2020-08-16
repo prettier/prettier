@@ -79,10 +79,9 @@ function embed(path, print, textToDoc, options) {
         }
 
         const doc = textToDoc(
-          htmlTrimPreserveIndentation(getNodeContent(node, options), {
-            stripTrailingHardline: true,
-          }),
-          { parser }
+          htmlTrimPreserveIndentation(getNodeContent(node, options)),
+          { parser },
+          { stripTrailingHardline: true }
         );
 
         return concat([
