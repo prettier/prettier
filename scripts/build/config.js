@@ -7,7 +7,7 @@ const path = require("path");
  * @property {string} input - input of the bundle
  * @property {string?} output - path of the output file in the `dist/` folder
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
- * @property {'node' | 'universal'} target - should generate a CJS only for node or UMD bundle
+ * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
@@ -151,7 +151,26 @@ function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = coreBundles.concat(parsers).map((bundle) => ({
-  ...bundle,
-  output: getFileOutput(bundle),
-}));
+module.exports = coreBundles
+  .concat(parsers)
+  .map((bundle) => {
+    const baseBundle = {
+      ...bundle,
+      output: getFileOutput(bundle),
+    };
+    if (baseBundle.target === "universal" && baseBundle.bundler !== "webpack") {
+      return [
+        {
+          ...baseBundle,
+          format: "umd",
+        },
+        {
+          ...baseBundle,
+          format: "esm",
+          output: baseBundle.output.replace(".js", ".module.js"),
+        },
+      ];
+    }
+    return baseBundle;
+  })
+  .flat();

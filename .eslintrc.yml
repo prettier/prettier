@@ -77,6 +77,10 @@ overrides:
     parserOptions:
       sourceType: module
   - files:
+      - "*.module.js"
+    parserOptions:
+      sourceType: module
+  - files:
       - "{tests,tests_config,tests_integration}/**/*.js"
     env:
       jest: true

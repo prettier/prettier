@@ -205,7 +205,7 @@ function getRollupOutputOptions(bundle) {
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.format = "umd";
+    options.format = bundle.format;
     options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
   }
