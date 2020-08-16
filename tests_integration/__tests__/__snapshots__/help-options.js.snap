@@ -224,7 +224,7 @@ exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
 exports[`show detailed usage with --help ignore-unknown (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help ignore-unknown (stdout) 1`] = `
-"-i, --ignore-unknown
+"-u, --ignore-unknown
 
   Ignore unknown files.
 "

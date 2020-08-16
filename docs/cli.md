@@ -207,7 +207,7 @@ $ cat abc.css | prettier --stdin-filepath abc.css
 
 ## `--ignore-unknown`
 
-With `--ignore-unknown` (or `-i`), prettier will ignore unknown files matched by patterns.
+With `--ignore-unknown` (or `-u`), prettier will ignore unknown files matched by patterns.
 
 ```console
 $ prettier **/* --write --ignore-unknown
