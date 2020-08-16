@@ -10,7 +10,7 @@
   "main": "./index.js",
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
-  "module": "./src/standalone.module.js",
+  "module": "./dist/standalone.module.js",
   "engines": {
     "node": ">=10.13.0"
   },
@@ -20,6 +20,55 @@
     "src",
     "bin"
   ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./standalone": {
+      "default": "./standalone.js",
+      "import": "./dist/standalone.module.js"
+    },
+    "./doc": {
+      "default": "./dist/doc.js",
+      "import": "./dist/doc.module.js"
+    },
+    "./parser-angular": {
+      "default": "./dist/parser-angular.js",
+      "import": "./dist/parser-angular.module.js"
+    },
+    "./parser-babel": {
+      "default": "./dist/parser-babel.js",
+      "import": "./dist/parser-babel.module.js"
+    },
+    "./parser-flow": {
+      "default": "./dist/parser-flow.js",
+      "import": "./dist/parser-flow.module.js"
+    },
+    "./parser-glimmer": {
+      "default": "./dist/parser-glimmer.js",
+      "import": "./dist/parser-glimmer.module.js"
+    },
+    "./parser-graphql": {
+      "default": "./dist/parser-graphql.js",
+      "import": "./dist/parser-graphql.module.js"
+    },
+    "./parser-html": {
+      "default": "./dist/parser-html.js",
+      "import": "./dist/parser-html.module.js"
+    },
+    "./parser-markdown": {
+      "default": "./dist/parser-markdown.js",
+      "import": "./dist/parser-markdown.module.js"
+    },
+    "./parser-postcss": "./dist/parser-angular.js",
+    "./parser-typescript": {
+      "default": "./dist/parser-typescript.js",
+      "import": "./dist/parser-typescript.module.js"
+    },
+    "./parser-yaml": {
+      "default": "./dist/parser-yaml.js",
+      "import": "./dist/parser-yaml.module.js"
+    },
+    "./third-party": "./dist/third-party.js"
+  },
   "dependencies": {
     "@angular/compiler": "10.0.11",
     "@babel/code-frame": "7.10.4",
