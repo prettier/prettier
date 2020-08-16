@@ -63,6 +63,7 @@ function textToDoc(
   comments.ensureAllCommentsPrinted(astComments);
 
   if (shouldStripTrailingHardline) {
+    // TODO: move this to `stripTrailingHardline` function in `/src/document/doc-utils.js`
     if (typeof doc === "string") {
       return doc.replace(/(?:\r?\n)*$/, "");
     }
