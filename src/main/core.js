@@ -6,7 +6,7 @@ const {
   printer: { printDocToString },
   debug: { printDocToDebug },
 } = require("../document");
-const privateUtil = require("../common/util");
+const { getAlignmentSize } = require("../common/util");
 const {
   guessEndOfLine,
   convertEndOfLineToChars,
@@ -27,39 +27,15 @@ const PLACEHOLDERS = {
   rangeEnd: "<<<PRETTIER_RANGE_END>>>",
 };
 
-function ensureAllCommentsPrinted(astComments) {
-  if (!astComments) {
-    return;
-  }
-
-  for (let i = 0; i < astComments.length; ++i) {
-    if (privateUtil.isNodeIgnoreComment(astComments[i])) {
-      // If there's a prettier-ignore, we're not printing that sub-tree so we
-      // don't know if the comments was printed or not.
-      return;
-    }
-  }
-
-  astComments.forEach((comment) => {
-    if (!comment.printed) {
-      throw new Error(
-        'Comment "' +
-          comment.value.trim() +
-          '" was not printed. Please report this error!'
-      );
-    }
-    delete comment.printed;
-  });
-}
-
 function attachComments(text, ast, opts) {
   const astComments = ast.comments;
   if (astComments) {
     delete ast.comments;
     comments.attach(astComments, ast, text, opts);
   }
-  ast.tokens = [];
-  opts.originalText = opts.parser === "yaml" ? text : text.trimEnd();
+  opts[Symbol.for("comments")] = astComments || [];
+  opts[Symbol.for("tokens")] = ast.tokens || [];
+  opts.originalText = text;
   return astComments;
 }
 
@@ -86,7 +62,7 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const result = printDocToString(doc, opts);
 
-  ensureAllCommentsPrinted(astComments);
+  comments.ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
@@ -187,10 +163,7 @@ function formatRange(text, opts) {
   );
   const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
-  const alignmentSize = privateUtil.getAlignmentSize(
-    indentString,
-    opts.tabWidth
-  );
+  const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
   const rangeResult = coreFormat(
     rangeString,
@@ -311,13 +284,13 @@ function format(text, opts) {
   if (hasUnicodeBOM) {
     text = text.slice(1);
     if (hasCursor) {
-      opts.cursorOffset++;
+      opts.cursorOffset--;
     }
     if (hasRangeStart) {
-      opts.rangeStart++;
+      opts.rangeStart--;
     }
     if (hasRangeEnd) {
-      opts.rangeEnd++;
+      opts.rangeEnd--;
     }
   }
 

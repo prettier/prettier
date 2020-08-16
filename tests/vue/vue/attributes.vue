@@ -32,5 +32,6 @@
   "
   @click="doSomething()"
   @click="doSomething;"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>

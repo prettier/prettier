@@ -12,7 +12,6 @@ const {
 } = require("../document").builders;
 
 const clean = require("./clean");
-const preprocess = require("./preprocess");
 const {
   getNextNode,
   getPreviousNode,
@@ -217,13 +216,17 @@ function print(path, options, print) {
         }
       }
 
-      let leadingSpace = "";
-      let trailingSpace = "";
-
-      // preserve a space inside of an attribute node where whitespace present,
-      // when next to mustache statement.
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
+        // TODO: format style and srcset attributes
+        // and cleanup concat that is not necessary
+        if (!isInAttributeOfName(path, "class")) {
+          return concat([n.chars]);
+        }
+
+        let leadingSpace = "";
+        let trailingSpace = "";
+
         if (isParentOfSomeType(path, ["ConcatStatement"])) {
           if (isPreviousNodeOfSomeType(path, ["MustacheStatement"])) {
             leadingSpace = " ";
@@ -232,30 +235,42 @@ function print(path, options, print) {
             trailingSpace = " ";
           }
         }
-      } else {
-        if (
-          trailingLineBreaksCount === 0 &&
-          isNextNodeOfSomeType(path, ["MustacheStatement"])
-        ) {
-          trailingSpace = " ";
-        }
 
-        if (
-          leadingLineBreaksCount === 0 &&
-          isPreviousNodeOfSomeType(path, ["MustacheStatement"])
-        ) {
-          leadingSpace = " ";
-        }
+        return concat([
+          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+          n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+          ...generateHardlines(
+            trailingLineBreaksCount,
+            maxLineBreaksToPreserve
+          ),
+        ]);
+      }
 
-        if (isFirstElement) {
-          leadingLineBreaksCount = 0;
-          leadingSpace = "";
-        }
+      let leadingSpace = "";
+      let trailingSpace = "";
 
-        if (isLastElement) {
-          trailingLineBreaksCount = 0;
-          trailingSpace = "";
-        }
+      if (
+        trailingLineBreaksCount === 0 &&
+        isNextNodeOfSomeType(path, ["MustacheStatement"])
+      ) {
+        trailingSpace = " ";
+      }
+
+      if (
+        leadingLineBreaksCount === 0 &&
+        isPreviousNodeOfSomeType(path, ["MustacheStatement"])
+      ) {
+        leadingSpace = " ";
+      }
+
+      if (isFirstElement) {
+        leadingLineBreaksCount = 0;
+        leadingSpace = "";
+      }
+
+      if (isLastElement) {
+        trailingLineBreaksCount = 0;
+        trailingSpace = "";
       }
 
       let text = n.chars;
@@ -503,6 +518,15 @@ function printInverse(path, print) {
 
 /* TextNode print helpers */
 
+function isInAttributeOfName(path, type) {
+  return (
+    (isParentOfSomeType(path, ["AttrNode"]) &&
+      path.getParentNode().name.toLowerCase() === type) ||
+    (isParentOfSomeType(path, ["ConcatStatement"]) &&
+      path.getParentNode(1).name.toLowerCase() === type)
+  );
+}
+
 function countNewLines(string) {
   /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
@@ -676,5 +700,4 @@ function doesNotHavePositionalParams(node) {
 module.exports = {
   print,
   massageAstNode: clean,
-  preprocess,
 };

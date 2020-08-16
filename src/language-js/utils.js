@@ -146,6 +146,7 @@ function isLiteral(node) {
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
     node.type === "BigIntLiteral" ||
+    node.type === "DecimalLiteral" ||
     node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "TemplateLiteral" ||
@@ -654,7 +655,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
-    prevSibling.expression.comments.find(
+    prevSibling.expression.comments.some(
       (comment) => comment.value.trim() === "prettier-ignore"
     )
   );
@@ -837,101 +838,6 @@ function needsHardlineAfterDanglingComment(node) {
   );
 }
 
-// If we have nested conditional expressions, we want to print them in JSX mode
-// if there's at least one JSXElement somewhere in the tree.
-//
-// A conditional expression chain like this should be printed in normal mode,
-// because there aren't JSXElements anywhere in it:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : "Unknown";
-//
-// But a conditional expression chain like this should be printed in JSX mode,
-// because there is a JSXElement in the last ConditionalExpression:
-//
-// isA ? "A" : isB ? "B" : isC ? "C" : <span className="warning">Unknown</span>;
-//
-// This type of ConditionalExpression chain is structured like this in the AST:
-//
-// ConditionalExpression {
-//   test: ...,
-//   consequent: ...,
-//   alternate: ConditionalExpression {
-//     test: ...,
-//     consequent: ...,
-//     alternate: ConditionalExpression {
-//       test: ...,
-//       consequent: ...,
-//       alternate: ...,
-//     }
-//   }
-// }
-//
-// We want to traverse over that shape and convert it into a flat structure so
-// that we can find if there's a JSXElement somewhere inside.
-function getConditionalChainContents(node) {
-  // Given this code:
-  //
-  // // Using a ConditionalExpression as the consequent is uncommon, but should
-  // // be handled.
-  // A ? B : C ? D : E ? F ? G : H : I
-  //
-  // which has this AST:
-  //
-  // ConditionalExpression {
-  //   test: Identifier(A),
-  //   consequent: Identifier(B),
-  //   alternate: ConditionalExpression {
-  //     test: Identifier(C),
-  //     consequent: Identifier(D),
-  //     alternate: ConditionalExpression {
-  //       test: Identifier(E),
-  //       consequent: ConditionalExpression {
-  //         test: Identifier(F),
-  //         consequent: Identifier(G),
-  //         alternate: Identifier(H),
-  //       },
-  //       alternate: Identifier(I),
-  //     }
-  //   }
-  // }
-  //
-  // we should return this Array:
-  //
-  // [
-  //   Identifier(A),
-  //   Identifier(B),
-  //   Identifier(C),
-  //   Identifier(D),
-  //   Identifier(E),
-  //   Identifier(F),
-  //   Identifier(G),
-  //   Identifier(H),
-  //   Identifier(I)
-  // ];
-  //
-  // This loses the information about whether each node was the test,
-  // consequent, or alternate, but we don't care about that here- we are only
-  // flattening this structure to find if there's any JSXElements inside.
-  const nonConditionalExpressions = [];
-
-  function recurse(node) {
-    if (node.type === "ConditionalExpression") {
-      recurse(node.test);
-      recurse(node.consequent);
-      recurse(node.alternate);
-    } else {
-      nonConditionalExpressions.push(node);
-    }
-  }
-  recurse(node);
-
-  return nonConditionalExpressions;
-}
-
-function conditionalExpressionChainContainsJSX(node) {
-  return Boolean(getConditionalChainContents(node).find(isJSXNode));
-}
-
 // Logic to check for args with multiple anonymous functions. For instance,
 // the following call should be split on multiple lines for readability:
 // source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
@@ -999,6 +905,7 @@ function isSimpleCallArgument(node, depth) {
   if (
     node.type === "Literal" ||
     node.type === "BigIntLiteral" ||
+    node.type === "DecimalLiteral" ||
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
@@ -1073,30 +980,185 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
-function shouldPrintComma(options, level) {
-  level = level || "es5";
+/**
+ * @param {any} options
+ * @param {("es5" | "all")} [level]
+ * @returns {boolean}
+ */
+function shouldPrintComma(options, level = "es5") {
+  return (
+    (options.trailingComma === "es5" && level === "es5") ||
+    (options.trailingComma === "all" && (level === "all" || level === "es5"))
+  );
+}
 
-  switch (options.trailingComma) {
-    case "all":
-      if (level === "all") {
-        return true;
+// Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
+// holds) `function`, `class`, or `do {}`. Will be overzealous if there's
+// already necessary grouping parentheses.
+function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
+  node = getLeftMost(node);
+  switch (node.type) {
+    case "FunctionExpression":
+    case "ClassExpression":
+    case "DoExpression":
+      return forbidFunctionClassAndDoExpr;
+    case "ObjectExpression":
+      return true;
+    case "MemberExpression":
+    case "OptionalMemberExpression":
+      return startsWithNoLookaheadToken(
+        node.object,
+        forbidFunctionClassAndDoExpr
+      );
+    case "TaggedTemplateExpression":
+      if (node.tag.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
       }
-    // fallthrough
-    case "es5":
-      if (level === "es5") {
-        return true;
+      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
+    case "CallExpression":
+    case "OptionalCallExpression":
+      if (node.callee.type === "FunctionExpression") {
+        // IIFEs are always already parenthesized
+        return false;
       }
-    // fallthrough
-    case "none":
+      return startsWithNoLookaheadToken(
+        node.callee,
+        forbidFunctionClassAndDoExpr
+      );
+    case "ConditionalExpression":
+      return startsWithNoLookaheadToken(
+        node.test,
+        forbidFunctionClassAndDoExpr
+      );
+    case "UpdateExpression":
+      return (
+        !node.prefix &&
+        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
+      );
+    case "BindExpression":
+      return (
+        node.object &&
+        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
+      );
+    case "SequenceExpression":
+      return startsWithNoLookaheadToken(
+        node.expressions[0],
+        forbidFunctionClassAndDoExpr
+      );
+    case "TSAsExpression":
+      return startsWithNoLookaheadToken(
+        node.expression,
+        forbidFunctionClassAndDoExpr
+      );
     default:
       return false;
   }
 }
 
+const equalityOperators = {
+  "==": true,
+  "!=": true,
+  "===": true,
+  "!==": true,
+};
+const multiplicativeOperators = {
+  "*": true,
+  "/": true,
+  "%": true,
+};
+const bitshiftOperators = {
+  ">>": true,
+  ">>>": true,
+  "<<": true,
+};
+
+function shouldFlatten(parentOp, nodeOp) {
+  if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
+    return false;
+  }
+
+  // ** is right-associative
+  // x ** y ** z --> x ** (y ** z)
+  if (parentOp === "**") {
+    return false;
+  }
+
+  // x == y == z --> (x == y) == z
+  if (equalityOperators[parentOp] && equalityOperators[nodeOp]) {
+    return false;
+  }
+
+  // x * y % z --> (x * y) % z
+  if (
+    (nodeOp === "%" && multiplicativeOperators[parentOp]) ||
+    (parentOp === "%" && multiplicativeOperators[nodeOp])
+  ) {
+    return false;
+  }
+
+  // x * y / z --> (x * y) / z
+  // x / y * z --> (x / y) * z
+  if (
+    nodeOp !== parentOp &&
+    multiplicativeOperators[nodeOp] &&
+    multiplicativeOperators[parentOp]
+  ) {
+    return false;
+  }
+
+  // x << y << z --> (x << y) << z
+  if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
+    return false;
+  }
+
+  return true;
+}
+
+const PRECEDENCE = {};
+[
+  ["|>"],
+  ["??"],
+  ["||"],
+  ["&&"],
+  ["|"],
+  ["^"],
+  ["&"],
+  ["==", "===", "!=", "!=="],
+  ["<", ">", "<=", ">=", "in", "instanceof"],
+  [">>", "<<", ">>>"],
+  ["+", "-"],
+  ["*", "/", "%"],
+  ["**"],
+].forEach((tier, i) => {
+  tier.forEach((op) => {
+    PRECEDENCE[op] = i;
+  });
+});
+
+function getPrecedence(op) {
+  return PRECEDENCE[op];
+}
+
+function getLeftMost(node) {
+  while (node.left) {
+    node = node.left;
+  }
+  return node;
+}
+
+function isBitwiseOperator(operator) {
+  return (
+    !!bitshiftOperators[operator] ||
+    operator === "|" ||
+    operator === "^" ||
+    operator === "&"
+  );
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -1153,4 +1215,8 @@ module.exports = {
   rawText,
   returnArgumentHasLeadingComment,
   shouldPrintComma,
+  isBitwiseOperator,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
+  getPrecedence,
 };

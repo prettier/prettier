@@ -3,12 +3,12 @@
 const flat = require("lodash/flatten");
 
 const comments = require("../../main/comments");
-const { getLast } = require("../../common/util");
 const {
+  getLast,
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util-shared");
+} = require("../../common/util");
 const pathNeedsParens = require("../needs-parens");
 const {
   hasLeadingComment,

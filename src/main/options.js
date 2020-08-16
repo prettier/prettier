@@ -178,7 +178,7 @@ function inferParser(filepath, plugins) {
           filename.endsWith(extension)
         )) ||
       (language.filenames &&
-        language.filenames.find((name) => name.toLowerCase() === filename))
+        language.filenames.some((name) => name.toLowerCase() === filename))
   );
 
   if (!language && !filename.includes(".")) {

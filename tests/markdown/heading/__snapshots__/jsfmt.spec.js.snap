@@ -19,6 +19,29 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`hash-sign.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+# Programming languages
+
+## C#
+
+## JavaScript
+
+=====================================output=====================================
+# Programming languages
+
+## C#
+
+## JavaScript
+
+================================================================================
+`;
+
 exports[`long-heading.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]

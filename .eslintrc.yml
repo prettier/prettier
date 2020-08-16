@@ -4,13 +4,16 @@ env:
   node: true
 extends:
   - eslint:recommended
-  - plugin:prettier/recommended
+  - prettier
+  - prettier/unicorn
 plugins:
   - import
   - unicorn
+  - prettier-internal-rules
 settings:
   import/internal-regex: ^linguist-languages/
 rules:
+  prettier-internal-rules/require-json-extensions: error
   curly: error
   dot-notation: error
   eqeqeq:
@@ -34,7 +37,9 @@ rules:
     - error
     - never
   prefer-arrow-callback: error
-  prefer-const: error
+  prefer-const:
+    - error
+    - destructuring: all
   prefer-destructuring:
     - error
     - VariableDeclarator:
@@ -75,6 +80,12 @@ overrides:
       - "{tests,tests_config,tests_integration}/**/*.js"
     env:
       jest: true
+    plugins:
+      - jest
+    rules:
+      jest/valid-expect:
+        - error
+        - alwaysAwait: true
   - files:
       - tests/**/*.js
     rules:

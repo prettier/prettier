@@ -1,12 +1,10 @@
 "use strict";
 
 const assert = require("assert");
-const flat = require("lodash/flatten");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
-  shouldFlatten,
   getNextNonSpaceNonCommentCharacter,
   hasNewline,
   hasNewlineInRange,
@@ -16,7 +14,6 @@ const {
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
-  startsWithNoLookaheadToken,
   getIndentSize,
   getPreferredQuote,
 } = require("../common/util");
@@ -40,8 +37,6 @@ const {
     ifBreak,
     lineSuffixBoundary,
     addAlignmentToDoc,
-    dedent,
-    breakParent,
   },
   utils: { willBreak, isLineNext, isEmpty, removeLines, normalizeParts },
   printer: { printDocToString },
@@ -59,7 +54,6 @@ const preprocess = require("./preprocess");
 const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -109,6 +103,8 @@ const {
   rawText,
   returnArgumentHasLeadingComment,
   shouldPrintComma,
+  shouldFlatten,
+  startsWithNoLookaheadToken,
 } = require("./utils");
 
 const printMemberChain = require("./print/member-chain");
@@ -120,6 +116,7 @@ const {
   printBindExpressionCallee,
 } = require("./print/misc");
 const { printModuleSource, printModuleSpecifiers } = require("./print/module");
+const printTernaryOperator = require("./print/ternary");
 
 const needsQuoteProps = new WeakMap();
 
@@ -240,197 +237,6 @@ function printDecorators(path, options, print) {
       hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
     ])
   );
-}
-
-/**
- * The following is the shared logic for
- * ternary operators, namely ConditionalExpression
- * and TSConditionalType
- * @typedef {Object} OperatorOptions
- * @property {() => Array<string | Doc>} beforeParts - Parts to print before the `?`.
- * @property {(breakClosingParen: boolean) => Array<string | Doc>} afterParts - Parts to print after the conditional expression.
- * @property {boolean} shouldCheckJsx - Whether to check for and print in JSX mode.
- * @property {string} conditionalNodeType - The type of the conditional expression node, ie "ConditionalExpression" or "TSConditionalType".
- * @property {string} consequentNodePropertyName - The property at which the consequent node can be found on the main node, eg "consequent".
- * @property {string} alternateNodePropertyName - The property at which the alternate node can be found on the main node, eg "alternate".
- * @property {string[]} testNodePropertyNames - The properties at which the test nodes can be found on the main node, eg "test".
- * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
- * @param {Options} options - Prettier options
- * @param {Function} print - Print function to call recursively
- * @param {OperatorOptions} operatorOptions
- * @returns Doc
- */
-function printTernaryOperator(path, options, print, operatorOptions) {
-  const node = path.getValue();
-  const consequentNode = node[operatorOptions.consequentNodePropertyName];
-  const alternateNode = node[operatorOptions.alternateNodePropertyName];
-  const parts = [];
-
-  // We print a ConditionalExpression in either "JSX mode" or "normal mode".
-  // See tests/jsx/conditional-expression.js for more info.
-  let jsxMode = false;
-  const parent = path.getParentNode();
-  const isParentTest =
-    parent.type === operatorOptions.conditionalNodeType &&
-    operatorOptions.testNodePropertyNames.some((prop) => parent[prop] === node);
-  let forceNoIndent =
-    parent.type === operatorOptions.conditionalNodeType && !isParentTest;
-
-  // Find the outermost non-ConditionalExpression parent, and the outermost
-  // ConditionalExpression parent. We'll use these to determine if we should
-  // print in JSX mode.
-  let currentParent;
-  let previousParent;
-  let i = 0;
-  do {
-    previousParent = currentParent || node;
-    currentParent = path.getParentNode(i);
-    i++;
-  } while (
-    currentParent &&
-    currentParent.type === operatorOptions.conditionalNodeType &&
-    operatorOptions.testNodePropertyNames.every(
-      (prop) => currentParent[prop] !== previousParent
-    )
-  );
-  const firstNonConditionalParent = currentParent || parent;
-  const lastConditionalParent = previousParent;
-
-  if (
-    operatorOptions.shouldCheckJsx &&
-    (isJSXNode(node[operatorOptions.testNodePropertyNames[0]]) ||
-      isJSXNode(consequentNode) ||
-      isJSXNode(alternateNode) ||
-      conditionalExpressionChainContainsJSX(lastConditionalParent))
-  ) {
-    jsxMode = true;
-    forceNoIndent = true;
-
-    // Even though they don't need parens, we wrap (almost) everything in
-    // parens when using ?: within JSX, because the parens are analogous to
-    // curly braces in an if statement.
-    const wrap = (doc) =>
-      concat([
-        ifBreak("(", ""),
-        indent(concat([softline, doc])),
-        softline,
-        ifBreak(")", ""),
-      ]);
-
-    // The only things we don't wrap are:
-    // * Nested conditional expressions in alternates
-    // * null
-    // * undefined
-    const isNil = (node) =>
-      node.type === "NullLiteral" ||
-      (node.type === "Literal" && node.value === null) ||
-      (node.type === "Identifier" && node.name === "undefined");
-
-    parts.push(
-      " ? ",
-      isNil(consequentNode)
-        ? path.call(print, operatorOptions.consequentNodePropertyName)
-        : wrap(path.call(print, operatorOptions.consequentNodePropertyName)),
-      " : ",
-      alternateNode.type === operatorOptions.conditionalNodeType ||
-        isNil(alternateNode)
-        ? path.call(print, operatorOptions.alternateNodePropertyName)
-        : wrap(path.call(print, operatorOptions.alternateNodePropertyName))
-    );
-  } else {
-    // normal mode
-    const part = concat([
-      line,
-      "? ",
-      consequentNode.type === operatorOptions.conditionalNodeType
-        ? ifBreak("", "(")
-        : "",
-      align(2, path.call(print, operatorOptions.consequentNodePropertyName)),
-      consequentNode.type === operatorOptions.conditionalNodeType
-        ? ifBreak("", ")")
-        : "",
-      line,
-      ": ",
-      alternateNode.type === operatorOptions.conditionalNodeType
-        ? path.call(print, operatorOptions.alternateNodePropertyName)
-        : align(2, path.call(print, operatorOptions.alternateNodePropertyName)),
-    ]);
-    parts.push(
-      parent.type !== operatorOptions.conditionalNodeType ||
-        parent[operatorOptions.alternateNodePropertyName] === node ||
-        isParentTest
-        ? part
-        : options.useTabs
-        ? dedent(indent(part))
-        : align(Math.max(0, options.tabWidth - 2), part)
-    );
-  }
-
-  // We want a whole chain of ConditionalExpressions to all
-  // break if any of them break. That means we should only group around the
-  // outer-most ConditionalExpression.
-  const comments = flat([
-    ...operatorOptions.testNodePropertyNames.map(
-      (propertyName) => node[propertyName].comments
-    ),
-    consequentNode.comments,
-    alternateNode.comments,
-  ]).filter(Boolean);
-  const shouldBreak = comments.some(
-    (comment) =>
-      handleComments.isBlockComment(comment) &&
-      hasNewlineInRange(
-        options.originalText,
-        options.locStart(comment),
-        options.locEnd(comment)
-      )
-  );
-  const maybeGroup = (doc) =>
-    parent === firstNonConditionalParent
-      ? group(doc, { shouldBreak })
-      : shouldBreak
-      ? concat([doc, breakParent])
-      : doc;
-
-  // Break the closing paren to keep the chain right after it:
-  // (a
-  //   ? b
-  //   : c
-  // ).call()
-  const breakClosingParen =
-    !jsxMode &&
-    (parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression" ||
-      (parent.type === "NGPipeExpression" && parent.left === node)) &&
-    !parent.computed;
-
-  const result = maybeGroup(
-    concat(
-      [].concat(
-        ((testDoc) =>
-          /**
-           *     a
-           *       ? b
-           *       : multiline
-           *         test
-           *         node
-           *       ^^ align(2)
-           *       ? d
-           *       : e
-           */
-          parent.type === operatorOptions.conditionalNodeType &&
-          parent[operatorOptions.alternateNodePropertyName] === node
-            ? align(2, testDoc)
-            : testDoc)(concat(operatorOptions.beforeParts())),
-        forceNoIndent ? concat(parts) : indent(concat(parts)),
-        operatorOptions.afterParts(breakClosingParen)
-      )
-    )
-  );
-
-  return isParentTest
-    ? group(concat([indent(concat([softline, result])), softline]))
-    : result;
 }
 
 function printPathNoParens(path, options, print, args) {
@@ -1075,7 +881,7 @@ function printPathNoParens(path, options, print, args) {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
 
-      const hasContent = n.body.find((node) => node.type !== "EmptyStatement");
+      const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
       const hasDirectives = n.directives && n.directives.length > 0;
 
       const parent = path.getParentNode();
@@ -1618,6 +1424,8 @@ function printPathNoParens(path, options, print, args) {
       return printRegex(n);
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
+    case "DecimalLiteral":
+      return printNumber(n.value) + "m";
     case "BigIntLiteral":
       // babel: n.extra.raw, flow: n.bigint
       return (n.bigint || n.extra.raw).toLowerCase();
@@ -2113,7 +1921,7 @@ function printPathNoParens(path, options, print, args) {
           (p) => {
             const printed = concat(["...", print(p)]);
             const n = p.getValue();
-            if (!n.comments || !n.comments.length) {
+            if (!n.comments || !n.comments.length || !willPrintOwnComments(p)) {
               return printed;
             }
             return concat([
@@ -2508,6 +2316,13 @@ function printPathNoParens(path, options, print, args) {
 
       /* istanbul ignore next */
       return "";
+    case "TSNamedTupleMember":
+      return concat([
+        path.call(print, "label"),
+        n.optional ? "?" : "",
+        ": ",
+        path.call(print, "elementType"),
+      ]);
     case "TSTupleType":
     case "TupleTypeAnnotation": {
       const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
@@ -3044,9 +2859,9 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
       const value = path.getValue();
-      const commentStart = value.range
-        ? options.originalText.slice(0, value.range[0]).lastIndexOf("/*")
-        : -1;
+      const commentStart = options.originalText
+        .slice(0, options.locStart(value))
+        .lastIndexOf("/*");
       // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
       // because we know for sure that this is a type definition.
       const commentSyntax =
@@ -4258,7 +4073,8 @@ function printExportDeclaration(path, options, print) {
       decl.declaration.type !== "TSInterfaceDeclaration" &&
       decl.declaration.type !== "DeclareClass" &&
       decl.declaration.type !== "DeclareFunction" &&
-      decl.declaration.type !== "TSDeclareFunction"
+      decl.declaration.type !== "TSDeclareFunction" &&
+      decl.declaration.type !== "EnumDeclaration"
     ) {
       parts.push(semi);
     }

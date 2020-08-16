@@ -11,15 +11,13 @@ function clean(ast, newObj, parent) {
     "extra",
     "start",
     "end",
+    "loc",
     "flags",
     "errors",
+    "tokens",
   ].forEach((name) => {
     delete newObj[name];
   });
-
-  if (ast.loc && ast.loc.source === null) {
-    delete newObj.loc.source;
-  }
 
   if (ast.type === "Program") {
     delete newObj.sourceType;
@@ -27,6 +25,10 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();
+  }
+
+  if (ast.type === "DecimalLiteral") {
+    newObj.value = Number(newObj.value);
   }
 
   // We remove extra `;` and add them when needed

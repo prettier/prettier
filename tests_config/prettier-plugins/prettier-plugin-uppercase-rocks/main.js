@@ -7,6 +7,7 @@ module.exports = {
     {
       name,
       parsers: [name],
+      extensions: [`.${name}`],
     },
   ],
   parsers: {
