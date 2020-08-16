@@ -12,6 +12,7 @@ const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
 const flat = require("lodash/flatten");
+const partition = require("lodash/partition");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 // eslint-disable-next-line no-restricted-modules
@@ -116,8 +117,9 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
-    resolveConfig: true,
+    resolveConfig: context.argv.config !== false,
   };
+
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
@@ -816,18 +818,17 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
 }
 
 function createMinimistOptions(detailedOptions) {
-  return {
-    // we use vnopts' AliasSchema to handle aliases for better error messages
-    alias: {},
-    boolean: detailedOptions
-      .filter((option) => option.type === "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    string: detailedOptions
-      .filter((option) => option.type !== "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    default: detailedOptions
+  const [boolean, string] = partition(
+    detailedOptions,
+    ({ type }) => type === "boolean"
+  ).map((detailedOptions) =>
+    flat(
+      detailedOptions.map(({ name, alias }) => (alias ? [name, alias] : [name]))
+    )
+  );
+
+  const defaults = fromPairs(
+    detailedOptions
       .filter(
         (option) =>
           !option.deprecated &&
@@ -836,10 +837,15 @@ function createMinimistOptions(detailedOptions) {
             option.name === "plugin-search-dir") &&
           option.default !== undefined
       )
-      .reduce(
-        (current, option) => ({ [option.name]: option.default, ...current }),
-        {}
-      ),
+      .map((option) => [option.name, option.default])
+  );
+
+  return {
+    // we use vnopts' AliasSchema to handle aliases for better error messages
+    alias: {},
+    boolean,
+    string,
+    default: defaults,
   };
 }
 

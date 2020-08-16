@@ -42,6 +42,7 @@ const {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  isPreLikeNode,
 } = require("./utils");
 const preprocess = require("./preprocess");
 const { insertPragma } = require("./pragma");
@@ -652,102 +653,116 @@ function printChildren(path, options, print) {
 }
 
 function getNodeContent(node, options) {
-  return options.originalText.slice(
-    node.startSourceSpan.end.offset +
-      (node.firstChild &&
-      needsToBorrowParentOpeningTagEndMarker(node.firstChild)
-        ? -printOpeningTagEndMarker(node).length
-        : 0),
-    node.endSourceSpan.start.offset +
-      (node.lastChild &&
-      needsToBorrowParentClosingTagStartMarker(node.lastChild)
-        ? printClosingTagStartMarker(node, options).length
-        : needsToBorrowLastChildClosingTagEndMarker(node)
-        ? -printClosingTagEndMarker(node.lastChild, options).length
-        : 0)
-  );
+  let start = node.startSourceSpan.end.offset;
+  if (
+    node.firstChild &&
+    needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+  ) {
+    start -= printOpeningTagEndMarker(node).length;
+  }
+
+  let end = node.endSourceSpan.start.offset;
+  if (
+    node.lastChild &&
+    needsToBorrowParentClosingTagStartMarker(node.lastChild)
+  ) {
+    end += printClosingTagStartMarker(node, options).length;
+  } else if (needsToBorrowLastChildClosingTagEndMarker(node)) {
+    end -= printClosingTagEndMarker(node.lastChild, options).length;
+  }
+
+  return options.originalText.slice(start, end);
 }
 
-function printOpeningTag(path, options, print) {
+function printAttributes(path, options, print) {
   const node = path.getValue();
+
+  if (!node.attrs || node.attrs.length === 0) {
+    return node.isSelfClosing
+      ? /**
+         *     <br />
+         *        ^
+         */
+        " "
+      : "";
+  }
+
+  const ignoreAttributeData =
+    node.prev &&
+    node.prev.type === "comment" &&
+    getPrettierIgnoreAttributeCommentData(node.prev.value);
+
+  const hasPrettierIgnoreAttribute =
+    typeof ignoreAttributeData === "boolean"
+      ? () => ignoreAttributeData
+      : Array.isArray(ignoreAttributeData)
+      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
+      : () => false;
+
+  const printedAttributes = path.map((attributePath) => {
+    const attribute = attributePath.getValue();
+    return hasPrettierIgnoreAttribute(attribute)
+      ? concat(
+          replaceEndOfLineWith(
+            options.originalText.slice(
+              options.locStart(attribute),
+              options.locEnd(attribute)
+            ),
+            literalline
+          )
+        )
+      : print(attributePath);
+  }, "attrs");
+
   const forceNotToBreakAttrContent =
     node.type === "element" &&
     node.fullName === "script" &&
     node.attrs.length === 1 &&
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
+
+  const parts = [
+    indent(
+      concat([
+        forceNotToBreakAttrContent ? " " : line,
+        join(line, printedAttributes),
+      ])
+    ),
+  ];
+
+  if (
+    /**
+     *     123<a
+     *       attr
+     *           ~
+     *       >456
+     */
+    (node.firstChild &&
+      needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
+    /**
+     *     <span
+     *       >123<meta
+     *                ~
+     *     /></span>
+     */
+    (node.isSelfClosing &&
+      needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
+    forceNotToBreakAttrContent
+  ) {
+    parts.push(node.isSelfClosing ? " " : "");
+  } else {
+    parts.push(node.isSelfClosing ? line : softline);
+  }
+
+  return concat(parts);
+}
+
+function printOpeningTag(path, options, print) {
+  const node = path.getValue();
+
   return concat([
     printOpeningTagStart(node, options),
-    !node.attrs || node.attrs.length === 0
-      ? node.isSelfClosing
-        ? /**
-           *     <br />
-           *        ^
-           */
-          " "
-        : ""
-      : concat([
-          indent(
-            concat([
-              forceNotToBreakAttrContent ? " " : line,
-              join(
-                line,
-                ((ignoreAttributeData) => {
-                  const hasPrettierIgnoreAttribute =
-                    typeof ignoreAttributeData === "boolean"
-                      ? () => ignoreAttributeData
-                      : Array.isArray(ignoreAttributeData)
-                      ? (attr) => ignoreAttributeData.includes(attr.rawName)
-                      : () => false;
-                  return path.map((attrPath) => {
-                    const attr = attrPath.getValue();
-                    return hasPrettierIgnoreAttribute(attr)
-                      ? concat(
-                          replaceEndOfLineWith(
-                            options.originalText.slice(
-                              options.locStart(attr),
-                              options.locEnd(attr)
-                            ),
-                            literalline
-                          )
-                        )
-                      : print(attrPath);
-                  }, "attrs");
-                })(
-                  node.prev &&
-                    node.prev.type === "comment" &&
-                    getPrettierIgnoreAttributeCommentData(node.prev.value)
-                )
-              ),
-            ])
-          ),
-          /**
-           *     123<a
-           *       attr
-           *           ~
-           *       >456
-           */
-          (node.firstChild &&
-            needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
-          /**
-           *     <span
-           *       >123<meta
-           *                ~
-           *     /></span>
-           */
-          (node.isSelfClosing &&
-            needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? node.isSelfClosing
-              ? " "
-              : ""
-            : node.isSelfClosing
-            ? forceNotToBreakAttrContent
-              ? " "
-              : line
-            : forceNotToBreakAttrContent
-            ? ""
-            : softline,
-        ]),
+    printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
   ]);
 }
@@ -857,7 +872,8 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild &&
     node.lastChild.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
-    !isTextLikeNode(getLastDescendant(node.lastChild))
+    !isTextLikeNode(getLastDescendant(node.lastChild)) &&
+    !isPreLikeNode(node)
   );
 }
 
@@ -1091,7 +1107,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     /**
      *     v-if="jsExpression"
      */
-    const jsExpressionBindingPatterns = ["^v-"];
+    const jsExpressionBindingPatterns = ["^v-", "^#"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();

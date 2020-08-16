@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default-escaped.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// export asyn\\u{63} from "async";
+export n\\u{63} from "async";
+=====================================output=====================================
+// export asyn\\u{63} from "async";
+export nc from "async";
+
+================================================================================
+`;

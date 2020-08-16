@@ -6,6 +6,7 @@ function createPlugin({ name, print, finalNewLine = true }) {
       {
         name,
         parsers: [name],
+        extensions: [`.${name}`],
       },
     ],
     parsers: {

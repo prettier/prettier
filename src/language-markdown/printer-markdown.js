@@ -436,7 +436,9 @@ function genericPrint(path, options, print) {
     // MDX
     case "importExport":
     case "jsx":
-      return node.value; // fallback to the original text if multiparser failed
+      // fallback to the original text if multiparser failed
+      // or `embeddedLanguageFormatting: "off"`
+      return concat([node.value, hardline]);
     case "math":
       return concat([
         "$$",

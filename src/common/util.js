@@ -5,15 +5,9 @@ const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
 const support = require("../main/support");
 
-// eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
 
-function getPenultimate(arr) {
-  if (arr.length > 1) {
-    return arr[arr.length - 2];
-  }
-  return null;
-}
+const getPenultimate = (arr) => arr[arr.length - 2];
 
 /**
  * @typedef {{backwards?: boolean}} SkipOptions

@@ -1,4 +1,3 @@
-/* eslint-env serviceworker */
 /* global toolbox parsersLocation */
 
 "use strict";

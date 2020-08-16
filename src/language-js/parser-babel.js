@@ -24,10 +24,8 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "exportDefaultFrom",
       "functionBind",
       "functionSent",
-      "numericSeparator",
       "classPrivateProperties",
       "throwExpressions",
-      "logicalAssignment",
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
@@ -35,9 +33,11 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "privateIn",
       ["moduleAttributes", { version: "may-2020" }],
       ["recordAndTuple", { syntaxType: "hash" }],
+      "decimal",
       ...extraPlugins,
     ],
     tokens: true,
+    ranges: true,
   };
 }
 

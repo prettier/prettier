@@ -35,7 +35,7 @@ function attachComments(text, ast, opts) {
   }
   opts[Symbol.for("comments")] = astComments || [];
   opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = opts.parser === "yaml" ? text : text.trimEnd();
+  opts.originalText = text;
   return astComments;
 }
 
@@ -284,13 +284,13 @@ function format(text, opts) {
   if (hasUnicodeBOM) {
     text = text.slice(1);
     if (hasCursor) {
-      opts.cursorOffset++;
+      opts.cursorOffset--;
     }
     if (hasRangeStart) {
-      opts.rangeStart++;
+      opts.rangeStart--;
     }
     if (hasRangeEnd) {
-      opts.rangeEnd++;
+      opts.rangeEnd--;
     }
   }
 

@@ -193,10 +193,9 @@ function hasGitDiffFriendlyOrderedList(node, options) {
 // workaround for https://github.com/remarkjs/remark/issues/351
 // leading and trailing newlines are stripped by remark
 function getFencedCodeBlockValue(node, originalText) {
-  const text = originalText.slice(
-    node.position.start.offset,
-    node.position.end.offset
-  );
+  const text = originalText
+    .trimEnd()
+    .slice(node.position.start.offset, node.position.end.offset);
 
   const leadingSpaceCount = text.match(/^\s*/)[0].length;
   const replaceRegex = new RegExp(`^\\s{0,${leadingSpaceCount}}`);

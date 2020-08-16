@@ -6,13 +6,16 @@ const estreeJsonPrinter = require("./printer-estree-json");
 const options = require("./options");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/JavaScript"), (data) => ({
-    since: "0.0.0",
-    parsers: ["babel", "flow"],
-    vscodeLanguageIds: ["javascript", "mongo"],
-    interpreters: data.interpreters.concat(["nodejs"]),
-  })),
-  createLanguage(require("linguist-languages/data/JavaScript"), () => ({
+  createLanguage(
+    require("linguist-languages/data/JavaScript.json"),
+    (data) => ({
+      since: "0.0.0",
+      parsers: ["babel", "flow"],
+      vscodeLanguageIds: ["javascript", "mongo"],
+      interpreters: data.interpreters.concat(["nodejs"]),
+    })
+  ),
+  createLanguage(require("linguist-languages/data/JavaScript.json"), () => ({
     name: "Flow",
     since: "0.0.0",
     parsers: ["babel", "flow"],
@@ -21,22 +24,22 @@ const languages = [
     filenames: [],
     extensions: [".js.flow"],
   })),
-  createLanguage(require("linguist-languages/data/JSX"), () => ({
+  createLanguage(require("linguist-languages/data/JSX.json"), () => ({
     since: "0.0.0",
     parsers: ["babel", "flow"],
     vscodeLanguageIds: ["javascriptreact"],
   })),
-  createLanguage(require("linguist-languages/data/TypeScript"), () => ({
+  createLanguage(require("linguist-languages/data/TypeScript.json"), () => ({
     since: "1.4.0",
     parsers: ["typescript", "babel-ts"],
     vscodeLanguageIds: ["typescript"],
   })),
-  createLanguage(require("linguist-languages/data/TSX"), () => ({
+  createLanguage(require("linguist-languages/data/TSX.json"), () => ({
     since: "1.4.0",
     parsers: ["typescript", "babel-ts"],
     vscodeLanguageIds: ["typescriptreact"],
   })),
-  createLanguage(require("linguist-languages/data/JSON"), () => ({
+  createLanguage(require("linguist-languages/data/JSON.json"), () => ({
     name: "JSON.stringify",
     since: "1.13.0",
     parsers: ["json-stringify"],
@@ -44,14 +47,14 @@ const languages = [
     extensions: [], // .json file defaults to json instead of json-stringify
     filenames: ["package.json", "package-lock.json", "composer.json"],
   })),
-  createLanguage(require("linguist-languages/data/JSON"), (data) => ({
+  createLanguage(require("linguist-languages/data/JSON.json"), (data) => ({
     since: "1.5.0",
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
     filenames: data.filenames.concat([".prettierrc"]),
   })),
   createLanguage(
-    require("linguist-languages/data/JSON with Comments"),
+    require("linguist-languages/data/JSON with Comments.json"),
     (data) => ({
       since: "1.5.0",
       parsers: ["json"],
@@ -59,7 +62,7 @@ const languages = [
       filenames: data.filenames.concat([".eslintrc"]),
     })
   ),
-  createLanguage(require("linguist-languages/data/JSON5"), () => ({
+  createLanguage(require("linguist-languages/data/JSON5.json"), () => ({
     since: "1.13.0",
     parsers: ["json5"],
     vscodeLanguageIds: ["json5"],

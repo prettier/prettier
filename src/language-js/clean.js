@@ -27,6 +27,10 @@ function clean(ast, newObj, parent) {
     newObj.value = newObj.value.toLowerCase();
   }
 
+  if (ast.type === "DecimalLiteral") {
+    newObj.value = Number(newObj.value);
+  }
+
   // We remove extra `;` and add them when needed
   if (ast.type === "EmptyStatement") {
     return null;
