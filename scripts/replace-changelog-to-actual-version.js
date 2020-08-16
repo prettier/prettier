@@ -35,7 +35,7 @@ const masterVer = semver.inc(stableVer, release);
         trimed.startsWith("// ") ||
         trimed.startsWith("# ") ||
         (trimed.startsWith("<!-- ") && trimed.endsWith(" -->")) ||
-        (trimed.startsWith("/* ") && trimed.endsWith(" /*"))  ||
+        (trimed.startsWith("/* ") && trimed.endsWith(" /*")) ||
         (trimed.startsWith("{{!-- ") && trimed.endsWith(" --}}"));
 
       if (!isComments) {
@@ -51,7 +51,7 @@ const masterVer = semver.inc(stableVer, release);
           .toLowerCase()
           .replace("prettier master", `Prettier ${formatVer(masterVer)}`);
       }
-      return line
+      return line;
     })
     .join("\n");
 
