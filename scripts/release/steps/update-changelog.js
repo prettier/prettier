@@ -32,12 +32,15 @@ function writeChangelog({ version, previousVersion, releaseNotes }) {
 
 function replaceVersionInBlogPost({ blogPost, version, previousVersion }) {
   const blogPostData = fs.readFileSync(blogPost, "utf-8");
+  function formatVer(ver) {
+    return `${semver.major(ver)}.${semver.minor(ver)}`;
+  }
   const newBlogPostData = blogPostData
     .split("\n")
     .map((line) => {
       return line
-        .replace(/prettier stable/gi, `Prettier ${previousVersion}`)
-        .replace(/prettier master/gi, `Prettier ${version}`);
+        .replace(/prettier stable/gi, `Prettier ${formatVer(previousVersion)}`)
+        .replace(/prettier master/gi, `Prettier ${formatVer(version)}`);
     })
     .join("\n");
   fs.writeFileSync(blogPost, newBlogPostData);
