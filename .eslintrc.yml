@@ -77,7 +77,7 @@ overrides:
     parserOptions:
       sourceType: module
   - files:
-      - "*.module.js"
+      - "*.mjs"
     parserOptions:
       sourceType: module
   - files:

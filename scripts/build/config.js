@@ -68,7 +68,7 @@ const parsers = [
   },
   {
     input: "dist/parser-postcss.js",
-    output: "parser-postcss.module.js",
+    output: "parser-postcss.mjs",
     format: "esm",
   },
   {
@@ -176,7 +176,7 @@ module.exports = coreBundles
         {
           ...baseBundle,
           format: "esm",
-          output: baseBundle.output.replace(".js", ".module.js"),
+          output: baseBundle.output.replace(".js", ".mjs"),
         },
       ];
     }
