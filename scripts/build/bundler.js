@@ -185,7 +185,13 @@ function getRollupConfig(bundle) {
     ]),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
-    bundle.minify !== false && bundle.target === "universal" && terser(),
+    bundle.minify !== false &&
+      bundle.target === "universal" &&
+      terser({
+        output: {
+          ascii_only: true,
+        },
+      }),
   ].filter(Boolean);
 
   if (bundle.target === "node") {

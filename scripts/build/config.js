@@ -67,6 +67,11 @@ const parsers = [
     },
   },
   {
+    input: "dist/parser-postcss.js",
+    output: "parser-postcss.module.js",
+    format: "esm",
+  },
+  {
     input: "src/language-graphql/parser-graphql.js",
   },
   {
@@ -158,7 +163,11 @@ module.exports = coreBundles
       ...bundle,
       output: getFileOutput(bundle),
     };
-    if (baseBundle.target === "universal" && baseBundle.bundler !== "webpack") {
+    if (
+      baseBundle.target === "universal" &&
+      baseBundle.format == null &&
+      baseBundle.bundler !== "webpack"
+    ) {
       return [
         {
           ...baseBundle,
