@@ -3514,7 +3514,7 @@ eslint@7.7.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-espree@^7.0.0, espree@^7.2.0:
+espree@7.2.0, espree@^7.0.0, espree@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/espree/-/espree-7.2.0.tgz#1c263d5b513dbad0ac30c4991b93ac354e948d69"
   integrity sha512-H+cQ3+3JYRMEIOl87e7QdHX70ocly5iW4+dttuR8iYSPr/hXKFb+7dBsZ7+u1adC4VrnPlTkv0+OwuPnDop19g==

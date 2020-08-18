@@ -68,6 +68,7 @@ export function getAstAutoFold(parser) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
+    case "espree":
     case "json":
     case "json5":
     case "json-stringify":

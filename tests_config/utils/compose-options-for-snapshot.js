@@ -9,6 +9,7 @@ function composeOptionsForSnapshot(baseOptions, parsers) {
     plugins,
     filepath,
     parser,
+    errors,
 
     ...snapshotOptions
   } = baseOptions;

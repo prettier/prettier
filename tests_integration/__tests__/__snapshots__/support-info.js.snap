@@ -38,6 +38,7 @@ Object {
     "JavaScript": Array [
       "babel",
       "flow",
+      "espree",
     ],
     "Less": Array [
       "less",
@@ -158,6 +159,7 @@ Object {
         "html",
         "angular",
         "lwc",
+        "espree",
       ],
       "default": undefined,
       "type": "choice",
@@ -306,7 +308,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
-      \\"parsers\\": [\\"babel\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\", \\"espree\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -872,7 +874,8 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Lightning Web Components\\",
           \\"since\\": \\"1.17.0\\",
           \\"value\\": \\"lwc\\"
-        }
+        },
+        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"espree\\" }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

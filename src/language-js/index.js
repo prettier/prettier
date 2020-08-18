@@ -10,7 +10,7 @@ const languages = [
     require("linguist-languages/data/JavaScript.json"),
     (data) => ({
       since: "0.0.0",
-      parsers: ["babel", "flow"],
+      parsers: ["babel", "flow", "espree"],
       vscodeLanguageIds: ["javascript", "mongo"],
       interpreters: data.interpreters.concat(["nodejs"]),
     })
@@ -126,6 +126,10 @@ const parsers = {
   // JS - Angular Directive
   get __ng_directive() {
     return require("./parser-angular").parsers.__ng_directive;
+  },
+  // JS - espree
+  get espree() {
+    return require("./parser-espree").parsers.espree;
   },
 };
 
