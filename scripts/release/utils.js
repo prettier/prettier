@@ -2,8 +2,8 @@
 
 require("readline").emitKeypressEvents(process.stdin);
 
-const chalk = require("chalk");
 const fs = require("fs");
+const chalk = require("chalk");
 const execa = require("execa");
 const stringWidth = require("string-width");
 
@@ -14,7 +14,7 @@ function fitTerminal(input) {
   const columns = Math.min(process.stdout.columns, 80);
   const WIDTH = columns - stringWidth(OK) + 1;
   if (input.length < WIDTH) {
-    input += Array(WIDTH - input.length).join(chalk.dim("."));
+    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
 }
@@ -23,11 +23,11 @@ function logPromise(name, promise) {
   process.stdout.write(fitTerminal(name));
 
   return promise
-    .then(result => {
+    .then((result) => {
       process.stdout.write(`${OK}\n`);
       return result;
     })
-    .catch(err => {
+    .catch((err) => {
       process.stdout.write(`${FAIL}\n`);
       throw err;
     });
@@ -37,8 +37,8 @@ function runYarn(script) {
   if (typeof script === "string") {
     script = [script];
   }
-  return execa("yarn", ["--silent"].concat(script)).catch(error => {
-    throw Error(`\`yarn ${script}\` failed\n${error.stdout}`);
+  return execa("yarn", ["--silent"].concat(script)).catch((error) => {
+    throw new Error(`\`yarn ${script}\` failed\n${error.stdout}`);
   });
 }
 
@@ -56,7 +56,7 @@ function waitForEnter() {
         process.stdin.pause();
         resolve();
       } else if (key.ctrl && key.name === "c") {
-        reject(Error("Process terminated by the user"));
+        reject(new Error("Process terminated by the user"));
       }
     }
   });
@@ -81,5 +81,5 @@ module.exports = {
   processFile,
   readJson,
   writeJson,
-  waitForEnter
+  waitForEnter,
 };

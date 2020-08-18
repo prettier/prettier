@@ -1,22 +1,22 @@
 "use strict";
 
-const { isBlockComment, hasLeadingComment } = require("./comments");
-
 const {
   builders: {
     indent,
     join,
+    line,
     hardline,
     softline,
     literalline,
     concat,
     group,
-    dedentToRoot
+    dedentToRoot,
   },
-  utils: { mapDoc, stripTrailingHardline }
-} = require("../doc");
+  utils: { mapDoc },
+} = require("../document");
+const { isBlockComment, hasLeadingComment } = require("./comments");
 
-function embed(path, print, textToDoc /*, options */) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -27,15 +27,15 @@ function embed(path, print, textToDoc /*, options */) {
         isStyledJsx,
         isStyledComponents,
         isCssProp,
-        isAngularComponentStyles
-      ].some(isIt => isIt(path));
+        isAngularComponentStyles,
+      ].some((isIt) => isIt(path));
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
-        const rawQuasis = node.quasis.map(q => q.value.raw);
+        const rawQuasis = node.quasis.map((q) => q.value.raw);
         let placeholderID = 0;
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx == 0
+          return idx === 0
             ? currVal
             : prevVal +
                 "@prettier-placeholder-" +
@@ -43,7 +43,11 @@ function embed(path, print, textToDoc /*, options */) {
                 "-id" +
                 currVal;
         }, "");
-        const doc = textToDoc(text, { parser: "css" });
+        const doc = textToDoc(
+          text,
+          { parser: "scss" },
+          { stripTrailingHardline: true }
+        );
         return transformCssDoc(doc, path, print);
       }
 
@@ -92,12 +96,12 @@ function embed(path, print, textToDoc /*, options */) {
             lines[numLines - 1].trim() === "" &&
             lines[numLines - 2].trim() === "";
 
-          const commentsAndWhitespaceOnly = lines.every(line =>
-            /^\s*(?:#[^\r\n]*)?$/.test(line)
+          const commentsAndWhitespaceOnly = lines.every((line) =>
+            /^\s*(?:#[^\n\r]*)?$/.test(line)
           );
 
           // Bail out if an interpolation occurs within a comment.
-          if (!isLast && /#[^\r\n]*$/.test(lines[numLines - 1])) {
+          if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
             return null;
           }
 
@@ -106,7 +110,11 @@ function embed(path, print, textToDoc /*, options */) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            doc = stripTrailingHardline(textToDoc(text, { parser: "graphql" }));
+            doc = textToDoc(
+              text,
+              { parser: "graphql" },
+              { stripTrailingHardline: true }
+            );
           }
 
           if (doc) {
@@ -131,16 +139,24 @@ function embed(path, print, textToDoc /*, options */) {
           "`",
           indent(concat([hardline, join(hardline, parts)])),
           hardline,
-          "`"
+          "`",
         ]);
       }
 
-      if (isHtml(path)) {
-        return printHtmlTemplateLiteral(path, print, textToDoc, "html");
-      }
+      const htmlParser = isHtml(path)
+        ? "html"
+        : isAngularComponentTemplate(path)
+        ? "angular"
+        : undefined;
 
-      if (isAngularComponentTemplate(path)) {
-        return printHtmlTemplateLiteral(path, print, textToDoc, "angular");
+      if (htmlParser) {
+        return printHtmlTemplateLiteral(
+          path,
+          print,
+          textToDoc,
+          htmlParser,
+          options
+        );
       }
 
       break;
@@ -153,11 +169,10 @@ function embed(path, print, textToDoc /*, options */) {
        */
       if (
         parentParent &&
-        (parentParent.type === "TaggedTemplateExpression" &&
-          parent.quasis.length === 1 &&
-          (parentParent.tag.type === "Identifier" &&
-            (parentParent.tag.name === "md" ||
-              parentParent.tag.name === "markdown")))
+        parentParent.type === "TaggedTemplateExpression" &&
+        parent.quasis.length === 1 &&
+        parentParent.tag.type === "Identifier" &&
+        (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
       ) {
         const text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
@@ -172,11 +187,11 @@ function embed(path, print, textToDoc /*, options */) {
                   softline,
                   printMarkdown(
                     text.replace(new RegExp(`^${indentation}`, "gm"), "")
-                  )
+                  ),
                 ])
               )
             : concat([literalline, dedentToRoot(printMarkdown(text))]),
-          softline
+          softline,
         ]);
       }
 
@@ -185,8 +200,12 @@ function embed(path, print, textToDoc /*, options */) {
   }
 
   function printMarkdown(text) {
-    const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return stripTrailingHardline(escapeTemplateCharacters(doc, true));
+    const doc = textToDoc(
+      text,
+      { parser: "markdown", __inJsTemplate: true },
+      { stripTrailingHardline: true }
+    );
+    return escapeTemplateCharacters(doc, true);
   }
 }
 
@@ -195,27 +214,25 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
+function uncook(cookedValue) {
+  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+}
+
 function escapeTemplateCharacters(doc, raw) {
-  return mapDoc(doc, currentDoc => {
+  return mapDoc(doc, (currentDoc) => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
 
-    const parts = [];
-
-    currentDoc.parts.forEach(part => {
+    const parts = currentDoc.parts.map((part) => {
       if (typeof part === "string") {
-        parts.push(
-          raw
-            ? part.replace(/(\\*)`/g, "$1$1\\`")
-            : part.replace(/([\\`]|\$\{)/g, "\\$1")
-        );
-      } else {
-        parts.push(part);
+        return raw ? part.replace(/(\\*)`/g, "$1$1\\`") : uncook(part);
       }
+
+      return part;
     });
 
-    return Object.assign({}, currentDoc, { parts });
+    return { ...currentDoc, parts };
   });
 }
 
@@ -236,12 +253,7 @@ function transformCssDoc(quasisDoc, path, print) {
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
-  return concat([
-    "`",
-    indent(concat([hardline, stripTrailingHardline(newDoc)])),
-    softline,
-    "`"
-  ]);
+  return concat(["`", indent(concat([hardline, newDoc])), softline, "`"]);
 }
 
 // Search all the placeholders in the quasisDoc tree
@@ -253,13 +265,13 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     return quasisDoc;
   }
 
-  const expressions = expressionDocs.slice();
   let replaceCounter = 0;
-  const newDoc = mapDoc(quasisDoc, doc => {
+  const newDoc = mapDoc(quasisDoc, (doc) => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
-    let parts = doc.parts;
+
+    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -276,34 +288,31 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat([at + placeholder])
         .concat(rest);
     }
-    const atPlaceholderIndex = parts.findIndex(
-      part =>
-        typeof part === "string" && part.startsWith("@prettier-placeholder")
-    );
-    if (atPlaceholderIndex > -1) {
-      const placeholder = parts[atPlaceholderIndex];
-      const rest = parts.slice(atPlaceholderIndex + 1);
-      const placeholderMatch = placeholder.match(
-        /@prettier-placeholder-(.+)-id([\s\S]*)/
-      );
-      const placeholderID = placeholderMatch[1];
-      // When the expression has a suffix appended, like:
-      // animation: linear ${time}s ease-out;
-      const suffix = placeholderMatch[2];
-      const expression = expressions[placeholderID];
 
-      replaceCounter++;
-      parts = parts
-        .slice(0, atPlaceholderIndex)
-        .concat(["${", expression, "}" + suffix])
-        .concat(rest);
-    }
-    return Object.assign({}, doc, {
-      parts: parts
+    const replacedParts = [];
+    parts.forEach((part) => {
+      if (typeof part !== "string" || !part.includes("@prettier-placeholder")) {
+        replacedParts.push(part);
+        return;
+      }
+
+      // When we have multiple placeholders in one line, like:
+      // ${Child}${Child2}:not(:first-child)
+      part.split(/@prettier-placeholder-(\d+)-id/).forEach((component, idx) => {
+        // The placeholder is always at odd indices
+        if (idx % 2 === 0) {
+          replacedParts.push(component);
+          return;
+        }
+
+        // The component will always be a number at odd index
+        replacedParts.push("${", expressionDocs[component], "}");
+        replaceCounter++;
+      });
     });
+    return { ...doc, parts: replacedParts };
   });
-
-  return expressions.length === replaceCounter ? newDoc : null;
+  return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
 function printGraphqlComments(lines) {
@@ -311,9 +320,9 @@ function printGraphqlComments(lines) {
   let seenComment = false;
 
   lines
-    .map(textLine => textLine.trim())
+    .map((textLine) => textLine.trim())
     .forEach((textLine, i, array) => {
-      // Lines are either whitespace only, or a comment (with poential whitespace
+      // Lines are either whitespace only, or a comment (with potential whitespace
       // around it). Drop whitespace-only lines.
       if (textLine === "") {
         return;
@@ -335,22 +344,35 @@ function printGraphqlComments(lines) {
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * <style jsx>{`div{color:red}`}</style>
+ * css``
+ * css.global``
+ * css.resolve``
  */
 function isStyledJsx(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   return (
-    parentParent &&
-    node.quasis &&
-    parent.type === "JSXExpressionContainer" &&
-    parentParent.type === "JSXElement" &&
-    parentParent.openingElement.name.name === "style" &&
-    parentParent.openingElement.attributes.some(
-      attribute => attribute.name.name === "jsx"
-    )
+    (parentParent &&
+      node.quasis &&
+      parent.type === "JSXExpressionContainer" &&
+      parentParent.type === "JSXElement" &&
+      parentParent.openingElement.name.name === "style" &&
+      parentParent.openingElement.attributes.some(
+        (attribute) => attribute.name.name === "jsx"
+      )) ||
+    (parent &&
+      parent.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "Identifier" &&
+      parent.tag.name === "css") ||
+    (parent &&
+      parent.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "MemberExpression" &&
+      parent.tag.object.name === "css" &&
+      (parent.tag.property.name === "global" ||
+        parent.tag.property.name === "resolve"))
   );
 }
 
@@ -369,43 +391,37 @@ function isStyledJsx(path) {
  * })
  */
 function isAngularComponentStyles(path) {
-  return isPathMatch(
-    path,
-    [
-      node => node.type === "TemplateLiteral",
-      (node, name) => node.type === "ArrayExpression" && name === "elements",
-      (node, name) =>
-        node.type === "Property" &&
-        node.key.type === "Identifier" &&
-        node.key.name === "styles" &&
-        name === "value"
-    ].concat(getAngularComponentObjectExpressionPredicates())
+  return path.match(
+    (node) => node.type === "TemplateLiteral",
+    (node, name) => node.type === "ArrayExpression" && name === "elements",
+    (node, name) =>
+      (node.type === "Property" || node.type === "ObjectProperty") &&
+      node.key.type === "Identifier" &&
+      node.key.name === "styles" &&
+      name === "value",
+    ...angularComponentObjectExpressionPredicates
   );
 }
 function isAngularComponentTemplate(path) {
-  return isPathMatch(
-    path,
-    [
-      node => node.type === "TemplateLiteral",
-      (node, name) =>
-        node.type === "Property" &&
-        node.key.type === "Identifier" &&
-        node.key.name === "template" &&
-        name === "value"
-    ].concat(getAngularComponentObjectExpressionPredicates())
+  return path.match(
+    (node) => node.type === "TemplateLiteral",
+    (node, name) =>
+      (node.type === "Property" || node.type === "ObjectProperty") &&
+      node.key.type === "Identifier" &&
+      node.key.name === "template" &&
+      name === "value",
+    ...angularComponentObjectExpressionPredicates
   );
 }
-function getAngularComponentObjectExpressionPredicates() {
-  return [
-    (node, name) => node.type === "ObjectExpression" && name === "properties",
-    (node, name) =>
-      node.type === "CallExpression" &&
-      node.callee.type === "Identifier" &&
-      node.callee.name === "Component" &&
-      name === "arguments",
-    (node, name) => node.type === "Decorator" && name === "expression"
-  ];
-}
+const angularComponentObjectExpressionPredicates = [
+  (node, name) => node.type === "ObjectExpression" && name === "properties",
+  (node, name) =>
+    node.type === "CallExpression" &&
+    node.callee.type === "Identifier" &&
+    node.callee.name === "Component" &&
+    name === "arguments",
+  (node, name) => node.type === "Decorator" && name === "expression",
+];
 
 /**
  * styled-components template literals
@@ -417,7 +433,7 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const tag = parent.tag;
+  const { tag } = parent;
 
   switch (tag.type) {
     case "MemberExpression":
@@ -434,11 +450,11 @@ function isStyledComponents(path) {
         isStyledIdentifier(tag.callee) ||
         (tag.callee.type === "MemberExpression" &&
           ((tag.callee.object.type === "MemberExpression" &&
-            // styled.foo.attr({})``
+            // styled.foo.attrs({})``
             (isStyledIdentifier(tag.callee.object.object) ||
-              // Component.extend.attr({)``
+              // Component.extend.attrs({})``
               isStyledExtend(tag.callee.object))) ||
-            // styled(Component).attr({})``
+            // styled(Component).attrs({})``
             (tag.callee.object.type === "CallExpression" &&
               isStyledIdentifier(tag.callee.object.callee))))
       );
@@ -512,36 +528,9 @@ function hasLanguageComment(node, languageName) {
   // Also see ./clean.js
   return hasLeadingComment(
     node,
-    comment => isBlockComment(comment) && comment.value === ` ${languageName} `
+    (comment) =>
+      isBlockComment(comment) && comment.value === ` ${languageName} `
   );
-}
-
-function isPathMatch(path, predicateStack) {
-  const stack = path.stack.slice();
-
-  let name = null;
-  let node = stack.pop();
-
-  for (const predicate of predicateStack) {
-    if (node === undefined) {
-      return false;
-    }
-
-    // skip index/array
-    if (typeof name === "number") {
-      name = stack.pop();
-      node = stack.pop();
-    }
-
-    if (!predicate(node, name)) {
-      return false;
-    }
-
-    name = stack.pop();
-    node = stack.pop();
-  }
-
-  return true;
 }
 
 /**
@@ -549,33 +538,36 @@ function isPathMatch(path, predicateStack) {
  *     - HTML comment block
  */
 function isHtml(path) {
-  const node = path.getValue();
   return (
-    hasLanguageComment(node, "HTML") ||
-    isPathMatch(path, [
-      node => node.type === "TemplateLiteral",
+    hasLanguageComment(path.getValue(), "HTML") ||
+    path.match(
+      (node) => node.type === "TemplateLiteral",
       (node, name) =>
         node.type === "TaggedTemplateExpression" &&
         node.tag.type === "Identifier" &&
         node.tag.name === "html" &&
         name === "quasi"
-    ])
+    )
   );
 }
 
-function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
+// The counter is needed to distinguish nested embeds.
+let htmlTemplateLiteralCounter = 0;
+
+function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   const node = path.getValue();
 
-  const placeholderPattern = "PRETTIER_HTML_PLACEHOLDER_(\\d+)_IN_JS";
-  const placeholders = node.expressions.map(
-    (_, i) => `PRETTIER_HTML_PLACEHOLDER_${i}_IN_JS`
-  );
+  const counter = htmlTemplateLiteralCounter;
+  htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
+
+  const composePlaceholder = (index) =>
+    `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
 
   const text = node.quasis
     .map((quasi, index, quasis) =>
       index === quasis.length - 1
-        ? quasi.value.raw
-        : quasi.value.raw + placeholders[index]
+        ? quasi.value.cooked
+        : quasi.value.cooked + composePlaceholder(index)
     )
     .join("");
 
@@ -585,14 +577,22 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
     return "``";
   }
 
-  const contentDoc = mapDoc(
-    stripTrailingHardline(textToDoc(text, { parser })),
-    doc => {
-      const placeholderRegex = new RegExp(placeholderPattern, "g");
-      const hasPlaceholder =
-        typeof doc === "string" && placeholderRegex.test(doc);
+  const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
+  let topLevelCount = 0;
 
-      if (!hasPlaceholder) {
+  const contentDoc = mapDoc(
+    textToDoc(
+      text,
+      {
+        parser,
+        __onHtmlRoot(root) {
+          topLevelCount = root.children.length;
+        },
+      },
+      { stripTrailingHardline: true }
+    ),
+    (doc) => {
+      if (typeof doc !== "string") {
         return doc;
       }
 
@@ -600,28 +600,22 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
 
       const components = doc.split(placeholderRegex);
       for (let i = 0; i < components.length; i++) {
-        const component = components[i];
+        let component = components[i];
 
         if (i % 2 === 0) {
           if (component) {
+            component = uncook(component);
+            if (options.embeddedInHtml) {
+              component = component.replace(/<\/(script)\b/gi, "<\\/$1");
+            }
             parts.push(component);
           }
           continue;
         }
 
         const placeholderIndex = +component;
-
         parts.push(
-          concat([
-            "${",
-            group(
-              concat([
-                indent(concat([softline, expressionDocs[placeholderIndex]])),
-                softline
-              ])
-            ),
-            "}"
-          ])
+          concat(["${", group(expressionDocs[placeholderIndex]), "}"])
         );
       }
 
@@ -629,8 +623,35 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
     }
   );
 
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
+
+  const linebreak =
+    options.htmlWhitespaceSensitivity === "ignore"
+      ? hardline
+      : leadingWhitespace && trailingWhitespace
+      ? line
+      : null;
+
+  if (linebreak) {
+    return group(
+      concat([
+        "`",
+        indent(concat([linebreak, group(contentDoc)])),
+        linebreak,
+        "`",
+      ])
+    );
+  }
+
   return group(
-    concat(["`", indent(concat([hardline, group(contentDoc)])), softline, "`"])
+    concat([
+      "`",
+      leadingWhitespace,
+      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+      trailingWhitespace,
+      "`",
+    ])
   );
 }
 

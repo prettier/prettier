@@ -1,9 +1,0 @@
-steps:
-  - template: ../steps/install-nodejs.yml
-  - template: ../steps/install-dependencies.yml
-  - script: yarn check-deps
-    displayName: "Check dependencies"
-  - script: yarn lint
-    displayName: "Lint code"
-  - script: yarn lint-docs
-    displayName: "Lint docs"

@@ -1,61 +1,53 @@
 "use strict";
 
-const version = require("../package.json").version;
+const { version } = require("../package.json");
 
 const core = require("./main/core");
-const getSupportInfo = require("./main/support").getSupportInfo;
+const { getSupportInfo } = require("./main/support");
 const sharedUtil = require("./common/util-shared");
+const languages = require("./languages");
+const doc = require("./document");
 
-const doc = require("./doc");
+// Parsers are bundled as separate plugins
+const internalPlugins = languages.map(({ parsers, ...plugin }) => plugin);
 
-const internalPlugins = [
-  require("./language-css"),
-  require("./language-graphql"),
-  require("./language-handlebars"),
-  require("./language-html"),
-  require("./language-js"),
-  require("./language-markdown"),
-  require("./language-yaml")
-];
+function withPlugins(
+  fn,
+  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+) {
+  return (...args) => {
+    const opts = args[optsArgIdx] || {};
+    const plugins = opts.plugins || [];
 
-const isArray =
-  Array.isArray ||
-  function(arr) {
-    return Object.prototype.toString.call(arr) === "[object Array]";
-  };
+    args[optsArgIdx] = {
+      ...opts,
+      plugins: [
+        ...internalPlugins,
+        ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
+      ],
+    };
 
-// Luckily `opts` is always the 2nd argument
-function withPlugins(fn) {
-  return function() {
-    const args = Array.from(arguments);
-    let plugins = (args[1] && args[1].plugins) || [];
-    if (!isArray(plugins)) {
-      plugins = Object.values(plugins);
-    }
-    args[1] = Object.assign({}, args[1], {
-      plugins: internalPlugins.concat(plugins)
-    });
-    return fn.apply(null, args);
+    return fn(...args);
   };
 }
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
 module.exports = {
-  formatWithCursor: formatWithCursor,
+  formatWithCursor,
 
   format(text, opts) {
     return formatWithCursor(text, opts).formatted;
   },
 
   check(text, opts) {
-    const formatted = formatWithCursor(text, opts).formatted;
+    const { formatted } = formatWithCursor(text, opts);
     return formatted === text;
   },
 
   doc,
 
-  getSupportInfo: withPlugins(getSupportInfo),
+  getSupportInfo: withPlugins(getSupportInfo, 0),
 
   version,
 
@@ -66,6 +58,6 @@ module.exports = {
     formatAST: withPlugins(core.formatAST),
     formatDoc: withPlugins(core.formatDoc),
     printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString)
-  }
+    printDocToString: withPlugins(core.printDocToString),
+  },
 };

@@ -5,13 +5,21 @@ const runPrettier = require("../runPrettier");
 describe("plugin default options should work", () => {
   runPrettier(
     "plugins/defaultOptions",
-    ["--stdin-filepath", "example.foo", "--plugin=./plugin"],
+    [
+      "--stdin-filepath",
+      "example.foo",
+      "--plugin=./plugin",
+      "--no-editorconfig",
+    ],
     { input: "hello-world" }
   ).test({
-    stdout: "tabWidth:8",
+    stdout: JSON.stringify({
+      tabWidth: 8,
+      bracketSpacing: false,
+    }),
     stderr: "",
     status: 0,
-    write: []
+    write: [],
   });
 });
 
@@ -21,9 +29,12 @@ describe("overriding plugin default options should work", () => {
     ["--stdin-filepath", "example.foo", "--plugin=./plugin", "--tab-width=4"],
     { input: "hello-world" }
   ).test({
-    stdout: "tabWidth:4",
+    stdout: JSON.stringify({
+      tabWidth: 4,
+      bracketSpacing: false,
+    }),
     stderr: "",
     status: 0,
-    write: []
+    write: [],
   });
 });

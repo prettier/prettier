@@ -3,6 +3,7 @@
 const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
 
 // 0x0 ~ 0x10ffff
+// eslint-disable-next-line no-control-regex
 const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
 
 function preprocess(ast, options) {
@@ -18,32 +19,31 @@ function preprocess(ast, options) {
 }
 
 function transformImportExport(ast) {
-  return mapAst(ast, node => {
+  return mapAst(ast, (node) => {
     if (node.type !== "import" && node.type !== "export") {
       return node;
     }
 
-    return Object.assign({}, node, { type: "importExport" });
+    return { ...node, type: "importExport" };
   });
 }
 
 function transformInlineCode(ast) {
-  return mapAst(ast, node => {
+  return mapAst(ast, (node) => {
     if (node.type !== "inlineCode") {
       return node;
     }
 
-    return Object.assign({}, node, {
-      value: node.value.replace(/\s+/g, " ")
-    });
+    return { ...node, value: node.value.replace(/\s+/g, " ") };
   });
 }
 
 function restoreUnescapedCharacter(ast, options) {
-  return mapAst(ast, node => {
+  return mapAst(ast, (node) => {
     return node.type !== "text"
       ? node
-      : Object.assign({}, node, {
+      : {
+          ...node,
           value:
             node.value !== "*" &&
             node.value !== "_" &&
@@ -55,8 +55,8 @@ function restoreUnescapedCharacter(ast, options) {
                   node.position.start.offset,
                   node.position.end.offset
                 )
-              : node.value
-        });
+              : node.value,
+        };
   });
 }
 
@@ -70,14 +70,14 @@ function mergeContinuousImportExport(ast) {
       value: prevNode.value + "\n\n" + node.value,
       position: {
         start: prevNode.position.start,
-        end: node.position.end
-      }
+        end: node.position.end,
+      },
     })
   );
 }
 
 function mergeChildren(ast, shouldMerge, mergeNode) {
-  return mapAst(ast, node => {
+  return mapAst(ast, (node) => {
     if (!node.children) {
       return node;
     }
@@ -90,7 +90,7 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
       }
       return current;
     }, []);
-    return Object.assign({}, node, { children });
+    return { ...node, children };
   });
 }
 
@@ -103,8 +103,8 @@ function mergeContinuousTexts(ast) {
       value: prevNode.value + node.value,
       position: {
         start: prevNode.position.start,
-        end: node.position.end
-      }
+        end: node.position.end,
+      },
     })
   );
 }
@@ -115,21 +115,21 @@ function splitTextIntoSentences(ast, options) {
       return node;
     }
 
-    let value = node.value;
+    let { value } = node;
 
     if (parentNode.type === "paragraph") {
       if (index === 0) {
-        value = value.trimLeft();
+        value = value.trimStart();
       }
       if (index === parentNode.children.length - 1) {
-        value = value.trimRight();
+        value = value.trimEnd();
       }
     }
 
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(value, options)
+      children: splitText(value, options),
     };
   });
 }

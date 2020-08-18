@@ -1,49 +1,52 @@
 "use strict";
 
+const createLanguage = require("../utils/create-language");
 const printer = require("./printer-postcss");
 const options = require("./options");
-const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/css"), {
-    override: {
-      since: "1.4.0",
-      parsers: ["css"],
-      vscodeLanguageIds: ["css"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/postcss"), {
-    override: {
-      since: "1.4.0",
-      parsers: ["css"],
-      vscodeLanguageIds: ["postcss"]
-    },
-    extend: {
-      extensions: [".postcss"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/less"), {
-    override: {
-      since: "1.4.0",
-      parsers: ["less"],
-      vscodeLanguageIds: ["less"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/scss"), {
-    override: {
-      since: "1.4.0",
-      parsers: ["scss"],
-      vscodeLanguageIds: ["scss"]
-    }
-  })
+  createLanguage(require("linguist-languages/data/CSS.json"), () => ({
+    since: "1.4.0",
+    parsers: ["css"],
+    vscodeLanguageIds: ["css"],
+  })),
+  createLanguage(require("linguist-languages/data/PostCSS.json"), () => ({
+    since: "1.4.0",
+    parsers: ["css"],
+    vscodeLanguageIds: ["postcss"],
+  })),
+  createLanguage(require("linguist-languages/data/Less.json"), () => ({
+    since: "1.4.0",
+    parsers: ["less"],
+    vscodeLanguageIds: ["less"],
+  })),
+  createLanguage(require("linguist-languages/data/SCSS.json"), () => ({
+    since: "1.4.0",
+    parsers: ["scss"],
+    vscodeLanguageIds: ["scss"],
+  })),
 ];
 
 const printers = {
-  postcss: printer
+  postcss: printer,
+};
+
+const parsers = {
+  // TODO: switch these to just `postcss` and use `language` instead.
+  get css() {
+    return require("./parser-postcss").parsers.css;
+  },
+  get less() {
+    return require("./parser-postcss").parsers.less;
+  },
+  get scss() {
+    return require("./parser-postcss").parsers.scss;
+  },
 };
 
 module.exports = {
   languages,
   options,
-  printers
+  printers,
+  parsers,
 };

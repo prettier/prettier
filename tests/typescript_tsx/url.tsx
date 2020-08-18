@@ -1,1 +1,0 @@
-const link = <a href="example.com">http://example.com</a>

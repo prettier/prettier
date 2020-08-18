@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`callAndConstructSignatureLong.ts 1`] = `
+exports[`callAndConstructSignatureLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ interface Interface {
 ================================================================================
 `;
 
-exports[`functionTypeLong.ts 1`] = `
+exports[`functionTypeLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -68,7 +68,7 @@ type AwkwardlyLongFunctionTypeDefinition = <
 ================================================================================
 `;
 
-exports[`interfaceParamsLong.ts 1`] = `
+exports[`interfaceParamsLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -90,7 +90,7 @@ interface ReallyReallyLongName<
 ================================================================================
 `;
 
-exports[`typeParametersLong.ts 1`] = `
+exports[`typeParametersLong.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -105,6 +105,75 @@ type ReallyReallyReallyLongName<
   ReallyReallyReallyLongName1,
   ReallyReallyReallyLongName2
 > = any;
+
+================================================================================
+`;
+
+exports[`variables.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo: SomeThing<boolean> = func();
+const bar: SomeThing<boolean, boolean> = func();
+const fooo: SomeThing<{ [P in "x" | "y"]: number }> = func();
+const baar: SomeThing<K extends T ? G : S> = func();
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaaaaaaar: SomeThing<boolean, boolean> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaar: SomeThing<{ [P in "x" | "y"]: number }> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaar: SomeThing<K extends T ? G : S> = looooooooooooooooooooooooooooooongNameFunc();
+const isAnySuccessfulAttempt$: Observable<boolean> = this._quizService.isAnySuccessfulAttempt$().pipe(
+  tap((isAnySuccessfulAttempt: boolean) => {
+    this.isAnySuccessfulAttempt = isAnySuccessfulAttempt;
+  }),
+);
+const isAnySuccessfulAttempt2$: Observable<boolean> = this._someMethodWithLongName();
+const fooooooooooooooo: SomeThing<boolean | string> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<boolean & string> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<keyof string> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<string[]> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<string["anchor"]> = looooooooooooooooooooooooooooooongNameFunc();
+
+=====================================output=====================================
+const foo: SomeThing<boolean> = func();
+const bar: SomeThing<boolean, boolean> = func();
+const fooo: SomeThing<{ [P in "x" | "y"]: number }> = func();
+const baar: SomeThing<K extends T ? G : S> = func();
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaaaaaaar: SomeThing<
+  boolean,
+  boolean
+> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaar: SomeThing<
+  { [P in "x" | "y"]: number }
+> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaar: SomeThing<
+  K extends T ? G : S
+> = looooooooooooooooooooooooooooooongNameFunc();
+const isAnySuccessfulAttempt$: Observable<boolean> = this._quizService
+  .isAnySuccessfulAttempt$()
+  .pipe(
+    tap((isAnySuccessfulAttempt: boolean) => {
+      this.isAnySuccessfulAttempt = isAnySuccessfulAttempt;
+    })
+  );
+const isAnySuccessfulAttempt2$: Observable<boolean> = this._someMethodWithLongName();
+const fooooooooooooooo: SomeThing<
+  boolean | string
+> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<
+  boolean & string
+> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<
+  keyof string
+> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<
+  string[]
+> = looooooooooooooooooooooooooooooongNameFunc();
+const fooooooooooooooo: SomeThing<
+  string["anchor"]
+> = looooooooooooooooooooooooooooooongNameFunc();
 
 ================================================================================
 `;

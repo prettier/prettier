@@ -1,9 +1,7 @@
 "use strict";
 
 const React = require("react");
-
-const CompLibrary = require("../../../core/CompLibrary.js");
-const Container = CompLibrary.Container;
+const { Container } = require("../../../core/CompLibrary.js");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
@@ -40,9 +38,7 @@ class Users extends React.Component {
                 <p>Are you using this project?</p>
               </div>
               <a
-                href={`${
-                  siteConfig.githubUrl
-                }/edit/master/website/data/users.yml`}
+                href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
                 className="button"
               >
                 Add your company
@@ -56,7 +52,9 @@ class Users extends React.Component {
 }
 
 Users.defaultProps = {
-  language: "en"
+  language: "en",
 };
+
+Users.title = "Who's using Prettier?";
 
 module.exports = Users;

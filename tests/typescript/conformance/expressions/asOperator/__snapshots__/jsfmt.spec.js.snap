@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`asOperatorContextualType.ts 1`] = `
+exports[`asOperatorContextualType.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -11,7 +11,7 @@ var x = (v => v) as (x: number) => string;
 
 =====================================output=====================================
 // should error
-var x = (v => v) as (x: number) => string;
+var x = ((v) => v) as (x: number) => string;
 
 ================================================================================
 `;

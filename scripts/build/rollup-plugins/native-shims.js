@@ -1,13 +1,13 @@
 "use strict";
 
-const builtins = require("builtin-modules");
 const fs = require("fs");
 const path = require("path");
+const builtins = require("builtin-modules");
 
 const EMPTY = "export default {};";
 const PREFIX = "\0shim:";
 
-module.exports = function(dir) {
+module.exports = function (dir) {
   return {
     resolveId(importee) {
       if (importee.startsWith(PREFIX)) {
@@ -29,6 +29,6 @@ module.exports = function(dir) {
       if (id.startsWith(PREFIX)) {
         return EMPTY;
       }
-    }
+    },
   };
 };

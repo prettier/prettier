@@ -1,25 +1,26 @@
 "use strict";
 
-const ignore = require("ignore");
 const path = require("path");
+const ignore = require("ignore");
 const getFileContentOrNull = require("../utils/get-file-content-or-null");
 
 /**
- * @param {undefined | string} ignorePath
- * @param {undefined | boolean} withNodeModules
+ * @param {string?} ignorePath
+ * @param {boolean?} withNodeModules
  */
-function createIgnorer(ignorePath, withNodeModules) {
-  return (!ignorePath
-    ? Promise.resolve(null)
-    : getFileContentOrNull(path.resolve(ignorePath))
-  ).then(ignoreContent => _createIgnorer(ignoreContent, withNodeModules));
+async function createIgnorer(ignorePath, withNodeModules) {
+  const ignoreContent = ignorePath
+    ? await getFileContentOrNull(path.resolve(ignorePath))
+    : null;
+
+  return _createIgnorer(ignoreContent, withNodeModules);
 }
 
 /**
- * @param {undefined | string} ignorePath
- * @param {undefined | boolean} withNodeModules
+ * @param {string?} ignorePath
+ * @param {boolean?} withNodeModules
  */
-createIgnorer.sync = function(ignorePath, withNodeModules) {
+createIgnorer.sync = function (ignorePath, withNodeModules) {
   const ignoreContent = !ignorePath
     ? null
     : getFileContentOrNull.sync(path.resolve(ignorePath));
@@ -28,7 +29,7 @@ createIgnorer.sync = function(ignorePath, withNodeModules) {
 
 /**
  * @param {null | string} ignoreContent
- * @param {undefined | boolean} withNodeModules
+ * @param {boolean?} withNodeModules
  */
 function _createIgnorer(ignoreContent, withNodeModules) {
   const ignorer = ignore().add(ignoreContent || "");
