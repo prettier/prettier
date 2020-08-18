@@ -1,6 +1,6 @@
 "use strict";
 
-const parseFrontMatter = require("../utils/front-matter");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
 const createError = require("../common/parser-create-error");
 const { getParserName } = require("../common/util");
 const {

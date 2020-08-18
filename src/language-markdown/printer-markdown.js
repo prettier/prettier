@@ -933,7 +933,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
-    isFrontMatterNode(ast) ||
+    ast.type === "front-matter" ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||

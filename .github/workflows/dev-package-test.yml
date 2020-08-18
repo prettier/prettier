@@ -16,6 +16,7 @@ jobs:
         os:
           - "ubuntu-latest"
         node:
+          # Run tests on minimal version we support
           - "10"
         NPM_CLIENT:
           - "yarn"

@@ -1,7 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const parseFrontMatter = require("../utils/front-matter");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
 const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
