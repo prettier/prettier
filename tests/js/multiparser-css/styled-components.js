@@ -185,7 +185,7 @@ const Single2 = styled.div`
   color: red;
 `;
 
-const Dropdown = styled.div`
+const Dropdown2 = styled.div`
   /* A comment to avoid the prettier issue: https://github.com/prettier/prettier/issues/2291 */
   position: relative;
 `;
@@ -202,7 +202,7 @@ const bar = styled.div`
     css`
       border-color: rgba(var(--green-rgb), 0.15);
     `}
-  
+
   div {
     background-color: var(--purpleTT);
     border-radius: 50%;
@@ -216,7 +216,7 @@ const bar = styled.div`
         background-color: var(--green);
         border-width: 7px;
       `}
-      
+
     ${props =>
     (props.complete || props.inProgress) &&
     css`
@@ -227,7 +227,7 @@ const bar = styled.div`
 
 const A = styled.a`
   display: inline-block;
-  color: #fff;  
+  color: #fff;
   ${props => props.a &&css`
     display: none;
   `}

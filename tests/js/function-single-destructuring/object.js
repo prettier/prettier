@@ -11,7 +11,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-function StatelessFunctionalComponent({
+function StatelessFunctionalComponent2({
   isActive = true,
   onFiltersUpdated = () => null,
   onSelect = () => null,
@@ -24,7 +24,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-function StatelessFunctionalComponent(
+function StatelessFunctionalComponent3(
   {
     isActive,
     onFiltersUpdated = () => null,
@@ -41,7 +41,7 @@ function StatelessFunctionalComponent(
   return <div />
 }
 
-function StatelessFunctionalComponent({
+function StatelessFunctionalComponent4({
   isActive,
   onFiltersUpdated,
   onSelect,
@@ -54,7 +54,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-const StatelessFunctionalComponent = ({
+const StatelessFunctionalComponent5 = ({
   isActive,
   onFiltersUpdated,
   onSelect,

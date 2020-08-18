@@ -10,19 +10,19 @@ function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest])
   return rest;
 }
 
-function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest] = DEFAULT_FIVE_RESULTS) {
+function excludeFirstFiveResults2([first, second, third, fourth, fifth, ...rest] = DEFAULT_FIVE_RESULTS) {
   return rest;
 }
 
-function excludeFirstFiveResults([firstResult, secondResult, thirdResult, fourthResult, fifthResult, ...rest] = [1, 2, 3, 4, 5]) {
+function excludeFirstFiveResults3([firstResult, secondResult, thirdResult, fourthResult, fifthResult, ...rest] = [1, 2, 3, 4, 5]) {
   return rest;
 }
 
-function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest]: Result[]) {
+function excludeFirstFiveResults4([first, second, third, fourth, fifth, ...rest]: Result[]) {
   return rest;
 }
 
-const excludeFirstFiveResults = ([first, second, third, fourth, fifth, ...rest]) => {
+const excludeFirstFiveResults5 = ([first, second, third, fourth, fifth, ...rest]) => {
   return rest;
 }
 
@@ -48,7 +48,7 @@ function excludeFirstFiveResults([
   return rest;
 }
 
-function excludeFirstFiveResults([
+function excludeFirstFiveResults2([
   first,
   second,
   third,
@@ -59,7 +59,7 @@ function excludeFirstFiveResults([
   return rest;
 }
 
-function excludeFirstFiveResults(
+function excludeFirstFiveResults3(
   [
     firstResult,
     secondResult,
@@ -72,7 +72,7 @@ function excludeFirstFiveResults(
   return rest;
 }
 
-function excludeFirstFiveResults([
+function excludeFirstFiveResults4([
   first,
   second,
   third,
@@ -83,7 +83,7 @@ function excludeFirstFiveResults([
   return rest;
 }
 
-const excludeFirstFiveResults = ([
+const excludeFirstFiveResults5 = ([
   first,
   second,
   third,
@@ -142,7 +142,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-function StatelessFunctionalComponent({
+function StatelessFunctionalComponent2({
   isActive = true,
   onFiltersUpdated = () => null,
   onSelect = () => null,
@@ -155,7 +155,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-function StatelessFunctionalComponent(
+function StatelessFunctionalComponent3(
   {
     isActive,
     onFiltersUpdated = () => null,
@@ -172,7 +172,7 @@ function StatelessFunctionalComponent(
   return <div />
 }
 
-function StatelessFunctionalComponent({
+function StatelessFunctionalComponent4({
   isActive,
   onFiltersUpdated,
   onSelect,
@@ -185,7 +185,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-const StatelessFunctionalComponent = ({
+const StatelessFunctionalComponent5 = ({
   isActive,
   onFiltersUpdated,
   onSelect,
@@ -252,7 +252,7 @@ function StatelessFunctionalComponent({
   return <div />;
 }
 
-function StatelessFunctionalComponent({
+function StatelessFunctionalComponent2({
   isActive = true,
   onFiltersUpdated = () => null,
   onSelect = () => null,
@@ -265,7 +265,7 @@ function StatelessFunctionalComponent({
   return <div />;
 }
 
-function StatelessFunctionalComponent(
+function StatelessFunctionalComponent3(
   {
     isActive,
     onFiltersUpdated = () => null,
@@ -282,7 +282,7 @@ function StatelessFunctionalComponent(
   return <div />;
 }
 
-function StatelessFunctionalComponent({
+function StatelessFunctionalComponent4({
   isActive,
   onFiltersUpdated,
   onSelect,
@@ -295,7 +295,7 @@ function StatelessFunctionalComponent({
   return <div />;
 }
 
-const StatelessFunctionalComponent = ({
+const StatelessFunctionalComponent5 = ({
   isActive,
   onFiltersUpdated,
   onSelect,

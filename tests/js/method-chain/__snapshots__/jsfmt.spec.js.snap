@@ -175,7 +175,7 @@ expect(
 
 const { course, conflicts = [], index, scheduleId, studentId, something } = a.this.props;
 
-const { course, conflicts = [], index, scheduleId, studentId, something } = this.props;
+const { course2, conflicts2 = [], index2, scheduleId2, studentId2, something2 } = this.props;
 
 const {
   updated,
@@ -208,12 +208,12 @@ const {
 } = a.this.props;
 
 const {
-  course,
-  conflicts = [],
-  index,
-  scheduleId,
-  studentId,
-  something,
+  course2,
+  conflicts2 = [],
+  index2,
+  scheduleId2,
+  studentId2,
+  something2,
 } = this.props;
 
 const {
@@ -868,7 +868,7 @@ const z = obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
 
 // you can still force multi-line chaining with a comment:
-const sha256 = (data) =>
+const sha256_2 = (data) =>
   crypto // breakme
     .createHash("sha256")
     .update(data)
@@ -1022,7 +1022,7 @@ somePromise
   .catch((err) => handleError(err));
 
 // you can still force multi-line chaining with a comment:
-const sha256 = (data) =>
+const sha256_2 = (data) =>
   crypto // breakme
     .createHash("sha256")
     .update(data)

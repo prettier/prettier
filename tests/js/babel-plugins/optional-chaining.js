@@ -19,7 +19,7 @@ obj?.foo.bar?.baz; // Only access `foo` if `obj` exists, and `baz` if
 // Example usage with bracket notation:
 obj?.['foo']?.bar?.baz // 42
 
-const obj = {
+const obj2 = {
   foo: {
     bar: {
       baz() {
@@ -29,10 +29,10 @@ const obj = {
   },
 };
 
-const baz = obj?.foo?.bar?.baz(); // 42
+const baz2 = obj?.foo?.bar?.baz(); // 42
 
-const safe = obj?.qux?.baz(); // undefined
-const safe2 = obj?.foo.bar.qux?.(); // undefined
+const safe3 = obj?.qux?.baz(); // undefined
+const safe4 = obj?.foo.bar.qux?.(); // undefined
 
 const willThrow = obj?.foo.bar.qux(); // Error: not a function
 
@@ -44,7 +44,7 @@ test?.(); // 42
 
 exists?.(); // undefined
 
-const obj = {
+const obj3 = {
   foo: {
     bar: {
       baz: class {
@@ -53,10 +53,10 @@ const obj = {
   },
 };
 
-const baz = new obj?.foo?.bar?.baz(); // baz instance
+const baz3 = new obj?.foo?.bar?.baz(); // baz instance
 
-const safe = new obj?.qux?.baz(); // undefined
-const safe2 = new obj?.foo.bar.qux?.(); // undefined
+const safe5 = new obj?.qux?.baz(); // undefined
+const safe6 = new obj?.foo.bar.qux?.(); // undefined
 
 const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
 
