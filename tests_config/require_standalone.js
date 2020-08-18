@@ -16,10 +16,10 @@ const source = globby
 
 vm.runInContext(source, sandbox);
 
-const allowedGlobalObjects = new Set(["prettier", "prettierPlugins"])
+const allowedGlobalObjects = new Set(["prettier", "prettierPlugins"]);
 for (const property of Object.keys(sandbox)) {
   if (!allowedGlobalObjects.has(property)) {
-    throw new Error(`Global "${property}" object should not be exposed.`)
+    throw new Error(`Global "${property}" object should not be exposed.`);
   }
 }
 
