@@ -94,7 +94,7 @@
     "@rollup/plugin-node-resolve": "9.0.0",
     "@rollup/plugin-replace": "2.3.3",
     "@types/estree": "0.0.45",
-    "@types/node": "14.0.27",
+    "@types/node": "14.6.0",
     "@typescript-eslint/types": "3.9.0",
     "babel-loader": "8.1.0",
     "benchmark": "2.1.4",
