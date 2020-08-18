@@ -287,3 +287,63 @@ foo.bar.baz
 
 ================================================================================
 `;
+
+exports[`eval.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11850
+
+let foo;
+
+/* indirect eval calls */
+eval?.(foo);
+
+(eval)?.(foo);
+
+eval?.()();
+
+eval?.().foo;
+
+/* direct eval calls */
+
+eval()?.();
+
+eval()?.foo;
+
+/* plain function calls */
+
+foo.eval?.(foo);
+
+eval.foo?.(foo);
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11850
+
+let foo;
+
+/* indirect eval calls */
+eval?.(foo);
+
+eval?.(foo);
+
+eval?.()();
+
+eval?.().foo;
+
+/* direct eval calls */
+
+eval()?.();
+
+eval()?.foo;
+
+/* plain function calls */
+
+foo.eval?.(foo);
+
+eval.foo?.(foo);
+
+================================================================================
+`;

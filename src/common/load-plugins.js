@@ -1,13 +1,13 @@
 "use strict";
 
+const fs = require("fs");
+const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
-const fs = require("fs");
 const globby = require("globby");
-const path = require("path");
-const thirdParty = require("./third-party");
-const internalPlugins = require("./internal-plugins");
 const mem = require("mem");
+const internalPlugins = require("../languages");
+const thirdParty = require("./third-party");
 const resolve = require("./resolve");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });

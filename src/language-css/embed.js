@@ -1,41 +1,15 @@
 "use strict";
-
 const {
-  builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc },
+  builders: { hardline, concat },
 } = require("../document");
+const { print: printFrontMatter } = require("../utils/front-matter");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
 
-  if (node.type === "yaml") {
-    return markAsRoot(
-      concat([
-        "---",
-        hardline,
-        node.value.trim()
-          ? replaceNewlinesWithLiterallines(
-              textToDoc(node.value, { parser: "yaml" })
-            )
-          : "",
-        "---",
-        hardline,
-      ])
-    );
-  }
-
-  return null;
-
-  function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(doc, (currentDoc) =>
-      typeof currentDoc === "string" && currentDoc.includes("\n")
-        ? concat(
-            currentDoc
-              .split(/(\n)/g)
-              .map((v, i) => (i % 2 === 0 ? v : literalline))
-          )
-        : currentDoc
-    );
+  if (node.type === "front-matter") {
+    const doc = printFrontMatter(node, textToDoc);
+    return doc ? concat([doc, hardline]) : "";
   }
 }
 

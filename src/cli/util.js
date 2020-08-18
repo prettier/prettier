@@ -1,17 +1,18 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
+const readline = require("readline");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
-const fs = require("fs");
 
 const chalk = require("chalk");
-const readline = require("readline");
-const stringify = require("json-stable-stringify");
+const stringify = require("fast-json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
 const flat = require("lodash/flatten");
+const partition = require("lodash/partition");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 // eslint-disable-next-line no-restricted-modules
@@ -116,7 +117,9 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
+    resolveConfig: context.argv.config !== false,
   };
+
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
@@ -527,21 +530,27 @@ function formatFiles(context) {
       writeOutput(context, result, options);
     }
 
-    if ((context.argv.check || context.argv["list-different"]) && isDifferent) {
-      context.logger.log(filename);
+    if (isDifferent) {
+      if (context.argv.check) {
+        context.logger.warn(filename);
+      } else if (context.argv["list-different"]) {
+        context.logger.log(filename);
+      }
       numberOfUnformattedFilesFound += 1;
     }
   }
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
-    context.logger.log(
-      numberOfUnformattedFilesFound === 0
-        ? "All matched files use Prettier code style!"
-        : context.argv.write
-        ? "Code style issues fixed in the above file(s)."
-        : "Code style issues found in the above file(s). Forgot to run Prettier?"
-    );
+    if (numberOfUnformattedFilesFound === 0) {
+      context.logger.log("All matched files use Prettier code style!");
+    } else {
+      context.logger.warn(
+        context.argv.write
+          ? "Code style issues fixed in the above file(s)."
+          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+      );
+    }
   }
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write
@@ -809,18 +818,17 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
 }
 
 function createMinimistOptions(detailedOptions) {
-  return {
-    // we use vnopts' AliasSchema to handle aliases for better error messages
-    alias: {},
-    boolean: detailedOptions
-      .filter((option) => option.type === "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    string: detailedOptions
-      .filter((option) => option.type !== "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    default: detailedOptions
+  const [boolean, string] = partition(
+    detailedOptions,
+    ({ type }) => type === "boolean"
+  ).map((detailedOptions) =>
+    flat(
+      detailedOptions.map(({ name, alias }) => (alias ? [name, alias] : [name]))
+    )
+  );
+
+  const defaults = fromPairs(
+    detailedOptions
       .filter(
         (option) =>
           !option.deprecated &&
@@ -829,10 +837,15 @@ function createMinimistOptions(detailedOptions) {
             option.name === "plugin-search-dir") &&
           option.default !== undefined
       )
-      .reduce(
-        (current, option) => ({ [option.name]: option.default, ...current }),
-        {}
-      ),
+      .map((option) => [option.name, option.default])
+  );
+
+  return {
+    // we use vnopts' AliasSchema to handle aliases for better error messages
+    alias: {},
+    boolean,
+    string,
+    default: defaults,
   };
 }
 

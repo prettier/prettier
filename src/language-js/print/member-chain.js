@@ -3,12 +3,12 @@
 const flat = require("lodash/flatten");
 
 const comments = require("../../main/comments");
-const { getLast } = require("../../common/util");
 const {
+  getLast,
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util-shared");
+} = require("../../common/util");
 const pathNeedsParens = require("../needs-parens");
 const {
   hasLeadingComment,
@@ -20,14 +20,6 @@ const {
   isNumericLiteral,
   isSimpleCallArgument,
 } = require("../utils");
-
-const printCallArguments = require("./call-arguments");
-const {
-  printOptionalToken,
-  printFunctionTypeParameters,
-  printMemberLookup,
-  printBindExpressionCallee,
-} = require("./misc");
 
 const {
   builders: {
@@ -41,6 +33,13 @@ const {
   },
   utils: { willBreak },
 } = require("../../document");
+const printCallArguments = require("./call-arguments");
+const {
+  printOptionalToken,
+  printFunctionTypeParameters,
+  printMemberLookup,
+  printBindExpressionCallee,
+} = require("./misc");
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
@@ -154,7 +153,10 @@ function printMemberChain(path, options, print) {
       printCallArguments(path, options, print),
     ]),
   });
-  path.call((callee) => rec(callee), "callee");
+
+  if (node.callee) {
+    path.call((callee) => rec(callee), "callee");
+  }
 
   // Once we have a linear list of printed nodes, we want to create groups out
   // of it.
@@ -234,7 +236,10 @@ function printMemberChain(path, options, print) {
       hasSeenCallExpression = false;
     }
 
-    if (isCallOrOptionalCallExpression(printedNodes[i].node)) {
+    if (
+      isCallOrOptionalCallExpression(printedNodes[i].node) ||
+      printedNodes[i].node.type === "ImportExpression"
+    ) {
       hasSeenCallExpression = true;
     }
     currentGroup.push(printedNodes[i]);

@@ -722,7 +722,18 @@ $lg-and-up: '(min-width: 1200px)';
 
 @media #{$value} {}
 
-@import url(#{$foundation-dir}/foundation/components/grid);
+$foundation-dir: 'foundation';
+@import url('#{$foundation-dir}/components/grid');
+@import url(#{$foundation-dir}/components/grid);
+@import url($foundation-dir/components/grid);
+@import url($foundation-dir+"/components/grid");
+
+@function get-font-family($family) {
+  @return $family;
+}
+@import url("//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap");
+@import url(//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap);
+
 
 @keyframes loader {
   0% {
@@ -969,7 +980,7 @@ a {
   content: "#{my-fn("foo")}";
 }
 
-mixin theme($css-property, $css-value, $theme-classes: t) {
+@mixin theme($css-property, $css-value, $theme-classes: t) {
   @each $selector in & {
     @each $class in $theme-classes {
       @each $theme, $theme-properties in c(themes) {
@@ -1048,4 +1059,28 @@ $my-map: (
 
 label {
   @include margin-bottom-1\/3;
+}
+
+@function someVeryLongFunctionNameForJustAPow($base, $exponent) {
+  $result: 1;
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
+
+@function pow($base, $exponent){
+  @return someVeryLongFunctionNameForJustAPow($base,$exponent);
+}
+
+.foo{
+  width: someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2,
+  // This next pow is really powerful
+  someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, someVeryLongFunctionNameForJustAPow(2, 2))))))))))))
+}
+
+.bar{
+  width: pow(2, pow(2, pow(2,
+  // This next pow is really powerful
+  pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, pow(2, 2))))))))))))
 }

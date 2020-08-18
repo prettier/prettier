@@ -1,0 +1,92 @@
+---
+default_config:
+tts:
+  - platform: google_translate
+
+homeassistant:
+  time_zone: Europe/Amsterdam
+  latitude: 80.1
+  longitude: -160
+
+automation:
+
+- description: Send notification on Home Assistant start
+  alias: system_start_notification
+  id: 104463f6-7524-48d9-bbe5-2bb09017e946
+  mode: single
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - service: notify.frenck_telegram
+    data:
+      message: Home Assistant is starting up again 🎉
+
+- description: Open the hall curtain based on time and type of day
+  alias: hall_curtain_open
+  id: 43178d7d-b1b5-45cc-a557-a918c397708b
+  mode: single
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reloaded
+    - platform: state
+      entity_id:
+        - alarm_control_panel.home_alarm
+    - platform: time
+      at: "08:10:00"
+    - platform: time
+      at: "10:00:00"
+  condition:
+
+  - condition: state
+    entity_id:
+      - alarm_control_panel.home_alarm
+    state:
+      - disarmed
+  - condition: time
+    before: "19:00:00"
+  - condition: or
+    conditions:
+      - condition: and
+        conditions:
+          - condition: time
+            after: "08:10:00"
+          - condition: state
+            entity_id:
+              - binary_sensor.workday
+            state: "on"
+      - condition: and
+        conditions:
+          - condition: time
+            after: "10:00:00"
+            weekday:
+              - sat
+          - condition: state
+            entity_id:
+              - binary_sensor.holiday
+            state: "off"
+    action:
+      - service: cover.open_cover
+        data:
+          entity_id:
+            - cover.hall_curtain
+
+
+logger:
+
+  default: info
+  logs:
+    homeassistant.core: warning
+
+switch:
+- platform: wake_on_lan
+  entity_id:
+    - sensor.attic_boiler_bssid
+
+
+
+hue:
+    bridges:
+        - host: 192.168.1.1
