@@ -19,8 +19,6 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.1
-        with:
-          node-version: "14"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
