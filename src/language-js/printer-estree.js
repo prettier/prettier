@@ -4111,6 +4111,14 @@ function printTypeScriptModifiers(path, options, print) {
   return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
+const typeParametersGroupIds = new WeakMap();
+function getTypeParametersGroupId(node) {
+  if (!typeParametersGroupIds.has(node)) {
+    typeParametersGroupIds.set(node, Symbol("typeParameters"));
+  }
+  return typeParametersGroupIds.get(node);
+}
+
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
 
@@ -4199,7 +4207,8 @@ function printTypeParameters(path, options, print, paramsKey) {
       ),
       softline,
       ">",
-    ])
+    ]),
+    { id: getTypeParametersGroupId(n) }
   );
 }
 
@@ -4225,12 +4234,21 @@ function printClass(path, options, print) {
     (n.implements && n.implements.length !== 0);
 
   const partsGroup = [];
+  const extendsParts = [];
 
   if (n.id) {
     partsGroup.push(" ", path.call(print, "id"));
   }
 
   partsGroup.push(path.call(print, "typeParameters"));
+
+  const hasMultipleHeritage =
+    ["superClass", "extends", "mixins", "implements"].filter((key) => !!n[key])
+      .length > 1;
+  const shouldIndentOnlyHeritageClauses =
+    n.typeParameters &&
+    !hasTrailingLineComment(n.typeParameters) &&
+    !hasMultipleHeritage;
 
   function printList(listName) {
     if (n[listName] && n[listName].length !== 0) {
@@ -4240,8 +4258,12 @@ function printClass(path, options, print) {
         /* sameIndent */ true,
         ({ marker }) => marker === listName
       );
-      partsGroup.push(
-        line,
+      extendsParts.push(
+        shouldIndentOnlyHeritageClauses
+          ? ifBreak(" ", line, {
+              groupId: getTypeParametersGroupId(n.typeParameters),
+            })
+          : line,
         printedLeadingComments,
         printedLeadingComments && hardline,
         listName,
@@ -4266,9 +4288,9 @@ function printClass(path, options, print) {
       "superClass"
     );
     if (groupMode) {
-      partsGroup.push(line, group(printedWithComments));
+      extendsParts.push(line, group(printedWithComments));
     } else {
-      partsGroup.push(" ", printedWithComments);
+      extendsParts.push(" ", printedWithComments);
     }
   } else {
     printList("extends");
@@ -4278,9 +4300,20 @@ function printClass(path, options, print) {
   printList("implements");
 
   if (groupMode) {
-    parts.push(group(indent(concat(partsGroup))));
+    const printedExtends = concat(extendsParts);
+    if (shouldIndentOnlyHeritageClauses) {
+      parts.push(
+        group(
+          concat(
+            partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
+          )
+        )
+      );
+    } else {
+      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+    }
   } else {
-    parts.push(...partsGroup);
+    parts.push(...partsGroup, ...extendsParts);
   }
 
   parts.push(" ", path.call(print, "body"));

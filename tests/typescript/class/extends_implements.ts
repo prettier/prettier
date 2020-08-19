@@ -33,3 +33,30 @@ class ExtendsAbstractClassAndImplementsInterfaces5
     Interface6,
     Interface7,
     Interface8 {}
+
+class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
+  extends FOOOOOOOOOOOOOOOOO
+  implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
+
+class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> implements Foo {}
+
+class ImplementsInterfaceAndExtendsAbstractClass2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  >
+   extends FOOOOOOOOOOOOOOOOOO implements BaseInterface {}
+
+class ImplementsInterfaceClass1<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  >
+    implements BaseInterface {}
+
+class ImplementsInterfaceClassWithComments1<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // comments
+    implements BaseInterface {}
