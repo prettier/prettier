@@ -1150,7 +1150,7 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "ImportExpression") {
-    return plusTwo(node.source);
+    return plusTwo(node.source, depth);
   }
 
   if (
@@ -1158,25 +1158,25 @@ function isSimpleCallArgument(node, depth) {
     node.type === "OptionalCallExpression" ||
     node.type === "NewExpression"
   ) {
-    return plusOne(node.callee) && node.arguments.every(plusTwo);
+    return plusOne(node.callee, depth) && node.arguments.every(plusTwo);
   }
 
   if (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression"
   ) {
-    return plusOne(node.object) && plusOne(node.property);
+    return plusOne(node.object, depth) && plusOne(node.property, depth);
   }
 
   if (
     node.type === "UnaryExpression" &&
     (node.operator === "!" || node.operator === "-")
   ) {
-    return plusOne(node.argument);
+    return plusOne(node.argument, depth);
   }
 
   if (node.type === "TSNonNullExpression") {
-    return plusOne(node.expression);
+    return plusOne(node.expression, depth);
   }
 
   return false;
