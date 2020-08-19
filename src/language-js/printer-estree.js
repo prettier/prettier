@@ -2651,7 +2651,7 @@ function printPathNoParens(path, options, print, args) {
           parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
         }
       } else {
-        parts.push(...partsGroup.concat(extendsParts));
+        parts.push(...partsGroup, ...extendsParts);
       }
 
       parts.push(" ", path.call(print, "body"));
