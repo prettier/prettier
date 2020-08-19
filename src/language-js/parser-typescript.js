@@ -40,6 +40,7 @@ function tryParseTypeScript(text, jsx) {
     useJSXTextNode: true,
     jsx,
     tokens: true,
+    loggerFn: false,
   });
 }
 
