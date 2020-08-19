@@ -34,7 +34,7 @@ function formatVersion(version) {
   return `${semver.major(version)}.${semver.minor(version)}`;
 }
 
-function replaceVersionInBlogPost({ blogPost, version, previousVersion }) {
+function replaceVersionsInBlogPost({ blogPost, version, previousVersion }) {
   const blogPostData = fs.readFileSync(blogPost, "utf-8");
   const newBlogPostData = blogPostData
     .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
@@ -53,7 +53,7 @@ module.exports = async function ({ version, previousVersion }) {
       releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
     });
     if (fs.existsSync(blogPost.file)) {
-      replaceVersionInBlogPost({
+      replaceVersionsInBlogPost({
         blogPost: blogPost.file,
         version,
         previousVersion,
