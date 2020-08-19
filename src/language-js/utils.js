@@ -1101,12 +1101,11 @@ function isLongCurriedCallExpression(path) {
  * @returns {boolean}
  */
 function isSimpleCallArgument(node, depth) {
-  if (depth >= 3) {
+  if (depth >= 2) {
     return false;
   }
 
-  const plusOne = (node) => isSimpleCallArgument(node, depth + 1);
-  const plusTwo = (node) => isSimpleCallArgument(node, depth + 2);
+  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);
 
   const regexpPattern =
     (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
@@ -1136,21 +1135,21 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(plusTwo);
+    return node.expressions.every(isChildSimple);
   }
 
   if (node.type === "ObjectExpression") {
     return node.properties.every(
-      (p) => !p.computed && (p.shorthand || (p.value && plusTwo(p.value)))
+      (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
 
   if (node.type === "ArrayExpression") {
-    return node.elements.every((x) => x === null || plusTwo(x));
+    return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
   if (node.type === "ImportExpression") {
-    return plusTwo(node.source, depth);
+    return isChildSimple(node.source);
   }
 
   if (
@@ -1158,25 +1157,31 @@ function isSimpleCallArgument(node, depth) {
     node.type === "OptionalCallExpression" ||
     node.type === "NewExpression"
   ) {
-    return plusOne(node.callee, depth) && node.arguments.every(plusTwo);
+    return (
+      isSimpleCallArgument(node.callee, depth) &&
+      node.arguments.every(isChildSimple)
+    );
   }
 
   if (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression"
   ) {
-    return plusOne(node.object, depth) && plusOne(node.property, depth);
+    return (
+      isSimpleCallArgument(node.object, depth) &&
+      isSimpleCallArgument(node.property, depth)
+    );
   }
 
   if (
     node.type === "UnaryExpression" &&
     (node.operator === "!" || node.operator === "-")
   ) {
-    return plusOne(node.argument, depth);
+    return isSimpleCallArgument(node.argument, depth);
   }
 
   if (node.type === "TSNonNullExpression") {
-    return plusOne(node.expression, depth);
+    return isSimpleCallArgument(node.expression, depth);
   }
 
   return false;
