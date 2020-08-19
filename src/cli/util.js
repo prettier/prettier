@@ -65,11 +65,8 @@ function handleError(context, filename, error) {
       readline.cursorTo(process.stdout, 0, null);
     }
     if (context.argv["ignore-unknown"]) {
-      if (isTTY()) {
-        readline.clearLine(process.stdout, 0);
-        readline.cursorTo(process.stdout, 0, null);
-        context.logger.log(filename);
-      }
+      readline.clearLine(process.stdout, 0);
+      readline.cursorTo(process.stdout, 0, null);
       return;
     }
     if (!context.argv.check && !context.argv["list-different"]) {
