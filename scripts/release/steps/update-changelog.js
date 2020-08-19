@@ -30,15 +30,15 @@ function writeChangelog({ version, previousVersion, releaseNotes }) {
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
 }
 
-function formatVer(ver) {
-  return `${semver.major(ver)}.${semver.minor(ver)}`;
+function formatVersion(version) {
+  return `${semver.major(version)}.${semver.minor(version)}`;
 }
 
 function replaceVersionInBlogPost({ blogPost, version, previousVersion }) {
   const blogPostData = fs.readFileSync(blogPost, "utf-8");
   const newBlogPostData = blogPostData
-    .replace(/prettier stable/gi, `Prettier ${formatVer(previousVersion)}`)
-    .replace(/prettier master/gi, `Prettier ${formatVer(version)}`);
+    .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
+    .replace(/prettier master/gi, `Prettier ${formatVersion(version)}`);
   fs.writeFileSync(blogPost, newBlogPostData);
 }
 
