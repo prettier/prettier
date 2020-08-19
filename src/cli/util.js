@@ -60,13 +60,11 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv.write && isTTY()) {
+    if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
     }
     if (context.argv["ignore-unknown"]) {
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
       return;
     }
     if (!context.argv.check && !context.argv["list-different"]) {
