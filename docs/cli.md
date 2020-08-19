@@ -210,5 +210,5 @@ $ cat abc.css | prettier --stdin-filepath abc.css
 With `--ignore-unknown` (or `-u`), prettier will ignore unknown files matched by patterns.
 
 ```console
-$ prettier **/* --write --ignore-unknown
+$ prettier "**/*" --write --ignore-unknown
 ```
