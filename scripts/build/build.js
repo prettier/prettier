@@ -77,10 +77,11 @@ async function cacheFiles() {
   try {
     await execa("rm", ["-rf", path.join(".cache", "files")]);
     await execa("mkdir", ["-p", path.join(".cache", "files")]);
+    await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
     for (const bundleConfig of bundleConfigs) {
       await execa("cp", [
         path.join("dist", bundleConfig.output),
-        path.join(".cache", "files"),
+        path.join(".cache", "files", bundleConfig.output),
       ]);
     }
   } catch (err) {
@@ -107,6 +108,7 @@ async function preparePackage() {
 async function run(params) {
   await execa("rm", ["-rf", "dist"]);
   await execa("mkdir", ["-p", "dist"]);
+  await execa("mkdir", ["-p", "dist/esm"]);
 
   if (params["purge-cache"]) {
     await execa("rm", ["-rf", ".cache"]);

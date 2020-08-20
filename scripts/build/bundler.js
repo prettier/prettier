@@ -283,7 +283,7 @@ module.exports = async function createBundle(bundle, cache) {
     try {
       await execa("cp", [
         path.join(cache.cacheDir, "files", bundle.output),
-        "dist",
+        path.join("dist", bundle.output),
       ]);
       return { cached: true };
     } catch (err) {
