@@ -238,18 +238,26 @@ function formatRange(text, opts) {
   return { formatted, cursorOffset };
 }
 
-function format(text, opts) {
+function format(originalText, opts) {
   const selectedParser = parser.resolveParser(opts);
+
+  const hasBOM = originalText.charAt(0) === BOM;
+  let text = hasBOM ? originalText.slice(1) : originalText;
+
+  const hasCursor = opts.cursorOffset >= 0;
+  if (!hasCursor) {
+    opts.cursorOffset = 0;
+  }
+
   const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
   if (opts.requirePragma && !hasPragma) {
-    return { formatted: text };
+    return { formatted: originalText, cursorOffset: opts.cursorOffset };
   }
 
   if (opts.endOfLine === "auto") {
     opts.endOfLine = guessEndOfLine(text);
   }
 
-  const hasCursor = opts.cursorOffset >= 0;
   const hasRangeStart = opts.rangeStart > 0;
   const hasRangeEnd = opts.rangeEnd < text.length;
 
@@ -280,9 +288,7 @@ function format(text, opts) {
     }
   }
 
-  const hasUnicodeBOM = text.charAt(0) === BOM;
-  if (hasUnicodeBOM) {
-    text = text.slice(1);
+  if (hasBOM) {
     if (hasCursor) {
       opts.cursorOffset--;
     }
@@ -294,9 +300,6 @@ function format(text, opts) {
     }
   }
 
-  if (!hasCursor) {
-    opts.cursorOffset = -1;
-  }
   if (opts.rangeStart < 0) {
     opts.rangeStart = 0;
   }
@@ -304,17 +307,18 @@ function format(text, opts) {
     opts.rangeEnd = text.length;
   }
 
-  const result =
-    hasRangeStart || hasRangeEnd
-      ? formatRange(text, opts)
-      : coreFormat(
-          opts.insertPragma && opts.printer.insertPragma && !hasPragma
-            ? opts.printer.insertPragma(text)
-            : text,
-          opts
-        );
+  let result
 
-  if (hasUnicodeBOM) {
+  if (hasRangeStart || hasRangeEnd) {
+    result = formatRange(text, opts);
+  } else {
+    if (!hasPragma && opts.insertPragma && opts.printer.insertPragma) {
+      text = opts.printer.insertPragma(text)
+    }
+    result = coreFormat(text,opts);
+  }
+
+  if (hasBOM) {
     result.formatted = BOM + result.formatted;
 
     if (hasCursor) {
