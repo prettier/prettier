@@ -891,15 +891,22 @@
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
-"@glimmer/reference@0.57.2":
-  version "0.57.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/reference/-/reference-0.57.2.tgz#378c0d3644d4a98c4138c3205f6d4f0b5e004e92"
-  integrity sha512-xkUsl4cYR9ZOBEsNOmdxmb7iQnfTzeQZSGOD7H2fP9RqKGXR4mpNuDyP2YDCs2bI5JChDo3QvPp24RHmDjd8rA==
+"@glimmer/interfaces@^0.58.0":
+  version "0.58.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.58.0.tgz#9271a89851b8711265f5bef7b69e6734f9621625"
+  integrity sha512-lajPG3VM3Z6SiCwjMqaqkdxjJYndVwAYZXvKP2FSqJPUadnyfSB59Ira8R1kUwV1+qRlugqPYAr95iEq+L6/lQ==
+  dependencies:
+    "@simple-dom/interface" "^1.4.0"
+
+"@glimmer/reference@0.58.0":
+  version "0.58.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/reference/-/reference-0.58.0.tgz#8d2fb4a53cf3bac299961236c1774641bb103c53"
+  integrity sha512-1pDal2ThvQWZumNQA8XU/6gbX/vbrdIcy7BTpR2PJHxw2QGTln8enKLEWq+PPXv952/xXgttRBP99Ge9a6fPYg==
   dependencies:
     "@glimmer/env" "^0.1.7"
-    "@glimmer/interfaces" "^0.57.2"
-    "@glimmer/util" "^0.57.2"
-    "@glimmer/validator" "^0.57.2"
+    "@glimmer/interfaces" "^0.58.0"
+    "@glimmer/util" "^0.58.0"
+    "@glimmer/validator" "^0.58.0"
 
 "@glimmer/syntax@0.57.2":
   version "0.57.2"
@@ -920,10 +927,19 @@
     "@glimmer/interfaces" "^0.57.2"
     "@simple-dom/interface" "^1.4.0"
 
-"@glimmer/validator@^0.57.2":
-  version "0.57.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/validator/-/validator-0.57.2.tgz#7c37a33268c491280cc598fb3212c767f6fb3fce"
-  integrity sha512-e8WdKZod9Tznp62vHOd3SgyVFCD995z9PAmONvq4kDDONdBRTwFQaz72TaDB44bG6S3PL73s8GiuO7Iar0HX1g==
+"@glimmer/util@^0.58.0":
+  version "0.58.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.58.0.tgz#18d22fb2eb4ed3f1323718cd1267c137a42eea4e"
+  integrity sha512-2ws68gTGOYNNW1dJx33O2CDMoKQiNhKjQyD6nY9bgFQ7cVWifVxs39HpWOe4yc/2MHaTLmHjuqdAr1gznpQsOA==
+  dependencies:
+    "@glimmer/env" "0.1.7"
+    "@glimmer/interfaces" "^0.58.0"
+    "@simple-dom/interface" "^1.4.0"
+
+"@glimmer/validator@^0.58.0":
+  version "0.58.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/validator/-/validator-0.58.0.tgz#ada0b09840d8ff2de7827f0132d51a25dbfe8baf"
+  integrity sha512-j/ezeRlPiHTIfGYk4MZZ2h11Bm8sWdsdCr9ms8b/2UjFvvx5x3YPCK0+27PCQLqjwq19KhtHgdjbgWvK0ibEXA==
   dependencies:
     "@glimmer/env" "^0.1.7"
 
