@@ -199,8 +199,8 @@ function formatRange(text, opts) {
 
   let formatted =
     text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
-  const eol = convertEndOfLineToChars(opts.endOfLine);
-  if (eol !== "\n") {
+  if (opts.endOfLine !== "lf") {
+    const eol = convertEndOfLineToChars(opts.endOfLine);
     if (cursorOffset >= 0 && eol === "\r\n") {
       const before = formatted.slice(0, cursorOffset);
       const match = before.match(/\n/g);
