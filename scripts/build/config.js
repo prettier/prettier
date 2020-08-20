@@ -32,6 +32,12 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-typescript.js",
+    replace: {
+      // `typescript/lib/typescript.js` expose extra global objects
+      // `TypeScript`, `toolsVersion`, `globalThis`
+      'typeof process === "undefined" || process.browser': "false",
+      'typeof globalThis === "object"': "true",
+    },
   },
   {
     input: "src/language-js/parser-angular.js",
