@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babel", "typescript", "flow"], {requirePragma: true});
+run_spec(__dirname, ["babel", "typescript", "flow"], { requirePragma: true });
