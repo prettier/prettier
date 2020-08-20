@@ -30,7 +30,7 @@ function insertPragma(originalText) {
       ...pragmas,
     },
     comments: comments.trimStart(),
-  }).replace(/\r?\n/g, "\n"); // normalise newlines (mitigate use of os.EOL by jest-docblock)
+  }).replace(/\r\n?/g, "\n"); // normalise newlines (mitigate use of os.EOL by jest-docblock)
 
   return (
     (shebang ? `${shebang}\n` : "") +
