@@ -337,6 +337,9 @@ module.exports = {
 
   parse(text, opts, massage) {
     opts = normalizeOptions(opts);
+    if (text.charAt(0) === BOM) {
+      text = text.slice(1);
+    }
     if (text.includes("\r")) {
       text = text.replace(/\r\n?/g, "\n");
     }
