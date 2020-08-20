@@ -508,7 +508,7 @@ function printComments(path, print, options, needsSemi) {
         text,
         skipSpaces(text, options.locEnd(comment))
       );
-      if (index !== false && hasNewline(text, index)) {
+      if (index >= 0 && hasNewline(text, index)) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
