@@ -8,9 +8,11 @@ const path = require("path");
 
 const MARKERS = [".git", ".hg"];
 
+/** @type{(directory: string) => boolean} */
 const markerExists = (directory) =>
   MARKERS.some((mark) => fs.existsSync(path.join(directory, mark)));
 
+/** @param {string} directory */
 function findProjectRoot(directory) {
   while (!markerExists(directory)) {
     const parentDirectory = path.resolve(directory, "..");

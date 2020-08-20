@@ -1,3 +1,7 @@
 "use strict";
 
-module.exports = (arr) => arr[arr.length - 1];
+module.exports =
+  /**
+   * @param {any[] | string} arr
+   */
+  (arr) => arr[arr.length - 1];

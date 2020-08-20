@@ -2,6 +2,10 @@
 
 const parse = require("@iarna/toml/parse-string");
 
+/**
+ * @param {string} filePath
+ * @param {string} content
+ */
 module.exports = function (filePath, content) {
   try {
     return parse(content);
