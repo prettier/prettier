@@ -261,6 +261,18 @@ function format(originalText, opts) {
   const hasRangeStart = opts.rangeStart > 0;
   const hasRangeEnd = opts.rangeEnd < text.length;
 
+  if (hasBOM) {
+    if (hasCursor) {
+      opts.cursorOffset--;
+    }
+    if (hasRangeStart) {
+      opts.rangeStart--;
+    }
+    if (hasRangeEnd) {
+      opts.rangeEnd--;
+    }
+  }
+
   // get rid of CR/CRLF parsing
   if (text.includes("\r")) {
     const offsetKeys = [
@@ -285,18 +297,6 @@ function format(originalText, opts) {
         opts[key] = index;
         return "";
       });
-    }
-  }
-
-  if (hasBOM) {
-    if (hasCursor) {
-      opts.cursorOffset--;
-    }
-    if (hasRangeStart) {
-      opts.rangeStart--;
-    }
-    if (hasRangeEnd) {
-      opts.rangeEnd--;
     }
   }
 
