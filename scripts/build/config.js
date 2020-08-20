@@ -123,7 +123,7 @@ const coreBundles = [
     target: "universal",
     // TODO: Find a better way to remove parsers
     replace: Object.fromEntries(
-      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"])
+      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"]),
     ),
   },
   {
@@ -176,7 +176,7 @@ module.exports = coreBundles
         {
           ...baseBundle,
           format: "esm",
-          output: baseBundle.output.replace(".js", ".mjs"),
+          output: path.join("esm", baseBundle.output.replace(".js", ".mjs")),
         },
       ];
     }
