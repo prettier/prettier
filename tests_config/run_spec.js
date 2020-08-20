@@ -211,34 +211,6 @@ global.run_spec = (fixtures, parsers, options) => {
         return;
       }
 
-      for (const parser of verifyParsers) {
-        const verifyOptions = { ...firstFormat.options, parser };
-        const runVerifyFormat = () => format(firstFormat.input, verifyOptions);
-
-        if (shouldThrowOnVerify(name, verifyOptions)) {
-          test(`verify (${parser})`, () => {
-            expect(runVerifyFormat).toThrow(
-              TEST_STANDALONE ? undefined : SyntaxError
-            );
-          });
-        } else {
-          const verifyFormat = runVerifyFormat();
-          test(`verify (${parser})`, () => {
-            expect(verifyFormat.eolVisualizedOutput).toEqual(
-              firstFormat.eolVisualizedOutput
-            );
-          });
-
-          if (AST_COMPARE && verifyFormat.changed && code.trim()) {
-            test(`verify AST (${parser})`, () => {
-              const originalAst = parse(verifyFormat.input, verifyOptions);
-              const formattedAst = parse(verifyFormat.output, verifyOptions);
-              expect(originalAst).toEqual(formattedAst);
-            });
-          }
-        }
-      }
-
       const isUnstableTest = isUnstable(filename, formatOptions);
       if (
         (firstFormat.changed || isUnstableTest) &&
@@ -285,6 +257,34 @@ global.run_spec = (fixtures, parsers, options) => {
             BOM + firstFormat.outputWithCursor
           );
         });
+      }
+
+      for (const parser of verifyParsers) {
+        const verifyOptions = { ...firstFormat.options, parser };
+        const runVerifyFormat = () => format(firstFormat.input, verifyOptions);
+
+        if (shouldThrowOnVerify(name, verifyOptions)) {
+          test(`verify (${parser})`, () => {
+            expect(runVerifyFormat).toThrow(
+              TEST_STANDALONE ? undefined : SyntaxError
+            );
+          });
+        } else {
+          const verifyFormat = runVerifyFormat();
+          test(`verify (${parser})`, () => {
+            expect(verifyFormat.eolVisualizedOutput).toEqual(
+              firstFormat.eolVisualizedOutput
+            );
+          });
+
+          if (FULL_TEST && verifyFormat.changed && code.trim()) {
+            test(`verify AST (${parser})`, () => {
+              const originalAst = parse(verifyFormat.input, verifyOptions);
+              const formattedAst = parse(verifyFormat.output, verifyOptions);
+              expect(originalAst).toEqual(formattedAst);
+            });
+          }
+        }
       }
     });
   }
