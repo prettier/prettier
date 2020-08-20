@@ -68,7 +68,7 @@ const parsers = [
   },
   {
     input: "dist/parser-postcss.js",
-    output: "parser-postcss.mjs",
+    output: "esm/parser-postcss.mjs",
     format: "esm",
   },
   {
@@ -123,7 +123,7 @@ const coreBundles = [
     target: "universal",
     // TODO: Find a better way to remove parsers
     replace: Object.fromEntries(
-      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"]),
+      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"])
     ),
   },
   {
