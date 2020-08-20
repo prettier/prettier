@@ -548,25 +548,39 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
+/** @return {false | "next" | "start" | "end"} */
 function hasIgnoreComment(path) {
   const node = path.getValue();
   return hasNodeIgnoreComment(node);
 }
 
+/** @return {false | "next" | "start" | "end"} */
 function hasNodeIgnoreComment(node) {
-  return (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
-      )) ||
-      node.prettierIgnore)
-  );
+  if (node) {
+    if (node.prettierIgnore) {
+      return "next";
+    }
+    if (node.comments && node.comments.length > 0) {
+      for (let index = 0; index < node.comments.length; index++) {
+        const comment = node.comments[index];
+        const ignore = isNodeIgnoreComment(comment);
+        if (ignore && !comment.unignore) {
+          return ignore;
+        }
+      }
+    }
+  }
+  return false;
 }
 
+/** @return {false | "next" | "start" | "end"} */
 function isNodeIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
+  const match = comment.value.match(/\s*prettier-ignore(?:-(start|end))?\s*/);
+  return match === null
+    ? false
+    : match[1] && comment.leading
+    ? match[1]
+    : "next";
 }
 
 function addCommentHelper(node, comment) {

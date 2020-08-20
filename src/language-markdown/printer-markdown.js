@@ -999,7 +999,7 @@ function hasPrettierIgnore(path) {
   }
 
   const prevNode = path.getParentNode().children[index - 1];
-  return isPrettierIgnore(prevNode) === "next";
+  return isPrettierIgnore(prevNode) === "next" ? "next" : false;
 }
 
 module.exports = {

@@ -115,8 +115,18 @@ function callPluginPrintFunction(path, options, printPath, args) {
   const node = path.getValue();
   const { printer } = options;
 
+  const ignore = printer.hasPrettierIgnore && printer.hasPrettierIgnore(path);
+  switch (ignore) {
+    case "start":
+      options.ignoring = true;
+      break;
+    case "end":
+      options.ignoring = false;
+      break;
+  }
+
   // Escape hatch
-  if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
+  if ((node && options.ignoring) || ignore === "next") {
     return printPrettierIgnoredNode(node, options);
   }
 

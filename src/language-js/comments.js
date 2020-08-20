@@ -741,7 +741,7 @@ function handleUnionTypeComments(
     (enclosingNode.type === "UnionTypeAnnotation" ||
       enclosingNode.type === "TSUnionType")
   ) {
-    if (isNodeIgnoreComment(comment)) {
+    if (isNodeIgnoreComment(comment) === "next") {
       followingNode.prettierIgnore = true;
       comment.unignore = true;
     }
@@ -756,7 +756,7 @@ function handleUnionTypeComments(
     followingNode &&
     (followingNode.type === "UnionTypeAnnotation" ||
       followingNode.type === "TSUnionType") &&
-    isNodeIgnoreComment(comment)
+    isNodeIgnoreComment(comment) === "next"
   ) {
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
