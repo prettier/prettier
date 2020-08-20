@@ -143,7 +143,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     return { formatted: result.formatted, cursorOffset };
   }
 
-  return { formatted: result.formatted };
+  return { formatted: result.formatted, cursorOffset: 0 };
 }
 
 function formatRange(text, opts) {
