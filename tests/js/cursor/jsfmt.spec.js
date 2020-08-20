@@ -58,7 +58,7 @@ test("cursorOffset === rangeStart", () => {
       rangeEnd: 8,
     })
   ).toEqual({
-    formatted: `1.0000\n2.0;\n3.0000`,
+    formatted: "1.0000\n2.0;\n3.0000",
     cursorOffset: 7,
   });
 });
