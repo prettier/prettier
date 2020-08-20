@@ -307,15 +307,15 @@ function format(originalText, opts) {
     opts.rangeEnd = text.length;
   }
 
-  let result
+  let result;
 
   if (hasRangeStart || hasRangeEnd) {
     result = formatRange(text, opts);
   } else {
     if (!hasPragma && opts.insertPragma && opts.printer.insertPragma) {
-      text = opts.printer.insertPragma(text)
+      text = opts.printer.insertPragma(text);
     }
-    result = coreFormat(text,opts);
+    result = coreFormat(text, opts);
   }
 
   if (hasBOM) {
