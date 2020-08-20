@@ -41,7 +41,7 @@ function attachComments(text, ast, opts) {
 
 function coreFormat(text, opts, addAlignmentSize) {
   if (!text || !text.trim().length) {
-    return { formatted: "", cursorOffset: 0 };
+    return { formatted: "", cursorOffset: -1 };
   }
 
   addAlignmentSize = addAlignmentSize || 0;
@@ -143,7 +143,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     return { formatted: result.formatted, cursorOffset };
   }
 
-  return { formatted: result.formatted, cursorOffset: 0 };
+  return { formatted: result.formatted, cursorOffset: -1 };
 }
 
 function formatRange(text, opts) {
@@ -246,7 +246,7 @@ function format(originalText, opts) {
 
   const hasCursor = opts.cursorOffset >= 0;
   if (!hasCursor) {
-    opts.cursorOffset = 0;
+    opts.cursorOffset = -1;
   }
 
   const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
