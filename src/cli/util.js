@@ -61,6 +61,8 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
+    // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
+    /* istanbul ignore next */
     if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
@@ -96,6 +98,7 @@ function handleError(context, filename, error) {
     context.logger.error(`${filename}: ${error.message}`);
   } else {
     // `invalid.js: Error: Some unexpected error\n[stack trace]`
+    /* istanbul ignore next */
     context.logger.error(filename + ": " + (error.stack || error));
   }
 
@@ -364,7 +367,10 @@ function applyConfigPrecedence(context, options) {
         return options || parseArgsToOptions(context);
     }
   } catch (error) {
+    /* istanbul ignore next */
     context.logger.error(error.toString());
+
+    /* istanbul ignore next */
     process.exit(2);
   }
 }
@@ -467,13 +473,19 @@ function formatFiles(context) {
       input = fs.readFileSync(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
+      /* istanbul ignore next */
       context.logger.log("");
 
+      /* istanbul ignore next */
       context.logger.error(
         `Unable to read file: ${filename}\n${error.message}`
       );
+
       // Don't exit the process if one file failed
+      /* istanbul ignore next */
       process.exitCode = 2;
+
+      /* istanbul ignore next */
       continue;
     }
 
@@ -514,16 +526,20 @@ function formatFiles(context) {
         try {
           fs.writeFileSync(filename, output, "utf8");
         } catch (error) {
+          /* istanbul ignore next */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
+
           // Don't exit the process if one file failed
+          /* istanbul ignore next */
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
+      /* istanbul ignore else */
       if (result.filepath) {
         context.logger.log(result.filepath);
       } else {
@@ -769,8 +785,6 @@ function createLogger(logLevel) {
     switch (logLevel) {
       case "silent":
         return false;
-      default:
-        return true;
       case "debug":
         if (loggerName === "debug") {
           return true;
@@ -804,6 +818,7 @@ function normalizeDetailedOption(name, option) {
           deprecated: false,
           ...(typeof choice === "object" ? choice : { value: choice }),
         };
+        /* istanbul ignore next */
         if (newChoice.value === true) {
           newChoice.value = ""; // backward compatibility for original boolean option
         }
@@ -873,6 +888,7 @@ function createDetailedOptionMap(supportOptions) {
         forwardToApi: option.name,
       };
 
+      /* istanbul ignore next */
       if (option.deprecated) {
         delete newOption.forwardToApi;
         delete newOption.description;

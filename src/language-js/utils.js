@@ -868,7 +868,7 @@ function isLastStatement(path) {
   const body = (parent.body || parent.consequent).filter(
     (stmt) => stmt.type !== "EmptyStatement"
   );
-  return body && body[body.length - 1] === node;
+  return body[body.length - 1] === node;
 }
 
 /**

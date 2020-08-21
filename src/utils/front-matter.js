@@ -2,8 +2,7 @@
 
 const escape = require("escape-string-regexp");
 const {
-  builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc },
+  builders: { hardline, concat, markAsRoot },
 } = require("../document");
 
 const DELIMITER_MAP = {
@@ -46,26 +45,12 @@ function print(node, textToDoc) {
   if (node.lang === "yaml") {
     const value = node.value.trim();
     const doc = value
-      ? replaceNewlinesWithLiterallines(
-          textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
-        )
+      ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
       : "";
     return markAsRoot(
       concat(["---", hardline, doc, doc ? hardline : "", "---"])
     );
   }
-}
-
-function replaceNewlinesWithLiterallines(doc) {
-  return mapDoc(doc, (currentDoc) =>
-    typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? concat(
-          currentDoc
-            .split(/(\n)/g)
-            .map((v, i) => (i % 2 === 0 ? v : literalline))
-        )
-      : currentDoc
-  );
 }
 
 module.exports = { parse, print };

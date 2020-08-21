@@ -274,6 +274,7 @@ function format(text, opts) {
   if (!hasCursor) {
     opts.cursorOffset = -1;
   }
+  /* istanbul ignore next */
   if (opts.rangeStart < 0) {
     opts.rangeStart = 0;
   }

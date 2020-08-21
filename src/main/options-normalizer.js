@@ -161,6 +161,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       SchemaConstructor = vnopts.StringSchema;
       break;
     default:
+      /* istanbul ignore next */
       throw new Error(`Unexpected type ${optionInfo.type}`);
   }
 
@@ -174,6 +175,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     };
   }
 
+  /* istanbul ignore next */
   if (optionInfo.redirect) {
     handlers.redirect = (value) =>
       !value
@@ -186,6 +188,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
           };
   }
 
+  /* istanbul ignore next */
   if (optionInfo.deprecated) {
     handlers.deprecated = true;
   }

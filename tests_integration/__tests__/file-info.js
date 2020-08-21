@@ -62,6 +62,16 @@ describe("extracts file-info with ignored=true for a file in a hand-picked .pret
   });
 });
 
+describe("non-exists ignore path", () => {
+  runPrettier("cli/", [
+    "--file-info",
+    "regular-module.js",
+    "--ignore-path=ignore-path/non-exists/.prettierignore",
+  ]).test({
+    status: 0,
+  });
+});
+
 describe("extracts file-info for a file in not_node_modules", () => {
   runPrettier("cli/with-node-modules/", [
     "--file-info",

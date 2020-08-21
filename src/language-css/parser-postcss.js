@@ -109,6 +109,7 @@ function parseValueNode(valueNode, options) {
       }
       parenGroup.close = node;
 
+      /* istanbul ignore next */
       if (commaGroupStack.length === 1) {
         throw new Error("Unbalanced parenthesis");
       }
@@ -270,6 +271,7 @@ function parseMediaQuery(params) {
     result = mediaParser(params);
   } catch (e) {
     // Ignore bad media queries
+    /* istanbul ignore next */
     return {
       type: "selector-unknown",
       value: params,
@@ -294,6 +296,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
+    /* istanbul ignore next */
     if (!node.raws) {
       node.raws = {};
     }
@@ -352,10 +355,14 @@ function parseNestedCSS(node, options) {
 
     // Ignore LESS mixin declaration
     if (selector.trim().length > 0) {
+      // TODO: confirm this code is dead
+      /* istanbul ignore next */
       if (selector.startsWith("@") && selector.endsWith(":")) {
         return node;
       }
 
+      // TODO: confirm this code is dead
+      /* istanbul ignore next */
       // Ignore LESS mixins
       if (node.mixin) {
         node.selector = parseValue(selector, options);
@@ -581,6 +588,7 @@ function parseWithParser(parse, text, options) {
   try {
     result = parse(text);
   } catch (e) {
+    /* istanbul ignore next */
     if (typeof e.line !== "number") {
       throw e;
     }
