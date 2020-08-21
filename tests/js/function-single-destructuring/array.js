@@ -10,10 +10,6 @@ function excludeFirstFiveResults3([firstResult, secondResult, thirdResult, fourt
   return rest;
 }
 
-function excludeFirstFiveResults4([first, second, third, fourth, fifth, ...rest]: Result[]) {
-  return rest;
-}
-
 const excludeFirstFiveResults5 = ([first, second, third, fourth, fifth, ...rest]) => {
   return rest;
 }

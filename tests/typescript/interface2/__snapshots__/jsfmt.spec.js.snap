@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js format 1`] = `
+exports[`break.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["typescript", "babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -180,9 +180,9 @@ export interface ExtendsLongOneWithGenerics
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["typescript", "babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -258,9 +258,9 @@ interface A6 // comment1
 ================================================================================
 `;
 
-exports[`comments-declare.js format 1`] = `
+exports[`comments-declare.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["typescript", "babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -278,9 +278,9 @@ declare interface a // 1
 ================================================================================
 `;
 
-exports[`module.js format 1`] = `
+exports[`module.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["typescript", "babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
