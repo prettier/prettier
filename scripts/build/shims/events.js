@@ -1,1 +1,1 @@
-export class EventEmitter {}
+export default class EventEmitter {}

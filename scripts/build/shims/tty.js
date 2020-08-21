@@ -1,5 +1,1 @@
-export default {
-  isatty() {
-    return false;
-  },
-};
+export const isatty = () => false;
