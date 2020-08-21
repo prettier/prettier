@@ -74,14 +74,11 @@ overrides:
       no-console: off
   - files:
       - scripts/build/shims/*.js
-    parserOptions:
-      sourceType: module
-  - files:
       - "*.mjs"
     parserOptions:
       sourceType: module
   - files:
-      - "{tests,tests_config,tests_integration}/**/*.@(js|mjs)"
+      - "{tests,tests_config,tests_integration}/**/*.?(m)js"
     env:
       jest: true
     plugins:
