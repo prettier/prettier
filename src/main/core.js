@@ -21,9 +21,6 @@ const rangeUtil = require("./range-util");
 const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
-const PLACEHOLDERS = {
-  cursorOffset: "<<<PRETTIER_CURSOR>>>",
-};
 
 function attachComments(text, ast, opts) {
   const astComments = ast.comments;
