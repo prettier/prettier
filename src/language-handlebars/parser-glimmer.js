@@ -3,11 +3,11 @@
 const createError = require("../common/parser-create-error");
 const postprocess = require("./postprocess");
 
-function parse(text, parsers, options) {
-  const { preprocess: glimmer, traverse } = require("@glimmer/syntax");
+function parse(text) {
+  const { preprocess: glimmer } = require("@glimmer/syntax");
   let ast;
   try {
-    ast = glimmer(text, { mode: "codemod" });
+    ast = glimmer(text, { mode: "codemod", plugins: { ast: postprocess } });
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);
     /* istanbul ignore else */
@@ -20,7 +20,7 @@ function parse(text, parsers, options) {
     }
   }
 
-  return postprocess(ast, options, traverse);
+  return ast;
 }
 
 module.exports = {

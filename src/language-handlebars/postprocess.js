@@ -5,29 +5,20 @@ const PIPELINE = [addBackslash];
 
 /* VISITORS */
 
-/*
- */
+/* from the following template: `non-escaped mustache \\{{helper}}`
+ * glimmer parser will produce an AST missing a backslash
+ * so here we add it back
+ * */
 function addBackslash(/* options*/) {
   return {
-    TextNode(node) {
-      /* from the following template: `non-escaped mustache \\{{helper}}`
-       * glimmer parser will produce an AST missing a backslash
-       * so here we add it back
-       * */
-      if (node.chars.includes("\\")) {
-        node.chars = node.chars.replace(/\\/, "\\\\");
-      }
-    },
+    visitor: {
+      TextNode(node) {
+        if (node.chars.includes("\\")) {
+          node.chars = node.chars.replace(/\\/, "\\\\");
+        }
+      },
+    }
   };
 }
 
-function postprocess(ast, options, traverse) {
-  for (const fn of PIPELINE) {
-    const visitor = fn(options);
-    traverse(ast, visitor);
-  }
-
-  return ast;
-}
-
-module.exports = postprocess;
+module.exports = [addBackslash];
