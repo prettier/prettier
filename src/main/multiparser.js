@@ -71,6 +71,7 @@ function textToDoc(
     return stripTrailingHardline(doc, true);
   }
 
+  /* istanbul ignore next */
   return doc;
 }
 

@@ -3999,6 +3999,7 @@ function shouldPrintParamsWithoutParens(path, options) {
   }
 
   // Fallback default; should be unreachable
+  /* istanbul ignore next */
   return false;
 }
 
@@ -4757,6 +4758,7 @@ function printJSXElement(path, options, print) {
 
 function maybeWrapJSXElementInParens(path, elem, options) {
   const parent = path.getParentNode();
+  /* istanbul ignore next */
   if (!parent) {
     return elem;
   }
@@ -5285,6 +5287,7 @@ function printComment(commentPath, options) {
         .slice(options.locStart(comment), options.locEnd(comment))
         .trimEnd();
     default:
+      /* istanbul ignore next */
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
 }

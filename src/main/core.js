@@ -21,11 +21,6 @@ const rangeUtil = require("./range-util");
 const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
-const PLACEHOLDERS = {
-  cursorOffset: "<<<PRETTIER_CURSOR>>>",
-  rangeStart: "<<<PRETTIER_RANGE_START>>>",
-  rangeEnd: "<<<PRETTIER_RANGE_END>>>",
-};
 
 function attachComments(text, ast, opts) {
   const astComments = ast.comments;
@@ -215,6 +210,11 @@ function formatRange(text, opts) {
   return { formatted, cursorOffset };
 }
 
+function countCrlf(text) {
+  const match = text.match(/\r\n/g);
+  return match ? match.length : 0;
+}
+
 function format(originalText, opts) {
   const selectedParser = parser.resolveParser(opts);
 
@@ -252,29 +252,17 @@ function format(originalText, opts) {
 
   // get rid of CR/CRLF parsing
   if (text.includes("\r")) {
-    const offsetKeys = [
-      hasCursor && "cursorOffset",
-      hasRangeStart && "rangeStart",
-      hasRangeEnd && "rangeEnd",
-    ]
-      .filter(Boolean)
-      .sort((aKey, bKey) => opts[aKey] - opts[bKey]);
-
-    for (let i = offsetKeys.length - 1; i >= 0; i--) {
-      const key = offsetKeys[i];
-      text =
-        text.slice(0, opts[key]) + PLACEHOLDERS[key] + text.slice(opts[key]);
+    if (hasCursor) {
+      opts.cursorOffset -= countCrlf(text.slice(0, opts.cursorOffset));
+    }
+    if (hasRangeStart) {
+      opts.rangeStart -= countCrlf(text.slice(0, opts.rangeStart));
+    }
+    if (hasRangeEnd) {
+      opts.rangeEnd -= countCrlf(text.slice(0, opts.rangeEnd));
     }
 
     text = text.replace(/\r\n?/g, "\n");
-
-    for (let i = 0; i < offsetKeys.length; i++) {
-      const key = offsetKeys[i];
-      text = text.replace(PLACEHOLDERS[key], (_, index) => {
-        opts[key] = index;
-        return "";
-      });
-    }
   }
 
   if (opts.rangeStart < 0) {
