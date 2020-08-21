@@ -41,16 +41,6 @@ const EXTERNALS = [
 ];
 
 const entries = [
-  // Force using the CJS file, instead of ESM; i.e. get the file
-  // from `"main"` instead of `"module"` (rollup default) of package.json
-  {
-    find: "outdent",
-    replacement: require.resolve("outdent"),
-  },
-  {
-    find: "lines-and-columns",
-    replacement: require.resolve("lines-and-columns"),
-  },
   // `handlebars` causes webpack warning by using `require.extensions`
   // `dist/handlebars.js` also complaint on `window` variable
   // use cjs build instead
