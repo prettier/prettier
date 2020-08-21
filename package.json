@@ -89,7 +89,7 @@
     "@glimmer/reference": "0.58.0",
     "@rollup/plugin-alias": "3.1.1",
     "@rollup/plugin-babel": "5.2.0",
-    "@rollup/plugin-commonjs": "14.0.0",
+    "@rollup/plugin-commonjs": "15.0.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "9.0.0",
     "@rollup/plugin-replace": "2.3.3",
