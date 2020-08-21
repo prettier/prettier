@@ -11,9 +11,7 @@ function addBackslash(/* options*/) {
     name: "addBackslash",
     visitor: {
       TextNode(node) {
-        if (node.chars.includes("\\")) {
-          node.chars = node.chars.replace(/\\/, "\\\\");
-        }
+        node.chars = node.chars.replace(/\\/, "\\\\");
       },
     }
   };
