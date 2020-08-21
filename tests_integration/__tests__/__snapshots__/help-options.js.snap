@@ -221,6 +221,17 @@ Default: .prettierignore
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help ignore-unknown (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help ignore-unknown (stdout) 1`] = `
+"-u, --ignore-unknown
+
+  Ignore unknown files.
+"
+`;
+
+exports[`show detailed usage with --help ignore-unknown (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help insert-pragma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help insert-pragma (stdout) 1`] = `
