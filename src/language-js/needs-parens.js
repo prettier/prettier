@@ -1,5 +1,6 @@
 "use strict";
 
+/** @type {import("assert")} */
 const assert = require("assert");
 
 const {
@@ -729,8 +730,7 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator" &&
-          parent.type !== "YieldExpression")
+          parent.type !== "VariableDeclarator")
       );
     case "TypeAnnotation":
       return (

@@ -103,10 +103,12 @@ For example, you can add the following to your `package.json` to have ESLint and
     }
   },
   "lint-staged": {
-    "**/*": ["eslint --fix", "prettier --write"]
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
 ```
+
+> Note: If you use ESLint, make sure lint-staged runs it before Prettier, not after.
 
 See [Pre-commit Hook](precommit.md) for more information.
 
