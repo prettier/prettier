@@ -105,6 +105,12 @@ interface ReallyReallyLongName3<
 extends BaseInterface // 3
 {}
 
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}
 
 =====================================output=====================================
 interface ReallyReallyLongName<
@@ -131,6 +137,13 @@ interface ReallyReallyLongName3<
   extends BaseInterface {
   // 3
 }
+
+interface Foo<
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  > // comments
+  extends Foo {}
 
 ================================================================================
 `;
@@ -165,6 +178,12 @@ interface ReallyReallyLongName3<
 extends BaseInterface // 3
 {}
 
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}
 
 =====================================output=====================================
 interface ReallyReallyLongName<
@@ -191,6 +210,70 @@ interface ReallyReallyLongName3<
   extends BaseInterface {
   // 3
 }
+
+interface Foo<
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  > // comments
+  extends Foo {}
+
+================================================================================
+`;
+
+exports[`generic.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+=====================================output=====================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+================================================================================
+`;
+
+exports[`generic.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+=====================================output=====================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
 
 ================================================================================
 `;

@@ -109,6 +109,7 @@ const graphqlSourceElements = new Set([
   "ScalarTypeDefinition",
 ]);
 function isSourceElement(opts, node) {
+  /* istanbul ignore next */
   if (node == null) {
     return false;
   }

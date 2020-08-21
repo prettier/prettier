@@ -66,6 +66,7 @@ function parse(text /*, parsers, opts*/) {
         },
       });
     } else {
+      /* istanbul ignore next */
       throw error;
     }
   }

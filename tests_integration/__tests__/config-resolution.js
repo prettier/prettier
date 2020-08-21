@@ -249,6 +249,35 @@ test("API resolveConfig.sync overrides work with absolute paths", () => {
   });
 });
 
+test("API resolveConfig.sync overrides excludeFiles", () => {
+  const notOverride = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/foo"
+  );
+  expect(prettier.resolveConfig.sync(notOverride)).toMatchObject({
+    singleQuote: true,
+    trailingComma: "all",
+  });
+
+  const singleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/single-quote.js"
+  );
+  expect(prettier.resolveConfig.sync(singleQuote)).toMatchObject({
+    singleQuote: true,
+    trailingComma: "es5",
+  });
+
+  const doubleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/double-quote.js"
+  );
+  expect(prettier.resolveConfig.sync(doubleQuote)).toMatchObject({
+    singleQuote: false,
+    trailingComma: "es5",
+  });
+});
+
 test("API resolveConfig removes $schema option", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/$schema/index.js")
@@ -307,4 +336,28 @@ test(".cjs config file", async () => {
     expect(prettier.resolveConfig.sync(file)).toEqual(config);
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
+});
+
+test(".json5 config file", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
+  const config = {
+    trailingComma: "all",
+    printWidth: 81,
+    tabWidth: 3,
+  };
+  const file = path.join(parentDirectory, "json5/foo.js");
+
+  expect(prettier.resolveConfig.sync(file)).toEqual(config);
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+});
+
+test(".json5 config file(invalid)", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
+  const file = path.join(parentDirectory, "invalid/foo.js");
+  const error = /JSON5: invalid end of input at 2:1/;
+
+  expect(() => {
+    prettier.resolveConfig.sync(file);
+  }).toThrowError(error);
+  await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });
