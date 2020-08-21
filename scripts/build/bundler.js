@@ -177,7 +177,7 @@ function getRollupConfig(bundle) {
     }),
     commonjs({
       ignoreGlobal: bundle.target === "node",
-      requireReturnsDefault: "auto",
+      requireReturnsDefault: "preferred",
       ...bundle.commonjs,
     }),
     externals([
