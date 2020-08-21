@@ -2,6 +2,7 @@
 
 const { parseWithComments, strip, extract, print } = require("jest-docblock");
 const { getShebang } = require("../common/util");
+const { normalizeEndOfLine } = require("../common/end-of-line");
 
 function parseDocBlock(text) {
   const shebang = getShebang(text);
@@ -30,11 +31,12 @@ function insertPragma(originalText) {
       ...pragmas,
     },
     comments: comments.trimStart(),
-  }).replace(/\r\n?/g, "\n"); // normalise newlines (mitigate use of os.EOL by jest-docblock)
+  });
 
   return (
     (shebang ? `${shebang}\n` : "") +
-    docBlock +
+    // normalise newlines (mitigate use of os.EOL by jest-docblock)
+    normalizeEndOfLine(docBlock) +
     (strippedText.startsWith("\n") ? "\n" : "\n\n") +
     strippedText
   );

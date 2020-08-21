@@ -10,6 +10,8 @@ const { getAlignmentSize } = require("../common/util");
 const {
   guessEndOfLine,
   convertEndOfLineToChars,
+  countEndOfLineChars,
+  normalizeEndOfLine,
 } = require("../common/end-of-line");
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
@@ -197,22 +199,16 @@ function formatRange(text, opts) {
   if (opts.endOfLine !== "lf") {
     const eol = convertEndOfLineToChars(opts.endOfLine);
     if (cursorOffset >= 0 && eol === "\r\n") {
-      const before = formatted.slice(0, cursorOffset);
-      const match = before.match(/\n/g);
-      if (match) {
-        cursorOffset += match.length;
-      }
+      cursorOffset += countEndOfLineChars(
+        formatted.slice(0, cursorOffset),
+        "\n"
+      );
     }
 
     formatted = formatted.replace(/\n/g, eol);
   }
 
   return { formatted, cursorOffset };
-}
-
-function countCrlf(text) {
-  const match = text.match(/\r\n/g);
-  return match ? match.length : 0;
 }
 
 function format(originalText, opts) {
@@ -252,17 +248,19 @@ function format(originalText, opts) {
 
   // get rid of CR/CRLF parsing
   if (text.includes("\r")) {
+    const countCrlfBefore = (position) =>
+      countEndOfLineChars(text.slice(0, position), "\r\n");
     if (hasCursor) {
-      opts.cursorOffset -= countCrlf(text.slice(0, opts.cursorOffset));
+      opts.cursorOffset -= countCrlfBefore(opts.cursorOffset);
     }
     if (hasRangeStart) {
-      opts.rangeStart -= countCrlf(text.slice(0, opts.rangeStart));
+      opts.rangeStart -= countCrlfBefore(opts.rangeStart);
     }
     if (hasRangeEnd) {
-      opts.rangeEnd -= countCrlf(text.slice(0, opts.rangeEnd));
+      opts.rangeEnd -= countCrlfBefore(opts.rangeEnd);
     }
 
-    text = text.replace(/\r\n?/g, "\n");
+    text = normalizeEndOfLine(text);
   }
 
   if (opts.rangeStart < 0) {
@@ -302,12 +300,7 @@ module.exports = {
 
   parse(text, opts, massage) {
     opts = normalizeOptions(opts);
-    if (text.charAt(0) === BOM) {
-      text = text.slice(1);
-    }
-    if (text.includes("\r")) {
-      text = text.replace(/\r\n?/g, "\n");
-    }
+    text = normalizeEndOfLine(text.charAt(0) === BOM ? text.slice(1) : text);
     const parsed = parser.parse(text, opts);
     if (massage) {
       parsed.ast = massageAST(parsed.ast, opts);
@@ -323,16 +316,15 @@ module.exports = {
 
   // Doesn't handle shebang for now
   formatDoc(doc, opts) {
-    const debug = printDocToDebug(doc);
     opts = normalizeOptions({ ...opts, parser: "babel" });
+    const debug = printDocToDebug(doc);
     return format(debug, opts).formatted;
   },
 
-  printToDoc(text, opts) {
+  printToDoc(originalText, opts) {
     opts = normalizeOptions(opts);
-    const parsed = parser.parse(text, opts);
-    const { ast } = parsed;
-    text = parsed.text;
+    const parsed = parser.parse(originalText, opts);
+    const { ast, text } = parsed;
     attachComments(text, ast, opts);
     return printAstToDoc(ast, opts);
   },
