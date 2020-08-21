@@ -36,7 +36,7 @@ function attachComments(text, ast, opts) {
 
 function coreFormat(text, opts, addAlignmentSize) {
   if (!text || !text.trim().length) {
-    return { formatted: "", cursorOffset: 0 };
+    return { formatted: "", cursorOffset: -1 };
   }
 
   addAlignmentSize = addAlignmentSize || 0;
@@ -138,7 +138,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     return { formatted: result.formatted, cursorOffset };
   }
 
-  return { formatted: result.formatted };
+  return { formatted: result.formatted, cursorOffset: -1 };
 }
 
 function formatRange(text, opts) {
@@ -186,7 +186,7 @@ function formatRange(text, opts) {
     // handle the case where the cursor was past the end of the range
     cursorOffset =
       opts.cursorOffset + (rangeTrimmed.length - rangeString.length);
-  } else if (rangeResult.cursorOffset !== undefined) {
+  } else if (rangeResult.cursorOffset >= 0) {
     // handle the case where the cursor was in the range
     cursorOffset = rangeResult.cursorOffset + rangeStart;
   }
@@ -215,20 +215,40 @@ function countCrlf(text) {
   return match ? match.length : 0;
 }
 
-function format(text, opts) {
+function format(originalText, opts) {
   const selectedParser = parser.resolveParser(opts);
+
+  const hasBOM = originalText.charAt(0) === BOM;
+  let text = hasBOM ? originalText.slice(1) : originalText;
+
+  const hasCursor = opts.cursorOffset >= 0;
+  if (!hasCursor) {
+    opts.cursorOffset = -1;
+  }
+
   const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
   if (opts.requirePragma && !hasPragma) {
-    return { formatted: text };
+    return { formatted: originalText, cursorOffset: opts.cursorOffset };
   }
 
   if (opts.endOfLine === "auto") {
     opts.endOfLine = guessEndOfLine(text);
   }
 
-  const hasCursor = opts.cursorOffset >= 0;
   const hasRangeStart = opts.rangeStart > 0;
   const hasRangeEnd = opts.rangeEnd < text.length;
+
+  if (hasBOM) {
+    if (hasCursor) {
+      opts.cursorOffset--;
+    }
+    if (hasRangeStart) {
+      opts.rangeStart--;
+    }
+    if (hasRangeEnd) {
+      opts.rangeEnd--;
+    }
+  }
 
   // get rid of CR/CRLF parsing
   if (text.includes("\r")) {
@@ -245,24 +265,6 @@ function format(text, opts) {
     text = text.replace(/\r\n?/g, "\n");
   }
 
-  const hasUnicodeBOM = text.charAt(0) === BOM;
-  if (hasUnicodeBOM) {
-    text = text.slice(1);
-    if (hasCursor) {
-      opts.cursorOffset--;
-    }
-    if (hasRangeStart) {
-      opts.rangeStart--;
-    }
-    if (hasRangeEnd) {
-      opts.rangeEnd--;
-    }
-  }
-
-  if (!hasCursor) {
-    opts.cursorOffset = -1;
-  }
-  /* istanbul ignore next */
   if (opts.rangeStart < 0) {
     opts.rangeStart = 0;
   }
@@ -270,20 +272,21 @@ function format(text, opts) {
     opts.rangeEnd = text.length;
   }
 
-  const result =
-    hasRangeStart || hasRangeEnd
-      ? formatRange(text, opts)
-      : coreFormat(
-          opts.insertPragma && opts.printer.insertPragma && !hasPragma
-            ? opts.printer.insertPragma(text)
-            : text,
-          opts
-        );
+  let result;
 
-  if (hasUnicodeBOM) {
+  if (hasRangeStart || hasRangeEnd) {
+    result = formatRange(text, opts);
+  } else {
+    if (!hasPragma && opts.insertPragma && opts.printer.insertPragma) {
+      text = opts.printer.insertPragma(text);
+    }
+    result = coreFormat(text, opts);
+  }
+
+  if (hasBOM) {
     result.formatted = BOM + result.formatted;
 
-    if (hasCursor) {
+    if (hasCursor && result.cursorOffset >= 0) {
       result.cursorOffset++;
     }
   }
@@ -299,6 +302,9 @@ module.exports = {
 
   parse(text, opts, massage) {
     opts = normalizeOptions(opts);
+    if (text.charAt(0) === BOM) {
+      text = text.slice(1);
+    }
     if (text.includes("\r")) {
       text = text.replace(/\r\n?/g, "\n");
     }
