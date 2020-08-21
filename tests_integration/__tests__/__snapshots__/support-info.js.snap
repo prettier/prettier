@@ -38,10 +38,12 @@ Object {
       "flow",
       "typescript",
       "espree",
+      "meriyah",
     ],
     "JavaScript": Array [
       "babel",
       "espree",
+      "meriyah",
       "babel-flow",
       "babel-ts",
       "flow",
@@ -167,6 +169,7 @@ Object {
         "html",
         "angular",
         "lwc",
+        "meriyah",
       ],
       "default": undefined,
       "type": "choice",
@@ -319,6 +322,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"parsers\\": [
         \\"babel\\",
         \\"espree\\",
+        \\"meriyah\\",
         \\"babel-flow\\",
         \\"babel-ts\\",
         \\"flow\\",
@@ -371,7 +375,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\"babel-ts\\",
         \\"flow\\",
         \\"typescript\\",
-        \\"espree\\"
+        \\"espree\\",
+        \\"meriyah\\"
       ],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
@@ -902,7 +907,8 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Lightning Web Components\\",
           \\"since\\": \\"1.17.0\\",
           \\"value\\": \\"lwc\\"
-        }
+        },
+        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"meriyah\\" }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

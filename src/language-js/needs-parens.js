@@ -499,7 +499,7 @@ function needsParens(path, options) {
       if (parent.type === "ArrowFunctionExpression" && parent.body === node) {
         return true;
       } else if (
-        parent.type === "ClassProperty" &&
+        (parent.type === "ClassProperty" || parent.type === "FieldDefinition") &&
         parent.key === node &&
         parent.computed
       ) {
@@ -750,6 +750,7 @@ function isStatement(node) {
     node.type === "ClassDeclaration" ||
     node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
+    node.type === "FieldDefinition" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||

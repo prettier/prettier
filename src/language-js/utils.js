@@ -664,7 +664,7 @@ function getFlowVariance(node) {
 function classPropMayCauseASIProblems(path) {
   const node = path.getNode();
 
-  if (node.type !== "ClassProperty") {
+  if (node.type !== "ClassProperty" &&node.type !== "FieldDefinition") {
     return false;
   }
 
@@ -701,6 +701,7 @@ function classChildNeedsASIProtection(node) {
   }
   switch (node.type) {
     case "ClassProperty":
+    case "FieldDefinition":
     case "TSAbstractClassProperty":
       return node.computed;
     case "MethodDefinition": // Flow
@@ -945,7 +946,8 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
-        (options.parser === "babel" || options.parser === "espree")))
+        (options.parser === "babel" || options.parser === "espree" ||
+      options.parser === "meriyah")))
   );
 }
 
@@ -1166,6 +1168,11 @@ function isSimpleCallArgument(node, depth) {
 }
 
 function rawText(node) {
+  // meriyah
+  if ((node.type === "JSXText") && !("raw" in node) && !("extra" in node)) {
+    return node.value
+ }
+
   return node.extra ? node.extra.raw : node.raw;
 }
 

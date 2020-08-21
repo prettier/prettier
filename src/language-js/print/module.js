@@ -88,9 +88,11 @@ function printModuleSpecifiers(path, options, print) {
         );
       }
     }
+
   } else {
     parts.push("{}");
   }
+
   return concat(parts);
 }
 

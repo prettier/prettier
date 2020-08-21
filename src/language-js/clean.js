@@ -24,7 +24,11 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "BigIntLiteral") {
-    if (newObj.value) {
+    if (
+// babel
+newObj.value &&
+// value in `meriyah` is `number`
+typeof newObj.value === "string") {
       newObj.value = newObj.value.toLowerCase();
     }
   }
@@ -65,6 +69,7 @@ function clean(ast, newObj, parent) {
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
       ast.type === "ClassMethod" ||
+ast.type==="FieldDefinition"||
       ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&

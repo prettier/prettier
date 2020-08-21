@@ -21,7 +21,8 @@ function postprocess(ast, options) {
   if (
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
-    options.parser !== "espree"
+    options.parser !== "espree" &&
+    options.parser !== "meriyah"
   ) {
     const startOffsetsOfTypeCastedNodes = new Set();
 
@@ -56,6 +57,13 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      case "TaggedTemplateExpression": {
+        // https://github.com/meriyah/meriyah/issues/108
+        if (options.parser === "meriyah") {
+          node.range = composeLoc(node.tag, node);
+        }
+        break;
+      }
       // Espree
       case "ChainExpression": {
         return transformChainExpression(node.expression);

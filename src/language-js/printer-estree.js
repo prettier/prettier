@@ -140,6 +140,7 @@ function genericPrint(path, options, printPath, args) {
     node.type === "ClassMethod" ||
     node.type === "ClassPrivateMethod" ||
     node.type === "ClassProperty" ||
+    node.type === "FieldDefinition" ||
     node.type === "TSAbstractClassProperty" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "MethodDefinition" ||
@@ -456,6 +457,7 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "AssignmentExpression" ||
         parent.type === "VariableDeclarator" ||
         parent.type === "ClassProperty" ||
+        parent.type === "FieldDefinition" ||
         parent.type === "TSAbstractClassProperty" ||
         parent.type === "ClassPrivateProperty" ||
         parent.type === "ObjectProperty" ||
@@ -847,7 +849,8 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
 
     case "ExportNamespaceSpecifier":
-      return concat(["* as ", path.call(print, "exported")]);
+// babel us `exported`, meriyah use `specifier`
+      return concat(["* as ", path.call(print, n.exported ? "exported" : 'specifier')]);
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
     case "ImportDeclaration": {
@@ -1900,7 +1903,12 @@ function printPathNoParens(path, options, print, args) {
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
-          const raw = rawText(n.value);
+          let raw = rawText(n.value);
+          // meriyah missing raw
+        if (options.parser === 'meriyah' && !raw) {
+// TODO: fix range
+raw = options.originalText.slice(options.locStart(n.value) +1 ,options.locEnd(n.value))
+} 
           // Unescape all quotes so we get an accurate preferred quote
           let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
           const quote = getPreferredQuote(
@@ -2162,6 +2170,7 @@ function printPathNoParens(path, options, print, args) {
         "}",
       ]);
     case "ClassProperty":
+    case "FieldDefinition":
     case "TSAbstractClassProperty":
     case "ClassPrivateProperty": {
       if (n.decorators && n.decorators.length !== 0) {
@@ -3378,7 +3387,8 @@ function printPathNoParens(path, options, print, args) {
     }
 
     case "PrivateName":
-      return concat(["#", path.call(print, "id")]);
+// babel use `id`, meriyah use `name`
+      return concat(["#", path.call(print, n.id ? "id" : 'name')]);
 
     // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
     case "TSPrivateIdentifier":
@@ -3575,7 +3585,7 @@ function printStatementSequence(path, options, print) {
     if (!options.semi && isClass) {
       if (classPropMayCauseASIProblems(stmtPath)) {
         parts.push(";");
-      } else if (stmt.type === "ClassProperty") {
+      } else if (stmt.type === "ClassProperty" || stmt.type === "FieldDefinition") {
         const nextChild = bodyNode.body[i + 1];
         if (classChildNeedsASIProtection(nextChild)) {
           parts.push(";");
