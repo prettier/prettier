@@ -14,7 +14,7 @@ module.exports = {
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
-  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
+  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.(m)?js$",
   testPathIgnorePatterns: TEST_STANDALONE
     ? ["<rootDir>/tests_integration/"]
     : [],
@@ -27,8 +27,16 @@ module.exports = {
     "prettier/standalone": "<rootDir>/tests_config/require_standalone.js",
   },
   modulePathIgnorePatterns: ["<rootDir>/dist"],
+  moduleFileExtensions: ["js", "json", "mjs"],
   testEnvironment: "node",
-  transform: {},
+  transform: {
+    "^.+\\.mjs$": [
+      "babel-jest",
+      {
+        presets: ["@babel/env"],
+      },
+    ],
+  },
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",

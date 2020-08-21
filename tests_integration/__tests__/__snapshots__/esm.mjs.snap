@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formatting css with ESM bundle 1`] = `
+"body {
+  color: red;
+}
+"
+`;
+
+exports[`formatting graphql with ESM bundle 1`] = `
+"query {
+  child
+}
+"
+`;
