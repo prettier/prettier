@@ -171,11 +171,13 @@ function formatRange(text, opts) {
       ...opts,
       rangeStart: 0,
       rangeEnd: Infinity,
-      // track the cursor offset only if it's within our range
+      // Track the cursor offset only if it's within our range
       cursorOffset:
-        opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
+        opts.cursorOffset > rangeStart && opts.cursorOffset < rangeEnd
           ? opts.cursorOffset - rangeStart
           : -1,
+      // Always use `lf` to format, we'll replace it later
+      endOfLine: "lf",
     },
     alignmentSize
   );
@@ -183,56 +185,31 @@ function formatRange(text, opts) {
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
   const rangeTrimmed = rangeResult.formatted.trimEnd();
-  const rangeLeft = text.slice(0, rangeStart);
-  const rangeRight = text.slice(rangeEnd);
 
   let { cursorOffset } = opts;
-  if (opts.cursorOffset >= rangeEnd) {
+  if (cursorOffset >= rangeEnd) {
     // handle the case where the cursor was past the end of the range
     cursorOffset =
-      opts.cursorOffset - rangeEnd + (rangeStart + rangeTrimmed.length);
+      opts.cursorOffset + (rangeTrimmed.length - rangeString.length);
   } else if (rangeResult.cursorOffset >= 0) {
     // handle the case where the cursor was in the range
     cursorOffset = rangeResult.cursorOffset + rangeStart;
   }
   // keep the cursor as it was if it was before the start of the range
 
-  let formatted;
-  if (opts.endOfLine === "lf") {
-    formatted = rangeLeft + rangeTrimmed + rangeRight;
-  } else {
+  let formatted =
+    text.slice(0, rangeStart) + rangeTrimmed + text.slice(rangeEnd);
+  if (opts.endOfLine !== "lf") {
     const eol = convertEndOfLineToChars(opts.endOfLine);
-    if (cursorOffset >= 0) {
-      const parts = [rangeLeft, rangeTrimmed, rangeRight];
-      let partIndex = 0;
-      let partOffset = cursorOffset;
-      while (partIndex < parts.length) {
-        const part = parts[partIndex];
-        if (partOffset < part.length) {
-          parts[partIndex] =
-            parts[partIndex].slice(0, partOffset) +
-            PLACEHOLDERS.cursorOffset +
-            parts[partIndex].slice(partOffset);
-          break;
-        }
-        partIndex++;
-        partOffset -= part.length;
+    if (cursorOffset >= 0 && eol === "\r\n") {
+      const before = formatted.slice(0, cursorOffset);
+      const match = before.match(/\n/g);
+      if (match) {
+        cursorOffset += match.length;
       }
-      const [newRangeLeft, newRangeTrimmed, newRangeRight] = parts;
-      formatted = (
-        newRangeLeft.replace(/\n/g, eol) +
-        newRangeTrimmed +
-        newRangeRight.replace(/\n/g, eol)
-      ).replace(PLACEHOLDERS.cursorOffset, (_, index) => {
-        cursorOffset = index;
-        return "";
-      });
-    } else {
-      formatted =
-        rangeLeft.replace(/\n/g, eol) +
-        rangeTrimmed +
-        rangeRight.replace(/\n/g, eol);
     }
+
+    formatted = formatted.replace(/\n/g, eol);
   }
 
   return { formatted, cursorOffset };

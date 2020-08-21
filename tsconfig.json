@@ -16,7 +16,6 @@
     "src/main/ast-to-doc.js",
     "src/main/core.js",
     "src/common/create-ignorer.js",
-    "src/common/parser-create-error.js",
     "src/config/resolve-config.js",
     "src/main/options-normalizer.js",
     "src/common/get-file-info.js",
@@ -24,7 +23,6 @@
     "src/main/options.js",
     // [TBD] src/language-* source directory trees with known JSDoc type issues:
     "src/language-html",
-    "src/language-js",
     // [TBD] JavaScript sources affected by JSDoc issues in src/language-*:
     "src/common/load-plugins.js",
     "src/cli/index.js",
