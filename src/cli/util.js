@@ -63,9 +63,12 @@ function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* istanbul ignore next */
-    if (context.argv.write && isTTY()) {
+    if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
+    }
+    if (context.argv["ignore-unknown"]) {
+      return;
     }
     if (!context.argv.check && !context.argv["list-different"]) {
       process.exitCode = 2;

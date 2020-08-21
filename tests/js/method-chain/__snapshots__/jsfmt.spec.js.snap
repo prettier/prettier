@@ -414,9 +414,7 @@ client.execute(
 
 =====================================output=====================================
 client.execute(
-  Post.selectAll()
-    .where(Post.id.eq(42))
-    .where(Post.published.eq(true))
+  Post.selectAll().where(Post.id.eq(42)).where(Post.published.eq(true))
 );
 
 ================================================================================
@@ -570,9 +568,7 @@ cy.get(".ready")
   .should("have.css", "color", "#aaa");
 
 =====================================output=====================================
-cy.get("option:first")
-  .should("be.selected")
-  .and("have.value", "Metallica");
+cy.get("option:first").should("be.selected").and("have.value", "Metallica");
 
 cy.get(".ready")
   .should("have.text", "FOO")
@@ -729,24 +725,15 @@ domain
     .vals()
 
 =====================================output=====================================
-domain
-  .concept("Page")
-  .val("title", "string")
-  .vals("widgets", "Widget");
+domain.concept("Page").val("title", "string").vals("widgets", "Widget");
 domain
   .concept("Widget")
   .val("title", "string")
   .val("color", "Color")
   .val("foo", "Foo")
   .val("bar", "Bar");
-domain
-  .concept("Widget")
-  .val("title", "string")
-  .val("color", "Color");
-domain
-  .concept(CONCEPT_NAME)
-  .val("title")
-  .vals();
+domain.concept("Widget").val("title", "string").val("color", "Color");
+domain.concept(CONCEPT_NAME).val("title").vals();
 
 ================================================================================
 `;
@@ -1074,11 +1061,7 @@ Object.keys(props)
     return a;
   }, {});
 
-point()
-  .x(4)
-  .y(3)
-  .z(6)
-  .plot();
+point().x(4).y(3).z(6).plot();
 
 assert.equal(this.$().text().trim(), "1000");
 
@@ -1399,13 +1382,11 @@ const Profile2 = view.with({ name }).as((props) => (
 ))
 
 =====================================output=====================================
-const Profile = view
-  .with({ name: (state) => state.name })
-  .as((props) => (
-    <div>
-      <h1>Hello, {props.name}</h1>
-    </div>
-  ));
+const Profile = view.with({ name: (state) => state.name }).as((props) => (
+  <div>
+    <h1>Hello, {props.name}</h1>
+  </div>
+));
 
 const Profile2 = view.with({ name }).as((props) => (
   <div>
