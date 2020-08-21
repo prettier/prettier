@@ -13,7 +13,7 @@ function addBackslash(/* options*/) {
       TextNode(node) {
         node.chars = node.chars.replace(/\\/, "\\\\");
       },
-    }
+    },
   };
 }
 
