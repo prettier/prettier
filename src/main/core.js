@@ -36,7 +36,7 @@ function attachComments(text, ast, opts) {
 
 function coreFormat(text, opts, addAlignmentSize) {
   if (!text || !text.trim().length) {
-    return { formatted: "", cursorOffset: 0 };
+    return { formatted: "", cursorOffset: -1 };
   }
 
   addAlignmentSize = addAlignmentSize || 0;
