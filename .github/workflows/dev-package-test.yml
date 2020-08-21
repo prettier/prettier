@@ -10,12 +10,14 @@ on:
 
 jobs:
   test:
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
         os:
           - "ubuntu-latest"
         node:
+          # Run tests on minimal version we support
           - "10"
         NPM_CLIENT:
           - "yarn"
