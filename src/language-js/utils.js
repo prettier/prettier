@@ -204,7 +204,7 @@ function isLiteral(node) {
 }
 
 /**
- * @param {Node} node
+ * @param {any} node
  * @returns {boolean}
  */
 function isLiteralLikeValue(node) {
@@ -601,7 +601,7 @@ function isNgForOf(node, index, parentNode) {
 
 /**
  *
- * @param {TemplateLiteral} node
+ * @param {any} node
  * @returns {boolean}
  */
 function isSimpleTemplateLiteral(node) {
@@ -1096,7 +1096,7 @@ function isLongCurriedCallExpression(path) {
 }
 
 /**
- * @param {Node} node
+ * @param {any} node
  * @param {number} depth
  * @returns {boolean}
  */
