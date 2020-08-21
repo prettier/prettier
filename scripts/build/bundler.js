@@ -168,7 +168,7 @@ function getRollupConfig(bundle) {
     commonjs({
       ignoreGlobal: bundle.target === "node",
       transformMixedEsModules: true,
-      esmExternals: true,
+      esmExternals: false,
       requireReturnsDefault: "auto",
       ...bundle.commonjs,
     }),
