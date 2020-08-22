@@ -46,7 +46,6 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-
 function f(
   someReallyLongArgument: WithSomeLongType,
   someReallyLongArgument2: WithSomeLongType,
@@ -70,7 +69,6 @@ parsers: ["typescript", "babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 function f(
   someReallyLongArgument: WithSomeLongType,
   someReallyLongArgument2: WithSomeLongType,
@@ -148,6 +146,7 @@ class X2 {
   ): $Enum<SectionMode> {
   }
 }
+
 =====================================output=====================================
 type f1 = (
   currentRequest: { a: number }
@@ -263,6 +262,7 @@ class X2 {
   ): $Enum<SectionMode> {
   }
 }
+
 =====================================output=====================================
 type f1 = (
   currentRequest: { a: number }

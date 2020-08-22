@@ -6,8 +6,6 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-
 class X {
   TEMPLATE =
     // tab index is needed so we can focus, which is needed for keyboard events

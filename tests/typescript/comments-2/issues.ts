@@ -1,4 +1,3 @@
-
 function f(
   someReallyLongArgument: WithSomeLongType,
   someReallyLongArgument2: WithSomeLongType,

@@ -1,5 +1,3 @@
-
-
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary

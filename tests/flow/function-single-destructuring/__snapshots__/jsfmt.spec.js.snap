@@ -31,8 +31,6 @@ parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-
 function StatelessFunctionalComponent4({
   isActive,
   onFiltersUpdated,

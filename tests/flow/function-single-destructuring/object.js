@@ -1,5 +1,3 @@
-
-
 function StatelessFunctionalComponent4({
   isActive,
   onFiltersUpdated,

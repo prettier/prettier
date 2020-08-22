@@ -1,5 +1,3 @@
-
-
 class X {
   TEMPLATE =
     // tab index is needed so we can focus, which is needed for keyboard events

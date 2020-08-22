@@ -247,8 +247,6 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-
-
 // flow
 
 (x: void);
@@ -269,8 +267,6 @@ parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-
 // flow
 
 (x: void);

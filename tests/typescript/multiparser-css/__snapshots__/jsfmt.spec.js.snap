@@ -6,8 +6,6 @@ parsers: ["typescript", "babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-
 const yesFrame = (
     ...args: Interpolation<ThemedStyledProps<{}, Theme>>[]
 ) => css\`

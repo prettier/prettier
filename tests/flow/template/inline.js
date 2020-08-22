@@ -1,4 +1,3 @@
-
 (): {
   someLong: boolean,
   t: boolean

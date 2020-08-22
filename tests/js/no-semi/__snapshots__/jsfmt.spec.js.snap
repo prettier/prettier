@@ -7,8 +7,6 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-
-
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary
@@ -255,8 +253,6 @@ parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-
 // TODO: upgrade parser
 // class A {
 //   async; // The semicolon is *not* necessary

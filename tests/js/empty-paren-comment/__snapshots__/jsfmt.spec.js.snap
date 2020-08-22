@@ -31,8 +31,6 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-
 class Foo {
   f(/* ... */) {}
   f() /* ... */ {}

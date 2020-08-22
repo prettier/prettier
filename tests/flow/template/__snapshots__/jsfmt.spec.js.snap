@@ -6,7 +6,6 @@ parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 (): {
   someLong: boolean,
   t: boolean
