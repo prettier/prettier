@@ -167,6 +167,11 @@ const Direction2 = styled.span`
   ${({ down }) => down && `color: ${color.negative}`};
 `;
 
+
+const GlobalStyle = createGlobalStyle`
+  body {background-color: white; }
+`
+
 const mixin = css`
   color: ${props => props.color};
   ${props => props.otherProperty}: ${props => props.otherValue};

@@ -460,8 +460,8 @@ function isStyledComponents(path) {
       );
 
     case "Identifier":
-      // css``
-      return tag.name === "css";
+      // css`` and createGlobalStyle``
+      return tag.name === "css" || tag.name === "createGlobalStyle";
 
     default:
       return false;
