@@ -211,11 +211,25 @@ function getRollupOutputOptions(bundle) {
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.format = bundle.format;
     options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
+
+    if (!bundle.format) {
+      return [
+        {
+          ...options,
+          format: "umd",
+        },
+        {
+          ...options,
+          format: "esm",
+          file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
+        },
+      ];
+    }
+    options.format = bundle.format;
   }
-  return options;
+  return [options];
 }
 
 function getWebpackConfig(bundle) {
@@ -295,7 +309,7 @@ module.exports = async function createBundle(bundle, cache) {
     await runWebpack(getWebpackConfig(bundle));
   } else {
     const result = await rollup(inputOptions);
-    await result.write(outputOptions);
+    await Promise.all(outputOptions.map((option) => result.write(option)));
   }
 
   return { bundled: true };

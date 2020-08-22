@@ -156,30 +156,7 @@ function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = coreBundles
-  .concat(parsers)
-  .map((bundle) => {
-    const baseBundle = {
-      ...bundle,
-      output: getFileOutput(bundle),
-    };
-    if (
-      baseBundle.target === "universal" &&
-      baseBundle.format == null &&
-      baseBundle.bundler !== "webpack"
-    ) {
-      return [
-        {
-          ...baseBundle,
-          format: "umd",
-        },
-        {
-          ...baseBundle,
-          format: "esm",
-          output: path.join("esm", baseBundle.output.replace(".js", ".mjs")),
-        },
-      ];
-    }
-    return baseBundle;
-  })
-  .flat();
+module.exports = coreBundles.concat(parsers).map((bundle) => ({
+  ...bundle,
+  output: getFileOutput(bundle),
+}));
