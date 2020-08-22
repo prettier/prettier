@@ -214,7 +214,7 @@ function getRollupOutputOptions(bundle) {
     options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
 
-    if (!bundle.format) {
+    if (!bundle.format && bundle.bundler !== "webpack") {
       return [
         {
           ...options,
@@ -284,32 +284,49 @@ function runWebpack(config) {
   });
 }
 
-module.exports = async function createBundle(bundle, cache) {
-  const inputOptions = getRollupConfig(bundle);
-  const outputOptions = getRollupOutputOptions(bundle);
-
+async function checkCache(cache, inputOptions, outputOption) {
   const useCache = await cache.checkBundle(
-    bundle.output,
+    outputOption.file,
     inputOptions,
-    outputOptions
+    outputOption
   );
+
   if (useCache) {
     try {
       await execa("cp", [
-        path.join(cache.cacheDir, "files", bundle.output),
-        path.join("dist", bundle.output),
+        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
+        outputOption.file,
       ]);
-      return { cached: true };
+      return true;
     } catch (err) {
+      console.log(err);
       // Proceed to build
     }
   }
 
-  if (bundle.bundler === "webpack") {
-    await runWebpack(getWebpackConfig(bundle));
-  } else {
-    const result = await rollup(inputOptions);
-    await Promise.all(outputOptions.map((option) => result.write(option)));
+  return false;
+}
+
+module.exports = async function createBundle(bundle, cache) {
+  const inputOptions = getRollupConfig(bundle);
+  const outputOptions = getRollupOutputOptions(bundle);
+
+  const checkCacheResults = await Promise.all(
+    outputOptions.map((outputOption) =>
+      checkCache(cache, inputOptions, outputOption)
+    )
+  );
+  if (checkCacheResults.every((r) => r === true)) {
+    return { cached: true };
+  }
+
+  {
+    if (bundle.bundler === "webpack") {
+      await runWebpack(getWebpackConfig(bundle));
+    } else {
+      const result = await rollup(inputOptions);
+      await Promise.all(outputOptions.map((option) => result.write(option)));
+    }
   }
 
   return { bundled: true };

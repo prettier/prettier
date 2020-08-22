@@ -72,18 +72,21 @@ function handleError(error) {
   throw error;
 }
 
-async function cacheFiles() {
+async function cacheFiles(cache) {
   // Copy built files to .cache
   try {
     await execa("rm", ["-rf", path.join(".cache", "files")]);
     await execa("mkdir", ["-p", path.join(".cache", "files")]);
     await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
-    for (const bundleConfig of bundleConfigs) {
-      await execa("cp", [
-        path.join("dist", bundleConfig.output),
-        path.join(".cache", "files", bundleConfig.output),
-      ]);
-    }
+    const manifest = cache.updated;
+    await Promise.all(
+      Object.keys(manifest.files).map((distPath) => {
+        execa("cp", [
+          path.join(distPath),
+          path.join(".cache", distPath.replace("dist", "files")),
+        ]);
+      })
+    );
   } catch (err) {
     // Don't fail the build
   }
@@ -122,7 +125,7 @@ async function run(params) {
     await createBundle(bundleConfig, bundleCache);
   }
 
-  await cacheFiles();
+  await cacheFiles(bundleCache);
   await bundleCache.save();
 
   await preparePackage();
