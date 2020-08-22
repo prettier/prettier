@@ -38,7 +38,14 @@ module.exports = {
   },
   modulePathIgnorePatterns: ["<rootDir>/dist"],
   testEnvironment: "node",
-  transform: {},
+  transform: {
+    "^.+\\.mjs$": [
+      "babel-jest",
+      {
+        presets: ["@babel/env"],
+      },
+    ],
+  },
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
