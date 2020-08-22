@@ -154,3 +154,21 @@ function test() { const answer = 42;console.log("%s is the answer to life, the u
 
 ================================================================================
 `;
+
+exports[`snippet: #0 - {"requirePragma":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
+﻿#!/usr/bin/env node
+/** @format */
+prettier
+=====================================output=====================================
+﻿#!/usr/bin/env node
+/** @format */
+prettier;
+
+================================================================================
+`;

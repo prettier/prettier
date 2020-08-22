@@ -78,21 +78,11 @@ function embed(path, print, textToDoc, options) {
           return;
         }
 
-        let doc;
-        try {
-          doc = textToDoc(
-            htmlTrimPreserveIndentation(getNodeContent(node, options)),
-            { parser },
-            { stripTrailingHardline: true }
-          );
-        } catch (_) {
-          return;
-        }
-
-        // `textToDoc` don't throw on `production` mode
-        if (!doc) {
-          return;
-        }
+        const doc = textToDoc(
+          htmlTrimPreserveIndentation(getNodeContent(node, options)),
+          { parser },
+          { stripTrailingHardline: true }
+        );
 
         return concat([
           printOpeningTagPrefix(node, options),
@@ -446,10 +436,8 @@ function genericPrint(path, options, print) {
         ]),
       ]);
     }
-    case "yaml":
-    case "toml":
-      return concat(replaceEndOfLineWith(node.raw, literalline));
     default:
+      /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
   }
 }
@@ -957,6 +945,7 @@ function printOpeningTagEndMarker(node) {
 
 function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
+  /* istanbul ignore next */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }

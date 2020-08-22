@@ -2,7 +2,7 @@
 
 exports[`logical-assignment.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

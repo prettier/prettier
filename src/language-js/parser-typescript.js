@@ -19,6 +19,7 @@ function parse(text, parsers, opts) {
       // suppose our guess is correct
       const e = firstError;
 
+      /* istanbul ignore next */
       if (typeof e.lineNumber === "undefined") {
         throw e;
       }
@@ -40,6 +41,7 @@ function tryParseTypeScript(text, jsx) {
     useJSXTextNode: true,
     jsx,
     tokens: true,
+    loggerFn: false,
   });
 }
 

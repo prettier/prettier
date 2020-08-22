@@ -54,38 +54,6 @@ function clean(ast, newObj, parent) {
     return null;
   }
 
-  // (TypeScript) Ignore `static` in `constructor(static p) {}`
-  // and `export` in `constructor(export p) {}`
-  if (
-    ast.type === "TSParameterProperty" &&
-    ast.accessibility === null &&
-    !ast.readonly
-  ) {
-    return {
-      type: "Identifier",
-      name: ast.parameter.name,
-      typeAnnotation: newObj.parameter.typeAnnotation,
-      decorators: newObj.decorators,
-    };
-  }
-
-  // (TypeScript) ignore empty `specifiers` array
-  if (
-    ast.type === "TSNamespaceExportDeclaration" &&
-    ast.specifiers &&
-    ast.specifiers.length === 0
-  ) {
-    delete newObj.specifiers;
-  }
-
-  // We convert <div></div> to <div />
-  if (ast.type === "JSXOpeningElement") {
-    delete newObj.selfClosing;
-  }
-  if (ast.type === "JSXElement") {
-    delete newObj.closingElement;
-  }
-
   // We change {'key': value} into {key: value}.
   // And {key: value} into {'key': value}.
   // Also for (some) number keys.

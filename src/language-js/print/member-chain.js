@@ -80,10 +80,9 @@ function printMemberChain(path, options, print) {
     // if it is cut off by a parenthesis, we only account for one typed empty
     // line after that parenthesis
     if (nextChar === ")") {
-      return isNextLineEmptyAfterIndex(
-        originalText,
-        nextCharIndex + 1,
-        options.locEnd
+      return (
+        nextCharIndex !== false &&
+        isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1)
       );
     }
 
@@ -324,6 +323,7 @@ function printMemberChain(path, options, print) {
   }
 
   function printIndentedGroup(groups) {
+    /* istanbul ignore next */
     if (groups.length === 0) {
       return "";
     }

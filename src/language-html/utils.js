@@ -92,10 +92,12 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
+  /* istanbul ignore next */
   if (node.type === "attribute") {
     return false;
   }
 
+  /* istanbul ignore next */
   if (!node.parent) {
     return false;
   }
@@ -429,8 +431,6 @@ function inferScriptParser(node, options) {
       getParserName(node.attrMap.lang, options)
     );
   }
-
-  return null;
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
@@ -465,7 +465,7 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-function countParents(path, predicate = () => true) {
+function countParents(path, predicate) {
   let counter = 0;
   for (let i = path.stack.length - 1; i >= 0; i--) {
     const value = path.stack[i];
@@ -591,10 +591,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function identity(x) {
-  return x;
-}
-
 function shouldNotPrintClosingTag(node, options) {
   return (
     !node.isSelfClosing &&
@@ -661,7 +657,6 @@ module.exports = {
   getNodeCssStyleWhiteSpace,
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
-  identity,
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,

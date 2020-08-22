@@ -249,6 +249,35 @@ test("API resolveConfig.sync overrides work with absolute paths", () => {
   });
 });
 
+test("API resolveConfig.sync overrides excludeFiles", () => {
+  const notOverride = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/foo"
+  );
+  expect(prettier.resolveConfig.sync(notOverride)).toMatchObject({
+    singleQuote: true,
+    trailingComma: "all",
+  });
+
+  const singleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/single-quote.js"
+  );
+  expect(prettier.resolveConfig.sync(singleQuote)).toMatchObject({
+    singleQuote: true,
+    trailingComma: "es5",
+  });
+
+  const doubleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/double-quote.js"
+  );
+  expect(prettier.resolveConfig.sync(doubleQuote)).toMatchObject({
+    singleQuote: false,
+    trailingComma: "es5",
+  });
+});
+
 test("API resolveConfig removes $schema option", () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/$schema/index.js")
