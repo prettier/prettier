@@ -3,6 +3,20 @@
 const globby = require("globby");
 
 const prettier = require("../../dist/esm/standalone.mjs").default;
+const codeSamples = require("../../website/playground/codeSamples").default;
+
+const parsers = [
+  "angular",
+  "babel",
+  "css",
+  "flow",
+  "glimmer",
+  "graphql",
+  "html",
+  "markdown",
+  "typescript",
+  "yaml",
+];
 
 const pluginsPromise = globby("../../dist/esm/parser-*.mjs", {
   cwd: __dirname,
@@ -10,38 +24,13 @@ const pluginsPromise = globby("../../dist/esm/parser-*.mjs", {
   return files.map((file) => require(file).default);
 });
 
-test("formats flow", async () => {
-  expect(
-    prettier.format("const num:number =1;", {
-      parser: "flow",
-      plugins: await pluginsPromise,
-    })
-  ).toMatchSnapshot();
-});
-
-test("formats typescript", async () => {
-  expect(
-    prettier.format("const num:number =1;", {
-      parser: "typescript",
-      plugins: await pluginsPromise,
-    })
-  ).toMatchSnapshot();
-});
-
-test("formats graphql", async () => {
-  expect(
-    prettier.format("query { child }", {
-      parser: "graphql",
-      plugins: await pluginsPromise,
-    })
-  ).toMatchSnapshot();
-});
-
-test("formats css", async () => {
-  expect(
-    prettier.format("body { color: red; }", {
-      parser: "css",
-      plugins: await pluginsPromise,
-    })
-  ).toMatchSnapshot();
+parsers.forEach((parser) => {
+  test(`format ${parser}`, async () => {
+    expect(
+      prettier.format(codeSamples(parser), {
+        parser,
+        plugins: await pluginsPromise,
+      })
+    ).toMatchSnapshot();
+  });
 });

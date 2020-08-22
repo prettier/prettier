@@ -39,7 +39,7 @@ module.exports = {
   modulePathIgnorePatterns: ["<rootDir>/dist"],
   testEnvironment: "node",
   transform: {
-    "^.+\\.mjs$": [
+    "^(.+\\.mjs|.+codeSamples.js)$": [
       "babel-jest",
       {
         presets: ["@babel/env"],
