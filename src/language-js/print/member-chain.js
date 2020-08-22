@@ -370,13 +370,6 @@ function printMemberChain(path, options, print) {
     .map(({ node }) => node)
     .filter(isCallOrOptionalCallExpression);
 
-  function callHasComplexArguments(expr, index) {
-    return (
-      (index !== 0 && expr.arguments.length > 2) ||
-      !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))
-    );
-  }
-
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
     const lastGroupNode = getLast(getLast(groups)).node;
     const lastGroupDoc = getLast(printedGroups);
@@ -398,7 +391,9 @@ function printMemberChain(path, options, print) {
   if (
     hasComment ||
     (callExpressions.length > 2 &&
-      callExpressions.some(callHasComplexArguments)) ||
+      callExpressions.some(
+        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))
+      )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
   ) {

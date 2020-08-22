@@ -570,9 +570,7 @@ cy.get(".ready")
 =====================================output=====================================
 cy.get("option:first").should("be.selected").and("have.value", "Metallica");
 
-cy.get(".ready")
-  .should("have.text", "FOO")
-  .should("have.css", "color", "#aaa");
+cy.get(".ready").should("have.text", "FOO").should("have.css", "color", "#aaa");
 
 ================================================================================
 `;
