@@ -1,13 +1,27 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const postprocess = require("./postprocess");
 
-function parse(text, parsers, options) {
-  const { preprocess: glimmer, traverse } = require("@glimmer/syntax");
+/* from the following template: `non-escaped mustache \\{{helper}}`
+ * glimmer parser will produce an AST missing a backslash
+ * so here we add it back
+ * */
+function addBackslash(/* options*/) {
+  return {
+    name: "addBackslash",
+    visitor: {
+      TextNode(node) {
+        node.chars = node.chars.replace(/\\/, "\\\\");
+      },
+    },
+  };
+}
+
+function parse(text) {
+  const { preprocess: glimmer } = require("@glimmer/syntax");
   let ast;
   try {
-    ast = glimmer(text, { mode: "codemod" });
+    ast = glimmer(text, { mode: "codemod", plugins: { ast: [addBackslash] } });
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);
     /* istanbul ignore else */
@@ -20,7 +34,7 @@ function parse(text, parsers, options) {
     }
   }
 
-  return postprocess(ast, options, traverse);
+  return ast;
 }
 
 module.exports = {
