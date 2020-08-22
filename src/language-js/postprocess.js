@@ -18,7 +18,11 @@ function postprocess(ast, options) {
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  if (options.parser !== "typescript" && options.parser !== "flow") {
+  if (
+    options.parser !== "typescript" &&
+    options.parser !== "flow" &&
+    options.parser !== "espree"
+  ) {
     const startOffsetsOfTypeCastedNodes = new Set();
 
     // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
