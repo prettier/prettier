@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formats css 1`] = `
+"body {
+  color: red;
+}
+"
+`;
+
+exports[`formats flow 1`] = `
+"const num: number = 1;
+"
+`;
+
+exports[`formats graphql 1`] = `
+"query {
+  child
+}
+"
+`;
+
+exports[`formats typescript 1`] = `
+"const num: number = 1;
+"
+`;
