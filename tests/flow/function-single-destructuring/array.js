@@ -1,4 +1,3 @@
-
-function excludeFirstFiveResults2([first, second, third, fourth, fifth, ...rest] = DEFAULT_FIVE_RESULTS) {
+function excludeFirstFiveResults4([first, second, third, fourth, fifth, ...rest]: Result[]) {
   return rest;
 }
