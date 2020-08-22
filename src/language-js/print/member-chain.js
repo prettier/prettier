@@ -361,7 +361,7 @@ function printMemberChain(path, options, print) {
 
   const expanded = concat([
     printGroup(groups[0]),
-    shouldMerge ? printGroup(groups[1]) : "",
+    shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
   ]);
