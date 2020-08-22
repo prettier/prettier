@@ -14,8 +14,10 @@ if (TEST_STANDALONE) {
   testPathIgnorePatterns.push("<rootDir>/tests_integration/");
 }
 if (!isProduction) {
-  // ESM spec should run only when bundled.
-  testPathIgnorePatterns.push(".*\\.mjs$");
+  // Only test ESM bundle for production
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests_integration/__tests__/esm-bundle.mjs"
+  );
 }
 
 module.exports = {
@@ -24,7 +26,7 @@ module.exports = {
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
-  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.(m)?js$",
+  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.m?js$",
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
