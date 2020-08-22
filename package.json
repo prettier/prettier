@@ -10,7 +10,6 @@
   "main": "./index.js",
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
-  "module": "./esm/standalone.mjs",
   "engines": {
     "node": ">=10.13.0"
   },
