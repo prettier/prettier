@@ -21,7 +21,7 @@ describe("standalone", () => {
   let esmPlugins;
 
   if (isProduction) {
-    esmStandalone = require(path.join(distDirectory, "standalone.mjs")).default;
+    esmStandalone = require(path.join(distDirectory, "esm/standalone.mjs")).default;
     esmPlugins = globby
       .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
       .map((file) => require(file).default);
