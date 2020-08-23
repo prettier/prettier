@@ -42,7 +42,14 @@ module.exports = {
     "^(.+\\.mjs|.+codeSamples.js)$": [
       "babel-jest",
       {
-        presets: ["@babel/env"],
+        presets: [
+          [
+            "@babel/env",
+            {
+              loose: true,
+            },
+          ],
+        ],
       },
     ],
   },
