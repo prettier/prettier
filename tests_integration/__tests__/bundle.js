@@ -17,15 +17,11 @@ describe("standalone", () => {
     .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 
-  let esmStandalone;
-  let esmPlugins;
-
-  if (isProduction) {
-    esmStandalone = require(path.join(distDirectory, "esm/standalone.mjs")).default;
-    esmPlugins = globby
-      .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
-      .map((file) => require(file).default);
-  }
+  const esmStandalone = require(path.join(distDirectory, "esm/standalone.mjs"))
+    .default;
+  const esmPlugins = globby
+    .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
+    .map((file) => require(file).default);
 
   for (const parser of parserNames) {
     test(parser, () => {
@@ -39,14 +35,12 @@ describe("standalone", () => {
       expect(typeof umdOutput).toBe("string");
       expect(umdOutput).not.toBe(input);
 
-      if (isProduction) {
-        const esmOutput = esmStandalone.format(input, {
-          parser,
-          plugins: esmPlugins,
-        });
+      const esmOutput = esmStandalone.format(input, {
+        parser,
+        plugins: esmPlugins,
+      });
 
-        expect(esmOutput).toBe(umdOutput);
-      }
+      expect(esmOutput).toBe(umdOutput);
     });
   }
 });
