@@ -79,14 +79,13 @@ async function cacheFiles(cache) {
     await execa("mkdir", ["-p", path.join(".cache", "files")]);
     await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
     const manifest = cache.updated;
-    await Promise.all(
-      Object.keys(manifest.files).map((distPath) => {
-        execa("cp", [
-          path.join(distPath),
-          path.join(".cache", distPath.replace("dist", "files")),
-        ]);
-      })
-    );
+
+    for (const file of Object.keys(manifest.files)) {
+      await execa("cp", [
+        file,
+        path.join(".cache", file.replace("dist", "files")),
+      ]);
+    }
   } catch (err) {
     // Don't fail the build
   }
