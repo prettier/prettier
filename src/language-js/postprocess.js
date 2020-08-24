@@ -58,14 +58,7 @@ function postprocess(ast, options) {
     switch (node.type) {
       // Espree
       case "ChainExpression": {
-        return visitNode(node.expression, (node) => {
-          if (
-            node.type === "CallExpression" ||
-            node.type === "MemberExpression"
-          ) {
-            node.type = `Optional${node.type}`;
-          }
-        });
+        return transformChainExpression(node.expression);
       }
       case "LogicalExpression": {
         // We remove unneeded parens around same-operator LogicalExpressions
@@ -143,6 +136,21 @@ function postprocess(ast, options) {
     }
     toBeOverriddenNode.range = composeLoc(toBeOverriddenNode, toOverrideNode);
   }
+}
+
+// This is a workaround to transform `ChainExpression` from `espree` into
+// `babel` shape AST, we should do the opposite, since `ChainExpression` is the
+// standard `estree` AST for `optional chaining`
+// https://github.com/estree/estree/blob/master/es2020.md
+function transformChainExpression(node) {
+  if (node.type === "CallExpression") {
+    node.type = "OptionalCallExpression";
+    node.callee = transformChainExpression(node.callee);
+  } else if (node.type === "MemberExpression") {
+    node.type = "OptionalMemberExpression";
+    node.object = transformChainExpression(node.object);
+  }
+  return node;
 }
 
 function visitNode(node, fn) {
