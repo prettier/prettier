@@ -1,11 +1,15 @@
+const errors = {
+  espree: ["class-property.js"],
+}
+
 run_spec(__dirname, ["babel", "flow", "typescript"], {
-  errors: { espree: true },
+  errors,
 });
 run_spec(__dirname, ["babel", "flow", "typescript"], {
   trailingComma: "all",
-  errors: { espree: true },
+  errors,
 });
 run_spec(__dirname, ["babel", "flow", "typescript"], {
   arrowParens: "always",
-  errors: { espree: true },
+  errors,
 });
