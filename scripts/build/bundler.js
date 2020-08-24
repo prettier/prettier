@@ -174,7 +174,10 @@ function getRollupConfig(bundle) {
     commonjs({
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
-      ignore: bundle.type === "plugin" ? undefined: (id) =>/\.\/parser-.*?/.test(id)
+      ignore:
+        bundle.type === "plugin"
+          ? undefined
+          : (id) => /\.\/parser-.*?/.test(id),
     }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
