@@ -896,6 +896,13 @@
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
+"@glimmer/interfaces@^0.59.0":
+  version "0.59.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.59.0.tgz#b94e099609ed83bad686bf4759b373caa1c19210"
+  integrity sha512-k1ax7bbIdbwpS77d1G0y+y2C6pL+u6l/AXYvJip+yHRe163c5os8jbE9pSzzmOsdpqeJoQe0XYodLpyBMJebog==
+  dependencies:
+    "@simple-dom/interface" "^1.4.0"
+
 "@glimmer/reference@0.58.0":
   version "0.58.0"
   resolved "https://registry.yarnpkg.com/@glimmer/reference/-/reference-0.58.0.tgz#8d2fb4a53cf3bac299961236c1774641bb103c53"
@@ -906,13 +913,13 @@
     "@glimmer/util" "^0.58.0"
     "@glimmer/validator" "^0.58.0"
 
-"@glimmer/syntax@0.58.0":
-  version "0.58.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.58.0.tgz#4141a607694f1f7afdedbc904968bd697bb7f629"
-  integrity sha512-KYa4Knlkhg7d0u7hCTQxMjkpvGVPFsjoyorIWeSm1E6GKKKi7b+uY2zmOmkSdU5592X93J5npgp2eABqJUQFcQ==
+"@glimmer/syntax@0.59.0":
+  version "0.59.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.59.0.tgz#5ba14edd7c3d793d9f881ec59fc78991fb3c3f9f"
+  integrity sha512-cvd9//tWKO5Cb1o0c778cR1O75m3/idnoQv6hJK9jV60KAsKIuZL9gtG0eWOepiLnZYg0oXeLXvzBd3LcedSIg==
   dependencies:
-    "@glimmer/interfaces" "^0.58.0"
-    "@glimmer/util" "^0.58.0"
+    "@glimmer/interfaces" "^0.59.0"
+    "@glimmer/util" "^0.59.0"
     handlebars "^4.7.4"
     simple-html-tokenizer "^0.5.9"
 
@@ -923,6 +930,15 @@
   dependencies:
     "@glimmer/env" "0.1.7"
     "@glimmer/interfaces" "^0.58.0"
+    "@simple-dom/interface" "^1.4.0"
+
+"@glimmer/util@^0.59.0":
+  version "0.59.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.59.0.tgz#625a2a4481c9ff3a74edb18f841b6d89459327dd"
+  integrity sha512-93mlGdNTywN/F58KRWLWc3WKl0kzaiy6dLF7GpHmaPG4lsAAoZ0O0Vbz0nPIe4Qr/IVgDvm5CSa4govwHYjJvg==
+  dependencies:
+    "@glimmer/env" "0.1.7"
+    "@glimmer/interfaces" "^0.59.0"
     "@simple-dom/interface" "^1.4.0"
 
 "@glimmer/validator@^0.58.0":
