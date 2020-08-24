@@ -1,3 +1,9 @@
+# 2.1.0
+
+[diff](https://github.com/prettier/prettier/compare/2.0.5...2.1.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2020/08/24/2.1.0.html)
+
 # 2.0.5
 
 [diff](https://github.com/prettier/prettier/compare/2.0.4...2.0.5)
