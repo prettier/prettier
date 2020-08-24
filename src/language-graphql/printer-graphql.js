@@ -10,8 +10,7 @@ const {
   indent,
   ifBreak,
 } = require("../document").builders;
-const { hasIgnoreComment } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
+const { hasIgnoreComment, isNextLineEmpty } = require("../common/util");
 const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {
@@ -274,10 +273,6 @@ function genericPrint(path, options, print) {
         n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : "",
         printDirectives(path, print, n),
       ]);
-    }
-
-    case "TypeExtensionDefinition": {
-      return concat(["extend ", path.call(print, "definition")]);
     }
 
     case "ObjectTypeExtension":
@@ -646,6 +641,7 @@ function printComment(commentPath) {
     return "#" + comment.value.trimEnd();
   }
 
+  /* istanbul ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 

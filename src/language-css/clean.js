@@ -1,6 +1,7 @@
 "use strict";
 
 const { isFrontMatterNode } = require("../common/util");
+const getLast = require("../utils/get-last");
 
 function clean(ast, newObj, parent) {
   [
@@ -19,24 +20,32 @@ function clean(ast, newObj, parent) {
     delete newObj.value;
   }
 
-  // --insert-pragma
   if (
     ast.type === "css-comment" &&
     parent.type === "css-root" &&
-    parent.nodes.length !== 0 &&
-    // first non-front-matter comment
-    (parent.nodes[0] === ast ||
-      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast))
+    parent.nodes.length !== 0
   ) {
-    /**
-     * something
-     *
-     * @format
-     */
-    delete newObj.text;
+    // --insert-pragma
+    // first non-front-matter comment
+    if (
+      parent.nodes[0] === ast ||
+      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast)
+    ) {
+      /**
+       * something
+       *
+       * @format
+       */
+      delete newObj.text;
 
-    // standalone pragma
-    if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+      // standalone pragma
+      if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+        return null;
+      }
+    }
+
+    // Last comment is not parsed, when omitting semicolon, #8675
+    if (parent.type === "css-root" && getLast(parent.nodes) === ast) {
       return null;
     }
   }

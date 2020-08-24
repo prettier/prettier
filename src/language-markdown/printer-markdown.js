@@ -1,9 +1,11 @@
 "use strict";
 
-const privateUtil = require("../common/util");
-const embed = require("./embed");
-const pragma = require("./pragma");
-const preprocess = require("./preprocess");
+const {
+  getLast,
+  getMinNotPresentContinuousCount,
+  getMaxContinuousCount,
+  getStringWidth,
+} = require("../common/util");
 const {
   builders: {
     breakParent,
@@ -23,6 +25,10 @@ const {
   utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
+const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
+const embed = require("./embed");
+const pragma = require("./pragma");
+const preprocess = require("./preprocess");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -32,7 +38,6 @@ const {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
 } = require("./utils");
-const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
@@ -152,8 +157,8 @@ function genericPrint(path, options, print) {
           (prevNode &&
             prevNode.type === "sentence" &&
             prevNode.children.length > 0 &&
-            privateUtil.getLast(prevNode.children).type === "word" &&
-            !privateUtil.getLast(prevNode.children).hasTrailingPunctuation) ||
+            getLast(prevNode.children).type === "word" &&
+            !getLast(prevNode.children).hasTrailingPunctuation) ||
           (nextNode &&
             nextNode.type === "sentence" &&
             nextNode.children.length > 0 &&
@@ -169,10 +174,7 @@ function genericPrint(path, options, print) {
     case "delete":
       return concat(["~~", printChildren(path, options, print), "~~"]);
     case "inlineCode": {
-      const backtickCount = privateUtil.getMinNotPresentContinuousCount(
-        node.value,
-        "`"
-      );
+      const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
@@ -239,10 +241,7 @@ function genericPrint(path, options, print) {
       // fenced code block
       const styleUnit = options.__inJsTemplate ? "~" : "`";
       const style = styleUnit.repeat(
-        Math.max(
-          3,
-          privateUtil.getMaxContinuousCount(node.value, styleUnit) + 1
-        )
+        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
       );
       return concat([
         style,
@@ -259,17 +258,10 @@ function genericPrint(path, options, print) {
         style,
       ]);
     }
-    case "yaml":
-    case "toml":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
-      );
     case "html": {
       const parentNode = path.getParentNode();
       const value =
-        parentNode.type === "root" &&
-        privateUtil.getLast(parentNode.children) === node
+        parentNode.type === "root" && getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
@@ -387,6 +379,9 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
+    // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
+    /* istanbul ignore next */
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -438,7 +433,9 @@ function genericPrint(path, options, print) {
     // MDX
     case "importExport":
     case "jsx":
-      return node.value; // fallback to the original text if multiparser failed
+      // fallback to the original text if multiparser failed
+      // or `embeddedLanguageFormatting: "off"`
+      return concat([node.value, hardline]);
     case "math":
       return concat([
         "$$",
@@ -463,6 +460,7 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
+      /* istanbul ignore next */
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
 }
@@ -586,7 +584,7 @@ function printTable(path, options, print) {
   const columnMaxWidths = contents.reduce(
     (currentWidths, rowContents) =>
       currentWidths.map((width, columnIndex) =>
-        Math.max(width, privateUtil.getStringWidth(rowContents[columnIndex]))
+        Math.max(width, getStringWidth(rowContents[columnIndex]))
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
@@ -663,17 +661,17 @@ function printTable(path, options, print) {
   }
 
   function alignLeft(text, width) {
-    const spaces = width - privateUtil.getStringWidth(text);
+    const spaces = width - getStringWidth(text);
     return concat([text, " ".repeat(spaces)]);
   }
 
   function alignRight(text, width) {
-    const spaces = width - privateUtil.getStringWidth(text);
+    const spaces = width - getStringWidth(text);
     return concat([" ".repeat(spaces), text]);
   }
 
   function alignCenter(text, width) {
-    const spaces = width - privateUtil.getStringWidth(text);
+    const spaces = width - getStringWidth(text);
     const left = Math.floor(spaces / 2);
     const right = spaces - left;
     return concat([" ".repeat(left), text, " ".repeat(right)]);
@@ -768,6 +766,8 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
+        // Can't find a case to pass `shouldPrePrintTripleHardline`
+        /* istanbul ignore next */
         if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
@@ -933,7 +933,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
-    isFrontMatterNode(ast) ||
+    ast.type === "front-matter" ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||

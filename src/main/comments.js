@@ -1,6 +1,8 @@
 "use strict";
 
+/** @type {import("assert")} */
 const assert = require("assert");
+
 const {
   concat,
   line,
@@ -11,17 +13,17 @@ const {
   join,
   cursor,
 } = require("../document").builders;
+
 const {
   hasNewline,
   skipNewline,
   skipSpaces,
   isPreviousLineEmpty,
-} = require("../common/util");
-const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("../common/util-shared");
+} = require("../common/util");
+
 const childNodesCacheKey = Symbol("child-nodes");
 
 function getSortedChildNodes(node, options, resultArray) {
@@ -60,7 +62,9 @@ function getSortedChildNodes(node, options, resultArray) {
           (n) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
-            n !== "followingNode"
+            n !== "followingNode" &&
+            n !== "tokens" &&
+            n !== "comments"
         )
         .map((n) => node[n]));
 
@@ -344,6 +348,12 @@ function breakTies(tiesToBreak, text, options) {
     }
   });
 
+  for (const node of [precedingNode, followingNode]) {
+    if (node.comments && node.comments.length > 1) {
+      node.comments.sort((a, b) => options.locStart(a) - options.locStart(b));
+    }
+  }
+
   tiesToBreak.length = 0;
 }
 
@@ -357,7 +367,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
   const startPos = options.locStart(comment) - 1;
 
   for (let i = 1; i < quasis.length; ++i) {
-    if (startPos < getQuasiRange(quasis[i]).start) {
+    if (startPos < options.locStart(quasis[i])) {
       return i - 1;
     }
   }
@@ -368,18 +378,10 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-function getQuasiRange(expr) {
-  if (expr.start !== undefined) {
-    // Babel
-    return { start: expr.start, end: expr.end };
-  }
-  // Flow
-  return { start: expr.range[0], end: expr.range[1] };
-}
-
 function printLeadingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
+  /* istanbul ignore next */
   if (!contents) {
     return "";
   }
@@ -406,6 +408,7 @@ function printLeadingComment(commentPath, options) {
 function printTrailingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
+  /* istanbul ignore next */
   if (!contents) {
     return "";
   }
@@ -501,6 +504,7 @@ function printComments(path, print, options, needsSemi) {
 
     if (leading) {
       const contents = printLeadingComment(commentPath, options);
+      /* istanbul ignore next */
       if (!contents) {
         return;
       }
@@ -526,9 +530,27 @@ function printComments(path, print, options, needsSemi) {
   );
 }
 
+function ensureAllCommentsPrinted(astComments) {
+  if (!astComments) {
+    return;
+  }
+
+  astComments.forEach((comment) => {
+    if (!comment.printed) {
+      throw new Error(
+        'Comment "' +
+          comment.value.trim() +
+          '" was not printed. Please report this error!'
+      );
+    }
+    delete comment.printed;
+  });
+}
+
 module.exports = {
   attach,
   printComments,
   printDanglingComments,
   getSortedChildNodes,
+  ensureAllCommentsPrinted,
 };

@@ -38,7 +38,11 @@ exports[`throw error for unsupported extension (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config format (stdout) 1`] = `""`;
 
+exports[`throw error with invalid config format (stdout) 2`] = `""`;
+
 exports[`throw error with invalid config format (write) 1`] = `Array []`;
+
+exports[`throw error with invalid config format (write) 2`] = `Array []`;
 
 exports[`throw error with invalid config option (int) (stderr) 1`] = `
 "[error] Invalid tabWidth value. Expected an integer, but received 0.5.

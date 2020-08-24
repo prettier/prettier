@@ -1,5 +1,24 @@
 "use strict";
 
+const docBuilders = require("../document").builders;
+const {
+  conditionalGroup,
+  breakParent,
+  concat,
+  dedent,
+  dedentToRoot,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  join,
+  line,
+  lineSuffix,
+  literalline,
+  markAsRoot,
+  softline,
+} = docBuilders;
+const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
 const {
   getAncestorCount,
@@ -20,25 +39,6 @@ const {
   defineShortcut,
   mapNode,
 } = require("./utils");
-const docBuilders = require("../document").builders;
-const {
-  conditionalGroup,
-  breakParent,
-  concat,
-  dedent,
-  dedentToRoot,
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  join,
-  line,
-  lineSuffix,
-  literalline,
-  markAsRoot,
-  softline,
-} = docBuilders;
-const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -551,6 +551,7 @@ function align(n, doc) {
 }
 
 function isInlineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }
@@ -569,6 +570,7 @@ function isInlineNode(node) {
 }
 
 function isSingleLineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }

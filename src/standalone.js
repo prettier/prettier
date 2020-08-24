@@ -5,18 +5,11 @@ const { version } = require("../package.json");
 const core = require("./main/core");
 const { getSupportInfo } = require("./main/support");
 const sharedUtil = require("./common/util-shared");
-
+const languages = require("./languages");
 const doc = require("./document");
 
-const internalPlugins = [
-  require("./language-css"),
-  require("./language-graphql"),
-  require("./language-handlebars"),
-  require("./language-html"),
-  require("./language-js"),
-  require("./language-markdown"),
-  require("./language-yaml"),
-];
+// Parsers are bundled as separate plugins
+const internalPlugins = languages.map(({ parsers, ...plugin }) => plugin);
 
 function withPlugins(
   fn,

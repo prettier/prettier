@@ -1,8 +1,11 @@
 "use strict";
 
 const comments = require("../../main/comments");
-const { getLast, getPenultimate } = require("../../common/util");
-const { isNextLineEmpty } = require("../../common/util-shared");
+const {
+  getLast,
+  getPenultimate,
+  isNextLineEmpty,
+} = require("../../common/util");
 const {
   hasLeadingComment,
   hasTrailingComment,
@@ -47,7 +50,7 @@ function printCallArguments(path, options, print) {
     args[0].params.length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
-    !args.find((arg) => arg.comments)
+    !args.some((arg) => arg.comments)
   ) {
     return concat([
       "(",
@@ -61,7 +64,7 @@ function printCallArguments(path, options, print) {
   // func(
   //   ({
   //     a,
-
+  //
   //     b
   //   }) => {}
   // );
@@ -156,7 +159,7 @@ function printCallArguments(path, options, print) {
       shouldBreakForArrowFunction;
 
     // We want to print the last argument with a special flag
-    let printedExpanded;
+    let printedExpanded = [];
     let i = 0;
     const printArgument = (argPath) => {
       if (shouldGroupFirst && i === 0) {

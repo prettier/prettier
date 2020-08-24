@@ -1,16 +1,16 @@
 "use strict";
 
-const parseFrontMatter = require("../utils/front-matter");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
+const createError = require("../common/parser-create-error");
+const { getParserName } = require("../common/util");
 const {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   isUnknownNamespace,
 } = require("./utils");
 const { hasPragma } = require("./pragma");
-const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
-const { getParserName } = require("../common/util");
 
 function ngHtmlParser(
   input,
@@ -59,6 +59,7 @@ function ngHtmlParser(
 
   if (options.parser === "vue" && !isVueHtml) {
     const shouldParseAsHTML = (node) => {
+      /* istanbul ignore next */
       if (!node) {
         return false;
       }
@@ -99,6 +100,7 @@ function ngHtmlParser(
           const endOffset = endSourceSpan.start.offset;
           for (const error of result.errors) {
             const { offset } = error.span.start;
+            /* istanbul ignore next */
             if (startOffset < offset && offset < endOffset) {
               errors = [error];
               break;
@@ -145,6 +147,7 @@ function ngHtmlParser(
     } else if (node instanceof Text) {
       node.type = "text";
     } else {
+      /* istanbul ignore next */
       throw new Error(`Unexpected node ${JSON.stringify(node)}`);
     }
   };
@@ -299,6 +302,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     );
     const firstText = subAst.children[0];
     if (firstText.length === offset) {
+      /* istanbul ignore next */
       subAst.children.shift();
     } else {
       firstText.sourceSpan = new ParseSourceSpan(

@@ -4,7 +4,7 @@ function f() {
   )
 }
 
-function f() {
+function f2() {
   const appEntities = getAppEntities(loadObject).map(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled() && {
       id: entity.id

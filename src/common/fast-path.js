@@ -144,6 +144,7 @@ class FastPath {
     let node = this.stack[stackPointer--];
 
     for (const predicate of predicates) {
+      /* istanbul ignore next */
       if (node === undefined) {
         return false;
       }

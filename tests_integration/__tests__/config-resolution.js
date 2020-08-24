@@ -2,8 +2,8 @@
 
 const path = require("path");
 
-const runPrettier = require("../runPrettier");
 const prettier = require("prettier/local");
+const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
@@ -232,9 +232,9 @@ test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrowError();
 });
 
-test("API resolveConfig overrides work with dotfiles", () => {
+test("API resolveConfig overrides work with dotfiles", async () => {
   const folder = path.join(__dirname, "../cli/config/dot-overrides");
-  return expect(
+  await expect(
     prettier.resolveConfig(path.join(folder, ".foo.json"))
   ).resolves.toMatchObject({
     tabWidth: 4,
@@ -246,6 +246,35 @@ test("API resolveConfig.sync overrides work with absolute paths", () => {
   const file = path.join(__dirname, "../cli/config/filepath/subfolder/file.js");
   expect(prettier.resolveConfig.sync(file)).toMatchObject({
     tabWidth: 6,
+  });
+});
+
+test("API resolveConfig.sync overrides excludeFiles", () => {
+  const notOverride = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/foo"
+  );
+  expect(prettier.resolveConfig.sync(notOverride)).toMatchObject({
+    singleQuote: true,
+    trailingComma: "all",
+  });
+
+  const singleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/single-quote.js"
+  );
+  expect(prettier.resolveConfig.sync(singleQuote)).toMatchObject({
+    singleQuote: true,
+    trailingComma: "es5",
+  });
+
+  const doubleQuote = path.join(
+    __dirname,
+    "../cli/config/overrides-exclude-files/double-quote.js"
+  );
+  expect(prettier.resolveConfig.sync(doubleQuote)).toMatchObject({
+    singleQuote: false,
+    trailingComma: "es5",
   });
 });
 
@@ -284,4 +313,51 @@ test("API resolveConfig de-references to an external module", () => {
     printWidth: 77,
     semi: false,
   });
+});
+
+test(".cjs config file", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-cjs");
+
+  const config = {
+    trailingComma: "all",
+    singleQuote: true,
+  };
+
+  for (const directoryName of [
+    "prettierrc-cjs-in-type-module",
+    "prettierrc-cjs-in-type-commonjs",
+    "prettierrc-cjs-in-type-none",
+    "prettier-config-cjs-in-type-commonjs",
+    "prettier-config-cjs-in-type-none",
+    "prettier-config-cjs-in-type-module",
+  ]) {
+    const file = path.join(parentDirectory, directoryName, "foo.js");
+
+    expect(prettier.resolveConfig.sync(file)).toEqual(config);
+    await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+  }
+});
+
+test(".json5 config file", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
+  const config = {
+    trailingComma: "all",
+    printWidth: 81,
+    tabWidth: 3,
+  };
+  const file = path.join(parentDirectory, "json5/foo.js");
+
+  expect(prettier.resolveConfig.sync(file)).toEqual(config);
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+});
+
+test(".json5 config file(invalid)", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
+  const file = path.join(parentDirectory, "invalid/foo.js");
+  const error = /JSON5: invalid end of input at 2:1/;
+
+  expect(() => {
+    prettier.resolveConfig.sync(file);
+  }).toThrowError(error);
+  await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });

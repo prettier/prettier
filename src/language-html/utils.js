@@ -1,15 +1,14 @@
 "use strict";
 
+const htmlTagNames = require("html-tag-names");
+const htmlElementAttributes = require("html-element-attributes");
+const { getParserName, isFrontMatterNode } = require("../common/util");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
-const { getParserName, isFrontMatterNode } = require("../common/util");
-
-const htmlTagNames = require("html-tag-names");
-const htmlElementAttributes = require("html-element-attributes");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
@@ -54,10 +53,6 @@ function mapObject(object, fn) {
 }
 
 function shouldPreserveContent(node, options) {
-  if (!node.endSourceSpan) {
-    return false;
-  }
-
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
@@ -97,10 +92,12 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
+  /* istanbul ignore next */
   if (node.type === "attribute") {
     return false;
   }
 
+  /* istanbul ignore next */
   if (!node.parent) {
     return false;
   }
@@ -274,6 +271,7 @@ function forceNextEmptyLine(node) {
   return (
     isFrontMatterNode(node) ||
     (node.next &&
+      node.sourceSpan.end &&
       node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
   );
 }
@@ -288,6 +286,7 @@ function forceBreakContent(node) {
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
+      node.firstChild.type !== "text" &&
       hasLeadingLineBreak(node.firstChild) &&
       (!node.lastChild.isTrailingSpaceSensitive ||
         hasTrailingLineBreak(node.lastChild)))
@@ -432,8 +431,6 @@ function inferScriptParser(node, options) {
       getParserName(node.attrMap.lang, options)
     );
   }
-
-  return null;
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
@@ -468,7 +465,7 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-function countParents(path, predicate = () => true) {
+function countParents(path, predicate) {
   let counter = 0;
   for (let i = path.stack.length - 1; i >= 0; i--) {
     const value = path.stack[i];
@@ -594,10 +591,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function identity(x) {
-  return x;
-}
-
 function shouldNotPrintClosingTag(node, options) {
   return (
     !node.isSelfClosing &&
@@ -664,7 +657,6 @@ module.exports = {
   getNodeCssStyleWhiteSpace,
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
-  identity,
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,

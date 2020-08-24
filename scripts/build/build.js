@@ -1,10 +1,10 @@
 "use strict";
 
+const path = require("path");
+const fs = require("fs");
 const chalk = require("chalk");
 const execa = require("execa");
 const minimist = require("minimist");
-const path = require("path");
-const fs = require("fs");
 const stringWidth = require("string-width");
 
 const bundler = require("./bundler");
@@ -22,7 +22,7 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-const CACHE_VERSION = "v24"; // This need update when updating build scripts
+const CACHE_VERSION = "v27"; // This need update when updating build scripts
 const CACHED = chalk.bgYellow.black(" CACHED ");
 const OK = chalk.bgGreen.black("  DONE  ");
 const FAIL = chalk.bgRed.black("  FAIL  ");

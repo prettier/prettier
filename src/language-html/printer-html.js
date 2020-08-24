@@ -1,10 +1,13 @@
 "use strict";
 
-const clean = require("./clean");
+const assert = require("assert");
 const {
   builders,
-  utils: { stripTrailingHardline, mapDoc, normalizeParts },
+  utils: { mapDoc, normalizeParts },
 } = require("../document");
+const { replaceEndOfLineWith } = require("../common/util");
+const { print: printFrontMatter } = require("../utils/front-matter");
+const clean = require("./clean");
 const {
   breakParent,
   dedentToRoot,
@@ -16,7 +19,6 @@ const {
   join,
   line,
   literalline,
-  markAsRoot,
   softline,
 } = builders;
 const {
@@ -40,10 +42,9 @@ const {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  isPreLikeNode,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
 const preprocess = require("./preprocess");
-const assert = require("assert");
 const { insertPragma } = require("./pragma");
 const {
   printVueFor,
@@ -77,30 +78,18 @@ function embed(path, print, textToDoc, options) {
           return;
         }
 
-        let doc;
-        try {
-          doc = textToDoc(
-            htmlTrimPreserveIndentation(getNodeContent(node, options)),
-            { parser }
-          );
-        } catch (_) {
-          return;
-        }
-
-        // `textToDoc` don't throw on `production` mode
-        if (!doc) {
-          return;
-        }
-
-        // See https://github.com/prettier/prettier/pull/8465#issuecomment-645273859
-        if (typeof doc === "string") {
-          doc = doc.replace(/(?:\r?\n)*$/, "");
-        }
+        const doc = textToDoc(
+          htmlTrimPreserveIndentation(getNodeContent(node, options)),
+          { parser },
+          { stripTrailingHardline: true }
+        );
 
         return concat([
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          concat([hardline, stripTrailingHardline(doc, true), hardline]),
+          hardline,
+          doc,
+          hardline,
           printClosingTag(node, options),
           printClosingTagSuffix(node, options),
         ]);
@@ -133,7 +122,9 @@ function embed(path, print, textToDoc, options) {
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(textToDoc(value, textToDocOptions)),
+              textToDoc(value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
               printClosingTagSuffix(node, options),
             ]),
           ]);
@@ -143,14 +134,18 @@ function embed(path, print, textToDoc, options) {
           indent(
             concat([
               line,
-              textToDoc(node.value, {
-                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-                ...(options.parser === "angular"
-                  ? { parser: "__ng_interpolation", trailingComma: "none" }
-                  : options.parser === "vue"
-                  ? { parser: "__vue_expression" }
-                  : { parser: "__js_expression" }),
-              }),
+              textToDoc(
+                node.value,
+                {
+                  __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+                  ...(options.parser === "angular"
+                    ? { parser: "__ng_interpolation", trailingComma: "none" }
+                    : options.parser === "vue"
+                    ? { parser: "__vue_expression" }
+                    : { parser: "__js_expression" }),
+                },
+                { stripTrailingHardline: true }
+              ),
             ])
           ),
           node.parent.next &&
@@ -197,7 +192,11 @@ function embed(path, print, textToDoc, options) {
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(code, { __isInHtmlAttribute: true, ...opts }),
+          textToDoc(
+            code,
+            { __isInHtmlAttribute: true, ...opts },
+            { stripTrailingHardline: true }
+          ),
         options
       );
       if (embeddedAttributeValueDoc) {
@@ -215,18 +214,7 @@ function embed(path, print, textToDoc, options) {
       break;
     }
     case "front-matter":
-      if (node.lang === "yaml") {
-        return markAsRoot(
-          concat([
-            "---",
-            hardline,
-            node.value.trim().length === 0
-              ? ""
-              : textToDoc(node.value, { parser: "yaml" }),
-            "---",
-          ])
-        );
-      }
+      return printFrontMatter(node, textToDoc);
   }
 }
 
@@ -448,10 +436,8 @@ function genericPrint(path, options, print) {
         ]),
       ]);
     }
-    case "yaml":
-    case "toml":
-      return concat(replaceEndOfLineWith(node.raw, literalline));
     default:
+      /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
   }
 }
@@ -655,102 +641,116 @@ function printChildren(path, options, print) {
 }
 
 function getNodeContent(node, options) {
-  return options.originalText.slice(
-    node.startSourceSpan.end.offset +
-      (node.firstChild &&
-      needsToBorrowParentOpeningTagEndMarker(node.firstChild)
-        ? -printOpeningTagEndMarker(node).length
-        : 0),
-    node.endSourceSpan.start.offset +
-      (node.lastChild &&
-      needsToBorrowParentClosingTagStartMarker(node.lastChild)
-        ? printClosingTagStartMarker(node, options).length
-        : needsToBorrowLastChildClosingTagEndMarker(node)
-        ? -printClosingTagEndMarker(node.lastChild, options).length
-        : 0)
-  );
+  let start = node.startSourceSpan.end.offset;
+  if (
+    node.firstChild &&
+    needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+  ) {
+    start -= printOpeningTagEndMarker(node).length;
+  }
+
+  let end = node.endSourceSpan.start.offset;
+  if (
+    node.lastChild &&
+    needsToBorrowParentClosingTagStartMarker(node.lastChild)
+  ) {
+    end += printClosingTagStartMarker(node, options).length;
+  } else if (needsToBorrowLastChildClosingTagEndMarker(node)) {
+    end -= printClosingTagEndMarker(node.lastChild, options).length;
+  }
+
+  return options.originalText.slice(start, end);
 }
 
-function printOpeningTag(path, options, print) {
+function printAttributes(path, options, print) {
   const node = path.getValue();
+
+  if (!node.attrs || node.attrs.length === 0) {
+    return node.isSelfClosing
+      ? /**
+         *     <br />
+         *        ^
+         */
+        " "
+      : "";
+  }
+
+  const ignoreAttributeData =
+    node.prev &&
+    node.prev.type === "comment" &&
+    getPrettierIgnoreAttributeCommentData(node.prev.value);
+
+  const hasPrettierIgnoreAttribute =
+    typeof ignoreAttributeData === "boolean"
+      ? () => ignoreAttributeData
+      : Array.isArray(ignoreAttributeData)
+      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
+      : () => false;
+
+  const printedAttributes = path.map((attributePath) => {
+    const attribute = attributePath.getValue();
+    return hasPrettierIgnoreAttribute(attribute)
+      ? concat(
+          replaceEndOfLineWith(
+            options.originalText.slice(
+              options.locStart(attribute),
+              options.locEnd(attribute)
+            ),
+            literalline
+          )
+        )
+      : print(attributePath);
+  }, "attrs");
+
   const forceNotToBreakAttrContent =
     node.type === "element" &&
     node.fullName === "script" &&
     node.attrs.length === 1 &&
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
+
+  const parts = [
+    indent(
+      concat([
+        forceNotToBreakAttrContent ? " " : line,
+        join(line, printedAttributes),
+      ])
+    ),
+  ];
+
+  if (
+    /**
+     *     123<a
+     *       attr
+     *           ~
+     *       >456
+     */
+    (node.firstChild &&
+      needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
+    /**
+     *     <span
+     *       >123<meta
+     *                ~
+     *     /></span>
+     */
+    (node.isSelfClosing &&
+      needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
+    forceNotToBreakAttrContent
+  ) {
+    parts.push(node.isSelfClosing ? " " : "");
+  } else {
+    parts.push(node.isSelfClosing ? line : softline);
+  }
+
+  return concat(parts);
+}
+
+function printOpeningTag(path, options, print) {
+  const node = path.getValue();
+
   return concat([
     printOpeningTagStart(node, options),
-    !node.attrs || node.attrs.length === 0
-      ? node.isSelfClosing
-        ? /**
-           *     <br />
-           *        ^
-           */
-          " "
-        : ""
-      : concat([
-          indent(
-            concat([
-              forceNotToBreakAttrContent ? " " : line,
-              join(
-                line,
-                ((ignoreAttributeData) => {
-                  const hasPrettierIgnoreAttribute =
-                    typeof ignoreAttributeData === "boolean"
-                      ? () => ignoreAttributeData
-                      : Array.isArray(ignoreAttributeData)
-                      ? (attr) => ignoreAttributeData.includes(attr.rawName)
-                      : () => false;
-                  return path.map((attrPath) => {
-                    const attr = attrPath.getValue();
-                    return hasPrettierIgnoreAttribute(attr)
-                      ? concat(
-                          replaceEndOfLineWith(
-                            options.originalText.slice(
-                              options.locStart(attr),
-                              options.locEnd(attr)
-                            ),
-                            literalline
-                          )
-                        )
-                      : print(attrPath);
-                  }, "attrs");
-                })(
-                  node.prev &&
-                    node.prev.type === "comment" &&
-                    getPrettierIgnoreAttributeCommentData(node.prev.value)
-                )
-              ),
-            ])
-          ),
-          /**
-           *     123<a
-           *       attr
-           *           ~
-           *       >456
-           */
-          (node.firstChild &&
-            needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
-          /**
-           *     <span
-           *       >123<meta
-           *                ~
-           *     /></span>
-           */
-          (node.isSelfClosing &&
-            needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? node.isSelfClosing
-              ? " "
-              : ""
-            : node.isSelfClosing
-            ? forceNotToBreakAttrContent
-              ? " "
-              : line
-            : forceNotToBreakAttrContent
-            ? ""
-            : softline,
-        ]),
+    printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
   ]);
 }
@@ -860,7 +860,8 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild &&
     node.lastChild.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
-    !isTextLikeNode(getLastDescendant(node.lastChild))
+    !isTextLikeNode(getLastDescendant(node.lastChild)) &&
+    !isPreLikeNode(node)
   );
 }
 
@@ -944,6 +945,7 @@ function printOpeningTagEndMarker(node) {
 
 function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
+  /* istanbul ignore next */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
@@ -1034,7 +1036,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
-    originalTextToDoc(code, { __onHtmlBindingRoot, ...opts });
+    originalTextToDoc(
+      code,
+      { __onHtmlBindingRoot, ...opts },
+      { stripTrailingHardline: true }
+    );
 
   if (
     node.fullName === "srcset" &&
@@ -1054,10 +1060,14 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        textToDoc(value, {
-          parser: "css",
-          __isHTMLStyleAttribute: true,
-        })
+        textToDoc(
+          value,
+          {
+            parser: "css",
+            __isHTMLStyleAttribute: true,
+          },
+          { stripTrailingHardline: true }
+        )
       );
     }
   }
@@ -1086,28 +1096,40 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     /**
      *     v-if="jsExpression"
      */
-    const jsExpressionBindingPatterns = ["^v-"];
+    const jsExpressionBindingPatterns = ["^v-", "^#"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       return printMaybeHug(
-        isVueEventBindingExpression(value)
-          ? textToDoc(value, { parser: "__js_expression" })
-          : stripTrailingHardline(
-              textToDoc(value, { parser: "__vue_event_binding" })
-            )
+        textToDoc(
+          value,
+          {
+            parser: isVueEventBindingExpression(value)
+              ? "__js_expression"
+              : "__vue_event_binding",
+          },
+          { stripTrailingHardline: true }
+        )
       );
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(getValue(), { parser: "__vue_expression" })
+        textToDoc(
+          getValue(),
+          { parser: "__vue_expression" },
+          { stripTrailingHardline: true }
+        )
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(getValue(), { parser: "__js_expression" })
+        textToDoc(
+          getValue(),
+          { parser: "__js_expression" },
+          { stripTrailingHardline: true }
+        )
       );
     }
   }
@@ -1115,7 +1137,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, { ...opts, trailingComma: "none" });
+      textToDoc(
+        code,
+        { ...opts, trailingComma: "none" },
+        { stripTrailingHardline: true }
+      );
 
     /**
      *     *directive="angularDirective"

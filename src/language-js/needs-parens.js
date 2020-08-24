@@ -1,13 +1,17 @@
 "use strict";
 
+/** @type {import("assert")} */
 const assert = require("assert");
 
-const util = require("../common/util");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
   hasNode,
+  isBitwiseOperator,
+  startsWithNoLookaheadToken,
+  shouldFlatten,
+  getPrecedence,
 } = require("./utils");
 
 function needsParens(path, options) {
@@ -139,15 +143,12 @@ function needsParens(path, options) {
     (parent.type === "ArrowFunctionExpression" &&
     parent.body === node &&
     node.type !== "SequenceExpression" && // these have parens added anyway
-      util.startsWithNoLookaheadToken(
+      startsWithNoLookaheadToken(
         node,
         /* forbidFunctionClassAndDoExpr */ false
       )) ||
     (parent.type === "ExpressionStatement" &&
-      util.startsWithNoLookaheadToken(
-        node,
-        /* forbidFunctionClassAndDoExpr */ true
-      ))
+      startsWithNoLookaheadToken(node, /* forbidFunctionClassAndDoExpr */ true))
   ) {
     return true;
   }
@@ -290,9 +291,9 @@ function needsParens(path, options) {
           }
 
           const po = parent.operator;
-          const pp = util.getPrecedence(po);
+          const pp = getPrecedence(po);
           const no = node.operator;
-          const np = util.getPrecedence(no);
+          const np = getPrecedence(no);
 
           if (pp > np) {
             return true;
@@ -303,7 +304,7 @@ function needsParens(path, options) {
             return true;
           }
 
-          if (pp === np && !util.shouldFlatten(po, no)) {
+          if (pp === np && !shouldFlatten(po, no)) {
             return true;
           }
 
@@ -313,7 +314,7 @@ function needsParens(path, options) {
 
           // Add parenthesis when working with bitwise operators
           // It's not strictly needed but helps with code understanding
-          if (util.isBitwiseOperator(po)) {
+          if (isBitwiseOperator(po)) {
             return true;
           }
 
@@ -729,8 +730,7 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator" &&
-          parent.type !== "YieldExpression")
+          parent.type !== "VariableDeclarator")
       );
     case "TypeAnnotation":
       return (

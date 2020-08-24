@@ -1,7 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const parseFrontMatter = require("../utils/front-matter");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
 const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
@@ -14,7 +14,15 @@ const {
 } = require("./utils");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
-function parseValueNodes(nodes, options) {
+const getHighestAncestor = (node) => {
+  while (node.parent) {
+    node = node.parent;
+  }
+  return node;
+};
+
+function parseValueNode(valueNode, options) {
+  const { nodes } = valueNode;
   let parenGroup = {
     open: null,
     close: null,
@@ -43,6 +51,17 @@ function parseValueNodes(nodes, options) {
       // For example, 50px... is parsed as `50` with unit `px...` already by postcss-values-parser.
       node.value = node.value.slice(0, -1);
       node.unit = "...";
+    }
+
+    if (node.type === "func" && node.value === "selector") {
+      node.group.groups = [
+        parseSelector(
+          getHighestAncestor(valueNode).text.slice(
+            node.group.open.sourceIndex + 1,
+            node.group.close.sourceIndex
+          )
+        ),
+      ];
     }
 
     if (node.type === "func" && node.value === "url") {
@@ -90,6 +109,7 @@ function parseValueNodes(nodes, options) {
       }
       parenGroup.close = node;
 
+      /* istanbul ignore next */
       if (commaGroupStack.length === 1) {
         throw new Error("Unbalanced parenthesis");
       }
@@ -138,13 +158,16 @@ function flattenGroups(node) {
   return node;
 }
 
-function addTypePrefix(node, prefix) {
+function addTypePrefix(node, prefix, skipPrefix) {
   if (node && typeof node === "object") {
     delete node.parent;
     for (const key in node) {
-      addTypePrefix(node[key], prefix);
+      addTypePrefix(node[key], prefix, skipPrefix);
       if (key === "type" && typeof node[key] === "string") {
-        if (!node[key].startsWith(prefix)) {
+        if (
+          !node[key].startsWith(prefix) &&
+          (!skipPrefix || !skipPrefix.test(node[key]))
+        ) {
           node[key] = prefix + node[key];
         }
       }
@@ -168,14 +191,16 @@ function addMissingType(node) {
 
 function parseNestedValue(node, options) {
   if (node && typeof node === "object") {
-    delete node.parent;
     for (const key in node) {
-      parseNestedValue(node[key], options);
-      if (key === "nodes") {
-        node.group = flattenGroups(parseValueNodes(node[key], options));
-        delete node[key];
+      if (key !== "parent") {
+        parseNestedValue(node[key], options);
+        if (key === "nodes") {
+          node.group = flattenGroups(parseValueNode(node, options));
+          delete node[key];
+        }
       }
     }
+    delete node.parent;
   }
   return node;
 }
@@ -198,7 +223,7 @@ function parseValue(value, options) {
 
   const parsedResult = parseNestedValue(result, options);
 
-  return addTypePrefix(parsedResult, "value-");
+  return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
 
 function parseSelector(selector) {
@@ -246,6 +271,7 @@ function parseMediaQuery(params) {
     result = mediaParser(params);
   } catch (e) {
     // Ignore bad media queries
+    /* istanbul ignore next */
     return {
       type: "selector-unknown",
       value: params,
@@ -270,6 +296,7 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
+    /* istanbul ignore next */
     if (!node.raws) {
       node.raws = {};
     }
@@ -328,10 +355,14 @@ function parseNestedCSS(node, options) {
 
     // Ignore LESS mixin declaration
     if (selector.trim().length > 0) {
+      // TODO: confirm this code is dead
+      /* istanbul ignore next */
       if (selector.startsWith("@") && selector.endsWith(":")) {
         return node;
       }
 
+      // TODO: confirm this code is dead
+      /* istanbul ignore next */
       // Ignore LESS mixins
       if (node.mixin) {
         node.selector = parseValue(selector, options);
@@ -557,6 +588,7 @@ function parseWithParser(parse, text, options) {
   try {
     result = parse(text);
   } catch (e) {
+    /* istanbul ignore next */
     if (typeof e.line !== "number") {
       throw e;
     }

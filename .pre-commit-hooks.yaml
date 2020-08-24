@@ -1,16 +1,4 @@
 - id: prettier
   name: prettier
-  entry: prettier --write
+  entry: prettier --write --list-different --ignore-unknown
   language: node
-  files: "\\.(\
-    css|less|scss\
-    |graphql|gql\
-    |html\
-    |js|jsx\
-    |json\
-    |md|markdown|mdown|mkdn\
-    |mdx\
-    |ts|tsx\
-    |vue\
-    |yaml|yml\
-    )$"

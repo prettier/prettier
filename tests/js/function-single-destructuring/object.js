@@ -11,7 +11,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-function StatelessFunctionalComponent({
+function StatelessFunctionalComponent2({
   isActive = true,
   onFiltersUpdated = () => null,
   onSelect = () => null,
@@ -24,7 +24,7 @@ function StatelessFunctionalComponent({
   return <div />
 }
 
-function StatelessFunctionalComponent(
+function StatelessFunctionalComponent3(
   {
     isActive,
     onFiltersUpdated = () => null,
@@ -41,40 +41,6 @@ function StatelessFunctionalComponent(
   return <div />
 }
 
-function StatelessFunctionalComponent({
-  isActive,
-  onFiltersUpdated,
-  onSelect,
-  onSubmitAndDeselect,
-  onCancel,
-  searchFilters,
-  title,
-  items,
-}: MyType | null | void) {
-  return <div />
-}
-
-const StatelessFunctionalComponent = ({
-  isActive,
-  onFiltersUpdated,
-  onSelect,
-  onSubmitAndDeselect,
-  onCancel,
-  searchFilters,
-  title,
-  items,
-}: {
-  isActive: number,
-  onFiltersUpdated: number,
-  onSelect: number,
-  onSubmitAndDeselect: number,
-  onCancel: number,
-  searchFilters: number,
-  title: number,
-  items: number,
-}) => {
-  return <div />
-};
 
 class C {
   StatelessFunctionalComponent({
@@ -90,19 +56,3 @@ class C {
     return <div />
   }
 }
-
-type T = ({
-  isActive: number,
-  onFiltersUpdated: number,
-  onSelect: number,
-  onSubmitAndDeselect: number,
-  onCancel: number,
-  searchFilters: number,
-  title: number,
-  items: number,
-}) => void;
-
-const X = (props: {
-  a: boolean,
-}) =>
-  <A />;
