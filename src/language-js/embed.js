@@ -666,20 +666,16 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
 }
 
 /*
- * ember-cli-htmlbars
  * hbs`...`
- * Handlebars comment block
  */
 function isHandlebars(path) {
-  const node = path.getValue();
   const parent = path.getParentNode();
 
   return (
-    hasLanguageComment(node, "hbs") ||
-    (parent &&
-      parent.type === "TaggedTemplateExpression" &&
-      parent.tag.type === "Identifier" &&
-      parent.tag.name === "hbs")
+    parent &&
+    parent.type === "TaggedTemplateExpression" &&
+    parent.tag.type === "Identifier" &&
+    parent.tag.name === "hbs"
   );
 }
 

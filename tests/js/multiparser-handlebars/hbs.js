@@ -25,7 +25,6 @@ class MyComponent extends Component {
 }
 
 const someHbs1 = hbs`<div       > hello {{world}} </div     >`;
-const someHbs2 = /* Handlebars */ `<div      > hello {{world}} </div     >`;
 
 hbs``
 
@@ -49,12 +48,12 @@ hbs`<div style="   color : red;
             display    :inline ">
   </div>`
 
-const nestedFun = /* Handlebars */ html`${outerExpr}
+const nestedFun = html`${outerExpr}
   <script>
     const tpl = hbs\`<div>    {{innerExpr  }}</div>\`;
   </script>`;
 
-const nestedFun2 = /* Handlebars */ html`${outerExpr}
+const nestedFun2 = html`${outerExpr}
   <script>
     const tpl = hbs\`\\n    <div>{{    innerExpr}}</div>\\n\`;
   </script>`;
