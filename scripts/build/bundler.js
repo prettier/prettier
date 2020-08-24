@@ -16,7 +16,6 @@ const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
-const bundles = require("./config");
 
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
