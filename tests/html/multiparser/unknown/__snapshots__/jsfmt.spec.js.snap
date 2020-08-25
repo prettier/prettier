@@ -15,23 +15,28 @@ printWidth: 80
 </head>
 <body>
   <style lang="unknown">
-foo
-       bar
+.prettier {
+content:
+"awesome"
+          }
 </style>
 
 <script lang="unknown">
-foo
-       bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <script type="unknown">
-foo
-       bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <script type="unknown" lang="unknown">
-foo
-       bar
+prettier.is
+                  .awesome(
+)
 </script>
 </body>
 </html>
@@ -46,23 +51,28 @@ foo
   </head>
   <body>
     <style lang="unknown">
-      foo
-             bar
+      .prettier {
+      content:
+      "awesome"
+                }
     </style>
 
     <script lang="unknown">
-      foo
-             bar
+      prettier.is
+                        .awesome(
+      )
     </script>
 
     <script type="unknown">
-      foo
-             bar
+      prettier.is
+                        .awesome(
+      )
     </script>
 
     <script type="unknown" lang="unknown">
-      foo
-             bar
+      prettier.is
+                        .awesome(
+      )
     </script>
   </body>
 </html>

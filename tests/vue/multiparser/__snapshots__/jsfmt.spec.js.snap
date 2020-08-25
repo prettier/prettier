@@ -171,54 +171,66 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <style lang="unknown">
-    foo
-          bar
+.prettier {
+content:
+"awesome"
+          }
 </style>
 
 <script lang="unknown">
-      foo
-            bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <script type="unknown">
-      foo
-            bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <script type="unknown" lang="unknown">
-    foo
-          bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <template lang="unknown">
-    foo
-          bar
+    <prettier>
+      awesome
+</prettier>
 </template>
 
 =====================================output=====================================
 <style lang="unknown">
-foo
-      bar
+.prettier {
+content:
+"awesome"
+          }
 </style>
 
 <script lang="unknown">
-foo
-      bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <script type="unknown">
-foo
-      bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <script type="unknown" lang="unknown">
-foo
-      bar
+prettier.is
+                  .awesome(
+)
 </script>
 
 <template lang="unknown">
-    foo
-          bar
+    <prettier>
+      awesome
+</prettier>
 </template>
 
 ================================================================================
