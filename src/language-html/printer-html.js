@@ -3,7 +3,7 @@
 const assert = require("assert");
 const {
   builders,
-  utils: { mapDoc, normalizeParts, normalizeDoc },
+  utils: { mapDoc, normalizeParts },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
@@ -87,7 +87,7 @@ function embed(path, print, textToDoc, options) {
             { parser },
             { stripTrailingHardline: true }
           );
-          isEmpty = doc === "" || normalizeDoc(doc).parts.length === 0;
+          isEmpty = doc === "";
         }
 
         return concat([
