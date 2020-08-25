@@ -164,6 +164,66 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`unknow.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style lang="unknown">
+    foo
+          bar
+</style>
+
+<script lang="unknown">
+      foo
+            bar
+</script>
+
+<script type="unknown">
+      foo
+            bar
+</script>
+
+<script type="unknown" lang="unknown">
+    foo
+          bar
+</script>
+
+<template lang="unknown">
+    foo
+          bar
+</template>
+
+=====================================output=====================================
+<style lang="unknown">
+foo
+      bar
+</style>
+
+<script lang="unknown">
+foo
+      bar
+</script>
+
+<script type="unknown">
+foo
+      bar
+</script>
+
+<script type="unknown" lang="unknown">
+foo
+      bar
+</script>
+
+<template lang="unknown">
+    foo
+          bar
+</template>
+
+================================================================================
+`;
+
 exports[`vue-component.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
