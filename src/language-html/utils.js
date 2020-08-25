@@ -365,18 +365,8 @@ function hasNonTextChild(node) {
 }
 
 function _inferScriptParser(node) {
-  if (node.name !== "script") {
-    return;
-  }
-
-  const { type, lang, src } = node.attrMap;
-
-  if (src) {
-    return;
-  }
-
+  const { type, lang } = node.attrMap;
   if (
-    (!lang && !type) ||
     type === "module" ||
     type === "text/javascript" ||
     type === "text/babel" ||
@@ -427,13 +417,24 @@ function inferStyleParser(node) {
 }
 
 function inferScriptParser(node, options) {
-  let parser = _inferScriptParser(node) || inferStyleParser(node);
-
-  if (!parser && options && isVueNonHtmlBlock(node, options)) {
-    parser = getParserName(node.attrMap.lang, options);
+  if (node.name === "script" && !node.attrMap.src) {
+    if (!node.attrMap.lang && !node.attrMap.type) {
+      return "babel";
+    }
+    return _inferScriptParser(node);
   }
 
-  return parser;
+  if (node.name === "style") {
+    return inferStyleParser(node);
+  }
+
+  if (options && isVueNonHtmlBlock(node, options)) {
+    return (
+      _inferScriptParser(node) ||
+      inferStyleParser(node) ||
+      getParserName(node.attrMap.lang, options)
+    );
+  }
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
