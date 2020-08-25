@@ -78,13 +78,17 @@ function embed(path, print, textToDoc, options) {
           return;
         }
 
-        const doc = textToDoc(
-          htmlTrimPreserveIndentation(getNodeContent(node, options)),
-          { parser },
-          { stripTrailingHardline: true }
-        );
-
-        const isEmpty = doc === "" || normalizeDoc(doc).parts.length === 0;
+        const content = getNodeContent(node, options);
+        let isEmpty = /^\s*$/.test(content);
+        let doc = "";
+        if (!isEmpty) {
+          doc = textToDoc(
+            htmlTrimPreserveIndentation(content),
+            { parser },
+            { stripTrailingHardline: true }
+          );
+          isEmpty = doc === "" || normalizeDoc(doc).parts.length === 0;
+        }
 
         return concat([
           printOpeningTagPrefix(node, options),
