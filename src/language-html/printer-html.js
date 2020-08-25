@@ -87,9 +87,9 @@ function embed(path, print, textToDoc, options) {
         return concat([
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          hardline,
+          doc === "" ? "" : hardline,
           doc,
-          hardline,
+          doc === "" ? "" : hardline,
           printClosingTag(node, options),
           printClosingTagSuffix(node, options),
         ]);
