@@ -4,7 +4,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
 const rimraf = require("rimraf");
 const semver = require("semver");
 
@@ -12,9 +11,7 @@ const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
 const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
 const version = require("../package.json").version.replace(/-.+/, "");
-const previousVersion = execSync("git describe --tags --abbrev=0")
-  .toString()
-  .trim();
+const previousVersion = require("prettier/package.json").version;
 const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
 const postFile = path.join(
   blogDir,
