@@ -2575,8 +2575,8 @@ label {
   );
 }
 @forward "src/list";
-@forward "src/list" as list- *;
-@forward "src/list" as list- *;
+@forward "src/list" as list-*;
+@forward "src/list" as list-*;
 @forward "src/list" hide list-reset, $horizontal-list-gap;
 @forward "src/list" hide list-reset, $horizontal-list-gap,
   $horizontal-list-gap-foo, $horizontal-list-gap-bar;
@@ -4785,8 +4785,8 @@ label {
   );
 }
 @forward "src/list";
-@forward "src/list" as list- *;
-@forward "src/list" as list- *;
+@forward "src/list" as list-*;
+@forward "src/list" as list-*;
 @forward "src/list" hide list-reset, $horizontal-list-gap;
 @forward "src/list" hide list-reset, $horizontal-list-gap,
   $horizontal-list-gap-foo, $horizontal-list-gap-bar;
