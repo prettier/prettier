@@ -1,0 +1,7 @@
+@use 'rounded-corners';
+@use 'text-shadow' as *;
+@use 'very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value' as long;
+@use 'library' with (
+  $black: #222,
+  $border-radius: 0.1rem
+);

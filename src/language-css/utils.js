@@ -420,6 +420,10 @@ function isLessParser(options) {
   return options.parser === "css" || options.parser === "less";
 }
 
+function isSCSSParser(options) {
+  return options.parser === "scss";
+}
+
 function lastLineHasInlineComment(text) {
   return /\/\//.test(text.split(/[\n\r]/).pop());
 }
@@ -470,6 +474,7 @@ module.exports = {
   isSCSSVariable,
   isLastNode,
   isLessParser,
+  isSCSSParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,

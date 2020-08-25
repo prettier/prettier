@@ -303,6 +303,81 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`forward.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@forward 'rounded-corners';
+@forward 'text-shadow' as prefix-*;
+@forward 'very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value' hide mixin-name, $value-name;
+@forward 'text-shadow' show $value-name;
+@forward 'library' with (
+  $black: #222 !default,
+  $border-radius: 0.1rem !default,
+  $red: #ff0000,
+  $green: #00ff00,
+  $blue: #0000ff
+);
+
+=====================================output=====================================
+@forward "rounded-corners";
+@forward "text-shadow" as prefix- *;
+@forward "very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value"
+    hide mixin-name,
+  $value-name;
+@forward "text-shadow" show $value-name;
+@forward "library" with
+  (
+    $black: #222 !default,
+    $border-radius: 0.1rem !default,
+    $red: #ff0000,
+    $green: #00ff00,
+    $blue: #0000ff
+  );
+
+================================================================================
+`;
+
+exports[`forward.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@forward 'rounded-corners';
+@forward 'text-shadow' as prefix-*;
+@forward 'very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value' hide mixin-name, $value-name;
+@forward 'text-shadow' show $value-name;
+@forward 'library' with (
+  $black: #222 !default,
+  $border-radius: 0.1rem !default,
+  $red: #ff0000,
+  $green: #00ff00,
+  $blue: #0000ff
+);
+
+=====================================output=====================================
+@forward "rounded-corners";
+@forward "text-shadow" as prefix- *;
+@forward "very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value"
+    hide mixin-name,
+  $value-name;
+@forward "text-shadow" show $value-name;
+@forward "library" with
+  (
+    $black: #222 !default,
+    $border-radius: 0.1rem !default,
+    $red: #ff0000,
+    $green: #00ff00,
+    $blue: #0000ff
+  );
+
+================================================================================
+`;
+
 exports[`function-in-url.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -4731,6 +4806,55 @@ a {
   background-image: url("../test/" + "static/test.jpg");
   background-image: url($test-path + $test-path);
 }
+
+================================================================================
+`;
+
+exports[`use.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@use 'rounded-corners';
+@use 'text-shadow' as *;
+@use 'very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value' as long;
+@use 'library' with (
+  $black: #222,
+  $border-radius: 0.1rem
+);
+
+=====================================output=====================================
+@use "rounded-corners";
+@use "text-shadow" as *;
+@use "very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value"
+  as long;
+@use "library" with ($black: #222, $border-radius: 0.1rem);
+
+================================================================================
+`;
+
+exports[`use.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@use 'rounded-corners';
+@use 'text-shadow' as *;
+@use 'very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value' as long;
+@use 'library' with (
+  $black: #222,
+  $border-radius: 0.1rem
+);
+
+=====================================output=====================================
+@use "rounded-corners";
+@use "text-shadow" as *;
+@use "very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value"
+  as long;
+@use "library" with ($black: #222, $border-radius: 0.1rem);
 
 ================================================================================
 `;

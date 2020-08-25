@@ -1,0 +1,11 @@
+@forward 'rounded-corners';
+@forward 'text-shadow' as prefix-*;
+@forward 'very-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-value' hide mixin-name, $value-name;
+@forward 'text-shadow' show $value-name;
+@forward 'library' with (
+  $black: #222 !default,
+  $border-radius: 0.1rem !default,
+  $red: #ff0000,
+  $green: #00ff00,
+  $blue: #0000ff
+);

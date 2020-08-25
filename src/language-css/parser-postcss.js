@@ -7,6 +7,7 @@ const {
   hasSCSSInterpolation,
   hasStringOrFunction,
   isLessParser,
+  isSCSSParser,
   isSCSS,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
@@ -522,6 +523,11 @@ function parseNestedCSS(node, options) {
       if (lowercasedName === "import") {
         node.import = true;
         delete node.filename;
+        node.params = parseValue(params, options);
+        return node;
+      }
+
+      if (isSCSSParser(options) && (lowercasedName === "use" || lowercasedName === "forward")) {
         node.params = parseValue(params, options);
         return node;
       }
