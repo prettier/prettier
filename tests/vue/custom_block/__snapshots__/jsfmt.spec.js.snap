@@ -1438,9 +1438,11 @@ const foo = "foo";
 
 <custom lang="zzz">123</custom>
 
-<custom>{
-     foo: "bar"
-}</custom>
+<custom>
+ {
+  foo: "bar";
+}
+</custom>
 
 ================================================================================
 `;
@@ -1501,9 +1503,11 @@ const foo = "foo";
 
 <custom lang="zzz">123</custom>
 
-<custom>{
-     foo: "bar"
-}</custom>
+<custom>
+ {
+  foo: "bar";
+}
+</custom>
 
 ================================================================================
 `;
@@ -1564,9 +1568,11 @@ const foo = "foo";
 
 <custom lang="zzz">123</custom>
 
-<custom>{
-     foo: "bar"
-}</custom>
+<custom>
+ {
+  foo: "bar";
+}
+</custom>
 
 ================================================================================
 `;
@@ -1626,9 +1632,11 @@ const foo = "foo";
 
 <custom lang="zzz">123</custom>
 
-<custom>{
-     foo: "bar"
-}</custom>
+<custom>
+ {
+  foo: "bar";
+}
+</custom>
 
 ================================================================================
 `;
