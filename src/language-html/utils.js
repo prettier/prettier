@@ -428,7 +428,7 @@ function inferScriptParser(node, options) {
     return (
       _inferScriptParser(node) ||
       inferStyleParser(node) ||
-      getParserName(node.attrMap.lang, options)
+      (!node.attrMap.src && getParserName(node.attrMap.lang, options))
     );
   }
 }
