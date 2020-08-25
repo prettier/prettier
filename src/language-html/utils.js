@@ -426,8 +426,7 @@ function inferScriptParser(node, options) {
 
   if (options && isVueNonHtmlBlock(node, options)) {
     return (
-      _inferScriptParser(node) ||
-      getParserName(node.attrMap.lang, options)
+      _inferScriptParser(node) || getParserName(node.attrMap.lang, options)
     );
   }
 }
