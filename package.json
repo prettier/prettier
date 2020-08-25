@@ -143,7 +143,7 @@
     "lint:typecheck": "tsc",
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.js",
-    "lint:prettier": "prettier \"**/*.{md,json,yml,html,css,js,d.ts}\" \"!test*\" --check",
+    "lint:prettier": "prettier . \"!test*\" --check",
     "lint:dist": "eslint --no-eslintrc --no-ignore --env=es6,browser --parser-options=ecmaVersion:2016 \"dist/!(bin-prettier|index|third-party).js\"",
     "lint:spellcheck": "cspell \"**/*\" \".github/**/*\"",
     "lint:deps": "node ./scripts/check-deps.js",
