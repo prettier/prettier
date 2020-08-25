@@ -72,7 +72,7 @@ function embed(path, print, textToDoc, options) {
         return;
       }
 
-      if (isVueNonHtmlBlock(node, options)) {
+      if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
         const parser = inferScriptParser(node, options);
         if (!parser) {
           return;
