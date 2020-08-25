@@ -226,6 +226,10 @@ function normalizeParts(parts) {
       continue;
     }
 
+    if (part.type === "fill" && part.parts.length === 0) {
+      continue;
+    }
+
     if (part.type === "concat") {
       restParts.unshift(...part.parts);
       continue;
