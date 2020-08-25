@@ -280,6 +280,10 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   };
 
   if (frontMatter) {
+    frontMatter.sourceSpan = {
+      start: { offset: 0 },
+      end: { offset: frontMatter.raw.length },
+    };
     rawAst.children.unshift(frontMatter);
   }
 
