@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unknow-lang.html format 1`] = `
+exports[`unknown-lang.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
