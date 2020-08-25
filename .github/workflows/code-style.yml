@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.2
         with:
-          fetch-depth: 1
+          ref: ${{ github.head_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.1
@@ -25,7 +25,6 @@ jobs:
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v2.3.0
         with:
-          commit_message: Fix code style ${{ github.head_ref }}
-          branch: ${{ github.head_ref }}
+          commit_message: Fix code style
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
