@@ -10,8 +10,8 @@ const semver = require("semver");
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
 const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
-const version = require("../package.json").version.replace(/-.+/, "");
 const previousVersion = require("prettier/package.json").version;
+const version = require("../package.json").version.replace(/-.+/, "");
 const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
 const postFile = path.join(
   blogDir,
