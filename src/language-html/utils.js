@@ -398,10 +398,6 @@ function _inferScriptParser(node) {
 }
 
 function inferStyleParser(node) {
-  if (node.name !== "style") {
-    return;
-  }
-
   const { lang } = node.attrMap;
   if (!lang || lang === "postcss" || lang === "css") {
     return "css";
@@ -431,7 +427,6 @@ function inferScriptParser(node, options) {
   if (options && isVueNonHtmlBlock(node, options)) {
     return (
       _inferScriptParser(node) ||
-      inferStyleParser(node) ||
       getParserName(node.attrMap.lang, options)
     );
   }
