@@ -56,7 +56,7 @@ function parseValueNode(valueNode, options, parent) {
     }
 
     // Work around postcss bug parsing `list-*` as the word `list-` and operator `*`.
-    // postcss-values-parser flagged this as a wontfix: https://github.com/shellscape/postcss-values-parser/issues/108
+    // postcss-values-parser will not fix this: https://github.com/shellscape/postcss-values-parser/issues/108
     if (parent.forward) {
       // Check if we are currently on a word node with no trailing whitespace.
       if (
