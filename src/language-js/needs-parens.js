@@ -141,8 +141,8 @@ function needsParens(path, options) {
 
   if (
     (parent.type === "ArrowFunctionExpression" &&
-    parent.body === node &&
-    node.type !== "SequenceExpression" && // these have parens added anyway
+      parent.body === node &&
+      node.type !== "SequenceExpression" && // these have parens added anyway
       startsWithNoLookaheadToken(
         node,
         /* forbidFunctionClassAndDoExpr */ false
@@ -417,8 +417,12 @@ function needsParens(path, options) {
         return true;
       }
     // fallthrough
-    case "TSTypeOperator":
     case "TSInferType":
+      if (node.type === "TSInferType" && parent.type === "TSRestType") {
+        return false;
+      }
+    // fallthrough
+    case "TSTypeOperator":
       return (
         parent.type === "TSArrayType" ||
         parent.type === "TSOptionalType" ||

@@ -18,10 +18,6 @@ function excludeFirstFiveResults3([firstResult, secondResult, thirdResult, fourt
   return rest;
 }
 
-function excludeFirstFiveResults4([first, second, third, fourth, fifth, ...rest]: Result[]) {
-  return rest;
-}
-
 const excludeFirstFiveResults5 = ([first, second, third, fourth, fifth, ...rest]) => {
   return rest;
 }
@@ -69,17 +65,6 @@ function excludeFirstFiveResults3(
     ...rest
   ] = [1, 2, 3, 4, 5]
 ) {
-  return rest;
-}
-
-function excludeFirstFiveResults4([
-  first,
-  second,
-  third,
-  fourth,
-  fifth,
-  ...rest
-]: Result[]) {
   return rest;
 }
 
@@ -172,40 +157,6 @@ function StatelessFunctionalComponent3(
   return <div />
 }
 
-function StatelessFunctionalComponent4({
-  isActive,
-  onFiltersUpdated,
-  onSelect,
-  onSubmitAndDeselect,
-  onCancel,
-  searchFilters,
-  title,
-  items,
-}: MyType | null | void) {
-  return <div />
-}
-
-const StatelessFunctionalComponent5 = ({
-  isActive,
-  onFiltersUpdated,
-  onSelect,
-  onSubmitAndDeselect,
-  onCancel,
-  searchFilters,
-  title,
-  items,
-}: {
-  isActive: number,
-  onFiltersUpdated: number,
-  onSelect: number,
-  onSubmitAndDeselect: number,
-  onCancel: number,
-  searchFilters: number,
-  title: number,
-  items: number,
-}) => {
-  return <div />
-};
 
 class C {
   StatelessFunctionalComponent({
@@ -221,22 +172,6 @@ class C {
     return <div />
   }
 }
-
-type T = ({
-  isActive: number,
-  onFiltersUpdated: number,
-  onSelect: number,
-  onSubmitAndDeselect: number,
-  onCancel: number,
-  searchFilters: number,
-  title: number,
-  items: number,
-}) => void;
-
-const X = (props: {
-  a: boolean,
-}) =>
-  <A />;
 
 =====================================output=====================================
 function StatelessFunctionalComponent({
@@ -282,41 +217,6 @@ function StatelessFunctionalComponent3(
   return <div />;
 }
 
-function StatelessFunctionalComponent4({
-  isActive,
-  onFiltersUpdated,
-  onSelect,
-  onSubmitAndDeselect,
-  onCancel,
-  searchFilters,
-  title,
-  items,
-}: MyType | null | void) {
-  return <div />;
-}
-
-const StatelessFunctionalComponent5 = ({
-  isActive,
-  onFiltersUpdated,
-  onSelect,
-  onSubmitAndDeselect,
-  onCancel,
-  searchFilters,
-  title,
-  items,
-}: {
-  isActive: number,
-  onFiltersUpdated: number,
-  onSelect: number,
-  onSubmitAndDeselect: number,
-  onCancel: number,
-  searchFilters: number,
-  title: number,
-  items: number,
-}) => {
-  return <div />;
-};
-
 class C {
   StatelessFunctionalComponent({
     isActive,
@@ -331,19 +231,6 @@ class C {
     return <div />;
   }
 }
-
-type T = ({
-  isActive: number,
-  onFiltersUpdated: number,
-  onSelect: number,
-  onSubmitAndDeselect: number,
-  onCancel: number,
-  searchFilters: number,
-  title: number,
-  items: number,
-}) => void;
-
-const X = (props: { a: boolean }) => <A />;
 
 ================================================================================
 `;
