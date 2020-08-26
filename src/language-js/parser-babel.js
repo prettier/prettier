@@ -59,12 +59,21 @@ function resolvePluginsConflict(
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
-  return (text, parsers, opts) => {
+  return (text, parsers, opts = {}) => {
+    if (
+      opts.parser === "babel" &&
+      (text.startsWith("// @flow") ||
+        (opts.filepath && opts.filepath.endsWith(".js.flow")))
+    ) {
+      opts.parser = "babel-flow";
+      return parseFlow(text, parsers, opts);
+    }
+
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
     const sourceType =
-      opts && opts.__babelSourceType === "script" ? "script" : "module";
+      opts.__babelSourceType === "script" ? "script" : "module";
 
     let ast;
     try {
