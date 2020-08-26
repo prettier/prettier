@@ -11,6 +11,8 @@ const {
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
+  hasEmptyRawBefore,
+  hasEmptyRawAfter
 } = require("./utils");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
@@ -60,7 +62,7 @@ function parseValueNode(valueNode, options, parent) {
       if (
         isSCSS(options.parser, node.value) &&
         node.type === "word" &&
-        node.raws.after === ""
+        hasEmptyRawAfter(node)
       ) {
         // Make sure we have another node.
         const next = i < nodes.length && nodes[i + 1];
@@ -69,7 +71,7 @@ function parseValueNode(valueNode, options, parent) {
           next &&
           next.type === "operator" &&
           next.value === "*" &&
-          next.raws.before === ""
+          hasEmptyRawBefore(next)
         ) {
           // Removes the word node and merges it with the operator node.
           next.value = node.value + next.value;
