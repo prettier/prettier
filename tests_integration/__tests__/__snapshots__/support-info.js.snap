@@ -10,8 +10,8 @@ Object {
       "css",
     ],
     "Flow": Array [
-      "babel",
       "flow",
+      "babel-flow",
     ],
     "GraphQL": Array [
       "graphql",
@@ -33,11 +33,9 @@ Object {
     ],
     "JSX": Array [
       "babel",
-      "flow",
     ],
     "JavaScript": Array [
       "babel",
-      "flow",
     ],
     "Less": Array [
       "less",
@@ -306,7 +304,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
-      \\"parsers\\": [\\"babel\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -333,7 +331,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
-      \\"parsers\\": [\\"babel\\", \\"flow\\"],
+      \\"parsers\\": [\\"flow\\", \\"babel-flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -347,7 +345,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 178,
       \\"name\\": \\"JSX\\",
-      \\"parsers\\": [\\"babel\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
       \\"type\\": \\"programming\\",
