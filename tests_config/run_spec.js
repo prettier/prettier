@@ -200,20 +200,18 @@ function runTest({
     ? mainParserFormatOptions
     : { ...mainParserFormatResult.options, parser };
 
-  // Main parser creates snapshot, omitting parser name to
-  const formatTestTitle = isMainParser ? "format" : `[${parser}] format`;
   const runFormat = () => format(code, formatOptions);
 
-  if (!isMainParser) {
-    if (shouldThrowOnFormat(name, formatOptions)) {
-      test(formatTestTitle, () => {
-        expect(runFormat).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
-      });
-    }
+  if (!isMainParser && shouldThrowOnFormat(name, formatOptions)) {
+    test(`[${parser}] expect SyntaxError`, () => {
+      expect(runFormat).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+    });
+    return;
   }
 
   const formatResult = isMainParser ? mainParserFormatResult : runFormat();
 
+  const formatTestTitle = isMainParser ? "format" : `[${parser}] format`;
   test(formatTestTitle, () => {
     // Make sure output has consistent EOL
     expect(formatResult.eolVisualizedOutput).toEqual(
