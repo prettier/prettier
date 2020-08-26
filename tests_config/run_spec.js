@@ -199,6 +199,7 @@ function runTest({
   const formatOptions = isMainParser
     ? mainParserFormatOptions
     : { ...mainParserFormatResult.options, parser };
+  const hasEndOfLine = "endOfLine" in formatOptions;
 
   const runFormat = () => format(code, formatOptions);
 
@@ -233,7 +234,6 @@ function runTest({
     }
 
     // TODO: move this part to `createSnapshot`
-    const hasEndOfLine = "endOfLine" in formatOptions;
     let codeForSnapshot = formatResult.inputWithCursor;
     let codeOffset = 0;
     let resultForSnapshot = formatResult.outputWithCursor;
@@ -298,21 +298,25 @@ function runTest({
     });
   }
 
-  if (!code.includes("\r")) {
+  if (!code.includes("\r") && !hasEndOfLine) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
+        const output = format(code.replace(/\n/g, eol), formatOptions).eolVisualizedOutput
+        const expected = visualizeEndOfLine(formatResult.outputWithCursor.replace(/\n/, eol))
         expect(
-          format(code.replace(/\n/g, eol), formatOptions).eolVisualizedOutput
-        ).toEqual(formatResult.eolVisualizedOutput);
+          output
+        ).toEqual(expected);
       });
     }
   }
 
   if (code.charAt(0) !== BOM) {
     test(`[${parser}] BOM`, () => {
+      const output = format(BOM + code, formatOptions).eolVisualizedOutput
+      const expected = BOM + formatResult.eolVisualizedOutput
       expect(
-        visualizeEndOfLine(format(BOM + code, formatOptions).outputWithCursor)
-      ).toEqual(visualizeEndOfLine(BOM + formatResult.outputWithCursor));
+        output
+      ).toEqual(expected);
     });
   }
 }
