@@ -301,7 +301,7 @@ function runTest({
     });
   }
 
-  if (!code.includes("\r")) {
+  if (!code.includes("\r") && !formatOptions.requirePragma) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
         const output = format(code.replace(/\n/g, eol), formatOptions)
