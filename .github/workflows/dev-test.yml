@@ -26,6 +26,7 @@ jobs:
           - os: "ubuntu-latest"
             node: "14"
             ENABLE_CODE_COVERAGE: true
+            CHECK_TEST_PARSERS: true
         exclude:
           - os: "macos-latest"
             node: "12"
@@ -33,6 +34,7 @@ jobs:
             node: "12"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
+      CHECK_TEST_PARSERS: ${{ matrix.CHECK_TEST_PARSERS }}
       FULL_TEST: true
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
