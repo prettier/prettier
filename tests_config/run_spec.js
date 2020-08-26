@@ -195,23 +195,28 @@ function runTest({
   mainParserFormatResult,
   mainParserFormatOptions,
 }) {
-  const isMainParser = parser === parsers[0];
-  const formatOptions = isMainParser
-    ? mainParserFormatOptions
-    : { ...mainParserFormatResult.options, parser };
+  let formatOptions = mainParserFormatOptions;
+  let formatResult = mainParserFormatResult;
+  let formatTestTitle = "format";
 
-  const runFormat = () => format(code, formatOptions);
+  // Verify parsers
+  if (parser !== parsers[0]) {
+    formatOptions = { ...mainParserFormatResult.options, parser };
+    const runFormat = () => format(code, formatOptions);
 
-  if (!isMainParser && shouldThrowOnFormat(name, formatOptions)) {
-    test(`[${parser}] expect SyntaxError`, () => {
-      expect(runFormat).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
-    });
-    return;
+    if (shouldThrowOnFormat(name, formatOptions)) {
+      test(`[${parser}] expect SyntaxError`, () => {
+        expect(runFormat).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+      });
+      return;
+    }
+
+    // Verify parsers format result should be the same as main parser
+    output = mainParserFormatResult.outputWithCursor;
+    formatResult = runFormat();
+    formatTestTitle = `[${parser}] format`;
   }
 
-  const formatResult = isMainParser ? mainParserFormatResult : runFormat();
-
-  const formatTestTitle = isMainParser ? "format" : `[${parser}] format`;
   test(formatTestTitle, () => {
     // Make sure output has consistent EOL
     expect(formatResult.eolVisualizedOutput).toEqual(
@@ -220,16 +225,8 @@ function runTest({
 
     // The result is assert to equals to `output`
     if (typeof output === "string") {
-      expect(visualizeEndOfLine(formatResult.output)).toEqual(
-        visualizeEndOfLine(output)
-      );
-      return;
-    }
-
-    // Verify parsers format result should be the same as main parser
-    if (!isMainParser) {
       expect(formatResult.eolVisualizedOutput).toEqual(
-        mainParserFormatResult.eolVisualizedOutput
+        visualizeEndOfLine(output)
       );
       return;
     }
