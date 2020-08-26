@@ -199,7 +199,6 @@ function runTest({
   const formatOptions = isMainParser
     ? mainParserFormatOptions
     : { ...mainParserFormatResult.options, parser };
-  const hasEndOfLine = "endOfLine" in formatOptions;
 
   const runFormat = () => format(code, formatOptions);
 
@@ -219,6 +218,7 @@ function runTest({
       visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor))
     );
 
+    // The result is assert to equals to `output`
     if (typeof output === "string") {
       expect(visualizeEndOfLine(formatResult.output)).toEqual(
         visualizeEndOfLine(output)
@@ -226,6 +226,7 @@ function runTest({
       return;
     }
 
+    // Verify parsers format result should be the same as main parser
     if (!isMainParser) {
       expect(formatResult.eolVisualizedOutput).toEqual(
         mainParserFormatResult.eolVisualizedOutput
@@ -233,7 +234,9 @@ function runTest({
       return;
     }
 
+    // All parsers have the same result, only snapshot the result from main parser
     // TODO: move this part to `createSnapshot`
+    const hasEndOfLine = "endOfLine" in formatOptions;
     let codeForSnapshot = formatResult.inputWithCursor;
     let codeOffset = 0;
     let resultForSnapshot = formatResult.outputWithCursor;
@@ -267,7 +270,6 @@ function runTest({
   }
 
   const isUnstableTest = isUnstable(filename, formatOptions);
-
   if (
     (formatResult.changed || isUnstableTest) &&
     // No range and cursor
@@ -289,6 +291,7 @@ function runTest({
     });
   }
 
+  // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
       const { input, output } = formatResult;
@@ -298,25 +301,29 @@ function runTest({
     });
   }
 
-  if (!code.includes("\r") && !hasEndOfLine) {
+  if (!code.includes("\r")) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
-        const output = format(code.replace(/\n/g, eol), formatOptions).eolVisualizedOutput
-        const expected = visualizeEndOfLine(formatResult.outputWithCursor.replace(/\n/, eol))
-        expect(
-          output
-        ).toEqual(expected);
+        const output = format(code.replace(/\n/g, eol), formatOptions)
+          .eolVisualizedOutput;
+        // Only if `endOfLine: "auto"` the result will be different
+        const expected =
+          formatOptions.endOfLine === "auto"
+            ? visualizeEndOfLine(
+                // All `code` use `LF`, so the `eol` of result is always `LF`
+                formatResult.outputWithCursor.replace(/\n/g, eol)
+              )
+            : formatResult.eolVisualizedOutput;
+        expect(output).toEqual(expected);
       });
     }
   }
 
   if (code.charAt(0) !== BOM) {
     test(`[${parser}] BOM`, () => {
-      const output = format(BOM + code, formatOptions).eolVisualizedOutput
-      const expected = BOM + formatResult.eolVisualizedOutput
-      expect(
-        output
-      ).toEqual(expected);
+      const output = format(BOM + code, formatOptions).eolVisualizedOutput;
+      const expected = BOM + formatResult.eolVisualizedOutput;
+      expect(output).toEqual(expected);
     });
   }
 }
