@@ -377,4 +377,4 @@ function format(text, options) {
 }
 
 global.run_spec = runSpec;
-module.export = runSpec;
+module.export = { runSpec };
