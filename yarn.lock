@@ -3189,10 +3189,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-editorconfig-to-prettier@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.1.1.tgz#7391c7067dfd68ffee65afc2c4fbe4fba8d4219a"
-  integrity sha512-MMadSSVRDb4uKdxV6bCXXN4cTsxIsXYtV4XdPu6FOCSAw6zsCIDA+QEktEU+u6h+c/mTrul5NR+pwFpPxwetiQ==
+editorconfig-to-prettier@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/editorconfig-to-prettier/-/editorconfig-to-prettier-0.2.0.tgz#db4f4e96796c746673c863ccac881377ea83dbe8"
+  integrity sha512-tOcbAuPyYE9zOA1HF2xI9Xqm2TW7BE9E2lhwbz69ngtaJrBWQwL6akzyWA+UPx8jRss91KXMChyjHNpqaYFWuQ==
 
 editorconfig@0.15.3:
   version "0.15.3"
