@@ -291,7 +291,7 @@ function runTest({
     });
   }
 
-  if (formatResult.changed) {
+  if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
       const { input, output } = formatResult;
       const originalAst = parse(input, formatOptions);
