@@ -12,7 +12,7 @@ const {
   isSCSSVariable,
   stringifyNode,
   hasEmptyRawBefore,
-  hasEmptyRawAfter
+  hasEmptyRawAfter,
 } = require("./utils");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
