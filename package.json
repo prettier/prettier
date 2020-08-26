@@ -36,7 +36,7 @@
     "dashify": "2.0.0",
     "diff": "4.0.2",
     "editorconfig": "0.15.3",
-    "editorconfig-to-prettier": "0.1.1",
+    "editorconfig-to-prettier": "0.2.0",
     "escape-string-regexp": "4.0.0",
     "esutils": "2.0.3",
     "fast-glob": "3.2.4",
