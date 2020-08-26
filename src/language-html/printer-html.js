@@ -72,24 +72,30 @@ function embed(path, print, textToDoc, options) {
         return;
       }
 
-      if (isVueNonHtmlBlock(node, options)) {
+      if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
         const parser = inferScriptParser(node, options);
         if (!parser) {
           return;
         }
 
-        const doc = textToDoc(
-          htmlTrimPreserveIndentation(getNodeContent(node, options)),
-          { parser },
-          { stripTrailingHardline: true }
-        );
+        const content = getNodeContent(node, options);
+        let isEmpty = /^\s*$/.test(content);
+        let doc = "";
+        if (!isEmpty) {
+          doc = textToDoc(
+            htmlTrimPreserveIndentation(content),
+            { parser },
+            { stripTrailingHardline: true }
+          );
+          isEmpty = doc === "";
+        }
 
         return concat([
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          hardline,
+          isEmpty ? "" : hardline,
           doc,
-          hardline,
+          isEmpty ? "" : hardline,
           printClosingTag(node, options),
           printClosingTagSuffix(node, options),
         ]);

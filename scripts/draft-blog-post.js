@@ -5,10 +5,12 @@
 const fs = require("fs");
 const path = require("path");
 const rimraf = require("rimraf");
+const semver = require("semver");
 
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
 const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
+const previousVersion = require("prettier/package.json").version;
 const version = require("../package.json").version.replace(/-.+/, "");
 const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
 const postFile = path.join(
@@ -80,22 +82,24 @@ rimraf.sync(postGlob);
 
 fs.writeFileSync(
   postFile,
-  [
-    fs.readFileSync(introFile, "utf8").trim(),
-    "<!--truncate-->",
-    ...printEntries({
-      title: "Highlights",
-      filter: (entry) => entry.highlight,
-    }),
-    ...printEntries({
-      title: "Breaking changes",
-      filter: (entry) => entry.breaking && !entry.highlight,
-    }),
-    ...printEntries({
-      title: "Other changes",
-      filter: (entry) => !entry.breaking && !entry.highlight,
-    }),
-  ].join("\n\n") + "\n"
+  replaceVersions(
+    [
+      fs.readFileSync(introFile, "utf8").trim(),
+      "<!--truncate-->",
+      ...printEntries({
+        title: "Highlights",
+        filter: (entry) => entry.highlight,
+      }),
+      ...printEntries({
+        title: "Breaking changes",
+        filter: (entry) => entry.breaking && !entry.highlight,
+      }),
+      ...printEntries({
+        title: "Other changes",
+        filter: (entry) => !entry.breaking && !entry.highlight,
+      }),
+    ].join("\n\n") + "\n"
+  )
 );
 
 function printEntries({ title, filter }) {
@@ -114,4 +118,14 @@ function printEntries({ title, filter }) {
   }
 
   return result;
+}
+
+function formatVersion(version) {
+  return `${semver.major(version)}.${semver.minor(version)}`;
+}
+
+function replaceVersions(data) {
+  return data
+    .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
+    .replace(/prettier master/gi, `Prettier ${formatVersion(version)}`);
 }
