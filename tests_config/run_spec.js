@@ -139,7 +139,7 @@ function runSpec(fixtures, parsers, options) {
   }
 
   const [parser] = parsers;
-  const allParsers = [...parsers]
+  const allParsers = [...parsers];
   if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
     allParsers.push("babel-ts");
   }
@@ -368,3 +368,4 @@ function format(text, options) {
 }
 
 global.run_spec = runSpec;
+module.export = runSpec;
