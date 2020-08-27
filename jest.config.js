@@ -14,11 +14,7 @@ let transform;
 if (TEST_STANDALONE) {
   testPathIgnorePatterns.push("<rootDir>/tests_integration/");
 }
-if (!isProduction) {
-  // Only test bundles for production
-  testPathIgnorePatterns.push(
-    "<rootDir>/tests_integration/__tests__/bundle.js"
-  );
+if (isProduction) {
   // `esm` bundles need transform
   transform = {
     "(?:\\.mjs|codeSamples.js)$": [
@@ -34,6 +30,11 @@ if (!isProduction) {
       },
     ],
   };
+} else {
+  // Only test bundles for production
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests_integration/__tests__/bundle.js"
+  );
 }
 
 module.exports = {
