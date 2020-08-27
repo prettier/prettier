@@ -1,7 +1,8 @@
 name: Code Style
 
 on:
-  pull_request:
+  - pull_request
+  - pull_request_target
 
 jobs:
   fix:
