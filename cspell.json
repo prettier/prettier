@@ -7,6 +7,7 @@
         "Andrey",
         "animationend",
         "ansible",
+        "Apheleia",
         "apos",
         "arduner",
         "arrayify",
@@ -352,6 +353,7 @@
         "Transloadit",
         "TSAs",
         "tsep",
+        "TSESTree",
         "TSJS",
         "tslib",
         "typeahead",
@@ -400,7 +402,10 @@
         "\\[`\\w+`\\]",
         "ve{2,}r{2,}y",
         "ve+r+y+long\\w*",
-        "\\/.*?\\/"
+        "\\/.*?\\/",
+        "author: \".*?\"",
+        "authorURL: \".*?\"",
+        "\"author\": \".*?\""
     ],
     "ignorePaths": [
         "cspell.json",

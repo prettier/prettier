@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`apply editorconfig for stdin-filepath with a deep path (stderr) 1`] = `""`;
+
+exports[`apply editorconfig for stdin-filepath with a deep path (stderr) 2`] = `""`;
+
+exports[`apply editorconfig for stdin-filepath with a deep path (stdout) 1`] = `
+"function f() {
+	console.log(\\"should be indented with a tab\\")
+}
+"
+`;
+
+exports[`apply editorconfig for stdin-filepath with a deep path (stdout) 2`] = `
+"function f() {
+	console.log(\\"should be indented with a tab\\")
+}
+"
+`;
+
+exports[`apply editorconfig for stdin-filepath with a deep path (write) 1`] = `Array []`;
+
+exports[`apply editorconfig for stdin-filepath with a deep path (write) 2`] = `Array []`;
+
 exports[`apply editorconfig for stdin-filepath with nonexistent directory (stderr) 1`] = `""`;
 
 exports[`apply editorconfig for stdin-filepath with nonexistent directory (stdout) 1`] = `

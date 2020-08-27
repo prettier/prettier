@@ -46,6 +46,13 @@ describe("unknown negated options are warned", () => {
   });
 });
 
+describe("unknown options not suggestion `_`", () => {
+  runPrettier("cli/arg-parsing", ["file.js", "-a"]).test({
+    status: 0,
+    write: [],
+  });
+});
+
 describe("allow overriding flags", () => {
   runPrettier(
     "cli/arg-parsing",

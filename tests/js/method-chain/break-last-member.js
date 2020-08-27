@@ -10,7 +10,7 @@ expect(
 
 const { course, conflicts = [], index, scheduleId, studentId, something } = a.this.props;
 
-const { course, conflicts = [], index, scheduleId, studentId, something } = this.props;
+const { course2, conflicts2 = [], index2, scheduleId2, studentId2, something2 } = this.props;
 
 const {
   updated,

@@ -16,21 +16,17 @@ module.exports = {
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns: TEST_STANDALONE
-    ? // Can't test plugins on standalone
-      ["<rootDir>/tests/vue/with-plugins/"]
+    ? ["<rootDir>/tests_integration/"]
     : [],
   collectCoverage: ENABLE_CODE_COVERAGE,
-  collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
-  coveragePathIgnorePatterns: [
-    "<rootDir>/standalone.js",
-    "<rootDir>/src/document/doc-debug.js",
-    "<rootDir>/src/main/massage-ast.js",
-  ],
+  collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
+  coveragePathIgnorePatterns: ["<rootDir>/src/document/doc-debug.js"],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
     "prettier/local": "<rootDir>/tests_config/require_prettier.js",
     "prettier/standalone": "<rootDir>/tests_config/require_standalone.js",
   },
+  modulePathIgnorePatterns: ["<rootDir>/dist"],
   testEnvironment: "node",
   transform: {},
   watchPlugins: [

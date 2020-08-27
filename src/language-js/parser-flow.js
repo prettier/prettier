@@ -17,6 +17,7 @@ function parse(text, parsers, opts) {
     esproposal_export_star_as: true,
     esproposal_optional_chaining: true,
     esproposal_nullish_coalescing: true,
+    tokens: true,
   });
 
   if (ast.errors.length > 0) {

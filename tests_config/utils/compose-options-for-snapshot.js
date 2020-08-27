@@ -7,6 +7,8 @@ function composeOptionsForSnapshot(baseOptions, parsers) {
     cursorOffset,
     disableBabelTS,
     plugins,
+    filepath,
+    parser,
 
     ...snapshotOptions
   } = baseOptions;

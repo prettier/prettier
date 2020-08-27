@@ -36,12 +36,13 @@ const unstableTests = new Map(
     "js/comments-closure-typecast/iife.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
-    "html/multiparser-js/script-tag-escaping.html",
+    "html/multiparser/js/script-tag-escaping.html",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
+    ["flow/no-semi/comments.js", (options) => options.semi === false],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -49,6 +50,34 @@ const unstableTests = new Map(
     return [path.join(__dirname, "../tests/", file), isUnstable];
   })
 );
+
+const isUnstable = (filename, options) => {
+  const testFunction = unstableTests.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
+const shouldThrowOnVerify = (filename, options) => {
+  if (options.parser !== "babel-ts") {
+    return false;
+  }
+
+  const { disableBabelTS } = options;
+
+  if (disableBabelTS === true) {
+    return true;
+  }
+
+  if (Array.isArray(disableBabelTS) && disableBabelTS.includes(filename)) {
+    return true;
+  }
+
+  return false;
+};
 
 const isTestDirectory = (dirname, name) =>
   dirname.startsWith(path.join(__dirname, "../tests", name));
@@ -113,149 +142,166 @@ global.run_spec = (fixtures, parsers, options) => {
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
+  const [parser, ...verifyParsers] = parsers;
+
+  if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+    verifyParsers.push("babel-ts");
+  }
 
   for (const { name, filename, code, output } of [...files, ...snippets]) {
     describe(`${name}${
       stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`, () => {
-      let rangeStart;
-      let rangeEnd;
-      let cursorOffset;
-
-      const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
-        .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
-          rangeStart = offset;
-          return "";
-        })
-        .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
-          rangeEnd = offset;
-          return "";
-        });
-
-      const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
-        cursorOffset = offset;
-        return "";
-      });
-
-      const baseOptions = {
+      const formatOptions = {
         printWidth: 80,
         ...options,
-        rangeStart,
-        rangeEnd,
-        cursorOffset,
+        filepath: filename,
+        parser,
       };
-      const mainOptions = {
-        ...baseOptions,
-        ...(IS_PARSER_INFERENCE_TESTS
-          ? { filepath: filename }
-          : { parser: parsers[0] }),
-      };
-
-      const hasEndOfLine = "endOfLine" in mainOptions;
 
       if (IS_ERROR_TESTS) {
         test("error test", () => {
           expect(() => {
-            format(input, filename, mainOptions);
+            format(code, formatOptions);
           }).toThrowErrorMatchingSnapshot();
         });
         return;
       }
 
-      const formattedWithCursor = format(input, filename, mainOptions);
-      const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
-      const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
+      const eolReplacedCode = TEST_CRLF ? code.replace(/\n/g, "\r\n") : code;
+      const firstFormat = format(eolReplacedCode, formatOptions);
 
       test("format", () => {
-        expect(visualizedOutput).toEqual(
-          visualizeEndOfLine(consistentEndOfLine(formattedWithCursor))
+        // Make sure output has consistent EOL
+        expect(firstFormat.eolVisualizedOutput).toEqual(
+          visualizeEndOfLine(consistentEndOfLine(firstFormat.outputWithCursor))
         );
+
         if (typeof output === "string") {
-          expect(formatted).toEqual(output);
-        } else {
-          let codeForSnapshot = hasEndOfLine
-            ? code
-                .replace(RANGE_START_PLACEHOLDER, "")
-                .replace(RANGE_END_PLACEHOLDER, "")
-            : source;
-          let codeOffset = 0;
-
-          if (
-            typeof baseOptions.rangeStart === "number" ||
-            typeof baseOptions.rangeEnd === "number"
-          ) {
-            codeForSnapshot = visualizeRange(codeForSnapshot, baseOptions);
-            codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
-          }
-
-          if (hasEndOfLine) {
-            codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
-          }
-
-          expect(
-            createSnapshot(
-              codeForSnapshot,
-              hasEndOfLine ? visualizedOutput : formattedWithCursor,
-              composeOptionsForSnapshot(baseOptions, parsers),
-              { codeOffset }
-            )
-          ).toMatchSnapshot();
+          expect(firstFormat.output).toEqual(output);
+          return;
         }
+
+        const hasEndOfLine = "endOfLine" in formatOptions;
+        let codeForSnapshot = hasEndOfLine
+          ? code
+              .replace(RANGE_START_PLACEHOLDER, "")
+              .replace(RANGE_END_PLACEHOLDER, "")
+          : firstFormat.inputWithCursor;
+        let codeOffset = 0;
+        let resultForSnapshot = firstFormat.outputWithCursor;
+        const { rangeStart, rangeEnd } = firstFormat.options;
+
+        if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
+          if (TEST_CRLF && hasEndOfLine) {
+            codeForSnapshot = codeForSnapshot.replace(/\n/g, "\r\n");
+          }
+          codeForSnapshot = visualizeRange(codeForSnapshot, {
+            rangeStart,
+            rangeEnd,
+          });
+          codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
+        }
+
+        // When `TEST_CRLF` and `endOfLine: "auto"`, the eol is always `\r\n`,
+        // Replace it with guess result from original input
+        let resultNote = "";
+        if (formatOptions.endOfLine === "auto") {
+          const {
+            guessEndOfLine,
+            convertEndOfLineToChars,
+          } = require("../src/common/end-of-line");
+          const originalAutoResult = convertEndOfLineToChars(
+            guessEndOfLine(code)
+          );
+          if (originalAutoResult !== "\r\n") {
+            resultNote +=
+              "** The EOL of output might not real when `TEST_CRLF` **";
+
+            if (TEST_CRLF) {
+              resultForSnapshot = resultForSnapshot.replace(
+                /\r\n?/g,
+                originalAutoResult
+              );
+            }
+          }
+        }
+
+        if (hasEndOfLine) {
+          codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
+          resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
+        }
+
+        if (resultNote) {
+          resultForSnapshot = `${resultNote}\n${resultForSnapshot}`;
+        }
+
+        expect(
+          createSnapshot(
+            codeForSnapshot,
+            resultForSnapshot,
+            composeOptionsForSnapshot(firstFormat.options, parsers),
+            { codeOffset }
+          )
+        ).toMatchSnapshot();
       });
 
-      const parsersToVerify = parsers.slice(1);
-      if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
-        parsersToVerify.push("babel-ts");
-      }
+      for (const parser of verifyParsers) {
+        const verifyOptions = { ...firstFormat.options, parser };
+        const runVerifyFormat = () => format(firstFormat.input, verifyOptions);
 
-      for (const parser of parsersToVerify) {
-        const verifyOptions = { ...baseOptions, parser };
+        if (shouldThrowOnVerify(name, verifyOptions)) {
+          test(`verify (${parser})`, () => {
+            expect(runVerifyFormat).toThrow(
+              TEST_STANDALONE ? undefined : SyntaxError
+            );
+          });
+        } else {
+          const verifyFormat = runVerifyFormat();
+          test(`verify (${parser})`, () => {
+            expect(verifyFormat.eolVisualizedOutput).toEqual(
+              firstFormat.eolVisualizedOutput
+            );
+          });
 
-        test(`verify (${parser})`, () => {
-          if (
-            parser === "babel-ts" &&
-            options &&
-            (options.disableBabelTS === true ||
-              (Array.isArray(options.disableBabelTS) &&
-                options.disableBabelTS.includes(name)))
-          ) {
-            expect(() => {
-              format(input, filename, verifyOptions);
-            }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
-          } else {
-            const verifyOutput = format(input, filename, verifyOptions);
-            expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
+          if (AST_COMPARE && verifyFormat.changed && code.trim()) {
+            test(`verify AST (${parser})`, () => {
+              const originalAst = parse(verifyFormat.input, verifyOptions);
+              const formattedAst = parse(verifyFormat.output, verifyOptions);
+              expect(originalAst).toEqual(formattedAst);
+            });
           }
-        });
+        }
       }
 
-      const isUnstable = unstableTests.get(filename);
-      const isUnstableTest = isUnstable && isUnstable(options || {});
+      const isUnstableTest = isUnstable(filename, formatOptions);
       if (
         DEEP_COMPARE &&
-        (formatted !== input || isUnstableTest) &&
-        typeof rangeStart === "undefined" &&
-        typeof rangeEnd === "undefined" &&
-        typeof cursorOffset === "undefined" &&
-        !TEST_CRLF
+        (firstFormat.changed || isUnstableTest) &&
+        // No range and cursor
+        firstFormat.input === eolReplacedCode
       ) {
         test("second format", () => {
-          const secondOutput = format(formatted, filename, mainOptions);
+          const { eolVisualizedOutput: firstOutput, output } = firstFormat;
+          const { eolVisualizedOutput: secondOutput } = format(
+            output,
+            formatOptions
+          );
           if (isUnstableTest) {
             // To keep eye on failed tests, this assert never supposed to pass,
             // if it fails, just remove the file from `unstableTests`
-            expect(secondOutput).not.toEqual(formatted);
+            expect(secondOutput).not.toEqual(firstOutput);
           } else {
-            expect(secondOutput).toEqual(formatted);
+            expect(secondOutput).toEqual(firstOutput);
           }
         });
       }
 
-      if (AST_COMPARE && formatted !== input) {
+      if (AST_COMPARE && firstFormat.changed) {
         test("compare AST", () => {
-          const { cursorOffset, ...parseOptions } = mainOptions;
-          const originalAst = parse(input, parseOptions);
-          const formattedAst = parse(formatted, parseOptions);
+          const { input, output } = firstFormat;
+          const originalAst = parse(input, formatOptions);
+          const formattedAst = parse(output, formatOptions);
           expect(formattedAst).toEqual(originalAst);
         });
       }
@@ -267,15 +313,46 @@ function parse(source, options) {
   return prettier.__debug.parse(source, options, /* massage */ true).ast;
 }
 
-function format(source, filename, options) {
-  const result = prettier.formatWithCursor(source, {
-    filepath: filename,
+function format(text, options) {
+  options = {
     ...options,
+  };
+
+  const inputWithCursor = text
+    .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
+      options.rangeStart = offset;
+      return "";
+    })
+    .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
+      options.rangeEnd = offset;
+      return "";
+    });
+
+  const input = inputWithCursor.replace(CURSOR_PLACEHOLDER, (match, offset) => {
+    options.cursorOffset = offset;
+    return "";
   });
 
-  return options.cursorOffset >= 0
-    ? result.formatted.slice(0, result.cursorOffset) +
+  const result = prettier.formatWithCursor(input, options);
+  const output = result.formatted;
+
+  const outputWithCursor =
+    options.cursorOffset >= 0
+      ? output.slice(0, result.cursorOffset) +
         CURSOR_PLACEHOLDER +
-        result.formatted.slice(result.cursorOffset)
-    : result.formatted;
+        output.slice(result.cursorOffset)
+      : output;
+  const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
+
+  const changed = outputWithCursor !== inputWithCursor;
+
+  return {
+    changed,
+    options,
+    input,
+    inputWithCursor,
+    output,
+    outputWithCursor,
+    eolVisualizedOutput,
+  };
 }

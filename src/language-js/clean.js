@@ -14,6 +14,7 @@ function clean(ast, newObj, parent) {
     "loc",
     "flags",
     "errors",
+    "tokens",
   ].forEach((name) => {
     delete newObj[name];
   });
@@ -23,7 +24,16 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "BigIntLiteral") {
-    newObj.value = newObj.value.toLowerCase();
+    if (newObj.value) {
+      newObj.value = newObj.value.toLowerCase();
+    }
+    if (newObj.bigint) {
+      newObj.bigint = newObj.bigint.toLowerCase();
+    }
+  }
+
+  if (ast.type === "DecimalLiteral") {
+    newObj.value = Number(newObj.value);
   }
 
   // We remove extra `;` and add them when needed
@@ -37,42 +47,11 @@ function clean(ast, newObj, parent) {
   }
   if (
     ast.type === "JSXExpressionContainer" &&
-    ast.expression.type === "Literal" &&
+    (ast.expression.type === "Literal" ||
+      ast.expression.type === "StringLiteral") &&
     ast.expression.value === " "
   ) {
     return null;
-  }
-
-  // (TypeScript) Ignore `static` in `constructor(static p) {}`
-  // and `export` in `constructor(export p) {}`
-  if (
-    ast.type === "TSParameterProperty" &&
-    ast.accessibility === null &&
-    !ast.readonly
-  ) {
-    return {
-      type: "Identifier",
-      name: ast.parameter.name,
-      typeAnnotation: newObj.parameter.typeAnnotation,
-      decorators: newObj.decorators,
-    };
-  }
-
-  // (TypeScript) ignore empty `specifiers` array
-  if (
-    ast.type === "TSNamespaceExportDeclaration" &&
-    ast.specifiers &&
-    ast.specifiers.length === 0
-  ) {
-    delete newObj.specifiers;
-  }
-
-  // We convert <div></div> to <div />
-  if (ast.type === "JSXOpeningElement") {
-    delete newObj.selfClosing;
-  }
-  if (ast.type === "JSXElement") {
-    delete newObj.closingElement;
   }
 
   // We change {'key': value} into {key: value}.
@@ -83,6 +62,8 @@ function clean(ast, newObj, parent) {
       ast.type === "ObjectProperty" ||
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
+      ast.type === "ClassMethod" ||
+      ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&
     typeof ast.key === "object" &&
@@ -131,6 +112,16 @@ function clean(ast, newObj, parent) {
     ast.value.expression.type === "TemplateLiteral"
   ) {
     newObj.value.expression.quasis.forEach((q) => delete q.value);
+  }
+
+  // We change quotes
+  if (
+    ast.type === "JSXAttribute" &&
+    ast.value &&
+    ast.value.type === "Literal" &&
+    /["']|&quot;|&apos;/.test(ast.value.value)
+  ) {
+    newObj.value.value = newObj.value.value.replace(/["']|&quot;|&apos;/g, '"');
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
@@ -199,6 +190,16 @@ function clean(ast, newObj, parent) {
       (parent.type === "CallExpression" && parent.callee.name === "graphql")
     ) {
       newObj.quasis.forEach((quasi) => delete quasi.value);
+    }
+
+    // TODO: check parser
+    // `flow` and `typescript` don't have `leadingComments`
+    if (!ast.leadingComments) {
+      newObj.quasis.forEach((quasi) => {
+        if (quasi.value) {
+          delete quasi.value.cooked;
+        }
+      });
     }
   }
 

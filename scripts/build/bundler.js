@@ -16,12 +16,8 @@ const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
-const bundles = require("./config");
 
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
-const plugins = bundles
-  .filter(({ type }) => type === "plugin")
-  .map(({ input }) => path.join(PROJECT_ROOT, input));
 
 const EXTERNALS = [
   "assert",
@@ -178,11 +174,12 @@ function getRollupConfig(bundle) {
     commonjs({
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
+      ignore:
+        bundle.type === "plugin"
+          ? undefined
+          : (id) => /\.\/parser-.*?/.test(id),
     }),
-    externals([
-      ...(bundle.externals || []),
-      ...(bundle.type !== "plugin" ? plugins : []),
-    ]),
+    externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
     bundle.minify !== false && bundle.target === "universal" && terser(),
@@ -197,8 +194,9 @@ function getRollupConfig(bundle) {
 
 function getRollupOutputOptions(bundle) {
   const options = {
+    // Avoid warning form #8797
+    exports: "auto",
     file: `dist/${bundle.output}`,
-    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
   };
 
   if (bundle.target === "node") {

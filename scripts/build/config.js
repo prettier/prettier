@@ -28,12 +28,18 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-flow.js",
-    strict: false,
+    replace: {
+      // `flow-parser` use this for `globalThis`, can't work in strictMode
+      "(function(){return this}())": '(new Function("return this")())',
+    },
   },
   {
     input: "src/language-js/parser-typescript.js",
     replace: {
-      'require("@microsoft/typescript-etw")': "undefined",
+      // `typescript/lib/typescript.js` expose extra global objects
+      // `TypeScript`, `toolsVersion`, `globalThis`
+      'typeof process === "undefined" || process.browser': "false",
+      'typeof globalThis === "object"': "true",
     },
   },
   {

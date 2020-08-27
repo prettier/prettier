@@ -12,6 +12,7 @@ const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
 const flat = require("lodash/flatten");
+const partition = require("lodash/partition");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 // eslint-disable-next-line no-restricted-modules
@@ -60,9 +61,14 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv.write && isTTY()) {
+    // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
+    /* istanbul ignore next */
+    if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
+    }
+    if (context.argv["ignore-unknown"]) {
+      return;
     }
     if (!context.argv.check && !context.argv["list-different"]) {
       process.exitCode = 2;
@@ -92,6 +98,7 @@ function handleError(context, filename, error) {
     context.logger.error(`${filename}: ${error.message}`);
   } else {
     // `invalid.js: Error: Some unexpected error\n[stack trace]`
+    /* istanbul ignore next */
     context.logger.error(filename + ": " + (error.stack || error));
   }
 
@@ -116,8 +123,9 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
-    resolveConfig: true,
+    resolveConfig: context.argv.config !== false,
   };
+
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
@@ -359,7 +367,10 @@ function applyConfigPrecedence(context, options) {
         return options || parseArgsToOptions(context);
     }
   } catch (error) {
+    /* istanbul ignore next */
     context.logger.error(error.toString());
+
+    /* istanbul ignore next */
     process.exit(2);
   }
 }
@@ -462,13 +473,19 @@ function formatFiles(context) {
       input = fs.readFileSync(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
+      /* istanbul ignore next */
       context.logger.log("");
 
+      /* istanbul ignore next */
       context.logger.error(
         `Unable to read file: ${filename}\n${error.message}`
       );
+
       // Don't exit the process if one file failed
+      /* istanbul ignore next */
       process.exitCode = 2;
+
+      /* istanbul ignore next */
       continue;
     }
 
@@ -509,16 +526,20 @@ function formatFiles(context) {
         try {
           fs.writeFileSync(filename, output, "utf8");
         } catch (error) {
+          /* istanbul ignore next */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
+
           // Don't exit the process if one file failed
+          /* istanbul ignore next */
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
+      /* istanbul ignore else */
       if (result.filepath) {
         context.logger.log(result.filepath);
       } else {
@@ -764,8 +785,6 @@ function createLogger(logLevel) {
     switch (logLevel) {
       case "silent":
         return false;
-      default:
-        return true;
       case "debug":
         if (loggerName === "debug") {
           return true;
@@ -799,6 +818,7 @@ function normalizeDetailedOption(name, option) {
           deprecated: false,
           ...(typeof choice === "object" ? choice : { value: choice }),
         };
+        /* istanbul ignore next */
         if (newChoice.value === true) {
           newChoice.value = ""; // backward compatibility for original boolean option
         }
@@ -816,18 +836,17 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
 }
 
 function createMinimistOptions(detailedOptions) {
-  return {
-    // we use vnopts' AliasSchema to handle aliases for better error messages
-    alias: {},
-    boolean: detailedOptions
-      .filter((option) => option.type === "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    string: detailedOptions
-      .filter((option) => option.type !== "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    default: detailedOptions
+  const [boolean, string] = partition(
+    detailedOptions,
+    ({ type }) => type === "boolean"
+  ).map((detailedOptions) =>
+    flat(
+      detailedOptions.map(({ name, alias }) => (alias ? [name, alias] : [name]))
+    )
+  );
+
+  const defaults = fromPairs(
+    detailedOptions
       .filter(
         (option) =>
           !option.deprecated &&
@@ -836,10 +855,15 @@ function createMinimistOptions(detailedOptions) {
             option.name === "plugin-search-dir") &&
           option.default !== undefined
       )
-      .reduce(
-        (current, option) => ({ [option.name]: option.default, ...current }),
-        {}
-      ),
+      .map((option) => [option.name, option.default])
+  );
+
+  return {
+    // we use vnopts' AliasSchema to handle aliases for better error messages
+    alias: {},
+    boolean,
+    string,
+    default: defaults,
   };
 }
 
@@ -864,6 +888,7 @@ function createDetailedOptionMap(supportOptions) {
         forwardToApi: option.name,
       };
 
+      /* istanbul ignore next */
       if (option.deprecated) {
         delete newOption.forwardToApi;
         delete newOption.description;

@@ -1,6 +1,8 @@
 "use strict";
-/** @type {any} */
+
+/** @type {import("assert")} */
 const assert = require("assert");
+
 const {
   concat,
   line,
@@ -11,6 +13,7 @@ const {
   join,
   cursor,
 } = require("../document").builders;
+
 const {
   hasNewline,
   skipNewline,
@@ -20,6 +23,7 @@ const {
   addDanglingComment,
   addTrailingComment,
 } = require("../common/util");
+
 const childNodesCacheKey = Symbol("child-nodes");
 
 function getSortedChildNodes(node, options, resultArray) {
@@ -58,7 +62,9 @@ function getSortedChildNodes(node, options, resultArray) {
           (n) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
-            n !== "followingNode"
+            n !== "followingNode" &&
+            n !== "tokens" &&
+            n !== "comments"
         )
         .map((n) => node[n]));
 
@@ -375,6 +381,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
 function printLeadingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
+  /* istanbul ignore next */
   if (!contents) {
     return "";
   }
@@ -401,6 +408,7 @@ function printLeadingComment(commentPath, options) {
 function printTrailingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
+  /* istanbul ignore next */
   if (!contents) {
     return "";
   }
@@ -496,6 +504,7 @@ function printComments(path, print, options, needsSemi) {
 
     if (leading) {
       const contents = printLeadingComment(commentPath, options);
+      /* istanbul ignore next */
       if (!contents) {
         return;
       }
@@ -521,9 +530,27 @@ function printComments(path, print, options, needsSemi) {
   );
 }
 
+function ensureAllCommentsPrinted(astComments) {
+  if (!astComments) {
+    return;
+  }
+
+  astComments.forEach((comment) => {
+    if (!comment.printed) {
+      throw new Error(
+        'Comment "' +
+          comment.value.trim() +
+          '" was not printed. Please report this error!'
+      );
+    }
+    delete comment.printed;
+  });
+}
+
 module.exports = {
   attach,
   printComments,
   printDanglingComments,
   getSortedChildNodes,
+  ensureAllCommentsPrinted,
 };

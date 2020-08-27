@@ -175,6 +175,8 @@ function isURLFunctionNode(node) {
 
 function isLastNode(path, node) {
   const parentNode = path.getParentNode();
+
+  /* istanbul ignore next */
   if (!parentNode) {
     return false;
   }
@@ -186,6 +188,7 @@ function isDetachedRulesetDeclarationNode(node) {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
+  /* istanbul ignore next */
   if (!node.selector) {
     return false;
   }
@@ -261,6 +264,7 @@ function isSCSSControlDirectiveNode(node) {
 }
 
 function isSCSSNestedPropertyNode(node) {
+  /* istanbul ignore next */
   if (!node.selector) {
     return false;
   }
