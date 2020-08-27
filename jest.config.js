@@ -10,6 +10,7 @@ if (isProduction || process.env.INSTALL_PACKAGE) {
 const { TEST_STANDALONE } = process.env;
 
 const testPathIgnorePatterns = [];
+let transform;
 if (TEST_STANDALONE) {
   testPathIgnorePatterns.push("<rootDir>/tests_integration/");
 }
@@ -18,6 +19,21 @@ if (!isProduction) {
   testPathIgnorePatterns.push(
     "<rootDir>/tests_integration/__tests__/bundle.js"
   );
+  // `esm` bundles need transform
+  transform = {
+    "(?:\\.mjs|codeSamples.js)$": [
+      "babel-jest",
+      {
+        presets: [
+          [
+            "@babel/env",
+            // Workaround for https://github.com/babel/babel/issues/11994
+            { loose: true },
+          ],
+        ],
+      },
+    ],
+  };
 }
 
 module.exports = {
@@ -38,22 +54,7 @@ module.exports = {
   },
   modulePathIgnorePatterns: ["<rootDir>/dist"],
   testEnvironment: "node",
-  transform: {
-    "(?:\\.mjs|codeSamples.js)$": [
-      "babel-jest",
-      {
-        presets: [
-          [
-            "@babel/env",
-            // Workaround for https://github.com/babel/babel/issues/11994
-            {
-              loose: true,
-            },
-          ],
-        ],
-      },
-    ],
-  },
+  transform,
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
