@@ -3,9 +3,7 @@
 const { outdent } = require("outdent");
 const { coreOptions } = require("./prettier-internal");
 
-const categoryOrder = [
-  coreOptions.CATEGORY_OUTPUT,
-  coreOptions.CATEGORY_FORMAT,
+const categoryOrder = [  coreOptions.CATEGORY_OUTPUT,  coreOptions.CATEGORY_FORMAT,
   coreOptions.CATEGORY_CONFIG,
   coreOptions.CATEGORY_EDITOR,
   coreOptions.CATEGORY_OTHER,
