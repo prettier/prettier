@@ -1,7 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
+const { hasPragma, parseDocBlock } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
@@ -58,13 +58,27 @@ function resolvePluginsConflict(
   return combinations;
 }
 
+function isFlow(text, options) {
+  if (options.filepath && options.filepath.endsWith(".js.flow")) {
+    return true;
+  }
+
+  //`// @flow` `// @noflow` `/* @flow */` `/* @noflow */`
+  if (/^\/(?:\/ *@(?:no)?flow|\*\s*@(?:no)?flow\s*\*\/)/.test(text)) {
+    return true;
+  }
+
+  const { pragmas } = parseDocBlock(text);
+  if (("flow" in pragmas) || ("noflow" in pragmas)) {
+    return true;
+  }
+
+  return false;
+}
+
 function createParse(parseMethod, ...pluginCombinations) {
   return (text, parsers, opts = {}) => {
-    if (
-      opts.parser === "babel" &&
-      (text.startsWith("// @flow") ||
-        (opts.filepath && opts.filepath.endsWith(".js.flow")))
-    ) {
+    if (opts.parser === "babel" && isFlow(text, opts)) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
