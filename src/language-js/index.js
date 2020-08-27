@@ -10,7 +10,7 @@ const languages = [
     require("linguist-languages/data/JavaScript.json"),
     (data) => ({
       since: "0.0.0",
-      parsers: ["babel"],
+      parsers: ["babel", "babel-flow", "babel-ts", "flow", "typescript"],
       vscodeLanguageIds: ["javascript", "mongo"],
       interpreters: [...data.interpreters, "nodejs"],
     })
@@ -26,7 +26,7 @@ const languages = [
   })),
   createLanguage(require("linguist-languages/data/JSX.json"), () => ({
     since: "0.0.0",
-    parsers: ["babel"],
+    parsers: ["babel", "babel-flow", "babel-ts", "flow", "typescript"],
     vscodeLanguageIds: ["javascriptreact"],
   })),
   createLanguage(require("linguist-languages/data/TypeScript.json"), () => ({
