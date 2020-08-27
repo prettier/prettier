@@ -9,7 +9,12 @@ const languages = [
     since: "1.4.0",
     parsers: ["css"],
     vscodeLanguageIds: ["css"],
-    extensions: [...data.extensions, ".wxss"],
+    extensions: [
+      ...data.extensions,
+      // `WeiXin Style Sheets`(Weixin Mini Programs)
+      // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
+      ".wxss",
+    ],
   })),
   createLanguage(require("linguist-languages/data/PostCSS.json"), () => ({
     since: "1.4.0",
