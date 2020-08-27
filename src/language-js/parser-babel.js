@@ -58,7 +58,7 @@ function resolvePluginsConflict(
   return combinations;
 }
 
-function isFlow(text, options) {
+function isFlowFile(text, options) {
   if (options.filepath && options.filepath.endsWith(".js.flow")) {
     return true;
   }
@@ -78,7 +78,7 @@ function isFlow(text, options) {
 
 function createParse(parseMethod, ...pluginCombinations) {
   return (text, parsers, opts = {}) => {
-    if (opts.parser === "babel" && isFlow(text, opts)) {
+    if (opts.parser === "babel" && isFlowFile(text, opts)) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
