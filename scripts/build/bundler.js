@@ -317,13 +317,11 @@ module.exports = async function createBundle(bundle, cache) {
     return { cached: true };
   }
 
-  {
-    if (bundle.bundler === "webpack") {
-      await runWebpack(getWebpackConfig(bundle));
-    } else {
-      const result = await rollup(inputOptions);
-      await Promise.all(outputOptions.map((option) => result.write(option)));
-    }
+  if (bundle.bundler === "webpack") {
+    await runWebpack(getWebpackConfig(bundle));
+  } else {
+    const result = await rollup(inputOptions);
+    await Promise.all(outputOptions.map((option) => result.write(option)));
   }
 
   return { bundled: true };
