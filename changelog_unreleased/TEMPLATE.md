@@ -24,7 +24,7 @@
 
 #### Title ([#XXXX](https://github.com/prettier/prettier/pull/XXXX) by [@user](https://github.com/user))
 
-Optional description if it makes sense.
+<!-- Optional description if it makes sense. -->
 
 <!-- prettier-ignore -->
 ```jsx

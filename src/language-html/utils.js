@@ -399,7 +399,7 @@ function _inferScriptParser(node) {
 
 function inferStyleParser(node) {
   const { lang } = node.attrMap;
-  if (lang === "postcss" || lang === "css") {
+  if (!lang || lang === "postcss" || lang === "css") {
     return "css";
   }
 
@@ -421,14 +421,13 @@ function inferScriptParser(node, options) {
   }
 
   if (node.name === "style") {
-    return inferStyleParser(node) || "css";
+    return inferStyleParser(node);
   }
 
   if (options && isVueNonHtmlBlock(node, options)) {
     return (
       _inferScriptParser(node) ||
-      inferStyleParser(node) ||
-      getParserName(node.attrMap.lang, options)
+      (!("src" in node.attrMap) && getParserName(node.attrMap.lang, options))
     );
   }
 }
