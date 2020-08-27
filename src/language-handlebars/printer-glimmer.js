@@ -51,6 +51,8 @@ function print(path, options, print) {
     return ignoredText;
   }
 
+  const textLines = options.originalText.split("\n");
+
   switch (n.type) {
     case "Block":
     case "Program":
@@ -289,8 +291,21 @@ function print(path, options, print) {
       ]);
     }
     case "MustacheCommentStatement": {
+      const rawNodeContent = textLines[n.loc.start.line - 1].slice(
+        n.loc.start.column,
+        n.loc.end.column
+      );
+      const isLeftWhiteSpaceSensitive = rawNodeContent.startsWith("{{~");
+      const isRightWhitespaceSensitive = rawNodeContent.endsWith("~}}");
+
       const dashes = n.value.includes("}}") ? "--" : "";
-      return concat(["{{!", dashes, n.value, dashes, "}}"]);
+      return concat([
+        isLeftWhiteSpaceSensitive ? "{{~!" : "{{!",
+        dashes,
+        n.value,
+        dashes,
+        isRightWhitespaceSensitive ? "~}}" : "}}",
+      ]);
     }
     case "PathExpression": {
       return n.original;
