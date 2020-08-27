@@ -1,6 +1,6 @@
 "use strict";
 
-const errorMessages = require("@babel/parser/lib/parser/error-message");
+const { ErrorMessages } = require("@babel/parser/lib/parser/error-message");
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
@@ -133,7 +133,7 @@ function tryCombinations(fn, combinations) {
 const messagesShouldThrow = new Set([
   // `UnexpectedTypeAnnotation` not exported
   "Did not expect a type annotation here.",
-  errorMessages.ModuleAttributeDifferentFromType,
+  ErrorMessages.ModuleAttributeDifferentFromType,
 ]);
 
 function shouldRethrow(error) {
