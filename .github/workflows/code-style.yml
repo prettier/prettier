@@ -27,5 +27,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v2.3.0
         with:
           commit_message: Fix code style
+          branch: ${{ github.event.pull_request.head.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
