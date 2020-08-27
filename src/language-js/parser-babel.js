@@ -1,5 +1,6 @@
 "use strict";
 
+const errorMessages = require("@babel/parser/lib/parser/error-message");
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
@@ -129,26 +130,24 @@ function tryCombinations(fn, combinations) {
   throw error;
 }
 
+const messagesShouldThrow = new Set([
+  // `UnexpectedTypeAnnotation` not exported
+  "Did not expect a type annotation here.",
+  errorMessages.ModuleAttributeDifferentFromType,
+]);
+
+function shouldRethrow(error) {
+  const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
+  // Only works for literal message
+  return messagesShouldThrow.has(message);
+}
+
 function rethrowSomeRecoveredErrors(ast) {
-  if (ast.errors) {
-    for (const error of ast.errors) {
-      if (
-        typeof error.message === "string" &&
-        (error.message.startsWith(
-          // UnexpectedTypeAnnotation
-          // https://github.com/babel/babel/blob/2f31ecf85d85cb100fa08d4d9a09de0fe4a117e4/packages/babel-parser/src/plugins/typescript/index.js#L88
-          "Did not expect a type annotation here."
-        ) ||
-          error.message.startsWith(
-            // ModuleAttributeDifferentFromType
-            // https://github.com/babel/babel/blob/bda759ac3dce548f021ca24e9182b6e6f7c218e3/packages/babel-parser/src/parser/location.js#L99
-            "The only accepted module attribute is `type`"
-          ))
-      ) {
-        throw error;
-      }
-    }
+  const error = ast.errors.find((error) => shouldRethrow(error));
+  if (error) {
+    throw error;
   }
+
   return ast;
 }
 
