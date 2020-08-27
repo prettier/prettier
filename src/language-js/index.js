@@ -13,6 +13,7 @@ const languages = [
       parsers: ["babel", "flow"],
       vscodeLanguageIds: ["javascript", "mongo"],
       interpreters: data.interpreters.concat(["nodejs"]),
+      extensions: [...data.extensions, ".wxs"],
     })
   ),
   createLanguage(require("linguist-languages/data/JavaScript.json"), () => ({

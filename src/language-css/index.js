@@ -5,10 +5,11 @@ const printer = require("./printer-postcss");
 const options = require("./options");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/CSS.json"), () => ({
+  createLanguage(require("linguist-languages/data/CSS.json"), (data) => ({
     since: "1.4.0",
     parsers: ["css"],
     vscodeLanguageIds: ["css"],
+    extensions: [...data.extensions, ".wxss"],
   })),
   createLanguage(require("linguist-languages/data/PostCSS.json"), () => ({
     since: "1.4.0",
