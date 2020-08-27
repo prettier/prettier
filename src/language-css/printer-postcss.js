@@ -345,7 +345,8 @@ function genericPrint(path, options, print) {
     }
     case "media-feature": {
       return maybeToLowerCase(
-        adjustStrings(node.value.replace(/ +/g, " "), options)
+        adjustStrings(
+        	node.value.replace(/[ ]{1,}/g, " "), options)
       );
     }
     case "media-colon": {
@@ -354,12 +355,13 @@ function genericPrint(path, options, print) {
     case "media-value": {
       return adjustNumbers(adjustStrings(node.value, options));
     }
-    case "media-keyword": {
+    case 'media-keyword': {
       return adjustStrings(node.value, options);
     }
     case "media-url": {
       return adjustStrings(
-        node.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/gi, ")"),
+        node.value.replace(
+/^url\(\s+/ig, "url(").replace(/\s+\)$/gi, ")"),
         options
       );
     }
