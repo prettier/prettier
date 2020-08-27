@@ -114,6 +114,7 @@ const coreBundles = [
     type: "core",
     output: "doc.js",
     target: "universal",
+    format: "umd",
     minify: false,
   },
   {
