@@ -64,7 +64,7 @@ function isFlowFile(text, options) {
   }
 
   //`// @flow` `// @noflow` `/* @flow */` `/* @noflow */`
-  if (/^\/(?:\/ *@(?:no)?flow\n|\*\s*@(?:no)?flow\s*\*\/)/.test(text)) {
+  if (/^\/(?:\/ *@(?:no)?flow *\n|\*\s*@(?:no)?flow\s*\*\/)/.test(text)) {
     return true;
   }
 
