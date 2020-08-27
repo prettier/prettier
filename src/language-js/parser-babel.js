@@ -69,7 +69,7 @@ function isFlowFile(text, options) {
   }
 
   const { pragmas } = parseDocBlock(text);
-  if (("flow" in pragmas) || ("noflow" in pragmas)) {
+  if ("flow" in pragmas || "noflow" in pragmas) {
     return true;
   }
 
