@@ -69,12 +69,13 @@ parsers: []
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const msg =
+var msg =
 "hello world";
 
 module.exports.message = msg;
+
 =====================================output=====================================
-const msg = "hello world";
+var msg = "hello world";
 
 module.exports.message = msg;
 
