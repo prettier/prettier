@@ -17,7 +17,7 @@ if (TEST_STANDALONE) {
 if (isProduction) {
   // `esm` bundles need transform
   transform = {
-    "(?:\\.mjs|codeSamples.js)$": [
+    "(?:\\.mjs|codeSamples\\.js)$": [
       "babel-jest",
       {
         presets: [
