@@ -78,9 +78,28 @@ printWidth: 80
 
 foo = {"1":bar} // "1" should quoted
 
-
 =====================================output=====================================
 //                     @noflow
+
+foo = { "1": bar }; // "1" should quoted
+
+================================================================================
+`;
+
+exports[`inline-comment-3.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//  another comment
+//                     @flow
+
+foo = {"1":bar} // "1" should quoted
+
+=====================================output=====================================
+//  another comment
+//                     @flow
 
 foo = { "1": bar }; // "1" should quoted
 
@@ -195,6 +214,54 @@ foo = {"1":bar} // "1" should quoted
 // DocBlock above is copied from https://github.com/facebook/react/blob/8da0da0937af154b775b243c9d28b6aa50db696b/packages/react-dom/index.js#L1-L8
 
 foo = { "1": bar }; // "1" should quoted
+
+================================================================================
+`;
+
+exports[`shebang-inline-comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#!/usr/bin/env node
+//  another comment
+//                     @flow
+
+foo = {"1":bar} // "1" should quoted
+
+=====================================output=====================================
+#!/usr/bin/env node
+//  another comment
+//                     @flow
+
+foo = { 1: bar }; // "1" should quoted
+
+================================================================================
+`;
+
+exports[`shebang-pragma.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#!/usr/bin/env node
+/**
+ * @format
+ *                      @noflow
+ */
+
+foo = {"1":bar} // "1" should quoted
+
+=====================================output=====================================
+#!/usr/bin/env node
+/**
+ * @format
+ *                      @noflow
+ */
+
+foo = { 1: bar }; // "1" should quoted
 
 ================================================================================
 `;

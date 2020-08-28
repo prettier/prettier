@@ -45,5 +45,4 @@ function insertPragma(originalText) {
 module.exports = {
   hasPragma,
   insertPragma,
-  parseDocBlock,
 };

@@ -1,7 +1,11 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const { hasPragma, parseDocBlock } = require("./pragma");
+const {
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getShebang,
+} = require("../common/util");
+const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
@@ -58,22 +62,27 @@ function resolvePluginsConflict(
   return combinations;
 }
 
+// https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
+const FLOW_PRAGMA_REGEX = /\*?\s*@((?:no)?flow)\b/;
 function isFlowFile(text, options) {
   if (options.filepath && options.filepath.endsWith(".js.flow")) {
     return true;
   }
 
-  //`// @flow` `// @noflow` `/* @flow */` `/* @noflow */`
-  if (/^\/(?:\/ *@(?:no)?flow *\n|\*\s*@(?:no)?flow\s*\*\/)/.test(text)) {
-    return true;
+  const shebang = getShebang(text);
+  if (shebang) {
+    text = text.slice(0, shebang.length);
   }
 
-  const { pragmas } = parseDocBlock(text);
-  if ("flow" in pragmas || "noflow" in pragmas) {
-    return true;
+  const firstNextNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    0
+  );
+  if (firstNextNonSpaceNonCommentCharacterIndex !== false) {
+    text = text.slice(0, firstNextNonSpaceNonCommentCharacterIndex);
   }
 
-  return false;
+  return FLOW_PRAGMA_REGEX.test(text);
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
