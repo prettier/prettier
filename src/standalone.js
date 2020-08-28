@@ -20,7 +20,7 @@ function withPlugins(
     const opts = 
 
 args[optsArgIdx] || {};
-const x = 1;
+
     const plugins = opts.plugins || [];
 
     args[optsArgIdx] = {
