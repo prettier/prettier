@@ -353,6 +353,7 @@
         "Transloadit",
         "TSAs",
         "tsep",
+        "TSESTree",
         "TSJS",
         "tslib",
         "typeahead",
@@ -388,7 +389,9 @@
         "Wadler",
         "Wadler's",
         "webstorm",
+        "Weixin",
         "whitespaces",
+        "wxss",
         "xargs",
         "yamafaktory",
         "Yatharth",
@@ -401,7 +404,10 @@
         "\\[`\\w+`\\]",
         "ve{2,}r{2,}y",
         "ve+r+y+long\\w*",
-        "\\/.*?\\/"
+        "\\/.*?\\/",
+        "author: \".*?\"",
+        "authorURL: \".*?\"",
+        "\"author\": \".*?\""
     ],
     "ignorePaths": [
         "cspell.json",

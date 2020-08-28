@@ -235,3 +235,146 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`with-src.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template lang="uppercase-rocks" src="foo.uppercase-rocks"></template>
+<style lang="uppercase-rocks" src="foo.uppercase-rocks"></style>
+<script lang="uppercase-rocks" src="foo.uppercase-rocks"></script>
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks"></custom>
+<template lang="uppercase-rocks" src></template>
+<template lang="uppercase-rocks" src=""></template>
+<template lang="uppercase-rocks" src>PrEtTiEr</template>
+<template lang="uppercase-rocks" src="">PrEtTiEr</template>
+<template lang="uppercase-rocks" src>
+
+     </template>
+<template lang="uppercase-rocks" src="">
+
+     </template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks">
+PrEtTiEr
+</template>
+
+
+<template lang="uppercase-rocks" :src="">PrEtTiEr</template>
+<template lang="uppercase-rocks" @src="">PrEtTiEr</template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<style lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<script lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<custom lang="uppercase-rocks" src/>
+<template lang="uppercase-rocks" src=""/>
+
+=====================================output=====================================
+<template lang="uppercase-rocks" src="foo.uppercase-rocks"></template>
+<style lang="uppercase-rocks" src="foo.uppercase-rocks"></style>
+<script lang="uppercase-rocks" src="foo.uppercase-rocks"></script>
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks"></custom>
+<template lang="uppercase-rocks" src></template>
+<template lang="uppercase-rocks" src=""></template>
+<template lang="uppercase-rocks" src>PrEtTiEr</template>
+<template lang="uppercase-rocks" src="">PrEtTiEr</template>
+<template lang="uppercase-rocks" src>
+
+     </template>
+<template lang="uppercase-rocks" src="">
+
+     </template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks">
+PrEtTiEr
+</template>
+
+<template lang="uppercase-rocks" :src="">PrEtTiEr</template>
+<template lang="uppercase-rocks" @src="">PrEtTiEr</template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<style lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<script lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<custom lang="uppercase-rocks" src />
+<template lang="uppercase-rocks" src="" />
+
+================================================================================
+`;
+
+exports[`with-src.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template lang="uppercase-rocks" src="foo.uppercase-rocks"></template>
+<style lang="uppercase-rocks" src="foo.uppercase-rocks"></style>
+<script lang="uppercase-rocks" src="foo.uppercase-rocks"></script>
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks"></custom>
+<template lang="uppercase-rocks" src></template>
+<template lang="uppercase-rocks" src=""></template>
+<template lang="uppercase-rocks" src>PrEtTiEr</template>
+<template lang="uppercase-rocks" src="">PrEtTiEr</template>
+<template lang="uppercase-rocks" src>
+
+     </template>
+<template lang="uppercase-rocks" src="">
+
+     </template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks">
+PrEtTiEr
+</template>
+
+
+<template lang="uppercase-rocks" :src="">PrEtTiEr</template>
+<template lang="uppercase-rocks" @src="">PrEtTiEr</template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<style lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<script lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks"/>
+<custom lang="uppercase-rocks" src/>
+<template lang="uppercase-rocks" src=""/>
+
+=====================================output=====================================
+<template lang="uppercase-rocks" src="foo.uppercase-rocks"></template>
+<style lang="uppercase-rocks" src="foo.uppercase-rocks"></style>
+<script lang="uppercase-rocks" src="foo.uppercase-rocks"></script>
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks"></custom>
+<template lang="uppercase-rocks" src></template>
+<template lang="uppercase-rocks" src=""></template>
+<template lang="uppercase-rocks" src>PrEtTiEr</template>
+<template lang="uppercase-rocks" src="">PrEtTiEr</template>
+<template lang="uppercase-rocks" src>
+
+     </template>
+<template lang="uppercase-rocks" src="">
+
+     </template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks">
+PrEtTiEr
+</template>
+
+<template lang="uppercase-rocks" :src="">
+PRETTIER
+</template>
+<template lang="uppercase-rocks" @src="">
+PRETTIER
+</template>
+
+<template lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<style lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<script lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<custom lang="uppercase-rocks" src="foo.uppercase-rocks" />
+<custom lang="uppercase-rocks" src />
+<template lang="uppercase-rocks" src="" />
+
+================================================================================
+`;

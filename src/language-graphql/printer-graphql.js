@@ -275,10 +275,6 @@ function genericPrint(path, options, print) {
       ]);
     }
 
-    case "TypeExtensionDefinition": {
-      return concat(["extend ", path.call(print, "definition")]);
-    }
-
     case "ObjectTypeExtension":
     case "ObjectTypeDefinition": {
       return concat([
@@ -645,6 +641,7 @@ function printComment(commentPath) {
     return "#" + comment.value.trimEnd();
   }
 
+  /* istanbul ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 

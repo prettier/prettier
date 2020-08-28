@@ -4,13 +4,12 @@ const lineColumnToIndex = require("../utils/line-column-to-index");
 const { getLast, skipEverythingButNewLine } = require("../common/util");
 
 function calculateLocStart(node, text) {
-  if (node.source) {
-    if (typeof node.source.sourceIndex === "number") {
-      return node.source.sourceIndex; // value-* nodes have this
-    }
-    return lineColumnToIndex(node.source.start, text) - 1;
+  // value-* nodes have this
+  if (typeof node.sourceIndex === "number") {
+    return node.sourceIndex;
   }
-  return null;
+
+  return node.source ? lineColumnToIndex(node.source.start, text) - 1 : null;
 }
 
 function calculateLocEnd(node, text) {

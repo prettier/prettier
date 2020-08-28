@@ -551,6 +551,7 @@ function align(n, doc) {
 }
 
 function isInlineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }
@@ -569,6 +570,7 @@ function isInlineNode(node) {
 }
 
 function isSingleLineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }

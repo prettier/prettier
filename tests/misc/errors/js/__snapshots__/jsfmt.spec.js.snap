@@ -93,6 +93,24 @@ exports[`snippet: #9 error test 1`] = `
     | ^"
 `;
 
+exports[`snippet: #10 error test 1`] = `
+"Invalid decimal (1:1)
+> 1 | 0b101011101m;
+    | ^"
+`;
+
+exports[`snippet: #11 error test 1`] = `
+"Invalid decimal (1:1)
+> 1 | 0x16432m;
+    | ^"
+`;
+
+exports[`snippet: #12 error test 1`] = `
+"Invalid decimal (1:1)
+> 1 | 0o16432m;
+    | ^"
+`;
+
 exports[`static-import-source-should-not-has-extra-token.js error test 1`] = `
 "Unexpected token (4:16)
   2 | // be parenthesized, that accidentally break #8016

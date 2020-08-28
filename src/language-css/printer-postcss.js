@@ -72,6 +72,7 @@ const {
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
+  isAtWordPlaceholderNode,
 } = require("./utils");
 
 function shouldPrintComma(options) {
@@ -572,8 +573,7 @@ function genericPrint(path, options, print) {
         if (
           iNode.type === "value-word" &&
           iNode.value.endsWith("-") &&
-          iNextNode.type === "value-atword" &&
-          iNextNode.value.startsWith("prettier-placeholder-")
+          isAtWordPlaceholderNode(iNextNode)
         ) {
           continue;
         }
@@ -793,6 +793,14 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (
+          isAtWordPlaceholderNode(iNode) &&
+          isAtWordPlaceholderNode(iNextNode) &&
+          options.locEnd(iNode) === options.locStart(iNextNode)
+        ) {
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
@@ -941,6 +949,8 @@ function genericPrint(path, options, print) {
           : line,
       ]);
     }
+    // TODO: confirm this code is dead
+    /* istanbul ignore next */
     case "value-comma": {
       return concat([node.value, " "]);
     }

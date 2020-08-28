@@ -22,7 +22,11 @@ function printVueFor(value, textToDoc) {
     " ",
     operator,
     " ",
-    textToDoc(right, { parser: "__js_expression" }),
+    textToDoc(
+      right,
+      { parser: "__js_expression" },
+      { stripTrailingHardline: true }
+    ),
   ]);
 }
 
@@ -60,10 +64,14 @@ function parseVueFor(value) {
 }
 
 function printVueSlotScope(value, textToDoc) {
-  return textToDoc(`function _(${value}) {}`, {
-    parser: "babel",
-    __isVueSlotScope: true,
-  });
+  return textToDoc(
+    `function _(${value}) {}`,
+    {
+      parser: "babel",
+      __isVueSlotScope: true,
+    },
+    { stripTrailingHardline: true }
+  );
 }
 
 function isVueEventBindingExpression(eventBindingValue) {

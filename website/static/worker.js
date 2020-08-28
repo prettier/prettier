@@ -1,8 +1,10 @@
-/* eslint-env worker */
-/* eslint no-var: off, strict: off */
 /* globals prettier prettierPlugins parsersLocation */
 
-var imported = Object.create(null);
+"use strict";
+
+self.PRETTIER_DEBUG = true;
+
+const imported = Object.create(null);
 function importScriptOnce(url) {
   if (!imported[url]) {
     imported[url] = true;
@@ -15,7 +17,6 @@ importScripts("lib/standalone.js");
 
 // this is required to only load parsers when we need them
 const parsers = Object.create(null);
-
 for (const file in parsersLocation) {
   const { parsers: moduleParsers, property } = parsersLocation[file];
   const url = `lib/${file}`;
@@ -28,9 +29,6 @@ for (const file in parsersLocation) {
     });
   }
 }
-
-// eslint-disable-next-line no-unused-vars
-var PRETTIER_DEBUG = true;
 
 self.onmessage = function (event) {
   self.postMessage({
@@ -55,16 +53,16 @@ function handleMessage(message) {
   }
 
   if (message.type === "format") {
-    var options = message.options || {};
+    const options = message.options || {};
 
     delete options.ast;
     delete options.doc;
     delete options.output2;
 
-    var plugins = [{ parsers }];
+    const plugins = [{ parsers }];
     options.plugins = plugins;
 
-    var response = {
+    const response = {
       formatted: formatCode(message.code, options),
       debug: {
         ast: null,
@@ -74,8 +72,8 @@ function handleMessage(message) {
     };
 
     if (message.debug.ast) {
-      var ast;
-      var errored = false;
+      let ast;
+      let errored = false;
       try {
         ast = JSON.stringify(prettier.__debug.parse(message.code, options).ast);
       } catch (e) {
