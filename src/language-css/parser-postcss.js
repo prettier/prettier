@@ -7,7 +7,6 @@ const {
   hasSCSSInterpolation,
   hasStringOrFunction,
   isLessParser,
-  isSCSS,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
@@ -41,7 +40,7 @@ function parseValueNode(valueNode, options) {
     const node = nodes[i];
 
     if (
-      isSCSS(options.parser, node.value) &&
+      options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
       node.value[node.value.length - 1] === "."
@@ -81,7 +80,8 @@ function parseValueNode(valueNode, options) {
       // Stringify if the value parser can't handle the content.
       if (
         hasSCSSInterpolation(groupList) ||
-        (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
+        (!hasStringOrFunction(groupList) &&
+          !isSCSSVariable(groupList[0], options))
       ) {
         const stringifiedContent = stringifyNode({
           groups: node.group.groups,
