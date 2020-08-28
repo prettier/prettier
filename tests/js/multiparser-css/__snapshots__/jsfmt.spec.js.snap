@@ -280,6 +280,44 @@ export const Group = styled.div\`
 ================================================================================
 `;
 
+exports[`issue-9072.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const style1 = css\`
+  width:\${size+10}\${sizeUnit};
+  border:\${size/10} \${sizeUnit} solid \${color};
+\`;
+
+const style2 = css\`
+  width: \${size + 10}\${sizeUnit};
+  border: \${size / 10} \${sizeUnit} solid \${color};
+\`;
+
+const style3 = css\`
+  foo: \${foo}\${bar}       \${baz};
+\`;
+
+=====================================output=====================================
+const style1 = css\`
+  width: \${size + 10}\${sizeUnit};
+  border: \${size / 10} \${sizeUnit} solid \${color};
+\`;
+
+const style2 = css\`
+  width: \${size + 10}\${sizeUnit};
+  border: \${size / 10} \${sizeUnit} solid \${color};
+\`;
+
+const style3 = css\`
+  foo: \${foo}\${bar} \${baz};
+\`;
+
+================================================================================
+`;
+
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
