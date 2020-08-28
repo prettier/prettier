@@ -235,7 +235,7 @@ foo = {"1":bar} // "1" should quoted
 //  another comment
 //                     @flow
 
-foo = { 1: bar }; // "1" should quoted
+foo = { "1": bar }; // "1" should quoted
 
 ================================================================================
 `;
@@ -261,7 +261,7 @@ foo = {"1":bar} // "1" should quoted
  *                      @noflow
  */
 
-foo = { 1: bar }; // "1" should quoted
+foo = { "1": bar }; // "1" should quoted
 
 ================================================================================
 `;

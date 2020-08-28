@@ -71,13 +71,14 @@ function isFlowFile(text, options) {
 
   const shebang = getShebang(text);
   if (shebang) {
-    text = text.slice(0, shebang.length);
+    text = text.slice(shebang.length);
   }
 
   const firstNextNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
     text,
     0
   );
+
   if (firstNextNonSpaceNonCommentCharacterIndex !== false) {
     text = text.slice(0, firstNextNonSpaceNonCommentCharacterIndex);
   }
