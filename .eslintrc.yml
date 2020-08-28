@@ -73,8 +73,7 @@ overrides:
     rules:
       no-console: off
   - files:
-      - scripts/build/shims/*.js
-      - "*.mjs"
+      - "**/*.mjs"
     parserOptions:
       sourceType: module
   - files:

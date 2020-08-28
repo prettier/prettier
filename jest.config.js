@@ -38,7 +38,7 @@ if (isProduction) {
 }
 
 module.exports = {
-  setupFiles: ["<rootDir>/tests_config/run_spec.js"],
+  setupFiles: ["<rootDir>/tests_config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
