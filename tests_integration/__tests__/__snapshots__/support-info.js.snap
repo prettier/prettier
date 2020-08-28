@@ -10,8 +10,8 @@ Object {
       "css",
     ],
     "Flow": Array [
-      "babel",
       "flow",
+      "babel-flow",
     ],
     "GraphQL": Array [
       "graphql",
@@ -33,12 +33,19 @@ Object {
     ],
     "JSX": Array [
       "babel",
+      "babel-flow",
+      "babel-ts",
       "flow",
+      "typescript",
+      "espree",
     ],
     "JavaScript": Array [
       "babel",
-      "flow",
       "espree",
+      "babel-flow",
+      "babel-ts",
+      "flow",
+      "typescript",
     ],
     "Less": Array [
       "less",
@@ -145,6 +152,7 @@ Object {
         "babel-flow",
         "babel-ts",
         "typescript",
+        "espree",
         "css",
         "less",
         "scss",
@@ -159,7 +167,6 @@ Object {
         "html",
         "angular",
         "lwc",
-        "espree",
       ],
       "default": undefined,
       "type": "choice",
@@ -291,7 +298,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".sjs\\",
         \\".ssjs\\",
         \\".xsjs\\",
-        \\".xsjslib\\"
+        \\".xsjslib\\",
+        \\".wxs\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
       \\"interpreters\\": [
@@ -308,7 +316,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
-      \\"parsers\\": [\\"babel\\", \\"flow\\", \\"espree\\"],
+      \\"parsers\\": [
+        \\"babel\\",
+        \\"espree\\",
+        \\"babel-flow\\",
+        \\"babel-ts\\",
+        \\"flow\\",
+        \\"typescript\\"
+      ],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -335,7 +350,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
-      \\"parsers\\": [\\"babel\\", \\"flow\\"],
+      \\"parsers\\": [\\"flow\\", \\"babel-flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -349,7 +364,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 178,
       \\"name\\": \\"JSX\\",
-      \\"parsers\\": [\\"babel\\", \\"flow\\"],
+      \\"parsers\\": [
+        \\"babel\\",
+        \\"babel-flow\\",
+        \\"babel-ts\\",
+        \\"flow\\",
+        \\"typescript\\",
+        \\"espree\\"
+      ],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
       \\"type\\": \\"programming\\",
@@ -500,7 +522,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"text/css\\",
       \\"codemirrorMode\\": \\"css\\",
       \\"color\\": \\"#563d7c\\",
-      \\"extensions\\": [\\".css\\"],
+      \\"extensions\\": [\\".css\\", \\".wxss\\"],
       \\"linguistLanguageId\\": 50,
       \\"name\\": \\"CSS\\",
       \\"parsers\\": [\\"css\\"],
@@ -853,6 +875,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"since\\": \\"1.4.0\\",
           \\"value\\": \\"typescript\\"
         },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"espree\\" },
         { \\"description\\": \\"CSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"css\\" },
         { \\"description\\": \\"Less\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"less\\" },
         { \\"description\\": \\"SCSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"scss\\" },
@@ -874,8 +897,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Lightning Web Components\\",
           \\"since\\": \\"1.17.0\\",
           \\"value\\": \\"lwc\\"
-        },
-        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"espree\\" }
+        }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

@@ -30,18 +30,6 @@ function writeChangelog({ version, previousVersion, releaseNotes }) {
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
 }
 
-function formatVersion(version) {
-  return `${semver.major(version)}.${semver.minor(version)}`;
-}
-
-function replaceVersionsInBlogPost({ blogPost, version, previousVersion }) {
-  const blogPostData = fs.readFileSync(blogPost, "utf-8");
-  const newBlogPostData = blogPostData
-    .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
-    .replace(/prettier master/gi, `Prettier ${formatVersion(version)}`);
-  fs.writeFileSync(blogPost, newBlogPostData);
-}
-
 module.exports = async function ({ version, previousVersion }) {
   const semverDiff = semver.diff(version, previousVersion);
 
@@ -53,11 +41,6 @@ module.exports = async function ({ version, previousVersion }) {
       releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
     });
     if (fs.existsSync(blogPost.file)) {
-      replaceVersionsInBlogPost({
-        blogPost: blogPost.file,
-        version,
-        previousVersion,
-      });
       // Everything is fine, this step is finished
       return;
     }

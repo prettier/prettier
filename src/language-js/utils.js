@@ -204,28 +204,6 @@ function isLiteral(node) {
 }
 
 /**
- * @param {any} node
- * @returns {boolean}
- */
-function isLiteralLikeValue(node) {
-  return (
-    isLiteral(node) ||
-    (node.type === "Identifier" && /^[A-Z_]+$/.test(node.name)) ||
-    (node.type === "ArrayExpression" &&
-      node.elements.every(
-        (element) => element !== null && isLiteralLikeValue(element)
-      )) ||
-    (node.type === "ObjectExpression" &&
-      node.properties.every(
-        (property) =>
-          !property.computed &&
-          property.value &&
-          isLiteralLikeValue(property.value)
-      ))
-  );
-}
-
-/**
  * @param {Node} node
  * @returns {boolean}
  */
@@ -1415,7 +1393,6 @@ module.exports = {
   isJSXWhitespaceExpression,
   isLastStatement,
   isLiteral,
-  isLiteralLikeValue,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
   isMeaningfulJSXText,

@@ -453,6 +453,14 @@ function stringifyNode(node) {
   return before + quote + atword + value + quote + unit + group + after;
 }
 
+function isAtWordPlaceholderNode(node) {
+  return (
+    node &&
+    node.type === "value-atword" &&
+    node.value.startsWith("prettier-placeholder-")
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -505,4 +513,5 @@ module.exports = {
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
   stringifyNode,
+  isAtWordPlaceholderNode,
 };

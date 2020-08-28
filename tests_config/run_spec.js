@@ -36,7 +36,7 @@ const unstableTests = new Map(
     "js/comments-closure-typecast/iife.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
-    "html/multiparser-js/script-tag-escaping.html",
+    "html/multiparser/js/script-tag-escaping.html",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
@@ -93,7 +93,7 @@ const isTestDirectory = (dirname, name) =>
     path.join(__dirname, "../tests", name) + path.sep
   );
 
-global.run_spec = (fixtures, parsers, options) => {
+function runSpec(fixtures, parsers, options) {
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
 
@@ -327,7 +327,7 @@ global.run_spec = (fixtures, parsers, options) => {
       }
     });
   }
-};
+}
 
 function parse(source, options) {
   return prettier.__debug.parse(source, options, /* massage */ true).ast;
@@ -376,3 +376,5 @@ function format(text, options) {
     eolVisualizedOutput,
   };
 }
+
+module.exports = runSpec;

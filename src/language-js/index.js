@@ -10,15 +10,28 @@ const languages = [
     require("linguist-languages/data/JavaScript.json"),
     (data) => ({
       since: "0.0.0",
-      parsers: ["babel", "flow", "espree"],
+      parsers: [
+        "babel",
+        "espree",
+        "babel-flow",
+        "babel-ts",
+        "flow",
+        "typescript",
+      ],
       vscodeLanguageIds: ["javascript", "mongo"],
-      interpreters: data.interpreters.concat(["nodejs"]),
+      interpreters: [...data.interpreters, "nodejs"],
+      extensions: [
+        ...data.extensions,
+        // WeiXin Script (Weixin Mini Programs)
+        // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
+        ".wxs",
+      ],
     })
   ),
   createLanguage(require("linguist-languages/data/JavaScript.json"), () => ({
     name: "Flow",
     since: "0.0.0",
-    parsers: ["babel", "flow"],
+    parsers: ["flow", "babel-flow"],
     vscodeLanguageIds: ["javascript"],
     aliases: [],
     filenames: [],
@@ -26,7 +39,14 @@ const languages = [
   })),
   createLanguage(require("linguist-languages/data/JSX.json"), () => ({
     since: "0.0.0",
-    parsers: ["babel", "flow"],
+    parsers: [
+      "babel",
+      "babel-flow",
+      "babel-ts",
+      "flow",
+      "typescript",
+      "espree",
+    ],
     vscodeLanguageIds: ["javascriptreact"],
   })),
   createLanguage(require("linguist-languages/data/TypeScript.json"), () => ({
@@ -51,7 +71,7 @@ const languages = [
     since: "1.5.0",
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
-    filenames: data.filenames.concat([".prettierrc"]),
+    filenames: [...data.filenames, ".prettierrc"],
   })),
   createLanguage(
     require("linguist-languages/data/JSON with Comments.json"),
@@ -59,7 +79,7 @@ const languages = [
       since: "1.5.0",
       parsers: ["json"],
       vscodeLanguageIds: ["jsonc"],
-      filenames: data.filenames.concat([".eslintrc"]),
+      filenames: [...data.filenames, ".eslintrc"],
     })
   ),
   createLanguage(require("linguist-languages/data/JSON5.json"), () => ({

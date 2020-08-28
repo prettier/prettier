@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production" || process.env.INSTALL_PACKAGE) {
 const { TEST_STANDALONE } = process.env;
 
 module.exports = {
-  setupFiles: ["<rootDir>/tests_config/run_spec.js"],
+  setupFiles: ["<rootDir>/tests_config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
