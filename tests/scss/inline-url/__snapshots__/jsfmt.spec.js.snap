@@ -1,26 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css format 1`] = `
+exports[`inline_url.scss format 1`] = `
 ====================================options=====================================
-parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-@font-face {
-  src: url();
-}
-
-=====================================output=====================================
-@font-face {
-  src: url();
-}
-
-================================================================================
-`;
-
-exports[`inline_url.css format 1`] = `
-====================================options=====================================
-parsers: ["css"]
+parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -107,7 +89,7 @@ printWidth: 80
 
 .validUnquotedUrlsThatAreParsedBySass {
   background: url($foo);
-  background: url($foo+$bar);
+  background: url($foo + $bar);
   background: url($foo*3);
   background: url($foo/$bar);
 }
