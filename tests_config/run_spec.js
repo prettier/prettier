@@ -377,4 +377,4 @@ function format(text, options) {
   };
 }
 
-module.export = runSpec;
+module.exports = runSpec;
