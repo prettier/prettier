@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    if: "!contains(github.event.head_commit.message , '[skip-ci]')"
+    if: "!contains(github.event.head_commit.message , '[skip ci]')"
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +55,7 @@ jobs:
           compression: none
 
   lint:
-    if: "!contains(github.event.head_commit.message , '[skip-ci]')"
+    if: "!contains(github.event.head_commit.message , '[skip ci]')"
     name: Lint
     runs-on: ubuntu-latest
     needs: [build]
@@ -82,7 +82,7 @@ jobs:
 
   test:
     timeout-minutes: 60
-    if: "!contains(github.event.head_commit.message , '[skip-ci]')"
+    if: "!contains(github.event.head_commit.message , '[skip ci]')"
     strategy:
       fail-fast: false
       matrix:
