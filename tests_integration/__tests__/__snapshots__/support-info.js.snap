@@ -295,7 +295,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".sjs\\",
         \\".ssjs\\",
         \\".xsjs\\",
-        \\".xsjslib\\"
+        \\".xsjslib\\",
+        \\".wxs\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
       \\"interpreters\\": [
@@ -504,7 +505,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"text/css\\",
       \\"codemirrorMode\\": \\"css\\",
       \\"color\\": \\"#563d7c\\",
-      \\"extensions\\": [\\".css\\"],
+      \\"extensions\\": [\\".css\\", \\".wxss\\"],
       \\"linguistLanguageId\\": 50,
       \\"name\\": \\"CSS\\",
       \\"parsers\\": [\\"css\\"],
