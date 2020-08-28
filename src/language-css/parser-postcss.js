@@ -606,26 +606,9 @@ function parseWithParser(parse, text, options) {
   return result;
 }
 
-// TODO: make this only work on css
 function parseCss(text, parsers, options) {
-  const isSCSSParser = isSCSS(options.parser, text);
-  const parseFunctions = isSCSSParser
-    ? [parseScss, parseLess]
-    : [parseLess, parseScss];
-
-  let error;
-  for (const parse of parseFunctions) {
-    try {
-      return parse(text, parsers, options);
-    } catch (parseError) {
-      error = error || parseError;
-    }
-  }
-
-  /* istanbul ignore next */
-  if (error) {
-    throw error;
-  }
+  const { parse } = require("postcss");
+  return parseWithParser(parse, text, options);
 }
 
 function parseLess(text, parsers, options) {
