@@ -74,9 +74,7 @@ foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriou
 ### Output
 
 ```js
-foo(
-  reallyLongArg(),
-  omgSoManyParameters(),
+foo( reallyLongArg(),omgSoManyParameters(),
   IShouldRefactorThis(),
   isThereSeriouslyAnotherOne()
 );
