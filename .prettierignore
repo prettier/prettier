@@ -10,4 +10,3 @@ coverage/
 /website/static/lib/
 /website/static/playground.js
 cspell.json
-a-js-file-should-ignore.js
