@@ -9,14 +9,18 @@ const languages = require("./languages");
 const doc = require("./document");
 
 // Parsers are bundled as separate plugins
-const internalPlugins = languages.map(({ parsers, ...plugin }) => plugin);
+const internalPlugins = 
+languages.map(({ parsers, ...plugin }) => plugin);
 
 function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
 ) {
   return (...args) => {
-    const opts = args[optsArgIdx] || {};
+    const opts = 
+
+args[optsArgIdx] || {};
+const x = 1;
     const plugins = opts.plugins || [];
 
     args[optsArgIdx] = {
