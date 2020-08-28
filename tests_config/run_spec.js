@@ -82,7 +82,7 @@ const shouldThrowOnVerify = (filename, options) => {
 const isTestDirectory = (dirname, name) =>
   dirname.startsWith(path.join(__dirname, "../tests", name));
 
-global.run_spec = (fixtures, parsers, options) => {
+function runSpec(fixtures, parsers, options) {
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
 
@@ -307,7 +307,7 @@ global.run_spec = (fixtures, parsers, options) => {
       }
     });
   }
-};
+}
 
 function parse(source, options) {
   return prettier.__debug.parse(source, options, /* massage */ true).ast;
@@ -356,3 +356,5 @@ function format(text, options) {
     eolVisualizedOutput,
   };
 }
+
+module.exports = runSpec;
