@@ -62,8 +62,9 @@ function resolvePluginsConflict(
   return combinations;
 }
 
+// Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
-const FLOW_PRAGMA_REGEX = /\*?\s*@(?:no)?flow\b/;
+const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
 function isFlowFile(text, options) {
   if (options.filepath && options.filepath.endsWith(".js.flow")) {
     return true;
