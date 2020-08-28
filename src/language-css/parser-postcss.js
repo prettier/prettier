@@ -371,7 +371,7 @@ function parseNestedCSS(node, options) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedPropertyNode(node)) {
+      if (isSCSSNestedPropertyNode(node, options)) {
         node.isSCSSNesterProperty = true;
       }
 
