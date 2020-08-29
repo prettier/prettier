@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function babelOptions({ sourceType, extraPlugins = [] }) {
@@ -16,30 +16,28 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
     errorRecovery: true,
     createParenthesizedExpressions: true,
     plugins: [
+      // When adding a plugin, please add a test in `tests/js/babel-plugins`,
+      // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+
       "doExpressions",
-      "objectRestSpread",
       "classProperties",
       "exportDefaultFrom",
-      "exportNamespaceFrom",
-      "asyncGenerators",
       "functionBind",
       "functionSent",
-      "dynamicImport",
-      "numericSeparator",
-      "importMeta",
-      "optionalCatchBinding",
-      "optionalChaining",
       "classPrivateProperties",
-      "nullishCoalescingOperator",
-      "bigInt",
       "throwExpressions",
-      "logicalAssignment",
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
       ["decorators", { decoratorsBeforeExport: false }],
+      "privateIn",
+      ["moduleAttributes", { version: "may-2020" }],
+      ["recordAndTuple", { syntaxType: "hash" }],
+      "decimal",
       ...extraPlugins,
     ],
+    tokens: true,
+    ranges: true,
   };
 }
 
@@ -90,15 +88,17 @@ function createParse(parseMethod, ...pluginCombinations) {
         // babel error prints (l:c) with cols that are zero indexed
         // so we need our custom error
         error.message.replace(/ \(.*\)/, ""),
-        {
-          start: {
-            line: error.loc.line,
-            column: error.loc.column + 1,
-          },
-        }
+        error.loc
+          ? {
+              start: {
+                line: error.loc.line,
+                column: error.loc.column + 1,
+              },
+            }
+          : { start: { line: 0, column: 0 } }
       );
     }
-    delete ast.tokens;
+
     return postprocess(ast, { ...opts, originalText: text });
   };
 }
@@ -134,7 +134,16 @@ function rethrowSomeRecoveredErrors(ast) {
     for (const error of ast.errors) {
       if (
         typeof error.message === "string" &&
-        error.message.startsWith("Did not expect a type annotation here.")
+        (error.message.startsWith(
+          // UnexpectedTypeAnnotation
+          // https://github.com/babel/babel/blob/2f31ecf85d85cb100fa08d4d9a09de0fe4a117e4/packages/babel-parser/src/plugins/typescript/index.js#L88
+          "Did not expect a type annotation here."
+        ) ||
+          error.message.startsWith(
+            // ModuleAttributeDifferentFromType
+            // https://github.com/babel/babel/blob/bda759ac3dce548f021ca24e9182b6e6f7c218e3/packages/babel-parser/src/parser/location.js#L99
+            "The only accepted module attribute is `type`"
+          ))
       ) {
         throw error;
       }
@@ -206,7 +215,7 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = { parse, astFormat: "estree", hasPragma, ...locFns };
+const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 const babelFlow = { ...babel, parse: parseFlow };
 const babelTypeScript = { ...babel, parse: parseTypeScript };
 const babelExpression = { ...babel, parse: parseExpression };
@@ -227,7 +236,8 @@ module.exports = {
     "json-stringify": {
       parse: parseJson,
       astFormat: "estree-json",
-      ...locFns,
+      locStart,
+      locEnd,
     },
     /** @internal */
     __js_expression: babelExpression,

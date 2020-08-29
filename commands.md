@@ -229,7 +229,7 @@ declare function markAsRoot(doc: Doc): Doc;
 
 This marks the current indentation as root for `dedentToRoot` and `literalline`s.
 
-#### dedentToRoot
+### dedentToRoot
 
 ```ts
 declare function dedentToRoot(doc: Doc): Doc;

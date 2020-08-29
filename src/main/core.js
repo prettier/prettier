@@ -2,21 +2,21 @@
 
 const diff = require("diff");
 
+const {
+  printer: { printDocToString },
+  debug: { printDocToDebug },
+} = require("../document");
+const { getAlignmentSize } = require("../common/util");
+const {
+  guessEndOfLine,
+  convertEndOfLineToChars,
+} = require("../common/end-of-line");
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
 const comments = require("./comments");
 const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
-const {
-  guessEndOfLine,
-  convertEndOfLineToChars,
-} = require("../common/end-of-line");
 const rangeUtil = require("./range-util");
-const privateUtil = require("../common/util");
-const {
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = require("../document");
 
 const BOM = "\uFEFF";
 
@@ -27,39 +27,15 @@ const PLACEHOLDERS = {
   rangeEnd: "<<<PRETTIER_RANGE_END>>>",
 };
 
-function ensureAllCommentsPrinted(astComments) {
-  if (!astComments) {
-    return;
-  }
-
-  for (let i = 0; i < astComments.length; ++i) {
-    if (privateUtil.isNodeIgnoreComment(astComments[i])) {
-      // If there's a prettier-ignore, we're not printing that sub-tree so we
-      // don't know if the comments was printed or not.
-      return;
-    }
-  }
-
-  astComments.forEach((comment) => {
-    if (!comment.printed) {
-      throw new Error(
-        'Comment "' +
-          comment.value.trim() +
-          '" was not printed. Please report this error!'
-      );
-    }
-    delete comment.printed;
-  });
-}
-
 function attachComments(text, ast, opts) {
   const astComments = ast.comments;
   if (astComments) {
     delete ast.comments;
     comments.attach(astComments, ast, text, opts);
   }
-  ast.tokens = [];
-  opts.originalText = opts.parser === "yaml" ? text : text.trimEnd();
+  opts[Symbol.for("comments")] = astComments || [];
+  opts[Symbol.for("tokens")] = ast.tokens || [];
+  opts.originalText = text;
   return astComments;
 }
 
@@ -86,7 +62,7 @@ function coreFormat(text, opts, addAlignmentSize) {
 
   const result = printDocToString(doc, opts);
 
-  ensureAllCommentsPrinted(astComments);
+  comments.ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
@@ -175,8 +151,7 @@ function formatRange(text, opts) {
   const { ast } = parsed;
   text = parsed.text;
 
-  const range = rangeUtil.calculateRange(text, opts, ast);
-  const { rangeStart, rangeEnd } = range;
+  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
@@ -186,12 +161,9 @@ function formatRange(text, opts) {
     rangeStart,
     text.lastIndexOf("\n", rangeStart) + 1
   );
-  const indentString = text.slice(rangeStart2, rangeStart);
+  const indentString = text.slice(rangeStart2, rangeStart).match(/^\s*/)[0];
 
-  const alignmentSize = privateUtil.getAlignmentSize(
-    indentString,
-    opts.tabWidth
-  );
+  const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
   const rangeResult = coreFormat(
     rangeString,

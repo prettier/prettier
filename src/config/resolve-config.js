@@ -1,13 +1,13 @@
 "use strict";
 
-const thirdParty = require("../common/third-party");
-const minimatch = require("minimatch");
 const path = require("path");
+const minimatch = require("minimatch");
 const mem = require("mem");
+const thirdParty = require("../common/third-party");
 
-const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
 const resolve = require("../common/resolve");
+const resolveEditorConfig = require("./resolve-config-editorconfig");
 
 const getExplorerMemoized = mem(
   (opts) => {

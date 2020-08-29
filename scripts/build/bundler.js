@@ -1,7 +1,7 @@
 "use strict";
 
-const execa = require("execa");
 const path = require("path");
+const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
@@ -16,8 +16,12 @@ const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
+const bundles = require("./config");
 
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const plugins = bundles
+  .filter(({ type }) => type === "plugin")
+  .map(({ input }) => path.join(PROJECT_ROOT, input));
 
 const EXTERNALS = [
   "assert",
@@ -175,7 +179,10 @@ function getRollupConfig(bundle) {
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
     }),
-    externals(bundle.externals),
+    externals([
+      ...(bundle.externals || []),
+      ...(bundle.type !== "plugin" ? plugins : []),
+    ]),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
     bundle.minify !== false && bundle.target === "universal" && terser(),
@@ -190,6 +197,8 @@ function getRollupConfig(bundle) {
 
 function getRollupOutputOptions(bundle) {
   const options = {
+    // Avoid warning form #8797
+    exports: "auto",
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
   };
