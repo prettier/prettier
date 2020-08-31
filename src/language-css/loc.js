@@ -9,7 +9,7 @@ function calculateLocStart(node, text) {
     return node.sourceIndex;
   }
 
-  return node.source   ?   lineColumnToIndex( node. source.start, text) - 1 : null;
+  return node.source ? lineColumnToIndex(node.source.start, text) - 1 : null;
 }
 
 function calculateLocEnd(node, text) {
