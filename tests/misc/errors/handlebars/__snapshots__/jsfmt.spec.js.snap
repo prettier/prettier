@@ -9,3 +9,21 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
 > 2 | x, {{@name}
   3 | "
 `;
+
+exports[`tilde-comments-1.hbs error test 1`] = `
+"Parse error on line 1:
+{{~}}
+---^
+Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:0)
+> 1 | {{~}}
+  2 | "
+`;
+
+exports[`tilde-comments-2.hbs error test 1`] = `
+"Parse error on line 1:
+{{~~}}
+---^
+Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:0)
+> 1 | {{~~}}
+  2 | "
+`;
