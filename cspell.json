@@ -405,6 +405,7 @@
         "ve{2,}r{2,}y",
         "ve+r+y+long\\w*",
         "\\/.*?\\/",
+        "\\(https?://.*?\\)",
         "author: \".*?\"",
         "authorURL: \".*?\"",
         "\"author\": \".*?\""
@@ -415,8 +416,8 @@
         "**/yarn.lock",
         "{coverage,dist,.cache,.git,.vscode,.DS_Store,tests}/**/*",
         "!tests/**/jsfmt.spec.js",
-        "*.{log,svg,snap}",
-        "test.*",
+        "*.{log,svg,snap,png}",
+        "test*.*",
         "website/data/users.yml",
         "website/build/**",
         "website/playground/codeSamples.js",
