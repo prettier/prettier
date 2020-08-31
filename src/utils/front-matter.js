@@ -1,6 +1,9 @@
 "use strict";
 
 const escape = require("escape-string-regexp");
+const {
+  builders: { hardline, concat, markAsRoot },
+} = require("../document");
 
 const DELIMITER_MAP = {
   "---": "yaml",
@@ -38,4 +41,16 @@ function parse(text) {
   };
 }
 
-module.exports = parse;
+function print(node, textToDoc) {
+  if (node.lang === "yaml") {
+    const value = node.value.trim();
+    const doc = value
+      ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
+      : "";
+    return markAsRoot(
+      concat(["---", hardline, doc, doc ? hardline : "", "---"])
+    );
+  }
+}
+
+module.exports = { parse, print };

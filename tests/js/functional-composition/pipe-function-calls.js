@@ -16,7 +16,7 @@
     )
   )()
     .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
+    .catch((err) => {
       logger.error(
         pipe(
           O.fromNullable(err.stack),

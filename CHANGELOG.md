@@ -1,3 +1,99 @@
+# 2.1.1
+
+[diff](https://github.com/prettier/prettier/compare/2.1.0...2.1.1)
+
+#### Fix format on html with frontMatter ([#9043](https://github.com/prettier/prettier/pull/9043) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+---
+layout: foo
+---
+
+Test <a
+href="https://prettier.io">abc</a>.
+
+<!-- Prettier stable -->
+TypeError: Cannot read property 'end' of undefined
+  ...
+
+<!-- Prettier master -->
+---
+layout: foo
+---
+
+Test <a href="https://prettier.io">abc</a>.
+```
+
+#### Fix broken format for `...infer T` ([#9044](https://github.com/prettier/prettier/pull/9044) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```typescript
+// Input
+type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
+
+// Prettier stable
+type Tail<T extends any[]> = T extends [infer U, ...(infer R)] ? R : never;
+
+// Prettier master
+type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
+```
+
+#### Fix format on `style[lang="sass"]` ([#9051](https://github.com/prettier/prettier/pull/9051) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+<!-- Input -->
+<style lang="sass">
+.hero
+  @include background-centered
+</style>
+
+<!-- Prettier stable -->
+<style lang="sass">
+.hero @include background-centered;
+</style>
+
+<!-- Prettier master -->
+<style lang="sass">
+  .hero
+    @include background-centered
+</style>
+```
+
+#### Fix self-closing blocks and blocks with `src` attribute format ([#9052](https://github.com/prettier/prettier/pull/9052), [#9055](https://github.com/prettier/prettier/pull/9055) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<custom lang="markdown" src="./foo.md"></custom>
+<custom lang="markdown" src="./foo.md" />
+<custom lang="markdown" />
+
+<!-- Prettier stable -->
+<custom lang="markdown" src="./foo.md">
+
+</custom>
+<custom lang="markdown" src="./foo.md"
+
+/>
+<custom lang="markdown"
+
+/>
+
+<!-- Prettier master -->
+<custom lang="markdown" src="./foo.md"></custom>
+<custom lang="markdown" src="./foo.md" />
+<custom lang="markdown" />
+```
+
+# 2.1.0
+
+[diff](https://github.com/prettier/prettier/compare/2.0.5...2.1.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2020/08/24/2.1.0.html)
+
 # 2.0.5
 
 [diff](https://github.com/prettier/prettier/compare/2.0.4...2.0.5)

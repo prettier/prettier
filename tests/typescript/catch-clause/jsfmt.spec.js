@@ -1,1 +1,1 @@
-run_spec(__dirname, ["typescript"], { disableBabelTS: ["type-annotation.ts"] });
+run_spec(__dirname, ["typescript"]);

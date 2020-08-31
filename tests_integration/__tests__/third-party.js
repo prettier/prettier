@@ -2,7 +2,7 @@
 
 const path = require("path");
 const { thirdParty } = require("../env");
-const { cosmiconfig, cosmiconfigSync } = require(thirdParty);
+const { cosmiconfig, cosmiconfigSync, isCI } = require(thirdParty);
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
@@ -61,4 +61,8 @@ describe("cosmiconfig", () => {
       );
     }).toThrowErrorMatchingSnapshot();
   });
+});
+
+test("isCI", () => {
+  expect(typeof isCI()).toEqual("boolean");
 });
