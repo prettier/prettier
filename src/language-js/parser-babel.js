@@ -131,7 +131,8 @@ function tryCombinations(fn, combinations) {
 }
 
 const messagesShouldThrow = new Set([
-  // `UnexpectedTypeAnnotation` not exported
+  // `TSErrors.UnexpectedTypeAnnotation` not exported
+  // https://github.com/babel/babel/blob/008fe25ae22e78288fbc637d41069bb4a1040987/packages/babel-parser/src/plugins/typescript/index.js#L95
   "Did not expect a type annotation here.",
   ErrorMessages.ModuleAttributeDifferentFromType,
 ]);
