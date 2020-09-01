@@ -1,6 +1,10 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const {
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getShebang,
+} = require("../common/util");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
@@ -58,13 +62,43 @@ function resolvePluginsConflict(
   return combinations;
 }
 
+// Similar to babel
+// https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
+const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
+function isFlowFile(text, options) {
+  if (options.filepath && options.filepath.endsWith(".js.flow")) {
+    return true;
+  }
+
+  const shebang = getShebang(text);
+  if (shebang) {
+    text = text.slice(shebang.length);
+  }
+
+  const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    0
+  );
+
+  if (firstNonSpaceNonCommentCharacterIndex !== false) {
+    text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
+  }
+
+  return FLOW_PRAGMA_REGEX.test(text);
+}
+
 function createParse(parseMethod, ...pluginCombinations) {
-  return (text, parsers, opts) => {
+  return (text, parsers, opts = {}) => {
+    if (opts.parser === "babel" && isFlowFile(text, opts)) {
+      opts.parser = "babel-flow";
+      return parseFlow(text, parsers, opts);
+    }
+
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
     const sourceType =
-      opts && opts.__babelSourceType === "script" ? "script" : "module";
+      opts.__babelSourceType === "script" ? "script" : "module";
 
     let ast;
     try {

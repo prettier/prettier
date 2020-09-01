@@ -117,7 +117,6 @@
         "Filipe",
         "finalizer",
         "Fiorini",
-        "fisker",
         "fnames",
         "foldgutter",
         "formatprg",
@@ -354,6 +353,7 @@
         "Transloadit",
         "TSAs",
         "tsep",
+        "TSESTree",
         "TSJS",
         "tslib",
         "typeahead",
@@ -389,7 +389,9 @@
         "Wadler",
         "Wadler's",
         "webstorm",
+        "Weixin",
         "whitespaces",
+        "wxss",
         "xargs",
         "yamafaktory",
         "Yatharth",
@@ -399,10 +401,14 @@
     "ignoreRegExpList": [
         "<!-- prettier-ignore -->\\n(`{3,})\\w*\\n[\\s\\S]+?\\1",
         "\\[(\\*{2})?@[-\\w]+?\\1\\]",
+        "by @[-\\w]+",
         "\\[`\\w+`\\]",
         "ve{2,}r{2,}y",
         "ve+r+y+long\\w*",
-        "\\/.*?\\/"
+        "\\/.*?\\/",
+        "author: \".*?\"",
+        "authorURL: \".*?\"",
+        "\"author\": \".*?\""
     ],
     "ignorePaths": [
         "cspell.json",

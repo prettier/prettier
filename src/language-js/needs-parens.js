@@ -1,5 +1,6 @@
 "use strict";
 
+/** @type {import("assert")} */
 const assert = require("assert");
 
 const {
@@ -140,8 +141,8 @@ function needsParens(path, options) {
 
   if (
     (parent.type === "ArrowFunctionExpression" &&
-    parent.body === node &&
-    node.type !== "SequenceExpression" && // these have parens added anyway
+      parent.body === node &&
+      node.type !== "SequenceExpression" && // these have parens added anyway
       startsWithNoLookaheadToken(
         node,
         /* forbidFunctionClassAndDoExpr */ false
@@ -155,11 +156,7 @@ function needsParens(path, options) {
   switch (node.type) {
     case "SpreadElement":
     case "SpreadProperty":
-      return (
-        parent.type === "MemberExpression" &&
-        name === "object" &&
-        parent.object === node
-      );
+      return parent.type === "MemberExpression" && name === "object";
 
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
@@ -416,8 +413,12 @@ function needsParens(path, options) {
         return true;
       }
     // fallthrough
-    case "TSTypeOperator":
     case "TSInferType":
+      if (node.type === "TSInferType" && parent.type === "TSRestType") {
+        return false;
+      }
+    // fallthrough
+    case "TSTypeOperator":
       return (
         parent.type === "TSArrayType" ||
         parent.type === "TSOptionalType" ||
@@ -489,8 +490,7 @@ function needsParens(path, options) {
       return (
         parent.type === "MemberExpression" &&
         typeof node.value === "number" &&
-        name === "object" &&
-        parent.object === node
+        name === "object"
       );
 
     case "AssignmentExpression": {
@@ -729,8 +729,7 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator" &&
-          parent.type !== "YieldExpression")
+          parent.type !== "VariableDeclarator")
       );
     case "TypeAnnotation":
       return (

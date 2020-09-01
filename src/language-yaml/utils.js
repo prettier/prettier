@@ -165,6 +165,7 @@ function splitWithSingleSpace(text) {
 
   let lastPart;
   for (const part of text.split(/( +)/g)) {
+    /* istanbul ignore else */
     if (part !== " ") {
       if (lastPart === " ") {
         parts.push(part);
@@ -178,6 +179,7 @@ function splitWithSingleSpace(text) {
     lastPart = part;
   }
 
+  /* istanbul ignore next */
   if (lastPart === " ") {
     parts.push((parts.pop() || "") + " ");
   }

@@ -45,6 +45,7 @@ const tokenizeEsSyntax = (eat, value) => {
   }
 };
 
+/* istanbul ignore next */
 tokenizeEsSyntax.locator = (value /*, fromIndex*/) => {
   return isExport(value) || isImport(value) ? -1 : 1;
 };

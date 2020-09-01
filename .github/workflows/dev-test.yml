@@ -9,6 +9,7 @@ on:
 
 jobs:
   test:
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -36,9 +37,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.2
 
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.1
@@ -63,7 +62,7 @@ jobs:
         run: yarn test --maxWorkers=2
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v1.0.12
+        uses: codecov/codecov-action@v1.0.13
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -77,7 +76,7 @@ jobs:
           PRETTIER_FALLBACK_RESOLVE: true
 
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v1.0.12
+        uses: codecov/codecov-action@v1.0.13
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
