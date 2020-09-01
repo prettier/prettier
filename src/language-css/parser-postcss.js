@@ -6,7 +6,6 @@ const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
   hasStringOrFunction,
-  isLessParser,
   isSCSS,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
@@ -414,7 +413,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (
-      isLessParser(options) &&
+      options.parser === "less" &&
       node.type === "css-decl" &&
       value.startsWith("extend(")
     ) {
@@ -431,7 +430,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule") {
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         // mixin
         if (node.mixin) {
           const source =
@@ -461,7 +460,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         // Whitespace between variable and colon
         if (node.name.includes(":") && !node.params) {
           node.variable = true;
