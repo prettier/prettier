@@ -3682,13 +3682,15 @@ function printMethod(path, options, print) {
     if (value.async) {
       parts.push("async ");
     }
-    if (value.generator) {
-      parts.push("*");
-    }
   } else {
     assert.ok(kind === "get" || kind === "set");
 
     parts.push(kind, " ");
+  }
+
+  // A `getter`/`setter` can't be a generator, but it's recoverable
+  if (value.generator) {
+    parts.push("*");
   }
 
   parts.push(
