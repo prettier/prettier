@@ -48,6 +48,9 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      case "ChainExpression": {
+        return transformChainExpression(node.expression);
+      }
       case "LogicalExpression": {
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
@@ -187,5 +190,23 @@ function includeShebang(ast, options) {
     });
   }
 }
+
+// This is a workaround to transform `ChainExpression` from `typescript-estree` into
+// `babel` shape AST, we should do the opposite, since `ChainExpression` is the
+// standard `estree` AST for `optional chaining`
+// https://github.com/estree/estree/blob/master/es2020.md
+function transformChainExpression(node) {
+  if (node.type === "CallExpression") {
+    node.type = "OptionalCallExpression";
+    node.callee = transformChainExpression(node.callee);
+  } else if (node.type === "MemberExpression") {
+    node.type = "OptionalMemberExpression";
+    node.object = transformChainExpression(node.object);
+  } else if (node.type === "TSNonNullExpression") {
+    node.expression = transformChainExpression(node.expression);
+  }
+  return node;
+}
+
 
 module.exports = postprocess;
