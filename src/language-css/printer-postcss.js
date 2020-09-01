@@ -38,9 +38,7 @@ const {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
-  isSCSS,
   isLastNode,
-  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -101,7 +99,7 @@ function genericPrint(path, options, print) {
       return concat([
         nodes,
         after ? ` ${after}` : "",
-        nodes.parts.length && !options.__isHTMLStyleAttribute ? hardline : "",
+        nodes.parts.length ? hardline : "",
       ]);
     }
     case "css-comment": {
@@ -158,7 +156,7 @@ function genericPrint(path, options, print) {
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend ? "" : " ",
-        isLessParser(options) && node.extend && node.selector
+        options.parser === "less" && node.extend && node.selector
           ? concat(["extend(", path.call(print, "selector"), ")"])
           : "",
         value,
@@ -202,7 +200,7 @@ function genericPrint(path, options, print) {
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
 
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         if (node.mixin) {
           return concat([
             path.call(print, "selector"),
@@ -278,7 +276,7 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "value"),
-                isSCSSControlDirectiveNode(node)
+                isSCSSControlDirectiveNode(node, options)
                   ? hasParensAroundNode(node)
                     ? " "
                     : line
@@ -290,7 +288,7 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node)
+              isSCSSControlDirectiveNode(node, options)
                 ? ""
                 : (node.selector &&
                     !node.selector.nodes &&
@@ -538,7 +536,8 @@ function genericPrint(path, options, print) {
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
-        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
+        atRuleAncestorNode &&
+        isSCSSControlDirectiveNode(atRuleAncestorNode, options);
 
       const printed = path.map(print, "groups");
       const parts = [];
@@ -857,7 +856,7 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
-      const isSCSSMapItem = isSCSSMapItemNode(path);
+      const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
@@ -896,7 +895,7 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             !isLastItemComment &&
-              isSCSS(options.parser, options.originalText) &&
+              options.parser === "scss" &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","

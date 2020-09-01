@@ -6,8 +6,6 @@ const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
   hasStringOrFunction,
-  isLessParser,
-  isSCSS,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
@@ -41,7 +39,7 @@ function parseValueNode(valueNode, options) {
     const node = nodes[i];
 
     if (
-      isSCSS(options.parser, node.value) &&
+      options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
       node.value[node.value.length - 1] === "."
@@ -81,7 +79,8 @@ function parseValueNode(valueNode, options) {
       // Stringify if the value parser can't handle the content.
       if (
         hasSCSSInterpolation(groupList) ||
-        (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
+        (!hasStringOrFunction(groupList) &&
+          !isSCSSVariable(groupList[0], options))
       ) {
         const stringifiedContent = stringifyNode({
           groups: node.group.groups,
@@ -371,7 +370,7 @@ function parseNestedCSS(node, options) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedPropertyNode(node)) {
+      if (isSCSSNestedPropertyNode(node, options)) {
         node.isSCSSNesterProperty = true;
       }
 
@@ -414,7 +413,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (
-      isLessParser(options) &&
+      options.parser === "less" &&
       node.type === "css-decl" &&
       value.startsWith("extend(")
     ) {
@@ -431,7 +430,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule") {
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         // mixin
         if (node.mixin) {
           const source =
@@ -461,7 +460,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         // Whitespace between variable and colon
         if (node.name.includes(":") && !node.params) {
           node.variable = true;
@@ -606,26 +605,9 @@ function parseWithParser(parse, text, options) {
   return result;
 }
 
-// TODO: make this only work on css
 function parseCss(text, parsers, options) {
-  const isSCSSParser = isSCSS(options.parser, text);
-  const parseFunctions = isSCSSParser
-    ? [parseScss, parseLess]
-    : [parseLess, parseScss];
-
-  let error;
-  for (const parse of parseFunctions) {
-    try {
-      return parse(text, parsers, options);
-    } catch (parseError) {
-      error = error || parseError;
-    }
-  }
-
-  /* istanbul ignore next */
-  if (error) {
-    throw error;
-  }
+  const { parse } = require("postcss");
+  return parseWithParser(parse, text, options);
 }
 
 function parseLess(text, parsers, options) {
