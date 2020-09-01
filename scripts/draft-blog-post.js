@@ -67,13 +67,7 @@ for (const dir of dirs) {
       return {
         breaking: title.includes("[BREAKING]"),
         highlight: title.includes("[HIGHLIGHT]"),
-        content: [
-          title
-            .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
-            .replace(/\s+/g, " ")
-            .replace(/^#{4} [a-z]/, (s) => s.toUpperCase()),
-          ...rest,
-        ].join("\n"),
+        content: [processTitle(title), ...rest].join("\n"),
       };
     });
 }
@@ -101,6 +95,18 @@ fs.writeFileSync(
     ].join("\n\n") + "\n"
   )
 );
+
+function processTitle(title) {
+  return title
+    .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
+    .replace(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
+    .replace(
+      /(?<![[`])#(\d{4,})/g,
+      "[#$1](https://github.com/prettier/prettier/pull/$1)"
+    );
+}
 
 function printEntries({ title, filter }) {
   const result = [];

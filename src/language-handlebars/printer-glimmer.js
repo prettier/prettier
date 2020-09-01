@@ -10,6 +10,7 @@ const {
   line,
   softline,
 } = require("../document").builders;
+const locationToOffset = require("../utils/line-column-to-index");
 
 const clean = require("./clean");
 const {
@@ -36,16 +37,8 @@ function print(path, options, print) {
   }
 
   if (hasPrettierIgnore(path)) {
-    const startOffset = locationToOffset(
-      options.originalText,
-      n.loc.start.line - 1,
-      n.loc.start.column
-    );
-    const endOffset = locationToOffset(
-      options.originalText,
-      n.loc.end.line - 1,
-      n.loc.end.column
-    );
+    const startOffset = locationToOffset(n.loc.start, options.originalText);
+    const endOffset = locationToOffset(n.loc.end, options.originalText);
 
     const ignoredText = options.originalText.slice(startOffset, endOffset);
     return ignoredText;
@@ -656,37 +649,6 @@ function printBlockParams(node) {
   }
 
   return concat([" as |", node.blockParams.join(" "), "|"]);
-}
-
-/* istanbul ignore next
-   https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/compiler/lib/location.ts#L5-L29
-*/
-function locationToOffset(source, line, column) {
-  let seenLines = 0;
-  let seenChars = 0;
-
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    if (seenChars === source.length) {
-      return null;
-    }
-
-    let nextLine = source.indexOf("\n", seenChars);
-    if (nextLine === -1) {
-      nextLine = source.length;
-    }
-
-    if (seenLines === line) {
-      if (seenChars + column > nextLine) {
-        return null;
-      }
-      return seenChars + column;
-    } else if (nextLine === -1) {
-      return null;
-    }
-    seenLines += 1;
-    seenChars = nextLine + 1;
-  }
 }
 
 function doesNotHaveHashParams(node) {
