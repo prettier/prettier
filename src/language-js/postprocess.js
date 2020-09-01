@@ -208,5 +208,4 @@ function transformChainExpression(node) {
   return node;
 }
 
-
 module.exports = postprocess;
