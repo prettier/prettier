@@ -132,8 +132,12 @@ function genericPrint(path, options, print) {
         const parentNode = path.getParentNode();
         const index = parentNode.children.indexOf(node);
         const prevNode = parentNode.children[index - 1];
-        if (prevNode && prevNode.type === "whitespace" && prevNode.value === "\n") {
-          return ""
+        if (
+          prevNode &&
+          prevNode.type === "whitespace" &&
+          prevNode.value === "\n"
+        ) {
+          return "";
         }
       }
 
@@ -149,8 +153,13 @@ function genericPrint(path, options, print) {
         nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
-      let {value} = node;
-      if (node.value === "\n" && nextNode && nextNode.type === "word" && nextNode.value === ">") {
+      let { value } = node;
+      if (
+        node.value === "\n" &&
+        nextNode &&
+        nextNode.type === "word" &&
+        nextNode.value === ">"
+      ) {
         value = "";
       }
       return printLine(path, value, { proseWrap });
