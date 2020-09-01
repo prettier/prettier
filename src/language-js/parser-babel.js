@@ -1,6 +1,5 @@
 "use strict";
 
-const { ErrorMessages } = require("@babel/parser/lib/parser/error-message");
 const createError = require("../common/parser-create-error");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -165,10 +164,15 @@ function tryCombinations(fn, combinations) {
 }
 
 const messagesShouldThrow = new Set([
-  // `TSErrors.UnexpectedTypeAnnotation` not exported
+  // TSErrors.UnexpectedTypeAnnotation
   // https://github.com/babel/babel/blob/008fe25ae22e78288fbc637d41069bb4a1040987/packages/babel-parser/src/plugins/typescript/index.js#L95
   "Did not expect a type annotation here.",
-  ErrorMessages.ModuleAttributeDifferentFromType,
+  // ErrorMessages.ModuleAttributeDifferentFromType
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/parser/error-message.js#L92
+  "The only accepted module attribute is `type`",
+  // FlowErrors.UnexpectedTypeParameterBeforeAsyncArrowFunction
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/plugins/flow.js#L118
+  "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
 ]);
 
 function shouldRethrow(error) {
