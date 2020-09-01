@@ -3,5 +3,7 @@
 
 ({
     get *iterator() { },
-    set *iterator(iter) { }
+    set *iterator(iter) { },
+    get iterator2() { },
+    set iterator2(iter) { },
 });
