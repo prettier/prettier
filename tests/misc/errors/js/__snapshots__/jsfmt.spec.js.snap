@@ -18,6 +18,15 @@ exports[`module-attributes.js error test 1`] = `
   2 | "
 `;
 
+exports[`no-for-in-init-concise-binary-in.js error test 1`] = `
+"Unexpected token, expected \\")\\" (3:18)
+  1 | // https://github.com/babel/babel/pull/11931
+  2 | 
+> 3 | for (() => x in y;;);
+    |                  ^
+  4 | "
+`;
+
 exports[`partial-template-strings.js error test 1`] = `
 "Unexpected token (6:42)
   4 | 
