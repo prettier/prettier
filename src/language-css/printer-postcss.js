@@ -40,7 +40,6 @@ const {
   isWideKeywords,
   isSCSS,
   isLastNode,
-  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -158,7 +157,7 @@ function genericPrint(path, options, print) {
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend ? "" : " ",
-        isLessParser(options) && node.extend && node.selector
+        options.parser === "less" && node.extend && node.selector
           ? concat(["extend(", path.call(print, "selector"), ")"])
           : "",
         value,
@@ -202,7 +201,7 @@ function genericPrint(path, options, print) {
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
 
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         if (node.mixin) {
           return concat([
             path.call(print, "selector"),
