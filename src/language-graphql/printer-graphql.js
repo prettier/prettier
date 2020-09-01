@@ -611,7 +611,24 @@ function printDirectives(path, print, n) {
     return "";
   }
 
-  return group(concat([line, join(line, path.map(print, "directives"))]));
+  if (n.kind === "FragmentDefinition" || n.kind === "OperationDefinition") {
+    return group(concat([line, join(line, path.map(print, "directives"))]));
+  }
+
+  return concat([
+    " ",
+    group(
+      indent(
+        concat([
+          softline,
+          join(
+            concat([ifBreak("", " "), softline]),
+            path.map(print, "directives")
+          ),
+        ])
+      )
+    ),
+  ]);
 }
 
 function printSequence(sequencePath, options, print) {
