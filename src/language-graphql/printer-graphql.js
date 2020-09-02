@@ -611,7 +611,13 @@ function printDirectives(path, print, n) {
     return "";
   }
 
-  return group(concat([line, join(line, path.map(print, "directives"))]));
+  const printed = join(line, path.map(print, "directives"));
+
+  if (n.kind === "FragmentDefinition" || n.kind === "OperationDefinition") {
+    return group(concat([line, printed]));
+  }
+
+  return concat([" ", group(indent(concat([softline, printed])))]);
 }
 
 function printSequence(sequencePath, options, print) {
