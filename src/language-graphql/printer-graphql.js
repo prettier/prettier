@@ -622,7 +622,7 @@ function printDirectives(path, print, n) {
         concat([
           softline,
           join(
-            concat([ifBreak("", " "), softline]),
+            line,
             path.map(print, "directives")
           ),
         ])
