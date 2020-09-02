@@ -128,18 +128,6 @@ function genericPrint(path, options, print) {
           prefix.replace(/\\/g, "")
         );
       }
-      if (escapedValue === ">") {
-        const parentNode = path.getParentNode();
-        const index = parentNode.children.indexOf(node);
-        const prevNode = parentNode.children[index - 1];
-        if (
-          prevNode &&
-          prevNode.type === "whitespace" &&
-          prevNode.value === "\n"
-        ) {
-          return "";
-        }
-      }
 
       return escapedValue;
     }
@@ -153,16 +141,8 @@ function genericPrint(path, options, print) {
         nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
-      let { value } = node;
-      if (
-        node.value === "\n" &&
-        nextNode &&
-        nextNode.type === "word" &&
-        nextNode.value === ">"
-      ) {
-        value = "";
-      }
-      return printLine(path, value, { proseWrap });
+
+      return printLine(path, node.value, { proseWrap });
     }
     case "emphasis": {
       let style;
