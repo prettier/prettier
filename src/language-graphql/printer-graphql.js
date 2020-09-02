@@ -618,15 +618,7 @@ function printDirectives(path, print, n) {
   return concat([
     " ",
     group(
-      indent(
-        concat([
-          softline,
-          join(
-            line,
-            path.map(print, "directives")
-          ),
-        ])
-      )
+      indent(concat([softline, join(line, path.map(print, "directives"))]))
     ),
   ]);
 }
