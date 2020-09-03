@@ -142,7 +142,7 @@ function genericPrint(path, options, print) {
                       options.originalText,
                       path.getValue(),
                       options.locStart
-                    )
+                    ) && node.type === "mappingValue"
                       ? hardline
                       : "",
                     print(path),
