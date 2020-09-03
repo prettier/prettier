@@ -113,6 +113,11 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "insertCjSpacing": Object {
+          "default": true,
+          "description": "Insert spaces wherever between Chinese or Japanese and non-CJK.",
+          "type": "boolean",
+        },
         "insertPragma": Object {
           "default": false,
           "description": "Insert @format pragma into file's first docblock comment.",

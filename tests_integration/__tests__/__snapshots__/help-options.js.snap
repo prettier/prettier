@@ -232,6 +232,19 @@ exports[`show detailed usage with --help ignore-unknown (stdout) 1`] = `
 
 exports[`show detailed usage with --help ignore-unknown (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help insert-cj-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help insert-cj-spacing (stdout) 1`] = `
+"--insert-cj-spacing
+
+  Insert spaces wherever between Chinese or Japanese and non-CJK.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help insert-cj-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help insert-pragma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help insert-pragma (stdout) 1`] = `

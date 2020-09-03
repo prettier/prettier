@@ -124,12 +124,13 @@ function splitText(text, options) {
     const lastNode = getLast(nodes);
     if (lastNode && lastNode.type === "word") {
       if (
-        (lastNode.kind === KIND_NON_CJK &&
+        options.insertCjSpacing &&
+        ((lastNode.kind === KIND_NON_CJK &&
           node.kind === KIND_CJ_LETTER &&
           !lastNode.hasTrailingPunctuation) ||
-        (lastNode.kind === KIND_CJ_LETTER &&
-          node.kind === KIND_NON_CJK &&
-          !node.hasLeadingPunctuation)
+          (lastNode.kind === KIND_CJ_LETTER &&
+            node.kind === KIND_NON_CJK &&
+            !node.hasLeadingPunctuation))
       ) {
         nodes.push({ type: "whitespace", value: " " });
       } else if (

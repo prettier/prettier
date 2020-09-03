@@ -131,6 +131,10 @@ Object {
       "default": "css",
       "type": "choice",
     },
+    "insertCjSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "insertPragma": Object {
       "default": false,
       "type": "boolean",
@@ -818,6 +822,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Markdown\\",
+      \\"default\\": true,
+      \\"description\\": \\"Insert spaces wherever between Chinese or Japanese and non-CJK.\\",
+      \\"name\\": \\"insertCjSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.1.2\\",
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Special\\",

@@ -80,6 +80,8 @@ Format options:
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
+  --insert-cj-spacing      Insert spaces wherever between Chinese or Japanese and non-CJK.
+                           Defaults to true.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
@@ -240,6 +242,8 @@ Format options:
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
+  --insert-cj-spacing      Insert spaces wherever between Chinese or Japanese and non-CJK.
+                           Defaults to true.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
