@@ -384,6 +384,134 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`align.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+
+---
+
+1.  123
+
+---
+
+1.  123
+2.  123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1.  123
+
+---
+
+1. 123
+2. 123
+   1.   123
+   2.   123
+
+---
+
+1.  123
+2.  123
+    1.   123
+    2.   123
+
+---
+
+- 123
+- 123
+  1.  123
+  2.  123
+
+=====================================output=====================================
+1.	123
+
+---
+
+11.	123
+
+---
+
+111.	123
+
+---
+
+1111.	123
+
+---
+
+11111.	123
+
+---
+
+1.	123
+
+---
+
+1.	123
+2.	123
+
+---
+
+11.	123
+1.	123
+
+---
+
+11.	123
+1.	123
+
+---
+
+1.	123
+2.	123
+	1.	123
+	2.	123
+
+---
+
+1.	123
+2.	123
+	1.	123
+	2.	123
+
+---
+
+-	123
+-	123
+	1.	123
+	2.	123
+
+================================================================================
+`;
+
 exports[`align.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -567,6 +695,26 @@ tabWidth: 999
       long paragraph.
 - [x] this is a long long long long long long long long long long long long long
       long paragraph.
+
+================================================================================
+`;
+
+exports[`checkbox.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- [ ] this is a long long long long long long long long long long long long long long paragraph.
+- [x] this is a long long long long long long long long long long long long long long paragraph.
+
+=====================================output=====================================
+-	[ ] this is a long long long long long long long long long long long long
+		long long paragraph.
+-	[x] this is a long long long long long long long long long long long long
+		long long paragraph.
 
 ================================================================================
 `;
@@ -830,6 +978,86 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`codeblock.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+1. ol01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+2. ol02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+=====================================output=====================================
+1.	ol01
+
+	\`\`\`js
+	const a = 1;
+
+	const b = 2;
+	\`\`\`
+
+2.	ol02
+
+	\`\`\`js
+	const a = 1;
+
+	const b = 2;
+	\`\`\`
+
+-	ul01
+
+	\`\`\`js
+	const a = 1;
+
+	const b = 2;
+	\`\`\`
+
+-	ul02
+
+	\`\`\`js
+	const a = 1;
+
+	const b = 2;
+	\`\`\`
+
+================================================================================
+`;
+
 exports[`codeblock.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -1020,6 +1248,43 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`combined-lists.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+* hello1
+
+* hello2
+
+
+* hello3
+
+* hello4
+
+
+* hello5
+
+* hello6
+=====================================output=====================================
+-	hello1
+
+-	hello2
+
+-	hello3
+
+-	hello4
+
+-	hello5
+
+-	hello6
+
+================================================================================
+`;
+
 exports[`combined-lists.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -1112,6 +1377,26 @@ tabWidth: 999
 5. abc
 1. def
 1. ghi
+
+================================================================================
+`;
+
+exports[`git-diff-friendly.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+5. abc
+1. def
+999. ghi
+
+=====================================output=====================================
+5.	abc
+1.	def
+1.	ghi
 
 ================================================================================
 `;
@@ -1816,6 +2101,233 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`indent.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+=====================================output=====================================
+-	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+		a a a a a a a a a a a a a a a a
+
+	-	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+		a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	-	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+			a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	1.	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+		a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	1.	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+			a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	12345678)	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+				a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b
+
+	12345678.	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+					a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b
+
+	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+	a a a a a a a a a a a a a a a
+
+1.	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+		a a a a a a a a a a a a a a a a
+
+	-	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+		a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	-	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+			a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	1.	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+		a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	1.	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+			a a a a a a a a a a a a a a a a
+
+		b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+		b b b b b b b b b b b b b b b b
+
+	12345678)	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+				a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b
+
+	12345678.	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+					a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b
+
+	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+	a a a a a a a a a a a a a a a
+
+12345678)	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+				a a a a a a a a a a a a a a a a
+
+			b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+			b b b b b b b b b b b b b b b b
+
+			-	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+				a a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b b
+
+			-	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+					a a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b b
+
+			1.	a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+				a a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b b
+
+			1.	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+					a a a a a a a a a a a a a a a a a
+
+				b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+				b b b b b b b b b b b b b b b b b
+
+			12345678)	a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+						a a a a a a a a a a a a a a a a a
+
+						b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+						b b b b b b b b b b b b b b b b b b
+
+			12345678.	[ ] a a a a a a a a a a a a a a a a a a a a a a a a a a
+							a a a a a a a a a a a a a a a a a
+
+						b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+						b b b b b b b b b b b b b b b b b b
+
+			a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+			a a a a a a a a a a a a a a a a
+
+================================================================================
+`;
+
 exports[`indent.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -2099,6 +2611,25 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`interrupt.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+* Something
+### Some heading
+
+=====================================output=====================================
+-	Something
+
+### Some heading
+
+================================================================================
+`;
+
 exports[`interrupt.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -2222,6 +2753,41 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`issue-7846.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+-	a a  
+	 b b  
+	 c c  
+	 d d  
+	e e
+
+1.	a a a  
+	 b b b  
+	c c c  
+	 d d d  
+	 e e e
+
+================================================================================
+`;
+
 exports[`issue-7846.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -2303,6 +2869,23 @@ tabWidth: 999
 =====================================output=====================================
 - This is a long long long long long long long long long long long long long
   long paragraph.
+
+================================================================================
+`;
+
+exports[`long-paragraph.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- This is a long long long long long long long long long long long long long long paragraph.
+
+=====================================output=====================================
+-	This is a long long long long long long long long long long long long long
+	long paragraph.
 
 ================================================================================
 `;
@@ -2431,6 +3014,42 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`loose.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- 123
+
+  - abc
+
+- 456
+
+  - def
+
+- 789
+
+  - ghi
+
+=====================================output=====================================
+-	123
+
+	-	abc
+
+-	456
+
+	-	def
+
+-	789
+
+	-	ghi
+
+================================================================================
+`;
+
 exports[`loose.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -2520,6 +3139,24 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`multiline.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- 123
+  456
+  789
+
+=====================================output=====================================
+-	123 456 789
+
+================================================================================
+`;
+
 exports[`multiline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -2593,6 +3230,26 @@ tabWidth: 999
 - Level 1
      - Level 2
           - Level 3
+
+================================================================================
+`;
+
+exports[`nested.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- Level 1
+  - Level 2
+    - Level 3
+
+=====================================output=====================================
+-	Level 1
+	-	Level 2
+		-	Level 3
 
 ================================================================================
 `;
@@ -2738,6 +3395,48 @@ tabWidth: 999
 
      paragraph paragraph paragraph paragraph paragraph paragraph paragraph
      paragraph paragraph
+
+================================================================================
+`;
+
+exports[`nested-checkbox.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+* parent list item parent list item parent list item parent list item parent list item parent list item
+
+     * child list item child list item child list item child list item child list item child list item
+
+    paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+
+* [x] parent task list item parent task list item parent task list item parent task list item
+
+     * [x] child task list item child task list item child task list item child task list item
+
+    paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+
+=====================================output=====================================
+-	parent list item parent list item parent list item parent list item parent
+	list item parent list item
+
+	-	child list item child list item child list item child list item child
+		list item child list item
+
+	paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+	paragraph paragraph
+
+-	[x] parent task list item parent task list item parent task list item parent
+		task list item
+
+	-	[x] child task list item child task list item child task list item child
+			task list item
+
+	paragraph paragraph paragraph paragraph paragraph paragraph paragraph
+	paragraph paragraph
 
 ================================================================================
 `;
@@ -2915,6 +3614,50 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`nested-tab.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+-	Top level list item 1
+-	Top level list item 2
+	-	Nested List item 1
+	-	Nested List item 2
+		-	Sub-Nested List item 1
+		-	Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+-	Top level list item 1
+-	Top level list item 2
+	-	Nested List item 1
+	-	Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
 exports[`nested-tab.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -3014,6 +3757,26 @@ tabWidth: 999
 1. 123
 1. 456
 1. 789
+
+================================================================================
+`;
+
+exports[`ordered.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+1. 123
+1. 456
+1. 789
+
+=====================================output=====================================
+1.	123
+1.	456
+1.	789
 
 ================================================================================
 `;
@@ -3121,6 +3884,34 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`separate.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- 123
+- 123
+- 123
+
+* 123
+* 123
+* 123
+
+=====================================output=====================================
+-	123
+-	123
+-	123
+
+*	123
+*	123
+*	123
+
+================================================================================
+`;
+
 exports[`separate.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -3204,6 +3995,26 @@ tabWidth: 999
 - 123
 - 456
 - 789
+
+================================================================================
+`;
+
+exports[`simple.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+- 123
+- 456
+- 789
+
+=====================================output=====================================
+-	123
+-	456
+-	789
 
 ================================================================================
 `;
@@ -3894,6 +4705,215 @@ tabWidth: 999
 ================================================================================
 `;
 
+exports[`start.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+5. abc
+6. def
+7. ghi
+
+---
+
+0. abc
+0. def
+0. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+2. def
+2. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+145. def
+69. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+2. def
+
+=====================================output=====================================
+5.	abc
+6.	def
+7.	ghi
+
+---
+
+0.	abc
+1.	def
+2.	ghi
+
+---
+
+1.	abc
+1.	def
+1.	ghi
+
+---
+
+2.	abc
+3.	def
+4.	ghi
+
+---
+
+0.	abc
+1.	def
+2.	ghi
+
+---
+
+0.	abc
+1.	def
+1.	ghi
+
+---
+
+1.	abc
+2.	def
+3.	ghi
+
+---
+
+2.	abc
+3.	def
+4.	ghi
+
+---
+
+999.	abc
+1000.	def
+1001.	ghi
+
+---
+
+0.	abc
+
+---
+
+1.	abc
+
+---
+
+2.	abc
+
+---
+
+999.	abc
+
+---
+
+0.	abc
+1.	def
+
+---
+
+1.	abc
+2.	def
+
+---
+
+1.	abc
+1.	def
+
+---
+
+2.	abc
+3.	def
+
+---
+
+999.	abc
+1.	def
+
+---
+
+999.	abc
+1000.	def
+
+================================================================================
+`;
+
 exports[`start.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -4278,6 +5298,66 @@ tabWidth: 999
 - Text
 
      \`foo\`
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+ 	\`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+-	Text
+
+	[title](link)
+
+-	Text
+
+	-	foo
+	-	foo
+	-	bar
+
+-	Text
+
+	# foo
+
+-	Text
+
+	\`\`\`
+	foo
+	\`\`\`
+
+-	Text
+
+	\`foo\`
 
 ================================================================================
 `;
