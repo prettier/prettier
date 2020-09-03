@@ -42,7 +42,7 @@
     "fast-glob": "3.2.4",
     "fast-json-stable-stringify": "2.1.0",
     "find-parent-dir": "0.3.0",
-    "flow-parser": "0.132.0",
+    "flow-parser": "0.133.0",
     "get-stream": "6.0.0",
     "globby": "11.0.1",
     "graphql": "15.3.0",
