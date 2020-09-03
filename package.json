@@ -87,7 +87,7 @@
     "@babel/core": "7.11.5",
     "@babel/preset-env": "7.11.5",
     "@babel/types": "7.11.5",
-    "@glimmer/reference": "0.60.0",
+    "@glimmer/reference": "0.61.2",
     "@rollup/plugin-alias": "3.1.1",
     "@rollup/plugin-babel": "5.2.0",
     "@rollup/plugin-commonjs": "14.0.0",
