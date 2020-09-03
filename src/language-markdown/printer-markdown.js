@@ -50,9 +50,9 @@ const SIBLING_NODE_TYPES = new Set([
 
 function genericPrint(path, options, print) {
   if (options.useTabs) {
-  // Hardcode tab width. In Markdown, tabs are equivalent to 4 spaces by the spec
-  // https://spec.commonmark.org/0.27/#tabs
-    options.tabWidth = 4
+    // Hardcode tab width. In Markdown, tabs are equivalent to 4 spaces by the spec
+    // https://spec.commonmark.org/0.27/#tabs
+    options.tabWidth = 4;
   }
   const node = path.getValue();
 
@@ -315,18 +315,19 @@ function genericPrint(path, options, print) {
           ]);
 
           function getPrefix() {
-            const rawPrefix = (node.ordered
-              ? (index === 0
-                  ? node.start
-                  : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : node.start + index) +
-                (nthSiblingIndex % 2 === 0 ? "." : ")")
-              : nthSiblingIndex % 2 === 0
-              ? "-"
-              : "*") + (options.useTabs?"\t":" ")
+            const rawPrefix =
+              (node.ordered
+                ? (index === 0
+                    ? node.start
+                    : isGitDiffFriendlyOrderedList
+                    ? 1
+                    : node.start + index) +
+                  (nthSiblingIndex % 2 === 0 ? "." : ")")
+                : nthSiblingIndex % 2 === 0
+                ? "-"
+                : "*") + (options.useTabs ? "\t" : " ");
 
-            return ! options.useTabs && node.isAligned ||
+            return (!options.useTabs && node.isAligned) ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
@@ -498,7 +499,9 @@ function printListItem(path, options, print, listPrefix) {
 function getSpacerForPrefix(options, prefix) {
   if (options.useTabs) {
     // How many whole tabs can we fit in the same length than the prefix
-    return "\t".repeat(expandTabs(prefix, options.tabWidth).length / options.tabWidth);
+    return "\t".repeat(
+      expandTabs(prefix, options.tabWidth).length / options.tabWidth
+    );
   }
   return " ".repeat(prefix.length);
 }

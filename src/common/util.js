@@ -689,8 +689,8 @@ function expandTabs(str, tabWidth) {
     const char = str[idx];
     if (char !== "\t") {
       expandedStr += char;
-    } else{
-      expandedStr += " ".repeat(tabWidth - (expandedStr.length%tabWidth))
+    } else {
+      expandedStr += " ".repeat(tabWidth - (expandedStr.length % tabWidth));
     }
   }
   return expandedStr;
