@@ -50,7 +50,7 @@ const SIBLING_NODE_TYPES = new Set([
 
 function genericPrint(path, options, print) {
   if (options.useTabs) {
-    // Hardcode tab width. In Markdown, tabs are equivalent to 4 spaces by the spec
+    // Hard-code tab width. In Markdown, tabs are equivalent to 4 spaces by the spec
     // https://spec.commonmark.org/0.27/#tabs
     options.tabWidth = 4;
   }
