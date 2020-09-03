@@ -308,7 +308,14 @@ function needsParens(path, options) {
             return true;
           }
 
-          if (pp < np && no === "%") {
+          if (pp < np && (no === "%" || no === "/")) {
+            if (
+              no === "/" &&
+              node.left.comments &&
+              node.left.comments.length > 0
+            ) {
+              return false;
+            }
             return po === "+" || po === "-";
           }
 
