@@ -87,11 +87,17 @@ jobs:
           - "14"
           - "12"
           - "10"
+        include:
+          - os: "ubuntu-latest"
+            node: "14"
+            FULL_TEST: true
         exclude:
           - os: "macos-latest"
             node: "12"
           - os: "windows-latest"
             node: "12"
+    env:
+      FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
