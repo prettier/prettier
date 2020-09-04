@@ -39,3 +39,7 @@ type T5 = number | ((arg: any) => void);
 type T6 = number | (((arg: any) => void));
 type T7 = number | ((((arg: any) => void)));
 type T8 = number | (((((arg: any) => void))));
+
+type T9 = {
+  __id: string,
+} | undefined;

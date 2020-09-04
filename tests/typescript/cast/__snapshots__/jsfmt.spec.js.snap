@@ -109,18 +109,17 @@ function y() {
   >someExistingConfigMap.mergeDeep(fallbackOptions);
 
   const stillTooLong2 = <
-    | Immutable.Map<
-        string,
-        boolean,
-        number,
-        object,
-        null,
-        undefined,
-        any,
-        void,
-        never
-      >
-    | undefined
+    Immutable.Map<
+      string,
+      boolean,
+      number,
+      object,
+      null,
+      undefined,
+      any,
+      void,
+      never
+    > | undefined
   >someExistingConfigMap.mergeDeep(fallbackOptions);
 
   const stillTooLong3 = <Immutable.Map<string>>(
@@ -130,18 +129,17 @@ function y() {
   );
 
   const stillTooLong4 = <
-    | Immutable.Map<
-        string,
-        boolean,
-        number,
-        object,
-        null,
-        undefined,
-        any,
-        void,
-        never
-      >
-    | undefined
+    Immutable.Map<
+      string,
+      boolean,
+      number,
+      object,
+      null,
+      undefined,
+      any,
+      void,
+      never
+    > | undefined
   >someExistingConfigMap.mergeDeep(
     fallbackOptions.someMethodWithLongName(param1, param2)
   );

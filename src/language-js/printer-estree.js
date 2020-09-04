@@ -5080,6 +5080,7 @@ function shouldHugType(node) {
       (n) =>
         n.type === "VoidTypeAnnotation" ||
         n.type === "TSVoidKeyword" ||
+        n.type === "TSUndefinedKeyword" ||
         n.type === "NullLiteralTypeAnnotation" ||
         n.type === "TSNullKeyword"
     ).length;
