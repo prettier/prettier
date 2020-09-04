@@ -31,7 +31,7 @@ module.exports = () => {
     default:
       shell.mv('.yarnrc', tmpDir);
       shell.mv('.yarnrc.yml', tmpDir);
-      shell.mv('.yarn -r', tmpDir);
+      shell.mv('.yarn', tmpDir);
       // yarn fails when engine requirement not compatible by default
       installCommand = `yarn add "prettier@file:${packageDir}"`;
   }
