@@ -12,7 +12,7 @@ const {
     group,
     dedentToRoot,
   },
-  utils: { mapDoc },
+  utils: { mapDoc, replaceNewlinesWithLiterallines },
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
@@ -301,7 +301,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       part.split(/@prettier-placeholder-(\d+)-id/).forEach((component, idx) => {
         // The placeholder is always at odd indices
         if (idx % 2 === 0) {
-          replacedParts.push(component);
+          replacedParts.push(replaceNewlinesWithLiterallines(component));
           return;
         }
 

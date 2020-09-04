@@ -2,8 +2,8 @@
 
 const { getParserName, getMaxContinuousCount } = require("../common/util");
 const {
-  builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc },
+  builders: { hardline, concat, markAsRoot },
+  utils: { replaceNewlinesWithLiterallines },
 } = require("../document");
 const { print: printFrontMatter } = require("../utils/front-matter");
 const { getFencedCodeBlockValue } = require("./utils");
@@ -66,18 +66,6 @@ function embed(path, print, textToDoc, options) {
   }
 
   return null;
-
-  function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(doc, (currentDoc) =>
-      typeof currentDoc === "string" && currentDoc.includes("\n")
-        ? concat(
-            currentDoc
-              .split(/(\n)/g)
-              .map((v, i) => (i % 2 === 0 ? v : literalline))
-          )
-        : currentDoc
-    );
-  }
 }
 
 module.exports = embed;
