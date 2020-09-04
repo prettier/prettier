@@ -128,7 +128,7 @@ function genericPrint(path, options, print) {
         )
       : "",
     nextEmptyLine,
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+    shouldPrintEndCommentsWithAlign(node)
       ? align(
           node.type === "sequenceItem" ? 2 : 0,
           concat([
@@ -142,7 +142,7 @@ function genericPrint(path, options, print) {
                       options.originalText,
                       path.getValue(),
                       options.locStart
-                    ) && node.type === "mappingValue"
+                    )
                       ? hardline
                       : "",
                     print(path),
@@ -703,6 +703,12 @@ function needsSpaceInFrontOfMappingValue(node) {
   return node.key.content && node.key.content.type === "alias";
 }
 
+function shouldPrintEndCommentsWithAlign(node) {
+  return (
+    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+  );
+}
+
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
   const root = path.stack[0];
@@ -713,7 +719,9 @@ function printNextEmptyLine(path, originalText) {
   if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
     if (isNextLineEmpty(node, originalText)) {
       root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
-      return softline;
+      if (!shouldPrintEndCommentsWithAlign(path.getParentNode())) {
+        return softline;
+      }
     }
   }
 
