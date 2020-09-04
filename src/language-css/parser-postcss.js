@@ -266,6 +266,14 @@ function parseMediaQuery(params) {
 
   let result = null;
 
+  // bail on SCSS comments inside the query
+  if (/\/\//.test(params)) {
+    return {
+      type: "selector-unknown",
+      value: params.trim(),
+    };
+  }
+
   try {
     result = mediaParser(params);
   } catch (e) {

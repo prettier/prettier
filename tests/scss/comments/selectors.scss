@@ -60,3 +60,8 @@
 .bar
 // comment 29
 {}
+
+@media screen, // comment 30
+  print { 
+  // comment 31
+}
