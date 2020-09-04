@@ -29,9 +29,14 @@ module.exports = () => {
       installCommand = `pnpm add "${tarPath}"`;
       break;
     default:
+      shell.mv('.yarnrc', tmpDir);
+      shell.mv('.yarnrc.yml', tmpDir);
+      shell.mv('.yarn -r', tmpDir);
       // yarn fails when engine requirement not compatible by default
-      installCommand = `yarn add "${tarPath}"`;
+      installCommand = `yarn add "prettier@file:${packageDir}"`;
   }
+
+console.log({installCommand,tmpDir })
 
   shell.exec(installCommand, { cwd: tmpDir });
 

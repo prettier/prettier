@@ -18,8 +18,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.1
 
+      - name: Display yarn version
+        run: yarn --version
+
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Check Dependencies
         run: yarn lint:deps

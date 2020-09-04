@@ -40,6 +40,9 @@ const parsers = [
       // `TypeScript`, `toolsVersion`, `globalThis`
       'typeof process === "undefined" || process.browser': "false",
       'typeof globalThis === "object"': "true",
+      // `typescript/lib/tsc.js` and `typescript/lib/tsserver.js` try to use pnpApi
+      "process.versions.pnp": "false",
+      'require("pnpapi")': "{}",
     },
   },
   {

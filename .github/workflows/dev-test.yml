@@ -45,13 +45,13 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       # TODO: remove this task when/if this fixed
       # https://github.com/facebook/jest/issues/9457
       - name: Install jest@24
         if: matrix.ENABLE_CODE_COVERAGE
-        run: yarn upgrade jest@24
+        run: yarn add jest@24
 
       - name: Run Tests (macOS)
         if: matrix.os == 'macos-latest'
