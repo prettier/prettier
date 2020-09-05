@@ -237,12 +237,28 @@ function runTest({
     let codeForSnapshot = formatResult.inputWithCursor;
     let codeOffset = 0;
     let resultForSnapshot = formatResult.outputWithCursor;
-    const { rangeStart, rangeEnd } = formatResult.options;
+    const { rangeStart, rangeEnd, cursorOffset } = formatResult.options;
 
     if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
+      let rangeStartWithCursor = rangeStart;
+      let rangeEndWithCursor = rangeEnd;
+      if (typeof cursorOffset === "number") {
+        if (
+          typeof rangeStartWithCursor === "number" &&
+          rangeStartWithCursor > cursorOffset
+        ) {
+          rangeStartWithCursor += CURSOR_PLACEHOLDER.length;
+        }
+        if (
+          typeof rangeEndWithCursor === "number" &&
+          rangeEndWithCursor > cursorOffset
+        ) {
+          rangeEndWithCursor += CURSOR_PLACEHOLDER.length;
+        }
+      }
       codeForSnapshot = visualizeRange(codeForSnapshot, {
-        rangeStart,
-        rangeEnd,
+        rangeStart: rangeStartWithCursor,
+        rangeEnd: rangeEndWithCursor,
       });
       codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
     }
@@ -333,35 +349,59 @@ function parse(source, options) {
   return prettier.__debug.parse(source, options, /* massage */ true).ast;
 }
 
-function format(text, options) {
-  options = {
-    ...options,
-  };
+const properties = [
+  {
+    property: "cursorOffset",
+    placeholder: CURSOR_PLACEHOLDER,
+  },
+  {
+    property: "rangeStart",
+    placeholder: RANGE_START_PLACEHOLDER,
+  },
+  {
+    property: "rangeEnd",
+    placeholder: RANGE_END_PLACEHOLDER,
+  },
+];
+function replacePlaceholders(originalText, originalOptions) {
+  let indexes = [];
+  for (const { property, placeholder } of properties) {
+    const value = originalText.indexOf(placeholder);
+    if (value !== -1) {
+      indexes.push({ property, value, placeholder });
+    }
+  }
+  indexes = indexes.sort((a, b) => a.value - b.value);
 
-  const inputWithCursor = text
-    .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
-      options.rangeStart = offset;
-      return "";
-    })
-    .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
-      options.rangeEnd = offset;
-      return "";
-    });
+  const options = { ...originalOptions };
+  let text = originalText;
+  let offset = 0;
+  for (const { property, value, placeholder } of indexes) {
+    text = text.replace(placeholder, "");
+    options[property] = value + offset;
+    offset -= placeholder.length;
+  }
+  return { text, options };
+}
 
-  const input = inputWithCursor.replace(CURSOR_PLACEHOLDER, (match, offset) => {
-    options.cursorOffset = offset;
-    return "";
-  });
+const insertCursor = (text, cursorOffset) =>
+  cursorOffset >= 0
+    ? text.slice(0, cursorOffset) +
+      CURSOR_PLACEHOLDER +
+      text.slice(cursorOffset)
+    : text;
+function format(originalText, originalOptions) {
+  const { text: input, options } = replacePlaceholders(
+    originalText,
+    originalOptions
+  );
+  const inputWithCursor = insertCursor(input, options.cursorOffset);
 
-  const result = prettier.formatWithCursor(input, options);
-  const output = result.formatted;
-
-  const outputWithCursor =
-    options.cursorOffset >= 0
-      ? output.slice(0, result.cursorOffset) +
-        CURSOR_PLACEHOLDER +
-        output.slice(result.cursorOffset)
-      : output;
+  const { formatted: output, cursorOffset } = prettier.formatWithCursor(
+    input,
+    options
+  );
+  const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
 
   const changed = outputWithCursor !== inputWithCursor;
