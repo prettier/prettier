@@ -349,7 +349,7 @@ function parse(source, options) {
   return prettier.__debug.parse(source, options, /* massage */ true).ast;
 }
 
-const properties = [
+const indexProperties = [
   {
     property: "cursorOffset",
     placeholder: CURSOR_PLACEHOLDER,
@@ -364,14 +364,13 @@ const properties = [
   },
 ];
 function replacePlaceholders(originalText, originalOptions) {
-  let indexes = [];
-  for (const { property, placeholder } of properties) {
-    const value = originalText.indexOf(placeholder);
-    if (value !== -1) {
-      indexes.push({ property, value, placeholder });
-    }
-  }
-  indexes = indexes.sort((a, b) => a.value - b.value);
+  const indexes = indexProperties
+    .map(({ property, placeholder }) => {
+      const value = originalText.indexOf(placeholder);
+      return value === -1 ? undefined : { property, value, placeholder };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.value - b.value);
 
   const options = { ...originalOptions };
   let text = originalText;
