@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`async-arrow-invalid.js error test 1`] = `
+"Unexpected token ILLEGAL (4:1)
+  2 | 
+  3 | <T> async () => {}
+> 4 | 
+    | ^"
+`;
+
 exports[`default-escaped.js error test 1`] = `
 "Unexpected identifier, expected the token \`{\` (1:8)
 > 1 | export asyn\\\\u{63} from \\"async\\";

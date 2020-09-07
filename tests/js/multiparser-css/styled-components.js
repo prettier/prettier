@@ -246,3 +246,16 @@ const Foo = styled.p`
     margin-top: 3rem;
   }
 `;
+
+styled(A)`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: ${(props) => (props.isComplete ? '1' : '0')};
+  }
+`;
+
+const StyledDiv = styled.div`
+  ${props => getSize(props.$size.xs)}
+  ${props => getSize(props.$size.sm, 'sm')}
+  ${props => getSize(props.$size.md, 'md')}
+`;
