@@ -127,7 +127,7 @@ function genericPrint(path, options, print) {
           ])
         )
       : "",
-    shouldPrintEndCommentsWithAlign(node)
+    shouldPrintEndComments(node)
       ? align(
           node.type === "sequenceItem" ? 2 : 0,
           concat([
@@ -703,7 +703,7 @@ function needsSpaceInFrontOfMappingValue(node) {
   return node.key.content && node.key.content.type === "alias";
 }
 
-function shouldPrintEndCommentsWithAlign(node) {
+function shouldPrintEndComments(node) {
   return (
     hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
   );
@@ -719,7 +719,7 @@ function printNextEmptyLine(path, originalText) {
   if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
     if (isNextLineEmpty(node, originalText)) {
       root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
-      if (!shouldPrintEndCommentsWithAlign(path.getParentNode())) {
+      if (!shouldPrintEndComments(path.getParentNode())) {
         return softline;
       }
     }
