@@ -1,3 +1,1 @@
-run_spec(__dirname, ["babel", "typescript"], {
-  errors: { espree: true },
-});
+run_spec(__dirname, ["babel", "typescript"]);
