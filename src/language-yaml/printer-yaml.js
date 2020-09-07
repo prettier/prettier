@@ -127,7 +127,6 @@ function genericPrint(path, options, print) {
           ])
         )
       : "",
-    nextEmptyLine,
     shouldPrintEndCommentsWithAlign(node)
       ? align(
           node.type === "sequenceItem" ? 2 : 0,
@@ -153,6 +152,7 @@ function genericPrint(path, options, print) {
           ])
         )
       : "",
+    nextEmptyLine,
   ]);
 }
 
