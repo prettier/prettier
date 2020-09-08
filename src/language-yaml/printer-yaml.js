@@ -713,12 +713,13 @@ function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
   const root = path.stack[0];
 
-  root.isNextEmptyLinePrintedChecklist =
-    root.isNextEmptyLinePrintedChecklist || [];
+  if (!root.isNextEmptyLinePrintedSet) {
+    root.isNextEmptyLinePrintedSet = new Set();
+  }
 
-  if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
+  if (!root.isNextEmptyLinePrintedSet.has(node.position.end.line)) {
     if (isNextLineEmpty(node, originalText)) {
-      root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
+      root.isNextEmptyLinePrintedSet.add(node.position.end.line);
       if (!shouldPrintEndComments(path.getParentNode())) {
         return softline;
       }
