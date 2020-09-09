@@ -12,7 +12,6 @@ const languages = [
       since: "0.0.0",
       parsers: ["babel", "babel-flow", "babel-ts", "flow", "typescript"],
       vscodeLanguageIds: ["javascript", "mongo"],
-      interpreters: [...data.interpreters, "nodejs"],
       extensions: [
         ...data.extensions,
         // WeiXin Script (Weixin Mini Programs)
