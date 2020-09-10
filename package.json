@@ -26,7 +26,7 @@
     "@glimmer/syntax": "0.61.2",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "3.10.1",
-    "angular-estree-parser": "2.2.0",
+    "angular-estree-parser": "2.2.1",
     "angular-html-parser": "1.7.1",
     "camelcase": "6.0.0",
     "chalk": "4.1.0",
