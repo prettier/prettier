@@ -32,17 +32,19 @@ function parse(originalText, parsers, options) {
 
   try {
     ast = parse(text, espreeOptions);
-  } catch (error) {
+  } catch (moduleError) {
     try {
       ast = parse(text, { ...espreeOptions, sourceType: "script" });
-    } catch (_error) {
+    } catch (scriptError) {
       // throw the error for `module` parsing
-      if (typeof error.lineNumber === "undefined") {
-        throw error;
+
+      /* istanbul ignore next */
+      if (typeof moduleError.lineNumber === "undefined") {
+        throw moduleError;
       }
 
-      throw createError(error.message, {
-        start: { line: error.lineNumber, column: error.column },
+      throw createError(moduleError.message, {
+        start: { line: moduleError.lineNumber, column: moduleError.column },
       });
     }
   }
