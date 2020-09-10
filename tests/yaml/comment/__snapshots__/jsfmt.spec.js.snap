@@ -357,7 +357,7 @@ none(2):
 =====================================output=====================================
 before:
 
-# before.comment
+  # before.comment
 after:
   # after.comment
 
@@ -512,7 +512,7 @@ printWidth: 80
 =====================================output=====================================
 - before
 
-# before.comment
+  # before.comment
 - after
   # after.comment
 
