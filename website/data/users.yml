@@ -251,3 +251,6 @@
 - caption: Toptal
   image: /images/users/toptal.png
   infoLink: https://www.toptal.com
+- caption: Aircall
+  image: /images/users/aircall.svg
+  infoLink: https://www.aircall.io
