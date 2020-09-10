@@ -709,17 +709,17 @@ function shouldPrintEndComments(node) {
   );
 }
 
-const printedEmptyLinecache = new WeakMap();
+const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
   const root = path.stack[0];
 
   let isNextEmptyLinePrintedSet;
-  if (printedEmptyLinecache.has(root)) {
-    isNextEmptyLinePrintedSet = printedEmptyLinecache.get(root);
+  if (printedEmptyLineCache.has(root)) {
+    isNextEmptyLinePrintedSet = printedEmptyLineCache.get(root);
   } else {
     isNextEmptyLinePrintedSet = new Set();
-    printedEmptyLinecache.set(root, isNextEmptyLinePrintedSet);
+    printedEmptyLineCache.set(root, isNextEmptyLinePrintedSet);
   }
 
   if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
