@@ -1,0 +1,40 @@
+JSON.stringify(result)
+"{"
+raws ":{"
+semicolon ":true,"
+after ":"
+"},"
+type ":"
+root ","
+nodes ":[{"
+raws ":{"
+before ":"
+","
+between ":": "},"
+type ":"
+decl ","
+source ":{"
+start ":{"
+line ":1,"
+column ":1},"
+input ":{"
+css ":"
+$display - breakpoints: map - deep - merge(\n(\n\ "print-only\": \"only print\",\n    \"screen-only\": \"only screen\",\n    \"xs-only\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"sm\")-1})\",\n    \"sm-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"sm\")}) and (max-width: #{map-get($grid-breakpoints, \"md\")-1})\",\n    \"sm-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"md\")-1})\",\n    \"sm-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"sm\")})\",\n    \"md-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"md\")}) and (max-width: #{map-get($grid-breakpoints, \"lg\")-1})\",\n    \"md-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"lg\")-1})\",\n    \"md-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"md\")})\",\n    \"lg-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"lg\")}) and (max-width: #{map-get($grid-breakpoints, \"xl\")-1})\",\n    \"lg-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints,\"xl\")-1})\",\n    \"lg-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints,\"lg\")})\",\n    \"xl-only\": \"only screen and (min-width: #{map-get($grid-breakpoints,\"xl\")})\",\n  ),\n  $display-breakpoints\n);", "hasBOM": false, "id": "<input css 2>"
+}, "end": {
+  "line": 18,
+  "column": 2
+}
+}, "prop": "$display-breakpoints", "value": "map-deep-merge(\n  (\n    \"print-only\": \"only print\",\n    \"screen-only\": \"only screen\",\n    \"xs-only\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"sm\")-1})\",\n    \"sm-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"sm\")}) and (max-width: #{map-get($grid-breakpoints, \"md\")-1})\",\n    \"sm-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"md\")-1})\",\n    \"sm-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"sm\")})\",\n    \"md-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"md\")}) and (max-width: #{map-get($grid-breakpoints, \"lg\")-1})\",\n    \"md-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"lg\")-1})\",\n    \"md-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"md\")})\",\n    \"lg-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"lg\")}) and (max-width: #{map-get($grid-breakpoints, \"xl\")-1})\",\n    \"lg-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints,\"xl\")-1})\",\n    \"lg-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints,\"lg\")})\",\n    \"xl-only\": \"only screen and (min-width: #{map-get($grid-breakpoints,\"xl\")})\",\n  ),\n  $display-breakpoints\n)"
+}], "source": {
+  "input": {
+    "css": "$display-breakpoints: map-deep-merge(\n  (\n    \"print-only\": \"only print\",\n    \"screen-only\": \"only screen\",\n    \"xs-only\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"sm\")-1})\",\n    \"sm-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"sm\")}) and (max-width: #{map-get($grid-breakpoints, \"md\")-1})\",\n    \"sm-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"md\")-1})\",\n    \"sm-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"sm\")})\",\n    \"md-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"md\")}) and (max-width: #{map-get($grid-breakpoints, \"lg\")-1})\",\n    \"md-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints, \"lg\")-1})\",\n    \"md-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"md\")})\",\n    \"lg-only\": \"only screen and (min-width: #{map-get($grid-breakpoints, \"lg\")}) and (max-width: #{map-get($grid-breakpoints, \"xl\")-1})\",\n    \"lg-and-down\": \"only screen and (max-width: #{map-get($grid-breakpoints,\"xl\")-1})\",\n    \"lg-and-up\": \"only screen and (min-width: #{map-get($grid-breakpoints,\"lg\")})\",\n    \"xl-only\": \"only screen and (min-width: #{map-get($grid-breakpoints,\"xl\")})\",\n  ),\n  $display-breakpoints\n);",
+    "hasBOM": false,
+    "id": "<input css 2>"
+  },
+  "start": {
+    "line": 1,
+    "column": 1
+  }
+}
+}
+"
