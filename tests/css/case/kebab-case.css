@@ -1,0 +1,17 @@
+.fromCssInJsToCss {
+  backgroundAttachment: fixed;
+}
+
+.another-css-in-js-to-css {
+  marginBottom: 2px;
+  maxWidth: 42;
+}
+
+.yet-another-css-in-js-to-css {
+  borderBottomRightRadius: 0%;
+  borderTopRightRadius: 12;
+}
+
+.not-css-in-js {
+  border-top-right-radius: 0%;
+}

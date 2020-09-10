@@ -123,6 +123,21 @@ function maybeToLowerCase(value) {
     : value.toLowerCase();
 }
 
+function maybeToKebabOrLowerCase(value) {
+  return value.includes("$") ||
+    value.includes("@") ||
+    value.includes("#") ||
+    value.startsWith("%") ||
+    value.startsWith("--") ||
+    value.startsWith(":--") ||
+    (value.includes("(") && value.includes(")"))
+    ? value
+    : // Check if value is exactlyCamelCase
+    /^[a-z]+[A-Z]+[A-Za-z]*$/.test(value)
+    ? value.replace(/([a-z]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()
+    : value.toLowerCase();
+}
+
 function insideValueFunctionNode(path, functionName) {
   const funcAncestorNode = getAncestorNode(path, "value-func");
   return (
@@ -469,6 +484,7 @@ module.exports = {
   hasSCSSInterpolation,
   hasStringOrFunction,
   maybeToLowerCase,
+  maybeToKebabOrLowerCase,
   insideValueFunctionNode,
   insideICSSRuleNode,
   insideAtRuleNode,

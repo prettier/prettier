@@ -32,6 +32,7 @@ const {
   getAncestorNode,
   getPropOfDeclNode,
   maybeToLowerCase,
+  maybeToKebabOrLowerCase,
   insideValueFunctionNode,
   insideICSSRuleNode,
   insideAtRuleNode,
@@ -152,7 +153,9 @@ function genericPrint(path, options, print) {
 
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
-        insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
+        insideICSSRuleNode(path)
+          ? node.prop
+          : maybeToKebabOrLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend ? "" : " ",
