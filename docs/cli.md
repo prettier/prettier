@@ -212,3 +212,9 @@ With `--ignore-unknown` (or `-u`), prettier will ignore unknown files matched by
 ```console
 $ prettier "**/*" --write --ignore-unknown
 ```
+
+## `--force-error-on-written-files`
+
+When used with `--check` and `--write`, prettier will return an error code if some files have been formatted.
+
+It has no effect without these two flags.

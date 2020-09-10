@@ -159,6 +159,11 @@ const options = {
       * inferredParser (string | null) - name of parser inferred from file path
     `,
   },
+  "force-error-on-written-files": {
+    type: "boolean",
+    description:
+      "Exit with an error code if at least one file was formatted during the run.",
+  },
   help: {
     type: "flag",
     alias: "h",

@@ -19,6 +19,27 @@ exports[`do not write file with --write + invalid file (stdout) 1`] = `
 "
 `;
 
+exports[`exit with error code with --check and --force-error-on-written-files on unformatted file (stderr) 1`] = `
+"[warn] unformatted.js
+[warn] Code style issues fixed in the above file(s).
+"
+`;
+
+exports[`exit with error code with --check and --force-error-on-written-files on unformatted file (stdout) 1`] = `
+"Checking formatting...
+"
+`;
+
+exports[`exit with error code with --check and --force-error-on-written-files on unformatted file (write) 1`] = `
+Array [
+  Object {
+    "content": "var x = 1;
+",
+    "filename": "unformatted.js",
+  },
+]
+`;
+
 exports[`write file with --write + unformatted file (stderr) 1`] = `""`;
 
 exports[`write file with --write + unformatted file (stdout) 1`] = `

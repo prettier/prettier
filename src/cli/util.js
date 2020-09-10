@@ -577,7 +577,7 @@ function formatFiles(context) {
     (context.argv.check || context.argv["list-different"]) &&
     numberOfUnformattedFilesFound > 0 &&
     !process.exitCode &&
-    !context.argv.write
+    (!context.argv.write || context.argv["force-error-on-written-files"])
   ) {
     process.exitCode = 1;
   }

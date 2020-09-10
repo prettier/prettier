@@ -59,6 +59,16 @@ function run(args) {
       process.exit(0);
     }
 
+    if (
+      context.argv["force-error-on-written-files"] &&
+      (!context.argv.write || !context.argv.check)
+    ) {
+      context.logger.warn(
+        "Using --force-error-on-written-files without --write " +
+          "and --check has no effect."
+      );
+    }
+
     const hasFilePatterns = context.filePatterns.length !== 0;
     const useStdin =
       !hasFilePatterns &&
