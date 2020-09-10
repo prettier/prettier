@@ -62,7 +62,7 @@ async function update() {
 
   if (isUpdated) {
     logPromise(
-      "Commiting and pushing to remote",
+      "Committing and pushing to remote",
       (async () => {
         await execa("git", ["add", "."]);
         await execa("git", ["commit", "-m", "Update dependents count"]);
