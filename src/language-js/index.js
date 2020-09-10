@@ -19,7 +19,6 @@ const languages = [
         "typescript",
       ],
       vscodeLanguageIds: ["javascript", "mongo"],
-      interpreters: [...data.interpreters, "nodejs"],
       extensions: [
         ...data.extensions,
         // WeiXin Script (Weixin Mini Programs)
