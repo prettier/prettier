@@ -723,11 +723,12 @@ function printNextEmptyLine(path, originalText) {
   }
 
   if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
-    if (isNextLineEmpty(node, originalText)) {
-      isNextEmptyLinePrintedSet.add(node.position.end.line);
-      if (!shouldPrintEndComments(path.getParentNode())) {
-        return softline;
-      }
+    isNextEmptyLinePrintedSet.add(node.position.end.line);
+    if (
+      isNextLineEmpty(node, originalText) &&
+      !shouldPrintEndComments(path.getParentNode())
+    ) {
+      return softline;
     }
   }
 
