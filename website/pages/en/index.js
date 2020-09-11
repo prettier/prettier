@@ -276,12 +276,6 @@ const UsersSection = ({ language }) => {
           >
             See All Others
           </a>
-          <a
-            className="button"
-            href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
-          >
-            Add Your Project
-          </a>
         </div>
 
         <h2 className="ecosystemSubHeader">Established in the Ecosystem</h2>
