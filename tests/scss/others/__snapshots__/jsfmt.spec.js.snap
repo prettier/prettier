@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`functional_argument_on_same_lines_ine_maps.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})",
+    "sm-only": "only screen and (min-width: #{map-get($grid-breakpoints, "sm")}) and (max-width: #{map-get($grid-breakpoints, "md")-1})",
+  ),
+  $display-breakpoints
+);
+=====================================output=====================================
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})",
+    "sm-only": "only screen and (min-width: #{map-get($grid-breakpoints, "sm")}) and (max-width: #{map-get($grid-breakpoints, "md")-1})",
+  ),
+  $display-breakpoints
+);
+
+================================================================================
+`;
