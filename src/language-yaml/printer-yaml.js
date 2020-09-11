@@ -709,19 +709,26 @@ function shouldPrintEndComments(node) {
   );
 }
 
+const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
   const root = path.stack[0];
 
-  root.isNextEmptyLinePrintedChecklist =
-    root.isNextEmptyLinePrintedChecklist || [];
+  let isNextEmptyLinePrintedSet;
+  if (printedEmptyLineCache.has(root)) {
+    isNextEmptyLinePrintedSet = printedEmptyLineCache.get(root);
+  } else {
+    isNextEmptyLinePrintedSet = new Set();
+    printedEmptyLineCache.set(root, isNextEmptyLinePrintedSet);
+  }
 
-  if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
-    if (isNextLineEmpty(node, originalText)) {
-      root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
-      if (!shouldPrintEndComments(path.getParentNode())) {
-        return softline;
-      }
+  if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
+    isNextEmptyLinePrintedSet.add(node.position.end.line);
+    if (
+      isNextLineEmpty(node, originalText) &&
+      !shouldPrintEndComments(path.getParentNode())
+    ) {
+      return softline;
     }
   }
 
