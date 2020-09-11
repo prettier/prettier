@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functional_argument_on_same_lines_ine_maps.scss format 1`] = `
+exports[`functional_argument_on_same_lines_in_maps.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
