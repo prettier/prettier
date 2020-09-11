@@ -274,7 +274,7 @@ const UsersSection = ({ language }) => {
             target="_self"
             style={{ marginRight: "10px" }}
           >
-            See All Others
+            See Others
           </a>
         </div>
 
