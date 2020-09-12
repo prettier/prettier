@@ -144,6 +144,7 @@ header h1 {
   right: 0;
   bottom: 0;
   line-height: 1.6;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 .bottom-bar {
