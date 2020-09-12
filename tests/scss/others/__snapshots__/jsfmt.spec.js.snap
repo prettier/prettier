@@ -19,13 +19,26 @@ $display-breakpoints: map-deep-merge(
 
 
 //list test
-$size: 2 3 4;
 @each 
 $size 
 in 
 $sizes {
-.icon-
+.icon
 #{$size} 
+{
+border
+: 
+"#{$size + "px"}" 
+solid 
+red;
+}
+}
+
+@each 
+$size 
+in 
+$sizes {
+.icon-#{$size} 
 {
 border
 : 
@@ -48,8 +61,29 @@ $name,
 $boldness 
 in 
 $icons {
-.text-
+.text
 #{
+$name
+} {
+color: red;
+font-weight: 
+"#{$boldness}"
+}
+}
+
+$font-weights
+: 
+("regular": 400
+, 
+"medium": 500, 
+"bold": 
+700);
+@each 
+$name, 
+$boldness 
+in 
+$icons {
+.text-#{
 $name
 } {
 color: red;
@@ -70,9 +104,14 @@ $display-breakpoints: map-deep-merge(
 );
 
 //list test
-$size: 2 3 4;
 @each $size in $sizes {
-  .icon- #{$size} {
+  .icon #{$size} {
+    border: "#{$size + "px"}" solid red;
+  }
+}
+
+@each $size in $sizes {
+  .icon-#{$size} {
     border: "#{$size + "px"}" solid red;
   }
 }
@@ -84,7 +123,19 @@ $font-weights: (
   "bold": 700,
 );
 @each $name, $boldness in $icons {
-  .text- #{ $name } {
+  .text #{ $name } {
+    color: red;
+    font-weight: "#{$boldness}";
+  }
+}
+
+$font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700,
+);
+@each $name, $boldness in $icons {
+  .text-#{ $name } {
     color: red;
     font-weight: "#{$boldness}";
   }
