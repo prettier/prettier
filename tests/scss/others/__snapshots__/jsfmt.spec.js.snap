@@ -6,6 +6,7 @@ parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+//simple test
 $display-breakpoints: map-deep-merge(
   (
     "print-only": "only print",
@@ -15,7 +16,49 @@ $display-breakpoints: map-deep-merge(
   ),
   $display-breakpoints
 );
+
+
+//list test
+$size: 2 3 4;
+@each 
+$size 
+in 
+$sizes {
+.icon-
+#{$size} 
+{
+border
+: 
+"#{$size + "px"}" 
+solid 
+red;
+}
+}
+
+//map test
+$font-weights
+: 
+("regular": 400
+, 
+"medium": 500, 
+"bold": 
+700);
+@each 
+$name, 
+$boldness 
+in 
+$icons {
+.text-
+#{
+$name
+} {
+color: red;
+font-weight: 
+"#{$boldness}"
+}
+}
 =====================================output=====================================
+//simple test
 $display-breakpoints: map-deep-merge(
   (
     "print-only": "only print",
@@ -25,6 +68,27 @@ $display-breakpoints: map-deep-merge(
   ),
   $display-breakpoints
 );
+
+//list test
+$size: 2 3 4;
+@each $size in $sizes {
+  .icon- #{$size} {
+    border: "#{$size + "px"}" solid red;
+  }
+}
+
+//map test
+$font-weights: (
+  "regular": 400,
+  "medium": 500,
+  "bold": 700,
+);
+@each $name, $boldness in $icons {
+  .text- #{ $name } {
+    color: red;
+    font-weight: "#{$boldness}";
+  }
+}
 
 ================================================================================
 `;
