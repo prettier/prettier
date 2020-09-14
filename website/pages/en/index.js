@@ -274,13 +274,7 @@ const UsersSection = ({ language }) => {
             target="_self"
             style={{ marginRight: "10px" }}
           >
-            See All Others
-          </a>
-          <a
-            className="button"
-            href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
-          >
-            Add Your Project
+            See Others
           </a>
         </div>
 
