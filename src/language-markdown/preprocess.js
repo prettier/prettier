@@ -124,9 +124,6 @@ function splitTextIntoSentences(ast, options) {
       if (index === parentNode.children.length - 1) {
         value = value.trimEnd();
       }
-      if (/^\n>/.test(value)) {
-        value = value.replace(new RegExp(">", "g"), "");
-      }
     }
 
     return {
