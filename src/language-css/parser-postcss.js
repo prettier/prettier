@@ -310,9 +310,9 @@ function parseNestedCSS(node, options) {
       ) {
         const textBefore = options.originalText.slice(
           0,
-          node.source.start.offset + prop.length + node.raws.between
-            ? node.raws.between.length
-            : 0
+          node.source.start.offset +
+            prop.length +
+            (node.raws.between ? node.raws.between.length : 0)
         );
         const fakeSelector = textBefore
           .replace(/[^\n]/g, " ")

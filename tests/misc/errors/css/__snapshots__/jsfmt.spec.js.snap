@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`custom-properties-location.css error test 1`] = `
+"(postcss) CssSyntaxError Unknown word (7:9)
+   5 |   {
+   6 |   /* comment should not effect location 4 */
+>  7 |         invalid-code /* The error location should on this line */
+     |         ^
+   8 |  }
+   9 | }
+  10 | "
+`;
+
 exports[`less-syntax.css error test 1`] = `
 "(postcss) CssSyntaxError Unknown word (1:4)
 > 1 | a {.bordered();}
