@@ -308,13 +308,19 @@ function parseNestedCSS(node, options) {
         value.startsWith("{") &&
         value.endsWith("}")
       ) {
+        const textBefore = options.originalText.slice(
+          0,
+          node.source.start.offset + prop.length + node.raws.between
+            ? node.raws.between.length
+            : 0
+        );
+        const fakeSelector = textBefore
+          .replace(/[^\n]/g, " ")
+          .replace(" ", "a");
         node.value = {
           type: "css-rule",
-          nodes: parseCss(
-            "a".repeat(node.source.start.offset) + node.value,
-            [],
-            { ...options }
-          ).nodes[0].nodes,
+          nodes: parseCss(fakeSelector + node.value, [], { ...options })
+            .nodes[0].nodes,
         };
         return node;
       }
@@ -614,6 +620,7 @@ function parseWithParser(parse, text, options) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
+  options.originalText = text;
   result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
   calculateLoc(result, text);
