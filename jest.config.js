@@ -47,7 +47,10 @@ module.exports = {
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
-  coveragePathIgnorePatterns: ["<rootDir>/src/document/doc-debug.js"],
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/standalone.js",
+    "<rootDir>/src/document/doc-debug.js",
+  ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
     "prettier/local": "<rootDir>/tests_config/require_prettier.js",
