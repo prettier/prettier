@@ -310,17 +310,18 @@ function parseNestedCSS(node, options) {
       ) {
         const textBefore = options.originalText.slice(
           0,
-          node.source.start.offset +
-            prop.length +
-            (node.raws.between ? node.raws.between.length : 0)
+          node.source.start.offset
         );
-        const fakeSelector = textBefore
-          .replace(/[^\n]/g, " ")
-          .replace(" ", "a");
+        const nodeText =
+          "a".repeat(prop.length) +
+          options.originalText.slice(
+            node.source.start.offset + prop.length,
+            node.source.end.offset + 1
+          );
+        const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
         node.value = {
           type: "css-rule",
-          nodes: parseCss(fakeSelector + node.value, [], { ...options })
-            .nodes[0].nodes,
+          nodes: parseCss(fakeContent, [], { ...options }).nodes[0].nodes,
         };
         return node;
       }
