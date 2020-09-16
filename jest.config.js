@@ -2,11 +2,40 @@
 
 const installPrettier = require("./scripts/install-prettier");
 
+const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
-if (process.env.NODE_ENV === "production" || process.env.INSTALL_PACKAGE) {
+if (isProduction || process.env.INSTALL_PACKAGE) {
   process.env.PRETTIER_DIR = installPrettier();
 }
 const { TEST_STANDALONE } = process.env;
+
+const testPathIgnorePatterns = [];
+let transform;
+if (TEST_STANDALONE) {
+  testPathIgnorePatterns.push("<rootDir>/tests_integration/");
+}
+if (isProduction) {
+  // `esm` bundles need transform
+  transform = {
+    "(?:\\.mjs|codeSamples\\.js)$": [
+      "babel-jest",
+      {
+        presets: [
+          [
+            "@babel/env",
+            // Workaround for https://github.com/babel/babel/issues/11994
+            { loose: true },
+          ],
+        ],
+      },
+    ],
+  };
+} else {
+  // Only test bundles for production
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests_integration/__tests__/bundle.js"
+  );
+}
 
 module.exports = {
   setupFiles: ["<rootDir>/tests_config/setup.js"],
@@ -15,9 +44,7 @@ module.exports = {
     "jest-snapshot-serializer-ansi",
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: TEST_STANDALONE
-    ? ["<rootDir>/tests_integration/"]
-    : [],
+  testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: ["<rootDir>/src/document/doc-debug.js"],
@@ -28,7 +55,7 @@ module.exports = {
   },
   modulePathIgnorePatterns: ["<rootDir>/dist"],
   testEnvironment: "node",
-  transform: {},
+  transform,
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
