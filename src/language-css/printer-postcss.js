@@ -121,7 +121,9 @@ function genericPrint(path, options, print) {
               node.selector.type === "selector-unknown" &&
               lastLineHasInlineComment(node.selector.value)
                 ? line
-                : " ",
+                : node.selector
+                ? " "
+                : "",
               "{",
               node.nodes.length > 0
                 ? indent(

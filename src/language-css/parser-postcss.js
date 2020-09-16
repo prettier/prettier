@@ -300,6 +300,26 @@ function parseNestedCSS(node, options) {
       node.raws = {};
     }
 
+    // `postcss@8` parse custom properties as `css-decl`
+    if (options.parser === "css" && node.type === "css-decl") {
+      const { prop, value } = node;
+      if (
+        prop.startsWith("--") &&
+        value.startsWith("{") &&
+        value.endsWith("}")
+      ) {
+        node.value = {
+          type: "css-rule",
+          nodes: parseCss(
+            "a".repeat(node.source.start.offset) + node.value,
+            [],
+            { ...options }
+          ).nodes[0].nodes,
+        };
+        return node;
+      }
+    }
+
     let selector = "";
 
     if (typeof node.selector === "string") {
