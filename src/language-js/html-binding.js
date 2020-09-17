@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, line },
+  builders: { concat, join, line, group, softline, indent },
 } = require("../document");
 
 function printHtmlBinding(path, options, print) {
@@ -19,14 +19,28 @@ function printHtmlBinding(path, options, print) {
     return path.call(
       (functionDeclarationPath) => {
         const { params } = functionDeclarationPath.getValue();
-        return concat([
-          params.length > 1 ? "(" : "",
-          join(
-            concat([",", line]),
-            functionDeclarationPath.map(print, "params")
-          ),
-          params.length > 1 ? ")" : "",
-        ]);
+        if (params.length > 1) {
+          return concat([
+            "(",
+            indent(
+              concat([
+                softline,
+                group(
+                  join(
+                    concat([",", line]),
+                    functionDeclarationPath.map(print, "params")
+                  )
+                ),
+              ])
+            ),
+            softline,
+            ")",
+          ]);
+        }
+        return join(
+          concat([",", line]),
+          functionDeclarationPath.map(print, "params")
+        );
       },
       "program",
       "body",
