@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css format 1`] = `
+exports[`empty-props.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -18,28 +18,6 @@ printWidth: 80
   --empty:;
   --one-space: ;
   --two-space:  ;
-  --many-space:       ;
-}
-
-================================================================================
-`;
-
-exports[`empty-props.css format 1`] = `
-====================================options=====================================
-parsers: ["css"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-:root {
-  --empty:;
-  --one-space: ;
-  --many-space:       ;
-}
-
-=====================================output=====================================
-:root {
-  --empty:;
-  --one-space: ;
   --many-space:       ;
 }
 
