@@ -23,8 +23,15 @@ if (isProduction) {
         presets: [
           [
             "@babel/env",
-            // Workaround for https://github.com/babel/babel/issues/11994
-            { loose: true },
+            {
+              targets: { node: "current" },
+              exclude: [
+                "transform-async-to-generator",
+                "transform-classes",
+                "proposal-async-generator-functions",
+                "transform-regenerator",
+              ],
+            },
           ],
         ],
       },
