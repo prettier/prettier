@@ -43,7 +43,7 @@
     "fast-json-stable-stringify": "2.1.0",
     "find-parent-dir": "0.3.0",
     "flow-parser": "0.133.0",
-    "get-stream": "6.0.0",
+    "get-stdin": "8.0.0",
     "globby": "11.0.1",
     "graphql": "15.3.0",
     "html-element-attributes": "2.2.1",
@@ -95,7 +95,7 @@
     "@rollup/plugin-node-resolve": "9.0.0",
     "@rollup/plugin-replace": "2.3.3",
     "@types/estree": "0.0.45",
-    "@types/node": "14.10.1",
+    "@types/node": "14.10.2",
     "@typescript-eslint/types": "3.10.1",
     "babel-loader": "8.1.0",
     "benchmark": "2.1.4",
@@ -126,7 +126,7 @@
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.13",
     "tempy": "0.7.0",
-    "terser-webpack-plugin": "4.2.0",
+    "terser-webpack-plugin": "4.2.1",
     "webpack": "4.44.1"
   },
   "scripts": {

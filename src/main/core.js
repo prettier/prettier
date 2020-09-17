@@ -211,39 +211,33 @@ function formatRange(text, opts) {
   return { formatted, cursorOffset };
 }
 
-function format(originalText, opts) {
-  const selectedParser = parser.resolveParser(opts);
+function normalizeInputAndOptions(text, options) {
+  let { cursorOffset, rangeStart, rangeEnd, endOfLine } = options;
 
-  const hasBOM = originalText.charAt(0) === BOM;
-  let text = hasBOM ? originalText.slice(1) : originalText;
+  const hasBOM = text.charAt(0) === BOM;
+  const hasCursor = cursorOffset >= 0;
+  const hasRangeStart = rangeStart > 0;
+  const hasRangeEnd = rangeEnd < text.length;
 
-  const hasCursor = opts.cursorOffset >= 0;
   if (!hasCursor) {
-    opts.cursorOffset = -1;
+    cursorOffset = -1;
   }
-
-  const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
-  if (opts.requirePragma && !hasPragma) {
-    return { formatted: originalText, cursorOffset: opts.cursorOffset };
-  }
-
-  if (opts.endOfLine === "auto") {
-    opts.endOfLine = guessEndOfLine(text);
-  }
-
-  const hasRangeStart = opts.rangeStart > 0;
-  const hasRangeEnd = opts.rangeEnd < text.length;
 
   if (hasBOM) {
+    text = text.slice(1);
     if (hasCursor) {
-      opts.cursorOffset--;
+      cursorOffset--;
     }
     if (hasRangeStart) {
-      opts.rangeStart--;
+      rangeStart--;
     }
     if (hasRangeEnd) {
-      opts.rangeEnd--;
+      rangeEnd--;
     }
+  }
+
+  if (endOfLine === "auto") {
+    endOfLine = guessEndOfLine(text);
   }
 
   // get rid of CR/CRLF parsing
@@ -251,34 +245,70 @@ function format(originalText, opts) {
     const countCrlfBefore = (position) =>
       countEndOfLineChars(text.slice(0, position), "\r\n");
     if (hasCursor) {
-      opts.cursorOffset -= countCrlfBefore(opts.cursorOffset);
+      cursorOffset -= countCrlfBefore(cursorOffset);
     }
     if (hasRangeStart) {
-      opts.rangeStart -= countCrlfBefore(opts.rangeStart);
+      rangeStart -= countCrlfBefore(rangeStart);
     }
     if (hasRangeEnd) {
-      opts.rangeEnd -= countCrlfBefore(opts.rangeEnd);
+      rangeEnd -= countCrlfBefore(rangeEnd);
     }
 
     text = normalizeEndOfLine(text);
   }
 
-  if (opts.rangeStart < 0) {
-    opts.rangeStart = 0;
+  if (rangeStart < 0) {
+    rangeStart = 0;
   }
-  if (opts.rangeEnd > text.length) {
-    opts.rangeEnd = text.length;
+
+  if (rangeEnd > text.length) {
+    rangeEnd = text.length;
+  }
+
+  return {
+    hasBOM,
+    hasCursor,
+    hasRangeStart,
+    hasRangeEnd,
+    text,
+    options: {
+      ...options,
+      cursorOffset,
+      rangeStart,
+      rangeEnd,
+      endOfLine,
+    },
+  };
+}
+
+function format(originalText, originalOptions) {
+  let {
+    hasBOM,
+    hasCursor,
+    hasRangeStart,
+    hasRangeEnd,
+    text,
+    options,
+  } = normalizeInputAndOptions(originalText, originalOptions);
+
+  const selectedParser = parser.resolveParser(options);
+  const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
+  if (options.requirePragma && !hasPragma) {
+    return {
+      formatted: originalText,
+      cursorOffset: originalOptions.cursorOffset,
+    };
   }
 
   let result;
 
   if (hasRangeStart || hasRangeEnd) {
-    result = formatRange(text, opts);
+    result = formatRange(text, options);
   } else {
-    if (!hasPragma && opts.insertPragma && opts.printer.insertPragma) {
-      text = opts.printer.insertPragma(text);
+    if (!hasPragma && options.insertPragma && options.printer.insertPragma) {
+      text = options.printer.insertPragma(text);
     }
-    result = coreFormat(text, opts);
+    result = coreFormat(text, options);
   }
 
   if (hasBOM) {

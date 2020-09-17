@@ -7,7 +7,7 @@ const path = require("path");
  * @property {string} input - input of the bundle
  * @property {string?} output - path of the output file in the `dist/` folder
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
- * @property {'node' | 'universal'} target - should generate a CJS only for node or UMD bundle
+ * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
@@ -67,6 +67,11 @@ const parsers = [
     },
   },
   {
+    input: "dist/parser-postcss.js",
+    output: "esm/parser-postcss.mjs",
+    format: "esm",
+  },
+  {
     input: "src/language-graphql/parser-graphql.js",
   },
   {
@@ -109,6 +114,7 @@ const coreBundles = [
     type: "core",
     output: "doc.js",
     target: "universal",
+    format: "umd",
     minify: false,
   },
   {
