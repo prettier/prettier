@@ -182,7 +182,13 @@ function getRollupConfig(bundle) {
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
-    bundle.minify !== false && bundle.target === "universal" && terser(),
+    bundle.minify !== false &&
+      bundle.target === "universal" &&
+      terser({
+        output: {
+          ascii_only: true,
+        },
+      }),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -202,11 +208,25 @@ function getRollupOutputOptions(bundle) {
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.format = "umd";
     options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
+
+    if (!bundle.format && bundle.bundler !== "webpack") {
+      return [
+        {
+          ...options,
+          format: "umd",
+        },
+        {
+          ...options,
+          format: "esm",
+          file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
+        },
+      ];
+    }
+    options.format = bundle.format;
   }
-  return options;
+  return [options];
 }
 
 function getWebpackConfig(bundle) {
@@ -261,32 +281,47 @@ function runWebpack(config) {
   });
 }
 
+async function checkCache(cache, inputOptions, outputOption) {
+  const useCache = await cache.checkBundle(
+    outputOption.file,
+    inputOptions,
+    outputOption
+  );
+
+  if (useCache) {
+    try {
+      await execa("cp", [
+        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
+        outputOption.file,
+      ]);
+      return true;
+    } catch (err) {
+      console.log(err);
+      // Proceed to build
+    }
+  }
+
+  return false;
+}
+
 module.exports = async function createBundle(bundle, cache) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle);
 
-  const useCache = await cache.checkBundle(
-    bundle.output,
-    inputOptions,
-    outputOptions
+  const checkCacheResults = await Promise.all(
+    outputOptions.map((outputOption) =>
+      checkCache(cache, inputOptions, outputOption)
+    )
   );
-  if (useCache) {
-    try {
-      await execa("cp", [
-        path.join(cache.cacheDir, "files", bundle.output),
-        "dist",
-      ]);
-      return { cached: true };
-    } catch (err) {
-      // Proceed to build
-    }
+  if (checkCacheResults.every((r) => r === true)) {
+    return { cached: true };
   }
 
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
     const result = await rollup(inputOptions);
-    await result.write(outputOptions);
+    await Promise.all(outputOptions.map((option) => result.write(option)));
   }
 
   return { bundled: true };

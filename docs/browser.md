@@ -33,8 +33,8 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 ### ES Modules
 
 ```js
-import prettier from "prettier/standalone";
-import parserGraphql from "prettier/parser-graphql";
+import prettier from "https://unpkg.com/prettier/esm/standalone.mjs";
+import parserGraphql from "https://unpkg.com/prettier/esm/parser-graphql.mjs";
 
 prettier.format("query { }", {
   parser: "graphql",

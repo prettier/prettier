@@ -1375,10 +1375,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/node@*", "@types/node@14.10.1":
-  version "14.10.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.10.1.tgz#cc323bad8e8a533d4822f45ce4e5326f36e42177"
-  integrity sha512-aYNbO+FZ/3KGeQCEkNhHFRIzBOUgc7QvcVNKXbfnhDkSfwUv91JsQQa10rDgKSTSLkXZ1UIyPe4FJJNVgw1xWQ==
+"@types/node@*", "@types/node@14.10.2":
+  version "14.10.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.10.2.tgz#9b47a2c8e4dabd4db73b57e750b24af689600514"
+  integrity sha512-IzMhbDYCpv26pC2wboJ4MMOa9GKtjplXfcAqrMeNJpUUwpM/2ATt2w1JPUXwS6spu856TvKZL2AOmeU2rAxskw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -4036,6 +4036,11 @@ get-package-type@^0.1.0:
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
 
+get-stdin@8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-8.0.0.tgz#cbad6a73feb75f6eeb22ba9e01f89aa28aa97a53"
+  integrity sha512-sY22aA6xchAzprjyqmSEQv4UbAAzRN0L2dQB0NlN5acTTK9Don6nhoc3eAbUnpZiCANAMfd/+40kVdKfFygohg==
+
 get-stdin@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-6.0.0.tgz#9e09bf712b360ab9225e812048f71fde9c89657b"
@@ -4045,11 +4050,6 @@ get-stdin@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-7.0.0.tgz#8d5de98f15171a125c5e516643c7a6d0ea8a96f6"
   integrity sha512-zRKcywvrXlXsA0v0i9Io4KDRaAw7+a1ZpjRwl9Wox8PFlVCCHra7E9c4kqXCoCM9nR5tBkaTTZRBoCm60bFqTQ==
-
-get-stream@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-6.0.0.tgz#3e0012cb6827319da2706e601a1583e8629a6718"
-  integrity sha512-A1B3Bh1UmL0bidM/YX2NsCOTnGJePL9rO/M+Mw3m9f2gUpfokS0hi5Eah0WSUEWZdZhIZtMjkIYS7mDfOqNHbg==
 
 get-stream@^4.0.0:
   version "4.1.0"
@@ -7265,6 +7265,13 @@ serialize-javascript@^4.0.0:
   dependencies:
     randombytes "^2.1.0"
 
+serialize-javascript@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-5.0.1.tgz#7886ec848049a462467a97d3d918ebb2aaf934f4"
+  integrity sha512-SaaNal9imEO737H2c05Og0/8LUXG7EnsZyMa8MzkmuHoELfT6txuj0cMqRj6zfPKnmQ1yasR4PCJc8x+M4JSPA==
+  dependencies:
+    randombytes "^2.1.0"
+
 set-blocking@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
@@ -7802,19 +7809,19 @@ terminal-link@^2.0.0:
     ansi-escapes "^4.2.1"
     supports-hyperlinks "^2.0.0"
 
-terser-webpack-plugin@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-4.2.0.tgz#6240a71101a55c6823d84e11c8fff380b9dfd26f"
-  integrity sha512-Wi0YFbWKG8gBXhbJmrMusRcoXl/C9U5BzIPC2Tn3Si0hejGhhIh0gPf9rEfOCxwigzRPLC8PXv42qDiRTocMXg==
+terser-webpack-plugin@4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-4.2.1.tgz#44b88ef4d7443129fb136a68b5ec3e80d63ec471"
+  integrity sha512-D0IZQNl1ZN/JivFNDFzOeU2Bk2LdQQESHJhKTHsodpUmISkaeRwVFk7gzHzX4OuQwanDGelOxIEsBt1SZ+s6nA==
   dependencies:
     cacache "^15.0.5"
     find-cache-dir "^3.3.1"
     jest-worker "^26.3.0"
     p-limit "^3.0.2"
     schema-utils "^2.7.1"
-    serialize-javascript "^4.0.0"
+    serialize-javascript "^5.0.1"
     source-map "^0.6.1"
-    terser "^5.3.0"
+    terser "^5.3.1"
     webpack-sources "^1.4.3"
 
 terser-webpack-plugin@^1.4.3:
@@ -7841,7 +7848,7 @@ terser@^4.1.2:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^5.0.0, terser@^5.3.0:
+terser@^5.0.0, terser@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/terser/-/terser-5.3.1.tgz#f50fe20ab48b15234fe9bdd86b10148ad5fca787"
   integrity sha512-yD80f4hdwCWTH5mojzxe1q8bN1oJbsK/vfJGLcPZM/fl+/jItIVNKhFIHqqR71OipFWMLgj3Kc+GIp6CeIqfnA==
