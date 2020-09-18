@@ -241,6 +241,11 @@ function genericPrint(path, options, print) {
           ]);
         }
       }
+      const isImportUnknownValueEndsWithSemiColon =
+        node.name === "import" &&
+        node.params &&
+        node.params.type === "value-unknown" &&
+        node.params.value.endsWith(";");
 
       return concat([
         "@",
@@ -309,7 +314,8 @@ function genericPrint(path, options, print) {
               softline,
               "}",
             ])
-          : isTemplatePlaceholderNodeWithoutSemiColon
+          : isTemplatePlaceholderNodeWithoutSemiColon ||
+            isImportUnknownValueEndsWithSemiColon
           ? ""
           : ";",
       ]);
