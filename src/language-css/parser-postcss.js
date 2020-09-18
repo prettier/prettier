@@ -304,9 +304,9 @@ function parseNestedCSS(node, options) {
     if (
       options.parser === "css" &&
       node.type === "css-decl" &&
-      typeof node.prop === "string"&&
+      typeof node.prop === "string" &&
       node.prop.startsWith("--") &&
-      typeof node.value === "string"&&
+      typeof node.value === "string" &&
       node.value.startsWith("{")
     ) {
       let rules;
