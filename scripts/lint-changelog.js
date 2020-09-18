@@ -52,8 +52,8 @@ for (const file of [
   }
 }
 
-const authorRegex = /by \[@(.*?)]\(https:\/\/github\.com\/\1\)/;
-const titleRegex = /^#{4} (.*?)\(\[#\d{4,}]/;
+const authorRegex = /by @[\w-]+|by \[@([\w-]+)]\(https:\/\/github\.com\/\1\)/;
+const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}])/;
 
 const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
@@ -89,7 +89,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       path.join(CHANGELOG_DIR, category, prFile),
       "utf8"
     );
-    const prLink = `[#${prNumber}](https://github.com/prettier/prettier/pull/${prNumber})`;
+    const prLink = `#${prNumber}`;
 
     if (!content.includes(prLink)) {
       showErrorMessage(`[${displayPath}]: PR link "${prLink}" is missing.`);
@@ -108,7 +108,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
     }
     if (!content.startsWith("#### ")) {
-      showErrorMessage(`[${displayPath}]: Please use h4("####") for title.`);
+      showErrorMessage(`[${displayPath}]: Please use h4 ("####") for title.`);
     }
     const titleMatch = content.match(titleRegex);
     if (!titleMatch) {
@@ -122,12 +122,6 @@ for (const category of CHANGELOG_CATEGORIES) {
     ) {
       showErrorMessage(
         `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`
-      );
-    }
-
-    if (title.startsWith(" ")) {
-      showErrorMessage(
-        `[${displayPath}]: Don't add extra space(s) at beginning of title.`
       );
     }
 

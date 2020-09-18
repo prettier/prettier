@@ -175,7 +175,7 @@ expect(
 
 const { course, conflicts = [], index, scheduleId, studentId, something } = a.this.props;
 
-const { course, conflicts = [], index, scheduleId, studentId, something } = this.props;
+const { course2, conflicts2 = [], index2, scheduleId2, studentId2, something2 } = this.props;
 
 const {
   updated,
@@ -208,12 +208,12 @@ const {
 } = a.this.props;
 
 const {
-  course,
-  conflicts = [],
-  index,
-  scheduleId,
-  studentId,
-  something,
+  course2,
+  conflicts2 = [],
+  index2,
+  scheduleId2,
+  studentId2,
+  something2,
 } = this.props;
 
 const {
@@ -304,15 +304,6 @@ ret = __DEV__ ?
 vm.runInContext(source, ctx)
 : a
 
-this.firebase.object(\`/shops/\${shopLocation.shop}\`)
-  // keep distance info
-  .first((shop: ShopQueryResult, index: number, source: Observable<ShopQueryResult>): any => {
-      // add distance to result
-      const s = shop;
-      s.distance = shopLocation.distance;
-      return s;
-  });
-
 angular.module('AngularAppModule')
   // Hello, I am comment.
   .constant('API_URL', 'http://localhost:8080/api');
@@ -376,22 +367,6 @@ ret = __DEV__
     vm.runInContext(source, ctx)
   : a;
 
-this.firebase
-  .object(\`/shops/\${shopLocation.shop}\`)
-  // keep distance info
-  .first(
-    (
-      shop: ShopQueryResult,
-      index: number,
-      source: Observable<ShopQueryResult>
-    ): any => {
-      // add distance to result
-      const s = shop;
-      s.distance = shopLocation.distance;
-      return s;
-    }
-  );
-
 angular
   .module("AngularAppModule")
   // Hello, I am comment.
@@ -414,9 +389,7 @@ client.execute(
 
 =====================================output=====================================
 client.execute(
-  Post.selectAll()
-    .where(Post.id.eq(42))
-    .where(Post.published.eq(true))
+  Post.selectAll().where(Post.id.eq(42)).where(Post.published.eq(true))
 );
 
 ================================================================================
@@ -570,13 +543,9 @@ cy.get(".ready")
   .should("have.css", "color", "#aaa");
 
 =====================================output=====================================
-cy.get("option:first")
-  .should("be.selected")
-  .and("have.value", "Metallica");
+cy.get("option:first").should("be.selected").and("have.value", "Metallica");
 
-cy.get(".ready")
-  .should("have.text", "FOO")
-  .should("have.css", "color", "#aaa");
+cy.get(".ready").should("have.text", "FOO").should("have.css", "color", "#aaa");
 
 ================================================================================
 `;
@@ -729,24 +698,15 @@ domain
     .vals()
 
 =====================================output=====================================
-domain
-  .concept("Page")
-  .val("title", "string")
-  .vals("widgets", "Widget");
+domain.concept("Page").val("title", "string").vals("widgets", "Widget");
 domain
   .concept("Widget")
   .val("title", "string")
   .val("color", "Color")
   .val("foo", "Foo")
   .val("bar", "Bar");
-domain
-  .concept("Widget")
-  .val("title", "string")
-  .val("color", "Color");
-domain
-  .concept(CONCEPT_NAME)
-  .val("title")
-  .vals();
+domain.concept("Widget").val("title", "string").val("color", "Color");
+domain.concept(CONCEPT_NAME).val("title").vals();
 
 ================================================================================
 `;
@@ -817,9 +777,7 @@ fetched
   .then((response) => response.json())
   .then((json) => processThings(json.data.things));
 
-let column = new Column(null, conn)
-  .table(data.table)
-  .json(data.column);
+let column = new Column(null, conn).table(data.table).json(data.column);
 
 ================================================================================
 `;
@@ -881,7 +839,7 @@ const z = obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
 
 // you can still force multi-line chaining with a comment:
-const sha256 = (data) =>
+const sha256_2 = (data) =>
   crypto // breakme
     .createHash("sha256")
     .update(data)
@@ -1035,7 +993,7 @@ somePromise
   .catch((err) => handleError(err));
 
 // you can still force multi-line chaining with a comment:
-const sha256 = (data) =>
+const sha256_2 = (data) =>
   crypto // breakme
     .createHash("sha256")
     .update(data)
@@ -1074,11 +1032,7 @@ Object.keys(props)
     return a;
   }, {});
 
-point()
-  .x(4)
-  .y(3)
-  .z(6)
-  .plot();
+point().x(4).y(3).z(6).plot();
 
 assert.equal(this.$().text().trim(), "1000");
 
@@ -1399,13 +1353,11 @@ const Profile2 = view.with({ name }).as((props) => (
 ))
 
 =====================================output=====================================
-const Profile = view
-  .with({ name: (state) => state.name })
-  .as((props) => (
-    <div>
-      <h1>Hello, {props.name}</h1>
-    </div>
-  ));
+const Profile = view.with({ name: (state) => state.name }).as((props) => (
+  <div>
+    <h1>Hello, {props.name}</h1>
+  </div>
+));
 
 const Profile2 = view.with({ name }).as((props) => (
   <div>

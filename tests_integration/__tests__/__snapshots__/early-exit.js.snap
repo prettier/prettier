@@ -151,6 +151,7 @@ Other options:
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>
@@ -310,6 +311,7 @@ Other options:
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>

@@ -19,8 +19,8 @@ See [Usage](#usage) below for examples.
 ### Global
 
 ```html
-<script src="https://unpkg.com/prettier@2.0.5/standalone.js"></script>
-<script src="https://unpkg.com/prettier@2.0.5/parser-graphql.js"></script>
+<script src="https://unpkg.com/prettier@2.1.2/standalone.js"></script>
+<script src="https://unpkg.com/prettier@2.1.2/parser-graphql.js"></script>
 <script>
   prettier.format("query { }", {
     parser: "graphql",
@@ -47,8 +47,8 @@ prettier.format("query { }", {
 
 ```js
 define([
-  "https://unpkg.com/prettier@2.0.5/standalone.js",
-  "https://unpkg.com/prettier@2.0.5/parser-graphql.js",
+  "https://unpkg.com/prettier@2.1.2/standalone.js",
+  "https://unpkg.com/prettier@2.1.2/parser-graphql.js",
 ], (prettier, ...plugins) => {
   prettier.format("query { }", { parser: "graphql", plugins });
 });
@@ -67,7 +67,7 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ### Worker
 
 ```js
-importScripts("https://unpkg.com/prettier@2.0.5/standalone.js");
-importScripts("https://unpkg.com/prettier@2.0.5/parser-graphql.js");
+importScripts("https://unpkg.com/prettier@2.1.2/standalone.js");
+importScripts("https://unpkg.com/prettier@2.1.2/parser-graphql.js");
 prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
 ```

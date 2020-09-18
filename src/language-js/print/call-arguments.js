@@ -159,7 +159,7 @@ function printCallArguments(path, options, print) {
       shouldBreakForArrowFunction;
 
     // We want to print the last argument with a special flag
-    let printedExpanded;
+    let printedExpanded = [];
     let i = 0;
     const printArgument = (argPath) => {
       if (shouldGroupFirst && i === 0) {

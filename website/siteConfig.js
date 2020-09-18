@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const parseYaml = require("js-yaml").safeLoad;
 
-const PACKAGE = require("../package");
+const PACKAGE = require("../package.json");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
 function loadYaml(fsPath) {
@@ -54,7 +54,7 @@ const siteConfig = {
     theme: "default",
     version: require("highlight.js/package.json").version,
   },
-  usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html"],
+  usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
   useEnglishUrl: true,
   scripts: ["https://buttons.github.io/buttons.js"],
   stylesheets: [

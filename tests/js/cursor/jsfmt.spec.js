@@ -46,3 +46,19 @@ foo('bar', cb => {
     cursorOffset: 25,
   });
 });
+
+test("cursorOffset === rangeStart", () => {
+  const code = "1.0000\n2.0000\n3.0000";
+
+  expect(
+    prettier.formatWithCursor(code, {
+      parser: "babel",
+      cursorOffset: 7,
+      rangeStart: 7,
+      rangeEnd: 8,
+    })
+  ).toEqual({
+    formatted: "1.0000\n2.0;\n3.0000",
+    cursorOffset: 7,
+  });
+});

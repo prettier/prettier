@@ -19,6 +19,7 @@ function parse(text, parsers, opts) {
       // suppose our guess is correct
       const e = firstError;
 
+      /* istanbul ignore next */
       if (typeof e.lineNumber === "undefined") {
         throw e;
       }
@@ -35,11 +36,15 @@ function parse(text, parsers, opts) {
 function tryParseTypeScript(text, jsx) {
   const parser = require("@typescript-eslint/typescript-estree");
   return parser.parse(text, {
+    // `jest@<=26.4.2` rely on `loc`
+    // https://github.com/facebook/jest/issues/10444
+    loc: true,
     range: true,
     comment: true,
     useJSXTextNode: true,
     jsx,
     tokens: true,
+    loggerFn: false,
   });
 }
 

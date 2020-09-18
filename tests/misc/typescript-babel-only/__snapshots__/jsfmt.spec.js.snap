@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tuple-labeled-ts.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid label 1
+type T = [x.y: A];
+
+// Invalid label 2
+type T = [x<y>: A];
+
+=====================================output=====================================
+// Invalid label 1
+type T = [x.y: A];
+
+// Invalid label 2
+type T = [x<y>: A];
+
+================================================================================
+`;
