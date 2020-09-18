@@ -53,8 +53,8 @@ module.exports = {
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    "prettier/local": "<rootDir>/tests_config/require_prettier.js",
-    "prettier/standalone": "<rootDir>/tests_config/require_standalone.js",
+    "prettier-local": "<rootDir>/tests_config/require_prettier.js",
+    "prettier-standalone": "<rootDir>/tests_config/require_standalone.js",
   },
   modulePathIgnorePatterns: ["<rootDir>/dist"],
   testEnvironment: "node",
