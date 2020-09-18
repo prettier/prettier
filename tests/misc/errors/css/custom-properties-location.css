@@ -1,8 +1,0 @@
-:root {
-  /* comment should not effect location 1 */
-     --prop /* comment should not effect location 2 */   :
-  /* comment should not effect location 3 */
-  {
-  /* comment should not effect location 4 */ invalid-code /* The error location should on this line */
- }
-}
