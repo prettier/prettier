@@ -303,26 +303,46 @@ function parseNestedCSS(node, options) {
     // `postcss@8` parse custom properties as `css-decl`
     if (options.parser === "css" && node.type === "css-decl") {
       const { prop, value } = node;
-      if (
-        prop.startsWith("--") &&
-        value.startsWith("{") &&
-        value.endsWith("}")
-      ) {
-        const textBefore = options.originalText.slice(
-          0,
-          node.source.start.offset
-        );
-        const nodeText =
-          "a".repeat(prop.length) +
-          options.originalText.slice(
-            node.source.start.offset + prop.length,
-            node.source.end.offset + 1
+      if (prop.startsWith("--") && value.startsWith("{")) {
+        let rules;
+        if (value.endsWith("}")) {
+          const textBefore = options.originalText.slice(
+            0,
+            node.source.start.offset
           );
-        const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
-        node.value = {
-          type: "css-rule",
-          nodes: parseCss(fakeContent, [], { ...options }).nodes[0].nodes,
-        };
+          const nodeText =
+            "a".repeat(prop.length) +
+            options.originalText.slice(
+              node.source.start.offset + prop.length,
+              node.source.end.offset + 1
+            );
+          const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
+          let ast;
+          try {
+            ast = parseCss(fakeContent, [], { ...options });
+          } catch (_) {
+            // noop
+          }
+          if (
+            ast &&
+            ast.nodes &&
+            ast.nodes.length === 1 &&
+            ast.nodes[0].type === "css-rule"
+          ) {
+            rules = ast.nodes[0].nodes;
+          }
+        }
+        if (rules) {
+          node.value = {
+            type: "css-rule",
+            nodes: rules,
+          };
+        } else {
+          node.value = {
+            type: "value-unknown",
+            value: node.raws.value.raw
+          }
+        }
         return node;
       }
     }
