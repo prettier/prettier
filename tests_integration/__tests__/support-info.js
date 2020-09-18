@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("prettier/local");
+const prettier = require("prettier-local");
 const runPrettier = require("../runPrettier");
 
 test("API getSupportInfo()", () => {
