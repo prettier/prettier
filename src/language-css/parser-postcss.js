@@ -300,51 +300,55 @@ function parseNestedCSS(node, options) {
       node.raws = {};
     }
 
-    // `postcss@8` parse custom properties as `css-decl`
-    if (options.parser === "css" && node.type === "css-decl") {
-      const { prop, value } = node;
-      if (prop.startsWith("--") && value.startsWith("{")) {
-        let rules;
-        if (value.endsWith("}")) {
-          const textBefore = options.originalText.slice(
-            0,
-            node.source.start.offset
+    // Custom properties looks like declarations
+    if (
+      options.parser === "css" &&
+      node.type === "css-decl" &&
+      typeof node.prop === "string"&&
+      node.prop.startsWith("--") &&
+      typeof node.value === "string"&&
+      node.value.startsWith("{")
+    ) {
+      let rules;
+      if (node.value.endsWith("}")) {
+        const textBefore = options.originalText.slice(
+          0,
+          node.source.start.offset
+        );
+        const nodeText =
+          "a".repeat(node.prop.length) +
+          options.originalText.slice(
+            node.source.start.offset + node.prop.length,
+            node.source.end.offset + 1
           );
-          const nodeText =
-            "a".repeat(prop.length) +
-            options.originalText.slice(
-              node.source.start.offset + prop.length,
-              node.source.end.offset + 1
-            );
-          const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
-          let ast;
-          try {
-            ast = parseCss(fakeContent, [], { ...options });
-          } catch (_) {
-            // noop
-          }
-          if (
-            ast &&
-            ast.nodes &&
-            ast.nodes.length === 1 &&
-            ast.nodes[0].type === "css-rule"
-          ) {
-            rules = ast.nodes[0].nodes;
-          }
+        const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
+        let ast;
+        try {
+          ast = parseCss(fakeContent, [], { ...options });
+        } catch (_) {
+          // noop
         }
-        if (rules) {
-          node.value = {
-            type: "css-rule",
-            nodes: rules,
-          };
-        } else {
-          node.value = {
-            type: "value-unknown",
-            value: node.raws.value.raw,
-          };
+        if (
+          ast &&
+          ast.nodes &&
+          ast.nodes.length === 1 &&
+          ast.nodes[0].type === "css-rule"
+        ) {
+          rules = ast.nodes[0].nodes;
         }
-        return node;
       }
+      if (rules) {
+        node.value = {
+          type: "css-rule",
+          nodes: rules,
+        };
+      } else {
+        node.value = {
+          type: "value-unknown",
+          value: node.raws.value.raw,
+        };
+      }
+      return node;
     }
 
     let selector = "";
