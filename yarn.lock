@@ -6546,10 +6546,10 @@ postcss-values-parser@2.0.1:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss@8.0.6:
-  version "8.0.6"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.0.6.tgz#1507160d7df320c77f8f4819cf52491f4748b672"
-  integrity sha512-P4lvqkhoiba/w0JE1t432xlQyeJnnf1elrviZOX0GybserV79IN4skB2nQg+NoOmkq30MNqVv9ggdqVmYjaolA==
+postcss@8.0.7:
+  version "8.0.7"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.0.7.tgz#764d26d8bc64a87af6d945238ae6ef36bf6fc32d"
+  integrity sha512-LTCMGOjmC/CGWV/azk3h34u6TNj1s9p4XleEiW8yA3j+8k+z3mnv5V7yyREvWDKlkel8GxqhjEZJ+JXWTzKPWw==
   dependencies:
     colorette "^1.2.1"
     line-column "^1.0.2"
