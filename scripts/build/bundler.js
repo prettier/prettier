@@ -178,6 +178,7 @@ function getRollupConfig(bundle) {
         bundle.type === "plugin"
           ? undefined
           : (id) => /\.\/parser-.*?/.test(id),
+      requireReturnsDefault: "preferred",
     }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
