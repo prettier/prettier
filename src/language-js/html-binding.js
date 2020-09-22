@@ -18,29 +18,22 @@ function printHtmlBinding(path, options, print) {
   if (options.__isVueForBindingLeft) {
     return path.call(
       (functionDeclarationPath) => {
-        const { params } = functionDeclarationPath.getValue();
-        if (params.length > 1) {
-          return concat([
-            "(",
-            indent(
-              concat([
-                softline,
-                group(
-                  join(
-                    concat([",", line]),
-                    functionDeclarationPath.map(print, "params")
-                  )
-                ),
-              ])
-            ),
-            softline,
-            ")",
-          ]);
-        }
-        return join(
+        const printed = join(
           concat([",", line]),
           functionDeclarationPath.map(print, "params")
         );
+
+        const { params } = functionDeclarationPath.getValue();
+        if (params.length === 1) {
+          return printed;
+        }
+
+        return concat([
+          "(",
+          indent(concat([softline, group(printed)])),
+          softline,
+          ")",
+        ]);
       },
       "program",
       "body",
