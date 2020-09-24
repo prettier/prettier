@@ -300,6 +300,57 @@ function parseNestedCSS(node, options) {
       node.raws = {};
     }
 
+    // Custom properties looks like declarations
+    if (
+      options.parser === "css" &&
+      node.type === "css-decl" &&
+      typeof node.prop === "string" &&
+      node.prop.startsWith("--") &&
+      typeof node.value === "string" &&
+      node.value.startsWith("{")
+    ) {
+      let rules;
+      if (node.value.endsWith("}")) {
+        const textBefore = options.originalText.slice(
+          0,
+          node.source.start.offset
+        );
+        const nodeText =
+          "a".repeat(node.prop.length) +
+          options.originalText.slice(
+            node.source.start.offset + node.prop.length,
+            node.source.end.offset + 1
+          );
+        const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
+        let ast;
+        try {
+          ast = parseCss(fakeContent, [], { ...options });
+        } catch (_) {
+          // noop
+        }
+        if (
+          ast &&
+          ast.nodes &&
+          ast.nodes.length === 1 &&
+          ast.nodes[0].type === "css-rule"
+        ) {
+          rules = ast.nodes[0].nodes;
+        }
+      }
+      if (rules) {
+        node.value = {
+          type: "css-rule",
+          nodes: rules,
+        };
+      } else {
+        node.value = {
+          type: "value-unknown",
+          value: node.raws.value.raw,
+        };
+      }
+      return node;
+    }
+
     let selector = "";
 
     if (typeof node.selector === "string") {
@@ -594,6 +645,7 @@ function parseWithParser(parse, text, options) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
+  options.originalText = text;
   result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
   calculateLoc(result, text);
