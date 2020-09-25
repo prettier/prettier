@@ -275,10 +275,6 @@ function genericPrint(path, options, print) {
       ]);
     }
 
-    case "TypeExtensionDefinition": {
-      return concat(["extend ", path.call(print, "definition")]);
-    }
-
     case "ObjectTypeExtension":
     case "ObjectTypeDefinition": {
       return concat([
@@ -615,7 +611,13 @@ function printDirectives(path, print, n) {
     return "";
   }
 
-  return group(concat([line, join(line, path.map(print, "directives"))]));
+  const printed = join(line, path.map(print, "directives"));
+
+  if (n.kind === "FragmentDefinition" || n.kind === "OperationDefinition") {
+    return group(concat([line, printed]));
+  }
+
+  return concat([" ", group(indent(concat([softline, printed])))]);
 }
 
 function printSequence(sequencePath, options, print) {
@@ -645,6 +647,7 @@ function printComment(commentPath) {
     return "#" + comment.value.trimEnd();
   }
 
+  /* istanbul ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`less-syntax.less error test 1`] = `
+"(postcss) CssSyntaxError Unknown word (1:4)
+> 1 | a {.bordered();}
+    |    ^
+  2 | "
+`;
+
+exports[`postcss-8-improment.scss error test 1`] = `
+"(postcss) CssSyntaxError Missed semicolon (9:20)
+   7 | :root {
+   8 |   --empty: ;
+>  9 |   --JSON: [1, \\"2\\", {\\"three\\": {\\"a\\":1}}, [4]];
+     |                    ^
+  10 |   --javascript: function(rule) { console.log(rule) };
+  11 | }
+  12 | "
+`;

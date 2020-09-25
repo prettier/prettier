@@ -87,10 +87,7 @@ Object.entries({
   0o10: '0o10', // 8
   0xf: '0xf', // 15
   2n: '2n', // 2
-  0xb_b: '0xb_b', // 187
-  0xb_b_bn: '0xb_b_bn', // 3003
   0xan: '0xan', // 10
-  0b100000000000_000000000000000011n: '0b100000000000_000000000000000011n' // 536870915
 })
 
 // Negative numbers cannot be unquoted.

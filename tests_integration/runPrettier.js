@@ -74,7 +74,7 @@ function runPrettier(dir, args, options) {
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
   jest
-    .spyOn(require(thirdParty), "getStream")
+    .spyOn(require(thirdParty), "getStdin")
     .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
   jest
     .spyOn(require(thirdParty), "isCI")

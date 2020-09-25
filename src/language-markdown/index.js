@@ -5,14 +5,14 @@ const printer = require("./printer-markdown");
 const options = require("./options");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/Markdown"), (data) => ({
+  createLanguage(require("linguist-languages/data/Markdown.json"), (data) => ({
     since: "1.8.0",
     parsers: ["markdown"],
     vscodeLanguageIds: ["markdown"],
     filenames: data.filenames.concat(["README"]),
     extensions: data.extensions.filter((extension) => extension !== ".mdx"),
   })),
-  createLanguage(require("linguist-languages/data/Markdown"), () => ({
+  createLanguage(require("linguist-languages/data/Markdown.json"), () => ({
     name: "MDX",
     since: "1.15.0",
     parsers: ["mdx"],
@@ -27,6 +27,7 @@ const printers = {
 };
 
 const parsers = {
+  /* istanbul ignore next */
   get remark() {
     return require("./parser-markdown").parsers.remark;
   },

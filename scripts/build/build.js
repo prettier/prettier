@@ -22,7 +22,7 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-const CACHE_VERSION = "v25"; // This need update when updating build scripts
+const CACHE_VERSION = "v31"; // This need update when updating build scripts
 const CACHED = chalk.bgYellow.black(" CACHED ");
 const OK = chalk.bgGreen.black("  DONE  ");
 const FAIL = chalk.bgRed.black("  FAIL  ");
@@ -72,15 +72,18 @@ function handleError(error) {
   throw error;
 }
 
-async function cacheFiles() {
+async function cacheFiles(cache) {
   // Copy built files to .cache
   try {
     await execa("rm", ["-rf", path.join(".cache", "files")]);
     await execa("mkdir", ["-p", path.join(".cache", "files")]);
-    for (const bundleConfig of bundleConfigs) {
+    await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
+    const manifest = cache.updated;
+
+    for (const file of Object.keys(manifest.files)) {
       await execa("cp", [
-        path.join("dist", bundleConfig.output),
-        path.join(".cache", "files"),
+        file,
+        path.join(".cache", file.replace("dist", "files")),
       ]);
     }
   } catch (err) {
@@ -107,6 +110,7 @@ async function preparePackage() {
 async function run(params) {
   await execa("rm", ["-rf", "dist"]);
   await execa("mkdir", ["-p", "dist"]);
+  await execa("mkdir", ["-p", "dist/esm"]);
 
   if (params["purge-cache"]) {
     await execa("rm", ["-rf", ".cache"]);
@@ -120,7 +124,7 @@ async function run(params) {
     await createBundle(bundleConfig, bundleCache);
   }
 
-  await cacheFiles();
+  await cacheFiles(bundleCache);
   await bundleCache.save();
 
   await preparePackage();

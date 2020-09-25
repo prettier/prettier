@@ -1,0 +1,6 @@
+{
+// comment
+  trailingComma: 'all',
+          printWidth: +81,
+  tabWidth: 3.,
+}

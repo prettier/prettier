@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escape sequence-key.js format 1`] = `
+exports[`escape-sequence-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -11,7 +11,7 @@ const a = {
   '\\u2139': 'why "\\\\u2139" is converted to "i"?',
 };
 
-const a = {
+const b = {
   "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
 };
 
@@ -21,7 +21,7 @@ const a = {
   "\\u2139": 'why "\\\\u2139" is converted to "i"?',
 };
 
-const a = {
+const b = {
   "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
 };
 
@@ -113,6 +113,36 @@ const a3 = {
 ================================================================================
 `;
 
+exports[`invalid-accessor-generator.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid, but recoverable
+// https://github.com/babel/babel/pull/11921/
+
+({
+    get *iterator() { },
+    set *iterator(iter) { },
+    get iterator2() { },
+    set iterator2(iter) { },
+});
+
+=====================================output=====================================
+// Invalid, but recoverable
+// https://github.com/babel/babel/pull/11921/
+
+({
+  get *iterator() {},
+  set *iterator(iter) {},
+  get iterator2() {},
+  set iterator2(iter) {},
+});
+
+================================================================================
+`;
+
 exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -165,7 +195,7 @@ group(
 ================================================================================
 `;
 
-exports[`right_break.js format 1`] = `
+exports[`right-break.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

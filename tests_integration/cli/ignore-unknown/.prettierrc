@@ -1,0 +1,10 @@
+{
+  "overrides": [
+    {
+      "files": "*.as-js-file",
+      "options": {
+        "parser": "babel"
+      }
+    }
+  ]
+}

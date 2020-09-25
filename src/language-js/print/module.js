@@ -3,7 +3,12 @@
 const {
   builders: { concat, softline, group, indent, join, line, ifBreak },
 } = require("../../document");
+
 const { shouldPrintComma } = require("../utils");
+
+/**
+ * @typedef {import("../../document").Doc} Doc
+ */
 
 function printModuleSource(path, options, print) {
   const node = path.getValue();
@@ -12,6 +17,8 @@ function printModuleSource(path, options, print) {
 
 function printModuleSpecifiers(path, options, print) {
   const node = path.getValue();
+
+  /** @type{Doc[]} */
   const parts = [node.type === "ImportDeclaration" ? " " : ""];
 
   if (node.specifiers && node.specifiers.length > 0) {

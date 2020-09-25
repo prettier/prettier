@@ -63,7 +63,7 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
@@ -151,6 +151,7 @@ Other options:
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>
@@ -222,7 +223,7 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
@@ -310,6 +311,7 @@ Other options:
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>

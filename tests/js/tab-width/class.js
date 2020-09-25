@@ -5,6 +5,6 @@ class A {
         x = x + 1;
         if (true) x = "";
     }
-    var z:number = x;
+    var z = x;
   }
 }

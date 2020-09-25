@@ -49,17 +49,6 @@ function a() {
     'Once this is done, commit anything to the repository to restart ' +
       'Travis and it should work :)'
   );
-
-  // Incorrectly indented on purpose
-      function f</* prettier-ignore */ T    :    B>(
-        a : Array  <   number   > // prettier-ignore
-      ) {
-
-        call(
-          f(         1          )
-          // prettier-ignore
-        )
-      }
 }
 
 const response = {

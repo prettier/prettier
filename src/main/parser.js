@@ -13,6 +13,8 @@ const ownDescriptor = Object.getOwnPropertyDescriptor;
 function getParsers(options) {
   const parsers = {};
   for (const plugin of options.plugins) {
+    // TODO: test this with plugins
+    /* istanbul ignore next */
     if (!plugin.parsers) {
       continue;
     }
@@ -48,18 +50,18 @@ function resolveParser(opts, parsers) {
       throw new ConfigError(
         `Couldn't resolve parser "${opts.parser}". Parsers must be explicitly added to the standalone bundle.`
       );
-    } else {
-      try {
-        return {
-          parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
-          astFormat: "estree",
-          locStart,
-          locEnd,
-        };
-      } catch (err) {
-        /* istanbul ignore next */
-        throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
-      }
+    }
+
+    try {
+      return {
+        parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
+        astFormat: "estree",
+        locStart,
+        locEnd,
+      };
+    } catch (err) {
+      /* istanbul ignore next */
+      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
 }

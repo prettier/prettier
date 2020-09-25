@@ -258,12 +258,6 @@ function genericPrint(path, options, print) {
         style,
       ]);
     }
-    case "yaml":
-    case "toml":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
-      );
     case "html": {
       const parentNode = path.getParentNode();
       const value =
@@ -385,6 +379,9 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
+    // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
+    /* istanbul ignore next */
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -436,7 +433,9 @@ function genericPrint(path, options, print) {
     // MDX
     case "importExport":
     case "jsx":
-      return node.value; // fallback to the original text if multiparser failed
+      // fallback to the original text if multiparser failed
+      // or `embeddedLanguageFormatting: "off"`
+      return concat([node.value, hardline]);
     case "math":
       return concat([
         "$$",
@@ -461,6 +460,7 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
+      /* istanbul ignore next */
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
 }
@@ -766,6 +766,8 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
+        // Can't find a case to pass `shouldPrePrintTripleHardline`
+        /* istanbul ignore next */
         if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
@@ -931,7 +933,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
-    isFrontMatterNode(ast) ||
+    ast.type === "front-matter" ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||
