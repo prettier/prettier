@@ -12,7 +12,7 @@ const {
   lineSuffix,
   join,
   cursor,
-} = require("../document").builders;
+} = require("../document/doc-builders");
 
 const {
   hasNewline,

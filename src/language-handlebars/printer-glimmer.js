@@ -9,7 +9,7 @@ const {
   join,
   line,
   softline,
-} = require("../document").builders;
+} = require("../document/doc-builders");
 const locationToOffset = require("../utils/line-column-to-index");
 
 const clean = require("./clean");
