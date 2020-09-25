@@ -2,9 +2,6 @@
 
 function composeOptionsForSnapshot(baseOptions, parsers) {
   const {
-    rangeStart,
-    rangeEnd,
-    cursorOffset,
     disableBabelTS,
     plugins,
     filepath,

@@ -4,6 +4,8 @@ exports[`export-assignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+rangeEnd: 18
+rangeStart: 15
      |                                                                                | printWidth
 =====================================input======================================
   1 | f ( );
@@ -23,6 +25,8 @@ exports[`issue-4926.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+rangeEnd: 304
+rangeStart: 102
       |                                                                                | printWidth
 =====================================input======================================
    1 | class Foo {
@@ -61,6 +65,8 @@ exports[`issue-7148.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+rangeEnd: 59
+rangeStart: 29
      |                                                                                | printWidth
 =====================================input======================================
   1 | export default class Test {

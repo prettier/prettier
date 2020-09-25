@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
+        uses: actions/checkout@v2.3.3
 
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.1
@@ -48,6 +48,7 @@ jobs:
         if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
         uses: preactjs/compressed-size-action@v2.0.1
         with:
+          pattern: "dist/**"
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           compression: none
 
@@ -57,7 +58,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
+        uses: actions/checkout@v2.3.3
 
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.1
@@ -103,7 +104,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
+        uses: actions/checkout@v2.3.3
 
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.1
