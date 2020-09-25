@@ -320,11 +320,11 @@ printWidth: 80
 /* custom properties set & @apply rule */
 :root {
   /* comments 192 */
-  --centered /* comments 193 */ : /* comments 194 */ {
+  --centered/* comments 193 */ : /* comments 194 */ {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  };
 }
 
 ================================================================================
