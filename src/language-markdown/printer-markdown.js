@@ -431,11 +431,12 @@ function genericPrint(path, options, print) {
     case "liquidNode":
       return concat(replaceEndOfLineWith(node.value, hardline));
     // MDX
+    // fallback to the original text if multiparser failed
+    // or `embeddedLanguageFormatting: "off"`
     case "importExport":
-    case "jsx":
-      // fallback to the original text if multiparser failed
-      // or `embeddedLanguageFormatting: "off"`
       return concat([node.value, hardline]);
+    case "jsx":
+      return node.value;
     case "math":
       return concat([
         "$$",
