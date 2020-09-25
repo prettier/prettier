@@ -14,3 +14,17 @@
 :root {
   --without-semi: {color:red;}
 }
+
+:root {
+  --like-a-apply-rule: {
+  color:red;} /* no semi here*/
+  --another-prop: blue;
+}
+
+:root {
+  --like-a-apply-rule: {
+  color:red;} /* no semi here*/
+  --another-one-like-a-apply-rule: {
+    color:red;
+  };
+}
