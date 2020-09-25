@@ -325,7 +325,7 @@ function parseNestedCSS(node, options) {
         let parse;
         if (options.parser === "scss") {
           parse = parseScss;
-        } else {
+        } else if (options.parser === "scss") {
           parse = parseCss;
         }
         let ast;
