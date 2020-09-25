@@ -6,7 +6,7 @@ const {
   formatDoc,
   printToDoc,
   printDocToString,
-} = require("prettier/local").__debug;
+} = require("prettier-local").__debug;
 const { outdent } = require("outdent");
 
 const code = outdent`

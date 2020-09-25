@@ -121,7 +121,9 @@ function genericPrint(path, options, print) {
               node.selector.type === "selector-unknown" &&
               lastLineHasInlineComment(node.selector.value)
                 ? line
-                : " ",
+                : node.selector
+                ? " "
+                : "",
               "{",
               node.nodes.length > 0
                 ? indent(
@@ -141,6 +143,8 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
+      const isValueAllSpace =
+        typeof node.value === "string" && /^ *$/.test(node.value);
 
       let value = hasComposesNode(node)
         ? removeLines(path.call(print, "value"))
@@ -155,7 +159,7 @@ function genericPrint(path, options, print) {
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend ? "" : " ",
+        node.extend || isValueAllSpace ? "" : " ",
         options.parser === "less" && node.extend && node.selector
           ? concat(["extend(", path.call(print, "selector"), ")"])
           : "",
