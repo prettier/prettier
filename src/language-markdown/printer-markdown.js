@@ -40,7 +40,7 @@ const {
 } = require("./utils");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
   "definition",
@@ -178,6 +178,9 @@ function genericPrint(path, options, print) {
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
+    }
+    case "wikiLink": {
+      return concat(["[[", node.value, "]]"]);
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {

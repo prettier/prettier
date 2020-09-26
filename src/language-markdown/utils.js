@@ -14,6 +14,7 @@ const INLINE_NODE_TYPES = [
   "strong",
   "delete",
   "link",
+  "wikiLink",
   "linkReference",
   "image",
   "imageReference",
