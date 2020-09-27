@@ -302,7 +302,7 @@ function parseNestedCSS(node, options) {
 
     // Custom properties looks like declarations
     if (
-      options.parser === "css" &&
+      (options.parser === "css" || options.parser === "scss") &&
       node.type === "css-decl" &&
       typeof node.prop === "string" &&
       node.prop.startsWith("--") &&
@@ -322,9 +322,15 @@ function parseNestedCSS(node, options) {
             node.source.end.offset + 1
           );
         const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
+        let parse;
+        if (options.parser === "scss") {
+          parse = parseScss;
+        } else if (options.parser === "css") {
+          parse = parseCss;
+        }
         let ast;
         try {
-          ast = parseCss(fakeContent, [], { ...options });
+          ast = parse(fakeContent, [], { ...options });
         } catch (_) {
           // noop
         }
