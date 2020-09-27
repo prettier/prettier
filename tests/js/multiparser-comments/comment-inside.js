@@ -19,3 +19,11 @@ graphql`${
       foo
   /* comment */
 }`;
+css`${
+      foo
+  /* comment */
+}`;
+markdown`${
+      foo
+  /* comment */
+}`;

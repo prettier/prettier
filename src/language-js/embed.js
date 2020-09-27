@@ -132,7 +132,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           if (expressionDoc) {
-            parts.push(concat(["${", expressionDoc, "}"]));
+            parts.push(concat(["${", expressionDoc, lineSuffixBoundary, "}"]));
           }
         }
 
@@ -307,7 +307,12 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         }
 
         // The component will always be a number at odd index
-        replacedParts.push("${", expressionDocs[component], "}");
+        replacedParts.push(
+          "${",
+          expressionDocs[component],
+          lineSuffixBoundary,
+          "}"
+        );
         replaceCounter++;
       });
     });
