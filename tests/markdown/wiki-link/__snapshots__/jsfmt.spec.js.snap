@@ -132,6 +132,177 @@ I have some markdown prose here, with a horrible run-on sentence that
 ================================================================================
 `;
 
+exports[`extra-brackets.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+A very long line of markdown with additional brackets as it wraps over the [[[end like this]]].
+
+
+=====================================output=====================================
+A very long line of markdown with additional brackets as it wraps over the
+[[[end like this]]].
+
+================================================================================
+`;
+
+exports[`extra-brackets.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+A very long line of markdown with additional brackets as it wraps over the [[[end like this]]].
+
+
+=====================================output=====================================
+A very long line of markdown with additional brackets as it wraps over the
+[[[end like this]]].
+
+================================================================================
+`;
+
+exports[`extra-brackets-leading.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+A very long line of markdown with additional brackets as it wraps over [[[the end like this]].
+
+
+=====================================output=====================================
+A very long line of markdown with additional brackets as it wraps over
+[[[the end like this]].
+
+================================================================================
+`;
+
+exports[`extra-brackets-leading.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+A very long line of markdown with additional brackets as it wraps over [[[the end like this]].
+
+
+=====================================output=====================================
+A very long line of markdown with additional brackets as it wraps over
+[[[the end like this]].
+
+================================================================================
+`;
+
+exports[`extra-brackets-trailing.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+A very long line of markdown with additional brackets as it wraps over [[the end like this]]].
+
+
+=====================================output=====================================
+A very long line of markdown with additional brackets as it wraps over
+[[the end like this]]].
+
+================================================================================
+`;
+
+exports[`extra-brackets-trailing.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+A very long line of markdown with additional brackets as it wraps over [[the end like this]]].
+
+
+=====================================output=====================================
+A very long line of markdown with additional brackets as it wraps over
+[[the end like this]]].
+
+================================================================================
+`;
+
+exports[`multi-line.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[[a
+b]]
+
+=====================================output=====================================
+[[a b]]
+
+================================================================================
+`;
+
+exports[`multi-line.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[[a
+b]]
+
+=====================================output=====================================
+[[a b]]
+
+================================================================================
+`;
+
+exports[`nested-link.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
+
+=====================================output=====================================
+Here's some text to ensure that the link and wiki link break the line
+[[a[b](http://www.example.com/)]]
+
+================================================================================
+`;
+
+exports[`nested-link.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Here's some text to ensure that the link and wiki link break the line [[a[b](http://www.example.com/)]]
+
+=====================================output=====================================
+Here's some text to ensure that the link and wiki link break the line
+[[a[b](http://www.example.com/)]]
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
