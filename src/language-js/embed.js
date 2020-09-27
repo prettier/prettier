@@ -11,14 +11,27 @@ const {
     concat,
     group,
     dedentToRoot,
-    lineSuffixBoundary,
   },
-  utils: { mapDoc, replaceNewlinesWithLiterallines },
+  utils: { mapDoc, replaceNewlinesWithLiterallines, findInDoc },
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
 function printTemplateExpressionDoc(doc) {
-  return concat(["${", doc, lineSuffixBoundary, "}"]);
+  const hasLineSuffix = findInDoc(
+    doc,
+    ({ type }) => {
+      if (type === "line-suffix") {
+        return true;
+      }
+    },
+    false
+  );
+
+  return concat([
+    "${",
+    hasLineSuffix ? concat([indent(concat([hardline, doc])), hardline]) : doc,
+    "}",
+  ]);
 }
 
 function embed(path, print, textToDoc, options) {
