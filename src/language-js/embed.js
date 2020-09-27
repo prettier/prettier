@@ -17,6 +17,10 @@ const {
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
+function printTemplateExpressionDoc(doc) {
+  return concat(["${", doc, lineSuffixBoundary, "}"]);
+}
+
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -132,7 +136,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           if (expressionDoc) {
-            parts.push(concat(["${", expressionDoc, lineSuffixBoundary, "}"]));
+            parts.push(printTemplateExpressionDoc(expressionDoc));
           }
         }
 
@@ -308,10 +312,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
         // The component will always be a number at odd index
         replacedParts.push(
-          "${",
-          expressionDocs[component],
-          lineSuffixBoundary,
-          "}"
+          printTemplateExpressionDoc(expressionDocs[component])
         );
         replaceCounter++;
       });
@@ -621,12 +622,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
 
         const placeholderIndex = +component;
         parts.push(
-          concat([
-            "${",
-            group(expressionDocs[placeholderIndex]),
-            lineSuffixBoundary,
-            "}",
-          ])
+          printTemplateExpressionDoc(expressionDocs[placeholderIndex])
         );
       }
 
