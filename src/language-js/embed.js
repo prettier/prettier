@@ -11,6 +11,7 @@ const {
     concat,
     group,
     dedentToRoot,
+    lineSuffixBoundary,
   },
   utils: { mapDoc, replaceNewlinesWithLiterallines },
 } = require("../document");
@@ -615,7 +616,12 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
 
         const placeholderIndex = +component;
         parts.push(
-          concat(["${", group(expressionDocs[placeholderIndex]), "}"])
+          concat([
+            "${",
+            group(expressionDocs[placeholderIndex]),
+            lineSuffixBoundary,
+            "}",
+          ])
         );
       }
 
