@@ -15,3 +15,7 @@ html`
     /* avoid console errors if `this.set` is undefined */}
   </div>
 `;
+graphql`${
+      foo
+  /* comment */
+}`;

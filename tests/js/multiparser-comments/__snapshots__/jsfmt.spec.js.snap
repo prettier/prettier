@@ -23,6 +23,10 @@ html\`
     /* avoid console errors if \`this.set\` is undefined */}
   </div>
 \`;
+graphql\`\${
+      foo
+  /* comment */
+}\`;
 =====================================output=====================================
 html\`\${foo
 /* comment */
@@ -39,6 +43,11 @@ html\`
     /* avoid console errors if \`this.set\` is undefined */
     }
   </div>
+\`;
+graphql\`
+  \${foo
+  /* comment */
+  }
 \`;
 
 ================================================================================
