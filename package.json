@@ -105,7 +105,7 @@
     "eslint": "7.9.0",
     "eslint-config-prettier": "6.12.0",
     "eslint-formatter-friendly": "7.0.0",
-    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jest": "24.0.2",
     "eslint-plugin-prettier-internal-rules": "file:scripts/tools/eslint-plugin-prettier-internal-rules",
     "eslint-plugin-react": "7.21.2",
