@@ -125,7 +125,7 @@
     "snapshot-diff": "0.8.1",
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.13",
-    "tempy": "0.7.0",
+    "tempy": "0.7.1",
     "terser-webpack-plugin": "4.2.2",
     "webpack": "4.44.2"
   },
