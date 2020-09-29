@@ -70,5 +70,4 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
-  verbose: Boolean(process.env.FULL_TEST),
 };
