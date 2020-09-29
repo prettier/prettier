@@ -551,9 +551,11 @@ gql\`
   # and has a blank line in the middle
 
   \${FRIENDS_FRAGMENT}
-  \${generateFragment({
-    totally: "a good idea",
-  })}
+  \${
+    generateFragment({
+      totally: "a good idea",
+    })
+  }
 
   \${fragment}
   #comment
