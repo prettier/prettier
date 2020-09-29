@@ -11,28 +11,11 @@ const {
     concat,
     group,
     dedentToRoot,
+    lineSuffixBoundary,
   },
-  utils: { mapDoc, replaceNewlinesWithLiterallines, findInDoc },
+  utils: { mapDoc, replaceNewlinesWithLiterallines },
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
-
-function printTemplateExpressionDoc(doc) {
-  const hasLineSuffix = findInDoc(
-    doc,
-    ({ type }) => {
-      if (type === "line-suffix") {
-        return true;
-      }
-    },
-    false
-  );
-
-  return concat([
-    "${",
-    hasLineSuffix ? concat([indent(concat([hardline, doc])), hardline]) : doc,
-    "}",
-  ]);
-}
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -671,6 +654,18 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
       topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
       trailingWhitespace,
       "`",
+    ])
+  );
+}
+
+function printTemplateExpressionDoc(doc) {
+  return group(
+    concat([
+      "${",
+      indent(concat([softline, doc])),
+      softline,
+      lineSuffixBoundary,
+      "}",
     ])
   );
 }
