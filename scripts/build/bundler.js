@@ -47,14 +47,6 @@ const entries = [
     find: "lines-and-columns",
     replacement: require.resolve("lines-and-columns"),
   },
-  // `handlebars` causes webpack warning by using `require.extensions`
-  // `dist/handlebars.js` also complaint on `window` variable
-  // use cjs build instead
-  // https://github.com/prettier/prettier/issues/6656
-  {
-    find: "handlebars",
-    replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
-  },
   {
     find: "@angular/compiler/src",
     replacement: path.resolve(

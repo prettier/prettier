@@ -48,7 +48,6 @@ jobs:
         if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
         uses: preactjs/compressed-size-action@v2.0.1
         with:
-          pattern: "dist/**"
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           compression: none
 
