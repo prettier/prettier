@@ -11,8 +11,9 @@ const {
     concat,
     group,
     dedentToRoot,
+    lineSuffixBoundary,
   },
-  utils: { mapDoc, replaceNewlinesWithLiterallines, findInDoc },
+  utils: { mapDoc, replaceNewlinesWithLiterallines },
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
@@ -62,7 +63,7 @@ function embed(path, print, textToDoc, options) {
        */
       if (isGraphQL(path)) {
         const expressionDocs = node.expressions
-          ? path.map(print, "expressions")
+          ? path.map(printTemplateExpression(print), "expressions")
           : [];
 
         const numQuasis = node.quasis.length;
@@ -131,7 +132,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           if (expressionDoc) {
-            parts.push(printTemplateExpressionDoc(expressionDoc));
+            parts.push(expressionDoc);
           }
         }
 
@@ -246,7 +247,7 @@ function transformCssDoc(quasisDoc, path, print) {
   }
 
   const expressionDocs = parentNode.expressions
-    ? path.map(print, "expressions")
+    ? path.map(printTemplateExpression(print), "expressions")
     : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* istanbul ignore if */
@@ -306,9 +307,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         }
 
         // The component will always be a number at odd index
-        replacedParts.push(
-          printTemplateExpressionDoc(expressionDocs[component])
-        );
+        replacedParts.push(expressionDocs[component]);
         replaceCounter++;
       });
     });
@@ -573,7 +572,10 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     )
     .join("");
 
-  const expressionDocs = path.map(print, "expressions");
+  const expressionDocs = path.map(
+    printTemplateExpression(print),
+    "expressions"
+  );
 
   if (expressionDocs.length === 0 && text.trim().length === 0) {
     return "``";
@@ -616,9 +618,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
         }
 
         const placeholderIndex = +component;
-        parts.push(
-          printTemplateExpressionDoc(expressionDocs[placeholderIndex])
-        );
+        parts.push(expressionDocs[placeholderIndex]);
       }
 
       return concat(parts);
@@ -657,22 +657,15 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   );
 }
 
-function printTemplateExpressionDoc(doc) {
-  const hasLineSuffix = findInDoc(
-    doc,
-    ({ type }) => {
-      if (type === "line-suffix") {
-        return true;
-      }
-    },
-    false
-  );
-
-  return concat([
-    "${",
-    hasLineSuffix ? concat([indent(concat([hardline, doc])), hardline]) : doc,
-    "}",
-  ]);
+function printTemplateExpression(print) {
+  return (path) => {
+    const node = path.getValue();
+    let printed = print(path);
+    if (node.comments && node.comments.length) {
+      printed = concat([indent(concat([softline, printed])), softline]);
+    }
+    return concat(["${", printed, lineSuffixBoundary, "}"]);
+  };
 }
 
 module.exports = embed;
