@@ -217,4 +217,5 @@ function fixWindowsSlashes(pattern) {
 module.exports = {
   expandPatterns,
   fixWindowsSlashes,
+  statSafeSync,
 };
