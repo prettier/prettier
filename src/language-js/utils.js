@@ -927,7 +927,7 @@ function returnArgumentHasLeadingComment(options, argument) {
 //
 // Angular does not support unquoted numbers in expressions.
 //
-// So we play it safe and only unquote numbers for the "babel" parser.
+// So we play it safe and only unquote numbers for the Javascript parsers.
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
