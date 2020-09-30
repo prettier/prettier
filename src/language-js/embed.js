@@ -16,24 +16,6 @@ const {
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
-function printTemplateExpressionDoc(doc) {
-  const hasLineSuffix = findInDoc(
-    doc,
-    ({ type }) => {
-      if (type === "line-suffix") {
-        return true;
-      }
-    },
-    false
-  );
-
-  return concat([
-    "${",
-    hasLineSuffix ? concat([indent(concat([hardline, doc])), hardline]) : doc,
-    "}",
-  ]);
-}
-
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -673,6 +655,24 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
       "`",
     ])
   );
+}
+
+function printTemplateExpressionDoc(doc) {
+  const hasLineSuffix = findInDoc(
+    doc,
+    ({ type }) => {
+      if (type === "line-suffix") {
+        return true;
+      }
+    },
+    false
+  );
+
+  return concat([
+    "${",
+    hasLineSuffix ? concat([indent(concat([hardline, doc])), hardline]) : doc,
+    "}",
+  ]);
 }
 
 module.exports = embed;
