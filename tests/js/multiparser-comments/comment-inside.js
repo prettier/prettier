@@ -51,3 +51,11 @@ ${
   /* comment */
 }
 `;
+
+// https://github.com/prettier/prettier/pull/9278#issuecomment-700589195
+expr1 = html`
+  <div>
+    ${x(foo, // fg
+        bar
+      )}</div>
+`;
