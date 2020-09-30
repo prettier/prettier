@@ -37,3 +37,7 @@
   name: WebStorm
   content: |
     [Built-in support](https://prettier.io/docs/en/webstorm.html)
+- image: /images/editors/editor_nova.svg
+  name: Nova
+  content: |
+    [Prettier](https://extensions.panic.com/extensions/alexanderweiss/alexanderweiss.prettier)
