@@ -63,3 +63,27 @@ describe("allow overriding flags", () => {
     status: 0,
   });
 });
+
+describe("number file/dir", () => {
+  const patterns = ["1", "2.2", "3", "4.44"];
+  for (const pattern of patterns) {
+    runPrettier("cli/arg-parsing/number", [
+      "--parser=babel",
+      "--list-different",
+      pattern,
+    ]).test({
+      stderr: "",
+      status: 1,
+      write: [],
+    });
+  }
+  runPrettier("cli/arg-parsing/number", [
+    "--parser=babel",
+    "--list-different",
+    ...patterns,
+  ]).test({
+    stderr: "",
+    status: 1,
+    write: [],
+  });
+});
