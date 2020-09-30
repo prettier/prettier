@@ -662,7 +662,7 @@ function printTemplateExpression(print) {
     const node = path.getValue();
     let printed = print(path);
     if (node.comments && node.comments.length) {
-      printed = concat([indent(concat([softline, printed])), softline]);
+      printed = group(concat([indent(concat([softline, printed])), softline]));
     }
     return concat(["${", printed, lineSuffixBoundary, "}"]);
   };

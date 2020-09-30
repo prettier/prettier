@@ -72,17 +72,20 @@ expr1 = html\`
 // #9274
 html\`
   <div>
-    \${this.set && this.set.artist
+    \${
+      this.set && this.set.artist
       /* avoid console errors if \`this.set\` is undefined */
     }
   </div>
 \`;
 
-html\`\${foo
+html\`\${
+  foo
   /* comment */
 }\`;
 html\`
-  \${foo
+  \${
+    foo
     /* comment */
   }
 \`;
