@@ -99,7 +99,7 @@ function liquid() {
 
 function wikiLink() {
   const entityType = "wikiLink";
-  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/;
+  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/s;
   const proto = this.Parser.prototype;
   const methods = proto.inlineMethods;
   methods.splice(methods.indexOf("link"), 0, entityType);
@@ -109,7 +109,9 @@ function wikiLink() {
     const match = wikiLinkRegex.exec(value);
 
     if (match) {
-      const linkContents = match.groups.linkContents.trim();
+      const linkContents = match.groups.linkContents
+        .trim()
+        .replace(/[\t\n]+/g, " ");
 
       return eat(match[0])({
         type: entityType,
