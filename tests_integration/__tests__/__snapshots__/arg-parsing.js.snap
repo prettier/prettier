@@ -23,12 +23,12 @@ exports[`negated options work (stdout) 1`] = `
 exports[`negated options work (write) 1`] = `Array []`;
 
 exports[`number file/dir (stdout) 1`] = `
-"1\\\\file-in-dir-named-1.js
+"1/file-in-dir-named-1.js
 "
 `;
 
 exports[`number file/dir (stdout) 2`] = `
-"2.2\\\\file-in-dir-named-2.2.js
+"2.2/file-in-dir-named-2.2.js
 "
 `;
 
@@ -43,8 +43,8 @@ exports[`number file/dir (stdout) 4`] = `
 `;
 
 exports[`number file/dir (stdout) 5`] = `
-"1\\\\file-in-dir-named-1.js
-2.2\\\\file-in-dir-named-2.2.js
+"1/file-in-dir-named-1.js
+2.2/file-in-dir-named-2.2.js
 3
 4.44
 "
