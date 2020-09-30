@@ -139,9 +139,7 @@ export const ButtonWrapper = styled.button\`
 \`;
 
 export const ButtonWrapper2 = styled.button\`
-  \${base} \${hover} \${opaque} \${block} \${active} \${disabled} \${outline} \${
-    dashed
-  } \${spacing}
+  \${base} \${hover} \${opaque} \${block} \${active} \${disabled} \${outline} \${dashed} \${spacing}
 \`;
 
 ================================================================================
@@ -224,18 +222,15 @@ const StyledH1 = styled.div\`
   font-family: \${constants.text.displayFont.fontFamily};
   letter-spacing: \${(props) => (props.light ? "0.04em" : 0)};
   color: \${(props) => props.textColor};
-  \${
-    (props) =>
-      props.center
-        ? \` display: flex;
+  \${(props) =>
+    props.center
+      ? \` display: flex;
                 align-items: center;
                 justify-content: center;
                 text-align: center;\`
-        : ""
-  }
-  @media (max-width: \${
-    (props) => (props.noBreakPoint ? "0" : constants.layout.breakpoint.break1)
-  }px) {
+      : ""}
+  @media (max-width: \${(props) =>
+    props.noBreakPoint ? "0" : constants.layout.breakpoint.break1}px) {
     font-size: 2em;
   }
 \`;
@@ -875,13 +870,11 @@ const bar = styled.div\`
   height: 40px;
   width: 40px;
 
-  \${
-    (props) =>
-      (props.complete || props.inProgress) &&
-      css\`
-        border-color: rgba(var(--green-rgb), 0.15);
-      \`
-  }
+  \${(props) =>
+    (props.complete || props.inProgress) &&
+    css\`
+      border-color: rgba(var(--green-rgb), 0.15);
+    \`}
 
   div {
     background-color: var(--purpleTT);
@@ -890,47 +883,39 @@ const bar = styled.div\`
     color: var(--purpleTT);
     display: inline-flex;
 
-    \${
-      (props) =>
-        props.complete &&
-        css\`
-          background-color: var(--green);
-          border-width: 7px;
-        \`
-    }
+    \${(props) =>
+      props.complete &&
+      css\`
+        background-color: var(--green);
+        border-width: 7px;
+      \`}
 
-    \${
-      (props) =>
-        (props.complete || props.inProgress) &&
-        css\`
-          border-color: var(--green);
-        \`
-    }
+    \${(props) =>
+      (props.complete || props.inProgress) &&
+      css\`
+        border-color: var(--green);
+      \`}
   }
 \`;
 
 const A = styled.a\`
   display: inline-block;
   color: #fff;
-  \${
-    (props) =>
-      props.a &&
-      css\`
-        display: none;
-      \`
-  }
+  \${(props) =>
+    props.a &&
+    css\`
+      display: none;
+    \`}
   height: 30px;
 \`;
 
 const Foo = styled.p\`
   max-width: 980px;
-  \${
-    mediaBreakpointOnlyXs\`
+  \${mediaBreakpointOnlyXs\`
     && {
       font-size: 0.8rem;
     }
-  \`
-  }
+  \`}
 
   &.bottom {
     margin-top: 3rem;
