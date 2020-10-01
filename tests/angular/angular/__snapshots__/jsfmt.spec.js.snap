@@ -340,6 +340,11 @@ printWidth: 80
     [target]=" [ 
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
+    [target]="{ 1: 101 } "
+    [target]="{ 2:202 } "
+    [target]="{ '3': 303 } "
+    [target]='{ "4": 404 } '
+    [target]="{ '5':303 } "
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -452,6 +457,11 @@ printWidth: 80
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
+  [target]="{ 1: 101 } "
+  [target]="{ 2:202 } "
+  [target]="{'3': 303}"
+  [target]="{'4': 404}"
+  [target]="{'5': 303}"
   [target]="true"
   [target]="undefined"
   [target]="null"
@@ -611,6 +621,11 @@ printWidth: 80
     [target]=" [ 
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
+    [target]="{ 1: 101 } "
+    [target]="{ 2:202 } "
+    [target]="{ '3': 303 } "
+    [target]='{ "4": 404 } '
+    [target]="{ '5':303 } "
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -723,6 +738,11 @@ printWidth: 80
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
+  [target]="{ 1: 101 } "
+  [target]="{ 2:202 } "
+  [target]="{ '3': 303 }"
+  [target]="{ '4': 404 }"
+  [target]="{ '5': 303 }"
   [target]="true"
   [target]="undefined"
   [target]="null"
@@ -881,6 +901,11 @@ printWidth: 1
     [target]=" [ 
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
+    [target]="{ 1: 101 } "
+    [target]="{ 2:202 } "
+    [target]="{ '3': 303 } "
+    [target]='{ "4": 404 } '
+    [target]="{ '5':303 } "
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -1040,6 +1065,17 @@ printWidth: 1
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
+  [target]="{ 1: 101 } "
+  [target]="{ 2:202 } "
+  [target]="{
+    '3': 303
+  }"
+  [target]="{
+    '4': 404
+  }"
+  [target]="{
+    '5': 303
+  }"
   [target]="
     true
   "
@@ -1481,6 +1517,11 @@ trailingComma: "none"
     [target]=" [ 
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
+    [target]="{ 1: 101 } "
+    [target]="{ 2:202 } "
+    [target]="{ '3': 303 } "
+    [target]='{ "4": 404 } '
+    [target]="{ '5':303 } "
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -1593,6 +1634,11 @@ trailingComma: "none"
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
+  [target]="{ 1: 101 } "
+  [target]="{ 2:202 } "
+  [target]="{ '3': 303 }"
+  [target]="{ '4': 404 }"
+  [target]="{ '5': 303 }"
   [target]="true"
   [target]="undefined"
   [target]="null"
@@ -1751,6 +1797,11 @@ printWidth: 80
     [target]=" [ 
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
     ]"
+    [target]="{ 1: 101 } "
+    [target]="{ 2:202 } "
+    [target]="{ '3': 303 } "
+    [target]='{ "4": 404 } '
+    [target]="{ '5':303 } "
     [target]=" true "
     [target]=" undefined "
     [target]=" null "
@@ -1863,6 +1914,11 @@ printWidth: 80
   [target]="[
     longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
   ]"
+  [target]="{ 1: 101 } "
+  [target]="{ 2:202 } "
+  [target]="{ '3': 303 }"
+  [target]="{ '4': 404 }"
+  [target]="{ '5': 303 }"
   [target]="true"
   [target]="undefined"
   [target]="null"
