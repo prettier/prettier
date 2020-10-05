@@ -1184,7 +1184,13 @@ function printPathNoParens(path, options, print, args) {
 
       const canHaveTrailingSeparator = !(
         n.inexact ||
-        (lastElem && lastElem.type === "RestElement")
+        (lastElem && lastElem.type === "RestElement") ||
+        (lastElem &&
+          (lastElem.type === "TSPropertySignature" ||
+            lastElem.type === "TSCallSignatureDeclaration" ||
+            lastElem.type === "TSMethodSignature" ||
+            lastElem.type === "TSConstructSignatureDeclaration") &&
+          hasNodeIgnoreComment(lastElem))
       );
 
       let content;
