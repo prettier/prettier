@@ -558,6 +558,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"aceMode\\": \\"text\\",
+      \\"color\\": \\"#e10098\\",
       \\"extensions\\": [\\".graphql\\", \\".gql\\", \\".graphqls\\"],
       \\"linguistLanguageId\\": 139,
       \\"name\\": \\"GraphQL\\",
