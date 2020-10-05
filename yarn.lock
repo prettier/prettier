@@ -5504,10 +5504,10 @@ lines-and-columns@1.1.6, lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-linguist-languages@7.11.0:
-  version "7.11.0"
-  resolved "https://registry.yarnpkg.com/linguist-languages/-/linguist-languages-7.11.0.tgz#c28bbbbcc620cf612ff96154402a80be027832a2"
-  integrity sha512-UJD5XvS+6oMIy2WiaDRJiHOFSozbKM+nzFxCbADU6qLjZqZHbOFZ7ELN+KsYmtDo66SYGz7rCfvj/oloxtcfdA==
+linguist-languages@7.11.1:
+  version "7.11.1"
+  resolved "https://registry.yarnpkg.com/linguist-languages/-/linguist-languages-7.11.1.tgz#69938a526bb6090c2fc173d0e440693bb0667818"
+  integrity sha512-+cRUk+1WTbydcdzipXQER2iilX+wMrb1LPkbkGuDP/IcGPJRDmOZH6Olf1iH6sHlHwPnJYiNJH39YsFCVZxvUQ==
 
 load-json-file@^2.0.0:
   version "2.0.0"
