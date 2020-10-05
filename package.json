@@ -108,7 +108,7 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jest": "24.0.2",
     "eslint-plugin-prettier-internal-rules": "file:scripts/tools/eslint-plugin-prettier-internal-rules",
-    "eslint-plugin-react": "7.21.2",
+    "eslint-plugin-react": "7.21.3",
     "eslint-plugin-unicorn": "22.0.0",
     "execa": "4.0.3",
     "jest": "26.4.2",
