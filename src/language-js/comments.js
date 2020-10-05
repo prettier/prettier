@@ -958,7 +958,6 @@ function isRealFunctionLikeNode(node) {
     node.type === "TSDeclareFunction" ||
     node.type === "TSCallSignatureDeclaration" ||
     node.type === "TSConstructSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSMethodSignature" ||
     node.type === "TSConstructorType" ||
     node.type === "TSFunctionType" ||
