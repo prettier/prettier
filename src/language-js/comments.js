@@ -940,7 +940,7 @@ function isBlockComment(comment) {
  */
 function hasLeadingComment(node, fn = () => true) {
   if (node.leadingComments) {
-    return node.leadingComments.some(fn);
+    return node.leadingComments.some((comment) => fn(comment));
   }
   if (node.comments) {
     return node.comments.some((comment) => comment.leading && fn(comment));

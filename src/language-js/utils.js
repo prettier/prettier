@@ -1113,7 +1113,7 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return node.expressions.every((node) => isChildSimple(node));
   }
 
   if (node.type === "ObjectExpression") {
@@ -1137,7 +1137,7 @@ function isSimpleCallArgument(node, depth) {
   ) {
     return (
       isSimpleCallArgument(node.callee, depth) &&
-      node.arguments.every(isChildSimple)
+      node.arguments.every((node) => isChildSimple(node))
     );
   }
 

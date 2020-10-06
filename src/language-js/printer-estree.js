@@ -1155,8 +1155,8 @@ function printPathNoParens(path, options, print, args) {
       if (n.inexact) {
         let printed;
         if (hasDanglingComments(n)) {
-          const hasLineComments = !n.comments.every(
-            handleComments.isBlockComment
+          const hasLineComments = !n.comments.every((comment) =>
+            handleComments.isBlockComment(comment)
           );
           const printedDanglingComments = comments.printDanglingComments(
             path,
@@ -2101,7 +2101,8 @@ function printPathNoParens(path, options, print, args) {
     case "JSXClosingFragment": {
       const hasComment = n.comments && n.comments.length;
       const hasOwnLineComment =
-        hasComment && !n.comments.every(handleComments.isBlockComment);
+        hasComment &&
+        !n.comments.every((comment) => handleComments.isBlockComment(comment));
       const isOpeningFragment = n.type === "JSXOpeningFragment";
       return concat([
         isOpeningFragment ? "<" : "</",
@@ -2124,7 +2125,8 @@ function printPathNoParens(path, options, print, args) {
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression": {
       const requiresHardline =
-        n.comments && !n.comments.every(handleComments.isBlockComment);
+        n.comments &&
+        !n.comments.every((comment) => handleComments.isBlockComment(comment));
 
       return concat([
         comments.printDanglingComments(
@@ -3927,7 +3929,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       concat([
         removeLines(typeParams),
         "(",
-        concat(printed.map(removeLines)),
+        concat(printed.map((doc) => removeLines(doc))),
         ")",
       ])
     );
@@ -4205,8 +4207,8 @@ function printTypeParameters(path, options, print, paramsKey) {
     if (!hasDanglingComments(n)) {
       return "";
     }
-    const hasOnlyBlockComments = n.comments.every(
-      handleComments.isBlockComment
+    const hasOnlyBlockComments = n.comments.every((comment) =>
+      handleComments.isBlockComment(comment)
     );
     const printed = comments.printDanglingComments(
       path,
@@ -4597,7 +4599,7 @@ function printJSXElement(path, options, print) {
     return child;
   });
 
-  const containsTag = n.children.filter(isJSXNode).length > 0;
+  const containsTag = n.children.filter((child) => isJSXNode(child)).length > 0;
   const containsMultipleExpressions =
     n.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;

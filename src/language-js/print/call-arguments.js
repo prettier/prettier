@@ -153,8 +153,9 @@ function printCallArguments(path, options, print) {
   if (shouldGroupFirst || shouldGroupLast) {
     const shouldBreak =
       (shouldGroupFirst
-        ? printedArguments.slice(1).some(willBreak)
-        : printedArguments.slice(0, -1).some(willBreak)) ||
+        ? printedArguments.slice(1)
+        : printedArguments.slice(0, -1)
+      ).some((doc) => willBreak(doc)) ||
       anyArgEmptyLine ||
       shouldBreakForArrowFunction;
 
@@ -186,7 +187,9 @@ function printCallArguments(path, options, print) {
       path.each(printArgument, "arguments");
     }
 
-    const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
+    const somePrintedArgumentsWillBreak = printedArguments.some((doc) =>
+      willBreak(doc)
+    );
 
     const simpleConcat = concat(["(", concat(printedExpanded), ")"]);
 
@@ -235,7 +238,8 @@ function printCallArguments(path, options, print) {
   }
 
   return group(contents, {
-    shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine,
+    shouldBreak:
+      printedArguments.some((doc) => willBreak(doc)) || anyArgEmptyLine,
   });
 }
 

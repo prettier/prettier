@@ -193,7 +193,9 @@ function rethrowSomeRecoveredErrors(ast) {
 function parseJson(text, parsers, opts) {
   const ast = parseExpression(text, parsers, opts);
 
-  ast.comments.forEach(assertJsonNode);
+  for (const comment of ast.comments) {
+    assertJsonNode(comment);
+  }
   assertJsonNode(ast);
 
   return ast;
@@ -202,9 +204,15 @@ function parseJson(text, parsers, opts) {
 function assertJsonNode(node, parent) {
   switch (node.type) {
     case "ArrayExpression":
-      return node.elements.forEach(assertJsonChildNode);
+      for (const node of node.elements) {
+        assertJsonNode(assertJsonChildNode);
+      }
+      return;
     case "ObjectExpression":
-      return node.properties.forEach(assertJsonChildNode);
+      for (const node of node.properties) {
+        assertJsonNode(assertJsonChildNode);
+      }
+      return;
     case "ObjectProperty":
       if (node.computed) {
         throw createJsonError("computed");
@@ -213,7 +221,9 @@ function assertJsonNode(node, parent) {
       if (node.shorthand) {
         throw createJsonError("shorthand");
       }
-      return [node.key, node.value].forEach(assertJsonChildNode);
+      assertJsonChildNode(node.key);
+      assertJsonChildNode(node.value);
+      return;
     case "UnaryExpression":
       switch (node.operator) {
         case "+":
