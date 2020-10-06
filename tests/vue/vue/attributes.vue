@@ -30,6 +30,7 @@
   v-for=" { a }    in    [0].map(()=>({a:1}))   "
   v-for=" ({ a }, [c  ])    in    [0].map(()=>1)   "
   v-for=" n in items.map(x => { return x }) "
+  v-for=" { a }    in    [0].map(()=>({a:101, 'b': 202, 3: 303, '4':404}))   "
   @click="  /* hello */   "
   @click="   /* 1 */ $emit( /* 2 */ 'click' /* 3 */ ) /* 4 */ ; /* 5 */   "
   @click="   $emit(   'click'   )   "
