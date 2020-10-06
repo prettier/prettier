@@ -11,6 +11,7 @@ const {
     concat,
     group,
     dedentToRoot,
+    lineSuffixBoundary,
   },
   utils: { mapDoc, replaceNewlinesWithLiterallines },
 } = require("../document");
@@ -48,7 +49,11 @@ function embed(path, print, textToDoc, options) {
           { parser: "scss" },
           { stripTrailingHardline: true }
         );
-        return transformCssDoc(doc, path, print);
+        return transformCssDoc(
+          doc,
+          node,
+          path.map(printTemplateExpression, "expressions")
+        );
       }
 
       /*
@@ -61,9 +66,7 @@ function embed(path, print, textToDoc, options) {
        * support Relay Classic formatting.
        */
       if (isGraphQL(path)) {
-        const expressionDocs = node.expressions
-          ? path.map(print, "expressions")
-          : [];
+        const expressionDocs = path.map(printTemplateExpression, "expressions");
 
         const numQuasis = node.quasis.length;
 
@@ -131,7 +134,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           if (expressionDoc) {
-            parts.push(concat(["${", expressionDoc, "}"]));
+            parts.push(expressionDoc);
           }
         }
 
@@ -151,8 +154,8 @@ function embed(path, print, textToDoc, options) {
 
       if (htmlParser) {
         return printHtmlTemplateLiteral(
-          path,
-          print,
+          node,
+          path.map(printTemplateExpression, "expressions"),
           textToDoc,
           htmlParser,
           options
@@ -207,6 +210,15 @@ function embed(path, print, textToDoc, options) {
     );
     return escapeTemplateCharacters(doc, true);
   }
+
+  function printTemplateExpression(path) {
+    const node = path.getValue();
+    let printed = print(path);
+    if (node.comments && node.comments.length) {
+      printed = group(concat([indent(concat([softline, printed])), softline]));
+    }
+    return concat(["${", printed, lineSuffixBoundary, "}"]);
+  }
 }
 
 function getIndentation(str) {
@@ -236,18 +248,13 @@ function escapeTemplateCharacters(doc, raw) {
   });
 }
 
-function transformCssDoc(quasisDoc, path, print) {
-  const parentNode = path.getValue();
-
+function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
   const isEmpty =
     parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
   if (isEmpty) {
     return "``";
   }
 
-  const expressionDocs = parentNode.expressions
-    ? path.map(print, "expressions")
-    : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* istanbul ignore if */
   if (!newDoc) {
@@ -306,7 +313,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         }
 
         // The component will always be a number at odd index
-        replacedParts.push("${", expressionDocs[component], "}");
+        replacedParts.push(expressionDocs[component]);
         replaceCounter++;
       });
     });
@@ -554,9 +561,13 @@ function isHtml(path) {
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 
-function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
-  const node = path.getValue();
-
+function printHtmlTemplateLiteral(
+  node,
+  expressionDocs,
+  textToDoc,
+  parser,
+  options
+) {
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
@@ -570,8 +581,6 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
         : quasi.value.cooked + composePlaceholder(index)
     )
     .join("");
-
-  const expressionDocs = path.map(print, "expressions");
 
   if (expressionDocs.length === 0 && text.trim().length === 0) {
     return "``";
@@ -614,9 +623,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
         }
 
         const placeholderIndex = +component;
-        parts.push(
-          concat(["${", group(expressionDocs[placeholderIndex]), "}"])
-        );
+        parts.push(expressionDocs[placeholderIndex]);
       }
 
       return concat(parts);
