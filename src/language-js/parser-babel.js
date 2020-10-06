@@ -204,13 +204,13 @@ function parseJson(text, parsers, opts) {
 function assertJsonNode(node, parent) {
   switch (node.type) {
     case "ArrayExpression":
-      for (const node of node.elements) {
-        assertJsonNode(assertJsonChildNode);
+      for (const element of node.elements) {
+        assertJsonNode(element);
       }
       return;
     case "ObjectExpression":
-      for (const node of node.properties) {
-        assertJsonNode(assertJsonChildNode);
+      for (const property of node.properties) {
+        assertJsonNode(property);
       }
       return;
     case "ObjectProperty":
