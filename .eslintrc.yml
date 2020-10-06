@@ -64,7 +64,6 @@ rules:
     - exceptRange: true
   unicorn/better-regex: error
   unicorn/new-for-builtins: error
-  unicorn/no-fn-reference-in-iterator: error
   unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
   unicorn/prefer-string-slice: error
