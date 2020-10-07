@@ -972,6 +972,10 @@ function clean(ast, newObj, parent) {
     newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
   }
 
+  if (ast.type === "wikiLink") {
+    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
+  }
+
   if (ast.type === "definition" || ast.type === "linkReference") {
     newObj.label = ast.label
       .trim()
