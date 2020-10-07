@@ -336,6 +336,11 @@ function handleWhileComments(
     return true;
   }
 
+  if (enclosingNode.body === followingNode) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
