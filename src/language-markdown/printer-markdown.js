@@ -180,7 +180,14 @@ function genericPrint(path, options, print) {
       return concat([style, gap, node.value, gap, style]);
     }
     case "wikiLink": {
-      return concat(["[[", node.value, "]]"]);
+      let contents = "";
+      if (options.proseWrap === "preserve") {
+        contents = node.value;
+      } else {
+        contents = node.value.replace(/[\t\n]+/g," ");
+      }
+
+      return concat(["[[", contents, "]]"]);
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {

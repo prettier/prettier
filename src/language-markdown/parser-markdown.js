@@ -109,9 +109,7 @@ function wikiLink() {
     const match = wikiLinkRegex.exec(value);
 
     if (match) {
-      const linkContents = match.groups.linkContents
-        .trim()
-        .replace(/[\t\n]+/g, " ");
+      const linkContents = match.groups.linkContents.trim();
 
       return eat(match[0])({
         type: entityType,
