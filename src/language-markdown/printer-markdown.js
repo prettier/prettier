@@ -184,7 +184,7 @@ function genericPrint(path, options, print) {
       if (options.proseWrap === "preserve") {
         contents = node.value;
       } else {
-        contents = node.value.replace(/[\t\n]+/g," ");
+        contents = node.value.replace(/[\t\n]+/g, " ");
       }
 
       return concat(["[[", contents, "]]"]);
