@@ -4322,9 +4322,22 @@ function printClass(path, options, print) {
   }
 
   if (n.superClass) {
+    const printSuperClass = (path) => {
+      const printed = path.call(print, "superClass");
+      const parent = path.getParentNode();
+      if (parent && parent.type === "AssignmentExpression") {
+        return concat([
+          ifBreak("("),
+          indent(concat([softline, printed])),
+          softline,
+          ifBreak(")"),
+        ]);
+      }
+      return printed;
+    };
     const printed = concat([
       "extends ",
-      path.call(print, "superClass"),
+      printSuperClass(path),
       path.call(print, "superTypeParameters"),
     ]);
     const printedWithComments = path.call(
