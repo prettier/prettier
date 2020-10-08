@@ -40,7 +40,7 @@ const {
 } = require("./utils");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
   "definition",
@@ -178,6 +178,16 @@ function genericPrint(path, options, print) {
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
+    }
+    case "wikiLink": {
+      let contents = "";
+      if (options.proseWrap === "preserve") {
+        contents = node.value;
+      } else {
+        contents = node.value.replace(/[\t\n]+/g, " ");
+      }
+
+      return concat(["[[", contents, "]]"]);
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
@@ -960,6 +970,10 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "inlineCode") {
     newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+  }
+
+  if (ast.type === "wikiLink") {
+    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
   }
 
   if (ast.type === "definition" || ast.type === "linkReference") {
