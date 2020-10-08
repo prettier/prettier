@@ -4323,7 +4323,8 @@ function printClass(path, options, print) {
         return concat([
           ifBreak("("),
           indent(concat([softline, printed])),
-          concat([softline, ifBreak(")")]),
+          softline,
+          ifBreak(")"),
         ]);
       }
       return printed;
