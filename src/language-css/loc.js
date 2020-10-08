@@ -69,18 +69,28 @@ function calculateValueNodeLoc(node, rootOffset, text) {
 }
 
 function getValueRootOffset(node) {
-  return (
-    node.source.startOffset +
-    (typeof node.prop === "string" ? node.prop.length : 0) +
-    (node.type === "css-atrule" && typeof node.name === "string"
-      ? 1 + node.name.length + getLeadingWhitespaceLength(node.raws.afterName)
-      : 0) +
-    (node.type !== "css-atrule" &&
+  let result = node.source.startOffset;
+  if (typeof node.prop === "string") {
+    result += node.prop.length;
+  }
+
+  if (node.type === "css-atrule" && typeof node.name === "string") {
+    result += 1 + node.name.length;
+    const m = node.raws.afterName.match(/^[\s:]*/);
+    if (m) {
+      result += m[0].length;
+    }
+  }
+
+  if (
+    node.type !== "css-atrule" &&
     node.raws &&
     typeof node.raws.between === "string"
-      ? node.raws.between.length
-      : 0)
-  );
+  ) {
+    result += node.raws.between.length;
+  }
+
+  return result;
 }
 
 /**
@@ -207,11 +217,6 @@ function replaceQuotesInInlineComments(text) {
   }
 
   return text;
-}
-
-function getLeadingWhitespaceLength(string) {
-  const m = string.match(/^\s*/);
-  return m ? m[0].length : 0;
 }
 
 module.exports = {

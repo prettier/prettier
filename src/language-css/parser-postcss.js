@@ -534,6 +534,7 @@ function parseNestedCSS(node, options) {
         ) {
           node.variable = true;
           node.value = parseValue(node.params.slice(1), options);
+          node.raws.afterName += ":";
         }
 
         // Less variable
