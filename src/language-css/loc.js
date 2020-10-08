@@ -75,11 +75,8 @@ function getValueRootOffset(node) {
   }
 
   if (node.type === "css-atrule" && typeof node.name === "string") {
-    result += 1 + node.name.length;
-    const m = node.raws.afterName.match(/^[\s:]*/);
-    if (m) {
-      result += m[0].length;
-    }
+    result +=
+      1 + node.name.length + node.raws.afterName.match(/^[\s:]*/)[0].length;
   }
 
   if (
