@@ -518,7 +518,10 @@ function parseNestedCSS(node, options) {
       }
 
       if (options.parser === "less") {
-        // Whitespace between variable and colon
+        // postcss-less doesn't recognize variables in some cases.
+        // `@color: blue;` is recognized fine, but the cases below aren't:
+
+        // `@color:blue;`
         if (node.name.includes(":") && !node.params) {
           node.variable = true;
           const parts = node.name.split(":");
@@ -526,7 +529,7 @@ function parseNestedCSS(node, options) {
           node.value = parseValue(parts.slice(1).join(":"), options);
         }
 
-        // Missing whitespace between variable and colon
+        // `@color :blue;`
         if (
           !["page", "nest"].includes(node.name) &&
           node.params &&
