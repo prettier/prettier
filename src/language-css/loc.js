@@ -76,7 +76,10 @@ function getValueRootOffset(node) {
 
   if (node.type === "css-atrule" && typeof node.name === "string") {
     result +=
-      1 + node.name.length + node.raws.afterName.match(/^[\s:]*/)[0].length;
+      1 +
+      node.name.length +
+      // the length of the leading substring that consists of only colons and whitespace
+      node.raws.afterName.match(/^[\s:]*/)[0].length;
   }
 
   if (
