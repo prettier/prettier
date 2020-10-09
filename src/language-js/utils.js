@@ -1359,6 +1359,13 @@ function isBitwiseOperator(operator) {
   );
 }
 
+function getParenthesizedExpression(node) {
+  if (node.type === "ParenthesizedExpression") {
+    return node.expression;
+  }
+  return node;
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1421,4 +1428,5 @@ module.exports = {
   shouldFlatten,
   startsWithNoLookaheadToken,
   getPrecedence,
+  getParenthesizedExpression,
 };
