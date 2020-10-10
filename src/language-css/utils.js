@@ -325,6 +325,10 @@ function hasEmptyRawBefore(node) {
   return node.raws && node.raws.before === "";
 }
 
+function hasEmptyRawAfter(node) {
+  return node.raws && node.raws.after === "";
+}
+
 function isKeyValuePairNode(node) {
   return (
     node.type === "value-comma_group" &&
@@ -494,6 +498,7 @@ module.exports = {
   hasComposesNode,
   hasParensAroundNode,
   hasEmptyRawBefore,
+  hasEmptyRawAfter,
   isSCSSNestedPropertyNode,
   isDetachedRulesetCallNode,
   isTemplatePlaceholderNode,
