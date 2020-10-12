@@ -418,7 +418,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".har\\",
         \\".ice\\",
         \\".JSON-tmLanguage\\",
-        \\".jsonl\\",
         \\".mcmeta\\",
         \\".tfstate\\",
         \\".tfstate.backup\\",
