@@ -278,16 +278,18 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
+  const file = new ParseSourceFile(text, options.filepath);
+  const start = new ParseLocation(file, 0, 0, 0);
+  const end = start.moveBy(text.length);
   const rawAst = {
     type: "root",
-    sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
+    sourceSpan: new ParseSourceSpan(start, end),
     children: ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
-    const file = new ParseSourceFile(text, options.filepath);
     const start = new ParseLocation(file, 0, 0, 0);
-    const end = new ParseLocation(file, 0, 0, 0).moveBy(frontMatter.raw.length);
+    const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
     rawAst.children.unshift(frontMatter);
   }
