@@ -194,3 +194,16 @@ describe("API with no path and no parser", () => {
     expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });
 });
+
+describe("Known/Unknown", () => {
+  runPrettier("cli/infer-parser/known-unknown", [
+    "--end-of-line",
+    "lf",
+    "--list-different",
+    ".",
+  ]).test({
+    status: 0,
+    stdout: "",
+    write: [],
+  });
+});

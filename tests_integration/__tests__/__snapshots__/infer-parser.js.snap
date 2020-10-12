@@ -128,6 +128,17 @@ Array [
 ]
 `;
 
+exports[`Known/Unknown (stderr) 1`] = `
+"[error] unknown.jsonl: SyntaxError: Unexpected token (2:1)
+[error]   1 | {\\"name\\": \\"Gilbert\\", \\"wins\\": [[\\"straight\\", \\"7♣\\"], [\\"one pair\\", \\"10♥\\"]]}
+[error] > 2 | {\\"name\\": \\"Alexa\\", \\"wins\\": [[\\"two pair\\", \\"4♠\\"], [\\"two pair\\", \\"9♠\\"]]}
+[error]     | ^
+[error]   3 | {\\"name\\": \\"May\\", \\"wins\\": []}
+[error]   4 | {\\"name\\": \\"Deloise\\", \\"wins\\": [[\\"three of a kind\\", \\"5♣\\"]]}
+[error]   5 | 
+"
+`;
+
 exports[`stdin no path and no parser --check logs error but exits with 0 (stderr) 1`] = `
 "[error] No parser and no file path given, couldn't infer a parser.
 "
