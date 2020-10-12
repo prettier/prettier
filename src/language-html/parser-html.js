@@ -2,6 +2,8 @@
 
 const {
   ParseSourceSpan,
+  ParseLocation,
+  ParseSourceFile,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
 const { parse: parseFrontMatter } = require("../utils/front-matter");
 const createError = require("../common/parser-create-error");
@@ -283,10 +285,10 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   };
 
   if (frontMatter) {
-    frontMatter.sourceSpan = {
-      start: { offset: 0 },
-      end: { offset: frontMatter.raw.length },
-    };
+    const file = new ParseSourceFile(text, options.filepath);
+    const start = new ParseLocation(file, 0, 0, 0);
+    const end = new ParseLocation(file, 0, 0, 0).moveBy(frontMatter.raw.length);
+    frontMatter.sourceSpan = new ParseSourceSpan(start, end);
     rawAst.children.unshift(frontMatter);
   }
 
