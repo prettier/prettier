@@ -37,7 +37,7 @@ const Foo = () => {
 ================================================================================
 `;
 
-exports[`markdown-preview-enhanced.md - {"trailingComma":"all"} format 1`] = `
+exports[`meta-in-code-block.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -46,20 +46,26 @@ trailingComma: "all"
 =====================================input======================================
 ## plain js block
 
-\`\`\`js   
-console.log(     "hello world"   );
+\`\`\`js    
+console.log    (    "hello world"    );
 \`\`\`
 
-## js block with arguments
+## js block with meta
 
 \`\`\`js {cmd=node .line-numbers}
-console.log(     "hello world"   );
+console.log    (    "hello world"    );
 \`\`\`
 
-## js block with arguments and no space
+## js block with meta but no space (the language should not be detected)
 
 \`\`\`js{cmd=node .line-numbers}
-console.log(     "hello world"   );
+console.log    (    "hello world"    );
+\`\`\`
+
+## js block with meta and extra spaces (only the first set of spaces should be changed)
+
+\`\`\`js    cmd=node    something="a    b"
+console.log    (    "hello world"    );
 \`\`\`
 
 =====================================output=====================================
@@ -69,15 +75,21 @@ console.log(     "hello world"   );
 console.log("hello world");
 \`\`\`
 
-## js block with arguments
+## js block with meta
 
 \`\`\`js {cmd=node .line-numbers}
 console.log("hello world");
 \`\`\`
 
-## js block with arguments and no space
+## js block with meta but no space (the language should not be detected)
 
 \`\`\`js{cmd=node .line-numbers}
+console.log    (    "hello world"    );
+\`\`\`
+
+## js block with meta and extra spaces (only the first set of spaces should be changed)
+
+\`\`\`js cmd=node    something="a    b"
 console.log("hello world");
 \`\`\`
 
