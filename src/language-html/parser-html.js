@@ -1,5 +1,8 @@
 "use strict";
 
+const {
+  ParseSourceSpan,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
 const { parse: parseFrontMatter } = require("../utils/front-matter");
 const createError = require("../common/parser-create-error");
 const { getParserName } = require("../common/util");
@@ -299,7 +302,6 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       parserOptions,
       false
     );
-    const ParseSourceSpan = subAst.children[0].sourceSpan.constructor;
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
       subAst.children[subAst.children.length - 1].sourceSpan.end
