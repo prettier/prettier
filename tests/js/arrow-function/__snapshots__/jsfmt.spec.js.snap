@@ -1,0 +1,423 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`call-or-new-in-body.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+() => foo({
+key: value});
+
+() => foo?.bar({
+key: value});
+
+() => new Foo({
+key: value});
+
+const a1 = () => new Foo({
+key: value});
+
+call(() => foo({
+key: value}));
+
+call(() => new Foo({
+key: value}));
+
+call(() => foo({
+key: value}), second);
+
+call(() => new Foo({
+key: value}), second);
+
+x?.call(() => foo({
+key: value}));
+
+x?.call(() => new Foo({
+key: value}));
+
+[() => foo({
+key: value}), second];
+
+[() => new Foo({
+key: value}), second];
+
+a = {b: () => foo({
+key: value})};
+
+a = {b: () => new Foo({
+key: value})};
+
+a = () => foo({
+key: value});
+
+a = () => new Foo({
+key: value});
+
+function a() {return () => foo({
+key: value});}
+function a() {return () => new Foo({
+key: value});}
+
+const {a1 = () => foo({
+key: value})} = {}
+
+const {a2 = () => new Foo({
+key: value})} = {}
+
+loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog = () => foo({
+key: value});
+
+loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog = () => new Foo({
+key: value});
+
+a = () => loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog({
+key: value});
+
+a = () => new loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog({
+key: value});
+
+(loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog) => foo({
+key: value});
+
+(loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog) => new Foo({
+key: value});
+
+a = (greeting = "hello", greeted = '"World"', silent = false, onMouseOver) => foo({
+key: value});
+
+a = ({greeting = "hello", greeted = '"World"', silent = false, onMouseOver}) => foo({
+key: value});
+
+const foo = test
+  ? (
+      greeting = "hello",
+      greeted = '"World"',
+      silent = false,
+onMouseOver
+) => foo({
+      key: value,
+})
+  : (
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+});
+
+a = a || ((
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+}));
+
+function bar(a = (
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+})) {}
+
+function* bar() {
+yield (
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+})
+}
+
+async function* bar() {
+await ((
+      greeting = "hello", greeted = '"World"',
+      silent = false,
+      onMouseOver
+      ) => new Foo({
+      key: value,
+}))
+}
+
+// #5733
+expect(
+  () => new GraphQLObjectType({
+      field1: 'foo',
+      field2: 'bar'
+  })
+);
+() => new GraphQLObjectType({
+  field1: 'foo',
+  field2: 'bar'
+});
+new Foo(
+  () => new FooBar({
+    field1: 1,
+    field2: 2
+  })
+);
+() =>  foo({
+  bar,
+});
+
+=====================================output=====================================
+() => foo({
+  key: value,
+});
+
+() =>
+  foo?.bar({
+    key: value,
+  });
+
+() => new Foo({
+  key: value,
+});
+
+const a1 = () => new Foo({
+  key: value,
+});
+
+call(() =>
+  foo({
+    key: value,
+  })
+);
+
+call(
+  () =>
+    new Foo({
+      key: value,
+    })
+);
+
+call(
+  () =>
+    foo({
+      key: value,
+    }),
+  second
+);
+
+call(
+  () =>
+    new Foo({
+      key: value,
+    }),
+  second
+);
+
+x?.call(() =>
+  foo({
+    key: value,
+  })
+);
+
+x?.call(
+  () =>
+    new Foo({
+      key: value,
+    })
+);
+
+[
+  () => foo({
+    key: value,
+  }),
+  second,
+];
+
+[
+  () => new Foo({
+    key: value,
+  }),
+  second,
+];
+
+a = {
+  b: () => foo({
+    key: value,
+  }),
+};
+
+a = {
+  b: () => new Foo({
+    key: value,
+  }),
+};
+
+a = () => foo({
+  key: value,
+});
+
+a = () => new Foo({
+  key: value,
+});
+
+function a() {
+  return () => foo({
+    key: value,
+  });
+}
+function a() {
+  return () => new Foo({
+    key: value,
+  });
+}
+
+const {
+  a1 = () => foo({
+    key: value,
+  }),
+} = {};
+
+const {
+  a2 = () => new Foo({
+    key: value,
+  }),
+} = {};
+
+loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog = () => foo(
+  {
+    key: value,
+  }
+);
+
+loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog = () => new Foo(
+  {
+    key: value,
+  }
+);
+
+a = () => loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog(
+  {
+    key: value,
+  }
+);
+
+a = () => new loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog(
+  {
+    key: value,
+  }
+);
+
+(
+  loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog
+) => foo({
+  key: value,
+});
+
+(
+  loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog
+) => new Foo({
+  key: value,
+});
+
+a = (
+  greeting = "hello",
+  greeted = '"World"',
+  silent = false,
+  onMouseOver
+) => foo({
+  key: value,
+});
+
+a = ({
+  greeting = "hello",
+  greeted = '"World"',
+  silent = false,
+  onMouseOver,
+}) => foo({
+  key: value,
+});
+
+const foo = test
+  ? (
+      greeting = "hello",
+      greeted = '"World"',
+      silent = false,
+      onMouseOver
+    ) => foo({
+      key: value,
+    })
+  : (
+      greeting = "hello",
+      greeted = '"World"',
+      silent = false,
+      onMouseOver
+    ) => new Foo({
+      key: value,
+    });
+
+a =
+  a ||
+  ((
+    greeting = "hello",
+    greeted = '"World"',
+    silent = false,
+    onMouseOver
+  ) => new Foo({
+    key: value,
+  }));
+
+function bar(
+  a = (
+    greeting = "hello",
+    greeted = '"World"',
+    silent = false,
+    onMouseOver
+  ) => new Foo({
+    key: value,
+  })
+) {}
+
+function* bar() {
+  yield (
+    greeting = "hello",
+    greeted = '"World"',
+    silent = false,
+    onMouseOver
+  ) => new Foo({
+    key: value,
+  });
+}
+
+async function* bar() {
+  await ((
+    greeting = "hello",
+    greeted = '"World"',
+    silent = false,
+    onMouseOver
+  ) => new Foo({
+    key: value,
+  }));
+}
+
+// #5733
+expect(
+  () =>
+    new GraphQLObjectType({
+      field1: "foo",
+      field2: "bar",
+    })
+);
+() => new GraphQLObjectType({
+  field1: "foo",
+  field2: "bar",
+});
+new Foo(
+  () =>
+    new FooBar({
+      field1: 1,
+      field2: 2,
+    })
+);
+() => foo({
+  bar,
+});
+
+================================================================================
+`;

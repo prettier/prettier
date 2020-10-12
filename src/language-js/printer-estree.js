@@ -697,18 +697,7 @@ function printPathNoParens(path, options, print, args) {
 
       const body = path.call((bodyPath) => print(bodyPath, args), "body");
 
-      // We want to always keep these types of nodes on the same line
-      // as the arrow.
-      if (
-        !hasLeadingOwnLineComment(options.originalText, n.body, options) &&
-        (n.body.type === "ArrayExpression" ||
-          n.body.type === "ObjectExpression" ||
-          n.body.type === "BlockStatement" ||
-          isJSXNode(n.body) ||
-          isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
-          n.body.type === "ArrowFunctionExpression" ||
-          n.body.type === "DoExpression")
-      ) {
+      if (shouldPrintArrowFunctionBodyOnSameLine(path, options)) {
         return group(concat([concat(parts), " ", body]));
       }
 
@@ -5337,6 +5326,59 @@ function printIndentableBlockComment(comment) {
     ),
     "*/",
   ]);
+}
+
+function shouldPrintArrowFunctionBodyOnSameLine(path, options) {
+  const n = path.getValue();
+
+  if (hasLeadingOwnLineComment(options.originalText, n.body, options)) {
+    return false;
+  }
+
+  // We want to always keep these types of nodes on the same line
+  // as the arrow.
+  if (
+    n.body.type === "ArrayExpression" ||
+    n.body.type === "ObjectExpression" ||
+    n.body.type === "BlockStatement" ||
+    isJSXNode(n.body) ||
+    isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
+    n.body.type === "ArrowFunctionExpression" ||
+    n.body.type === "DoExpression"
+  ) {
+    return true;
+  }
+
+  // Some arrow function with only `CallExpression` `OptionalCallExpression` or `NewExpression` in body
+  if (
+    (n.body.type === "CallExpression" ||
+      n.body.type === "OptionalCallExpression" ||
+      n.body.type === "NewExpression") &&
+    n.body.callee.type === "Identifier"
+  ) {
+    const parent = path.getParentNode();
+    if (
+      [
+        "ExpressionStatement",
+        "AssignmentExpression",
+        "AssignmentPattern",
+        "ObjectProperty",
+        "Property",
+        "ObjectExpression",
+        "ArrayExpression",
+        "ReturnStatement",
+        "VariableDeclarator",
+        "ConditionalExpression",
+        "LogicalExpression",
+        "YieldExpression",
+        "AwaitExpression",
+      ].includes(parent.type)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 module.exports = {
