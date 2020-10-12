@@ -202,7 +202,7 @@ describe("Known/Unknown", () => {
     "--list-different",
     ".",
   ]).test({
-    status: 0,
+    status: 1,
     stderr: "",
     write: [],
   });
