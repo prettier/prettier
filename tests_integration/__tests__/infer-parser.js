@@ -203,7 +203,7 @@ describe("Known/Unknown", () => {
     ".",
   ]).test({
     status: 0,
-    stdout: "",
+    stderr: "",
     write: [],
   });
 });
