@@ -211,6 +211,7 @@ Valid options:
 - `"babel-ts"` (similar to `"typescript"` but uses Babel and its TypeScript plugin) _First available in v2.0.0_
 - `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
+- `"espree"` (via [espree](https://github.com/eslint/espree)) _First available in v2.2.0_
 - `"css"` (via [postcss](https://github.com/postcss/postcss)) _First available in v1.7.1_
 - `"scss"` (via [postcss-scss](https://github.com/postcss/postcss-scss)) _First available in v1.7.1_
 - `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less) _First available in v1.7.1_
