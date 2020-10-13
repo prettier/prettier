@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "scripts": {
-    "build": "webpack -p && docusaurus-build",
+    "build": "webpack && docusaurus-build",
     "start": "concurrently \"docusaurus-start\" \"webpack -d -w\"",
     "svgo": "svgo --pretty --indent=2 --config=svgo.yml",
     "svgo-all": "find static | grep '\\.svg$' | xargs -Iz -n 1 yarn svgo z",
