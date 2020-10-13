@@ -229,6 +229,8 @@ function getWebpackConfig(bundle) {
 
   const root = path.resolve(__dirname, "..", "..");
   const config = {
+    mode: "production",
+    performance: { hints: false },
     entry: path.resolve(root, bundle.input),
     module: {
       rules: [
@@ -249,6 +251,18 @@ function getWebpackConfig(bundle) {
       // https://github.com/webpack/webpack/issues/6642
       globalObject: 'new Function("return this")()',
     },
+    resolve: {
+      fallback: {
+        os: false,
+        path: false,
+        util: false,
+        url: false,
+        // Webpack@5 can't resolve them
+        // Possible related issue https://github.com/webpack/webpack/issues/11467
+        "postcss/lib/parser": require.resolve("postcss/lib/parser"),
+        "postcss/lib/stringifier": require.resolve("postcss/lib/stringifier"),
+      },
+    },
   };
 
   if (bundle.terserOptions) {
@@ -264,12 +278,23 @@ function getWebpackConfig(bundle) {
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
-    webpack(config, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
+    webpack(config, (error, stats) => {
+      if (error) {
+        reject(error);
+        return;
       }
+      if (stats.hasErrors()) {
+        const [error] = stats.toJson().errors;
+        reject(Object.assign(new Error(error.message), error));
+        return;
+      }
+
+      if (stats.hasWarnings()) {
+        const { warnings } = stats.toJson();
+        console.warn(warnings);
+      }
+
+      resolve();
     });
   });
 }
