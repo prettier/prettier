@@ -223,7 +223,7 @@ function normalizeIndexes(text, options) {
   let { cursorOffset, rangeStart, rangeEnd } = options;
   cursorOffset = ensureIndexInText(text, cursorOffset, -1);
   rangeStart = ensureIndexInText(text, rangeStart, 0);
-  rangeEnd = ensureIndexInText(text, rangeEnd, text.length - 1);
+  rangeEnd = ensureIndexInText(text, rangeEnd, text.length);
 
   return { ...options, cursorOffset, rangeStart, rangeEnd };
 }
