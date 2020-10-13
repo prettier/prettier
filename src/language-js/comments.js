@@ -336,6 +336,11 @@ function handleWhileComments(
     return true;
   }
 
+  if (enclosingNode.body === followingNode) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
@@ -957,7 +962,6 @@ function isRealFunctionLikeNode(node) {
     node.type === "ClassMethod" ||
     node.type === "TSDeclareFunction" ||
     node.type === "TSCallSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSMethodSignature" ||
     node.type === "TSConstructorType" ||

@@ -1010,7 +1010,7 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
   const argv = minimist(context.args, minimistOptions);
 
   context.argv = argv;
-  context.filePatterns = argv._;
+  context.filePatterns = argv._.map((file) => String(file));
 }
 
 function normalizeContextArgv(context, keys) {

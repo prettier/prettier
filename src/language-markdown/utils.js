@@ -13,6 +13,7 @@ const INLINE_NODE_TYPES = [
   "emphasis",
   "strong",
   "delete",
+  "wikiLink",
   "link",
   "linkReference",
   "image",
