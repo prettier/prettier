@@ -45,11 +45,6 @@ func(
     veryLoooooooooooooooongName.something()
 );
 
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
-
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 
 =====================================output=====================================
@@ -96,11 +91,6 @@ func(
   (veryLooooooooooooooooooooooooongName) =>
     veryLoooooooooooooooongName.something()
 );
-
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
 
 promise.then((result) =>
   result.veryLongVariable.veryLongPropertyName > someOtherVariable
@@ -156,11 +146,6 @@ func(
     veryLoooooooooooooooongName.something()
 );
 
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
-
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 
 =====================================output=====================================
@@ -207,11 +192,6 @@ func(
   (veryLooooooooooooooooooooooooongName) =>
     veryLoooooooooooooooongName.something(),
 );
-
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
 
 promise.then((result) =>
   result.veryLongVariable.veryLongPropertyName > someOtherVariable
@@ -266,11 +246,6 @@ func(
     veryLoooooooooooooooongName.something()
 );
 
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
-
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 
 =====================================output=====================================
@@ -318,16 +293,73 @@ func(
     veryLoooooooooooooooongName.something()
 );
 
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
-
 promise.then((result) =>
   result.veryLongVariable.veryLongPropertyName > someOtherVariable
     ? "ok"
     : "fail"
 );
+
+================================================================================
+`;
+
+exports[`class-property.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
+
+=====================================output=====================================
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
+
+================================================================================
+`;
+
+exports[`class-property.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
+
+=====================================output=====================================
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
+
+================================================================================
+`;
+
+exports[`class-property.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
+
+=====================================output=====================================
+const composition = (ViewComponent, ContainerComponent) =>
+  class extends React.Component {
+    static propTypes = {};
+  };
 
 ================================================================================
 `;

@@ -1,6 +1,9 @@
 "use strict";
 
 const {
+  ParseSourceSpan,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
+const {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
   hasHtmlWhitespace,
@@ -86,7 +89,6 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
             const ieConditionalStartComment = child.prev;
             const ieConditionalEndComment = child.firstChild;
 
-            const ParseSourceSpan = child.sourceSpan.constructor;
             const startSourceSpan = new ParseSourceSpan(
               ieConditionalStartComment.sourceSpan.start,
               ieConditionalEndComment.sourceSpan.end
@@ -146,7 +148,6 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
           }
 
           const lastChild = newChildren.pop();
-          const ParseSourceSpan = lastChild.sourceSpan.constructor;
           newChildren.push(
             lastChild.clone({
               value: lastChild.value + newChild.value,
@@ -200,7 +201,6 @@ function mergeSimpleElementIntoText(ast /*, options */) {
           if (isSimpleElementResults[i]) {
             const lastChild = newChildren.pop();
             const nextChild = node.children[++i];
-            const ParseSourceSpan = node.sourceSpan.constructor;
             const { isTrailingSpaceSensitive, hasTrailingSpaces } = nextChild;
             newChildren.push(
               lastChild.clone({
@@ -247,8 +247,6 @@ function extractInterpolation(ast, options) {
         newChildren.push(child);
         continue;
       }
-
-      const ParseSourceSpan = child.sourceSpan.constructor;
 
       let startSourceSpan = child.sourceSpan.start;
       let endSourceSpan = null;
@@ -347,8 +345,6 @@ function extractWhitespaces(ast /*, options*/) {
           if (leadingWhitespace) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
-
-          const ParseSourceSpan = child.sourceSpan.constructor;
 
           if (text) {
             localChildren.push({

@@ -1,5 +1,10 @@
 "use strict";
 
+const {
+  ParseSourceSpan,
+  ParseLocation,
+  ParseSourceFile,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
 const { parse: parseFrontMatter } = require("../utils/front-matter");
 const createError = require("../common/parser-create-error");
 const { getParserName } = require("../common/util");
@@ -273,17 +278,19 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
+  const file = new ParseSourceFile(text, options.filepath);
+  const start = new ParseLocation(file, 0, 0, 0);
+  const end = start.moveBy(text.length);
   const rawAst = {
     type: "root",
-    sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
+    sourceSpan: new ParseSourceSpan(start, end),
     children: ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
-    frontMatter.sourceSpan = {
-      start: { offset: 0 },
-      end: { offset: frontMatter.raw.length },
-    };
+    const start = new ParseLocation(file, 0, 0, 0);
+    const end = start.moveBy(frontMatter.raw.length);
+    frontMatter.sourceSpan = new ParseSourceSpan(start, end);
     rawAst.children.unshift(frontMatter);
   }
 
@@ -299,7 +306,6 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       parserOptions,
       false
     );
-    const ParseSourceSpan = subAst.children[0].sourceSpan.constructor;
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
       subAst.children[subAst.children.length - 1].sourceSpan.end
