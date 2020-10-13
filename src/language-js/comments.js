@@ -991,7 +991,9 @@ function getCommentChildNodes(node, options) {
   //       }
   //     }
   if (
-    (options.parser === "typescript" || options.parser === "flow") &&
+    (options.parser === "typescript" ||
+      options.parser === "flow" ||
+      options.parser === "espree") &&
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&

@@ -927,7 +927,7 @@ function returnArgumentHasLeadingComment(options, argument) {
 //
 // Angular does not support unquoted numbers in expressions.
 //
-// So we play it safe and only unquote numbers for the "babel" parser.
+// So we play it safe and only unquote numbers for the JavaScript parsers.
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
@@ -945,7 +945,7 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
-        options.parser === "babel"))
+        (options.parser === "babel" || options.parser === "espree")))
   );
 }
 

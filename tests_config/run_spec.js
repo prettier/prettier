@@ -48,6 +48,13 @@ const unstableTests = new Map(
   })
 );
 
+const espreeDisabledTests = new Set(
+  [
+    // These tests only work for `babel`
+    "comments-closure-typecast",
+  ].map((directory) => path.join(__dirname, "../tests/js", directory))
+);
+
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
 
@@ -59,17 +66,10 @@ const isUnstable = (filename, options) => {
 };
 
 const shouldThrowOnFormat = (filename, options) => {
-  if (options.parser !== "babel-ts") {
-    return false;
-  }
+  const { errors = {} } = options;
+  const files = errors[options.parser];
 
-  const { disableBabelTS } = options;
-
-  if (disableBabelTS === true) {
-    return true;
-  }
-
-  if (Array.isArray(disableBabelTS) && disableBabelTS.includes(filename)) {
+  if (files === true || (Array.isArray(files) && files.includes(filename))) {
     return true;
   }
 
@@ -77,7 +77,9 @@ const shouldThrowOnFormat = (filename, options) => {
 };
 
 const isTestDirectory = (dirname, name) =>
-  dirname.startsWith(path.join(__dirname, "../tests", name));
+  (dirname + path.sep).startsWith(
+    path.join(__dirname, "../tests", name) + path.sep
+  );
 
 function runSpec(fixtures, parsers, options) {
   let { dirname, snippets = [] } =
@@ -142,6 +144,15 @@ function runSpec(fixtures, parsers, options) {
   const allParsers = [...parsers];
   if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
     allParsers.push("babel-ts");
+  }
+
+  if (
+    parsers.includes("babel") &&
+    !parsers.includes("espree") &&
+    isTestDirectory(dirname, "js") &&
+    !espreeDisabledTests.has(dirname)
+  ) {
+    allParsers.push("espree");
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);

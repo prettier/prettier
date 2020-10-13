@@ -27,6 +27,8 @@ function clean(ast, newObj, parent) {
     if (newObj.value) {
       newObj.value = newObj.value.toLowerCase();
     }
+  }
+  if (ast.type === "BigIntLiteral" || ast.type === "Literal") {
     if (newObj.bigint) {
       newObj.bigint = newObj.bigint.toLowerCase();
     }

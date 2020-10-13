@@ -4,7 +4,7 @@ const Steps = styled.div`
   }
 `;
 
-const Steps = styled.div`
+const Steps2 = styled.div`
   @media (min-width: ${breakpoints.lg}) {
     ${Step} {
       margin-bottom: 90px;
