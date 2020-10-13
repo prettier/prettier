@@ -289,7 +289,7 @@ function format(originalText, originalOptions) {
 
   let result;
 
-  if (options.rangeStart > 0 || options.rangeEnd < text.length - 1) {
+  if (options.rangeStart > 0 || options.rangeEnd < text.length) {
     result = formatRange(text, options);
   } else {
     if (!hasPragma && options.insertPragma && options.printer.insertPragma) {
