@@ -211,7 +211,7 @@ function ensureIndexInText(text, index, defaultValue) {
     typeof index !== "number" ||
     isNaN(index) ||
     index < 0 ||
-    index > text.length - 1
+    index > text.length
   ) {
     return defaultValue;
   }
