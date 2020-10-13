@@ -2,7 +2,6 @@
 
 function composeOptionsForSnapshot(baseOptions, parsers) {
   const {
-    disableBabelTS,
     plugins,
     filepath,
     parser,
