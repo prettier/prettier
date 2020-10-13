@@ -36,16 +36,14 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function coreFormat(text, opts, addAlignmentSize) {
-  if (!text || !text.trim().length) {
+function coreFormat(originalText, opts, addAlignmentSize) {
+  if (!originalText || !originalText.trim().length) {
     return { formatted: "", cursorOffset: -1 };
   }
 
   addAlignmentSize = addAlignmentSize || 0;
 
-  const parsed = parser.parse(text, opts);
-  const { ast } = parsed;
-  text = parsed.text;
+  const { ast, text } = parser.parse(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
     const nodeResult = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts);
@@ -143,11 +141,8 @@ function coreFormat(text, opts, addAlignmentSize) {
   return { formatted: result.formatted, cursorOffset: -1 };
 }
 
-function formatRange(text, opts) {
-  const parsed = parser.parse(text, opts);
-  const { ast } = parsed;
-  text = parsed.text;
-
+function formatRange(originalText, opts) {
+  const { ast, text } = parser.parse(originalText, opts);
   const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
