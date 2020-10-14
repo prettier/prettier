@@ -252,15 +252,12 @@ function getWebpackConfig(bundle) {
       globalObject: 'new Function("return this")()',
     },
     resolve: {
+      exportsFields: [],
       fallback: {
         os: false,
         path: false,
         util: false,
         url: false,
-        // Webpack@5 can't resolve them
-        // Possible related issue https://github.com/webpack/webpack/issues/11467
-        "postcss/lib/parser": require.resolve("postcss/lib/parser"),
-        "postcss/lib/stringifier": require.resolve("postcss/lib/stringifier"),
       },
     },
   };
