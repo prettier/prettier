@@ -3,6 +3,7 @@
 const remarkParse = require("remark-parse");
 const unified = require("unified");
 const remarkMath = require("remark-math");
+const frontMatter = require("remark-frontmatter");
 const footnotes = require("remark-footnotes");
 const { parse: parseFrontMatter } = require("../utils/front-matter");
 const pragma = require("./pragma");
@@ -28,7 +29,7 @@ function createParse({ isMDX }) {
     const processor = unified()
       .use(remarkParse)
       .use(footnotes)
-      // .use(frontMatter)
+      .use(frontMatter)
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
@@ -56,21 +57,6 @@ function htmlToJsx() {
 
       return { ...node, type: "jsx" };
     });
-}
-
-function frontMatter() {
-  const proto = this.Parser.prototype;
-  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
-  proto.blockTokenizers.frontMatter = tokenizer;
-
-  function tokenizer(eat, value) {
-    const parsed = parseFrontMatter(value);
-
-    if (parsed.frontMatter) {
-      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
-    }
-  }
-  tokenizer.onlyAtStart = true;
 }
 
 function liquid() {
