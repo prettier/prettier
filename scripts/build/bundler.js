@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
 const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
@@ -54,6 +55,15 @@ const entries = [
     ),
   },
 ];
+
+const webpackNativeShims = (modules) => {
+  const shims = {};
+  for (const module of modules) {
+    const file = path.join(__dirname, `shims/${module}.mjs`);
+    shims[module] = fs.existsSync(file) ? file : false;
+  }
+  return shims;
+};
 
 function getBabelConfig(bundle) {
   const config = {
@@ -255,12 +265,7 @@ function getWebpackConfig(bundle) {
       // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
       // Ignore `exports` field to fix bundle script
       exportsFields: [],
-      fallback: {
-        os: false,
-        path: path.join(__dirname, "./shims/path.mjs"),
-        util: false,
-        url: false,
-      },
+      fallback: webpackNativeShims(["os", "path", "util", "url"]),
     },
   };
 
@@ -284,7 +289,7 @@ function runWebpack(config) {
       }
 
       if (stats.hasErrors()) {
-        const {errors} = stats.toJson();
+        const { errors } = stats.toJson();
         const error = new Error(errors[0].message);
         error.errors = errors;
         reject(error);
