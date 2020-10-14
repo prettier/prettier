@@ -17,7 +17,7 @@ const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
 
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const PROJECT_ROOT = path.join(__dirname, "../..");
 
 const EXTERNALS = [
   "assert",
@@ -257,21 +257,20 @@ function getWebpackConfig(bundle) {
       exportsFields: [],
       fallback: {
         os: false,
-        path: false,
+        path: path.join(__dirname, "./shims/path.mjs"),
         util: false,
         url: false,
       },
     },
   };
 
-  // if (bundle.terserOptions) {
-  //   const TerserPlugin = require("terser-webpack-plugin");
+  if (bundle.terserOptions) {
+    const TerserPlugin = require("terser-webpack-plugin");
 
-  //   config.optimization = {
-  //     minimizer: [new TerserPlugin(bundle.terserOptions)],
-  //   };
-  // }
-  config.optimization = {minimize: false};
+    config.optimization = {
+      minimizer: [new TerserPlugin(bundle.terserOptions)],
+    };
+  }
 
   return config;
 }
