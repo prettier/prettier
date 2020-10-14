@@ -28,7 +28,7 @@ function createParse({ isMDX }) {
     const processor = unified()
       .use(remarkParse)
       .use(footnotes)
-      .use(frontMatter)
+      .use(frontMatter, ["yaml", "toml"])
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
