@@ -31,7 +31,7 @@ function createParse({ isMDX }) {
       .use(frontMatter, ["yaml", "toml"])
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
-      .use(liquid)
+      // .use(liquid)
       .use(isMDX ? htmlToJsx : identity)
       .use(wikiLink)
       .use(looseItems);
