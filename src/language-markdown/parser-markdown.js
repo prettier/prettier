@@ -26,10 +26,7 @@ const mdx = require("./mdx");
 function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
-      .use(remarkParse, {
-        commonmark: true,
-        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
-      })
+      .use(remarkParse)
       .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)
