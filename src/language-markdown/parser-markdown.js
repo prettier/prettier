@@ -5,7 +5,6 @@ const unified = require("unified");
 const remarkMath = require("remark-math");
 const frontMatter = require("remark-frontmatter");
 const footnotes = require("remark-footnotes");
-const { parse: parseFrontMatter } = require("../utils/front-matter");
 const pragma = require("./pragma");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
