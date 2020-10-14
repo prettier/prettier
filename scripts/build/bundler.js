@@ -252,6 +252,8 @@ function getWebpackConfig(bundle) {
       globalObject: 'new Function("return this")()',
     },
     resolve: {
+      // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
+      // Ignore `exports` field to fix bundle script
       exportsFields: [],
       fallback: {
         os: false,
@@ -280,9 +282,12 @@ function runWebpack(config) {
         reject(error);
         return;
       }
+
       if (stats.hasErrors()) {
-        const [error] = stats.toJson().errors;
-        reject(Object.assign(new Error(error.message), error));
+        const {errors} = stats.toJson();
+        const error = new Error(errors[0].message);
+        error.errors = errors;
+        reject(error);
         return;
       }
 
