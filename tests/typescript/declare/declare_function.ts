@@ -5,3 +5,5 @@ declare namespace A {
     function x();
     function y(): void;
 }
+
+declare function f([]?)
