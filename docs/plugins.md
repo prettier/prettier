@@ -49,6 +49,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-go-template`](https://github.com/NiklasPor/prettier-plugin-go-template) by [**@NiklasPor**](https://github.com/NiklasPor)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
+- [`prettier-plugin-jsdoc`](https://github.com/hosseinmd/prettier-plugin-jsdoc) by [**@hosseinmd**](https://github.com/hosseinmd)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
 - [`prettier-plugin-package`](https://github.com/shellscape/prettier-plugin-package) by [**@shellscape**](https://github.com/shellscape)
 - [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) by [**@matzkoh**](https://github.com/matzkoh)
