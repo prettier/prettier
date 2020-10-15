@@ -3,7 +3,6 @@
 const remarkParse = require("remark-parse");
 const unified = require("unified");
 const remarkMath = require("remark-math");
-const frontMatter = require("remark-frontmatter");
 const footnotes = require("remark-footnotes");
 const pragma = require("./pragma");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
@@ -25,16 +24,14 @@ const mdx = require("./mdx");
  */
 function createParse({ isMDX }) {
   return (text) => {
-    const processor = unified()
-      .use(remarkParse)
-      .use(footnotes)
-      .use(frontMatter, ["yaml", "toml"])
-      .use(remarkMath)
-      .use(isMDX ? mdx.esSyntax : identity)
-      // .use(liquid)
-      .use(isMDX ? htmlToJsx : identity)
-      // .use(wikiLink)
-      .use(looseItems);
+    const processor = unified().use(remarkParse).use(footnotes);
+    // .use(frontMatter)
+    // .use(remarkMath);
+    // .use(isMDX ? mdx.esSyntax : identity)
+    // .use(liquid)
+    // .use(isMDX ? htmlToJsx : identity);
+    // .use(wikiLink)
+    // .use(looseItems);
     return processor.runSync(processor.parse(text));
   };
 }
@@ -56,6 +53,21 @@ function htmlToJsx() {
 
       return { ...node, type: "jsx" };
     });
+}
+
+function frontMatter() {
+  const proto = this.Parser.prototype;
+  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
+  proto.blockTokenizers.frontMatter = tokenizer;
+
+  function tokenizer(eat, value) {
+    const parsed = parseFrontMatter(value);
+
+    if (parsed.frontMatter) {
+      return eat(parsed.frontMatter.raw)(parsed.frontMatter);
+    }
+  }
+  tokenizer.onlyAtStart = true;
 }
 
 function liquid() {
