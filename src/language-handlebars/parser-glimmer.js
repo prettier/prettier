@@ -48,12 +48,9 @@ function getErrorLocation(error) {
 
   if (hash) {
     const {
-      loc: { first_line, first_column, last_line, last_column },
+      loc: { last_line, last_column },
     } = hash;
-    return {
-      start: { line: first_line, column: first_column },
-      end: { line: last_line, column: last_column },
-    };
+    return { start: { line: last_line, column: last_column + 1 } };
   }
 }
 
