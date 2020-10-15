@@ -85,7 +85,7 @@
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
-    "@babel/core": "7.11.6",
+    "@babel/core": "7.12.0",
     "@babel/preset-env": "7.12.0",
     "@babel/types": "7.12.0",
     "@glimmer/reference": "0.62.1",
@@ -98,6 +98,7 @@
     "@types/estree": "0.0.45",
     "@types/node": "14.11.8",
     "@typescript-eslint/types": "3.10.1",
+    "babel-jest": "26.5.2",
     "babel-loader": "8.1.0",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
@@ -152,7 +153,7 @@
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
-    "build": "node ./scripts/build/build.js",
+    "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js"
   }
 }
