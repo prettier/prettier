@@ -4,6 +4,6 @@ run_spec(__dirname, ["babel"], {
       "expression.js",
       "invalid-accessor-generator.js",
       "invalid-setter.js",
-    ]
+    ],
   },
 });
