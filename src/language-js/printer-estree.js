@@ -913,7 +913,8 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "DoWhileStatement" ||
           parent.type === "DoExpression" ||
           (parent.type === "CatchClause" && !parentParent.finalizer) ||
-          parent.type === "TSModuleDeclaration")
+          parent.type === "TSModuleDeclaration" ||
+          parent.type === "TSDeclareFunction")
       ) {
         return "{}";
       }
