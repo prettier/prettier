@@ -23,15 +23,7 @@ function parse(text) {
   try {
     ast = glimmer(text, { mode: "codemod", plugins: { ast: [addBackslash] } });
   } catch (error) {
-    const matches = error.message.match(/on line (\d+)/);
-    /* istanbul ignore else */
-    if (matches) {
-      throw createError(error.message, {
-        start: { line: Number(matches[1]), column: 0 },
-      });
-    } else {
-      throw error;
-    }
+    throw createError(error.message, error.location);
   }
 
   return ast;
