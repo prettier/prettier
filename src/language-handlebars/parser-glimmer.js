@@ -23,10 +23,38 @@ function parse(text) {
   try {
     ast = glimmer(text, { mode: "codemod", plugins: { ast: [addBackslash] } });
   } catch (error) {
-    throw createError(error.message, error.location);
+    const location = getErrorLocation(error);
+
+    if (location) {
+      throw createError(error.message, location);
+    }
+
+    /* istanbul ignore next */
+    throw error;
   }
 
   return ast;
+}
+
+function getErrorLocation(error) {
+  const { location, hash } = error;
+  if (location) {
+    const { start, end } = location;
+    if (typeof end.line !== "number") {
+      return { start };
+    }
+    return location;
+  }
+
+  if (hash) {
+    const {
+      loc: { first_line, first_column, last_line, last_column },
+    } = hash;
+    return {
+      start: { line: first_line, column: first_column },
+      end: { line: last_line, column: last_column },
+    };
+  }
 }
 
 module.exports = {
