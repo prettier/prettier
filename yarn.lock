@@ -1407,6 +1407,13 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
+"@types/mdast@^3.0.0":
+  version "3.0.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@types%2fmdast/-/mdast-3.0.3.tgz#2d7d671b1cd1ea3deb306ea75036c2a0407d2deb"
+  integrity sha512-SXPBMnFVQg1s00dlMCc/jCdvPqdE4mXaMMCeRlxLDmTAEoegHT53xKtkDnzDTOcmMHUfcjyf36/YYZ6SxRdnsw==
+  dependencies:
+    "@types/unist" "*"
+
 "@types/node@*", "@types/node@14.11.8":
   version "14.11.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.8.tgz#fe2012f2355e4ce08bca44aeb3abbb21cf88d33f"
@@ -1444,7 +1451,7 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
   integrity sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==
 
-"@types/unist@^2.0.0", "@types/unist@^2.0.2":
+"@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
@@ -5823,13 +5830,14 @@ mdast-util-footnote@^0.1.0:
     mdast-util-to-markdown "^0.5.0"
     micromark "~2.10.0"
 
-mdast-util-from-markdown@^0.7.0:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/mdast-util-from-markdown/-/mdast-util-from-markdown-0.7.1.tgz#1ca9189d051f26ce8d8a4fdd9e05515a5a6c80a1"
-  integrity sha512-ueQqksJ6WHqSOupnpMNgijmxdpkoKOgql7bdpmW0H6SYhJ2OOpDiRbJu9fTiMZvLk/fVDH9Z79GLhV6NBSazFQ==
+mdast-util-from-markdown@^0.8.0:
+  version "0.8.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/mdast-util-from-markdown/-/mdast-util-from-markdown-0.8.0.tgz#0a13c0161a2974246bcb294cc77ff6858ef9c082"
+  integrity sha512-x9b9ekG2IfeqHSUPhn4+o8SeXqual0/ZHzzugV/cC21L6s1KyKAwIHKBJ1NN9ZstIlY8YAefELRSWfJMby4a9Q==
   dependencies:
+    "@types/mdast" "^3.0.0"
     mdast-util-to-string "^1.0.0"
-    micromark "~2.9.0"
+    micromark "~2.10.0"
     parse-entities "^2.0.0"
 
 mdast-util-frontmatter@^0.2.0:
@@ -5931,14 +5939,6 @@ micromark@~2.10.0, micromark@~2.10.1:
   version "2.10.1"
   resolved "https://registry.yarnpkg.com/micromark/-/micromark-2.10.1.tgz#cd73f54e0656f10e633073db26b663a221a442a7"
   integrity sha512-fUuVF8sC1X7wsCS29SYQ2ZfIZYbTymp0EYr6sab3idFjigFFjGa5UwoniPlV9tAgntjuapW1t9U+S0yDYeGKHQ==
-  dependencies:
-    debug "^4.0.0"
-    parse-entities "^2.0.0"
-
-micromark@~2.9.0:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/micromark/-/micromark-2.9.2.tgz#dc8428f42c14ba831c52a6658e26d7d88926c68c"
-  integrity sha512-W9P8sexN1Erab68sZBz4ugkNmuHy1L6O9fwxQ6TVDbgqopAeJA3+d/Nsdq1ClydGqWc/c3tf4r7ZmLMHgxbdbQ==
   dependencies:
     debug "^4.0.0"
     parse-entities "^2.0.0"
@@ -7158,12 +7158,12 @@ remark-math@4.0.0:
     mdast-util-math "^0.1.0"
     micromark-extension-math "^0.1.0"
 
-remark-parse@9.0.0-alpha.1:
-  version "9.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/remark-parse/-/remark-parse-9.0.0-alpha.1.tgz#2a81b92a3b1432e4de46d077374f10874197d9ed"
-  integrity sha512-8nbFmGcV1rYN6ILoyhdYL1Jh50ovzxa+vvnQEWoM5dNaFz19s5vfKaCa1PQCxK+4PksA5+GWHF2sIAqg1I7ytA==
+remark-parse@9.0.0:
+  version "9.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/remark-parse/-/remark-parse-9.0.0.tgz#4d20a299665880e4f4af5d90b7c7b8a935853640"
+  integrity sha512-geKatMwSzEXKHuzBNU1z676sGcDcFoChMK38TgdHJNAYfFtsfHDQG7MoJAjs6sgYMqyLduCYWDIWZIxiPeafEw==
   dependencies:
-    mdast-util-from-markdown "^0.7.0"
+    mdast-util-from-markdown "^0.8.0"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"

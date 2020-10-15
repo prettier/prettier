@@ -76,7 +76,7 @@
     "remark-footnotes": "3.0.0",
     "remark-frontmatter": "3.0.0",
     "remark-math": "4.0.0",
-    "remark-parse": "9.0.0-alpha.1",
+    "remark-parse": "9.0.0",
     "resolve": "1.17.0",
     "semver": "7.3.2",
     "string-width": "4.2.0",
