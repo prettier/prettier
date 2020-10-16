@@ -57,6 +57,11 @@ function embed(path, print, textToDoc, options) {
         return;
       }
 
+      const expressionDocs = path.map(
+        (path) => printTemplateExpression(path, print),
+        "expressions"
+      );
+
       if (parser === "scss") {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map((q) => q.value.raw);
@@ -75,22 +80,10 @@ function embed(path, print, textToDoc, options) {
           { parser },
           { stripTrailingHardline: true }
         );
-        return transformCssDoc(
-          doc,
-          node,
-          path.map(
-            (path) => printTemplateExpression(path, print),
-            "expressions"
-          )
-        );
+        return transformCssDoc(doc, node, expressionDocs);
       }
 
       if (parser === "graphql") {
-        const expressionDocs = path.map(
-          (path) => printTemplateExpression(path, print),
-          "expressions"
-        );
-
         const numQuasis = node.quasis.length;
         if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
           return "``";
@@ -161,10 +154,7 @@ function embed(path, print, textToDoc, options) {
       if (parser === "html" || parser === "angular") {
         return printHtmlTemplateLiteral(
           node,
-          path.map(
-            (path) => printTemplateExpression(path, print),
-            "expressions"
-          ),
+          expressionDocs,
           textToDoc,
           parser,
           options
