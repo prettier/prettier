@@ -21,3 +21,11 @@ foo = markdown`pr\u{0065}ttier${foo}\u{prettier}`;
 foo = css`pr\u{0065}ttier${foo}\u{prettier}`;
 foo = /* HTML */`pr\u{0065}ttier${foo}\u{prettier}`;
 foo = /* GraphQL */`pr\u{0065}ttier${foo}\u{prettier}`;
+
+foo = foo`pr\u{0065}ttier${foo}\u{prettier}${bar}pr\u{0065}ttier`;
+foo = html`pr\u{0065}ttier${foo}\u{prettier}${bar}pr\u{0065}ttier`;
+foo = graphql`pr\u{0065}ttier${foo}\u{prettier}${bar}pr\u{0065}ttier`;
+foo = markdown`pr\u{0065}ttier${foo}\u{prettier}${bar}pr\u{0065}ttier`;
+foo = css`pr\u{0065}ttier${foo}\u{prettier}${bar}pr\u{0065}ttier`;
+foo = /* HTML */`pr\u{0065}ttier${foo}\u{prettier}${bar}pr\u{0065}ttier`;
+foo = /* GraphQL */`pr\u{0065}ttier${foo}\u{prettier}${bar}pr\u{0065}ttier`;
