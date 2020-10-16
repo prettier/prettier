@@ -1,21 +1,22 @@
 "use strict";
 
-const execa = require("execa");
 const semver = require("semver");
-const { logPromise, readJson, writeJson } = require("../utils");
+const {
+  runYarn,
+  runGit,
+  logPromise,
+  readJson,
+  writeJson,
+} = require("../utils");
 
 async function format() {
-  await execa("yarn", ["lint:eslint", "--fix"]);
-  await execa("yarn", ["lint:prettier", "--write"]);
+  await runYarn(["lint:eslint", "--fix"]);
+  await runYarn(["lint:prettier", "--write"]);
 }
 
 async function commit(version) {
-  await execa("git", [
-    "commit",
-    "-am",
-    `Bump Prettier dependency to ${version}`,
-  ]);
-  await execa("git", ["push"]);
+  await runGit(["commit", "-am", `Bump Prettier dependency to ${version}`]);
+  await runGit(["push"]);
 }
 
 async function bump({ version, previousVersion, previousVersionOnMaster }) {
@@ -37,7 +38,7 @@ module.exports = async function (params) {
 
   await logPromise(
     "Installing Prettier",
-    execa("yarn", ["add", "--dev", `prettier@${version}`])
+    runYarn(["add", "--dev", `prettier@${version}`])
   );
 
   await logPromise("Updating files", format());

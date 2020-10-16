@@ -1,13 +1,12 @@
 "use strict";
 
-const execa = require("execa");
-const { logPromise } = require("../utils");
+const { runGit, logPromise } = require("../utils");
 
 async function pushGit({ version }) {
-  await execa("git", ["commit", "-am", `Release ${version}`]);
-  await execa("git", ["tag", "-a", version, "-m", `Release ${version}`]);
-  await execa("git", ["push"]);
-  await execa("git", ["push", "--tags"]);
+  await runGit(["commit", "-am", `Release ${version}`]);
+  await runGit(["tag", "-a", version, "-m", `Release ${version}`]);
+  await runGit(["push"]);
+  await runGit(["push", "--tags"]);
 }
 
 module.exports = function (params) {

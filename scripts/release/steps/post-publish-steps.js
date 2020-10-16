@@ -2,9 +2,8 @@
 
 const chalk = require("chalk");
 const { string: outdentString } = require("outdent");
-const fetch = require("node-fetch");
 const execa = require("execa");
-const { logPromise } = require("../utils");
+const { fetchText, logPromise } = require("../utils");
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";
@@ -14,15 +13,15 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 // Any optional or manual step can be warned in this script.
 
 async function checkSchema() {
-  const schema = await execa.stdout("node", ["scripts/generate-schema.js"]);
+  const { stdout: schema } = await execa("node", [
+    "scripts/generate-schema.js",
+  ]);
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
-    fetch(RAW_URL)
-      .then((r) => r.text())
-      .then((t) => t.trim())
+    fetchText(RAW_URL)
   );
 
-  if (schema === remoteSchema) {
+  if (schema === remoteSchema.trim()) {
     return;
   }
 
