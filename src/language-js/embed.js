@@ -47,147 +47,139 @@ function getParser(path) {
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
-  switch (node.type) {
-    case "TemplateLiteral": {
-      // Bail out if any of the quasis have an invalid escape sequence
-      // (which would make the `cooked` value be `null`)
-      if (hasInvalidCookedValue(node)) {
-        return;
-      }
+  if (
+    node.type !== "TemplateLiteral" ||
+    // Bail out if any of the quasis have an invalid escape sequence
+    // (which would make the `cooked` value be `null`)
+    hasInvalidCookedValue(node)
+  ) {
+    return;
+  }
 
-      const parser = getParser(path);
+  const parser = getParser(path);
+  if (!parser) {
+    return;
+  }
 
-      if (!parser) {
-        return;
-      }
+  const expressionDocs = path.map(
+    (path) => printTemplateExpression(path, print),
+    "expressions"
+  );
 
-      const expressionDocs = path.map(
-        (path) => printTemplateExpression(path, print),
-        "expressions"
+  if (parser === "scss") {
+    // Get full template literal with expressions replaced by placeholders
+    const rawQuasis = node.quasis.map((q) => q.value.raw);
+    let placeholderID = 0;
+    const text = rawQuasis.reduce((prevVal, currVal, idx) => {
+      return idx === 0
+        ? currVal
+        : prevVal +
+            "@prettier-placeholder-" +
+            placeholderID++ +
+            "-id" +
+            currVal;
+    }, "");
+    const doc = textToDoc(text, { parser }, { stripTrailingHardline: true });
+    return transformCssDoc(doc, node, expressionDocs);
+  }
+
+  if (parser === "graphql") {
+    const numQuasis = node.quasis.length;
+    if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
+      return "``";
+    }
+
+    const parts = [];
+
+    for (let i = 0; i < numQuasis; i++) {
+      const templateElement = node.quasis[i];
+      const isFirst = i === 0;
+      const isLast = i === numQuasis - 1;
+      const text = templateElement.value.cooked;
+
+      const lines = text.split("\n");
+      const numLines = lines.length;
+      const expressionDoc = expressionDocs[i];
+
+      const startsWithBlankLine =
+        numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
+      const endsWithBlankLine =
+        numLines > 2 &&
+        lines[numLines - 1].trim() === "" &&
+        lines[numLines - 2].trim() === "";
+
+      const commentsAndWhitespaceOnly = lines.every((line) =>
+        /^\s*(?:#[^\n\r]*)?$/.test(line)
       );
 
-      if (parser === "scss") {
-        // Get full template literal with expressions replaced by placeholders
-        const rawQuasis = node.quasis.map((q) => q.value.raw);
-        let placeholderID = 0;
-        const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx === 0
-            ? currVal
-            : prevVal +
-                "@prettier-placeholder-" +
-                placeholderID++ +
-                "-id" +
-                currVal;
-        }, "");
-        const doc = textToDoc(
-          text,
-          { parser },
-          { stripTrailingHardline: true }
-        );
-        return transformCssDoc(doc, node, expressionDocs);
+      // Bail out if an interpolation occurs within a comment.
+      if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
+        return null;
       }
 
-      if (parser === "graphql") {
-        const numQuasis = node.quasis.length;
-        if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
-          return "``";
+      let doc = null;
+
+      if (commentsAndWhitespaceOnly) {
+        doc = printGraphqlComments(lines);
+      } else {
+        doc = textToDoc(text, { parser }, { stripTrailingHardline: true });
+      }
+
+      if (doc) {
+        doc = escapeTemplateCharacters(doc, false);
+        if (!isFirst && startsWithBlankLine) {
+          parts.push("");
         }
-
-        const parts = [];
-
-        for (let i = 0; i < numQuasis; i++) {
-          const templateElement = node.quasis[i];
-          const isFirst = i === 0;
-          const isLast = i === numQuasis - 1;
-          const text = templateElement.value.cooked;
-
-          const lines = text.split("\n");
-          const numLines = lines.length;
-          const expressionDoc = expressionDocs[i];
-
-          const startsWithBlankLine =
-            numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
-          const endsWithBlankLine =
-            numLines > 2 &&
-            lines[numLines - 1].trim() === "" &&
-            lines[numLines - 2].trim() === "";
-
-          const commentsAndWhitespaceOnly = lines.every((line) =>
-            /^\s*(?:#[^\n\r]*)?$/.test(line)
-          );
-
-          // Bail out if an interpolation occurs within a comment.
-          if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
-            return null;
-          }
-
-          let doc = null;
-
-          if (commentsAndWhitespaceOnly) {
-            doc = printGraphqlComments(lines);
-          } else {
-            doc = textToDoc(text, { parser }, { stripTrailingHardline: true });
-          }
-
-          if (doc) {
-            doc = escapeTemplateCharacters(doc, false);
-            if (!isFirst && startsWithBlankLine) {
-              parts.push("");
-            }
-            parts.push(doc);
-            if (!isLast && endsWithBlankLine) {
-              parts.push("");
-            }
-          } else if (!isFirst && !isLast && startsWithBlankLine) {
-            parts.push("");
-          }
-
-          if (expressionDoc) {
-            parts.push(expressionDoc);
-          }
+        parts.push(doc);
+        if (!isLast && endsWithBlankLine) {
+          parts.push("");
         }
-
-        return concat([
-          "`",
-          indent(concat([hardline, join(hardline, parts)])),
-          hardline,
-          "`",
-        ]);
+      } else if (!isFirst && !isLast && startsWithBlankLine) {
+        parts.push("");
       }
 
-      if (parser === "html" || parser === "angular") {
-        return printHtmlTemplateLiteral(
-          node,
-          expressionDocs,
-          textToDoc,
-          parser,
-          options
-        );
+      if (expressionDoc) {
+        parts.push(expressionDoc);
       }
-
-      if (parser === "markdown") {
-        let text = node.quasis[0].value.raw.replace(
-          /((?:\\\\)*)\\`/g,
-          (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
-        );
-        const indentation = getIndentation(text);
-        const hasIndent = indentation !== "";
-        if (hasIndent) {
-          text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
-        }
-        const doc = printMarkdown(text, textToDoc);
-        return concat([
-          "`",
-          hasIndent
-            ? indent(concat([softline, doc]))
-            : concat([literalline, dedentToRoot(doc)]),
-          softline,
-          "`",
-        ]);
-      }
-
-      break;
     }
+
+    return concat([
+      "`",
+      indent(concat([hardline, join(hardline, parts)])),
+      hardline,
+      "`",
+    ]);
+  }
+
+  if (parser === "html" || parser === "angular") {
+    return printHtmlTemplateLiteral(
+      node,
+      expressionDocs,
+      textToDoc,
+      parser,
+      options
+    );
+  }
+
+  if (parser === "markdown") {
+    let text = node.quasis[0].value.raw.replace(
+      /((?:\\\\)*)\\`/g,
+      (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
+    );
+    const indentation = getIndentation(text);
+    const hasIndent = indentation !== "";
+    if (hasIndent) {
+      text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
+    }
+    const doc = printMarkdown(text, textToDoc);
+    return concat([
+      "`",
+      hasIndent
+        ? indent(concat([softline, doc]))
+        : concat([literalline, dedentToRoot(doc)]),
+      softline,
+      "`",
+    ]);
   }
 }
 
