@@ -58,12 +58,18 @@ function embed(path, print, textToDoc, options) {
         return transformCssDoc(
           doc,
           node,
-          path.map(printTemplateExpression, "expressions")
+          path.map(
+            (path) => printTemplateExpression(path, print),
+            "expressions"
+          )
         );
       }
 
       if (isGraphQL(path)) {
-        const expressionDocs = path.map(printTemplateExpression, "expressions");
+        const expressionDocs = path.map(
+          (path) => printTemplateExpression(path, print),
+          "expressions"
+        );
 
         const numQuasis = node.quasis.length;
         if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
@@ -145,7 +151,10 @@ function embed(path, print, textToDoc, options) {
       if (htmlParser) {
         return printHtmlTemplateLiteral(
           node,
-          path.map(printTemplateExpression, "expressions"),
+          path.map(
+            (path) => printTemplateExpression(path, print),
+            "expressions"
+          ),
           textToDoc,
           htmlParser,
           options
@@ -170,27 +179,20 @@ function embed(path, print, textToDoc, options) {
         parentParent.tag.type === "Identifier" &&
         (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
       ) {
-        const text = parent.quasis[0].value.raw.replace(
+        let text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
           (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
         );
         const indentation = getIndentation(text);
         const hasIndent = indentation !== "";
+        if (hasIndent) {
+          text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
+        }
+        const doc = printMarkdown(text, textToDoc);
         return concat([
           hasIndent
-            ? indent(
-                concat([
-                  softline,
-                  printMarkdown(
-                    text.replace(new RegExp(`^${indentation}`, "gm"), ""),
-                    textToDoc
-                  ),
-                ])
-              )
-            : concat([
-                literalline,
-                dedentToRoot(printMarkdown(text, textToDoc)),
-              ]),
+            ? indent(concat([softline, doc]))
+            : concat([literalline, dedentToRoot(doc)]),
           softline,
         ]);
       }
@@ -198,15 +200,15 @@ function embed(path, print, textToDoc, options) {
       break;
     }
   }
+}
 
-  function printTemplateExpression(path) {
-    const node = path.getValue();
-    let printed = print(path);
-    if (node.comments && node.comments.length) {
-      printed = group(concat([indent(concat([softline, printed])), softline]));
-    }
-    return concat(["${", printed, lineSuffixBoundary, "}"]);
+function printTemplateExpression(path, print) {
+  const node = path.getValue();
+  let printed = print(path);
+  if (node.comments && node.comments.length) {
+    printed = group(concat([indent(concat([softline, printed])), softline]));
   }
+  return concat(["${", printed, lineSuffixBoundary, "}"]);
 }
 
 function printMarkdown(text, textToDoc) {
