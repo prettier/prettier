@@ -169,18 +169,8 @@ function embed(path, print, textToDoc, options) {
       if (hasInvalidCookedValue(parent)) {
         return;
       }
-      const parentParent = path.getParentNode(1);
-      /**
-       * md`...`
-       * markdown`...`
-       */
-      if (
-        parentParent &&
-        parentParent.type === "TaggedTemplateExpression" &&
-        parent.quasis.length === 1 &&
-        parentParent.tag.type === "Identifier" &&
-        (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
-      ) {
+
+      if (isMarkdown(path)) {
         let text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
           (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
@@ -202,6 +192,22 @@ function embed(path, print, textToDoc, options) {
       break;
     }
   }
+}
+
+/**
+ * md`...`
+ * markdown`...`
+ */
+function isMarkdown(path) {
+  const parent = path.getParentNode();
+  const parentParent = path.getParentNode(1);
+  return (
+    parentParent &&
+    parentParent.type === "TaggedTemplateExpression" &&
+    parent.quasis.length === 1 &&
+    parentParent.tag.type === "Identifier" &&
+    (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
+  );
 }
 
 function printTemplateExpression(path, print) {
