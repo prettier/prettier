@@ -62,15 +62,6 @@ function embed(path, print, textToDoc, options) {
         );
       }
 
-      /*
-       * react-relay and graphql-tag
-       * graphql`...`
-       * graphql.experimental`...`
-       * gql`...`
-       *
-       * This intentionally excludes Relay Classic tags, as Prettier does not
-       * support Relay Classic formatting.
-       */
       if (isGraphQL(path)) {
         const expressionDocs = path.map(printTemplateExpression, "expressions");
 
