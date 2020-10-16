@@ -24,6 +24,12 @@ function embed(path, print, textToDoc, options) {
 
   switch (node.type) {
     case "TemplateLiteral": {
+      // Bail out if any of the quasis have an invalid escape sequence
+      // (which would make the `cooked` value be `null`)
+      if (hasInvalidCookedValue(node)) {
+        return;
+      }
+
       const isCss = [
         isStyledJsx,
         isStyledComponents,
@@ -69,7 +75,6 @@ function embed(path, print, textToDoc, options) {
         const expressionDocs = path.map(printTemplateExpression, "expressions");
 
         const numQuasis = node.quasis.length;
-
         if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
           return "``";
         }
@@ -81,12 +86,6 @@ function embed(path, print, textToDoc, options) {
           const isFirst = i === 0;
           const isLast = i === numQuasis - 1;
           const text = templateElement.value.cooked;
-
-          // Bail out if any of the quasis have an invalid escape sequence
-          // (which would make the `cooked` value be `null` or `undefined`)
-          if (typeof text !== "string") {
-            return null;
-          }
 
           const lines = text.split("\n");
           const numLines = lines.length;
@@ -177,6 +176,9 @@ function embed(path, print, textToDoc, options) {
         parentParent.tag.type === "Identifier" &&
         (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
       ) {
+        if (hasInvalidCookedValue(parent)) {
+          return;
+        }
         const text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
           (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
@@ -568,6 +570,10 @@ function printHtmlTemplateLiteral(
   parser,
   options
 ) {
+  if (hasInvalidCookedValue(node)) {
+    return;
+  }
+
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
@@ -660,6 +666,10 @@ function printHtmlTemplateLiteral(
       "`",
     ])
   );
+}
+
+function hasInvalidCookedValue({ quasi }) {
+  return quasi.some(({ value: { cooked } }) => cooked === null);
 }
 
 module.exports = embed;
