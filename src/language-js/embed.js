@@ -19,8 +19,6 @@ const { isBlockComment, hasLeadingComment } = require("./comments");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
 
   switch (node.type) {
     case "TemplateLiteral": {
@@ -165,6 +163,8 @@ function embed(path, print, textToDoc, options) {
     }
 
     case "TemplateElement": {
+      const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
       if (hasInvalidCookedValue(parent)) {
         return;
       }
