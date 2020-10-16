@@ -17,6 +17,29 @@ const {
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
+function getParser(path) {
+  if (
+    isStyledJsx(path) ||
+    isStyledComponents(path) ||
+    isCssProp(path) ||
+    isAngularComponentStyles(path)
+  ) {
+    return "scss";
+  }
+
+  if (isGraphQL(path)) {
+    return "graphql";
+  }
+
+  if (isHtml(path)) {
+    return "html";
+  }
+
+  if (isAngularComponentTemplate(path)) {
+    return "angular";
+  }
+}
+
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
@@ -28,14 +51,13 @@ function embed(path, print, textToDoc, options) {
         return;
       }
 
-      const isCss = [
-        isStyledJsx,
-        isStyledComponents,
-        isCssProp,
-        isAngularComponentStyles,
-      ].some((isIt) => isIt(path));
+      const parser = getParser(path);
 
-      if (isCss) {
+      if (!parser) {
+        return;
+      }
+
+      if (parser === "scss") {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map((q) => q.value.raw);
         let placeholderID = 0;
@@ -50,7 +72,7 @@ function embed(path, print, textToDoc, options) {
         }, "");
         const doc = textToDoc(
           text,
-          { parser: "scss" },
+          { parser },
           { stripTrailingHardline: true }
         );
         return transformCssDoc(
@@ -63,7 +85,7 @@ function embed(path, print, textToDoc, options) {
         );
       }
 
-      if (isGraphQL(path)) {
+      if (parser === "graphql") {
         const expressionDocs = path.map(
           (path) => printTemplateExpression(path, print),
           "expressions"
@@ -107,11 +129,7 @@ function embed(path, print, textToDoc, options) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            doc = textToDoc(
-              text,
-              { parser: "graphql" },
-              { stripTrailingHardline: true }
-            );
+            doc = textToDoc(text, { parser }, { stripTrailingHardline: true });
           }
 
           if (doc) {
@@ -140,13 +158,7 @@ function embed(path, print, textToDoc, options) {
         ]);
       }
 
-      const htmlParser = isHtml(path)
-        ? "html"
-        : isAngularComponentTemplate(path)
-        ? "angular"
-        : undefined;
-
-      if (htmlParser) {
+      if (parser === "html" || parser === "angular") {
         return printHtmlTemplateLiteral(
           node,
           path.map(
@@ -154,7 +166,7 @@ function embed(path, print, textToDoc, options) {
             "expressions"
           ),
           textToDoc,
-          htmlParser,
+          parser,
           options
         );
       }
