@@ -191,7 +191,8 @@ function embed(path, print, textToDoc, options) {
                 concat([
                   softline,
                   printMarkdown(
-                    text.replace(new RegExp(`^${indentation}`, "gm"), "")
+                    text.replace(new RegExp(`^${indentation}`, "gm"), ""),
+                    textToDoc
                   ),
                 ])
               )
@@ -204,15 +205,6 @@ function embed(path, print, textToDoc, options) {
     }
   }
 
-  function printMarkdown(text) {
-    const doc = textToDoc(
-      text,
-      { parser: "markdown", __inJsTemplate: true },
-      { stripTrailingHardline: true }
-    );
-    return escapeTemplateCharacters(doc, true);
-  }
-
   function printTemplateExpression(path) {
     const node = path.getValue();
     let printed = print(path);
@@ -221,6 +213,15 @@ function embed(path, print, textToDoc, options) {
     }
     return concat(["${", printed, lineSuffixBoundary, "}"]);
   }
+}
+
+function printMarkdown(text, textToDoc) {
+  const doc = textToDoc(
+    text,
+    { parser: "markdown", __inJsTemplate: true },
+    { stripTrailingHardline: true }
+  );
+  return escapeTemplateCharacters(doc, true);
 }
 
 function getIndentation(str) {
