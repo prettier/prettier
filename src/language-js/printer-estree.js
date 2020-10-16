@@ -3118,6 +3118,7 @@ function printPathNoParens(path, options, print, args) {
         n.accessibility ? concat([n.accessibility, " "]) : "",
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
+        n.declare ? "declare " : "",
         "[",
         n.parameters ? parametersGroup : "",
         n.typeAnnotation ? "]: " : "]",
