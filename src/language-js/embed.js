@@ -61,6 +61,27 @@ function embed(path, print, textToDoc, options) {
     return;
   }
 
+  if (parser === "markdown") {
+    let text = node.quasis[0].value.raw.replace(
+      /((?:\\\\)*)\\`/g,
+      (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
+    );
+    const indentation = getIndentation(text);
+    const hasIndent = indentation !== "";
+    if (hasIndent) {
+      text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
+    }
+    const doc = printMarkdown(text, textToDoc);
+    return concat([
+      "`",
+      hasIndent
+        ? indent(concat([softline, doc]))
+        : concat([literalline, dedentToRoot(doc)]),
+      softline,
+      "`",
+    ]);
+  }
+
   const expressionDocs = path.map(
     (path) => printTemplateExpression(path, print),
     "expressions"
@@ -159,27 +180,6 @@ function embed(path, print, textToDoc, options) {
       parser,
       options
     );
-  }
-
-  if (parser === "markdown") {
-    let text = node.quasis[0].value.raw.replace(
-      /((?:\\\\)*)\\`/g,
-      (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
-    );
-    const indentation = getIndentation(text);
-    const hasIndent = indentation !== "";
-    if (hasIndent) {
-      text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
-    }
-    const doc = printMarkdown(text, textToDoc);
-    return concat([
-      "`",
-      hasIndent
-        ? indent(concat([softline, doc]))
-        : concat([literalline, dedentToRoot(doc)]),
-      softline,
-      "`",
-    ]);
   }
 }
 
