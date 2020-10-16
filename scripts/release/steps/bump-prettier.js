@@ -24,11 +24,7 @@ async function commit(version) {
   let text = fs.readFileSync(file, "utf8");
   text = text.replace(mark, `${mark}\n# ${version}\n${rev}`);
   fs.writeFileSync(file, text);
-  await execa("git", [
-    "commit",
-    "-am",
-    `Git blame ignore ${version}`,
-  ]);
+  await execa("git", ["commit", "-am", `Git blame ignore ${version}`]);
 
   await execa("git", ["push"]);
 }
