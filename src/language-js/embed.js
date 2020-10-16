@@ -166,10 +166,10 @@ function embed(path, print, textToDoc, options) {
 
     case "TemplateElement": {
       const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
       if (hasInvalidCookedValue(parent)) {
         return;
       }
+      const parentParent = path.getParentNode(1);
       /**
        * md`...`
        * markdown`...`
