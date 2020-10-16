@@ -146,6 +146,16 @@ function embed(path, print, textToDoc, options) {
         ]);
       }
 
+      if (isHandlebars(path)) {
+        return printHtmlTemplateLiteral(
+          path,
+          print,
+          textToDoc,
+          "glimmer",
+          options
+        );
+      }
+
       const htmlParser = isHtml(path)
         ? "html"
         : isAngularComponentTemplate(path)
@@ -659,6 +669,20 @@ function printHtmlTemplateLiteral(
       trailingWhitespace,
       "`",
     ])
+  );
+}
+
+/*
+ * hbs`...`
+ */
+function isHandlebars(path) {
+  const parent = path.getParentNode();
+
+  return (
+    parent &&
+    parent.type === "TaggedTemplateExpression" &&
+    parent.tag.type === "Identifier" &&
+    parent.tag.name === "hbs"
   );
 }
 
