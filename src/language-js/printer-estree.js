@@ -2476,6 +2476,7 @@ function printPathNoParens(path, options, print, args) {
           group(
             concat([
               "{",
+              n.hasUnknownMembers ? "..." : "",
               comments.printDanglingComments(path, options),
               softline,
               "}",
@@ -2491,7 +2492,8 @@ function printPathNoParens(path, options, print, args) {
                 concat([
                   hardline,
                   printArrayItems(path, options, "members", print),
-                  shouldPrintComma(options) ? "," : "",
+                  n.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
+                  ...(n.hasUnknownMembers ? [hardline, "..."] : []),
                 ])
               ),
               comments.printDanglingComments(
