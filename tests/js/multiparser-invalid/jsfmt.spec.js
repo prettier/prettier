@@ -1,1 +1,3 @@
-run_spec(__dirname, ["babel"], { errors: { espree: true } });
+run_spec(__dirname, ["babel", "flow", "typescript"], {
+  errors: { espree: true, flow: true, typescript: true },
+});
