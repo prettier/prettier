@@ -570,10 +570,6 @@ function printHtmlTemplateLiteral(
   parser,
   options
 ) {
-  if (hasInvalidCookedValue(node)) {
-    return;
-  }
-
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
@@ -668,8 +664,8 @@ function printHtmlTemplateLiteral(
   );
 }
 
-function hasInvalidCookedValue({ quasi }) {
-  return quasi.some(({ value: { cooked } }) => cooked === null);
+function hasInvalidCookedValue({ quasis }) {
+  return quasis.some(({ value: { cooked } }) => cooked === null);
 }
 
 module.exports = embed;

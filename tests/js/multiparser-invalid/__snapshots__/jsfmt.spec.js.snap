@@ -22,13 +22,13 @@ foo = css\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
 foo = /* HTML */\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
 foo = /* GraphQL */\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
 
-foo = foo\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = html\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = graphql\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = markdown\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = css\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
-foo = /* HTML */\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
-foo = /* GraphQL */\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
+foo = foo\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = html\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = graphql\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = markdown\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = css\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = /* HTML */\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = /* GraphQL */\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
 
 =====================================output=====================================
 foo = foo\`\\u{prettier}\\u{0065}\`;
@@ -47,13 +47,13 @@ foo = css\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
 foo = /* HTML */ \`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
 foo = /* GraphQL */ \`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
 
-foo = foo\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = html\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = graphql\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = markdown\`\\u{0065}\${foo}pr\\u{0065}ttier\`;
-foo = css\`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
-foo = /* HTML */ \`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
-foo = /* GraphQL */ \`\\u{prettier}\${foo}pr\\u{0065}ttier\`;
+foo = foo\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = html\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = graphql\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = markdown\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = css\`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = /* HTML */ \`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
+foo = /* GraphQL */ \`pr\\u{0065}ttier\${foo}\\u{prettier}\`;
 
 ================================================================================
 `;
