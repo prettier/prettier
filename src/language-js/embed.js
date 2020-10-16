@@ -165,6 +165,9 @@ function embed(path, print, textToDoc, options) {
     }
 
     case "TemplateElement": {
+      if (hasInvalidCookedValue(parent)) {
+        return;
+      }
       /**
        * md`...`
        * markdown`...`
@@ -176,9 +179,6 @@ function embed(path, print, textToDoc, options) {
         parentParent.tag.type === "Identifier" &&
         (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
       ) {
-        if (hasInvalidCookedValue(parent)) {
-          return;
-        }
         const text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
           (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
