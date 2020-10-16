@@ -187,7 +187,10 @@ function embed(path, print, textToDoc, options) {
                   ),
                 ])
               )
-            : concat([literalline, dedentToRoot(printMarkdown(text))]),
+            : concat([
+                literalline,
+                dedentToRoot(printMarkdown(text, textToDoc)),
+              ]),
           softline,
         ]);
       }
