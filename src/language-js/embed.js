@@ -38,6 +38,10 @@ function getParser(path) {
   if (isAngularComponentTemplate(path)) {
     return "angular";
   }
+
+  if (isMarkdown(path)) {
+    return "markdown";
+  }
 }
 
 function embed(path, print, textToDoc, options) {
@@ -161,17 +165,8 @@ function embed(path, print, textToDoc, options) {
         );
       }
 
-      break;
-    }
-
-    case "TemplateElement": {
-      const parent = path.getParentNode();
-      if (hasInvalidCookedValue(parent)) {
-        return;
-      }
-
-      if (isMarkdown(path)) {
-        let text = parent.quasis[0].value.raw.replace(
+      if (parser === "markdown") {
+        let text = node.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
           (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
         );
@@ -182,10 +177,12 @@ function embed(path, print, textToDoc, options) {
         }
         const doc = printMarkdown(text, textToDoc);
         return concat([
+          "`",
           hasIndent
             ? indent(concat([softline, doc]))
             : concat([literalline, dedentToRoot(doc)]),
           softline,
+          "`",
         ]);
       }
 
@@ -199,14 +196,14 @@ function embed(path, print, textToDoc, options) {
  * markdown`...`
  */
 function isMarkdown(path) {
+  const node = path.getValue();
   const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
   return (
-    parentParent &&
-    parentParent.type === "TaggedTemplateExpression" &&
-    parent.quasis.length === 1 &&
-    parentParent.tag.type === "Identifier" &&
-    (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
+    parent &&
+    parent.type === "TaggedTemplateExpression" &&
+    node.quasis.length === 1 &&
+    parent.tag.type === "Identifier" &&
+    (parent.tag.name === "md" || parent.tag.name === "markdown")
   );
 }
 
