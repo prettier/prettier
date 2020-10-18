@@ -808,14 +808,21 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "ExportSpecifier":
+    case "ExportSpecifier": {
       parts.push(path.call(print, "local"));
 
-      if (n.exported && n.exported.name !== n.local.name) {
+      const { exported, local } = n;
+      if (
+        exported &&
+        (exported.type !== local.type ||
+          (exported.type === "Identifier" && exported.name !== local.name) ||
+          (exported.type === "StringLiteral" && exported.value !== local.value))
+      ) {
         parts.push(" as ", path.call(print, "exported"));
       }
 
       return concat(parts);
+    }
     case "ImportNamespaceSpecifier":
       parts.push("* as ");
       parts.push(path.call(print, "local"));

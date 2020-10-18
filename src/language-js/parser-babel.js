@@ -38,6 +38,7 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "importAssertions",
       ["recordAndTuple", { syntaxType: "hash" }],
       "decimal",
+      "moduleStringNames",
       ...extraPlugins,
     ],
     tokens: true,
