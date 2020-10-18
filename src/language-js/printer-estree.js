@@ -875,8 +875,12 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ", path.call(print, "source"));
       }
 
-      if (Array.isArray(n.attributes) && n.attributes.length !== 0) {
-        parts.push(" with ", concat(path.map(print, "attributes")));
+      if (Array.isArray(n.assertions) && n.assertions.length !== 0) {
+        parts.push(
+          " assert { ",
+          join(", ", path.map(print, "assertions")),
+          " }"
+        );
       }
 
       parts.push(semi);

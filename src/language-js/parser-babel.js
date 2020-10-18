@@ -35,7 +35,7 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "partialApplication",
       ["decorators", { decoratorsBeforeExport: false }],
       "privateIn",
-      ["moduleAttributes", { version: "may-2020" }],
+      "importAssertions",
       ["recordAndTuple", { syntaxType: "hash" }],
       "decimal",
       ...extraPlugins,
