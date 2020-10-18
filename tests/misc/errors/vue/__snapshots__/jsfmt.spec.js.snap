@@ -21,7 +21,7 @@ exports[`upper-case.html error test 1`] = `
    6 |   <div id=\\"app\\">
    7 |     <!-- when vue parse use for html, Input should not treat as component -->
 >  8 |     <Input>{{value}}</Input>
-     |                     ^
+     |                     ^^^^^^^^
    9 |   </div>
   10 | </body>
   11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"

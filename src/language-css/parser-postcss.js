@@ -647,12 +647,13 @@ function parseWithParser(parse, text, options) {
 
   try {
     result = parse(text);
-  } catch (e) {
+  } catch (error) {
+    const { name, reason, line, column } = error;
     /* istanbul ignore next */
-    if (typeof e.line !== "number") {
-      throw e;
+    if (typeof line !== "number") {
+      throw error;
     }
-    throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
+    throw createError(`${name}: ${reason}`, { start: { line, column } });
   }
 
   options.originalText = text;

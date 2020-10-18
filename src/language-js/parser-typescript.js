@@ -16,16 +16,16 @@ function parse(text, parsers, opts) {
       // But if we get it wrong, try the opposite.
       ast = tryParseTypeScript(text, !jsx);
     } catch (secondError) {
-      // suppose our guess is correct
-      const e = firstError;
+      // Suppose our guess is correct, throw the first error
+      const { message, lineNumber, column } = firstError;
 
       /* istanbul ignore next */
-      if (typeof e.lineNumber === "undefined") {
-        throw e;
+      if (typeof lineNumber !== "number") {
+        throw firstError;
       }
 
-      throw createError(e.message, {
-        start: { line: e.lineNumber, column: e.column + 1 },
+      throw createError(message, {
+        start: { line: lineNumber, column: column + 1 },
       });
     }
   }
