@@ -2898,8 +2898,7 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
-    case "TypeCastExpression":
-    case "TSTypeCastExpression": {
+    case "TypeCastExpression": {
       return concat([
         "(",
         path.call(print, "expression"),
