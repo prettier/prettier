@@ -342,7 +342,7 @@ function isGetterOrSetter(node) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function sameLocStart(nodeA, nodeB, {locStart}) {
+function sameLocStart(nodeA, nodeB, { locStart }) {
   return locStart(nodeA) === locStart(nodeB);
 }
 
@@ -351,7 +351,7 @@ function sameLocStart(nodeA, nodeB, {locStart}) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function sameLocEnd(nodeA, nodeB, {locEnd}) {
+function sameLocEnd(nodeA, nodeB, { locEnd }) {
   return locEnd(nodeA) === locEnd(nodeB);
 }
 
@@ -360,8 +360,10 @@ function sameLocEnd(nodeA, nodeB, {locEnd}) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function isSameLoc(nodeA, nodeB, options) {
-  return sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options);
+function isSameNode(nodeA, nodeB, options) {
+  return (
+    sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options)
+  );
 }
 
 // TODO: This is a bad hack and we need a better way to distinguish between
@@ -1420,7 +1422,7 @@ module.exports = {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSameLoc,
+  isSameNode,
   isSimpleFlowType,
   isSimpleNumber,
   isSimpleTemplateLiteral,

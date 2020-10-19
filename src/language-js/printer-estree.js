@@ -91,7 +91,7 @@ const {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSameLoc,
+  isSameNode,
   isSimpleFlowType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
@@ -804,7 +804,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(path.call(print, "imported"));
 
-      if (n.local && !isSameLoc(n.local, n.imported, options)) {
+      if (n.local && !isSameNode(n.local, n.imported, options)) {
         parts.push(" as ", path.call(print, "local"));
       }
 
@@ -812,7 +812,7 @@ function printPathNoParens(path, options, print, args) {
     case "ExportSpecifier":
       parts.push(path.call(print, "local"));
 
-      if (n.exported && !isSameLoc(n.local, n.exported, options)) {
+      if (n.exported && !isSameNode(n.local, n.exported, options)) {
         parts.push(" as ", path.call(print, "exported"));
       }
 
