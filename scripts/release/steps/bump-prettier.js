@@ -1,5 +1,6 @@
 "use strict";
 
+const fs = require("fs");
 const semver = require("semver");
 const {
   runYarn,
@@ -16,6 +17,16 @@ async function format() {
 
 async function commit(version) {
   await runGit(["commit", "-am", `Bump Prettier dependency to ${version}`]);
+
+  // Add rev to `.git-blame-ignore-revs` file
+  const file = ".git-blame-ignore-revs";
+  const mark = "# Prettier bump after release";
+  const { stdout: rev } = await runGit("git", ["rev-parse", "HEAD"]);
+  let text = fs.readFileSync(file, "utf8");
+  text = text.replace(mark, `${mark}\n# ${version}\n${rev}`);
+  fs.writeFileSync(file, text);
+  await runGit(["commit", "-am", `Git blame ignore ${version}`]);
+
   await runGit(["push"]);
 }
 
