@@ -85,7 +85,7 @@
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
-    "@babel/core": "7.12.1",
+    "@babel/core": "7.12.3",
     "@babel/preset-env": "7.12.1",
     "@babel/types": "7.12.1",
     "@glimmer/reference": "0.62.3",
