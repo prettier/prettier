@@ -11,6 +11,13 @@ exports[`html-like-comments.js error test 1`] = `
   6 | "
 `;
 
+exports[`module-attributes.js error test 1`] = `
+"Unexpected token, expected \\";\\" (1:28)
+> 1 | import foo from \\"foo.json\\" with type: \\"json\\";
+    |                            ^
+  2 | "
+`;
+
 exports[`no-for-in-init-concise-binary-in.js error test 1`] = `
 "Unexpected token, expected \\")\\" (3:18)
   1 | // https://github.com/babel/babel/pull/11931
