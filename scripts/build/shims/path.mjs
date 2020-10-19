@@ -1,1 +1,1 @@
-export { default } from "path-browserify";
+export * from "path-browserify";
