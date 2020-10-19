@@ -415,3 +415,40 @@ import a, * as b from "a";
 
 ================================================================================
 `;
+
+exports[`same-local-and-imported.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {a} from 'a';
+import {b as b} from 'b';
+import {c as /* comment */c} from 'c';
+
+=====================================output=====================================
+import {a} from "a";
+import {b as b} from "b";
+import {c as /* comment */ c} from "c";
+
+================================================================================
+`;
+
+exports[`same-local-and-imported.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {a} from 'a';
+import {b as b} from 'b';
+import {c as /* comment */c} from 'c';
+
+=====================================output=====================================
+import { a } from "a";
+import { b as b } from "b";
+import { c as /* comment */ c } from "c";
+
+================================================================================
+`;
