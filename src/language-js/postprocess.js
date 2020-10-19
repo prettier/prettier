@@ -57,23 +57,6 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
-      case "TaggedTemplateExpression": {
-        // https://github.com/meriyah/meriyah/issues/108
-        if (options.parser === "meriyah") {
-          [node.range, node.quasi.range] = [node.quasi.range, node.range];
-        }
-        break;
-      }
-      case "TemplateElement": {
-        // https://github.com/meriyah/meriyah/issues/109
-        if (options.parser === "meriyah") {
-          node.value.cooked = require("@babel/parser").parse(
-            `\`${node.value.raw}\``
-          ).program.body[0].expression.quasis[0].value.cooked;
-          node.range[1] = node.range[0] + node.value.raw.length;
-        }
-        break;
-      }
       // Espree
       case "ChainExpression": {
         return transformChainExpression(node.expression);
