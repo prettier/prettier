@@ -5808,10 +5808,10 @@ merge2@^1.3.0:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-meriyah@3.0.2:
-  version "3.0.2"
-  resolved "https://mirrors.cloud.tencent.com/npm/meriyah/-/meriyah-3.0.2.tgz#0d71a278a59eb4eb66d5f45f6771b15cfa9d1af6"
-  integrity sha512-KWtiLJcTL/dK7vTxCQwiRNUa7+JSNluGy2y6w4gYdXbPUZWF9MYBchstfr6DV3THFD+BAY2UpH4ON0sABtJkAA==
+meriyah@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/meriyah/-/meriyah-3.0.3.tgz#ca9d1efafd185d1576caa719b74d4481b3cc3102"
+  integrity sha512-f56aaXQq2y8Mn6+BlH4/IAXrgjxQHuLBngAHGDKqxAEaOWKm5u/+vaiA/byEi5tFPpBnDYOcLFGtHyzfa7I5wA==
 
 micromatch@^3.1.10, micromatch@^3.1.4:
   version "3.1.10"
