@@ -103,7 +103,7 @@
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
     "cross-env": "7.0.2",
-    "cspell": "4.1.0",
+    "cspell": "4.1.2",
     "eslint": "7.11.0",
     "eslint-config-prettier": "6.12.0",
     "eslint-formatter-friendly": "7.0.0",
