@@ -118,19 +118,16 @@ function createParse(parseMethod, ...pluginCombinations) {
         )
       );
     } catch (error) {
-      throw createError(
-        // babel error prints (l:c) with cols that are zero indexed
-        // so we need our custom error
-        error.message.replace(/ \(.*\)/, ""),
-        error.loc
-          ? {
-              start: {
-                line: error.loc.line,
-                column: error.loc.column + 1,
-              },
-            }
-          : { start: { line: 0, column: 0 } }
-      );
+      // babel error prints (l:c) with cols that are zero indexed
+      // so we need our custom error
+      const { message, loc } = error;
+
+      throw createError(message.replace(/ \(.*\)/, ""), {
+        start: {
+          line: loc ? loc.line : 0,
+          column: loc ? loc.column + 1 : 0,
+        },
+      });
     }
 
     return postprocess(ast, { ...opts, originalText: text });
