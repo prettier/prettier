@@ -111,7 +111,7 @@
     "eslint-plugin-jest": "24.1.0",
     "eslint-plugin-prettier-internal-rules": "file:scripts/tools/eslint-plugin-prettier-internal-rules",
     "eslint-plugin-react": "7.21.4",
-    "eslint-plugin-unicorn": "22.0.0",
+    "eslint-plugin-unicorn": "23.0.0",
     "execa": "4.0.3",
     "jest": "26.5.3",
     "jest-snapshot-serializer-ansi": "1.0.0",
