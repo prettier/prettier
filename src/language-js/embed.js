@@ -24,6 +24,12 @@ function embed(path, print, textToDoc, options) {
 
   switch (node.type) {
     case "TemplateLiteral": {
+      // Bail out if any of the quasis have an invalid escape sequence
+      // (which would make the `cooked` value be `null`)
+      if (hasInvalidCookedValue(node)) {
+        return;
+      }
+
       const isCss = [
         isStyledJsx,
         isStyledComponents,
@@ -69,7 +75,6 @@ function embed(path, print, textToDoc, options) {
         const expressionDocs = path.map(printTemplateExpression, "expressions");
 
         const numQuasis = node.quasis.length;
-
         if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
           return "``";
         }
@@ -81,12 +86,6 @@ function embed(path, print, textToDoc, options) {
           const isFirst = i === 0;
           const isLast = i === numQuasis - 1;
           const text = templateElement.value.cooked;
-
-          // Bail out if any of the quasis have an invalid escape sequence
-          // (which would make the `cooked` value be `null` or `undefined`)
-          if (typeof text !== "string") {
-            return null;
-          }
 
           const lines = text.split("\n");
           const numLines = lines.length;
@@ -166,6 +165,9 @@ function embed(path, print, textToDoc, options) {
     }
 
     case "TemplateElement": {
+      if (hasInvalidCookedValue(parent)) {
+        return;
+      }
       /**
        * md`...`
        * markdown`...`
@@ -660,6 +662,10 @@ function printHtmlTemplateLiteral(
       "`",
     ])
   );
+}
+
+function hasInvalidCookedValue({ quasis }) {
+  return quasis.some(({ value: { cooked } }) => cooked === null);
 }
 
 module.exports = embed;

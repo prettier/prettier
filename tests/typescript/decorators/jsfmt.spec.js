@@ -1,1 +1,3 @@
-run_spec(__dirname, ["typescript"], { disableBabelTS: ["interface.ts"] });
+run_spec(__dirname, ["typescript"], {
+  errors: { "babel-ts": ["interface.ts"] },
+});
