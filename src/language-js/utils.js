@@ -351,8 +351,17 @@ function sameLocStart(nodeA, nodeB, {locStart}) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
+function sameLocEnd(nodeA, nodeB, {locEnd}) {
+  return locEnd(nodeA) === locEnd(nodeB);
+}
+
+/**
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @returns {boolean}
+ */
 function isSameLoc(nodeA, nodeB, options) {
-  return sameLocStart(nodeA, nodeB, options) && options.locEnd(nodeA) === options.locEnd(nodeB);
+  return sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options);
 }
 
 // TODO: This is a bad hack and we need a better way to distinguish between
