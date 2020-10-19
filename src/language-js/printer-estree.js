@@ -77,7 +77,6 @@ const {
   isEmptyJSXElement,
   isExportDeclaration,
   isFlowAnnotationComment,
-  isFunctionNotation,
   isGetterOrSetter,
   isJestEachTemplateLiteral,
   isJSXNode,
@@ -1041,7 +1040,7 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "id"),
         "]]",
         printOptionalToken(path),
-        n.method ? "" : ": ",
+        n.method ? ": " : "",
         path.call(print, "value"),
       ]);
 
@@ -2553,7 +2552,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "TSTypeAnnotation") &&
         parentParent.type === "ArrowFunctionExpression";
 
-      if (isObjectTypePropertyAFunction(parent, options)) {
+      if (isObjectTypePropertyAFunction(parent)) {
         isArrowFunctionTypeAnnotation = true;
         needsColon = true;
       }
@@ -2840,7 +2839,7 @@ function printPathNoParens(path, options, print, args) {
         variance || "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        isFunctionNotation(n, options) ? "" : ": ",
+        n.method ? ": " : "",
         path.call(print, "value"),
       ]);
     }
@@ -3959,7 +3958,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   }
 
   const isFlowShorthandWithOneArg =
-    (isObjectTypePropertyAFunction(parent, options) ||
+    (isObjectTypePropertyAFunction(parent) ||
       isTypeAnnotationAFunction(parent, options) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||

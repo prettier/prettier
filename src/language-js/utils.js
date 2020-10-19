@@ -346,26 +346,20 @@ function sameLocStart(nodeA, nodeB, options) {
   return options.locStart(nodeA) === options.locStart(nodeB);
 }
 
-// TODO: This is a bad hack and we need a better way to distinguish between
-// arrow functions and otherwise
-function isFunctionNotation(node, options) {
-  return isGetterOrSetter(node) || sameLocStart(node, node.value, options);
-}
-
-// Hack to differentiate between the following two which have the same ast
+// Differentiate between the following two which have the same ast
 // type T = { method: () => void };
 // type T = { method(): void };
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node, options) {
+function isObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node, options)
+    !node.method
   );
 }
 
@@ -1385,7 +1379,6 @@ module.exports = {
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
-  isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
   isJestEachTemplateLiteral,
