@@ -360,7 +360,7 @@ function sameLocEnd(nodeA, nodeB, { locEnd }) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function isSameNode(nodeA, nodeB, options) {
+function hasSameLoc(nodeA, nodeB, options) {
   return (
     sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options)
   );
@@ -1396,6 +1396,7 @@ module.exports = {
   hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
+  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
@@ -1422,7 +1423,6 @@ module.exports = {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSameNode,
   isSimpleFlowType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
