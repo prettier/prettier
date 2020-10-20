@@ -98,7 +98,7 @@
     "@types/estree": "0.0.45",
     "@types/node": "14.11.10",
     "@typescript-eslint/types": "3.10.1",
-    "babel-jest": "26.5.2",
+    "babel-jest": "26.6.0",
     "babel-loader": "8.1.0",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
