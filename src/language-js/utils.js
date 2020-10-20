@@ -342,8 +342,28 @@ function isGetterOrSetter(node) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function sameLocStart(nodeA, nodeB, options) {
-  return options.locStart(nodeA) === options.locStart(nodeB);
+function sameLocStart(nodeA, nodeB, { locStart }) {
+  return locStart(nodeA) === locStart(nodeB);
+}
+
+/**
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @returns {boolean}
+ */
+function sameLocEnd(nodeA, nodeB, { locEnd }) {
+  return locEnd(nodeA) === locEnd(nodeB);
+}
+
+/**
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @returns {boolean}
+ */
+function hasSameLoc(nodeA, nodeB, options) {
+  return (
+    sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options)
+  );
 }
 
 // TODO: This is a bad hack and we need a better way to distinguish between
@@ -1376,6 +1396,7 @@ module.exports = {
   hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
+  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,

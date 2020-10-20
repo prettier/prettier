@@ -69,6 +69,7 @@ const {
   hasNewlineBetweenOrAfterDecorators,
   hasNgSideEffect,
   hasPrettierIgnore,
+  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
@@ -803,7 +804,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(path.call(print, "imported"));
 
-      if (n.local && n.local.name !== n.imported.name) {
+      if (n.local && !hasSameLoc(n.local, n.imported, options)) {
         parts.push(" as ", path.call(print, "local"));
       }
 
@@ -811,7 +812,7 @@ function printPathNoParens(path, options, print, args) {
     case "ExportSpecifier":
       parts.push(path.call(print, "local"));
 
-      if (n.exported && n.exported.name !== n.local.name) {
+      if (n.exported && !hasSameLoc(n.local, n.exported, options)) {
         parts.push(" as ", path.call(print, "exported"));
       }
 
