@@ -809,7 +809,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "ExportSpecifier":
+    case "ExportSpecifier": {
       parts.push(path.call(print, "local"));
 
       if (n.exported && !hasSameLoc(n.local, n.exported, options)) {
@@ -817,6 +817,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
+    }
     case "ImportNamespaceSpecifier":
       parts.push("* as ");
       parts.push(path.call(print, "local"));
@@ -876,8 +877,12 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ", path.call(print, "source"));
       }
 
-      if (Array.isArray(n.attributes) && n.attributes.length !== 0) {
-        parts.push(" with ", concat(path.map(print, "attributes")));
+      if (Array.isArray(n.assertions) && n.assertions.length !== 0) {
+        parts.push(
+          " assert { ",
+          join(", ", path.map(print, "assertions")),
+          " }"
+        );
       }
 
       parts.push(semi);
@@ -914,7 +919,8 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "DoWhileStatement" ||
           parent.type === "DoExpression" ||
           (parent.type === "CatchClause" && !parentParent.finalizer) ||
-          parent.type === "TSModuleDeclaration")
+          parent.type === "TSModuleDeclaration" ||
+          parent.type === "TSDeclareFunction")
       ) {
         return "{}";
       }
@@ -3124,6 +3130,7 @@ function printPathNoParens(path, options, print, args) {
         n.accessibility ? concat([n.accessibility, " "]) : "",
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
+        n.declare ? "declare " : "",
         "[",
         n.parameters ? parametersGroup : "",
         n.typeAnnotation ? "]: " : "]",

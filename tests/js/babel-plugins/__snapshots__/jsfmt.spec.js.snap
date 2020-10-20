@@ -683,6 +683,34 @@ iterator.next(2); // Logs "Yield 2"
 ================================================================================
 `;
 
+exports[`import-assertions-dynamic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import("./foo.json", { assert: { type: "json" } });
+
+=====================================output=====================================
+import("./foo.json", { assert: { type: "json" } });
+
+================================================================================
+`;
+
+exports[`import-assertions-static.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import json from "./foo.json" assert { type: "json" };
+
+=====================================output=====================================
+import json from "./foo.json" assert { type: "json" };
+
+================================================================================
+`;
+
 exports[`import-meta.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -783,30 +811,16 @@ obj.a.b &&= c;
 ================================================================================
 `;
 
-exports[`module-attributes-dynamic.js format 1`] = `
+exports[`module-string-names.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import("foo.json", { with: { type: "json" } })
+export { smile as "😄" } from "./emojis.js";
 
 =====================================output=====================================
-import("foo.json", { with: { type: "json" } });
-
-================================================================================
-`;
-
-exports[`module-attributes-static.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import foo from "foo.json" with type: "json";
-
-=====================================output=====================================
-import foo from "foo.json" with type: "json";
+export { smile as "😄" } from "./emojis.js";
 
 ================================================================================
 `;

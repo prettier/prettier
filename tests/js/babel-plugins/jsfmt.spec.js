@@ -12,8 +12,8 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "flow.js",
       "function-bind.js",
       "function-sent.js",
-      "module-attributes-dynamic.js",
-      "module-attributes-static.js",
+      "import-assertions-dynamic.js",
+      "import-assertions-static.js",
       "partial-application.js",
       "pipeline-operator-fsharp.js",
       "pipeline-operator-minimal.js",
@@ -26,6 +26,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "typescript.js",
       "v8intrinsic.js",
       "optional-chaining.js",
+      "module-string-names.js",
     ],
   },
 });
