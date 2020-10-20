@@ -75,6 +75,7 @@ rules:
   unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
   unicorn/prefer-number-properties: error
+  unicorn/prefer-optional-catch-binding: error
   unicorn/prefer-regexp-test: error
   unicorn/prefer-spread: error
   unicorn/prefer-string-slice: error
