@@ -2472,7 +2472,7 @@ function printPathNoParens(path, options, print, args) {
         }
         parts.push("of ", type, " ");
       }
-      if (n.members.length === 0) {
+      if (n.members.length === 0 && !n.hasUnknownMembers) {
         parts.push(
           group(
             concat([
@@ -2484,15 +2484,22 @@ function printPathNoParens(path, options, print, args) {
           )
         );
       } else {
+        const members = n.members.length
+          ? [
+              hardline,
+              printArrayItems(path, options, "members", print),
+              n.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
+            ]
+          : [];
+
         parts.push(
           group(
             concat([
               "{",
               indent(
                 concat([
-                  hardline,
-                  printArrayItems(path, options, "members", print),
-                  shouldPrintComma(options) ? "," : "",
+                  ...members,
+                  ...(n.hasUnknownMembers ? [hardline, "..."] : []),
                 ])
               ),
               comments.printDanglingComments(
