@@ -269,14 +269,13 @@ function getWebpackConfig(bundle) {
     },
   };
 
-  // if (bundle.terserOptions) {
-  //   const TerserPlugin = require("terser-webpack-plugin");
+  if (bundle.terserOptions) {
+    const TerserPlugin = require("terser-webpack-plugin");
 
-  //   config.optimization = {
-  //     minimizer: [new TerserPlugin(bundle.terserOptions)],
-  //   };
-  // }
-  config.optimization = { minimize: false };
+    config.optimization = {
+      minimizer: [new TerserPlugin(bundle.terserOptions)],
+    };
+  }
 
   return config;
 }
