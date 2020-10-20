@@ -3908,6 +3908,16 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     }, paramsField);
   }
 
+  if (fun.this) {
+    const parts = [];
+    parts.push("this:", line);
+    parts.push(path.call(print, "this"));
+    if (printed.length > 0 || fun.rest) {
+      parts.push(",", line);
+    }
+    printed = parts.concat(printed);
+  }
+
   if (fun.rest) {
     printed.push(concat(["...", path.call(print, "rest")]));
   }
