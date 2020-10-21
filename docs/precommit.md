@@ -62,7 +62,8 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
 - repo: https://github.com/prettier/pre-commit
-  rev: "" # Use the sha or tag you want to point at
+  # Use the sha or branch you want to point at
+  rev: main
   hooks:
     - id: prettier
 ```
