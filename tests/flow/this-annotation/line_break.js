@@ -5,3 +5,15 @@ type T = (this: boolean,
 
           b: number,
          ) => boolean;
+
+type A = (
+  this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
+
+  b: number,
+) => boolean;
+
+type B = (
+  _this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
+
+  b: number,
+) => boolean

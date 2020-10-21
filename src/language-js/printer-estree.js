@@ -3913,7 +3913,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     parts.push("this: ");
     parts.push(path.call(print, "this"));
     if (printed.length > 0 || fun.rest) {
-      parts.push(",", line);
+      if (isNextLineEmpty(options.originalText, fun.this, options.locEnd)) {
+        parts.push(",", hardline, hardline);
+      } else {
+        parts.push(",", line);
+      }
     }
     printed = parts.concat(printed);
   }
