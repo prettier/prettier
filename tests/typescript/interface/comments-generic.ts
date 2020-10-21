@@ -22,3 +22,9 @@ interface ReallyReallyLongName3<
 extends BaseInterface // 3
 {}
 
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}

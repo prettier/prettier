@@ -336,6 +336,11 @@ function handleWhileComments(
     return true;
   }
 
+  if (enclosingNode.body === followingNode) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
@@ -578,7 +583,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
     comment,
     options.locEnd
   );
-  if (text.slice(index, index + 2) === "=>") {
+  if (index !== false && text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
@@ -672,9 +677,12 @@ function handleLastFunctionArgComments(
         text,
         options.locEnd(enclosingNode.id)
       );
-      return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-        text,
-        functionParamLeftParenIndex + 1
+      return (
+        functionParamLeftParenIndex !== false &&
+        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          text,
+          functionParamLeftParenIndex + 1
+        )
       );
     })();
     if (options.locStart(comment) > functionParamRightParenIndex) {
@@ -930,6 +938,11 @@ function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
 
+/**
+ * @param {any} node
+ * @param {(comment: any) => boolean} fn
+ * @returns boolean
+ */
 function hasLeadingComment(node, fn = () => true) {
   if (node.leadingComments) {
     return node.leadingComments.some(fn);
@@ -949,7 +962,6 @@ function isRealFunctionLikeNode(node) {
     node.type === "ClassMethod" ||
     node.type === "TSDeclareFunction" ||
     node.type === "TSCallSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSMethodSignature" ||
     node.type === "TSConstructorType" ||
@@ -979,7 +991,9 @@ function getCommentChildNodes(node, options) {
   //       }
   //     }
   if (
-    (options.parser === "typescript" || options.parser === "flow") &&
+    (options.parser === "typescript" ||
+      options.parser === "flow" ||
+      options.parser === "espree") &&
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&

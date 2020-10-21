@@ -11,8 +11,9 @@ const {
     concat,
     group,
     dedentToRoot,
+    lineSuffixBoundary,
   },
-  utils: { mapDoc, stripTrailingHardline },
+  utils: { mapDoc, replaceNewlinesWithLiterallines },
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
@@ -23,6 +24,12 @@ function embed(path, print, textToDoc, options) {
 
   switch (node.type) {
     case "TemplateLiteral": {
+      // Bail out if any of the quasis have an invalid escape sequence
+      // (which would make the `cooked` value be `null`)
+      if (hasInvalidCookedValue(node)) {
+        return;
+      }
+
       const isCss = [
         isStyledJsx,
         isStyledComponents,
@@ -43,8 +50,16 @@ function embed(path, print, textToDoc, options) {
                 "-id" +
                 currVal;
         }, "");
-        const doc = textToDoc(text, { parser: "scss" });
-        return transformCssDoc(doc, path, print);
+        const doc = textToDoc(
+          text,
+          { parser: "scss" },
+          { stripTrailingHardline: true }
+        );
+        return transformCssDoc(
+          doc,
+          node,
+          path.map(printTemplateExpression, "expressions")
+        );
       }
 
       /*
@@ -57,12 +72,9 @@ function embed(path, print, textToDoc, options) {
        * support Relay Classic formatting.
        */
       if (isGraphQL(path)) {
-        const expressionDocs = node.expressions
-          ? path.map(print, "expressions")
-          : [];
+        const expressionDocs = path.map(printTemplateExpression, "expressions");
 
         const numQuasis = node.quasis.length;
-
         if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
           return "``";
         }
@@ -74,12 +86,6 @@ function embed(path, print, textToDoc, options) {
           const isFirst = i === 0;
           const isLast = i === numQuasis - 1;
           const text = templateElement.value.cooked;
-
-          // Bail out if any of the quasis have an invalid escape sequence
-          // (which would make the `cooked` value be `null` or `undefined`)
-          if (typeof text !== "string") {
-            return null;
-          }
 
           const lines = text.split("\n");
           const numLines = lines.length;
@@ -106,7 +112,11 @@ function embed(path, print, textToDoc, options) {
           if (commentsAndWhitespaceOnly) {
             doc = printGraphqlComments(lines);
           } else {
-            doc = stripTrailingHardline(textToDoc(text, { parser: "graphql" }));
+            doc = textToDoc(
+              text,
+              { parser: "graphql" },
+              { stripTrailingHardline: true }
+            );
           }
 
           if (doc) {
@@ -123,7 +133,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           if (expressionDoc) {
-            parts.push(concat(["${", expressionDoc, "}"]));
+            parts.push(expressionDoc);
           }
         }
 
@@ -143,8 +153,8 @@ function embed(path, print, textToDoc, options) {
 
       if (htmlParser) {
         return printHtmlTemplateLiteral(
-          path,
-          print,
+          node,
+          path.map(printTemplateExpression, "expressions"),
           textToDoc,
           htmlParser,
           options
@@ -155,6 +165,9 @@ function embed(path, print, textToDoc, options) {
     }
 
     case "TemplateElement": {
+      if (hasInvalidCookedValue(parent)) {
+        return;
+      }
       /**
        * md`...`
        * markdown`...`
@@ -192,8 +205,21 @@ function embed(path, print, textToDoc, options) {
   }
 
   function printMarkdown(text) {
-    const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return stripTrailingHardline(escapeTemplateCharacters(doc, true));
+    const doc = textToDoc(
+      text,
+      { parser: "markdown", __inJsTemplate: true },
+      { stripTrailingHardline: true }
+    );
+    return escapeTemplateCharacters(doc, true);
+  }
+
+  function printTemplateExpression(path) {
+    const node = path.getValue();
+    let printed = print(path);
+    if (node.comments && node.comments.length) {
+      printed = group(concat([indent(concat([softline, printed])), softline]));
+    }
+    return concat(["${", printed, lineSuffixBoundary, "}"]);
   }
 }
 
@@ -224,29 +250,19 @@ function escapeTemplateCharacters(doc, raw) {
   });
 }
 
-function transformCssDoc(quasisDoc, path, print) {
-  const parentNode = path.getValue();
-
+function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
   const isEmpty =
     parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
   if (isEmpty) {
     return "``";
   }
 
-  const expressionDocs = parentNode.expressions
-    ? path.map(print, "expressions")
-    : [];
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* istanbul ignore if */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
-  return concat([
-    "`",
-    indent(concat([hardline, stripTrailingHardline(newDoc)])),
-    softline,
-    "`",
-  ]);
+  return concat(["`", indent(concat([hardline, newDoc])), softline, "`"]);
 }
 
 // Search all the placeholders in the quasisDoc tree
@@ -294,12 +310,12 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       part.split(/@prettier-placeholder-(\d+)-id/).forEach((component, idx) => {
         // The placeholder is always at odd indices
         if (idx % 2 === 0) {
-          replacedParts.push(component);
+          replacedParts.push(replaceNewlinesWithLiterallines(component));
           return;
         }
 
         // The component will always be a number at odd index
-        replacedParts.push("${", expressionDocs[component], "}");
+        replacedParts.push(expressionDocs[component]);
         replaceCounter++;
       });
     });
@@ -547,9 +563,13 @@ function isHtml(path) {
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 
-function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
-  const node = path.getValue();
-
+function printHtmlTemplateLiteral(
+  node,
+  expressionDocs,
+  textToDoc,
+  parser,
+  options
+) {
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
@@ -564,8 +584,6 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     )
     .join("");
 
-  const expressionDocs = path.map(print, "expressions");
-
   if (expressionDocs.length === 0 && text.trim().length === 0) {
     return "``";
   }
@@ -574,13 +592,15 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   let topLevelCount = 0;
 
   const contentDoc = mapDoc(
-    stripTrailingHardline(
-      textToDoc(text, {
+    textToDoc(
+      text,
+      {
         parser,
         __onHtmlRoot(root) {
           topLevelCount = root.children.length;
         },
-      })
+      },
+      { stripTrailingHardline: true }
     ),
     (doc) => {
       if (typeof doc !== "string") {
@@ -605,9 +625,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
         }
 
         const placeholderIndex = +component;
-        parts.push(
-          concat(["${", group(expressionDocs[placeholderIndex]), "}"])
-        );
+        parts.push(expressionDocs[placeholderIndex]);
       }
 
       return concat(parts);
@@ -644,6 +662,10 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
       "`",
     ])
   );
+}
+
+function hasInvalidCookedValue({ quasis }) {
+  return quasis.some(({ value: { cooked } }) => cooked === null);
 }
 
 module.exports = embed;

@@ -1,8 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`invalid.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+
+=====================================output=====================================
+c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+
+================================================================================
+`;
+
 exports[`logical-assignment.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -26,7 +40,6 @@ c.foo["baz"] ??= result.foo.baz;
 
 a.foo.bar().baz &&= result.foo.bar().baz;
 b.foo.bar().baz ||= result.foo.bar().baz;
-c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
 b.baz ||= result.baz;
 c.baz ??= result.baz;
 
@@ -83,7 +96,6 @@ c.foo["baz"] ??= result.foo.baz;
 
 a.foo.bar().baz &&= result.foo.bar().baz;
 b.foo.bar().baz ||= result.foo.bar().baz;
-c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
 b.baz ||= result.baz;
 c.baz ??= result.baz;
 

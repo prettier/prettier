@@ -1,28 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tuple-labeled.ts format 1`] = `
+exports[`declare-index-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://github.com/babel/babel/pull/11754
-// TODO: move this file to \`test/typescript/tuple\`
+// Invalid, but recoverable
+class C {
+  declare [key: string]: string;
+}
 
-type T = [x: A, y?: B, ...z: C];
+=====================================output=====================================
+// Invalid, but recoverable
+class C {
+  declare [key: string]: string;
+}
 
-type T = [A, y: B];
+================================================================================
+`;
 
-let x: [A: string, ...B: number[]]
-
-type T = [foo: string, bar?: number];
-
-type T = [x?: A, y: B];
-
-type T = [x: A, ...B];
-
-type T = [...B, x: A];
-
+exports[`tuple-labeled-ts.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Invalid label 1
 type T = [x.y: A];
 
@@ -30,23 +33,6 @@ type T = [x.y: A];
 type T = [x<y>: A];
 
 =====================================output=====================================
-// https://github.com/babel/babel/pull/11754
-// TODO: move this file to \`test/typescript/tuple\`
-
-type T = [x: A, y?: B, ...z: C];
-
-type T = [A, y: B];
-
-let x: [A: string, ...B: number[]];
-
-type T = [foo: string, bar?: number];
-
-type T = [x?: A, y: B];
-
-type T = [x: A, ...B];
-
-type T = [...B, x: A];
-
 // Invalid label 1
 type T = [x.y: A];
 

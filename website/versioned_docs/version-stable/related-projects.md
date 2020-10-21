@@ -34,3 +34,4 @@ original_id: related-projects
 - [rollup-plugin-prettier](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
 - [jest-runner-prettier](https://github.com/keplersj/jest-runner-prettier) is Prettier as a Jest runner
 - [prettier-chrome](https://github.com/u3u/prettier-chrome) is an extension that runs Prettier in the browser
+- [spotless](https://github.com/diffplug/spotless) lets you run prettier from [gradle](https://github.com/diffplug/spotless/tree/main/plugin-gradle#prettier) or [maven](https://github.com/diffplug/spotless/tree/main/plugin-maven#prettier).

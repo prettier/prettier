@@ -40,7 +40,7 @@ const {
 } = require("./utils");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
   "definition",
@@ -179,6 +179,16 @@ function genericPrint(path, options, print) {
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
     }
+    case "wikiLink": {
+      let contents = "";
+      if (options.proseWrap === "preserve") {
+        contents = node.value;
+      } else {
+        contents = node.value.replace(/[\t\n]+/g, " ");
+      }
+
+      return concat(["[[", contents, "]]"]);
+    }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
         case "<": {
@@ -258,12 +268,6 @@ function genericPrint(path, options, print) {
         style,
       ]);
     }
-    case "yaml":
-    case "toml":
-      return options.originalText.slice(
-        node.position.start.offset,
-        node.position.end.offset
-      );
     case "html": {
       const parentNode = path.getParentNode();
       const value =
@@ -385,6 +389,9 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
+    // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
+    /* istanbul ignore next */
     case "footnote":
       return concat(["[^", printChildren(path, options, print), "]"]);
     case "footnoteReference":
@@ -434,11 +441,12 @@ function genericPrint(path, options, print) {
     case "liquidNode":
       return concat(replaceEndOfLineWith(node.value, hardline));
     // MDX
+    // fallback to the original text if multiparser failed
+    // or `embeddedLanguageFormatting: "off"`
     case "importExport":
-    case "jsx":
-      // fallback to the original text if multiparser failed
-      // or `embeddedLanguageFormatting: "off"`
       return concat([node.value, hardline]);
+    case "jsx":
+      return node.value;
     case "math":
       return concat([
         "$$",
@@ -463,6 +471,7 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     default:
+      /* istanbul ignore next */
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
   }
 }
@@ -768,6 +777,8 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
+        // Can't find a case to pass `shouldPrePrintTripleHardline`
+        /* istanbul ignore next */
         if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
@@ -933,7 +944,7 @@ function clean(ast, newObj, parent) {
 
   // for codeblock
   if (
-    isFrontMatterNode(ast) ||
+    ast.type === "front-matter" ||
     ast.type === "code" ||
     ast.type === "yaml" ||
     ast.type === "import" ||
@@ -959,6 +970,10 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "inlineCode") {
     newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+  }
+
+  if (ast.type === "wikiLink") {
+    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
   }
 
   if (ast.type === "definition" || ast.type === "linkReference") {

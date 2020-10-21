@@ -5,7 +5,7 @@ const fs = require("fs");
 const tempy = require("tempy");
 const fromPairs = require("lodash/fromPairs");
 
-const prettier = require("prettier/local");
+const prettier = require("prettier-local");
 const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
@@ -57,6 +57,16 @@ describe("extracts file-info with ignored=true for a file in a hand-picked .pret
     "--file-info",
     "regular-module.js",
     "--ignore-path=ignore-path/.prettierignore",
+  ]).test({
+    status: 0,
+  });
+});
+
+describe("non-exists ignore path", () => {
+  runPrettier("cli/", [
+    "--file-info",
+    "regular-module.js",
+    "--ignore-path=ignore-path/non-exists/.prettierignore",
   ]).test({
     status: 0,
   });

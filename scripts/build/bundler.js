@@ -16,12 +16,8 @@ const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
-const bundles = require("./config");
 
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
-const plugins = bundles
-  .filter(({ type }) => type === "plugin")
-  .map(({ input }) => path.join(PROJECT_ROOT, input));
 
 const EXTERNALS = [
   "assert",
@@ -50,14 +46,6 @@ const entries = [
   {
     find: "lines-and-columns",
     replacement: require.resolve("lines-and-columns"),
-  },
-  // `handlebars` causes webpack warning by using `require.extensions`
-  // `dist/handlebars.js` also complaint on `window` variable
-  // use cjs build instead
-  // https://github.com/prettier/prettier/issues/6656
-  {
-    find: "handlebars",
-    replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
   },
   {
     find: "@angular/compiler/src",
@@ -178,14 +166,22 @@ function getRollupConfig(bundle) {
     commonjs({
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
+      ignore:
+        bundle.type === "plugin"
+          ? undefined
+          : (id) => /\.\/parser-.*?/.test(id),
+      requireReturnsDefault: "preferred",
     }),
-    externals([
-      ...(bundle.externals || []),
-      ...(bundle.type !== "plugin" ? plugins : []),
-    ]),
+    externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
-    bundle.minify !== false && bundle.target === "universal" && terser(),
+    bundle.minify !== false &&
+      bundle.target === "universal" &&
+      terser({
+        output: {
+          ascii_only: true,
+        },
+      }),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -200,17 +196,30 @@ function getRollupOutputOptions(bundle) {
     // Avoid warning form #8797
     exports: "auto",
     file: `dist/${bundle.output}`,
-    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
   };
 
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.format = "umd";
     options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
+
+    if (!bundle.format && bundle.bundler !== "webpack") {
+      return [
+        {
+          ...options,
+          format: "umd",
+        },
+        {
+          ...options,
+          format: "esm",
+          file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
+        },
+      ];
+    }
+    options.format = bundle.format;
   }
-  return options;
+  return [options];
 }
 
 function getWebpackConfig(bundle) {
@@ -265,32 +274,47 @@ function runWebpack(config) {
   });
 }
 
+async function checkCache(cache, inputOptions, outputOption) {
+  const useCache = await cache.checkBundle(
+    outputOption.file,
+    inputOptions,
+    outputOption
+  );
+
+  if (useCache) {
+    try {
+      await execa("cp", [
+        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
+        outputOption.file,
+      ]);
+      return true;
+    } catch (err) {
+      console.log(err);
+      // Proceed to build
+    }
+  }
+
+  return false;
+}
+
 module.exports = async function createBundle(bundle, cache) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle);
 
-  const useCache = await cache.checkBundle(
-    bundle.output,
-    inputOptions,
-    outputOptions
+  const checkCacheResults = await Promise.all(
+    outputOptions.map((outputOption) =>
+      checkCache(cache, inputOptions, outputOption)
+    )
   );
-  if (useCache) {
-    try {
-      await execa("cp", [
-        path.join(cache.cacheDir, "files", bundle.output),
-        "dist",
-      ]);
-      return { cached: true };
-    } catch (err) {
-      // Proceed to build
-    }
+  if (checkCacheResults.every((r) => r === true)) {
+    return { cached: true };
   }
 
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
     const result = await rollup(inputOptions);
-    await result.write(outputOptions);
+    await Promise.all(outputOptions.map((option) => result.write(option)));
   }
 
   return { bundled: true };

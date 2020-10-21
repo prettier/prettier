@@ -59,15 +59,15 @@ function parse(text /*, parsers, opts*/) {
   } catch (error) {
     const { GraphQLError } = require("graphql/error");
     if (error instanceof GraphQLError) {
-      throw createError(error.message, {
-        start: {
-          line: error.locations[0].line,
-          column: error.locations[0].column,
-        },
-      });
-    } else {
-      throw error;
+      const {
+        message,
+        locations: [start],
+      } = error;
+      throw createError(message, { start });
     }
+
+    /* istanbul ignore next */
+    throw error;
   }
 }
 

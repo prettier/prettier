@@ -1,5 +1,22 @@
 <template>
 <div
+  v-for="({ longLongProp, longLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp=42, longLongProp='Hello, World!' }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp=42, anotherLongLongProp, yetAnotherLongLongProp='Hello, World!'], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp, [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp='Hello, Prettier!', [longLongProp, longLongProp, anotherLongLongProp=[longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([{ longLongProp, longLongProp }, { longLongProp, longLongProp }, [{ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, longLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="({firstValue, secondValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue={ longLongProp, longLongProp }, secondValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue: {firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp={ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
   v-for="  item  in  items "
   v-for="  item  of  items "
   v-for="(    item    , index)    in    items"
@@ -32,6 +49,10 @@
   "
   @click="doSomething()"
   @click="doSomething;"
+  @click="a.b;"
+  @click="a[1];"
+  @click="a['b'];"
+  @click="a[null];"
   #default="{foo:{bar:{baz}}}"
 ></div>
 </template>

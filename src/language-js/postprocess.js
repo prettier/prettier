@@ -9,12 +9,20 @@ const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
-  if (options.parser === "typescript" || options.parser === "flow") {
+  if (
+    options.parser === "typescript" ||
+    options.parser === "flow" ||
+    options.parser === "espree"
+  ) {
     includeShebang(ast, options);
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
-  if (options.parser !== "typescript" && options.parser !== "flow") {
+  if (
+    options.parser !== "typescript" &&
+    options.parser !== "flow" &&
+    options.parser !== "espree"
+  ) {
     const startOffsetsOfTypeCastedNodes = new Set();
 
     // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
@@ -48,6 +56,10 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      // Espree
+      case "ChainExpression": {
+        return transformChainExpression(node.expression);
+      }
       case "LogicalExpression": {
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
@@ -124,6 +136,21 @@ function postprocess(ast, options) {
     }
     toBeOverriddenNode.range = composeLoc(toBeOverriddenNode, toOverrideNode);
   }
+}
+
+// This is a workaround to transform `ChainExpression` from `espree` into
+// `babel` shape AST, we should do the opposite, since `ChainExpression` is the
+// standard `estree` AST for `optional chaining`
+// https://github.com/estree/estree/blob/master/es2020.md
+function transformChainExpression(node) {
+  if (node.type === "CallExpression") {
+    node.type = "OptionalCallExpression";
+    node.callee = transformChainExpression(node.callee);
+  } else if (node.type === "MemberExpression") {
+    node.type = "OptionalMemberExpression";
+    node.object = transformChainExpression(node.object);
+  }
+  return node;
 }
 
 function visitNode(node, fn) {

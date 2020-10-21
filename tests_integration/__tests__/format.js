@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("prettier/local");
+const prettier = require("prettier-local");
 const fooPlugin = require("../plugins/defaultOptions/plugin");
 
 test("yaml parser should handle CRLF correctly", () => {

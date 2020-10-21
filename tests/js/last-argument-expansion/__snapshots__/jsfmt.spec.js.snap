@@ -46,44 +46,6 @@ export default function searchUsers(action$) {
 ================================================================================
 `;
 
-exports[`break.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-export default class AddAssetHtmlPlugin {
-  apply(compiler: WebpackCompilerType) {
-    compiler.plugin('compilation', (compilation: WebpackCompilationType) => {
-      compilation.plugin('html-webpack-plugin-before-html', (callback: Callback<any>) => {
-        addAllAssetsToCompilation(this.assets, compilation, htmlPluginData, callback);
-      });
-    });
-  }
-}
-
-=====================================output=====================================
-export default class AddAssetHtmlPlugin {
-  apply(compiler: WebpackCompilerType) {
-    compiler.plugin("compilation", (compilation: WebpackCompilationType) => {
-      compilation.plugin(
-        "html-webpack-plugin-before-html",
-        (callback: Callback<any>) => {
-          addAllAssetsToCompilation(
-            this.assets,
-            compilation,
-            htmlPluginData,
-            callback
-          );
-        }
-      );
-    });
-  }
-}
-
-================================================================================
-`;
-
 exports[`break-parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -154,16 +116,7 @@ parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-var listener = DOM.listen(
-  introCard,
-  'click',
-  sigil,
-  (event: JavelinEvent): void =>
-    BanzaiLogger.log(
-      config,
-      {...logData, ...DataStore.get(event.getNode(sigil))},
-    ),
-);
+
 
 a(
   SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
@@ -222,17 +175,6 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 
 =====================================output=====================================
-var listener = DOM.listen(
-  introCard,
-  "click",
-  sigil,
-  (event: JavelinEvent): void =>
-    BanzaiLogger.log(config, {
-      ...logData,
-      ...DataStore.get(event.getNode(sigil)),
-    })
-);
-
 a(
   SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
   [
