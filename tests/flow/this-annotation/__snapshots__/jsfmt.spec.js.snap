@@ -81,6 +81,34 @@ type V = (this: number) => void;
 ================================================================================
 `;
 
+exports[`line_break.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type T = (this: boolean,
+          a: number,
+
+          b: number,
+         ) => boolean;
+
+=====================================output=====================================
+// @flow
+
+type T = (
+  this: boolean,
+  a: number,
+
+  b: number,
+) => boolean;
+
+================================================================================
+`;
+
 exports[`method.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
