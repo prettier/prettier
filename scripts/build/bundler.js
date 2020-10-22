@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
 const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
@@ -17,7 +18,7 @@ const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
 
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const PROJECT_ROOT = path.join(__dirname, "../..");
 
 const EXTERNALS = [
   "assert",
@@ -54,6 +55,15 @@ const entries = [
     ),
   },
 ];
+
+const webpackNativeShims = (modules) => {
+  const shims = {};
+  for (const module of modules) {
+    const file = path.join(__dirname, `shims/${module}.mjs`);
+    shims[module] = fs.existsSync(file) ? file : false;
+  }
+  return shims;
+};
 
 function getBabelConfig(bundle) {
   const config = {
@@ -229,6 +239,8 @@ function getWebpackConfig(bundle) {
 
   const root = path.resolve(__dirname, "..", "..");
   const config = {
+    mode: "production",
+    performance: { hints: false },
     entry: path.resolve(root, bundle.input),
     module: {
       rules: [
@@ -249,6 +261,12 @@ function getWebpackConfig(bundle) {
       // https://github.com/webpack/webpack/issues/6642
       globalObject: 'new Function("return this")()',
     },
+    resolve: {
+      // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
+      // Ignore `exports` field to fix bundle script
+      exportsFields: [],
+      fallback: webpackNativeShims(["os", "path", "util", "url"]),
+    },
   };
 
   if (bundle.terserOptions) {
@@ -264,12 +282,26 @@ function getWebpackConfig(bundle) {
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
-    webpack(config, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
+    webpack(config, (error, stats) => {
+      if (error) {
+        reject(error);
+        return;
       }
+
+      if (stats.hasErrors()) {
+        const { errors } = stats.toJson();
+        const error = new Error(errors[0].message);
+        error.errors = errors;
+        reject(error);
+        return;
+      }
+
+      if (stats.hasWarnings()) {
+        const { warnings } = stats.toJson();
+        console.warn(warnings);
+      }
+
+      resolve();
     });
   });
 }
