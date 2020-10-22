@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`example.js [espree] format 1`] = `
+"Cannot use keyword 'await' outside an async function (1:1)
+> 1 | await something();
+    | ^
+  2 | "
+`;
+
 exports[`example.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
