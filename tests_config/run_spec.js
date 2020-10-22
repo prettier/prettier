@@ -212,12 +212,13 @@ function runTest({
 
   // Verify parsers
   if (parser !== parsers[0]) {
+    formatTestTitle = `[${parser}] format`;
     formatOptions = { ...mainParserFormatResult.options, parser };
     const runFormat = () => format(code, formatOptions);
 
     if (shouldThrowOnFormat(name, formatOptions)) {
-      test(`[${parser}] expect SyntaxError`, () => {
-        expect(runFormat).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+      test(formatTestTitle, () => {
+        expect(runFormat).toThrowErrorMatchingSnapshot();
       });
       return;
     }
@@ -225,7 +226,6 @@ function runTest({
     // Verify parsers format result should be the same as main parser
     output = mainParserFormatResult.outputWithCursor;
     formatResult = runFormat();
-    formatTestTitle = `[${parser}] format`;
   }
 
   test(formatTestTitle, () => {
