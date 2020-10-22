@@ -17,210 +17,204 @@ const {
 } = require("../document");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
+function getParser(path) {
+  if (
+    isStyledJsx(path) ||
+    isStyledComponents(path) ||
+    isCssProp(path) ||
+    isAngularComponentStyles(path)
+  ) {
+    return "scss";
+  }
+
+  if (isGraphQL(path)) {
+    return "graphql";
+  }
+
+  if (isHtml(path)) {
+    return "html";
+  }
+
+  if (isAngularComponentTemplate(path)) {
+    return "angular";
+  }
+
+  if (isMarkdown(path)) {
+    return "markdown";
+  }
+}
+
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
 
-  switch (node.type) {
-    case "TemplateLiteral": {
-      // Bail out if any of the quasis have an invalid escape sequence
-      // (which would make the `cooked` value be `null`)
-      if (hasInvalidCookedValue(node)) {
-        return;
-      }
-
-      const isCss = [
-        isStyledJsx,
-        isStyledComponents,
-        isCssProp,
-        isAngularComponentStyles,
-      ].some((isIt) => isIt(path));
-
-      if (isCss) {
-        // Get full template literal with expressions replaced by placeholders
-        const rawQuasis = node.quasis.map((q) => q.value.raw);
-        let placeholderID = 0;
-        const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx === 0
-            ? currVal
-            : prevVal +
-                "@prettier-placeholder-" +
-                placeholderID++ +
-                "-id" +
-                currVal;
-        }, "");
-        const doc = textToDoc(
-          text,
-          { parser: "scss" },
-          { stripTrailingHardline: true }
-        );
-        return transformCssDoc(
-          doc,
-          node,
-          path.map(printTemplateExpression, "expressions")
-        );
-      }
-
-      /*
-       * react-relay and graphql-tag
-       * graphql`...`
-       * graphql.experimental`...`
-       * gql`...`
-       *
-       * This intentionally excludes Relay Classic tags, as Prettier does not
-       * support Relay Classic formatting.
-       */
-      if (isGraphQL(path)) {
-        const expressionDocs = path.map(printTemplateExpression, "expressions");
-
-        const numQuasis = node.quasis.length;
-        if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
-          return "``";
-        }
-
-        const parts = [];
-
-        for (let i = 0; i < numQuasis; i++) {
-          const templateElement = node.quasis[i];
-          const isFirst = i === 0;
-          const isLast = i === numQuasis - 1;
-          const text = templateElement.value.cooked;
-
-          const lines = text.split("\n");
-          const numLines = lines.length;
-          const expressionDoc = expressionDocs[i];
-
-          const startsWithBlankLine =
-            numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
-          const endsWithBlankLine =
-            numLines > 2 &&
-            lines[numLines - 1].trim() === "" &&
-            lines[numLines - 2].trim() === "";
-
-          const commentsAndWhitespaceOnly = lines.every((line) =>
-            /^\s*(?:#[^\n\r]*)?$/.test(line)
-          );
-
-          // Bail out if an interpolation occurs within a comment.
-          if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
-            return null;
-          }
-
-          let doc = null;
-
-          if (commentsAndWhitespaceOnly) {
-            doc = printGraphqlComments(lines);
-          } else {
-            doc = textToDoc(
-              text,
-              { parser: "graphql" },
-              { stripTrailingHardline: true }
-            );
-          }
-
-          if (doc) {
-            doc = escapeTemplateCharacters(doc, false);
-            if (!isFirst && startsWithBlankLine) {
-              parts.push("");
-            }
-            parts.push(doc);
-            if (!isLast && endsWithBlankLine) {
-              parts.push("");
-            }
-          } else if (!isFirst && !isLast && startsWithBlankLine) {
-            parts.push("");
-          }
-
-          if (expressionDoc) {
-            parts.push(expressionDoc);
-          }
-        }
-
-        return concat([
-          "`",
-          indent(concat([hardline, join(hardline, parts)])),
-          hardline,
-          "`",
-        ]);
-      }
-
-      const htmlParser = isHtml(path)
-        ? "html"
-        : isAngularComponentTemplate(path)
-        ? "angular"
-        : undefined;
-
-      if (htmlParser) {
-        return printHtmlTemplateLiteral(
-          node,
-          path.map(printTemplateExpression, "expressions"),
-          textToDoc,
-          htmlParser,
-          options
-        );
-      }
-
-      break;
-    }
-
-    case "TemplateElement": {
-      if (hasInvalidCookedValue(parent)) {
-        return;
-      }
-      /**
-       * md`...`
-       * markdown`...`
-       */
-      if (
-        parentParent &&
-        parentParent.type === "TaggedTemplateExpression" &&
-        parent.quasis.length === 1 &&
-        parentParent.tag.type === "Identifier" &&
-        (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
-      ) {
-        const text = parent.quasis[0].value.raw.replace(
-          /((?:\\\\)*)\\`/g,
-          (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
-        );
-        const indentation = getIndentation(text);
-        const hasIndent = indentation !== "";
-        return concat([
-          hasIndent
-            ? indent(
-                concat([
-                  softline,
-                  printMarkdown(
-                    text.replace(new RegExp(`^${indentation}`, "gm"), "")
-                  ),
-                ])
-              )
-            : concat([literalline, dedentToRoot(printMarkdown(text))]),
-          softline,
-        ]);
-      }
-
-      break;
-    }
+  if (
+    node.type !== "TemplateLiteral" ||
+    // Bail out if any of the quasis have an invalid escape sequence
+    // (which would make the `cooked` value be `null`)
+    hasInvalidCookedValue(node)
+  ) {
+    return;
   }
 
-  function printMarkdown(text) {
-    const doc = textToDoc(
-      text,
-      { parser: "markdown", __inJsTemplate: true },
-      { stripTrailingHardline: true }
+  const parser = getParser(path);
+  if (!parser) {
+    return;
+  }
+
+  if (parser === "markdown") {
+    let text = node.quasis[0].value.raw.replace(
+      /((?:\\\\)*)\\`/g,
+      (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
     );
-    return escapeTemplateCharacters(doc, true);
+    const indentation = getIndentation(text);
+    const hasIndent = indentation !== "";
+    if (hasIndent) {
+      text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
+    }
+    const doc = printMarkdown(text, textToDoc);
+    return concat([
+      "`",
+      hasIndent
+        ? indent(concat([softline, doc]))
+        : concat([literalline, dedentToRoot(doc)]),
+      softline,
+      "`",
+    ]);
   }
 
-  function printTemplateExpression(path) {
-    const node = path.getValue();
-    let printed = print(path);
-    if (node.comments && node.comments.length) {
-      printed = group(concat([indent(concat([softline, printed])), softline]));
-    }
-    return concat(["${", printed, lineSuffixBoundary, "}"]);
+  const expressionDocs = path.map(
+    (path) => printTemplateExpression(path, print),
+    "expressions"
+  );
+
+  if (parser === "scss") {
+    // Get full template literal with expressions replaced by placeholders
+    const rawQuasis = node.quasis.map((q) => q.value.raw);
+    let placeholderID = 0;
+    const text = rawQuasis.reduce((prevVal, currVal, idx) => {
+      return idx === 0
+        ? currVal
+        : prevVal +
+            "@prettier-placeholder-" +
+            placeholderID++ +
+            "-id" +
+            currVal;
+    }, "");
+    const doc = textToDoc(text, { parser }, { stripTrailingHardline: true });
+    return transformCssDoc(doc, node, expressionDocs);
   }
+
+  if (parser === "graphql") {
+    const numQuasis = node.quasis.length;
+    if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
+      return "``";
+    }
+
+    const parts = [];
+
+    for (let i = 0; i < numQuasis; i++) {
+      const templateElement = node.quasis[i];
+      const isFirst = i === 0;
+      const isLast = i === numQuasis - 1;
+      const text = templateElement.value.cooked;
+
+      const lines = text.split("\n");
+      const numLines = lines.length;
+      const expressionDoc = expressionDocs[i];
+
+      const startsWithBlankLine =
+        numLines > 2 && lines[0].trim() === "" && lines[1].trim() === "";
+      const endsWithBlankLine =
+        numLines > 2 &&
+        lines[numLines - 1].trim() === "" &&
+        lines[numLines - 2].trim() === "";
+
+      const commentsAndWhitespaceOnly = lines.every((line) =>
+        /^\s*(?:#[^\n\r]*)?$/.test(line)
+      );
+
+      // Bail out if an interpolation occurs within a comment.
+      if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
+        return null;
+      }
+
+      let doc = null;
+
+      if (commentsAndWhitespaceOnly) {
+        doc = printGraphqlComments(lines);
+      } else {
+        doc = textToDoc(text, { parser }, { stripTrailingHardline: true });
+      }
+
+      if (doc) {
+        doc = escapeTemplateCharacters(doc, false);
+        if (!isFirst && startsWithBlankLine) {
+          parts.push("");
+        }
+        parts.push(doc);
+        if (!isLast && endsWithBlankLine) {
+          parts.push("");
+        }
+      } else if (!isFirst && !isLast && startsWithBlankLine) {
+        parts.push("");
+      }
+
+      if (expressionDoc) {
+        parts.push(expressionDoc);
+      }
+    }
+
+    return concat([
+      "`",
+      indent(concat([hardline, join(hardline, parts)])),
+      hardline,
+      "`",
+    ]);
+  }
+
+  if (parser === "html" || parser === "angular") {
+    return printHtmlTemplateLiteral(
+      node,
+      expressionDocs,
+      textToDoc,
+      parser,
+      options
+    );
+  }
+}
+
+/**
+ * md`...`
+ * markdown`...`
+ */
+function isMarkdown(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  return (
+    parent &&
+    parent.type === "TaggedTemplateExpression" &&
+    node.quasis.length === 1 &&
+    parent.tag.type === "Identifier" &&
+    (parent.tag.name === "md" || parent.tag.name === "markdown")
+  );
+}
+
+function printTemplateExpression(path, print) {
+  const node = path.getValue();
+  let printed = print(path);
+  if (node.comments && node.comments.length) {
+    printed = group(concat([indent(concat([softline, printed])), softline]));
+  }
+  return concat(["${", printed, lineSuffixBoundary, "}"]);
+}
+
+function printMarkdown(text, textToDoc) {
+  const doc = textToDoc(
+    text,
+    { parser: "markdown", __inJsTemplate: true },
+    { stripTrailingHardline: true }
+  );
+  return escapeTemplateCharacters(doc, true);
 }
 
 function getIndentation(str) {
