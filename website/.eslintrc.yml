@@ -6,7 +6,7 @@ extends:
   - prettier/react
 settings:
   react:
-    version: "16"
+    version: "17"
 rules:
   import/no-extraneous-dependencies: off
   react/display-name: off
