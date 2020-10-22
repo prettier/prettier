@@ -2943,6 +2943,14 @@ function printPathNoParens(path, options, print, args) {
         if (n.constraint) {
           parts.push(" in ", path.call(print, "constraint"));
         }
+        if (parent.nameType) {
+          parts.push(
+            " as ",
+            path.callParent((path) => {
+              return path.call(print, "nameType");
+            })
+          );
+        }
         parts.push("]");
         return concat(parts);
       }
