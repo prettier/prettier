@@ -1,4 +1,3 @@
-run_spec(__dirname, [
-  // typescript-estree does not yet support Template Literal Types
-  "babel-ts",
-]);
+run_spec(__dirname, ["babel-ts", "typescript"], {
+  errors: { typescript: true },
+});

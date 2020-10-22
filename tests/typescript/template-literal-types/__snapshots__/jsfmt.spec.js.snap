@@ -2,7 +2,7 @@
 
 exports[`template-literal-types.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["babel-ts", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
