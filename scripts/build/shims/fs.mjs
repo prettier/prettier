@@ -1,4 +1,1 @@
-const existsSync = () => false;
-const readFileSync = () => "";
-
-export default { existsSync, readFileSync };
+export * from "browserify-fs";
