@@ -6,6 +6,12 @@ type T = (this: boolean,
           b: number,
          ) => boolean;
 
+type T2 = (_this: boolean,
+          a: number,
+
+          b: number,
+         ) => boolean;
+
 type A = (
   this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
 

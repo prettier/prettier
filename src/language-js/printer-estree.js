@@ -3878,49 +3878,40 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  let printed = [];
+  let parts = [];
   if (fun[paramsField]) {
-    const lastArgIndex = fun[paramsField].length - 1;
-
-    printed = path.map((childPath, index) => {
-      const parts = [];
-      const param = childPath.getValue();
-
-      parts.push(print(childPath));
-
-      if (index === lastArgIndex) {
-        if (fun.rest) {
-          parts.push(",", line);
-        }
-      } else if (
-        isParametersInTestCall ||
-        shouldHugParameters ||
-        shouldExpandParameters
-      ) {
-        parts.push(", ");
-      } else if (isNextLineEmpty(options.originalText, param, options.locEnd)) {
-        parts.push(",", hardline, hardline);
-      } else {
-        parts.push(",", line);
-      }
-
-      return concat(parts);
+    parts = path.map((childPath, _) => {
+      return { value: childPath.getValue(), param: print(childPath) };
     }, paramsField);
   }
 
   if (fun.this) {
-    const parts = [];
-    parts.push("this: ");
-    parts.push(path.call(print, "this"));
-    if (printed.length > 0 || fun.rest) {
-      if (isNextLineEmpty(options.originalText, fun.this, options.locEnd)) {
-        parts.push(",", hardline, hardline);
-      } else {
-        parts.push(",", line);
-      }
-    }
-    printed = parts.concat(printed);
+    fun.this.name = "this";
+    parts = [{ value: fun.this, param: path.call(print, "this") }].concat(
+      parts
+    );
   }
+
+  let printed = [];
+  const lastArgIndex = parts.length - 1;
+  parts.forEach(({ value, param }, index) => {
+    printed.push(param);
+    if (index === lastArgIndex) {
+      if (fun.rest) {
+        printed.push(",", line);
+      }
+    } else if (
+      isParametersInTestCall ||
+      shouldHugParameters ||
+      shouldExpandParameters
+    ) {
+      printed.push(", ");
+    } else if (isNextLineEmpty(options.originalText, value, options.locEnd)) {
+      printed.push(",", hardline, hardline);
+    } else {
+      printed.push(",", line);
+    }
+  });
 
   if (fun.rest) {
     printed.push(concat(["...", path.call(print, "rest")]));

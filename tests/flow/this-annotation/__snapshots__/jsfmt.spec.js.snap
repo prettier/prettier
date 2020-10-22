@@ -96,6 +96,12 @@ type T = (this: boolean,
           b: number,
          ) => boolean;
 
+type T2 = (_this: boolean,
+          a: number,
+
+          b: number,
+         ) => boolean;
+
 type A = (
   this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
 
@@ -113,6 +119,13 @@ type B = (
 
 type T = (
   this: boolean,
+  a: number,
+
+  b: number,
+) => boolean;
+
+type T2 = (
+  _this: boolean,
   a: number,
 
   b: number,
@@ -156,6 +169,45 @@ class A {
   n(this: number, ...c) {}
   o(this: number) {}
 }
+
+================================================================================
+`;
+
+exports[`union_type.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = (
+  this: | SupperLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
+  b: number,
+) => boolean;
+
+type B = (
+  _this: | SupperLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
+  b: number,
+) => boolean
+
+=====================================output=====================================
+// @flow
+
+type A = (
+  this:
+    | SupperLongLongLongLongLongLongLongLongLongLongLongType
+    | FooBarBazLorem12345,
+  b: number,
+) => boolean;
+
+type B = (
+  _this:
+    | SupperLongLongLongLongLongLongLongLongLongLongLongType
+    | FooBarBazLorem12345,
+  b: number,
+) => boolean;
 
 ================================================================================
 `;
