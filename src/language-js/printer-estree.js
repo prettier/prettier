@@ -2607,8 +2607,9 @@ function printPathNoParens(path, options, print, args) {
     case "TSOptionalType":
       return concat([path.call(print, "typeAnnotation"), "?"]);
     case "FunctionTypeParam":
+      const parent = path.getParentNode(0);
       return concat([
-        path.call(print, "name"),
+        n.name ? path.call(print, "name") : parent.this === n ? "this: " : "",
         printOptionalToken(path),
         n.name ? ": " : "",
         path.call(print, "typeAnnotation"),
@@ -2738,6 +2739,7 @@ function printPathNoParens(path, options, print, args) {
       // | C
 
       const parent = path.getParentNode();
+      const parentParent = path.getParentNode(1);
 
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
@@ -2748,7 +2750,11 @@ function printPathNoParens(path, options, print, args) {
         parent.type !== "TSTypeAssertion" &&
         parent.type !== "TupleTypeAnnotation" &&
         parent.type !== "TSTupleType" &&
-        !(parent.type === "FunctionTypeParam" && !parent.name) &&
+        !(
+          parent.type === "FunctionTypeParam" &&
+          !parent.name &&
+          parentParent.this !== parent
+        ) &&
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator" ||
@@ -3880,7 +3886,6 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   let parts = [];
   if (fun.this) {
-    fun.this.name = "this";
     parts = [{ value: fun.this, param: path.call(print, "this") }];
   }
 
