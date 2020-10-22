@@ -3879,16 +3879,16 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     : "";
 
   let parts = [];
-  if (fun[paramsField]) {
-    parts = path.map((childPath) => {
-      return { value: childPath.getValue(), param: print(childPath) };
-    }, paramsField);
-  }
-
   if (fun.this) {
     fun.this.name = "this";
-    parts = [{ value: fun.this, param: path.call(print, "this") }].concat(
-      parts
+    parts = [{ value: fun.this, param: path.call(print, "this") }];
+  }
+
+  if (fun[paramsField]) {
+    parts = parts.concat(
+      path.map((childPath) => {
+        return { value: childPath.getValue(), param: print(childPath) };
+      }, paramsField)
     );
   }
 
