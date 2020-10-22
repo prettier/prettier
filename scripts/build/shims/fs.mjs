@@ -1,2 +1,4 @@
-export const existsSync = () => false;
-export const readFileSync = () => "";
+const existsSync = () => false;
+const readFileSync = () => "";
+
+export default { existsSync, readFileSync };
