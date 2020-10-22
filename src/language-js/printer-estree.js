@@ -3880,7 +3880,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   let parts = [];
   if (fun[paramsField]) {
-    parts = path.map(childPath => {
+    parts = path.map((childPath) => {
       return { value: childPath.getValue(), param: print(childPath) };
     }, paramsField);
   }
