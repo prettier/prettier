@@ -3880,7 +3880,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   let parts = [];
   if (fun[paramsField]) {
-    parts = path.map((childPath, _) => {
+    parts = path.map(childPath => {
       return { value: childPath.getValue(), param: print(childPath) };
     }, paramsField);
   }
@@ -3892,7 +3892,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     );
   }
 
-  let printed = [];
+  const printed = [];
   const lastArgIndex = parts.length - 1;
   parts.forEach(({ value, param }, index) => {
     printed.push(param);
