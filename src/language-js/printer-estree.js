@@ -2606,7 +2606,7 @@ function printPathNoParens(path, options, print, args) {
       return concat(["...", path.call(print, "typeAnnotation")]);
     case "TSOptionalType":
       return concat([path.call(print, "typeAnnotation"), "?"]);
-    case "FunctionTypeParam":
+    case "FunctionTypeParam": {
       const parent = path.getParentNode(0);
       return concat([
         n.name ? path.call(print, "name") : parent.this === n ? "this: " : "",
@@ -2614,6 +2614,7 @@ function printPathNoParens(path, options, print, args) {
         n.name ? ": " : "",
         path.call(print, "typeAnnotation"),
       ]);
+    }
     case "GenericTypeAnnotation":
       return concat([
         path.call(print, "id"),
