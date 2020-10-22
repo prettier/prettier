@@ -267,6 +267,7 @@ function getWebpackConfig(bundle) {
       exportsFields: [],
       fallback: webpackNativeShims(["os", "path", "util", "url", "fs"]),
     },
+    node:{fs:true}
   };
 
   // if (bundle.terserOptions) {
