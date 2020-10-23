@@ -604,7 +604,8 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
       // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
-      (enclosingNode.params || enclosingNode.parameters).length === 0) ||
+      (enclosingNode.params || enclosingNode.parameters).length === 0 &&
+      !enclosingNode.this) ||
       ((enclosingNode.type === "CallExpression" ||
         enclosingNode.type === "OptionalCallExpression" ||
         enclosingNode.type === "NewExpression") &&
@@ -665,12 +666,14 @@ function handleLastFunctionArgComments(
     followingNode.type === "BlockStatement"
   ) {
     const functionParamRightParenIndex = (() => {
-      if ((enclosingNode.params || enclosingNode.parameters).length !== 0) {
+      let parameters = enclosingNode.params || enclosingNode.parameters;
+      if (enclosingNode.this) {
+        parameters = [enclosingNode.this, ...parameters];
+      }
+      if (parameters.length !== 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
-          options.locEnd(
-            getLast(enclosingNode.params || enclosingNode.parameters)
-          )
+          options.locEnd(getLast(parameters))
         );
       }
       const functionParamLeftParenIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
