@@ -27,6 +27,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "optional-chaining.js",
       "module-string-names.js",
+      "class-static-block.js",
     ],
   },
 });

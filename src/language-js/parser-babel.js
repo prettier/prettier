@@ -39,6 +39,7 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       ["recordAndTuple", { syntaxType: "hash" }],
       "decimal",
       "moduleStringNames",
+      "classStaticBlock",
       ...extraPlugins,
     ],
     tokens: true,
