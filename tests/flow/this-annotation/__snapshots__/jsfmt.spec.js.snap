@@ -2,7 +2,7 @@
 
 exports[`declare_function.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -29,7 +29,7 @@ declare function baz(this: number, ...a: any): void;
 
 exports[`function_declaration.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -56,7 +56,7 @@ function baz(this: number, ...a) {}
 
 exports[`function_type.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -83,7 +83,7 @@ type V = (this: number) => void;
 
 exports[`line_break.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -148,7 +148,7 @@ type B = (
 
 exports[`method.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -175,7 +175,7 @@ class A {
 
 exports[`union_type.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
