@@ -3880,9 +3880,6 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const paramsField = fun.parameters ? "parameters" : "params";
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugArguments(fun);
-  const shouldExpandParameters =
-    expandArg &&
-    !(fun[paramsField] && fun[paramsField].some((n) => n.comments));
 
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
@@ -3898,6 +3895,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       parameters.push({ node: childPath.getValue(), doc: print(childPath) });
     }, paramsField);
   }
+
+  const shouldExpandParameters =
+    expandArg && !parameters.some(({ node }) => node.comments);
 
   const printed = [];
   const lastArgIndex = parameters.length - 1;
@@ -3943,8 +3943,6 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     ]);
   }
 
-  const lastParam = getLast(fun[paramsField]);
-
   // If the parent is a call with the first/last argument expansion and this is the
   // params of the first/last argument, we don't want the arguments to break and instead
   // want the whole expression to be on a new line.
@@ -3973,8 +3971,8 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = fun[paramsField].every(
-    (param) => !param.decorators
+  const hasNotParameterDecorator = parameters.every(
+    ({ node }) => !node.decorators
   );
   if (shouldHugParameters && hasNotParameterDecorator) {
     return concat([typeParams, "(", concat(printed), ")"]);
@@ -3994,11 +3992,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
         parent.returnType === fun)) &&
-    fun[paramsField].length === 1 &&
-    fun[paramsField][0].name === null &&
-    fun[paramsField][0].typeAnnotation &&
+    parameters.length === 1 &&
+    parameters[0].node.name === null &&
+    parameters[0].node.typeAnnotation &&
     fun.typeParameters === null &&
-    isSimpleFlowType(fun[paramsField][0].typeAnnotation) &&
+    isSimpleFlowType(parameters[0].node.typeAnnotation) &&
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
@@ -4008,8 +4006,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     return concat(printed);
   }
 
+  const lastParam = getLast(parameters);
   const canHaveTrailingComma =
-    !(lastParam && lastParam.type === "RestElement") && !fun.rest;
+    !(lastParam && lastParam.node.type === "RestElement") && !fun.rest;
 
   return concat([
     typeParams,
@@ -5151,8 +5150,11 @@ function shouldHugArguments(fun) {
   if (!fun || fun.rest) {
     return false;
   }
-  const params = fun.params || fun.parameters;
-  if (!params || params.length !== 1) {
+  let params = fun.params || fun.parameters;
+  if (fun.this) {
+    params = [fun.this, ...params];
+  }
+  if (params.length !== 1) {
     return false;
   }
   const param = params[0];
