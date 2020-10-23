@@ -3903,16 +3903,16 @@ function printFunctionParameters(
   expandArg,
   printTypeParams
 ) {
-  const fun = path.getValue();
+  const functionNode = path.getValue();
   const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugArguments(fun);
+  const shouldHugParameters = shouldHugArguments(functionNode);
 
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  const parameters = getFunctionParameters(fun);
+  const parameters = getFunctionParameters(functionNode);
   const shouldExpandParameters =
     expandArg && !parameters.some((node) => node.comments);
   const printedParameters = mapFunctionParametersPath(path, print);
@@ -3920,7 +3920,7 @@ function printFunctionParameters(
   const printed = [];
 
   for (let index = 0; index < parametersLength; index++) {
-    if (index === parametersLength - 1 && fun.rest) {
+    if (index === parametersLength - 1 && functionNode.rest) {
       printed.push("...");
     }
     printed.push(printedParameters[index]);
@@ -4008,13 +4008,13 @@ function printFunctionParameters(
       parent.type === "TSUnionType" ||
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
-        parent.returnType === fun)) &&
+        parent.returnType === functionNode)) &&
     parameters.length === 1 &&
     parameters[0].name === null &&
     parameters[0].typeAnnotation &&
-    fun.typeParameters === null &&
+    functionNode.typeParameters === null &&
     isSimpleFlowType(parameters[0].typeAnnotation) &&
-    !fun.rest;
+    !functionNode.rest;
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
@@ -4028,7 +4028,7 @@ function printFunctionParameters(
     "(",
     indent(concat([softline, concat(printed)])),
     ifBreak(
-      !hasRestParameter(fun) && shouldPrintComma(options, "all") ? "," : ""
+      !hasRestParameter(functionNode) && shouldPrintComma(options, "all") ? "," : ""
     ),
     softline,
     ")",
