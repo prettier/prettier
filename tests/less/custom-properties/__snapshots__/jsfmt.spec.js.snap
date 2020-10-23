@@ -23,6 +23,20 @@ printWidth: 80
   --without-semi: {color:red;}
 }
 
+:root {
+  --like-a-apply-rule: {
+  color:red;} /* no semi here*/
+  --another-prop: blue;
+}
+
+:root {
+  --like-a-apply-rule: {
+  color:red;} /* no semi here*/
+  --another-one-like-a-apply-rule: {
+    color:red;
+  };
+}
+
 =====================================output=====================================
 /* http://tabatkins.github.io/specs/css-apply-rule/#defining */
 
@@ -40,6 +54,20 @@ printWidth: 80
 :root {
   --without-semi: {
     color: red;
+  };
+}
+
+:root {
+  --like-a-apply-rule: {
+  color:red;} /* no semi here*/
+  --another-prop: blue;
+}
+
+:root {
+  --like-a-apply-rule: {
+  color:red;} /* no semi here*/
+  --another-one-like-a-apply-rule: {
+    color:red;
   };
 }
 
