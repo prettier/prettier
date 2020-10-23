@@ -4,18 +4,18 @@ title: Watching For Changes
 original_id: watching-files
 ---
 
-If you prefer to have prettier watch for changes from the command line you can use a package like [onchange](https://www.npmjs.com/package/onchange). For example:
+You can have Prettier watch for changes from the command line by using [onchange](https://www.npmjs.com/package/onchange). For example:
 
 ```bash
-npx onchange '**/*.js' -- npx prettier --write {{changed}}
+npx onchange "**/*" -- npx prettier --write --ignore-unknown {{changed}}
 ```
 
-or add the following to your `package.json`
+Or add the following to your `package.json`:
 
 ```json
 {
   "scripts": {
-    "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
   }
 }
 ```

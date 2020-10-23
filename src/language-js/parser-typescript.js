@@ -1,9 +1,8 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const includeShebang = require("../common/parser-include-shebang");
 const { hasPragma } = require("./pragma");
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function parse(text, parsers, opts) {
@@ -17,31 +16,35 @@ function parse(text, parsers, opts) {
       // But if we get it wrong, try the opposite.
       ast = tryParseTypeScript(text, !jsx);
     } catch (secondError) {
-      // suppose our guess is correct
-      const e = firstError;
+      // Suppose our guess is correct, throw the first error
+      const { message, lineNumber, column } = firstError;
 
-      if (typeof e.lineNumber === "undefined") {
-        throw e;
+      /* istanbul ignore next */
+      if (typeof lineNumber !== "number") {
+        throw firstError;
       }
 
-      throw createError(e.message, {
-        start: { line: e.lineNumber, column: e.column + 1 },
+      throw createError(message, {
+        start: { line: lineNumber, column: column + 1 },
       });
     }
   }
 
-  includeShebang(text, ast);
   return postprocess(ast, { ...opts, originalText: text });
 }
 
 function tryParseTypeScript(text, jsx) {
   const parser = require("@typescript-eslint/typescript-estree");
   return parser.parse(text, {
+    // `jest@<=26.4.2` rely on `loc`
+    // https://github.com/facebook/jest/issues/10444
     loc: true,
     range: true,
     comment: true,
     useJSXTextNode: true,
     jsx,
+    tokens: true,
+    loggerFn: false,
   });
 }
 
@@ -59,7 +62,7 @@ function isProbablyJsx(text) {
   ).test(text);
 }
 
-const parser = { parse, astFormat: "estree", hasPragma, ...locFns };
+const parser = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {

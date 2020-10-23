@@ -15,3 +15,14 @@ exports[`unclosed_tag_in_template.vue error test 1`] = `
     |  ^
   5 | "
 `;
+
+exports[`upper-case.html error test 1`] = `
+"Void elements do not have end tags \\"Input\\" (8:21)
+   6 |   <div id=\\"app\\">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^^^^^^^^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"
+`;

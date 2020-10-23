@@ -1,17 +1,13 @@
 "use strict";
 
-const clean = require("./clean");
-const embed = require("./embed");
-const { insertPragma } = require("./pragma");
 const {
   printNumber,
   printString,
   hasIgnoreComment,
   hasNewline,
+  isFrontMatterNode,
+  isNextLineEmpty,
 } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
-const { restoreQuotesInInlineComments } = require("./loc");
-
 const {
   builders: {
     concat,
@@ -24,9 +20,13 @@ const {
     indent,
     dedent,
     ifBreak,
+    breakParent,
   },
   utils: { removeLines },
 } = require("../document");
+const clean = require("./clean");
+const embed = require("./embed");
+const { insertPragma } = require("./pragma");
 
 const {
   getAncestorNode,
@@ -38,9 +38,7 @@ const {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
-  isSCSS,
   isLastNode,
-  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -72,17 +70,11 @@ const {
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
+  isAtWordPlaceholderNode,
 } = require("./utils");
 
 function shouldPrintComma(options) {
-  switch (options.trailingComma) {
-    case "all":
-    case "es5":
-      return true;
-    case "none":
-    default:
-      return false;
-  }
+  return options.trailingComma === "es5" || options.trailingComma === "all";
 }
 
 function genericPrint(path, options, print) {
@@ -98,17 +90,17 @@ function genericPrint(path, options, print) {
   }
 
   switch (node.type) {
-    case "yaml":
-    case "toml":
+    case "front-matter":
       return concat([node.raw, hardline]);
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
+      const after = node.raws.after.trim();
 
-      if (nodes.parts.length) {
-        return concat([nodes, options.__isHTMLStyleAttribute ? "" : hardline]);
-      }
-
-      return nodes;
+      return concat([
+        nodes,
+        after ? ` ${after}` : "",
+        nodes.parts.length ? hardline : "",
+      ]);
     }
     case "css-comment": {
       const isInlineComment = node.inline || node.raws.inline;
@@ -129,7 +121,9 @@ function genericPrint(path, options, print) {
               node.selector.type === "selector-unknown" &&
               lastLineHasInlineComment(node.selector.value)
                 ? line
-                : " ",
+                : node.selector
+                ? " "
+                : "",
               "{",
               node.nodes.length > 0
                 ? indent(
@@ -146,17 +140,30 @@ function genericPrint(path, options, print) {
     case "css-decl": {
       const parentNode = path.getParentNode();
 
+      const { between: rawBetween } = node.raws;
+      const trimmedBetween = rawBetween.trim();
+      const isColon = trimmedBetween === ":";
+      const isValueAllSpace =
+        typeof node.value === "string" && /^ *$/.test(node.value);
+
+      let value = hasComposesNode(node)
+        ? removeLines(path.call(print, "value"))
+        : path.call(print, "value");
+
+      if (!isColon && lastLineHasInlineComment(trimmedBetween)) {
+        value = indent(concat([hardline, dedent(value)]));
+      }
+
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
-        node.raws.between.trim() === ":" ? ":" : node.raws.between.trim(),
-        node.extend ? "" : " ",
-        isLessParser(options) && node.extend && node.selector
+        trimmedBetween.startsWith("//") ? " " : "",
+        trimmedBetween,
+        node.extend || isValueAllSpace ? "" : " ",
+        options.parser === "less" && node.extend && node.selector
           ? concat(["extend(", path.call(print, "selector"), ")"])
           : "",
-        hasComposesNode(node)
-          ? removeLines(path.call(print, "value"))
-          : path.call(print, "value"),
+        value,
         node.raws.important
           ? node.raws.important.replace(/\s*!\s*important/i, " !important")
           : node.important
@@ -197,7 +204,7 @@ function genericPrint(path, options, print) {
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
 
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         if (node.mixin) {
           return concat([
             path.call(print, "selector"),
@@ -238,6 +245,11 @@ function genericPrint(path, options, print) {
           ]);
         }
       }
+      const isImportUnknownValueEndsWithSemiColon =
+        node.name === "import" &&
+        node.params &&
+        node.params.type === "value-unknown" &&
+        node.params.value.endsWith(";");
 
       return concat([
         "@",
@@ -273,7 +285,7 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "value"),
-                isSCSSControlDirectiveNode(node)
+                isSCSSControlDirectiveNode(node, options)
                   ? hasParensAroundNode(node)
                     ? " "
                     : line
@@ -285,7 +297,7 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node)
+              isSCSSControlDirectiveNode(node, options)
                 ? ""
                 : (node.selector &&
                     !node.selector.nodes &&
@@ -306,7 +318,8 @@ function genericPrint(path, options, print) {
               softline,
               "}",
             ])
-          : isTemplatePlaceholderNodeWithoutSemiColon
+          : isTemplatePlaceholderNodeWithoutSemiColon ||
+            isImportUnknownValueEndsWithSemiColon
           ? ""
           : ";",
       ]);
@@ -492,6 +505,23 @@ function genericPrint(path, options, print) {
         return options.originalText.slice(start, end).trim();
       }
 
+      // Same reason above
+      const grandParent = path.getParentNode(1);
+      if (
+        parentNode.type === "value-paren_group" &&
+        grandParent &&
+        grandParent.type === "value-func" &&
+        grandParent.value === "selector"
+      ) {
+        const start = options.locStart(parentNode.open) + 1;
+        const end = options.locEnd(parentNode.close) - 1;
+        const selector = options.originalText.slice(start, end).trim();
+
+        return lastLineHasInlineComment(selector)
+          ? concat([breakParent, selector])
+          : selector;
+      }
+
       return node.value;
     }
     // postcss-values-parser
@@ -500,13 +530,10 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-comment": {
-      return concat([
-        node.inline ? "//" : "/*",
-        // see replaceQuotesInInlineComments in loc.js
-        // value-* nodes don't have correct location data, so we have to rely on placeholder characters.
-        restoreQuotesInInlineComments(node.value),
-        node.inline ? "" : "*/",
-      ]);
+      return options.originalText.slice(
+        options.locStart(node),
+        options.locEnd(node)
+      );
     }
     case "value-comma_group": {
       const parentNode = path.getParentNode();
@@ -519,7 +546,8 @@ function genericPrint(path, options, print) {
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
-        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
+        atRuleAncestorNode &&
+        isSCSSControlDirectiveNode(atRuleAncestorNode, options);
 
       const printed = path.map(print, "groups");
       const parts = [];
@@ -554,8 +582,7 @@ function genericPrint(path, options, print) {
         if (
           iNode.type === "value-word" &&
           iNode.value.endsWith("-") &&
-          iNextNode.type === "value-atword" &&
-          iNextNode.value.startsWith("prettier-placeholder-")
+          isAtWordPlaceholderNode(iNextNode)
         ) {
           continue;
         }
@@ -713,6 +740,10 @@ function genericPrint(path, options, print) {
 
         // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
         if (isInlineValueCommentNode(iNode)) {
+          if (parentNode.type === "value-paren_group") {
+            parts.push(dedent(hardline));
+            continue;
+          }
           parts.push(hardline);
           continue;
         }
@@ -764,6 +795,18 @@ function genericPrint(path, options, print) {
         if (isNextMathOperator) {
           parts.push(" ");
 
+          continue;
+        }
+        // allow function(returns-list($list)...)
+        if (iNextNode && iNextNode.value === "...") {
+          continue;
+        }
+
+        if (
+          isAtWordPlaceholderNode(iNode) &&
+          isAtWordPlaceholderNode(iNextNode) &&
+          options.locEnd(iNode) === options.locStart(iNextNode)
+        ) {
           continue;
         }
 
@@ -823,7 +866,7 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
-      const isSCSSMapItem = isSCSSMapItemNode(path);
+      const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
@@ -862,7 +905,7 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             !isLastItemComment &&
-              isSCSS(options.parser, options.originalText) &&
+              options.parser === "scss" &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","
@@ -902,12 +945,21 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-colon": {
+      const parentNode = path.getParentNode();
+      const index = parentNode && parentNode.groups.indexOf(node);
+      const prevNode = index && parentNode.groups[index - 1];
       return concat([
         node.value,
+        // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
+        (prevNode && prevNode.value[prevNode.value.length - 1] === "\\") ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
-        insideValueFunctionNode(path, "url") ? "" : line,
+        insideValueFunctionNode(path, "url")
+          ? ""
+          : line,
       ]);
     }
+    // TODO: confirm this code is dead
+    /* istanbul ignore next */
     case "value-comma": {
       return concat([node.value, " "]);
     }
@@ -962,8 +1014,7 @@ function printNodeSequence(path, options, print) {
             options.locStart(node.nodes[i + 1]),
             { backwards: true }
           ) &&
-          node.nodes[i].type !== "yaml" &&
-          node.nodes[i].type !== "toml") ||
+          !isFrontMatterNode(node.nodes[i])) ||
         (node.nodes[i + 1].type === "css-atrule" &&
           node.nodes[i + 1].name === "else" &&
           node.nodes[i].type !== "css-comment")
@@ -977,8 +1028,7 @@ function printNodeSequence(path, options, print) {
             pathChild.getValue(),
             options.locEnd
           ) &&
-          node.nodes[i].type !== "yaml" &&
-          node.nodes[i].type !== "toml"
+          !isFrontMatterNode(node.nodes[i])
         ) {
           parts.push(hardline);
         }

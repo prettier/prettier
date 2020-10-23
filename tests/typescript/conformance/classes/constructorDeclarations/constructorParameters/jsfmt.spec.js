@@ -1,3 +1,5 @@
 run_spec(__dirname, ["typescript"], {
-  disableBabelTS: ["readonlyInConstructorParameters.ts", "readonlyReadonly.ts"],
+  errors: {
+    "babel-ts": ["readonlyInConstructorParameters.ts", "readonlyReadonly.ts"],
+  },
 });

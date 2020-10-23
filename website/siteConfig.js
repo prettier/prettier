@@ -2,11 +2,11 @@
 
 // Docs: https://docusaurus.io/docs/en/site-config.html
 
-const parseYaml = require("js-yaml").safeLoad;
 const path = require("path");
 const fs = require("fs");
+const parseYaml = require("js-yaml").safeLoad;
 
-const PACKAGE = require("../package");
+const PACKAGE = require("../package.json");
 const GITHUB_URL = `https://github.com/${PACKAGE.repository}`;
 
 function loadYaml(fsPath) {
@@ -35,8 +35,7 @@ const siteConfig = {
   editUrl: `${GITHUB_URL}/edit/master/docs/`,
   headerLinks: [
     { href: "/playground/", label: "Playground" },
-    { doc: "index", label: "About" },
-    { doc: "install", label: "Usage" },
+    { doc: "index", label: "Docs" },
     { blog: true, label: "Blog" },
     { search: true },
     { href: "https://opencollective.com/prettier", label: "Donate" },
@@ -55,7 +54,7 @@ const siteConfig = {
     theme: "default",
     version: require("highlight.js/package.json").version,
   },
-  usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html"],
+  usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
   useEnglishUrl: true,
   scripts: ["https://buttons.github.io/buttons.js"],
   stylesheets: [

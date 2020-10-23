@@ -9,6 +9,23 @@ semi: false
 =====================================input======================================
 <template>
 <div
+  v-for="({ longLongProp, longLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp=42, longLongProp='Hello, World!' }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp=42, anotherLongLongProp, yetAnotherLongLongProp='Hello, World!'], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp, [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp='Hello, Prettier!', [longLongProp, longLongProp, anotherLongLongProp=[longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([{ longLongProp, longLongProp }, { longLongProp, longLongProp }, [{ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, longLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="({firstValue, secondValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue={ longLongProp, longLongProp }, secondValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue: {firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp={ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
   v-for="  item  in  items "
   v-for="  item  of  items "
   v-for="(    item    , index)    in    items"
@@ -41,12 +58,211 @@ semi: false
   "
   @click="doSomething()"
   @click="doSomething;"
+  @click="a.b;"
+  @click="a[1];"
+  @click="a['b'];"
+  @click="a[null];"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>
 
 =====================================output=====================================
 <template>
   <div
+    v-for="(
+      { longLongProp, longLongProp }, index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      { longLongProp = 42, longLongProp = 'Hello, World!' }, index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="{
+      longLongProp,
+      longLongProp,
+    } of longLongLongLongLongLongLongLongList"
+    v-for="(
+      {
+        longLongProp,
+        longLongProp,
+        anotherLongLongProp,
+        yetAnotherLongLongProp,
+      },
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="{
+      longLongProp,
+      longLongProp,
+      anotherLongLongProp,
+      yetAnotherLongLongProp,
+    } of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp = 42,
+        anotherLongLongProp,
+        yetAnotherLongLongProp = 'Hello, World!',
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp,
+        [
+          longLongProp,
+          longLongProp,
+          [
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          ],
+          yetAnotherLongLongProp,
+        ],
+        yetAnotherLongLongProp,
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp,
+        [
+          longLongProp,
+          longLongProp = 'Hello, Prettier!',
+          [
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp = [
+              longLongProp,
+              longLongProp,
+              anotherLongLongProp,
+              yetAnotherLongLongProp,
+            ],
+            yetAnotherLongLongProp,
+          ],
+          yetAnotherLongLongProp,
+        ],
+        yetAnotherLongLongProp,
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        { longLongProp, longLongProp },
+        { longLongProp, longLongProp },
+        [
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
+          longLongProp,
+        ],
+        yetAnotherLongLongProp,
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      {
+        firstValue,
+        secondValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp,
+        },
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue = { longLongProp, longLongProp }, secondValue },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp,
+        },
+        sixthValue,
+        seventhValue,
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp,
+        },
+        sixthValue: {
+          firstValue,
+          secondValue,
+          thirdValue,
+          fourthValue,
+          fifthValue: {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
+          sixthValue,
+          seventhValue,
+        },
+        seventhValue,
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp = {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
+          yetAnotherLongLongProp,
+        },
+        sixthValue,
+        seventhValue,
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
     v-for="item in items"
     v-for="item of items"
     v-for="(item, index) in items"
@@ -103,6 +319,11 @@ semi: false
     "
     @click="doSomething()"
     @click="doSomething;"
+    @click="a.b;"
+    @click="a[1];"
+    @click="a['b'];"
+    @click="a[null]"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 
@@ -118,6 +339,23 @@ trailingComma: "none"
 =====================================input======================================
 <template>
 <div
+  v-for="({ longLongProp, longLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp=42, longLongProp='Hello, World!' }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp=42, anotherLongLongProp, yetAnotherLongLongProp='Hello, World!'], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp, [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp='Hello, Prettier!', [longLongProp, longLongProp, anotherLongLongProp=[longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([{ longLongProp, longLongProp }, { longLongProp, longLongProp }, [{ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, longLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="({firstValue, secondValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue={ longLongProp, longLongProp }, secondValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue: {firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp={ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
   v-for="  item  in  items "
   v-for="  item  of  items "
   v-for="(    item    , index)    in    items"
@@ -150,12 +388,211 @@ trailingComma: "none"
   "
   @click="doSomething()"
   @click="doSomething;"
+  @click="a.b;"
+  @click="a[1];"
+  @click="a['b'];"
+  @click="a[null];"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>
 
 =====================================output=====================================
 <template>
   <div
+    v-for="(
+      { longLongProp, longLongProp }, index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      { longLongProp = 42, longLongProp = 'Hello, World!' }, index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="{
+      longLongProp,
+      longLongProp
+    } of longLongLongLongLongLongLongLongList"
+    v-for="(
+      {
+        longLongProp,
+        longLongProp,
+        anotherLongLongProp,
+        yetAnotherLongLongProp
+      },
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="{
+      longLongProp,
+      longLongProp,
+      anotherLongLongProp,
+      yetAnotherLongLongProp
+    } of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp = 42,
+        anotherLongLongProp,
+        yetAnotherLongLongProp = 'Hello, World!'
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp,
+        [
+          longLongProp,
+          longLongProp,
+          [
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp
+          ],
+          yetAnotherLongLongProp
+        ],
+        yetAnotherLongLongProp
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp,
+        [
+          longLongProp,
+          longLongProp = 'Hello, Prettier!',
+          [
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp = [
+              longLongProp,
+              longLongProp,
+              anotherLongLongProp,
+              yetAnotherLongLongProp
+            ],
+            yetAnotherLongLongProp
+          ],
+          yetAnotherLongLongProp
+        ],
+        yetAnotherLongLongProp
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        { longLongProp, longLongProp },
+        { longLongProp, longLongProp },
+        [
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp
+          },
+          longLongProp
+        ],
+        yetAnotherLongLongProp
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      {
+        firstValue,
+        secondValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp
+        }
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue = { longLongProp, longLongProp }, secondValue },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp
+        },
+        sixthValue,
+        seventhValue
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp
+        },
+        sixthValue: {
+          firstValue,
+          secondValue,
+          thirdValue,
+          fourthValue,
+          fifthValue: {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp
+          },
+          sixthValue,
+          seventhValue
+        },
+        seventhValue
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp = {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp
+          },
+          yetAnotherLongLongProp
+        },
+        sixthValue,
+        seventhValue
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
     v-for="item in items"
     v-for="item of items"
     v-for="(item, index) in items"
@@ -212,6 +649,11 @@ trailingComma: "none"
     "
     @click="doSomething()"
     @click="doSomething;"
+    @click="a.b;"
+    @click="a[1];"
+    @click="a['b'];"
+    @click="a[null]"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 
@@ -226,6 +668,23 @@ printWidth: 80
 =====================================input======================================
 <template>
 <div
+  v-for="({ longLongProp, longLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp=42, longLongProp='Hello, World!' }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, index) of longLongLongLongLongLongLongLongList"
+  v-for="({ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp=42, anotherLongLongProp, yetAnotherLongLongProp='Hello, World!'], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp, [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([longLongProp, longLongProp, [longLongProp, longLongProp='Hello, Prettier!', [longLongProp, longLongProp, anotherLongLongProp=[longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="([{ longLongProp, longLongProp }, { longLongProp, longLongProp }, [{ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, longLongProp], yetAnotherLongLongProp], index) of longLongLongLongLongLongLongLongList"
+  v-for="({firstValue, secondValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue={ longLongProp, longLongProp }, secondValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue: {firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, sixthValue, seventhValue}, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
+  v-for="({firstValue, secondValue, thirdValue, fourthValue, fifthValue: { longLongProp, longLongProp, anotherLongLongProp={ longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp }, yetAnotherLongLongProp }, sixthValue, seventhValue}, objectKey, index) in objectWithAVeryVeryVeryVeryLongName"
   v-for="  item  in  items "
   v-for="  item  of  items "
   v-for="(    item    , index)    in    items"
@@ -258,12 +717,211 @@ printWidth: 80
   "
   @click="doSomething()"
   @click="doSomething;"
+  @click="a.b;"
+  @click="a[1];"
+  @click="a['b'];"
+  @click="a[null];"
+  #default="{foo:{bar:{baz}}}"
 ></div>
 </template>
 
 =====================================output=====================================
 <template>
   <div
+    v-for="(
+      { longLongProp, longLongProp }, index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      { longLongProp = 42, longLongProp = 'Hello, World!' }, index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="{
+      longLongProp,
+      longLongProp,
+    } of longLongLongLongLongLongLongLongList"
+    v-for="(
+      {
+        longLongProp,
+        longLongProp,
+        anotherLongLongProp,
+        yetAnotherLongLongProp,
+      },
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="{
+      longLongProp,
+      longLongProp,
+      anotherLongLongProp,
+      yetAnotherLongLongProp,
+    } of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [longLongProp, longLongProp, anotherLongLongProp, yetAnotherLongLongProp],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp = 42,
+        anotherLongLongProp,
+        yetAnotherLongLongProp = 'Hello, World!',
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp,
+        [
+          longLongProp,
+          longLongProp,
+          [
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          ],
+          yetAnotherLongLongProp,
+        ],
+        yetAnotherLongLongProp,
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        longLongProp,
+        longLongProp,
+        [
+          longLongProp,
+          longLongProp = 'Hello, Prettier!',
+          [
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp = [
+              longLongProp,
+              longLongProp,
+              anotherLongLongProp,
+              yetAnotherLongLongProp,
+            ],
+            yetAnotherLongLongProp,
+          ],
+          yetAnotherLongLongProp,
+        ],
+        yetAnotherLongLongProp,
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      [
+        { longLongProp, longLongProp },
+        { longLongProp, longLongProp },
+        [
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
+          longLongProp,
+        ],
+        yetAnotherLongLongProp,
+      ],
+      index
+    ) of longLongLongLongLongLongLongLongList"
+    v-for="(
+      {
+        firstValue,
+        secondValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp,
+        },
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue = { longLongProp, longLongProp }, secondValue },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      { firstValue, secondValue, thirdValue, fourthValue }, objectKey, index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp,
+        },
+        sixthValue,
+        seventhValue,
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp,
+          yetAnotherLongLongProp,
+        },
+        sixthValue: {
+          firstValue,
+          secondValue,
+          thirdValue,
+          fourthValue,
+          fifthValue: {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
+          sixthValue,
+          seventhValue,
+        },
+        seventhValue,
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
+    v-for="(
+      {
+        firstValue,
+        secondValue,
+        thirdValue,
+        fourthValue,
+        fifthValue: {
+          longLongProp,
+          longLongProp,
+          anotherLongLongProp = {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
+          yetAnotherLongLongProp,
+        },
+        sixthValue,
+        seventhValue,
+      },
+      objectKey,
+      index
+    ) in objectWithAVeryVeryVeryVeryLongName"
     v-for="item in items"
     v-for="item of items"
     v-for="(item, index) in items"
@@ -320,6 +978,11 @@ printWidth: 80
     "
     @click="doSomething()"
     @click="doSomething;"
+    @click="a.b;"
+    @click="a[1];"
+    @click="a['b'];"
+    @click="a[null]"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 
@@ -1914,9 +2577,7 @@ semi: false
     <template>
       <div></div>
     </template>
-    <div>
-      Do not go out, you'll got yourself cloned by bad bad people.
-    </div>
+    <div>Do not go out, you'll got yourself cloned by bad bad people.</div>
   </div>
 </template>
 
@@ -1947,9 +2608,7 @@ trailingComma: "none"
     <template>
       <div></div>
     </template>
-    <div>
-      Do not go out, you'll got yourself cloned by bad bad people.
-    </div>
+    <div>Do not go out, you'll got yourself cloned by bad bad people.</div>
   </div>
 </template>
 
@@ -1979,9 +2638,119 @@ printWidth: 80
     <template>
       <div></div>
     </template>
-    <div>
-      Do not go out, you'll got yourself cloned by bad bad people.
-    </div>
+    <div>Do not go out, you'll got yourself cloned by bad bad people.</div>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`one-line-template1.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template><p>foo</p><div>foo</div></template>
+
+=====================================output=====================================
+<template>
+  <p>foo</p>
+  <div>foo</div>
+</template>
+
+================================================================================
+`;
+
+exports[`one-line-template1.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template><p>foo</p><div>foo</div></template>
+
+=====================================output=====================================
+<template>
+  <p>foo</p>
+  <div>foo</div>
+</template>
+
+================================================================================
+`;
+
+exports[`one-line-template1.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template><p>foo</p><div>foo</div></template>
+
+=====================================output=====================================
+<template>
+  <p>foo</p>
+  <div>foo</div>
+</template>
+
+================================================================================
+`;
+
+exports[`one-line-template2.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template><div><p>foo</p><div>bar</div></div></template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <p>foo</p>
+    <div>bar</div>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`one-line-template2.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template><div><p>foo</p><div>bar</div></div></template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <p>foo</p>
+    <div>bar</div>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`one-line-template2.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template><div><p>foo</p><div>bar</div></div></template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <p>foo</p>
+    <div>bar</div>
   </div>
 </template>
 
@@ -3015,9 +3784,7 @@ semi: false
         <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>
@@ -3081,9 +3848,7 @@ trailingComma: "none"
         <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>
@@ -3146,9 +3911,7 @@ printWidth: 80
         <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>

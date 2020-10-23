@@ -6,37 +6,37 @@ const {
 const {
   _,
   // prettier-ignore
-  bar =           1,
+  bar2 =           1,
 } = foo
 
 /* comments */
 const {
   // prettier-ignore
-  bar =           1,         // comment
+  bar3 =           1,         // comment
 } = foo
 
 const {
   // prettier-ignore
-  bar =           1,         /* comment */
+  bar4 =           1,         /* comment */
 } = foo
 
 const {
   // prettier-ignore
-  bar =           /* comment */          1,
+  bar5 =           /* comment */          1,
 } = foo
 
 /* RestElement */
 const {
   // prettier-ignore
-  ...bar
+  ...bar6
 } = foo
 
 // Nested
 const {
   baz: {
   // prettier-ignore
-  foo = [1, 2,    3]
+  foo2 = [1, 2,    3]
 },
   // prettier-ignore
-  bar =            1,
+  bar7 =            1,
 } = foo

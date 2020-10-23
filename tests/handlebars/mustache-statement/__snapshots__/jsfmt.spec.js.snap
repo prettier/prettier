@@ -50,6 +50,27 @@ singleQuote: true
   ...attributes >
 </div>
 
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
+</div>
+
 =====================================output=====================================
 <GlimmerComponent
   @progress={{
@@ -78,30 +99,30 @@ singleQuote: true
 />
 
 <div
-  class="a long list of classes more than 80 chars with a complex mustache statement {{
+  class='a long list of classes more than 80 chars with a complex mustache statement {{
     if (or this.a this.b) this.c this.d
-  }}"
+  }}'
 >
 </div>
 
 <div
-  class="a multi line list of classes with a complex mustache statement
-  {{if (or this.a this.b) this.c this.d}}"
+  class='a multi line list of classes with a complex mustache statement
+  {{if (or this.a this.b) this.c this.d}}'
 >
 </div>
 
 <div
-  class="a-first-class {{if this.optionOne 'optionOne'}} {{
+  class='a-first-class {{if this.optionOne 'optionOne'}} {{
     if this.optionTwo 'optionTwo'
   }} {{if this.optionThree 'optionThree'}} {{
     if this.optionFour 'optionFour'
-  }} {{if this.optionFive 'optionFive'}} {{this.class}}"
+  }} {{if this.optionFive 'optionFive'}} {{this.class}}'
   ...attributes
 >
 </div>
 
 <div
-  class="a-first-class
+  class='a-first-class
   {{if this.optionOne 'optionOne'}}
 
    {{if this.optionTwo 'optionTwo'}}
@@ -112,9 +133,37 @@ singleQuote: true
 
    {{if this.optionFive 'optionFive'}}
 
-   {{this.class}}"
+   {{this.class}}'
   ...attributes
 >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class='hello'
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
+  }}
+</div>
+
+<div>
+  {{a-helper
+    'that takes some arguments'
+    this.anotherOne
+    'why not'
+    @aLastOneLongEnoughToBreak
+  }}
 </div>
 ================================================================================
 `;
@@ -166,6 +215,27 @@ printWidth: 80
     
     {{this.class}}"
   ...attributes >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
 </div>
 
 =====================================output=====================================
@@ -233,6 +303,34 @@ printWidth: 80
    {{this.class}}"
   ...attributes
 >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
+  }}
+</div>
+
+<div>
+  {{a-helper
+    "that takes some arguments"
+    this.anotherOne
+    "why not"
+    @aLastOneLongEnoughToBreak
+  }}
 </div>
 ================================================================================
 `;
@@ -387,5 +485,52 @@ printWidth: 80
 >
   Hello
 </div>
+================================================================================
+`;
+
+exports[`escaped.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+
+=====================================output=====================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+================================================================================
+`;
+
+exports[`escaped.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+
+=====================================output=====================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
 ================================================================================
 `;

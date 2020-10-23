@@ -1,16 +1,21 @@
 "use strict";
 
-const parseFrontMatter = require("../utils/front-matter");
+const {
+  ParseSourceSpan,
+  ParseLocation,
+  ParseSourceFile,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
+const createError = require("../common/parser-create-error");
+const { getParserName } = require("../common/util");
 const {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   isUnknownNamespace,
 } = require("./utils");
 const { hasPragma } = require("./pragma");
-const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
-const { getParserName } = require("../common/util");
 
 function ngHtmlParser(
   input,
@@ -42,22 +47,26 @@ function ngHtmlParser(
     getHtmlTagDefinition,
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
-  const parseResult = parser.parse(input, {
+  let { rootNodes, errors } = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
     getTagContentType,
   });
-  const { rootNodes } = parseResult;
-  let { errors } = parseResult;
 
-  if (options.parser === "vue") {
+  const isVueHtml =
+    options.parser === "vue" &&
+    rootNodes.some(
+      (node) =>
+        (node instanceof DocType && node.value === "html") ||
+        (node instanceof Element && node.name.toLowerCase() === "html")
+    );
+
+  if (options.parser === "vue" && !isVueHtml) {
     const shouldParseAsHTML = (node) => {
+      /* istanbul ignore next */
       if (!node) {
         return false;
-      }
-      if (node.name === "html") {
-        return true;
       }
       if (node.name !== "template") {
         return false;
@@ -96,6 +105,7 @@ function ngHtmlParser(
           const endOffset = endSourceSpan.start.offset;
           for (const error of result.errors) {
             const { offset } = error.span.start;
+            /* istanbul ignore next */
             if (startOffset < offset && offset < endOffset) {
               errors = [error];
               break;
@@ -105,12 +115,32 @@ function ngHtmlParser(
         }
       }
     }
+  } else if (isVueHtml) {
+    // If not Vue SFC, treat as html
+    recognizeSelfClosing = true;
+    normalizeTagName = true;
+    normalizeAttributeName = true;
+    allowHtmComponentClosingTags = true;
+    isTagNameCaseSensitive = false;
+    const htmlParseResult = parser.parse(input, {
+      canSelfClose: recognizeSelfClosing,
+      allowHtmComponentClosingTags,
+      isTagNameCaseSensitive,
+    });
+
+    rootNodes = htmlParseResult.rootNodes;
+    errors = htmlParseResult.errors;
   }
 
   if (errors.length !== 0) {
-    const { msg, span } = errors[0];
-    const { line, col } = span.start;
-    throw createError(msg, { start: { line: line + 1, column: col + 1 } });
+    const {
+      msg,
+      span: { start, end },
+    } = errors[0];
+    throw createError(msg, {
+      start: { line: start.line + 1, column: start.col + 1 },
+      end: { line: end.line + 1, column: end.col + 1 },
+    });
   }
 
   const addType = (node) => {
@@ -127,6 +157,7 @@ function ngHtmlParser(
     } else if (node instanceof Text) {
       node.type = "text";
     } else {
+      /* istanbul ignore next */
       throw new Error(`Unexpected node ${JSON.stringify(node)}`);
     }
   };
@@ -252,13 +283,19 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
+  const file = new ParseSourceFile(text, options.filepath);
+  const start = new ParseLocation(file, 0, 0, 0);
+  const end = start.moveBy(text.length);
   const rawAst = {
     type: "root",
-    sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
+    sourceSpan: new ParseSourceSpan(start, end),
     children: ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
+    const start = new ParseLocation(file, 0, 0, 0);
+    const end = start.moveBy(frontMatter.raw.length);
+    frontMatter.sourceSpan = new ParseSourceSpan(start, end);
     rawAst.children.unshift(frontMatter);
   }
 
@@ -274,13 +311,13 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       parserOptions,
       false
     );
-    const ParseSourceSpan = subAst.children[0].sourceSpan.constructor;
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
       subAst.children[subAst.children.length - 1].sourceSpan.end
     );
     const firstText = subAst.children[0];
     if (firstText.length === offset) {
+      /* istanbul ignore next */
       subAst.children.shift();
     } else {
       firstText.sourceSpan = new ParseSourceSpan(
@@ -354,7 +391,7 @@ module.exports = {
       isTagNameCaseSensitive: true,
       getTagContentType: (tagName, prefix, hasParent, attrs) => {
         if (
-          tagName !== "html" &&
+          tagName.toLowerCase() !== "html" &&
           !hasParent &&
           (tagName !== "template" ||
             attrs.some(

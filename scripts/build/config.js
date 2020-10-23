@@ -7,7 +7,7 @@ const path = require("path");
  * @property {string} input - input of the bundle
  * @property {string?} output - path of the output file in the `dist/` folder
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
- * @property {'node' | 'universal'} target - should generate a CJS only for node or UMD bundle
+ * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} externals - array of paths that should not be included in the final bundle
@@ -17,7 +17,6 @@ const path = require("path");
  * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
- * @property {Object} namedExports - for cases where rollup can't infer what's exported
  * @property {string[]} ignore - paths of CJS modules to ignore
  */
 
@@ -28,13 +27,22 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-flow.js",
-    strict: false,
+    replace: {
+      // `flow-parser` use this for `globalThis`, can't work in strictMode
+      "(function(){return this}())": '(new Function("return this")())',
+    },
   },
   {
     input: "src/language-js/parser-typescript.js",
     replace: {
-      'require("@microsoft/typescript-etw")': "undefined",
+      // `typescript/lib/typescript.js` expose extra global objects
+      // `TypeScript`, `toolsVersion`, `globalThis`
+      'typeof process === "undefined" || process.browser': "false",
+      'typeof globalThis === "object"': "true",
     },
+  },
+  {
+    input: "src/language-js/parser-espree.js",
   },
   {
     input: "src/language-js/parser-angular.js",
@@ -59,15 +67,6 @@ const parsers = [
   {
     input: "src/language-handlebars/parser-glimmer.js",
     commonjs: {
-      namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
-          "parse",
-          "parseWithoutProcessing",
-        ],
-        [require.resolve(
-          "@glimmer/syntax/dist/modules/es2017/index.js"
-        )]: "default",
-      },
       ignore: ["source-map"],
     },
   },
@@ -102,6 +101,7 @@ const coreBundles = [
     type: "core",
     output: "doc.js",
     target: "universal",
+    format: "umd",
     minify: false,
   },
   {
@@ -109,6 +109,10 @@ const coreBundles = [
     name: "prettier",
     type: "core",
     target: "universal",
+    // TODO: Find a better way to remove parsers
+    replace: Object.fromEntries(
+      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"])
+    ),
   },
   {
     input: "bin/prettier.js",

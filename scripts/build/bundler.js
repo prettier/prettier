@@ -1,9 +1,9 @@
 "use strict";
 
-const execa = require("execa");
 const path = require("path");
+const execa = require("execa");
 const { rollup } = require("rollup");
-const resolve = require("@rollup/plugin-node-resolve");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
@@ -16,7 +16,7 @@ const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
 
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const PROJECT_ROOT = path.join(__dirname, "../..");
 
 const EXTERNALS = [
   "assert",
@@ -45,14 +45,6 @@ const entries = [
   {
     find: "lines-and-columns",
     replacement: require.resolve("lines-and-columns"),
-  },
-  // `handlebars` causes webpack warning by using `require.extensions`
-  // `dist/handlebars.js` also complaint on `window` variable
-  // use cjs build instead
-  // https://github.com/prettier/prettier/issues/6656
-  {
-    find: "handlebars",
-    replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
   },
   {
     find: "@angular/compiler/src",
@@ -166,20 +158,30 @@ function getRollupConfig(bundle) {
     rollupPluginAlias(alias),
     bundle.target === "universal" &&
       nativeShims(path.resolve(__dirname, "shims")),
-    resolve({
+    nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
     }),
     commonjs({
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
+      ignore:
+        bundle.type === "plugin"
+          ? undefined
+          : (id) => /\.\/parser-.*?/.test(id),
+      requireReturnsDefault: "preferred",
     }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
     bundle.minify !== false &&
       bundle.target === "universal" &&
-      terser(bundle.terserOptions),
+      terser({
+        output: {
+          ascii_only: true,
+        },
+        ...bundle.terserOptions,
+      }),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -191,43 +193,73 @@ function getRollupConfig(bundle) {
 
 function getRollupOutputOptions(bundle) {
   const options = {
+    // Avoid warning form #8797
+    exports: "auto",
     file: `dist/${bundle.output}`,
-    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
   };
 
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.format = "umd";
     options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
+
+    if (!bundle.format) {
+      return [
+        {
+          ...options,
+          format: "umd",
+        },
+        {
+          ...options,
+          format: "esm",
+          file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
+        },
+      ];
+    }
+    options.format = bundle.format;
   }
-  return options;
+  return [options];
+}
+
+async function checkCache(cache, inputOptions, outputOption) {
+  const useCache = await cache.checkBundle(
+    outputOption.file,
+    inputOptions,
+    outputOption
+  );
+
+  if (useCache) {
+    try {
+      await execa("cp", [
+        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
+        outputOption.file,
+      ]);
+      return true;
+    } catch (err) {
+      console.log(err);
+      // Proceed to build
+    }
+  }
+
+  return false;
 }
 
 module.exports = async function createBundle(bundle, cache) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle);
 
-  const useCache = await cache.checkBundle(
-    bundle.output,
-    inputOptions,
-    outputOptions
+  const checkCacheResults = await Promise.all(
+    outputOptions.map((outputOption) =>
+      checkCache(cache, inputOptions, outputOption)
+    )
   );
-  if (useCache) {
-    try {
-      await execa("cp", [
-        path.join(cache.cacheDir, "files", bundle.output),
-        "dist",
-      ]);
-      return { cached: true };
-    } catch (err) {
-      // Proceed to build
-    }
+  if (checkCacheResults.every((r) => r === true)) {
+    return { cached: true };
   }
 
   const result = await rollup(inputOptions);
-  await result.write(outputOptions);
+  await Promise.all(outputOptions.map((option) => result.write(option)));
 
   return { bundled: true };
 };

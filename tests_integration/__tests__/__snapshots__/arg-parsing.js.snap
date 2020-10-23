@@ -22,6 +22,34 @@ exports[`negated options work (stdout) 1`] = `
 
 exports[`negated options work (write) 1`] = `Array []`;
 
+exports[`number file/dir (stdout) 1`] = `
+"1/file-in-dir-named-1.js
+"
+`;
+
+exports[`number file/dir (stdout) 2`] = `
+"2.2/file-in-dir-named-2.2.js
+"
+`;
+
+exports[`number file/dir (stdout) 3`] = `
+"3
+"
+`;
+
+exports[`number file/dir (stdout) 4`] = `
+"4.44
+"
+`;
+
+exports[`number file/dir (stdout) 5`] = `
+"1/file-in-dir-named-1.js
+2.2/file-in-dir-named-2.2.js
+3
+4.44
+"
+`;
+
 exports[`unknown negated options are warned (stderr) 1`] = `
 "[warn] Ignored unknown option --no-unknown.
 "
@@ -45,3 +73,13 @@ exports[`unknown options are warned (stdout) 1`] = `
 `;
 
 exports[`unknown options are warned (write) 1`] = `Array []`;
+
+exports[`unknown options not suggestion \`_\` (stderr) 1`] = `
+"[warn] Ignored unknown option -a. Did you mean -c?
+"
+`;
+
+exports[`unknown options not suggestion \`_\` (stdout) 1`] = `
+"console.log(\\"could be single quote and without semi\\");
+"
+`;

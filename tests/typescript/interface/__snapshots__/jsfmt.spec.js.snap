@@ -33,7 +33,7 @@ abstract interface I {}
 ================================================================================
 `;
 
-exports[`comments.js - {"semi":false} format 1`] = `
+exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -54,7 +54,7 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,211 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`ignore.js - {"semi":false} format 1`] = `
+exports[`comments-generic.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface ReallyReallyLongName<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface // 3
+{}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}
+
+=====================================output=====================================
+interface ReallyReallyLongName<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {
+  // 3
+}
+
+interface Foo<
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  > // comments
+  extends Foo {}
+
+================================================================================
+`;
+
+exports[`comments-generic.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface ReallyReallyLongName<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface // 3
+{}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}
+
+=====================================output=====================================
+interface ReallyReallyLongName<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // 1
+  // 2
+  extends BaseInterface {
+  // 3
+}
+
+interface Foo<
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  > // comments
+  extends Foo {}
+
+================================================================================
+`;
+
+exports[`generic.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+=====================================output=====================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+================================================================================
+`;
+
+exports[`generic.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+=====================================output=====================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+================================================================================
+`;
+
+exports[`ignore.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -108,6 +312,84 @@ interface T<T> {
   // prettier-ignore
   new<T>(): T<T>;
   new<T>(): T<T>;
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
 }
 
 =====================================output=====================================
@@ -140,10 +422,88 @@ interface T<T> {
   new <T>(): T<T>
 }
 
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
+}
+
 ================================================================================
 `;
 
-exports[`ignore.js format 1`] = `
+exports[`ignore.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -178,6 +538,84 @@ interface T<T> {
   new<T>(): T<T>;
 }
 
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
+}
+
 =====================================output=====================================
 interface Interface {
   // prettier-ignore
@@ -206,6 +644,84 @@ interface T<T> {
   // prettier-ignore
   new<T>(): T<T>;
   new <T>(): T<T>;
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
 }
 
 ================================================================================

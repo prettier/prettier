@@ -1,7 +1,5 @@
 "use strict";
 
-const clean = require("./clean");
-
 const {
   concat,
   group,
@@ -12,7 +10,9 @@ const {
   line,
   softline,
 } = require("../document").builders;
+const locationToOffset = require("../utils/line-column-to-index");
 
+const clean = require("./clean");
 const {
   getNextNode,
   getPreviousNode,
@@ -37,16 +37,8 @@ function print(path, options, print) {
   }
 
   if (hasPrettierIgnore(path)) {
-    const startOffset = locationToOffset(
-      options.originalText,
-      n.loc.start.line - 1,
-      n.loc.start.column
-    );
-    const endOffset = locationToOffset(
-      options.originalText,
-      n.loc.end.line - 1,
-      n.loc.end.column
-    );
+    const startOffset = locationToOffset(n.loc.start, options.originalText);
+    const endOffset = locationToOffset(n.loc.end, options.originalText);
 
     const ignoredText = options.originalText.slice(startOffset, endOffset);
     return ignoredText;
@@ -115,11 +107,18 @@ function print(path, options, print) {
       );
     }
     case "MustacheStatement": {
-      const shouldBreakOpeningMustache = isParentOfSomeType(path, [
+      const isParentOfSpecifiedTypes = isParentOfSomeType(path, [
         "AttrNode",
         "ConcatStatement",
-        "ElementNode",
       ]);
+
+      const isChildOfElementNodeAndDoesNotHaveParams =
+        isParentOfSomeType(path, ["ElementNode"]) &&
+        doesNotHaveHashParams(n) &&
+        doesNotHavePositionalParams(n);
+
+      const shouldBreakOpeningMustache =
+        isParentOfSpecifiedTypes || isChildOfElementNodeAndDoesNotHaveParams;
 
       return group(
         concat([
@@ -160,13 +159,16 @@ function print(path, options, print) {
         : value;
       return concat([n.name, "=", quotedValue]);
     }
+
     case "ConcatStatement": {
+      const quote = options.singleQuote ? "'" : '"';
       return concat([
-        '"',
-        concat(path.map((partPath) => print(partPath), "parts")),
-        '"',
+        quote,
+        ...path.map((partPath) => print(partPath), "parts"),
+        quote,
       ]);
     }
+
     case "Hash": {
       return concat([join(line, path.map(print, "pairs"))]);
     }
@@ -207,13 +209,17 @@ function print(path, options, print) {
         }
       }
 
-      let leadingSpace = "";
-      let trailingSpace = "";
-
-      // preserve a space inside of an attribute node where whitespace present,
-      // when next to mustache statement.
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
+        // TODO: format style and srcset attributes
+        // and cleanup concat that is not necessary
+        if (!isInAttributeOfName(path, "class")) {
+          return concat([n.chars]);
+        }
+
+        let leadingSpace = "";
+        let trailingSpace = "";
+
         if (isParentOfSomeType(path, ["ConcatStatement"])) {
           if (isPreviousNodeOfSomeType(path, ["MustacheStatement"])) {
             leadingSpace = " ";
@@ -222,35 +228,56 @@ function print(path, options, print) {
             trailingSpace = " ";
           }
         }
-      } else {
-        if (
-          trailingLineBreaksCount === 0 &&
-          isNextNodeOfSomeType(path, ["MustacheStatement"])
-        ) {
-          trailingSpace = " ";
-        }
 
-        if (
-          leadingLineBreaksCount === 0 &&
-          isPreviousNodeOfSomeType(path, ["MustacheStatement"])
-        ) {
-          leadingSpace = " ";
-        }
+        return concat([
+          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+          n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+          ...generateHardlines(
+            trailingLineBreaksCount,
+            maxLineBreaksToPreserve
+          ),
+        ]);
+      }
 
-        if (isFirstElement) {
-          leadingLineBreaksCount = 0;
-          leadingSpace = "";
-        }
+      let leadingSpace = "";
+      let trailingSpace = "";
 
-        if (isLastElement) {
-          trailingLineBreaksCount = 0;
-          trailingSpace = "";
-        }
+      if (
+        trailingLineBreaksCount === 0 &&
+        isNextNodeOfSomeType(path, ["MustacheStatement"])
+      ) {
+        trailingSpace = " ";
+      }
+
+      if (
+        leadingLineBreaksCount === 0 &&
+        isPreviousNodeOfSomeType(path, ["MustacheStatement"])
+      ) {
+        leadingSpace = " ";
+      }
+
+      if (isFirstElement) {
+        leadingLineBreaksCount = 0;
+        leadingSpace = "";
+      }
+
+      if (isLastElement) {
+        trailingLineBreaksCount = 0;
+        trailingSpace = "";
+      }
+
+      let text = n.chars;
+      /* if `{{my-component}}` (or any text starting with a mustache)
+       * makes it to the TextNode,
+       * it means it was escaped,
+       * so let's print it escaped, ie.; `\{{my-component}}` */
+      if (text.startsWith("{{") && text.includes("}}")) {
+        text = "\\" + text;
       }
 
       return concat([
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-        n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+        text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ]);
     }
@@ -484,6 +511,15 @@ function printInverse(path, print) {
 
 /* TextNode print helpers */
 
+function isInAttributeOfName(path, type) {
+  return (
+    (isParentOfSomeType(path, ["AttrNode"]) &&
+      path.getParentNode().name.toLowerCase() === type) ||
+    (isParentOfSomeType(path, ["ConcatStatement"]) &&
+      path.getParentNode(1).name.toLowerCase() === type)
+  );
+}
+
 function countNewLines(string) {
   /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
@@ -615,35 +651,12 @@ function printBlockParams(node) {
   return concat([" as |", node.blockParams.join(" "), "|"]);
 }
 
-/* istanbul ignore next
-   https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/compiler/lib/location.ts#L5-L29
-*/
-function locationToOffset(source, line, column) {
-  let seenLines = 0;
-  let seenChars = 0;
+function doesNotHaveHashParams(node) {
+  return node.hash.pairs.length === 0;
+}
 
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    if (seenChars === source.length) {
-      return null;
-    }
-
-    let nextLine = source.indexOf("\n", seenChars);
-    if (nextLine === -1) {
-      nextLine = source.length;
-    }
-
-    if (seenLines === line) {
-      if (seenChars + column > nextLine) {
-        return null;
-      }
-      return seenChars + column;
-    } else if (nextLine === -1) {
-      return null;
-    }
-    seenLines += 1;
-    seenChars = nextLine + 1;
-  }
+function doesNotHavePositionalParams(node) {
+  return node.params.length === 0;
 }
 
 module.exports = {

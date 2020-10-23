@@ -296,3 +296,187 @@ export type SCMRawResource = [
 
 ================================================================================
 `;
+
+exports[`tuple-labeled.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]]
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]];
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+================================================================================
+`;
+
+exports[`tuple-labeled.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]]
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]];
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+================================================================================
+`;
+
+exports[`tuple-labeled.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]]
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]];
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;

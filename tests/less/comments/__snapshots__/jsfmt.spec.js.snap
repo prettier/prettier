@@ -62,22 +62,94 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block.css format 1`] = `
+exports[`between-decl.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-/* Kikoo */
-/**
- * Kikoo
- */
+selector {
+prop: // comment
+value;
+
+prop: /* block */ value;
+
+prop
+: value;
+}
+
+// #5603
+.grid {
+        grid-template-areas: //
+          "header header header" //
+          "sidebar content content" //
+          "footer footer footer";
+
+        grid-template-areas:
+          "header header header" //
+          "sidebar content content" //
+          "footer footer footer";
+ }
+
+// TODO: make these pretty
+selector {
+prop:
+/* block */
+value;
+
+prop/* block */:
+value;
+
+prop
+/* block */
+:
+value;
+
+prop/* before */: // after
+value;
+
+
+prop/* before */: /* after*/
+value;
+}
 
 =====================================output=====================================
-/* Kikoo */
-/**
- * Kikoo
- */
+selector {
+  prop: // comment
+    value;
+
+  prop: /* block */ value;
+
+  prop: value;
+}
+
+// #5603
+.grid {
+  grid-template-areas: //
+    "header header header" //
+    "sidebar content content" //
+    "footer footer footer";
+
+  grid-template-areas: "header header header" //
+    "sidebar content content" //
+    "footer footer footer";
+}
+
+// TODO: make these pretty
+selector {
+  prop:
+/* block */ value;
+
+  prop/* block */: value;
+
+  prop/* block */
+: value;
+
+  prop/* before */: // after
+    value;
+
+  prop/* before */: /* after*/ value;
+}
 
 ================================================================================
 `;
@@ -102,6 +174,136 @@ printWidth: 80
 /**
  * Kikoo
  */
+
+================================================================================
+`;
+
+exports[`block-2.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+=====================================output=====================================
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+================================================================================
+`;
+
+exports[`issue-8130.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@import "../node_modules/foo/bar.less";
+
+// @index(['./components/**/*.less', '!./**/_demo/**'], f => \`@import '\${f.path}\${f.ext}';\`)
+@import './components/Button/Button.less';
+@import './components/Form/Form.less';
+@import './components/Input/Input.less';
+// @endindex
+
+=====================================output=====================================
+@import "../node_modules/foo/bar.less";
+
+// @index(['./components/**/*.less', '!./**/_demo/**'], f => \`@import '\${f.path}\${f.ext}';\`)
+@import "./components/Button/Button.less";
+@import "./components/Form/Form.less";
+@import "./components/Input/Input.less";
+// @endindex
+
+================================================================================
+`;
+
+exports[`mixed.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import 'b';
+// another comment
+//no-space before
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import "b";
+// another comment
+//no-space before
+
+================================================================================
+`;
+
+exports[`mixed-2.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+@import "a";
+//*
+@import 'b';
+/* block */
+/*no-space block*/
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+@import "a";
+//*
+@import "b";
+/* block */
+/*no-space block*/
+
+================================================================================
+`;
+
+exports[`mixed-block.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import 'b';
+/* block */
+/*no-space block*/
+
+=====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
+@import "a";
+
+// '/*' <-- this breaks formatting
+
+@import "b";
+/* block */
+/*no-space block*/
 
 ================================================================================
 `;
@@ -165,7 +367,36 @@ foo {
 ================================================================================
 `;
 
-exports[`trailing_star_slash.scss format 1`] = `
+exports[`selectors.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* custom properties set & @apply rule */
+:root {
+    /* comments 192 */ --centered /* comments 193 */ : /* comments 194 */ {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    };
+}
+
+=====================================output=====================================
+/* custom properties set & @apply rule */
+:root {
+  /* comments 192 */
+  --centered/* comments 193 */ : /* comments 194 */ {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  };
+}
+
+================================================================================
+`;
+
+exports[`trailing_star_slash.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -182,6 +413,42 @@ a {
 a {
   // element.style */
 }
+
+================================================================================
+`;
+
+exports[`value-lists.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-space-separated : #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-comma-separated: #aaaaaa, // Start with A
+  #bbbbbb, // then some B
+  #cccccc; // and round it out with C
+
+=====================================output=====================================
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-comma-separated: #aaaaaa,
+  // Start with A
+  #bbbbbb,
+  // then some B
+  #cccccc; // and round it out with C
 
 ================================================================================
 `;

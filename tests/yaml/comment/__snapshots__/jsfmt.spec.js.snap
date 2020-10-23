@@ -123,6 +123,306 @@ a:
 ================================================================================
 `;
 
+exports[`issue-8378.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# --- comments ---
+
+=====================================output=====================================
+# --- comments ---
+
+================================================================================
+`;
+
+exports[`issue-9130.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+- foo: 0
+  bar: 1
+
+  # baz: 2
+- quux: 3
+
+- foo: 0
+  bar: 1
+
+  # baz: 2
+
+  # baz: 3
+- quux: 3
+
+=====================================output=====================================
+- foo: 0
+  bar: 1
+
+  # baz: 2
+- quux: 3
+
+- foo: 0
+  bar: 1
+
+  # baz: 2
+
+  # baz: 3
+- quux: 3
+
+================================================================================
+`;
+
+exports[`map.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo1:
+  - foo: item1
+    bar: item1
+
+  # - foo: item2
+  #   bar: item2
+
+  # - foo: item3
+  #   bar: item3
+
+  - foo: item4
+    bar: item4
+
+foo2:
+  - foo: item11
+    bar: item11
+
+  # - foo: item22
+  #   bar: item22
+
+  # - foo: item33
+  #   bar: item33
+
+=====================================output=====================================
+foo1:
+  - foo: item1
+    bar: item1
+
+  # - foo: item2
+  #   bar: item2
+
+  # - foo: item3
+  #   bar: item3
+
+  - foo: item4
+    bar: item4
+
+foo2:
+  - foo: item11
+    bar: item11
+
+  # - foo: item22
+  #   bar: item22
+
+  # - foo: item33
+  #   bar: item33
+
+================================================================================
+`;
+
+exports[`map-2.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # - foo2
+
+
+
+
+  
+
+  # - foo2
+  # - foo2
+
+=====================================output=====================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # - foo2
+
+  # - foo2
+  # - foo2
+
+================================================================================
+`;
+
+exports[`map-3.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # first line
+  # next line
+
+=====================================output=====================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # first line
+  # next line
+
+================================================================================
+`;
+
+exports[`map-4.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+before:
+
+  # before.comment
+after:
+  # after.comment
+
+before-after:
+
+  # before-after.comment
+
+none:
+  # none.comment
+before(2 line):
+
+
+  # before.comment
+after(2 line):
+  # after.comment
+
+
+before-after(2 line):
+
+
+  # before-after.comment
+
+
+none(2):
+  # none.comment
+=====================================output=====================================
+before:
+
+  # before.comment
+after:
+  # after.comment
+
+before-after:
+
+  # before-after.comment
+
+none:
+  # none.comment
+before(2 line):
+
+  # before.comment
+after(2 line):
+  # after.comment
+
+before-after(2 line):
+
+  # before-after.comment
+
+none(2):
+  # none.comment
+
+================================================================================
+`;
+
+exports[`object.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#6445
+
+obj:
+  # before
+
+
+  # before
+
+
+  key: value
+
+
+  # after
+
+
+  # after
+
+=====================================output=====================================
+#6445
+
+obj:
+  # before
+
+  # before
+
+  key: value
+
+  # after
+
+  # after
+
+================================================================================
+`;
+
 exports[`root.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
@@ -133,6 +433,107 @@ printWidth: 80
 
 =====================================output=====================================
 #hello world
+
+================================================================================
+`;
+
+exports[`sequence.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+-  - a
+
+   # - b
+
+   # - c
+
+   - e
+
+-  - a
+
+   # - b
+
+   # - c
+
+=====================================output=====================================
+- - a
+
+  # - b
+
+  # - c
+
+  - e
+
+- - a
+
+  # - b
+
+  # - c
+
+================================================================================
+`;
+
+exports[`sequence-2.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+- before
+
+  # before.comment
+- after
+  # after.comment
+
+- before-after
+
+  # before-after.comment
+
+- none:
+  # none.comment
+- before(2 line)
+
+
+  # before.comment
+- after(2 line)
+  # after.comment
+
+
+- before-after(2 line)
+
+
+  # before-after.comment
+
+
+- none(2)
+  # none.comment
+=====================================output=====================================
+- before
+
+  # before.comment
+- after
+  # after.comment
+
+- before-after
+
+  # before-after.comment
+
+- none:
+  # none.comment
+- before(2 line)
+
+  # before.comment
+- after(2 line)
+  # after.comment
+
+- before-after(2 line)
+
+  # before-after.comment
+
+- none(2)
+  # none.comment
 
 ================================================================================
 `;

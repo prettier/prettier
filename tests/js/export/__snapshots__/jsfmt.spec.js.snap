@@ -7,6 +7,14 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+const {  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns,fitsIn, oneLine} = {}
 export {
   runTaskForChanged,
   description,
@@ -20,6 +28,18 @@ export {
 export {fitsIn, oneLine};
 
 =====================================output=====================================
+const {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns,
+  fitsIn,
+  oneLine,
+} = {};
 export {
   runTaskForChanged,
   description,
@@ -41,6 +61,14 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+const {  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns,fitsIn, oneLine} = {}
 export {
   runTaskForChanged,
   description,
@@ -54,6 +82,18 @@ export {
 export {fitsIn, oneLine};
 
 =====================================output=====================================
+const {
+  runTaskForChanged,
+  description,
+  someOtherLabel,
+  thatMakes,
+  itGo,
+  multiLine,
+  andMore,
+  soWeCanGetItTo80Columns,
+  fitsIn,
+  oneLine,
+} = {};
 export {
   runTaskForChanged,
   description,
@@ -98,6 +138,43 @@ export {} from ".";
 =====================================output=====================================
 export {};
 export {} from ".";
+
+================================================================================
+`;
+
+exports[`same-local-and-exported.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export {a} from 'a';
+export {b as b} from 'b';
+export {c as /* comment */c} from 'c';
+
+=====================================output=====================================
+export {a} from "a";
+export {b as b} from "b";
+export {c as /* comment */ c} from "c";
+
+================================================================================
+`;
+
+exports[`same-local-and-exported.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export {a} from 'a';
+export {b as b} from 'b';
+export {c as /* comment */c} from 'c';
+
+=====================================output=====================================
+export { a } from "a";
+export { b as b } from "b";
+export { c as /* comment */ c } from "c";
 
 ================================================================================
 `;

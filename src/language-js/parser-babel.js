@@ -1,8 +1,12 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const {
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getShebang,
+} = require("../common/util");
 const { hasPragma } = require("./pragma");
-const locFns = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function babelOptions({ sourceType, extraPlugins = [] }) {
@@ -16,30 +20,30 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
     errorRecovery: true,
     createParenthesizedExpressions: true,
     plugins: [
+      // When adding a plugin, please add a test in `tests/js/babel-plugins`,
+      // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+
       "doExpressions",
-      "objectRestSpread",
       "classProperties",
       "exportDefaultFrom",
-      "exportNamespaceFrom",
-      "asyncGenerators",
       "functionBind",
       "functionSent",
-      "dynamicImport",
-      "numericSeparator",
-      "importMeta",
-      "optionalCatchBinding",
-      "optionalChaining",
       "classPrivateProperties",
-      "nullishCoalescingOperator",
-      "bigInt",
       "throwExpressions",
-      "logicalAssignment",
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
       ["decorators", { decoratorsBeforeExport: false }],
+      "privateIn",
+      "importAssertions",
+      ["recordAndTuple", { syntaxType: "hash" }],
+      "decimal",
+      "moduleStringNames",
+      "classStaticBlock",
       ...extraPlugins,
     ],
+    tokens: true,
+    ranges: true,
   };
 }
 
@@ -60,13 +64,43 @@ function resolvePluginsConflict(
   return combinations;
 }
 
+// Similar to babel
+// https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
+const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
+function isFlowFile(text, options) {
+  if (options.filepath && options.filepath.endsWith(".js.flow")) {
+    return true;
+  }
+
+  const shebang = getShebang(text);
+  if (shebang) {
+    text = text.slice(shebang.length);
+  }
+
+  const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    0
+  );
+
+  if (firstNonSpaceNonCommentCharacterIndex !== false) {
+    text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
+  }
+
+  return FLOW_PRAGMA_REGEX.test(text);
+}
+
 function createParse(parseMethod, ...pluginCombinations) {
-  return (text, parsers, opts) => {
+  return (text, parsers, opts = {}) => {
+    if (opts.parser === "babel" && isFlowFile(text, opts)) {
+      opts.parser = "babel-flow";
+      return parseFlow(text, parsers, opts);
+    }
+
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
     const sourceType =
-      opts && opts.__babelSourceType === "script" ? "script" : "module";
+      opts.__babelSourceType === "script" ? "script" : "module";
 
     let ast;
     try {
@@ -86,19 +120,18 @@ function createParse(parseMethod, ...pluginCombinations) {
         )
       );
     } catch (error) {
-      throw createError(
-        // babel error prints (l:c) with cols that are zero indexed
-        // so we need our custom error
-        error.message.replace(/ \(.*\)/, ""),
-        {
-          start: {
-            line: error.loc.line,
-            column: error.loc.column + 1,
-          },
-        }
-      );
+      // babel error prints (l:c) with cols that are zero indexed
+      // so we need our custom error
+      const { message, loc } = error;
+
+      throw createError(message.replace(/ \(.*\)/, ""), {
+        start: {
+          line: loc ? loc.line : 0,
+          column: loc ? loc.column + 1 : 0,
+        },
+      });
     }
-    delete ast.tokens;
+
     return postprocess(ast, { ...opts, originalText: text });
   };
 }
@@ -119,7 +152,7 @@ function tryCombinations(fn, combinations) {
   let error;
   for (let i = 0; i < combinations.length; i++) {
     try {
-      return fn(combinations[i]);
+      return rethrowSomeRecoveredErrors(fn(combinations[i]));
     } catch (_error) {
       if (!error) {
         error = _error;
@@ -127,6 +160,33 @@ function tryCombinations(fn, combinations) {
     }
   }
   throw error;
+}
+
+const messagesShouldThrow = new Set([
+  // TSErrors.UnexpectedTypeAnnotation
+  // https://github.com/babel/babel/blob/008fe25ae22e78288fbc637d41069bb4a1040987/packages/babel-parser/src/plugins/typescript/index.js#L95
+  "Did not expect a type annotation here.",
+  // ErrorMessages.ModuleAttributeDifferentFromType
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/parser/error-message.js#L92
+  "The only accepted module attribute is `type`",
+  // FlowErrors.UnexpectedTypeParameterBeforeAsyncArrowFunction
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/plugins/flow.js#L118
+  "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
+]);
+
+function shouldRethrow(error) {
+  const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
+  // Only works for literal message
+  return messagesShouldThrow.has(message);
+}
+
+function rethrowSomeRecoveredErrors(ast) {
+  const error = ast.errors.find((error) => shouldRethrow(error));
+  if (error) {
+    throw error;
+  }
+
+  return ast;
 }
 
 function parseJson(text, parsers, opts) {
@@ -192,7 +252,7 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = { parse, astFormat: "estree", hasPragma, ...locFns };
+const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 const babelFlow = { ...babel, parse: parseFlow };
 const babelTypeScript = { ...babel, parse: parseTypeScript };
 const babelExpression = { ...babel, parse: parseExpression };
@@ -213,7 +273,8 @@ module.exports = {
     "json-stringify": {
       parse: parseJson,
       astFormat: "estree-json",
-      ...locFns,
+      locStart,
+      locEnd,
     },
     /** @internal */
     __js_expression: babelExpression,

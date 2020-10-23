@@ -1,8 +1,8 @@
 "use strict";
 
-const builtins = require("builtin-modules");
 const fs = require("fs");
 const path = require("path");
+const builtins = require("builtin-modules");
 
 const EMPTY = "export default {};";
 const PREFIX = "\0shim:";
@@ -18,7 +18,7 @@ module.exports = function (dir) {
         return null;
       }
 
-      const shim = path.resolve(dir, importee + ".js");
+      const shim = path.resolve(dir, importee + ".mjs");
       if (fs.existsSync(shim)) {
         return shim;
       }

@@ -1,7 +1,9 @@
 run_spec(__dirname, ["typescript"], {
-  disableBabelTS: [
-    "downlevelLetConst1.ts",
-    "errorOnInitializerInInterfaceProperty.ts",
-    "modifiersOnInterfaceIndexSignature1.ts",
-  ],
+  errors: {
+    "babel-ts": [
+      "downlevelLetConst1.ts",
+      "errorOnInitializerInInterfaceProperty.ts",
+      "modifiersOnInterfaceIndexSignature1.ts",
+    ],
+  },
 });

@@ -1,22 +1,28 @@
 "use strict";
 
+const parseSrcset = require("parse-srcset");
 const {
   builders: { concat, ifBreak, join, line },
 } = require("../document");
-const parseSrcset = require("srcset").parse;
 
 function printImgSrcset(value) {
-  const srcset = parseSrcset(value);
+  const srcset = parseSrcset(value, {
+    logger: {
+      error(message) {
+        throw new Error(message);
+      },
+    },
+  });
 
-  const hasW = srcset.some((src) => src.width);
-  const hasH = srcset.some((src) => src.height);
-  const hasX = srcset.some((src) => src.density);
+  const hasW = srcset.some(({ w }) => w);
+  const hasH = srcset.some(({ h }) => h);
+  const hasX = srcset.some(({ d }) => d);
 
   if (hasW + hasH + hasX > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
   }
 
-  const key = hasW ? "width" : hasH ? "height" : "density";
+  const key = hasW ? "w" : hasH ? "h" : "d";
   const unit = hasW ? "w" : hasH ? "h" : "x";
 
   const getMax = (values) => Math.max(...values);

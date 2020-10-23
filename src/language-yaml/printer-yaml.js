@@ -1,5 +1,24 @@
 "use strict";
 
+const docBuilders = require("../document").builders;
+const {
+  conditionalGroup,
+  breakParent,
+  concat,
+  dedent,
+  dedentToRoot,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  join,
+  line,
+  lineSuffix,
+  literalline,
+  markAsRoot,
+  softline,
+} = docBuilders;
+const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
 const {
   getAncestorCount,
@@ -20,25 +39,6 @@ const {
   defineShortcut,
   mapNode,
 } = require("./utils");
-const docBuilders = require("../document").builders;
-const {
-  conditionalGroup,
-  breakParent,
-  concat,
-  dedent,
-  dedentToRoot,
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  join,
-  line,
-  lineSuffix,
-  literalline,
-  markAsRoot,
-  softline,
-} = docBuilders;
-const { replaceEndOfLineWith } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -107,10 +107,9 @@ function genericPrint(path, options, print) {
     hasPrettierIgnore(path)
       ? concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              node.position.start.offset,
-              node.position.end.offset
-            ),
+            options.originalText
+              .slice(node.position.start.offset, node.position.end.offset)
+              .trimEnd(),
             literalline
           )
         )
@@ -128,13 +127,32 @@ function genericPrint(path, options, print) {
           ])
         )
       : "",
-    nextEmptyLine,
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+    shouldPrintEndComments(node)
       ? align(
           node.type === "sequenceItem" ? 2 : 0,
-          concat([hardline, join(hardline, path.map(print, "endComments"))])
+          concat([
+            hardline,
+            join(
+              hardline,
+              path.map(
+                (path) =>
+                  concat([
+                    isPreviousLineEmpty(
+                      options.originalText,
+                      path.getValue(),
+                      options.locStart
+                    )
+                      ? hardline
+                      : "",
+                    print(path),
+                  ]),
+                "endComments"
+              )
+            ),
+          ])
         )
       : "",
+    nextEmptyLine,
   ]);
 }
 
@@ -533,6 +551,7 @@ function align(n, doc) {
 }
 
 function isInlineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }
@@ -551,6 +570,7 @@ function isInlineNode(node) {
 }
 
 function isSingleLineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }
@@ -683,16 +703,31 @@ function needsSpaceInFrontOfMappingValue(node) {
   return node.key.content && node.key.content.type === "alias";
 }
 
+function shouldPrintEndComments(node) {
+  return (
+    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+  );
+}
+
+const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
   const root = path.stack[0];
 
-  root.isNextEmptyLinePrintedChecklist =
-    root.isNextEmptyLinePrintedChecklist || [];
+  let isNextEmptyLinePrintedSet;
+  if (printedEmptyLineCache.has(root)) {
+    isNextEmptyLinePrintedSet = printedEmptyLineCache.get(root);
+  } else {
+    isNextEmptyLinePrintedSet = new Set();
+    printedEmptyLineCache.set(root, isNextEmptyLinePrintedSet);
+  }
 
-  if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
-    if (isNextLineEmpty(node, originalText)) {
-      root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
+  if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
+    isNextEmptyLinePrintedSet.add(node.position.end.line);
+    if (
+      isNextLineEmpty(node, originalText) &&
+      !shouldPrintEndComments(path.getParentNode())
+    ) {
       return softline;
     }
   }
