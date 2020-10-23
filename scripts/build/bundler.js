@@ -289,7 +289,7 @@ function getWebpackConfig(bundle) {
   }
   // config.optimization.minimize = false;
 
-  return webpackNativeShims(config, ["os", "path", "util", "url"]);
+  return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
 }
 
 function runWebpack(config) {
