@@ -38,7 +38,6 @@ function getFunctionParameters(node) {
   return parameters;
 }
 
-
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (

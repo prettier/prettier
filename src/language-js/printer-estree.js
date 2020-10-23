@@ -59,7 +59,7 @@ const {
   classPropMayCauseASIProblems,
   getFlowVariance,
   getFunctionParameters,
-  iterateFunctionParametersPath,
+  mapFunctionParametersPath,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -3912,27 +3912,33 @@ function printFunctionParameters(
     : "";
 
   const parameters = getFunctionParameters(fun);
-  const printedParameters = iterateFunctionParametersPath(path, print);
-
   const shouldExpandParameters =
     expandArg && !parameters.some((node) => node.comments);
-
+  const printedParameters = mapFunctionParametersPath(path, print);
   const parametersLength = parameters.length;
   const printed = [];
+
   for (let index = 0; index < parametersLength; index++) {
-    print.push(printedParameters[index]);
+    if (index === parametersLength - 1 && fun.rest) {
+      printed.push("...");
+    }
+    printed.push(printedParameters[index]);
+    if (index === parametersLength - 1) {
+      continue;
+    }
+    printed.push(",");
     if (
       isParametersInTestCall ||
       shouldHugParameters ||
       shouldExpandParameters
     ) {
-      printed.push(", ");
+      printed.push(" ");
     } else if (
       isNextLineEmpty(options.originalText, parameters[index], options.locEnd)
     ) {
-      printed.push(",", hardline, hardline);
+      printed.push(hardline, hardline);
     } else {
-      printed.push(",", line);
+      printed.push(line);
     }
   }
 
@@ -4017,8 +4023,8 @@ function printFunctionParameters(
   }
 
   const lastParam = getLast(parameters);
-  const canHaveTrailingComma = lastParam && lastParam.type === "RestElement";
-
+  const canHaveTrailingComma =
+    !(lastParam && lastParam.type === "RestElement") && !fun.rest;
   return concat([
     typeParams,
     "(",

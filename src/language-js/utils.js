@@ -1401,20 +1401,26 @@ function getFunctionParameters(node) {
   return parameters;
 }
 
-function iterateFunctionParametersPath(path, iteratee) {
+function mapFunctionParametersPath(path, iteratee) {
+  const result = [];
   const node = path.getValue();
+  let index = -1;
+  const callback = (childPath) => {
+    result[++index] = iteratee(childPath, index);
+  };
   if (node.this) {
-    path.call(iteratee, "this");
+    path.call(callback, "this");
   }
   if (Array.isArray(node.parameters)) {
-    path.each(iteratee, "parameters");
+    path.each(callback, "parameters");
   }
   if (Array.isArray(node.params)) {
-    path.each(iteratee, "params");
+    path.each(callback, "params");
   }
   if (node.rest) {
-    path.call(iteratee, "rest");
+    path.call(callback, "rest");
   }
+  return result;
 }
 
 module.exports = {
@@ -1422,7 +1428,7 @@ module.exports = {
   classPropMayCauseASIProblems,
   getFlowVariance,
   getFunctionParameters,
-  iterateFunctionParametersPath,
+  mapFunctionParametersPath,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
