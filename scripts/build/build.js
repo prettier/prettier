@@ -21,7 +21,6 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-
 const CACHE_VERSION = "v32"; // This need update when updating build scripts
 const statusConfig = [
   { color: "bgYellow", text: "CACHED" },
