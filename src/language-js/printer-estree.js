@@ -5150,7 +5150,7 @@ function shouldHugArguments(fun) {
   if (!fun || fun.rest) {
     return false;
   }
-  let params = fun.params || fun.parameters;
+  let params = fun.params || fun.parameters || [];
   if (fun.this) {
     params = [fun.this, ...params];
   }
