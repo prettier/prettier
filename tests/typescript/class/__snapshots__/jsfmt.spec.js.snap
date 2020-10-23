@@ -21,6 +21,10 @@ class A {
     }
 }
 
+class B {
+  constructor<>() {}
+}
+
 =====================================output=====================================
 class foo {
   constructor(static a: number) {}
@@ -35,6 +39,10 @@ class A {
   static Foo() {
     return new A();
   }
+}
+
+class B {
+  constructor<>() {}
 }
 
 ================================================================================

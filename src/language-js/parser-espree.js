@@ -39,7 +39,7 @@ function parse(originalText, parsers, options) {
       // throw the error for `module` parsing
 
       /* istanbul ignore next */
-      if (typeof moduleError.lineNumber === "undefined") {
+      if (typeof moduleError.lineNumber !== "number") {
         throw moduleError;
       }
 

@@ -65,11 +65,8 @@ const isUnstable = (filename, options) => {
   return testFunction(options);
 };
 
-// TODO: refactor `disableBabelTS` option to use `errors`
 const shouldThrowOnFormat = (filename, options) => {
-  const { errors = {}, disableBabelTS } = options;
-  errors["babel-ts"] = disableBabelTS;
-
+  const { errors = {} } = options;
   const files = errors[options.parser];
 
   if (files === true || (Array.isArray(files) && files.includes(filename))) {

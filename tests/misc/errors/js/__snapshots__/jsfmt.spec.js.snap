@@ -11,11 +11,26 @@ exports[`html-like-comments.js error test 1`] = `
   6 | "
 `;
 
-exports[`module-attributes.js error test 1`] = `
-"The only accepted module attribute is \`type\` (1:33)
-> 1 | import foo from \\"foo.json\\" with foo: \\"json\\";
-    |                                 ^
+exports[`import-assertions-with-parens.js error test 1`] = `
+"Unexpected token (1:19)
+> 1 | import \\"x\\" assert ({type: 'json'});
+    |                   ^
   2 | "
+`;
+
+exports[`module-attributes.js error test 1`] = `
+"Unexpected token, expected \\";\\" (1:28)
+> 1 | import foo from \\"foo.json\\" with type: \\"json\\";
+    |                            ^
+  2 | "
+`;
+
+exports[`module-string-name-import.js error test 1`] = `
+"Unexpected token (2:10)
+  1 | // https://github.com/babel/babel/issues/12209
+> 2 | import { \\"foo\\" as foo } from \\"module-a\\";
+    |          ^
+  3 | "
 `;
 
 exports[`no-for-in-init-concise-binary-in.js error test 1`] = `

@@ -1,29 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`module-attributes-dynamic.js format 1`] = `
+exports[`object-property.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import("foo.json", { with: { type: "json" } })
+a = {
+  [this.resource = resource]: 1,
+}
 
 =====================================output=====================================
-import("foo.json", { with: { type: "json" } });
+a = {
+  [(this.resource = resource)]: 1,
+};
 
 ================================================================================
 `;
 
-exports[`module-attributes-static.js format 1`] = `
+exports[`object-value.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import foo from "foo.json" with type: "json";
+a = {
+  resource: (this.resource = resource),
+}
+
+map(([resource]) => ({
+  resource: (this.resource = resource),
+}))
 
 =====================================output=====================================
-import foo from "foo.json" with type: "json";
+a = {
+  resource: (this.resource = resource),
+};
+
+map(([resource]) => ({
+  resource: (this.resource = resource),
+}));
 
 ================================================================================
 `;
