@@ -511,7 +511,7 @@ function isTestCall(n, parent) {
         (n.arguments.length === 2
           ? isFunctionOrArrowExpression(n.arguments[1])
           : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
-            n.arguments[1].params.length <= 1) ||
+            getFunctionParameters(n.arguments[1]).length <= 1) ||
         isAngularTestWrapper(n.arguments[1])
       );
     }
@@ -1379,10 +1379,33 @@ function isBitwiseOperator(operator) {
   );
 }
 
+const functionParametersCache = new WeakMap();
+function getFunctionParameters(node) {
+  if (functionParametersCache.has(node)) {
+    return functionParametersCache.get(node);
+  }
+  const parameters = [];
+  if (node.this) {
+    parameters.push(node.this);
+  }
+  // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
+  if (Array.isArray(node.parameters)) {
+    parameters.push(...node.parameters);
+  } else if (Array.isArray(node.params)) {
+    parameters.push(...node.params);
+  }
+  if (node.rest) {
+    parameters.push(node.rest);
+  }
+  functionParametersCache.set(node, parameters);
+  return parameters;
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   getFlowVariance,
+  getFunctionParameters,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,

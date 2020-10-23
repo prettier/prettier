@@ -58,6 +58,7 @@ const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   getFlowVariance,
+  getFunctionParameters,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -1252,7 +1253,10 @@ function printPathNoParens(path, options, print, args) {
           (node) => node.type === "ObjectPattern" && !node.decorators,
           (node, name, number) =>
             shouldHugArguments(node) &&
-            (name === "params" || name === "parameters") &&
+            (name === "params" ||
+              name === "parameters" ||
+              name === "this" ||
+              name === "rest") &&
             number === 0
         ) ||
         path.match(
@@ -1261,7 +1265,10 @@ function printPathNoParens(path, options, print, args) {
           (node, name) => name === "typeAnnotation",
           (node, name, number) =>
             shouldHugArguments(node) &&
-            (name === "params" || name === "parameters") &&
+            (name === "params" ||
+              name === "parameters" ||
+              name === "this" ||
+              name === "rest") &&
             number === 0
         )
       ) {
@@ -2997,8 +3004,7 @@ function printPathNoParens(path, options, print, args) {
       // Because, otherwise formatted result will be invalid as tsx.
       const grandParent = path.getNode(2);
       if (
-        parent.params &&
-        parent.params.length === 1 &&
+        getFunctionParameters(parent).length === 1 &&
         isTSXFile(options) &&
         !n.constraint &&
         grandParent.type === "ArrowFunctionExpression"
@@ -4061,15 +4067,15 @@ function shouldPrintParamsWithoutParens(path, options) {
 }
 
 function canPrintParamsWithoutParens(node) {
+  const parameters = getFunctionParameters(node);
   return (
-    node.params.length === 1 &&
-    !node.rest &&
+    parameters.length === 1 &&
     !node.typeParameters &&
     !hasDanglingComments(node) &&
-    node.params[0].type === "Identifier" &&
-    !node.params[0].typeAnnotation &&
-    !node.params[0].comments &&
-    !node.params[0].optional &&
+    parameters[0].type === "Identifier" &&
+    !parameters[0].typeAnnotation &&
+    !parameters[0].comments &&
+    !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
   );
@@ -5170,17 +5176,14 @@ function shouldHugType(node) {
 }
 
 function shouldHugArguments(fun) {
-  if (!fun || fun.rest) {
+  if (!fun) {
     return false;
   }
-  let params = fun.params || fun.parameters || [];
-  if (fun.this) {
-    params = [fun.this, ...params];
-  }
-  if (params.length !== 1) {
+  const parameters = getFunctionParameters(fun);
+  if (parameters.length !== 1) {
     return false;
   }
-  const param = params[0];
+  const param = parameters[0];
   return (
     !param.comments &&
     (param.type === "ObjectPattern" ||
