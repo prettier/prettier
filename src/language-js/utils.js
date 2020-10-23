@@ -9,7 +9,6 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const handleComments = require("./comments");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -160,6 +159,10 @@ const exportDeclarationTypes = new Set([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ]);
+
+function isBlockComment(comment) {
+  return comment.type === "Block" || comment.type === "CommentBlock";
+}
 
 /**
  * @param {Node} node
@@ -543,7 +546,7 @@ function hasTrailingLineComment(node) {
   return (
     node.comments &&
     node.comments.some(
-      (comment) => comment.trailing && !handleComments.isBlockComment(comment)
+      (comment) => comment.trailing && !isBlockComment(comment)
     )
   );
 }
@@ -1041,9 +1044,7 @@ function needsHardlineAfterDanglingComment(node) {
   const lastDanglingComment = getLast(
     node.comments.filter((comment) => !comment.leading && !comment.trailing)
   );
-  return (
-    lastDanglingComment && !handleComments.isBlockComment(lastDanglingComment)
-  );
+  return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
 
 // Logic to check for args with multiple anonymous functions. For instance,
@@ -1406,7 +1407,7 @@ function hasRestParameter(node) {
     return true;
   }
   const parameters = getFunctionParameters(node);
-  return parameters.length > 0 && getLast(parameters).type === "RestElement"
+  return parameters.length > 0 && getLast(parameters).type === "RestElement";
 }
 
 function mapFunctionParametersPath(path, iteratee) {
@@ -1456,6 +1457,7 @@ module.exports = {
   hasTrailingLineComment,
   identity,
   isBinaryish,
+  isBlockComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,
