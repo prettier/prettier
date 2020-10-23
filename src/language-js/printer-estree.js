@@ -59,7 +59,7 @@ const {
   classPropMayCauseASIProblems,
   getFlowVariance,
   getFunctionParameters,
-  mapFunctionParametersPath,
+  iterateFunctionParametersPath,
   hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -3915,17 +3915,15 @@ function printFunctionParameters(
   const parameters = getFunctionParameters(functionNode);
   const shouldExpandParameters =
     expandArg && !parameters.some((node) => node.comments);
-  const printedParameters = mapFunctionParametersPath(path, print);
   const parametersLength = parameters.length;
   const printed = [];
-
-  for (let index = 0; index < parametersLength; index++) {
+  iterateFunctionParametersPath(path, (parameterPath, index) => {
     if (index === parametersLength - 1 && functionNode.rest) {
       printed.push("...");
     }
-    printed.push(printedParameters[index]);
+    printed.push(parameterPath.call(print));
     if (index === parametersLength - 1) {
-      continue;
+      return;
     }
     printed.push(",");
     if (
@@ -3941,7 +3939,7 @@ function printFunctionParameters(
     } else {
       printed.push(line);
     }
-  }
+  });
 
   if (parameters.length === 0) {
     return concat([
@@ -4028,7 +4026,9 @@ function printFunctionParameters(
     "(",
     indent(concat([softline, concat(printed)])),
     ifBreak(
-      !hasRestParameter(functionNode) && shouldPrintComma(options, "all") ? "," : ""
+      !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
+        ? ","
+        : ""
     ),
     softline,
     ")",

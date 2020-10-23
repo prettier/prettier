@@ -1380,6 +1380,14 @@ function isBitwiseOperator(operator) {
   );
 }
 
+function hasRestParameter(node) {
+  if (node.rest) {
+    return true;
+  }
+  const parameters = getFunctionParameters(node);
+  return parameters.length > 0 && getLast(parameters).type === "RestElement";
+}
+
 const functionParametersCache = new WeakMap();
 function getFunctionParameters(node) {
   if (functionParametersCache.has(node)) {
@@ -1402,21 +1410,10 @@ function getFunctionParameters(node) {
   return parameters;
 }
 
-function hasRestParameter(node) {
-  if (node.rest) {
-    return true;
-  }
-  const parameters = getFunctionParameters(node);
-  return parameters.length > 0 && getLast(parameters).type === "RestElement";
-}
-
-function mapFunctionParametersPath(path, iteratee) {
-  const result = [];
+function iterateFunctionParametersPath(path, iteratee) {
   const node = path.getValue();
-  let index = -1;
-  const callback = (childPath) => {
-    result[++index] = iteratee(childPath, index);
-  };
+  let index = 0;
+  const callback = (childPath) => iteratee(childPath, index++);
   if (node.this) {
     path.call(callback, "this");
   }
@@ -1429,7 +1426,6 @@ function mapFunctionParametersPath(path, iteratee) {
   if (node.rest) {
     path.call(callback, "rest");
   }
-  return result;
 }
 
 module.exports = {
@@ -1437,7 +1433,7 @@ module.exports = {
   classPropMayCauseASIProblems,
   getFlowVariance,
   getFunctionParameters,
-  mapFunctionParametersPath,
+  iterateFunctionParametersPath,
   hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
