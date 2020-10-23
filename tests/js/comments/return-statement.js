@@ -37,6 +37,13 @@ function binaryInBinaryLeft() {
   ) * 84 + 2
 }
 
+function binaryInBinaryLeftDivision() {
+  return (
+    // Reason for 42
+    42
+  ) / 84 + 2
+}
+
 function binaryInBinaryRight() {
   return (
     // Reason for 42

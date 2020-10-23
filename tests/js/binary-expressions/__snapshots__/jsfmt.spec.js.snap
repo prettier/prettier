@@ -770,8 +770,8 @@ x & y >> z;
 x << y | z;
 
 =====================================output=====================================
-x + y / z;
-x / y + z;
+x + (y / z);
+(x / y) + z;
 
 (x * y) % z;
 (x / y) % z;
@@ -936,7 +936,7 @@ const x2 =
   longVariable;
 const x3 =
   longVariable +
-  (longVariable * longVariable * longVariable) / longVariable +
+  ((longVariable * longVariable * longVariable) / longVariable) +
   longVariable;
 
 const x4 =

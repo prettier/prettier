@@ -191,7 +191,7 @@ printWidth: 80
             var dy = this.c.y - 160;
             var dampen = dy > 0 ? 2 : 4;
             return {
-              transform: "translate3d(0," + dy / dampen + "px,0)",
+              transform: "translate3d(0," + (dy / dampen) + "px,0)",
             };
           },
         },
@@ -209,7 +209,7 @@ printWidth: 80
               // dampen vertical drag by a factor
               var dy = e.pageY - this.start.y;
               var dampen = dy > 0 ? 1.5 : 4;
-              this.c.y = 160 + dy / dampen;
+              this.c.y = 160 + (dy / dampen);
             }
           },
           stopDrag: function () {
