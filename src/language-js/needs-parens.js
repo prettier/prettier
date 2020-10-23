@@ -527,7 +527,13 @@ function needsParens(path, options) {
         (grandParent.init === parent || grandParent.update === parent)
       ) {
         return false;
-      } else if (parent.type === "Property" && parent.value === node) {
+      } else if (
+        parent.type === "Property" &&
+        parent.value === node &&
+        grandParent &&
+        grandParent.type === "ObjectPattern" &&
+        grandParent.properties.includes(parent)
+      ) {
         return false;
       } else if (parent.type === "NGChainedExpression") {
         return false;
