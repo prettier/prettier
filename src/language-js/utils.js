@@ -1401,11 +1401,19 @@ function getFunctionParameters(node) {
   return parameters;
 }
 
+function iterateFunctionParametersPath(path, iteratee) {
+  path.call(iteratee, "this");
+  path.each(iteratee, "parameters");
+  path.each(iteratee, "params");
+  path.call(iteratee, "rest");
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   getFlowVariance,
   getFunctionParameters,
+  iterateFunctionParametersPath,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,

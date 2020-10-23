@@ -59,6 +59,7 @@ const {
   classPropMayCauseASIProblems,
   getFlowVariance,
   getFunctionParameters,
+  iterateFunctionParametersPath,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -3903,7 +3904,6 @@ function printFunctionParameters(
 ) {
   const fun = path.getValue();
   const parent = path.getParentNode();
-  const paramsField = fun.parameters ? "parameters" : "params";
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugArguments(fun);
 
@@ -3911,49 +3911,32 @@ function printFunctionParameters(
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  const printedParameters = [];
-  if (fun.this) {
-    printedParameters.push({ node: fun.this, doc: path.call(print, "this") });
-  }
-
-  if (fun[paramsField]) {
-    path.each((childPath) => {
-      printedParameters.push({
-        node: childPath.getValue(),
-        doc: print(childPath),
-      });
-    }, paramsField);
-  }
+  const parameters = getFunctionParameters(fun);
+  const printedParameters = iterateFunctionParametersPath(path, print);
 
   const shouldExpandParameters =
-    expandArg && !printedParameters.some(({ node }) => node.comments);
+    expandArg && !parameters.some((node) => node.comments);
 
+  const parametersLength = parameters.length;
   const printed = [];
-  const lastArgIndex = printedParameters.length - 1;
-  for (const [index, { node, doc }] of printedParameters.entries()) {
-    printed.push(doc);
-    if (index === lastArgIndex) {
-      if (fun.rest) {
-        printed.push(",", line);
-      }
-    } else if (
+  for (let index = 0; index < parametersLength; index++) {
+    print.push(printedParameters[index]);
+    if (
       isParametersInTestCall ||
       shouldHugParameters ||
       shouldExpandParameters
     ) {
       printed.push(", ");
-    } else if (isNextLineEmpty(options.originalText, node, options.locEnd)) {
+    } else if (
+      isNextLineEmpty(options.originalText, parameters[index], options.locEnd)
+    ) {
       printed.push(",", hardline, hardline);
     } else {
       printed.push(",", line);
     }
   }
 
-  if (fun.rest) {
-    printed.push(concat(["...", path.call(print, "rest")]));
-  }
-
-  if (printed.length === 0) {
+  if (parameters.length === 0) {
     return concat([
       typeParams,
       "(",
@@ -4000,9 +3983,7 @@ function printFunctionParameters(
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = printedParameters.every(
-    ({ node }) => !node.decorators
-  );
+  const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
     return concat([typeParams, "(", concat(printed), ")"]);
   }
@@ -4021,11 +4002,11 @@ function printFunctionParameters(
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
         parent.returnType === fun)) &&
-    printedParameters.length === 1 &&
-    printedParameters[0].node.name === null &&
-    printedParameters[0].node.typeAnnotation &&
+    parameters.length === 1 &&
+    parameters[0].name === null &&
+    parameters[0].typeAnnotation &&
     fun.typeParameters === null &&
-    isSimpleFlowType(printedParameters[0].node.typeAnnotation) &&
+    isSimpleFlowType(parameters[0].typeAnnotation) &&
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
@@ -4035,9 +4016,8 @@ function printFunctionParameters(
     return concat(printed);
   }
 
-  const lastParam = getLast(printedParameters);
-  const canHaveTrailingComma =
-    !(lastParam && lastParam.node.type === "RestElement") && !fun.rest;
+  const lastParam = getLast(parameters);
+  const canHaveTrailingComma = lastParam && lastParam.type === "RestElement";
 
   return concat([
     typeParams,
