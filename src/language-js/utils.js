@@ -1401,6 +1401,14 @@ function getFunctionParameters(node) {
   return parameters;
 }
 
+function functionHasRestElement(node) {
+  if (node.rest) {
+    return true;
+  }
+  const parameters = getFunctionParameters(node);
+  return parameters.length > 0 && getLast(parameters).type === "RestElement"
+}
+
 function mapFunctionParametersPath(path, iteratee) {
   const result = [];
   const node = path.getValue();
@@ -1429,6 +1437,7 @@ module.exports = {
   getFlowVariance,
   getFunctionParameters,
   mapFunctionParametersPath,
+  functionHasRestElement,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,

@@ -60,6 +60,7 @@ const {
   getFlowVariance,
   getFunctionParameters,
   mapFunctionParametersPath,
+  functionHasRestElement,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -4022,15 +4023,12 @@ function printFunctionParameters(
     return concat(printed);
   }
 
-  const lastParam = getLast(parameters);
-  const canHaveTrailingComma =
-    !(lastParam && lastParam.type === "RestElement") && !fun.rest;
   return concat([
     typeParams,
     "(",
     indent(concat([softline, concat(printed)])),
     ifBreak(
-      canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
+      !functionHasRestElement(fun) && shouldPrintComma(options, "all") ? "," : ""
     ),
     softline,
     ")",
