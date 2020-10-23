@@ -2607,11 +2607,15 @@ function printPathNoParens(path, options, print, args) {
     case "TSOptionalType":
       return concat([path.call(print, "typeAnnotation"), "?"]);
     case "FunctionTypeParam": {
-      const parent = path.getParentNode(0);
+      const name = n.name
+        ? path.call(print, "name")
+        : path.getParentNode().this === n
+        ? "this"
+        : "";
       return concat([
-        n.name ? path.call(print, "name") : parent.this === n ? "this: " : "",
+        name,
         printOptionalToken(path),
-        n.name ? ": " : "",
+        name ? ": " : "",
         path.call(print, "typeAnnotation"),
       ]);
     }
@@ -2740,7 +2744,6 @@ function printPathNoParens(path, options, print, args) {
       // | C
 
       const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
 
       // If there's a leading comment, the parent is doing the indentation
       const shouldIndent =
@@ -2754,7 +2757,7 @@ function printPathNoParens(path, options, print, args) {
         !(
           parent.type === "FunctionTypeParam" &&
           !parent.name &&
-          parentParent.this !== parent
+          path.getParentNode(1).this !== parent
         ) &&
         !(
           (parent.type === "TypeAlias" ||
@@ -3885,23 +3888,21 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  let parts = [];
+  const parameters = [];
   if (fun.this) {
-    parts = [{ value: fun.this, param: path.call(print, "this") }];
+    parameters.push({ node: fun.this, doc: path.call(print, "this") });
   }
 
   if (fun[paramsField]) {
-    parts = parts.concat(
-      path.map((childPath) => {
-        return { value: childPath.getValue(), param: print(childPath) };
-      }, paramsField)
-    );
+    path.each((childPath) => {
+      parameters.push({ node: childPath.getValue(), doc: print(childPath) });
+    }, paramsField);
   }
 
   const printed = [];
-  const lastArgIndex = parts.length - 1;
-  parts.forEach(({ value, param }, index) => {
-    printed.push(param);
+  const lastArgIndex = parameters.length - 1;
+  for (const [index, { node, doc }] of parameters.entries()) {
+    printed.push(doc);
     if (index === lastArgIndex) {
       if (fun.rest) {
         printed.push(",", line);
@@ -3912,12 +3913,12 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       shouldExpandParameters
     ) {
       printed.push(", ");
-    } else if (isNextLineEmpty(options.originalText, value, options.locEnd)) {
+    } else if (isNextLineEmpty(options.originalText, node, options.locEnd)) {
       printed.push(",", hardline, hardline);
     } else {
       printed.push(",", line);
     }
-  });
+  }
 
   if (fun.rest) {
     printed.push(concat(["...", path.call(print, "rest")]));
