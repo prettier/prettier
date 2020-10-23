@@ -894,10 +894,15 @@ function printPathNoParens(path, options, print, args) {
     case "Import":
       return "import";
     case "TSModuleBlock":
-    case "BlockStatement": {
+    case "BlockStatement":
+    case "StaticBlock": {
       const naked = path.call((bodyPath) => {
         return printStatementSequence(bodyPath, options, print);
       }, "body");
+
+      if (n.type === "StaticBlock") {
+        parts.push("static ");
+      }
 
       const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
       const hasDirectives = n.directives && n.directives.length > 0;
@@ -920,9 +925,10 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "DoExpression" ||
           (parent.type === "CatchClause" && !parentParent.finalizer) ||
           parent.type === "TSModuleDeclaration" ||
-          parent.type === "TSDeclareFunction")
+          parent.type === "TSDeclareFunction" ||
+          n.type === "StaticBlock")
       ) {
-        return "{}";
+        return concat([...parts, "{}"]);
       }
 
       parts.push("{");
