@@ -100,7 +100,7 @@ async function preparePackage() {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
-  pkg.files = ["*.js"];
+  pkg.files = ["*.js", "esm/*.mjs"];
   await util.writeJson("dist/package.json", pkg);
 
   await util.copyFile("./README.md", "./dist/README.md");
