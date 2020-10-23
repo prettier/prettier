@@ -256,6 +256,9 @@ function getWebpackConfig(bundle) {
       // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
       // Ignore `exports` field to fix bundle script
       exportsFields: [],
+      fallback: {
+        util: false,
+      },
       alias: {
         fs: path.join(__dirname, "shims/fs.mjs"),
         path: path.join(__dirname, "shims/path.mjs"),
