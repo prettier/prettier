@@ -12,8 +12,8 @@
     "codemirror-graphql": "0.12.3",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
-    "react": "16.14.0",
-    "react-dom": "16.14.0"
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@babel/preset-react": "7.12.1",
