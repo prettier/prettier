@@ -3904,15 +3904,33 @@ function printFunctionParameters(
   printTypeParams
 ) {
   const functionNode = path.getValue();
-  const parent = path.getParentNode();
-  const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugArguments(functionNode);
-
+  const parameters = getFunctionParameters(functionNode);
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  const parameters = getFunctionParameters(functionNode);
+  if (parameters.length === 0) {
+    return concat([
+      typeParams,
+      "(",
+      comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        (comment) =>
+          getNextNonSpaceNonCommentCharacter(
+            options.originalText,
+            comment,
+            options.locEnd
+          ) === ")"
+      ),
+      ")",
+    ]);
+  }
+
+  const parent = path.getParentNode();
+  const isParametersInTestCall = isTestCall(parent);
+  const shouldHugParameters = shouldHugArguments(functionNode);
   const shouldExpandParameters =
     expandArg && !parameters.some((node) => node.comments);
   const printed = [];
@@ -3940,25 +3958,6 @@ function printFunctionParameters(
       printed.push(line);
     }
   });
-
-  if (parameters.length === 0) {
-    return concat([
-      typeParams,
-      "(",
-      comments.printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            comment,
-            options.locEnd
-          ) === ")"
-      ),
-      ")",
-    ]);
-  }
 
   // If the parent is a call with the first/last argument expansion and this is the
   // params of the first/last argument, we don't want the arguments to break and instead
