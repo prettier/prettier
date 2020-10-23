@@ -367,6 +367,50 @@ console.log(Bork.staticFunction()); // > "babelIsCool"
 ================================================================================
 `;
 
+exports[`class-static-block.js [espree] format 1`] = `
+"Unexpected character '#' (2:10)
+  1 | class C {
+> 2 |   static #x = 42;
+    |          ^
+  3 |   static y;
+  4 |   static {
+  5 |     try {"
+`;
+
+exports[`class-static-block.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+
+=====================================output=====================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+
+================================================================================
+`;
+
 exports[`decimal.js [espree] format 1`] = `
 "Identifier directly after number (3:4)
   1 | // https://github.com/babel/babel/pull/11640
