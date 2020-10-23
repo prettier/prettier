@@ -3915,14 +3915,14 @@ function printFunctionParameters(
   const parameters = getFunctionParameters(functionNode);
   const shouldExpandParameters =
     expandArg && !parameters.some((node) => node.comments);
-  const parametersLength = parameters.length;
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
-    if (index === parametersLength - 1 && functionNode.rest) {
+    const isLastParameter = index === parameters.length - 1;
+    if (isLastParameter && functionNode.rest) {
       printed.push("...");
     }
     printed.push(parameterPath.call(print));
-    if (index === parametersLength - 1) {
+    if (isLastParameter) {
       return;
     }
     printed.push(",");
