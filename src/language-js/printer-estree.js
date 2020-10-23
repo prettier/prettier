@@ -3885,23 +3885,26 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  const parameters = [];
+  const printedParameters = [];
   if (fun.this) {
-    parameters.push({ node: fun.this, doc: path.call(print, "this") });
+    printedParameters.push({ node: fun.this, doc: path.call(print, "this") });
   }
 
   if (fun[paramsField]) {
     path.each((childPath) => {
-      parameters.push({ node: childPath.getValue(), doc: print(childPath) });
+      printedParameters.push({
+        node: childPath.getValue(),
+        doc: print(childPath),
+      });
     }, paramsField);
   }
 
   const shouldExpandParameters =
-    expandArg && !parameters.some(({ node }) => node.comments);
+    expandArg && !printedParameters.some(({ node }) => node.comments);
 
   const printed = [];
-  const lastArgIndex = parameters.length - 1;
-  for (const [index, { node, doc }] of parameters.entries()) {
+  const lastArgIndex = printedParameters.length - 1;
+  for (const [index, { node, doc }] of printedParameters.entries()) {
     printed.push(doc);
     if (index === lastArgIndex) {
       if (fun.rest) {
@@ -3971,7 +3974,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = parameters.every(
+  const hasNotParameterDecorator = printedParameters.every(
     ({ node }) => !node.decorators
   );
   if (shouldHugParameters && hasNotParameterDecorator) {
@@ -3992,11 +3995,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
         parent.returnType === fun)) &&
-    parameters.length === 1 &&
-    parameters[0].node.name === null &&
-    parameters[0].node.typeAnnotation &&
+    printedParameters.length === 1 &&
+    printedParameters[0].node.name === null &&
+    printedParameters[0].node.typeAnnotation &&
     fun.typeParameters === null &&
-    isSimpleFlowType(parameters[0].node.typeAnnotation) &&
+    isSimpleFlowType(printedParameters[0].node.typeAnnotation) &&
     !fun.rest;
 
   if (isFlowShorthandWithOneArg) {
@@ -4006,7 +4009,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     return concat(printed);
   }
 
-  const lastParam = getLast(parameters);
+  const lastParam = getLast(printedParameters);
   const canHaveTrailingComma =
     !(lastParam && lastParam.node.type === "RestElement") && !fun.rest;
 
