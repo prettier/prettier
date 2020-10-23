@@ -1402,10 +1402,19 @@ function getFunctionParameters(node) {
 }
 
 function iterateFunctionParametersPath(path, iteratee) {
-  path.call(iteratee, "this");
-  path.each(iteratee, "parameters");
-  path.each(iteratee, "params");
-  path.call(iteratee, "rest");
+  const node = path.getValue();
+  if (node.this) {
+    path.call(iteratee, "this");
+  }
+  if (Array.isArray(node.parameters)) {
+    path.each(iteratee, "parameters");
+  }
+  if (Array.isArray(node.params)) {
+    path.each(iteratee, "params");
+  }
+  if (node.rest) {
+    path.call(iteratee, "rest");
+  }
 }
 
 module.exports = {
