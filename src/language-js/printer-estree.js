@@ -659,7 +659,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(
           group(
             concat([
-              printFunctionParams(
+              printFunctionParameters(
                 path,
                 print,
                 options,
@@ -2583,7 +2583,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       parts.push(
-        printFunctionParams(
+        printFunctionParameters(
           path,
           print,
           options,
@@ -3201,7 +3201,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(
         group(
-          printFunctionParams(
+          printFunctionParameters(
             path,
             print,
             options,
@@ -3268,7 +3268,7 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "key"),
         n.computed ? "]" : "",
         printOptionalToken(path),
-        printFunctionParams(
+        printFunctionParameters(
           path,
           print,
           options,
@@ -3754,7 +3754,7 @@ function printMethodInternal(path, options, print) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        printFunctionParams(path, print, options),
+        printFunctionParameters(path, print, options),
         printReturnType(path, print, options),
       ])
     ),
@@ -3888,7 +3888,13 @@ function printTypeAnnotation(path, options, print) {
   ]);
 }
 
-function printFunctionParams(path, print, options, expandArg, printTypeParams) {
+function printFunctionParameters(
+  path,
+  print,
+  options,
+  expandArg,
+  printTypeParams
+) {
   const fun = path.getValue();
   const parent = path.getParentNode();
   const paramsField = fun.parameters ? "parameters" : "params";
@@ -4091,7 +4097,7 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        printFunctionParams(path, print, options),
+        printFunctionParameters(path, print, options),
         printReturnType(path, print, options),
       ])
     ),
