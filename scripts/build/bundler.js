@@ -56,14 +56,26 @@ const entries = [
   },
 ];
 
-const webpackNativeShims = (modules) => {
-  const shims = {};
-  for (const module of modules) {
-    const file = path.join(__dirname, `shims/${module}.mjs`);
-    shims[module] = fs.existsSync(file) ? file : false;
+function webpackNativeShims(config, modules) {
+  if (!config.resolve) {
+    config.resolve = {};
   }
-  return shims;
-};
+  const { resolve } = config;
+  resolve.alias = resolve.alias || {};
+  resolve.fallback = resolve.fallback || {};
+  for (const module of modules) {
+    if (module in resolve.alias || module in resolve.fallback) {
+      throw new Error(`fallback/alias for "${module}" already exists.`);
+    }
+    const file = path.join(__dirname, `shims/${module}.mjs`);
+    if (fs.existsSync(file)) {
+      resolve.alias[module] = file;
+    } else {
+      resolve.fallback[module] = false;
+    }
+  }
+  return config;
+}
 
 function getBabelConfig(bundle) {
   const config = {
@@ -256,28 +268,28 @@ function getWebpackConfig(bundle) {
     output: {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
-      library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd",
+      library: {
+        type: "umd",
+        name: ["prettierPlugins", bundle.name],
+      },
       // https://github.com/webpack/webpack/issues/6642
       globalObject: 'new Function("return this")()',
     },
+    optimization: {},
     resolve: {
       // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
       // Ignore `exports` field to fix bundle script
       exportsFields: [],
-      fallback: webpackNativeShims(["os", "path", "util", "url"]),
     },
   };
 
   if (bundle.terserOptions) {
     const TerserPlugin = require("terser-webpack-plugin");
-
-    config.optimization = {
-      minimizer: [new TerserPlugin(bundle.terserOptions)],
-    };
+    config.optimization.minimizer = [new TerserPlugin(bundle.terserOptions)];
   }
+  // config.optimization.minimize = false;
 
-  return config;
+  return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
 }
 
 function runWebpack(config) {

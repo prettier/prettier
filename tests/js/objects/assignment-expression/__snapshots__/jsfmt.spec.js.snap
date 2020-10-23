@@ -1,31 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assertions.js format 1`] = `
+exports[`object-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import("./foo.json", { assert: { type: "json" } });
+a = {
+  [this.resource = resource]: 1,
+}
 
 =====================================output=====================================
-import("./foo.json", { assert: { type: "json" } });
+a = {
+  [(this.resource = resource)]: 1,
+};
 
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`object-value.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import("module.js");
-import("module.js").then((a) => a);
+a = {
+  resource: (this.resource = resource),
+}
+
+map(([resource]) => ({
+  resource: (this.resource = resource),
+}))
 
 =====================================output=====================================
-import("module.js");
-import("module.js").then((a) => a);
+a = {
+  resource: (this.resource = resource),
+};
+
+map(([resource]) => ({
+  resource: (this.resource = resource),
+}));
 
 ================================================================================
 `;
