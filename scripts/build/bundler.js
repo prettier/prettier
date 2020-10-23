@@ -56,15 +56,6 @@ const entries = [
   },
 ];
 
-const webpackNativeShims = (modules) => {
-  const shims = {};
-  for (const module of modules) {
-    const file = path.join(__dirname, `shims/${module}.mjs`);
-    shims[module] = fs.existsSync(file) ? file : false;
-  }
-  return shims;
-};
-
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
@@ -265,9 +256,11 @@ function getWebpackConfig(bundle) {
       // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
       // Ignore `exports` field to fix bundle script
       exportsFields: [],
-      //fallback: webpackNativeShims(["os", "path", "util", "url", "fs"]),
+      alias: {
+        fs: path.join(__dirname, "shims/fs.mjs"),
+        path: path.join(__dirname, "shims/path.mjs"),
+      },
     },
-    node:{fs:true,os:true,path:true,util:true,url:true,}
   };
 
   // if (bundle.terserOptions) {
