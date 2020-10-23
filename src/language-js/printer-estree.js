@@ -60,7 +60,7 @@ const {
   getFlowVariance,
   getFunctionParameters,
   mapFunctionParametersPath,
-  functionHasRestElement,
+  hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -4028,7 +4028,7 @@ function printFunctionParameters(
     "(",
     indent(concat([softline, concat(printed)])),
     ifBreak(
-      !functionHasRestElement(fun) && shouldPrintComma(options, "all") ? "," : ""
+      !hasRestParameter(fun) && shouldPrintComma(options, "all") ? "," : ""
     ),
     softline,
     ")",

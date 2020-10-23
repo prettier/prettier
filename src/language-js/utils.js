@@ -1401,7 +1401,7 @@ function getFunctionParameters(node) {
   return parameters;
 }
 
-function functionHasRestElement(node) {
+function hasRestParameter(node) {
   if (node.rest) {
     return true;
   }
@@ -1437,7 +1437,7 @@ module.exports = {
   getFlowVariance,
   getFunctionParameters,
   mapFunctionParametersPath,
-  functionHasRestElement,
+  hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
