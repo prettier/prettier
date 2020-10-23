@@ -8,6 +8,7 @@ const {
 } = require("../../common/util");
 const {
   getFunctionParameters,
+  iterateFunctionParametersPath,
   hasLeadingComment,
   hasTrailingComment,
   isFunctionCompositionArgs,
@@ -81,10 +82,13 @@ function printCallArguments(path, options, print) {
     }
 
     let shouldBreak = false;
-    argPath.each((paramPath) => {
-      const printed = concat([print(paramPath)]);
-      shouldBreak = shouldBreak || willBreak(printed);
-    }, "params");
+    iterateFunctionParametersPath(argPath, (paramterPath) => {
+      if (shouldBreak) {
+        return;
+      }
+      const printed = concat([print(paramterPath)]);
+      shouldBreak = willBreak(printed);
+    });
 
     return shouldBreak;
   }
