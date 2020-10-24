@@ -44,6 +44,63 @@ const { configureStore } = process.env.NODE_ENV === "production"
   ? require("./configureProdStore") // a
   : require("./configureDevStore"); // b
 
+test
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+test ?
+  // comment
+  foo
+  : bar;
+
+test ?
+  // comment
+  first
+  : test
+  // comment
+  ? first
+  : second;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
+test ?
+  /* comment
+     comment
+     comment
+     comment */
+  foo
+  : bar;
+
+test
+  // ?
+  // comment
+  ? foo
+  : test2
+  // comment
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : test
+  /* comment
+     comment
+     comment */
+  ? foo
+  : bar;
 test /* comment
   comment
       comment
@@ -111,6 +168,26 @@ test
 test ? test /* c
 c */? foo : bar : bar;
 
+(async () => {
+  (await test)
+  // comment
+  ?
+  foo :  bar;
+});
+
+(test)
+// comment
+?
+foo : bar;
+
+(test) ?
+// comment
+foo :  bar;
+
+test ?
+// comment
+foo :  bar;
+
 =====================================output=====================================
 var inspect =
   4 === util.inspect.length
@@ -135,8 +212,8 @@ var inspect =
       };
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
-  ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split("/").length).join("../") }
+  // Making sure that the publicPath goes back to to build folder.
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const extractTextPluginOptions2 = shouldUseRelativeAssetPaths
@@ -153,6 +230,63 @@ const { configureStore } =
     ? require("./configureProdStore") // a
     : require("./configureDevStore"); // b
 
+test
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+test
+  ? // comment
+    foo
+  : bar;
+
+test
+  ? // comment
+    first
+  : test
+  // comment
+  ? first
+  : second;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
+test
+  ? /* comment
+     comment
+     comment
+     comment */
+    foo
+  : bar;
+
+test
+  // ?
+  // comment
+  ? foo
+  : test2
+  // comment
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : test
+  /* comment
+     comment
+     comment */
+  ? foo
+  : bar;
 test /* comment
   comment
       comment
@@ -216,6 +350,28 @@ test
 c */
     ? foo
     : bar
+  : bar;
+
+async () => {
+  (await test)
+    // comment
+    ? foo
+    : bar;
+};
+
+test
+  // comment
+  ? foo
+  : bar;
+
+test
+  ? // comment
+    foo
+  : bar;
+
+test
+  ? // comment
+    foo
   : bar;
 
 ================================================================================

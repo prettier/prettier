@@ -11,6 +11,7 @@ const {
   indent,
   lineSuffix,
   join,
+  dedent,
   cursor,
 } = require("../document").builders;
 
@@ -434,9 +435,25 @@ function printTrailingComment(commentPath, options) {
       locStart
     );
 
-    return lineSuffix(
+    const printed = lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
+
+    if (
+      options.printer.shouldIndentComment &&
+      options.printer.shouldIndentComment(commentPath)
+    ) {
+      return indent(printed);
+    }
+
+    if (
+      options.printer.shouldDedentComment &&
+      options.printer.shouldDedentComment(commentPath)
+    ) {
+      return dedent(printed);
+    }
+
+    return printed;
   }
 
   let printed = concat([" ", contents]);

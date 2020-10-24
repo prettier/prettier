@@ -72,7 +72,14 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       comment,
       options
     ) ||
-    handleLabeledStatementComments(enclosingNode, comment)
+    handleLabeledStatementComments(enclosingNode, comment) ||
+    handleTernaryTrailingComments(
+      enclosingNode,
+      precedingNode,
+      comment,
+      text,
+      options
+    )
   );
 }
 
@@ -416,9 +423,7 @@ function handleConditionalExpressionComments(
 
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
-    enclosingNode &&
-    (enclosingNode.type === "ConditionalExpression" ||
-      enclosingNode.type === "TSConditionalType") &&
+    isTernaryExpression(enclosingNode) &&
     followingNode
   ) {
     addLeadingComment(followingNode, comment);
@@ -937,6 +942,46 @@ function handleTSMappedTypeComments(
   return false;
 }
 
+function hasQuestionBetweenTestAndComment(testNode, comment, text, options) {
+  const testNodeLocEnd = options.locEnd(testNode);
+  const commentLocStart = options.locStart(comment);
+  for (let i = testNodeLocEnd; i < commentLocStart; i++) {
+    i = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+      text,
+      i
+    );
+    if (text[i] === "?") {
+      return i < commentLocStart;
+    }
+  }
+  return false;
+}
+
+function handleTernaryTrailingComments(
+  enclosingNode,
+  precedingNode,
+  comment,
+  text,
+  options
+) {
+  // test
+  //   // comment
+  //   ? first
+  //   : second
+  if (
+    isTernaryTest(precedingNode, enclosingNode) &&
+    // test ?
+    //   // comment
+    //   first
+    //   : second
+    !hasQuestionBetweenTestAndComment(precedingNode, comment, text, options)
+  ) {
+    addTrailingComment(precedingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function isBlockComment(comment) {
   return comment.type === "Block" || comment.type === "CommentBlock";
 }
@@ -1009,6 +1054,20 @@ function getCommentChildNodes(node, options) {
   }
 }
 
+function shouldIndentComment(path) {
+  return (
+    isCommentParentTernaryTest(path) &&
+    !isTernaryExpression(path.getParentNode(2))
+  );
+}
+
+function shouldDedentComment(path) {
+  return (
+    isCommentParentTernaryTest(path) &&
+    isTernaryExpression(path.getParentNode(2))
+  );
+}
+
 function isTypeCastComment(comment) {
   return (
     isBlockComment(comment) &&
@@ -1017,6 +1076,31 @@ function isTypeCastComment(comment) {
     // Closure Compiler accepts types in parens and even without any delimiters at all.
     // That's why we just search for "@type".
     /@type\b/.test(comment.value)
+  );
+}
+
+function isTernaryExpression(node) {
+  return (
+    node &&
+    (node.type === "ConditionalExpression" || node.type === "TSConditionalType")
+  );
+}
+
+/**
+ * Check if node matches the ternary test node
+ */
+function isTernaryTest(node, ternary) {
+  if (!node || !isTernaryExpression(ternary)) {
+    return false;
+  }
+  const testField = ternary.test ? "test" : "extendsType";
+  return node === ternary[testField];
+}
+
+function isCommentParentTernaryTest(commentPath) {
+  return isTernaryTest(
+    commentPath.getParentNode(),
+    commentPath.getParentNode(1)
   );
 }
 
@@ -1029,4 +1113,6 @@ module.exports = {
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,
+  shouldIndentComment,
+  shouldDedentComment,
 };

@@ -36,6 +36,63 @@ const { configureStore } = process.env.NODE_ENV === "production"
   ? require("./configureProdStore") // a
   : require("./configureDevStore"); // b
 
+test
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+test ?
+  // comment
+  foo
+  : bar;
+
+test ?
+  // comment
+  first
+  : test
+  // comment
+  ? first
+  : second;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
+test ?
+  /* comment
+     comment
+     comment
+     comment */
+  foo
+  : bar;
+
+test
+  // ?
+  // comment
+  ? foo
+  : test2
+  // comment
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : test
+  /* comment
+     comment
+     comment */
+  ? foo
+  : bar;
 test /* comment
   comment
       comment
@@ -102,3 +159,23 @@ test
 
 test ? test /* c
 c */? foo : bar : bar;
+
+(async () => {
+  (await test)
+  // comment
+  ?
+  foo :  bar;
+});
+
+(test)
+// comment
+?
+foo : bar;
+
+(test) ?
+// comment
+foo :  bar;
+
+test ?
+// comment
+foo :  bar;
