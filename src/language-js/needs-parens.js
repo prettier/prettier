@@ -511,11 +511,7 @@ function needsParens(path, options) {
         parent.computed
       ) {
         return false;
-      } else if (
-        name === "key" &&
-        parent.type === "TSPropertySignature" &&
-        parent.name === parent.key
-      ) {
+      } else if (name === "name" && parent.type === "TSPropertySignature") {
         return false;
       } else if (
         (name === "init" || name === "update") &&
