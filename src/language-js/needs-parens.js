@@ -511,8 +511,6 @@ function needsParens(path, options) {
         parent.computed
       ) {
         return false;
-      } else if (name === "name" && parent.type === "TSPropertySignature") {
-        return false;
       } else if (
         (name === "init" || name === "update") &&
         parent.type === "ForStatement"
