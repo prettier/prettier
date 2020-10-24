@@ -82,8 +82,8 @@ function printCallArguments(path, options, print) {
     }
 
     let shouldBreak = false;
-    iterateFunctionParametersPath(argPath, (paramterPath) => {
-      shouldBreak = shouldBreak || willBreak(concat([print(paramterPath)]));
+    iterateFunctionParametersPath(argPath, (parameterPath) => {
+      shouldBreak = shouldBreak || willBreak(concat([print(parameterPath)]));
     });
 
     return shouldBreak;
