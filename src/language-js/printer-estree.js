@@ -4008,6 +4008,7 @@ function printFunctionParameters(
         parent.returnType === functionNode)) &&
     parameters.length === 1 &&
     parameters[0].name === null &&
+    // `type q = (this: string) => void;`
     functionNode.this !== parameters[0] &&
     parameters[0].typeAnnotation &&
     functionNode.typeParameters === null &&
