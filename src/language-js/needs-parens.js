@@ -208,21 +208,9 @@ function needsParens(path, options) {
         return true;
       }
 
-      const isLeftOfAForStatement = (node) => {
-        let i = 0;
-        while (node) {
-          const ancestor = path.getParentNode(i++);
-          if (!ancestor) {
-            return false;
-          }
-          if (ancestor.type === "ForStatement" && ancestor.init === node) {
-            return true;
-          }
-          node = ancestor;
-        }
-        return false;
-      };
-      if (node.operator === "in" && isLeftOfAForStatement(node)) {
+      // We add parentheses to all `a in b` inside `ForStatement` initializer
+      // https://github.com/prettier/prettier/issues/907#issuecomment-284304321
+      if (node.operator === "in" && isPathInForStatementInitializer(path)) {
         return true;
       }
       if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
@@ -795,6 +783,20 @@ function isStatement(node) {
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
   );
+}
+
+function isPathInForStatementInitializer(path) {
+  let i = 0;
+  let node = path.getValue();
+  while (node) {
+    const parent = path.getParentNode(i++);
+    if (parent && parent.type === "ForStatement" && parent.init === node) {
+      return true;
+    }
+    node = parent;
+  }
+
+  return false;
 }
 
 function includesFunctionTypeInObjectType(node) {
