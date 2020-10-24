@@ -4014,6 +4014,7 @@ function printFunctionParameters(
     functionNode.typeParameters === null &&
     isSimpleFlowType(parameters[0].typeAnnotation) &&
     !functionNode.rest;
+
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
       return concat(["(", concat(printed), ")"]);
