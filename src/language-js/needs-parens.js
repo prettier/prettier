@@ -211,18 +211,14 @@ function needsParens(path, options) {
       const isLeftOfAForStatement = (node) => {
         let i = 0;
         while (node) {
-          const parent = path.getParentNode(i++);
-          if (!parent) {
+          const ancestor = path.getParentNode(i++);
+          if (!ancestor) {
             return false;
           }
-          if (
-            parent.type === "ForStatement" &&
-            // eslint-disable-next-line prettier-internal-rules/better-parent-property-check-in-needs-parens
-            parent.init === node
-          ) {
+          if (ancestor.type === "ForStatement" && ancestor.init === node) {
             return true;
           }
-          node = parent;
+          node = ancestor;
         }
         return false;
       };
