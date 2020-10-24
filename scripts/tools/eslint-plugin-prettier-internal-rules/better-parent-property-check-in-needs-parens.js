@@ -34,6 +34,11 @@ const nameCheckSelector = [
   '[right.type="BinaryExpression"]',
   '[right.left.type="Identifier"]',
   '[right.left.name="name"]',
+  ":not(",
+  '[left.type="BinaryExpression"]',
+  '[left.left.type="Identifier"]',
+  '[left.left.name="name"]',
+  ")",
 ].join("");
 
 const MESSAGE_ID_PREFER_NAME_CHECK = "prefer-name-check";

@@ -79,8 +79,8 @@ function needsParens(path, options) {
   // Add parens around the extends clause of a class. It is needed for almost
   // all expressions.
   if (
+    name === "superClass" &&
     (parent.type === "ClassDeclaration" || parent.type === "ClassExpression") &&
-    parent.superClass === node &&
     (node.type === "ArrowFunctionExpression" ||
       node.type === "AssignmentExpression" ||
       node.type === "AwaitExpression" ||
@@ -110,7 +110,7 @@ function needsParens(path, options) {
     );
   }
 
-  if (parent.type === "Decorator" && parent.expression === node) {
+  if (name === "expression" && parent.type === "Decorator") {
     let hasCallExpression = false;
     let hasMemberExpression = false;
     let current = node;
@@ -140,8 +140,8 @@ function needsParens(path, options) {
   }
 
   if (
-    (parent.type === "ArrowFunctionExpression" &&
-      parent.body === node &&
+    (name === "body" &&
+      parent.type === "ArrowFunctionExpression" &&
       node.type !== "SequenceExpression" && // these have parens added anyway
       startsWithNoLookaheadToken(
         node,
@@ -156,7 +156,7 @@ function needsParens(path, options) {
   switch (node.type) {
     case "SpreadElement":
     case "SpreadProperty":
-      return parent.type === "MemberExpression" && name === "object";
+      return name === "object" && parent.type === "MemberExpression";
 
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
@@ -191,7 +191,7 @@ function needsParens(path, options) {
           return name === "callee";
 
         case "BinaryExpression":
-          return parent.operator === "**" && name === "left";
+          return name === "left" && parent.operator === "**";
 
         case "TSNonNullExpression":
           return true;
@@ -215,7 +215,11 @@ function needsParens(path, options) {
           if (!parent) {
             return false;
           }
-          if (parent.type === "ForStatement" && parent.init === node) {
+          if (
+            parent.type === "ForStatement" &&
+            // eslint-disable-next-line prettier-internal-rules/better-parent-property-check-in-needs-parens
+            parent.init === node
+          ) {
             return true;
           }
           node = parent;
@@ -295,7 +299,7 @@ function needsParens(path, options) {
             return true;
           }
 
-          if (parentPrecedence === precedence && name === "right") {
+          if (name === "right" && parentPrecedence === precedence) {
             assert.strictEqual(parent.right, node);
             return true;
           }
@@ -510,7 +514,7 @@ function needsParens(path, options) {
       } else if (
         name === "key" &&
         parent.type === "TSPropertySignature" &&
-        parent.name === node
+        parent.name === parent.key
       ) {
         return false;
       } else if (
