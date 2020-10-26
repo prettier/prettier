@@ -6,6 +6,7 @@ const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
   hasStringOrFunction,
+  isLessParser,
   isSCSS,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
@@ -413,7 +414,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (
-      options.parser === "less" &&
+      isLessParser(options) &&
       node.type === "css-decl" &&
       value.startsWith("extend(")
     ) {
@@ -430,7 +431,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule") {
-      if (options.parser === "less") {
+      if (isLessParser(options)) {
         // mixin
         if (node.mixin) {
           const source =
@@ -460,7 +461,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (options.parser === "less") {
+      if (isLessParser(options)) {
         // postcss-less doesn't recognize variables in some cases.
         // `@color: blue;` is recognized fine, but the cases below aren't:
 

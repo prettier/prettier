@@ -415,6 +415,11 @@ function isColorAdjusterFuncNode(node) {
   return colorAdjusterFunctions.has(node.value.toLowerCase());
 }
 
+// TODO: only check `less` when we don't use `less` to parse `css`
+function isLessParser(options) {
+  return options.parser === "css" || options.parser === "less";
+}
+
 function lastLineHasInlineComment(text) {
   return /\/\//.test(text.split(/[\n\r]/).pop());
 }
@@ -472,6 +477,7 @@ module.exports = {
   isSCSS,
   isSCSSVariable,
   isLastNode,
+  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
