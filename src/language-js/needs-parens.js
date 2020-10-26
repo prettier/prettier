@@ -208,7 +208,7 @@ function needsParens(path, options) {
         return true;
       }
 
-      // We add parentheses to all `a in b` inside `ForStatement` initializer
+      // We add parentheses to any `a in b` inside `ForStatement` initializer
       // https://github.com/prettier/prettier/issues/907#issuecomment-284304321
       if (node.operator === "in" && isPathInForStatementInitializer(path)) {
         return true;
