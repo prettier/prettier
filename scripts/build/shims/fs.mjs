@@ -1,3 +1,3 @@
 export const existsSync = () => false;
 export const readFileSync = () => "";
-export { existsSync, readFileSync};
+export default { existsSync, readFileSync};
