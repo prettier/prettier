@@ -4,6 +4,7 @@
 const assert = require("assert");
 
 const {
+  getFunctionParameters,
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
@@ -452,8 +453,7 @@ function needsParens(path, options) {
         // See #5283
         (parent.type === "FunctionTypeParam" &&
           parent.name === null &&
-          node.params &&
-          node.params.some(
+          getFunctionParameters(node).some(
             (param) =>
               param.typeAnnotation &&
               param.typeAnnotation.type === "NullableTypeAnnotation"

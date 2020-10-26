@@ -7,6 +7,8 @@ const {
   isNextLineEmpty,
 } = require("../../common/util");
 const {
+  getFunctionParameters,
+  iterateFunctionParametersPath,
   hasLeadingComment,
   hasTrailingComment,
   isFunctionCompositionArgs,
@@ -47,7 +49,7 @@ function printCallArguments(path, options, print) {
   if (
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
-    args[0].params.length === 0 &&
+    getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => arg.comments)
@@ -74,17 +76,15 @@ function printCallArguments(path, options, print) {
       arg.type !== "ArrowFunctionExpression" ||
       !arg.body ||
       arg.body.type !== "BlockStatement" ||
-      !arg.params ||
-      arg.params.length < 1
+      getFunctionParameters(arg).length === 0
     ) {
       return false;
     }
 
     let shouldBreak = false;
-    argPath.each((paramPath) => {
-      const printed = concat([print(paramPath)]);
-      shouldBreak = shouldBreak || willBreak(printed);
-    }, "params");
+    iterateFunctionParametersPath(argPath, (parameterPath) => {
+      shouldBreak = shouldBreak || willBreak(concat([print(parameterPath)]));
+    });
 
     return shouldBreak;
   }
