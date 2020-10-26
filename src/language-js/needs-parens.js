@@ -53,23 +53,6 @@ function needsParens(path, options) {
     return true;
   }
 
-  // Identifiers never need parentheses.
-  if (node.type === "Identifier") {
-    // ...unless those identifiers are embed placeholders. They might be substituted by complex
-    // expressions, so the parens around them should not be dropped. Example (JS-in-HTML-in-JS):
-    //     let tpl = html`<script> f((${expr}) / 2); </script>`;
-    // If the inner JS formatter removes the parens, the expression might change its meaning:
-    //     f((a + b) / 2)  vs  f(a + b / 2)
-    if (
-      node.extra &&
-      node.extra.parenthesized &&
-      /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(node.name)
-    ) {
-      return true;
-    }
-    return false;
-  }
-
   if (parent.type === "ParenthesizedExpression") {
     return false;
   }
@@ -152,6 +135,23 @@ function needsParens(path, options) {
   }
 
   switch (node.type) {
+    // Identifiers never need parentheses.
+    case "Identifier": {
+      // ...unless those identifiers are embed placeholders. They might be substituted by complex
+      // expressions, so the parens around them should not be dropped. Example (JS-in-HTML-in-JS):
+      //     let tpl = html`<script> f((${expr}) / 2); </script>`;
+      // If the inner JS formatter removes the parens, the expression might change its meaning:
+      //     f((a + b) / 2)  vs  f(a + b / 2)
+      if (
+        node.extra &&
+        node.extra.parenthesized &&
+        /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(node.name)
+      ) {
+        return true;
+      }
+      return false;
+    }
+
     case "SpreadElement":
     case "SpreadProperty":
       return name === "object" && parent.type === "MemberExpression";
