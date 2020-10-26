@@ -302,7 +302,6 @@ function parseNestedCSS(node, options) {
 
     // Custom properties looks like declarations
     if (
-      (options.parser === "css" || options.parser === "scss") &&
       node.type === "css-decl" &&
       typeof node.prop === "string" &&
       node.prop.startsWith("--") &&
@@ -325,7 +324,9 @@ function parseNestedCSS(node, options) {
         let parse;
         if (options.parser === "scss") {
           parse = parseScss;
-        } else if (options.parser === "css") {
+        } else if (options.parser === "less") {
+          parse = parseLess;
+        } else {
           parse = parseCss;
         }
         let ast;
