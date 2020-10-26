@@ -4624,7 +4624,7 @@ jest-watcher@^26.6.1:
     jest-util "^26.6.1"
     string-length "^4.0.1"
 
-jest-worker@^26.1.0, jest-worker@^26.2.1, jest-worker@^26.5.0:
+jest-worker@^26.1.0, jest-worker@^26.2.1:
   version "26.5.0"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-26.5.0.tgz#87deee86dbbc5f98d9919e0dadf2c40e3152fa30"
   integrity sha512-kTw66Dn4ZX7WpjZ7T/SUDgRhapFRKWmisVAF0Rv4Fu8SLFD7eLbqpLvbxVqYhSgaWa7I+bW7pHnbyfNsH6stug==
