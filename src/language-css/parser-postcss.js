@@ -6,6 +6,7 @@ const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
   hasStringOrFunction,
+  isSCSS,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
@@ -39,7 +40,7 @@ function parseValueNode(valueNode, options) {
     const node = nodes[i];
 
     if (
-      options.parser === "scss" &&
+      isSCSS(options.parser, node.value) &&
       node.type === "number" &&
       node.unit === ".." &&
       node.value[node.value.length - 1] === "."
@@ -79,8 +80,7 @@ function parseValueNode(valueNode, options) {
       // Stringify if the value parser can't handle the content.
       if (
         hasSCSSInterpolation(groupList) ||
-        (!hasStringOrFunction(groupList) &&
-          !isSCSSVariable(groupList[0], options))
+        (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
       ) {
         const stringifiedContent = stringifyNode({
           groups: node.group.groups,
@@ -370,7 +370,7 @@ function parseNestedCSS(node, options) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedPropertyNode(node, options)) {
+      if (isSCSSNestedPropertyNode(node)) {
         node.isSCSSNesterProperty = true;
       }
 

@@ -38,6 +38,7 @@ const {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
+  isSCSS,
   isLastNode,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
@@ -276,7 +277,7 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "value"),
-                isSCSSControlDirectiveNode(node, options)
+                isSCSSControlDirectiveNode(node)
                   ? hasParensAroundNode(node)
                     ? " "
                     : line
@@ -288,7 +289,7 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node, options)
+              isSCSSControlDirectiveNode(node)
                 ? ""
                 : (node.selector &&
                     !node.selector.nodes &&
@@ -536,8 +537,7 @@ function genericPrint(path, options, print) {
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
-        atRuleAncestorNode &&
-        isSCSSControlDirectiveNode(atRuleAncestorNode, options);
+        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
 
       const printed = path.map(print, "groups");
       const parts = [];
@@ -856,7 +856,7 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
-      const isSCSSMapItem = isSCSSMapItemNode(path, options);
+      const isSCSSMapItem = isSCSSMapItemNode(path);
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
@@ -895,7 +895,7 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             !isLastItemComment &&
-              options.parser === "scss" &&
+              isSCSS(options.parser, options.originalText) &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","
