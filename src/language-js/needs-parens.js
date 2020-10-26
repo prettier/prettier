@@ -1,8 +1,5 @@
 "use strict";
 
-/** @type {import("assert")} */
-const assert = require("assert");
-
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -285,7 +282,6 @@ function needsParens(path, options) {
           }
 
           if (name === "right" && parentPrecedence === precedence) {
-            assert.strictEqual(parent.right, node);
             return true;
           }
 
