@@ -1419,8 +1419,7 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
   if (Array.isArray(node.parameters)) {
     path.each(callback, "parameters");
-  }
-  if (Array.isArray(node.params)) {
+  } else if (Array.isArray(node.params)) {
     path.each(callback, "params");
   }
   if (node.rest) {
