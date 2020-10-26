@@ -53,85 +53,99 @@ function needsParens(path, options) {
     return true;
   }
 
-  if (parent.type === "ParenthesizedExpression") {
-    return false;
-  }
-
-  // Add parens around the extends clause of a class. It is needed for almost
-  // all expressions.
-  if (
-    name === "superClass" &&
-    (parent.type === "ClassDeclaration" || parent.type === "ClassExpression") &&
-    (node.type === "ArrowFunctionExpression" ||
-      node.type === "AssignmentExpression" ||
-      node.type === "AwaitExpression" ||
-      node.type === "BinaryExpression" ||
-      node.type === "ConditionalExpression" ||
-      node.type === "LogicalExpression" ||
-      node.type === "NewExpression" ||
-      node.type === "ObjectExpression" ||
-      node.type === "ParenthesizedExpression" ||
-      node.type === "SequenceExpression" ||
-      node.type === "TaggedTemplateExpression" ||
-      node.type === "UnaryExpression" ||
-      node.type === "UpdateExpression" ||
-      node.type === "YieldExpression")
-  ) {
-    return true;
-  }
-
-  if (parent.type === "ExportDefaultDeclaration") {
-    return (
-      // `export default function` or `export default class` can't be followed by
-      // anything after. So an expression like `export default (function(){}).toString()`
-      // needs to be followed by a parentheses
-      shouldWrapFunctionForExportDefault(path, options) ||
-      // `export default (foo, bar)` also needs parentheses
-      node.type === "SequenceExpression"
-    );
-  }
-
-  if (name === "expression" && parent.type === "Decorator") {
-    let hasCallExpression = false;
-    let hasMemberExpression = false;
-    let current = node;
-    while (current) {
-      switch (current.type) {
-        case "MemberExpression":
-          hasMemberExpression = true;
-          current = current.object;
-          break;
-        case "CallExpression":
-          if (
-            /** @(x().y) */ hasMemberExpression ||
-            /** @(x().y()) */ hasCallExpression
-          ) {
-            return true;
-          }
-          hasCallExpression = true;
-          current = current.callee;
-          break;
-        case "Identifier":
-          return false;
-        default:
-          return true;
+  switch (parent.type) {
+    case "ParenthesizedExpression":
+      return false;
+    case "ClassDeclaration":
+    case "ClassExpression": {
+      // Add parens around the extends clause of a class. It is needed for almost
+      // all expressions.
+      if (
+        name === "superClass" &&
+        (node.type === "ArrowFunctionExpression" ||
+          node.type === "AssignmentExpression" ||
+          node.type === "AwaitExpression" ||
+          node.type === "BinaryExpression" ||
+          node.type === "ConditionalExpression" ||
+          node.type === "LogicalExpression" ||
+          node.type === "NewExpression" ||
+          node.type === "ObjectExpression" ||
+          node.type === "ParenthesizedExpression" ||
+          node.type === "SequenceExpression" ||
+          node.type === "TaggedTemplateExpression" ||
+          node.type === "UnaryExpression" ||
+          node.type === "UpdateExpression" ||
+          node.type === "YieldExpression")
+      ) {
+        return true;
       }
+      break;
     }
-    return true;
-  }
-
-  if (
-    (name === "body" &&
-      parent.type === "ArrowFunctionExpression" &&
-      node.type !== "SequenceExpression" && // these have parens added anyway
-      startsWithNoLookaheadToken(
-        node,
-        /* forbidFunctionClassAndDoExpr */ false
-      )) ||
-    (parent.type === "ExpressionStatement" &&
-      startsWithNoLookaheadToken(node, /* forbidFunctionClassAndDoExpr */ true))
-  ) {
-    return true;
+    case "ExportDefaultDeclaration": {
+      return (
+        // `export default function` or `export default class` can't be followed by
+        // anything after. So an expression like `export default (function(){}).toString()`
+        // needs to be followed by a parentheses
+        shouldWrapFunctionForExportDefault(path, options) ||
+        // `export default (foo, bar)` also needs parentheses
+        node.type === "SequenceExpression"
+      );
+    }
+    case "Decorator": {
+      if (name === "expression") {
+        let hasCallExpression = false;
+        let hasMemberExpression = false;
+        let current = node;
+        while (current) {
+          switch (current.type) {
+            case "MemberExpression":
+              hasMemberExpression = true;
+              current = current.object;
+              break;
+            case "CallExpression":
+              if (
+                /** @(x().y) */ hasMemberExpression ||
+                /** @(x().y()) */ hasCallExpression
+              ) {
+                return true;
+              }
+              hasCallExpression = true;
+              current = current.callee;
+              break;
+            case "Identifier":
+              return false;
+            default:
+              return true;
+          }
+        }
+        return true;
+      }
+      break;
+    }
+    case "ExpressionStatement": {
+      if (
+        startsWithNoLookaheadToken(
+          node,
+          /* forbidFunctionClassAndDoExpr */ true
+        )
+      ) {
+        return true;
+      }
+      break;
+    }
+    case "ArrowFunctionExpression": {
+      if (
+        name === "body" &&
+        node.type !== "SequenceExpression" && // these have parens added anyway
+        startsWithNoLookaheadToken(
+          node,
+          /* forbidFunctionClassAndDoExpr */ false
+        )
+      ) {
+        return true;
+      }
+      break;
+    }
   }
 
   switch (node.type) {
