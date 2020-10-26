@@ -287,11 +287,11 @@ function getWebpackConfig(bundle) {
     },
   };
 
-  if (bundle.terserOptions) {
-    const TerserPlugin = require("terser-webpack-plugin");
-    config.optimization.minimizer = [new TerserPlugin(bundle.terserOptions)];
-  }
-  // config.optimization.minimize = false;
+  // if (bundle.terserOptions) {
+  //   const TerserPlugin = require("terser-webpack-plugin");
+  //   config.optimization.minimizer = [new TerserPlugin(bundle.terserOptions)];
+  // }
+  config.optimization.minimize = false;
 
   return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
 }
