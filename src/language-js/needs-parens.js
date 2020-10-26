@@ -21,13 +21,6 @@ function needsParens(path, options) {
   const name = path.getName();
   const node = path.getNode();
 
-  // If the value of this path is some child of a Node and not a Node
-  // itself, then it doesn't need parentheses. Only Node objects (in
-  // fact, only Expression nodes) need parentheses.
-  if (path.getValue() !== node) {
-    return false;
-  }
-
   // to avoid unexpected `}}` in HTML interpolations
   if (
     options.__isInHtmlInterpolation &&
