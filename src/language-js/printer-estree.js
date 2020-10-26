@@ -58,6 +58,9 @@ const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   getFlowVariance,
+  getFunctionParameters,
+  iterateFunctionParametersPath,
+  hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -659,7 +662,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(
           group(
             concat([
-              printFunctionParams(
+              printFunctionParameters(
                 path,
                 print,
                 options,
@@ -1252,7 +1255,10 @@ function printPathNoParens(path, options, print, args) {
           (node) => node.type === "ObjectPattern" && !node.decorators,
           (node, name, number) =>
             shouldHugArguments(node) &&
-            (name === "params" || name === "parameters") &&
+            (name === "params" ||
+              name === "parameters" ||
+              name === "this" ||
+              name === "rest") &&
             number === 0
         ) ||
         path.match(
@@ -1261,7 +1267,10 @@ function printPathNoParens(path, options, print, args) {
           (node, name) => name === "typeAnnotation",
           (node, name, number) =>
             shouldHugArguments(node) &&
-            (name === "params" || name === "parameters") &&
+            (name === "params" ||
+              name === "parameters" ||
+              name === "this" ||
+              name === "rest") &&
             number === 0
         )
       ) {
@@ -2583,7 +2592,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       parts.push(
-        printFunctionParams(
+        printFunctionParameters(
           path,
           print,
           options,
@@ -2997,8 +3006,7 @@ function printPathNoParens(path, options, print, args) {
       // Because, otherwise formatted result will be invalid as tsx.
       const grandParent = path.getNode(2);
       if (
-        parent.params &&
-        parent.params.length === 1 &&
+        getFunctionParameters(parent).length === 1 &&
         isTSXFile(options) &&
         !n.constraint &&
         grandParent.type === "ArrowFunctionExpression"
@@ -3201,7 +3209,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(
         group(
-          printFunctionParams(
+          printFunctionParameters(
             path,
             print,
             options,
@@ -3268,7 +3276,7 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "key"),
         n.computed ? "]" : "",
         printOptionalToken(path),
-        printFunctionParams(
+        printFunctionParameters(
           path,
           print,
           options,
@@ -3754,7 +3762,7 @@ function printMethodInternal(path, options, print) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        printFunctionParams(path, print, options),
+        printFunctionParameters(path, print, options),
         printReturnType(path, print, options),
       ])
     ),
@@ -3888,60 +3896,20 @@ function printTypeAnnotation(path, options, print) {
   ]);
 }
 
-function printFunctionParams(path, print, options, expandArg, printTypeParams) {
-  const fun = path.getValue();
-  const parent = path.getParentNode();
-  const paramsField = fun.parameters ? "parameters" : "params";
-  const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugArguments(fun);
-
+function printFunctionParameters(
+  path,
+  print,
+  options,
+  expandArg,
+  printTypeParams
+) {
+  const functionNode = path.getValue();
+  const parameters = getFunctionParameters(functionNode);
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  const printedParameters = [];
-  if (fun.this) {
-    printedParameters.push({ node: fun.this, doc: path.call(print, "this") });
-  }
-
-  if (fun[paramsField]) {
-    path.each((childPath) => {
-      printedParameters.push({
-        node: childPath.getValue(),
-        doc: print(childPath),
-      });
-    }, paramsField);
-  }
-
-  const shouldExpandParameters =
-    expandArg && !printedParameters.some(({ node }) => node.comments);
-
-  const printed = [];
-  const lastArgIndex = printedParameters.length - 1;
-  for (const [index, { node, doc }] of printedParameters.entries()) {
-    printed.push(doc);
-    if (index === lastArgIndex) {
-      if (fun.rest) {
-        printed.push(",", line);
-      }
-    } else if (
-      isParametersInTestCall ||
-      shouldHugParameters ||
-      shouldExpandParameters
-    ) {
-      printed.push(", ");
-    } else if (isNextLineEmpty(options.originalText, node, options.locEnd)) {
-      printed.push(",", hardline, hardline);
-    } else {
-      printed.push(",", line);
-    }
-  }
-
-  if (fun.rest) {
-    printed.push(concat(["...", path.call(print, "rest")]));
-  }
-
-  if (printed.length === 0) {
+  if (parameters.length === 0) {
     return concat([
       typeParams,
       "(",
@@ -3959,6 +3927,37 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       ")",
     ]);
   }
+
+  const parent = path.getParentNode();
+  const isParametersInTestCall = isTestCall(parent);
+  const shouldHugParameters = shouldHugArguments(functionNode);
+  const shouldExpandParameters =
+    expandArg && !parameters.some((node) => node.comments);
+  const printed = [];
+  iterateFunctionParametersPath(path, (parameterPath, index) => {
+    const isLastParameter = index === parameters.length - 1;
+    if (isLastParameter && functionNode.rest) {
+      printed.push("...");
+    }
+    printed.push(parameterPath.call(print));
+    if (isLastParameter) {
+      return;
+    }
+    printed.push(",");
+    if (
+      isParametersInTestCall ||
+      shouldHugParameters ||
+      shouldExpandParameters
+    ) {
+      printed.push(" ");
+    } else if (
+      isNextLineEmpty(options.originalText, parameters[index], options.locEnd)
+    ) {
+      printed.push(hardline, hardline);
+    } else {
+      printed.push(line);
+    }
+  });
 
   // If the parent is a call with the first/last argument expansion and this is the
   // params of the first/last argument, we don't want the arguments to break and instead
@@ -3988,9 +3987,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = printedParameters.every(
-    ({ node }) => !node.decorators
-  );
+  const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
     return concat([typeParams, "(", concat(printed), ")"]);
   }
@@ -4008,13 +4005,15 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       parent.type === "TSUnionType" ||
       parent.type === "IntersectionTypeAnnotation" ||
       (parent.type === "FunctionTypeAnnotation" &&
-        parent.returnType === fun)) &&
-    printedParameters.length === 1 &&
-    printedParameters[0].node.name === null &&
-    printedParameters[0].node.typeAnnotation &&
-    fun.typeParameters === null &&
-    isSimpleFlowType(printedParameters[0].node.typeAnnotation) &&
-    !fun.rest;
+        parent.returnType === functionNode)) &&
+    parameters.length === 1 &&
+    parameters[0].name === null &&
+    // `type q = (this: string) => void;`
+    functionNode.this !== parameters[0] &&
+    parameters[0].typeAnnotation &&
+    functionNode.typeParameters === null &&
+    isSimpleFlowType(parameters[0].typeAnnotation) &&
+    !functionNode.rest;
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
@@ -4023,16 +4022,14 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     return concat(printed);
   }
 
-  const lastParam = getLast(printedParameters);
-  const canHaveTrailingComma =
-    !(lastParam && lastParam.node.type === "RestElement") && !fun.rest;
-
   return concat([
     typeParams,
     "(",
     indent(concat([softline, concat(printed)])),
     ifBreak(
-      canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
+      !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
+        ? ","
+        : ""
     ),
     softline,
     ")",
@@ -4055,15 +4052,15 @@ function shouldPrintParamsWithoutParens(path, options) {
 }
 
 function canPrintParamsWithoutParens(node) {
+  const parameters = getFunctionParameters(node);
   return (
-    node.params.length === 1 &&
-    !node.rest &&
+    parameters.length === 1 &&
     !node.typeParameters &&
     !hasDanglingComments(node) &&
-    node.params[0].type === "Identifier" &&
-    !node.params[0].typeAnnotation &&
-    !node.params[0].comments &&
-    !node.params[0].optional &&
+    parameters[0].type === "Identifier" &&
+    !parameters[0].typeAnnotation &&
+    !parameters[0].comments &&
+    !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
   );
@@ -4091,7 +4088,7 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        printFunctionParams(path, print, options),
+        printFunctionParameters(path, print, options),
         printReturnType(path, print, options),
       ])
     ),
@@ -5164,17 +5161,14 @@ function shouldHugType(node) {
 }
 
 function shouldHugArguments(fun) {
-  if (!fun || fun.rest) {
+  if (!fun) {
     return false;
   }
-  let params = fun.params || fun.parameters || [];
-  if (fun.this) {
-    params = [fun.this, ...params];
-  }
-  if (params.length !== 1) {
+  const parameters = getFunctionParameters(fun);
+  if (parameters.length !== 1) {
     return false;
   }
-  const param = params[0];
+  const param = parameters[0];
   return (
     !param.comments &&
     (param.type === "ObjectPattern" ||
