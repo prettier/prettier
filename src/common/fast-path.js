@@ -95,7 +95,7 @@ class FastPath {
         stack.push(i, value[i]);
         // If the callback needs to know the value of i, call
         // path.getName(), assuming path is the parameter name.
-        callback(this);
+        callback(this, i);
         stack.length -= 2;
       }
     }
