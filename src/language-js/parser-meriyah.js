@@ -41,77 +41,97 @@ const parseOptions = {
   uniqueKeyInPattern: true,
 };
 
-function handleComment(type, value, start, end) {
-const trailingSpaceLength = value.match(/\s*$/)[0].length
-      if (type === "HashbangComment") {
-        type = "Line"
-      end -= trailingSpaceLength
-        value = value.slice(2, trailingSpaceLength ? -trailingSpaceLength : undefined)
-      } else if (type === "SingleLine") {
-        type = "Line"
-        start -= type === "Line" ? 2 : 0
-      end -= trailingSpaceLength
-value = value.slice(0, trailingSpaceLength ? -trailingSpaceLength : undefined)
-      } else {
-        type = "Block"
-        start -=2;
+function handleComment(type, value, start, end, text) {
+  const trailingSpaceLength = value.match(/\s*$/)[0].length;
+  if (type === "HashbangComment") {
+    type = "Line";
+    // {
+    //   text: '#!/usr/bin/env node',
+    //   type: 'Line',
+    //   start: -4,
+    //   value: '/usr/bin/env node',
+    //   range: [ -4, 19 ]
+    // }
+    start = 0;
+    end -= trailingSpaceLength;
+    value = value.slice(
+      2,
+      trailingSpaceLength ? -trailingSpaceLength : undefined
+    );
+  } else if (type === "SingleLine") {
+    type = "Line";
+    start -= type === "Line" ? 2 : 0;
+    end -= trailingSpaceLength;
+    value = value.slice(
+      0,
+      trailingSpaceLength ? -trailingSpaceLength : undefined
+    );
+  } else {
+    type = "Block";
+    start -= 2;
+  }
 
-      }
+  console.log({
+    text,
+    type,
+    start,
+    value,
+    range: [start, end],
+  });
 
-return ({
-        type,
-        value,
-        range: [start, end]
-      })
+  return {
+    type,
+    value,
+    range: [start, end],
+  };
 }
 
 function parse(text, parsers, options) {
   const { parse } = require("meriyah");
 
+  let ast;
 
-  let ast
+  try {
+    const comments = [];
+    const tokens = [];
+    ast = parse(text, {
+      ...parseOptions,
+      onComment(type, value, start, end) {
+        comments.push(handleComment(type, value, start, end, text));
+      },
+      onToken(type, start, end) {
+        tokens.push({
+          type,
+          value: text.slice(start, end),
+          range: [start, end],
+        });
+      },
+    });
 
-try {
-  const comments = []
-  const tokens = []
-ast = parse(text, {
-    ...parseOptions,
-    onComment(type, value, start, end) {
-      comments.push(handleComment(type, value, start, end))
-    },
-    onToken(type, start, end) {
-      tokens.push({
-        type,
-        value:text.slice(start, end),
-        range: [start, end]
-      })
-    },
-  })
+    ast.comments = comments;
+    ast.tokens = tokens;
+  } catch (error) {
+    try {
+      const comments = [];
+      const tokens = [];
+      ast = parse(text, {
+        ...parseOptions,
+        module: false,
+        onComment(type, value, start, end) {
+          comments.push(handleComment(type, value, start, end));
+        },
+        onToken(type, start, end) {
+          tokens.push({
+            type,
+            value: text.slice(start, end),
+            range: [start, end],
+          });
+        },
+      });
 
-  ast.comments = comments;
-  ast.tokens = tokens;
-} catch (error) {
-try {
-  const comments = []
-  const tokens = []
-ast = parse(text, {
-    ...parseOptions,
-module: false,
-    onComment(type, value, start, end) {
-      comments.push(handleComment(type, value, start, end))
-    },
-    onToken(type, start, end) {
-      tokens.push({
-        type,
-        value:text.slice(start, end),
-        range: [start, end]
-      })
-    },
-  })
-
-  ast.comments = comments;
-  ast.tokens = tokens;
-} catch (_) {
+      ast.comments = comments;
+      ast.tokens = tokens;
+    } catch (_) {
       // throw the error for `module` parsing
       if (typeof error.loc === "undefined") {
         throw error;
@@ -120,13 +140,8 @@ module: false,
       throw createError(error.message, {
         start: error.loc,
       });
-}
-
-}
-
-
-
-
+    }
+  }
 
   return postprocess(ast, { ...options, originalText: text });
 }
