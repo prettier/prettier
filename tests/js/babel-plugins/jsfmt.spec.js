@@ -51,6 +51,10 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "typescript.js",
       "v8intrinsic.js",
       "optional-chaining.js",
+      "class-static-block.js",
+      "import-assertions-dynamic.js",
+      "import-assertions-static.js",
+      "module-string-names.js",
     ],
   },
 });
