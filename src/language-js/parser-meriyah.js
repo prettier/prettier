@@ -44,14 +44,6 @@ const parseOptions = {
 function handleComment(type, value, start, end, text) {
   if (type === "HashbangComment") {
     type = "Line";
-    // {
-    //   text: '#!/usr/bin/env node',
-    //   type: 'Line',
-    //   start: -4,
-    //   value: '/usr/bin/env node',
-    //   range: [ -4, 19 ]
-    // }
-    start = 0;
   } else if (type === "SingleLine") {
     type = "Line";
     // https://github.com/meriyah/meriyah/issues/126
@@ -60,11 +52,6 @@ function handleComment(type, value, start, end, text) {
     }
   } else {
     type = "Block";
-  }
-
-  // https://github.com/meriyah/meriyah/issues/125
-  if (end < start) {
-    [end, start] = [start, end];
   }
 
   // console.log({
