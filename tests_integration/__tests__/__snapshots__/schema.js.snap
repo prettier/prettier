@@ -252,6 +252,12 @@ This option cannot be used with --range-start and --range-end.",
                 "lwc",
               ],
             },
+            Object {
+              "description": "JavaScript",
+              "enum": Array [
+                "meriyah",
+              ],
+            },
           ],
         },
         "pluginSearchDirs": Object {
