@@ -140,6 +140,15 @@ function postprocess(ast, options) {
       ) {
         node.value.range[0] = node.value.range[0] + 1;
       }
+      // https://github.com/meriyah/meriyah/issues/128
+      if (
+        node.type === "JSXAttribute" &&
+        node.value &&
+        node.value.type === "Literal" &&
+        typeof node.value.value === "string"
+      ) {
+        node.value.raw = options.originalText.slice(...node.value.range);
+      }
     });
   }
 
