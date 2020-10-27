@@ -38,8 +38,8 @@ toolbox.precache([
 
   "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/react/16.14.0/umd/react.production.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.14.0/umd/react-dom.production.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.production.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.production.min.js",
 
   // Images
   "/prettier.png",

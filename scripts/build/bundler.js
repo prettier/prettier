@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
 const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
@@ -17,7 +18,7 @@ const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
 
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const PROJECT_ROOT = path.join(__dirname, "../..");
 
 const EXTERNALS = [
   "assert",
@@ -54,6 +55,27 @@ const entries = [
     ),
   },
 ];
+
+function webpackNativeShims(config, modules) {
+  if (!config.resolve) {
+    config.resolve = {};
+  }
+  const { resolve } = config;
+  resolve.alias = resolve.alias || {};
+  resolve.fallback = resolve.fallback || {};
+  for (const module of modules) {
+    if (module in resolve.alias || module in resolve.fallback) {
+      throw new Error(`fallback/alias for "${module}" already exists.`);
+    }
+    const file = path.join(__dirname, `shims/${module}.mjs`);
+    if (fs.existsSync(file)) {
+      resolve.alias[module] = file;
+    } else {
+      resolve.fallback[module] = false;
+    }
+  }
+  return config;
+}
 
 function getBabelConfig(bundle) {
   const config = {
@@ -191,7 +213,7 @@ function getRollupConfig(bundle) {
   return config;
 }
 
-function getRollupOutputOptions(bundle) {
+function getRollupOutputOptions(bundle, buildOptions) {
   const options = {
     // Avoid warning form #8797
     exports: "auto",
@@ -210,14 +232,18 @@ function getRollupOutputOptions(bundle) {
           ...options,
           format: "umd",
         },
-        {
+        !buildOptions.playground && {
           ...options,
           format: "esm",
           file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
         },
-      ];
+      ].filter(Boolean);
     }
     options.format = bundle.format;
+  }
+
+  if (buildOptions.playground && bundle.bundler !== "webpack") {
+    return { skipped: true };
   }
   return [options];
 }
@@ -229,6 +255,8 @@ function getWebpackConfig(bundle) {
 
   const root = path.resolve(__dirname, "..", "..");
   const config = {
+    mode: "production",
+    performance: { hints: false },
     entry: path.resolve(root, bundle.input),
     module: {
       rules: [
@@ -244,32 +272,52 @@ function getWebpackConfig(bundle) {
     output: {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
-      library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd",
+      library: {
+        type: "umd",
+        name: ["prettierPlugins", bundle.name],
+      },
       // https://github.com/webpack/webpack/issues/6642
       globalObject: 'new Function("return this")()',
+    },
+    optimization: {},
+    resolve: {
+      // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
+      // Ignore `exports` field to fix bundle script
+      exportsFields: [],
     },
   };
 
   if (bundle.terserOptions) {
     const TerserPlugin = require("terser-webpack-plugin");
-
-    config.optimization = {
-      minimizer: [new TerserPlugin(bundle.terserOptions)],
-    };
+    config.optimization.minimizer = [new TerserPlugin(bundle.terserOptions)];
   }
+  // config.optimization.minimize = false;
 
-  return config;
+  return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
 }
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
-    webpack(config, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
+    webpack(config, (error, stats) => {
+      if (error) {
+        reject(error);
+        return;
       }
+
+      if (stats.hasErrors()) {
+        const { errors } = stats.toJson();
+        const error = new Error(errors[0].message);
+        error.errors = errors;
+        reject(error);
+        return;
+      }
+
+      if (stats.hasWarnings()) {
+        const { warnings } = stats.toJson();
+        console.warn(warnings);
+      }
+
+      resolve();
     });
   });
 }
@@ -297,9 +345,13 @@ async function checkCache(cache, inputOptions, outputOption) {
   return false;
 }
 
-module.exports = async function createBundle(bundle, cache) {
+module.exports = async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);
-  const outputOptions = getRollupOutputOptions(bundle);
+  const outputOptions = getRollupOutputOptions(bundle, options);
+
+  if (!Array.isArray(outputOptions) && outputOptions.skipped) {
+    return { skipped: true };
+  }
 
   const checkCacheResults = await Promise.all(
     outputOptions.map((outputOption) =>
