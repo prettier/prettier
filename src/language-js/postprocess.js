@@ -125,6 +125,15 @@ function postprocess(ast, options) {
     }
   });
 
+  // https://github.com/meriyah/meriyah/issues/125
+  if (options.parsers === "meriyah") {
+    ast = visitNode(ast, (node) => {
+      if (node.range && node.range[0] > node.range[1]) {
+        node.range = [node.range[1], node.range[0]];
+      }
+    });
+  }
+
   return ast;
 
   /**
