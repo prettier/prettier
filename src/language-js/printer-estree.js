@@ -5390,6 +5390,11 @@ function printIndentableBlockComment(comment) {
   ]);
 }
 
+// TODO(@fisker): restore
+// `options.locStart(parentExportDecl, { ignoreDecorators: true }) >= options.locStart(node.decorators[0])`
+// and `options.locStart(node, { ignoreDecorators: true }) >= options.locStart(node.declaration.decorators[0])`
+// to use `>` when https://github.com/meriyah/meriyah/issues/124 get fixed
+
 module.exports = {
   preprocess,
   print: genericPrint,
