@@ -42,7 +42,6 @@ const parseOptions = {
 };
 
 function handleComment(type, value, start, end, text) {
-  const trailingSpaceLength = value.match(/\s*$/)[0].length;
   if (type === "HashbangComment") {
     type = "Line";
     // {
@@ -53,31 +52,19 @@ function handleComment(type, value, start, end, text) {
     //   range: [ -4, 19 ]
     // }
     start = 0;
-    end -= trailingSpaceLength;
-    value = value.slice(
-      2,
-      trailingSpaceLength ? -trailingSpaceLength : undefined
-    );
   } else if (type === "SingleLine") {
     type = "Line";
-    start -= type === "Line" ? 2 : 0;
-    end -= trailingSpaceLength;
-    value = value.slice(
-      0,
-      trailingSpaceLength ? -trailingSpaceLength : undefined
-    );
   } else {
     type = "Block";
-    start -= 2;
   }
 
-  console.log({
-    text,
-    type,
-    start,
-    value,
-    range: [start, end],
-  });
+  // console.log({
+  //   text,
+  //   type,
+  //   start,
+  //   value,
+  //   range: [start, end],
+  // });
 
   return {
     type,
