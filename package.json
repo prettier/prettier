@@ -104,7 +104,7 @@
     "builtin-modules": "3.1.0",
     "cross-env": "7.0.2",
     "cspell": "4.1.2",
-    "eslint": "7.12.0",
+    "eslint": "7.12.1",
     "eslint-config-prettier": "6.14.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",
