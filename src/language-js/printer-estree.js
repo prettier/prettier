@@ -160,7 +160,7 @@ function genericPrint(path, options, printPath, args) {
     // for printing the decorators.
     !(
       parentExportDecl &&
-      options.locStart(parentExportDecl, { ignoreDecorators: true }) >
+      options.locStart(parentExportDecl, { ignoreDecorators: true }) >=
         options.locStart(node.decorators[0])
     )
   ) {
@@ -190,9 +190,18 @@ function genericPrint(path, options, printPath, args) {
     node.declaration &&
     node.declaration.decorators &&
     node.declaration.decorators.length > 0 &&
+// TODO(@fisker): confirm how should this work
+//
+// ```js
+// @decorator export class Foo {}
+// ```
+//
+// babel range [11, 30]
+// meriyah range [0, 30]
+
     // Only print decorators here if they were written before the export,
     // otherwise they are printed by the node.declaration
-    options.locStart(node, { ignoreDecorators: true }) >
+    options.locStart(node, { ignoreDecorators: true }) >=
       options.locStart(node.declaration.decorators[0])
   ) {
     // Export declarations are responsible for printing any decorators
