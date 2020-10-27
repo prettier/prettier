@@ -128,7 +128,6 @@ function postprocess(ast, options) {
   // https://github.com/meriyah/meriyah/issues/125
   if (options.parser === "meriyah") {
     ast = visitNode(ast, (node) => {
-      console.log(node);
       if (node.range && node.range[0] > node.range[1]) {
         node.range = [node.range[1], node.range[0]];
       }
