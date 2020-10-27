@@ -54,6 +54,10 @@ function handleComment(type, value, start, end, text) {
     start = 0;
   } else if (type === "SingleLine") {
     type = "Line";
+    // https://github.com/meriyah/meriyah/issues/126
+    if (start === end) {
+      end += 2;
+    }
   } else {
     type = "Block";
   }
