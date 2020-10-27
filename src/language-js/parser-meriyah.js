@@ -58,6 +58,11 @@ function handleComment(type, value, start, end, text) {
     type = "Block";
   }
 
+  // https://github.com/meriyah/meriyah/issues/125
+  if (end > start) {
+    [end, start] = [start, end];
+  }
+
   // console.log({
   //   text,
   //   type,
