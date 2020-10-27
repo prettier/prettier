@@ -190,16 +190,6 @@ function genericPrint(path, options, printPath, args) {
     node.declaration &&
     node.declaration.decorators &&
     node.declaration.decorators.length > 0 &&
-    // TODO(@fisker): confirm how should this work
-    // https://github.com/meriyah/meriyah/issues/124
-    //
-    // ```js
-    // @decorator export class Foo {}
-    // ```
-    //
-    // babel range [11, 30]
-    // meriyah range [0, 30]
-
     // Only print decorators here if they were written before the export,
     // otherwise they are printed by the node.declaration
     options.locStart(node, { ignoreDecorators: true }) >=
@@ -1938,15 +1928,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.value) {
         let res;
         if (isStringLiteral(n.value)) {
-          let raw = rawText(n.value);
-          // meriyah missing raw
-          if (options.parser === "meriyah" && !raw) {
-            // TODO: fix range
-            raw = options.originalText.slice(
-              options.locStart(n.value) + 1,
-              options.locEnd(n.value)
-            );
-          }
+          const raw = rawText(n.value);
           // Unescape all quotes so we get an accurate preferred quote
           let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
           const quote = getPreferredQuote(
@@ -4839,6 +4821,7 @@ function printJSXElement(path, options, print) {
   if (forcedBreak) {
     return multiLineElem;
   }
+
   return conditionalGroup([
     group(concat([openingLines, concat(children), closingLines])),
     multiLineElem,

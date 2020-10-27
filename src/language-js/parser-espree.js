@@ -48,9 +48,8 @@ function parse(originalText, parsers, options) {
       });
     }
   }
-ast = postprocess(ast, { ...options, originalText });
-// console.log(ast.comments)
-  return ast
+
+  return postprocess(ast, { ...options, originalText });
 }
 
 module.exports = {

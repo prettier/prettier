@@ -687,7 +687,7 @@ function getFlowVariance(node) {
 function classPropMayCauseASIProblems(path) {
   const node = path.getNode();
 
-  if (node.type !== "ClassProperty" &&node.type !== "FieldDefinition") {
+  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
     return false;
   }
 
@@ -969,8 +969,9 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
-        (options.parser === "babel" || options.parser === "espree" ||
-      options.parser === "meriyah")))
+        (options.parser === "babel" ||
+          options.parser === "espree" ||
+          options.parser === "meriyah")))
   );
 }
 
@@ -1189,10 +1190,11 @@ function isSimpleCallArgument(node, depth) {
 }
 
 function rawText(node) {
-  // meriyah
-  if ((node.type === "JSXText") && !("raw" in node) && !("extra" in node)) {
-    return node.value
- }
+  // `meriyah`
+  // https://github.com/meriyah/meriyah/issues/129
+  if (node.type === "JSXText" && !("raw" in node) && !("extra" in node)) {
+    return node.value;
+  }
 
   return node.extra ? node.extra.raw : node.raw;
 }
