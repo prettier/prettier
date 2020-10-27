@@ -85,13 +85,13 @@ function parse(text, parsers, options) {
   let ast;
 
   try {
-    ast = parseWithOptions(text, /*module*/ true);
+    ast = parseWithOptions(text /* module */, true);
   } catch (moduleError) {
     try {
-      ast = parseWithOptions(text, /*module*/ false);
+      ast = parseWithOptions(text, /* module */ false);
     } catch (_) {
       // throw the error for `module` parsing
-      if (typeof moduleError.loc === "undefined") {
+      if (typeof moduleError.loc !== "number") {
         throw moduleError;
       }
 
