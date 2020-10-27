@@ -59,7 +59,7 @@ function handleComment(type, value, start, end, text) {
   }
 
   // https://github.com/meriyah/meriyah/issues/125
-  if (end > start) {
+  if (end < start) {
     [end, start] = [start, end];
   }
 
