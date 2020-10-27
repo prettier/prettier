@@ -13,7 +13,7 @@ const parseOptions = {
   next: true,
   // Enable start and end offsets to each node
   ranges: true,
-  // Enable web compability
+  // Enable web compatibility
   webcompat: false,
   // Enable line/column location information to each node
   loc: true,
