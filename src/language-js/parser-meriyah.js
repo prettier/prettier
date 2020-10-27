@@ -32,7 +32,7 @@ const parseOptions = {
   // Adds a source attribute in every node’s loc object when the locations option is `true`
   source: true,
   // Distinguish Identifier from IdentifierPattern
-  identifierPattern: true,
+  identifierPattern: false,
   // Enable React JSX parsing
   jsx: true,
   // Allow edge cases that deviate from the spec
