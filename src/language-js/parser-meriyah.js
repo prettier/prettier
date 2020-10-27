@@ -1,5 +1,5 @@
 "use strict";
-const { getShebang } = require("../common/util");
+
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
@@ -14,7 +14,7 @@ const parseOptions = {
   // Enable start and end offsets to each node
   ranges: true,
   // Enable web compability
-  webcompat: true,
+  webcompat: false,
   // Enable line/column location information to each node
   loc: true,
   // Attach raw property to each literal and identifier node
@@ -41,87 +41,62 @@ const parseOptions = {
   uniqueKeyInPattern: true,
 };
 
-function handleComment(type, value, start, end, text) {
-  if (type === "HashbangComment") {
-    type = "Line";
-  } else if (type === "SingleLine") {
-    type = "Line";
-    // https://github.com/meriyah/meriyah/issues/126
-    if (start === end) {
-      end += 2;
-    }
-  } else {
-    type = "Block";
-  }
+function parseWithOptions(text, module) {
+  const { parse } = require("meriyah");
+  const comments = [];
+  const tokens = [];
+  const ast = parse(text, {
+    ...parseOptions,
+    module,
+    onComment(type, value, start, end /* , loc */) {
+      if (type === "HashbangComment") {
+        type = "Line";
+      } else if (type === "SingleLine") {
+        type = "Line";
+        // https://github.com/meriyah/meriyah/issues/126
+        if (start === end) {
+          end += 2;
+        }
+      } else {
+        type = "Block";
+      }
 
-  // console.log({
-  //   text,
-  //   type,
-  //   start,
-  //   value,
-  //   range: [start, end],
-  // });
+      comments.push({
+        type,
+        value,
+        range: [start, end],
+      });
+    },
+    onToken(type, start, end /* , loc */) {
+      tokens.push({
+        type,
+        value: text.slice(start, end),
+        range: [start, end],
+      });
+    },
+  });
+  ast.comments = comments;
+  ast.tokens = tokens;
 
-  return {
-    type,
-    value,
-    range: [start, end],
-  };
+  return ast;
 }
 
 function parse(text, parsers, options) {
-  const { parse } = require("meriyah");
-
   let ast;
 
   try {
-    const comments = [];
-    const tokens = [];
-    ast = parse(text, {
-      ...parseOptions,
-      onComment(type, value, start, end) {
-        comments.push(handleComment(type, value, start, end, text));
-      },
-      onToken(type, start, end) {
-        tokens.push({
-          type,
-          value: text.slice(start, end),
-          range: [start, end],
-        });
-      },
-    });
-
-    ast.comments = comments;
-    ast.tokens = tokens;
-  } catch (error) {
+    ast = parseWithOptions(text, /*module*/ true);
+  } catch (moduleError) {
     try {
-      const comments = [];
-      const tokens = [];
-      ast = parse(text, {
-        ...parseOptions,
-        module: false,
-        onComment(type, value, start, end) {
-          comments.push(handleComment(type, value, start, end));
-        },
-        onToken(type, start, end) {
-          tokens.push({
-            type,
-            value: text.slice(start, end),
-            range: [start, end],
-          });
-        },
-      });
-
-      ast.comments = comments;
-      ast.tokens = tokens;
+      ast = parseWithOptions(text, /*module*/ false);
     } catch (_) {
       // throw the error for `module` parsing
-      if (typeof error.loc === "undefined") {
-        throw error;
+      if (typeof moduleError.loc === "undefined") {
+        throw moduleError;
       }
 
-      throw createError(error.message, {
-        start: error.loc,
+      throw createError(moduleError.message, {
+        start: moduleError.loc,
       });
     }
   }
