@@ -25,10 +25,11 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "BigIntLiteral") {
     if (
-// babel
-newObj.value &&
-// value in `meriyah` is `number`
-typeof newObj.value === "string") {
+      // babel
+      newObj.value &&
+      // value in `meriyah` is `number`
+      typeof newObj.value === "string"
+    ) {
       newObj.value = newObj.value.toLowerCase();
     }
   }
@@ -69,7 +70,7 @@ typeof newObj.value === "string") {
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
       ast.type === "ClassMethod" ||
-ast.type==="FieldDefinition"||
+      ast.type === "FieldDefinition" ||
       ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&
@@ -199,9 +200,13 @@ ast.type==="FieldDefinition"||
       newObj.quasis.forEach((quasi) => delete quasi.value);
     }
 
-    // TODO: check parser
-    // `flow` and `typescript` don't have `leadingComments`
-    if (!ast.leadingComments) {
+    if (
+      // TODO: check parser
+      // `flow` and `typescript` don't have `leadingComments`
+      !ast.leadingComments &&
+      // `meriyah` has token `{type: 'TemplateLiteral'}`
+      newObj.quasis
+    ) {
       newObj.quasis.forEach((quasi) => {
         if (quasi.value) {
           delete quasi.value.cooked;
