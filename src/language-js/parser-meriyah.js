@@ -55,10 +55,11 @@ function parseWithOptions(text, module) {
       }
 
       comments.push({
-        type: type === "MultiLine"
-          ? "Block"
-          : // `SingleLine`, `HashbangComment`, `HTMLOpen`, `HTMLClose`
-            "Line",
+        type:
+          type === "MultiLine"
+            ? "Block"
+            : // `SingleLine`, `HashbangComment`, `HTMLOpen`, `HTMLClose`
+              "Line",
         value,
         range: [start, end],
       });
