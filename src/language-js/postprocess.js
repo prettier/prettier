@@ -149,6 +149,15 @@ function postprocess(ast, options) {
       ) {
         node.value.raw = options.originalText.slice(...node.value.range);
       }
+
+      // https://github.com/meriyah/meriyah/issues/130
+      if (
+        node.directive &&
+        node.expression &&
+        node.expression.type === "Literal"
+      ) {
+        node.directive = node.expression.value;
+      }
     });
   }
 

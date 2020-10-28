@@ -13,7 +13,7 @@ const parseOptions = {
   next: true,
   // Enable start and end offsets to each node
   ranges: true,
-  // Enable web compability
+  // Enable web compatibility
   webcompat: false,
   // Enable line/column location information to each node
   loc: true,
@@ -32,7 +32,7 @@ const parseOptions = {
   // Adds a source attribute in every node’s loc object when the locations option is `true`
   source: true,
   // Distinguish Identifier from IdentifierPattern
-  identifierPattern: true,
+  identifierPattern: false,
   // Enable React JSX parsing
   jsx: true,
   // Allow edge cases that deviate from the spec
@@ -75,13 +75,13 @@ function parse(text, parsers, options) {
   let ast;
 
   try {
-    ast = parseWithOptions(text, /*module*/ true);
+    ast = parseWithOptions(text /* module */, true);
   } catch (moduleError) {
     try {
-      ast = parseWithOptions(text, /*module*/ false);
+      ast = parseWithOptions(text, /* module */ false);
     } catch (_) {
       // throw the error for `module` parsing
-      if (typeof moduleError.loc === "undefined") {
+      if (typeof moduleError.loc !== "number") {
         throw moduleError;
       }
 
