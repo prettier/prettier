@@ -18,7 +18,6 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "15"
           - "14"
           - "12"
           - "10"
@@ -29,11 +28,9 @@ jobs:
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
+          - os: "ubuntu-latest"
+            node: "15"
         exclude:
-          - os: "macos-latest"
-            node: "15"
-          - os: "windows-latest"
-            node: "15"
           - os: "macos-latest"
             node: "12"
           - os: "windows-latest"
