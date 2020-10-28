@@ -179,7 +179,7 @@ type f4 = /* comment */ arg => void;
 
 type f5 = arg /* comment */ => void;
 
-type f6 = ?arg => void;
+type f6 = (?arg) => void;
 
 class Y {
   constructor(

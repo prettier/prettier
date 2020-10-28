@@ -4218,7 +4218,8 @@ function printTypeParameters(path, options, print, paramsKey) {
         (n[paramsKey][0].type === "GenericTypeAnnotation" &&
           shouldHugType(n[paramsKey][0].id)) ||
         (n[paramsKey][0].type === "TSTypeReference" &&
-          shouldHugType(n[paramsKey][0].typeName))));
+          shouldHugType(n[paramsKey][0].typeName)) ||
+        n[paramsKey][0].type === "NullableTypeAnnotation"));
 
   function printDanglingCommentsForInline(n) {
     if (!hasDanglingComments(n)) {

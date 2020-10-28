@@ -432,7 +432,6 @@ function isMemberish(node) {
 
 const simpleFlowTypeAnnotations = new Set([
   "AnyTypeAnnotation",
-  "NullableTypeAnnotation",
   "NullLiteralTypeAnnotation",
   "GenericTypeAnnotation",
   "ThisTypeAnnotation",
