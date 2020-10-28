@@ -4208,9 +4208,6 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const grandparent = path.getNode(2);
-  const greatGrandParent = path.getNode(3);
-  const greatGreatGrandParent = path.getNode(4);
-
   const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
 
   const shouldInline =
@@ -4221,21 +4218,7 @@ function printTypeParameters(path, options, print, paramsKey) {
         (n[paramsKey][0].type === "GenericTypeAnnotation" &&
           shouldHugType(n[paramsKey][0].id)) ||
         (n[paramsKey][0].type === "TSTypeReference" &&
-          shouldHugType(n[paramsKey][0].typeName)) ||
-        // See https://github.com/prettier/prettier/pull/6467 for the context.
-        (greatGreatGrandParent &&
-          greatGreatGrandParent.type === "VariableDeclarator" &&
-          grandparent.type === "TSTypeAnnotation" &&
-          greatGrandParent.type !== "ArrowFunctionExpression" &&
-          n[paramsKey][0].type !== "TSUnionType" &&
-          n[paramsKey][0].type !== "UnionTypeAnnotation" &&
-          n[paramsKey][0].type !== "TSIntersectionType" &&
-          n[paramsKey][0].type !== "IntersectionTypeAnnotation" &&
-          n[paramsKey][0].type !== "TSConditionalType" &&
-          n[paramsKey][0].type !== "TSMappedType" &&
-          n[paramsKey][0].type !== "TSTypeOperator" &&
-          n[paramsKey][0].type !== "TSIndexedAccessType" &&
-          n[paramsKey][0].type !== "TSArrayType")));
+          shouldHugType(n[paramsKey][0].typeName))));
 
   function printDanglingCommentsForInline(n) {
     if (!hasDanglingComments(n)) {
