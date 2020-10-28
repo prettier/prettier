@@ -95,7 +95,7 @@ const {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSimpleFlowType,
+  isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,
@@ -2390,14 +2390,10 @@ function printPathNoParens(path, options, print, args) {
       return "*";
     case "EmptyTypeAnnotation":
       return "empty";
-    case "AnyTypeAnnotation":
-      return "any";
     case "MixedTypeAnnotation":
       return "mixed";
     case "ArrayTypeAnnotation":
       return concat([path.call(print, "elementType"), "[]"]);
-    case "BooleanTypeAnnotation":
-      return "boolean";
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
     case "DeclareClass":
@@ -2634,11 +2630,6 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "typeAnnotation"),
       ]);
     }
-    case "GenericTypeAnnotation":
-      return concat([
-        path.call(print, "id"),
-        path.call(print, "typeParameters"),
-      ]);
 
     case "DeclareInterface":
     case "InterfaceDeclaration":
@@ -2836,10 +2827,6 @@ function printPathNoParens(path, options, print, args) {
     case "TSNullKeyword":
     case "NullLiteralTypeAnnotation":
       return "null";
-    case "ThisTypeAnnotation":
-      return "this";
-    case "NumberTypeAnnotation":
-      return "number";
     case "SymbolTypeAnnotation":
       return "symbol";
     case "ObjectTypeCallProperty":
@@ -3018,8 +3005,6 @@ function printPathNoParens(path, options, print, args) {
     }
     case "TypeofTypeAnnotation":
       return concat(["typeof ", path.call(print, "argument")]);
-    case "VoidTypeAnnotation":
-      return "void";
     case "InferredPredicate":
       return "%checks";
     // Unhandled types below. If encountered, nodes of these types should
@@ -3029,10 +3014,12 @@ function printPathNoParens(path, options, print, args) {
       return concat(["%checks(", path.call(print, "value"), ")"]);
     case "TSAbstractKeyword":
       return "abstract";
+    case "AnyTypeAnnotation":
     case "TSAnyKeyword":
       return "any";
     case "TSAsyncKeyword":
       return "async";
+    case "BooleanTypeAnnotation":
     case "TSBooleanKeyword":
       return "boolean";
     case "TSBigIntKeyword":
@@ -3045,6 +3032,7 @@ function printPathNoParens(path, options, print, args) {
       return "export";
     case "TSNeverKeyword":
       return "never";
+    case "NumberTypeAnnotation":
     case "TSNumberKeyword":
       return "number";
     case "TSObjectKeyword":
@@ -3067,6 +3055,7 @@ function printPathNoParens(path, options, print, args) {
       return "undefined";
     case "TSUnknownKeyword":
       return "unknown";
+    case "VoidTypeAnnotation":
     case "TSVoidKeyword":
       return "void";
     case "TSAsExpression":
@@ -3125,9 +3114,10 @@ function printPathNoParens(path, options, print, args) {
       parts.push(path.call(print, "parameter"));
 
       return concat(parts);
+    case "GenericTypeAnnotation":
     case "TSTypeReference":
       return concat([
-        path.call(print, "typeName"),
+        path.call(print, n.type === "TSTypeReference" ? "typeName" : "id"),
         printTypeParameters(path, options, print, "typeParameters"),
       ]);
     case "TSTypeQuery":
@@ -3180,6 +3170,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "TSNonNullExpression":
       return concat([path.call(print, "expression"), "!"]);
+    case "ThisTypeAnnotation":
     case "TSThisType":
       return "this";
     case "TSImportType":
@@ -4012,7 +4003,7 @@ function printFunctionParameters(
     functionNode.this !== parameters[0] &&
     parameters[0].typeAnnotation &&
     functionNode.typeParameters === null &&
-    isSimpleFlowType(parameters[0].typeAnnotation) &&
+    isSimpleType(parameters[0].typeAnnotation) &&
     !functionNode.rest;
 
   if (isFlowShorthandWithOneArg) {
@@ -5130,7 +5121,7 @@ function stmtNeedsASIProtection(path, options) {
 }
 
 function shouldHugType(node) {
-  if (isSimpleFlowType(node) || isObjectType(node)) {
+  if (isSimpleType(node) || isObjectType(node)) {
     return true;
   }
 
