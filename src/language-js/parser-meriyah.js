@@ -49,31 +49,21 @@ function parseWithOptions(text, module) {
     ...parseOptions,
     module,
     onComment(type, value, start, end /* , loc */) {
-      if (type === "HashbangComment") {
-        type = "Line";
-      } else if (type === "SingleLine") {
-        type = "Line";
-        // https://github.com/meriyah/meriyah/issues/126
-        if (start === end) {
-          end += 2;
-        }
-      } else {
-        type = "Block";
+      // https://github.com/meriyah/meriyah/issues/126
+      if (type === "SingleLine" && start === end) {
+        end += 2;
       }
 
       comments.push({
-        type,
+        type: type === "MultiLine"
+          ? "Block"
+          : // `SingleLine`, `HashbangComment`, `HTMLOpen`, `HTMLClose`
+            "Line",
         value,
         range: [start, end],
       });
     },
-    onToken(type, start, end /* , loc */) {
-      tokens.push({
-        type,
-        value: text.slice(start, end),
-        range: [start, end],
-      });
-    },
+    onToken: tokens,
   });
   ast.comments = comments;
   ast.tokens = tokens;
