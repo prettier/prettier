@@ -442,6 +442,8 @@ const flowTypeAnnotations = new Set([
   "BooleanTypeAnnotation",
   "BooleanLiteralTypeAnnotation",
   "StringTypeAnnotation",
+  "BigIntTypeAnnotation",
+  "BigIntLiteralTypeAnnotation",
 ]);
 
 /**
