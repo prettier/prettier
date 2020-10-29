@@ -155,6 +155,7 @@ Object {
         "babel-ts",
         "typescript",
         "espree",
+        "meriyah",
         "css",
         "less",
         "scss",
@@ -169,7 +170,6 @@ Object {
         "html",
         "angular",
         "lwc",
-        "meriyah",
       ],
       "default": undefined,
       "type": "choice",
@@ -886,6 +886,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"value\\": \\"typescript\\"
         },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"espree\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"meriyah\\" },
         { \\"description\\": \\"CSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"css\\" },
         { \\"description\\": \\"Less\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"less\\" },
         { \\"description\\": \\"SCSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"scss\\" },
@@ -907,8 +908,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Lightning Web Components\\",
           \\"since\\": \\"1.17.0\\",
           \\"value\\": \\"lwc\\"
-        },
-        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"meriyah\\" }
+        }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",
