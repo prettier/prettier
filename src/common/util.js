@@ -15,19 +15,11 @@ const getPenultimate = (arr) => arr[arr.length - 2];
 
 /**
  * @param {string | RegExp} chars
- * @returns {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @returns {(text: string, index: number, opts?: SkipOptions) => number}
  */
 function skip(chars) {
   return (text, index, opts) => {
     const backwards = opts && opts.backwards;
-
-    // Allow `skip` functions to be threaded together without having
-    // to check for failures (did someone say monads?).
-    /* istanbul ignore next */
-    if (index === false) {
-      return false;
-    }
-
     const { length } = text;
     let cursor = index;
     while (cursor >= 0 && cursor < length) {
@@ -43,45 +35,37 @@ function skip(chars) {
       backwards ? cursor-- : cursor++;
     }
 
-    if (cursor === -1 || cursor === length) {
-      // If we reached the beginning or end of the file, return the
-      // out-of-bounds cursor. It's up to the caller to handle this
-      // correctly. We don't want to indicate `false` though if it
-      // actually skipped valid characters.
-      return cursor;
-    }
-    return false;
+    // If we reached the beginning or end of the file, return the
+    // out-of-bounds cursor. It's up to the caller to handle this
+    // correctly. We don't want to indicate `false` though if it
+    // actually skipped valid characters.
+    return cursor;
   };
 }
 
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipWhitespace = skip(/\s/);
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipSpaces = skip(" \t");
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipToLineEnd = skip(",; \t");
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, index: number, opts?: SkipOptions) => number}
  */
 const skipEverythingButNewLine = skip(/[^\n\r]/);
 
 /**
  * @param {string} text
- * @param {number | false} index
- * @returns {number | false}
+ * @param {number} index
+ * @returns {number}
  */
 function skipInlineComment(text, index) {
-  /* istanbul ignore next */
-  if (index === false) {
-    return false;
-  }
-
   if (text.charAt(index) === "/" && text.charAt(index + 1) === "*") {
     for (let i = index + 2; i < text.length; ++i) {
       if (text.charAt(i) === "*" && text.charAt(i + 1) === "/") {
@@ -94,15 +78,10 @@ function skipInlineComment(text, index) {
 
 /**
  * @param {string} text
- * @param {number | false} index
- * @returns {number | false}
+ * @param {number} index
+ * @returns {number}
  */
 function skipTrailingComment(text, index) {
-  /* istanbul ignore next */
-  if (index === false) {
-    return false;
-  }
-
   if (text.charAt(index) === "/" && text.charAt(index + 1) === "/") {
     return skipEverythingButNewLine(text, index);
   }
@@ -114,16 +93,12 @@ function skipTrailingComment(text, index) {
 // want to skip one newline. It's simple to implement.
 /**
  * @param {string} text
- * @param {number | false} index
+ * @param {number} index
  * @param {SkipOptions=} opts
- * @returns {number | false}
+ * @returns number
  */
 function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
-  if (index === false) {
-    return false;
-  }
-
   const atIndex = text.charAt(index);
   if (backwards) {
     // We already replace `\r\n` with `\n` before parsing
@@ -194,7 +169,6 @@ function hasNewlineInRange(text, start, end) {
  * @param {(node: N) => number} locStart
  */
 function isPreviousLineEmpty(text, node, locStart) {
-  /** @type {number | false} */
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
@@ -209,20 +183,18 @@ function isPreviousLineEmpty(text, node, locStart) {
  * @returns {boolean}
  */
 function isNextLineEmptyAfterIndex(text, index) {
-  /** @type {number | false} */
-  let oldIdx = null;
-  /** @type {number | false} */
+  let oldIdx = index;
   let idx = index;
-  while (idx !== oldIdx) {
+  do {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
     idx = skipToLineEnd(text, idx);
     idx = skipInlineComment(text, idx);
     idx = skipSpaces(text, idx);
-  }
+  } while (idx !== oldIdx);
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
-  return idx !== false && hasNewline(text, idx);
+  return idx !== -1 && hasNewline(text, idx);
 }
 
 /**
@@ -239,20 +211,18 @@ function isNextLineEmpty(text, node, locEnd) {
 /**
  * @param {string} text
  * @param {number} idx
- * @returns {number | false}
+ * @returns {number}
  */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
-  /** @type {number | false} */
-  let oldIdx = null;
-  /** @type {number | false} */
+  let oldIdx = idx;
   let nextIdx = idx;
-  while (nextIdx !== oldIdx) {
+  do {
     oldIdx = nextIdx;
     nextIdx = skipSpaces(text, nextIdx);
     nextIdx = skipInlineComment(text, nextIdx);
     nextIdx = skipTrailingComment(text, nextIdx);
     nextIdx = skipNewline(text, nextIdx);
-  }
+  } while (nextIdx !== oldIdx);
   return nextIdx;
 }
 
@@ -261,7 +231,7 @@ function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
  * @param {string} text
  * @param {N} node
  * @param {(node: N) => number} locEnd
- * @returns {number | false}
+ * @returns {number}
  */
 function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
@@ -279,7 +249,6 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
  */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
-    // @ts-ignore => TBD: can return false, should we define a fallback?
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
