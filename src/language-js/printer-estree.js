@@ -2824,11 +2824,6 @@ function printPathNoParens(path, options, print, args) {
     }
     case "NullableTypeAnnotation":
       return concat(["?", path.call(print, "typeAnnotation")]);
-    case "TSNullKeyword":
-    case "NullLiteralTypeAnnotation":
-      return "null";
-    case "SymbolTypeAnnotation":
-      return "symbol";
     case "ObjectTypeCallProperty":
       if (n.static) {
         parts.push("static ");
@@ -2886,8 +2881,6 @@ function printPathNoParens(path, options, print, args) {
       }
       return printNumber(n.raw);
 
-    case "StringTypeAnnotation":
-      return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
       if (n.type === "DeclareTypeAlias" || n.declare) {
@@ -3030,6 +3023,9 @@ function printPathNoParens(path, options, print, args) {
       return "declare";
     case "TSExportKeyword":
       return "export";
+    case "NullLiteralTypeAnnotation":
+    case "TSNullKeyword":
+      return "null";
     case "TSNeverKeyword":
       return "never";
     case "NumberTypeAnnotation":
@@ -3045,10 +3041,12 @@ function printPathNoParens(path, options, print, args) {
       return "public";
     case "TSReadonlyKeyword":
       return "readonly";
+    case "SymbolTypeAnnotation":
     case "TSSymbolKeyword":
       return "symbol";
     case "TSStaticKeyword":
       return "static";
+    case "StringTypeAnnotation":
     case "TSStringKeyword":
       return "string";
     case "TSUndefinedKeyword":
