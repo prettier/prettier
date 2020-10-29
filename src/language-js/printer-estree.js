@@ -2891,11 +2891,10 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "StringLiteralTypeAnnotation":
       return nodeStr(n, options);
-    case "BigIntLiteralTypeAnnotation":
-      return printNumber(n.raw);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
-
+    // fall through
+    case "BigIntLiteralTypeAnnotation":
       if (n.extra != null) {
         return printNumber(n.extra.raw);
       }
