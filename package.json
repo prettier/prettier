@@ -28,7 +28,7 @@
     "@typescript-eslint/typescript-estree": "3.10.1",
     "angular-estree-parser": "2.2.1",
     "angular-html-parser": "1.7.1",
-    "camelcase": "6.1.0",
+    "camelcase": "6.2.0",
     "chalk": "4.1.0",
     "ci-info": "watson/ci-info#f43f6a1cefff47fb361c88cf4b943fdbcaafe540",
     "cjk-regex": "2.0.0",
