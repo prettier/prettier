@@ -1190,12 +1190,6 @@ function isSimpleCallArgument(node, depth) {
 }
 
 function rawText(node) {
-  // `meriyah`
-  // https://github.com/meriyah/meriyah/issues/129
-  if (node.type === "JSXText" && !("raw" in node) && !("extra" in node)) {
-    return node.value;
-  }
-
   return node.extra ? node.extra.raw : node.raw;
 }
 

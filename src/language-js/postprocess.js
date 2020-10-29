@@ -125,42 +125,6 @@ function postprocess(ast, options) {
     }
   });
 
-  if (options.parser === "meriyah") {
-    ast = visitNode(ast, (node) => {
-      // https://github.com/meriyah/meriyah/issues/125
-      if (node.range && node.range[0] > node.range[1]) {
-        node.range = [node.range[1], node.range[0]];
-      }
-      // https://github.com/meriyah/meriyah/issues/127
-      if (
-        node.type === "JSXAttribute" &&
-        node.value &&
-        node.value.type === "Literal" &&
-        options.originalText[node.value.range[0]] === "="
-      ) {
-        node.value.range[0] = node.value.range[0] + 1;
-      }
-      // https://github.com/meriyah/meriyah/issues/128
-      if (
-        node.type === "JSXAttribute" &&
-        node.value &&
-        node.value.type === "Literal" &&
-        typeof node.value.value === "string"
-      ) {
-        node.value.raw = options.originalText.slice(...node.value.range);
-      }
-
-      // https://github.com/meriyah/meriyah/issues/130
-      if (
-        node.directive &&
-        node.expression &&
-        node.expression.type === "Literal"
-      ) {
-        node.directive = node.expression.value;
-      }
-    });
-  }
-
   return ast;
 
   /**

@@ -24,12 +24,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "BigIntLiteral") {
-    if (
-      // babel
-      newObj.value &&
-      // value in `meriyah` is `number`
-      typeof newObj.value === "string"
-    ) {
+    if (newObj.value) {
       newObj.value = newObj.value.toLowerCase();
     }
   }

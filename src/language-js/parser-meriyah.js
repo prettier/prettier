@@ -49,11 +49,6 @@ function parseWithOptions(text, module) {
     ...parseOptions,
     module,
     onComment(type, value, start, end /* , loc */) {
-      // https://github.com/meriyah/meriyah/issues/126
-      if (type === "SingleLine" && start === end) {
-        end += 2;
-      }
-
       comments.push({
         type:
           type === "MultiLine"
