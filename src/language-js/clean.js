@@ -1,24 +1,22 @@
 "use strict";
 
-function clean(ast, newObj, parent) {
-  [
-    "range",
-    "raw",
-    "comments",
-    "leadingComments",
-    "trailingComments",
-    "innerComments",
-    "extra",
-    "start",
-    "end",
-    "loc",
-    "flags",
-    "errors",
-    "tokens",
-  ].forEach((name) => {
-    delete newObj[name];
-  });
+const ignoredProperties = new Set([
+  "range",
+  "raw",
+  "comments",
+  "leadingComments",
+  "trailingComments",
+  "innerComments",
+  "extra",
+  "start",
+  "end",
+  "loc",
+  "flags",
+  "errors",
+  "tokens",
+]);
 
+function clean(ast, newObj, parent) {
   if (ast.type === "Program") {
     delete newObj.sourceType;
   }
@@ -214,5 +212,7 @@ function clean(ast, newObj, parent) {
     newObj.value = newObj.value.trimEnd();
   }
 }
+
+clean.ignoredProperties = ignoredProperties;
 
 module.exports = clean;
