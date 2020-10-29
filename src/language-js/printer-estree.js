@@ -854,11 +854,7 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
 
     case "ExportNamespaceSpecifier":
-      // babel us `exported`, meriyah use `specifier`
-      return concat([
-        "* as ",
-        path.call(print, n.exported ? "exported" : "specifier"),
-      ]);
+      return concat(["* as ", path.call(print, "exported")]);
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
     case "ImportDeclaration": {
