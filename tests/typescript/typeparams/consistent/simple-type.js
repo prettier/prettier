@@ -4,3 +4,4 @@ const foo3: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 const foo4: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<void> = a;
 const foo5: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<true> = a;
 const foo6: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<false> = a;
+const foo7: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<symbol> = a;
