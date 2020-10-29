@@ -14,7 +14,7 @@ const parseOptions = {
   // Enable start and end offsets to each node
   ranges: true,
   // Enable web compatibility
-  webcompat: false,
+  webcompat: true,
   // Enable line/column location information to each node
   loc: true,
   // Attach raw property to each literal and identifier node
