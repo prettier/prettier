@@ -193,13 +193,9 @@ function clean(ast, newObj, parent) {
       newObj.quasis.forEach((quasi) => delete quasi.value);
     }
 
-    if (
-      // TODO: check parser
-      // `flow` and `typescript` don't have `leadingComments`
-      !ast.leadingComments &&
-      // `meriyah` has token `{type: 'TemplateLiteral'}`
-      newObj.quasis
-    ) {
+    // TODO: check parser
+    // `flow` and `typescript` don't have `leadingComments`
+    if (!ast.leadingComments) {
       newObj.quasis.forEach((quasi) => {
         if (quasi.value) {
           delete quasi.value.cooked;
