@@ -23,7 +23,10 @@ function clean(ast, newObj, parent) {
     delete newObj.sourceType;
   }
 
-  if (ast.type === "BigIntLiteral") {
+  if (
+    ast.type === "BigIntLiteral" ||
+    ast.type === "BigIntLiteralTypeAnnotation"
+  ) {
     if (newObj.value) {
       newObj.value = newObj.value.toLowerCase();
     }
