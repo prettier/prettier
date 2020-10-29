@@ -2895,6 +2895,7 @@ function printPathNoParens(path, options, print, args) {
       return printNumber(n.raw);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
+
       if (n.extra != null) {
         return printNumber(n.extra.raw);
       }
