@@ -18,7 +18,7 @@ const name: SomeGeneric<
 ================================================================================
 `;
 
-exports[`simple-type.js format 1`] = `
+exports[`simple-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow", "babel-flow", "babel"]
 printWidth: 80
