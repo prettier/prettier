@@ -471,7 +471,7 @@ const simpleTypeAnnotations = new Set([
   "TSNeverKeyword",
   "TSObjectKeyword",
   "TSUndefinedKeyword",
-  "TSUnknownKeyword"
+  "TSUnknownKeyword",
 ]);
 /**
  * @param {Node} node
