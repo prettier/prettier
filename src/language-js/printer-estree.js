@@ -294,7 +294,7 @@ function printPathNoParens(path, options, print, args) {
       // Babel 6
       if (n.directives) {
         const directivesCount = n.directives.length;
-        path.map((childPath, index) => {
+        path.each((childPath, index) => {
           parts.push(print(childPath), semi, hardline);
           if (
             (index < directivesCount - 1 || hasContents) &&
@@ -3573,7 +3573,7 @@ function printStatementSequence(path, options, print) {
   const bodyNode = path.getNode();
   const isClass = bodyNode.type === "ClassBody";
 
-  path.map((stmtPath, i) => {
+  path.each((stmtPath, i) => {
     const stmt = stmtPath.getValue();
 
     // Just in case the AST has been modified to contain falsy
@@ -4455,8 +4455,7 @@ function printJSXChildren(
   const n = path.getValue();
   const children = [];
 
-  // using `map` instead of `each` because it provides `i`
-  path.map((childPath, i) => {
+  path.each((childPath, i) => {
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
