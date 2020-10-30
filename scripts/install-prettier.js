@@ -17,10 +17,11 @@ module.exports = () => {
   shell.mv(path.join(packageDir, file), tmpDir);
   const tarPath = path.join(tmpDir, file);
 
-  shell.exec(`${client} init -y`, { cwd: tmpDir, silent: true });
+  shell.exec("yarn init -y", { cwd: tmpDir, silent: true });
   let installCommand = "";
   switch (client) {
     case "npm":
+    case "npm@7":
       // npm fails when engine requirement only with `--engine-strict`
       installCommand = `npm install "${tarPath}" --engine-strict`;
       break;
