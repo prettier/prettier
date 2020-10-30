@@ -453,6 +453,7 @@ const simpleTypeScriptTypeAnnotations = new Set([
   "TSNumberKeyword",
   "TSVoidKeyword",
   "TSBooleanKeyword",
+  "TSBigIntKeyword",
   "TSLiteralType",
 ]);
 
