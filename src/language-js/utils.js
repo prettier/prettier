@@ -431,32 +431,33 @@ function isMemberish(node) {
 }
 
 const simpleTypeAnnotations = new Set([
+  // `any`
   "AnyTypeAnnotation",
   "TSAnyKeyword",
-
+  // `null`
   "NullLiteralTypeAnnotation",
   "TSNullKeyword",
-
+  // `this`
   "ThisTypeAnnotation",
   "TSThisType",
-
+  // `number`
   "NumberTypeAnnotation",
   "TSNumberKeyword",
-
+  // `void`
   "VoidTypeAnnotation",
   "TSVoidKeyword",
-
+  // `boolean`
   "BooleanTypeAnnotation",
   "TSBooleanKeyword",
-
+  // `bigint`
   "BigIntLiteral",
   "TSBigIntKeyword",
-
+  // literals
   "BooleanLiteralTypeAnnotation",
   "StringTypeAnnotation",
   "BigIntLiteralTypeAnnotation",
   "TSLiteralType",
-
+  // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
 ]);
