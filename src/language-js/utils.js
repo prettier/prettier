@@ -450,7 +450,7 @@ const simpleTypeAnnotations = new Set([
   "BooleanTypeAnnotation",
   "TSBooleanKeyword",
   // `bigint`
-  "BigIntLiteral",
+  "BigIntTypeAnnotation",
   "TSBigIntKeyword",
   // literals
   "BooleanLiteralTypeAnnotation",
