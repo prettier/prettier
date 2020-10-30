@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`flow-only.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow", "babel-flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+const foo6: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<empty> = a;
+const foo7: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<mixed> = a;
+
+=====================================output=====================================
+const foo6: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<empty> = a;
+const foo7: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<mixed> = a;
+
+================================================================================
+`;
+
 exports[`issue-9501.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow", "babel-flow", "babel"]
