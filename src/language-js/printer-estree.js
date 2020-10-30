@@ -2875,7 +2875,8 @@ function printPathNoParens(path, options, print, args) {
       return nodeStr(n, options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
-
+    // fall through
+    case "BigIntLiteralTypeAnnotation":
       if (n.extra != null) {
         return printNumber(n.extra.raw);
       }
@@ -3015,6 +3016,7 @@ function printPathNoParens(path, options, print, args) {
     case "BooleanTypeAnnotation":
     case "TSBooleanKeyword":
       return "boolean";
+    case "BigIntTypeAnnotation":
     case "TSBigIntKeyword":
       return "bigint";
     case "TSConstKeyword":

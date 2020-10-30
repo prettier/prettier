@@ -442,6 +442,8 @@ const simpleFlowTypeAnnotations = new Set([
   "BooleanTypeAnnotation",
   "BooleanLiteralTypeAnnotation",
   "StringTypeAnnotation",
+  "BigIntTypeAnnotation",
+  "BigIntLiteralTypeAnnotation",
 ]);
 const simpleTypeScriptTypeAnnotations = new Set([
   "TSAnyKeyword",
@@ -451,6 +453,7 @@ const simpleTypeScriptTypeAnnotations = new Set([
   "TSNumberKeyword",
   "TSVoidKeyword",
   "TSBooleanKeyword",
+  "TSBigIntKeyword",
   "TSLiteralType",
 ]);
 
