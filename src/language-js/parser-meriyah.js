@@ -28,9 +28,9 @@ const parseOptions = {
   // Enable non-standard parenthesized expression node
   preserveParens: false,
   // Enable lexical binding and scope tracking
-  lexical: true,
+  lexical: false,
   // Adds a source attribute in every node’s loc object when the locations option is `true`
-  source: true,
+  // source: '',
   // Distinguish Identifier from IdentifierPattern
   identifierPattern: false,
   // Enable React JSX parsing
@@ -38,7 +38,7 @@ const parseOptions = {
   // Allow edge cases that deviate from the spec
   specDeviation: true,
   // Creates unique key for in ObjectPattern when key value are same
-  uniqueKeyInPattern: true,
+  uniqueKeyInPattern: false,
 };
 
 function parseWithOptions(text, module) {
