@@ -5,3 +5,8 @@ const foo4: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 const foo5: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<true> = a;
 const foo6: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<false> = a;
 const foo7: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<symbol> = a;
+const foo8: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<true> = a;
+const foo9: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<"STRING"> = a;
+const foo10: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0> = a;
+const foo11: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xDeeD_Beef> = a;
+const foo12: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xDeeD_Beefn> = a;

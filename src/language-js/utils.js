@@ -452,14 +452,26 @@ const simpleTypeAnnotations = new Set([
   // `bigint`
   "BigIntTypeAnnotation",
   "TSBigIntKeyword",
+  // `symbol`
+  "SymbolTypeAnnotation",
+  "TSSymbolKeyword",
+  // `string`
+  "StringTypeAnnotation",
+  "TSStringKeyword",
   // literals
   "BooleanLiteralTypeAnnotation",
-  "StringTypeAnnotation",
+  "StringLiteralTypeAnnotation",
   "BigIntLiteralTypeAnnotation",
+  "NumberLiteralTypeAnnotation",
   "TSLiteralType",
   // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
+  // typescript only, `never`, `object`, `undefined`, `unknown`
+  "TSNeverKeyword",
+  "TSObjectKeyword",
+  "TSUndefinedKeyword",
+  "TSUnknownKeyword"
 ]);
 /**
  * @param {Node} node
