@@ -430,7 +430,7 @@ function isMemberish(node) {
   );
 }
 
-const flowTypeAnnotations = new Set([
+const simpleFlowTypeAnnotations = new Set([
   "AnyTypeAnnotation",
   "NullLiteralTypeAnnotation",
   "GenericTypeAnnotation",
@@ -445,16 +445,28 @@ const flowTypeAnnotations = new Set([
   "BigIntTypeAnnotation",
   "BigIntLiteralTypeAnnotation",
 ]);
+const simpleTypeScriptTypeAnnotations = new Set([
+  "TSAnyKeyword",
+  "TSNullKeyword",
+  "TSTypeReference",
+  "TSThisType",
+  "TSNumberKeyword",
+  "TSVoidKeyword",
+  "TSBooleanKeyword",
+  "TSLiteralType",
+]);
 
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isSimpleFlowType(node) {
+function isSimpleType(node) {
   return (
     node &&
-    flowTypeAnnotations.has(node.type) &&
-    !(node.type === "GenericTypeAnnotation" && node.typeParameters)
+    ((simpleFlowTypeAnnotations.has(node.type) &&
+      !(node.type === "GenericTypeAnnotation" && node.typeParameters)) ||
+      (simpleTypeScriptTypeAnnotations.has(node.type) &&
+        !(node.type === "TSTypeReference" && node.typeParameters)))
   );
 }
 
@@ -1477,7 +1489,7 @@ module.exports = {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSimpleFlowType,
+  isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,

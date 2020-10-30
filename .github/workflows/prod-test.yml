@@ -91,6 +91,8 @@ jobs:
           - os: "ubuntu-latest"
             node: "14"
             FULL_TEST: true
+          - os: "ubuntu-latest"
+            node: "15"
         exclude:
           - os: "macos-latest"
             node: "12"
