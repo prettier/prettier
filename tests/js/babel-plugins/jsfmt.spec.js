@@ -31,7 +31,6 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
     ],
     meriyah: [
       "decimal.js",
-      "decorators.js",
       "do-expressions.js",
       "export-default-from.js",
       "flow.js",
@@ -44,7 +43,6 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "pipeline-operator-fsharp.js",
       "pipeline-operator-minimal.js",
       "pipeline-operator-smart.js",
-      "private-fields-in-in.js",
       "record-tuple-record.js",
       "record-tuple-tuple.js",
       "throw-expressions.js",
