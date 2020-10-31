@@ -140,6 +140,13 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
 
   if (
+    handleIgnoredComments(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
+    ) ||
     handleIfStatementComments(
       text,
       precedingNode,

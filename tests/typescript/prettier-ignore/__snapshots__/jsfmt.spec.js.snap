@@ -120,8 +120,8 @@ type a = {
   };
 
 type a = {
-  /* prettier-ignore */ A in B: C | D;
-};
+    [/* prettier-ignore */ A in B ]: C  |  D
+  };
 
 type a = {
   [A in /* prettier-ignore */ B]: C | D;
