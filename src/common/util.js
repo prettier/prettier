@@ -648,8 +648,7 @@ function inferParserByLanguage(language, options) {
     ({ name, aliases, extensions }) =>
       name.toLowerCase() === language ||
       (Array.isArray(aliases) && aliases.includes(language)) ||
-      (Array.isArray(extensions) &&
-        extensions.some((ext) => ext === `.${language}`))
+      (Array.isArray(extensions) && extensions.includes(`.${language}`))
   );
   return matched && matched.parsers[0];
 }
