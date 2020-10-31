@@ -16,6 +16,13 @@ const {
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
+    handleTSMappedTypeComments(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
+    ) ||
     handleLastFunctionArgComments(
       text,
       precedingNode,
@@ -914,6 +921,17 @@ function handleTSMappedTypeComments(
 ) {
   if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
     return false;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "TSTypeParameter" &&
+    followingNode.constraint &&
+    isNodeIgnoreComment(comment)
+  ) {
+    enclosingNode.prettierIgnore = true;
+    comment.unignore = true;
+    return true;
   }
 
   if (
