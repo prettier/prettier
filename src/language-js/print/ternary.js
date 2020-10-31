@@ -182,13 +182,13 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     lastConditionalParent !== node;
 
   if (
-    // We now print nested ternaries the same way we print JSX ternaries.
-    isTernaryChain ||
-    (operatorOptions.shouldCheckJsx &&
-      (isJSXNode(node[operatorOptions.testNodePropertyNames[0]]) ||
-        isJSXNode(consequentNode) ||
-        isJSXNode(alternateNode) ||
-        conditionalExpressionChainContainsJSX(lastConditionalParent)))
+    operatorOptions.shouldCheckJsx &&
+    // We now print nested ternaries the same way we print JSX ternaries, except for TS Conditional types.
+    (isTernaryChain ||
+      isJSXNode(node[operatorOptions.testNodePropertyNames[0]]) ||
+      isJSXNode(consequentNode) ||
+      isJSXNode(alternateNode) ||
+      conditionalExpressionChainContainsJSX(lastConditionalParent))
   ) {
     jsxMode = true;
     forceNoIndent = true;
