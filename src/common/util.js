@@ -645,10 +645,11 @@ function replaceEndOfLineWith(text, replacement) {
 function inferParserByLanguage(language, options) {
   const { languages } = getSupportInfo({ plugins: options.plugins });
   const matched = languages.find(
-    ({ name, aliases = [], extensions = [] }) =>
+    ({ name, aliases, extensions }) =>
       name.toLowerCase() === language ||
-      aliases.includes(language) ||
-      extensions.some((ext) => ext === `.${language}`)
+      (Array.isArray(aliases) && aliases.includes(language)) ||
+      (Array.isArray(extensions) &&
+        extensions.some((ext) => ext === `.${language}`))
   );
   return matched && matched.parsers[0];
 }
