@@ -3,7 +3,7 @@
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
-const support = require("../main/support");
+const { getSupportInfo } = require("../main/support");
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
@@ -642,20 +642,15 @@ function replaceEndOfLineWith(text, replacement) {
   return parts;
 }
 
-function getParserName(lang, options) {
-  const supportInfo = support.getSupportInfo({ plugins: options.plugins });
-  const language = supportInfo.languages.find(
-    (language) =>
-      language.name.toLowerCase() === lang ||
-      (language.aliases && language.aliases.includes(lang)) ||
-      (language.extensions &&
-        language.extensions.some((ext) => ext === `.${lang}`))
+function inferParserByLanguage(language, options) {
+  const { languages } = getSupportInfo({ plugins: options.plugins });
+  const matched = languages.find(
+    ({ name, aliases = [], extensions = [] }) =>
+      name.toLowerCase() === language ||
+      aliases.includes(language) ||
+      extensions.some((ext) => ext === `.${language}`)
   );
-  if (language) {
-    return language.parsers[0];
-  }
-
-  return null;
+  return matched && matched.parsers[0];
 }
 
 function isFrontMatterNode(node) {
@@ -674,11 +669,11 @@ function getShebang(text) {
 }
 
 module.exports = {
+  inferParserByLanguage,
   replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getParserName,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
