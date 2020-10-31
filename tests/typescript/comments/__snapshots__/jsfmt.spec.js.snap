@@ -417,12 +417,12 @@ type M = { [m in M] /* commentG */: string }
 
 =====================================output=====================================
 type A = {
-  // commentA
-  [a in A]: string;
+  [// commentA
+  a in A]: string;
 };
 
 type B = {
-  /* commentB */ [b in B]: string;
+  [/* commentB */ b in B]: string;
 };
 
 type C = {
