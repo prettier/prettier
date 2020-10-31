@@ -1515,6 +1515,7 @@ module.exports = {
   identity,
   isBinaryish,
   isBlockComment,
+  isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,
