@@ -169,19 +169,21 @@ test
     foo
   : bar;
 
-test
-  ? /* comment
+test ? (
+  /* comment
        comment
        comment
        comment
     */
-    foo
-  : test
-    ? /* comment
+  foo
+) : test ? (
+  /* comment
   comment
     comment */
-      foo
-    : bar;
+  foo
+) : (
+  bar
+);
 
 test ? /* comment */ foo : bar;
 
@@ -194,29 +196,35 @@ test
     */
     bar;
 
-test
-  ? foo
-  : /* comment
+test ? (
+  foo
+) : /* comment
          comment
      comment
            comment
     */
-    test
-    ? foo
-    : /* comment
+test ? (
+  foo
+) : (
+  /* comment
   comment
     comment
    */
-      bar;
+  bar
+);
 
 test ? foo : /* comment */ bar;
 
-test
-  ? test /* c
-c */
-    ? foo
-    : bar
-  : bar;
+test ? (
+  test /* c
+c */ ? (
+    foo
+  ) : (
+    bar
+  )
+) : (
+  bar
+);
 
 ================================================================================
 `;
