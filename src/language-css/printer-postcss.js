@@ -38,7 +38,9 @@ const {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
+  isSCSS,
   isLastNode,
+  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -121,9 +123,7 @@ function genericPrint(path, options, print) {
               node.selector.type === "selector-unknown" &&
               lastLineHasInlineComment(node.selector.value)
                 ? line
-                : node.selector
-                ? " "
-                : "",
+                : " ",
               "{",
               node.nodes.length > 0
                 ? indent(
@@ -143,8 +143,6 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
-      const isValueAllSpace =
-        typeof node.value === "string" && /^ *$/.test(node.value);
 
       let value = hasComposesNode(node)
         ? removeLines(path.call(print, "value"))
@@ -159,8 +157,8 @@ function genericPrint(path, options, print) {
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend || isValueAllSpace ? "" : " ",
-        options.parser === "less" && node.extend && node.selector
+        node.extend ? "" : " ",
+        isLessParser(options) && node.extend && node.selector
           ? concat(["extend(", path.call(print, "selector"), ")"])
           : "",
         value,
@@ -204,7 +202,7 @@ function genericPrint(path, options, print) {
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
 
-      if (options.parser === "less") {
+      if (isLessParser(options)) {
         if (node.mixin) {
           return concat([
             path.call(print, "selector"),
@@ -245,11 +243,6 @@ function genericPrint(path, options, print) {
           ]);
         }
       }
-      const isImportUnknownValueEndsWithSemiColon =
-        node.name === "import" &&
-        node.params &&
-        node.params.type === "value-unknown" &&
-        node.params.value.endsWith(";");
 
       return concat([
         "@",
@@ -285,7 +278,7 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "value"),
-                isSCSSControlDirectiveNode(node, options)
+                isSCSSControlDirectiveNode(node)
                   ? hasParensAroundNode(node)
                     ? " "
                     : line
@@ -297,7 +290,7 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node, options)
+              isSCSSControlDirectiveNode(node)
                 ? ""
                 : (node.selector &&
                     !node.selector.nodes &&
@@ -318,8 +311,7 @@ function genericPrint(path, options, print) {
               softline,
               "}",
             ])
-          : isTemplatePlaceholderNodeWithoutSemiColon ||
-            isImportUnknownValueEndsWithSemiColon
+          : isTemplatePlaceholderNodeWithoutSemiColon
           ? ""
           : ";",
       ]);
@@ -546,8 +538,7 @@ function genericPrint(path, options, print) {
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
-        atRuleAncestorNode &&
-        isSCSSControlDirectiveNode(atRuleAncestorNode, options);
+        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
 
       const printed = path.map(print, "groups");
       const parts = [];
@@ -866,7 +857,7 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
-      const isSCSSMapItem = isSCSSMapItemNode(path, options);
+      const isSCSSMapItem = isSCSSMapItemNode(path);
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
@@ -905,7 +896,7 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             !isLastItemComment &&
-              options.parser === "scss" &&
+              isSCSS(options.parser, options.originalText) &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","
