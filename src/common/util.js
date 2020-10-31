@@ -613,24 +613,6 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-// Not using
-/* istanbul ignore next */
-function isWithinParentArrayProperty(path, propertyName) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-
-  if (parent == null) {
-    return false;
-  }
-
-  if (!Array.isArray(parent[propertyName])) {
-    return false;
-  }
-
-  const key = path.getName();
-  return parent[propertyName][key] === node;
-}
-
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
@@ -710,7 +692,6 @@ module.exports = {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isWithinParentArrayProperty,
   isFrontMatterNode,
   getShebang,
 };
