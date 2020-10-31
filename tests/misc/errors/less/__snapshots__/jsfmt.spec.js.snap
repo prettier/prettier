@@ -28,21 +28,3 @@ exports[`open-sigle-quote.less error test 1`] = `
   3 | }
   4 | "
 `;
-
-exports[`postcss-8-improment.less error test 1`] = `
-"CssSyntaxError: Missed semicolon (9:20)
-   7 | :root {
-   8 |   --empty: ;
->  9 |   --JSON: [1, \\"2\\", {\\"three\\": {\\"a\\":1}}, [4]];
-     |                    ^
-  10 |   --javascript: function(rule) { console.log(rule) };
-  11 | }
-  12 | "
-`;
-
-exports[`scss-syntax.scss error test 1`] = `
-"CssSyntaxError: Unknown word (1:15)
-> 1 | a {content: #{$foo}}
-    |               ^
-  2 | "
-`;

@@ -11,7 +11,11 @@ const {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util");
-const { isPrettierIgnoreComment } = require("./utils");
+const {
+  isBlockComment,
+  getFunctionParameters,
+  isPrettierIgnoreComment,
+} = require("./utils");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
@@ -603,9 +607,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
-      // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
-      (enclosingNode.params || enclosingNode.parameters).length === 0 &&
-      !enclosingNode.this) ||
+      getFunctionParameters(enclosingNode).length === 0) ||
       ((enclosingNode.type === "CallExpression" ||
         enclosingNode.type === "OptionalCallExpression" ||
         enclosingNode.type === "NewExpression") &&
@@ -617,7 +619,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
     enclosingNode &&
     enclosingNode.type === "MethodDefinition" &&
-    enclosingNode.value.params.length === 0
+    getFunctionParameters(enclosingNode.value).length === 0
   ) {
     addDanglingComment(enclosingNode.value, comment);
     return true;
@@ -666,10 +668,7 @@ function handleLastFunctionArgComments(
     followingNode.type === "BlockStatement"
   ) {
     const functionParamRightParenIndex = (() => {
-      let parameters = enclosingNode.params || enclosingNode.parameters;
-      if (enclosingNode.this) {
-        parameters = [enclosingNode.this, ...parameters];
-      }
+      const parameters = getFunctionParameters(enclosingNode);
       if (parameters.length !== 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
@@ -937,10 +936,6 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
-}
-
 /**
  * @param {any} node
  * @param {(comment: any) => boolean} fn
@@ -1000,7 +995,7 @@ function getCommentChildNodes(node, options) {
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&
-    node.value.params.length === 0 &&
+    getFunctionParameters(node.value).length === 0 &&
     !node.value.returnType &&
     (!node.value.typeParameters || node.value.typeParameters.length === 0) &&
     node.value.body
