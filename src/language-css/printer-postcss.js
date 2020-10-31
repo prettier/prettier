@@ -978,8 +978,7 @@ function genericPrint(path, options, print) {
 function printNodeSequence(path, options, print) {
   const node = path.getValue();
   const parts = [];
-  let i = 0;
-  path.map((pathChild) => {
+  path.each((pathChild, i) => {
     const prevNode = node.nodes[i - 1];
     if (
       prevNode &&
@@ -1025,7 +1024,6 @@ function printNodeSequence(path, options, print) {
         }
       }
     }
-    i++;
   }, "nodes");
 
   return concat(parts);

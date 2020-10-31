@@ -430,30 +430,59 @@ function isMemberish(node) {
   );
 }
 
-const flowTypeAnnotations = new Set([
+const simpleTypeAnnotations = new Set([
+  // `any`
   "AnyTypeAnnotation",
+  "TSAnyKeyword",
+  // `null`
   "NullLiteralTypeAnnotation",
-  "GenericTypeAnnotation",
+  "TSNullKeyword",
+  // `this`
   "ThisTypeAnnotation",
+  "TSThisType",
+  // `number`
   "NumberTypeAnnotation",
+  "TSNumberKeyword",
+  // `void`
   "VoidTypeAnnotation",
-  "EmptyTypeAnnotation",
-  "MixedTypeAnnotation",
+  "TSVoidKeyword",
+  // `boolean`
   "BooleanTypeAnnotation",
+  "TSBooleanKeyword",
+  // `bigint`
+  "BigIntTypeAnnotation",
+  "TSBigIntKeyword",
+  // literals
   "BooleanLiteralTypeAnnotation",
   "StringTypeAnnotation",
+  "BigIntLiteralTypeAnnotation",
+  "TSLiteralType",
+  // flow only, `empty`, `mixed`
+  "EmptyTypeAnnotation",
+  "MixedTypeAnnotation",
 ]);
-
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isSimpleFlowType(node) {
-  return (
-    node &&
-    flowTypeAnnotations.has(node.type) &&
-    !(node.type === "GenericTypeAnnotation" && node.typeParameters)
-  );
+function isSimpleType(node) {
+  if (!node) {
+    return false;
+  }
+
+  if (
+    (node.type === "GenericTypeAnnotation" ||
+      node.type === "TSTypeReference") &&
+    !node.typeParameters
+  ) {
+    return true;
+  }
+
+  if (simpleTypeAnnotations.has(node.type)) {
+    return true;
+  }
+
+  return false;
 }
 
 const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
@@ -1475,7 +1504,7 @@ module.exports = {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSimpleFlowType,
+  isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,

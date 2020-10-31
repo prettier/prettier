@@ -26,7 +26,7 @@ function genericPrint(path, options, print) {
   switch (n.kind) {
     case "Document": {
       const parts = [];
-      path.map((pathChild, index) => {
+      path.each((pathChild, index) => {
         parts.push(concat([pathChild.call(print)]));
         if (index !== n.definitions.length - 1) {
           parts.push(hardline);

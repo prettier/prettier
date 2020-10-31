@@ -577,19 +577,16 @@ function printLine(path, value, options) {
 function printTable(path, options, print) {
   const hardlineWithoutBreakParent = hardline.parts[0];
   const node = path.getValue();
-  const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
 
-  path.map((rowPath) => {
-    const rowContents = [];
-
-    rowPath.map((cellPath) => {
-      rowContents.push(
-        printDocToString(cellPath.call(print), options).formatted
-      );
-    }, "children");
-
-    contents.push(rowContents);
-  }, "children");
+  // { [rowIndex: number]: { [columnIndex: number]: string } }
+  const contents = path.map(
+    (rowPath) =>
+      rowPath.map(
+        (cellPath) => printDocToString(cellPath.call(print), options).formatted,
+        "children"
+      ),
+    "children"
+  );
 
   // Get the width of each column
   const columnMaxWidths = contents.reduce(
@@ -762,7 +759,7 @@ function printChildren(path, options, print, events) {
 
   let lastChildNode;
 
-  path.map((childPath, index) => {
+  path.each((childPath, index) => {
     const childNode = childPath.getValue();
 
     const result = processor(childPath, index);
