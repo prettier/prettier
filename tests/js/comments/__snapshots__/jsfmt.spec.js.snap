@@ -3680,7 +3680,7 @@ function memberInAndOutWithCalls() {
 function excessiveEverything() {
   return (
     // Reason for stuff
-    a.b() * 3 + 4 ? (a\`hi\`, 1) ? 1 : 1 : 1
+    a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
   )
 }
 
@@ -3942,7 +3942,7 @@ function memberInAndOutWithCalls() {
 function excessiveEverything() {
   return (
     // Reason for stuff
-    a.b() * 3 + 4 ? (a\`hi\`, 1) ? 1 : 1 : 1
+    a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
   );
 }
 

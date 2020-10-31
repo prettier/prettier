@@ -215,9 +215,15 @@ function printTernaryOperator(path, options, print, operatorOptions) {
 
     parts.push(
       " ? ",
+      consequentNode.type === operatorOptions.conditionalNodeType
+        ? ifBreak("", "(")
+        : "",
       isNil(consequentNode)
         ? path.call(print, operatorOptions.consequentNodePropertyName)
         : wrap(path.call(print, operatorOptions.consequentNodePropertyName)),
+      consequentNode.type === operatorOptions.conditionalNodeType
+        ? ifBreak("", ")")
+        : "",
       " : ",
       alternateNode.type === operatorOptions.conditionalNodeType ||
         isNil(alternateNode)
