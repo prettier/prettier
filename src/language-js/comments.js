@@ -16,7 +16,7 @@ const {
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
-    handleTSMappedTypeComments(
+    handleIgnoredComments(
       text,
       enclosingNode,
       precedingNode,
@@ -912,6 +912,27 @@ function handleTSFunctionTrailingComments(
   return false;
 }
 
+function handleIgnoredComments(
+  text,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
+  if (
+    isNodeIgnoreComment(comment) &&
+    enclosingNode &&
+    enclosingNode.type === "TSMappedType" &&
+    followingNode &&
+    followingNode.type === "TSTypeParameter" &&
+    followingNode.constraint
+  ) {
+    enclosingNode.prettierIgnore = true;
+    comment.unignore = true;
+    return true;
+  }
+}
+
 function handleTSMappedTypeComments(
   text,
   enclosingNode,
@@ -921,26 +942,6 @@ function handleTSMappedTypeComments(
 ) {
   if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
     return false;
-  }
-
-  if (
-    followingNode &&
-    followingNode.type === "TSTypeParameter" &&
-    followingNode.constraint &&
-    isNodeIgnoreComment(comment)
-  ) {
-    enclosingNode.prettierIgnore = true;
-    comment.unignore = true;
-    return true;
-  }
-
-  if (
-    followingNode &&
-    followingNode.type === "TSTypeParameter" &&
-    followingNode.name
-  ) {
-    addLeadingComment(followingNode.name, comment);
-    return true;
   }
 
   if (
