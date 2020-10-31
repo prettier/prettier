@@ -15,8 +15,6 @@ const {
   getStringWidth,
   printString,
   printNumber,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
   getIndentSize,
   getPreferredQuote,
 } = require("../common/util");
@@ -72,6 +70,8 @@ const {
   hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
+  hasNodeIgnoreComment,
+  hasIgnoreComment,
   identity,
   isBinaryish,
   isCallOrOptionalCallExpression,

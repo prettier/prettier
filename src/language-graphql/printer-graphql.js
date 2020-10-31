@@ -10,7 +10,7 @@ const {
   indent,
   ifBreak,
 } = require("../document").builders;
-const { hasIgnoreComment, isNextLineEmpty } = require("../common/util");
+const { isNextLineEmpty } = require("../common/util");
 const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {
@@ -685,7 +685,6 @@ function clean(node, newNode /*, parent*/) {
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
-  hasPrettierIgnore: hasIgnoreComment,
   insertPragma,
   printComment,
   canAttachComment,
