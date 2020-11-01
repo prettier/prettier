@@ -682,9 +682,19 @@ function clean(node, newNode /*, parent*/) {
   delete newNode.comments;
 }
 
+function hasPrettierIgnore(path) {
+  const node = path.getValue();
+  return (
+    node &&
+    Array.isArray(node.comments) &&
+    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
+  );
+}
+
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
+  hasPrettierIgnore,
   insertPragma,
   printComment,
   canAttachComment,

@@ -18,7 +18,7 @@ printWidth: 80
 {
   # prettier-ignore
   hero {
-    name
+       name
     height
   }
 }
