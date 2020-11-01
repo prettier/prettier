@@ -644,13 +644,15 @@ function replaceEndOfLineWith(text, replacement) {
 
 function inferParserByLanguage(language, options) {
   const { languages } = getSupportInfo({ plugins: options.plugins });
-  const matched = languages.find(
-    ({ name, aliases, extensions }) =>
-      name.toLowerCase() === language ||
-      (Array.isArray(aliases) && aliases.includes(language)) ||
-      (Array.isArray(extensions) &&
-        extensions.some((ext) => ext === `.${language}`))
-  );
+  const matched =
+    languages.find(({ name }) => name.toLowerCase() === language) ||
+    languages.find(
+      ({ aliases }) => Array.isArray(aliases) && aliases.includes(language)
+    ) ||
+    languages.find(
+      ({ extensions }) =>
+        Array.isArray(extensions) && extensions.includes(`.${language}`)
+    );
   return matched && matched.parsers[0];
 }
 
