@@ -17,24 +17,21 @@ module.exports = () => {
   shell.mv(path.join(packageDir, file), tmpDir);
   const tarPath = path.join(tmpDir, file);
 
-  shell.exec("npm init -y", { cwd: tmpDir, silent: true });
+  shell.exec(`${client} init -y`, { cwd: tmpDir, silent: true });
   let installCommand = "";
   switch (client) {
-    case "yarn":
-      // yarn fails when engine requirement not compatible by default
-      installCommand = `yarn set version classic && yarn add "${tarPath}"`;
+    case "npm":
+      // npm fails when engine requirement only with `--engine-strict`
+      installCommand = `npm install "${tarPath}" --engine-strict`;
       break;
     case "pnpm":
       // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
       installCommand = `pnpm add "${tarPath}"`;
       break;
     default:
-      // npm fails when engine requirement only with `--engine-strict`
-      installCommand = `npm install "${tarPath}" --engine-strict`;
-      break;
+      // yarn fails when engine requirement not compatible by default
+      installCommand = `yarn set version classic && yarn add "${tarPath}"`;
   }
-
-  console.log({ installCommand, tmpDir });
 
   shell.exec(installCommand, { cwd: tmpDir });
 
