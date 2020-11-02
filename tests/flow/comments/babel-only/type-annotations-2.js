@@ -1,0 +1,1 @@
+class A {/*::*/foo( data: {missingPlugin: Array<string>}) {}}
