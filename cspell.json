@@ -120,6 +120,7 @@
         "Filipe",
         "finalizer",
         "Fiorini",
+        "fisker",
         "fnames",
         "foldgutter",
         "formatprg",
@@ -416,8 +417,7 @@
         "\\(https?://.*?\\)",
         "author: \".*?\"",
         "authorURL: \".*?\"",
-        "\"author\": \".*?\"",
-        "require\\(\".*?\"\\)"
+        "\"author\": \".*?\""
     ],
     "ignorePaths": [
         "cspell.json",
