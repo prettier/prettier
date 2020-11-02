@@ -30,7 +30,7 @@ module.exports = () => {
       break;
     default:
       // yarn fails when engine requirement not compatible by default
-      installCommand = `yarn set version classic && yarn add "${tarPath}"`;
+      installCommand = `yarn add "${tarPath}"`;
   }
 
   shell.exec(installCommand, { cwd: tmpDir });
