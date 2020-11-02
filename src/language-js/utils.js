@@ -55,6 +55,7 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
+    isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
 }
@@ -64,7 +65,11 @@ function hasFlowShorthandAnnotationComment(node) {
  * @returns {boolean}
  */
 function hasFlowAnnotationComment(comments) {
-  return comments && FLOW_ANNOTATION.test(comments[0].value);
+  return (
+    comments &&
+    isBlockComment(comments[0]) &&
+    FLOW_ANNOTATION.test(comments[0].value)
+  );
 }
 
 /**
