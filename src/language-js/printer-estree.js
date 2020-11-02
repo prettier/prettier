@@ -2935,8 +2935,9 @@ function printPathNoParens(path, options, print, args) {
         // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
         // because we know for sure that this is a type definition.
         const isCommentSyntax = textBefore
-          .slice(commentStartBefore)
-          .match(/^\/\*\s*::/);
+          .slice(commentStartBefore + 2)
+          .trim()
+          .startsWith("::");
         if (isCommentSyntax) {
           return concat([
             "/*:: ",
