@@ -919,7 +919,7 @@ function handleTSFunctionTrailingComments(
   return false;
 }
 
-function handleIgnoredComments(
+function handleIgnoreComments(
   text,
   enclosingNode,
   precedingNode,
