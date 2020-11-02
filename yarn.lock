@@ -7503,13 +7503,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-srcset@ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee":
-  version: 1.0.2
-  resolution: "parse-srcset@https://github.com/ikatyang/parse-srcset.git#commit=54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
-  checksum: 8cf83030fb26f35d076f7b4a2db0e176721bfa8288acff7180ce440ee78d06532a7ad56ba65852a7aa28bf1cf2e16243c4f493453d28003a1d0e807385a1cef7
-  languageName: node
-  linkType: hard
-
 "parse5@npm:5.1.1":
   version: 5.1.1
   resolution: "parse5@npm:5.1.1"
@@ -7870,7 +7863,6 @@ __metadata:
     n-readlines: 1.0.0
     npm-run-all: 4.1.5
     outdent: 0.7.1
-    parse-srcset: "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
     path-browserify: 1.0.1
     please-upgrade-node: 3.2.0
     postcss-less: 3.1.4
