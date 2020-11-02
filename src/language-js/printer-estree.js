@@ -2919,26 +2919,17 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameterInstantiation": {
       const start = options.locStart(n);
       const end = options.locEnd(n);
-      const textAfter = options.originalText.slice(end);
-      const commentEndAfter = textAfter.indexOf("*/");
-      const commentStartAfter = textAfter.indexOf("/*");
-      const textBefore = options.originalText.slice(0, start);
-      const commentEndBefore = textBefore.lastIndexOf("*/");
-      const commentStartBefore = textBefore.lastIndexOf("/*");
-      // Inside a comment
-      if (
-        commentEndAfter !== -1 &&
-        (commentStartAfter === -1 || commentEndAfter < commentStartAfter) &&
-        commentStartBefore !== -1 &&
-        (commentEndBefore === -1 || commentEndBefore < commentStartBefore)
-      ) {
-        // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
-        // because we know for sure that this is a type definition.
-        const isCommentSyntax = textBefore
-          .slice(commentStartBefore + 2)
-          .trim()
-          .startsWith("::");
-        if (isCommentSyntax) {
+      const commentStartIndex = options.originalText.lastIndexOf("/*", start);
+      const commentEndIndex = options.originalText.indexOf("*/", end);
+      if (commentStartIndex !== -1 && commentEndIndex !== -1) {
+        const comment = options.originalText
+          .slice(commentStartIndex + 2, commentEndIndex)
+          .trim();
+        if (
+          comment.startsWith("::") &&
+          !comment.includes("/*") &&
+          !comment.includes("*/")
+        ) {
           return concat([
             "/*:: ",
             printTypeParameters(path, options, print, "params"),
