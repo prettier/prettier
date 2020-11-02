@@ -1218,6 +1218,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fisker/parse-srcset@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@fisker/parse-srcset@npm:1.0.2"
+  checksum: 9a239ec2a8bd8546b947131c2ebc45400a1f62801626e6180f622b452c0afe176e09bf11564c92f84ef06e94a1ce0ec5dd33148fa21131494d7aa6023bdd9691
+  languageName: node
+  linkType: hard
+
 "@glimmer/env@npm:0.1.7, @glimmer/env@npm:^0.1.7":
   version: 0.1.7
   resolution: "@glimmer/env@npm:0.1.7"
@@ -7792,6 +7799,7 @@ __metadata:
     "@babel/parser": 7.12.3
     "@babel/preset-env": 7.12.1
     "@babel/types": 7.12.1
+    "@fisker/parse-srcset": 1.0.2
     "@glimmer/reference": 0.62.4
     "@glimmer/syntax": 0.62.4
     "@iarna/toml": 2.2.5
