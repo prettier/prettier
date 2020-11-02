@@ -698,30 +698,6 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {ObjectTypeProperty} node
- */
-function getFlowVariance(node) {
-  if (!node.variance) {
-    return null;
-  }
-
-  // Babel 7.0 currently uses variance node type, and flow should
-  // follow suit soon:
-  // https://github.com/babel/babel/issues/4722
-  const variance = node.variance.kind || node.variance;
-
-  switch (variance) {
-    case "plus":
-      return "+";
-    case "minus":
-      return "-";
-    default:
-      /* istanbul ignore next */
-      return variance;
-  }
-}
-
-/**
  * @param {FastPath} path
  * @returns {boolean}
  */
@@ -1471,7 +1447,6 @@ function iterateFunctionParametersPath(path, iteratee) {
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  getFlowVariance,
   getFunctionParameters,
   iterateFunctionParametersPath,
   hasRestParameter,
