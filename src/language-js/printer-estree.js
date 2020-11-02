@@ -2917,21 +2917,33 @@ function printPathNoParens(path, options, print, args) {
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
-      const value = path.getValue();
-      const commentStart = options.originalText
-        .slice(0, options.locStart(value))
-        .lastIndexOf("/*");
-      // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
-      // because we know for sure that this is a type definition.
-      const commentSyntax =
-        commentStart >= 0 &&
-        options.originalText.slice(commentStart).match(/^\/\*\s*::/);
-      if (commentSyntax) {
-        return concat([
-          "/*:: ",
-          printTypeParameters(path, options, print, "params"),
-          " */",
-        ]);
+      const start = options.locStart(n);
+      const end = options.locEnd(n);
+      const textAfter = options.originalText.slice(end);
+      const commentEndAfter = textAfter.indexOf("*/");
+      const commentStartAfter = textAfter.indexOf("/*");
+      const textBefore = options.originalText.slice(0, start);
+      const commentEndBefore = textBefore.lastIndexOf("*/");
+      const commentStartBefore = textBefore.lastIndexOf("/*");
+      // Inside a comment
+      if (
+        commentEndAfter !== -1 &&
+        (commentStartAfter === -1 || commentEndAfter < commentStartAfter) &&
+        commentStartBefore !== -1 &&
+        (commentEndBefore === -1 || commentEndBefore < commentStartBefore)
+      ) {
+        // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
+        // because we know for sure that this is a type definition.
+        const isCommentSyntax = textBefore
+          .slice(commentStartBefore)
+          .match(/^\/\*\s*::/);
+        if (isCommentSyntax) {
+          return concat([
+            "/*:: ",
+            printTypeParameters(path, options, print, "params"),
+            " */",
+          ]);
+        }
       }
 
       return printTypeParameters(path, options, print, "params");
