@@ -1,3 +1,8 @@
+[build]
+  command = "yarn add parse-srcset@https://github.com/ikatyang/parse-srcset.git#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee && yarn && yarn build-docs"
 [build.environment]
   NODE_VERSION = "14"
+  NETLIFY_USE_YARN = "true"
   YARN_VERSION = "1.22.10"
+  YARN_FLAGS = "--help"
+
