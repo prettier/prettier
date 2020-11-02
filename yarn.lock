@@ -3,7 +3,7 @@
 
 __metadata:
   version: 4
-  cacheKey: 6
+  cacheKey: 7
 
 "@angular/compiler@npm:10.2.1":
   version: 10.2.1
@@ -1345,7 +1345,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.12.1, @babel/types@npm:^7.12.1":
+"@babel/types@npm:7.12.1, @babel/types@npm:^7.12.1, @babel/types@npm:^7.8.3":
   version: 7.12.1
   resolution: "@babel/types@npm:7.12.1"
   dependencies:
@@ -4593,7 +4593,7 @@ __metadata:
 "eslint-plugin-prettier-internal-rules@file:scripts/tools/eslint-plugin-prettier-internal-rules/eslint-plugin-prettier-internal-rules-1.0.0.tgz::locator=prettier%40workspace%3A.":
   version: 1.0.0
   resolution: "eslint-plugin-prettier-internal-rules@file:scripts/tools/eslint-plugin-prettier-internal-rules/eslint-plugin-prettier-internal-rules-1.0.0.tgz::locator=prettier%40workspace%3A."
-  checksum: ef4fa6876c8cad8f19d1982eb44d690bd5a261c9ae41c905b53c59804ee0a9778a5f8c4a3fff9c9421ae424f8048e70bcc38628e5bc68b47e816666a5c3603cb
+  checksum: 4d5e409fea16ec0ec6ed3960e878748af27437969fb6ce2d2e0430c94edb881b07f6aee78c330f7cd8ebf4df08101f26f8bbe3b0e958003df32b42ed4f1bebad
   languageName: node
   linkType: hard
 
@@ -5229,10 +5229,10 @@ __metadata:
 
 "fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
   version: 2.1.3
-  resolution: "fsevents@patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=87eb42"
+  resolution: "fsevents@patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=127e8e"
   dependencies:
     node-gyp: latest
-  checksum: d8ae862048fc127cdbd00d02b2feb7c25946c3ce4cbc44e958134be87e239577a16dafafa1c270d010b8624e1b1e0372e23f7865c55c6f83e83fc9f68b0a30d2
+  checksum: e2b8c379340e21a786d32c653854c8876f94eb1202dd5be378fd42c062bc123aab5051c32bf0011865257c85982c41ded203f9fe8c9f9c8f8c84dc4672abc0e0
   languageName: node
   linkType: hard
 
@@ -10180,7 +10180,7 @@ typescript@4.0.5:
 
 "typescript@patch:typescript@4.0.5#builtin<compat/typescript>":
   version: 4.0.5
-  resolution: "typescript@patch:typescript@npm%3A4.0.5#builtin<compat/typescript>::version=4.0.5&hash=5b02a2"
+  resolution: "typescript@patch:typescript@npm%3A4.0.5#builtin<compat/typescript>::version=4.0.5&hash=5bf698"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
