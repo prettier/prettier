@@ -4359,6 +4359,17 @@ showNotification(
         undoable: false,
     }
 )
+
+const result = children && !isEmptyChildren(children)
+  ? children
+  : props.match
+    ? component
+      ? React.createElement(component, props)
+      : render
+        ? render(props)
+        : null
+    : null;
+
 =====================================output=====================================
 let icecream =
     what == "cone"
@@ -4472,8 +4483,8 @@ const config = {
                               typeof error === "string"
                                   ? error
                                   : error && error.message
-                                  ? error.message
-                                  : undefined,
+                                    ? error.message
+                                    : undefined,
                       },
                   );
                   refresh();
@@ -4488,6 +4499,17 @@ showNotification(
         undoable: false,
     },
 );
+
+const result =
+    children && !isEmptyChildren(children)
+        ? children
+        : props.match
+          ? component
+              ? React.createElement(component, props)
+              : render
+                ? render(props)
+                : null
+          : null;
 
 ================================================================================
 `;
@@ -4624,6 +4646,17 @@ showNotification(
         undoable: false,
     }
 )
+
+const result = children && !isEmptyChildren(children)
+  ? children
+  : props.match
+    ? component
+      ? React.createElement(component, props)
+      : render
+        ? render(props)
+        : null
+    : null;
+
 =====================================output=====================================
 let icecream =
 	what == "cone"
@@ -4737,8 +4770,8 @@ const config = {
 								typeof error === "string"
 									? error
 									: error && error.message
-									? error.message
-									: undefined,
+									  ? error.message
+									  : undefined,
 						},
 					);
 					refresh();
@@ -4753,6 +4786,17 @@ showNotification(
 		undoable: false,
 	},
 );
+
+const result =
+	children && !isEmptyChildren(children)
+		? children
+		: props.match
+		  ? component
+				? React.createElement(component, props)
+				: render
+				  ? render(props)
+				  : null
+		  : null;
 
 ================================================================================
 `;
@@ -4888,6 +4932,17 @@ showNotification(
         undoable: false,
     }
 )
+
+const result = children && !isEmptyChildren(children)
+  ? children
+  : props.match
+    ? component
+      ? React.createElement(component, props)
+      : render
+        ? render(props)
+        : null
+    : null;
+
 =====================================output=====================================
 let icecream =
 	what == "cone"
@@ -5001,8 +5056,8 @@ const config = {
 								typeof error === "string"
 									? error
 									: error && error.message
-									? error.message
-									: undefined,
+									  ? error.message
+									  : undefined,
 						},
 					);
 					refresh();
@@ -5017,6 +5072,17 @@ showNotification(
 		undoable: false,
 	},
 );
+
+const result =
+	children && !isEmptyChildren(children)
+		? children
+		: props.match
+		  ? component
+				? React.createElement(component, props)
+				: render
+				  ? render(props)
+				  : null
+		  : null;
 
 ================================================================================
 `;
@@ -5151,6 +5217,17 @@ showNotification(
         undoable: false,
     }
 )
+
+const result = children && !isEmptyChildren(children)
+  ? children
+  : props.match
+    ? component
+      ? React.createElement(component, props)
+      : render
+        ? render(props)
+        : null
+    : null;
+
 =====================================output=====================================
 let icecream =
   what == "cone"
@@ -5264,8 +5341,8 @@ const config = {
                 typeof error === "string"
                   ? error
                   : error && error.message
-                  ? error.message
-                  : undefined,
+                    ? error.message
+                    : undefined,
             },
           );
           refresh();
@@ -5280,6 +5357,17 @@ showNotification(
     undoable: false,
   },
 );
+
+const result =
+  children && !isEmptyChildren(children)
+    ? children
+    : props.match
+      ? component
+        ? React.createElement(component, props)
+        : render
+          ? render(props)
+          : null
+      : null;
 
 ================================================================================
 `;
