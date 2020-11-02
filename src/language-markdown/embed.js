@@ -1,6 +1,9 @@
 "use strict";
 
-const { getParserName, getMaxContinuousCount } = require("../common/util");
+const {
+  inferParserByLanguage,
+  getMaxContinuousCount,
+} = require("../common/util");
 const {
   builders: { hardline, concat, markAsRoot },
   utils: { replaceNewlinesWithLiterallines },
@@ -12,7 +15,7 @@ function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
-    const parser = getParserName(node.lang, options);
+    const parser = inferParserByLanguage(node.lang, options);
     if (parser) {
       const styleUnit = options.__inJsTemplate ? "~" : "`";
       const style = styleUnit.repeat(
