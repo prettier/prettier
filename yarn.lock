@@ -2927,17 +2927,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^2.0.0":
+"ci-info@npm:2.0.0, ci-info@npm:^2.0.0":
   version: 2.0.0
   resolution: "ci-info@npm:2.0.0"
   checksum: 553fe83c085fce5e19e20f85b993f24a463e6f805803837a8868607bb68b1300567868694a5dff1beca6c54926a4c0be1cc9ef0c35f810653d590bf64183f6a0
-  languageName: node
-  linkType: hard
-
-"ci-info@watson/ci-info#f43f6a1cefff47fb361c88cf4b943fdbcaafe540":
-  version: 2.0.0
-  resolution: "ci-info@https://github.com/watson/ci-info.git#commit=f43f6a1cefff47fb361c88cf4b943fdbcaafe540"
-  checksum: 60af9a1bcf15ad9c60caf541c19b38b8a7963ea11fdd486ec7c2cf83a565eaf2a7da1697af626f807498a5961a052b5767731835ca2afe09ac5db310eee10867
   languageName: node
   linkType: hard
 
@@ -7814,7 +7807,7 @@ __metadata:
     builtin-modules: 3.1.0
     camelcase: 6.2.0
     chalk: 4.1.0
-    ci-info: "watson/ci-info#f43f6a1cefff47fb361c88cf4b943fdbcaafe540"
+    ci-info: 2.0.0
     cjk-regex: 2.0.0
     cosmiconfig: 7.0.0
     cross-env: 7.0.2
