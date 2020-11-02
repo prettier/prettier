@@ -38,7 +38,9 @@ const {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
+  isSCSS,
   isLastNode,
+  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -156,7 +158,7 @@ function genericPrint(path, options, print) {
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend ? "" : " ",
-        options.parser === "less" && node.extend && node.selector
+        isLessParser(options) && node.extend && node.selector
           ? concat(["extend(", path.call(print, "selector"), ")"])
           : "",
         value,
@@ -200,7 +202,7 @@ function genericPrint(path, options, print) {
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
 
-      if (options.parser === "less") {
+      if (isLessParser(options)) {
         if (node.mixin) {
           return concat([
             path.call(print, "selector"),
@@ -276,7 +278,7 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "value"),
-                isSCSSControlDirectiveNode(node, options)
+                isSCSSControlDirectiveNode(node)
                   ? hasParensAroundNode(node)
                     ? " "
                     : line
@@ -288,7 +290,7 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node, options)
+              isSCSSControlDirectiveNode(node)
                 ? ""
                 : (node.selector &&
                     !node.selector.nodes &&
@@ -536,8 +538,7 @@ function genericPrint(path, options, print) {
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
-        atRuleAncestorNode &&
-        isSCSSControlDirectiveNode(atRuleAncestorNode, options);
+        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
 
       const printed = path.map(print, "groups");
       const parts = [];
@@ -856,7 +857,7 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
-      const isSCSSMapItem = isSCSSMapItemNode(path, options);
+      const isSCSSMapItem = isSCSSMapItemNode(path);
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
@@ -895,7 +896,7 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             !isLastItemComment &&
-              options.parser === "scss" &&
+              isSCSS(options.parser, options.originalText) &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","
@@ -977,8 +978,7 @@ function genericPrint(path, options, print) {
 function printNodeSequence(path, options, print) {
   const node = path.getValue();
   const parts = [];
-  let i = 0;
-  path.map((pathChild) => {
+  path.each((pathChild, i) => {
     const prevNode = node.nodes[i - 1];
     if (
       prevNode &&
@@ -1024,7 +1024,6 @@ function printNodeSequence(path, options, print) {
         }
       }
     }
-    i++;
   }, "nodes");
 
   return concat(parts);

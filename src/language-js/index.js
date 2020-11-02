@@ -10,9 +10,15 @@ const languages = [
     require("linguist-languages/data/JavaScript.json"),
     (data) => ({
       since: "0.0.0",
-      parsers: ["babel", "babel-flow", "babel-ts", "flow", "typescript"],
+      parsers: [
+        "babel",
+        "espree",
+        "babel-flow",
+        "babel-ts",
+        "flow",
+        "typescript",
+      ],
       vscodeLanguageIds: ["javascript", "mongo"],
-      interpreters: [...data.interpreters, "nodejs"],
       extensions: [
         ...data.extensions,
         // WeiXin Script (Weixin Mini Programs)
@@ -32,7 +38,14 @@ const languages = [
   })),
   createLanguage(require("linguist-languages/data/JSX.json"), () => ({
     since: "0.0.0",
-    parsers: ["babel", "babel-flow", "babel-ts", "flow", "typescript"],
+    parsers: [
+      "babel",
+      "babel-flow",
+      "babel-ts",
+      "flow",
+      "typescript",
+      "espree",
+    ],
     vscodeLanguageIds: ["javascriptreact"],
   })),
   createLanguage(require("linguist-languages/data/TypeScript.json"), () => ({
@@ -58,6 +71,7 @@ const languages = [
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
     filenames: [...data.filenames, ".prettierrc"],
+    extensions: data.extensions.filter((extension) => extension !== ".jsonl"),
   })),
   createLanguage(
     require("linguist-languages/data/JSON with Comments.json"),
@@ -132,6 +146,10 @@ const parsers = {
   // JS - Angular Directive
   get __ng_directive() {
     return require("./parser-angular").parsers.__ng_directive;
+  },
+  // JS - espree
+  get espree() {
+    return require("./parser-espree").parsers.espree;
   },
 };
 

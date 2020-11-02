@@ -2,6 +2,7 @@
 
 exports[`cursor-1.js - {"endOfLine":"auto"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 26
 endOfLine: "auto"
 parsers: ["babel"]
 printWidth: 80
@@ -10,7 +11,6 @@ printWidth: 80
 (function(){return        <|>15})()<LF>
 
 =====================================output=====================================
-** The EOL of output might not real when \`TEST_CRLF\` **
 (function () {<LF>
   return <|>15;<LF>
 })();<LF>
@@ -20,6 +20,7 @@ printWidth: 80
 
 exports[`cursor-1.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 26
 endOfLine: "cr"
 parsers: ["babel"]
 printWidth: 80
@@ -37,6 +38,7 @@ printWidth: 80
 
 exports[`cursor-1.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 26
 endOfLine: "crlf"
 parsers: ["babel"]
 printWidth: 80
@@ -54,6 +56,7 @@ printWidth: 80
 
 exports[`cursor-1.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 26
 endOfLine: "lf"
 parsers: ["babel"]
 printWidth: 80
@@ -71,9 +74,12 @@ printWidth: 80
 
 exports[`cursor-and-range.js - {"endOfLine":"auto"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 21
 endOfLine: "auto"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -86,7 +92,6 @@ printWidth: 80
   6 | <LF>
   7 | let    x
 =====================================output=====================================
-** The EOL of output might not real when \`TEST_CRLF\` **
 <LF>
 <LF>
 class a {<LF>
@@ -99,9 +104,12 @@ let    x
 
 exports[`cursor-and-range.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 21
 endOfLine: "cr"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -126,9 +134,12 @@ let    x
 
 exports[`cursor-and-range.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 21
 endOfLine: "crlf"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -153,9 +164,12 @@ let    x
 
 exports[`cursor-and-range.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 21
 endOfLine: "lf"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -183,6 +197,8 @@ exports[`range-1.js - {"endOfLine":"auto"} format 1`] = `
 endOfLine: "auto"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -196,7 +212,6 @@ printWidth: 80
   7 | let    x<LF>
   8 | 
 =====================================output=====================================
-** The EOL of output might not real when \`TEST_CRLF\` **
 <LF>
 <LF>
 class a {<LF>
@@ -213,6 +228,8 @@ exports[`range-1.js - {"endOfLine":"cr"} format 1`] = `
 endOfLine: "cr"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -242,6 +259,8 @@ exports[`range-1.js - {"endOfLine":"crlf"} format 1`] = `
 endOfLine: "crlf"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -271,6 +290,8 @@ exports[`range-1.js - {"endOfLine":"lf"} format 1`] = `
 endOfLine: "lf"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -297,9 +318,12 @@ let    x<LF>
 
 exports[`range-and-cursor-1.js - {"endOfLine":"auto"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 22
 endOfLine: "auto"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 27
+rangeStart: 11
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -314,7 +338,6 @@ printWidth: 80
   8 | let    x <LF>
   9 | 
 =====================================output=====================================
-** The EOL of output might not real when \`TEST_CRLF\` **
 <LF>
 <LF>
 <LF>
@@ -329,9 +352,12 @@ let    x <LF>
 
 exports[`range-and-cursor-1.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 22
 endOfLine: "cr"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 27
+rangeStart: 11
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -360,9 +386,12 @@ let    x <CR>
 
 exports[`range-and-cursor-1.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 22
 endOfLine: "crlf"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 27
+rangeStart: 11
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>
@@ -391,9 +420,12 @@ let    x <CRLF>
 
 exports[`range-and-cursor-1.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
+cursorOffset: 22
 endOfLine: "lf"
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 27
+rangeStart: 11
      |                                                                                | printWidth
 =====================================input======================================
   1 | <LF>

@@ -1,5 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`assignment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
+) {
+  method () {
+    console.log("foo");
+  }
+};
+
+foo = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 {
+  method() {
+    console.log("foo");
+  }
+};
+
+=====================================output=====================================
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends (
+  bar
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  bar
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+================================================================================
+`;
+
 exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

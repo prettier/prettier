@@ -12,6 +12,7 @@ const {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util");
+const { isBlockComment, getFunctionParameters } = require("./utils");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
@@ -336,6 +337,11 @@ function handleWhileComments(
     return true;
   }
 
+  if (enclosingNode.body === followingNode) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+
   return false;
 }
 
@@ -598,8 +604,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
-      // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
-      (enclosingNode.params || enclosingNode.parameters).length === 0) ||
+      getFunctionParameters(enclosingNode).length === 0) ||
       ((enclosingNode.type === "CallExpression" ||
         enclosingNode.type === "OptionalCallExpression" ||
         enclosingNode.type === "NewExpression") &&
@@ -611,7 +616,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
     enclosingNode &&
     enclosingNode.type === "MethodDefinition" &&
-    enclosingNode.value.params.length === 0
+    getFunctionParameters(enclosingNode.value).length === 0
   ) {
     addDanglingComment(enclosingNode.value, comment);
     return true;
@@ -660,12 +665,11 @@ function handleLastFunctionArgComments(
     followingNode.type === "BlockStatement"
   ) {
     const functionParamRightParenIndex = (() => {
-      if ((enclosingNode.params || enclosingNode.parameters).length !== 0) {
+      const parameters = getFunctionParameters(enclosingNode);
+      if (parameters.length !== 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
-          options.locEnd(
-            getLast(enclosingNode.params || enclosingNode.parameters)
-          )
+          options.locEnd(getLast(parameters))
         );
       }
       const functionParamLeftParenIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
@@ -929,10 +933,6 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
-}
-
 /**
  * @param {any} node
  * @param {(comment: any) => boolean} fn
@@ -957,7 +957,6 @@ function isRealFunctionLikeNode(node) {
     node.type === "ClassMethod" ||
     node.type === "TSDeclareFunction" ||
     node.type === "TSCallSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSMethodSignature" ||
     node.type === "TSConstructorType" ||
@@ -987,11 +986,13 @@ function getCommentChildNodes(node, options) {
   //       }
   //     }
   if (
-    (options.parser === "typescript" || options.parser === "flow") &&
+    (options.parser === "typescript" ||
+      options.parser === "flow" ||
+      options.parser === "espree") &&
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&
-    node.value.params.length === 0 &&
+    getFunctionParameters(node.value).length === 0 &&
     !node.value.returnType &&
     (!node.value.typeParameters || node.value.typeParameters.length === 0) &&
     node.value.body

@@ -40,7 +40,7 @@ const {
 } = require("./utils");
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
   "definition",
@@ -178,6 +178,16 @@ function genericPrint(path, options, print) {
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
+    }
+    case "wikiLink": {
+      let contents = "";
+      if (options.proseWrap === "preserve") {
+        contents = node.value;
+      } else {
+        contents = node.value.replace(/[\t\n]+/g, " ");
+      }
+
+      return concat(["[[", contents, "]]"]);
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
@@ -431,11 +441,12 @@ function genericPrint(path, options, print) {
     case "liquidNode":
       return concat(replaceEndOfLineWith(node.value, hardline));
     // MDX
+    // fallback to the original text if multiparser failed
+    // or `embeddedLanguageFormatting: "off"`
     case "importExport":
-    case "jsx":
-      // fallback to the original text if multiparser failed
-      // or `embeddedLanguageFormatting: "off"`
       return concat([node.value, hardline]);
+    case "jsx":
+      return node.value;
     case "math":
       return concat([
         "$$",
@@ -566,19 +577,16 @@ function printLine(path, value, options) {
 function printTable(path, options, print) {
   const hardlineWithoutBreakParent = hardline.parts[0];
   const node = path.getValue();
-  const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
 
-  path.map((rowPath) => {
-    const rowContents = [];
-
-    rowPath.map((cellPath) => {
-      rowContents.push(
-        printDocToString(cellPath.call(print), options).formatted
-      );
-    }, "children");
-
-    contents.push(rowContents);
-  }, "children");
+  // { [rowIndex: number]: { [columnIndex: number]: string } }
+  const contents = path.map(
+    (rowPath) =>
+      rowPath.map(
+        (cellPath) => printDocToString(cellPath.call(print), options).formatted,
+        "children"
+      ),
+    "children"
+  );
 
   // Get the width of each column
   const columnMaxWidths = contents.reduce(
@@ -751,7 +759,7 @@ function printChildren(path, options, print, events) {
 
   let lastChildNode;
 
-  path.map((childPath, index) => {
+  path.each((childPath, index) => {
     const childNode = childPath.getValue();
 
     const result = processor(childPath, index);
@@ -959,6 +967,10 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "inlineCode") {
     newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+  }
+
+  if (ast.type === "wikiLink") {
+    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
   }
 
   if (ast.type === "definition" || ast.type === "linkReference") {

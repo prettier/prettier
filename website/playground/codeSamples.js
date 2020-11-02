@@ -1,6 +1,7 @@
 export default function (parser) {
   switch (parser) {
     case "babel":
+    case "espree":
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",

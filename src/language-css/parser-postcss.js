@@ -6,6 +6,8 @@ const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
   hasStringOrFunction,
+  isLessParser,
+  isSCSS,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
@@ -39,7 +41,7 @@ function parseValueNode(valueNode, options) {
     const node = nodes[i];
 
     if (
-      options.parser === "scss" &&
+      isSCSS(options.parser, node.value) &&
       node.type === "number" &&
       node.unit === ".." &&
       node.value[node.value.length - 1] === "."
@@ -79,8 +81,7 @@ function parseValueNode(valueNode, options) {
       // Stringify if the value parser can't handle the content.
       if (
         hasSCSSInterpolation(groupList) ||
-        (!hasStringOrFunction(groupList) &&
-          !isSCSSVariable(groupList[0], options))
+        (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
       ) {
         const stringifiedContent = stringifyNode({
           groups: node.group.groups,
@@ -370,7 +371,7 @@ function parseNestedCSS(node, options) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedPropertyNode(node, options)) {
+      if (isSCSSNestedPropertyNode(node)) {
         node.isSCSSNesterProperty = true;
       }
 
@@ -413,7 +414,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (
-      options.parser === "less" &&
+      isLessParser(options) &&
       node.type === "css-decl" &&
       value.startsWith("extend(")
     ) {
@@ -430,7 +431,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule") {
-      if (options.parser === "less") {
+      if (isLessParser(options)) {
         // mixin
         if (node.mixin) {
           const source =
@@ -460,8 +461,11 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (options.parser === "less") {
-        // Whitespace between variable and colon
+      if (isLessParser(options)) {
+        // postcss-less doesn't recognize variables in some cases.
+        // `@color: blue;` is recognized fine, but the cases below aren't:
+
+        // `@color:blue;`
         if (node.name.includes(":") && !node.params) {
           node.variable = true;
           const parts = node.name.split(":");
@@ -469,7 +473,7 @@ function parseNestedCSS(node, options) {
           node.value = parseValue(parts.slice(1).join(":"), options);
         }
 
-        // Missing whitespace between variable and colon
+        // `@color :blue;`
         if (
           !["page", "nest"].includes(node.name) &&
           node.params &&
@@ -477,6 +481,7 @@ function parseNestedCSS(node, options) {
         ) {
           node.variable = true;
           node.value = parseValue(node.params.slice(1), options);
+          node.raws.afterName += ":";
         }
 
         // Less variable
@@ -586,12 +591,13 @@ function parseWithParser(parse, text, options) {
 
   try {
     result = parse(text);
-  } catch (e) {
+  } catch (error) {
+    const { name, reason, line, column } = error;
     /* istanbul ignore next */
-    if (typeof e.line !== "number") {
-      throw e;
+    if (typeof line !== "number") {
+      throw error;
     }
-    throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
+    throw createError(`${name}: ${reason}`, { start: { line, column } });
   }
 
   result = parseNestedCSS(addTypePrefix(result, "css-"), options);
@@ -605,9 +611,26 @@ function parseWithParser(parse, text, options) {
   return result;
 }
 
+// TODO: make this only work on css
 function parseCss(text, parsers, options) {
-  const { parse } = require("postcss");
-  return parseWithParser(parse, text, options);
+  const isSCSSParser = isSCSS(options.parser, text);
+  const parseFunctions = isSCSSParser
+    ? [parseScss, parseLess]
+    : [parseLess, parseScss];
+
+  let error;
+  for (const parse of parseFunctions) {
+    try {
+      return parse(text, parsers, options);
+    } catch (parseError) {
+      error = error || parseError;
+    }
+  }
+
+  /* istanbul ignore next */
+  if (error) {
+    throw error;
+  }
 }
 
 function parseLess(text, parsers, options) {

@@ -30,3 +30,16 @@ const b = \`\${
 
 ================================================================================
 `;
+
+exports[`expressions.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const bar = tag<number>\`but where will prettier wrap such a long tagged template literal? \${foo.bar.baz} long long long long long long long long long long long long long long\`;
+=====================================output=====================================
+const bar = tag<number>\`but where will prettier wrap such a long tagged template literal? \${foo.bar.baz} long long long long long long long long long long long long long long\`;
+
+================================================================================
+`;

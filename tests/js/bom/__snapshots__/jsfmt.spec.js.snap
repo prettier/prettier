@@ -2,6 +2,7 @@
 
 exports[`snippet: cursor-1.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 27
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -18,8 +19,11 @@ printWidth: 80
 
 exports[`snippet: cursor-and-range.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 22
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 27
+rangeStart: 11
      |                                                                                | printWidth
 =====================================input======================================
   1 | ﻿
@@ -46,6 +50,8 @@ exports[`snippet: range-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 27
+rangeStart: 11
      |                                                                                | printWidth
 =====================================input======================================
   1 | ﻿
@@ -72,8 +78,11 @@ let    x
 
 exports[`snippet: range-and-cursor-1.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 23
 parsers: ["babel"]
 printWidth: 80
+rangeEnd: 28
+rangeStart: 12
      |                                                                                | printWidth
 =====================================input======================================
   1 | ﻿

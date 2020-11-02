@@ -1,6 +1,9 @@
 "use strict";
 
-const { getParserName, getMaxContinuousCount } = require("../common/util");
+const {
+  inferParserByLanguage,
+  getMaxContinuousCount,
+} = require("../common/util");
 const {
   builders: { hardline, concat, markAsRoot },
   utils: { replaceNewlinesWithLiterallines },
@@ -12,10 +15,7 @@ function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
-    // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)
-    const langMatch = node.lang.match(/^[\w-]+/);
-    const lang = langMatch ? langMatch[0] : "";
-    const parser = getParserName(lang, options);
+    const parser = inferParserByLanguage(node.lang, options);
     if (parser) {
       const styleUnit = options.__inJsTemplate ? "~" : "`";
       const style = styleUnit.repeat(

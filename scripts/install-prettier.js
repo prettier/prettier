@@ -17,26 +17,24 @@ module.exports = () => {
   shell.mv(path.join(packageDir, file), tmpDir);
   const tarPath = path.join(tmpDir, file);
 
-  shell.exec(`${client} init -y`, { cwd: tmpDir, silent: true });
+  shell.exec("npm init -y", { cwd: tmpDir, silent: true });
   let installCommand = "";
   switch (client) {
-    case "npm":
-      // npm fails when engine requirement only with `--engine-strict`
-      installCommand = `npm install "${tarPath}" --engine-strict`;
+    case "yarn":
+      // yarn fails when engine requirement not compatible by default
+      installCommand = `yarn add "prettier@file:${packageDir}"`;
       break;
     case "pnpm":
       // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
       installCommand = `pnpm add "${tarPath}"`;
       break;
     default:
-      shell.mv('.yarnrc', tmpDir);
-      shell.mv('.yarnrc.yml', tmpDir);
-      shell.mv('.yarn', tmpDir);
-      // yarn fails when engine requirement not compatible by default
-      installCommand = `yarn add "prettier@file:${packageDir}"`;
+      // npm fails when engine requirement only with `--engine-strict`
+      installCommand = `npm install "${tarPath}" --engine-strict`;
+      break;
   }
 
-console.log({installCommand,tmpDir })
+  console.log({ installCommand, tmpDir });
 
   shell.exec(installCommand, { cwd: tmpDir });
 

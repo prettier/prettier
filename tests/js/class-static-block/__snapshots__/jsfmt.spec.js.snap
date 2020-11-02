@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class-static-block.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+  
+class Foo {
+  static {}
+}
+  
+class A1 {
+  static {
+    foo;
+  }
+}
+  
+class A2 {
+  static {
+    foo;
+    bar;
+  }
+}
+  
+=====================================output=====================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+
+class Foo {
+  static {}
+}
+
+class A1 {
+  static {
+    foo;
+  }
+}
+
+class A2 {
+  static {
+    foo;
+    bar;
+  }
+}
+
+================================================================================
+`;
