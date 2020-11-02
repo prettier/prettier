@@ -9,7 +9,6 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const handleComments = require("./comments");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -160,6 +159,10 @@ const exportDeclarationTypes = new Set([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ]);
+
+function isBlockComment(comment) {
+  return comment.type === "Block" || comment.type === "CommentBlock";
+}
 
 /**
  * @param {Node} node
@@ -427,30 +430,71 @@ function isMemberish(node) {
   );
 }
 
-const flowTypeAnnotations = new Set([
+const simpleTypeAnnotations = new Set([
+  // `any`
   "AnyTypeAnnotation",
+  "TSAnyKeyword",
+  // `null`
   "NullLiteralTypeAnnotation",
-  "GenericTypeAnnotation",
+  "TSNullKeyword",
+  // `this`
   "ThisTypeAnnotation",
+  "TSThisType",
+  // `number`
   "NumberTypeAnnotation",
+  "TSNumberKeyword",
+  // `void`
   "VoidTypeAnnotation",
+  "TSVoidKeyword",
+  // `boolean`
+  "BooleanTypeAnnotation",
+  "TSBooleanKeyword",
+  // `bigint`
+  "BigIntTypeAnnotation",
+  "TSBigIntKeyword",
+  // `symbol`
+  "SymbolTypeAnnotation",
+  "TSSymbolKeyword",
+  // `string`
+  "StringTypeAnnotation",
+  "TSStringKeyword",
+  // literals
+  "BooleanLiteralTypeAnnotation",
+  "StringLiteralTypeAnnotation",
+  "BigIntLiteralTypeAnnotation",
+  "NumberLiteralTypeAnnotation",
+  "TSLiteralType",
+  // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
-  "BooleanTypeAnnotation",
-  "BooleanLiteralTypeAnnotation",
-  "StringTypeAnnotation",
+  // typescript only, `never`, `object`, `undefined`, `unknown`
+  "TSNeverKeyword",
+  "TSObjectKeyword",
+  "TSUndefinedKeyword",
+  "TSUnknownKeyword",
 ]);
-
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isSimpleFlowType(node) {
-  return (
-    node &&
-    flowTypeAnnotations.has(node.type) &&
-    !(node.type === "GenericTypeAnnotation" && node.typeParameters)
-  );
+function isSimpleType(node) {
+  if (!node) {
+    return false;
+  }
+
+  if (
+    (node.type === "GenericTypeAnnotation" ||
+      node.type === "TSTypeReference") &&
+    !node.typeParameters
+  ) {
+    return true;
+  }
+
+  if (simpleTypeAnnotations.has(node.type)) {
+    return true;
+  }
+
+  return false;
 }
 
 const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
@@ -511,7 +555,7 @@ function isTestCall(n, parent) {
         (n.arguments.length === 2
           ? isFunctionOrArrowExpression(n.arguments[1])
           : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
-            n.arguments[1].params.length <= 1) ||
+            getFunctionParameters(n.arguments[1]).length <= 1) ||
         isAngularTestWrapper(n.arguments[1])
       );
     }
@@ -543,7 +587,7 @@ function hasTrailingLineComment(node) {
   return (
     node.comments &&
     node.comments.some(
-      (comment) => comment.trailing && !handleComments.isBlockComment(comment)
+      (comment) => comment.trailing && !isBlockComment(comment)
     )
   );
 }
@@ -1041,9 +1085,7 @@ function needsHardlineAfterDanglingComment(node) {
   const lastDanglingComment = getLast(
     node.comments.filter((comment) => !comment.leading && !comment.trailing)
   );
-  return (
-    lastDanglingComment && !handleComments.isBlockComment(lastDanglingComment)
-  );
+  return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
 
 // Logic to check for args with multiple anonymous functions. For instance,
@@ -1379,10 +1421,60 @@ function isBitwiseOperator(operator) {
   );
 }
 
+function hasRestParameter(node) {
+  if (node.rest) {
+    return true;
+  }
+  const parameters = getFunctionParameters(node);
+  return parameters.length > 0 && getLast(parameters).type === "RestElement";
+}
+
+const functionParametersCache = new WeakMap();
+function getFunctionParameters(node) {
+  if (functionParametersCache.has(node)) {
+    return functionParametersCache.get(node);
+  }
+  const parameters = [];
+  if (node.this) {
+    parameters.push(node.this);
+  }
+  // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
+  if (Array.isArray(node.parameters)) {
+    parameters.push(...node.parameters);
+  } else if (Array.isArray(node.params)) {
+    parameters.push(...node.params);
+  }
+  if (node.rest) {
+    parameters.push(node.rest);
+  }
+  functionParametersCache.set(node, parameters);
+  return parameters;
+}
+
+function iterateFunctionParametersPath(path, iteratee) {
+  const node = path.getValue();
+  let index = 0;
+  const callback = (childPath) => iteratee(childPath, index++);
+  if (node.this) {
+    path.call(callback, "this");
+  }
+  if (Array.isArray(node.parameters)) {
+    path.each(callback, "parameters");
+  } else if (Array.isArray(node.params)) {
+    path.each(callback, "params");
+  }
+  if (node.rest) {
+    path.call(callback, "rest");
+  }
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   getFlowVariance,
+  getFunctionParameters,
+  iterateFunctionParametersPath,
+  hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -1401,6 +1493,7 @@ module.exports = {
   hasTrailingLineComment,
   identity,
   isBinaryish,
+  isBlockComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,
@@ -1423,7 +1516,7 @@ module.exports = {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSimpleFlowType,
+  isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,
