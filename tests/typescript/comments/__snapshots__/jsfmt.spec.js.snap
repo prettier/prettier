@@ -426,7 +426,7 @@ type B = {
 };
 
 type C = {
-  /* commentC */ [c in C]: string;
+  [/* commentC */ c in C]: string;
 };
 
 type D = {
@@ -445,9 +445,9 @@ type G = {
   [g in G /* commentG */]: string;
 };
 
-type H = { /* commentH */ [h in H]: string };
+type H = { [/* commentH */ h in H]: string };
 
-type I = { /* commentI */ [i in I]: string };
+type I = { [/* commentI */ i in I]: string };
 
 type J = { [j /* commentJ */ in J]: string };
 

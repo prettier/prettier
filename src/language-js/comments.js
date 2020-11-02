@@ -16,7 +16,7 @@ const {
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
-    handleIgnoredComments(
+    handleIgnoreComments(
       text,
       enclosingNode,
       precedingNode,
@@ -140,7 +140,7 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
 
   if (
-    handleIgnoredComments(
+    handleIgnoreComments(
       text,
       enclosingNode,
       precedingNode,
@@ -949,6 +949,15 @@ function handleTSMappedTypeComments(
 ) {
   if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
     return false;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "TSTypeParameter" &&
+    followingNode.name
+  ) {
+    addLeadingComment(followingNode.name, comment);
+    return true;
   }
 
   if (
