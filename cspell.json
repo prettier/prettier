@@ -416,7 +416,8 @@
         "\\(https?://.*?\\)",
         "author: \".*?\"",
         "authorURL: \".*?\"",
-        "\"author\": \".*?\""
+        "\"author\": \".*?\"",
+        "require\\(\".*?\"\\)"
     ],
     "ignorePaths": [
         "cspell.json",
