@@ -10,6 +10,7 @@ const {
   startsWithNoLookaheadToken,
   shouldFlatten,
   getPrecedence,
+  isPathMatches,
 } = require("./utils");
 
 function needsParens(path, options) {
@@ -158,20 +159,87 @@ function needsParens(path, options) {
     }
   }
 
-  switch (node.type) {
-    case "SpreadElement":
-    case "SpreadProperty":
-      return name === "object" && parent.type === "MemberExpression";
+  if (
+    isPathMatches(path, "MemberExpression > SpreadElement.object", 1) ||
+    isPathMatches(path, "MemberExpression > SpreadProperty.object", 1) ||
+    isPathMatches(
+      path,
+      'UnaryExpression[operator="+"] > UpdateExpression.argument[prefix=true][operator="++"]',
+      1
+    ) ||
+    isPathMatches(
+      path,
+      'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
+      1
+    ) ||
+    isPathMatches(
+      path,
+      'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
+      1
+    ) ||
+    isPathMatches(path, "UpdateExpression > BinaryExpression", 1) ||
+    isPathMatches(path, "UnaryExpression > YieldExpression", 1) ||
+    isPathMatches(path, "AwaitExpression > YieldExpression", 1) ||
+    isPathMatches(path, "TSNonNullExpression > YieldExpression", 1) ||
+    isPathMatches(
+      path,
+      "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
+      1
+    ) ||
+    isPathMatches(
+      path,
+      "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
+      1
+    ) ||
+    isPathMatches(
+      path,
+      ":matches(TSUnionType, TSIntersectionType) > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType, TSUnionType, TSIntersectionType).checkType",
+      1
+    ) ||
+    isPathMatches(path, "NullableTypeAnnotation > ArrayTypeAnnotation", 1) ||
+    isPathMatches(
+      path,
+      ":matches(ArrayTypeAnnotation, NullableTypeAnnotation, IntersectionTypeAnnotation, UnionTypeAnnotation) > :matches(IntersectionTypeAnnotation, UnionTypeAnnotation)",
+      1
+    ) ||
+    isPathMatches(path, "ArrayTypeAnnotation > NullableTypeAnnotation", 1) ||
+    isPathMatches(
+      path,
+      ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
+      1
+    ) ||
+    // ConditionalExpression
+    isPathMatches(
+      path,
+      ":matches(NewExpression, CallExpression, OptionalCallExpression) > ConditionalExpression.callee",
+      1
+    ) ||
+    isPathMatches(
+      path,
+      "ConditionalExpression > ConditionalExpression.test",
+      1
+    ) ||
+    isPathMatches(
+      path,
+      ":matches(MemberExpression, OptionalMemberExpression) > ConditionalExpression.object",
+      1
+    ) ||
+    // FunctionExpression
+    // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
+    // Is necessary if it is `expression` of `ExpressionStatement`.
+    isPathMatches(
+      path,
+      ":matches(NewExpression, CallExpression, OptionalCallExpression) > FunctionExpression.callee",
+      1
+    ) ||
+    // This is basically a kind of IIFE.
+    isPathMatches(path, "TaggedTemplateExpression > FunctionExpression", 1)
+  ) {
+    return true;
+  }
 
+  switch (node.type) {
     case "UpdateExpression":
-      if (parent.type === "UnaryExpression") {
-        return (
-          node.prefix &&
-          ((node.operator === "++" && parent.operator === "+") ||
-            (node.operator === "--" && parent.operator === "-"))
-        );
-      }
-    // else fallthrough
     case "UnaryExpression":
       switch (parent.type) {
         case "UnaryExpression":
@@ -206,13 +274,6 @@ function needsParens(path, options) {
       }
 
     case "BinaryExpression": {
-      if (
-        parent.type === "UpdateExpression" ||
-        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
-      ) {
-        return true;
-      }
-
       // We add parentheses to any `a in b` inside `ForStatement` initializer
       // https://github.com/prettier/prettier/issues/907#issuecomment-284304321
       if (node.operator === "in" && isPathInForStatementInitializer(path)) {
@@ -343,14 +404,6 @@ function needsParens(path, options) {
       }
 
     case "YieldExpression":
-      if (
-        parent.type === "UnaryExpression" ||
-        parent.type === "AwaitExpression" ||
-        parent.type === "TSAsExpression" ||
-        parent.type === "TSNonNullExpression"
-      ) {
-        return true;
-      }
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
@@ -389,25 +442,10 @@ function needsParens(path, options) {
 
     case "TSJSDocFunctionType":
     case "TSConditionalType":
-      if (name === "extendsType" && parent.type === "TSConditionalType") {
-        return true;
-      }
-    // fallthrough
     case "TSFunctionType":
     case "TSConstructorType":
-      if (name === "checkType" && parent.type === "TSConditionalType") {
-        return true;
-      }
-    // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
-      if (
-        parent.type === "TSUnionType" ||
-        parent.type === "TSIntersectionType"
-      ) {
-        return true;
-      }
-    // fallthrough
     case "TSInferType":
       if (node.type === "TSInferType" && parent.type === "TSRestType") {
         return false;
@@ -423,22 +461,6 @@ function needsParens(path, options) {
         (parent.type === "TSTypeAnnotation" &&
           /^TSJSDoc/.test(path.getParentNode(1).type))
       );
-
-    case "ArrayTypeAnnotation":
-      return parent.type === "NullableTypeAnnotation";
-
-    case "IntersectionTypeAnnotation":
-    case "UnionTypeAnnotation":
-      return (
-        parent.type === "ArrayTypeAnnotation" ||
-        parent.type === "NullableTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation" ||
-        parent.type === "UnionTypeAnnotation"
-      );
-
-    case "NullableTypeAnnotation":
-      return parent.type === "ArrayTypeAnnotation";
-
     case "FunctionTypeAnnotation": {
       const ancestor =
         parent.type === "NullableTypeAnnotation"
@@ -529,53 +551,6 @@ function needsParens(path, options) {
       }
       return true;
     }
-    case "ConditionalExpression":
-      switch (parent.type) {
-        case "TaggedTemplateExpression":
-        case "UnaryExpression":
-        case "SpreadElement":
-        case "SpreadProperty":
-        case "BinaryExpression":
-        case "LogicalExpression":
-        case "NGPipeExpression":
-        case "ExportDefaultDeclaration":
-        case "AwaitExpression":
-        case "JSXSpreadAttribute":
-        case "TSTypeAssertion":
-        case "TypeCastExpression":
-        case "TSAsExpression":
-        case "TSNonNullExpression":
-          return true;
-
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
-
-        case "ConditionalExpression":
-          return name === "test";
-
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        default:
-          return false;
-      }
-
-    case "FunctionExpression":
-      switch (parent.type) {
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
-          // Is necessary if it is `expression` of `ExpressionStatement`.
-          return name === "callee";
-        case "TaggedTemplateExpression":
-          return true; // This is basically a kind of IIFE.
-        default:
-          return false;
-      }
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
