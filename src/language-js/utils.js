@@ -1468,7 +1468,7 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
 }
 
-function isPathMatches(path, selector, depth = Math.Infinity) {
+function isPathMatches(path, selector, depth = Number.Infinity) {
   const node = path.getValue();
   const ancestry = [];
   for (let level = 0; level < depth; level++) {
