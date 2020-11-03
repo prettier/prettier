@@ -25,7 +25,9 @@ const selectors = [
   "UpdateExpression > BinaryExpression",
   'PipelineTopicExpression > BinaryExpression[operator="|>"]',
   // YieldExpression
-  ":matches(UnaryExpression, AwaitExpression, TSAsExpression, TSNonNullExpression) > YieldExpression",
+  "UnaryExpression > YieldExpression",
+  "AwaitExpression > YieldExpression",
+  "TSNonNullExpression > YieldExpression",
   //
   "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
   "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
@@ -44,8 +46,22 @@ const selectors = [
   ":matches(NewExpression, CallExpression, OptionalCallExpression) > FunctionExpression.callee",
   // This is basically a kind of IIFE.
   "TaggedTemplateExpression > FunctionExpression",
+  // Add parens around the extends clause of a class. It is needed for almost
+  // all expressions.
+  ':matches(ClassDeclaration, ClassExpression) > :matches(ArrowFunctionExpression, AssignmentExpression, AwaitExpression, BinaryExpression, ConditionalExpression, LogicalExpression, NewExpression, ObjectExpression, ParenthesizedExpression, SequenceExpression, TaggedTemplateExpression, UnaryExpression, UpdateExpression, YieldExpression").superClass',
+  // "UpdateExpression" / "UnaryExpression":
+  'UnaryExpression[operator="+"] > :matches(UpdateExpression, UnaryExpression)[operator="+"]',
+  'UnaryExpression[operator="+"] > :matches(UpdateExpression, UnaryExpression)[operator="-"]',
+  "BindExpression > :matches(UpdateExpression, UnaryExpression)",
+  ":matches(MemberExpression, OptionalMemberExpression) > :matches(UpdateExpression, UnaryExpression).object",
+  "TaggedTemplateExpression > :matches(UpdateExpression, UnaryExpression)",
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > :matches(UpdateExpression, UnaryExpression).callee",
+  'BinaryExpression[operator="**"]> :matches(UpdateExpression, UnaryExpression).left',
+  "TSNonNullExpression> :matches(UpdateExpression, UnaryExpression)",
 ];
-const needsParenthesisesSelector = esquery.parse(`:matches(${selectors.join(", ")})`);
+const needsParenthesisesSelector = esquery.parse(
+  `:matches(${selectors.join(", ")})`
+);
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -101,31 +117,6 @@ function needsParens(path, options) {
   switch (parent.type) {
     case "ParenthesizedExpression":
       return false;
-    case "ClassDeclaration":
-    case "ClassExpression": {
-      // Add parens around the extends clause of a class. It is needed for almost
-      // all expressions.
-      if (
-        name === "superClass" &&
-        (node.type === "ArrowFunctionExpression" ||
-          node.type === "AssignmentExpression" ||
-          node.type === "AwaitExpression" ||
-          node.type === "BinaryExpression" ||
-          node.type === "ConditionalExpression" ||
-          node.type === "LogicalExpression" ||
-          node.type === "NewExpression" ||
-          node.type === "ObjectExpression" ||
-          node.type === "ParenthesizedExpression" ||
-          node.type === "SequenceExpression" ||
-          node.type === "TaggedTemplateExpression" ||
-          node.type === "UnaryExpression" ||
-          node.type === "UpdateExpression" ||
-          node.type === "YieldExpression")
-      ) {
-        return true;
-      }
-      break;
-    }
     case "ExportDefaultDeclaration": {
       return (
         // `export default function` or `export default class` can't be followed by
@@ -193,45 +184,14 @@ function needsParens(path, options) {
     }
   }
 
-  if (node.type && esquery.matches(node, needsParenthesisesSelector, [path.getParentNode()])) {
+  if (
+    node.type &&
+    esquery.matches(node, needsParenthesisesSelector, [path.getParentNode()])
+  ) {
     return true;
   }
 
   switch (node.type) {
-    case "UpdateExpression":
-    case "UnaryExpression":
-      switch (parent.type) {
-        case "UnaryExpression":
-          return (
-            node.operator === parent.operator &&
-            (node.operator === "+" || node.operator === "-")
-          );
-
-        case "BindExpression":
-          return true;
-
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        case "TaggedTemplateExpression":
-          return true;
-
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
-
-        case "BinaryExpression":
-          return name === "left" && parent.operator === "**";
-
-        case "TSNonNullExpression":
-          return true;
-
-        default:
-          return false;
-      }
-
     case "BinaryExpression": {
       // We add parentheses to any `a in b` inside `ForStatement` initializer
       // https://github.com/prettier/prettier/issues/907#issuecomment-284304321
