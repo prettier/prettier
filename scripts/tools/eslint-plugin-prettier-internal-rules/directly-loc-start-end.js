@@ -7,14 +7,14 @@ const selector = [
   ':matches([property.name="locStart"], [property.name="locEnd"])',
 ].join("");
 
-const MESSAGE_ID = "direct-loc-start-end";
+const MESSAGE_ID = "directly-loc-start-end";
 
 module.exports = {
   meta: {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/master/scripts/eslint-plugin-prettier-internal-rules/direct-loc-start-end.js",
+        "https://github.com/prettier/prettier/blob/master/scripts/eslint-plugin-prettier-internal-rules/directly-loc-start-end.js",
     },
     messages: {
       [MESSAGE_ID]:
