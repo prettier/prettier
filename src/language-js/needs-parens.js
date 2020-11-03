@@ -160,13 +160,18 @@ function needsParens(path, options) {
   }
 
   const selectors = [
+    // SpreadElement
     "MemberExpression > SpreadElement.object",
     "MemberExpression > SpreadProperty.object",
+    // UpdateExpression
     'UnaryExpression[operator="+"] > UpdateExpression.argument[prefix=true][operator="++"]',
     'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
+    // BinaryExpression
     "UpdateExpression > BinaryExpression",
     'PipelineTopicExpression > BinaryExpression[operator="|>"]',
+    // YieldExpression
     ":matches(UnaryExpression, AwaitExpression, TSAsExpression, TSNonNullExpression) > YieldExpression",
+    //
     "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
     "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
     ":matches(TSUnionType, TSIntersectionType) > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType, TSUnionType, TSIntersectionType)",
@@ -174,7 +179,7 @@ function needsParens(path, options) {
     ":matches(ArrayTypeAnnotation, NullableTypeAnnotation, IntersectionTypeAnnotation, UnionTypeAnnotation) > :matches(IntersectionTypeAnnotation, UnionTypeAnnotation)",
     "ArrayTypeAnnotation > NullableTypeAnnotation",
     // ConditionalExpression
-    ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
+    ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, SpreadProperty, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
     ":matches(NewExpression, CallExpression, OptionalCallExpression) > ConditionalExpression.callee",
     "ConditionalExpression > ConditionalExpression.test",
     ":matches(MemberExpression, OptionalMemberExpression) > ConditionalExpression.object",
