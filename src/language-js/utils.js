@@ -1414,7 +1414,7 @@ function getLeftMost(node) {
 
 function isBitwiseOperator(operator) {
   return (
-    !!bitshiftOperators[operator] ||
+    bitshiftOperators[operator] ||
     operator === "|" ||
     operator === "^" ||
     operator === "&"
