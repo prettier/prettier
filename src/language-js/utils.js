@@ -1,5 +1,5 @@
 "use strict";
-const esquery = require("esquery");
+const esquery = require("esquery/dist/esquery");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const {
   getLast,
@@ -1476,7 +1476,7 @@ function isPathMatches(path, selector, depth = Math.Infinity) {
     if (!ancestor) {
       break;
     }
-    ancestry.push(ancestor);
+    ancestry.unshift(ancestor);
   }
   return esquery.matches(node, esquery.parse(selector), ancestry);
 }

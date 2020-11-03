@@ -159,82 +159,33 @@ function needsParens(path, options) {
     }
   }
 
-  if (
-    isPathMatches(path, "MemberExpression > SpreadElement.object", 1) ||
-    isPathMatches(path, "MemberExpression > SpreadProperty.object", 1) ||
-    isPathMatches(
-      path,
-      'UnaryExpression[operator="+"] > UpdateExpression.argument[prefix=true][operator="++"]',
-      1
-    ) ||
-    isPathMatches(
-      path,
-      'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
-      1
-    ) ||
-    isPathMatches(
-      path,
-      'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
-      1
-    ) ||
-    isPathMatches(path, "UpdateExpression > BinaryExpression", 1) ||
-    isPathMatches(path, "UnaryExpression > YieldExpression", 1) ||
-    isPathMatches(path, "AwaitExpression > YieldExpression", 1) ||
-    isPathMatches(path, "TSNonNullExpression > YieldExpression", 1) ||
-    isPathMatches(
-      path,
-      "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
-      1
-    ) ||
-    isPathMatches(
-      path,
-      "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
-      1
-    ) ||
-    isPathMatches(
-      path,
-      ":matches(TSUnionType, TSIntersectionType) > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType, TSUnionType, TSIntersectionType).checkType",
-      1
-    ) ||
-    isPathMatches(path, "NullableTypeAnnotation > ArrayTypeAnnotation", 1) ||
-    isPathMatches(
-      path,
-      ":matches(ArrayTypeAnnotation, NullableTypeAnnotation, IntersectionTypeAnnotation, UnionTypeAnnotation) > :matches(IntersectionTypeAnnotation, UnionTypeAnnotation)",
-      1
-    ) ||
-    isPathMatches(path, "ArrayTypeAnnotation > NullableTypeAnnotation", 1) ||
-    isPathMatches(
-      path,
-      ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
-      1
-    ) ||
+  const selectors = [
+    "MemberExpression > SpreadElement.object",
+    "MemberExpression > SpreadProperty.object",
+    'UnaryExpression[operator="+"] > UpdateExpression.argument[prefix=true][operator="++"]',
+    'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
+    "UpdateExpression > BinaryExpression",
+    'PipelineTopicExpression > BinaryExpression[operator="|>"]',
+    ":matches(UnaryExpression, AwaitExpression, TSAsExpression, TSNonNullExpression) > YieldExpression",
+    "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
+    "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
+    ":matches(TSUnionType, TSIntersectionType) > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType, TSUnionType, TSIntersectionType)",
+    "NullableTypeAnnotation > ArrayTypeAnnotation",
+    ":matches(ArrayTypeAnnotation, NullableTypeAnnotation, IntersectionTypeAnnotation, UnionTypeAnnotation) > :matches(IntersectionTypeAnnotation, UnionTypeAnnotation)",
+    "ArrayTypeAnnotation > NullableTypeAnnotation",
     // ConditionalExpression
-    isPathMatches(
-      path,
-      ":matches(NewExpression, CallExpression, OptionalCallExpression) > ConditionalExpression.callee",
-      1
-    ) ||
-    isPathMatches(
-      path,
-      "ConditionalExpression > ConditionalExpression.test",
-      1
-    ) ||
-    isPathMatches(
-      path,
-      ":matches(MemberExpression, OptionalMemberExpression) > ConditionalExpression.object",
-      1
-    ) ||
+    ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
+    ":matches(NewExpression, CallExpression, OptionalCallExpression) > ConditionalExpression.callee",
+    "ConditionalExpression > ConditionalExpression.test",
+    ":matches(MemberExpression, OptionalMemberExpression) > ConditionalExpression.object",
     // FunctionExpression
     // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
     // Is necessary if it is `expression` of `ExpressionStatement`.
-    isPathMatches(
-      path,
-      ":matches(NewExpression, CallExpression, OptionalCallExpression) > FunctionExpression.callee",
-      1
-    ) ||
+    ":matches(NewExpression, CallExpression, OptionalCallExpression) > FunctionExpression.callee",
     // This is basically a kind of IIFE.
-    isPathMatches(path, "TaggedTemplateExpression > FunctionExpression", 1)
-  ) {
+    "TaggedTemplateExpression > FunctionExpression",
+  ];
+  if (node.type && isPathMatches(path, `:matches(${selectors.join(", ")})`, 1)) {
     return true;
   }
 
