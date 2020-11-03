@@ -1,5 +1,5 @@
 "use strict";
-const esquery = require("esquery/dist/esquery");
+const esquery = require("esquery");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const {
   getLast,
@@ -1481,6 +1481,10 @@ function isPathMatches(path, selector, depth = Math.Infinity) {
   return esquery.matches(node, esquery.parse(selector), ancestry);
 }
 
+function isNodeMatchesParsedSelector(node, selector, ancestry) {
+  return esquery.matches(node, selector, ancestry);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1530,6 +1534,7 @@ module.exports = {
   isObjectType,
   isObjectTypePropertyAFunction,
   isPathMatches,
+  isNodeMatchesParsedSelector,
   isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,

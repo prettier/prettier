@@ -1,5 +1,5 @@
 "use strict";
-
+const esquery = require("esquery");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -11,7 +11,41 @@ const {
   shouldFlatten,
   getPrecedence,
   isPathMatches,
+  isNodeMatchesParsedSelector,
 } = require("./utils");
+
+const selectors = [
+  // SpreadElement
+  "MemberExpression > SpreadElement.object",
+  "MemberExpression > SpreadProperty.object",
+  // UpdateExpression
+  'UnaryExpression[operator="+"] > UpdateExpression.argument[prefix=true][operator="++"]',
+  'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
+  // BinaryExpression
+  "UpdateExpression > BinaryExpression",
+  'PipelineTopicExpression > BinaryExpression[operator="|>"]',
+  // YieldExpression
+  ":matches(UnaryExpression, AwaitExpression, TSAsExpression, TSNonNullExpression) > YieldExpression",
+  //
+  "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
+  "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
+  ":matches(TSUnionType, TSIntersectionType) > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType, TSUnionType, TSIntersectionType)",
+  "NullableTypeAnnotation > ArrayTypeAnnotation",
+  ":matches(ArrayTypeAnnotation, NullableTypeAnnotation, IntersectionTypeAnnotation, UnionTypeAnnotation) > :matches(IntersectionTypeAnnotation, UnionTypeAnnotation)",
+  "ArrayTypeAnnotation > NullableTypeAnnotation",
+  // ConditionalExpression
+  ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, SpreadProperty, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > ConditionalExpression.callee",
+  "ConditionalExpression > ConditionalExpression.test",
+  ":matches(MemberExpression, OptionalMemberExpression) > ConditionalExpression.object",
+  // FunctionExpression
+  // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
+  // Is necessary if it is `expression` of `ExpressionStatement`.
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > FunctionExpression.callee",
+  // This is basically a kind of IIFE.
+  "TaggedTemplateExpression > FunctionExpression",
+];
+const needsParenthesisesSelector = esquery.parse(`:matches(${selectors.join(", ")})`);
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -159,38 +193,7 @@ function needsParens(path, options) {
     }
   }
 
-  const selectors = [
-    // SpreadElement
-    "MemberExpression > SpreadElement.object",
-    "MemberExpression > SpreadProperty.object",
-    // UpdateExpression
-    'UnaryExpression[operator="+"] > UpdateExpression.argument[prefix=true][operator="++"]',
-    'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
-    // BinaryExpression
-    "UpdateExpression > BinaryExpression",
-    'PipelineTopicExpression > BinaryExpression[operator="|>"]',
-    // YieldExpression
-    ":matches(UnaryExpression, AwaitExpression, TSAsExpression, TSNonNullExpression) > YieldExpression",
-    //
-    "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
-    "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
-    ":matches(TSUnionType, TSIntersectionType) > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType, TSUnionType, TSIntersectionType)",
-    "NullableTypeAnnotation > ArrayTypeAnnotation",
-    ":matches(ArrayTypeAnnotation, NullableTypeAnnotation, IntersectionTypeAnnotation, UnionTypeAnnotation) > :matches(IntersectionTypeAnnotation, UnionTypeAnnotation)",
-    "ArrayTypeAnnotation > NullableTypeAnnotation",
-    // ConditionalExpression
-    ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, SpreadProperty, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
-    ":matches(NewExpression, CallExpression, OptionalCallExpression) > ConditionalExpression.callee",
-    "ConditionalExpression > ConditionalExpression.test",
-    ":matches(MemberExpression, OptionalMemberExpression) > ConditionalExpression.object",
-    // FunctionExpression
-    // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
-    // Is necessary if it is `expression` of `ExpressionStatement`.
-    ":matches(NewExpression, CallExpression, OptionalCallExpression) > FunctionExpression.callee",
-    // This is basically a kind of IIFE.
-    "TaggedTemplateExpression > FunctionExpression",
-  ];
-  if (node.type && isPathMatches(path, `:matches(${selectors.join(", ")})`, 1)) {
+  if (node.type && esquery.matches(node, needsParenthesisesSelector, [path.getParentNode()])) {
     return true;
   }
 
