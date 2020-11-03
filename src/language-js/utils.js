@@ -152,6 +152,22 @@ function getLeftSidePathName(path, node) {
   throw new Error("Unexpected node has no left side.");
 }
 
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
+function isBlockComment(comment) {
+  return comment.type === "Block" || comment.type === "CommentBlock";
+}
+
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
+function isLineComment(comment) {
+  return comment.type === "Line" || comment.type === "CommentLine";
+}
+
 const exportDeclarationTypes = new Set([
   "ExportDefaultDeclaration",
   "ExportDefaultSpecifier",
@@ -159,10 +175,6 @@ const exportDeclarationTypes = new Set([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ]);
-
-function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
-}
 
 /**
  * @param {Node} node
@@ -1494,6 +1506,7 @@ module.exports = {
   identity,
   isBinaryish,
   isBlockComment,
+  isLineComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,
