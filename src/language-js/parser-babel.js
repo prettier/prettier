@@ -82,7 +82,7 @@ function isFlowFile(text, options) {
     0
   );
 
-  if (firstNonSpaceNonCommentCharacterIndex !== false) {
+  if (firstNonSpaceNonCommentCharacterIndex !== -1) {
     text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
   }
 

@@ -584,7 +584,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
     comment,
     options.locEnd
   );
-  if (index !== false && text.slice(index, index + 2) === "=>") {
+  if (index !== -1 && text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
   }
@@ -677,7 +677,7 @@ function handleLastFunctionArgComments(
         options.locEnd(enclosingNode.id)
       );
       return (
-        functionParamLeftParenIndex !== false &&
+        functionParamLeftParenIndex !== -1 &&
         getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
           functionParamLeftParenIndex + 1

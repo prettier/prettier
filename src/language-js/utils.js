@@ -922,7 +922,7 @@ function isFlowAnnotationComment(text, typeAnnotation, options) {
   const start = options.locStart(typeAnnotation);
   const end = skipWhitespace(text, options.locEnd(typeAnnotation));
   return (
-    end !== false &&
+    end !== -1 &&
     text.slice(start, start + 2) === "/*" &&
     text.slice(end, end + 2) === "*/"
   );

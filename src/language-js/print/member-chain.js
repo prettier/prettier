@@ -81,7 +81,7 @@ function printMemberChain(path, options, print) {
     // line after that parenthesis
     if (nextChar === ")") {
       return (
-        nextCharIndex !== false &&
+        nextCharIndex !== -1 &&
         isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1)
       );
     }

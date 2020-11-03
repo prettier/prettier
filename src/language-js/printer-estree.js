@@ -19,11 +19,9 @@ const {
   hasNodeIgnoreComment,
   getIndentSize,
   getPreferredQuote,
-} = require("../common/util");
-const {
   isNextLineEmpty,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../common/util-shared");
+} = require("../common/util");
 const {
   builders: {
     concat,
@@ -687,7 +685,7 @@ function printPathNoParens(path, options, print, args) {
             options.locEnd
           );
           return (
-            nextCharacter !== false &&
+            nextCharacter !== -1 &&
             options.originalText.slice(nextCharacter, nextCharacter + 2) ===
               "=>"
           );
