@@ -51,13 +51,30 @@ const selectors = [
   ':matches(ClassDeclaration, ClassExpression) > :matches(ArrowFunctionExpression, AssignmentExpression, AwaitExpression, BinaryExpression, ConditionalExpression, LogicalExpression, NewExpression, ObjectExpression, ParenthesizedExpression, SequenceExpression, TaggedTemplateExpression, UnaryExpression, UpdateExpression, YieldExpression").superClass',
   // "UpdateExpression" / "UnaryExpression":
   'UnaryExpression[operator="+"] > :matches(UpdateExpression, UnaryExpression)[operator="+"]',
-  'UnaryExpression[operator="+"] > :matches(UpdateExpression, UnaryExpression)[operator="-"]',
+  'UnaryExpression[operator="-"] > :matches(UpdateExpression, UnaryExpression)[operator="-"]',
   "BindExpression > :matches(UpdateExpression, UnaryExpression)",
   ":matches(MemberExpression, OptionalMemberExpression) > :matches(UpdateExpression, UnaryExpression).object",
   "TaggedTemplateExpression > :matches(UpdateExpression, UnaryExpression)",
   ":matches(NewExpression, CallExpression, OptionalCallExpression) > :matches(UpdateExpression, UnaryExpression).callee",
-  'BinaryExpression[operator="**"]> :matches(UpdateExpression, UnaryExpression).left',
-  "TSNonNullExpression> :matches(UpdateExpression, UnaryExpression)",
+  'BinaryExpression[operator="**"] > :matches(UpdateExpression, UnaryExpression).left',
+  "TSNonNullExpression > :matches(UpdateExpression, UnaryExpression)",
+  "ConditionalExpression > TSAsExpression",
+  ":matches(CallExpression, NewExpression, OptionalCallExpression) > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).callee",
+  ":matches(ClassExpression, ClassDeclaration) > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).superClass",
+  "TSTypeAssertion > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "TaggedTemplateExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "UnaryExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "JSXSpreadAttribute > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "SpreadElement > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "SpreadProperty > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "BindExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "AwaitExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "TSAsExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "TSNonNullExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "UpdateExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "MemberExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).object",
+  "OptionalMemberExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).object",
+  "AssignmentExpression > :matches(TSTypeAssertion, TSAsExpression).left",
 ];
 const needsParenthesisesSelector = esquery.parse(
   `:matches(${selectors.join(", ")})`
@@ -213,41 +230,6 @@ function needsParens(path, options) {
     case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
-        case "ConditionalExpression":
-          return node.type === "TSAsExpression";
-
-        case "CallExpression":
-        case "NewExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
-
-        case "ClassExpression":
-        case "ClassDeclaration":
-          return name === "superClass";
-
-        case "TSTypeAssertion":
-        case "TaggedTemplateExpression":
-        case "UnaryExpression":
-        case "JSXSpreadAttribute":
-        case "SpreadElement":
-        case "SpreadProperty":
-        case "BindExpression":
-        case "AwaitExpression":
-        case "TSAsExpression":
-        case "TSNonNullExpression":
-        case "UpdateExpression":
-          return true;
-
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        case "AssignmentExpression":
-          return (
-            name === "left" &&
-            (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
-          );
-
         case "LogicalExpression":
           if (node.type === "LogicalExpression") {
             return parent.operator !== node.operator;
