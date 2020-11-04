@@ -6181,10 +6181,10 @@ remark-footnotes@2.0.0:
   resolved "https://registry.yarnpkg.com/remark-footnotes/-/remark-footnotes-2.0.0.tgz#9001c4c2ffebba55695d2dd80ffb8b82f7e6303f"
   integrity sha512-3Clt8ZMH75Ayjp9q4CorNeyjwIxHFcTkaektplKGl2A1jNGEUey8cKL0ZC5vJwfcD5GFGsNLImLG/NGzWIzoMQ==
 
-remark-math@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-3.0.0.tgz#a1bb496e2d67805df30d8b55ff36f69cdef8e16e"
-  integrity sha512-1ptXVKQaxexoS1pywvbtoRofKenkulyWa7trXUh2LR5NCdzmqfUlM/aA8qyke7h63BGMFXVjPNjOZmD8oWkKDg==
+remark-math@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-3.0.1.tgz#85a02a15b15cad34b89a27244d4887b3a95185bb"
+  integrity sha512-epT77R/HK0x7NqrWHdSV75uNLwn8g9qTyMqCRCDujL0vj/6T6+yhdrR7mjELWtkse+Fw02kijAaBuVcHBor1+Q==
 
 remark-parse@8.0.3:
   version "8.0.3"
