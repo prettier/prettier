@@ -346,7 +346,7 @@ function isGetterOrSetter(node) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function sameLocStart(nodeA, nodeB) {
+function hasSameLocStart(nodeA, nodeB) {
   return locStart(nodeA) === locStart(nodeB);
 }
 
@@ -355,7 +355,7 @@ function sameLocStart(nodeA, nodeB) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function sameLocEnd(nodeA, nodeB) {
+function hasSameLocEnd(nodeA, nodeB) {
   return locEnd(nodeA) === locEnd(nodeB);
 }
 
@@ -365,13 +365,13 @@ function sameLocEnd(nodeA, nodeB) {
  * @returns {boolean}
  */
 function hasSameLoc(nodeA, nodeB) {
-  return sameLocStart(nodeA, nodeB) && sameLocEnd(nodeA, nodeB);
+  return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
 // TODO: This is a bad hack and we need a better way to distinguish between
 // arrow functions and otherwise
 function isFunctionNotation(node) {
-  return isGetterOrSetter(node) || sameLocStart(node, node.value);
+  return isGetterOrSetter(node) || hasSameLocStart(node, node.value);
 }
 
 // Hack to differentiate between the following two which have the same ast
@@ -399,7 +399,7 @@ function isTypeAnnotationAFunction(node) {
     (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !sameLocStart(node, node.typeAnnotation)
+    !hasSameLocStart(node, node.typeAnnotation)
   );
 }
 
