@@ -75,18 +75,18 @@ const selectors = [
   "MemberExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).object",
   "OptionalMemberExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).object",
   "AssignmentExpression > :matches(TSTypeAssertion, TSAsExpression).left",
-  "TaggedTemplateExpression > matches(YieldExpression, AwaitExpression)",
-  "UnaryExpression > matches(YieldExpression, AwaitExpression)",
-  "LogicalExpression > matches(YieldExpression, AwaitExpression)",
-  "SpreadElement > matches(YieldExpression, AwaitExpression)",
-  "SpreadProperty > matches(YieldExpression, AwaitExpression)",
-  "TSAsExpression > matches(YieldExpression, AwaitExpression)",
-  "TSNonNullExpression > matches(YieldExpression, AwaitExpression)",
-  "BindExpression > matches(YieldExpression, AwaitExpression)",
-  "MemberExpression > matches(YieldExpression, AwaitExpression).object",
-  "OptionalMemberExpression > matches(YieldExpression, AwaitExpression).object",
-  ":matches(NewExpression, CallExpression, OptionalCallExpression) > matches(YieldExpression, AwaitExpression).callee",
-  "OptionalMemberExpression > matches(YieldExpression, AwaitExpression).test",
+  "TaggedTemplateExpression > :matches(YieldExpression, AwaitExpression)",
+  "UnaryExpression > :matches(YieldExpression, AwaitExpression)",
+  "LogicalExpression > :matches(YieldExpression, AwaitExpression)",
+  "SpreadElement > :matches(YieldExpression, AwaitExpression)",
+  "SpreadProperty > :matches(YieldExpression, AwaitExpression)",
+  "TSAsExpression > :matches(YieldExpression, AwaitExpression)",
+  "TSNonNullExpression > :matches(YieldExpression, AwaitExpression)",
+  "BindExpression > :matches(YieldExpression, AwaitExpression)",
+  "MemberExpression > :matches(YieldExpression, AwaitExpression).object",
+  "OptionalMemberExpression > :matches(YieldExpression, AwaitExpression).object",
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > :matches(YieldExpression, AwaitExpression).callee",
+  "OptionalMemberExpression > :matches(YieldExpression, AwaitExpression).test",
 
   ":matches(NewExpression, CallExpression, OptionalCallExpression) > ArrowFunctionExpression.callee",
   ":matches(MemberExpression, OptionalMemberExpression) > ArrowFunctionExpression.object",
@@ -105,6 +105,7 @@ const selectors = [
   "BinaryExpression > :matches(JSXFragment, JSXElement).left",
   ":not(ArrayExpression, ArrowFunctionExpression, AssignmentExpression, AssignmentPattern, BinaryExpression, CallExpression, NewExpression, ConditionalExpression, ExpressionStatement, JsExpressionRoot, JSXAttribute, JSXElement, JSXExpressionContainer, JSXFragment, LogicalExpression, ObjectProperty, OptionalCallExpression, Property, ReturnStatement, ThrowStatement, TypeCastExpression, VariableDeclarator) > :matches(JSXFragment, JSXElement)",
 ];
+
 const needsParenthesisesSelector = esquery.parse(
   `:matches(${selectors.join(", ")})`
 );
