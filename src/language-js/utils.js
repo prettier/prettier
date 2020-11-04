@@ -9,7 +9,7 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
+const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -339,33 +339,6 @@ function isMemberExpressionChain(node) {
 
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
-}
-
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function hasSameLocStart(nodeA, nodeB) {
-  return locStart(nodeA) === locStart(nodeB);
-}
-
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function hasSameLocEnd(nodeA, nodeB) {
-  return locEnd(nodeA) === locEnd(nodeB);
-}
-
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function hasSameLoc(nodeA, nodeB) {
-  return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
 // TODO: This is a bad hack and we need a better way to distinguish between
@@ -1486,7 +1459,6 @@ module.exports = {
   hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
-  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
