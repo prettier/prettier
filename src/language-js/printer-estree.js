@@ -113,6 +113,7 @@ const {
   shouldFlatten,
   startsWithNoLookaheadToken,
 } = require("./utils");
+const { locStart, locEnd } = require("./loc");
 
 const printMemberChain = require("./print/member-chain");
 const printCallArguments = require("./print/call-arguments");
@@ -160,8 +161,8 @@ function genericPrint(path, options, printPath, args) {
     // for printing the decorators.
     !(
       parentExportDecl &&
-      options.locStart(parentExportDecl, { ignoreDecorators: true }) >
-        options.locStart(node.decorators[0])
+      locStart(parentExportDecl, { ignoreDecorators: true }) >
+        locStart(node.decorators[0])
     )
   ) {
     const shouldBreak =
@@ -192,8 +193,8 @@ function genericPrint(path, options, printPath, args) {
     node.declaration.decorators.length > 0 &&
     // Only print decorators here if they were written before the export,
     // otherwise they are printed by the node.declaration
-    options.locStart(node, { ignoreDecorators: true }) >
-      options.locStart(node.declaration.decorators[0])
+    locStart(node, { ignoreDecorators: true }) >
+      locStart(node.declaration.decorators[0])
   ) {
     // Export declarations are responsible for printing any decorators
     // that logically apply to node.declaration.
@@ -299,11 +300,7 @@ function printPathNoParens(path, options, print, args) {
           parts.push(print(childPath), semi, hardline);
           if (
             (index < directivesCount - 1 || hasContents) &&
-            isNextLineEmpty(
-              options.originalText,
-              childPath.getValue(),
-              options.locEnd
-            )
+            isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
           ) {
             parts.push(hardline);
           }
@@ -686,7 +683,7 @@ function printPathNoParens(path, options, print, args) {
           const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
             options.originalText,
             comment,
-            options.locEnd
+            locEnd
           );
           return (
             nextCharacter !== false &&
@@ -706,12 +703,12 @@ function printPathNoParens(path, options, print, args) {
       // We want to always keep these types of nodes on the same line
       // as the arrow.
       if (
-        !hasLeadingOwnLineComment(options.originalText, n.body, options) &&
+        !hasLeadingOwnLineComment(options.originalText, n.body) &&
         (n.body.type === "ArrayExpression" ||
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
           isJSXNode(n.body) ||
-          isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
+          isTemplateOnItsOwnLine(n.body, options.originalText) ||
           n.body.type === "ArrowFunctionExpression" ||
           n.body.type === "DoExpression")
       ) {
@@ -871,10 +868,7 @@ function printPathNoParens(path, options, print, args) {
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
         /{\s*}/.test(
-          options.originalText.slice(
-            options.locStart(n),
-            options.locStart(n.source)
-          )
+          options.originalText.slice(locStart(n), locStart(n.source))
         )
       ) {
         parts.push(" {}", printModuleSource(path, options, print));
@@ -943,11 +937,7 @@ function printPathNoParens(path, options, print, args) {
         path.each((childPath) => {
           parts.push(indent(concat([hardline, print(childPath), semi])));
           if (
-            isNextLineEmpty(
-              options.originalText,
-              childPath.getValue(),
-              options.locEnd
-            )
+            isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
           ) {
             parts.push(hardline);
           }
@@ -987,7 +977,7 @@ function printPathNoParens(path, options, print, args) {
           (n.callee.name === "require" || n.callee.name === "define")) ||
         // Template literals as single arguments
         (args.length === 1 &&
-          isTemplateOnItsOwnLine(args[0], options.originalText, options)) ||
+          isTemplateOnItsOwnLine(args[0], options.originalText)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (!isNew && isTestCall(n, path.getParentNode()))
@@ -1088,7 +1078,7 @@ function printPathNoParens(path, options, print, args) {
 
       const firstProperty = fields
         .map((field) => n[field][0])
-        .sort((a, b) => options.locStart(a) - options.locStart(b))[0];
+        .sort((a, b) => locStart(a) - locStart(b))[0];
 
       const parent = path.getParentNode(0);
       const isFlowInterfaceLikeBody =
@@ -1120,8 +1110,8 @@ function printPathNoParens(path, options, print, args) {
           firstProperty &&
           hasNewlineInRange(
             options.originalText,
-            options.locStart(n),
-            options.locStart(firstProperty)
+            locStart(n),
+            locStart(firstProperty)
           ));
 
       const separator = isFlowInterfaceLikeBody
@@ -1143,7 +1133,7 @@ function printPathNoParens(path, options, print, args) {
           propsAndLoc.push({
             node,
             printed: print(childPath),
-            loc: options.locStart(node),
+            loc: locStart(node),
           });
         }, field);
       });
@@ -1162,9 +1152,7 @@ function printPathNoParens(path, options, print, args) {
           ) {
             separatorParts.shift();
           }
-          if (
-            isNextLineEmpty(options.originalText, prop.node, options.locEnd)
-          ) {
+          if (isNextLineEmpty(options.originalText, prop.node, locEnd)) {
             separatorParts.push(hardline);
           }
           return result;
@@ -1186,7 +1174,7 @@ function printPathNoParens(path, options, print, args) {
             hasLineComments ||
             hasNewline(
               options.originalText,
-              options.locEnd(n.comments[n.comments.length - 1])
+              locEnd(n.comments[n.comments.length - 1])
             )
               ? hardline
               : line,
@@ -1730,10 +1718,9 @@ function printPathNoParens(path, options, print, args) {
         ])
       );
     case "ForInStatement":
-      // Note: esprima can't actually parse "for each (".
       return group(
         concat([
-          n.each ? "for each (" : "for (",
+          "for (",
           path.call(print, "left"),
           " in ",
           path.call(print, "right"),
@@ -1828,9 +1815,9 @@ function printPathNoParens(path, options, print, args) {
             (comment) =>
               !handleComments.isBlockComment(comment) ||
               (comment.leading &&
-                hasNewline(options.originalText, options.locEnd(comment))) ||
+                hasNewline(options.originalText, locEnd(comment))) ||
               (comment.trailing &&
-                hasNewline(options.originalText, options.locStart(comment), {
+                hasNewline(options.originalText, locStart(comment), {
                   backwards: true,
                 }))
           );
@@ -1874,11 +1861,7 @@ function printPathNoParens(path, options, print, args) {
                     return concat([
                       casePath.call(print),
                       n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
-                      isNextLineEmpty(
-                        options.originalText,
-                        caseNode,
-                        options.locEnd
-                      )
+                      isNextLineEmpty(options.originalText, caseNode, locEnd)
                         ? hardline
                         : "",
                     ]);
@@ -2561,7 +2544,7 @@ function printPathNoParens(path, options, print, args) {
             parent.type === "ObjectTypeInternalSlot") &&
             !getFlowVariance(parent) &&
             !parent.optional &&
-            options.locStart(parent) === options.locStart(n)) ||
+            locStart(parent) === locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
           (parentParentParent && parentParentParent.type === "DeclareFunction")
         );
@@ -2772,7 +2755,7 @@ function printPathNoParens(path, options, print, args) {
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator" ||
             parent.type === "TSTypeAliasDeclaration") &&
-          hasLeadingOwnLineComment(options.originalText, n, options)
+          hasLeadingOwnLineComment(options.originalText, n)
         );
 
       // {
@@ -2798,8 +2781,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       const shouldAddStartLine =
-        shouldIndent &&
-        !hasLeadingOwnLineComment(options.originalText, n, options);
+        shouldIndent && !hasLeadingOwnLineComment(options.originalText, n);
 
       const code = concat([
         ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
@@ -2920,21 +2902,25 @@ function printPathNoParens(path, options, print, args) {
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
-      const value = path.getValue();
-      const commentStart = options.originalText
-        .slice(0, options.locStart(value))
-        .lastIndexOf("/*");
-      // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
-      // because we know for sure that this is a type definition.
-      const commentSyntax =
-        commentStart >= 0 &&
-        options.originalText.slice(commentStart).match(/^\/\*\s*::/);
-      if (commentSyntax) {
-        return concat([
-          "/*:: ",
-          printTypeParameters(path, options, print, "params"),
-          " */",
-        ]);
+      const start = locStart(n);
+      const end = locEnd(n);
+      const commentStartIndex = options.originalText.lastIndexOf("/*", start);
+      const commentEndIndex = options.originalText.indexOf("*/", end);
+      if (commentStartIndex !== -1 && commentEndIndex !== -1) {
+        const comment = options.originalText
+          .slice(commentStartIndex + 2, commentEndIndex)
+          .trim();
+        if (
+          comment.startsWith("::") &&
+          !comment.includes("/*") &&
+          !comment.includes("*/")
+        ) {
+          return concat([
+            "/*:: ",
+            printTypeParameters(path, options, print, "params"),
+            " */",
+          ]);
+        }
       }
 
       return printTypeParameters(path, options, print, "params");
@@ -3228,8 +3214,8 @@ function printPathNoParens(path, options, print, args) {
     case "TSMappedType": {
       const shouldBreak = hasNewlineInRange(
         options.originalText,
-        options.locStart(n),
-        options.locEnd(n)
+        locStart(n),
+        locEnd(n)
       );
       return group(
         concat([
@@ -3384,8 +3370,8 @@ function printPathNoParens(path, options, print, args) {
         parts.push(printTypeScriptModifiers(path, options, print));
 
         const textBetweenNodeAndItsId = options.originalText.slice(
-          options.locStart(n),
-          options.locStart(n.id)
+          locStart(n),
+          locStart(n.id)
         );
 
         // Global declaration looks like this:
@@ -3449,7 +3435,7 @@ function printPathNoParens(path, options, print, args) {
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);
 
-      if (isNextLineEmpty(options.originalText, n, options.locEnd)) {
+      if (isNextLineEmpty(options.originalText, n, locEnd)) {
         parts.push(hardline);
       }
 
@@ -3628,10 +3614,7 @@ function printStatementSequence(path, options, print) {
       }
     }
 
-    if (
-      isNextLineEmpty(text, stmt, options.locEnd) &&
-      !isLastStatement(stmtPath)
-    ) {
+    if (isNextLineEmpty(text, stmt, locEnd) && !isLastStatement(stmtPath)) {
       parts.push(hardline);
     }
 
@@ -3882,9 +3865,7 @@ function printTypeAnnotation(path, options, print) {
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
-  if (
-    isFlowAnnotationComment(options.originalText, node.typeAnnotation, options)
-  ) {
+  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
     return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
   }
 
@@ -3919,7 +3900,7 @@ function printFunctionParameters(
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
             comment,
-            options.locEnd
+            locEnd
           ) === ")"
       ),
       ")",
@@ -3949,7 +3930,7 @@ function printFunctionParameters(
     ) {
       printed.push(" ");
     } else if (
-      isNextLineEmpty(options.originalText, parameters[index], options.locEnd)
+      isNextLineEmpty(options.originalText, parameters[index], locEnd)
     ) {
       printed.push(hardline, hardline);
     } else {
@@ -4103,7 +4084,7 @@ function printReturnType(path, print, options) {
 
   if (
     n.returnType &&
-    isFlowAnnotationComment(options.originalText, n.returnType, options)
+    isFlowAnnotationComment(options.originalText, n.returnType)
   ) {
     return concat([" /*: ", returnType, " */"]);
   }
@@ -4921,7 +4902,7 @@ function printBinaryishExpressions(
       (node.operator === "|>" ||
         node.type === "NGPipeExpression" ||
         (node.operator === "|" && options.parser === "__vue_expression")) &&
-      !hasLeadingOwnLineComment(options.originalText, node.right, options);
+      !hasLeadingOwnLineComment(options.originalText, node.right);
 
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
@@ -4985,7 +4966,7 @@ function printBinaryishExpressions(
 }
 
 function printAssignmentRight(leftNode, rightNode, printedRight, options) {
-  if (hasLeadingOwnLineComment(options.originalText, rightNode, options)) {
+  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
     return indent(concat([line, printedRight]));
   }
 
@@ -5182,11 +5163,7 @@ function printArrayItems(path, options, printPath, print) {
     separatorParts = [",", line];
     if (
       childPath.getValue() &&
-      isNextLineEmpty(
-        options.originalText,
-        childPath.getValue(),
-        options.locEnd
-      )
+      isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
     ) {
       separatorParts.push(softline);
     }
@@ -5306,7 +5283,7 @@ function printComment(commentPath, options) {
         // interleaved. See https://github.com/prettier/prettier/issues/4412
         if (
           comment.trailing &&
-          !hasNewline(options.originalText, options.locStart(comment), {
+          !hasNewline(options.originalText, locStart(comment), {
             backwards: true,
           })
         ) {
@@ -5315,7 +5292,7 @@ function printComment(commentPath, options) {
         return printed;
       }
 
-      const commentEnd = options.locEnd(comment);
+      const commentEnd = locEnd(comment);
       const isInsideFlowComment =
         options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
 
@@ -5325,7 +5302,7 @@ function printComment(commentPath, options) {
     case "Line":
       // Supports `//`, `#!`, `<!--`, and `-->`
       return options.originalText
-        .slice(options.locStart(comment), options.locEnd(comment))
+        .slice(locStart(comment), locEnd(comment))
         .trimEnd();
     default:
       /* istanbul ignore next */
