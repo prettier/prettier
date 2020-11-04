@@ -2900,21 +2900,25 @@ function printPathNoParens(path, options, print, args) {
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
-      const value = path.getValue();
-      const commentStart = options.originalText
-        .slice(0, locStart(value))
-        .lastIndexOf("/*");
-      // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
-      // because we know for sure that this is a type definition.
-      const commentSyntax =
-        commentStart >= 0 &&
-        options.originalText.slice(commentStart).match(/^\/\*\s*::/);
-      if (commentSyntax) {
-        return concat([
-          "/*:: ",
-          printTypeParameters(path, options, print, "params"),
-          " */",
-        ]);
+      const start = locStart(n);
+      const end = locEnd(n);
+      const commentStartIndex = options.originalText.lastIndexOf("/*", start);
+      const commentEndIndex = options.originalText.indexOf("*/", end);
+      if (commentStartIndex !== -1 && commentEndIndex !== -1) {
+        const comment = options.originalText
+          .slice(commentStartIndex + 2, commentEndIndex)
+          .trim();
+        if (
+          comment.startsWith("::") &&
+          !comment.includes("/*") &&
+          !comment.includes("*/")
+        ) {
+          return concat([
+            "/*:: ",
+            printTypeParameters(path, options, print, "params"),
+            " */",
+          ]);
+        }
       }
 
       return printTypeParameters(path, options, print, "params");
