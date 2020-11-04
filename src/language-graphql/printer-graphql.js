@@ -26,7 +26,7 @@ function genericPrint(path, options, print) {
   switch (n.kind) {
     case "Document": {
       const parts = [];
-      path.map((pathChild, index) => {
+      path.each((pathChild, index) => {
         parts.push(concat([pathChild.call(print)]));
         if (index !== n.definitions.length - 1) {
           parts.push(hardline);
@@ -611,7 +611,13 @@ function printDirectives(path, print, n) {
     return "";
   }
 
-  return group(concat([line, join(line, path.map(print, "directives"))]));
+  const printed = join(line, path.map(print, "directives"));
+
+  if (n.kind === "FragmentDefinition" || n.kind === "OperationDefinition") {
+    return group(concat([line, printed]));
+  }
+
+  return concat([" ", group(indent(concat([softline, printed])))]);
 }
 
 function printSequence(sequencePath, options, print) {

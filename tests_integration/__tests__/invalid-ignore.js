@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const prettier = require("prettier/local");
+const prettier = require("prettier-local");
 const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));

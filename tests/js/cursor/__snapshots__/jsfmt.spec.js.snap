@@ -2,6 +2,7 @@
 
 exports[`comments-1.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 7
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -22,6 +23,7 @@ function ehllooo() {
 
 exports[`comments-2.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 0
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -41,6 +43,7 @@ const y = 5;
 
 exports[`comments-3.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 1
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -59,6 +62,7 @@ const y = 5;
 
 exports[`comments-4.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 44
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -79,6 +83,7 @@ const y = 5;
 
 exports[`cursor-0.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 27
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -95,6 +100,7 @@ printWidth: 80
 
 exports[`cursor-1.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 26
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -111,6 +117,7 @@ printWidth: 80
 
 exports[`cursor-2.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 6
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -126,6 +133,7 @@ foo<|>(bar);
 
 exports[`cursor-3.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 4
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -144,6 +152,7 @@ printWidth: 80
 
 exports[`cursor-4.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 19
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -166,6 +175,7 @@ const y = 5;
 
 exports[`cursor-5.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 13
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -180,6 +190,7 @@ const /* h<|>i */ y = 5;
 
 exports[`cursor-6.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 20
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -194,6 +205,7 @@ const y /* h<|>i */ = 5;
 
 exports[`cursor-7.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 12
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -213,6 +225,7 @@ const z = 9;
 
 exports[`cursor-8.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 6
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -226,6 +239,7 @@ func<|>tion banana() {}
 
 exports[`cursor-9.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 26
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -239,6 +253,7 @@ thisWillBeFormatted<|>(2, 3);
 
 exports[`cursor-10.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 16
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -258,6 +273,7 @@ const y = 5;
 
 exports[`file-start-with-comment-1.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 5
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -274,6 +290,7 @@ haha();
 
 exports[`file-start-with-comment-2.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 16
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
@@ -290,8 +307,11 @@ haha()<|>;
 
 exports[`range-0.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 56
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
+rangeEnd: 72
+rangeStart: 31
      |                                                                                | printWidth
 =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
@@ -315,8 +335,11 @@ thisWontBeFormatted  ( 1  ,3)
 
 exports[`range-1.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 64
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
+rangeEnd: 72
+rangeStart: 31
      |                                                                                | printWidth
 =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
@@ -340,8 +363,11 @@ thisWontBeFormatted  ( 1  ,3)
 
 exports[`range-2.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 67
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
+rangeEnd: 72
+rangeStart: 31
      |                                                                                | printWidth
 =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)
@@ -365,18 +391,20 @@ thisWontBeFormatted  ( 1  ,3)
 
 exports[`range-3.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 20
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
+rangeEnd: 72
+rangeStart: 30
      |                                                                                | printWidth
 =====================================input======================================
-> 1 | thisWontBeFormatted <|> ( 1  ,3)
-    |                                ^
+  1 | thisWontBeFormatted <|> ( 1  ,3)
 > 2 | 
     | ^
 > 3 |     thisWillBeFormatted    (2  ,3,   )
-    | ^
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > 4 | 
-    | ^
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > 5 |     thisWontBeFormatted  (2, 90  ,)
     | ^
   6 |     
@@ -392,8 +420,11 @@ thisWontBeFormatted <|> ( 1  ,3)
 
 exports[`range-4.js format 1`] = `
 ====================================options=====================================
+cursorOffset: 101
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
+rangeEnd: 75
+rangeStart: 31
      |                                                                                | printWidth
 =====================================input======================================
   1 | thisWontBeFormatted  ( 1  ,3)

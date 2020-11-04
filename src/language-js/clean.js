@@ -1,32 +1,35 @@
 "use strict";
 
-function clean(ast, newObj, parent) {
-  [
-    "range",
-    "raw",
-    "comments",
-    "leadingComments",
-    "trailingComments",
-    "innerComments",
-    "extra",
-    "start",
-    "end",
-    "loc",
-    "flags",
-    "errors",
-    "tokens",
-  ].forEach((name) => {
-    delete newObj[name];
-  });
+const ignoredProperties = new Set([
+  "range",
+  "raw",
+  "comments",
+  "leadingComments",
+  "trailingComments",
+  "innerComments",
+  "extra",
+  "start",
+  "end",
+  "loc",
+  "flags",
+  "errors",
+  "tokens",
+]);
 
+function clean(ast, newObj, parent) {
   if (ast.type === "Program") {
     delete newObj.sourceType;
   }
 
-  if (ast.type === "BigIntLiteral") {
+  if (
+    ast.type === "BigIntLiteral" ||
+    ast.type === "BigIntLiteralTypeAnnotation"
+  ) {
     if (newObj.value) {
       newObj.value = newObj.value.toLowerCase();
     }
+  }
+  if (ast.type === "BigIntLiteral" || ast.type === "Literal") {
     if (newObj.bigint) {
       newObj.bigint = newObj.bigint.toLowerCase();
     }
@@ -207,5 +210,7 @@ function clean(ast, newObj, parent) {
     newObj.value = newObj.value.trimEnd();
   }
 }
+
+clean.ignoredProperties = ignoredProperties;
 
 module.exports = clean;

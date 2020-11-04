@@ -16,16 +16,16 @@ function parse(text, parsers, opts) {
       // But if we get it wrong, try the opposite.
       ast = tryParseTypeScript(text, !jsx);
     } catch (secondError) {
-      // suppose our guess is correct
-      const e = firstError;
+      // Suppose our guess is correct, throw the first error
+      const { message, lineNumber, column } = firstError;
 
       /* istanbul ignore next */
-      if (typeof e.lineNumber === "undefined") {
-        throw e;
+      if (typeof lineNumber !== "number") {
+        throw firstError;
       }
 
-      throw createError(e.message, {
-        start: { line: e.lineNumber, column: e.column + 1 },
+      throw createError(message, {
+        start: { line: lineNumber, column: column + 1 },
       });
     }
   }
@@ -36,6 +36,9 @@ function parse(text, parsers, opts) {
 function tryParseTypeScript(text, jsx) {
   const parser = require("@typescript-eslint/typescript-estree");
   return parser.parse(text, {
+    // `jest@<=26.4.2` rely on `loc`
+    // https://github.com/facebook/jest/issues/10444
+    loc: true,
     range: true,
     comment: true,
     useJSXTextNode: true,

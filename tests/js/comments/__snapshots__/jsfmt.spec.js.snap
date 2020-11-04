@@ -5097,6 +5097,9 @@ while(true) {} // comment
 
 while(true) /* comment */ ++x; 
 
+while(1) // Comment
+  foo();
+
 =====================================output=====================================
 while (
   true
@@ -5121,6 +5124,10 @@ while (
 while (true) {} // comment
 
 while (true) /* comment */ ++x
+
+while (1)
+  // Comment
+  foo()
 
 ================================================================================
 `;
@@ -5152,6 +5159,9 @@ while(true) {} // comment
 
 while(true) /* comment */ ++x; 
 
+while(1) // Comment
+  foo();
+
 =====================================output=====================================
 while (
   true
@@ -5176,6 +5186,10 @@ while (
 while (true) {} // comment
 
 while (true) /* comment */ ++x;
+
+while (1)
+  // Comment
+  foo();
 
 ================================================================================
 `;

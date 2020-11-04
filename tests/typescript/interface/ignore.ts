@@ -26,3 +26,81 @@ interface T<T> {
   new<T>(): T<T>;
   new<T>(): T<T>;
 }
+
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
+}

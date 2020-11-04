@@ -274,13 +274,7 @@ const UsersSection = ({ language }) => {
             target="_self"
             style={{ marginRight: "10px" }}
           >
-            See All Others
-          </a>
-          <a
-            className="button"
-            href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
-          >
-            Add Your Project
+            See Others
           </a>
         </div>
 
@@ -303,7 +297,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">1.8 million</strong>{" "}
+                <strong data-placeholder="dependent-github">2 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
@@ -321,7 +315,7 @@ const UsersSection = ({ language }) => {
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
-                More than <strong data-placeholder="dependent-npm">5000</strong>{" "}
+                More than <strong data-placeholder="dependent-npm">6000</strong>{" "}
                 dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">

@@ -72,6 +72,7 @@ const {
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
+  isAtWordPlaceholderNode,
 } = require("./utils");
 
 function shouldPrintComma(options) {
@@ -100,7 +101,7 @@ function genericPrint(path, options, print) {
       return concat([
         nodes,
         after ? ` ${after}` : "",
-        nodes.parts.length && !options.__isHTMLStyleAttribute ? hardline : "",
+        nodes.parts.length ? hardline : "",
       ]);
     }
     case "css-comment": {
@@ -572,8 +573,7 @@ function genericPrint(path, options, print) {
         if (
           iNode.type === "value-word" &&
           iNode.value.endsWith("-") &&
-          iNextNode.type === "value-atword" &&
-          iNextNode.value.startsWith("prettier-placeholder-")
+          isAtWordPlaceholderNode(iNextNode)
         ) {
           continue;
         }
@@ -793,6 +793,14 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (
+          isAtWordPlaceholderNode(iNode) &&
+          isAtWordPlaceholderNode(iNextNode) &&
+          options.locEnd(iNode) === options.locStart(iNextNode)
+        ) {
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
@@ -970,8 +978,7 @@ function genericPrint(path, options, print) {
 function printNodeSequence(path, options, print) {
   const node = path.getValue();
   const parts = [];
-  let i = 0;
-  path.map((pathChild) => {
+  path.each((pathChild, i) => {
     const prevNode = node.nodes[i - 1];
     if (
       prevNode &&
@@ -1017,7 +1024,6 @@ function printNodeSequence(path, options, print) {
         }
       }
     }
-    i++;
   }, "nodes");
 
   return concat(parts);
