@@ -9,6 +9,7 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
+const { locStart, locEnd } = require("./loc");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -820,10 +821,9 @@ function hasNewlineBetweenOrAfterDecorators(node, options) {
   return (
     hasNewlineInRange(
       options.originalText,
-      options.locStart(node.decorators[0]),
-      options.locEnd(getLast(node.decorators))
-    ) ||
-    hasNewline(options.originalText, options.locEnd(getLast(node.decorators)))
+      locStart(node.decorators[0]),
+      locEnd(getLast(node.decorators))
+    ) || hasNewline(options.originalText, locEnd(getLast(node.decorators)))
   );
 }
 
@@ -930,9 +930,9 @@ function isLastStatement(path) {
  * @param {Node} typeAnnotation
  * @returns {boolean}
  */
-function isFlowAnnotationComment(text, typeAnnotation, options) {
-  const start = options.locStart(typeAnnotation);
-  const end = skipWhitespace(text, options.locEnd(typeAnnotation));
+function isFlowAnnotationComment(text, typeAnnotation) {
+  const start = locStart(typeAnnotation);
+  const end = skipWhitespace(text, locEnd(typeAnnotation));
   return (
     end !== false &&
     text.slice(start, start + 2) === "/*" &&
@@ -945,7 +945,7 @@ function isFlowAnnotationComment(text, typeAnnotation, options) {
  * @param {Node} node
  * @returns {boolean}
  */
-function hasLeadingOwnLineComment(text, node, options) {
+function hasLeadingOwnLineComment(text, node) {
   if (isJSXNode(node)) {
     return hasNodeIgnoreComment(node);
   }
@@ -953,7 +953,7 @@ function hasLeadingOwnLineComment(text, node, options) {
   const res =
     node.comments &&
     node.comments.some(
-      (comment) => comment.leading && hasNewline(text, options.locEnd(comment))
+      (comment) => comment.leading && hasNewline(text, locEnd(comment))
     );
   return res;
 }
@@ -962,7 +962,7 @@ function hasLeadingOwnLineComment(text, node, options) {
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument, options)) {
+  if (hasLeadingOwnLineComment(options.originalText, argument)) {
     return true;
   }
 
@@ -972,7 +972,7 @@ function returnArgumentHasLeadingComment(options, argument) {
     while ((newLeftMost = getLeftSide(leftMost))) {
       leftMost = newLeftMost;
 
-      if (hasLeadingOwnLineComment(options.originalText, leftMost, options)) {
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
         return true;
       }
     }
@@ -1077,12 +1077,12 @@ function templateLiteralHasNewLines(template) {
  * @param {string} text
  * @returns {boolean}
  */
-function isTemplateOnItsOwnLine(n, text, options) {
+function isTemplateOnItsOwnLine(n, text) {
   return (
     ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
       (n.type === "TaggedTemplateExpression" &&
         templateLiteralHasNewLines(n.quasi))) &&
-    !hasNewline(text, options.locStart(n), { backwards: true })
+    !hasNewline(text, locStart(n), { backwards: true })
   );
 }
 

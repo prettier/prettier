@@ -1,9 +1,9 @@
 "use strict";
 
 const flat = require("lodash/flatten");
-
 const { hasNewlineInRange } = require("../../common/util");
 const { isJSXNode, isBlockComment } = require("../utils");
+const { locStart, locEnd } = require("../loc");
 const {
   builders: {
     concat,
@@ -260,8 +260,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       isBlockComment(comment) &&
       hasNewlineInRange(
         options.originalText,
-        options.locStart(comment),
-        options.locEnd(comment)
+        locStart(comment),
+        locEnd(comment)
       )
   );
   const maybeGroup = (doc) =>
