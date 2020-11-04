@@ -346,7 +346,7 @@ function isGetterOrSetter(node) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function sameLocStart(nodeA, nodeB, { locStart }) {
+function sameLocStart(nodeA, nodeB) {
   return locStart(nodeA) === locStart(nodeB);
 }
 
@@ -355,7 +355,7 @@ function sameLocStart(nodeA, nodeB, { locStart }) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function sameLocEnd(nodeA, nodeB, { locEnd }) {
+function sameLocEnd(nodeA, nodeB) {
   return locEnd(nodeA) === locEnd(nodeB);
 }
 
@@ -364,16 +364,14 @@ function sameLocEnd(nodeA, nodeB, { locEnd }) {
  * @param {Node} nodeB
  * @returns {boolean}
  */
-function hasSameLoc(nodeA, nodeB, options) {
-  return (
-    sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options)
-  );
+function hasSameLoc(nodeA, nodeB) {
+  return sameLocStart(nodeA, nodeB) && sameLocEnd(nodeA, nodeB);
 }
 
 // TODO: This is a bad hack and we need a better way to distinguish between
 // arrow functions and otherwise
-function isFunctionNotation(node, options) {
-  return isGetterOrSetter(node) || sameLocStart(node, node.value, options);
+function isFunctionNotation(node) {
+  return isGetterOrSetter(node) || sameLocStart(node, node.value);
 }
 
 // Hack to differentiate between the following two which have the same ast
@@ -383,25 +381,25 @@ function isFunctionNotation(node, options) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node, options) {
+function isObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node, options)
+    !isFunctionNotation(node)
   );
 }
 
 // Hack to differentiate between the following two which have the same ast
 // declare function f(a): void;
 // var f: (a) => void;
-function isTypeAnnotationAFunction(node, options) {
+function isTypeAnnotationAFunction(node) {
   return (
     (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !sameLocStart(node, node.typeAnnotation, options)
+    !sameLocStart(node, node.typeAnnotation)
   );
 }
 
