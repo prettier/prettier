@@ -607,6 +607,10 @@ function parseWithParser(parse, text, options) {
   calculateLoc(result, text);
 
   if (frontMatter) {
+    frontMatter.source = {
+      startOffset: 0,
+      endOffset: frontMatter.raw.length,
+    };
     result.nodes.unshift(frontMatter);
   }
 
