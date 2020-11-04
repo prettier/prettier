@@ -4,10 +4,6 @@
  * @typedef {import("./types/estree").Node} Node
  */
 
-/**
- * @param {Node} node
- * @returns {number}
- */
 function locStart(node, opts) {
   const { ignoreDecorators } = opts || {};
 
@@ -24,10 +20,6 @@ function locStart(node, opts) {
   return node.range ? node.range[0] : node.start;
 }
 
-/**
- * @param {Node} node
- * @returns {number}
- */
 function locEnd(node) {
   const end = node.range ? node.range[1] : node.end;
   return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
