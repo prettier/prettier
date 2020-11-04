@@ -1716,10 +1716,9 @@ function printPathNoParens(path, options, print, args) {
         ])
       );
     case "ForInStatement":
-      // Note: esprima can't actually parse "for each (".
       return group(
         concat([
-          n.each ? "for each (" : "for (",
+          "for (",
           path.call(print, "left"),
           " in ",
           path.call(print, "right"),
