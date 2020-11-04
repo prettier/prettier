@@ -1468,6 +1468,15 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
 }
 
+function isFlowLanguageParser({ parser }) {
+  return (
+    parser === "flow" ||
+    // TODO: remove flow support from `babel` parser
+    parser === "babel" ||
+    parser === "babel-flow"
+  );
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1492,6 +1501,7 @@ module.exports = {
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
+  isFlowLanguageParser,
   isBinaryish,
   isBlockComment,
   isCallOrOptionalCallExpression,
