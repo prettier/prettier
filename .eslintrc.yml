@@ -105,3 +105,6 @@ overrides:
   - files: src/**/*.js
     rules:
       prettier-internal-rules/prefer-fast-path-each: error
+  - files: src/language-js/**/*.js
+    rules:
+      prettier-internal-rules/directly-loc-start-end: error
