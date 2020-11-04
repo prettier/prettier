@@ -76,7 +76,6 @@ const {
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
-  isFlowLanguageParser,
   isBinaryish,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
@@ -1003,7 +1002,7 @@ function printPathNoParens(path, options, print, args) {
       //
       // Here, we ensure that such comments stay between the Identifier and the Callee.
       const isIdentifierWithFlowAnnotation =
-        isFlowLanguageParser(options) &&
+        (options.parser === "babel" || options.parser === "babel-flow") &&
         n.callee &&
         n.callee.type === "Identifier" &&
         hasFlowAnnotationComment(n.callee.trailingComments);
