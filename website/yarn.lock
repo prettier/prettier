@@ -736,10 +736,10 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-transform-react-jsx-development@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx-development/-/plugin-transform-react-jsx-development-7.12.1.tgz#0b8f8cd531dcf7991f1e5f2c10a2a4f1cfc78e36"
-  integrity sha512-IilcGWdN1yNgEGOrB96jbTplRh+V2Pz1EoEwsKsHfX1a/L40cUYuD71Zepa7C+ujv7kJIxnDftWeZbKNEqZjCQ==
+"@babel/plugin-transform-react-jsx-development@^7.12.5":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx-development/-/plugin-transform-react-jsx-development-7.12.5.tgz#677de5b96da310430d6cfb7fee16a1603afa3d56"
+  integrity sha512-1JJusg3iPgsZDthyWiCr3KQiGs31ikU/mSf2N2dSYEAO0GEImmVUbWf0VoSDGDFTAn5Dj4DUiR6SdIXHY7tELA==
   dependencies:
     "@babel/helper-builder-react-jsx-experimental" "^7.12.1"
     "@babel/helper-plugin-utils" "^7.10.4"
@@ -759,10 +759,10 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-transform-react-jsx@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.12.1.tgz#c2d96c77c2b0e4362cc4e77a43ce7c2539d478cb"
-  integrity sha512-RmKejwnT0T0QzQUzcbP5p1VWlpnP8QHtdhEtLG55ZDQnJNalbF3eeDyu3dnGKvGzFIQiBzFhBYTwvv435p9Xpw==
+"@babel/plugin-transform-react-jsx@^7.12.5":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.12.5.tgz#39ede0e30159770561b6963be143e40af3bde00c"
+  integrity sha512-2xkcPqqrYiOQgSlM/iwto1paPijjsDbUynN13tI6bosDz/jOW3CRzYguIE8wKX32h+msbBM22Dv5fwrFkUOZjQ==
   dependencies:
     "@babel/helper-builder-react-jsx" "^7.10.4"
     "@babel/helper-builder-react-jsx-experimental" "^7.12.1"
@@ -937,15 +937,15 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/preset-react@7.12.1", "@babel/preset-react@^7.9.4":
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.12.1.tgz#7f022b13f55b6dd82f00f16d1c599ae62985358c"
-  integrity sha512-euCExymHCi0qB9u5fKw7rvlw7AZSjw/NaB9h7EkdTt5+yHRrXdiRTh7fkG3uBPpJg82CqLfp1LHLqWGSCrab+g==
+"@babel/preset-react@7.12.5", "@babel/preset-react@^7.9.4":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.12.5.tgz#d45625f65d53612078a43867c5c6750e78772c56"
+  integrity sha512-jcs++VPrgyFehkMezHtezS2BpnUlR7tQFAyesJn1vGTO9aTFZrgIQrA5YydlTwxbcjMwkFY6i04flCigRRr3GA==
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-transform-react-display-name" "^7.12.1"
-    "@babel/plugin-transform-react-jsx" "^7.12.1"
-    "@babel/plugin-transform-react-jsx-development" "^7.12.1"
+    "@babel/plugin-transform-react-jsx" "^7.12.5"
+    "@babel/plugin-transform-react-jsx-development" "^7.12.5"
     "@babel/plugin-transform-react-jsx-self" "^7.12.1"
     "@babel/plugin-transform-react-jsx-source" "^7.12.1"
     "@babel/plugin-transform-react-pure-annotations" "^7.12.1"
