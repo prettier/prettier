@@ -11,9 +11,8 @@ const {
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
-  locStart,
-  locEnd,
 } = require("./utils");
+const { locStart, locEnd } = require("./loc");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
 const getHighestAncestor = (node) => {
