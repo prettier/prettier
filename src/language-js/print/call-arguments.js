@@ -16,6 +16,7 @@ const {
   isLongCurriedCallExpression,
   shouldPrintComma,
 } = require("../utils");
+const { locEnd } = require("../loc");
 
 const {
   builders: {
@@ -99,7 +100,7 @@ function printCallArguments(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, options.locEnd)) {
+    } else if (isNextLineEmpty(options.originalText, arg, locEnd)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
