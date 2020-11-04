@@ -11,6 +11,8 @@ const {
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
+  locStart,
+  locEnd,
 } = require("./utils");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
@@ -652,19 +654,8 @@ function parseScss(text, parsers, options) {
 const postCssParser = {
   astFormat: "postcss",
   hasPragma,
-  locStart(node) {
-    if (node.source) {
-      return node.source.startOffset;
-    }
-    /* istanbul ignore next */
-    return null;
-  },
-  locEnd(node) {
-    if (node.source) {
-      return node.source.endOffset;
-    }
-    return null;
-  },
+  locStart,
+  locEnd,
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
