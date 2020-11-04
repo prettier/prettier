@@ -2903,7 +2903,7 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameterInstantiation": {
       const printed = printTypeParameters(path, options, print, "params");
 
-      if (isFlowLanguageParser(options)) {
+      if (options.parser === "flow") {
         const start = locStart(n);
         const end = locEnd(n);
         const commentStartIndex = options.originalText.lastIndexOf("/*", start);
