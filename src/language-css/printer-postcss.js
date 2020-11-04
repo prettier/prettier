@@ -29,8 +29,6 @@ const embed = require("./embed");
 const { insertPragma } = require("./pragma");
 
 const {
-  locStart,
-  locEnd,
   getAncestorNode,
   getPropOfDeclNode,
   maybeToLowerCase,
@@ -76,6 +74,7 @@ const {
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
 } = require("./utils");
+const { locStart, locEnd } = require("./loc");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";

@@ -461,17 +461,7 @@ function isAtWordPlaceholderNode(node) {
   );
 }
 
-function locStart(node) {
-  return node.source.startOffset;
-}
-
-function locEnd(node) {
-  return node.source.endOffset;
-}
-
 module.exports = {
-  locStart,
-  locEnd,
   getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,
