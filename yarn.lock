@@ -4329,12 +4329,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier-internal-rules@file:scripts/tools/eslint-plugin-prettier-internal-rules/eslint-plugin-prettier-internal-rules-1.0.0.tgz::locator=prettier%40workspace%3A.":
-  version: 1.0.0
-  resolution: "eslint-plugin-prettier-internal-rules@file:scripts/tools/eslint-plugin-prettier-internal-rules/eslint-plugin-prettier-internal-rules-1.0.0.tgz::locator=prettier%40workspace%3A."
-  checksum: 4d5e409fea16ec0ec6ed3960e878748af27437969fb6ce2d2e0430c94edb881b07f6aee78c330f7cd8ebf4df08101f26f8bbe3b0e958003df32b42ed4f1bebad
+"eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules::locator=prettier%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules::locator=prettier%40workspace%3A."
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "eslint-plugin-react@npm:7.21.5":
   version: 7.21.5
@@ -8039,7 +8038,7 @@ __metadata:
     eslint-formatter-friendly: 7.0.0
     eslint-plugin-import: 2.22.1
     eslint-plugin-jest: 24.1.0
-    eslint-plugin-prettier-internal-rules: "file:scripts/tools/eslint-plugin-prettier-internal-rules/eslint-plugin-prettier-internal-rules-1.0.0.tgz"
+    eslint-plugin-prettier-internal-rules: "link:scripts/tools/eslint-plugin-prettier-internal-rules"
     eslint-plugin-react: 7.21.5
     eslint-plugin-unicorn: 23.0.0
     espree: 7.3.0
