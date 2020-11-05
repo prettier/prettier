@@ -14,6 +14,12 @@ exports[`invalid-const.js [flow] format 1`] = `
   2 | "
 `;
 
+exports[`invalid-const.js [meriyah] format 1`] = `
+"[1:10]: Missing initializer in const declaration
+  1 | const foo;
+  2 | "
+`;
+
 exports[`invalid-const.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

@@ -9,6 +9,21 @@ exports[`test.js [espree] format 1`] = `
   4 | const addTen = add(?, 10); // apply from the right"
 `;
 
+exports[`test.js [meriyah] format 1`] = `
+"[1:23]: Unexpected token: '?'
+   1 | const addOne = add(1, ?); // apply from the left
+   2 | addOne(2); // 3
+   3 | 
+   4 | const addTen = add(?, 10); // apply from the right
+   5 | addTen(2); // 12
+   6 | 
+   7 | // with pipeline
+   8 | let newScore = player.score
+   9 |   |> add(7, ?)
+  10 |   |> clamp(0, 100, ?); // shallow stack, the pipe to \`clamp\` is the same frame as the pipe to \`add\`.
+  11 | "
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

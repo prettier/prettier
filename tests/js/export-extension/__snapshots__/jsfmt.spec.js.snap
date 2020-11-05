@@ -10,6 +10,19 @@ exports[`export.js [espree] format 1`] = `
   5 | export * as d, { bar } from 'mod';"
 `;
 
+exports[`export.js [meriyah] format 1`] = `
+"[2:8]: Unexpected token: 'identifier'
+  1 | export * as ns from 'mod';
+  2 | export v from 'mod';
+  3 | export a, * as b from 'mod';
+  4 | export c, { foo } from 'mod';
+  5 | export * as d, { bar } from 'mod';
+  6 | export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from \\"fooooooooooooooooooooooooooooo\\";
+  7 | export Bar, { barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr } from \\"barrrrrrrrrrrrrrrrrrrrrrrrrrrr\\";
+  8 | export { foooooooooooooooooooooooooooooooooooooooooooooo, fooooooooooooooooooooooooooooooooooooooooooooooo  } from \\"fooooooooooooooooooooooooooooo\\";
+  9 | "
+`;
+
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

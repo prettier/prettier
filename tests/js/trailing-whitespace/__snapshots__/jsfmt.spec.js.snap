@@ -9,6 +9,21 @@ exports[`trailing.js [espree] format 1`] = `
   4 | \`"
 `;
 
+exports[`trailing.js [meriyah] format 1`] = `
+"[1:11]: Unexpected token: 'identifier'
+   1 | export type Result<T, V> = | { kind: \\"not-test-editor1\\" } | { kind: \\"not-test-editor2\\" };
+   2 | 
+   3 | // Note: there are trailing whitespace in this file
+   4 | \`
+   5 |    
+   6 |    
+   7 | \` + \`
+   8 |     
+   9 |     
+  10 | \`;
+  11 | "
+`;
+
 exports[`trailing.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

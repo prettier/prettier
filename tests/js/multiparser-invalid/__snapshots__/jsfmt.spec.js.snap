@@ -20,6 +20,42 @@ exports[`text.js [flow] format 1`] = `
   4 | foo = markdown\`\\\\u{prettier}\\\\u{0065}\`;"
 `;
 
+exports[`text.js [meriyah] format 1`] = `
+"[6:20]: Invalid hexadecimal escape sequence
+   1 | foo = foo\`\\\\u{prettier}\\\\u{0065}\`;
+   2 | foo = html\`\\\\u{prettier}\\\\u{0065}\`;
+   3 | foo = graphql\`\\\\u{prettier}\\\\u{0065}\`;
+   4 | foo = markdown\`\\\\u{prettier}\\\\u{0065}\`;
+   5 | foo = css\`\\\\u{prettier}\\\\u{0065}\`;
+   6 | foo = /* HTML */\`\\\\u{prettier}\\\\u{0065}\`;
+   7 | foo = /* GraphQL */\`\\\\u{prettier}\\\\u{0065}\`;
+   8 | 
+   9 | foo = foo\`\\\\u{prettier}\${foo}pr\\\\u{0065}ttier\`;
+  10 | foo = html\`\\\\u{prettier}\${foo}pr\\\\u{0065}ttier\`;
+  11 | foo = graphql\`\\\\u{prettier}\${foo}pr\\\\u{0065}ttier\`;
+  12 | foo = markdown\`\\\\u{prettier}\${foo}pr\\\\u{0065}ttier\`;
+  13 | foo = css\`\\\\u{prettier}\${foo}pr\\\\u{0065}ttier\`;
+  14 | foo = /* HTML */\`\\\\u{prettier}\${foo}pr\\\\u{0065}ttier\`;
+  15 | foo = /* GraphQL */\`\\\\u{prettier}\${foo}pr\\\\u{0065}ttier\`;
+  16 | 
+  17 | foo = foo\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\`;
+  18 | foo = html\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\`;
+  19 | foo = graphql\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\`;
+  20 | foo = markdown\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\`;
+  21 | foo = css\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\`;
+  22 | foo = /* HTML */\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\`;
+  23 | foo = /* GraphQL */\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\`;
+  24 | 
+  25 | foo = foo\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\${bar}pr\\\\u{0065}ttier\`;
+  26 | foo = html\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\${bar}pr\\\\u{0065}ttier\`;
+  27 | foo = graphql\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\${bar}pr\\\\u{0065}ttier\`;
+  28 | foo = markdown\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\${bar}pr\\\\u{0065}ttier\`;
+  29 | foo = css\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\${bar}pr\\\\u{0065}ttier\`;
+  30 | foo = /* HTML */\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\${bar}pr\\\\u{0065}ttier\`;
+  31 | foo = /* GraphQL */\`pr\\\\u{0065}ttier\${foo}\\\\u{prettier}\${bar}pr\\\\u{0065}ttier\`;
+  32 | "
+`;
+
 exports[`text.js [typescript] format 1`] = `
 "Hexadecimal digit expected. (1:14)
 > 1 | foo = foo\`\\\\u{prettier}\\\\u{0065}\`;

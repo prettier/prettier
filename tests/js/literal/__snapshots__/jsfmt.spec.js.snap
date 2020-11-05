@@ -7,6 +7,12 @@ exports[`invalid-exponent.js [espree] format 1`] = `
   2 | "
 `;
 
+exports[`invalid-exponent.js [meriyah] format 1`] = `
+"[1:5]: Non-number found after exponent indicator
+  1 | 12.3e
+  2 | "
+`;
+
 exports[`invalid-exponent.js [typescript] format 1`] = `
 "Digit expected. (1:6)
 > 1 | 12.3e
@@ -36,6 +42,99 @@ exports[`number.js [espree] format 1`] = `
   3 |   return (100).toString();
   4 | }
   5 | "
+`;
+
+exports[`number.js [meriyah] format 1`] = `
+"[2:17]: Expected '{'
+   1 | // parentheses around numeric literal should be preserved
+   2 | function test5(): string {
+   3 |   return (100).toString();
+   4 | }
+   5 | 
+   6 | 0
+   7 | 1
+   8 | 
+   9 | 0.1
+  10 | 1.1
+  11 | 
+  12 | .1
+  13 | 1.
+  14 | 
+  15 | 0b1
+  16 | 0B1
+  17 | 0o1
+  18 | 0O1
+  19 | 0x1
+  20 | 0X1
+  21 | 
+  22 | 0x123abcdef456ABCDEF
+  23 | 0X123abcdef456ABCDEF
+  24 | 0xdeadbeef;
+  25 | 
+  26 | 0b111000
+  27 | 0b000111
+  28 | 0B111000
+  29 | 0B000111
+  30 | 0o111000
+  31 | 0o000111
+  32 | 0O111000
+  33 | 0O000111
+  34 | 0x111000
+  35 | 0x000111
+  36 | 0X111000
+  37 | 0X000111
+  38 | 
+  39 | 1e1
+  40 | 1e+1
+  41 | 1e-1
+  42 | 1.e1
+  43 | .1e1
+  44 | 1.1e1
+  45 | 1.1e0010
+  46 | .1e+0010
+  47 | .1e-0010
+  48 | 
+  49 | 1E1
+  50 | 1E+1
+  51 | 1E-1
+  52 | 1.E1
+  53 | .1E1
+  54 | 1.1E1
+  55 | 1.1E0010
+  56 | .1E+0010
+  57 | .1E-0010
+  58 | 
+  59 | 0.5e0
+  60 | 0.5e00
+  61 | 0.5e+0
+  62 | 0.5e+00
+  63 | 0.5e-0
+  64 | 0.5e-00
+  65 | 
+  66 | 1
+  67 | 1.00500
+  68 | 1.0
+  69 | 1.5
+  70 | 1.50
+  71 | 0
+  72 | 0.00500
+  73 | 0.0
+  74 | 0.0000
+  75 | .0
+  76 | 500600.001230045000
+  77 | 1.00500e60
+  78 | 1.0e60
+  79 | 0.00500e60
+  80 | 0.0e60
+  81 | 0.0000e60
+  82 | .0e60
+  83 | 0.e60
+  84 | 0e60
+  85 | 500600.001230045000e60
+  86 | 10
+  87 | 9700
+  88 | 10e100
+  89 | "
 `;
 
 exports[`number.js format 1`] = `

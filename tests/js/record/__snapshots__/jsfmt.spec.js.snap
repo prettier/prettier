@@ -10,6 +10,20 @@ exports[`computed.js [espree] format 1`] = `
   5 | assert(#{ [true]: 1 } === #{ true: 1 })"
 `;
 
+exports[`computed.js [meriyah] format 1`] = `
+"[2:8]: '#' not followed by identifier
+   1 | const key = \\"a\\";
+   2 | assert(#{ [key]: 1 } === #{ a: 1 })
+   3 | assert(#{ [key.toUpperCase()]: 1 } === #{ A: 1 })
+   4 | 
+   5 | assert(#{ [true]: 1 } === #{ true: 1 })
+   6 | assert(#{ [true]: 1 } === #{ [\\"true\\"]: 1 })
+   7 | 
+   8 | assert(#{ [1 + 1]: \\"two\\" } === #{ 2: \\"two\\" })
+   9 | assert(#{ [9 + 1]: \\"ten\\" } === #{ [\\"10\\"]: \\"ten\\" })
+  10 | "
+`;
+
 exports[`computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -47,6 +61,20 @@ exports[`destructuring.js [espree] format 1`] = `
   2 | assert(a === 1);
   3 | assert(b === 2);
   4 | "
+`;
+
+exports[`destructuring.js [meriyah] format 1`] = `
+"[1:18]: '#' not followed by identifier
+   1 | const { a, b } = #{ a: 1, b: 2 };
+   2 | assert(a === 1);
+   3 | assert(b === 2);
+   4 | 
+   5 | const { a, ...rest } = #{ a: 1, b: 2, c: 3 };
+   6 | assert(a === 1);
+   7 | assert(typeof rest === \\"object\\");
+   8 | assert(rest.b === 2);
+   9 | assert(rest.c === 3);
+  10 | "
 `;
 
 exports[`destructuring.js format 1`] = `
@@ -90,6 +118,20 @@ exports[`invalid-record-method.js [espree] format 1`] = `
   6 |   get c() {},"
 `;
 
+exports[`invalid-record-method.js [meriyah] format 1`] = `
+"[3:1]: '#' not followed by identifier
+   1 | // Invalid, https://github.com/babel/babel/pull/11652/
+   2 | 
+   3 | #{
+   4 |   a() {},
+   5 |   async b() {},
+   6 |   get c() {},
+   7 |   set d(_) {},
+   8 |   *e() {}
+   9 | }
+  10 | "
+`;
+
 exports[`invalid-record-method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -127,6 +169,27 @@ exports[`record.js [espree] format 1`] = `
   2 |     a: 1,
   3 |     b: 2,
   4 |     c: 3,"
+`;
+
+exports[`record.js [meriyah] format 1`] = `
+"[1:17]: '#' not followed by identifier
+   1 | const record1 = #{
+   2 |     a: 1,
+   3 |     b: 2,
+   4 |     c: 3,
+   5 | };
+   6 | 
+   7 | const record2 = #{...record1, b: 5};
+   8 | 
+   9 | assert(record1.a === 1);
+  10 | assert(record1[\\"a\\"] === 1);
+  11 | assert(record1 !== record2);
+  12 | assert(record2 === #{ a: 1, c: 3, b: 5 });
+  13 | assert(record1?.a === 1);
+  14 | assert(record1?.d === undefined);
+  15 | assert(record1?.d ?? 5 === 5);
+  16 | assert(record1.d?.a === undefined);
+  17 | "
 `;
 
 exports[`record.js format 1`] = `
@@ -182,6 +245,14 @@ exports[`shorthand.js [espree] format 1`] = `
   4 | "
 `;
 
+exports[`shorthand.js [meriyah] format 1`] = `
+"[2:16]: '#' not followed by identifier
+  1 | const url = \\"https://github.com/tc39/proposal-record-tuple\\";
+  2 | const record = #{ url }
+  3 | console.log(record.url) // https://github.com/tc39/proposal-record-tuple
+  4 | "
+`;
+
 exports[`shorthand.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -207,6 +278,17 @@ exports[`spread.js [espree] format 1`] = `
   2 | const taskNow = #{ id: 42, status: \\"WIP\\", ...formData }
   3 | const taskLater = #{ ...taskNow, status: \\"DONE\\" }
   4 | "
+`;
+
+exports[`spread.js [meriyah] format 1`] = `
+"[1:18]: '#' not followed by identifier
+  1 | const formData = #{ title: \\"Implement all the things\\" }
+  2 | const taskNow = #{ id: 42, status: \\"WIP\\", ...formData }
+  3 | const taskLater = #{ ...taskNow, status: \\"DONE\\" }
+  4 | 
+  5 | // A reminder: The ordering of keys in record literals does not affect equality (and is not retained)
+  6 | assert(taskLater === #{ status: \\"DONE\\", title: formData.title, id: 42 })
+  7 | "
 `;
 
 exports[`spread.js format 1`] = `
@@ -237,6 +319,14 @@ exports[`syntax.js [espree] format 1`] = `
 "Unexpected character '#' (1:1)
 > 1 | #{}
     | ^
+  2 | #{ a: 1, b: 2 }
+  3 | #{ a: 1, b: #[2, 3, #{ c: 4 }] }
+  4 | "
+`;
+
+exports[`syntax.js [meriyah] format 1`] = `
+"[1:1]: '#' not followed by identifier
+  1 | #{}
   2 | #{ a: 1, b: 2 }
   3 | #{ a: 1, b: #[2, 3, #{ c: 4 }] }
   4 | "

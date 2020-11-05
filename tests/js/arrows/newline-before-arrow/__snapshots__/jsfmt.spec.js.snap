@@ -8,6 +8,13 @@ exports[`newline-before-arrow.js [espree] format 1`] = `
   3 | "
 `;
 
+exports[`newline-before-arrow.js [meriyah] format 1`] = `
+"[2:2]: No line break is allowed after '=>'
+  1 | async x
+  2 | => x
+  3 | "
+`;
+
 exports[`newline-before-arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
