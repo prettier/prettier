@@ -68,7 +68,9 @@ function parse(text, parsers, options) {
     } catch (_) {
       // throw the error for `module` parsing
       const { message, line, column } = moduleError;
-      if (typeof line !== "number" || typeof column !== "number") {
+
+      /* istanbul ignore next */
+      if (typeof line !== "number") {
         throw moduleError;
       }
 
