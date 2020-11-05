@@ -67,7 +67,6 @@ const {
   hasNewlineBetweenOrAfterDecorators,
   hasNgSideEffect,
   hasPrettierIgnore,
-  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
@@ -99,6 +98,8 @@ const {
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
   isTSXFile,
+  isBlockComment,
+  isLineComment,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
   rawText,
@@ -107,7 +108,7 @@ const {
   shouldFlatten,
   startsWithNoLookaheadToken,
 } = require("./utils");
-const { locStart, locEnd } = require("./loc");
+const { locStart, locEnd, hasSameLoc } = require("./loc");
 
 const printMemberChain = require("./print/member-chain");
 const {
@@ -802,7 +803,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(path.call(print, "imported"));
 
-      if (n.local && !hasSameLoc(n.local, n.imported, options)) {
+      if (n.local && !hasSameLoc(n.local, n.imported)) {
         parts.push(" as ", path.call(print, "local"));
       }
 
@@ -810,7 +811,7 @@ function printPathNoParens(path, options, print, args) {
     case "ExportSpecifier": {
       parts.push(path.call(print, "local"));
 
-      if (n.exported && !hasSameLoc(n.local, n.exported, options)) {
+      if (n.exported && !hasSameLoc(n.local, n.exported)) {
         parts.push(" as ", path.call(print, "exported"));
       }
 
@@ -1157,8 +1158,8 @@ function printPathNoParens(path, options, print, args) {
       if (n.inexact) {
         let printed;
         if (hasDanglingComments(n)) {
-          const hasLineComments = !n.comments.every(
-            handleComments.isBlockComment
+          const hasLineComments = !n.comments.every((comment) =>
+            isBlockComment(comment)
           );
           const printedDanglingComments = comments.printDanglingComments(
             path,
@@ -1625,8 +1626,7 @@ function printPathNoParens(path, options, print, args) {
         const commentOnOwnLine =
           (hasTrailingComment(n.consequent) &&
             n.consequent.comments.some(
-              (comment) =>
-                comment.trailing && !handleComments.isBlockComment(comment)
+              (comment) => comment.trailing && !isBlockComment(comment)
             )) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
@@ -1809,7 +1809,7 @@ function printPathNoParens(path, options, print, args) {
           n.param.comments &&
           n.param.comments.some(
             (comment) =>
-              !handleComments.isBlockComment(comment) ||
+              !isBlockComment(comment) ||
               (comment.leading &&
                 hasNewline(options.originalText, locEnd(comment))) ||
               (comment.trailing &&
@@ -2110,7 +2110,7 @@ function printPathNoParens(path, options, print, args) {
     case "JSXClosingFragment": {
       const hasComment = n.comments && n.comments.length;
       const hasOwnLineComment =
-        hasComment && !n.comments.every(handleComments.isBlockComment);
+        hasComment && !n.comments.every((comment) => isBlockComment(comment));
       const isOpeningFragment = n.type === "JSXOpeningFragment";
       return concat([
         isOpeningFragment ? "<" : "</",
@@ -2133,7 +2133,7 @@ function printPathNoParens(path, options, print, args) {
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression": {
       const requiresHardline =
-        n.comments && !n.comments.every(handleComments.isBlockComment);
+        n.comments && !n.comments.every((comment) => isBlockComment(comment));
 
       return concat([
         comments.printDanglingComments(
@@ -2559,7 +2559,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "TSTypeAnnotation") &&
         parentParent.type === "ArrowFunctionExpression";
 
-      if (isObjectTypePropertyAFunction(parent, options)) {
+      if (isObjectTypePropertyAFunction(parent)) {
         isArrowFunctionTypeAnnotation = true;
         needsColon = true;
       }
@@ -2841,7 +2841,7 @@ function printPathNoParens(path, options, print, args) {
         variance || "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        isFunctionNotation(n, options) ? "" : ": ",
+        isFunctionNotation(n) ? "" : ": ",
         path.call(print, "value"),
       ]);
     }
@@ -4064,8 +4064,8 @@ function printTypeParameters(path, options, print, paramsKey) {
     if (!hasDanglingComments(n)) {
       return "";
     }
-    const hasOnlyBlockComments = n.comments.every(
-      handleComments.isBlockComment
+    const hasOnlyBlockComments = n.comments.every((comment) =>
+      isBlockComment(comment)
     );
     const printed = comments.printDanglingComments(
       path,
@@ -5028,9 +5028,7 @@ function printReturnAndThrowArgument(path, options, print) {
 
   const lastComment =
     Array.isArray(node.comments) && node.comments[node.comments.length - 1];
-  const isLastCommentLine =
-    lastComment &&
-    (lastComment.type === "CommentLine" || lastComment.type === "Line");
+  const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {
     parts.push(semi);
@@ -5093,41 +5091,38 @@ function canAttachComment(node) {
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
 
-  switch (comment.type) {
-    case "CommentBlock":
-    case "Block": {
-      if (isIndentableBlockComment(comment)) {
-        const printed = printIndentableBlockComment(comment);
-        // We need to prevent an edge case of a previous trailing comment
-        // printed as a `lineSuffix` which causes the comments to be
-        // interleaved. See https://github.com/prettier/prettier/issues/4412
-        if (
-          comment.trailing &&
-          !hasNewline(options.originalText, locStart(comment), {
-            backwards: true,
-          })
-        ) {
-          return concat([hardline, printed]);
-        }
-        return printed;
-      }
-
-      const commentEnd = locEnd(comment);
-      const isInsideFlowComment =
-        options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
-
-      return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
-    }
-    case "CommentLine":
-    case "Line":
-      // Supports `//`, `#!`, `<!--`, and `-->`
-      return options.originalText
-        .slice(locStart(comment), locEnd(comment))
-        .trimEnd();
-    default:
-      /* istanbul ignore next */
-      throw new Error("Not a comment: " + JSON.stringify(comment));
+  if (isLineComment(comment)) {
+    // Supports `//`, `#!`, `<!--`, and `-->`
+    return options.originalText
+      .slice(locStart(comment), locEnd(comment))
+      .trimEnd();
   }
+
+  if (isBlockComment(comment)) {
+    if (isIndentableBlockComment(comment)) {
+      const printed = printIndentableBlockComment(comment);
+      // We need to prevent an edge case of a previous trailing comment
+      // printed as a `lineSuffix` which causes the comments to be
+      // interleaved. See https://github.com/prettier/prettier/issues/4412
+      if (
+        comment.trailing &&
+        !hasNewline(options.originalText, locStart(comment), {
+          backwards: true,
+        })
+      ) {
+        return concat([hardline, printed]);
+      }
+      return printed;
+    }
+
+    const commentEnd = locEnd(comment);
+    const isInsideFlowComment =
+      options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
+    return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
+  }
+
+  /* istanbul ignore next */
+  throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
 function isIndentableBlockComment(comment) {
@@ -5166,7 +5161,7 @@ module.exports = {
   willPrintOwnComments,
   canAttachComment,
   printComment,
-  isBlockComment: handleComments.isBlockComment,
+  isBlockComment,
   handleComments: {
     ownLine: handleComments.handleOwnLineComment,
     endOfLine: handleComments.handleEndOfLineComment,

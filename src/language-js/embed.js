@@ -15,7 +15,8 @@ const {
   },
   utils: { mapDoc, replaceNewlinesWithLiterallines },
 } = require("../document");
-const { isBlockComment, hasLeadingComment } = require("./comments");
+const { isBlockComment } = require("./utils");
+const { hasLeadingComment } = require("./comments");
 
 function getParser(path) {
   if (

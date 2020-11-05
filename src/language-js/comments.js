@@ -963,7 +963,6 @@ module.exports = {
   handleEndOfLineComment,
   handleRemainingComment,
   hasLeadingComment,
-  isBlockComment,
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,

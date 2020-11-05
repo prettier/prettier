@@ -125,8 +125,8 @@ function printFunctionParameters(
   }
 
   const isFlowShorthandWithOneArg =
-    (isObjectTypePropertyAFunction(parent, options) ||
-      isTypeAnnotationAFunction(parent, options) ||
+    (isObjectTypePropertyAFunction(parent) ||
+      isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||
       parent.type === "TSUnionType" ||
