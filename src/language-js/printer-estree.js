@@ -1002,6 +1002,7 @@ function printPathNoParens(path, options, print, args) {
       //
       // Here, we ensure that such comments stay between the Identifier and the Callee.
       const isIdentifierWithFlowAnnotation =
+        (options.parser === "babel" || options.parser === "babel-flow") &&
         n.callee &&
         n.callee.type === "Identifier" &&
         hasFlowAnnotationComment(n.callee.trailingComments);
@@ -2900,28 +2901,28 @@ function printPathNoParens(path, options, print, args) {
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
-      const start = locStart(n);
-      const end = locEnd(n);
-      const commentStartIndex = options.originalText.lastIndexOf("/*", start);
-      const commentEndIndex = options.originalText.indexOf("*/", end);
-      if (commentStartIndex !== -1 && commentEndIndex !== -1) {
-        const comment = options.originalText
-          .slice(commentStartIndex + 2, commentEndIndex)
-          .trim();
-        if (
-          comment.startsWith("::") &&
-          !comment.includes("/*") &&
-          !comment.includes("*/")
-        ) {
-          return concat([
-            "/*:: ",
-            printTypeParameters(path, options, print, "params"),
-            " */",
-          ]);
+      const printed = printTypeParameters(path, options, print, "params");
+
+      if (options.parser === "flow") {
+        const start = locStart(n);
+        const end = locEnd(n);
+        const commentStartIndex = options.originalText.lastIndexOf("/*", start);
+        const commentEndIndex = options.originalText.indexOf("*/", end);
+        if (commentStartIndex !== -1 && commentEndIndex !== -1) {
+          const comment = options.originalText
+            .slice(commentStartIndex + 2, commentEndIndex)
+            .trim();
+          if (
+            comment.startsWith("::") &&
+            !comment.includes("/*") &&
+            !comment.includes("*/")
+          ) {
+            return concat(["/*:: ", printed, " */"]);
+          }
         }
       }
 
-      return printTypeParameters(path, options, print, "params");
+      return printed;
     }
 
     case "TSTypeParameterDeclaration":
