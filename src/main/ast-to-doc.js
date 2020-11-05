@@ -141,7 +141,12 @@ function callPluginPrintFunction(path, options, printPath, args) {
     }
   }
 
-  return printer.print(path, options, printPath, args);
+  let printed = printer.print(path, options, printPath, args);
+  if (typeof printed !== "string" && printed && printed[Symbol.iterator]) {
+    printed = concat([...printed]);
+  }
+
+  return printed;
 }
 
 module.exports = printAstToDoc;
