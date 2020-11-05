@@ -111,10 +111,7 @@ const {
 const { locStart, locEnd, hasSameLoc } = require("./loc");
 
 const printMemberChain = require("./print/member-chain");
-const {
-  printCallArguments,
-  shouldHugArguments,
-} = require("./print/call-arguments");
+const printCallArguments = require("./print/call-arguments");
 const {
   printOptionalToken,
   printFunctionTypeParameters,
@@ -123,7 +120,10 @@ const {
 } = require("./print/misc");
 const { printModuleSource, printModuleSpecifiers } = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
-const { printFunctionParameters } = require("./print/function-parameters");
+const {
+  printFunctionParameters,
+  shouldHugFunctionParameters,
+} = require("./print/function-parameters");
 
 const needsQuoteProps = new WeakMap();
 
@@ -1241,7 +1241,7 @@ function printPathNoParens(path, options, print, args) {
         path.match(
           (node) => node.type === "ObjectPattern" && !node.decorators,
           (node, name, number) =>
-            shouldHugArguments(node) &&
+            shouldHugFunctionParameters(node) &&
             (name === "params" ||
               name === "parameters" ||
               name === "this" ||
@@ -1253,7 +1253,7 @@ function printPathNoParens(path, options, print, args) {
           (node, name) => name === "typeAnnotation",
           (node, name) => name === "typeAnnotation",
           (node, name, number) =>
-            shouldHugArguments(node) &&
+            shouldHugFunctionParameters(node) &&
             (name === "params" ||
               name === "parameters" ||
               name === "this" ||

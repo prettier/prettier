@@ -15,12 +15,12 @@ const {
   isSimpleType,
   isTestCall,
   isTypeAnnotationAFunction,
+  isObjectType,
   isObjectTypePropertyAFunction,
   hasRestParameter,
   shouldPrintComma,
 } = require("../utils");
 const { locEnd } = require("../loc");
-const { shouldHugArguments } = require("./call-arguments");
 const { printFunctionTypeParameters } = require("./misc");
 
 function printFunctionParameters(
@@ -57,7 +57,7 @@ function printFunctionParameters(
 
   const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugArguments(functionNode);
+  const shouldHugParameters = shouldHugFunctionParameters(functionNode);
   const shouldExpandParameters =
     expandArg && !parameters.some((node) => node.comments);
   const printed = [];
@@ -163,4 +163,35 @@ function printFunctionParameters(
   ]);
 }
 
-module.exports = { printFunctionParameters };
+function shouldHugFunctionParameters(node) {
+  if (!node) {
+    return false;
+  }
+  const parameters = getFunctionParameters(node);
+  if (parameters.length !== 1) {
+    return false;
+  }
+  const [parameter] = parameters;
+  return (
+    !parameter.comments &&
+    (parameter.type === "ObjectPattern" ||
+      parameter.type === "ArrayPattern" ||
+      (parameter.type === "Identifier" &&
+        parameter.typeAnnotation &&
+        (parameter.typeAnnotation.type === "TypeAnnotation" ||
+          parameter.typeAnnotation.type === "TSTypeAnnotation") &&
+        isObjectType(parameter.typeAnnotation.typeAnnotation)) ||
+      (parameter.type === "FunctionTypeParam" &&
+        isObjectType(parameter.typeAnnotation)) ||
+      (parameter.type === "AssignmentPattern" &&
+        (parameter.left.type === "ObjectPattern" ||
+          parameter.left.type === "ArrayPattern") &&
+        (parameter.right.type === "Identifier" ||
+          (parameter.right.type === "ObjectExpression" &&
+            parameter.right.properties.length === 0) ||
+          (parameter.right.type === "ArrayExpression" &&
+            parameter.right.elements.length === 0))))
+  );
+}
+
+module.exports = { printFunctionParameters, shouldHugFunctionParameters };

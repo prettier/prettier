@@ -15,7 +15,6 @@ const {
   isJSXNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
-  isObjectType,
 } = require("../utils");
 const { locEnd } = require("../loc");
 
@@ -307,35 +306,4 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-function shouldHugArguments(fun) {
-  if (!fun) {
-    return false;
-  }
-  const parameters = getFunctionParameters(fun);
-  if (parameters.length !== 1) {
-    return false;
-  }
-  const param = parameters[0];
-  return (
-    !param.comments &&
-    (param.type === "ObjectPattern" ||
-      param.type === "ArrayPattern" ||
-      (param.type === "Identifier" &&
-        param.typeAnnotation &&
-        (param.typeAnnotation.type === "TypeAnnotation" ||
-          param.typeAnnotation.type === "TSTypeAnnotation") &&
-        isObjectType(param.typeAnnotation.typeAnnotation)) ||
-      (param.type === "FunctionTypeParam" &&
-        isObjectType(param.typeAnnotation)) ||
-      (param.type === "AssignmentPattern" &&
-        (param.left.type === "ObjectPattern" ||
-          param.left.type === "ArrayPattern") &&
-        (param.right.type === "Identifier" ||
-          (param.right.type === "ObjectExpression" &&
-            param.right.properties.length === 0) ||
-          (param.right.type === "ArrayExpression" &&
-            param.right.elements.length === 0))))
-  );
-}
-
-module.exports = { printCallArguments, shouldHugArguments };
+module.exports = printCallArguments;
