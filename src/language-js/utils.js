@@ -9,7 +9,7 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
+const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -341,39 +341,10 @@ function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
 
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function sameLocStart(nodeA, nodeB, { locStart }) {
-  return locStart(nodeA) === locStart(nodeB);
-}
-
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function sameLocEnd(nodeA, nodeB, { locEnd }) {
-  return locEnd(nodeA) === locEnd(nodeB);
-}
-
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function hasSameLoc(nodeA, nodeB, options) {
-  return (
-    sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options)
-  );
-}
-
 // TODO: This is a bad hack and we need a better way to distinguish between
 // arrow functions and otherwise
-function isFunctionNotation(node, options) {
-  return isGetterOrSetter(node) || sameLocStart(node, node.value, options);
+function isFunctionNotation(node) {
+  return isGetterOrSetter(node) || hasSameLocStart(node, node.value);
 }
 
 // Hack to differentiate between the following two which have the same ast
@@ -383,25 +354,25 @@ function isFunctionNotation(node, options) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node, options) {
+function isObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node, options)
+    !isFunctionNotation(node)
   );
 }
 
 // Hack to differentiate between the following two which have the same ast
 // declare function f(a): void;
 // var f: (a) => void;
-function isTypeAnnotationAFunction(node, options) {
+function isTypeAnnotationAFunction(node) {
   return (
     (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !sameLocStart(node, node.typeAnnotation, options)
+    !hasSameLocStart(node, node.typeAnnotation)
   );
 }
 
@@ -1488,7 +1459,6 @@ module.exports = {
   hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
-  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,

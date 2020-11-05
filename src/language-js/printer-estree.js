@@ -72,7 +72,6 @@ const {
   hasNewlineBetweenOrAfterDecorators,
   hasNgSideEffect,
   hasPrettierIgnore,
-  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
@@ -113,7 +112,7 @@ const {
   shouldFlatten,
   startsWithNoLookaheadToken,
 } = require("./utils");
-const { locStart, locEnd } = require("./loc");
+const { locStart, locEnd, hasSameLoc } = require("./loc");
 
 const printMemberChain = require("./print/member-chain");
 const printCallArguments = require("./print/call-arguments");
@@ -804,7 +803,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(path.call(print, "imported"));
 
-      if (n.local && !hasSameLoc(n.local, n.imported, options)) {
+      if (n.local && !hasSameLoc(n.local, n.imported)) {
         parts.push(" as ", path.call(print, "local"));
       }
 
@@ -812,7 +811,7 @@ function printPathNoParens(path, options, print, args) {
     case "ExportSpecifier": {
       parts.push(path.call(print, "local"));
 
-      if (n.exported && !hasSameLoc(n.local, n.exported, options)) {
+      if (n.exported && !hasSameLoc(n.local, n.exported)) {
         parts.push(" as ", path.call(print, "exported"));
       }
 
@@ -2561,7 +2560,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "TSTypeAnnotation") &&
         parentParent.type === "ArrowFunctionExpression";
 
-      if (isObjectTypePropertyAFunction(parent, options)) {
+      if (isObjectTypePropertyAFunction(parent)) {
         isArrowFunctionTypeAnnotation = true;
         needsColon = true;
       }
@@ -2843,7 +2842,7 @@ function printPathNoParens(path, options, print, args) {
         variance || "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        isFunctionNotation(n, options) ? "" : ": ",
+        isFunctionNotation(n) ? "" : ": ",
         path.call(print, "value"),
       ]);
     }
@@ -3970,8 +3969,8 @@ function printFunctionParameters(
   }
 
   const isFlowShorthandWithOneArg =
-    (isObjectTypePropertyAFunction(parent, options) ||
-      isTypeAnnotationAFunction(parent, options) ||
+    (isObjectTypePropertyAFunction(parent) ||
+      isTypeAnnotationAFunction(parent) ||
       parent.type === "TypeAlias" ||
       parent.type === "UnionTypeAnnotation" ||
       parent.type === "TSUnionType" ||
