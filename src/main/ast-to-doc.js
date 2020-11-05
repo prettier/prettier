@@ -142,7 +142,14 @@ function callPluginPrintFunction(path, options, printPath, args) {
   }
 
   let printed = printer.print(path, options, printPath, args);
-  if (typeof printed !== "string" && printed && printed[Symbol.iterator]) {
+  // No need clone array
+  if (Array.isArray(printed)) {
+    printed = concat(printed);
+  } else if (
+    typeof printed !== "string" &&
+    printed &&
+    printed[Symbol.iterator]
+  ) {
     printed = concat([...printed]);
   }
 
