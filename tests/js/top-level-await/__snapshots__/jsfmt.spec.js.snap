@@ -8,8 +8,9 @@ exports[`example.js [espree] format 1`] = `
 `;
 
 exports[`example.js [meriyah] format 1`] = `
-"[1:5]: 'Await' may not be used as an identifier in this context
-  1 | await something();
+"[1:5]: 'Await' may not be used as an identifier in this context (1:5)
+> 1 | await something();
+    |     ^
   2 | "
 `;
 

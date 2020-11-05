@@ -10,27 +10,12 @@ exports[`trailing-commas.js - {"trailingComma":"all"} [espree] format 1`] = `
 `;
 
 exports[`trailing-commas.js - {"trailingComma":"all"} [meriyah] format 1`] = `
-"[1:13]: Unexpected token: 'class'
-   1 | declare class C {
-   2 |   f(
-   3 |     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-   4 |     ...args
-   5 |   ): void,
-   6 | }
-   7 | 
-   8 | function f(
-   9 |   superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-  10 |   ...args
-  11 | ) {}
-  12 | 
-  13 | declare class C { f(...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong): void; }
-  14 | 
-  15 | [superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,,];
-  16 | 
-  17 | [veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong, ...a] = [];
-  18 | var {veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong, ...a} = {};
-  19 | 
-  20 | "
+"[1:13]: Unexpected token: 'class' (1:13)
+> 1 | declare class C {
+    |             ^
+  2 |   f(
+  3 |     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+  4 |     ...args"
 `;
 
 exports[`trailing-commas.js - {"trailingComma":"all"} format 1`] = `

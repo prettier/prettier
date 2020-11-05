@@ -12,62 +12,14 @@ exports[`do.js [espree] format 1`] = `
 `;
 
 exports[`do.js [meriyah] format 1`] = `
-"[3:6]: Unexpected token: 'do'
-   1 | const envSpecific = {
-   2 |   domain:
-   3 |     do {
-   4 |       if(env === 'production') 'https://abc.mno.com/';
-   5 |       else if(env === 'development') 'http://localhost:4000';
-   6 |     }
-   7 | };
-   8 | 
-   9 | let x = do {
-  10 |   let tmp = f();
-  11 |   tmp * tmp + 1
-  12 | };
-  13 | 
-  14 | let y = do {
-  15 |   if (foo()) { f() }
-  16 |   else if (bar()) { g() }
-  17 |   else { h() }
-  18 | };
-  19 | 
-  20 | function foo() {
-  21 |   return (
-  22 |     <nav>
-  23 |       <Home />
-  24 |       {
-  25 |         do {
-  26 |           if (loggedIn) {
-  27 |             <LogoutButton />
-  28 |           } else {
-  29 |             <LoginButton />
-  30 |           }
-  31 |         }
-  32 |       }
-  33 |     </nav>
-  34 |   );
-  35 | }
-  36 | 
-  37 | (do {});
-  38 | (do {} + 1);
-  39 | (1 + do {});
-  40 | () => do {};
-  41 | 
-  42 | (do {
-  43 |   switch(0) {
-  44 |     case 0: \\"foo\\";
-  45 |     case 1: break;
-  46 |   }
-  47 | });
-  48 | 
-  49 | () => do {
-  50 |   var obj = { foo: \\"bar\\", bar: \\"foo\\" };
-  51 |   for (var key in obj) {
-  52 |     obj[key];
-  53 |   }
-  54 | };
-  55 | "
+"[3:6]: Unexpected token: 'do' (3:6)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |      ^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }"
 `;
 
 exports[`do.js format 1`] = `

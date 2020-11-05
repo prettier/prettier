@@ -64,32 +64,14 @@ exports[`expression.js [espree] format 1`] = `
 `;
 
 exports[`expression.js [meriyah] format 1`] = `
-"[5:4]: Expected ')'
-   1 | () => ({}\`\`);
-   2 | ({})\`\`;
-   3 | a = () => ({}).x;
-   4 | ({} && a, b);
-   5 | ({}::b, 0);
-   6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-   7 | ({}(), 0);
-   8 | ({} = 0);
-   9 | (({} = 0), 1);
-  10 | 
-  11 | const a1 = {
-  12 |   someKey:
-  13 |     (shortName, shortName)
-  14 | };
-  15 | 
-  16 | const a2 = {
-  17 |   someKey:
-  18 |     (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
-  19 | };
-  20 | 
-  21 | const a3 = {
-  22 |   someKey:
-  23 |     (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
-  24 | };
-  25 | "
+"[5:4]: Expected ')' (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
 `;
 
 exports[`expression.js format 1`] = `
@@ -165,17 +147,14 @@ exports[`invalid-accessor-generator.js [espree] format 1`] = `
 `;
 
 exports[`invalid-accessor-generator.js [meriyah] format 1`] = `
-"[5:9]: A getter cannot be a generator
-   1 | // Invalid, but recoverable
-   2 | // https://github.com/babel/babel/pull/11921/
-   3 | 
-   4 | ({
-   5 |     get *iterator() { },
-   6 |     set *iterator(iter) { },
-   7 |     get iterator2() { },
-   8 |     set iterator2(iter) { },
-   9 | });
-  10 | "
+"[5:9]: A getter cannot be a generator (5:9)
+  3 | 
+  4 | ({
+> 5 |     get *iterator() { },
+    |         ^
+  6 |     set *iterator(iter) { },
+  7 |     get iterator2() { },
+  8 |     set iterator2(iter) { },"
 `;
 
 exports[`invalid-accessor-generator.js format 1`] = `
@@ -216,8 +195,9 @@ exports[`invalid-setter.js [espree] format 1`] = `
 `;
 
 exports[`invalid-setter.js [meriyah] format 1`] = `
-"[1:10]: Setter functions must have exactly one argument
-  1 | ({ set x(){} });
+"[1:10]: Setter functions must have exactly one argument (1:10)
+> 1 | ({ set x(){} });
+    |          ^
   2 | "
 `;
 

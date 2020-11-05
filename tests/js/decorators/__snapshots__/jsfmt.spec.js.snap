@@ -230,44 +230,14 @@ exports[`mobx.js [espree] format 1`] = `
 `;
 
 exports[`mobx.js [meriyah] format 1`] = `
-"[4:20]: Unexpected token: ':'
-   1 | import {observable} from \\"mobx\\";
-   2 | 
-   3 | @observer class OrderLine {
-   4 |   @observable price:number = 0;
-   5 |   @observable amount:number = 1;
-   6 | 
-   7 |   constructor(price) {
-   8 |     this.price = price;
-   9 |   }
-  10 | 
-  11 |   @computed get total() {
-  12 |     return this.price * this.amount;
-  13 |   }
-  14 | 
-  15 |   @action.bound setPrice(price) {
-  16 |     this.price = price;
-  17 |   }
-  18 | 
-  19 |   @computed
-  20 |   get total() {
-  21 |     return this.price * this.amount;
-  22 |   }
-  23 | 
-  24 |   @action.bound
-  25 |   setPrice(price) {
-  26 |     this.price = price;
-  27 |   }
-  28 |   
-  29 |   @computed @computed @computed @computed @computed @computed @computed get total() {
-  30 |     return this.price * this.amount;
-  31 |   }
-  32 | 
-  33 |   @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
-  34 |   
-  35 |   @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
-  36 | }
-  37 | "
+"[4:20]: Unexpected token: ':' (4:20)
+  2 | 
+  3 | @observer class OrderLine {
+> 4 |   @observable price:number = 0;
+    |                    ^
+  5 |   @observable amount:number = 1;
+  6 | 
+  7 |   constructor(price) {"
 `;
 
 exports[`mobx.js format 1`] = `
@@ -407,23 +377,13 @@ exports[`multiple.js [espree] format 1`] = `
 `;
 
 exports[`multiple.js [meriyah] format 1`] = `
-"[2:3]: Unexpected token: '@'
-   1 | const dog = {
-   2 |   @readonly
-   3 |   @nonenumerable
-   4 |   @doubledValue
-   5 |   legs: 4,
-   6 | 
-   7 |   @readonly
-   8 |   @nonenumerable
-   9 |   @doubledValue
-  10 |   eyes: 2
-  11 | };
-  12 | 
-  13 | const foo = {
-  14 |   @multipleDecorators @inline @theyWontAllFitInOneline aVeryLongPropName: \\"A very long string as value\\"
-  15 | };
-  16 | "
+"[2:3]: Unexpected token: '@' (2:3)
+  1 | const dog = {
+> 2 |   @readonly
+    |   ^
+  3 |   @nonenumerable
+  4 |   @doubledValue
+  5 |   legs: 4,"
 `;
 
 exports[`multiple.js format 1`] = `

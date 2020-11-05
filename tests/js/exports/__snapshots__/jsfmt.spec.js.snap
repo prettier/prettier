@@ -12,17 +12,14 @@ exports[`test.js [espree] format 1`] = `
 `;
 
 exports[`test.js [meriyah] format 1`] = `
-"[3:8]: Unexpected token: 'identifier'
-   1 | export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
-   2 | 
-   3 | export a,{b} from \\"./baz\\";
-   4 | 
-   5 | export * as ns from \\"mod\\";
-   6 | 
-   7 | export * as foo,{bar} from \\"./baz\\";
-   8 | 
-   9 | export { undefinedExport };
-  10 | "
+"[3:8]: Unexpected token: 'identifier' (3:8)
+  1 | export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
+  2 | 
+> 3 | export a,{b} from \\"./baz\\";
+    |        ^
+  4 | 
+  5 | export * as ns from \\"mod\\";
+  6 | "
 `;
 
 exports[`test.js format 1`] = `

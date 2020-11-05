@@ -12,46 +12,14 @@ exports[`pipeline_own_line.js [espree] format 1`] = `
 `;
 
 exports[`pipeline_own_line.js [meriyah] format 1`] = `
-"[4:3]: Unexpected token: '>'
-   1 | function pipeline() {
-   2 | 	0
-   3 | 	// Comment
-   4 | 	|> x
-   5 | }
-   6 | 
-   7 | bifornCringerMoshedPerplexSawder(
-   8 |   askTrovenaBeenaDependsRowans,
-   9 |   glimseGlyphsHazardNoopsTieTie,
-  10 |   averredBathersBoxroomBuggyNurl
-  11 | ) // comment
-  12 | |> kochabCooieGameOnOboleUnweave
-  13 | |> glimseGlyphsHazardNoopsTieTie;
-  14 | 
-  15 | bifornCringerMoshedPerplexSawder(
-  16 |   askTrovenaBeenaDependsRowans,
-  17 |   glimseGlyphsHazardNoopsTieTie
-  18 | )
-  19 | |> foo // comment
-  20 | |> kochabCooieGameOnOboleUnweave
-  21 | |> glimseGlyphsHazardNoopsTieTie;
-  22 | 
-  23 | bifornCringerMoshedPerplexSawder[
-  24 |   askTrovenaBeenaDependsRowans +
-  25 |   glimseGlyphsHazardNoopsTieTie +
-  26 |   averredBathersBoxroomBuggyNurl
-  27 | ] // comment
-  28 | |> kochabCooieGameOnOboleUnweave
-  29 | |> glimseGlyphsHazardNoopsTieTie;
-  30 | 
-  31 | bifornCringerMoshedPerplexSawder[
-  32 |   askTrovenaBeenaDependsRowans +
-  33 |   glimseGlyphsHazardNoopsTieTie +
-  34 |   averredBathersBoxroomBuggyNurl
-  35 | ]
-  36 | |> foo // comment
-  37 | |> kochabCooieGameOnOboleUnweave
-  38 | |> glimseGlyphsHazardNoopsTieTie;
-  39 | "
+"[4:3]: Unexpected token: '>' (4:3)
+  2 | 	0
+  3 | 	// Comment
+> 4 | 	|> x
+    | 	 ^
+  5 | }
+  6 | 
+  7 | bifornCringerMoshedPerplexSawder("
 `;
 
 exports[`pipeline_own_line.js format 1`] = `

@@ -8,8 +8,9 @@ exports[`invalid.js [espree] format 1`] = `
 `;
 
 exports[`invalid.js [meriyah] format 1`] = `
-"[1:19]: Unexpected token: '='
-  1 | c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+"[1:19]: Unexpected token: '=' (1:19)
+> 1 | c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+    |                   ^
   2 | "
 `;
 
@@ -28,62 +29,12 @@ c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
 `;
 
 exports[`logical-assignment.js [meriyah] format 1`] = `
-"[1:5]: Unexpected token: '='
-   1 | a ||= b;
-   2 | 
-   3 | a &&= \\"foo\\";
-   4 | b ||= \\"foo\\";
-   5 | c ??= \\"foo\\";
-   6 | 
-   7 | d &&= 42;
-   8 | e ||= 42;
-   9 | f ??= 42;
-  10 | 
-  11 | a.baz &&= result.baz;
-  12 | b.baz ||= result.baz;
-  13 | c.baz ??= result.baz;
-  14 | 
-  15 | a.foo[\\"baz\\"] &&= result.foo.baz;
-  16 | b.foo[\\"baz\\"] ||= result.foo.baz;
-  17 | c.foo[\\"baz\\"] ??= result.foo.baz;
-  18 | 
-  19 | a.foo.bar().baz &&= result.foo.bar().baz;
-  20 | b.foo.bar().baz ||= result.foo.bar().baz;
-  21 | b.baz ||= result.baz;
-  22 | c.baz ??= result.baz;
-  23 | 
-  24 | (results ||= []).push(100);
-  25 | (results &&= []).push(100);
-  26 | (results ??= []).push(100);
-  27 | 
-  28 | if ((thing &&= thing.original)) {
-  29 | }
-  30 | if ((thing &&= defaultValue)) {
-  31 | }
-  32 | if ((thing ||= defaultValue)) {
-  33 | }
-  34 | if ((thing ??= defaultValue)) {
-  35 | }
-  36 | 
-  37 | f ||= (a) => a;
-  38 | f &&= (a) => a;
-  39 | f ??= (a) => a;
-  40 | 
-  41 | f ||= (f.toString(), (a) => a);
-  42 | f &&= (f.toString(), (a) => a);
-  43 | f ??= (f.toString(), (a) => a);
-  44 | 
-  45 | (results ||= results1 ||= []).push(100);
-  46 | (results &&= results1 &&= []).push(100);
-  47 | (results ??= results1 ??= []).push(100);
-  48 | 
-  49 | obj[incr()] ||= incr();
-  50 | oobj[\\"obj\\"][incr()] ||= incr();
-  51 | obj[incr()] &&= incr();
-  52 | oobj[\\"obj\\"][incr()] &&= incr();
-  53 | obj[incr()] ??= incr();
-  54 | oobj[\\"obj\\"][incr()] ??= incr();
-  55 | "
+"[1:5]: Unexpected token: '=' (1:5)
+> 1 | a ||= b;
+    |     ^
+  2 | 
+  3 | a &&= \\"foo\\";
+  4 | b ||= \\"foo\\";"
 `;
 
 exports[`logical-assignment.js format 1`] = `

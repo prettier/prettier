@@ -15,8 +15,9 @@ exports[`invalid-const.js [flow] format 1`] = `
 `;
 
 exports[`invalid-const.js [meriyah] format 1`] = `
-"[1:10]: Missing initializer in const declaration
-  1 | const foo;
+"[1:10]: Missing initializer in const declaration (1:10)
+> 1 | const foo;
+    |          ^
   2 | "
 `;
 
