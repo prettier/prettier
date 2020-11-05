@@ -48,17 +48,7 @@ function parseWithOptions(text, module) {
   const ast = parse(text, {
     ...parseOptions,
     module,
-    onComment(type, value, start, end /* , loc */) {
-      comments.push({
-        type:
-          type === "MultiLine"
-            ? "Block"
-            : // `SingleLine`, `HashbangComment`, `HTMLOpen`, `HTMLClose`
-              "Line",
-        value,
-        range: [start, end],
-      });
-    },
+    onComment: comments,
     onToken: tokens,
   });
   ast.comments = comments;

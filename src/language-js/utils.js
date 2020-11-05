@@ -158,7 +158,12 @@ function getLeftSidePathName(path, node) {
  * @returns {boolean}
  */
 function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
+  return (
+    comment.type === "Block" ||
+    comment.type === "CommentBlock" ||
+    // `meriyah`
+    comment.type === "MultiLine"
+  );
 }
 
 /**
@@ -166,7 +171,15 @@ function isBlockComment(comment) {
  * @returns {boolean}
  */
 function isLineComment(comment) {
-  return comment.type === "Line" || comment.type === "CommentLine";
+  return (
+    comment.type === "Line" ||
+    comment.type === "CommentLine" ||
+    // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
+    comment.type === "SingleLine" ||
+    comment.type === "HashbangComment" ||
+    comment.type === "HTMLOpen" ||
+    comment.type === "HTMLClose"
+  );
 }
 
 const exportDeclarationTypes = new Set([
