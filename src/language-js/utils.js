@@ -1451,12 +1451,41 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
 }
 
+const callArgumentsCache = new WeakMap();
+function getCallArguments(node) {
+  if (callArgumentsCache.has(node)) {
+    return callArgumentsCache.get(node);
+  }
+  const args =
+    node.type === "ImportExpression"
+      ? // No parser except `babel` supports `import("./foo.json", { assert: { type: "json" } })` yet,
+        // And `babel` parser it as `CallExpression`
+        // We need add the second argument here
+        [node.source]
+      : node.arguments;
+
+  callArgumentsCache.set(node, args);
+  return args;
+}
+
+function iterateCallArgumentsPath(path, iteratee) {
+  const node = path.getValue();
+  // See comment in `getCallArguments`
+  if (node.type === "ImportExpression") {
+    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+  } else {
+    path.each(iteratee, "arguments");
+  }
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   getFlowVariance,
   getFunctionParameters,
   iterateFunctionParametersPath,
+  getCallArguments,
+  iterateCallArgumentsPath,
   hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,

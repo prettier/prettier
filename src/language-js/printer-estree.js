@@ -60,6 +60,8 @@ const {
   getFlowVariance,
   getFunctionParameters,
   iterateFunctionParametersPath,
+  getCallArguments,
+  iterateCallArgumentsPath,
   hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -965,7 +967,7 @@ function printPathNoParens(path, options, print, args) {
       const isDynamicImport = n.type === "ImportExpression";
 
       const optional = printOptionalToken(path);
-      const args = isDynamicImport ? [n.source] : n.arguments;
+      const args = getCallArguments(n);
       if (
         // We want to keep CommonJS- and AMD-style require calls, and AMD-style
         // define calls, as a unit.
@@ -981,18 +983,16 @@ function printPathNoParens(path, options, print, args) {
         // e.g. `it('long name', () => {`
         (!isNew && isTestCall(n, path.getParentNode()))
       ) {
+        const printed = [];
+        iterateCallArgumentsPath(path, (argPath) => {
+          printed.push(print(argPath));
+        });
         return concat([
           isNew ? "new " : "",
           path.call(print, "callee"),
           optional,
           printFunctionTypeParameters(path, options, print),
-          concat([
-            "(",
-            isDynamicImport
-              ? path.call(print, "source")
-              : join(", ", path.map(print, "arguments")),
-            ")",
-          ]),
+          concat(["(", join(", ", printed), ")"]),
         ]);
       }
 
