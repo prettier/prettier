@@ -7,39 +7,60 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <script setup></script>
-<s setup="     foo"></script>
-<s setup="     {row   }"></s>
-<s setup="{destructuring:{   a:{b}}}"></s>
+<script setup="     foo"></script>
+<script setup="     {row   }"></script>
+<script setup="{destructuring:{   a:{b}}}"></s>
 
+<!-- Not script -->
 <custom setup="     {row   }">Not A script</custom>
 <style setup="     {row   }"></style>
 
-<template>
-<!-- Not root block -->
-<script setup="     {row   }"></script>
-</template>
-
+<!-- Not attribute -->
 <script>
 <setup>{not:{a:attribute}}</setup>
 </script>
 
 =====================================output=====================================
 <script setup></script>
-<s setup="     foo"></script>
-<s setup="     {row   }"></s>
-<s setup="{destructuring:{   a:{b}}}"></s>
+<script setup="foo"></script>
+<script setup="{ row }"></script>
+<script
+  setup="{
+    destructuring: {
+      a: { b },
+    },
+  }"
+>
+</s>
 
+<!-- Not script -->
 <custom setup="     {row   }">Not A script</custom>
 <style setup="     {row   }"></style>
 
-<template>
-  <!-- Not root block -->
-  <script setup="     {row   }"></script>
-</template>
-
+<!-- Not attribute -->
 <script>
 <setup>{not:{a:attribute}}</setup>
 </script>
+
+================================================================================
+`;
+
+exports[`script-setup-2.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<!-- Not root block -->
+<html>
+<script setup="     {row   }"></script>
+</html>
+=====================================output=====================================
+<!-- Not root block -->
+<html>
+  <script setup="     {row   }"></script>
+</html>
 
 ================================================================================
 `;
@@ -55,17 +76,20 @@ printWidth: 80
 <style vars="     {row   }"></style>
 <style vars="{destructuring:{   a:{b}}}"></style>
 
+<!-- Not style -->
 <custom vars="     {row   }">Not A style</custom>
 <script vars="     {row   }"></script>
 
-<template>
 <!-- Not root block -->
+<template>
 <style vars="     {row   }"></style>
 </template> 
 
+<!-- Not attribute -->
 <style>
 <vars>{not:{a:attribute}}</vars>
 </style>
+
 =====================================output=====================================
 <style vars></style>
 <style vars="foo"></style>
@@ -78,14 +102,16 @@ printWidth: 80
   }"
 ></style>
 
+<!-- Not style -->
 <custom vars="     {row   }">Not A style</custom>
 <script vars="     {row   }"></script>
 
+<!-- Not root block -->
 <template>
-  <!-- Not root block -->
   <style vars="     {row   }"></style>
 </template>
 
+<!-- Not attribute -->
 <style>
 <vars>{not:{a:attribute}}</vars>
 </style>

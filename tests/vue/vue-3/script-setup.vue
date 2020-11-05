@@ -1,16 +1,13 @@
 <script setup></script>
-<s setup="     foo"></script>
-<s setup="     {row   }"></s>
-<s setup="{destructuring:{   a:{b}}}"></s>
+<script setup="     foo"></script>
+<script setup="     {row   }"></script>
+<script setup="{destructuring:{   a:{b}}}"></s>
 
+<!-- Not script -->
 <custom setup="     {row   }">Not A script</custom>
 <style setup="     {row   }"></style>
 
-<template>
-<!-- Not root block -->
-<script setup="     {row   }"></script>
-</template>
-
+<!-- Not attribute -->
 <script>
 <setup>{not:{a:attribute}}</setup>
 </script>
