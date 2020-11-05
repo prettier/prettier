@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`script-setup.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup></script>
+<script setup="     foo"></script>
+<script setup="     {row   }"></script>
+<script setup="{destructuring:{   a:{b}}}"></script>
+
+<custom setup="     {row   }">
+Not A script
+</custom>
+
+<template>
+<!-- Not root block -->
+<script setup="     {row   }"></script>
+</template> 
+=====================================output=====================================
+<script setup></script>
+<script setup="     foo"></script>
+<script setup="     {row   }"></script>
+<script setup="{destructuring:{   a:{b}}}"></script>
+
+<custom setup="     {row   }">
+Not A script
+</custom>
+
+<template>
+  <!-- Not root block -->
+  <script setup="     {row   }"></script>
+</template>
+
+================================================================================
+`;
+
+exports[`style-variables.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style vars></style>
+<style vars="     foo"></style>
+<style vars="     {row   }"></style>
+<style vars="{destructuring:{   a:{b}}}"></style>
+
+<custom vars="     {row   }">
+Not A style
+</custom>
+
+<template>
+<!-- Not root block -->
+<style vars="     {row   }"></style>
+</template> 
+=====================================output=====================================
+<style vars></style>
+<style vars="     foo"></style>
+<style vars="     {row   }"></style>
+<style vars="{destructuring:{   a:{b}}}"></style>
+
+<custom vars="     {row   }">
+Not A style
+</custom>
+
+<template>
+  <!-- Not root block -->
+  <style vars="     {row   }"></style>
+</template>
+
+================================================================================
+`;

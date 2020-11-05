@@ -34,6 +34,7 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isVueSfcBlock,
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isScriptLikeTag,
@@ -1082,12 +1083,14 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (node.fullName === "v-for") {
       return printVueFor(getValue(), textToDoc);
     }
-
     if (
       node.fullName.charAt(0) === "#" ||
       node.fullName === "slot-scope" ||
       node.fullName === "v-slot" ||
-      node.fullName.startsWith("v-slot:")
+      node.fullName.startsWith("v-slot:") ||
+      (isVueSfcBlock(node.parent, options) &&
+        ((node.parent.fullName === "script" && node.fullName === "setup") ||
+          (node.parent.fullName === "style" && node.fullName === "vars")))
     ) {
       return printVueArguments(getValue(), textToDoc);
     }

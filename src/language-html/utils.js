@@ -658,6 +658,7 @@ module.exports = {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isVueSfcBlock,
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isDanglingSpaceSensitiveNode,
