@@ -1083,7 +1083,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (node.fullName === "slot-scope") {
+    if (node.fullName === "slot-scope" || node.fullName.charAt(0) === "#") {
       return printVueSlotScope(getValue(), textToDoc);
     }
 
@@ -1102,7 +1102,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     /**
      *     v-if="jsExpression"
      */
-    const jsExpressionBindingPatterns = ["^v-", "^#"];
+    const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
