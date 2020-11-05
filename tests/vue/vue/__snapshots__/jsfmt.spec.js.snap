@@ -44,8 +44,18 @@ semi: false
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
-  slot-scope="{row}"
-  slot-scope="{destructuring:{a:{b}}}"
+  slot-scope="     foo"
+  slot-scope="     {row   }"
+  slot-scope="{destructuring:{   a:{b}}}"
+  #default="     foo"
+  #default="     {row   }"
+  #default="{destructuring:{   a:{b}}}"
+  v-slot="     foo"
+  v-slot="     {row   }"
+  v-slot="{destructuring:{   a:{b}}}"
+  v-slot:name="     foo"
+  v-slot:name="     {row   }"
+  v-slot:name="{destructuring:{   a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
@@ -278,33 +288,73 @@ semi: false
     v-for="n in items.map((x) => {
       return x
     })"
-    @click="  /* hello */   "
-    @click="   /* 1 */ $emit( /* 2 */ 'click' /* 3 */ ) /* 4 */ ; /* 5 */   "
-    @click="   $emit(   'click'   )   "
-    @click="   $emit(   'click'   )  ;"
-    @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
+    @click="/* hello */"
+    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+    @click="$emit('click')"
+    @click="$emit('click')"
+    @click="
+      $emit('click')
+      if (something) {
+        for (let i = j; i < 100; i++) {}
+      } else {
+      }
+    "
+    slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
       destructuring: {
         a: { b },
       },
     }"
-    :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
-    :class="(() => { return 'hello' })()"
-    :key="index /* hello */ "
-    :key="index // hello "
-    @click="() => {console.log(test)}"
+    #default="foo"
+    #default="{ row }"
+    #default="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot="foo"
+    v-slot="{ row }"
+    v-slot="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot:name="foo"
+    v-slot:name="{ row }"
+    v-slot:name="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    :class="{
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+    }"
+    :class="
+      (() => {
+        return 'hello'
+      })()
+    "
+    :key="index /* hello */"
+    :key="
+      index // hello
+    "
     @click="
-    () => {
-      console.log(test);
-    }
-  "
+      () => {
+        console.log(test)
+      }
+    "
+    @click="
+      () => {
+        console.log(test)
+      }
+    "
     @click="doSomething()"
     @click="doSomething;"
     @click="a.b;"
     @click="a[1];"
     @click="a['b'];"
-    @click="a[null];"
+    @click="a[null]"
     #default="{
       foo: {
         bar: { baz },
@@ -360,8 +410,18 @@ trailingComma: "none"
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
-  slot-scope="{row}"
-  slot-scope="{destructuring:{a:{b}}}"
+  slot-scope="     foo"
+  slot-scope="     {row   }"
+  slot-scope="{destructuring:{   a:{b}}}"
+  #default="     foo"
+  #default="     {row   }"
+  #default="{destructuring:{   a:{b}}}"
+  v-slot="     foo"
+  v-slot="     {row   }"
+  v-slot="{destructuring:{   a:{b}}}"
+  v-slot:name="     foo"
+  v-slot:name="     {row   }"
+  v-slot:name="{destructuring:{   a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
@@ -594,33 +654,73 @@ trailingComma: "none"
     v-for="n in items.map((x) => {
       return x;
     })"
-    @click="  /* hello */   "
-    @click="   /* 1 */ $emit( /* 2 */ 'click' /* 3 */ ) /* 4 */ ; /* 5 */   "
-    @click="   $emit(   'click'   )   "
-    @click="   $emit(   'click'   )  ;"
-    @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
+    @click="/* hello */"
+    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+    @click="$emit('click')"
+    @click="$emit('click')"
+    @click="
+      $emit('click');
+      if (something) {
+        for (let i = j; i < 100; i++) {}
+      } else {
+      }
+    "
+    slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
       destructuring: {
         a: { b }
       }
     }"
-    :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
-    :class="(() => { return 'hello' })()"
-    :key="index /* hello */ "
-    :key="index // hello "
-    @click="() => {console.log(test)}"
+    #default="foo"
+    #default="{ row }"
+    #default="{
+      destructuring: {
+        a: { b }
+      }
+    }"
+    v-slot="foo"
+    v-slot="{ row }"
+    v-slot="{
+      destructuring: {
+        a: { b }
+      }
+    }"
+    v-slot:name="foo"
+    v-slot:name="{ row }"
+    v-slot:name="{
+      destructuring: {
+        a: { b }
+      }
+    }"
+    :class="{
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    }"
+    :class="
+      (() => {
+        return 'hello';
+      })()
+    "
+    :key="index /* hello */"
+    :key="
+      index // hello
+    "
     @click="
-    () => {
-      console.log(test);
-    }
-  "
+      () => {
+        console.log(test);
+      }
+    "
+    @click="
+      () => {
+        console.log(test);
+      }
+    "
     @click="doSomething()"
     @click="doSomething;"
     @click="a.b;"
     @click="a[1];"
     @click="a['b'];"
-    @click="a[null];"
+    @click="a[null]"
     #default="{
       foo: {
         bar: { baz }
@@ -675,8 +775,18 @@ printWidth: 80
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
-  slot-scope="{row}"
-  slot-scope="{destructuring:{a:{b}}}"
+  slot-scope="     foo"
+  slot-scope="     {row   }"
+  slot-scope="{destructuring:{   a:{b}}}"
+  #default="     foo"
+  #default="     {row   }"
+  #default="{destructuring:{   a:{b}}}"
+  v-slot="     foo"
+  v-slot="     {row   }"
+  v-slot="{destructuring:{   a:{b}}}"
+  v-slot:name="     foo"
+  v-slot:name="     {row   }"
+  v-slot:name="{destructuring:{   a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
@@ -909,33 +1019,73 @@ printWidth: 80
     v-for="n in items.map((x) => {
       return x;
     })"
-    @click="  /* hello */   "
-    @click="   /* 1 */ $emit( /* 2 */ 'click' /* 3 */ ) /* 4 */ ; /* 5 */   "
-    @click="   $emit(   'click'   )   "
-    @click="   $emit(   'click'   )  ;"
-    @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
+    @click="/* hello */"
+    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+    @click="$emit('click')"
+    @click="$emit('click')"
+    @click="
+      $emit('click');
+      if (something) {
+        for (let i = j; i < 100; i++) {}
+      } else {
+      }
+    "
+    slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
       destructuring: {
         a: { b },
       },
     }"
-    :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
-    :class="(() => { return 'hello' })()"
-    :key="index /* hello */ "
-    :key="index // hello "
-    @click="() => {console.log(test)}"
+    #default="foo"
+    #default="{ row }"
+    #default="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot="foo"
+    v-slot="{ row }"
+    v-slot="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot:name="foo"
+    v-slot:name="{ row }"
+    v-slot:name="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    :class="{
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+    }"
+    :class="
+      (() => {
+        return 'hello';
+      })()
+    "
+    :key="index /* hello */"
+    :key="
+      index // hello
+    "
     @click="
-    () => {
-      console.log(test);
-    }
-  "
+      () => {
+        console.log(test);
+      }
+    "
+    @click="
+      () => {
+        console.log(test);
+      }
+    "
     @click="doSomething()"
     @click="doSomething;"
     @click="a.b;"
     @click="a[1];"
     @click="a['b'];"
-    @click="a[null];"
+    @click="a[null]"
     #default="{
       foo: {
         bar: { baz },
@@ -1089,7 +1239,11 @@ export default {
 <template>
   <li
     class="card"
-    :class="{ 'user-can-drag': !disabled && issue.id, 'is-disabled': disabled || !issue.id, 'is-active': issueDetailVisible }"
+    :class="{
+      'user-can-drag': !disabled && issue.id,
+      'is-disabled': disabled || !issue.id,
+      'is-active': issueDetailVisible,
+    }"
     :index="index"
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
@@ -1251,7 +1405,11 @@ export default {
 <template>
   <li
     class="card"
-    :class="{ 'user-can-drag': !disabled && issue.id, 'is-disabled': disabled || !issue.id, 'is-active': issueDetailVisible }"
+    :class="{
+      'user-can-drag': !disabled && issue.id,
+      'is-disabled': disabled || !issue.id,
+      'is-active': issueDetailVisible
+    }"
     :index="index"
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
@@ -1412,7 +1570,11 @@ export default {
 <template>
   <li
     class="card"
-    :class="{ 'user-can-drag': !disabled && issue.id, 'is-disabled': disabled || !issue.id, 'is-active': issueDetailVisible }"
+    :class="{
+      'user-can-drag': !disabled && issue.id,
+      'is-disabled': disabled || !issue.id,
+      'is-active': issueDetailVisible,
+    }"
     :index="index"
     :data-issue-id="issue.id"
     @mousedown="mouseDown"
@@ -1614,13 +1776,17 @@ semi: false
 </template>
 <template>
   <MyComponent
-    :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
   />
 </template>
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
   />
 </template>
 <template>
@@ -1630,12 +1796,17 @@ semi: false
 </template>
 <template>
   <MyComponent
-    :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
   />
 </template>
 <template>
   <MyComponent
-    :src="100000000000000000000000000000000000000000000000000000000000000000000000000"
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
   />
 </template>
 
@@ -1679,13 +1850,17 @@ trailingComma: "none"
 </template>
 <template>
   <MyComponent
-    :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
   />
 </template>
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
   />
 </template>
 <template>
@@ -1695,12 +1870,17 @@ trailingComma: "none"
 </template>
 <template>
   <MyComponent
-    :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
   />
 </template>
 <template>
   <MyComponent
-    :src="100000000000000000000000000000000000000000000000000000000000000000000000000"
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
   />
 </template>
 
@@ -1743,13 +1923,17 @@ printWidth: 80
 </template>
 <template>
   <MyComponent
-    :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
-+\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
   />
 </template>
 <template>
   <MyComponent
-    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
   />
 </template>
 <template>
@@ -1759,12 +1943,17 @@ printWidth: 80
 </template>
 <template>
   <MyComponent
-    :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
   />
 </template>
 <template>
   <MyComponent
-    :src="100000000000000000000000000000000000000000000000000000000000000000000000000"
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
   />
 </template>
 
@@ -1799,15 +1988,30 @@ semi: false
   </div>
   <div
     class="allowed"
-    v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    v-bind:something="
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
+    "
   ></div>
   <div
     class="allowed"
-    :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    :class="
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
+    "
   ></div>
   <div
     class="not-allowed"
-    v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    v-if="
+      value |
+        thisIsARealSuperLongFilterPipe('arg1', arg2) |
+        anotherPipeLongJustForFun |
+        pipeTheThird
+    "
   ></div>
 </template>
 
@@ -1842,15 +2046,30 @@ trailingComma: "none"
   </div>
   <div
     class="allowed"
-    v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    v-bind:something="
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
+    "
   ></div>
   <div
     class="allowed"
-    :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    :class="
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
+    "
   ></div>
   <div
     class="not-allowed"
-    v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    v-if="
+      value |
+        thisIsARealSuperLongFilterPipe('arg1', arg2) |
+        anotherPipeLongJustForFun |
+        pipeTheThird
+    "
   ></div>
 </template>
 
@@ -1884,15 +2103,30 @@ printWidth: 80
   </div>
   <div
     class="allowed"
-    v-bind:something='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    v-bind:something="
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
+    "
   ></div>
   <div
     class="allowed"
-    :class='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    :class="
+      value
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
+        | anotherPipeLongJustForFun
+        | pipeTheThird
+    "
   ></div>
   <div
     class="not-allowed"
-    v-if='value | thisIsARealSuperLongFilterPipe("arg1", arg2) | anotherPipeLongJustForFun | pipeTheThird'
+    v-if="
+      value |
+        thisIsARealSuperLongFilterPipe('arg1', arg2) |
+        anotherPipeLongJustForFun |
+        pipeTheThird
+    "
   ></div>
 </template>
 
@@ -3655,10 +3889,10 @@ semi: false
         @click="onImgClick"
       />
       <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize>0">
+        <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize>0 && width && height"> | </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>
@@ -3719,10 +3953,10 @@ trailingComma: "none"
         @click="onImgClick"
       />
       <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize>0">
+        <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize>0 && width && height"> | </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>
@@ -3782,10 +4016,10 @@ printWidth: 80
         @click="onImgClick"
       />
       <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize>0">
+        <template v-if="fileSize > 0">
           {{ fileSizeReadable }}
         </template>
-        <template v-if="fileSize>0 && width && height"> | </template>
+        <template v-if="fileSize > 0 && width && height"> | </template>
         <template v-if="width && height">
           W: {{ width }} | H: {{ height }}
         </template>
@@ -3819,7 +4053,7 @@ new Vue({el: '#app'})
 <!DOCTYPE html>
 <html>
   <body>
-    <div v-if="foo ===    'foo'"></div>
+    <div v-if="foo === 'foo'"></div>
     <script>
       new Vue({ el: "#app" })
     </script>
@@ -3851,7 +4085,7 @@ new Vue({el: '#app'})
 <!DOCTYPE html>
 <html>
   <body>
-    <div v-if="foo ===    'foo'"></div>
+    <div v-if="foo === 'foo'"></div>
     <script>
       new Vue({ el: "#app" });
     </script>
@@ -3882,7 +4116,7 @@ new Vue({el: '#app'})
 <!DOCTYPE html>
 <html>
   <body>
-    <div v-if="foo ===    'foo'"></div>
+    <div v-if="foo === 'foo'"></div>
     <script>
       new Vue({ el: "#app" });
     </script>
@@ -4180,45 +4414,63 @@ long_long_long_long_long_long_long_condition_4
   <root>
     <and
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
     ></and>
     <and
       v-if="
-(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
     ></and>
     <or
       v-if="
-long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
-long_long_long_long_long_long_long_condition_3 ||
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></or>
     <or
       v-if="
-(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
-long_long_long_long_long_long_long_condition_3) ||
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></or>
     <mixed
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4)
-"
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
     ></mixed>
     <mixed
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
-long_long_long_long_long_long_long_condition_3 ||
-long_long_long_long_long_long_long_condition_4
-"
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></mixed>
   </root>
 </template>
@@ -4273,45 +4525,63 @@ long_long_long_long_long_long_long_condition_4
   <root>
     <and
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
     ></and>
     <and
       v-if="
-(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
     ></and>
     <or
       v-if="
-long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
-long_long_long_long_long_long_long_condition_3 ||
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></or>
     <or
       v-if="
-(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
-long_long_long_long_long_long_long_condition_3) ||
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></or>
     <mixed
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4)
-"
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
     ></mixed>
     <mixed
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
-long_long_long_long_long_long_long_condition_3 ||
-long_long_long_long_long_long_long_condition_4
-"
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></mixed>
   </root>
 </template>
@@ -4365,45 +4635,63 @@ long_long_long_long_long_long_long_condition_4
   <root>
     <and
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
     ></and>
     <and
       v-if="
-(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
     ></and>
     <or
       v-if="
-long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
-long_long_long_long_long_long_long_condition_3 ||
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></or>
     <or
       v-if="
-(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
-long_long_long_long_long_long_long_condition_3) ||
-long_long_long_long_long_long_long_condition_4
-"
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></or>
     <mixed
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
-long_long_long_long_long_long_long_condition_3 &&
-long_long_long_long_long_long_long_condition_4)
-"
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
     ></mixed>
     <mixed
       v-if="
-long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
-long_long_long_long_long_long_long_condition_3 ||
-long_long_long_long_long_long_long_condition_4
-"
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
     ></mixed>
   </root>
 </template>

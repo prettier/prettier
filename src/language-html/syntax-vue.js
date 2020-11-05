@@ -63,12 +63,12 @@ function parseVueFor(value) {
   };
 }
 
-function printVueSlotScope(value, textToDoc) {
+function printVueArguments(value, textToDoc) {
   return textToDoc(
     `function _(${value}) {}`,
     {
       parser: "babel",
-      __isVueSlotScope: true,
+      __isVueArguments: true,
     },
     { stripTrailingHardline: true }
   );
@@ -90,5 +90,5 @@ function isVueEventBindingExpression(eventBindingValue) {
 module.exports = {
   isVueEventBindingExpression,
   printVueFor,
-  printVueSlotScope,
+  printVueArguments,
 };

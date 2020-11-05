@@ -48,7 +48,7 @@ const preprocess = require("./preprocess");
 const { insertPragma } = require("./pragma");
 const {
   printVueFor,
-  printVueSlotScope,
+  printVueArguments,
   isVueEventBindingExpression,
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
@@ -1083,8 +1083,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (node.fullName === "slot-scope" || node.fullName.charAt(0) === "#") {
-      return printVueSlotScope(getValue(), textToDoc);
+    if (
+      node.fullName.charAt(0) === "#" ||
+      node.fullName === "slot-scope" ||
+      node.fullName === "v-slot" ||
+      node.fullName.startsWith("v-slot:")
+    ) {
+      return printVueArguments(getValue(), textToDoc);
     }
 
     /**
