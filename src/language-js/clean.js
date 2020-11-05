@@ -1,5 +1,7 @@
 "use strict";
 
+const { isBlockComment } = require("./utils");
+
 const ignoredProperties = new Set([
   "range",
   "raw",
@@ -66,6 +68,7 @@ function clean(ast, newObj, parent) {
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
       ast.type === "ClassMethod" ||
+      ast.type === "FieldDefinition" ||
       ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&
@@ -183,7 +186,7 @@ function clean(ast, newObj, parent) {
       ast.leadingComments &&
       ast.leadingComments.some(
         (comment) =>
-          comment.type === "CommentBlock" &&
+          isBlockComment(comment) &&
           ["GraphQL", "HTML"].some(
             (languageName) => comment.value === ` ${languageName} `
           )
