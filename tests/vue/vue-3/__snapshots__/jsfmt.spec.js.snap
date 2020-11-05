@@ -7,32 +7,39 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <script setup></script>
-<script setup="     foo"></script>
-<script setup="     {row   }"></script>
-<script setup="{destructuring:{   a:{b}}}"></script>
+<s setup="     foo"></script>
+<s setup="     {row   }"></s>
+<s setup="{destructuring:{   a:{b}}}"></s>
 
-<custom setup="     {row   }">
-Not A script
-</custom>
+<custom setup="     {row   }">Not A script</custom>
+<style setup="     {row   }"></style>
 
 <template>
 <!-- Not root block -->
 <script setup="     {row   }"></script>
-</template> 
+</template>
+
+<script>
+<setup>{not:{a:attribute}}</setup>
+</script>
+
 =====================================output=====================================
 <script setup></script>
-<script setup="     foo"></script>
-<script setup="     {row   }"></script>
-<script setup="{destructuring:{   a:{b}}}"></script>
+<s setup="     foo"></script>
+<s setup="     {row   }"></s>
+<s setup="{destructuring:{   a:{b}}}"></s>
 
-<custom setup="     {row   }">
-Not A script
-</custom>
+<custom setup="     {row   }">Not A script</custom>
+<style setup="     {row   }"></style>
 
 <template>
   <!-- Not root block -->
   <script setup="     {row   }"></script>
 </template>
+
+<script>
+<setup>{not:{a:attribute}}</setup>
+</script>
 
 ================================================================================
 `;
@@ -48,28 +55,40 @@ printWidth: 80
 <style vars="     {row   }"></style>
 <style vars="{destructuring:{   a:{b}}}"></style>
 
-<custom vars="     {row   }">
-Not A style
-</custom>
+<custom vars="     {row   }">Not A style</custom>
+<script vars="     {row   }"></script>
 
 <template>
 <!-- Not root block -->
 <style vars="     {row   }"></style>
 </template> 
+
+<style>
+<vars>{not:{a:attribute}}</vars>
+</style>
 =====================================output=====================================
 <style vars></style>
-<style vars="     foo"></style>
-<style vars="     {row   }"></style>
-<style vars="{destructuring:{   a:{b}}}"></style>
+<style vars="foo"></style>
+<style vars="{ row }"></style>
+<style
+  vars="{
+    destructuring: {
+      a: { b },
+    },
+  }"
+></style>
 
-<custom vars="     {row   }">
-Not A style
-</custom>
+<custom vars="     {row   }">Not A style</custom>
+<script vars="     {row   }"></script>
 
 <template>
   <!-- Not root block -->
   <style vars="     {row   }"></style>
 </template>
+
+<style>
+<vars>{not:{a:attribute}}</vars>
+</style>
 
 ================================================================================
 `;

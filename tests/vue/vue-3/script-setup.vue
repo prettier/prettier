@@ -12,5 +12,5 @@
 </template>
 
 <script>
-<setup>{not:{a:attribute}}</vars>
+<setup>{not:{a:attribute}}</setup>
 </script>
