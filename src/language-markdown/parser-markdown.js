@@ -6,6 +6,7 @@ const remarkMath = require("remark-math");
 const footnotes = require("remark-footnotes");
 const { parse: parseFrontMatter } = require("../utils/front-matter");
 const pragma = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 
@@ -158,8 +159,8 @@ function looseItems() {
 const baseParser = {
   astFormat: "mdast",
   hasPragma: pragma.hasPragma,
-  locStart: (node) => node.position.start.offset,
-  locEnd: (node) => node.position.end.offset,
+  locStart,
+  locEnd,
 };
 
 const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
