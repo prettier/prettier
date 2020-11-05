@@ -54,7 +54,6 @@ const preprocess = require("./preprocess");
 const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  getFlowVariance,
   getFunctionParameters,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -2188,9 +2187,8 @@ function printPathNoParens(path, options, print, args) {
       if (n.readonly) {
         parts.push("readonly ");
       }
-      const variance = getFlowVariance(n);
-      if (variance) {
-        parts.push(variance);
+      if (n.variance) {
+        parts.push(path.call(print, "variance"));
       }
       parts.push(
         printPropertyKey(path, options, print),
@@ -2540,7 +2538,7 @@ function printPathNoParens(path, options, print, args) {
         !(
           ((parent.type === "ObjectTypeProperty" ||
             parent.type === "ObjectTypeInternalSlot") &&
-            !getFlowVariance(parent) &&
+            !parent.variance &&
             !parent.optional &&
             locStart(parent) === locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
@@ -2807,6 +2805,11 @@ function printPathNoParens(path, options, print, args) {
     }
     case "NullableTypeAnnotation":
       return concat(["?", path.call(print, "typeAnnotation")]);
+    case "Variance": {
+      const { kind } = n;
+      assert.ok(kind === "plus" || kind === "minus");
+      return kind === "plus" ? "+" : "-";
+    }
     case "ObjectTypeCallProperty":
       if (n.static) {
         parts.push("static ");
@@ -2816,9 +2819,8 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ObjectTypeIndexer": {
-      const variance = getFlowVariance(n);
       return concat([
-        variance || "",
+        n.variance ? path.call(print, "variance") : "",
         "[",
         path.call(print, "id"),
         n.id ? ": " : "",
@@ -2828,8 +2830,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     }
     case "ObjectTypeProperty": {
-      const variance = getFlowVariance(n);
-
       let modifier = "";
 
       if (n.proto) {
@@ -2841,7 +2841,7 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         modifier,
         isGetterOrSetter(n) ? n.kind + " " : "",
-        variance || "",
+        n.variance ? path.call(print, "variance") : "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
         isFunctionNotation(n) ? "" : ": ",
@@ -2948,10 +2948,8 @@ function printPathNoParens(path, options, print, args) {
         return concat(parts);
       }
 
-      const variance = getFlowVariance(n);
-
-      if (variance) {
-        parts.push(variance);
+      if (n.variance) {
+        parts.push(path.call(print, "variance"));
       }
 
       parts.push(path.call(print, "name"));
