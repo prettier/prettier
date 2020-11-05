@@ -16,7 +16,6 @@ const { insertPragma } = require("./pragma");
 function* genericPrint(path, options, print) {
   const n = path.getValue();
   if (!n) {
-    yield "";
     return;
   }
 
@@ -43,7 +42,7 @@ function* genericPrint(path, options, print) {
           }
         }
       }, "definitions");
-      yield concat(parts);
+      yield* parts;
       yield hardline;
       return;
     }
@@ -56,8 +55,10 @@ function* genericPrint(path, options, print) {
 
       const hasName = !!n.name;
       if (hasOperation && hasName) {
-        yield concat([" ", path.call(print, "name")]);
+        yield " ";
+        yield path.call(print, "name");
       }
+
       if (n.variableDefinitions && n.variableDefinitions.length) {
         yield group(
           concat([
@@ -184,13 +185,16 @@ function* genericPrint(path, options, print) {
     case "IntValue":
     case "FloatValue":
     case "EnumValue": {
-      return yield n.value;
+      yield n.value;
+      return;
     }
     case "BooleanValue": {
-      return yield n.value ? "true" : "false";
+      yield n.value ? "true" : "false";
+      return;
     }
     case "NullValue": {
-      return yield "null";
+      yield "null";
+      return;
     }
     case "Variable": {
       yield "$";
@@ -280,7 +284,8 @@ function* genericPrint(path, options, print) {
       yield ": ";
       yield path.call(print, "type");
       if (n.defaultValue) {
-        yield concat([" = ", path.call(print, "defaultValue")]);
+        yield " = ";
+        yield path.call(print, "defaultValue");
       }
       yield printDirectives(path, print, n);
       return;
@@ -298,30 +303,26 @@ function* genericPrint(path, options, print) {
       yield "type ";
       yield path.call(print, "name");
       if (n.interfaces.length > 0) {
-        yield concat([
-          " implements ",
-          concat(printInterfaces(path, options, print)),
-        ]);
+        yield " implements ";
+        yield* printInterfaces(path, options, print);
       }
       yield printDirectives(path, print, n);
       if (n.fields.length > 0) {
-        yield concat([
-          " {",
-          indent(
-            concat([
+        yield " {";
+        yield indent(
+          concat([
+            hardline,
+            join(
               hardline,
-              join(
-                hardline,
-                path.call(
-                  (fieldsPath) => printSequence(fieldsPath, options, print),
-                  "fields"
-                )
-              ),
-            ])
-          ),
-          hardline,
-          "}",
-        ]);
+              path.call(
+                (fieldsPath) => printSequence(fieldsPath, options, print),
+                "fields"
+              )
+            ),
+          ])
+        );
+        yield hardline;
+        yield "}";
       }
       return;
     }
@@ -391,7 +392,8 @@ function* genericPrint(path, options, print) {
         );
       }
       yield n.repeatable ? " repeatable" : "";
-      yield concat([" on ", join(" | ", path.map(print, "locations"))]);
+      yield " on ";
+      yield join(" | ", path.map(print, "locations"));
       return;
     }
 
@@ -409,23 +411,21 @@ function* genericPrint(path, options, print) {
       yield printDirectives(path, print, n);
 
       if (n.values.length > 0) {
-        yield concat([
-          " {",
-          indent(
-            concat([
+        yield " {";
+        yield indent(
+          concat([
+            hardline,
+            join(
               hardline,
-              join(
-                hardline,
-                path.call(
-                  (valuesPath) => printSequence(valuesPath, options, print),
-                  "values"
-                )
-              ),
-            ])
-          ),
-          hardline,
-          "}",
-        ]);
+              path.call(
+                (valuesPath) => printSequence(valuesPath, options, print),
+                "values"
+              )
+            ),
+          ])
+        );
+        yield hardline;
+        yield "}";
       }
       return;
     }
@@ -453,7 +453,8 @@ function* genericPrint(path, options, print) {
       yield ": ";
       yield path.call(print, "type");
       if (n.defaultValue) {
-        yield concat([" = ", path.call(print, "defaultValue")]);
+        yield " = ";
+        yield path.call(print, "defaultValue");
       }
       yield printDirectives(path, print, n);
       return;
@@ -468,23 +469,21 @@ function* genericPrint(path, options, print) {
       yield path.call(print, "name");
       yield printDirectives(path, print, n);
       if (n.fields.length > 0) {
-        yield concat([
-          " {",
-          indent(
-            concat([
+        yield " {";
+        yield indent(
+          concat([
+            hardline,
+            join(
               hardline,
-              join(
-                hardline,
-                path.call(
-                  (fieldsPath) => printSequence(fieldsPath, options, print),
-                  "fields"
-                )
-              ),
-            ])
-          ),
-          hardline,
-          "}",
-        ]);
+              path.call(
+                (fieldsPath) => printSequence(fieldsPath, options, print),
+                "fields"
+              )
+            ),
+          ])
+        );
+        yield hardline;
+        yield "}";
       }
       return;
     }
@@ -522,35 +521,35 @@ function* genericPrint(path, options, print) {
     case "InterfaceTypeExtension":
     case "InterfaceTypeDefinition": {
       yield path.call(print, "description");
-      yield n.description ? hardline : "";
-      yield n.kind === "InterfaceTypeExtension" ? "extend " : "";
+      if (n.description) {
+        yield hardline;
+      }
+      if (n.kind === "InterfaceTypeExtension") {
+        yield "extend ";
+      }
       yield "interface ";
       yield path.call(print, "name");
-      yield n.interfaces.length > 0
-        ? concat([
-            " implements ",
-            concat(printInterfaces(path, options, print)),
-          ])
-        : "";
+      if (n.interfaces.length > 0) {
+        yield " implements ";
+        yield* printInterfaces(path, options, print);
+      }
       yield printDirectives(path, print, n);
       if (n.fields.length > 0) {
-        yield concat([
-          " {",
-          indent(
-            concat([
+        yield " {";
+        yield indent(
+          concat([
+            hardline,
+            join(
               hardline,
-              join(
-                hardline,
-                path.call(
-                  (fieldsPath) => printSequence(fieldsPath, options, print),
-                  "fields"
-                )
-              ),
-            ])
-          ),
-          hardline,
-          "}",
-        ]);
+              path.call(
+                (fieldsPath) => printSequence(fieldsPath, options, print),
+                "fields"
+              )
+            ),
+          ])
+        );
+        yield hardline;
+        yield "}";
       }
       return;
     }
