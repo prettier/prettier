@@ -40,6 +40,7 @@ const unstableTests = new Map(
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
+    "js/comments/html-like/comment.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
