@@ -18,8 +18,7 @@ const voidTags = new Set(htmlVoidElements);
 function isVoid(node) {
   return (
     (isGlimmerComponent(node) &&
-      (node.children === 0 ||
-        node.children.every((n) => isWhitespaceNode(n)))) ||
+      node.children.every((n) => isWhitespaceNode(n))) ||
     voidTags.has(node.tag)
   );
 }

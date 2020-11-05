@@ -40,6 +40,7 @@ const unstableTests = new Map(
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
+    "js/comments/html-like/comment.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -54,6 +55,7 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../tests/js", directory))
 );
+const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -142,17 +144,18 @@ function runSpec(fixtures, parsers, options) {
 
   const [parser] = parsers;
   const allParsers = [...parsers];
+
   if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
     allParsers.push("babel-ts");
   }
 
-  if (
-    parsers.includes("babel") &&
-    !parsers.includes("espree") &&
-    isTestDirectory(dirname, "js") &&
-    !espreeDisabledTests.has(dirname)
-  ) {
-    allParsers.push("espree");
+  if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
+    if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
+      allParsers.push("espree");
+    }
+    if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
+      allParsers.push("meriyah");
+    }
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);

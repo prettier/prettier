@@ -494,7 +494,8 @@ function needsParens(path, options) {
         return true;
       } else if (
         name === "key" &&
-        parent.type === "ClassProperty" &&
+        (parent.type === "ClassProperty" ||
+          parent.type === "FieldDefinition") &&
         parent.computed
       ) {
         return false;
@@ -745,6 +746,7 @@ function isStatement(node) {
     node.type === "ClassDeclaration" ||
     node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
+    node.type === "FieldDefinition" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||
