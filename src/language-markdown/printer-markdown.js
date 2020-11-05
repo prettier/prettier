@@ -148,7 +148,7 @@ function genericPrint(path, options, print) {
     }
     case "emphasis": {
       let style;
-      if (isAutolink(node.children[0], options)) {
+      if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
         const parentNode = path.getParentNode();
