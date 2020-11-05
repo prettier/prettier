@@ -163,4 +163,4 @@ function printFunctionParameters(
   ]);
 }
 
-module.export = { printFunctionParameters };
+module.exports = { printFunctionParameters };
