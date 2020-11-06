@@ -94,7 +94,20 @@ function printModuleSpecifiers(path, options, print) {
   return concat(parts);
 }
 
+function printImportAssertions(path, options, print) {
+  const node = path.getNode();
+  if (Array.isArray(node.assertions) && node.assertions.length !== 0) {
+    return concat([
+      " assert { ",
+      join(", ", path.map(print, "assertions")),
+      " }",
+    ]);
+  }
+  return "";
+}
+
 module.exports = {
   printModuleSource,
   printModuleSpecifiers,
+  printImportAssertions,
 };

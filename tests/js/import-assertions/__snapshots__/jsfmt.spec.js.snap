@@ -25,9 +25,9 @@ export * from "foo.json" assert { type: "json" };
 export * as foo3 from "foo.json" assert { type: "json" };
 
 =====================================output=====================================
-export { foo2 } from "foo.json";
-export * from "foo.json";
-export * as foo3 from "foo.json";
+export { foo2 } from "foo.json" assert { type: "json" };
+export * from "foo.json" assert { type: "json" };
+export * as foo3 from "foo.json" assert { type: "json" };
 
 ================================================================================
 `;
