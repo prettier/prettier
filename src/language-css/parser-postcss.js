@@ -10,6 +10,7 @@ const {
   isSCSSVariable,
   stringifyNode,
 } = require("./utils");
+const { locStart, locEnd } = require("./loc");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
 const getHighestAncestor = (node) => {
@@ -663,6 +664,10 @@ function parseWithParser(parse, text, options) {
   calculateLoc(result, text);
 
   if (frontMatter) {
+    frontMatter.source = {
+      startOffset: 0,
+      endOffset: frontMatter.raw.length,
+    };
     result.nodes.unshift(frontMatter);
   }
 
@@ -693,19 +698,8 @@ function parseScss(text, parsers, options) {
 const postCssParser = {
   astFormat: "postcss",
   hasPragma,
-  locStart(node) {
-    if (node.source) {
-      return node.source.startOffset;
-    }
-    /* istanbul ignore next */
-    return null;
-  },
-  locEnd(node) {
-    if (node.source) {
-      return node.source.endOffset;
-    }
-    return null;
-  },
+  locStart,
+  locEnd,
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading

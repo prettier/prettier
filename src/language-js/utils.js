@@ -9,7 +9,7 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
+const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -56,6 +56,7 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
+    isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
 }
@@ -65,7 +66,11 @@ function hasFlowShorthandAnnotationComment(node) {
  * @returns {boolean}
  */
 function hasFlowAnnotationComment(comments) {
-  return comments && FLOW_ANNOTATION.test(comments[0].value);
+  return (
+    comments &&
+    isBlockComment(comments[0]) &&
+    FLOW_ANNOTATION.test(comments[0].value)
+  );
 }
 
 /**
@@ -153,6 +158,35 @@ function getLeftSidePathName(path, node) {
   throw new Error("Unexpected node has no left side.");
 }
 
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
+function isBlockComment(comment) {
+  return (
+    comment.type === "Block" ||
+    comment.type === "CommentBlock" ||
+    // `meriyah`
+    comment.type === "MultiLine"
+  );
+}
+
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
+function isLineComment(comment) {
+  return (
+    comment.type === "Line" ||
+    comment.type === "CommentLine" ||
+    // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
+    comment.type === "SingleLine" ||
+    comment.type === "HashbangComment" ||
+    comment.type === "HTMLOpen" ||
+    comment.type === "HTMLClose"
+  );
+}
+
 const exportDeclarationTypes = new Set([
   "ExportDefaultDeclaration",
   "ExportDefaultSpecifier",
@@ -160,10 +194,6 @@ const exportDeclarationTypes = new Set([
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ]);
-
-function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
-}
 
 /**
  * @param {Node} node
@@ -341,39 +371,10 @@ function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
 
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function sameLocStart(nodeA, nodeB, { locStart }) {
-  return locStart(nodeA) === locStart(nodeB);
-}
-
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function sameLocEnd(nodeA, nodeB, { locEnd }) {
-  return locEnd(nodeA) === locEnd(nodeB);
-}
-
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function hasSameLoc(nodeA, nodeB, options) {
-  return (
-    sameLocStart(nodeA, nodeB, options) && sameLocEnd(nodeA, nodeB, options)
-  );
-}
-
 // TODO: This is a bad hack and we need a better way to distinguish between
 // arrow functions and otherwise
-function isFunctionNotation(node, options) {
-  return isGetterOrSetter(node) || sameLocStart(node, node.value, options);
+function isFunctionNotation(node) {
+  return isGetterOrSetter(node) || hasSameLocStart(node, node.value);
 }
 
 // Hack to differentiate between the following two which have the same ast
@@ -383,25 +384,25 @@ function isFunctionNotation(node, options) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node, options) {
+function isObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node, options)
+    !isFunctionNotation(node)
   );
 }
 
 // Hack to differentiate between the following two which have the same ast
 // declare function f(a): void;
 // var f: (a) => void;
-function isTypeAnnotationAFunction(node, options) {
+function isTypeAnnotationAFunction(node) {
   return (
     (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !sameLocStart(node, node.typeAnnotation, options)
+    !hasSameLocStart(node, node.typeAnnotation)
   );
 }
 
@@ -699,37 +700,13 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {ObjectTypeProperty} node
- */
-function getFlowVariance(node) {
-  if (!node.variance) {
-    return null;
-  }
-
-  // Babel 7.0 currently uses variance node type, and flow should
-  // follow suit soon:
-  // https://github.com/babel/babel/issues/4722
-  const variance = node.variance.kind || node.variance;
-
-  switch (variance) {
-    case "plus":
-      return "+";
-    case "minus":
-      return "-";
-    default:
-      /* istanbul ignore next */
-      return variance;
-  }
-}
-
-/**
  * @param {FastPath} path
  * @returns {boolean}
  */
 function classPropMayCauseASIProblems(path) {
   const node = path.getNode();
 
-  if (node.type !== "ClassProperty") {
+  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
     return false;
   }
 
@@ -766,6 +743,7 @@ function classChildNeedsASIProtection(node) {
   }
   switch (node.type) {
     case "ClassProperty":
+    case "FieldDefinition":
     case "TSAbstractClassProperty":
       return node.computed;
     case "MethodDefinition": // Flow
@@ -1009,7 +987,9 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
-        (options.parser === "babel" || options.parser === "espree")))
+        (options.parser === "babel" ||
+          options.parser === "espree" ||
+          options.parser === "meriyah")))
   );
 }
 
@@ -1471,7 +1451,6 @@ function iterateFunctionParametersPath(path, iteratee) {
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  getFlowVariance,
   getFunctionParameters,
   iterateFunctionParametersPath,
   hasRestParameter,
@@ -1488,12 +1467,12 @@ module.exports = {
   hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
-  hasSameLoc,
   hasTrailingComment,
   hasTrailingLineComment,
   identity,
   isBinaryish,
   isBlockComment,
+  isLineComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,

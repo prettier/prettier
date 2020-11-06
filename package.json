@@ -20,9 +20,9 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "10.2.1",
+    "@angular/compiler": "10.2.2",
     "@babel/code-frame": "7.10.4",
-    "@babel/parser": "7.12.3",
+    "@babel/parser": "7.12.5",
     "@glimmer/syntax": "0.62.4",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "3.10.1",
@@ -59,6 +59,7 @@
     "linguist-languages": "7.11.1",
     "lodash": "4.17.20",
     "mem": "8.0.0",
+    "meriyah": "3.1.2",
     "minimatch": "3.0.4",
     "minimist": "1.2.5",
     "n-readlines": "1.0.0",
@@ -87,7 +88,7 @@
   "devDependencies": {
     "@babel/core": "7.12.3",
     "@babel/preset-env": "7.12.1",
-    "@babel/types": "7.12.1",
+    "@babel/types": "7.12.6",
     "@glimmer/reference": "0.62.4",
     "@rollup/plugin-alias": "3.1.1",
     "@rollup/plugin-babel": "5.2.1",
@@ -98,7 +99,7 @@
     "@types/estree": "0.0.45",
     "@types/node": "14.14.0",
     "@typescript-eslint/types": "3.10.1",
-    "babel-jest": "26.6.2",
+    "babel-jest": "26.6.3",
     "babel-loader": "8.1.0",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
@@ -113,7 +114,7 @@
     "eslint-plugin-react": "7.21.5",
     "eslint-plugin-unicorn": "23.0.0",
     "execa": "4.1.0",
-    "jest": "26.6.2",
+    "jest": "26.6.3",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.6.1",
@@ -130,7 +131,7 @@
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.0",
     "terser-webpack-plugin": "5.0.3",
-    "webpack": "5.3.2"
+    "webpack": "5.4.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",

@@ -14,7 +14,25 @@ type AdditionalFields = {
   leadingComments?: ReadonlyArray<Comment> | Comment[];
 };
 
-export type Comment = (ESTree.Comment | Babel.Comment | TSESTree.Comment) & {
+type MeriyahComment = {
+  value: string;
+  start: number;
+  end: number;
+  range: number[];
+  type:
+    | "MultiLine"
+    | "SingleLine"
+    | "HashbangComment"
+    | "HTMLOpen"
+    | "HTMLClose";
+};
+
+export type Comment = (
+  | ESTree.Comment
+  | Babel.Comment
+  | TSESTree.Comment
+  | MeriyahComment
+) & {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;

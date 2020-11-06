@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`export.js [espree] format 1`] = `
+"Unexpected token v (2:8)
+  1 | export * as ns from 'mod';
+> 2 | export v from 'mod';
+    |        ^
+  3 | export a, * as b from 'mod';
+  4 | export c, { foo } from 'mod';
+  5 | export * as d, { bar } from 'mod';"
+`;
+
+exports[`export.js [meriyah] format 1`] = `
+"[2:8]: Unexpected token: 'identifier' (2:8)
+  1 | export * as ns from 'mod';
+> 2 | export v from 'mod';
+    |        ^
+  3 | export a, * as b from 'mod';
+  4 | export c, { foo } from 'mod';
+  5 | export * as d, { bar } from 'mod';"
+`;
+
 exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
