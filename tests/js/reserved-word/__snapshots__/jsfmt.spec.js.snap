@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`interfaces.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface = "foo";
+interface + 3;
+interface();
+class interface {}
+interface ? true : false;
+function interface() {}
+import interface from "foo";
+foo.interface;
+interface.foo;
+new interface();
+({ interface: "foo" });
+(interface, "foo");
+void interface;
+const interface = "foo";
+
+=====================================output=====================================
+interface = "foo";
+interface + 3;
+interface();
+class interface {}
+interface ? true : false;
+function interface() {}
+import interface from "foo";
+foo.interface;
+interface.foo;
+new interface();
+({ interface: "foo" });
+interface, "foo";
+void interface;
+const interface = "foo";
+
+================================================================================
+`;
