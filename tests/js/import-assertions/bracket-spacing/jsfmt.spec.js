@@ -1,20 +1,17 @@
 run_spec(__dirname, ["babel"], {
+  bracketSpacing: false,
   errors: {
     espree: [
       "dynamic-import.js",
-      "empty.js",
-      "multi-types.js",
       "static-import.js",
       "re-export.js",
-      "without-from.js",
+      "empty.js",
     ],
     meriyah: [
       "dynamic-import.js",
-      "empty.js",
-      "multi-types.js",
       "static-import.js",
       "re-export.js",
-      "without-from.js",
+      "empty.js",
     ],
   },
 });
