@@ -2,7 +2,7 @@
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
-const { getParserName, isFrontMatterNode } = require("../common/util");
+const { inferParserByLanguage, isFrontMatterNode } = require("../common/util");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -427,7 +427,8 @@ function inferScriptParser(node, options) {
   if (options && isVueNonHtmlBlock(node, options)) {
     return (
       _inferScriptParser(node) ||
-      (!("src" in node.attrMap) && getParserName(node.attrMap.lang, options))
+      (!("src" in node.attrMap) &&
+        inferParserByLanguage(node.attrMap.lang, options))
     );
   }
 }

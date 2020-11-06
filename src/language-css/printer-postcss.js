@@ -38,7 +38,9 @@ const {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
+  isSCSS,
   isLastNode,
+  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -72,6 +74,7 @@ const {
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
 } = require("./utils");
+const { locStart, locEnd } = require("./loc");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -104,10 +107,8 @@ function genericPrint(path, options, print) {
     }
     case "css-comment": {
       const isInlineComment = node.inline || node.raws.inline;
-      const text = options.originalText.slice(
-        options.locStart(node),
-        options.locEnd(node)
-      );
+
+      const text = options.originalText.slice(locStart(node), locEnd(node));
 
       return isInlineComment ? text.trimEnd() : text;
     }
@@ -121,9 +122,7 @@ function genericPrint(path, options, print) {
               node.selector.type === "selector-unknown" &&
               lastLineHasInlineComment(node.selector.value)
                 ? line
-                : node.selector
-                ? " "
-                : "",
+                : " ",
               "{",
               node.nodes.length > 0
                 ? indent(
@@ -143,8 +142,6 @@ function genericPrint(path, options, print) {
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
       const isColon = trimmedBetween === ":";
-      const isValueAllSpace =
-        typeof node.value === "string" && /^ *$/.test(node.value);
 
       let value = hasComposesNode(node)
         ? removeLines(path.call(print, "value"))
@@ -159,8 +156,8 @@ function genericPrint(path, options, print) {
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
-        node.extend || isValueAllSpace ? "" : " ",
-        options.parser === "less" && node.extend && node.selector
+        node.extend ? "" : " ",
+        isLessParser(options) && node.extend && node.selector
           ? concat(["extend(", path.call(print, "selector"), ")"])
           : "",
         value,
@@ -190,7 +187,7 @@ function genericPrint(path, options, print) {
             ])
           : isTemplatePropNode(node) &&
             !parentNode.raws.semicolon &&
-            options.originalText[options.locEnd(node) - 1] !== ";"
+            options.originalText[locEnd(node) - 1] !== ";"
           ? ""
           : options.__isHTMLStyleAttribute && isLastNode(path, node)
           ? ifBreak(";", "")
@@ -202,9 +199,9 @@ function genericPrint(path, options, print) {
       const isTemplatePlaceholderNodeWithoutSemiColon =
         isTemplatePlaceholderNode(node) &&
         !parentNode.raws.semicolon &&
-        options.originalText[options.locEnd(node) - 1] !== ";";
+        options.originalText[locEnd(node) - 1] !== ";";
 
-      if (options.parser === "less") {
+      if (isLessParser(options)) {
         if (node.mixin) {
           return concat([
             path.call(print, "selector"),
@@ -245,11 +242,6 @@ function genericPrint(path, options, print) {
           ]);
         }
       }
-      const isImportUnknownValueEndsWithSemiColon =
-        node.name === "import" &&
-        node.params &&
-        node.params.type === "value-unknown" &&
-        node.params.value.endsWith(";");
 
       return concat([
         "@",
@@ -285,7 +277,7 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "value"),
-                isSCSSControlDirectiveNode(node, options)
+                isSCSSControlDirectiveNode(node)
                   ? hasParensAroundNode(node)
                     ? " "
                     : line
@@ -297,7 +289,7 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node, options)
+              isSCSSControlDirectiveNode(node)
                 ? ""
                 : (node.selector &&
                     !node.selector.nodes &&
@@ -318,8 +310,7 @@ function genericPrint(path, options, print) {
               softline,
               "}",
             ])
-          : isTemplatePlaceholderNodeWithoutSemiColon ||
-            isImportUnknownValueEndsWithSemiColon
+          : isTemplatePlaceholderNodeWithoutSemiColon
           ? ""
           : ";",
       ]);
@@ -500,7 +491,7 @@ function genericPrint(path, options, print) {
       // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
       const parentNode = path.getParentNode();
       if (parentNode.raws && parentNode.raws.selector) {
-        const start = options.locStart(parentNode);
+        const start = locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
         return options.originalText.slice(start, end).trim();
       }
@@ -513,8 +504,8 @@ function genericPrint(path, options, print) {
         grandParent.type === "value-func" &&
         grandParent.value === "selector"
       ) {
-        const start = options.locStart(parentNode.open) + 1;
-        const end = options.locEnd(parentNode.close) - 1;
+        const start = locStart(parentNode.open) + 1;
+        const end = locEnd(parentNode.close) - 1;
         const selector = options.originalText.slice(start, end).trim();
 
         return lastLineHasInlineComment(selector)
@@ -530,10 +521,7 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-comment": {
-      return options.originalText.slice(
-        options.locStart(node),
-        options.locEnd(node)
-      );
+      return options.originalText.slice(locStart(node), locEnd(node));
     }
     case "value-comma_group": {
       const parentNode = path.getParentNode();
@@ -546,8 +534,7 @@ function genericPrint(path, options, print) {
           declAncestorProp.startsWith("grid-template"));
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
-        atRuleAncestorNode &&
-        isSCSSControlDirectiveNode(atRuleAncestorNode, options);
+        atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
 
       const printed = path.map(print, "groups");
       const parts = [];
@@ -805,7 +792,7 @@ function genericPrint(path, options, print) {
         if (
           isAtWordPlaceholderNode(iNode) &&
           isAtWordPlaceholderNode(iNextNode) &&
-          options.locEnd(iNode) === options.locStart(iNextNode)
+          locEnd(iNode) === locStart(iNextNode)
         ) {
           continue;
         }
@@ -866,7 +853,7 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
-      const isSCSSMapItem = isSCSSMapItemNode(path, options);
+      const isSCSSMapItem = isSCSSMapItemNode(path);
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
@@ -905,7 +892,7 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             !isLastItemComment &&
-              options.parser === "scss" &&
+              isSCSS(options.parser, options.originalText) &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","
@@ -996,10 +983,7 @@ function printNodeSequence(path, options, print) {
     ) {
       const childNode = pathChild.getValue();
       parts.push(
-        options.originalText.slice(
-          options.locStart(childNode),
-          options.locEnd(childNode)
-        )
+        options.originalText.slice(locStart(childNode), locEnd(childNode))
       );
     } else {
       parts.push(pathChild.call(print));
@@ -1008,11 +992,9 @@ function printNodeSequence(path, options, print) {
     if (i !== node.nodes.length - 1) {
       if (
         (node.nodes[i + 1].type === "css-comment" &&
-          !hasNewline(
-            options.originalText,
-            options.locStart(node.nodes[i + 1]),
-            { backwards: true }
-          ) &&
+          !hasNewline(options.originalText, locStart(node.nodes[i + 1]), {
+            backwards: true,
+          }) &&
           !isFrontMatterNode(node.nodes[i])) ||
         (node.nodes[i + 1].type === "css-atrule" &&
           node.nodes[i + 1].name === "else" &&
@@ -1022,11 +1004,7 @@ function printNodeSequence(path, options, print) {
       } else {
         parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
-          isNextLineEmpty(
-            options.originalText,
-            pathChild.getValue(),
-            options.locEnd
-          ) &&
+          isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd) &&
           !isFrontMatterNode(node.nodes[i])
         ) {
           parts.push(hardline);
