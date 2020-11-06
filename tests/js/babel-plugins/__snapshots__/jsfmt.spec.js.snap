@@ -851,9 +851,11 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+import { "😄" as smile } from "./emojis.js";
 export { smile as "😄" } from "./emojis.js";
 
 =====================================output=====================================
+import { "😄" as smile } from "./emojis.js";
 export { smile as "😄" } from "./emojis.js";
 
 ================================================================================

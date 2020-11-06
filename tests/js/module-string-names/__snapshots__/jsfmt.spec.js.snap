@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`module-string-names.js format 1`] = `
+exports[`module-string-names-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -27,6 +27,24 @@ export {
 } from "Confucius";
 export * as "foo", { default as "quux" } from "module-b";
 export { "smile" } from "./emojis.js";
+
+================================================================================
+`;
+
+exports[`module-string-names-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import { "default" as quotation } from "Confucius";
+import { "foo" as bar, "default" as qux } from "module-a";
+import { "學而時習之，不亦說乎？" as quotation } from "Confucius";
+
+=====================================output=====================================
+import { "default" as quotation } from "Confucius";
+import { "foo" as bar, "default" as qux } from "module-a";
+import { "學而時習之，不亦說乎？" as quotation } from "Confucius";
 
 ================================================================================
 `;

@@ -25,14 +25,6 @@ exports[`module-attributes.js error test 1`] = `
   2 | "
 `;
 
-exports[`module-string-name-import.js error test 1`] = `
-"Unexpected token (2:10)
-  1 | // https://github.com/babel/babel/issues/12209
-> 2 | import { \\"foo\\" as foo } from \\"module-a\\";
-    |          ^
-  3 | "
-`;
-
 exports[`no-for-in-init-concise-binary-in.js error test 1`] = `
 "Unexpected token, expected \\")\\" (3:18)
   1 | // https://github.com/babel/babel/pull/11931
