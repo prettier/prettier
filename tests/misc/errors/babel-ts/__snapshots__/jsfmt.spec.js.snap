@@ -13,3 +13,14 @@ exports[`type-annotation-func.ts error test 1`] = `
     |          ^
   2 | "
 `;
+
+exports[`type-annotation-in-jsx.tsx error test 1`] = `
+"Did not expect a type annotation here. (3:22)
+  1 | function Foo() {
+  2 |   return (
+> 3 |     <div propA={[ key: value ]} propsB={(a: b)} />
+    |                      ^
+  4 |   );
+  5 | }
+  6 | "
+`;
