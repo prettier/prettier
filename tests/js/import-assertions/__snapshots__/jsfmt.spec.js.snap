@@ -14,6 +14,24 @@ import("./foo.json", { assert: { type: "json" } });
 ================================================================================
 `;
 
+exports[`import-assertions-for-export.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { foo2 } from "foo.json" assert { type: "json" };
+export * from "foo.json" assert { type: "json" };
+export * as foo3 from "foo.json" assert { type: "json" };
+
+=====================================output=====================================
+export { foo2 } from "foo.json";
+export * from "foo.json";
+export * as foo3 from "foo.json";
+
+================================================================================
+`;
+
 exports[`import-assertions-multi-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
