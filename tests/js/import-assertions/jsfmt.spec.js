@@ -6,6 +6,7 @@ run_spec(__dirname, ["babel"], {
       "import-assertions-static.js",
       "import-assertions-without-from.js",
       "import-assertions-for-export.js",
+      "empty-assertions.js",
     ],
     meriyah: [
       "import-assertions-dynamic.js",
@@ -13,6 +14,7 @@ run_spec(__dirname, ["babel"], {
       "import-assertions-static.js",
       "import-assertions-without-from.js",
       "import-assertions-for-export.js",
+      "empty-assertions.js",
     ],
   },
 });
