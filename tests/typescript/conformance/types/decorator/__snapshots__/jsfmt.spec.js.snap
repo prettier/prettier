@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`decorator.ts [babel-ts] format 1`] = `
+"Leading decorators must be attached to a class declaration (4:1)
+  2 | 
+  3 | @dec
+> 4 | enum E {}
+    | ^
+  5 | "
+`;
+
 exports[`decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

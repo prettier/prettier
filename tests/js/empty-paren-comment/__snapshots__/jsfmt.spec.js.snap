@@ -25,6 +25,17 @@ class x {
 ================================================================================
 `;
 
+exports[`class-property.js [espree] format 1`] = `
+"Unexpected token = (4:5)
+  2 |   f(/* ... */) {}
+  3 |   f() /* ... */ {}
+> 4 |   f = (/* ... */) => {};
+    |     ^
+  5 |   static f(/* ... */) {};
+  6 |   static f = (/* ... */) => {};
+  7 |   static f = function(/* ... */) {};"
+`;
+
 exports[`class-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

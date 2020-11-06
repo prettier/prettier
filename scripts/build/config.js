@@ -46,6 +46,9 @@ const parsers = [
     input: "src/language-js/parser-espree.js",
   },
   {
+    input: "src/language-js/parser-meriyah.js",
+  },
+  {
     input: "src/language-js/parser-angular.js",
   },
   {
