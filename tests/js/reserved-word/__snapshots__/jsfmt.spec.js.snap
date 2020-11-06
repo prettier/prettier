@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`interfaces.js [espree] format 1`] = `
+"The keyword 'interface' is reserved (1:1)
+> 1 | interface = \\"foo\\";
+    | ^
+  2 | interface + 3;
+  3 | interface();
+  4 | class interface {}"
+`;
+
+exports[`interfaces.js [meriyah] format 1`] = `
+"[1:9]: Unexpected token: 'interface' (1:9)
+> 1 | interface = \\"foo\\";
+    |         ^
+  2 | interface + 3;
+  3 | interface();
+  4 | class interface {}"
+`;
+
 exports[`interfaces.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

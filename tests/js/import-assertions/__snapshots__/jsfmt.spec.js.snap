@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`import-assertions-dynamic.js [espree] format 1`] = `
+"Unexpected token , (1:20)
+> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+    |                    ^
+  2 | "
+`;
+
+exports[`import-assertions-dynamic.js [meriyah] format 1`] = `
+"[1:20]: Expected ')' (1:20)
+> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+    |                    ^
+  2 | "
+`;
+
 exports[`import-assertions-dynamic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -12,6 +26,24 @@ import("./foo.json", { assert: { type: "json" } });
 import("./foo.json", { assert: { type: "json" } });
 
 ================================================================================
+`;
+
+exports[`import-assertions-for-export.js [espree] format 1`] = `
+"Unexpected token assert (1:33)
+> 1 | export { foo2 } from \\"foo.json\\" assert { type: \\"json\\" };
+    |                                 ^
+  2 | export * from \\"foo.json\\" assert { type: \\"json\\" };
+  3 | export * as foo3 from \\"foo.json\\" assert { type: \\"json\\" };
+  4 | "
+`;
+
+exports[`import-assertions-for-export.js [meriyah] format 1`] = `
+"[1:38]: Unexpected token: 'identifier' (1:38)
+> 1 | export { foo2 } from \\"foo.json\\" assert { type: \\"json\\" };
+    |                                      ^
+  2 | export * from \\"foo.json\\" assert { type: \\"json\\" };
+  3 | export * as foo3 from \\"foo.json\\" assert { type: \\"json\\" };
+  4 | "
 `;
 
 exports[`import-assertions-for-export.js format 1`] = `
@@ -32,6 +64,20 @@ export * as foo3 from "foo.json" assert { type: "json" };
 ================================================================================
 `;
 
+exports[`import-assertions-multi-types.js [espree] format 1`] = `
+"Unexpected token assert (1:31)
+> 1 | import json from \\"./foo.json\\" assert { type: \\"json\\", type: \\"bar\\" };
+    |                               ^
+  2 | "
+`;
+
+exports[`import-assertions-multi-types.js [meriyah] format 1`] = `
+"[1:36]: Unexpected token: 'identifier' (1:36)
+> 1 | import json from \\"./foo.json\\" assert { type: \\"json\\", type: \\"bar\\" };
+    |                                    ^
+  2 | "
+`;
+
 exports[`import-assertions-multi-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -46,6 +92,20 @@ import json from "./foo.json" assert { type: "json", type: "bar" };
 ================================================================================
 `;
 
+exports[`import-assertions-static.js [espree] format 1`] = `
+"Unexpected token assert (1:31)
+> 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
+    |                               ^
+  2 | "
+`;
+
+exports[`import-assertions-static.js [meriyah] format 1`] = `
+"[1:36]: Unexpected token: 'identifier' (1:36)
+> 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
+    |                                    ^
+  2 | "
+`;
+
 exports[`import-assertions-static.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -58,6 +118,20 @@ import json from "./foo.json" assert { type: "json" };
 import json from "./foo.json" assert { type: "json" };
 
 ================================================================================
+`;
+
+exports[`import-assertions-without-from.js [espree] format 1`] = `
+"Unexpected token assert (1:14)
+> 1 | import \\"foo\\" assert { type: \\"json\\" }
+    |              ^
+  2 | "
+`;
+
+exports[`import-assertions-without-from.js [meriyah] format 1`] = `
+"[1:19]: Unexpected token: 'identifier' (1:19)
+> 1 | import \\"foo\\" assert { type: \\"json\\" }
+    |                   ^
+  2 | "
 `;
 
 exports[`import-assertions-without-from.js format 1`] = `

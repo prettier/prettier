@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`class-property.js [espree] format 1`] = `
+"Unexpected token = (2:12)
+  1 | class X {
+> 2 |   TEMPLATE =
+    |            ^
+  3 |     // tab index is needed so we can focus, which is needed for keyboard events
+  4 |     '<div class=\\"ag-large-text\\" tabindex=\\"0\\">' +
+  5 |     '<div class=\\"ag-large-textarea\\"></div>' +"
+`;
+
 exports[`class-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
