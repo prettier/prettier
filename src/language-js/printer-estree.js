@@ -8,7 +8,6 @@ const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
-  getNextNonSpaceNonCommentCharacter,
   hasNewline,
   hasNewlineInRange,
   getLast,
@@ -19,11 +18,9 @@ const {
   hasNodeIgnoreComment,
   getIndentSize,
   getPreferredQuote,
-} = require("../common/util");
-const {
   isNextLineEmpty,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../common/util-shared");
+} = require("../common/util");
 const {
   builders: {
     concat,
@@ -41,7 +38,7 @@ const {
     lineSuffixBoundary,
     addAlignmentToDoc,
   },
-  utils: { willBreak, isLineNext, isEmpty, removeLines, normalizeParts },
+  utils: { willBreak, isLineNext, isEmpty, normalizeParts },
   printer: { printDocToString },
 } = require("../document");
 const embed = require("./embed");
@@ -57,10 +54,7 @@ const preprocess = require("./preprocess");
 const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  getFlowVariance,
   getFunctionParameters,
-  iterateFunctionParametersPath,
-  hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -103,7 +97,6 @@ const {
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
   isTSXFile,
-  isTypeAnnotationAFunction,
   isBlockComment,
   isLineComment,
   matchJsxWhitespaceRegex,
@@ -126,6 +119,10 @@ const {
 } = require("./print/misc");
 const { printModuleSource, printModuleSpecifiers } = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
+const {
+  printFunctionParameters,
+  shouldHugFunctionParameters,
+} = require("./print/function-parameters");
 
 const needsQuoteProps = new WeakMap();
 
@@ -1005,6 +1002,7 @@ function printPathNoParens(path, options, print, args) {
       //
       // Here, we ensure that such comments stay between the Identifier and the Callee.
       const isIdentifierWithFlowAnnotation =
+        (options.parser === "babel" || options.parser === "babel-flow") &&
         n.callee &&
         n.callee.type === "Identifier" &&
         hasFlowAnnotationComment(n.callee.trailingComments);
@@ -1245,7 +1243,7 @@ function printPathNoParens(path, options, print, args) {
         path.match(
           (node) => node.type === "ObjectPattern" && !node.decorators,
           (node, name, number) =>
-            shouldHugArguments(node) &&
+            shouldHugFunctionParameters(node) &&
             (name === "params" ||
               name === "parameters" ||
               name === "this" ||
@@ -1257,7 +1255,7 @@ function printPathNoParens(path, options, print, args) {
           (node, name) => name === "typeAnnotation",
           (node, name) => name === "typeAnnotation",
           (node, name, number) =>
-            shouldHugArguments(node) &&
+            shouldHugFunctionParameters(node) &&
             (name === "params" ||
               name === "parameters" ||
               name === "this" ||
@@ -2190,9 +2188,8 @@ function printPathNoParens(path, options, print, args) {
       if (n.readonly) {
         parts.push("readonly ");
       }
-      const variance = getFlowVariance(n);
-      if (variance) {
-        parts.push(variance);
+      if (n.variance) {
+        parts.push(path.call(print, "variance"));
       }
       parts.push(
         printPropertyKey(path, options, print),
@@ -2542,7 +2539,7 @@ function printPathNoParens(path, options, print, args) {
         !(
           ((parent.type === "ObjectTypeProperty" ||
             parent.type === "ObjectTypeInternalSlot") &&
-            !getFlowVariance(parent) &&
+            !parent.variance &&
             !parent.optional &&
             locStart(parent) === locStart(n)) ||
           parent.type === "ObjectTypeCallProperty" ||
@@ -2809,6 +2806,11 @@ function printPathNoParens(path, options, print, args) {
     }
     case "NullableTypeAnnotation":
       return concat(["?", path.call(print, "typeAnnotation")]);
+    case "Variance": {
+      const { kind } = n;
+      assert.ok(kind === "plus" || kind === "minus");
+      return kind === "plus" ? "+" : "-";
+    }
     case "ObjectTypeCallProperty":
       if (n.static) {
         parts.push("static ");
@@ -2818,9 +2820,8 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ObjectTypeIndexer": {
-      const variance = getFlowVariance(n);
       return concat([
-        variance || "",
+        n.variance ? path.call(print, "variance") : "",
         "[",
         path.call(print, "id"),
         n.id ? ": " : "",
@@ -2830,8 +2831,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     }
     case "ObjectTypeProperty": {
-      const variance = getFlowVariance(n);
-
       let modifier = "";
 
       if (n.proto) {
@@ -2843,7 +2842,7 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         modifier,
         isGetterOrSetter(n) ? n.kind + " " : "",
-        variance || "",
+        n.variance ? path.call(print, "variance") : "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
         isFunctionNotation(n) ? "" : ": ",
@@ -2902,28 +2901,28 @@ function printPathNoParens(path, options, print, args) {
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
-      const start = locStart(n);
-      const end = locEnd(n);
-      const commentStartIndex = options.originalText.lastIndexOf("/*", start);
-      const commentEndIndex = options.originalText.indexOf("*/", end);
-      if (commentStartIndex !== -1 && commentEndIndex !== -1) {
-        const comment = options.originalText
-          .slice(commentStartIndex + 2, commentEndIndex)
-          .trim();
-        if (
-          comment.startsWith("::") &&
-          !comment.includes("/*") &&
-          !comment.includes("*/")
-        ) {
-          return concat([
-            "/*:: ",
-            printTypeParameters(path, options, print, "params"),
-            " */",
-          ]);
+      const printed = printTypeParameters(path, options, print, "params");
+
+      if (options.parser === "flow") {
+        const start = locStart(n);
+        const end = locEnd(n);
+        const commentStartIndex = options.originalText.lastIndexOf("/*", start);
+        const commentEndIndex = options.originalText.indexOf("*/", end);
+        if (commentStartIndex !== -1 && commentEndIndex !== -1) {
+          const comment = options.originalText
+            .slice(commentStartIndex + 2, commentEndIndex)
+            .trim();
+          if (
+            comment.startsWith("::") &&
+            !comment.includes("/*") &&
+            !comment.includes("*/")
+          ) {
+            return concat(["/*:: ", printed, " */"]);
+          }
         }
       }
 
-      return printTypeParameters(path, options, print, "params");
+      return printed;
     }
 
     case "TSTypeParameterDeclaration":
@@ -2950,10 +2949,8 @@ function printPathNoParens(path, options, print, args) {
         return concat(parts);
       }
 
-      const variance = getFlowVariance(n);
-
-      if (variance) {
-        parts.push(variance);
+      if (n.variance) {
+        parts.push(path.call(print, "variance"));
       }
 
       parts.push(path.call(print, "name"));
@@ -3872,146 +3869,6 @@ function printTypeAnnotation(path, options, print) {
   return concat([
     isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
     path.call(print, "typeAnnotation"),
-  ]);
-}
-
-function printFunctionParameters(
-  path,
-  print,
-  options,
-  expandArg,
-  printTypeParams
-) {
-  const functionNode = path.getValue();
-  const parameters = getFunctionParameters(functionNode);
-  const typeParams = printTypeParams
-    ? printFunctionTypeParameters(path, options, print)
-    : "";
-
-  if (parameters.length === 0) {
-    return concat([
-      typeParams,
-      "(",
-      comments.printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        (comment) =>
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            comment,
-            locEnd
-          ) === ")"
-      ),
-      ")",
-    ]);
-  }
-
-  const parent = path.getParentNode();
-  const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugArguments(functionNode);
-  const shouldExpandParameters =
-    expandArg && !parameters.some((node) => node.comments);
-  const printed = [];
-  iterateFunctionParametersPath(path, (parameterPath, index) => {
-    const isLastParameter = index === parameters.length - 1;
-    if (isLastParameter && functionNode.rest) {
-      printed.push("...");
-    }
-    printed.push(parameterPath.call(print));
-    if (isLastParameter) {
-      return;
-    }
-    printed.push(",");
-    if (
-      isParametersInTestCall ||
-      shouldHugParameters ||
-      shouldExpandParameters
-    ) {
-      printed.push(" ");
-    } else if (
-      isNextLineEmpty(options.originalText, parameters[index], locEnd)
-    ) {
-      printed.push(hardline, hardline);
-    } else {
-      printed.push(line);
-    }
-  });
-
-  // If the parent is a call with the first/last argument expansion and this is the
-  // params of the first/last argument, we don't want the arguments to break and instead
-  // want the whole expression to be on a new line.
-  //
-  // Good:                 Bad:
-  //   verylongcall(         verylongcall((
-  //     (a, b) => {           a,
-  //     }                     b,
-  //   })                    ) => {
-  //                         })
-  if (shouldExpandParameters) {
-    return group(
-      concat([
-        removeLines(typeParams),
-        "(",
-        concat(printed.map(removeLines)),
-        ")",
-      ])
-    );
-  }
-
-  // Single object destructuring should hug
-  //
-  // function({
-  //   a,
-  //   b,
-  //   c
-  // }) {}
-  const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
-  if (shouldHugParameters && hasNotParameterDecorator) {
-    return concat([typeParams, "(", concat(printed), ")"]);
-  }
-
-  // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
-  if (isParametersInTestCall) {
-    return concat([typeParams, "(", concat(printed), ")"]);
-  }
-
-  const isFlowShorthandWithOneArg =
-    (isObjectTypePropertyAFunction(parent) ||
-      isTypeAnnotationAFunction(parent) ||
-      parent.type === "TypeAlias" ||
-      parent.type === "UnionTypeAnnotation" ||
-      parent.type === "TSUnionType" ||
-      parent.type === "IntersectionTypeAnnotation" ||
-      (parent.type === "FunctionTypeAnnotation" &&
-        parent.returnType === functionNode)) &&
-    parameters.length === 1 &&
-    parameters[0].name === null &&
-    // `type q = (this: string) => void;`
-    functionNode.this !== parameters[0] &&
-    parameters[0].typeAnnotation &&
-    functionNode.typeParameters === null &&
-    isSimpleType(parameters[0].typeAnnotation) &&
-    !functionNode.rest;
-
-  if (isFlowShorthandWithOneArg) {
-    if (options.arrowParens === "always") {
-      return concat(["(", concat(printed), ")"]);
-    }
-    return concat(printed);
-  }
-
-  return concat([
-    typeParams,
-    "(",
-    indent(concat([softline, concat(printed)])),
-    ifBreak(
-      !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
-        ? ","
-        : ""
-    ),
-    softline,
-    ")",
   ]);
 }
 
@@ -5119,37 +4976,6 @@ function shouldHugType(node) {
   }
 
   return false;
-}
-
-function shouldHugArguments(fun) {
-  if (!fun) {
-    return false;
-  }
-  const parameters = getFunctionParameters(fun);
-  if (parameters.length !== 1) {
-    return false;
-  }
-  const param = parameters[0];
-  return (
-    !param.comments &&
-    (param.type === "ObjectPattern" ||
-      param.type === "ArrayPattern" ||
-      (param.type === "Identifier" &&
-        param.typeAnnotation &&
-        (param.typeAnnotation.type === "TypeAnnotation" ||
-          param.typeAnnotation.type === "TSTypeAnnotation") &&
-        isObjectType(param.typeAnnotation.typeAnnotation)) ||
-      (param.type === "FunctionTypeParam" &&
-        isObjectType(param.typeAnnotation)) ||
-      (param.type === "AssignmentPattern" &&
-        (param.left.type === "ObjectPattern" ||
-          param.left.type === "ArrayPattern") &&
-        (param.right.type === "Identifier" ||
-          (param.right.type === "ObjectExpression" &&
-            param.right.properties.length === 0) ||
-          (param.right.type === "ArrayExpression" &&
-            param.right.elements.length === 0))))
-  );
 }
 
 function printArrayItems(path, options, printPath, print) {

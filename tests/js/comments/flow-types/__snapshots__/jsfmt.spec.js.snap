@@ -1,19 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`variance.js format 1`] = `
+exports[`inline.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-class Route {
-  static +param: T;
-}
+btnActions[1] = () => (
+  <button> test </button>
+  // :testC
+)
+
+a(
+  // ::
+  1
+);
 
 =====================================output=====================================
-class Route {
-  static +param: T;
-}
+btnActions[1] = () => (
+  <button> test </button>
+  // :testC
+);
+
+a(
+  // ::
+  1
+);
 
 ================================================================================
 `;
