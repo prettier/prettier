@@ -67,13 +67,14 @@ function parse(text, parsers, options) {
       ast = parseWithOptions(text, /* module */ false);
     } catch (_) {
       // throw the error for `module` parsing
-      if (typeof moduleError.loc !== "number") {
+      const { message, line, column } = moduleError;
+
+      /* istanbul ignore next */
+      if (typeof line !== "number") {
         throw moduleError;
       }
 
-      throw createError(moduleError.message, {
-        start: moduleError.loc,
-      });
+      throw createError(message, { start: { line, column } });
     }
   }
 
