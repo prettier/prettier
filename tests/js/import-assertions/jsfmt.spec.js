@@ -1,20 +1,20 @@
 run_spec(__dirname, ["babel"], {
   errors: {
     espree: [
-      "import-assertions-dynamic.js",
-      "import-assertions-multi-types.js",
-      "import-assertions-static.js",
-      "import-assertions-without-from.js",
-      "import-assertions-for-export.js",
-      "empty-assertions.js",
+      "dynamic-import.js",
+      "empty.js",
+      "multi-types.js",
+      "static-import.js",
+      "re-export.js",
+      "without-from.js",
     ],
     meriyah: [
-      "import-assertions-dynamic.js",
-      "import-assertions-multi-types.js",
-      "import-assertions-static.js",
-      "import-assertions-without-from.js",
-      "import-assertions-for-export.js",
-      "empty-assertions.js",
+      "dynamic-import.js",
+      "empty.js",
+      "multi-types.js",
+      "static-import.js",
+      "re-export.js",
+      "without-from.js",
     ],
   },
 });

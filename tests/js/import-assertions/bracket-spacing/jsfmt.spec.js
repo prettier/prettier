@@ -2,14 +2,16 @@ run_spec(__dirname, ["babel"], {
   bracketSpacing: false,
   errors: {
     espree: [
-      "import-assertions-dynamic.js",
-      "import-assertions-static.js",
-      "import-assertions-for-export.js",
+      "dynamic-import.js",
+      "static-import.js",
+      "re-export.js",
+      "empty.js",
     ],
     meriyah: [
-      "import-assertions-dynamic.js",
-      "import-assertions-static.js",
-      "import-assertions-for-export.js",
+      "dynamic-import.js",
+      "static-import.js",
+      "re-export.js",
+      "empty.js",
     ],
   },
 });
