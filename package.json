@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "10.2.1",
+    "@angular/compiler": "10.2.2",
     "@babel/code-frame": "7.10.4",
     "@babel/parser": "7.12.3",
     "@glimmer/syntax": "0.62.4",
@@ -59,6 +59,7 @@
     "linguist-languages": "7.11.1",
     "lodash": "4.17.20",
     "mem": "8.0.0",
+    "meriyah": "3.1.2",
     "minimatch": "3.0.4",
     "minimist": "1.2.5",
     "n-readlines": "1.0.0",
@@ -86,7 +87,7 @@
   "devDependencies": {
     "@babel/core": "7.12.3",
     "@babel/preset-env": "7.12.1",
-    "@babel/types": "7.12.5",
+    "@babel/types": "7.12.6",
     "@glimmer/reference": "0.62.4",
     "@rollup/plugin-alias": "3.1.1",
     "@rollup/plugin-babel": "5.2.1",

@@ -56,6 +56,7 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
+    isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
 }
@@ -65,7 +66,11 @@ function hasFlowShorthandAnnotationComment(node) {
  * @returns {boolean}
  */
 function hasFlowAnnotationComment(comments) {
-  return comments && FLOW_ANNOTATION.test(comments[0].value);
+  return (
+    comments &&
+    isBlockComment(comments[0]) &&
+    FLOW_ANNOTATION.test(comments[0].value)
+  );
 }
 
 /**
@@ -158,7 +163,12 @@ function getLeftSidePathName(path, node) {
  * @returns {boolean}
  */
 function isBlockComment(comment) {
-  return comment.type === "Block" || comment.type === "CommentBlock";
+  return (
+    comment.type === "Block" ||
+    comment.type === "CommentBlock" ||
+    // `meriyah`
+    comment.type === "MultiLine"
+  );
 }
 
 /**
@@ -166,7 +176,15 @@ function isBlockComment(comment) {
  * @returns {boolean}
  */
 function isLineComment(comment) {
-  return comment.type === "Line" || comment.type === "CommentLine";
+  return (
+    comment.type === "Line" ||
+    comment.type === "CommentLine" ||
+    // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
+    comment.type === "SingleLine" ||
+    comment.type === "HashbangComment" ||
+    comment.type === "HTMLOpen" ||
+    comment.type === "HTMLClose"
+  );
 }
 
 const exportDeclarationTypes = new Set([
@@ -682,37 +700,13 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {ObjectTypeProperty} node
- */
-function getFlowVariance(node) {
-  if (!node.variance) {
-    return null;
-  }
-
-  // Babel 7.0 currently uses variance node type, and flow should
-  // follow suit soon:
-  // https://github.com/babel/babel/issues/4722
-  const variance = node.variance.kind || node.variance;
-
-  switch (variance) {
-    case "plus":
-      return "+";
-    case "minus":
-      return "-";
-    default:
-      /* istanbul ignore next */
-      return variance;
-  }
-}
-
-/**
  * @param {FastPath} path
  * @returns {boolean}
  */
 function classPropMayCauseASIProblems(path) {
   const node = path.getNode();
 
-  if (node.type !== "ClassProperty") {
+  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
     return false;
   }
 
@@ -749,6 +743,7 @@ function classChildNeedsASIProtection(node) {
   }
   switch (node.type) {
     case "ClassProperty":
+    case "FieldDefinition":
     case "TSAbstractClassProperty":
       return node.computed;
     case "MethodDefinition": // Flow
@@ -992,7 +987,9 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
-        (options.parser === "babel" || options.parser === "espree")))
+        (options.parser === "babel" ||
+          options.parser === "espree" ||
+          options.parser === "meriyah")))
   );
 }
 
@@ -1481,7 +1478,6 @@ function iterateCallArgumentsPath(path, iteratee) {
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  getFlowVariance,
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,
