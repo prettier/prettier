@@ -677,10 +677,8 @@ function printInterfaces(path, options, print) {
   return parts;
 }
 
-function clean(node, newNode /*, parent*/) {
-  delete newNode.loc;
-  delete newNode.comments;
-}
+function clean(/*node, newNode , parent*/) {}
+clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
