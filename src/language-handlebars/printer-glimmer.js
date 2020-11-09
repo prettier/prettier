@@ -143,7 +143,7 @@ function print(path, options, print) {
       // If the text is empty and the value's loc start and end offsets are the
       // same, there is no value for this AttrNode and it should be printed
       // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
-      if (isEmptyText && locStart(n.value) == locEnd(n.value)) {
+      if (isEmptyText && locStart(n.value) === locEnd(n.value)) {
         return concat([n.name]);
       }
       const value = path.call(print, "value");
