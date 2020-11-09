@@ -1,5 +1,5 @@
 "use strict";
-
+const esquery = require("esquery");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -10,7 +10,105 @@ const {
   startsWithNoLookaheadToken,
   shouldFlatten,
   getPrecedence,
+  isPathMatches,
+  isNodeMatchesParsedSelector,
 } = require("./utils");
+
+const selectors = [
+  // SpreadElement
+  "MemberExpression > SpreadElement.object",
+  "MemberExpression > SpreadProperty.object",
+  // UpdateExpression
+  'UnaryExpression[operator="+"] > UpdateExpression.argument[prefix=true][operator="++"]',
+  'UnaryExpression[operator="-"] > UpdateExpression.argument[prefix=true][operator="--"]',
+  // BinaryExpression
+  "UpdateExpression > BinaryExpression",
+  'PipelineTopicExpression > BinaryExpression[operator="|>"]',
+  // YieldExpression
+  "UnaryExpression > YieldExpression",
+  "AwaitExpression > YieldExpression",
+  "TSNonNullExpression > YieldExpression",
+  //
+  "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType).extendsType",
+  "TSConditionalType > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType).checkType",
+  ":matches(TSUnionType, TSIntersectionType) > :matches(TSJSDocFunctionType, TSConditionalType, TSFunctionType, TSConstructorType, TSUnionType, TSIntersectionType)",
+  "NullableTypeAnnotation > ArrayTypeAnnotation",
+  ":matches(ArrayTypeAnnotation, NullableTypeAnnotation, IntersectionTypeAnnotation, UnionTypeAnnotation) > :matches(IntersectionTypeAnnotation, UnionTypeAnnotation)",
+  "ArrayTypeAnnotation > NullableTypeAnnotation",
+  // ConditionalExpression
+  ":matches(TaggedTemplateExpression, UnaryExpression, SpreadElement, SpreadProperty, BinaryExpression, LogicalExpression, NGPipeExpression, ExportDefaultDeclaration, AwaitExpression, JSXSpreadAttribute, TSTypeAssertion, TypeCastExpression, TSAsExpression, TSNonNullExpression) > ConditionalExpression",
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > ConditionalExpression.callee",
+  "ConditionalExpression > ConditionalExpression.test",
+  ":matches(MemberExpression, OptionalMemberExpression) > ConditionalExpression.object",
+  // FunctionExpression
+  // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
+  // Is necessary if it is `expression` of `ExpressionStatement`.
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > FunctionExpression.callee",
+  // This is basically a kind of IIFE.
+  "TaggedTemplateExpression > FunctionExpression",
+  // Add parens around the extends clause of a class. It is needed for almost
+  // all expressions.
+  ':matches(ClassDeclaration, ClassExpression) > :matches(ArrowFunctionExpression, AssignmentExpression, AwaitExpression, BinaryExpression, ConditionalExpression, LogicalExpression, NewExpression, ObjectExpression, ParenthesizedExpression, SequenceExpression, TaggedTemplateExpression, UnaryExpression, UpdateExpression, YieldExpression").superClass',
+  // "UpdateExpression" / "UnaryExpression":
+  'UnaryExpression[operator="+"] > :matches(UpdateExpression, UnaryExpression)[operator="+"]',
+  'UnaryExpression[operator="-"] > :matches(UpdateExpression, UnaryExpression)[operator="-"]',
+  "BindExpression > :matches(UpdateExpression, UnaryExpression)",
+  ":matches(MemberExpression, OptionalMemberExpression) > :matches(UpdateExpression, UnaryExpression).object",
+  "TaggedTemplateExpression > :matches(UpdateExpression, UnaryExpression)",
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > :matches(UpdateExpression, UnaryExpression).callee",
+  'BinaryExpression[operator="**"] > :matches(UpdateExpression, UnaryExpression).left',
+  "TSNonNullExpression > :matches(UpdateExpression, UnaryExpression)",
+  "ConditionalExpression > TSAsExpression",
+  ":matches(CallExpression, NewExpression, OptionalCallExpression) > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).callee",
+  ":matches(ClassExpression, ClassDeclaration) > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).superClass",
+  "TSTypeAssertion > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "TaggedTemplateExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "UnaryExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "JSXSpreadAttribute > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "SpreadElement > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "SpreadProperty > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "BindExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "AwaitExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "TSAsExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "TSNonNullExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "UpdateExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression)",
+  "MemberExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).object",
+  "OptionalMemberExpression > :matches(BinaryExpression, TSTypeAssertion, TSAsExpression, LogicalExpression).object",
+  "AssignmentExpression > :matches(TSTypeAssertion, TSAsExpression).left",
+  "TaggedTemplateExpression > :matches(YieldExpression, AwaitExpression)",
+  "UnaryExpression > :matches(YieldExpression, AwaitExpression)",
+  "LogicalExpression > :matches(YieldExpression, AwaitExpression)",
+  "SpreadElement > :matches(YieldExpression, AwaitExpression)",
+  "SpreadProperty > :matches(YieldExpression, AwaitExpression)",
+  "TSAsExpression > :matches(YieldExpression, AwaitExpression)",
+  "TSNonNullExpression > :matches(YieldExpression, AwaitExpression)",
+  "BindExpression > :matches(YieldExpression, AwaitExpression)",
+  "MemberExpression > :matches(YieldExpression, AwaitExpression).object",
+  "OptionalMemberExpression > :matches(YieldExpression, AwaitExpression).object",
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > :matches(YieldExpression, AwaitExpression).callee",
+  "OptionalMemberExpression > :matches(YieldExpression, AwaitExpression).test",
+
+  ":matches(NewExpression, CallExpression, OptionalCallExpression) > ArrowFunctionExpression.callee",
+  ":matches(MemberExpression, OptionalMemberExpression) > ArrowFunctionExpression.object",
+  "TSAsExpression > ArrowFunctionExpression",
+  "BindExpression > ArrowFunctionExpression",
+  "TaggedTemplateExpression > ArrowFunctionExpression",
+  "UnaryExpression > ArrowFunctionExpression",
+  "LogicalExpression > ArrowFunctionExpression",
+  "AwaitExpression > ArrowFunctionExpression",
+  "TSTypeAssertion > ArrowFunctionExpression",
+  "ConditionalExpression > ArrowFunctionExpression.test",
+
+  "NewExpression > ClassExpression.callee",
+
+  ":matches(JSXFragment, JSXElement).callee",
+  "BinaryExpression > :matches(JSXFragment, JSXElement).left",
+  ":not(ArrayExpression, ArrowFunctionExpression, AssignmentExpression, AssignmentPattern, BinaryExpression, CallExpression, NewExpression, ConditionalExpression, ExpressionStatement, JsExpressionRoot, JSXAttribute, JSXElement, JSXExpressionContainer, JSXFragment, LogicalExpression, ObjectProperty, OptionalCallExpression, Property, ReturnStatement, ThrowStatement, TypeCastExpression, VariableDeclarator) > :matches(JSXFragment, JSXElement)",
+];
+
+const needsParenthesisesSelector = esquery.parse(
+  `:matches(${selectors.join(", ")})`
+);
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -66,31 +164,6 @@ function needsParens(path, options) {
   switch (parent.type) {
     case "ParenthesizedExpression":
       return false;
-    case "ClassDeclaration":
-    case "ClassExpression": {
-      // Add parens around the extends clause of a class. It is needed for almost
-      // all expressions.
-      if (
-        name === "superClass" &&
-        (node.type === "ArrowFunctionExpression" ||
-          node.type === "AssignmentExpression" ||
-          node.type === "AwaitExpression" ||
-          node.type === "BinaryExpression" ||
-          node.type === "ConditionalExpression" ||
-          node.type === "LogicalExpression" ||
-          node.type === "NewExpression" ||
-          node.type === "ObjectExpression" ||
-          node.type === "ParenthesizedExpression" ||
-          node.type === "SequenceExpression" ||
-          node.type === "TaggedTemplateExpression" ||
-          node.type === "UnaryExpression" ||
-          node.type === "UpdateExpression" ||
-          node.type === "YieldExpression")
-      ) {
-        return true;
-      }
-      break;
-    }
     case "ExportDefaultDeclaration": {
       return (
         // `export default function` or `export default class` can't be followed by
@@ -158,61 +231,15 @@ function needsParens(path, options) {
     }
   }
 
+  if (
+    node.type &&
+    esquery.matches(node, needsParenthesisesSelector, [path.getParentNode()])
+  ) {
+    return true;
+  }
+
   switch (node.type) {
-    case "SpreadElement":
-    case "SpreadProperty":
-      return name === "object" && parent.type === "MemberExpression";
-
-    case "UpdateExpression":
-      if (parent.type === "UnaryExpression") {
-        return (
-          node.prefix &&
-          ((node.operator === "++" && parent.operator === "+") ||
-            (node.operator === "--" && parent.operator === "-"))
-        );
-      }
-    // else fallthrough
-    case "UnaryExpression":
-      switch (parent.type) {
-        case "UnaryExpression":
-          return (
-            node.operator === parent.operator &&
-            (node.operator === "+" || node.operator === "-")
-          );
-
-        case "BindExpression":
-          return true;
-
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        case "TaggedTemplateExpression":
-          return true;
-
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
-
-        case "BinaryExpression":
-          return name === "left" && parent.operator === "**";
-
-        case "TSNonNullExpression":
-          return true;
-
-        default:
-          return false;
-      }
-
     case "BinaryExpression": {
-      if (
-        parent.type === "UpdateExpression" ||
-        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
-      ) {
-        return true;
-      }
-
       // We add parentheses to any `a in b` inside `ForStatement` initializer
       // https://github.com/prettier/prettier/issues/907#issuecomment-284304321
       if (node.operator === "in" && isPathInForStatementInitializer(path)) {
@@ -233,41 +260,6 @@ function needsParens(path, options) {
     case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
-        case "ConditionalExpression":
-          return node.type === "TSAsExpression";
-
-        case "CallExpression":
-        case "NewExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
-
-        case "ClassExpression":
-        case "ClassDeclaration":
-          return name === "superClass";
-
-        case "TSTypeAssertion":
-        case "TaggedTemplateExpression":
-        case "UnaryExpression":
-        case "JSXSpreadAttribute":
-        case "SpreadElement":
-        case "SpreadProperty":
-        case "BindExpression":
-        case "AwaitExpression":
-        case "TSAsExpression":
-        case "TSNonNullExpression":
-        case "UpdateExpression":
-          return true;
-
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        case "AssignmentExpression":
-          return (
-            name === "left" &&
-            (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
-          );
-
         case "LogicalExpression":
           if (node.type === "LogicalExpression") {
             return parent.operator !== node.operator;
@@ -343,39 +335,8 @@ function needsParens(path, options) {
       }
 
     case "YieldExpression":
-      if (
-        parent.type === "UnaryExpression" ||
-        parent.type === "AwaitExpression" ||
-        parent.type === "TSAsExpression" ||
-        parent.type === "TSNonNullExpression"
-      ) {
-        return true;
-      }
-    // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
-        case "TaggedTemplateExpression":
-        case "UnaryExpression":
-        case "LogicalExpression":
-        case "SpreadElement":
-        case "SpreadProperty":
-        case "TSAsExpression":
-        case "TSNonNullExpression":
-        case "BindExpression":
-          return true;
-
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
-
-        case "ConditionalExpression":
-          return name === "test";
-
         case "BinaryExpression": {
           if (!node.argument && parent.operator === "|>") {
             return false;
@@ -389,25 +350,10 @@ function needsParens(path, options) {
 
     case "TSJSDocFunctionType":
     case "TSConditionalType":
-      if (name === "extendsType" && parent.type === "TSConditionalType") {
-        return true;
-      }
-    // fallthrough
     case "TSFunctionType":
     case "TSConstructorType":
-      if (name === "checkType" && parent.type === "TSConditionalType") {
-        return true;
-      }
-    // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
-      if (
-        parent.type === "TSUnionType" ||
-        parent.type === "TSIntersectionType"
-      ) {
-        return true;
-      }
-    // fallthrough
     case "TSInferType":
       if (node.type === "TSInferType" && parent.type === "TSRestType") {
         return false;
@@ -423,22 +369,6 @@ function needsParens(path, options) {
         (parent.type === "TSTypeAnnotation" &&
           /^TSJSDoc/.test(path.getParentNode(1).type))
       );
-
-    case "ArrayTypeAnnotation":
-      return parent.type === "NullableTypeAnnotation";
-
-    case "IntersectionTypeAnnotation":
-    case "UnionTypeAnnotation":
-      return (
-        parent.type === "ArrayTypeAnnotation" ||
-        parent.type === "NullableTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation" ||
-        parent.type === "UnionTypeAnnotation"
-      );
-
-    case "NullableTypeAnnotation":
-      return parent.type === "ArrayTypeAnnotation";
-
     case "FunctionTypeAnnotation": {
       const ancestor =
         parent.type === "NullableTypeAnnotation"
@@ -530,53 +460,6 @@ function needsParens(path, options) {
       }
       return true;
     }
-    case "ConditionalExpression":
-      switch (parent.type) {
-        case "TaggedTemplateExpression":
-        case "UnaryExpression":
-        case "SpreadElement":
-        case "SpreadProperty":
-        case "BinaryExpression":
-        case "LogicalExpression":
-        case "NGPipeExpression":
-        case "ExportDefaultDeclaration":
-        case "AwaitExpression":
-        case "JSXSpreadAttribute":
-        case "TSTypeAssertion":
-        case "TypeCastExpression":
-        case "TSAsExpression":
-        case "TSNonNullExpression":
-          return true;
-
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
-
-        case "ConditionalExpression":
-          return name === "test";
-
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        default:
-          return false;
-      }
-
-    case "FunctionExpression":
-      switch (parent.type) {
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
-          // Is necessary if it is `expression` of `ExpressionStatement`.
-          return name === "callee";
-        case "TaggedTemplateExpression":
-          return true; // This is basically a kind of IIFE.
-        default:
-          return false;
-      }
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
@@ -587,35 +470,7 @@ function needsParens(path, options) {
           return (
             parent.operator !== "|>" || (node.extra && node.extra.parenthesized)
           );
-        case "NewExpression":
-        case "CallExpression":
-        case "OptionalCallExpression":
-          return name === "callee";
 
-        case "MemberExpression":
-        case "OptionalMemberExpression":
-          return name === "object";
-
-        case "TSAsExpression":
-        case "BindExpression":
-        case "TaggedTemplateExpression":
-        case "UnaryExpression":
-        case "LogicalExpression":
-        case "AwaitExpression":
-        case "TSTypeAssertion":
-          return true;
-
-        case "ConditionalExpression":
-          return name === "test";
-
-        default:
-          return false;
-      }
-
-    case "ClassExpression":
-      switch (parent.type) {
-        case "NewExpression":
-          return name === "callee";
         default:
           return false;
       }
@@ -697,36 +552,7 @@ function needsParens(path, options) {
         return false;
       }
       return true;
-    case "JSXFragment":
-    case "JSXElement":
-      return (
-        name === "callee" ||
-        (name === "left" &&
-          parent.type === "BinaryExpression" &&
-          parent.operator === "<") ||
-        (parent.type !== "ArrayExpression" &&
-          parent.type !== "ArrowFunctionExpression" &&
-          parent.type !== "AssignmentExpression" &&
-          parent.type !== "AssignmentPattern" &&
-          parent.type !== "BinaryExpression" &&
-          parent.type !== "CallExpression" &&
-          parent.type !== "NewExpression" &&
-          parent.type !== "ConditionalExpression" &&
-          parent.type !== "ExpressionStatement" &&
-          parent.type !== "JsExpressionRoot" &&
-          parent.type !== "JSXAttribute" &&
-          parent.type !== "JSXElement" &&
-          parent.type !== "JSXExpressionContainer" &&
-          parent.type !== "JSXFragment" &&
-          parent.type !== "LogicalExpression" &&
-          parent.type !== "ObjectProperty" &&
-          parent.type !== "OptionalCallExpression" &&
-          parent.type !== "Property" &&
-          parent.type !== "ReturnStatement" &&
-          parent.type !== "ThrowStatement" &&
-          parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
-      );
+
     case "TypeAnnotation":
       return (
         name === "returnType" &&

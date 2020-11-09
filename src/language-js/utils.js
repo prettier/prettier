@@ -1,5 +1,5 @@
 "use strict";
-
+const esquery = require("esquery");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const {
   getLast,
@@ -1448,6 +1448,23 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
 }
 
+function isPathMatches(path, selector, depth = Number.Infinity) {
+  const node = path.getValue();
+  const ancestry = [];
+  for (let level = 0; level < depth; level++) {
+    const ancestor = path.getParentNode(level);
+    if (!ancestor) {
+      break;
+    }
+    ancestry.unshift(ancestor);
+  }
+  return esquery.matches(node, esquery.parse(selector), ancestry);
+}
+
+function isNodeMatchesParsedSelector(node, selector, ancestry) {
+  return esquery.matches(node, selector, ancestry);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1495,6 +1512,8 @@ module.exports = {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
+  isPathMatches,
+  isNodeMatchesParsedSelector,
   isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
