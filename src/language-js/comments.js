@@ -73,13 +73,13 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
 }
 
 function addBlockStatementFirstComment(node, comment) {
-  const body = (node.body || node.properties).filter(
-    (n) => n.type !== "EmptyStatement"
+  const firstNonEmptyNode = (node.body || node.properties).find(
+    ({ type }) => type !== "EmptyStatement"
   );
-  if (body.length === 0) {
-    addDanglingComment(node, comment);
+  if (firstNonEmptyNode) {
+    addLeadingComment(firstNonEmptyNode, comment);
   } else {
-    addLeadingComment(body[0], comment);
+    addDanglingComment(node, comment);
   }
 }
 
