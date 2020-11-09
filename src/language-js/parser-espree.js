@@ -35,17 +35,16 @@ function parse(originalText, parsers, options) {
   } catch (moduleError) {
     try {
       ast = parse(text, { ...espreeOptions, sourceType: "script" });
-    } catch (scriptError) {
+    } catch (_) {
       // throw the error for `module` parsing
+      const { message, lineNumber, column } = moduleError;
 
       /* istanbul ignore next */
-      if (typeof moduleError.lineNumber !== "number") {
+      if (typeof lineNumber !== "number") {
         throw moduleError;
       }
 
-      throw createError(moduleError.message, {
-        start: { line: moduleError.lineNumber, column: moduleError.column },
-      });
+      throw createError(message, { start: { line: lineNumber, column } });
     }
   }
 

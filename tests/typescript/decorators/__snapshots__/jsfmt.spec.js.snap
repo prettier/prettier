@@ -389,12 +389,22 @@ class Bar {
 }
 
 class MyContainerComponent {
-  @ContentChildren(MyComponent) components: QueryListSomeBigName<
-    MyComponentThat
-  >;
+  @ContentChildren(MyComponent)
+  components: QueryListSomeBigName<MyComponentThat>;
 }
 
 ================================================================================
+`;
+
+exports[`interface.ts [babel-ts] format 1`] = `
+"Leading decorators must be attached to a class declaration (4:1)
+  2 | 
+  3 | @hello()
+> 4 | interface MyInterface {
+    | ^
+  5 |   id: string;
+  6 | }
+  7 | "
 `;
 
 exports[`interface.ts format 1`] = `

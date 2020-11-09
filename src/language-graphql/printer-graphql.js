@@ -26,7 +26,7 @@ function genericPrint(path, options, print) {
   switch (n.kind) {
     case "Document": {
       const parts = [];
-      path.map((pathChild, index) => {
+      path.each((pathChild, index) => {
         parts.push(concat([pathChild.call(print)]));
         if (index !== n.definitions.length - 1) {
           parts.push(hardline);
@@ -677,10 +677,8 @@ function printInterfaces(path, options, print) {
   return parts;
 }
 
-function clean(node, newNode /*, parent*/) {
-  delete newNode.loc;
-  delete newNode.comments;
-}
+function clean(/*node, newNode , parent*/) {}
+clean.ignoredProperties = new Set(["loc", "comments"]);
 
 module.exports = {
   print: genericPrint,
