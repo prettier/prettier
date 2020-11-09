@@ -86,16 +86,13 @@ function hasStringOrFunction(groupList) {
   return false;
 }
 
-function isSCSS(parser, text) {
-  const hasExplicitParserChoice = parser === "less" || parser === "scss";
-  const IS_POSSIBLY_SCSS = /(\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
-  return hasExplicitParserChoice
-    ? parser === "scss"
-    : IS_POSSIBLY_SCSS.test(text);
-}
-
-function isSCSSVariable(node) {
-  return !!(node && node.type === "word" && node.value.startsWith("$"));
+function isSCSSVariable(node, options) {
+  return (
+    options.parser === "scss" &&
+    node &&
+    node.type === "word" &&
+    node.value.startsWith("$")
+  );
 }
 
 function isWideKeywords(value) {
@@ -256,14 +253,19 @@ function isRelationalOperatorNode(node) {
   );
 }
 
-function isSCSSControlDirectiveNode(node) {
+function isSCSSControlDirectiveNode(node, options) {
   return (
+    options.parser === "scss" &&
     node.type === "css-atrule" &&
     ["if", "else", "for", "each", "while"].includes(node.name)
   );
 }
 
-function isSCSSNestedPropertyNode(node) {
+function isSCSSNestedPropertyNode(node, options) {
+  if (options.parser !== "scss") {
+    return false;
+  }
+
   /* istanbul ignore next */
   if (!node.selector) {
     return false;
@@ -341,7 +343,11 @@ function isKeyValuePairInParenGroupNode(node) {
   );
 }
 
-function isSCSSMapItemNode(path) {
+function isSCSSMapItemNode(path, options) {
+  if (options.parser !== "scss") {
+    return false;
+  }
+
   const node = path.getValue();
 
   // Ignore empty item (i.e. `$key: ()`)
@@ -415,11 +421,6 @@ function isColorAdjusterFuncNode(node) {
   return colorAdjusterFunctions.has(node.value.toLowerCase());
 }
 
-// TODO: only check `less` when we don't use `less` to parse `css`
-function isLessParser(options) {
-  return options.parser === "css" || options.parser === "less";
-}
-
 function lastLineHasInlineComment(text) {
   return /\/\//.test(text.split(/[\n\r]/).pop());
 }
@@ -474,10 +475,8 @@ module.exports = {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
-  isSCSS,
   isSCSSVariable,
   isLastNode,
-  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
