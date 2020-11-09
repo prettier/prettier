@@ -21,7 +21,8 @@ function postprocess(ast, options) {
   if (
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
-    options.parser !== "espree"
+    options.parser !== "espree" &&
+    options.parser !== "meriyah"
   ) {
     const startOffsetsOfTypeCastedNodes = new Set();
 
@@ -40,9 +41,16 @@ function postprocess(ast, options) {
 
     ast = visitNode(ast, (node) => {
       if (node.type === "ParenthesizedExpression") {
+        const { expression } = node;
+
+        // Align range with `flow`
+        if (expression.type === "TypeCastExpression") {
+          expression.range = node.range;
+          return expression;
+        }
+
         const start = locStart(node);
         if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          const { expression } = node;
           if (!expression.extra) {
             expression.extra = {};
           }

@@ -2,7 +2,9 @@
 
 module.exports = {
   rules: {
-    "require-json-extensions": require("./require-json-extensions"),
     "better-parent-property-check-in-needs-parens": require("./better-parent-property-check-in-needs-parens"),
+    "directly-loc-start-end": require("./directly-loc-start-end"),
+    "prefer-fast-path-each": require("./prefer-fast-path-each"),
+    "require-json-extensions": require("./require-json-extensions"),
   },
 };
