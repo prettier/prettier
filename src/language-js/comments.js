@@ -26,7 +26,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
     handleImportSpecifierComments(comment) ||
     handleForComments(comment) ||
     handleUnionTypeComments(comment) ||
-    handleOnlyComments(ast, comment, isLastComment) ||
+    handleOnlyComments(comment, ast, isLastComment) ||
     handleImportDeclarationComments(comment, text) ||
     handleAssignmentPatternComments(comment) ||
     handleMethodNameComments(comment, text) ||
@@ -37,7 +37,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
 function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
   return (
     handleClosureTypeCastComments(comment) ||
-    handleLastFunctionArgComments(text, comment, options) ||
+    handleLastFunctionArgComments(comment, text) ||
     handleConditionalExpressionComments(comment, text) ||
     handleImportSpecifierComments(comment) ||
     handleIfStatementComments(comment, text) ||
@@ -47,7 +47,7 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handleLabeledStatementComments(comment) ||
     handleCallExpressionComments(comment) ||
     handlePropertyComments(comment) ||
-    handleOnlyComments(ast, comment, isLastComment) ||
+    handleOnlyComments(comment, ast, isLastComment) ||
     handleTypeAliasComments(comment) ||
     handleVariableDeclaratorComments(comment)
   );
@@ -60,7 +60,7 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
     handleObjectPropertyAssignment(comment) ||
     handleCommentInEmptyParens(comment, text) ||
     handleMethodNameComments(comment, text) ||
-    handleOnlyComments(ast, comment, isLastComment) ||
+    handleOnlyComments(comment, ast, isLastComment) ||
     handleCommentAfterArrowParams(comment, text) ||
     handleFunctionNameComments(comment, text) ||
     handleTSMappedTypeComments(comment, text) ||
@@ -621,7 +621,7 @@ function handlePropertyComments(comment) {
   return false;
 }
 
-function handleOnlyComments(ast, comment, isLastComment) {
+function handleOnlyComments(comment, ast, isLastComment) {
   const { enclosingNode } = comment;
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast && ast.body && ast.body.length === 0) {
