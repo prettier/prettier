@@ -63,7 +63,7 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
     handleOnlyComments(comment, ast, isLastComment) ||
     handleCommentAfterArrowParams(comment, text) ||
     handleFunctionNameComments(comment, text) ||
-    handleTSMappedTypeComments(comment, text) ||
+    handleTSMappedTypeComments(comment) ||
     handleBreakAndContinueStatementComments(comment) ||
     handleTSFunctionTrailingComments(comment, text)
   ) {
@@ -729,7 +729,7 @@ function handleTSFunctionTrailingComments(comment, text) {
   return false;
 }
 
-function handleTSMappedTypeComments(comment, text) {
+function handleTSMappedTypeComments(comment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
     return false;
