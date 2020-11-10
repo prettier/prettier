@@ -203,20 +203,26 @@ function printNode(node, parentNode, path, options, print) {
         ...path.map(print, "endComments"),
       ]);
     case "documentBody": {
-      const children = join(hardline, path.map(print, "children")).parts;
-      const endComments = join(hardline, path.map(print, "endComments")).parts;
-      const separator =
-        children.length === 0 || endComments.length === 0
-          ? ""
-          : ((lastDescendantNode) =>
-              isNode(lastDescendantNode, ["blockFolded", "blockLiteral"])
-                ? lastDescendantNode.chomping === "keep"
-                  ? // there's already a newline printed at the end of blockValue (chomping=keep, lastDescendant=true)
-                    ""
-                  : // an extra newline for better readability
-                    concat([hardline, hardline])
-                : hardline)(getLastDescendantNode(node));
-      return concat([].concat(children, separator, endComments));
+      const { children, endComments } = node;
+      let separator = "";
+      if (children.length !== 0 && endComments.length !== 0) {
+        const lastDescendantNode = getLastDescendantNode(node);
+        // there's already a newline printed at the end of blockValue (chomping=keep, lastDescendant=true)
+        if (isNode(lastDescendantNode, ["blockFolded", "blockLiteral"])) {
+          // an extra newline for better readability
+          if (lastDescendantNode.chomping !== "keep") {
+            separator = concat([hardline, hardline]);
+          }
+        } else {
+          separator = hardline;
+        }
+      }
+
+      return concat([
+        ...join(hardline, path.map(print, "children")).parts,
+        separator,
+        ...join(hardline, path.map(print, "endComments")).parts,
+      ]);
     }
     case "directive":
       return concat(["%", join(" ", [node.name].concat(node.parameters))]);
