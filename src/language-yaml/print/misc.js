@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { softline },
+  builders: { softline, align },
 } = require("../../document");
 
 const { hasEndComments, isNextLineEmpty, isNode } = require("../utils");
@@ -38,4 +38,14 @@ function shouldPrintEndComments(node) {
   );
 }
 
-module.exports = { printNextEmptyLine, shouldPrintEndComments };
+function alignWithSpaces(n, doc) {
+  return typeof n === "number" && n > 0
+    ? align(" ".repeat(n), doc)
+    : align(n, doc);
+}
+
+module.exports = {
+  alignWithSpaces,
+  shouldPrintEndComments,
+  printNextEmptyLine,
+};

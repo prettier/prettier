@@ -327,11 +327,31 @@ function getBlockValueLineContents(
   }
 }
 
+function isInlineNode(node) {
+  /* istanbul ignore next */
+  if (!node) {
+    return true;
+  }
+
+  switch (node.type) {
+    case "plain":
+    case "quoteDouble":
+    case "quoteSingle":
+    case "alias":
+    case "flowMapping":
+    case "flowSequence":
+      return true;
+    default:
+      return false;
+  }
+}
+
 module.exports = {
   getLast,
   getAncestorCount,
   isNode,
   isEmptyNode,
+  isInlineNode,
   mapNode,
   defineShortcut,
   isNextLineEmpty,
