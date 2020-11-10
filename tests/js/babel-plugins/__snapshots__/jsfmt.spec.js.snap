@@ -1052,17 +1052,19 @@ obj.a.b &&= c;
 `;
 
 exports[`module-string-names.js [espree] format 1`] = `
-"Unexpected token \\"😄\\" (1:19)
-> 1 | export { smile as \\"😄\\" } from \\"./emojis.js\\";
-    |                   ^
-  2 | "
+"Unexpected token \\"😄\\" (1:10)
+> 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";
+    |          ^
+  2 | export { smile as \\"😄\\" } from \\"./emojis.js\\";
+  3 | "
 `;
 
 exports[`module-string-names.js [meriyah] format 1`] = `
-"[1:22]: Only a identifier can be used to indicate alias (1:22)
-> 1 | export { smile as \\"😄\\" } from \\"./emojis.js\\";
-    |                      ^
-  2 | "
+"[1:13]: Expected '}' (1:13)
+> 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";
+    |             ^
+  2 | export { smile as \\"😄\\" } from \\"./emojis.js\\";
+  3 | "
 `;
 
 exports[`module-string-names.js format 1`] = `
@@ -1071,9 +1073,11 @@ parsers: ["babel", "babel-ts", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+import { "😄" as smile } from "./emojis.js";
 export { smile as "😄" } from "./emojis.js";
 
 =====================================output=====================================
+import { "😄" as smile } from "./emojis.js";
 export { smile as "😄" } from "./emojis.js";
 
 ================================================================================

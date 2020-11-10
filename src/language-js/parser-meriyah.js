@@ -45,6 +45,8 @@ function parseWithOptions(text, module) {
   const { parse } = require("meriyah");
   const comments = [];
   const tokens = [];
+
+  /** @type {any} */
   const ast = parse(text, {
     ...parseOptions,
     module,

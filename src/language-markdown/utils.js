@@ -1,6 +1,7 @@
 "use strict";
 
 const { getLast } = require("../common/util");
+const { locStart, locEnd } = require("./loc");
 const {
   cjkPattern,
   kPattern,
@@ -221,15 +222,15 @@ function mapAst(ast, handler) {
   })(ast, null, null);
 }
 
-function isAutolink(node, options) {
+function isAutolink(node) {
   if (!node || node.type !== "link" || node.children.length !== 1) {
     return false;
   }
   const child = node.children[0];
   return (
     child &&
-    options.locStart(node) === options.locStart(child) &&
-    options.locEnd(node) === options.locEnd(child)
+    locStart(node) === locStart(child) &&
+    locEnd(node) === locEnd(child)
   );
 }
 

@@ -14,8 +14,6 @@ const {
   getStringWidth,
   printString,
   printNumber,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
   getIndentSize,
   getPreferredQuote,
   isNextLineEmpty,
@@ -70,6 +68,8 @@ const {
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
+  hasNodeIgnoreComment,
+  hasIgnoreComment,
   identity,
   isBinaryish,
   isCallOrOptionalCallExpression,
@@ -119,7 +119,11 @@ const {
   printMemberLookup,
   printBindExpressionCallee,
 } = require("./print/misc");
-const { printModuleSource, printModuleSpecifiers } = require("./print/module");
+const {
+  printModuleSource,
+  printModuleSpecifiers,
+  printImportAssertions,
+} = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
 const {
   printFunctionParameters,
@@ -846,7 +850,11 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" as ", path.call(print, "exported"));
       }
 
-      parts.push(printModuleSource(path, options, print), semi);
+      parts.push(
+        printModuleSource(path, options, print),
+        printImportAssertions(path, options, print),
+        semi
+      );
 
       return concat(parts);
 
@@ -876,13 +884,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ", path.call(print, "source"));
       }
 
-      if (Array.isArray(n.assertions) && n.assertions.length !== 0) {
-        parts.push(
-          " assert { ",
-          join(", ", path.map(print, "assertions")),
-          " }"
-        );
-      }
+      parts.push(printImportAssertions(path, options, print));
 
       parts.push(semi);
 
@@ -4003,6 +4005,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(decl.exportKind === "type" ? "type " : "");
     parts.push(printModuleSpecifiers(path, options, print));
     parts.push(printModuleSource(path, options, print));
+    parts.push(printImportAssertions(path, options, print));
     parts.push(semi);
   }
 
