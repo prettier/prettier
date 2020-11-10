@@ -2,34 +2,25 @@
 
 const {
   builders: {
-    align,
-    conditionalGroup,
     breakParent,
     concat,
-    dedent,
-    dedentToRoot,
     fill,
     group,
     hardline,
-    ifBreak,
     join,
     line,
     lineSuffix,
     literalline,
-    markAsRoot,
   },
 } = require("../document");
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
 const { locStart } = require("./loc");
 const {
-  getAncestorCount,
-  getBlockValueLineContents,
   getFlowScalarLineContents,
   getLastDescendantNode,
   hasLeadingComments,
   hasMiddleComments,
-  hasIndicatorComment,
   hasTrailingComment,
   hasEndComments,
   hasPrettierIgnore,
@@ -49,6 +40,7 @@ const {
   printFlowSequence,
 } = require("./print/flow-mapping-sequence");
 const printMappingItem = require("./print/mapping-item");
+const printBlock = require("./print/block");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -339,48 +331,7 @@ function printNode(node, parentNode, path, options, print) {
     }
     case "blockFolded":
     case "blockLiteral": {
-      const parentIndent = getAncestorCount(path, (ancestorNode) =>
-        isNode(ancestorNode, ["sequence", "mapping"])
-      );
-      const isLastDescendant = isLastDescendantNode(path);
-      return concat([
-        node.type === "blockFolded" ? ">" : "|",
-        node.indent === null ? "" : node.indent.toString(),
-        node.chomping === "clip" ? "" : node.chomping === "keep" ? "+" : "-",
-        hasIndicatorComment(node)
-          ? concat([" ", path.call(print, "indicatorComment")])
-          : "",
-        (node.indent === null ? dedent : dedentToRoot)(
-          alignWithSpaces(
-            node.indent === null
-              ? options.tabWidth
-              : node.indent - 1 + parentIndent,
-            concat(
-              getBlockValueLineContents(node, {
-                parentIndent,
-                isLastDescendant,
-                options,
-              }).reduce(
-                (reduced, lineWords, index, lineContents) =>
-                  reduced.concat(
-                    index === 0 ? hardline : "",
-                    fill(join(line, lineWords).parts),
-                    index !== lineContents.length - 1
-                      ? lineWords.length === 0
-                        ? hardline
-                        : markAsRoot(literalline)
-                      : node.chomping === "keep" && isLastDescendant
-                      ? lineWords.length === 0
-                        ? dedentToRoot(hardline)
-                        : dedentToRoot(literalline)
-                      : ""
-                  ),
-                []
-              )
-            )
-          )
-        ),
-      ]);
+      return printBlock(path, print, options);
     }
     case "sequence":
       return join(hardline, path.map(print, "children"));
