@@ -36,6 +36,20 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
+// For typescript-estree 4.x breaking change
+// https://github.com/prettier/prettier/pull/9119#issuecomment-684410127
+function recoverInvalidDecorators(originalText, formattedText) {
+  const originalTextAtSignCount = (originalText.match(/@/g) || []).length;
+  if (originalTextAtSignCount === 0) {
+    return formattedText;
+  }
+  const formattedTextAtSignCount = (formattedText.match(/@/g) || []).length;
+  if (originalTextAtSignCount > formattedTextAtSignCount) {
+    return originalText;
+  }
+  return formattedText;
+}
+
 function coreFormat(originalText, opts, addAlignmentSize) {
   if (!originalText || !originalText.trim().length) {
     return { formatted: "", cursorOffset: -1 };
@@ -67,6 +81,10 @@ function coreFormat(originalText, opts, addAlignmentSize) {
     }
 
     result.formatted = trimmed + convertEndOfLineToChars(opts.endOfLine);
+  }
+
+  if (opts.parser === "typescript") {
+    result.formatted = recoverInvalidDecorators(originalText, result.formatted);
   }
 
   if (opts.cursorOffset >= 0) {
