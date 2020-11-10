@@ -1,5 +1,7 @@
 "use strict";
 
+/** @typedef {import("../document").Doc} Doc */
+
 const {
   builders: {
     breakParent,
@@ -204,6 +206,7 @@ function printNode(node, parentNode, path, options, print) {
       ]);
     case "documentBody": {
       const { children, endComments } = node;
+      /** @type {Doc} */
       let separator = "";
       if (children.length !== 0 && endComments.length !== 0) {
         const lastDescendantNode = getLastDescendantNode(node);
@@ -219,9 +222,9 @@ function printNode(node, parentNode, path, options, print) {
       }
 
       return concat([
-        ...join(hardline, path.map(print, "children")).parts,
+        join(hardline, path.map(print, "children")),
         separator,
-        ...join(hardline, path.map(print, "endComments")).parts,
+        join(hardline, path.map(print, "endComments")),
       ]);
     }
     case "directive":
