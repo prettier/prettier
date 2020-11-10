@@ -45,12 +45,28 @@ const printBlock = require("./print/block");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
-  const parentNode = path.getParentNode();
+  const parts = [];
 
-  const tag = !node.tag ? "" : path.call(print, "tag");
-  const anchor = !node.anchor ? "" : path.call(print, "anchor");
+  if (node.type !== "mappingValue" && hasLeadingComments(node)) {
+    parts.push(
+      concat([join(hardline, path.map(print, "leadingComments")), hardline])
+    );
+  }
 
-  const nextEmptyLine =
+  const { tag, anchor } = node;
+  if (tag) {
+    parts.push(path.call(print, "tag"));
+  }
+  if (tag && anchor) {
+    parts.push(" ");
+  }
+  if (anchor) {
+    parts.push(path.call(print, "anchor"));
+  }
+
+  let nextEmptyLine = "";
+
+  if (
     isNode(node, [
       "mapping",
       "sequence",
@@ -58,79 +74,91 @@ function genericPrint(path, options, print) {
       "directive",
       "mappingItem",
       "sequenceItem",
-    ]) && !isLastDescendantNode(path)
-      ? printNextEmptyLine(path, options.originalText)
-      : "";
+    ]) &&
+    !isLastDescendantNode(path)
+  ) {
+    nextEmptyLine = printNextEmptyLine(path, options.originalText);
+  }
 
-  return concat([
-    node.type !== "mappingValue" && hasLeadingComments(node)
-      ? concat([join(hardline, path.map(print, "leadingComments")), hardline])
-      : "",
-    tag,
-    tag && anchor ? " " : "",
-    anchor,
-    tag || anchor
-      ? isNode(node, ["sequence", "mapping"]) && !hasMiddleComments(node)
-        ? hardline
-        : " "
-      : "",
-    hasMiddleComments(node)
-      ? concat([
-          node.middleComments.length === 1 ? "" : hardline,
-          join(hardline, path.map(print, "middleComments")),
-          hardline,
+  if (tag || anchor) {
+    if (isNode(node, ["sequence", "mapping"]) && !hasMiddleComments(node)) {
+      parts.push(hardline);
+    } else {
+      parts.push(" ");
+    }
+  }
+
+  if (hasMiddleComments(node)) {
+    parts.push(
+      concat([
+        node.middleComments.length === 1 ? "" : hardline,
+        join(hardline, path.map(print, "middleComments")),
+        hardline,
+      ])
+    );
+  }
+
+  const parentNode = path.getParentNode();
+  if (hasPrettierIgnore(path)) {
+    parts.push(
+      concat(
+        replaceEndOfLineWith(
+          options.originalText
+            .slice(node.position.start.offset, node.position.end.offset)
+            .trimEnd(),
+          literalline
+        )
+      )
+    );
+  } else {
+    parts.push(group(printNode(node, parentNode, path, options, print)));
+  }
+
+  if (hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])) {
+    parts.push(
+      lineSuffix(
+        concat([
+          node.type === "mappingValue" && !node.content ? "" : " ",
+          parentNode.type === "mappingKey" &&
+          path.getParentNode(2).type === "mapping" &&
+          isInlineNode(node)
+            ? ""
+            : breakParent,
+          path.call(print, "trailingComment"),
         ])
-      : "",
-    hasPrettierIgnore(path)
-      ? concat(
-          replaceEndOfLineWith(
-            options.originalText
-              .slice(node.position.start.offset, node.position.end.offset)
-              .trimEnd(),
-            literalline
-          )
-        )
-      : group(printNode(node, parentNode, path, options, print)),
-    hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])
-      ? lineSuffix(
-          concat([
-            node.type === "mappingValue" && !node.content ? "" : " ",
-            parentNode.type === "mappingKey" &&
-            path.getParentNode(2).type === "mapping" &&
-            isInlineNode(node)
-              ? ""
-              : breakParent,
-            path.call(print, "trailingComment"),
-          ])
-        )
-      : "",
-    shouldPrintEndComments(node)
-      ? alignWithSpaces(
-          node.type === "sequenceItem" ? 2 : 0,
-          concat([
+      )
+    );
+  }
+
+  if (shouldPrintEndComments(node)) {
+    parts.push(
+      alignWithSpaces(
+        node.type === "sequenceItem" ? 2 : 0,
+        concat([
+          hardline,
+          join(
             hardline,
-            join(
-              hardline,
-              path.map(
-                (path) =>
-                  concat([
-                    isPreviousLineEmpty(
-                      options.originalText,
-                      path.getValue(),
-                      locStart
-                    )
-                      ? hardline
-                      : "",
-                    print(path),
-                  ]),
-                "endComments"
-              )
-            ),
-          ])
-        )
-      : "",
-    nextEmptyLine,
-  ]);
+            path.map(
+              (path) =>
+                concat([
+                  isPreviousLineEmpty(
+                    options.originalText,
+                    path.getValue(),
+                    locStart
+                  )
+                    ? hardline
+                    : "",
+                  print(path),
+                ]),
+              "endComments"
+            )
+          ),
+        ])
+      )
+    );
+  }
+  parts.push(nextEmptyLine);
+  return concat(parts);
 }
 
 function printNode(node, parentNode, path, options, print) {
