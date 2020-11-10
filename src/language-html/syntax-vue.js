@@ -63,12 +63,12 @@ function parseVueFor(value) {
   };
 }
 
-function printVueArguments(value, textToDoc) {
+function printVueBindings(value, textToDoc) {
   return textToDoc(
     `function _(${value}) {}`,
     {
       parser: "babel",
-      __isVueArguments: true,
+      __isVueBindings: true,
     },
     { stripTrailingHardline: true }
   );
@@ -90,5 +90,5 @@ function isVueEventBindingExpression(eventBindingValue) {
 module.exports = {
   isVueEventBindingExpression,
   printVueFor,
-  printVueArguments,
+  printVueBindings,
 };

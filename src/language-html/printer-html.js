@@ -50,7 +50,7 @@ const preprocess = require("./preprocess");
 const { insertPragma } = require("./pragma");
 const {
   printVueFor,
-  printVueArguments,
+  printVueBindings,
   isVueEventBindingExpression,
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
@@ -1086,7 +1086,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingAttribute(node, options)) {
-      return printVueArguments(getValue(), textToDoc);
+      return printVueBindings(getValue(), textToDoc);
     }
 
     /**
