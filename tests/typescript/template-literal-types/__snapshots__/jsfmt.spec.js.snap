@@ -1,14 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`template-literal-types.ts [typescript] format 1`] = `
-"Type expected. (1:8)
-> 1 | let x: \`foo-\${infer bar}\`;
-    |        ^
-  2 | type HelloWorld = \`\${Hello}, \${World}\`
-  3 | type SeussFish = \`\${Quantity | Color} fish\`;
-  4 | declare function setAlignment(value: \`\${VerticalAlignment}-\${HorizontalAlignment}\`): void;"
-`;
-
 exports[`template-literal-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts", "typescript"]
