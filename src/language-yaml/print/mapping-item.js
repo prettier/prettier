@@ -24,37 +24,45 @@ const {
 const { alignWithSpaces } = require("./misc");
 
 function printMappingItem(node, parentNode, path, print, options) {
-  const isEmptyMappingKey = isEmptyNode(node.key);
-  const isEmptyMappingValue = isEmptyNode(node.value);
-  const indentWithSpaces = (doc) => align(" ".repeat(options.tabWidth), doc);
+  const { key, value } = node;
+
+  const isEmptyMappingKey = isEmptyNode(key);
+  const isEmptyMappingValue = isEmptyNode(value);
 
   if (isEmptyMappingKey && isEmptyMappingValue) {
     return concat([": "]);
   }
 
-  const key = path.call(print, "key");
-  const value = path.call(print, "value");
+  const printedKey = path.call(print, "key");
+  const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
-    return node.type === "flowMappingItem" && parentNode.type === "flowMapping"
-      ? key
-      : node.type === "mappingItem" &&
-        isAbsolutelyPrintedAsSingleLineNode(node.key.content, options) &&
-        !hasTrailingComment(node.key.content) &&
-        (!parentNode.tag || parentNode.tag.value !== "tag:yaml.org,2002:set")
-      ? concat([key, needsSpaceInFrontOfMappingValue(node) ? " " : "", ":"])
-      : concat(["? ", alignWithSpaces(2, key)]);
+    if (node.type === "flowMappingItem" && parentNode.type === "flowMapping") {
+      return printedKey;
+    }
+
+    if (
+      node.type === "mappingItem" &&
+      isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
+      !hasTrailingComment(key.content) &&
+      (!parentNode.tag || parentNode.tag.value !== "tag:yaml.org,2002:set")
+    ) {
+      return concat([printedKey, spaceBeforeColon, ":"]);
+    }
+
+    return concat(["? ", alignWithSpaces(2, printedKey)]);
   }
 
+  const printedValue = path.call(print, "value");
   if (isEmptyMappingKey) {
-    return concat([": ", alignWithSpaces(2, value)]);
+    return concat([": ", alignWithSpaces(2, printedValue)]);
   }
 
   // force explicit Key
-  if (hasLeadingComments(node.value) || !isInlineNode(node.key.content)) {
+  if (hasLeadingComments(value) || !isInlineNode(key.content)) {
     return concat([
       "? ",
-      alignWithSpaces(2, key),
+      alignWithSpaces(2, printedKey),
       hardline,
       join(
         "",
@@ -63,62 +71,55 @@ function printMappingItem(node, parentNode, path, print, options) {
           .map((comment) => concat([comment, hardline]))
       ),
       ": ",
-      alignWithSpaces(2, value),
+      alignWithSpaces(2, printedValue),
     ]);
   }
 
   // force singleline
   if (
-    isSingleLineNode(node.key.content) &&
-    !hasLeadingComments(node.key.content) &&
-    !hasMiddleComments(node.key.content) &&
-    !hasTrailingComment(node.key.content) &&
-    !hasEndComments(node.key) &&
-    !hasLeadingComments(node.value.content) &&
-    !hasMiddleComments(node.value.content) &&
-    !hasEndComments(node.value) &&
-    isAbsolutelyPrintedAsSingleLineNode(node.value.content, options)
+    isSingleLineNode(key.content) &&
+    !hasLeadingComments(key.content) &&
+    !hasMiddleComments(key.content) &&
+    !hasTrailingComment(key.content) &&
+    !hasEndComments(key) &&
+    !hasLeadingComments(value.content) &&
+    !hasMiddleComments(value.content) &&
+    !hasEndComments(value) &&
+    isAbsolutelyPrintedAsSingleLineNode(value.content, options)
   ) {
-    return concat([
-      key,
-      needsSpaceInFrontOfMappingValue(node) ? " " : "",
-      ": ",
-      value,
-    ]);
+    return concat([printedKey, spaceBeforeColon, ": ", printedValue]);
   }
 
   const groupId = Symbol("mappingKey");
-  return conditionalGroup([
+  const groupedKey = group(
     concat([
-      group(
-        concat([ifBreak("? "), group(alignWithSpaces(2, key), { id: groupId })])
-      ),
-      ifBreak(
-        concat([hardline, ": ", alignWithSpaces(2, value)]),
-        indentWithSpaces(
-          concat([
-            needsSpaceInFrontOfMappingValue(node) ? " " : "",
-            ":",
-            hasLeadingComments(node.value.content) ||
-            (hasEndComments(node.value) &&
-              node.value.content &&
-              !isNode(node.value.content, ["mapping", "sequence"])) ||
-            (parentNode.type === "mapping" &&
-              hasTrailingComment(node.key.content) &&
-              isInlineNode(node.value.content)) ||
-            (isNode(node.value.content, ["mapping", "sequence"]) &&
-              node.value.content.tag === null &&
-              node.value.content.anchor === null)
-              ? hardline
-              : !node.value.content
-              ? ""
-              : line,
-            value,
-          ])
-        ),
-        { groupId }
-      ),
-    ]),
+      ifBreak("? "),
+      group(alignWithSpaces(2, printedKey), { id: groupId }),
+    ])
+  );
+  const breakValue = concat([hardline, ": ", alignWithSpaces(2, printedValue)]);
+  const flatValueParts = [spaceBeforeColon, ":"];
+  if (
+    hasLeadingComments(value.content) ||
+    (hasEndComments(value) &&
+      value.content &&
+      !isNode(value.content, ["mapping", "sequence"])) ||
+    (parentNode.type === "mapping" &&
+      hasTrailingComment(key.content) &&
+      isInlineNode(value.content)) ||
+    (isNode(value.content, ["mapping", "sequence"]) &&
+      value.content.tag === null &&
+      value.content.anchor === null)
+  ) {
+    flatValueParts.push(hardline);
+  } else if (value.content) {
+    flatValueParts.push(line);
+  }
+  flatValueParts.push(printedValue);
+  const flatValue = align(" ".repeat(options.tabWidth), concat(flatValueParts));
+
+  return conditionalGroup([
+    concat([groupedKey, ifBreak(breakValue, flatValue, { groupId })]),
   ]);
 }
 
