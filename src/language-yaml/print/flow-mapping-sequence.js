@@ -1,10 +1,10 @@
 "use strict";
 
 const {
-  builders: { align, concat, ifBreak, line, softline },
+  builders: { concat, ifBreak, line, softline },
 } = require("../../document");
 const { isEmptyNode, getLast } = require("../utils");
-const { printNextEmptyLine } = require("./misc");
+const { printNextEmptyLine, alignWithSpaces } = require("./misc");
 
 function printFlowMapping(path, print, options) {
   const node = path.getValue();
@@ -15,8 +15,8 @@ function printFlowMapping(path, print, options) {
     lastItem && isEmptyNode(lastItem.key) && isEmptyNode(lastItem.value);
   return concat([
     "{",
-    align(
-      " ".repeat(options.tabWidth),
+    alignWithSpaces(
+      options.tabWidth,
       concat([
         bracketSpacing,
         printChildren(path, print, options),
@@ -31,8 +31,8 @@ function printFlowMapping(path, print, options) {
 function printFlowSequence(path, print, options) {
   return concat([
     "[",
-    align(
-      " ".repeat(options.tabWidth),
+    alignWithSpaces(
+      options.tabWidth,
       concat([softline, printChildren(path, print, options), ifBreak(",", "")])
     ),
     softline,

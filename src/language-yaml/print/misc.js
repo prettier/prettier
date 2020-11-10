@@ -39,9 +39,7 @@ function shouldPrintEndComments(node) {
 }
 
 function alignWithSpaces(n, doc) {
-  return typeof n === "number" && n > 0
-    ? align(" ".repeat(n), doc)
-    : align(n, doc);
+  return align(" ".repeat(n), doc);
 }
 
 module.exports = {

@@ -35,7 +35,6 @@ const {
   hasPrettierIgnore,
   isLastDescendantNode,
   isNode,
-  isEmptyNode,
   isInlineNode,
   defineShortcut,
   mapNode,

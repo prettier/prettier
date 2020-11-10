@@ -119,7 +119,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     flatValueParts.push(line);
   }
   flatValueParts.push(printedValue);
-  const flatValue = align(" ".repeat(options.tabWidth), concat(flatValueParts));
+  const flatValue = alignWithSpaces(options.tabWidth, concat(flatValueParts));
 
   return conditionalGroup([
     concat([groupedKey, ifBreak(breakValue, flatValue, { groupId })]),
