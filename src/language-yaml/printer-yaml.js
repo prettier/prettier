@@ -27,9 +27,8 @@ const {
   isLastDescendantNode,
   isNode,
   isInlineNode,
-  defineShortcut,
-  mapNode,
 } = require("./utils");
+const preprocess = require("./printer-preprocess");
 const {
   alignWithSpaces,
   printNextEmptyLine,
@@ -41,32 +40,6 @@ const {
 } = require("./print/flow-mapping-sequence");
 const printMappingItem = require("./print/mapping-item");
 const printBlock = require("./print/block");
-
-function preprocess(ast) {
-  return mapNode(ast, defineShortcuts);
-}
-
-function defineShortcuts(node) {
-  switch (node.type) {
-    case "document":
-      defineShortcut(node, "head", () => node.children[0]);
-      defineShortcut(node, "body", () => node.children[1]);
-      break;
-    case "documentBody":
-    case "sequenceItem":
-    case "flowSequenceItem":
-    case "mappingKey":
-    case "mappingValue":
-      defineShortcut(node, "content", () => node.children[0]);
-      break;
-    case "mappingItem":
-    case "flowMappingItem":
-      defineShortcut(node, "key", () => node.children[0]);
-      defineShortcut(node, "value", () => node.children[1]);
-      break;
-  }
-  return node;
-}
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
