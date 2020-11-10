@@ -225,10 +225,10 @@ function printNode(node, parentNode, path, options, print) {
       );
     }
     case "documentHead":
-      return join(
-        hardline,
-        [].concat(path.map(print, "children"), path.map(print, "endComments"))
-      );
+      return join(hardline, [
+        ...path.map(print, "children"),
+        ...path.map(print, "endComments"),
+      ]);
     case "documentBody": {
       const children = join(hardline, path.map(print, "children")).parts;
       const endComments = join(hardline, path.map(print, "endComments")).parts;
