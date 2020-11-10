@@ -1,15 +1,8 @@
 "use strict";
 
 const {
-  concat,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  join,
-  line,
-  softline,
-} = require("../document").builders;
+  builders: { concat, group, hardline, ifBreak, indent, join, line, softline },
+} = require("../document");
 const locationToOffset = require("../utils/line-column-to-index");
 
 const clean = require("./clean");
