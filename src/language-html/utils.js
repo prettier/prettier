@@ -647,7 +647,7 @@ function isVueSlotAttribute(attribute) {
   );
 }
 
-function isVueSfcBindingAttribute(attribute, options) {
+function isVueSfcBindingsAttribute(attribute, options) {
   const element = attribute.parent;
   if (!isVueSfcBlock(element, options)) {
     return false;
@@ -687,7 +687,7 @@ module.exports = {
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isVueSlotAttribute,
-  isVueSfcBindingAttribute,
+  isVueSfcBindingsAttribute,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,

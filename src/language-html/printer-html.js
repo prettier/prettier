@@ -37,7 +37,7 @@ const {
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isVueSlotAttribute,
-  isVueSfcBindingAttribute,
+  isVueSfcBindingsAttribute,
   isScriptLikeTag,
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
@@ -1085,7 +1085,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (isVueSlotAttribute(node) || isVueSfcBindingAttribute(node, options)) {
+    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
       return printVueBindings(getValue(), textToDoc);
     }
 
