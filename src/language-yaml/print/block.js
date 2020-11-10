@@ -1,4 +1,7 @@
 "use strict";
+
+/** @typedef {import("../../document").Doc} Doc */
+
 const {
   builders: {
     concat,
@@ -27,6 +30,7 @@ function printBlock(path, print, options) {
     isNode(ancestorNode, ["sequence", "mapping"])
   );
   const isLastDescendant = isLastDescendantNode(path);
+  /** @type {Doc[]} */
   const parts = [node.type === "blockFolded" ? ">" : "|"];
   if (node.indent !== null) {
     parts.push(node.indent.toString());
@@ -45,6 +49,7 @@ function printBlock(path, print, options) {
     isLastDescendant,
     options,
   });
+  /** @type {Doc[]} */
   const contentsParts = [];
   for (const [index, lineWords] of lineContents.entries()) {
     if (index === 0) {

@@ -3,16 +3,7 @@
 /** @typedef {import("../../document").Doc} Doc */
 
 const {
-  builders: {
-    align,
-    conditionalGroup,
-    concat,
-    group,
-    hardline,
-    ifBreak,
-    join,
-    line,
-  },
+  builders: { conditionalGroup, concat, group, hardline, ifBreak, join, line },
 } = require("../../document");
 const {
   hasLeadingComments,
