@@ -3,7 +3,6 @@
 const {
   printNumber,
   printString,
-  hasIgnoreComment,
   hasNewline,
   isFrontMatterNode,
   isNextLineEmpty,
@@ -1062,6 +1061,5 @@ module.exports = {
   print: genericPrint,
   embed,
   insertPragma,
-  hasPrettierIgnore: hasIgnoreComment,
   massageAstNode: clean,
 };

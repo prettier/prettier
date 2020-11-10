@@ -5,8 +5,6 @@ const {
   getLast,
   hasNewline,
   hasNewlineInRange,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
 const { locStart, locEnd, hasSameLocStart } = require("./loc");
@@ -843,8 +841,8 @@ function hasJsxIgnoreComment(path) {
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
-    prevSibling.expression.comments.some(
-      (comment) => comment.value.trim() === "prettier-ignore"
+    prevSibling.expression.comments.some((comment) =>
+      isPrettierIgnoreComment(comment)
     )
   );
 }
@@ -1448,6 +1446,27 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
 }
 
+function isPrettierIgnoreComment(comment) {
+  return comment.value.trim() === "prettier-ignore";
+}
+
+function hasNodeIgnoreComment(node) {
+  return (
+    node &&
+    ((node.comments &&
+      node.comments.length > 0 &&
+      node.comments.some(
+        (comment) => isPrettierIgnoreComment(comment) && !comment.unignore
+      )) ||
+      node.prettierIgnore)
+  );
+}
+
+function hasIgnoreComment(path) {
+  const node = path.getValue();
+  return hasNodeIgnoreComment(node);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1469,10 +1488,13 @@ module.exports = {
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
+  hasIgnoreComment,
+  hasNodeIgnoreComment,
   identity,
   isBinaryish,
   isBlockComment,
   isLineComment,
+  isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,

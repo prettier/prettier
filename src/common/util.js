@@ -557,23 +557,6 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-function hasIgnoreComment(path) {
-  const node = path.getValue();
-  return hasNodeIgnoreComment(node);
-}
-
-function hasNodeIgnoreComment(node) {
-  return (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
-      )) ||
-      node.prettierIgnore)
-  );
-}
-
 function isNodeIgnoreComment(comment) {
   return comment.value.trim() === "prettier-ignore";
 }
@@ -683,8 +666,6 @@ module.exports = {
   getPreferredQuote,
   printString,
   printNumber,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
   isNodeIgnoreComment,
   makeString,
   addLeadingComment,
