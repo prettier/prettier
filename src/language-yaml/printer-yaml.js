@@ -1,23 +1,25 @@
 "use strict";
 
-const docBuilders = require("../document").builders;
 const {
-  conditionalGroup,
-  breakParent,
-  concat,
-  dedent,
-  dedentToRoot,
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  join,
-  line,
-  lineSuffix,
-  literalline,
-  markAsRoot,
-  softline,
-} = docBuilders;
+  builders: {
+    align,
+    conditionalGroup,
+    breakParent,
+    concat,
+    dedent,
+    dedentToRoot,
+    fill,
+    group,
+    hardline,
+    ifBreak,
+    join,
+    line,
+    lineSuffix,
+    literalline,
+    markAsRoot,
+    softline,
+  },
+} = require("../document");
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
 const { locStart } = require("./loc");
@@ -114,7 +116,7 @@ function genericPrint(path, options, print) {
             literalline
           )
         )
-      : group(_print(node, parentNode, path, options, print)),
+      : group(printNode(node, parentNode, path, options, print)),
     hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])
       ? lineSuffix(
           concat([
@@ -129,7 +131,7 @@ function genericPrint(path, options, print) {
         )
       : "",
     shouldPrintEndComments(node)
-      ? align(
+      ? alignWithSpaces(
           node.type === "sequenceItem" ? 2 : 0,
           concat([
             hardline,
@@ -157,7 +159,8 @@ function genericPrint(path, options, print) {
   ]);
 }
 
-function _print(node, parentNode, path, options, print) {
+function printNode(node, parentNode, path, options, print) {
+  const indentWithSpaces = (doc) => align(" ".repeat(options.tabWidth), doc);
   switch (node.type) {
     case "root":
       return concat([
@@ -342,7 +345,7 @@ function _print(node, parentNode, path, options, print) {
           ? concat([" ", path.call(print, "indicatorComment")])
           : "",
         (node.indent === null ? dedent : dedentToRoot)(
-          align(
+          alignWithSpaces(
             node.indent === null
               ? options.tabWidth
               : node.indent - 1 + parentIndent,
@@ -378,7 +381,7 @@ function _print(node, parentNode, path, options, print) {
     case "sequenceItem":
       return concat([
         "- ",
-        align(2, !node.content ? "" : path.call(print, "content")),
+        alignWithSpaces(2, !node.content ? "" : path.call(print, "content")),
       ]);
     case "mappingKey":
       return !node.content ? "" : path.call(print, "content");
@@ -408,11 +411,11 @@ function _print(node, parentNode, path, options, print) {
             (!parentNode.tag ||
               parentNode.tag.value !== "tag:yaml.org,2002:set")
           ? concat([key, needsSpaceInFrontOfMappingValue(node) ? " " : "", ":"])
-          : concat(["? ", align(2, key)]);
+          : concat(["? ", alignWithSpaces(2, key)]);
       }
 
       if (isEmptyMappingKey) {
-        return concat([": ", align(2, value)]);
+        return concat([": ", alignWithSpaces(2, value)]);
       }
 
       const groupId = Symbol("mappingKey");
@@ -423,7 +426,7 @@ function _print(node, parentNode, path, options, print) {
       return forceExplicitKey
         ? concat([
             "? ",
-            align(2, key),
+            alignWithSpaces(2, key),
             hardline,
             join(
               "",
@@ -432,7 +435,7 @@ function _print(node, parentNode, path, options, print) {
                 .map((comment) => concat([comment, hardline]))
             ),
             ": ",
-            align(2, value),
+            alignWithSpaces(2, value),
           ])
         : // force singleline
         isSingleLineNode(node.key.content) &&
@@ -453,11 +456,14 @@ function _print(node, parentNode, path, options, print) {
         : conditionalGroup([
             concat([
               group(
-                concat([ifBreak("? "), group(align(2, key), { id: groupId })])
+                concat([
+                  ifBreak("? "),
+                  group(alignWithSpaces(2, key), { id: groupId }),
+                ])
               ),
               ifBreak(
-                concat([hardline, ": ", align(2, value)]),
-                indent(
+                concat([hardline, ": ", alignWithSpaces(2, value)]),
+                indentWithSpaces(
                   concat([
                     needsSpaceInFrontOfMappingValue(node) ? " " : "",
                     ":",
@@ -501,7 +507,7 @@ function _print(node, parentNode, path, options, print) {
           isEmptyNode(lastItem.value))(getLast(node.children));
       return concat([
         openMarker,
-        indent(
+        indentWithSpaces(
           concat([
             bracketSpacing,
             concat(
@@ -539,16 +545,12 @@ function _print(node, parentNode, path, options, print) {
     default:
       throw new Error(`Unexpected node type ${node.type}`);
   }
-
-  function indent(doc) {
-    return docBuilders.align(" ".repeat(options.tabWidth), doc);
-  }
 }
 
-function align(n, doc) {
+function alignWithSpaces(n, doc) {
   return typeof n === "number" && n > 0
-    ? docBuilders.align(" ".repeat(n), doc)
-    : docBuilders.align(n, doc);
+    ? align(" ".repeat(n), doc)
+    : align(n, doc);
 }
 
 function isInlineNode(node) {
