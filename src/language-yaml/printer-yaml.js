@@ -17,7 +17,6 @@ const {
     lineSuffix,
     literalline,
     markAsRoot,
-    softline,
   },
 } = require("../document");
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
@@ -27,7 +26,6 @@ const {
   getAncestorCount,
   getBlockValueLineContents,
   getFlowScalarLineContents,
-  getLast,
   getLastDescendantNode,
   hasLeadingComments,
   hasMiddleComments,
@@ -36,12 +34,16 @@ const {
   hasEndComments,
   hasPrettierIgnore,
   isLastDescendantNode,
-  isNextLineEmpty,
   isNode,
   isEmptyNode,
   defineShortcut,
   mapNode,
 } = require("./utils");
+const { printNextEmptyLine, shouldPrintEndComments } = require("./print/misc");
+const {
+  printFlowMapping,
+  printFlowSequence,
+} = require("./print/flow-mapping-sequence");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -490,55 +492,9 @@ function printNode(node, parentNode, path, options, print) {
           ]);
     }
     case "flowMapping":
-    case "flowSequence": {
-      const openMarker = node.type === "flowMapping" ? "{" : "[";
-      const closeMarker = node.type === "flowMapping" ? "}" : "]";
-      const bracketSpacing =
-        node.type === "flowMapping" &&
-        node.children.length !== 0 &&
-        options.bracketSpacing
-          ? line
-          : softline;
-      const isLastItemEmptyMappingItem =
-        node.children.length !== 0 &&
-        ((lastItem) =>
-          lastItem.type === "flowMappingItem" &&
-          isEmptyNode(lastItem.key) &&
-          isEmptyNode(lastItem.value))(getLast(node.children));
-      return concat([
-        openMarker,
-        indentWithSpaces(
-          concat([
-            bracketSpacing,
-            concat(
-              path.map(
-                (childPath, index) =>
-                  concat([
-                    print(childPath),
-                    index === node.children.length - 1
-                      ? ""
-                      : concat([
-                          ",",
-                          line,
-                          node.children[index].position.start.line !==
-                          node.children[index + 1].position.start.line
-                            ? printNextEmptyLine(
-                                childPath,
-                                options.originalText
-                              )
-                            : "",
-                        ]),
-                  ]),
-                "children"
-              )
-            ),
-            ifBreak(",", ""),
-          ])
-        ),
-        isLastItemEmptyMappingItem ? "" : bracketSpacing,
-        closeMarker,
-      ]);
-    }
+      return printFlowMapping(path, print, options);
+    case "flowSequence":
+      return printFlowSequence(path, print, options);
     case "flowSequenceItem":
       return path.call(print, "content");
     // istanbul ignore next
@@ -701,38 +657,6 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
 function needsSpaceInFrontOfMappingValue(node) {
   return node.key.content && node.key.content.type === "alias";
-}
-
-function shouldPrintEndComments(node) {
-  return (
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
-  );
-}
-
-const printedEmptyLineCache = new WeakMap();
-function printNextEmptyLine(path, originalText) {
-  const node = path.getValue();
-  const root = path.stack[0];
-
-  let isNextEmptyLinePrintedSet;
-  if (printedEmptyLineCache.has(root)) {
-    isNextEmptyLinePrintedSet = printedEmptyLineCache.get(root);
-  } else {
-    isNextEmptyLinePrintedSet = new Set();
-    printedEmptyLineCache.set(root, isNextEmptyLinePrintedSet);
-  }
-
-  if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
-    isNextEmptyLinePrintedSet.add(node.position.end.line);
-    if (
-      isNextLineEmpty(node, originalText) &&
-      !shouldPrintEndComments(path.getParentNode())
-    ) {
-      return softline;
-    }
-  }
-
-  return "";
 }
 
 function printFlowScalarContent(nodeType, content, options) {
