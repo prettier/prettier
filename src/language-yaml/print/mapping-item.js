@@ -1,5 +1,7 @@
 "use strict";
 
+/** @typedef {import("../../document").Doc} Doc */
+
 const {
   builders: {
     align,
@@ -98,6 +100,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     ])
   );
   const breakValue = concat([hardline, ": ", alignWithSpaces(2, printedValue)]);
+  /** @type {Doc[]} */
   const flatValueParts = [spaceBeforeColon, ":"];
   if (
     hasLeadingComments(value.content) ||
