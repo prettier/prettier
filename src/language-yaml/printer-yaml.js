@@ -20,6 +20,7 @@ const {
 } = docBuilders;
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
+const { locStart } = require("./loc");
 const {
   getAncestorCount,
   getBlockValueLineContents,
@@ -140,7 +141,7 @@ function genericPrint(path, options, print) {
                     isPreviousLineEmpty(
                       options.originalText,
                       path.getValue(),
-                      options.locStart
+                      locStart
                     )
                       ? hardline
                       : "",
@@ -626,10 +627,7 @@ function shouldPrintDocumentHeadEndMarker(
      */
     (root.children[0] === document &&
       /---(\s|$)/.test(
-        options.originalText.slice(
-          options.locStart(document),
-          options.locStart(document) + 4
-        )
+        options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
     /**
      * %DIRECTIVE

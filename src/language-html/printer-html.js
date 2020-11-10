@@ -46,6 +46,7 @@ const {
 } = require("./utils");
 const preprocess = require("./preprocess");
 const { insertPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 const {
   printVueFor,
   printVueSlotScope,
@@ -407,10 +408,7 @@ function genericPrint(path, options, print) {
         printOpeningTagPrefix(node, options),
         concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              options.locStart(node),
-              options.locEnd(node)
-            ),
+            options.originalText.slice(locStart(node), locEnd(node)),
             literalline
           )
         ),
@@ -563,12 +561,12 @@ function printChildren(path, options, print) {
           printOpeningTagPrefix(child, options),
           replaceEndOfLineWith(
             options.originalText.slice(
-              options.locStart(child) +
+              locStart(child) +
                 (child.prev &&
                 needsToBorrowNextOpeningTagStartMarker(child.prev)
                   ? printOpeningTagStartMarker(child).length
                   : 0),
-              options.locEnd(child) -
+              locEnd(child) -
                 (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
                   ? printClosingTagEndMarker(child, options).length
                   : 0)
@@ -698,10 +696,7 @@ function printAttributes(path, options, print) {
     return hasPrettierIgnoreAttribute(attribute)
       ? concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              options.locStart(attribute),
-              options.locEnd(attribute)
-            ),
+            options.originalText.slice(locStart(attribute), locEnd(attribute)),
             literalline
           )
         )

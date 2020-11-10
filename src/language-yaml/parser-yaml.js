@@ -2,6 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 
 function parse(text) {
   try {
@@ -30,13 +31,8 @@ const parser = {
   astFormat: "yaml",
   parse,
   hasPragma,
-  locStart(node) {
-    return node.position.start.offset;
-  },
-  /* istanbul ignore next */
-  locEnd(node) {
-    return node.position.end.offset;
-  },
+  locStart,
+  locEnd,
 };
 
 module.exports = {

@@ -25,10 +25,12 @@ const {
   utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
-const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
+const { replaceEndOfLineWith } = require("../common/util");
 const embed = require("./embed");
-const pragma = require("./pragma");
+const { insertPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 const preprocess = require("./preprocess");
+const clean = require("./clean");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -111,7 +113,7 @@ function genericPrint(path, options, print) {
       const isFirstSentence = (node, name, index) =>
         node.type === "sentence" && index === 0;
       const isLastChildAutolink = (node, name, index) =>
-        isAutolink(node.children[index - 1], options);
+        isAutolink(node.children[index - 1]);
 
       if (
         escapedValue !== node.value &&
@@ -146,7 +148,7 @@ function genericPrint(path, options, print) {
     }
     case "emphasis": {
       let style;
-      if (isAutolink(node.children[0], options)) {
+      if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
         const parentNode = path.getParentNode();
@@ -462,10 +464,7 @@ function genericPrint(path, options, print) {
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
-      return options.originalText.slice(
-        options.locStart(node),
-        options.locEnd(node)
-      );
+      return options.originalText.slice(locStart(node), locEnd(node));
     }
 
     case "tableRow": // handled in "table"
@@ -935,74 +934,6 @@ function clamp(value, min, max) {
   return value < min ? min : value > max ? max : value;
 }
 
-function clean(ast, newObj, parent) {
-  delete newObj.position;
-  delete newObj.raw; // front-matter
-
-  // for codeblock
-  if (
-    ast.type === "front-matter" ||
-    ast.type === "code" ||
-    ast.type === "yaml" ||
-    ast.type === "import" ||
-    ast.type === "export" ||
-    ast.type === "jsx"
-  ) {
-    delete newObj.value;
-  }
-
-  if (ast.type === "list") {
-    delete newObj.isAligned;
-  }
-
-  if (ast.type === "list" || ast.type === "listItem") {
-    delete newObj.spread;
-    delete newObj.loose;
-  }
-
-  // texts can be splitted or merged
-  if (ast.type === "text") {
-    return null;
-  }
-
-  if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
-  }
-
-  if (ast.type === "wikiLink") {
-    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
-  }
-
-  if (ast.type === "definition" || ast.type === "linkReference") {
-    newObj.label = ast.label
-      .trim()
-      .replace(/[\t\n ]+/g, " ")
-      .toLowerCase();
-  }
-
-  if (
-    (ast.type === "definition" ||
-      ast.type === "link" ||
-      ast.type === "image") &&
-    ast.title
-  ) {
-    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
-  }
-
-  // for insert pragma
-  if (
-    parent &&
-    parent.type === "root" &&
-    parent.children.length > 0 &&
-    (parent.children[0] === ast ||
-      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
-    ast.type === "html" &&
-    pragma.startWithPragma(ast.value)
-  ) {
-    return null;
-  }
-}
-
 function hasPrettierIgnore(path) {
   const index = +path.getName();
 
@@ -1020,5 +951,5 @@ module.exports = {
   embed,
   massageAstNode: clean,
   hasPrettierIgnore,
-  insertPragma: pragma.insertPragma,
+  insertPragma,
 };
