@@ -27,44 +27,47 @@ function printBlock(path, print, options) {
     isNode(ancestorNode, ["sequence", "mapping"])
   );
   const isLastDescendant = isLastDescendantNode(path);
-  return concat([
-    node.type === "blockFolded" ? ">" : "|",
-    node.indent === null ? "" : node.indent.toString(),
-    node.chomping === "clip" ? "" : node.chomping === "keep" ? "+" : "-",
-    hasIndicatorComment(node)
-      ? concat([" ", path.call(print, "indicatorComment")])
-      : "",
-    (node.indent === null ? dedent : dedentToRoot)(
-      alignWithSpaces(
-        node.indent === null
-          ? options.tabWidth
-          : node.indent - 1 + parentIndent,
-        concat(
-          getBlockValueLineContents(node, {
-            parentIndent,
-            isLastDescendant,
-            options,
-          }).reduce(
-            (reduced, lineWords, index, lineContents) =>
-              reduced.concat(
-                index === 0 ? hardline : "",
-                fill(join(line, lineWords).parts),
-                index !== lineContents.length - 1
-                  ? lineWords.length === 0
-                    ? hardline
-                    : markAsRoot(literalline)
-                  : node.chomping === "keep" && isLastDescendant
-                  ? lineWords.length === 0
-                    ? dedentToRoot(hardline)
-                    : dedentToRoot(literalline)
-                  : ""
-              ),
-            []
-          )
-        )
-      )
-    ),
-  ]);
+  const parts = [node.type === "blockFolded" ? ">" : "|"];
+  if (node.indent !== null) {
+    parts.push(node.indent.toString());
+  }
+
+  if (node.chomping !== "clip") {
+    parts.push(node.chomping === "keep" ? "+" : "-");
+  }
+
+  if (hasIndicatorComment(node)) {
+    parts.push(concat([" ", path.call(print, "indicatorComment")]));
+  }
+
+  const lineContents = getBlockValueLineContents(node, {
+    parentIndent,
+    isLastDescendant,
+    options,
+  });
+  const contentsParts = [];
+  for (const [index, lineWords] of lineContents.entries()) {
+    if (index === 0) {
+      contentsParts.push(hardline);
+    }
+    contentsParts.push(fill(join(line, lineWords).parts));
+    if (index !== lineContents.length - 1) {
+      contentsParts.push(
+        lineWords.length === 0 ? hardline : markAsRoot(literalline)
+      );
+    } else if (node.chomping === "keep" && isLastDescendant) {
+      contentsParts.push(
+        dedentToRoot(lineWords.length === 0 ? hardline : literalline)
+      );
+    }
+  }
+  const contents = alignWithSpaces(
+    node.indent === null ? options.tabWidth : node.indent - 1 + parentIndent,
+    concat(contentsParts)
+  );
+  parts.push(node.indent === null ? dedent(contents) : dedentToRoot(contents));
+
+  return concat(parts);
 }
 
 module.exports = printBlock;
