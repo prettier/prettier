@@ -41,7 +41,7 @@ const parsers = [
       'typeof process === "undefined" || process.browser': "false",
       'typeof globalThis === "object"': "true",
       // `@typescript-eslint/typescript-estree` v4
-      'require("globby")': '{}',
+      'require("globby")': "{}",
       "extra.projects = prepareAndTransformProjects(": "extra.projects = []; //",
       "process.versions.node": "'999.999.999'",
     },
