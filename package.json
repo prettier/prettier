@@ -99,7 +99,7 @@
     "@types/node": "14.14.0",
     "@typescript-eslint/types": "3.10.1",
     "babel-jest": "26.6.3",
-    "babel-loader": "8.1.0",
+    "babel-loader": "8.2.1",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
     "cross-env": "7.0.2",
