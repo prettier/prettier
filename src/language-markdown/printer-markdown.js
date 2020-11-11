@@ -758,7 +758,7 @@ function printChildren(path, options, print, events) {
 
   let lastChildNode;
 
-  path.each((childPath, index) => {
+  for (const [index, childPath] of path.entries("children")) {
     const childNode = childPath.getValue();
 
     const result = processor(childPath, index);
@@ -797,7 +797,7 @@ function printChildren(path, options, print, events) {
 
       lastChildNode = childNode;
     }
-  }, "children");
+  }
 
   return postprocessor(parts);
 }

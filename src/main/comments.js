@@ -457,7 +457,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
     return "";
   }
 
-  path.each((commentPath) => {
+  for (const commentPath of path.values("comments")) {
     const comment = commentPath.getValue();
     if (
       comment &&
@@ -467,7 +467,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
     ) {
       parts.push(printComment(commentPath, options));
     }
-  }, "comments");
+  }
 
   if (parts.length === 0) {
     return "";
@@ -498,7 +498,7 @@ function printComments(path, print, options, needsSemi) {
   const leadingParts = [];
   const trailingParts = [needsSemi ? ";" : "", printed];
 
-  path.each((commentPath) => {
+  for (const commentPath of path.values("comments")) {
     const comment = commentPath.getValue();
     const { leading, trailing } = comment;
 
@@ -521,7 +521,7 @@ function printComments(path, print, options, needsSemi) {
     } else if (trailing) {
       trailingParts.push(printTrailingComment(commentPath, options));
     }
-  }, "comments");
+  }
 
   return prependCursorPlaceholder(
     path,

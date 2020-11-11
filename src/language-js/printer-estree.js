@@ -176,7 +176,7 @@ function genericPrint(path, options, printPath, args) {
 
     const separator = shouldBreak ? hardline : line;
 
-    path.each((decoratorPath) => {
+    for (const decoratorPath of path.values("decorators")) {
       let decorator = decoratorPath.getValue();
       if (decorator.expression) {
         decorator = decorator.expression;
@@ -185,7 +185,7 @@ function genericPrint(path, options, printPath, args) {
       }
 
       decorators.push(printPath(decoratorPath), separator);
-    }, "decorators");
+    }
 
     if (parentExportDecl) {
       decorators.unshift(hardline);
@@ -202,15 +202,11 @@ function genericPrint(path, options, printPath, args) {
   ) {
     // Export declarations are responsible for printing any decorators
     // that logically apply to node.declaration.
-    path.each(
-      (decoratorPath) => {
-        const decorator = decoratorPath.getValue();
-        const prefix = decorator.type === "Decorator" ? "" : "@";
-        decorators.push(prefix, printPath(decoratorPath), hardline);
-      },
-      "declaration",
-      "decorators"
-    );
+    for (const decoratorPath of path.values("declaration", "decorators")) {
+      const decorator = decoratorPath.getValue();
+      const prefix = decorator.type === "Decorator" ? "" : "@";
+      decorators.push(prefix, printPath(decoratorPath), hardline);
+    }
   } else {
     // Nodes with decorators can't have parentheses, so we can avoid
     // computing pathNeedsParens() except in this case.
@@ -300,7 +296,7 @@ function printPathNoParens(path, options, print, args) {
       // Babel 6
       if (n.directives) {
         const directivesCount = n.directives.length;
-        path.each((childPath, index) => {
+        for (const [index, childPath] of path.entries("directives")) {
           parts.push(print(childPath), semi, hardline);
           if (
             (index < directivesCount - 1 || hasContents) &&
@@ -308,7 +304,7 @@ function printPathNoParens(path, options, print, args) {
           ) {
             parts.push(hardline);
           }
-        }, "directives");
+        }
       }
 
       parts.push(
@@ -936,14 +932,14 @@ function printPathNoParens(path, options, print, args) {
 
       // Babel 6
       if (hasDirectives) {
-        path.each((childPath) => {
+        for (const childPath of path.values("directives")) {
           parts.push(indent(concat([hardline, print(childPath), semi])));
           if (
             isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
           ) {
             parts.push(hardline);
           }
-        }, "directives");
+        }
       }
 
       if (hasContent) {
@@ -1129,14 +1125,14 @@ function printPathNoParens(path, options, print, args) {
       // printing them.
       const propsAndLoc = [];
       fields.forEach((field) => {
-        path.each((childPath) => {
+        for (const childPath of path.values(field)) {
           const node = childPath.getValue();
           propsAndLoc.push({
             node,
             printed: print(childPath),
             loc: locStart(node),
           });
-        }, field);
+        }
       });
 
       let separatorParts = [];
@@ -1432,13 +1428,13 @@ function printPathNoParens(path, options, print, args) {
         // the few places a SequenceExpression appears unparenthesized, we want
         // to indent expressions after the first.
         const parts = [];
-        path.each((p) => {
+        for (const p of path.values("expressions")) {
           if (p.getName() === 0) {
             parts.push(print(p));
           } else {
             parts.push(",", indent(concat([line, print(p)])));
           }
-        }, "expressions");
+        }
         return group(concat(parts));
       }
       return group(
@@ -2255,7 +2251,7 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(lineSuffixBoundary, "`");
 
-      path.each((childPath) => {
+      for (const childPath of path.values("quasis")) {
         const i = childPath.getName();
 
         parts.push(print(childPath));
@@ -2301,7 +2297,7 @@ function printPathNoParens(path, options, print, args) {
 
           parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
         }
-      }, "quasis");
+      }
 
       parts.push("`");
 
@@ -4303,7 +4299,7 @@ function printJSXChildren(
   const n = path.getValue();
   const children = [];
 
-  path.each((childPath, i) => {
+  for (const [i, childPath] of path.entries("children")) {
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
@@ -4341,7 +4337,7 @@ function printJSXChildren(
 
         // This was whitespace only without a new line.
         if (words.length === 0) {
-          return;
+          continue;
         }
 
         words.forEach((word, i) => {
@@ -4411,7 +4407,7 @@ function printJSXChildren(
         children.push(hardline);
       }
     }
-  }, "children");
+  }
 
   return children;
 }
@@ -4985,7 +4981,7 @@ function printArrayItems(path, options, printPath, print) {
   const printedElements = [];
   let separatorParts = [];
 
-  path.each((childPath) => {
+  for (const childPath of path.values(printPath)) {
     printedElements.push(concat(separatorParts));
     printedElements.push(group(print(childPath)));
 
@@ -4996,7 +4992,7 @@ function printArrayItems(path, options, printPath, print) {
     ) {
       separatorParts.push(softline);
     }
-  }, printPath);
+  }
 
   return concat(printedElements);
 }

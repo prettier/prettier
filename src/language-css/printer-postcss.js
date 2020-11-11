@@ -317,13 +317,13 @@ function genericPrint(path, options, print) {
     // postcss-media-query-parser
     case "media-query-list": {
       const parts = [];
-      path.each((childPath) => {
+      for (const childPath of path.values("nodes")) {
         const node = childPath.getValue();
         if (node.type === "media-query" && node.value === "") {
           return;
         }
         parts.push(childPath.call(print));
-      }, "nodes");
+      }
 
       return group(indent(join(line, parts)));
     }
@@ -973,7 +973,7 @@ function genericPrint(path, options, print) {
 function printNodeSequence(path, options, print) {
   const node = path.getValue();
   const parts = [];
-  path.each((pathChild, i) => {
+  for (const [i, pathChild] of path.entries("nodes")) {
     const prevNode = node.nodes[i - 1];
     if (
       prevNode &&
@@ -1010,7 +1010,7 @@ function printNodeSequence(path, options, print) {
         }
       }
     }
-  }, "nodes");
+  }
 
   return concat(parts);
 }
