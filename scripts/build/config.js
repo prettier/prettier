@@ -39,7 +39,8 @@ const parsers = [
       // `typescript/lib/typescript.js` expose extra global objects
       // `TypeScript`, `toolsVersion`, `globalThis`
       'typeof process === "undefined" || process.browser': "false",
-      'typeof globalThis === "object"': "true",
+      'typeof globalThis === "object"': "true",,
+      'process.versions.node': "'0.0.0'",
     },
   },
   {
