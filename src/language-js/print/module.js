@@ -45,7 +45,7 @@ function printModuleSpecifiers(path, options, print) {
           `Unknown specifier type ${JSON.stringify(specifierType)}`
         );
       }
-    };
+    }
 
     parts.push(join(", ", standalonesSpecifiers));
 

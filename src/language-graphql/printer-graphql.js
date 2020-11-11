@@ -37,7 +37,7 @@ function genericPrint(path, options, print) {
             parts.push(hardline);
           }
         }
-      };
+      }
       return concat([concat(parts), hardline]);
     }
     case "OperationDefinition": {

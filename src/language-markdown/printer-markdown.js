@@ -797,7 +797,7 @@ function printChildren(path, options, print, events) {
 
       lastChildNode = childNode;
     }
-  };
+  }
 
   return postprocessor(parts);
 }

@@ -185,7 +185,7 @@ function genericPrint(path, options, printPath, args) {
       }
 
       decorators.push(printPath(decoratorPath), separator);
-    };
+    }
 
     if (parentExportDecl) {
       decorators.unshift(hardline);
@@ -202,12 +202,11 @@ function genericPrint(path, options, printPath, args) {
   ) {
     // Export declarations are responsible for printing any decorators
     // that logically apply to node.declaration.
-    for (const decoratorPath of path.values("declaration",
-      "decorators")) {
-        const decorator = decoratorPath.getValue();
-        const prefix = decorator.type === "Decorator" ? "" : "@";
-        decorators.push(prefix, printPath(decoratorPath), hardline);
-      };
+    for (const decoratorPath of path.values("declaration", "decorators")) {
+      const decorator = decoratorPath.getValue();
+      const prefix = decorator.type === "Decorator" ? "" : "@";
+      decorators.push(prefix, printPath(decoratorPath), hardline);
+    }
   } else {
     // Nodes with decorators can't have parentheses, so we can avoid
     // computing pathNeedsParens() except in this case.
@@ -305,7 +304,7 @@ function printPathNoParens(path, options, print, args) {
           ) {
             parts.push(hardline);
           }
-        };
+        }
       }
 
       parts.push(
@@ -940,7 +939,7 @@ function printPathNoParens(path, options, print, args) {
           ) {
             parts.push(hardline);
           }
-        };
+        }
       }
 
       if (hasContent) {
@@ -1133,7 +1132,7 @@ function printPathNoParens(path, options, print, args) {
             printed: print(childPath),
             loc: locStart(node),
           });
-        };
+        }
       });
 
       let separatorParts = [];
@@ -1435,7 +1434,7 @@ function printPathNoParens(path, options, print, args) {
           } else {
             parts.push(",", indent(concat([line, print(p)])));
           }
-        };
+        }
         return group(concat(parts));
       }
       return group(
@@ -2298,7 +2297,7 @@ function printPathNoParens(path, options, print, args) {
 
           parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
         }
-      };
+      }
 
       parts.push("`");
 
@@ -4408,7 +4407,7 @@ function printJSXChildren(
         children.push(hardline);
       }
     }
-  };
+  }
 
   return children;
 }
@@ -4993,7 +4992,7 @@ function printArrayItems(path, options, printPath, print) {
     ) {
       separatorParts.push(softline);
     }
-  };
+  }
 
   return concat(printedElements);
 }

@@ -323,7 +323,7 @@ function genericPrint(path, options, print) {
           return;
         }
         parts.push(childPath.call(print));
-      };
+      }
 
       return group(indent(join(line, parts)));
     }
@@ -1010,7 +1010,7 @@ function printNodeSequence(path, options, print) {
         }
       }
     }
-  };
+  }
 
   return concat(parts);
 }

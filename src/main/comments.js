@@ -467,7 +467,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
     ) {
       parts.push(printComment(commentPath, options));
     }
-  };
+  }
 
   if (parts.length === 0) {
     return "";
@@ -521,7 +521,7 @@ function printComments(path, print, options, needsSemi) {
     } else if (trailing) {
       trailingParts.push(printTrailingComment(commentPath, options));
     }
-  };
+  }
 
   return prependCursorPlaceholder(
     path,
