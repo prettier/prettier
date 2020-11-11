@@ -27,7 +27,7 @@ function genericPrint(path, options, print) {
   switch (n.kind) {
     case "Document": {
       const parts = [];
-      path.each((pathChild, index) => {
+      for (const [index, pathChild] of path.entries("definitions")) {
         parts.push(concat([pathChild.call(print)]));
         if (index !== n.definitions.length - 1) {
           parts.push(hardline);
@@ -37,7 +37,7 @@ function genericPrint(path, options, print) {
             parts.push(hardline);
           }
         }
-      }, "definitions");
+      };
       return concat([concat(parts), hardline]);
     }
     case "OperationDefinition": {

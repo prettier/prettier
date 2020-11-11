@@ -25,7 +25,7 @@ function printModuleSpecifiers(path, options, print) {
     const standalonesSpecifiers = [];
     const groupedSpecifiers = [];
 
-    path.each((specifierPath) => {
+    for (const specifierPath of path.values("specifiers")) {
       const specifierType = path.getValue().type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
@@ -45,7 +45,7 @@ function printModuleSpecifiers(path, options, print) {
           `Unknown specifier type ${JSON.stringify(specifierType)}`
         );
       }
-    }, "specifiers");
+    };
 
     parts.push(join(", ", standalonesSpecifiers));
 
