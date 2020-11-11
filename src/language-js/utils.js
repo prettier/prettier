@@ -1437,12 +1437,12 @@ function iterateFunctionParametersPath(path, iteratee) {
     path.call(callback, "this");
   }
   if (Array.isArray(node.parameters)) {
-    for (const [index, childPath] of path.entries("parameters")) {
-      callback(childPath, index);
+    for (const childPath of path.values("parameters")) {
+      callback(childPath);
     }
   } else if (Array.isArray(node.params)) {
-    for (const [index, childPath] of path.entries("params")) {
-      callback(childPath, index);
+    for (const childPath of path.values("params")) {
+      callback(childPath);
     }
   }
   if (node.rest) {
