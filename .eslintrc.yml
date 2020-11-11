@@ -14,6 +14,7 @@ settings:
   import/internal-regex: ^linguist-languages/
 rules:
   prettier-internal-rules/require-json-extensions: error
+  prettier-internal-rules/prefer-fast-path-entries-values: error
   curly: error
   dot-notation: error
   eqeqeq:
