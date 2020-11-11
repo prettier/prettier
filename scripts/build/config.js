@@ -43,7 +43,7 @@ const parsers = [
       // `@typescript-eslint/typescript-estree` v4
       'require("globby")': "{}",
       "extra.projects = prepareAndTransformProjects(":
-        "extra.projects = [] || ",
+        "extra.projects = [] || prepareAndTransformProjects(",
       "process.versions.node": "'999.999.999'",
     },
   },
