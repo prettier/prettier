@@ -45,7 +45,6 @@ function tryParseTypeScript(text, jsx) {
     jsx,
     tokens: true,
     loggerFn: false,
-    errorOnUnknownASTType: true,
     project: [],
   });
 }
