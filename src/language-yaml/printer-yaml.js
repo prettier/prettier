@@ -45,6 +45,7 @@ const printBlock = require("./print/block");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
+  /** @type {Doc[]} */
   const parts = [];
 
   if (node.type !== "mappingValue" && hasLeadingComments(node)) {
@@ -64,6 +65,7 @@ function genericPrint(path, options, print) {
     parts.push(path.call(print, "anchor"));
   }
 
+  /** @type {Doc} */
   let nextEmptyLine = "";
 
   if (
