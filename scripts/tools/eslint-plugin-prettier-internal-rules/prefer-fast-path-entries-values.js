@@ -1,5 +1,6 @@
 "use strict";
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { outdent } = require("outdent");
 
 const selector = [
