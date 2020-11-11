@@ -1,5 +1,7 @@
 "use strict";
 
+const { outdent } = require("outdent");
+
 const selector = [
   "CallExpression",
   "[optional=false]",
@@ -63,7 +65,7 @@ module.exports = {
               const iteratorBodyText = sourceCode.getText(iterator.body);
               return fixer.replaceText(
                 node,
-                `
+                outdent`
                   for (const [${indexText}, ${childPathText}] of ${path}.entries(${names})) ${iteratorBodyText}
                 `
               );
@@ -75,8 +77,8 @@ module.exports = {
               const iteratorBodyText = sourceCode.getText(iterator.body);
               return fixer.replaceText(
                 node,
-                `
-                  for (const ${childPathText} of ${path}.value(${names})) ${iteratorBodyText}
+                outdent`
+                  for (const ${childPathText} of ${path}.values(${names})) ${iteratorBodyText}
                 `
               );
             };
@@ -90,7 +92,7 @@ module.exports = {
                 const iteratorText = sourceCode.getText(iterator);
                 return fixer.replaceText(
                   node,
-                  `
+                  outdent`
                     for (const [index, childPath] of ${path}.entries(${names})) {
                       ${iteratorText}(childPath, index);
                     }
@@ -105,7 +107,7 @@ module.exports = {
                 const iteratorText = sourceCode.getText(iterator);
                 fixer.replaceText(
                   node,
-                  `
+                  outdent`
                     for (const childPath of ${path}.values(${names})) {
                       ${iteratorText}(childPath);
                     }
