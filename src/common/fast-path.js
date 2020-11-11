@@ -93,7 +93,7 @@ class FastPath {
     const result = [];
 
     for (const [index, path] of this.entries(...names)) {
-      result[index] = callback(path, index);
+      result.push(callback(path, index));
     }
 
     return result;
