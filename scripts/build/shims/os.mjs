@@ -1,6 +1,5 @@
 export default {
   EOL: "\n",
-  platform() {
-    return "browser";
-  },
+  platform: () => 'browser',
+  cpus: () => [{model: 'Prettier'}],
 };
