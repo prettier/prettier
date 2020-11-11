@@ -1,5 +1,5 @@
 export default {
   EOL: "\n",
   platform: () => "browser",
-  cpus: () => [{model: "Prettier"}],
+  cpus: () => [{ model: "Prettier" }],
 };
