@@ -4337,7 +4337,7 @@ function printJSXChildren(
 
         // This was whitespace only without a new line.
         if (words.length === 0) {
-          return;
+          continue;
         }
 
         words.forEach((word, i) => {
