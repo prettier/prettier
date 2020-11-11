@@ -81,6 +81,25 @@ class FastPath {
   // callback will be called with a reference to this path object for each
   // element of the array.
   each(callback, ...names) {
+    for (const [index, path] of this.entries(...names)) {
+      callback(path, index);
+    }
+  }
+
+  // Similar to FastPath.prototype.each, except that the results of the
+  // callback function invocations are stored in an array and returned at
+  // the end of the iteration.
+  map(callback, ...names) {
+    const result = [];
+
+    for (const [index, path] of this.entries(...names)) {
+      result[index] = callback(path, index);
+    }
+
+    return result;
+  }
+
+  *values(...names) {
     const { stack } = this;
     const { length } = stack;
     let value = getLast(stack);
@@ -90,24 +109,36 @@ class FastPath {
       stack.push(name, value);
     }
 
-    for (let i = 0; i < value.length; ++i) {
-      stack.push(i, value[i]);
-      callback(this, i);
-      stack.length -= 2;
+    try {
+      for (let i = 0; i < value.length; ++i) {
+        stack.push(i, value[i]);
+        yield this;
+        stack.length -= 2;
+      }
+    } finally {
+      stack.length = length;
     }
-
-    stack.length = length;
   }
 
-  // Similar to FastPath.prototype.each, except that the results of the
-  // callback function invocations are stored in an array and returned at
-  // the end of the iteration.
-  map(callback, ...names) {
-    const result = [];
-    this.each((path, index) => {
-      result[index] = callback(path, index);
-    }, ...names);
-    return result;
+  *entries(...names) {
+    const { stack } = this;
+    const { length } = stack;
+    let value = getLast(stack);
+
+    for (const name of names) {
+      value = value[name];
+      stack.push(name, value);
+    }
+
+    try {
+      for (let i = 0; i < value.length; ++i) {
+        stack.push(i, value[i]);
+        yield [i, this];
+        stack.length -= 2;
+      }
+    } finally {
+      stack.length = length;
+    }
   }
 
   /**
