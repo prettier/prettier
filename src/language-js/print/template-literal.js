@@ -30,11 +30,11 @@ function printTemplateLiteral(path, print, options) {
       return printed;
     }
   }
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
 
   let expressions = path.map(print, "expressions");
-  const isSimple = isSimpleTemplateLiteral(n);
+  const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
     expressions = expressions.map(
@@ -69,16 +69,17 @@ function printTemplateLiteral(path, print, options) {
       let printed = expressions[i];
 
       if (!isSimple) {
+        const expression = node.expressions[i];
         // Breaks at the template element boundaries (${ and }) are preferred to breaking
         // in the middle of a MemberExpression
         if (
-          (n.expressions[i].comments && n.expressions[i].comments.length) ||
-          n.expressions[i].type === "MemberExpression" ||
-          n.expressions[i].type === "OptionalMemberExpression" ||
-          n.expressions[i].type === "ConditionalExpression" ||
-          n.expressions[i].type === "SequenceExpression" ||
-          n.expressions[i].type === "TSAsExpression" ||
-          isBinaryish(n.expressions[i])
+          (expression.comments && expression.comments.length) ||
+          expression.type === "MemberExpression" ||
+          expression.type === "OptionalMemberExpression" ||
+          expression.type === "ConditionalExpression" ||
+          expression.type === "SequenceExpression" ||
+          expression.type === "TSAsExpression" ||
+          isBinaryish(expression)
         ) {
           printed = concat([indent(concat([softline, printed])), softline]);
         }
