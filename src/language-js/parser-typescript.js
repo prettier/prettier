@@ -30,6 +30,7 @@ function parse(text, parsers, opts) {
     }
   }
 
+  // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
   if (text.includes("@")) {
     checkMissingDecorators(result);
   }
