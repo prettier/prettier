@@ -189,9 +189,9 @@ function postprocess(ast, options) {
   }
 }
 
-// This is a workaround to transform `ChainExpression` from `espree` into
-// `babel` shape AST, we should do the opposite, since `ChainExpression` is the
-// standard `estree` AST for `optional chaining`
+// This is a workaround to transform `ChainExpression` from `espree`, `meriyah`,
+// and `typescript` into `babel` shape AST, we should do the opposite,
+// since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {
   if (node.type === "CallExpression") {
