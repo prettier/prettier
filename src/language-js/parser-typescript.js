@@ -30,71 +30,11 @@ function parse(text, parsers, opts) {
     }
   }
 
-  // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
-  // https://github.com/typescript-eslint/typescript-eslint/pull/2375
-  if (text.includes("@")) {
-    checkMissingDecorators(result);
-  }
-
-  return postprocess(result.ast, { ...opts, originalText: text });
-}
-
-function checkMissingDecorators(result) {
-  const { program, tsNodeToESTreeNodeMap } = result.services;
-  const sourceFile = program.getSourceFile();
-  const allTsDecorators = getTsDecorators(sourceFile, {
-    decorators: new Map(),
-    visited: new Set(),
+  return postprocess(result.ast, {
+    ...opts,
+    originalText: text,
+    tsParseResult: result,
   });
-
-  for (const [tsNode, tsDecorators] of allTsDecorators) {
-    const esNode = tsNodeToESTreeNodeMap.get(tsNode);
-    const esDecorators = esNode.decorators;
-    if (
-      !Array.isArray(esDecorators) ||
-      esDecorators.length !== tsDecorators.length ||
-      tsDecorators.some((tsDecorator) => {
-        const esDecorator = tsNodeToESTreeNodeMap.get(tsDecorator);
-        return !esDecorator || !esDecorators.includes(esDecorator);
-      })
-    ) {
-      const { start, end } = esNode.loc;
-
-      throw createError(
-        "Leading decorators must be attached to a class declaration",
-        {
-          start: { line: start.line, column: start.column + 1 },
-          end: { line: end.line, column: end.column + 1 },
-        }
-      );
-    }
-  }
-}
-
-function getTsDecorators(object, options) {
-  const { visited, decorators } = options;
-
-  if (typeof object !== "object" || !object || visited.has(object)) {
-    return decorators;
-  }
-  visited.add(object);
-
-  let children;
-  if (Array.isArray(object)) {
-    children = object;
-  } else {
-    children = Object.values(object);
-
-    if (Array.isArray(object.decorators) && object.decorators.length > 0) {
-      decorators.set(object, object.decorators);
-    }
-  }
-
-  for (const child of children) {
-    getTsDecorators(child, options);
-  }
-
-  return decorators;
 }
 
 function tryParseTypeScript(text, jsx) {

@@ -5,6 +5,7 @@ const {
   getNextNonSpaceNonCommentCharacter,
   getShebang,
 } = require("../common/util");
+const createError = require("../common/parser-create-error");
 const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
@@ -15,6 +16,48 @@ function postprocess(ast, options) {
     options.parser === "espree"
   ) {
     includeShebang(ast, options);
+  }
+
+  // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
+  // https://github.com/typescript-eslint/typescript-eslint/pull/2375
+  if (options.parser === "typescript" && options.originalText.includes("@")) {
+    const {
+      esTreeNodeToTSNodeMap,
+      tsNodeToESTreeNodeMap,
+    } = options.tsParseResult.services;
+    ast = visitNode(ast, (node) => {
+      const tsNode = esTreeNodeToTSNodeMap.get(node);
+      if (!tsNode) {
+        return;
+      }
+      // `esTreeNodeToTSNodeMap.get(ClassBody)` and `esTreeNodeToTSNodeMap.get(ClassDeclaration)` has the same tsNode
+      const esNode = tsNodeToESTreeNodeMap.get(tsNode);
+      if (esNode !== node) {
+        return;
+      }
+      const tsDecorators = tsNode.decorators;
+      if (!Array.isArray(tsDecorators)) {
+        return;
+      }
+      const esDecorators = esNode.decorators;
+      if (
+        !Array.isArray(esDecorators) ||
+        esDecorators.length !== tsDecorators.length ||
+        tsDecorators.some((tsDecorator) => {
+          const esDecorator = tsNodeToESTreeNodeMap.get(tsDecorator);
+          return !esDecorator || !esDecorators.includes(esDecorator);
+        })
+      ) {
+        const { start, end } = esNode.loc;
+        throw createError(
+          "Leading decorators must be attached to a class declaration",
+          {
+            start: { line: start.line, column: start.column + 1 },
+            end: { line: end.line, column: end.column + 1 },
+          }
+        );
+      }
+    });
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
@@ -193,6 +236,10 @@ function visitNode(node, fn) {
 
   for (const [key, child] of entries) {
     node[key] = visitNode(child, fn);
+  }
+
+  if (Array.isArray(node)) {
+    return node;
   }
 
   return fn(node) || node;
