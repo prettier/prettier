@@ -200,7 +200,9 @@ function transformChainExpression(node) {
   } else if (node.type === "MemberExpression") {
     node.type = "OptionalMemberExpression";
     node.object = transformChainExpression(node.object);
-  } else if (node.type === "TSNonNullExpression") {
+  }
+  // typescript
+  else if (node.type === "TSNonNullExpression") {
     node.expression = transformChainExpression(node.expression);
   }
   return node;
