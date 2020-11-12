@@ -152,16 +152,18 @@ function runSpec(fixtures, parsers, options) {
   const [parser] = parsers;
   const allParsers = [...parsers];
 
-  if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
-    allParsers.push("babel-ts");
-  }
-
-  if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
-    if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
-      allParsers.push("espree");
+  if (!IS_ERROR_TESTS) {
+    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+      allParsers.push("babel-ts");
     }
-    if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
-      allParsers.push("meriyah");
+
+    if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
+      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
+        allParsers.push("espree");
+      }
+      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
+        allParsers.push("meriyah");
+      }
     }
   }
 
