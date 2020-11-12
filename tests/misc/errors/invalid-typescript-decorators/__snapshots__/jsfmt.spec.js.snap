@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`decorator.ts error test 1`] = `
+"Leading decorators must be attached to a class declaration (3:1)
+  1 | declare function dec<T>(target: T): T;
+  2 | 
+> 3 | @dec
+    | ^^^^
+> 4 | enum E {}
+    | ^^^^^^^^^^
+  5 | "
+`;
+
+exports[`decorator.ts error test 2`] = `
+"Leading decorators must be attached to a class declaration (4:1)
+  2 | 
+  3 | @dec
+> 4 | enum E {}
+    | ^
+  5 | "
+`;
+
 exports[`enums.ts error test 1`] = `
 "Leading decorators must be attached to a class declaration (3:1)
    1 | // https://github.com/typescript-eslint/typescript-eslint/pull/2375
