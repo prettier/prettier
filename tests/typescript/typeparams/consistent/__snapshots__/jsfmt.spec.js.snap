@@ -53,7 +53,6 @@ const foo9: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 const foo10: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0> = a;
 const foo11: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xDeeD_Beef> = a;
 const foo12: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xDeeD_Beefn> = a;
-const foo13: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
 
 =====================================output=====================================
 const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<any> = a;
@@ -68,7 +67,41 @@ const foo9: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 const foo10: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0> = a;
 const foo11: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xdeed_beef> = a;
 const foo12: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xdeed_beefn> = a;
-const foo13: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+
+================================================================================
+`;
+
+exports[`template-literal-types.ts [babel] format 1`] = `
+"Unexpected token (1:84)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                    ^
+  2 | "
+`;
+
+exports[`template-literal-types.ts [babel-flow] format 1`] = `
+"Unexpected token (1:84)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                    ^
+  2 | "
+`;
+
+exports[`template-literal-types.ts [flow] format 1`] = `
+"Unexpected token \`\`\` (1:84)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                    ^
+  2 | "
+`;
+
+exports[`template-literal-types.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow", "babel-flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+
+=====================================output=====================================
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
 
 ================================================================================
 `;
@@ -83,6 +116,7 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 const foo2: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<object> = a;
 const foo3: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<undefined> = a;
 const foo4: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<unknown> = a;
+
 =====================================output=====================================
 const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<never> = a;
 const foo2: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<object> = a;
