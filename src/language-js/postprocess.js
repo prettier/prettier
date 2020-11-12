@@ -172,19 +172,6 @@ function postprocess(ast, options) {
           node.optional = true;
         }
         break;
-      case "TSTemplateLiteralType": {
-        const { types, quasis, ...rest } = node;
-        return {
-          ...rest,
-          type: "TSLiteralType",
-          literal: {
-            ...rest,
-            type: "TemplateLiteral",
-            expressions: types,
-            quasis,
-          },
-        };
-      }
     }
   });
 
