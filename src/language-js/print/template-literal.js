@@ -22,15 +22,15 @@ const {
 } = require("../utils");
 
 function printTemplateLiteral(path, print, options) {
+  const node = path.getValue();
   const parentNode = path.getParentNode();
 
-  if (isJestEachTemplateLiteral(n, parentNode)) {
+  if (isJestEachTemplateLiteral(node, parentNode)) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
     }
   }
-  const node = path.getValue();
   const parts = [];
 
   let expressions = path.map(print, "expressions");
