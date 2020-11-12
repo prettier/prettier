@@ -25,14 +25,13 @@ function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
-  if (!isTemplateLiteral) {
-    const parentNode = path.getParentNode();
-
-    if (isJestEachTemplateLiteral(node, parentNode)) {
-      const printed = printJestEachTemplateLiteral(path, options, print);
-      if (printed) {
-        return printed;
-      }
+  if (
+    isTemplateLiteral &&
+    isJestEachTemplateLiteral(node, path.getParentNode())
+  ) {
+    const printed = printJestEachTemplateLiteral(path, options, print);
+    if (printed) {
+      return printed;
     }
   }
   let expressionsKey = "expressions";
