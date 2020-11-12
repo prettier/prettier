@@ -30,13 +30,13 @@ function postprocess(ast, options) {
       if (!tsNode) {
         return;
       }
+      const tsDecorators = tsNode.decorators;
+      if (!Array.isArray(tsDecorators)) {
+        return;
+      }
       // `esTreeNodeToTSNodeMap.get(ClassBody)` and `esTreeNodeToTSNodeMap.get(ClassDeclaration)` has the same tsNode
       const esNode = tsNodeToESTreeNodeMap.get(tsNode);
       if (esNode !== node) {
-        return;
-      }
-      const tsDecorators = tsNode.decorators;
-      if (!Array.isArray(tsDecorators)) {
         return;
       }
       const esDecorators = esNode.decorators;
