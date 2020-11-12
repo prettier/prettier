@@ -464,6 +464,7 @@ const simpleTypeAnnotations = new Set([
   "BigIntLiteralTypeAnnotation",
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
+  "TSTemplateLiteralType",
   // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",

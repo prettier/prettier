@@ -10,3 +10,4 @@ const foo9: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 const foo10: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0> = a;
 const foo11: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xDeeD_Beef> = a;
 const foo12: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<0xDeeD_Beefn> = a;
+const foo13: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<`Hello, ${keyof World}`> = a;
