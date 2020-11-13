@@ -23,7 +23,7 @@ function traverse(node, fn) {
         if (result === null) {
           deleted.unshift(index);
         } else {
-          array[index] = traverseNode(value);
+          array[index] = result;
         }
       }
       // Keep original value, even it's `null`
