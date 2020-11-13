@@ -7,6 +7,9 @@ function traverse(node, fn) {
   const visited = new WeakMap();
   const cache = (fn) => (arrayOrNode) => {
     if (!visited.has(arrayOrNode)) {
+      // Add self as result before calling `fn` to avoid long call stack,
+      // This may lead to wrong result, but safe for most cases
+      visited.set(arrayOrNode, arrayOrNode);
       visited.set(arrayOrNode, fn(arrayOrNode));
     }
     return visited.get(arrayOrNode);
