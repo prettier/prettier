@@ -123,7 +123,7 @@ const {
   printFunctionParameters,
   shouldHugFunctionParameters,
 } = require("./print/function-parameters");
-const printTemplateLiteral = require("./print/template-literal");
+const { printTemplateLiteral } = require("./print/template-literal");
 
 const needsQuoteProps = new WeakMap();
 
