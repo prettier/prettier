@@ -4,14 +4,15 @@ const isObject = (node) =>
   node && typeof node === "object" && !Array.isArray(node);
 
 function traverse(node, fn) {
-  const visited = new WeakSet();
-
-  function traverseArray(array) {
-    if (visited.has(array)) {
-      return array;
+  const visited = new WeakMap();
+  const cache = (fn) => (arrayOrNode) => {
+    if (!visited.has(arrayOrNode)) {
+      visited.set(arrayOrNode, fn(arrayOrNode));
     }
-    visited.add(array);
+    return visited.get(arrayOrNode);
+  };
 
+  const traverseArray = cache((array) => {
     const deleted = [];
     for (const [index, value] of array.entries()) {
       if (Array.isArray(value)) {
@@ -22,7 +23,7 @@ function traverse(node, fn) {
         if (result === null) {
           deleted.unshift(index);
         } else {
-          array[index] = traverseArray(value);
+          array[index] = traverseNode(value);
         }
       }
       // Keep original value, even it's `null`
@@ -33,14 +34,9 @@ function traverse(node, fn) {
     }
 
     return array;
-  }
+  });
 
-  function traverseNode(node) {
-    if (visited.has(node)) {
-      return node;
-    }
-    visited.add(node);
-
+  const traverseNode = cache((node) => {
     let result = fn(node);
     if (typeof result === "undefined") {
       result = node;
@@ -73,7 +69,7 @@ function traverse(node, fn) {
     }
 
     return node;
-  }
+  });
 
   return traverseNode(node);
 }
