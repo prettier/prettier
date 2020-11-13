@@ -19,6 +19,7 @@ const {
   softline,
 } = docBuilders;
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
+const traverse = require("../utils/traverse");
 const { insertPragma, isPragma } = require("./pragma");
 const { locStart } = require("./loc");
 const {
@@ -38,11 +39,10 @@ const {
   isNode,
   isEmptyNode,
   defineShortcut,
-  mapNode,
 } = require("./utils");
 
 function preprocess(ast) {
-  return mapNode(ast, defineShortcuts);
+  return traverse(ast, defineShortcuts);
 }
 
 function defineShortcuts(node) {
