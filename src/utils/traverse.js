@@ -1,33 +1,28 @@
 "use strict";
 
 function traverse(node, fn) {
-  const seen = new Set();
+  const visited = new WeakSet();
 
   function traverseNode(node, key, parent) {
-    if (seen.has(node)) {
-      return node;
-    }
-    let entries;
-    if (Array.isArray(node)) {
-      entries = node.entries();
-    } else if (node && typeof node === "object") {
-      entries = Object.entries(node);
-    } else {
+    const isArray = Array.isArray(node);
+    const isObject = node && typeof node === "object";
+    if ((!isArray && !isObject) || visited.has(node)) {
       return node;
     }
 
+    const entries = isArray ? node.entries() : Object.entries(node);
     for (const [key, child] of entries) {
       node[key] = traverseNode(child, key, node);
     }
 
-    if (!Array.isArray(node)) {
+    visited.add(node);
+
+    if (isObject) {
       const result = fn(node, key, parent);
       if (typeof result !== "undefined") {
         return result;
       }
-      seen.add(node);
     }
-
     return node;
   }
 
