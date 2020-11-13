@@ -12,18 +12,25 @@ function traverse(node, fn) {
     }
     visited.add(node);
 
-    const result = fn(node);
-    if (typeof result !== "undefined") {
-      node = result;
+    let result = fn(node);
+    if (typeof result === "undefined") {
+      result = node;
     }
 
     if (isObject(node)) {
+      // Traverse the new node
+      if (result !== node) {
+        return traverseNode(result);
+      }
+
       for (const [key, child] of Object.entries(node)) {
         if (Array.isArray(child)) {
           node[key] = child.map((child) => traverseNode(child));
         } else {
           const result = traverseNode(child);
-          if (result !== null) {
+          if (result === null) {
+            delete node[key];
+          } else {
             node[key] = result;
           }
         }
