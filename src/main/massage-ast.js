@@ -1,14 +1,8 @@
 "use strict";
 
-function massageAST(ast, options, parent) {
-  if (Array.isArray(ast)) {
-    return ast.map((e) => massageAST(e, options, parent)).filter(Boolean);
-  }
+const traverse = require("../utils/traverse");
 
-  if (!ast || typeof ast !== "object") {
-    return ast;
-  }
-
+function massageAST(ast, options) {
   const cleanFunction = options.printer.massageAstNode;
   let ignoredProperties;
   if (cleanFunction && cleanFunction.ignoredProperties) {
@@ -16,25 +10,13 @@ function massageAST(ast, options, parent) {
   } else {
     ignoredProperties = new Set();
   }
-
-  const newObj = {};
-  for (const key of Object.keys(ast)) {
-    if (!ignoredProperties.has(key) && typeof ast[key] !== "function") {
-      newObj[key] = massageAST(ast[key], options, ast);
+  return traverse(ast, (node, key, parent) => {
+    if (ignoredProperties.has(key)) {
+      return null;
     }
-  }
 
-  if (cleanFunction) {
-    const result = cleanFunction(ast, newObj, parent);
-    if (result === null) {
-      return;
-    }
-    if (result) {
-      return result;
-    }
-  }
-
-  return newObj;
+    return cleanFunction(node, parent, options);
+  });
 }
 
 module.exports = massageAST;

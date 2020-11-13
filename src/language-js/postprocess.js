@@ -5,6 +5,7 @@ const {
   getNextNonSpaceNonCommentCharacter,
   getShebang,
 } = require("../common/util");
+const traverse = require("../utils/traverse");
 const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
@@ -30,7 +31,7 @@ function postprocess(ast, options) {
     // E.g.: /** @type {Foo} */ (foo).bar();
     // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
 
-    ast = visitNode(ast, (node) => {
+    ast = traverse(ast, (node) => {
       if (
         node.leadingComments &&
         node.leadingComments.some(isTypeCastComment)
@@ -39,7 +40,7 @@ function postprocess(ast, options) {
       }
     });
 
-    ast = visitNode(ast, (node) => {
+    ast = traverse(ast, (node) => {
       if (node.type === "ParenthesizedExpression") {
         const { expression } = node;
 
@@ -62,7 +63,7 @@ function postprocess(ast, options) {
     });
   }
 
-  ast = visitNode(ast, (node) => {
+  ast = traverse(ast, (node) => {
     switch (node.type) {
       // Espree
       case "ChainExpression": {
@@ -159,28 +160,6 @@ function transformChainExpression(node) {
     node.object = transformChainExpression(node.object);
   }
   return node;
-}
-
-function visitNode(node, fn) {
-  let entries;
-
-  if (Array.isArray(node)) {
-    entries = node.entries();
-  } else if (
-    node &&
-    typeof node === "object" &&
-    typeof node.type === "string"
-  ) {
-    entries = Object.entries(node);
-  } else {
-    return node;
-  }
-
-  for (const [key, child] of entries) {
-    node[key] = visitNode(child, fn);
-  }
-
-  return fn(node) || node;
 }
 
 function isUnbalancedLogicalTree(node) {

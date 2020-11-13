@@ -10,22 +10,22 @@ const ignoredProperties = new Set([
   "valueSpan",
 ]);
 
-function clean(ast, newNode) {
-  if (ast.type === "text" || ast.type === "comment") {
+function clean(node) {
+  if (node.type === "text" || node.type === "comment") {
     return null;
   }
 
   // may be formatted by multiparser
-  if (isFrontMatterNode(ast) || ast.type === "yaml" || ast.type === "toml") {
+  if (isFrontMatterNode(node) || node.type === "yaml" || node.type === "toml") {
     return null;
   }
 
-  if (ast.type === "attribute") {
-    delete newNode.value;
+  if (node.type === "attribute") {
+    delete node.value;
   }
 
-  if (ast.type === "docType") {
-    delete newNode.value;
+  if (node.type === "docType") {
+    delete node.value;
   }
 }
 

@@ -743,19 +743,19 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(node, newNode /*, parent */) {
-  if (isNode(newNode)) {
-    delete newNode.position;
-    switch (newNode.type) {
+function clean(node /*, parent */) {
+  if (isNode(node)) {
+    delete node.position;
+    switch (node.type) {
       case "comment":
         // insert pragma
-        if (isPragma(newNode.value)) {
+        if (isPragma(node.value)) {
           return null;
         }
         break;
       case "quoteDouble":
       case "quoteSingle":
-        newNode.type = "quote";
+        node.type = "quote";
         break;
     }
   }
