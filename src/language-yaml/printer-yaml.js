@@ -743,7 +743,7 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(node /*, parent */) {
+function clean(node) {
   if (isNode(node)) {
     delete node.position;
     switch (node.type) {

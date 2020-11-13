@@ -1,6 +1,6 @@
 "use strict";
 
-function clean(node /*, parent*/) {
+function clean(node) {
   // (Glimmer/HTML) ignore TextNode whitespace
   if (node.type === "TextNode") {
     const trimmed = node.chars.trim();
