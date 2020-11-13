@@ -10,13 +10,14 @@ function massageAST(ast, options) {
   } else {
     ignoredProperties = new Set();
   }
-  return traverse(ast, (node, key, parent) => {
-    if (ignoredProperties.has(key)) {
-      return null;
+  const cleaned = traverse(ast, (node, key, parent) => {
+    for (const key of ignoredProperties) {
+      delete node[key];
     }
 
     return cleanFunction(node, parent, options);
   });
+  return cleaned;
 }
 
 module.exports = massageAST;

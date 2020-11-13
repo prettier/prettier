@@ -1,32 +1,41 @@
 "use strict";
 
+const isObject = (node) =>
+  node && typeof node === "object" && !Array.isArray(node);
+
 function traverse(node, fn) {
   const visited = new WeakSet();
 
   function traverseNode(node, key, parent) {
-    const isArray = Array.isArray(node);
-    const isObject = node && typeof node === "object";
-    if ((!isArray && !isObject) || visited.has(node)) {
+    if (!isObject(node) || visited.has(node)) {
+      return node;
+    }
+    visited.add(node);
+
+    const result = fn(node, key, parent);
+    if (typeof result !== "undefined") {
+      node = result;
+    }
+
+    if (!isObject(node)) {
       return node;
     }
 
-    const entries = isArray ? node.entries() : Object.entries(node);
-    for (const [key, child] of entries) {
-      node[key] = traverseNode(child, key, node);
-    }
-
-    visited.add(node);
-
-    if (isObject) {
-      const result = fn(node, key, parent);
-      if (typeof result !== "undefined") {
-        return result;
+    for (const [key, child] of Object.entries(node)) {
+      if (Array.isArray(child)) {
+        node[key] = child.map((child) => traverseNode(child, key, node));
+      } else {
+        const result = traverseNode(child, key, node);
+        if (result !== null) {
+          node[key] = result;
+        }
       }
     }
+
     return node;
   }
 
-  return traverseNode(node, fn);
+  return traverseNode(node);
 }
 
 module.exports = traverse;
