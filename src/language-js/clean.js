@@ -18,7 +18,7 @@ const ignoredProperties = new Set([
   "tokens",
 ]);
 
-function clean(node, parent) {
+function clean(node) {
   if (node.type === "Program") {
     delete node.sourceType;
   }
@@ -176,6 +176,15 @@ function clean(node, parent) {
   ) {
     node.quasi.quasis.forEach((quasi) => delete quasi.value);
   }
+
+  if (node.type === "CallExpression" && node.callee.name === "graphql") {
+    for (const child of node.arguments) {
+      if (child.type === "TemplateLiteral") {
+        cleanTemplateLiteral(child);
+      }
+    }
+  }
+
   if (node.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
     // In order to be in line with other implementations of this comment tag
@@ -191,21 +200,14 @@ function clean(node, parent) {
             (languageName) => comment.value === ` ${languageName} `
           )
       );
-    if (
-      hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql")
-    ) {
-      node.quasis.forEach((quasi) => delete quasi.value);
+    if (hasLanguageComment) {
+      cleanTemplateLiteral(node);
     }
 
     // TODO: check parser
     // `flow` and `typescript` don't have `leadingComments`
     if (!node.leadingComments) {
-      node.quasis.forEach((quasi) => {
-        if (quasi.value) {
-          delete quasi.value.cooked;
-        }
-      });
+      cleanTemplateLiteral(node);
     }
   }
 
@@ -215,5 +217,11 @@ function clean(node, parent) {
 }
 
 clean.ignoredProperties = ignoredProperties;
+
+function cleanTemplateLiteral(node) {
+  for (const quasi of node.quasis) {
+    delete quasi.value;
+  }
+}
 
 module.exports = clean;
