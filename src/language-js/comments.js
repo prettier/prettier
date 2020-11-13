@@ -21,6 +21,13 @@ const { locStart, locEnd } = require("./loc");
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
+    handleIgnoreComments(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
+    ) ||
     handleLastFunctionArgComments(
       text,
       precedingNode,
@@ -124,6 +131,13 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
 
   if (
+    handleIgnoreComments(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment
+    ) ||
     handleIfStatementComments(
       text,
       precedingNode,
@@ -849,6 +863,27 @@ function handleTSFunctionTrailingComments(
     return true;
   }
   return false;
+}
+
+function handleIgnoreComments(
+  text,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment
+) {
+  if (
+    isNodeIgnoreComment(comment) &&
+    enclosingNode &&
+    enclosingNode.type === "TSMappedType" &&
+    followingNode &&
+    followingNode.type === "TSTypeParameter" &&
+    followingNode.constraint
+  ) {
+    enclosingNode.prettierIgnore = true;
+    comment.unignore = true;
+    return true;
+  }
 }
 
 function handleTSMappedTypeComments(
