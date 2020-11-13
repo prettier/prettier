@@ -7,7 +7,7 @@ const ignoredProperties = new Set([
   "position",
   "raw", // front-matter
 ]);
-function clean(node, parent) {
+function clean(node) {
   // for codeblock
   if (
     node.type === "front-matter" ||
