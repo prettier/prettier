@@ -68,13 +68,13 @@ const ignoredProperties = new Set([
   "range",
 ]);
 
-function clean(node, newNode /*, parent*/) {
+function clean(node) {
   const { type } = node;
   if (type === "Identifier") {
     return { type: "StringLiteral", value: node.name };
   }
   if (type === "UnaryExpression" && node.operator === "+") {
-    return newNode.argument;
+    return node.argument;
   }
 }
 
