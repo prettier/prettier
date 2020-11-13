@@ -16,7 +16,14 @@ function format(path, print, textToDoc) {
   if (hasIndent) {
     text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
   }
-  const doc = printMarkdown(text, textToDoc);
+  const doc = escapeTemplateCharacters(
+    textToDoc(
+      text,
+      { parser: "markdown", __inJsTemplate: true },
+      { stripTrailingHardline: true }
+    ),
+    true
+  );
   return concat([
     "`",
     hasIndent
@@ -25,15 +32,6 @@ function format(path, print, textToDoc) {
     softline,
     "`",
   ]);
-}
-
-function printMarkdown(text, textToDoc) {
-  const doc = textToDoc(
-    text,
-    { parser: "markdown", __inJsTemplate: true },
-    { stripTrailingHardline: true }
-  );
-  return escapeTemplateCharacters(doc, true);
 }
 
 function getIndentation(str) {

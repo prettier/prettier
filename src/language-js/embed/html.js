@@ -32,47 +32,45 @@ function format(path, print, textToDoc, options, { parser }) {
 
   const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
   let topLevelCount = 0;
-
-  const contentDoc = mapDoc(
-    textToDoc(
-      text,
-      {
-        parser,
-        __onHtmlRoot(root) {
-          topLevelCount = root.children.length;
-        },
+  const doc = textToDoc(
+    text,
+    {
+      parser,
+      __onHtmlRoot(root) {
+        topLevelCount = root.children.length;
       },
-      { stripTrailingHardline: true }
-    ),
-    (doc) => {
-      if (typeof doc !== "string") {
-        return doc;
-      }
-
-      const parts = [];
-
-      const components = doc.split(placeholderRegex);
-      for (let i = 0; i < components.length; i++) {
-        let component = components[i];
-
-        if (i % 2 === 0) {
-          if (component) {
-            component = uncook(component);
-            if (options.embeddedInHtml) {
-              component = component.replace(/<\/(script)\b/gi, "<\\/$1");
-            }
-            parts.push(component);
-          }
-          continue;
-        }
-
-        const placeholderIndex = +component;
-        parts.push(expressionDocs[placeholderIndex]);
-      }
-
-      return concat(parts);
-    }
+    },
+    { stripTrailingHardline: true }
   );
+
+  const contentDoc = mapDoc(doc, (doc) => {
+    if (typeof doc !== "string") {
+      return doc;
+    }
+
+    const parts = [];
+
+    const components = doc.split(placeholderRegex);
+    for (let i = 0; i < components.length; i++) {
+      let component = components[i];
+
+      if (i % 2 === 0) {
+        if (component) {
+          component = uncook(component);
+          if (options.embeddedInHtml) {
+            component = component.replace(/<\/(script)\b/gi, "<\\/$1");
+          }
+          parts.push(component);
+        }
+        continue;
+      }
+
+      const placeholderIndex = +component;
+      parts.push(expressionDocs[placeholderIndex]);
+    }
+
+    return concat(parts);
+  });
 
   const leadingWhitespace = /^\s/.test(text) ? " " : "";
   const trailingWhitespace = /\s$/.test(text) ? " " : "";
