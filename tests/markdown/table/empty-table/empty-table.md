@@ -1,6 +1,11 @@
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 |:--| --- |
 
-Test line 6
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text

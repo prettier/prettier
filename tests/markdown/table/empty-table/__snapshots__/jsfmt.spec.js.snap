@@ -7,20 +7,30 @@ printWidth: 80
 proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 |:--| --- |
 
-Test line 6
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
 
 =====================================output=====================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 | :---------------------------- | -------- |
 
-Test line 6
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| ---------------------------------------------------- | ----------------------------------------------------------------------: |
+
+Text
 
 ================================================================================
 `;
@@ -32,20 +42,30 @@ printWidth: 80
 proseWrap: "never"
                                                                                 | printWidth
 =====================================input======================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 |:--| --- |
 
-Test line 6
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
 
 =====================================output=====================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 | :---------------------------- | -------- |
 
-Test line 6
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| --- | --: |
+
+Text
 
 ================================================================================
 `;
@@ -57,20 +77,30 @@ printWidth: 80
 proseWrap: "preserve"
                                                                                 | printWidth
 =====================================input======================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 |:--| --- |
 
-Test line 6
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
 
 =====================================output=====================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 | :---------------------------- | -------- |
 
-Test line 6
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| ---------------------------------------------------- | ----------------------------------------------------------------------: |
+
+Text
 
 ================================================================================
 `;
@@ -81,20 +111,30 @@ parsers: ["markdown"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 |:--| --- |
 
-Test line 6
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
 
 =====================================output=====================================
-Test line 1
+Text
 
 | Specify the selected option : | Option 1 |
 | :---------------------------- | -------- |
 
-Test line 6
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| ---------------------------------------------------- | ----------------------------------------------------------------------: |
+
+Text
 
 ================================================================================
 `;
