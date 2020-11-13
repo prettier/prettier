@@ -13,24 +13,21 @@ function traverse(node, fn) {
   };
 
   const traverseArray = cache((array) => {
-    const deleted = [];
-    for (const [index, value] of array.entries()) {
+    for (let index = 0; index < array.length; index++) {
+      const value = array[index];
       if (Array.isArray(value)) {
         array[index] = traverseArray(value);
       } else if (isObject(value)) {
         const result = traverseNode(value);
         // Return `null` to delete from array
         if (result === null) {
-          deleted.unshift(index);
+          array.splice(index, 1);
+          index--;
         } else {
           array[index] = result;
         }
       }
       // Keep original value, even it's `null`
-    }
-
-    for (const index of deleted) {
-      array.splice(index, 1);
     }
 
     return array;
