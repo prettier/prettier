@@ -49,7 +49,8 @@ function traverse(node, fn) {
       return traverseNode(result);
     }
 
-    if (isObject(result)) {
+    node = result;
+    if (isObject(node)) {
       for (const [key, value] of Object.entries(node)) {
         if (Array.isArray(value)) {
           node[key] = traverseArray(value);
