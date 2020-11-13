@@ -3,7 +3,7 @@
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
-const postprocess = require("./postprocess");
+const postprocess = require("./parse-postprocess");
 
 function parse(text, parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it
