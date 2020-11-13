@@ -873,7 +873,7 @@ function handleIgnoreComments(
   comment
 ) {
   if (
-    isNodeIgnoreComment(comment) &&
+    isPrettierIgnoreComment(comment) &&
     enclosingNode &&
     enclosingNode.type === "TSMappedType" &&
     followingNode &&
