@@ -644,7 +644,16 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      parts.push(printFunctionDeclaration(path, print, options));
+      parts.push(
+        printFunctionDeclaration(
+          path,
+          print,
+          options,
+          args &&
+            args.expandLastArg &&
+            getCallArguments(path.getParentNode()).length > 1
+        )
+      );
       if (!n.body) {
         parts.push(semi);
       }
@@ -3736,7 +3745,7 @@ function canPrintParamsWithoutParens(node) {
   );
 }
 
-function printFunctionDeclaration(path, print, options) {
+function printFunctionDeclaration(path, print, options, expandArg) {
   const n = path.getValue();
   const parts = [];
 
@@ -3758,7 +3767,7 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        printFunctionParameters(path, print, options),
+        printFunctionParameters(path, print, options, expandArg),
         printReturnType(path, print, options),
       ])
     ),
