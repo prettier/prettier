@@ -10,12 +10,12 @@ function massageAST(ast, options) {
   } else {
     ignoredProperties = new Set();
   }
-  const cleaned = traverse(ast, (node, key, parent) => {
+  const cleaned = traverse(ast, (node) => {
     for (const key of ignoredProperties) {
       delete node[key];
     }
 
-    return cleanFunction(node, parent, options);
+    return cleanFunction(node, options);
   });
   return cleaned;
 }

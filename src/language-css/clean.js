@@ -13,38 +13,41 @@ const ignoredProperties = new Set([
   "trailingComma",
 ]);
 
-function clean(node, parent) {
+function clean(node) {
   if (isFrontMatterNode(node) && node.lang === "yaml") {
     delete node.value;
   }
 
-  if (
-    node.type === "css-comment" &&
-    parent.type === "css-root" &&
-    parent.nodes.length !== 0
-  ) {
+  if (node.type === "css-root") {
+    const [firstChild, secondChild] = node.nodes;
     // --insert-pragma
     // first non-front-matter comment
     if (
-      parent.nodes[0] === node ||
-      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === node)
+      firstChild &&
+      firstChild.type === "css-comment" &&
+      /^\*\s*@(format|prettier)\s*$/.test(firstChild.text)
     ) {
-      /**
-       * something
-       *
-       * @format
-       */
-      delete node.text;
+      node.nodes.shift();
+    }
 
-      // standalone pragma
-      if (/^\*\s*@(format|prettier)\s*$/.test(node.text)) {
-        return null;
-      }
+    /**
+     * something
+     *
+     * @format
+     */
+    if (
+      isFrontMatterNode(firstChild) &&
+      secondChild &&
+      secondChild.type === "css-comment" &&
+      /^\*\s*@(format|prettier)\s*$/.test(secondChild.text)
+    ) {
+      node.nodes.splice(1, 1);
     }
 
     // Last comment is not parsed, when omitting semicolon, #8675
-    if (parent.type === "css-root" && getLast(parent.nodes) === node) {
-      return null;
+    const lastNode = getLast(node.nodes);
+    if (lastNode && lastNode.type === "") {
+      node.nodes.pop();
     }
   }
 

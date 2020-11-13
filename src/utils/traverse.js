@@ -6,28 +6,26 @@ const isObject = (node) =>
 function traverse(node, fn) {
   const visited = new WeakSet();
 
-  function traverseNode(node, key, parent) {
+  function traverseNode(node) {
     if (!isObject(node) || visited.has(node)) {
       return node;
     }
     visited.add(node);
 
-    const result = fn(node, key, parent);
+    const result = fn(node);
     if (typeof result !== "undefined") {
       node = result;
     }
 
-    if (!isObject(node)) {
-      return node;
-    }
-
-    for (const [key, child] of Object.entries(node)) {
-      if (Array.isArray(child)) {
-        node[key] = child.map((child) => traverseNode(child, key, node));
-      } else {
-        const result = traverseNode(child, key, node);
-        if (result !== null) {
-          node[key] = result;
+    if (isObject(node)) {
+      for (const [key, child] of Object.entries(node)) {
+        if (Array.isArray(child)) {
+          node[key] = child.map((child) => traverseNode(child));
+        } else {
+          const result = traverseNode(child);
+          if (result !== null) {
+            node[key] = result;
+          }
         }
       }
     }

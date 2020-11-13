@@ -59,16 +59,24 @@ function clean(node, parent) {
   }
 
   // for insert pragma
-  if (
-    parent &&
-    parent.type === "root" &&
-    parent.children.length > 0 &&
-    (parent.children[0] === node ||
-      (isFrontMatterNode(parent.children[0]) && parent.children[1] === node)) &&
-    node.type === "html" &&
-    startWithPragma(node.value)
-  ) {
-    return null;
+  if (node.type === "root") {
+    const [firstChild, secondChild] = node.children;
+    if (
+      firstChild &&
+      firstChild.type === "html" &&
+      startWithPragma(firstChild.value)
+    ) {
+      node.children.shift();
+    }
+
+    if (
+      isFrontMatterNode(firstChild) &&
+      secondChild &&
+      secondChild.type === "html" &&
+      startWithPragma(secondChild.value)
+    ) {
+      node.children.splice(1, 1);
+    }
   }
 }
 
