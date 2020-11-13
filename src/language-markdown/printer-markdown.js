@@ -595,93 +595,66 @@ function printTable(path, options, print) {
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
-  const alignedTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0]),
-    printSeparator(),
-    join(
-      hardlineWithoutBreakParent,
-      contents.slice(1).map((rowContents) => printRow(rowContents))
-    ),
-  ]);
+  const alignedTable = printTableContents(/* isCompact */ false);
 
   if (options.proseWrap !== "never") {
     return concat([breakParent, alignedTable]);
   }
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
-  const compactTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0], /* isCompact */ true),
-    printSeparator(/* isCompact */ true),
-    join(
-      hardlineWithoutBreakParent,
-      contents
-        .slice(1)
-        .map((rowContents) => printRow(rowContents, /* isCompact */ true))
-    ),
-  ]);
+  const compactTable = printTableContents(/* isCompact */ true);
 
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
 
-  function printSeparator(isCompact) {
-    return concat([
-      "| ",
+  function printTableContents(isCompact) {
+    return join(hardlineWithoutBreakParent, [
+      printRow(contents[0], isCompact),
+      printAlign(isCompact),
       join(
-        " | ",
-        columnMaxWidths.map((width, index) => {
-          const spaces = isCompact ? 3 : width;
-          switch (node.align[index]) {
-            case "left":
-              return ":" + "-".repeat(spaces - 1);
-            case "right":
-              return "-".repeat(spaces - 1) + ":";
-            case "center":
-              return ":" + "-".repeat(spaces - 2) + ":";
-            default:
-              return "-".repeat(spaces);
-          }
-        })
+        hardlineWithoutBreakParent,
+        contents.slice(1).map((rowContents) => printRow(rowContents, isCompact))
       ),
-      " |",
     ]);
+  }
+
+  function printAlign(isCompact) {
+    const align = columnMaxWidths.map((width, index) => {
+      const spaces = isCompact ? 3 : width;
+      const align = node.align[index];
+      let first = "-";
+      let last = "-";
+      if (align === "center" || align === "left") {
+        first = ":";
+      }
+      if (align === "center" || align === "right") {
+        last = ":";
+      }
+      return first + "-".repeat(spaces - 2) + last;
+    });
+
+    return `| ${align.join(" | ")} |`;
   }
 
   function printRow(rowContents, isCompact) {
-    return concat([
-      "| ",
-      join(
-        " | ",
-        isCompact
-          ? rowContents
-          : rowContents.map((rowContent, columnIndex) => {
-              switch (node.align[columnIndex]) {
-                case "right":
-                  return alignRight(rowContent, columnMaxWidths[columnIndex]);
-                case "center":
-                  return alignCenter(rowContent, columnMaxWidths[columnIndex]);
-                default:
-                  return alignLeft(rowContent, columnMaxWidths[columnIndex]);
-              }
-            })
-      ),
-      " |",
-    ]);
-  }
+    let row = rowContents;
+    if (!isCompact) {
+      row = rowContents.map((text, columnIndex) => {
+        const spaces = columnMaxWidths[columnIndex] - getStringWidth(text);
+        const align = node.align[columnIndex];
+        let before = 0;
+        let after = spaces;
+        if (align === "right") {
+          [before, after] = [after, before];
+        } else if (align === "center") {
+          before = Math.floor(spaces / 2);
+          after = spaces - before;
+        }
 
-  function alignLeft(text, width) {
-    const spaces = width - getStringWidth(text);
-    return concat([text, " ".repeat(spaces)]);
-  }
+        return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
+      });
+    }
 
-  function alignRight(text, width) {
-    const spaces = width - getStringWidth(text);
-    return concat([" ".repeat(spaces), text]);
-  }
-
-  function alignCenter(text, width) {
-    const spaces = width - getStringWidth(text);
-    const left = Math.floor(spaces / 2);
-    const right = spaces - left;
-    return concat([" ".repeat(left), text, " ".repeat(right)]);
+    return `| ${row.join(" | ")} |`;
   }
 }
 
