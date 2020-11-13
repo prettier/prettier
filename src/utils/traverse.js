@@ -6,8 +6,37 @@ const isObject = (node) =>
 function traverse(node, fn) {
   const visited = new WeakSet();
 
+  function traverseArray(array) {
+    if (visited.has(array)) {
+      return array;
+    }
+    visited.add(array);
+
+    const deleted = [];
+    for (const [index, value] of array.entries()) {
+      if (Array.isArray(value)) {
+        array[index] = traverseArray(value);
+      } else if (isObject(value)) {
+        const result = traverseNode(value);
+        // Return `null` to delete from array
+        if (result === null) {
+          deleted.unshift(index);
+        } else {
+          array[index] = traverseArray(value);
+        }
+      }
+      // Keep original value, even it's `null`
+    }
+
+    for (const index of deleted) {
+      array.splice(index, 1);
+    }
+
+    return array;
+  }
+
   function traverseNode(node) {
-    if (!isObject(node) || visited.has(node)) {
+    if (visited.has(node)) {
       return node;
     }
     visited.add(node);
@@ -17,17 +46,23 @@ function traverse(node, fn) {
       result = node;
     }
 
-    if (isObject(node)) {
+    if (Array.isArray(result)) {
+      return traverseArray(result);
+    } else if (
+      isObject(result) &&
       // Traverse the new node
-      if (result !== node) {
-        return traverseNode(result);
-      }
+      result !== node
+    ) {
+      return traverseNode(result);
+    }
 
-      for (const [key, child] of Object.entries(node)) {
-        if (Array.isArray(child)) {
-          node[key] = child.map((child) => traverseNode(child));
-        } else {
-          const result = traverseNode(child);
+    if (isObject(result)) {
+      for (const [key, value] of Object.entries(node)) {
+        if (Array.isArray(value)) {
+          node[key] = traverseArray(value);
+        } else if (isObject(value)) {
+          const result = traverseNode(value);
+          // Return `null` to delete node
           if (result === null) {
             delete node[key];
           } else {
