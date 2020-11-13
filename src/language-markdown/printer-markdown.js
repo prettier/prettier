@@ -577,33 +577,29 @@ function printTable(path, options, print) {
   const hardlineWithoutBreakParent = hardline.parts[0];
   const node = path.getValue();
 
-  // { [rowIndex: number]: { [columnIndex: number]: string } }
+  const columnMaxWidths = [];
+  // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
   const contents = path.map(
     (rowPath) =>
-      rowPath.map(
-        (cellPath) => printDocToString(cellPath.call(print), options).formatted,
-        "children"
-      ),
+      rowPath.map((cellPath, columnIndex) => {
+        const text = printDocToString(cellPath.call(print), options).formatted;
+        const width = getStringWidth(text);
+        columnMaxWidths[columnIndex] = Math.max(
+          columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
+          width
+        );
+        return { text, width };
+      }, "children"),
     "children"
   );
 
-  // Get the width of each column
-  const columnMaxWidths = contents.reduce(
-    (currentWidths, rowContents) =>
-      currentWidths.map((width, columnIndex) =>
-        Math.max(width, getStringWidth(rowContents[columnIndex]))
-      ),
-    contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
-  );
   const alignedTable = printTableContents(/* isCompact */ false);
-
   if (options.proseWrap !== "never") {
     return concat([breakParent, alignedTable]);
   }
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
   const compactTable = printTableContents(/* isCompact */ true);
-
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
 
   function printTableContents(isCompact) {
@@ -630,23 +626,23 @@ function printTable(path, options, print) {
   }
 
   function printRow(rowContents, isCompact) {
-    let row = rowContents;
-    if (!isCompact) {
-      row = rowContents.map((text, columnIndex) => {
-        const spaces = columnMaxWidths[columnIndex] - getStringWidth(text);
-        const align = node.align[columnIndex];
-        let before = 0;
-        if (align === "right") {
-          before = spaces;
-        } else if (align === "center") {
-          before = Math.floor(spaces / 2);
-        }
-        const after = spaces - before;
-        return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
-      });
-    }
+    const columns = rowContents.map(({ text, width }, columnIndex) => {
+      if (isCompact) {
+        return text;
+      }
+      const spaces = columnMaxWidths[columnIndex] - width;
+      const align = node.align[columnIndex];
+      let before = 0;
+      if (align === "right") {
+        before = spaces;
+      } else if (align === "center") {
+        before = Math.floor(spaces / 2);
+      }
+      const after = spaces - before;
+      return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
+    });
 
-    return `| ${row.join(" | ")} |`;
+    return `| ${columns.join(" | ")} |`;
   }
 }
 
