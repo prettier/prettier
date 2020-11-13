@@ -603,14 +603,18 @@ function printTable(path, options, print) {
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
 
   function printTableContents(isCompact) {
-    return join(hardlineWithoutBreakParent, [
-      printRow(contents[0], isCompact),
-      printAlign(isCompact),
-      join(
-        hardlineWithoutBreakParent,
-        contents.slice(1).map((rowContents) => printRow(rowContents, isCompact))
-      ),
-    ]);
+    const parts = [printRow(contents[0], isCompact), printAlign(isCompact)];
+    if (contents.length > 1) {
+      parts.push(
+        join(
+          hardlineWithoutBreakParent,
+          contents
+            .slice(1)
+            .map((rowContents) => printRow(rowContents, isCompact))
+        )
+      );
+    }
+    return join(hardlineWithoutBreakParent, parts);
   }
 
   function printAlign(isCompact) {
