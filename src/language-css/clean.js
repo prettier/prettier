@@ -19,34 +19,27 @@ function clean(node) {
   }
 
   if (node.type === "css-root") {
-    const [firstChild, secondChild] = node.nodes;
     // --insert-pragma
     // first non-front-matter comment
-    if (
-      firstChild &&
-      firstChild.type === "css-comment" &&
-      /^\*\s*@(format|prettier)\s*$/.test(firstChild.text)
-    ) {
-      node.nodes.shift();
-    }
-
-    /**
-     * something
-     *
-     * @format
-     */
-    if (
-      isFrontMatterNode(firstChild) &&
-      secondChild &&
-      secondChild.type === "css-comment" &&
-      /^\*\s*@(format|prettier)\s*$/.test(secondChild.text)
-    ) {
-      node.nodes.splice(1, 1);
+    const commentIndex = isFrontMatterNode(node.nodes[0]) ? 1 : 0;
+    const comment = node.nodes[commentIndex];
+    if (comment && comment.type === "css-comment") {
+      // standalone pragma
+      if (/^\*\s*@(format|prettier)\s*$/.test(comment.text)) {
+        node.nodes.splice(commentIndex, 1);
+      } else {
+        /**
+         * something
+         *
+         * @format
+         */
+        comment.text = "";
+      }
     }
 
     // Last comment is not parsed, when omitting semicolon, #8675
     const lastNode = getLast(node.nodes);
-    if (lastNode && lastNode.type === "") {
+    if (lastNode && lastNode.type === "css-comment") {
       node.nodes.pop();
     }
   }

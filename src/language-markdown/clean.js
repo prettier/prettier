@@ -60,22 +60,10 @@ function clean(node) {
 
   // for insert pragma
   if (node.type === "root") {
-    const [firstChild, secondChild] = node.children;
-    if (
-      firstChild &&
-      firstChild.type === "html" &&
-      startWithPragma(firstChild.value)
-    ) {
-      node.children.shift();
-    }
-
-    if (
-      isFrontMatterNode(firstChild) &&
-      secondChild &&
-      secondChild.type === "html" &&
-      startWithPragma(secondChild.value)
-    ) {
-      node.children.splice(1, 1);
+    const commentIndex = isFrontMatterNode(node.children[0]) ? 1 : 0;
+    const comment = node.children[commentIndex];
+    if (comment && comment.type === "html" && startWithPragma(comment.value)) {
+      node.children.splice(commentIndex, 1);
     }
   }
 }
