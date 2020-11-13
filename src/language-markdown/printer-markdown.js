@@ -619,17 +619,11 @@ function printTable(path, options, print) {
 
   function printAlign(isCompact) {
     const align = columnMaxWidths.map((width, index) => {
-      const spaces = isCompact ? 3 : width;
       const align = node.align[index];
-      let first = "-";
-      let last = "-";
-      if (align === "center" || align === "left") {
-        first = ":";
-      }
-      if (align === "center" || align === "right") {
-        last = ":";
-      }
-      return first + "-".repeat(spaces - 2) + last;
+      const first = align === "center" || align === "left" ? ":" : "-";
+      const last = align === "center" || align === "right" ? ":" : "-";
+      const middle = isCompact ? "-" : "-".repeat(width - 2);
+      return `${first}${middle}${last}`;
     });
 
     return `| ${align.join(" | ")} |`;
@@ -642,14 +636,12 @@ function printTable(path, options, print) {
         const spaces = columnMaxWidths[columnIndex] - getStringWidth(text);
         const align = node.align[columnIndex];
         let before = 0;
-        let after = spaces;
         if (align === "right") {
-          [before, after] = [after, before];
+          before = spaces;
         } else if (align === "center") {
           before = Math.floor(spaces / 2);
-          after = spaces - before;
         }
-
+        const after = spaces - before;
         return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
       });
     }
