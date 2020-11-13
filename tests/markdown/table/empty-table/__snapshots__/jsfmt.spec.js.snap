@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty-table.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Test line 6
+
+=====================================output=====================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Test line 6
+
+================================================================================
+`;
+
+exports[`empty-table.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Test line 6
+
+=====================================output=====================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Test line 6
+
+================================================================================
+`;
+
+exports[`empty-table.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Test line 6
+
+=====================================output=====================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Test line 6
+
+================================================================================
+`;
+
+exports[`empty-table.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Test line 6
+
+=====================================output=====================================
+Test line 1
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Test line 6
+
+================================================================================
+`;
