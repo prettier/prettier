@@ -23,19 +23,6 @@ function parseComments(ast) {
   return comments;
 }
 
-function removeTokens(node) {
-  if (node && typeof node === "object") {
-    delete node.startToken;
-    delete node.endToken;
-    delete node.prev;
-    delete node.next;
-    for (const key in node) {
-      removeTokens(node[key]);
-    }
-  }
-  return node;
-}
-
 function fallbackParser(parse, source) {
   const parserOptions = {
     allowLegacySDLImplementsInterfaces: false,
@@ -55,7 +42,6 @@ function parse(text /*, parsers, opts*/) {
   try {
     const ast = fallbackParser(parser.parse, text);
     ast.comments = parseComments(ast);
-    removeTokens(ast);
     return ast;
   } catch (error) {
     const { GraphQLError } = require("graphql/error");
