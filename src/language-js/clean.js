@@ -18,43 +18,43 @@ const ignoredProperties = new Set([
   "tokens",
 ]);
 
-function clean(ast, newObj, parent) {
-  if (ast.type === "Program") {
-    delete newObj.sourceType;
+function clean(node) {
+  if (node.type === "Program") {
+    delete node.sourceType;
   }
 
   if (
-    ast.type === "BigIntLiteral" ||
-    ast.type === "BigIntLiteralTypeAnnotation"
+    node.type === "BigIntLiteral" ||
+    node.type === "BigIntLiteralTypeAnnotation"
   ) {
-    if (newObj.value) {
-      newObj.value = newObj.value.toLowerCase();
+    if (node.value) {
+      node.value = node.value.toLowerCase();
     }
   }
-  if (ast.type === "BigIntLiteral" || ast.type === "Literal") {
-    if (newObj.bigint) {
-      newObj.bigint = newObj.bigint.toLowerCase();
+  if (node.type === "BigIntLiteral" || node.type === "Literal") {
+    if (node.bigint) {
+      node.bigint = node.bigint.toLowerCase();
     }
   }
 
-  if (ast.type === "DecimalLiteral") {
-    newObj.value = Number(newObj.value);
+  if (node.type === "DecimalLiteral") {
+    node.value = Number(node.value);
   }
 
   // We remove extra `;` and add them when needed
-  if (ast.type === "EmptyStatement") {
+  if (node.type === "EmptyStatement") {
     return null;
   }
 
   // We move text around, including whitespaces and add {" "}
-  if (ast.type === "JSXText") {
+  if (node.type === "JSXText") {
     return null;
   }
   if (
-    ast.type === "JSXExpressionContainer" &&
-    (ast.expression.type === "Literal" ||
-      ast.expression.type === "StringLiteral") &&
-    ast.expression.value === " "
+    node.type === "JSXExpressionContainer" &&
+    (node.expression.type === "Literal" ||
+      node.expression.type === "StringLiteral") &&
+    node.expression.value === " "
   ) {
     return null;
   }
@@ -63,38 +63,38 @@ function clean(ast, newObj, parent) {
   // And {key: value} into {'key': value}.
   // Also for (some) number keys.
   if (
-    (ast.type === "Property" ||
-      ast.type === "ObjectProperty" ||
-      ast.type === "MethodDefinition" ||
-      ast.type === "ClassProperty" ||
-      ast.type === "ClassMethod" ||
-      ast.type === "FieldDefinition" ||
-      ast.type === "TSDeclareMethod" ||
-      ast.type === "TSPropertySignature" ||
-      ast.type === "ObjectTypeProperty") &&
-    typeof ast.key === "object" &&
-    ast.key &&
-    (ast.key.type === "Literal" ||
-      ast.key.type === "NumericLiteral" ||
-      ast.key.type === "StringLiteral" ||
-      ast.key.type === "Identifier")
+    (node.type === "Property" ||
+      node.type === "ObjectProperty" ||
+      node.type === "MethodDefinition" ||
+      node.type === "ClassProperty" ||
+      node.type === "ClassMethod" ||
+      node.type === "FieldDefinition" ||
+      node.type === "TSDeclareMethod" ||
+      node.type === "TSPropertySignature" ||
+      node.type === "ObjectTypeProperty") &&
+    typeof node.key === "object" &&
+    node.key &&
+    (node.key.type === "Literal" ||
+      node.key.type === "NumericLiteral" ||
+      node.key.type === "StringLiteral" ||
+      node.key.type === "Identifier")
   ) {
-    delete newObj.key;
+    delete node.key;
   }
 
-  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
-    newObj.type = "MemberExpression";
-    delete newObj.optional;
+  if (node.type === "OptionalMemberExpression" && node.optional === false) {
+    node.type = "MemberExpression";
+    delete node.optional;
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
-    ast.type === "JSXElement" &&
-    ast.openingElement.name.name === "style" &&
-    ast.openingElement.attributes.some((attr) => attr.name.name === "jsx")
+    node.type === "JSXElement" &&
+    node.openingElement.name.name === "style" &&
+    node.openingElement.attributes.some((attr) => attr.name.name === "jsx")
   ) {
-    const templateLiterals = newObj.children
+    const templateLiterals = node.children
       .filter(
         (child) =>
           child.type === "JSXExpressionContainer" &&
@@ -112,34 +112,34 @@ function clean(ast, newObj, parent) {
 
   // CSS template literals in css prop
   if (
-    ast.type === "JSXAttribute" &&
-    ast.name.name === "css" &&
-    ast.value.type === "JSXExpressionContainer" &&
-    ast.value.expression.type === "TemplateLiteral"
+    node.type === "JSXAttribute" &&
+    node.name.name === "css" &&
+    node.value.type === "JSXExpressionContainer" &&
+    node.value.expression.type === "TemplateLiteral"
   ) {
-    newObj.value.expression.quasis.forEach((q) => delete q.value);
+    node.value.expression.quasis.forEach((q) => delete q.value);
   }
 
   // We change quotes
   if (
-    ast.type === "JSXAttribute" &&
-    ast.value &&
-    ast.value.type === "Literal" &&
-    /["']|&quot;|&apos;/.test(ast.value.value)
+    node.type === "JSXAttribute" &&
+    node.value &&
+    node.value.type === "Literal" &&
+    /["']|&quot;|&apos;/.test(node.value.value)
   ) {
-    newObj.value.value = newObj.value.value.replace(/["']|&quot;|&apos;/g, '"');
+    node.value.value = node.value.value.replace(/["']|&quot;|&apos;/g, '"');
   }
 
   // Angular Components: Inline HTML template and Inline CSS styles
-  const expression = ast.expression || ast.callee;
+  const expression = node.expression || node.callee;
   if (
-    ast.type === "Decorator" &&
+    node.type === "Decorator" &&
     expression.type === "CallExpression" &&
     expression.callee.name === "Component" &&
     expression.arguments.length === 1
   ) {
-    const astProps = ast.expression.arguments[0].properties;
-    newObj.expression.arguments[0].properties.forEach((prop, index) => {
+    const astProps = node.expression.arguments[0].properties;
+    node.expression.arguments[0].properties.forEach((prop, index) => {
       let templateLiteral = null;
 
       switch (astProps[index].key.name) {
@@ -163,57 +163,65 @@ function clean(ast, newObj, parent) {
 
   // styled-components, graphql, markdown
   if (
-    ast.type === "TaggedTemplateExpression" &&
-    (ast.tag.type === "MemberExpression" ||
-      (ast.tag.type === "Identifier" &&
-        (ast.tag.name === "gql" ||
-          ast.tag.name === "graphql" ||
-          ast.tag.name === "css" ||
-          ast.tag.name === "md" ||
-          ast.tag.name === "markdown" ||
-          ast.tag.name === "html")) ||
-      ast.tag.type === "CallExpression")
+    node.type === "TaggedTemplateExpression" &&
+    (node.tag.type === "MemberExpression" ||
+      (node.tag.type === "Identifier" &&
+        (node.tag.name === "gql" ||
+          node.tag.name === "graphql" ||
+          node.tag.name === "css" ||
+          node.tag.name === "md" ||
+          node.tag.name === "markdown" ||
+          node.tag.name === "html")) ||
+      node.tag.type === "CallExpression")
   ) {
-    newObj.quasi.quasis.forEach((quasi) => delete quasi.value);
+    node.quasi.quasis.forEach((quasi) => delete quasi.value);
   }
-  if (ast.type === "TemplateLiteral") {
+
+  if (node.type === "CallExpression" && node.callee.name === "graphql") {
+    for (const child of node.arguments) {
+      if (child.type === "TemplateLiteral") {
+        cleanTemplateLiteral(child);
+      }
+    }
+  }
+
+  if (node.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
     // In order to be in line with other implementations of this comment tag
     // we will not trim the comment value and we will expect exactly one space on
     // either side of the GraphQL string
     // Also see ./embed.js
     const hasLanguageComment =
-      ast.leadingComments &&
-      ast.leadingComments.some(
+      node.leadingComments &&
+      node.leadingComments.some(
         (comment) =>
           isBlockComment(comment) &&
           ["GraphQL", "HTML"].some(
             (languageName) => comment.value === ` ${languageName} `
           )
       );
-    if (
-      hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql")
-    ) {
-      newObj.quasis.forEach((quasi) => delete quasi.value);
+    if (hasLanguageComment) {
+      cleanTemplateLiteral(node);
     }
 
     // TODO: check parser
     // `flow` and `typescript` don't have `leadingComments`
-    if (!ast.leadingComments) {
-      newObj.quasis.forEach((quasi) => {
-        if (quasi.value) {
-          delete quasi.value.cooked;
-        }
-      });
+    if (!node.leadingComments) {
+      cleanTemplateLiteral(node);
     }
   }
 
-  if (ast.type === "InterpreterDirective") {
-    newObj.value = newObj.value.trimEnd();
+  if (node.type === "InterpreterDirective") {
+    node.value = node.value.trimEnd();
   }
 }
 
 clean.ignoredProperties = ignoredProperties;
+
+function cleanTemplateLiteral(node) {
+  for (const quasi of node.quasis) {
+    delete quasi.value;
+  }
+}
 
 module.exports = clean;

@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const traverse = require("../utils/traverse");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 
@@ -24,16 +25,12 @@ function parseComments(ast) {
 }
 
 function removeTokens(node) {
-  if (node && typeof node === "object") {
+  return traverse(node, (node) => {
     delete node.startToken;
     delete node.endToken;
     delete node.prev;
     delete node.next;
-    for (const key in node) {
-      removeTokens(node[key]);
-    }
-  }
-  return node;
+  });
 }
 
 function fallbackParser(parse, source) {

@@ -1,13 +1,13 @@
 "use strict";
 
-function clean(ast, newNode /*, parent*/) {
+function clean(node) {
   // (Glimmer/HTML) ignore TextNode whitespace
-  if (ast.type === "TextNode") {
-    const trimmed = ast.chars.trim();
+  if (node.type === "TextNode") {
+    const trimmed = node.chars.trim();
     if (!trimmed) {
       return null;
     }
-    newNode.chars = trimmed;
+    node.chars = trimmed;
   }
 }
 clean.ignoredProperties = new Set(["loc", "selfClosing"]);

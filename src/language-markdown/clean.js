@@ -7,68 +7,64 @@ const ignoredProperties = new Set([
   "position",
   "raw", // front-matter
 ]);
-function clean(ast, newObj, parent) {
+function clean(node) {
   // for codeblock
   if (
-    ast.type === "front-matter" ||
-    ast.type === "code" ||
-    ast.type === "yaml" ||
-    ast.type === "import" ||
-    ast.type === "export" ||
-    ast.type === "jsx"
+    node.type === "front-matter" ||
+    node.type === "code" ||
+    node.type === "yaml" ||
+    node.type === "import" ||
+    node.type === "export" ||
+    node.type === "jsx"
   ) {
-    delete newObj.value;
+    delete node.value;
   }
 
-  if (ast.type === "list") {
-    delete newObj.isAligned;
+  if (node.type === "list") {
+    delete node.isAligned;
   }
 
-  if (ast.type === "list" || ast.type === "listItem") {
-    delete newObj.spread;
-    delete newObj.loose;
+  if (node.type === "list" || node.type === "listItem") {
+    delete node.spread;
+    delete node.loose;
   }
 
   // texts can be splitted or merged
-  if (ast.type === "text") {
+  if (node.type === "text") {
     return null;
   }
 
-  if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+  if (node.type === "inlineCode") {
+    node.value = node.value.replace(/[\t\n ]+/g, " ");
   }
 
-  if (ast.type === "wikiLink") {
-    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
+  if (node.type === "wikiLink") {
+    node.value = node.value.trim().replace(/[\t\n]+/g, " ");
   }
 
-  if (ast.type === "definition" || ast.type === "linkReference") {
-    newObj.label = ast.label
+  if (node.type === "definition" || node.type === "linkReference") {
+    node.label = node.label
       .trim()
       .replace(/[\t\n ]+/g, " ")
       .toLowerCase();
   }
 
   if (
-    (ast.type === "definition" ||
-      ast.type === "link" ||
-      ast.type === "image") &&
-    ast.title
+    (node.type === "definition" ||
+      node.type === "link" ||
+      node.type === "image") &&
+    node.title
   ) {
-    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
+    node.title = node.title.replace(/\\(["')])/g, "$1");
   }
 
   // for insert pragma
-  if (
-    parent &&
-    parent.type === "root" &&
-    parent.children.length > 0 &&
-    (parent.children[0] === ast ||
-      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
-    ast.type === "html" &&
-    startWithPragma(ast.value)
-  ) {
-    return null;
+  if (node.type === "root") {
+    const commentIndex = isFrontMatterNode(node.children[0]) ? 1 : 0;
+    const comment = node.children[commentIndex];
+    if (comment && comment.type === "html" && startWithPragma(comment.value)) {
+      node.children.splice(commentIndex, 1);
+    }
   }
 }
 

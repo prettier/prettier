@@ -19,6 +19,7 @@ const {
   softline,
 } = docBuilders;
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
+const traverse = require("../utils/traverse");
 const { insertPragma, isPragma } = require("./pragma");
 const { locStart } = require("./loc");
 const {
@@ -38,11 +39,10 @@ const {
   isNode,
   isEmptyNode,
   defineShortcut,
-  mapNode,
 } = require("./utils");
 
 function preprocess(ast) {
-  return mapNode(ast, defineShortcuts);
+  return traverse(ast, defineShortcuts);
 }
 
 function defineShortcuts(node) {
@@ -743,19 +743,19 @@ function printFlowScalarContent(nodeType, content, options) {
   );
 }
 
-function clean(node, newNode /*, parent */) {
-  if (isNode(newNode)) {
-    delete newNode.position;
-    switch (newNode.type) {
+function clean(node) {
+  if (isNode(node)) {
+    delete node.position;
+    switch (node.type) {
       case "comment":
         // insert pragma
-        if (isPragma(newNode.value)) {
+        if (isPragma(node.value)) {
           return null;
         }
         break;
       case "quoteDouble":
       case "quoteSingle":
-        newNode.type = "quote";
+        node.type = "quote";
         break;
     }
   }

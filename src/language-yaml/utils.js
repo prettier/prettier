@@ -26,20 +26,6 @@ function isNode(value, types) {
   );
 }
 
-function mapNode(node, callback, parent) {
-  return callback(
-    "children" in node
-      ? {
-          ...node,
-          children: node.children.map((childNode) =>
-            mapNode(childNode, callback, node)
-          ),
-        }
-      : node,
-    parent
-  );
-}
-
 function defineShortcut(x, key, getter) {
   Object.defineProperty(x, key, {
     get: getter,
@@ -332,7 +318,6 @@ module.exports = {
   getAncestorCount,
   isNode,
   isEmptyNode,
-  mapNode,
   defineShortcut,
   isNextLineEmpty,
   isLastDescendantNode,

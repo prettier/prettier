@@ -13,134 +13,130 @@ const ignoredProperties = new Set([
   "trailingComma",
 ]);
 
-function clean(ast, newObj, parent) {
-  if (isFrontMatterNode(ast) && ast.lang === "yaml") {
-    delete newObj.value;
+function clean(node) {
+  if (isFrontMatterNode(node) && node.lang === "yaml") {
+    delete node.value;
   }
 
-  if (
-    ast.type === "css-comment" &&
-    parent.type === "css-root" &&
-    parent.nodes.length !== 0
-  ) {
+  if (node.type === "css-root") {
     // --insert-pragma
     // first non-front-matter comment
-    if (
-      parent.nodes[0] === ast ||
-      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast)
-    ) {
-      /**
-       * something
-       *
-       * @format
-       */
-      delete newObj.text;
-
+    const commentIndex = isFrontMatterNode(node.nodes[0]) ? 1 : 0;
+    const comment = node.nodes[commentIndex];
+    if (comment && comment.type === "css-comment") {
       // standalone pragma
-      if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
-        return null;
+      if (/^\*\s*@(format|prettier)\s*$/.test(comment.text)) {
+        node.nodes.splice(commentIndex, 1);
+      } else {
+        /**
+         * something
+         *
+         * @format
+         */
+        comment.text = "";
       }
     }
 
     // Last comment is not parsed, when omitting semicolon, #8675
-    if (parent.type === "css-root" && getLast(parent.nodes) === ast) {
-      return null;
+    const lastNode = getLast(node.nodes);
+    if (lastNode && lastNode.type === "css-comment") {
+      node.nodes.pop();
     }
   }
 
-  if (ast.type === "value-root") {
-    delete newObj.text;
+  if (node.type === "value-root") {
+    delete node.text;
   }
 
   if (
-    ast.type === "media-query" ||
-    ast.type === "media-query-list" ||
-    ast.type === "media-feature-expression"
+    node.type === "media-query" ||
+    node.type === "media-query-list" ||
+    node.type === "media-feature-expression"
   ) {
-    delete newObj.value;
+    delete node.value;
   }
 
-  if (ast.type === "css-rule") {
-    delete newObj.params;
+  if (node.type === "css-rule") {
+    delete node.params;
   }
 
-  if (ast.type === "selector-combinator") {
-    newObj.value = newObj.value.replace(/\s+/g, " ");
+  if (node.type === "selector-combinator") {
+    node.value = node.value.replace(/\s+/g, " ");
   }
 
-  if (ast.type === "media-feature") {
-    newObj.value = newObj.value.replace(/ /g, "");
+  if (node.type === "media-feature") {
+    node.value = node.value.replace(/ /g, "");
   }
 
   if (
-    (ast.type === "value-word" &&
-      ((ast.isColor && ast.isHex) ||
+    (node.type === "value-word" &&
+      ((node.isColor && node.isHex) ||
         ["initial", "inherit", "unset", "revert"].includes(
-          newObj.value.replace().toLowerCase()
+          node.value.replace().toLowerCase()
         ))) ||
-    ast.type === "media-feature" ||
-    ast.type === "selector-root-invalid" ||
-    ast.type === "selector-pseudo"
+    node.type === "media-feature" ||
+    node.type === "selector-root-invalid" ||
+    node.type === "selector-pseudo"
   ) {
-    newObj.value = newObj.value.toLowerCase();
+    node.value = node.value.toLowerCase();
   }
-  if (ast.type === "css-decl") {
-    newObj.prop = newObj.prop.toLowerCase();
+  if (node.type === "css-decl") {
+    node.prop = node.prop.toLowerCase();
   }
-  if (ast.type === "css-atrule" || ast.type === "css-import") {
-    newObj.name = newObj.name.toLowerCase();
+  if (node.type === "css-atrule" || node.type === "css-import") {
+    node.name = node.name.toLowerCase();
   }
-  if (ast.type === "value-number") {
-    newObj.unit = newObj.unit.toLowerCase();
+  if (node.type === "value-number") {
+    node.unit = node.unit.toLowerCase();
   }
 
   if (
-    (ast.type === "media-feature" ||
-      ast.type === "media-keyword" ||
-      ast.type === "media-type" ||
-      ast.type === "media-unknown" ||
-      ast.type === "media-url" ||
-      ast.type === "media-value" ||
-      ast.type === "selector-attribute" ||
-      ast.type === "selector-string" ||
-      ast.type === "selector-class" ||
-      ast.type === "selector-combinator" ||
-      ast.type === "value-string") &&
-    newObj.value
+    (node.type === "media-feature" ||
+      node.type === "media-keyword" ||
+      node.type === "media-type" ||
+      node.type === "media-unknown" ||
+      node.type === "media-url" ||
+      node.type === "media-value" ||
+      node.type === "selector-attribute" ||
+      node.type === "selector-string" ||
+      node.type === "selector-class" ||
+      node.type === "selector-combinator" ||
+      node.type === "value-string") &&
+    node.value
   ) {
-    newObj.value = cleanCSSStrings(newObj.value);
+    node.value = cleanCSSStrings(node.value);
   }
 
-  if (ast.type === "selector-attribute") {
-    newObj.attribute = newObj.attribute.trim();
+  if (node.type === "selector-attribute") {
+    node.attribute = node.attribute.trim();
 
-    if (newObj.namespace) {
-      if (typeof newObj.namespace === "string") {
-        newObj.namespace = newObj.namespace.trim();
+    if (node.namespace) {
+      if (typeof node.namespace === "string") {
+        node.namespace = node.namespace.trim();
 
-        if (newObj.namespace.length === 0) {
-          newObj.namespace = true;
+        if (node.namespace.length === 0) {
+          node.namespace = true;
         }
       }
     }
 
-    if (newObj.value) {
-      newObj.value = newObj.value.trim().replace(/^["']|["']$/g, "");
-      delete newObj.quoted;
+    if (node.value) {
+      node.value = node.value.trim().replace(/^["']|["']$/g, "");
+      delete node.quoted;
     }
   }
 
   if (
-    (ast.type === "media-value" ||
-      ast.type === "media-type" ||
-      ast.type === "value-number" ||
-      ast.type === "selector-root-invalid" ||
-      ast.type === "selector-class" ||
-      ast.type === "selector-combinator" ||
-      ast.type === "selector-tag") &&
-    newObj.value
+    (node.type === "media-value" ||
+      node.type === "media-type" ||
+      node.type === "value-number" ||
+      node.type === "selector-root-invalid" ||
+      node.type === "selector-class" ||
+      node.type === "selector-combinator" ||
+      node.type === "selector-tag") &&
+    node.value
   ) {
-    newObj.value = newObj.value.replace(
+    node.value = node.value.replace(
       /([\d+.Ee-]+)([A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
@@ -149,22 +145,22 @@ function clean(ast, newObj, parent) {
     );
   }
 
-  if (ast.type === "selector-tag") {
-    const lowercasedValue = ast.value.toLowerCase();
+  if (node.type === "selector-tag") {
+    const lowercasedValue = node.value.toLowerCase();
 
     if (["from", "to"].includes(lowercasedValue)) {
-      newObj.value = lowercasedValue;
+      node.value = lowercasedValue;
     }
   }
 
   // Workaround when `postcss-values-parser` parse `not`, `and` or `or` keywords as `value-func`
-  if (ast.type === "css-atrule" && ast.name.toLowerCase() === "supports") {
-    delete newObj.value;
+  if (node.type === "css-atrule" && node.name.toLowerCase() === "supports") {
+    delete node.value;
   }
 
   // Workaround for SCSS nested properties
-  if (ast.type === "selector-unknown") {
-    delete newObj.value;
+  if (node.type === "selector-unknown") {
+    delete node.value;
   }
 }
 
