@@ -195,37 +195,36 @@ function printNode(node, parentNode, path, options, print) {
     }
     case "document": {
       const nextDocument = parentNode.children[path.getName() + 1];
-      return join(
-        hardline,
-        [
-          shouldPrintDocumentHeadEndMarker(
-            node,
-            nextDocument,
-            parentNode,
-            options
-          ) === "head"
-            ? join(
-                hardline,
-                [
-                  node.head.children.length === 0 &&
-                  node.head.endComments.length === 0
-                    ? ""
-                    : path.call(print, "head"),
-                  concat([
-                    "---",
-                    hasTrailingComment(node.head)
-                      ? concat([
-                          " ",
-                          path.call(print, "head", "trailingComment"),
-                        ])
-                      : "",
-                  ]),
-                ].filter(Boolean)
-              )
-            : "",
-          shouldPrintDocumentBody(node) ? path.call(print, "body") : "",
-        ].filter(Boolean)
-      );
+      const parts = [];
+      if (
+        shouldPrintDocumentHeadEndMarker(
+          node,
+          nextDocument,
+          parentNode,
+          options
+        ) === "head"
+      ) {
+        if (
+          node.head.children.length !== 0 ||
+          node.head.endComments.length !== 0
+        ) {
+          parts.push(path.call(print, "head"));
+        }
+
+        if (hasTrailingComment(node.head)) {
+          parts.push(
+            concat(["---", " ", path.call(print, "head", "trailingComment")])
+          );
+        } else {
+          parts.push("---");
+        }
+      }
+
+      if (shouldPrintDocumentBody(node)) {
+        parts.push(path.call(print, "body"));
+      }
+
+      return join(hardline, parts);
     }
     case "documentHead":
       return join(hardline, [
