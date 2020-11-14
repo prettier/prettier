@@ -129,7 +129,7 @@ failing:
     "object-does-not-fit-within-print-width",
     "------",
     "TEST",
-    "comma IS added here",
+    "comma IS added here"
   ]
 
 expected: ["object-fits-within-print-width", "", "TEST", "comma NOT here"]

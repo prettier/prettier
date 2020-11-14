@@ -123,7 +123,7 @@ does not suffice: >
 failing:
   {
     "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma IS added here",
+    "TEST": "comma IS added here"
   }
 
 expected: { "object-fits-within-print-width": "", "TEST": "comma NOT here" }

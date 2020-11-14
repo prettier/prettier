@@ -499,6 +499,8 @@ function _print(node, parentNode, path, options, print) {
           lastItem.type === "flowMappingItem" &&
           isEmptyNode(lastItem.key) &&
           isEmptyNode(lastItem.value))(getLast(node.children));
+      const trailingComma =
+        options.trailingComma === "none" ? "" : ifBreak(",", "");
       return concat([
         openMarker,
         indent(
@@ -526,7 +528,7 @@ function _print(node, parentNode, path, options, print) {
                 "children"
               )
             ),
-            ifBreak(",", ""),
+            trailingComma,
           ])
         ),
         isLastItemEmptyMappingItem ? "" : bracketSpacing,
