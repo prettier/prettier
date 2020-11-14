@@ -527,7 +527,7 @@ function _print(node, parentNode, path, options, print) {
               )
             ),
             ifBreak(",", ""),
-            hasEndComments
+            hasEndComments(node)
               ? concat([
                   hardline,
                   join(hardline, path.map(print, "endComments")),
