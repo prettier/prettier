@@ -6,7 +6,7 @@
    - For TypeScript specific syntax, choose `typescript/`.
    - If your PR applies to multiple languages, such as TypeScript/Flow, choose one folder and mention which languages it applies to.
 
-2. In your chosen folder, create a file with your PR number: `pr-XXXX.md`. For example: `typescript/pr-6728.md`.
+2. In your chosen folder, create a file with your PR number: `XXXX.md`. For example: `typescript/6728.md`.
 
 3. Copy the content below and paste it in your new file.
 
