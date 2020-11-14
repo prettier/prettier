@@ -167,31 +167,32 @@ function printNode(node, parentNode, path, options, print) {
   switch (node.type) {
     case "root": {
       const { children } = node;
-      const printed = join(
-        hardline,
-        path.map((childPath, index) => {
-          const document = children[index];
-          const nextDocument = children[index + 1];
-          const parts = [print(childPath)];
-          if (shouldPrintDocumentEndMarker(document, nextDocument)) {
-            parts.push(hardline, "...");
-            if (hasTrailingComment(document)) {
-              parts.push(" ", path.call(print, "trailingComment"));
-            }
-          } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
-            parts.push(hardline, "---");
+      const parts = [];
+      path.each((childPath, index) => {
+        const document = children[index];
+        const nextDocument = children[index + 1];
+        if (index !== 0) {
+          parts.push(hardline);
+        }
+        parts.push(print(childPath));
+        if (shouldPrintDocumentEndMarker(document, nextDocument)) {
+          parts.push(hardline, "...");
+          if (hasTrailingComment(document)) {
+            parts.push(" ", path.call(print, "trailingComment"));
           }
-          return concat(parts);
-        }, "children")
-      );
+        } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
+          parts.push(hardline, "---");
+        }
+      }, "children");
+
       const lastDescendantNode = getLastDescendantNode(node);
       if (
-        isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
-        lastDescendantNode.chomping === "keep"
+        !isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) ||
+        lastDescendantNode.chomping !== "keep"
       ) {
-        return printed;
+        parts.push(hardline);
       }
-      return concat([printed, hardline]);
+      return concat(parts);
     }
     case "document": {
       const nextDocument = parentNode.children[path.getName() + 1];
