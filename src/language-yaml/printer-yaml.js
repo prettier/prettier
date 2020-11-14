@@ -165,36 +165,34 @@ function genericPrint(path, options, print) {
 
 function printNode(node, parentNode, path, options, print) {
   switch (node.type) {
-    case "root":
-      return concat([
-        join(
-          hardline,
-          path.map((childPath, index) => {
-            const document = node.children[index];
-            const nextDocument = node.children[index + 1];
-            return concat([
-              print(childPath),
-              shouldPrintDocumentEndMarker(document, nextDocument)
-                ? concat([
-                    hardline,
-                    "...",
-                    hasTrailingComment(document)
-                      ? concat([" ", path.call(print, "trailingComment")])
-                      : "",
-                  ])
-                : !nextDocument || hasTrailingComment(nextDocument.head)
-                ? ""
-                : concat([hardline, "---"]),
-            ]);
-          }, "children")
-        ),
-        node.children.length === 0 ||
-        ((lastDescendantNode) =>
-          isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
-          lastDescendantNode.chomping === "keep")(getLastDescendantNode(node))
-          ? ""
-          : hardline,
-      ]);
+    case "root": {
+      const { children } = node;
+      const printed = join(
+        hardline,
+        path.map((childPath, index) => {
+          const document = children[index];
+          const nextDocument = children[index + 1];
+          const parts = [print(childPath)];
+          if (shouldPrintDocumentEndMarker(document, nextDocument)) {
+            parts.push(hardline, "...");
+            if (hasTrailingComment(document)) {
+              parts.push(" ", path.call(print, "trailingComment"));
+            }
+          } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
+            parts.push(hardline, "---");
+          }
+          return concat(parts);
+        }, "children")
+      );
+      const lastDescendantNode = getLastDescendantNode(node);
+      if (
+        isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
+        lastDescendantNode.chomping === "keep"
+      ) {
+        return printed;
+      }
+      return concat([printed, hardline]);
+    }
     case "document": {
       const nextDocument = parentNode.children[path.getName() + 1];
       return join(
