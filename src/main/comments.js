@@ -311,7 +311,7 @@ function isCommentOnOwnLine(comment, text, options, comments, commentIndex) {
       break;
     }
     const textBetween = text.slice(locEnd(previousComment), start);
-    if (!textBetween.includes("\n") && /^\s*$/.test(textBetween)) {
+    if (!/[\n\u2028\u2029]/.test(textBetween) && /^\s*$/.test(textBetween)) {
       start = locStart(previousComment);
     } else {
       break;
@@ -332,7 +332,7 @@ function isNewLineComment(comment, text, options, comments, commentIndex) {
       break;
     }
     const textBetween = text.slice(end, locStart(nextComment));
-    if (!textBetween.includes("\n") && /^\s*$/.test(textBetween)) {
+    if (!/[\n\u2028\u2029]/.test(textBetween) && /^\s*$/.test(textBetween)) {
       end = locEnd(nextComment);
     } else {
       break;
