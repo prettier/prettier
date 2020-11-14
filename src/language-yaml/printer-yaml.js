@@ -30,7 +30,7 @@ const {
   isNode,
   isInlineNode,
 } = require("./utils");
-const preprocess = require("./printer-preprocess");
+const preprocess = require("./print-preprocess");
 const {
   alignWithSpaces,
   printNextEmptyLine,
