@@ -41,7 +41,7 @@ function printBlock(path, print, options) {
   }
 
   if (hasIndicatorComment(node)) {
-    parts.push(concat([" ", path.call(print, "indicatorComment")]));
+    parts.push(" ", path.call(print, "indicatorComment"));
   }
 
   const lineContents = getBlockValueLineContents(node, {
@@ -66,11 +66,17 @@ function printBlock(path, print, options) {
       );
     }
   }
-  const contents = alignWithSpaces(
-    node.indent === null ? options.tabWidth : node.indent - 1 + parentIndent,
-    concat(contentsParts)
-  );
-  parts.push(node.indent === null ? dedent(contents) : dedentToRoot(contents));
+  if (node.indent === null) {
+    parts.push(
+      dedent(alignWithSpaces(options.tabWidth, concat(contentsParts)))
+    );
+  } else {
+    parts.push(
+      dedentToRoot(
+        alignWithSpaces(node.indent - 1 + parentIndent, concat(contentsParts))
+      )
+    );
+  }
 
   return concat(parts);
 }
