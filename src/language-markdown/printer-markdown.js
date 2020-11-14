@@ -41,6 +41,10 @@ const {
   isAutolink,
 } = require("./utils");
 
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
+
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
@@ -603,6 +607,7 @@ function printTable(path, options, print) {
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
 
   function printTableContents(isCompact) {
+    /** @type{Doc[]} */
     const parts = [printRow(contents[0], isCompact), printAlign(isCompact)];
     if (contents.length > 1) {
       parts.push(
