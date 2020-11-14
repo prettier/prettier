@@ -6,17 +6,21 @@ const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacter,
   hasNewlineInRange,
-  isNodeIgnoreComment,
   addLeadingComment,
   addTrailingComment,
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util");
-const { isBlockComment, getFunctionParameters } = require("./utils");
+const {
+  isBlockComment,
+  getFunctionParameters,
+  isPrettierIgnoreComment,
+} = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   return (
+    handleIgnoreComments(comment) ||
     handleLastFunctionArgComments(comment, text) ||
     handleMemberExpressionComments(comment) ||
     handleIfStatementComments(comment, text) ||
@@ -55,6 +59,7 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
 
 function handleRemainingComment(comment, text, options, ast, isLastComment) {
   if (
+    handleIgnoreComments(comment) ||
     handleIfStatementComments(comment, text) ||
     handleWhileComments(comment, text) ||
     handleObjectPropertyAssignment(comment) ||
@@ -584,7 +589,7 @@ function handleUnionTypeComments(comment) {
     (enclosingNode.type === "UnionTypeAnnotation" ||
       enclosingNode.type === "TSUnionType")
   ) {
-    if (isNodeIgnoreComment(comment)) {
+    if (isPrettierIgnoreComment(comment)) {
       followingNode.prettierIgnore = true;
       comment.unignore = true;
     }
@@ -599,7 +604,7 @@ function handleUnionTypeComments(comment) {
     followingNode &&
     (followingNode.type === "UnionTypeAnnotation" ||
       followingNode.type === "TSUnionType") &&
-    isNodeIgnoreComment(comment)
+    isPrettierIgnoreComment(comment)
   ) {
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
@@ -727,6 +732,22 @@ function handleTSFunctionTrailingComments(comment, text) {
     return true;
   }
   return false;
+}
+
+function handleIgnoreComments(comment) {
+  const { enclosingNode, followingNode } = comment;
+  if (
+    isPrettierIgnoreComment(comment) &&
+    enclosingNode &&
+    enclosingNode.type === "TSMappedType" &&
+    followingNode &&
+    followingNode.type === "TSTypeParameter" &&
+    followingNode.constraint
+  ) {
+    enclosingNode.prettierIgnore = true;
+    comment.unignore = true;
+    return true;
+  }
 }
 
 function handleTSMappedTypeComments(comment) {
