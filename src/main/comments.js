@@ -218,7 +218,7 @@ function attach(comments, ast, text, options) {
 
     const isLastComment = comments.length - 1 === i;
 
-    if (isCommentOnOwnLine(comment, text, options, comments, i)) {
+    if (isOwnLineComment(comment, text, options, comments, i)) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
@@ -237,7 +237,7 @@ function attach(comments, ast, text, options) {
         /* istanbul ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (isNewLineComment(comment, text, options, comments, i)) {
+    } else if (isEndOfLineComment(comment, text, options, comments, i)) {
       if (
         pluginHandleEndOfLineComment(comment, text, options, ast, isLastComment)
       ) {
@@ -300,7 +300,9 @@ function attach(comments, ast, text, options) {
   });
 }
 
-function isCommentOnOwnLine(comment, text, options, comments, commentIndex) {
+const isAllEmptyAndNoLineBreak = (text) =>
+  !/[\n\u2028\u2029]/.test(text) && /^\s*$/.test(text);
+function isOwnLineComment(comment, text, options, comments, commentIndex) {
   const { locStart, locEnd } = options;
   let start = locStart(comment);
 
@@ -311,7 +313,7 @@ function isCommentOnOwnLine(comment, text, options, comments, commentIndex) {
       break;
     }
     const textBetween = text.slice(locEnd(previousComment), start);
-    if (!/[\n\u2028\u2029]/.test(textBetween) && /^\s*$/.test(textBetween)) {
+    if (isAllEmptyAndNoLineBreak(textBetween)) {
       start = locStart(previousComment);
     } else {
       break;
@@ -321,7 +323,7 @@ function isCommentOnOwnLine(comment, text, options, comments, commentIndex) {
   return hasNewline(text, start, { backwards: true });
 }
 
-function isNewLineComment(comment, text, options, comments, commentIndex) {
+function isEndOfLineComment(comment, text, options, comments, commentIndex) {
   const { locStart, locEnd } = options;
   let end = locEnd(comment);
 
@@ -332,7 +334,7 @@ function isNewLineComment(comment, text, options, comments, commentIndex) {
       break;
     }
     const textBetween = text.slice(end, locStart(nextComment));
-    if (!/[\n\u2028\u2029]/.test(textBetween) && /^\s*$/.test(textBetween)) {
+    if (isAllEmptyAndNoLineBreak(textBetween)) {
       end = locEnd(nextComment);
     } else {
       break;
