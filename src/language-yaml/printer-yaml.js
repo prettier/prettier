@@ -527,6 +527,12 @@ function _print(node, parentNode, path, options, print) {
               )
             ),
             ifBreak(",", ""),
+            hasEndComments
+              ? concat([
+                  hardline,
+                  join(hardline, path.map(print, "endComments")),
+                ])
+              : "",
           ])
         ),
         isLastItemEmptyMappingItem ? "" : bracketSpacing,
@@ -703,7 +709,13 @@ function needsSpaceInFrontOfMappingValue(node) {
 
 function shouldPrintEndComments(node) {
   return (
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+    hasEndComments(node) &&
+    !isNode(node, [
+      "documentHead",
+      "documentBody",
+      "flowMapping",
+      "flowSequence",
+    ])
   );
 }
 
