@@ -118,6 +118,16 @@ function hasPrettierIgnore(path) {
     );
   }
 
+  // If `prettier-ignore` after anchor or tag (in middleComments)
+  // https://github.com/ikatyang/yaml-unist-parser/issues/277
+  if (
+    (node.tag || node.anchor) &&
+    hasMiddleComments(node) &&
+    isPrettierIgnore(getLast(node.middleComments))
+  ) {
+    return true;
+  }
+
   return (
     hasLeadingComments(node) && isPrettierIgnore(getLast(node.leadingComments))
   );
