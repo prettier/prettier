@@ -44,7 +44,7 @@ const {
   printHtmlBinding,
   isVueEventBindingExpression,
 } = require("./html-binding");
-const preprocess = require("./preprocess");
+const preprocess = require("./print-preprocess");
 const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,

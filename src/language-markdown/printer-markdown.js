@@ -29,7 +29,7 @@ const { replaceEndOfLineWith } = require("../common/util");
 const embed = require("./embed");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
-const preprocess = require("./preprocess");
+const preprocess = require("./print-preprocess");
 const clean = require("./clean");
 const {
   getFencedCodeBlockValue,
