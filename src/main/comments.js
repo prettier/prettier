@@ -218,7 +218,7 @@ function attach(comments, ast, text, options) {
 
     const isLastComment = comments.length - 1 === i;
 
-    if (hasNewline(text, locStart(comment), { backwards: true })) {
+    if (isCommentOnOwnLine(comment, text, options, comments, i)) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (
@@ -237,7 +237,7 @@ function attach(comments, ast, text, options) {
         /* istanbul ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (hasNewline(text, locEnd(comment))) {
+    } else if (isNewLineComment(comment, text, options, comments, i)) {
       if (
         pluginHandleEndOfLineComment(comment, text, options, ast, isLastComment)
       ) {
@@ -298,6 +298,48 @@ function attach(comments, ast, text, options) {
     delete comment.enclosingNode;
     delete comment.followingNode;
   });
+}
+
+function isCommentOnOwnLine(comment, text, options, comments, commentIndex) {
+  const { locStart, locEnd } = options;
+  let start = locStart(comment);
+
+  // Find first comment on the same line
+  for (let index = commentIndex - 1; index >= 0; index--) {
+    const previousComment = comments[index];
+    if (!previousComment) {
+      break;
+    }
+    const textBetween = text.slice(locEnd(previousComment), start);
+    if (!textBetween.includes("\n") && /^\s*$/.test(textBetween)) {
+      start = locStart(previousComment);
+    } else {
+      break;
+    }
+  }
+
+  return hasNewline(text, start, { backwards: true });
+}
+
+function isNewLineComment(comment, text, options, comments, commentIndex) {
+  const { locStart, locEnd } = options;
+  let end = locEnd(comment);
+
+  // Find last comment on the same line
+  for (let index = commentIndex + 1; index < comments.length; index++) {
+    const nextComment = comments[index];
+    if (!nextComment) {
+      break;
+    }
+    const textBetween = text.slice(end, locStart(nextComment));
+    if (!textBetween.includes("\n") && /^\s*$/.test(textBetween)) {
+      end = locEnd(nextComment);
+    } else {
+      break;
+    }
+  }
+
+  return hasNewline(text, end);
 }
 
 function breakTies(tiesToBreak, text, options) {
