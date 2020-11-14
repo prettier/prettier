@@ -58,7 +58,7 @@ for (const dir of dirs) {
 
   category.entries = fs
     .readdirSync(path.join(changelogUnreleasedDir, dir.name))
-    .filter((fileName) => /^pr-\d+\.md$/.test(fileName))
+    .filter((fileName) => /^\d+\.md$/.test(fileName))
     .map((fileName) => {
       const [title, ...rest] = fs
         .readFileSync(path.join(dirPath, fileName), "utf8")
