@@ -46,7 +46,7 @@ const {
   unescapeQuoteEntities,
   isPreLikeNode,
 } = require("./utils");
-const preprocess = require("./preprocess");
+const preprocess = require("./print-preprocess");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const {

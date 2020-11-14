@@ -2,6 +2,7 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const { outdent } = require("outdent");
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
@@ -61,6 +62,7 @@ const template = fs.readFileSync(
 );
 const [templateComment] = template.match(/<!--[\S\s]*?-->/);
 const [templateAuthorLink] = template.match(authorRegex);
+const checkedFiles = new Map();
 
 for (const category of CHANGELOG_CATEGORIES) {
   const files = fs.readdirSync(path.join(CHANGELOG_ROOT, category));
@@ -85,11 +87,21 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
     const [, prNumber] = match;
+    const prLink = `#${prNumber}`;
+    if (checkedFiles.has(prNumber)) {
+      showErrorMessage(
+        outdent`
+          Duplicate files for ${prLink} found.
+            - ${checkedFiles.get(prNumber)}
+            - ${displayPath}
+        `
+      );
+    }
+    checkedFiles.set(prNumber, displayPath);
     const content = fs.readFileSync(
       path.join(CHANGELOG_DIR, category, prFile),
       "utf8"
     );
-    const prLink = `#${prNumber}`;
 
     if (!content.includes(prLink)) {
       showErrorMessage(`[${displayPath}]: PR link "${prLink}" is missing.`);
