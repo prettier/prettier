@@ -10,7 +10,7 @@ const {
   indent,
   ifBreak,
 } = require("../document").builders;
-const { hasIgnoreComment, isNextLineEmpty } = require("../common/util");
+const { isNextLineEmpty } = require("../common/util");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 
@@ -677,10 +677,19 @@ function printInterfaces(path, options, print) {
 function clean(/*node, newNode , parent*/) {}
 clean.ignoredProperties = new Set(["loc", "comments"]);
 
+function hasPrettierIgnore(path) {
+  const node = path.getValue();
+  return (
+    node &&
+    Array.isArray(node.comments) &&
+    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
+  );
+}
+
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
-  hasPrettierIgnore: hasIgnoreComment,
+  hasPrettierIgnore,
   insertPragma,
   printComment,
   canAttachComment,
