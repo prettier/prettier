@@ -4,8 +4,10 @@ const {
   builders: { indent, line, hardline, concat, group },
   utils: { mapDoc },
 } = require("../../document");
-const { uncook } = require("../utils");
-const { printTemplateExpressions } = require("../print/template-literal");
+const {
+  printTemplateExpressions,
+  uncookTemplateElementValue,
+} = require("../print/template-literal");
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
@@ -56,7 +58,7 @@ function format(path, print, textToDoc, options, { parser }) {
 
       if (i % 2 === 0) {
         if (component) {
-          component = uncook(component);
+          component = uncookTemplateElementValue(component);
           if (options.embeddedInHtml) {
             component = component.replace(/<\/(script)\b/gi, "<\\/$1");
           }

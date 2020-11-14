@@ -20,7 +20,6 @@ const {
   isBinaryish,
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
-  uncook,
 } = require("../utils");
 
 function printTemplateLiteral(path, print, options) {
@@ -216,7 +215,9 @@ function escapeTemplateCharacters(doc, raw) {
 
     const parts = currentDoc.parts.map((part) => {
       if (typeof part === "string") {
-        return raw ? part.replace(/(\\*)`/g, "$1$1\\`") : uncook(part);
+        return raw
+          ? part.replace(/(\\*)`/g, "$1$1\\`")
+          : uncookTemplateElementValue(part);
       }
 
       return part;
@@ -226,8 +227,13 @@ function escapeTemplateCharacters(doc, raw) {
   });
 }
 
+function uncookTemplateElementValue(cookedValue) {
+  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+}
+
 module.exports = {
   printTemplateLiteral,
   printTemplateExpressions,
   escapeTemplateCharacters,
+  uncookTemplateElementValue,
 };

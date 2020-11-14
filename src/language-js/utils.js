@@ -1494,10 +1494,6 @@ function hasIgnoreComment(path) {
   return hasNodeIgnoreComment(node);
 }
 
-function uncook(cookedValue) {
-  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
-}
-
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1569,5 +1565,4 @@ module.exports = {
   shouldFlatten,
   startsWithNoLookaheadToken,
   getPrecedence,
-  uncook,
 };
