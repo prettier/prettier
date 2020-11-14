@@ -595,32 +595,31 @@ function printTable(path, options, print) {
       ),
     contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
   );
-  const alignedTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0]),
-    printSeparator(),
-    join(
-      hardlineWithoutBreakParent,
-      contents.slice(1).map((rowContents) => printRow(rowContents))
-    ),
-  ]);
+  const alignedTable = printTableContents(/* isCompact */ false);
 
   if (options.proseWrap !== "never") {
     return concat([breakParent, alignedTable]);
   }
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
-  const compactTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0], /* isCompact */ true),
-    printSeparator(/* isCompact */ true),
-    join(
-      hardlineWithoutBreakParent,
-      contents
-        .slice(1)
-        .map((rowContents) => printRow(rowContents, /* isCompact */ true))
-    ),
-  ]);
+  const compactTable = printTableContents(/* isCompact */ true);
 
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
+
+  function printTableContents(isCompact) {
+    const parts = [printRow(contents[0], isCompact), printSeparator(isCompact)];
+    if (contents.length > 1) {
+      parts.push(
+        join(
+          hardlineWithoutBreakParent,
+          contents
+            .slice(1)
+            .map((rowContents) => printRow(rowContents, isCompact))
+        )
+      );
+    }
+    return join(hardlineWithoutBreakParent, parts);
+  }
 
   function printSeparator(isCompact) {
     return concat([
