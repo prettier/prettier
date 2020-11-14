@@ -23,8 +23,8 @@ expected:
 
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 =====================================output=====================================
@@ -41,8 +41,8 @@ expected: ["object-fits-within-print-width", "", "TEST", "comma NOT here"]
 ---
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 ================================================================================
@@ -71,8 +71,8 @@ expected:
 
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 =====================================output=====================================
@@ -89,8 +89,8 @@ expected: ["object-fits-within-print-width", "", "TEST", "comma NOT here"]
 ---
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 ================================================================================
@@ -119,8 +119,8 @@ expected:
 
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 =====================================output=====================================
@@ -137,8 +137,8 @@ expected: ["object-fits-within-print-width", "", "TEST", "comma NOT here"]
 ---
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 ================================================================================
@@ -166,8 +166,8 @@ expected:
 
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 =====================================output=====================================
@@ -184,8 +184,8 @@ expected: ["object-fits-within-print-width", "", "TEST", "comma NOT here"]
 ---
 does not suffice: >
   [
-    "object-does-not-fit-within-print-width": "------",
-    "TEST": "comma NOT here — but object's now a string due to '>'"
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
   ]
 
 ================================================================================
