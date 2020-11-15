@@ -20,8 +20,10 @@ function findSiblingAncestors(
 
   for (const endParent of endNodeAndParents.parentNodes) {
     if (
+      endParent !== root &&
+      // There is little difference between `babel` and other JS parsers,
+      // TODO: remove this condition
       endParent.type !== "Program" &&
-      endParent.type !== "File" &&
       opts.locStart(endParent) >= opts.locStart(startNodeAndParents.node)
     ) {
       resultEndNode = endParent;
@@ -32,8 +34,9 @@ function findSiblingAncestors(
 
   for (const startParent of startNodeAndParents.parentNodes) {
     if (
+      startParent.type !== root &&
+      // See comment above
       startParent.type !== "Program" &&
-      startParent.type !== "File" &&
       opts.locEnd(startParent) <= opts.locEnd(endNodeAndParents.node)
     ) {
       resultStartNode = startParent;
