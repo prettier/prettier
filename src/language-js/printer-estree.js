@@ -44,7 +44,7 @@ const {
   printHtmlBinding,
   isVueEventBindingExpression,
 } = require("./html-binding");
-const preprocess = require("./preprocess");
+const preprocess = require("./print-preprocess");
 const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -644,7 +644,16 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      parts.push(printFunctionDeclaration(path, print, options));
+      parts.push(
+        printFunctionDeclaration(
+          path,
+          print,
+          options,
+          args &&
+            args.expandLastArg &&
+            getCallArguments(path.getParentNode()).length > 1
+        )
+      );
       if (!n.body) {
         parts.push(semi);
       }
@@ -965,19 +974,21 @@ function printPathNoParens(path, options, print, args) {
       const optional = printOptionalToken(path);
       const args = getCallArguments(n);
       if (
+        // Dangling comments not handled, all these special cases should has argument #9668
+        args.length > 0 &&
         // We want to keep CommonJS- and AMD-style require calls, and AMD-style
         // define calls, as a unit.
         // e.g. `define(["some/lib", (lib) => {`
-        (!isDynamicImport &&
+        ((!isDynamicImport &&
           !isNew &&
           n.callee.type === "Identifier" &&
           (n.callee.name === "require" || n.callee.name === "define")) ||
-        // Template literals as single arguments
-        (args.length === 1 &&
-          isTemplateOnItsOwnLine(args[0], options.originalText)) ||
-        // Keep test declarations on a single line
-        // e.g. `it('long name', () => {`
-        (!isNew && isTestCall(n, path.getParentNode()))
+          // Template literals as single arguments
+          (args.length === 1 &&
+            isTemplateOnItsOwnLine(args[0], options.originalText)) ||
+          // Keep test declarations on a single line
+          // e.g. `it('long name', () => {`
+          (!isNew && isTestCall(n, path.getParentNode())))
       ) {
         const printed = [];
         iterateCallArgumentsPath(path, (argPath) => {
@@ -3736,7 +3747,7 @@ function canPrintParamsWithoutParens(node) {
   );
 }
 
-function printFunctionDeclaration(path, print, options) {
+function printFunctionDeclaration(path, print, options, expandArg) {
   const n = path.getValue();
   const parts = [];
 
@@ -3758,7 +3769,7 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
-        printFunctionParameters(path, print, options),
+        printFunctionParameters(path, print, options, expandArg),
         printReturnType(path, print, options),
       ])
     ),
