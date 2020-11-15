@@ -21,7 +21,8 @@ function postprocess(ast, options) {
   if (
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
-    options.parser !== "espree"
+    options.parser !== "espree" &&
+    options.parser !== "meriyah"
   ) {
     const startOffsetsOfTypeCastedNodes = new Set();
 

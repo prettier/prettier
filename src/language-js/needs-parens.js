@@ -494,7 +494,8 @@ function needsParens(path, options) {
         return true;
       } else if (
         name === "key" &&
-        parent.type === "ClassProperty" &&
+        (parent.type === "ClassProperty" ||
+          parent.type === "FieldDefinition") &&
         parent.computed
       ) {
         return false;
@@ -724,7 +725,8 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
+          parent.type !== "VariableDeclarator" &&
+          parent.type !== "YieldExpression")
       );
     case "TypeAnnotation":
       return (
@@ -745,6 +747,7 @@ function isStatement(node) {
     node.type === "ClassDeclaration" ||
     node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
+    node.type === "FieldDefinition" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||

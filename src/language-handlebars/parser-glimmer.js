@@ -1,6 +1,8 @@
 "use strict";
 
+const LinesAndColumns = require("lines-and-columns").default;
 const createError = require("../common/parser-create-error");
+const { locStart, locEnd } = require("./loc");
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash
@@ -17,11 +19,31 @@ function addBackslash(/* options*/) {
   };
 }
 
+// Add `loc.{start,end}.offset`
+function addOffset(text) {
+  const lines = new LinesAndColumns(text);
+  const calculateOffset = ({ line, column }) =>
+    lines.indexForLocation({ line: line - 1, column });
+  return (/* options*/) => ({
+    name: "addOffset",
+    visitor: {
+      All(node) {
+        const { start, end } = node.loc;
+        start.offset = calculateOffset(start);
+        end.offset = calculateOffset(end);
+      },
+    },
+  });
+}
+
 function parse(text) {
   const { preprocess: glimmer } = require("@glimmer/syntax");
   let ast;
   try {
-    ast = glimmer(text, { mode: "codemod", plugins: { ast: [addBackslash] } });
+    ast = glimmer(text, {
+      mode: "codemod",
+      plugins: { ast: [addBackslash, addOffset(text)] },
+    });
   } catch (error) {
     const location = getErrorLocation(error);
 
@@ -59,18 +81,8 @@ module.exports = {
     glimmer: {
       parse,
       astFormat: "glimmer",
-      // TODO: `locStart` and `locEnd` should return a number offset
-      // https://prettier.io/docs/en/plugins.html#parsers
-      // but we need access to the original text to use
-      // `loc.start` and `loc.end` objects to calculate the offset
-      /* istanbul ignore next */
-      locStart(node) {
-        return node.loc && node.loc.start;
-      },
-      /* istanbul ignore next */
-      locEnd(node) {
-        return node.loc && node.loc.end;
-      },
+      locStart,
+      locEnd,
     },
   },
 };
