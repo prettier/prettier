@@ -57,7 +57,6 @@ function postprocess(ast, options) {
               expression.extra = {};
             }
             expression.extra.parenthesized = true;
-            expression.extra.parenStart = start;
             return expression;
           }
         }
