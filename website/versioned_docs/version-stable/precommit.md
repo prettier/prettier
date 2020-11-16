@@ -68,7 +68,7 @@ Copy the following config into your `.pre-commit-config.yaml` file:
     - id: prettier
 ```
 
-Read more at [prettier's repo dedicated to pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
+Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
 Read more at the [pre-commit](https://pre-commit.com) website.
 
