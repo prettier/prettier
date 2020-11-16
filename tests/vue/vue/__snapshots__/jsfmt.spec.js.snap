@@ -44,8 +44,18 @@ semi: false
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
-  slot-scope="{row}"
-  slot-scope="{destructuring:{a:{b}}}"
+  slot-scope="     foo"
+  slot-scope="     {row   }"
+  slot-scope="{destructuring:{   a:{b}}}"
+  #default="     foo"
+  #default="     {row   }"
+  #default="{destructuring:{   a:{b}}}"
+  v-slot="     foo"
+  v-slot="     {row   }"
+  v-slot="{destructuring:{   a:{b}}}"
+  v-slot:name="     foo"
+  v-slot:name="     {row   }"
+  v-slot:name="{destructuring:{   a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
@@ -289,8 +299,30 @@ semi: false
       } else {
       }
     "
+    slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    #default="foo"
+    #default="{ row }"
+    #default="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot="foo"
+    v-slot="{ row }"
+    v-slot="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot:name="foo"
+    v-slot:name="{ row }"
+    v-slot:name="{
       destructuring: {
         a: { b },
       },
@@ -323,7 +355,11 @@ semi: false
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
-    #default="{ foo: { bar: { baz } } }"
+    #default="{
+      foo: {
+        bar: { baz },
+      },
+    }"
   ></div>
 </template>
 
@@ -374,8 +410,18 @@ trailingComma: "none"
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
-  slot-scope="{row}"
-  slot-scope="{destructuring:{a:{b}}}"
+  slot-scope="     foo"
+  slot-scope="     {row   }"
+  slot-scope="{destructuring:{   a:{b}}}"
+  #default="     foo"
+  #default="     {row   }"
+  #default="{destructuring:{   a:{b}}}"
+  v-slot="     foo"
+  v-slot="     {row   }"
+  v-slot="{destructuring:{   a:{b}}}"
+  v-slot:name="     foo"
+  v-slot:name="     {row   }"
+  v-slot:name="{destructuring:{   a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
@@ -619,8 +665,30 @@ trailingComma: "none"
       } else {
       }
     "
+    slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
+      destructuring: {
+        a: { b }
+      }
+    }"
+    #default="foo"
+    #default="{ row }"
+    #default="{
+      destructuring: {
+        a: { b }
+      }
+    }"
+    v-slot="foo"
+    v-slot="{ row }"
+    v-slot="{
+      destructuring: {
+        a: { b }
+      }
+    }"
+    v-slot:name="foo"
+    v-slot:name="{ row }"
+    v-slot:name="{
       destructuring: {
         a: { b }
       }
@@ -653,7 +721,11 @@ trailingComma: "none"
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
-    #default="{ foo: { bar: { baz } } }"
+    #default="{
+      foo: {
+        bar: { baz }
+      }
+    }"
   ></div>
 </template>
 
@@ -703,8 +775,18 @@ printWidth: 80
   @click="   $emit(   'click'   )   "
   @click="   $emit(   'click'   )  ;"
   @click="   $emit(   'click'   )  ;if(something){for(let i=j;i<100;i++){}}else{}"
-  slot-scope="{row}"
-  slot-scope="{destructuring:{a:{b}}}"
+  slot-scope="     foo"
+  slot-scope="     {row   }"
+  slot-scope="{destructuring:{   a:{b}}}"
+  #default="     foo"
+  #default="     {row   }"
+  #default="{destructuring:{   a:{b}}}"
+  v-slot="     foo"
+  v-slot="     {row   }"
+  v-slot="{destructuring:{   a:{b}}}"
+  v-slot:name="     foo"
+  v-slot:name="     {row   }"
+  v-slot:name="{destructuring:{   a:{b}}}"
   :class="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
   :class="(() => { return 'hello' })()"
   :key="index /* hello */ "
@@ -948,8 +1030,30 @@ printWidth: 80
       } else {
       }
     "
+    slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    #default="foo"
+    #default="{ row }"
+    #default="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot="foo"
+    v-slot="{ row }"
+    v-slot="{
+      destructuring: {
+        a: { b },
+      },
+    }"
+    v-slot:name="foo"
+    v-slot:name="{ row }"
+    v-slot:name="{
       destructuring: {
         a: { b },
       },
@@ -982,7 +1086,11 @@ printWidth: 80
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
-    #default="{ foo: { bar: { baz } } }"
+    #default="{
+      foo: {
+        bar: { baz },
+      },
+    }"
   ></div>
 </template>
 

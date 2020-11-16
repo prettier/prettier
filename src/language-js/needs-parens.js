@@ -725,7 +725,8 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
+          parent.type !== "VariableDeclarator" &&
+          parent.type !== "YieldExpression")
       );
     case "TypeAnnotation":
       return (
