@@ -14,6 +14,7 @@ const {
     addAlignmentToDoc,
   },
   printer: { printDocToString },
+  utils: { mapDoc },
 } = require("../../document");
 const {
   isBinaryish,
@@ -197,4 +198,49 @@ function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
-module.exports = printTemplateLiteral;
+function printTemplateExpression(path, print) {
+  const node = path.getValue();
+  let printed = print(path);
+  if (node.comments && node.comments.length) {
+    printed = group(concat([indent(concat([softline, printed])), softline]));
+  }
+  return concat(["${", printed, lineSuffixBoundary, "}"]);
+}
+
+function printTemplateExpressions(path, print) {
+  return path.map(
+    (path) => printTemplateExpression(path, print),
+    "expressions"
+  );
+}
+
+function escapeTemplateCharacters(doc, raw) {
+  return mapDoc(doc, (currentDoc) => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+
+    const parts = currentDoc.parts.map((part) => {
+      if (typeof part === "string") {
+        return raw
+          ? part.replace(/(\\*)`/g, "$1$1\\`")
+          : uncookTemplateElementValue(part);
+      }
+
+      return part;
+    });
+
+    return { ...currentDoc, parts };
+  });
+}
+
+function uncookTemplateElementValue(cookedValue) {
+  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+}
+
+module.exports = {
+  printTemplateLiteral,
+  printTemplateExpressions,
+  escapeTemplateCharacters,
+  uncookTemplateElementValue,
+};

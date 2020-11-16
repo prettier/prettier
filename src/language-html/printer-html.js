@@ -36,6 +36,8 @@ const {
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isScriptLikeTag,
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
@@ -44,12 +46,12 @@ const {
   unescapeQuoteEntities,
   isPreLikeNode,
 } = require("./utils");
-const preprocess = require("./preprocess");
+const preprocess = require("./print-preprocess");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const {
   printVueFor,
-  printVueSlotScope,
+  printVueBindings,
   isVueEventBindingExpression,
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
@@ -1078,8 +1080,8 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (node.fullName === "slot-scope") {
-      return printVueSlotScope(getValue(), textToDoc);
+    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
+      return printVueBindings(getValue(), textToDoc);
     }
 
     /**
@@ -1097,7 +1099,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     /**
      *     v-if="jsExpression"
      */
-    const jsExpressionBindingPatterns = ["^v-", "^#"];
+    const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
