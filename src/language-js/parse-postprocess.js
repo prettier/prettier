@@ -37,29 +37,33 @@ function postprocess(ast, options) {
       ) {
         startOffsetsOfTypeCastedNodes.add(locStart(node));
       }
-    });
 
-    ast = visitNode(ast, (node) => {
       if (node.type === "ParenthesizedExpression") {
         const { expression } = node;
-
         // Align range with `flow`
         if (expression.type === "TypeCastExpression") {
           expression.range = node.range;
           return expression;
         }
-
-        const start = locStart(node);
-        if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          if (!expression.extra) {
-            expression.extra = {};
-          }
-          expression.extra.parenthesized = true;
-          expression.extra.parenStart = start;
-          return expression;
-        }
       }
     });
+
+    if (startOffsetsOfTypeCastedNodes.size > 0) {
+      ast = visitNode(ast, (node) => {
+        if (node.type === "ParenthesizedExpression") {
+          const start = locStart(node);
+          if (!startOffsetsOfTypeCastedNodes.has(start)) {
+            const { expression } = node;
+            if (!expression.extra) {
+              expression.extra = {};
+            }
+            expression.extra.parenthesized = true;
+            expression.extra.parenStart = start;
+            return expression;
+          }
+        }
+      });
+    }
   }
 
   ast = visitNode(ast, (node) => {
