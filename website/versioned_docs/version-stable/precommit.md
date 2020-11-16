@@ -62,11 +62,13 @@ Read more at the [pretty-quick](https://github.com/azz/pretty-quick) repo.
 Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
-- repo: https://github.com/prettier/prettier
-  rev: "" # Use the sha or tag you want to point at
+- repo: https://github.com/pre-commit/mirrors-prettier
+  rev: "" # Use the sha or branch you want to point at
   hooks:
     - id: prettier
 ```
+
+Read more at [prettier's repo dedicated to pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
 Read more at the [pre-commit](https://pre-commit.com) website.
 
