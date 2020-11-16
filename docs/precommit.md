@@ -62,7 +62,7 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
 - repo: https://github.com/pre-commit/mirrors-prettier
-  rev: "" # Use the sha or branch you want to point at
+  rev: "" # Use the sha or tag you want to point at
   hooks:
     - id: prettier
 ```
