@@ -41,6 +41,7 @@ async function run() {
     require("./steps/publish-to-npm"),
     require("./steps/bump-prettier"),
     require("./steps/update-dependents-count"),
+    require("./steps/clean-changelog-unreleased"),
     require("./steps/post-publish-steps"),
   ];
 
