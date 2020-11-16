@@ -32,15 +32,6 @@ function postprocess(ast, options) {
       ) {
         startOffsetsOfTypeCastedNodes.add(locStart(node));
       }
-
-      if (node.type === "ParenthesizedExpression") {
-        const { expression } = node;
-        // Align range with `flow`
-        if (expression.type === "TypeCastExpression") {
-          expression.range = node.range;
-          return expression;
-        }
-      }
     });
 
     if (startOffsetsOfTypeCastedNodes.size > 0) {
@@ -59,6 +50,15 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      case "ParenthesizedExpression": {
+        const { expression } = node;
+        // Align range with `flow`
+        if (expression.type === "TypeCastExpression") {
+          expression.range = node.range;
+          return expression;
+        }
+        break;
+      }
       // Espree
       case "ChainExpression": {
         return transformChainExpression(node.expression);
