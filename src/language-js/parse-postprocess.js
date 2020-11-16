@@ -29,7 +29,6 @@ function postprocess(ast, options) {
     // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
     // E.g.: /** @type {Foo} */ (foo).bar();
     // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
-
     ast = visitNode(ast, (node) => {
       if (
         node.leadingComments &&
@@ -74,10 +73,7 @@ function postprocess(ast, options) {
       }
       case "LogicalExpression": {
         // We remove unneeded parens around same-operator LogicalExpressions
-        if (isUnbalancedLogicalTree(node)) {
-          return rebalanceLogicalTree(node);
-        }
-        break;
+        return rebalanceLogicalTree(node);
       }
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
