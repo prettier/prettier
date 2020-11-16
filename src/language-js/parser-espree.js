@@ -1,5 +1,5 @@
 "use strict";
-const { getShebang } = require("../common/util");
+const { parseHashbang } = require("../common/util");
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
@@ -21,12 +21,14 @@ const espreeOptions = {
 function parse(originalText, parsers, options) {
   const { parse, latestEcmaVersion } = require("espree");
   espreeOptions.ecmaVersion = latestEcmaVersion;
+  let text = originalText;
 
-  // Replace shebang with space
-  const shebang = getShebang(originalText);
-  const text = shebang
-    ? " ".repeat(shebang.length) + originalText.slice(shebang.length)
-    : originalText;
+  // Replace hashbang with space
+  const hashbang = parseHashbang(originalText);
+  if (hashbang) {
+    const hashBangLength = locEnd(hashbang);
+    text = " ".repeat(hashBangLength) + originalText.slice(hashBangLength);
+  }
 
   let ast;
 
@@ -47,6 +49,8 @@ function parse(originalText, parsers, options) {
       throw createError(message, { start: { line: lineNumber, column } });
     }
   }
+
+  ast.comments.unshift(hashbang);
 
   return postprocess(ast, { ...options, originalText });
 }

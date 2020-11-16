@@ -3,18 +3,14 @@
 const {
   getLast,
   getNextNonSpaceNonCommentCharacter,
-  getShebang,
+  parseHashbang,
 } = require("../common/util");
 const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
-  if (
-    options.parser === "typescript" ||
-    options.parser === "flow" ||
-    options.parser === "espree"
-  ) {
-    includeShebang(ast, options);
+  if (options.parser === "typescript" || options.parser === "flow") {
+    includeHashbang(ast, options);
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
@@ -210,15 +206,11 @@ function rebalanceLogicalTree(node) {
   });
 }
 
-function includeShebang(ast, options) {
-  const shebang = getShebang(options.originalText);
+function includeHashbang(ast, options) {
+  const hashbang = parseHashbang(options.originalText);
 
-  if (shebang) {
-    ast.comments.unshift({
-      type: "Line",
-      value: shebang.slice(2),
-      range: [0, shebang.length],
-    });
+  if (hashbang) {
+    ast.comments.unshift(hashbang);
   }
 }
 

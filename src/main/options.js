@@ -175,7 +175,7 @@ function inferParser(filepath, plugins) {
   );
 
   // If the file has no extension, we can try to infer the language from the
-  // interpreter in the shebang line, if any; but since this requires FS access,
+  // interpreter in the hashbang line, if any; but since this requires FS access,
   // do it last.
   let language = languages.find(
     (language) =>

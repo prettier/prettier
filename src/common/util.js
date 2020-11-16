@@ -625,15 +625,23 @@ function isFrontMatterNode(node) {
   return node && node.type === "front-matter";
 }
 
-function getShebang(text) {
+function parseHashbang(text) {
   if (!text.startsWith("#!")) {
-    return "";
+    return;
   }
   const index = text.indexOf("\n");
-  if (index === -1) {
-    return text;
-  }
-  return text.slice(0, index);
+  const raw = index === -1 ? text : text.slice(0, index);
+  const value = raw.slice(2);
+  const { length } = value;
+  return {
+    type: "HashbangComment",
+    value,
+    raw,
+    start: 0,
+    end: length,
+    range: [0, length],
+    loc: { start: { line: 1, column: 0 }, end: { line: 1, column: value } },
+  };
 }
 
 module.exports = {
@@ -672,5 +680,5 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
-  getShebang,
+  parseHashbang,
 };

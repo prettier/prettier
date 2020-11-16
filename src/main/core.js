@@ -329,7 +329,7 @@ module.exports = {
     return printDocToString(doc, options);
   },
 
-  // Doesn't handle shebang for now
+  // Doesn't handle hashbang for now
   formatDoc(doc, options) {
     return format(printDocToDebug(doc), { ...options, parser: "babel" })
       .formatted;

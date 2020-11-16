@@ -3,7 +3,7 @@
 const createError = require("../common/parser-create-error");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
-  getShebang,
+  parseHashbang,
 } = require("../common/util");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
@@ -72,9 +72,9 @@ function isFlowFile(text, options) {
     return true;
   }
 
-  const shebang = getShebang(text);
-  if (shebang) {
-    text = text.slice(shebang.length);
+  const hashbang = parseHashbang(text);
+  if (hashbang) {
+    text = text.slice(locEnd(hashbang));
   }
 
   const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
