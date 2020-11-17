@@ -1,14 +1,133 @@
 "use strict";
 
 const {
-  builders: { concat, softline, group, indent, join, line, ifBreak },
+  builders: { concat, softline, group, indent, join, line, ifBreak, hardline },
 } = require("../../document");
+const { printDanglingComments } = require("../../main/comments");
 
-const { shouldPrintComma } = require("../utils");
+const {
+  shouldPrintComma,
+  needsHardlineAfterDanglingComment,
+} = require("../utils");
+const { locStart } = require("../loc");
 
 /**
  * @typedef {import("../../document").Doc} Doc
  */
+
+function printImportDeclaration(path, options, print) {
+  const node = path.getValue();
+  const semi = options.semi ? ";" : "";
+  /** @type{Doc[]} */
+  const parts = [];
+
+  const { importKind, specifiers, source } = node;
+
+  parts.push("import");
+
+  if (importKind && importKind !== "value") {
+    parts.push(" ", importKind);
+  }
+
+  if (specifiers && specifiers.length > 0) {
+    parts.push(printModuleSpecifiers(path, options, print));
+    parts.push(printModuleSource(path, options, print));
+  } else if (
+    (importKind && importKind === "type") ||
+    // import {} from 'x'
+    /{\s*}/.test(options.originalText.slice(locStart(node), locStart(source)))
+  ) {
+    parts.push(" {}", printModuleSource(path, options, print));
+  } else {
+    parts.push(" ", path.call(print, "source"));
+  }
+
+  parts.push(printImportAssertions(path, options, print));
+
+  parts.push(semi);
+
+  return concat(parts);
+}
+
+function printExportDeclaration(path, options, print) {
+  const node = path.getValue();
+  const semi = options.semi ? ";" : "";
+  /** @type{Doc[]} */
+  const parts = [];
+
+  const { type, exportKind, declaration } = node;
+
+  parts.push("export ");
+
+  const isDefault = node.default || type === "ExportDefaultDeclaration";
+  if (isDefault) {
+    parts.push("default ");
+  }
+
+  parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+
+  if (needsHardlineAfterDanglingComment(node)) {
+    parts.push(hardline);
+  }
+
+  if (declaration) {
+    parts.push(path.call(print, "declaration"));
+    const { type } = declaration;
+
+    if (
+      isDefault &&
+      type !== "ClassDeclaration" &&
+      type !== "FunctionDeclaration" &&
+      type !== "TSInterfaceDeclaration" &&
+      type !== "DeclareClass" &&
+      type !== "DeclareFunction" &&
+      type !== "TSDeclareFunction" &&
+      type !== "EnumDeclaration"
+    ) {
+      parts.push(semi);
+    }
+  } else {
+    if (exportKind === "type") {
+      parts.push(" type");
+    }
+    parts.push(
+      printModuleSpecifiers(path, options, print),
+      printModuleSource(path, options, print),
+      printImportAssertions(path, options, print),
+      semi
+    );
+  }
+
+  return concat(parts);
+}
+
+function printExportAllDeclaration(path, options, print) {
+  const node = path.getValue();
+  const semi = options.semi ? ";" : "";
+  /** @type{Doc[]} */
+  const parts = [];
+
+  const { exportKind, exported } = node;
+  parts.push("export");
+
+  if (exportKind === "type") {
+    parts.push(" type");
+  }
+
+  parts.push(" *");
+
+  if (exported) {
+    parts.push(" as ", path.call(print, "exported"));
+  }
+
+  parts.push(
+    printModuleSource(path, options, print),
+    printImportAssertions(path, options, print),
+    semi
+  );
+
+  return concat(parts);
+}
 
 function printModuleSource(path, options, print) {
   const node = path.getValue();
@@ -109,7 +228,8 @@ function printImportAssertions(path, options, print) {
 }
 
 module.exports = {
+  printImportDeclaration,
+  printExportDeclaration,
+  printExportAllDeclaration,
   printModuleSource,
-  printModuleSpecifiers,
-  printImportAssertions,
 };

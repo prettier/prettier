@@ -114,9 +114,10 @@ const {
   printBindExpressionCallee,
 } = require("./print/misc");
 const {
+  printImportDeclaration,
+  printExportDeclaration,
+  printExportAllDeclaration,
   printModuleSource,
-  printModuleSpecifiers,
-  printImportAssertions,
 } = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
 const {
@@ -842,58 +843,14 @@ function printPathNoParens(path, options, print, args) {
     case "DeclareExportDeclaration":
       return concat(["declare ", printExportDeclaration(path, options, print)]);
     case "ExportAllDeclaration":
-      parts.push("export");
-
-      if (n.exportKind === "type") {
-        parts.push(" type");
-      }
-
-      parts.push(" *");
-
-      if (n.exported) {
-        parts.push(" as ", path.call(print, "exported"));
-      }
-
-      parts.push(
-        printModuleSource(path, options, print),
-        printImportAssertions(path, options, print),
-        semi
-      );
-
-      return concat(parts);
-
+      return printExportAllDeclaration(path, options, print);
+    case "ImportDeclaration": {
+      return printImportDeclaration(path, options, print);
+    }
     case "ExportNamespaceSpecifier":
       return concat(["* as ", path.call(print, "exported")]);
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
-    case "ImportDeclaration": {
-      parts.push("import");
-
-      if (n.importKind && n.importKind !== "value") {
-        parts.push(" ", n.importKind);
-      }
-
-      if (n.specifiers && n.specifiers.length > 0) {
-        parts.push(printModuleSpecifiers(path, options, print));
-        parts.push(printModuleSource(path, options, print));
-      } else if (
-        (n.importKind && n.importKind === "type") ||
-        // import {} from 'x'
-        /{\s*}/.test(
-          options.originalText.slice(locStart(n), locStart(n.source))
-        )
-      ) {
-        parts.push(" {}", printModuleSource(path, options, print));
-      } else {
-        parts.push(" ", path.call(print, "source"));
-      }
-
-      parts.push(printImportAssertions(path, options, print));
-
-      parts.push(semi);
-
-      return concat(parts);
-    }
     case "ImportAttribute":
       return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
     case "Import":
@@ -3802,54 +3759,6 @@ function printReturnType(path, print, options) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
     parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
-  }
-
-  return concat(parts);
-}
-
-function printExportDeclaration(path, options, print) {
-  const decl = path.getValue();
-
-  const semi = options.semi ? ";" : "";
-
-  /** @type{Doc[]} */
-  const parts = ["export "];
-
-  const isDefault = decl.default || decl.type === "ExportDefaultDeclaration";
-
-  if (isDefault) {
-    parts.push("default ");
-  }
-
-  parts.push(
-    comments.printDanglingComments(path, options, /* sameIndent */ true)
-  );
-
-  if (needsHardlineAfterDanglingComment(decl)) {
-    parts.push(hardline);
-  }
-
-  if (decl.declaration) {
-    parts.push(path.call(print, "declaration"));
-
-    if (
-      isDefault &&
-      decl.declaration.type !== "ClassDeclaration" &&
-      decl.declaration.type !== "FunctionDeclaration" &&
-      decl.declaration.type !== "TSInterfaceDeclaration" &&
-      decl.declaration.type !== "DeclareClass" &&
-      decl.declaration.type !== "DeclareFunction" &&
-      decl.declaration.type !== "TSDeclareFunction" &&
-      decl.declaration.type !== "EnumDeclaration"
-    ) {
-      parts.push(semi);
-    }
-  } else {
-    parts.push(decl.exportKind === "type" ? "type " : "");
-    parts.push(printModuleSpecifiers(path, options, print));
-    parts.push(printModuleSource(path, options, print));
-    parts.push(printImportAssertions(path, options, print));
-    parts.push(semi);
   }
 
   return concat(parts);
