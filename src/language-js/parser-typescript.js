@@ -38,8 +38,8 @@ function parse(text, parsers, opts) {
 }
 
 function tryParseTypeScript(text, jsx) {
-  const parser = require("@typescript-eslint/typescript-estree");
-  return parser.parseAndGenerateServices(text, {
+  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
+  return parseWithNodeMaps(text, {
     // `jest@<=26.4.2` rely on `loc`
     // https://github.com/facebook/jest/issues/10444
     loc: true,

@@ -24,7 +24,7 @@ function postprocess(ast, options) {
     const {
       esTreeNodeToTSNodeMap,
       tsNodeToESTreeNodeMap,
-    } = options.tsParseResult.services;
+    } = options.tsParseResult;
     ast = visitNode(ast, (node) => {
       const tsNode = esTreeNodeToTSNodeMap.get(node);
       if (!tsNode) {
