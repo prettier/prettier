@@ -241,6 +241,7 @@ function printModuleSpecifiers(path, options, print) {
 
 function shouldNotPrintSpecifiers(node, options) {
   const { type, importKind, source, specifiers } = node;
+
   if (
     type !== "ImportDeclaration" ||
     (Array.isArray(specifiers) && specifiers.length > 0) ||
@@ -250,7 +251,7 @@ function shouldNotPrintSpecifiers(node, options) {
   }
 
   // TODO: check tokens
-  return /{\s*}/.test(
+  return !/{\s*}/.test(
     options.originalText.slice(locStart(node), locStart(source))
   );
 }
