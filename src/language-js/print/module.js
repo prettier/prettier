@@ -57,11 +57,11 @@ function printExportDeclaration(path, options, print) {
 
   const { type, exportKind, declaration } = node;
 
-  parts.push("export ");
+  parts.push("export");
 
   const isDefault = node.default || type === "ExportDefaultDeclaration";
   if (isDefault) {
-    parts.push("default ");
+    parts.push(" default");
   }
 
   parts.push(printDanglingComments(path, options, /* sameIndent */ true));
@@ -71,7 +71,7 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (declaration) {
-    parts.push(path.call(print, "declaration"));
+    parts.push(" ", path.call(print, "declaration"));
     const { type } = declaration;
 
     if (
@@ -138,7 +138,7 @@ function printModuleSpecifiers(path, options, print) {
   const node = path.getValue();
 
   /** @type{Doc[]} */
-  const parts = [node.type === "ImportDeclaration" ? " " : ""];
+  const parts = [" "];
 
   if (node.specifiers && node.specifiers.length > 0) {
     const standaloneSpecifiers = [];
