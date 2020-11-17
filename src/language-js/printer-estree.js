@@ -103,7 +103,7 @@ const {
   shouldFlatten,
   startsWithNoLookaheadToken,
 } = require("./utils");
-const { locStart, locEnd, hasSameLoc } = require("./loc");
+const { locStart, locEnd } = require("./loc");
 
 const printMemberChain = require("./print/member-chain");
 const printCallArguments = require("./print/call-arguments");
@@ -117,6 +117,7 @@ const {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,
+  printModuleSpecifier,
 } = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
 const {
@@ -808,32 +809,12 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     }
     case "ImportSpecifier":
-      if (n.importKind) {
-        parts.push(path.call(print, "importKind"), " ");
-      }
-
-      parts.push(path.call(print, "imported"));
-
-      if (n.local && !hasSameLoc(n.local, n.imported)) {
-        parts.push(" as ", path.call(print, "local"));
-      }
-
-      return concat(parts);
-    case "ExportSpecifier": {
-      parts.push(path.call(print, "local"));
-
-      if (n.exported && !hasSameLoc(n.local, n.exported)) {
-        parts.push(" as ", path.call(print, "exported"));
-      }
-
-      return concat(parts);
-    }
+    case "ExportSpecifier":
     case "ImportNamespaceSpecifier":
-      parts.push("* as ");
-      parts.push(path.call(print, "local"));
-      return concat(parts);
+    case "ExportNamespaceSpecifier":
     case "ImportDefaultSpecifier":
-      return path.call(print, "local");
+    case "ExportDefaultSpecifier":
+      return printModuleSpecifier(path, options, print);
     case "TSExportAssignment":
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
@@ -843,10 +824,6 @@ function printPathNoParens(path, options, print, args) {
     case "ExportAllDeclaration":
     case "DeclareExportAllDeclaration":
       return printExportAllDeclaration(path, options, print);
-    case "ExportNamespaceSpecifier":
-      return concat(["* as ", path.call(print, "exported")]);
-    case "ExportDefaultSpecifier":
-      return path.call(print, "exported");
     case "ImportDeclaration": {
       return printImportDeclaration(path, options, print);
     }

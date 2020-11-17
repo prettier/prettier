@@ -10,7 +10,7 @@ const {
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
 } = require("../utils");
-const { locStart } = require("../loc");
+const { locStart, hasSameLoc } = require("../loc");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -277,8 +277,46 @@ function printImportAssertions(path, options, print) {
   return "";
 }
 
+function printModuleSpecifier(path, options, print) {
+  const node = path.getNode();
+
+  const { type, importKind } = node;
+  /** @type{Doc[]} */
+  const parts = [];
+  if (type === "ImportSpecifier" && importKind) {
+    parts.push(importKind, " ");
+  }
+
+  const isImport = type.startsWith("Import");
+  const leftSideProperty = isImport ? "imported" : "local";
+  const rightSideProperty = isImport ? "local" : "exported";
+  let left = "";
+  let right = "";
+  if (
+    type === "ExportNamespaceSpecifier" ||
+    type === "ImportNamespaceSpecifier"
+  ) {
+    left = "*";
+  } else if (node[leftSideProperty]) {
+    left = path.call(print, leftSideProperty);
+  }
+
+  if (
+    node[rightSideProperty] &&
+    (!node[leftSideProperty] ||
+      // import {a as a} from '.'
+      !hasSameLoc(node[leftSideProperty], node[rightSideProperty]))
+  ) {
+    right = path.call(print, rightSideProperty);
+  }
+
+  parts.push(left, left && right ? " as " : "", right);
+  return concat(parts);
+}
+
 module.exports = {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,
+  printModuleSpecifier,
 };
