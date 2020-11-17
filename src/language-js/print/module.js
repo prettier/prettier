@@ -43,7 +43,6 @@ function printImportDeclaration(path, options, print) {
 
 function printExportDeclaration(path, options, print) {
   const node = path.getValue();
-  const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   const parts = [];
 
@@ -51,8 +50,8 @@ function printExportDeclaration(path, options, print) {
 
   parts.push("export");
 
-  const isDefault = node.default || type === "ExportDefaultDeclaration";
-  if (isDefault) {
+  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
+  if (isDefaultExport) {
     parts.push(" default");
   }
 
@@ -69,30 +68,17 @@ function printExportDeclaration(path, options, print) {
 
   if (declaration) {
     parts.push(" ", path.call(print, "declaration"));
-    const { type } = declaration;
-
-    if (
-      isDefault &&
-      type !== "ClassDeclaration" &&
-      type !== "FunctionDeclaration" &&
-      type !== "TSInterfaceDeclaration" &&
-      type !== "DeclareClass" &&
-      type !== "DeclareFunction" &&
-      type !== "TSDeclareFunction" &&
-      type !== "EnumDeclaration"
-    ) {
-      parts.push(semi);
-    }
   } else {
-    if (exportKind === "type") {
-      parts.push(" type");
-    }
     parts.push(
+      exportKind === "type" ? " type" : "",
       printModuleSpecifiers(path, options, print),
       printModuleSource(path, options, print),
-      printImportAssertions(path, options, print),
-      semi
+      printImportAssertions(path, options, print)
     );
+  }
+
+  if (shouldExportDeclarationPrintSemi(node, options)) {
+    parts.push(";");
   }
 
   return concat(parts);
@@ -124,6 +110,34 @@ function printExportAllDeclaration(path, options, print) {
   );
 
   return concat(parts);
+}
+
+function shouldExportDeclarationPrintSemi(node, options) {
+  if (!options.semi) {
+    return false;
+  }
+
+  const { type, declaration } = node;
+  if (
+    !node.declaration ||
+    !(node.default || type === "ExportDefaultDeclaration")
+  ) {
+    return true;
+  }
+
+  const { type: declarationType } = declaration;
+  if (
+    declarationType === "ClassDeclaration" ||
+    declarationType === "FunctionDeclaration" ||
+    declarationType === "TSInterfaceDeclaration" ||
+    declarationType === "DeclareClass" ||
+    declarationType === "DeclareFunction" ||
+    declarationType === "TSDeclareFunction" ||
+    declarationType === "EnumDeclaration"
+  ) {
+    return false;
+  }
+  return true;
 }
 
 function printModuleSource(path, options, print) {
