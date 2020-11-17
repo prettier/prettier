@@ -844,13 +844,13 @@ function printPathNoParens(path, options, print, args) {
       return concat(["declare ", printExportDeclaration(path, options, print)]);
     case "ExportAllDeclaration":
       return printExportAllDeclaration(path, options, print);
-    case "ImportDeclaration": {
-      return printImportDeclaration(path, options, print);
-    }
     case "ExportNamespaceSpecifier":
       return concat(["* as ", path.call(print, "exported")]);
     case "ExportDefaultSpecifier":
       return path.call(print, "exported");
+    case "ImportDeclaration": {
+      return printImportDeclaration(path, options, print);
+    }
     case "ImportAttribute":
       return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
     case "Import":
