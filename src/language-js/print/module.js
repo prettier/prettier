@@ -228,21 +228,19 @@ function printModuleSpecifiers(path, options, print) {
 
 function shouldNotPrintSpecifiers(node, options) {
   const { type, importKind, source, specifiers } = node;
-  if (Array.isArray(specifiers) && specifiers.length > 0) {
-    return false;
-  }
-  if (type !== "ImportDeclaration") {
-    return false;
-  }
-  if (importKind === "type") {
-    return false;
-  }
   if (
-    /{\s*}/.test(options.originalText.slice(locStart(node), locStart(source)))
+    type !== "ImportDeclaration" ||
+    !Array.isArray(specifiers) ||
+    specifiers.length > 0 ||
+    importKind === "type"
   ) {
     return false;
   }
-  return true;
+
+  // TODO: check tokens
+  return /{\s*}/.test(
+    options.originalText.slice(locStart(node), locStart(source))
+  );
 }
 
 function printImportAssertions(path, options, print) {
