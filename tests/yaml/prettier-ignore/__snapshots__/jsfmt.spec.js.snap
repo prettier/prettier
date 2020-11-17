@@ -108,6 +108,14 @@ d:
       - [1,      2]
       - [1,      2]
 
+e: &anchor
+  # prettier-ignore
+  '                             should be ignored'
+
+f: &anchor
+  # prettier-ignore
+  [   [1,      2], [3,      4]            ]
+
 #9327
 prettier_ignore_ignored: &prettier_ignore_ignored
   # prettier-ignore
@@ -145,6 +153,12 @@ d:
     - &child2
       - [1, 2]
       - [1, 2]
+
+e: &anchor # prettier-ignore
+  "                             should be ignored"
+
+f: &anchor # prettier-ignore
+  [[1,      2], [3, 4]]
 
 #9327
 prettier_ignore_ignored: &prettier_ignore_ignored # prettier-ignore
