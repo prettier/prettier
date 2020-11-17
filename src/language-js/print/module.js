@@ -22,7 +22,7 @@ function printImportDeclaration(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
 
-  const { importKind, specifiers, source } = node;
+  const { importKind } = node;
 
   parts.push("import");
 
@@ -30,20 +30,11 @@ function printImportDeclaration(path, options, print) {
     parts.push(" ", importKind);
   }
 
-  if (specifiers && specifiers.length > 0) {
-    parts.push(printModuleSpecifiers(path, options, print));
-    parts.push(printModuleSource(path, options, print));
-  } else if (
-    (importKind && importKind === "type") ||
-    // import {} from 'x'
-    /{\s*}/.test(options.originalText.slice(locStart(node), locStart(source)))
-  ) {
-    parts.push(" {}", printModuleSource(path, options, print));
-  } else {
-    parts.push(" ", path.call(print, "source"));
-  }
-
-  parts.push(printImportAssertions(path, options, print));
+  parts.push(
+    printModuleSpecifiers(path, options, print),
+    printModuleSource(path, options, print),
+    printImportAssertions(path, options, print)
+  );
 
   parts.push(semi);
 
@@ -66,7 +57,10 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (hasDanglingComments(node)) {
-    parts.push(" ", printDanglingComments(path, options, /* sameIndent */ true));
+    parts.push(
+      " ",
+      printDanglingComments(path, options, /* sameIndent */ true)
+    );
 
     if (needsHardlineAfterDanglingComment(node)) {
       parts.push(hardline);
@@ -134,11 +128,27 @@ function printExportAllDeclaration(path, options, print) {
 
 function printModuleSource(path, options, print) {
   const node = path.getValue();
-  return node.source ? concat([" from ", path.call(print, "source")]) : "";
+
+  if (!node.source) {
+    return "";
+  }
+
+  /** @type{Doc[]} */
+  const parts = [];
+  if (!shouldNotPrintSpecifiers(node, options)) {
+    parts.push(" from");
+  }
+  parts.push(" ", path.call(print, "source"));
+
+  return concat(parts);
 }
 
 function printModuleSpecifiers(path, options, print) {
   const node = path.getValue();
+
+  if (shouldNotPrintSpecifiers(node, options)) {
+    return "";
+  }
 
   /** @type{Doc[]} */
   const parts = [" "];
@@ -214,6 +224,25 @@ function printModuleSpecifiers(path, options, print) {
     parts.push("{}");
   }
   return concat(parts);
+}
+
+function shouldNotPrintSpecifiers(node, options) {
+  const { type, importKind, source, specifiers } = node;
+  if (Array.isArray(specifiers) && specifiers.length > 0) {
+    return false;
+  }
+  if (type !== "ImportDeclaration") {
+    return false;
+  }
+  if (importKind === "type") {
+    return false;
+  }
+  if (
+    /{\s*}/.test(options.originalText.slice(locStart(node), locStart(source)))
+  ) {
+    return false;
+  }
+  return true;
 }
 
 function printImportAssertions(path, options, print) {
