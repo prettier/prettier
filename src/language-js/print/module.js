@@ -67,10 +67,10 @@ function printExportDeclaration(path, options, print) {
 
   if (hasDanglingComments(node)) {
     parts.push(" ", printDanglingComments(path, options, /* sameIndent */ true));
-  }
 
-  if (needsHardlineAfterDanglingComment(node)) {
-    parts.push(hardline);
+    if (needsHardlineAfterDanglingComment(node)) {
+      parts.push(hardline);
+    }
   }
 
   if (declaration) {
