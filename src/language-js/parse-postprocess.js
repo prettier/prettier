@@ -3,18 +3,14 @@
 const {
   getLast,
   getNextNonSpaceNonCommentCharacter,
-  getShebang,
+  parseHashbang,
 } = require("../common/util");
 const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
-  if (
-    options.parser === "typescript" ||
-    options.parser === "flow" ||
-    options.parser === "espree"
-  ) {
-    includeShebang(ast, options);
+  if (options.parser === "typescript" || options.parser === "flow") {
+    includeHashbang(ast, options);
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
@@ -29,7 +25,6 @@ function postprocess(ast, options) {
     // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
     // E.g.: /** @type {Foo} */ (foo).bar();
     // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
-
     ast = visitNode(ast, (node) => {
       if (
         node.leadingComments &&
@@ -39,41 +34,38 @@ function postprocess(ast, options) {
       }
     });
 
-    ast = visitNode(ast, (node) => {
-      if (node.type === "ParenthesizedExpression") {
-        const { expression } = node;
+    if (startOffsetsOfTypeCastedNodes.size > 0) {
+      ast = visitNode(ast, (node) => {
+        if (node.type === "ParenthesizedExpression") {
+          const start = locStart(node);
+          if (!startOffsetsOfTypeCastedNodes.has(start)) {
+            const { expression } = node;
+            expression.extra = { ...expression.extra, parenthesized: true };
+            return expression;
+          }
+        }
+      });
+    }
+  }
 
+  ast = visitNode(ast, (node) => {
+    switch (node.type) {
+      case "ParenthesizedExpression": {
+        const { expression } = node;
         // Align range with `flow`
         if (expression.type === "TypeCastExpression") {
           expression.range = node.range;
           return expression;
         }
-
-        const start = locStart(node);
-        if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          if (!expression.extra) {
-            expression.extra = {};
-          }
-          expression.extra.parenthesized = true;
-          expression.extra.parenStart = start;
-          return expression;
-        }
+        break;
       }
-    });
-  }
-
-  ast = visitNode(ast, (node) => {
-    switch (node.type) {
       // Espree
       case "ChainExpression": {
         return transformChainExpression(node.expression);
       }
       case "LogicalExpression": {
         // We remove unneeded parens around same-operator LogicalExpressions
-        if (isUnbalancedLogicalTree(node)) {
-          return rebalanceLogicalTree(node);
-        }
-        break;
+        return rebalanceLogicalTree(node);
       }
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
@@ -211,15 +203,11 @@ function rebalanceLogicalTree(node) {
   });
 }
 
-function includeShebang(ast, options) {
-  const shebang = getShebang(options.originalText);
+function includeHashbang(ast, options) {
+  const hashbang = parseHashbang(options.originalText);
 
-  if (shebang) {
-    ast.comments.unshift({
-      type: "Line",
-      value: shebang.slice(2),
-      range: [0, shebang.length],
-    });
+  if (hashbang) {
+    ast.comments.unshift(hashbang);
   }
 }
 
