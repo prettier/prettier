@@ -35,20 +35,22 @@ function postprocess(ast, options) {
         return;
       }
       // `esTreeNodeToTSNodeMap.get(ClassBody)` and `esTreeNodeToTSNodeMap.get(ClassDeclaration)` has the same tsNode
-      const esNode = tsNodeToESTreeNodeMap.get(tsNode);
-      if (esNode !== node) {
+      const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
+      if (esTreeNode !== node) {
         return;
       }
-      const esDecorators = esNode.decorators;
+      const esTreeDecorators = esTreeNode.decorators;
       if (
-        !Array.isArray(esDecorators) ||
-        esDecorators.length !== tsDecorators.length ||
+        !Array.isArray(esTreeDecorators) ||
+        esTreeDecorators.length !== tsDecorators.length ||
         tsDecorators.some((tsDecorator) => {
-          const esDecorator = tsNodeToESTreeNodeMap.get(tsDecorator);
-          return !esDecorator || !esDecorators.includes(esDecorator);
+          const esTreeDecorator = tsNodeToESTreeNodeMap.get(tsDecorator);
+          return (
+            !esTreeDecorator || !esTreeDecorators.includes(esTreeDecorator)
+          );
         })
       ) {
-        const { start, end } = esNode.loc;
+        const { start, end } = esTreeNode.loc;
         throw createError(
           "Leading decorators must be attached to a class declaration",
           {
