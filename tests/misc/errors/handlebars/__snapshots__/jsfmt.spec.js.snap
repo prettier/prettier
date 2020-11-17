@@ -12,10 +12,17 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
 `;
 
 exports[`invalid-2.hbs [glimmer] format 1`] = `
-"Unclosed element \`@name\` (on line 3). (3:0)
+"Syntax Error: Unclosed element \`@name\`: 
+
+|
+|  <{@name>
+|
+
+(error occurred in 'an unknown module' @ line 3 : column 0) (3:0)
   1 | <a>
   2 | 
 > 3 | <{@name>
+    | ^^^^^^^^
   4 | "
 `;
 
