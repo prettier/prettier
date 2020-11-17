@@ -118,26 +118,25 @@ function shouldExportDeclarationPrintSemi(node, options) {
   }
 
   const { type, declaration } = node;
-  if (
-    !node.declaration ||
-    !(node.default || type === "ExportDefaultDeclaration")
-  ) {
+  const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
+  if (!declaration) {
     return true;
   }
 
   const { type: declarationType } = declaration;
   if (
-    declarationType === "ClassDeclaration" ||
-    declarationType === "FunctionDeclaration" ||
-    declarationType === "TSInterfaceDeclaration" ||
-    declarationType === "DeclareClass" ||
-    declarationType === "DeclareFunction" ||
-    declarationType === "TSDeclareFunction" ||
-    declarationType === "EnumDeclaration"
+    isDefaultExport &&
+    declarationType !== "ClassDeclaration" &&
+    declarationType !== "FunctionDeclaration" &&
+    declarationType !== "TSInterfaceDeclaration" &&
+    declarationType !== "DeclareClass" &&
+    declarationType !== "DeclareFunction" &&
+    declarationType !== "TSDeclareFunction" &&
+    declarationType !== "EnumDeclaration"
   ) {
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 function printModuleSource(path, options, print) {
@@ -244,8 +243,7 @@ function shouldNotPrintSpecifiers(node, options) {
   const { type, importKind, source, specifiers } = node;
   if (
     type !== "ImportDeclaration" ||
-    !Array.isArray(specifiers) ||
-    specifiers.length > 0 ||
+    (Array.isArray(specifiers) && specifiers.length > 0) ||
     importKind === "type"
   ) {
     return false;
