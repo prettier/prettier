@@ -1,0 +1,33 @@
+    a:
+      [
+        check-format, check-lint,
+        check-spelling,
+        # coverage,
+        # install-and-run-from-git,
+      ]
+
+    b:
+      {
+        a: check-format, b: check-lint,
+        c: check-spelling,
+        # d: coverage,
+        # e: install-and-run-from-git,
+      }
+
+    d:
+      # prettier-ignore
+      [
+        check-format, check-lint,
+        check-spelling,
+        # coverage,
+        # install-and-run-from-git,
+      ]
+
+    e:
+      # prettier-ignore
+      {
+        a: check-format, b: check-lint,
+        c: check-spelling,
+        # d: coverage,
+        # e: install-and-run-from-git,
+      }
