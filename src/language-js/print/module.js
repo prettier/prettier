@@ -141,7 +141,7 @@ function printModuleSpecifiers(path, options, print) {
   const parts = [node.type === "ImportDeclaration" ? " " : ""];
 
   if (node.specifiers && node.specifiers.length > 0) {
-    const standalonesSpecifiers = [];
+    const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
     path.each((specifierPath) => {
@@ -152,7 +152,7 @@ function printModuleSpecifiers(path, options, print) {
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        standalonesSpecifiers.push(print(specifierPath));
+        standaloneSpecifiers.push(print(specifierPath));
       } else if (
         specifierType === "ExportSpecifier" ||
         specifierType === "ImportSpecifier"
@@ -166,16 +166,16 @@ function printModuleSpecifiers(path, options, print) {
       }
     }, "specifiers");
 
-    parts.push(join(", ", standalonesSpecifiers));
+    parts.push(join(", ", standaloneSpecifiers));
 
     if (groupedSpecifiers.length !== 0) {
-      if (standalonesSpecifiers.length !== 0) {
+      if (standaloneSpecifiers.length !== 0) {
         parts.push(", ");
       }
 
       const canBreak =
         groupedSpecifiers.length > 1 ||
-        standalonesSpecifiers.length > 0 ||
+        standaloneSpecifiers.length > 0 ||
         node.specifiers.some((node) => node.comments);
 
       if (canBreak) {
