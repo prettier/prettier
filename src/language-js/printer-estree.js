@@ -808,13 +808,6 @@ function printPathNoParens(path, options, print, args) {
       }
       return concat(parts);
     }
-    case "ImportSpecifier":
-    case "ExportSpecifier":
-    case "ImportNamespaceSpecifier":
-    case "ExportNamespaceSpecifier":
-    case "ImportDefaultSpecifier":
-    case "ExportDefaultSpecifier":
-      return printModuleSpecifier(path, options, print);
     case "TSExportAssignment":
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
@@ -824,9 +817,15 @@ function printPathNoParens(path, options, print, args) {
     case "ExportAllDeclaration":
     case "DeclareExportAllDeclaration":
       return printExportAllDeclaration(path, options, print);
-    case "ImportDeclaration": {
+    case "ImportDeclaration":
       return printImportDeclaration(path, options, print);
-    }
+    case "ImportSpecifier":
+    case "ExportSpecifier":
+    case "ImportNamespaceSpecifier":
+    case "ExportNamespaceSpecifier":
+    case "ImportDefaultSpecifier":
+    case "ExportDefaultSpecifier":
+      return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
       return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
     case "Import":
