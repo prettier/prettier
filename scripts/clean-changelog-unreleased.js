@@ -10,7 +10,8 @@ const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 
 const files = globby.sync(["blog-post-intro.md", "*/*.md"], {
   cwd: changelogUnreleasedDir,
+  absolute: true,
 });
 for (const file of files) {
-  fs.unlinkSync(path.join(changelogUnreleasedDir, file));
+  fs.unlinkSync(file);
 }
