@@ -13,7 +13,7 @@ const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
 fs.unlinkSync(introFile);
 
 // Remove change files
-const files = await globby("*/*.md", { cwd: changelogUnreleasedDir });
+const files = globby.sync("*/*.md", { cwd: changelogUnreleasedDir });
 for (const file of files) {
   fs.unlinkSync(path.join(changelogUnreleasedDir, file));
 }
