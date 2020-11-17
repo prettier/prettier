@@ -526,6 +526,13 @@ function printDocToString(doc, options) {
         default:
       }
     }
+
+    // Flush remaining line-suffix contents at the end of the document, in case
+    // there is no new line after the line-suffix.
+    if (cmds.length === 0 && lineSuffix.length) {
+      cmds.push(...lineSuffix.reverse());
+      lineSuffix = [];
+    }
   }
 
   const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
