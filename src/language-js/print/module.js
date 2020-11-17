@@ -47,6 +47,9 @@ function printExportDeclaration(path, options, print) {
   const parts = [];
 
   const { type, exportKind, declaration } = node;
+  if (type === "DeclareExportDeclaration") {
+    parts.push("declare ");
+  }
 
   parts.push("export");
 
@@ -90,7 +93,11 @@ function printExportAllDeclaration(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
 
-  const { exportKind, exported } = node;
+  const { type, exportKind, exported } = node;
+  if (type === "DeclareExportAllDeclaration") {
+    parts.push("declare ");
+  }
+
   parts.push("export");
 
   if (exportKind === "type") {
@@ -274,5 +281,4 @@ module.exports = {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,
-  printModuleSource,
 };

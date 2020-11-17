@@ -117,7 +117,6 @@ const {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,
-  printModuleSource,
 } = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
 const {
@@ -839,10 +838,10 @@ function printPathNoParens(path, options, print, args) {
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-      return printExportDeclaration(path, options, print);
     case "DeclareExportDeclaration":
-      return concat(["declare ", printExportDeclaration(path, options, print)]);
+      return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
+    case "DeclareExportAllDeclaration":
       return printExportAllDeclaration(path, options, print);
     case "ExportNamespaceSpecifier":
       return concat(["* as ", path.call(print, "exported")]);
@@ -2306,11 +2305,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "DeclareVariable":
       return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
-    case "DeclareExportAllDeclaration":
-      return concat([
-        "declare export *",
-        printModuleSource(path, options, print),
-      ]);
     case "DeclareOpaqueType":
     case "OpaqueType": {
       parts.push(
