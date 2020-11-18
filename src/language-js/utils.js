@@ -1501,6 +1501,39 @@ function hasIgnoreComment(path) {
   return hasNodeIgnoreComment(node);
 }
 
+const COMMENT = {
+  leading: 1 << 1,
+  trailing: 1 << 2,
+  dangling: 1 << 3,
+  block: 1 << 4,
+  line: 1 << 5,
+};
+function hasComments(node, options, fn) {
+  if (!node || Array.isArray(node.comments) || node.comments.length === 0) {
+    return false;
+  }
+  if (typeof options === "function") {
+    fn = options;
+    options = 0;
+  }
+  if (options || fn) {
+    return node.comments.some((comment) => {
+      if (
+        (options & COMMENT.leading && !comment.leading) ||
+        (options & COMMENT.trailing && !comment.trailing) ||
+        (options & COMMENT.dangling && (comment.leading || comment.trailing)) ||
+        (options & COMMENT.block && !isBlockComment(comment)) ||
+        (options & COMMENT.line && !isLineComment(comment)) ||
+        (fn && !fn(comment))
+      ) {
+        return false;
+      }
+      return true;
+    });
+  }
+  return true;
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1572,4 +1605,6 @@ module.exports = {
   shouldFlatten,
   startsWithNoLookaheadToken,
   getPrecedence,
+  hasComments,
+  COMMENT,
 };
