@@ -93,6 +93,8 @@ function getSortedChildNodes(node, options, resultArray) {
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, options) {
   const { locStart, locEnd } = options;
+  const commentStart = locStart(comment);
+  const commentEnd = locEnd(comment);
 
   const childNodes = getSortedChildNodes(node, options);
   let precedingNode;
@@ -103,11 +105,10 @@ function decorateComment(node, comment, options) {
   while (left < right) {
     const middle = (left + right) >> 1;
     const child = childNodes[middle];
+    const start = locStart(child);
+    const end = locEnd(child);
 
-    if (
-      locStart(child) - locStart(comment) <= 0 &&
-      locEnd(comment) - locEnd(child) <= 0
-    ) {
+    if (start <= commentStart && commentEnd <= end) {
       // The comment is completely contained by this child node.
       comment.enclosingNode = child;
 
@@ -115,7 +116,7 @@ function decorateComment(node, comment, options) {
       return; // Abandon the binary search at this level.
     }
 
-    if (locEnd(child) - locStart(comment) <= 0) {
+    if (start <= commentStart) {
       // This child node falls completely before the comment.
       // Because we will never consider this node or any nodes
       // before it again, this node must be the closest preceding
@@ -125,7 +126,7 @@ function decorateComment(node, comment, options) {
       continue;
     }
 
-    if (locEnd(comment) - locStart(child) <= 0) {
+    if (commentEnd <= start) {
       // This child node falls completely after the comment.
       // Because we will never consider this node or any nodes after
       // it again, this node must be the closest following node we
