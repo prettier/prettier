@@ -534,7 +534,7 @@ function genericPrint(path, options, print) {
       const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
       const isControlDirective =
         atRuleAncestorNode && isSCSSControlDirectiveNode(atRuleAncestorNode);
-      const hasInlineCOmment = node.groups.some((node) =>
+      const hasInlineComment = node.groups.some((node) =>
         isInlineValueCommentNode(node)
       );
 
@@ -803,7 +803,7 @@ function genericPrint(path, options, print) {
         parts.push(line);
       }
 
-      if (hasInlineCOmment) {
+      if (hasInlineComment) {
         parts.push(breakParent);
       }
 
