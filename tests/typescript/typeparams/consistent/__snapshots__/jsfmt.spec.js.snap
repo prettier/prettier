@@ -71,6 +71,41 @@ const foo12: Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ================================================================================
 `;
 
+exports[`template-literal-types.ts [babel] format 1`] = `
+"Unexpected token (1:84)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                    ^
+  2 | "
+`;
+
+exports[`template-literal-types.ts [babel-flow] format 1`] = `
+"Unexpected token (1:84)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                    ^
+  2 | "
+`;
+
+exports[`template-literal-types.ts [flow] format 1`] = `
+"Unexpected token \`\`\` (1:84)
+> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+    |                                                                                    ^
+  2 | "
+`;
+
+exports[`template-literal-types.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "flow", "babel-flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+
+=====================================output=====================================
+const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
+
+================================================================================
+`;
+
 exports[`typescript-only.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "flow", "babel-flow", "babel"]
@@ -81,6 +116,7 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 const foo2: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<object> = a;
 const foo3: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<undefined> = a;
 const foo4: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<unknown> = a;
+
 =====================================output=====================================
 const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<never> = a;
 const foo2: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<object> = a;

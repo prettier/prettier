@@ -1,15 +1,8 @@
 "use strict";
 
 const {
-  concat,
-  join,
-  hardline,
-  line,
-  softline,
-  group,
-  indent,
-  ifBreak,
-} = require("../document").builders;
+  builders: { concat, join, hardline, line, softline, group, indent, ifBreak },
+} = require("../document");
 const { isNextLineEmpty } = require("../common/util");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");

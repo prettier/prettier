@@ -40,6 +40,11 @@ const parsers = [
       // `TypeScript`, `toolsVersion`, `globalThis`
       'typeof process === "undefined" || process.browser': "false",
       'typeof globalThis === "object"': "true",
+      // `@typescript-eslint/typescript-estree` v4
+      'require("globby")': "{}",
+      "extra.projects = prepareAndTransformProjects(":
+        "extra.projects = [] || prepareAndTransformProjects(",
+      "process.versions.node": "'999.999.999'",
     },
   },
   {

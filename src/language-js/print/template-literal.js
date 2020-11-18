@@ -24,17 +24,24 @@ const {
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
-  const parentNode = path.getParentNode();
+  const isTemplateLiteral = node.type === "TemplateLiteral";
 
-  if (isJestEachTemplateLiteral(node, parentNode)) {
+  if (
+    isTemplateLiteral &&
+    isJestEachTemplateLiteral(node, path.getParentNode())
+  ) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
     }
   }
+  let expressionsKey = "expressions";
+  if (node.type === "TSTemplateLiteralType") {
+    expressionsKey = "types";
+  }
   const parts = [];
 
-  let expressions = path.map(print, "expressions");
+  let expressions = path.map(print, expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
@@ -70,7 +77,7 @@ function printTemplateLiteral(path, print, options) {
       let printed = expressions[i];
 
       if (!isSimple) {
-        const expression = node.expressions[i];
+        const expression = node[expressionsKey][i];
         // Breaks at the template element boundaries (${ and }) are preferred to breaking
         // in the middle of a MemberExpression
         if (

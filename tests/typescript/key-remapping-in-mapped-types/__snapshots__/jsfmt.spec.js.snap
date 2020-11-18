@@ -1,15 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`key-remapping.ts [typescript] format 1`] = `
-"']' expected. (2:17)
-  1 | type MappedTypeWithNewKeys<T> = {
-> 2 |   [K in keyof T as NewKeyType]: T[K]
-    |                 ^
-  3 | };
-  4 |   
-  5 | type RemoveKindField<T> = {"
-`;
-
 exports[`key-remapping.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts", "typescript"]

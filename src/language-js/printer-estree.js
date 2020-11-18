@@ -2238,6 +2238,7 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
+    case "TSTemplateLiteralType":
     case "TemplateLiteral": {
       return printTemplateLiteral(path, print, options);
     }
