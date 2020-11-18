@@ -102,6 +102,8 @@ const {
   shouldPrintComma,
   shouldFlatten,
   startsWithNoLookaheadToken,
+hasComments,
+COMMENT
 } = require("./utils");
 const { locStart, locEnd, hasSameLoc } = require("./loc");
 
@@ -290,7 +292,7 @@ function printPathNoParens(path, options, print, args) {
 
     case "Program": {
       const hasContents =
-        !n.body.every(({ type }) => type === "EmptyStatement") || n.comments;
+        !n.body.every(({ type }) => type === "EmptyStatement") || hasComments(n);
 
       // Babel 6
       if (n.directives) {
@@ -353,7 +355,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
-      const shouldHug = !n.expression.comments;
+      const shouldHug = !hasComments(n.expression);
       if (shouldHug) {
         return concat(["(", path.call(print, "expression"), ")"]);
       }
@@ -743,7 +745,7 @@ function printPathNoParens(path, options, print, args) {
       const shouldAddSoftLine =
         ((args && args.expandLastArg) ||
           path.getParentNode().type === "JSXExpressionContainer") &&
-        !(n.comments && n.comments.length);
+        !hasComments(n);
 
       const printTrailingComma =
         args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -1168,9 +1170,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.inexact) {
         let printed;
         if (hasDanglingComments(n)) {
-          const hasLineComments = !n.comments.every((comment) =>
-            isBlockComment(comment)
-          );
+          const hasLineComments = hasComments(n, COMMENT.line);
           const printedDanglingComments = comments.printDanglingComments(
             path,
             options,
@@ -1494,7 +1494,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ");
       }
 
-      if (n.argument.comments && n.argument.comments.length > 0) {
+      if (hasComments(n.argument)) {
         parts.push(
           group(
             concat([
@@ -1545,7 +1545,7 @@ function printPathNoParens(path, options, print, args) {
       const hasValue = n.declarations.some((decl) => decl.init);
 
       let firstVariable;
-      if (printed.length === 1 && !n.declarations[0].comments) {
+      if (printed.length === 1 && !hasComments(n.declarations[0])) {
         firstVariable = printed[0];
       } else if (printed.length > 0) {
         // Indent first var to comply with eslint one-var rule
@@ -1633,11 +1633,7 @@ function printPathNoParens(path, options, print, args) {
       parts.push(opening);
 
       if (n.alternate) {
-        const commentOnOwnLine =
-          (hasTrailingComment(n.consequent) &&
-            n.consequent.comments.some(
-              (comment) => comment.trailing && !isBlockComment(comment)
-            )) ||
+        const commentOnOwnLine =hasComments(COMMENT.trailing | COMMENT.line ) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
@@ -1815,9 +1811,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "CatchClause":
       if (n.param) {
-        const hasComments =
-          n.param.comments &&
-          n.param.comments.some(
+        const hasComments = hasComments(n.param, 
             (comment) =>
               !isBlockComment(comment) ||
               (comment.leading &&
@@ -1952,7 +1946,7 @@ function printPathNoParens(path, options, print, args) {
           (p) => {
             const printed = concat(["...", print(p)]);
             const n = p.getValue();
-            if (!n.comments || !n.comments.length || !willPrintOwnComments(p)) {
+            if (!hasComments(n)|| !willPrintOwnComments(p)) {
               return printed;
             }
             return concat([
@@ -1973,12 +1967,9 @@ function printPathNoParens(path, options, print, args) {
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
-      const hasComments =
-        n.expression.comments && n.expression.comments.length > 0;
-
       const shouldInline =
         n.expression.type === "JSXEmptyExpression" ||
-        (!hasComments &&
+        (!hasComments (n.expression)&&
           (n.expression.type === "ArrayExpression" ||
             n.expression.type === "ObjectExpression" ||
             n.expression.type === "ArrowFunctionExpression" ||
@@ -2021,10 +2012,7 @@ function printPathNoParens(path, options, print, args) {
       const n = path.getValue();
 
       const nameHasComments =
-        (n.name && n.name.comments && n.name.comments.length > 0) ||
-        (n.typeParameters &&
-          n.typeParameters.comments &&
-          n.typeParameters.comments.length > 0);
+        hasComments(n.name) || hasComments(n.typeParameters );
 
       // Don't break self-closing elements with no attributes and no comments
       if (n.selfClosing && !n.attributes.length && !nameHasComments) {
@@ -2053,7 +2041,7 @@ function printPathNoParens(path, options, print, args) {
         //   // comment
         // >
         !nameHasComments &&
-        (!n.attributes[0].comments || !n.attributes[0].comments.length)
+        (!hasComments(n.attributes[0]))
       ) {
         return group(
           concat([
@@ -2118,9 +2106,8 @@ function printPathNoParens(path, options, print, args) {
       return concat(["</", path.call(print, "name"), ">"]);
     case "JSXOpeningFragment":
     case "JSXClosingFragment": {
-      const hasComment = n.comments && n.comments.length;
-      const hasOwnLineComment =
-        hasComment && !n.comments.every((comment) => isBlockComment(comment));
+      const hasComment = hasComments(n);
+      const hasOwnLineComment =  hasComments(n, COMMENT.line);
       const isOpeningFragment = n.type === "JSXOpeningFragment";
       return concat([
         isOpeningFragment ? "<" : "</",
@@ -2142,8 +2129,7 @@ function printPathNoParens(path, options, print, args) {
       /* istanbul ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression": {
-      const requiresHardline =
-        n.comments && !n.comments.every((comment) => isBlockComment(comment));
+      const requiresHardline = hasComments(n, COMMENT.line);
 
       return concat([
         comments.printDanglingComments(
@@ -2155,7 +2141,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     }
     case "ClassBody":
-      if (!n.comments && n.body.length === 0) {
+      if (!hasComments(n) && n.body.length === 0) {
         return "{}";
       }
 
@@ -3379,7 +3365,7 @@ function printPathNoParens(path, options, print, args) {
       return concat(
         [].concat(
           path.call(print, "node"),
-          !n.node.comments || n.node.comments.length === 0
+          !hasComments(n.node)
             ? []
             : concat([" //", n.node.comments[0].value.trimEnd()])
         )
@@ -3525,7 +3511,7 @@ function printStatementSequence(path, options, print) {
       !isTheOnlyJSXElementInMarkdown(options, stmtPath) &&
       stmtNeedsASIProtection(stmtPath, options)
     ) {
-      if (stmt.comments && stmt.comments.some((comment) => comment.leading)) {
+      if (hasComments(stmt, COMMENT.leading)) {
         parts.push(print(stmtPath, { needsSemi: true }));
       } else {
         parts.push(";", stmtPrinted);
@@ -3741,7 +3727,7 @@ function canPrintParamsWithoutParens(node) {
     !hasDanglingComments(node) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
-    !parameters[0].comments &&
+    !hasComments(parameters[0]) &&
     !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -3977,9 +3963,7 @@ function printClass(path, options, print) {
   // If there is only on extends and there are not comments
   const groupMode =
     (n.id && hasTrailingComment(n.id)) ||
-    (n.superClass &&
-      n.superClass.comments &&
-      n.superClass.comments.length !== 0) ||
+    (hasComments(n.superClass)) ||
     (n.extends && n.extends.length !== 0) || // DeclareClass
     (n.mixins && n.mixins.length !== 0) ||
     (n.implements && n.implements.length !== 0);
@@ -4656,7 +4640,7 @@ function printBinaryishExpressions(
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
-    if (isNested && node.comments) {
+    if (isNested && hasComments(node)) {
       parts = normalizeParts(
         comments.printComments(path, () => concat(parts), options).parts
       );
