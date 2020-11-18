@@ -2115,7 +2115,28 @@ function printPathNoParens(path, options, print, args) {
       );
     }
     case "JSXClosingElement":
-      return concat(["</", path.call(print, "name"), ">"]);
+      parts.push("</");
+
+      const printed = path.call(print, "name");
+      if (
+        Array.isArray(n.name.comments) &&
+        n.name.comments.some((comment) => isBlockComment(comment))
+      ) {
+        parts.push(indent(concat([hardline, printed])), hardline);
+      } else if (
+        Array.isArray(n.name.comments) &&
+        n.name.comments.some(
+          (comment) => comment.leading && isLineComment(comment)
+        )
+      ) {
+        parts.push(" ", printed);
+      } else {
+        parts.push(printed);
+      }
+
+      parts.push(">");
+
+      return concat(parts);
     case "JSXOpeningFragment":
     case "JSXClosingFragment": {
       const hasComment = n.comments && n.comments.length;

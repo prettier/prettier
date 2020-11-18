@@ -27,6 +27,134 @@ const render = (items) => (
 ================================================================================
 `;
 
+exports[`in-end-tag.js - {"jsxBracketSameLine":true} [typescript] format 1`] = `
+"Identifier expected. (2:6)
+  1 | /* =========== before slash =========== */
+> 2 | <a><// line
+    |      ^
+  3 | /a>;
+  4 | <a></* block */
+  5 | /a>;"
+`;
+
+exports[`in-end-tag.js - {"jsxBracketSameLine":true} format 1`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* =========== before slash =========== */
+<a><// line
+/a>;
+<a></* block */
+/a>;
+
+<><// line
+/>;
+<></* block */
+/>;
+
+/* =========== after slash =========== */
+<a></ // line
+a>;
+<a></ /* block */
+a>;
+
+<></ // line
+>;
+<></ /* block */
+>;
+
+/* =========== after name =========== */
+<a></a // line
+>;
+<a></a /* block */
+>;
+
+
+/* =========== block =========== */
+<a></a /* block */>;
+<></ /* block */>;
+
+/* =========== multiple ===========  */
+<a><// line 1
+// line 2
+/a>;
+<a></* block1 */ /* block2 */
+/a>;
+<a></* block */ // line
+/a>;
+
+<><// line 1
+// line 2
+/>;
+<></* block1 */ /* block2 */
+/>;
+<></* block */ // line
+/>;
+=====================================output=====================================
+/* =========== before slash =========== */
+<a></
+  // line
+  a
+>;
+<a></ /* block */
+a>;
+
+<></
+  // line
+>;
+<></ /* block */>;
+
+/* =========== after slash =========== */
+<a></
+  // line
+  a
+>;
+<a></ /* block */
+a>;
+
+<></
+  // line
+>;
+<></ /* block */>;
+
+/* =========== after name =========== */
+<a></a>; // line
+<a></ a /* block */>;
+
+/* =========== block =========== */
+<a></ a /* block */>;
+<></ /* block */>;
+
+/* =========== multiple ===========  */
+<a></
+  // line 1
+  // line 2
+  a
+>;
+<a></ /* block1 */ /* block2 */
+a>;
+<a></
+  /* block */ // line
+  a
+>;
+
+<></
+  // line 1
+  // line 2
+>;
+<></ /* block1 */
+  /* block2 */>;
+<></
+  /* block */
+  // line
+>;
+
+================================================================================
+`;
+
 exports[`in-tags.js - {"jsxBracketSameLine":true} format 1`] = `
 ====================================options=====================================
 jsxBracketSameLine: true
