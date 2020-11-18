@@ -19,6 +19,8 @@ const {
   isMemberish,
   isNumericLiteral,
   isSimpleCallArgument,
+  hasComments,
+  COMMENT,
 } = require("../utils");
 const { locEnd } = require("../loc");
 
@@ -244,10 +246,7 @@ function printMemberChain(path, options, print) {
     }
     currentGroup.push(printedNodes[i]);
 
-    if (
-      printedNodes[i].node.comments &&
-      printedNodes[i].node.comments.some((comment) => comment.trailing)
-    ) {
+    if (hasComments(printedNodes[i].node, COMMENT.trailing)) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
