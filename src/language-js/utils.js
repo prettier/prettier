@@ -344,7 +344,7 @@ function isJSXWhitespaceExpression(node) {
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
     node.expression.value === " " &&
-    !node.expression.comments
+    !hasComments(node.expression)
   );
 }
 
@@ -620,7 +620,7 @@ function isSimpleTemplateLiteral(node) {
 
   return expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
-    if (expr.comments) {
+    if (hasComments(expr)) {
       return false;
     }
 
@@ -648,7 +648,7 @@ function isSimpleTemplateLiteral(node) {
           return false;
         }
         head = head.object;
-        if (head.comments) {
+        if (hasComments(head)) {
           return false;
         }
       }
@@ -807,10 +807,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling &&
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
-    prevSibling.expression.comments &&
-    prevSibling.expression.comments.some((comment) =>
-      isPrettierIgnoreComment(comment)
-    )
+    hasPrettierIgnore(prevSibling.expression)
   );
 }
 
@@ -881,12 +878,9 @@ function hasLeadingOwnLineComment(text, node) {
     return hasNodeIgnoreComment(node);
   }
 
-  const res =
-    node.comments &&
-    node.comments.some(
-      (comment) => comment.leading && hasNewline(text, locEnd(comment))
-    );
-  return res;
+  return hasComments(node, COMMENT.leading, (comment) =>
+    hasNewline(text, locEnd(comment))
+  );
 }
 
 // This recurses the return argument, looking for the first token
@@ -1024,7 +1018,7 @@ function isTemplateOnItsOwnLine(n, text) {
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {
-  if (!node.comments) {
+  if (!hasComments(node)) {
     return false;
   }
   const lastDanglingComment = getLast(
@@ -1441,18 +1435,12 @@ function iterateCallArgumentsPath(path, iteratee) {
 }
 
 function isPrettierIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
+  return comment.value.trim() === "prettier-ignore" && !comment.unignore;
 }
 
 function hasNodeIgnoreComment(node) {
   return (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        (comment) => isPrettierIgnoreComment(comment) && !comment.unignore
-      )) ||
-      node.prettierIgnore)
+    node && (node.prettierIgnore || hasComments(node, COMMENT.prettierIgnore))
   );
 }
 
@@ -1467,6 +1455,7 @@ const COMMENT = {
   dangling: 1 << 3,
   block: 1 << 4,
   line: 1 << 5,
+  prettierIgnore: 1 << 6,
 };
 /**
  * @param {Node} node
@@ -1488,6 +1477,8 @@ function hasComments(node, options, fn) {
         (options & COMMENT.dangling && (comment.leading || comment.trailing)) ||
         (options & COMMENT.block && !isBlockComment(comment)) ||
         (options & COMMENT.line && !isLineComment(comment)) ||
+        (options & COMMENT.prettierIgnore &&
+          !isPrettierIgnoreComment(comment)) ||
         (fn && !fn(comment))
       ) {
         return false;
