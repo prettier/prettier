@@ -1465,10 +1465,10 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.0.1.tgz#1cf72582f764931f085cb8230ff215980fe467b2"
   integrity sha512-S+gD3fgbkZYW2rnbjugNMqibm9HpEjqZBZkTiI3PwbbNGWmAcxolWIUwZ0SKeG4Dy2ktpKKaI/6+HGYVH8Qrlg==
 
-"@typescript-eslint/types@4.8.1-alpha.1+111c244c":
-  version "4.8.1-alpha.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.8.1-alpha.1.tgz#9ac93405a42944b1eaee3a60dd0652e3e674e14f"
-  integrity sha512-cdb71AM8yRySrSyllAe3RUUmGCmQb+011L1903B0rc1y2mR8XSQaGzfpib8ETcekgC3Y5SQDHAyZ9TlemzXYrQ==
+"@typescript-eslint/types@4.8.1":
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.8.1.tgz#23829c73c5fc6f4fcd5346a7780b274f72fee222"
+  integrity sha512-ave2a18x2Y25q5K05K/U3JQIe2Av4+TNi/2YuzyaXLAsDx6UZkz1boZ7nR/N6Wwae2PpudTZmHFXqu7faXfHmA==
 
 "@typescript-eslint/typescript-estree@4.0.1":
   version "4.0.1"
@@ -1484,13 +1484,13 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@typescript-eslint/typescript-estree@4.8.1-alpha.1":
-  version "4.8.1-alpha.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-4.8.1-alpha.1.tgz#3582b941d9d5db81e5184e9eb35dbbff94367657"
-  integrity sha512-EeRQ7cOiWhzSGC85OG1D70NEkVVoTB0TB0o2upddZVq/h5poxDRTAVzFYh60+0m8ZYbEHDokSuagvLJ8mffXMw==
+"@typescript-eslint/typescript-estree@4.8.1":
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-4.8.1.tgz#7307e3f2c9e95df7daa8dc0a34b8c43b7ec0dd32"
+  integrity sha512-bJ6Fn/6tW2g7WIkCWh3QRlaSU7CdUUK52shx36/J7T5oTQzANvi6raoTsbwGM11+7eBbeem8hCCKbyvAc0X3sQ==
   dependencies:
-    "@typescript-eslint/types" "4.8.1-alpha.1+111c244c"
-    "@typescript-eslint/visitor-keys" "4.8.1-alpha.1+111c244c"
+    "@typescript-eslint/types" "4.8.1"
+    "@typescript-eslint/visitor-keys" "4.8.1"
     debug "^4.1.1"
     globby "^11.0.1"
     is-glob "^4.0.1"
@@ -1506,12 +1506,12 @@
     "@typescript-eslint/types" "4.0.1"
     eslint-visitor-keys "^2.0.0"
 
-"@typescript-eslint/visitor-keys@4.8.1-alpha.1+111c244c":
-  version "4.8.1-alpha.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-4.8.1-alpha.1.tgz#252902e2e814fbcc7f7477887ac6583c28a15999"
-  integrity sha512-lXViHUSr2JbwuRkz5/p4Dm6fbPkg2HtiZppahpv3X4hD6wBc5OSJNDbfwj7k8didbddjQP6ldEQkmzoM+PZXdA==
+"@typescript-eslint/visitor-keys@4.8.1":
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-4.8.1.tgz#794f68ee292d1b2e3aa9690ebedfcb3a8c90e3c3"
+  integrity sha512-3nrwXFdEYALQh/zW8rFwP4QltqsanCDz4CwWMPiIZmwlk9GlvBeueEIbq05SEq4ganqM0g9nh02xXgv5XI3PeQ==
   dependencies:
-    "@typescript-eslint/types" "4.8.1-alpha.1+111c244c"
+    "@typescript-eslint/types" "4.8.1"
     eslint-visitor-keys "^2.0.0"
 
 "@webassemblyjs/ast@1.9.0":
