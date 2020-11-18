@@ -9,7 +9,14 @@ const semver = require("semver");
 
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
+const introTemplateFile = path.join(
+  changelogUnreleasedDir,
+  "BLOG_POST_INTRO_TEMPLATE.md"
+);
 const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
+if (!fs.existsSync(introFile)) {
+  fs.copyFileSync(introTemplateFile, introFile);
+}
 const previousVersion = require("prettier/package.json").version;
 const version = require("../package.json").version.replace(/-.+/, "");
 const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
