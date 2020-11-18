@@ -307,7 +307,9 @@ function printMemberChain(path, options, print) {
   }
 
   const shouldMerge =
-    groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
+    groups.length >= 2 &&
+    !hasComments(groups[1][0].node) &&
+    shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
     const printed = printedGroup.map((tuple) => tuple.printed);
