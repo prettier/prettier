@@ -2120,13 +2120,15 @@ function printPathNoParens(path, options, print, args) {
       const printed = path.call(print, "name");
       if (
         Array.isArray(n.name.comments) &&
-        n.name.comments.some((comment) => isBlockComment(comment))
+        n.name.comments.some(
+          (comment) => comment.leading && isLineComment(comment)
+        )
       ) {
         parts.push(indent(concat([hardline, printed])), hardline);
       } else if (
         Array.isArray(n.name.comments) &&
         n.name.comments.some(
-          (comment) => comment.leading && isLineComment(comment)
+          (comment) => comment.leading && isBlockComment(comment)
         )
       ) {
         parts.push(" ", printed);
