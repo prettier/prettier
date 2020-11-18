@@ -565,52 +565,12 @@ function isTestCall(n, parent) {
 }
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasLeadingComment(node) {
-  return node.comments && node.comments.some((comment) => comment.leading);
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasTrailingComment(node) {
-  return node.comments && node.comments.some((comment) => comment.trailing);
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasTrailingLineComment(node) {
-  return (
-    node.comments &&
-    node.comments.some(
-      (comment) => comment.trailing && !isBlockComment(comment)
-    )
-  );
-}
-
-/**
  * @param {CallExpression | OptionalCallExpression} node
  * @returns {boolean}
  */
 function isCallOrOptionalCallExpression(node) {
   return (
     node.type === "CallExpression" || node.type === "OptionalCallExpression"
-  );
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasDanglingComments(node) {
-  return (
-    node.comments &&
-    node.comments.some((comment) => !comment.leading && !comment.trailing)
   );
 }
 
@@ -1508,6 +1468,10 @@ const COMMENT = {
   block: 1 << 4,
   line: 1 << 5,
 };
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function hasComments(node, options, fn) {
   if (!node || Array.isArray(node.comments) || node.comments.length === 0) {
     return false;
@@ -1532,6 +1496,38 @@ function hasComments(node, options, fn) {
     });
   }
   return true;
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function hasLeadingComment(node) {
+  return hasComments(node, COMMENT.leading);
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function hasTrailingComment(node) {
+  return hasComments(node, COMMENT.trailing);
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function hasTrailingLineComment(node) {
+  return hasComments(node, COMMENT.trailing | COMMENT.trailing);
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function hasDanglingComments(node) {
+  return hasComments(node, COMMENT.dangling);
 }
 
 module.exports = {
