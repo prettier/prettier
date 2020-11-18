@@ -28,7 +28,8 @@ const {
 const { replaceEndOfLineWith } = require("../common/util");
 const embed = require("./embed");
 const { insertPragma } = require("./pragma");
-const preprocess = require("./preprocess");
+const { locStart, locEnd } = require("./loc");
+const preprocess = require("./print-preprocess");
 const clean = require("./clean");
 const {
   getFencedCodeBlockValue,
@@ -39,6 +40,10 @@ const {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
 } = require("./utils");
+
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
@@ -93,7 +98,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word": {
       let escapedValue = node.value
-        .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
+        .replace(/\*/g, "\\$&") // escape all `*`
         .replace(
           new RegExp(
             [
@@ -112,7 +117,7 @@ function genericPrint(path, options, print) {
       const isFirstSentence = (node, name, index) =>
         node.type === "sentence" && index === 0;
       const isLastChildAutolink = (node, name, index) =>
-        isAutolink(node.children[index - 1], options);
+        isAutolink(node.children[index - 1]);
 
       if (
         escapedValue !== node.value &&
@@ -147,7 +152,7 @@ function genericPrint(path, options, print) {
     }
     case "emphasis": {
       let style;
-      if (isAutolink(node.children[0], options)) {
+      if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
         const parentNode = path.getParentNode();
@@ -463,10 +468,7 @@ function genericPrint(path, options, print) {
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
-      return options.originalText.slice(
-        options.locStart(node),
-        options.locEnd(node)
-      );
+      return options.originalText.slice(locStart(node), locEnd(node));
     }
 
     case "tableRow": // handled in "table"
@@ -579,111 +581,77 @@ function printTable(path, options, print) {
   const hardlineWithoutBreakParent = hardline.parts[0];
   const node = path.getValue();
 
-  // { [rowIndex: number]: { [columnIndex: number]: string } }
+  const columnMaxWidths = [];
+  // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
   const contents = path.map(
     (rowPath) =>
-      rowPath.map(
-        (cellPath) => printDocToString(cellPath.call(print), options).formatted,
-        "children"
-      ),
+      rowPath.map((cellPath, columnIndex) => {
+        const text = printDocToString(cellPath.call(print), options).formatted;
+        const width = getStringWidth(text);
+        columnMaxWidths[columnIndex] = Math.max(
+          columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
+          width
+        );
+        return { text, width };
+      }, "children"),
     "children"
   );
 
-  // Get the width of each column
-  const columnMaxWidths = contents.reduce(
-    (currentWidths, rowContents) =>
-      currentWidths.map((width, columnIndex) =>
-        Math.max(width, getStringWidth(rowContents[columnIndex]))
-      ),
-    contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
-  );
-  const alignedTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0]),
-    printSeparator(),
-    join(
-      hardlineWithoutBreakParent,
-      contents.slice(1).map((rowContents) => printRow(rowContents))
-    ),
-  ]);
-
+  const alignedTable = printTableContents(/* isCompact */ false);
   if (options.proseWrap !== "never") {
     return concat([breakParent, alignedTable]);
   }
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
-  const compactTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0], /* isCompact */ true),
-    printSeparator(/* isCompact */ true),
-    join(
-      hardlineWithoutBreakParent,
-      contents
-        .slice(1)
-        .map((rowContents) => printRow(rowContents, /* isCompact */ true))
-    ),
-  ]);
-
+  const compactTable = printTableContents(/* isCompact */ true);
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
 
-  function printSeparator(isCompact) {
-    return concat([
-      "| ",
-      join(
-        " | ",
-        columnMaxWidths.map((width, index) => {
-          const spaces = isCompact ? 3 : width;
-          switch (node.align[index]) {
-            case "left":
-              return ":" + "-".repeat(spaces - 1);
-            case "right":
-              return "-".repeat(spaces - 1) + ":";
-            case "center":
-              return ":" + "-".repeat(spaces - 2) + ":";
-            default:
-              return "-".repeat(spaces);
-          }
-        })
-      ),
-      " |",
-    ]);
+  function printTableContents(isCompact) {
+    /** @type{Doc[]} */
+    const parts = [printRow(contents[0], isCompact), printAlign(isCompact)];
+    if (contents.length > 1) {
+      parts.push(
+        join(
+          hardlineWithoutBreakParent,
+          contents
+            .slice(1)
+            .map((rowContents) => printRow(rowContents, isCompact))
+        )
+      );
+    }
+    return join(hardlineWithoutBreakParent, parts);
+  }
+
+  function printAlign(isCompact) {
+    const align = columnMaxWidths.map((width, index) => {
+      const align = node.align[index];
+      const first = align === "center" || align === "left" ? ":" : "-";
+      const last = align === "center" || align === "right" ? ":" : "-";
+      const middle = isCompact ? "-" : "-".repeat(width - 2);
+      return `${first}${middle}${last}`;
+    });
+
+    return `| ${align.join(" | ")} |`;
   }
 
   function printRow(rowContents, isCompact) {
-    return concat([
-      "| ",
-      join(
-        " | ",
-        isCompact
-          ? rowContents
-          : rowContents.map((rowContent, columnIndex) => {
-              switch (node.align[columnIndex]) {
-                case "right":
-                  return alignRight(rowContent, columnMaxWidths[columnIndex]);
-                case "center":
-                  return alignCenter(rowContent, columnMaxWidths[columnIndex]);
-                default:
-                  return alignLeft(rowContent, columnMaxWidths[columnIndex]);
-              }
-            })
-      ),
-      " |",
-    ]);
-  }
+    const columns = rowContents.map(({ text, width }, columnIndex) => {
+      if (isCompact) {
+        return text;
+      }
+      const spaces = columnMaxWidths[columnIndex] - width;
+      const align = node.align[columnIndex];
+      let before = 0;
+      if (align === "right") {
+        before = spaces;
+      } else if (align === "center") {
+        before = Math.floor(spaces / 2);
+      }
+      const after = spaces - before;
+      return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
+    });
 
-  function alignLeft(text, width) {
-    const spaces = width - getStringWidth(text);
-    return concat([text, " ".repeat(spaces)]);
-  }
-
-  function alignRight(text, width) {
-    const spaces = width - getStringWidth(text);
-    return concat([" ".repeat(spaces), text]);
-  }
-
-  function alignCenter(text, width) {
-    const spaces = width - getStringWidth(text);
-    const left = Math.floor(spaces / 2);
-    const right = spaces - left;
-    return concat([" ".repeat(left), text, " ".repeat(right)]);
+    return `| ${columns.join(" | ")} |`;
   }
 }
 

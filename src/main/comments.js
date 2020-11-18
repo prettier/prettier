@@ -4,15 +4,17 @@
 const assert = require("assert");
 
 const {
-  concat,
-  line,
-  hardline,
-  breakParent,
-  indent,
-  lineSuffix,
-  join,
-  cursor,
-} = require("../document").builders;
+  builders: {
+    concat,
+    line,
+    hardline,
+    breakParent,
+    indent,
+    lineSuffix,
+    join,
+    cursor,
+  },
+} = require("../document");
 
 const {
   hasNewline,

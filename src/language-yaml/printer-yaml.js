@@ -20,6 +20,7 @@ const {
 } = docBuilders;
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
+const { locStart } = require("./loc");
 const {
   getAncestorCount,
   getBlockValueLineContents,
@@ -140,7 +141,7 @@ function genericPrint(path, options, print) {
                     isPreviousLineEmpty(
                       options.originalText,
                       path.getValue(),
-                      options.locStart
+                      locStart
                     )
                       ? hardline
                       : "",
@@ -498,6 +499,8 @@ function _print(node, parentNode, path, options, print) {
           lastItem.type === "flowMappingItem" &&
           isEmptyNode(lastItem.key) &&
           isEmptyNode(lastItem.value))(getLast(node.children));
+      const trailingComma =
+        options.trailingComma === "none" ? "" : ifBreak(",", "");
       return concat([
         openMarker,
         indent(
@@ -525,7 +528,13 @@ function _print(node, parentNode, path, options, print) {
                 "children"
               )
             ),
-            ifBreak(",", ""),
+            trailingComma,
+            hasEndComments(node)
+              ? concat([
+                  hardline,
+                  join(hardline, path.map(print, "endComments")),
+                ])
+              : "",
           ])
         ),
         isLastItemEmptyMappingItem ? "" : bracketSpacing,
@@ -626,10 +635,7 @@ function shouldPrintDocumentHeadEndMarker(
      */
     (root.children[0] === document &&
       /---(\s|$)/.test(
-        options.originalText.slice(
-          options.locStart(document),
-          options.locStart(document) + 4
-        )
+        options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
     /**
      * %DIRECTIVE
@@ -705,7 +711,13 @@ function needsSpaceInFrontOfMappingValue(node) {
 
 function shouldPrintEndComments(node) {
   return (
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+    hasEndComments(node) &&
+    !isNode(node, [
+      "documentHead",
+      "documentBody",
+      "flowMapping",
+      "flowSequence",
+    ])
   );
 }
 

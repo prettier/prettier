@@ -5,8 +5,6 @@ const {
   getLast,
   hasNewline,
   hasNewlineInRange,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
 const { locStart, locEnd, hasSameLocStart } = require("./loc");
@@ -466,6 +464,7 @@ const simpleTypeAnnotations = new Set([
   "BigIntLiteralTypeAnnotation",
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
+  "TSTemplateLiteralType",
   // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
@@ -649,11 +648,17 @@ function isNgForOf(node, index, parentNode) {
  * @returns {boolean}
  */
 function isSimpleTemplateLiteral(node) {
-  if (node.expressions.length === 0) {
+  let expressionsKey = "expressions";
+  if (node.type === "TSTemplateLiteralType") {
+    expressionsKey = "types";
+  }
+  const expressions = node[expressionsKey];
+
+  if (expressions.length === 0) {
     return false;
   }
 
-  return node.expressions.every((expr) => {
+  return expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
     if (expr.comments) {
       return false;
@@ -843,8 +848,8 @@ function hasJsxIgnoreComment(path) {
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
-    prevSibling.expression.comments.some(
-      (comment) => comment.value.trim() === "prettier-ignore"
+    prevSibling.expression.comments.some((comment) =>
+      isPrettierIgnoreComment(comment)
     )
   );
 }
@@ -1448,11 +1453,61 @@ function iterateFunctionParametersPath(path, iteratee) {
   }
 }
 
+const callArgumentsCache = new WeakMap();
+function getCallArguments(node) {
+  if (callArgumentsCache.has(node)) {
+    return callArgumentsCache.get(node);
+  }
+  const args =
+    node.type === "ImportExpression"
+      ? // No parser except `babel` supports `import("./foo.json", { assert: { type: "json" } })` yet,
+        // And `babel` parser it as `CallExpression`
+        // We need add the second argument here
+        [node.source]
+      : node.arguments;
+
+  callArgumentsCache.set(node, args);
+  return args;
+}
+
+function iterateCallArgumentsPath(path, iteratee) {
+  const node = path.getValue();
+  // See comment in `getCallArguments`
+  if (node.type === "ImportExpression") {
+    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+  } else {
+    path.each(iteratee, "arguments");
+  }
+}
+
+function isPrettierIgnoreComment(comment) {
+  return comment.value.trim() === "prettier-ignore";
+}
+
+function hasNodeIgnoreComment(node) {
+  return (
+    node &&
+    ((node.comments &&
+      node.comments.length > 0 &&
+      node.comments.some(
+        (comment) => isPrettierIgnoreComment(comment) && !comment.unignore
+      )) ||
+      node.prettierIgnore)
+  );
+}
+
+function hasIgnoreComment(path) {
+  const node = path.getValue();
+  return hasNodeIgnoreComment(node);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   getFunctionParameters,
   iterateFunctionParametersPath,
+  getCallArguments,
+  iterateCallArgumentsPath,
   hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -1469,10 +1524,13 @@ module.exports = {
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
+  hasIgnoreComment,
+  hasNodeIgnoreComment,
   identity,
   isBinaryish,
   isBlockComment,
   isLineComment,
+  isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,

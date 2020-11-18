@@ -3,7 +3,7 @@ const { getShebang } = require("../common/util");
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
-const postprocess = require("./postprocess");
+const postprocess = require("./parse-postprocess");
 
 const espreeOptions = {
   range: true,

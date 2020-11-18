@@ -495,6 +495,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".jscsrc\\",
         \\".jshintrc\\",
         \\".jslintrc\\",
+        \\"devcontainer.json\\",
         \\"jsconfig.json\\",
         \\"language-configuration.json\\",
         \\"tsconfig.json\\",

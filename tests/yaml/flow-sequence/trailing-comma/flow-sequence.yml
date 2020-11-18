@@ -1,0 +1,19 @@
+failing:
+  [
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma IS added here"
+  ]
+
+expected:
+  [
+    "object-fits-within-print-width", "",
+    "TEST", "comma NOT here"
+  ]
+
+---
+
+does not suffice: >
+  [
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
+  ]

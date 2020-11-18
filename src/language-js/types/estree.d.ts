@@ -1,6 +1,7 @@
 import * as ESTree from "estree";
 import * as Babel from "@babel/types";
 import { TSESTree } from "@typescript-eslint/types";
+import { ESTree as Meriyah } from "meriyah";
 import * as NGTree from "angular-estree-parser/lib/types";
 
 type AdditionalFields = {
@@ -14,24 +15,11 @@ type AdditionalFields = {
   leadingComments?: ReadonlyArray<Comment> | Comment[];
 };
 
-type MeriyahComment = {
-  value: string;
-  start: number;
-  end: number;
-  range: number[];
-  type:
-    | "MultiLine"
-    | "SingleLine"
-    | "HashbangComment"
-    | "HTMLOpen"
-    | "HTMLClose";
-};
-
 export type Comment = (
   | ESTree.Comment
   | Babel.Comment
   | TSESTree.Comment
-  | MeriyahComment
+  | Meriyah.Comment
 ) & {
   printed?: boolean;
   trailing?: boolean;

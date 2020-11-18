@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import.js [espree] format 1`] = `
+"Unexpected token ) (1:21)
+> 1 | import(/* comment */)
+    |                     ^
+  2 | new import(/* comment */)
+  3 | "
+`;
+
+exports[`import.js [flow] format 1`] = `
+"Unexpected token \`)\` (1:21)
+> 1 | import(/* comment */)
+    |                     ^
+  2 | new import(/* comment */)
+  3 | "
+`;
+
+exports[`import.js [meriyah] format 1`] = `
+"[1:21]: Unexpected token: ')' (1:21)
+> 1 | import(/* comment */)
+    |                     ^
+  2 | new import(/* comment */)
+  3 | "
+`;
+
+exports[`import.js [typescript] format 1`] = `
+"Expression expected. (2:5)
+  1 | import(/* comment */)
+> 2 | new import(/* comment */)
+    |     ^
+  3 | "
+`;
+
+exports[`import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import(/* comment */)
+new import(/* comment */)
+
+=====================================output=====================================
+import(/* comment */);
+new import(/* comment */);
+
+================================================================================
+`;
+
+exports[`special-cases.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+require(/* comment */)
+new require(/* comment */)
+define(/* comment */)
+new define(/* comment */)
+it(/* comment */)
+new it(/* comment */)
+
+=====================================output=====================================
+require(/* comment */);
+new require(/* comment */);
+define(/* comment */);
+new define(/* comment */);
+it(/* comment */);
+new it(/* comment */);
+
+================================================================================
+`;
