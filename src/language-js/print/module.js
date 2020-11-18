@@ -4,7 +4,7 @@ const {
   builders: { concat, softline, group, indent, join, line, ifBreak },
 } = require("../../document");
 
-const { shouldPrintComma } = require("../utils");
+const { shouldPrintComma, hasComments } = require("../utils");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -57,7 +57,7 @@ function printModuleSpecifiers(path, options, print) {
       const canBreak =
         groupedSpecifiers.length > 1 ||
         standalonesSpecifiers.length > 0 ||
-        node.specifiers.some((node) => node.comments);
+        node.specifiers.some((node) => hasComments(node));
 
       if (canBreak) {
         parts.push(
