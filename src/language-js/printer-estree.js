@@ -112,6 +112,7 @@ const {
   printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
+  printTSAsExpression,
 } = require("./print/misc");
 const {
   printModuleSource,
@@ -2982,11 +2983,7 @@ function printPathNoParens(path, options, print, args) {
     case "TSVoidKeyword":
       return "void";
     case "TSAsExpression":
-      return concat([
-        path.call(print, "expression"),
-        " as ",
-        path.call(print, "typeAnnotation"),
-      ]);
+      return printTSAsExpression(path, options, print);
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature": {
