@@ -1107,6 +1107,8 @@ function printPathNoParens(path, options, print, args) {
           parent.type !== "ClassPrivateMethod" &&
           parent.type !== "AssignmentPattern" &&
           parent.type !== "CatchClause" &&
+          !(parent.type === "ForOfStatement" && parent.left === n) &&
+          !(parent.type === "VariableDeclarator" && parent.id === n) &&
           n.properties.some(
             (property) =>
               property.value &&
