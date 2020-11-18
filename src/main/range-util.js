@@ -151,9 +151,21 @@ function calculateRange(text, opts, ast) {
     }
   }
 
+  // We exclude node at `startNonWhitespace`, but include node at `endNonWhitespace`
+  // If they are equal, for example 12~12,
+  // The follow logic will find a node at `13` as `startNode`, and a node at `12` as `endNode`
+  // This doesn't make sense
+  if (startNonWhitespace >= endNonWhitespace) {
+    return {
+      rangeStart: 0,
+      rangeEnd: 0,
+    };
+  }
+
   const startNodeAndParents = findNodeAtOffset(
     ast,
-    startNonWhitespace,
+    // Start node should not include nodes end at `startNonWhitespace`
+    startNonWhitespace + 1,
     opts,
     (node) => isSourceElement(opts, node)
   );

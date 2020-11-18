@@ -5,6 +5,9 @@ const { codeFrameColumns } = require("@babel/code-frame");
 const codeFrameColumnsOptions = { linesAbove: Infinity, linesBelow: Infinity };
 
 const locationForRange = (text, rangeStart, rangeEnd) => {
+  if (rangeStart > rangeEnd) {
+    [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
+  }
   const lines = new LinesAndColumns(text);
   const start = lines.locationForIndex(rangeStart);
   const end = lines.locationForIndex(rangeEnd);

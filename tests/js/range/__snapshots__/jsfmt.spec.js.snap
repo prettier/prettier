@@ -26,6 +26,29 @@ a = [, , , , , , , a];
 ================================================================================
 `;
 
+exports[`boundary.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 26
+rangeStart: 13
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | foo = 1.0000;bar = 1.0000;baz=1.0000;
+    |              ^^^^^^^^^^^^^
+  2 | // The range will be 13~26
+  3 | // \`foo\` ends at 13, should not format
+  4 | // \`bar\` ends at 26, should format
+  5 | 
+=====================================output=====================================
+foo = 1.0000;bar = 1.0;baz=1.0000;
+// The range will be 13~26
+// \`foo\` ends at 13, should not format
+// \`bar\` ends at 26, should format
+
+================================================================================
+`;
+
 exports[`class-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -206,8 +229,8 @@ export class F {
     return 1;
   }
 
-  dontTouchThis() {
-    return 2;
+  dontTouchThis(){
+    return 2    ;
   }
 }
 
@@ -847,6 +870,46 @@ call(1, 2, 3);
 call(
   1, 2,3
 );
+
+================================================================================
+`;
+
+exports[`reversed-range.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 13
+rangeStart: 26
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | foo = 1.0000;bar = 1.0000;baz=1.0000;
+    |              ^^^^^^^^^^^^^
+  2 | // The range will be 26~13, but should be the same as 13~26
+  3 | // Should output the same as \`./boundary.js\`
+  4 | 
+=====================================output=====================================
+foo = 1.0000;bar = 1.0;baz=1.0000;
+// The range will be 26~13, but should be the same as 13~26
+// Should output the same as \`./boundary.js\`
+
+================================================================================
+`;
+
+exports[`start-equals-end.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 13
+rangeStart: 13
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | foo = 1.0000;bar = 1.0000;baz=1.0000;
+    |              ^
+  2 | // The range will be 13~13
+  3 | 
+=====================================output=====================================
+foo = 1.0000;bar = 1.0000;baz=1.0000;
+// The range will be 13~13
 
 ================================================================================
 `;

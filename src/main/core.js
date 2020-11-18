@@ -225,6 +225,9 @@ function normalizeIndexes(text, options) {
   rangeStart = ensureIndexInText(text, rangeStart, 0);
   rangeEnd = ensureIndexInText(text, rangeEnd, text.length);
 
+  if (rangeStart > rangeEnd) {
+    [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
+  }
   return { ...options, cursorOffset, rangeStart, rangeEnd };
 }
 
