@@ -7,7 +7,6 @@ import * as NGTree from "angular-estree-parser/lib/types";
 type AdditionalFields = {
   extra?: {
     parenthesized?: boolean;
-    parenStart?: number;
     raw?: string;
   };
   comments?: Comment[];
