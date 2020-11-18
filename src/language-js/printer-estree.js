@@ -4690,7 +4690,14 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       // do not put values on a separate line from the key in json
       options.parser !== "json" &&
       options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression";
+    rightNode.type === "SequenceExpression" ||
+    // variable definitions with union types can get very long;
+    // allow breaks after them
+    (leftNode.type === "Identifier" &&
+      leftNode.typeAnnotation &&
+      leftNode.typeAnnotation.type === "TSTypeAnnotation" &&
+      leftNode.typeAnnotation.typeAnnotation &&
+      leftNode.typeAnnotation.typeAnnotation.type === "TSUnionType");
 
   if (canBreak) {
     return group(indent(concat([line, printedRight])));

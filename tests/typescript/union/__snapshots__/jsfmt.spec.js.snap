@@ -48,6 +48,24 @@ type T6 = number | (((arg: any) => void));
 type T7 = number | ((((arg: any) => void)));
 type T8 = number | (((((arg: any) => void))));
 
+const existingAdWordsMasterAccount: AdWordsMasterMccAccountModel | undefined = this.allAdWordsMasterMccAccounts.find((item) => item.isTheOne());
+
+const existingAdWordsMasterAccount: (AdWordsMasterMccAccountModel | undefined) = this.allAdWordsMasterMccAccounts.find((item) => item.isTheOne());
+
+const a: Short | undefined = shortFunctionName();
+
+const a: Short | undefined = morePlaces(forPotentialLineBreaks());
+
+let a: LoooooooooooooooongTypeNames | ThatMakeTheLineGrowOverEightyChars = a.shortFn();
+
+let a: LoooooooooooooooongTypeNames | ThatEvenTakenByThemselves | AreLongerThanEightyChars = a.shortFn();
+
+const x: Short | ThisToo = thisFunctionNameIsSoLongThatItMakesTheLineExceedEightyChars();
+
+const x: Short | ThisToo = thisFunctionNameIsABitShorter(butTheLineInTotalStillExceedsEightyChars());
+
+const x: Short | ThisToo = thisFunctionNameIsABitShorter(butTheFunctionCallsByThemselvesExceedEightyChars());
+
 =====================================output=====================================
 interface RelayProps {
   articles: a | null;
@@ -90,6 +108,35 @@ type T5 = number | ((arg: any) => void);
 type T6 = number | ((arg: any) => void);
 type T7 = number | ((arg: any) => void);
 type T8 = number | ((arg: any) => void);
+
+const existingAdWordsMasterAccount: AdWordsMasterMccAccountModel | undefined =
+  this.allAdWordsMasterMccAccounts.find((item) => item.isTheOne());
+
+const existingAdWordsMasterAccount: AdWordsMasterMccAccountModel | undefined =
+  this.allAdWordsMasterMccAccounts.find((item) => item.isTheOne());
+
+const a: Short | undefined = shortFunctionName();
+
+const a: Short | undefined = morePlaces(forPotentialLineBreaks());
+
+let a: LoooooooooooooooongTypeNames | ThatMakeTheLineGrowOverEightyChars =
+  a.shortFn();
+
+let a:
+  | LoooooooooooooooongTypeNames
+  | ThatEvenTakenByThemselves
+  | AreLongerThanEightyChars = a.shortFn();
+
+const x: Short | ThisToo =
+  thisFunctionNameIsSoLongThatItMakesTheLineExceedEightyChars();
+
+const x: Short | ThisToo =
+  thisFunctionNameIsABitShorter(butTheLineInTotalStillExceedsEightyChars());
+
+const x: Short | ThisToo =
+  thisFunctionNameIsABitShorter(
+    butTheFunctionCallsByThemselvesExceedEightyChars()
+  );
 
 ================================================================================
 `;
