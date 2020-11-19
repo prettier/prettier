@@ -686,7 +686,7 @@ function printJsxEmptyExpression(path, options /*, print*/) {
 
 // `JSXSpreadAttribute` and `JSXSpreadChild`
 function printJsxSpreadAttribute(path, options, print) {
-  const n = path.getValue(n);
+  const n = path.getValue();
   return concat([
     "{",
     path.call(
