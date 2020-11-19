@@ -15,6 +15,10 @@ const {
   isBlockComment,
   getFunctionParameters,
   isPrettierIgnoreComment,
+  isJSXNode,
+  hasFlowShorthandAnnotationComment,
+  hasFlowAnnotationComment,
+  hasIgnoreComment,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -857,6 +861,33 @@ function isTypeCastComment(comment) {
   );
 }
 
+function willPrintOwnComments(path /*, options */) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  return (
+    ((node &&
+      (isJSXNode(node) ||
+        hasFlowShorthandAnnotationComment(node) ||
+        (parent &&
+          (parent.type === "CallExpression" ||
+            parent.type === "OptionalCallExpression") &&
+          (hasFlowAnnotationComment(node.leadingComments) ||
+            hasFlowAnnotationComment(node.trailingComments))))) ||
+      (parent &&
+        (parent.type === "JSXSpreadAttribute" ||
+          parent.type === "JSXSpreadChild" ||
+          parent.type === "UnionTypeAnnotation" ||
+          parent.type === "TSUnionType" ||
+          ((parent.type === "ClassDeclaration" ||
+            parent.type === "ClassExpression") &&
+            parent.superClass === node)))) &&
+    (!hasIgnoreComment(path) ||
+      parent.type === "UnionTypeAnnotation" ||
+      parent.type === "TSUnionType")
+  );
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
@@ -865,4 +896,5 @@ module.exports = {
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,
+  willPrintOwnComments,
 };
