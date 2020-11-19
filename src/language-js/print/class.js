@@ -6,6 +6,8 @@ const {
 } = require("../../document");
 const { hasTrailingComment, hasTrailingLineComment } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
+const { printMethod } = require("./function");
+const { printDecorators } = require("./misc");
 
 function printClass(path, options, print) {
   const n = path.getValue();
@@ -140,4 +142,26 @@ function printSuperClass(path, options, print) {
   return printed;
 }
 
-module.exports = { printClass };
+function printClassMethod(path, options, print) {
+  const n = path.getValue();
+  const parts = [];
+
+  if (n.decorators && n.decorators.length !== 0) {
+    parts.push(printDecorators(path, options, print));
+  }
+  if (n.accessibility) {
+    parts.push(n.accessibility + " ");
+  }
+  if (n.static) {
+    parts.push("static ");
+  }
+  if (n.type === "TSAbstractMethodDefinition" || n.abstract) {
+    parts.push("abstract ");
+  }
+
+  parts.push(printMethod(path, options, print));
+
+  return concat(parts);
+}
+
+module.exports = { printClass, printClassMethod };

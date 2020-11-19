@@ -1,10 +1,12 @@
 "use strict";
 
-const { isNumericLiteral } = require("../utils");
-
 const {
-  builders: { concat, softline, group, indent, join },
+  builders: { concat, softline, group, indent, join, line, hardline },
 } = require("../../document");
+const {
+  hasNewlineBetweenOrAfterDecorators,
+  isNumericLiteral,
+} = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -66,10 +68,21 @@ function printTypeScriptModifiers(path, options, print) {
   return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
+function printDecorators(path, options, print) {
+  const node = path.getValue();
+  return group(
+    concat([
+      join(line, path.map(print, "decorators")),
+      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
+    ])
+  );
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
   printTypeScriptModifiers,
+  printDecorators,
 };
