@@ -9,7 +9,7 @@ const {
   isMemberExpressionChain,
   isStringLiteral,
 } = require("../utils");
-const { shouldInlineLogicalExpression } = require("./misc");
+const { shouldInlineLogicalExpression } = require("./binaryish");
 
 function printAssignment(
   leftNode,

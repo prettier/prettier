@@ -8,7 +8,6 @@ const {
 const {
   hasNewlineBetweenOrAfterDecorators,
   isNumericLiteral,
-  isJSXNode,
   getParentExportDeclaration,
 } = require("../utils");
 
@@ -82,32 +81,6 @@ function printDecorators(path, options, print) {
   );
 }
 
-function shouldInlineLogicalExpression(node) {
-  if (node.type !== "LogicalExpression") {
-    return false;
-  }
-
-  if (
-    node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
-  ) {
-    return true;
-  }
-
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
-    return true;
-  }
-
-  if (isJSXNode(node.right)) {
-    return true;
-  }
-
-  return false;
-}
-
 function printFlowDeclaration(path, printed) {
   const parentExportDecl = getParentExportDeclaration(path);
 
@@ -129,6 +102,5 @@ module.exports = {
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printDecorators,
-  shouldInlineLogicalExpression,
   printFlowDeclaration,
 };

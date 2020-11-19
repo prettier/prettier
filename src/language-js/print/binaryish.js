@@ -14,8 +14,6 @@ const {
   shouldFlatten,
 } = require("../utils");
 
-const { shouldInlineLogicalExpression } = require("./misc");
-
 /** @typedef {import("../../document").Doc} Doc */
 
 let uid = 0;
@@ -281,4 +279,30 @@ function printBinaryishExpressions(
   return parts;
 }
 
-module.exports = { printBinaryishExpression };
+function shouldInlineLogicalExpression(node) {
+  if (node.type !== "LogicalExpression") {
+    return false;
+  }
+
+  if (
+    node.right.type === "ObjectExpression" &&
+    node.right.properties.length !== 0
+  ) {
+    return true;
+  }
+
+  if (
+    node.right.type === "ArrayExpression" &&
+    node.right.elements.length !== 0
+  ) {
+    return true;
+  }
+
+  if (isJSXNode(node.right)) {
+    return true;
+  }
+
+  return false;
+}
+
+module.exports = { printBinaryishExpression, shouldInlineLogicalExpression };
