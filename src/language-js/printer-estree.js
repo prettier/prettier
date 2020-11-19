@@ -124,7 +124,12 @@ const {
 } = require("./print/function");
 const { printCallExpression } = require("./print/call-expression");
 const { printInterface } = require("./print/interface");
-const { printAssignment, printAssignmentRight } = require("./print/assignment");
+const {
+  printVariableDeclarator,
+  printAssignmentExpression,
+  printAssignment,
+  printAssignmentRight,
+} = require("./print/assignment");
 const { printComment } = require("./print/comment");
 
 let uid = 0;
@@ -357,14 +362,9 @@ function printPathNoParens(path, options, print, args) {
       );
     }
     case "AssignmentExpression":
-      return printAssignment(
-        n.left,
-        path.call(print, "left"),
-        concat([" ", n.operator]),
-        n.right,
-        path.call(print, "right"),
-        options
-      );
+      return printAssignmentExpression(path, options, print);
+    case "VariableDeclarator":
+      return printVariableDeclarator(path, options, print);
     case "BinaryExpression":
     case "LogicalExpression":
     case "NGPipeExpression": {
@@ -1002,15 +1002,6 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
-    case "VariableDeclarator":
-      return printAssignment(
-        n.id,
-        path.call(print, "id"),
-        " =",
-        n.init,
-        n.init && path.call(print, "init"),
-        options
-      );
     case "WithStatement":
       return group(
         concat([

@@ -33,6 +33,30 @@ function printAssignment(
   return group(concat([printedLeft, operator, printed]));
 }
 
+function printAssignmentExpression(path, options, print) {
+  const n = path.getValue();
+  return printAssignment(
+    n.left,
+    path.call(print, "left"),
+    concat([" ", n.operator]),
+    n.right,
+    path.call(print, "right"),
+    options
+  );
+}
+
+function printVariableDeclarator(path, options, print) {
+  const n = path.getValue();
+  return printAssignment(
+    n.id,
+    path.call(print, "id"),
+    " =",
+    n.init,
+    n.init && path.call(print, "init"),
+    options
+  );
+}
+
 function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
     return indent(concat([line, printedRight]));
@@ -63,4 +87,9 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   return concat([" ", printedRight]);
 }
 
-module.exports = { printAssignment };
+module.exports = {
+  printVariableDeclarator,
+  printAssignmentExpression,
+  printAssignment,
+  printAssignmentRight,
+};
