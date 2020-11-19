@@ -1913,7 +1913,9 @@ React.createClass({
 
 React.createClass({
   propTypes: {
-    foo: React.PropTypes.shape(({}: { [string]: any })).isRequired,
+    foo: React.PropTypes.shape(
+      ({}: { [string]: any })
+    ).isRequired,
   },
   f() {
     (this.props.foo.bar: empty); // OK

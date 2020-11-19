@@ -56,7 +56,10 @@ db.collection("indexOptionDefault").createIndex(
   },
   function (err) {
     test.equal(null, err);
-    test.deepEqual({ w: 2, wtimeout: 1000 }, commandResult.writeConcern);
+    test.deepEqual(
+      { w: 2, wtimeout: 1000 },
+      commandResult.writeConcern
+    );
 
     client.close();
     done();

@@ -105,7 +105,7 @@ function isLineNext(doc) {
 }
 
 function willBreakFn(doc) {
-  if (doc.type === "group" && doc.break) {
+  if (doc.type === "group" && (doc.break || doc.idempotenceHazard)) {
     return true;
   }
   if (doc.type === "line" && doc.hard) {

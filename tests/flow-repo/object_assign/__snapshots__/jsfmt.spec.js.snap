@@ -152,7 +152,10 @@ Object.assign({a: "foo"}, 123);
 
 Object.assign("123", { a: "foo" });
 Object.assign(123, { a: "foo" });
-Object.assign({ a: "foo" }, 123);
+Object.assign(
+  { a: "foo" },
+  123
+);
 
 ================================================================================
 `;
@@ -190,11 +193,11 @@ declare var tup: [{ foo: string }, { bar: number }];
 (Object.assign({}, ...roArrOfObjs): { foo: number }); // Error: string ~> number
 (Object.assign({}, ...tup): { foo: string, bar: boolean }); // Error: number ~> boolean
 
-(Object.assign({}, ...[{ a: 1 }, { b: "foo" }], ...[{ c: true }]): {
-  a: number,
-  b: true,
-  c: boolean,
-}); // Error: 'foo' => true
+(Object.assign(
+  {},
+  ...[{ a: 1 }, { b: "foo" }],
+  ...[{ c: true }]
+): { a: number, b: true, c: boolean }); // Error: 'foo' => true
 
 ================================================================================
 `;

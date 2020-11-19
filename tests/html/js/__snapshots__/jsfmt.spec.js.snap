@@ -355,7 +355,8 @@ printWidth: 80
         url: this.props.url,
         dataType: "json",
         cache: false,
-        success: (data) => this.setState({ data: data }),
+        success: (data) =>
+          this.setState({ data: data }),
         error: (xhr, status, err) => console.error(status, err),
       });
     }

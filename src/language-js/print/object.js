@@ -233,7 +233,7 @@ function printObject(path, options, print) {
     return content;
   }
 
-  return group(content, { shouldBreak });
+  return group(content, { shouldBreak, idempotenceHazard: !shouldBreak });
 }
 
 module.exports = { printObject };

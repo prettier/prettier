@@ -75,11 +75,11 @@ let tests = [
   function (copyProperties: Object$Assign) {
     let result = {};
     result.baz = false;
-    (copyProperties(result, { foo: "a" }, { bar: 123 }): {
-      foo: string,
-      bar: number,
-      baz: boolean,
-    });
+    (copyProperties(
+      result,
+      { foo: "a" },
+      { bar: 123 }
+    ): { foo: string, bar: number, baz: boolean });
   },
 
   // module from lib
@@ -234,7 +234,11 @@ let tests = [
   function (mergeInto: $Facebookism$MergeInto) {
     let result = {};
     result.baz = false;
-    (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
+    (mergeInto(
+      result,
+      { foo: "a" },
+      { bar: 123 }
+    ): void);
     (result: { foo: string, bar: number, baz: boolean });
   },
 
@@ -242,7 +246,11 @@ let tests = [
   function () {
     const mergeInto = require("mergeInto");
     let result: { foo?: string, bar?: number, baz: boolean } = { baz: false };
-    (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
+    (mergeInto(
+      result,
+      { foo: "a" },
+      { bar: 123 }
+    ): void);
   },
 
   // too few args

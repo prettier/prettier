@@ -234,8 +234,15 @@ checkPropTypes(
   "TestComponent"
 ); // OK
 
-checkPropTypes({ foo: PropTypes.string }, { foo: "foo" }); // error: missing arguments
-checkPropTypes({ foo: PropTypes.string }, { foo: "foo" }, "value"); // error: missing argument
+checkPropTypes(
+  { foo: PropTypes.string },
+  { foo: "foo" }
+); // error: missing arguments
+checkPropTypes(
+  { foo: PropTypes.string },
+  { foo: "foo" },
+  "value"
+); // error: missing argument
 
 checkPropTypes(
   { bar: PropTypes.string },

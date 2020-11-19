@@ -230,8 +230,12 @@ function gen<T>(x: T, { p = x }: { p: T }): T {
 }
 
 // Default values in destructuring unwrap optional types
-obj_prop_fun(({}: { p?: { q?: null } })); // ok
-obj_prop_var(({}: { p?: { q?: null } })); // ok
+obj_prop_fun(
+  ({}: { p?: { q?: null } })
+); // ok
+obj_prop_var(
+  ({}: { p?: { q?: null } })
+); // ok
 
 // union-like upper bounds preserved through destructuring
 function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {}

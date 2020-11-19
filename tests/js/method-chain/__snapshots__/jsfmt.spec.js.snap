@@ -1041,8 +1041,14 @@ something()
   .then((result) => dontForgetThisAsWell(result));
 
 db.branch(
-  db.table("users").filter({ email }).count(),
-  db.table("users").filter({ email: "a@b.com" }).count(),
+  db
+    .table("users")
+    .filter({ email })
+    .count(),
+  db
+    .table("users")
+    .filter({ email: "a@b.com" })
+    .count(),
   db.table("users").insert({ email }),
   db.table("users").filter({ email })
 );
@@ -1353,17 +1359,21 @@ const Profile2 = view.with({ name }).as((props) => (
 ))
 
 =====================================output=====================================
-const Profile = view.with({ name: (state) => state.name }).as((props) => (
-  <div>
-    <h1>Hello, {props.name}</h1>
-  </div>
-));
+const Profile = view
+  .with({ name: (state) => state.name })
+  .as((props) => (
+    <div>
+      <h1>Hello, {props.name}</h1>
+    </div>
+  ));
 
-const Profile2 = view.with({ name }).as((props) => (
-  <div>
-    <h1>Hello, {props.name}</h1>
-  </div>
-));
+const Profile2 = view
+  .with({ name })
+  .as((props) => (
+    <div>
+      <h1>Hello, {props.name}</h1>
+    </div>
+  ));
 
 ================================================================================
 `;

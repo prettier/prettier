@@ -53,9 +53,13 @@ fs.readFile("file.exp", "blah", (_, data) => {
   (data: string);
 });
 
-fs.readFile("file.exp", { encoding: "blah" }, (_, data) => {
-  (data: string);
-});
+fs.readFile(
+  "file.exp",
+  { encoding: "blah" },
+  (_, data) => {
+    (data: string);
+  }
+);
 
 fs.readFile("file.exp", {}, (_, data) => {
   (data: Buffer);

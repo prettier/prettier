@@ -730,7 +730,9 @@ type B6 = string;
 
 function obj(a: { x: number } | { x: string }) {}
 
-obj(({ x: "" }: A1));
+obj(
+  ({ x: "" }: A1)
+);
 
 type A1 = { x: B1 };
 

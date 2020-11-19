@@ -58,9 +58,9 @@ it("mocks regexp instances", () => {
   ).not.toThrow();
 });
 
-expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
-  /Required parameter/
-);
+expect(() =>
+  asyncRequest({ url: "/test-endpoint" })
+).toThrowError(/Required parameter/);
 
 expect(() =>
   asyncRequest({ url: "/test-endpoint-but-with-a-long-url" })
@@ -159,9 +159,9 @@ it("mocks regexp instances", () => {
   ).not.toThrow();
 });
 
-expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
-  /Required parameter/,
-);
+expect(() =>
+  asyncRequest({ url: "/test-endpoint" }),
+).toThrowError(/Required parameter/);
 
 expect(() =>
   asyncRequest({ url: "/test-endpoint-but-with-a-long-url" }),
@@ -259,9 +259,9 @@ it("mocks regexp instances", () => {
   ).not.toThrow();
 });
 
-expect(() => asyncRequest({ url: "/test-endpoint" })).toThrowError(
-  /Required parameter/
-);
+expect(() =>
+  asyncRequest({ url: "/test-endpoint" })
+).toThrowError(/Required parameter/);
 
 expect(() =>
   asyncRequest({ url: "/test-endpoint-but-with-a-long-url" })

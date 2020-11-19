@@ -70,7 +70,12 @@ function align(n, contents) {
 
 /**
  * @param {Doc} contents
- * @param {object} [opts] - TBD ???
+ * @param {{
+ *    id?: symbol,
+ *    shouldBreak?: boolean,
+ *    expandedStates?: Doc[],
+ *    idempotenceHazard?: boolean
+ * }} [opts]
  * @returns Doc
  */
 function group(contents, opts) {
@@ -86,6 +91,7 @@ function group(contents, opts) {
     contents,
     break: !!opts.shouldBreak,
     expandedStates: opts.expandedStates,
+    idempotenceHazard: opts.idempotenceHazard,
   };
 }
 

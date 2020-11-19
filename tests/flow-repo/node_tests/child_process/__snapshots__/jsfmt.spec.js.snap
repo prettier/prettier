@@ -37,9 +37,13 @@ exec("ls", function (error, stdout, stderr) {
 exec("ls", { timeout: 250 });
 
 // options + callback.
-exec("ls", { maxBuffer: 100 }, function (error, stdout, stderr) {
-  console.info(stdout);
-});
+exec(
+  "ls",
+  { maxBuffer: 100 },
+  function (error, stdout, stderr) {
+    console.info(stdout);
+  }
+);
 
 ================================================================================
 `;
@@ -103,9 +107,14 @@ execFile("ls", ["-l"], function (error, stdout, stderr) {
 execFile("ls", ["-l"], { timeout: 250 });
 
 // Put it all together.
-execFile("ls", ["-l"], { timeout: 250 }, function (error, stdout, stderr) {
-  console.info(stdout);
-});
+execFile(
+  "ls",
+  ["-l"],
+  { timeout: 250 },
+  function (error, stdout, stderr) {
+    console.info(stdout);
+  }
+);
 
 ================================================================================
 `;

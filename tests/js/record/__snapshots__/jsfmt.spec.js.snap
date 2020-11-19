@@ -38,14 +38,26 @@ assert(#{ [9 + 1]: "ten" } === #{ ["10"]: "ten" })
 
 =====================================output=====================================
 const key = "a";
-assert(#{ [key]: 1 } === #{ a: 1 });
-assert(#{ [key.toUpperCase()]: 1 } === #{ A: 1 });
+assert(
+  #{ [key]: 1 } === #{ a: 1 }
+);
+assert(
+  #{ [key.toUpperCase()]: 1 } === #{ A: 1 }
+);
 
-assert(#{ [true]: 1 } === #{ true: 1 });
-assert(#{ [true]: 1 } === #{ ["true"]: 1 });
+assert(
+  #{ [true]: 1 } === #{ true: 1 }
+);
+assert(
+  #{ [true]: 1 } === #{ ["true"]: 1 }
+);
 
-assert(#{ [1 + 1]: "two" } === #{ 2: "two" });
-assert(#{ [9 + 1]: "ten" } === #{ ["10"]: "ten" });
+assert(
+  #{ [1 + 1]: "two" } === #{ 2: "two" }
+);
+assert(
+  #{ [9 + 1]: "ten" } === #{ ["10"]: "ten" }
+);
 
 ================================================================================
 `;
@@ -203,7 +215,9 @@ const record2 = #{ ...record1, b: 5 };
 assert(record1.a === 1);
 assert(record1["a"] === 1);
 assert(record1 !== record2);
-assert(record2 === #{ a: 1, c: 3, b: 5 });
+assert(
+  record2 === #{ a: 1, c: 3, b: 5 }
+);
 assert(record1?.a === 1);
 assert(record1?.d === undefined);
 assert(record1?.d ?? 5 === 5);
@@ -285,7 +299,9 @@ const taskNow = #{ id: 42, status: "WIP", ...formData };
 const taskLater = #{ ...taskNow, status: "DONE" };
 
 // A reminder: The ordering of keys in record literals does not affect equality (and is not retained)
-assert(taskLater === #{ status: "DONE", title: formData.title, id: 42 });
+assert(
+  taskLater === #{ status: "DONE", title: formData.title, id: 42 }
+);
 
 ================================================================================
 `;
