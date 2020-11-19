@@ -52,7 +52,7 @@ function printStatementSequence(path, options, print) {
       !options.semi &&
       !isClass &&
       !isTheOnlyJSXElementInMarkdown(options, stmtPath) &&
-      stmtNeedsASIProtection(stmtPath, options)
+      statementNeedsASIProtection(stmtPath, options)
     ) {
       if (stmt.comments && stmt.comments.some((comment) => comment.leading)) {
         parts.push(print(stmtPath, { needsSemi: true }));
@@ -87,7 +87,7 @@ function printStatementSequence(path, options, print) {
   return join(hardline, printed);
 }
 
-function stmtNeedsASIProtection(path, options) {
+function statementNeedsASIProtection(path, options) {
   const node = path.getNode();
 
   if (node.type !== "ExpressionStatement") {
