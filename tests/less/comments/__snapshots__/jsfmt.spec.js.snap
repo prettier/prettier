@@ -218,6 +218,7 @@ printWidth: 80
     calc() // not a comment anymore
   );
 }
+
 =====================================output=====================================
 .real-world-example {
   background: radial-gradient(
