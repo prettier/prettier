@@ -128,7 +128,7 @@ const {
   printTypeParameters,
   getTypeParametersGroupId,
 } = require("./print/type-parameters");
-const { printPropertyKey } = require("./misc/property");
+const { printPropertyKey } = require("./print/property");
 const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
