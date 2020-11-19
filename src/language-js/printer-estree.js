@@ -46,12 +46,10 @@ const {
   classPropMayCauseASIProblems,
   getFunctionParameters,
   getCallArguments,
-  iterateCallArgumentsPath,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
-  hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
@@ -60,9 +58,7 @@ const {
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
-  identity,
   isBinaryish,
-  isCallOrOptionalCallExpression,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
@@ -70,13 +66,10 @@ const {
   isLastStatement,
   isLiteral,
   isMemberExpressionChain,
-  isMemberish,
   isNgForOf,
   isObjectType,
   isObjectTypePropertyAFunction,
   isStringLiteral,
-  isTemplateOnItsOwnLine,
-  isTestCall,
   isTheOnlyJSXElementInMarkdown,
   isTSXFile,
   isBlockComment,
@@ -88,13 +81,11 @@ const {
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
-const printMemberChain = require("./print/member-chain");
-const printCallArguments = require("./print/call-arguments");
 const {
   printOptionalToken,
-  printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
+  printTypeScriptModifiers,
   printDecorators,
 } = require("./print/misc");
 const {
@@ -124,10 +115,7 @@ const {
   printJsxSpreadChild,
 } = require("./print/jsx");
 const { printClass, printClassMethod } = require("./print/class");
-const {
-  printTypeParameters,
-  getTypeParametersGroupId,
-} = require("./print/type-parameters");
+const { printTypeParameters } = require("./print/type-parameters");
 const { printPropertyKey } = require("./print/property");
 const {
   printFunctionDeclaration,
@@ -136,6 +124,8 @@ const {
   printReturnAndThrowArgument,
   shouldPrintParamsWithoutParens,
 } = require("./print/function");
+const { printCallExpression } = require("./print/call-expression");
+const { printInterface } = require("./print/interface");
 
 let uid = 0;
 
@@ -783,88 +773,8 @@ function printPathNoParens(path, options, print, args) {
     case "NewExpression":
     case "ImportExpression":
     case "OptionalCallExpression":
-    case "CallExpression": {
-      const isNew = n.type === "NewExpression";
-      const isDynamicImport = n.type === "ImportExpression";
-
-      const optional = printOptionalToken(path);
-      const args = getCallArguments(n);
-      if (
-        // Dangling comments not handled, all these special cases should has argument #9668
-        args.length > 0 &&
-        // We want to keep CommonJS- and AMD-style require calls, and AMD-style
-        // define calls, as a unit.
-        // e.g. `define(["some/lib", (lib) => {`
-        ((!isDynamicImport &&
-          !isNew &&
-          n.callee.type === "Identifier" &&
-          (n.callee.name === "require" || n.callee.name === "define")) ||
-          // Template literals as single arguments
-          (args.length === 1 &&
-            isTemplateOnItsOwnLine(args[0], options.originalText)) ||
-          // Keep test declarations on a single line
-          // e.g. `it('long name', () => {`
-          (!isNew && isTestCall(n, path.getParentNode())))
-      ) {
-        const printed = [];
-        iterateCallArgumentsPath(path, (argPath) => {
-          printed.push(print(argPath));
-        });
-        return concat([
-          isNew ? "new " : "",
-          path.call(print, "callee"),
-          optional,
-          printFunctionTypeParameters(path, options, print),
-          concat(["(", join(", ", printed), ")"]),
-        ]);
-      }
-
-      // Inline Flow annotation comments following Identifiers in Call nodes need to
-      // stay with the Identifier. For example:
-      //
-      // foo /*:: <SomeGeneric> */(bar);
-      //
-      // Here, we ensure that such comments stay between the Identifier and the Callee.
-      const isIdentifierWithFlowAnnotation =
-        (options.parser === "babel" || options.parser === "babel-flow") &&
-        n.callee &&
-        n.callee.type === "Identifier" &&
-        hasFlowAnnotationComment(n.callee.trailingComments);
-      if (isIdentifierWithFlowAnnotation) {
-        n.callee.trailingComments[0].printed = true;
-      }
-
-      // We detect calls on member lookups and possibly print them in a
-      // special chain format. See `printMemberChain` for more info.
-      if (
-        !isDynamicImport &&
-        !isNew &&
-        isMemberish(n.callee) &&
-        !path.call((path) => pathNeedsParens(path, options), "callee")
-      ) {
-        return printMemberChain(path, options, print);
-      }
-
-      const contents = concat([
-        isNew ? "new " : "",
-        isDynamicImport ? "import" : path.call(print, "callee"),
-        optional,
-        isIdentifierWithFlowAnnotation
-          ? `/*:: ${n.callee.trailingComments[0].value.slice(2).trim()} */`
-          : "",
-        printFunctionTypeParameters(path, options, print),
-        printCallArguments(path, options, print),
-      ]);
-
-      // We group here when the callee is itself a call expression.
-      // See `isLongCurriedCallExpression` for more info.
-      if (isDynamicImport || isCallOrOptionalCallExpression(n.callee)) {
-        return group(contents);
-      }
-
-      return contents;
-    }
-
+    case "CallExpression":
+      return printCallExpression(path, options, print);
     case "ObjectTypeInternalSlot":
       return concat([
         n.static ? "static " : "",
@@ -1842,74 +1752,8 @@ function printPathNoParens(path, options, print, args) {
     case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
-    case "TSInterfaceDeclaration": {
-      if (n.type === "DeclareInterface" || n.declare) {
-        parts.push("declare ");
-      }
-
-      if (n.type === "TSInterfaceDeclaration") {
-        parts.push(
-          n.abstract ? "abstract " : "",
-          printTypeScriptModifiers(path, options, print)
-        );
-      }
-
-      parts.push("interface");
-
-      const partsGroup = [];
-      const extendsParts = [];
-
-      if (n.type !== "InterfaceTypeAnnotation") {
-        partsGroup.push(
-          " ",
-          path.call(print, "id"),
-          path.call(print, "typeParameters")
-        );
-      }
-
-      const shouldIndentOnlyHeritageClauses =
-        n.typeParameters && !hasTrailingLineComment(n.typeParameters);
-
-      if (n.extends && n.extends.length !== 0) {
-        extendsParts.push(
-          shouldIndentOnlyHeritageClauses
-            ? ifBreak(" ", line, {
-                groupId: getTypeParametersGroupId(n.typeParameters),
-              })
-            : line,
-          "extends ",
-          (n.extends.length === 1 ? identity : indent)(
-            join(concat([",", line]), path.map(print, "extends"))
-          )
-        );
-      }
-
-      if (
-        (n.id && hasTrailingComment(n.id)) ||
-        (n.extends && n.extends.length !== 0)
-      ) {
-        const printedExtends = concat(extendsParts);
-        if (shouldIndentOnlyHeritageClauses) {
-          parts.push(
-            group(
-              concat(
-                partsGroup.concat(
-                  ifBreak(indent(printedExtends), printedExtends)
-                )
-              )
-            )
-          );
-        } else {
-          parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
-        }
-      } else {
-        parts.push(...partsGroup, ...extendsParts);
-      }
-
-      parts.push(" ", path.call(print, "body"));
-
-      return group(concat(parts));
-    }
+    case "TSInterfaceDeclaration":
+      return printInterface(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
       return concat([
@@ -2858,14 +2702,6 @@ function printFlowDeclaration(path, printed) {
   // will be responsible for printing the "declare" token. Otherwise
   // it needs to be printed with this non-exported declaration node.
   return concat(["declare ", printed]);
-}
-
-function printTypeScriptModifiers(path, options, print) {
-  const n = path.getValue();
-  if (!n.modifiers || !n.modifiers.length) {
-    return "";
-  }
-  return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
 function shouldInlineLogicalExpression(node) {
