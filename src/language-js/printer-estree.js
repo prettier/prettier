@@ -42,17 +42,13 @@ const {
 } = require("./html-binding");
 const preprocess = require("./print-preprocess");
 const {
-  classChildNeedsASIProtection,
-  classPropMayCauseASIProblems,
   getFunctionParameters,
   getCallArguments,
-  getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
-  hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
   hasNgSideEffect,
   hasPrettierIgnore,
@@ -60,8 +56,6 @@ const {
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isJSXNode,
-  isLastStatement,
   isLiteral,
   isNgForOf,
   isObjectType,
@@ -77,11 +71,11 @@ const { locStart, locEnd } = require("./loc");
 
 const {
   printOptionalToken,
-  printMemberLookup,
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printDecorators,
   printFlowDeclaration,
+  adjustClause,
 } = require("./print/misc");
 const {
   printImportDeclaration,
@@ -117,7 +111,6 @@ const {
   printArrowFunctionExpression,
   printMethod,
   printReturnAndThrowArgument,
-  shouldPrintParamsWithoutParens,
 } = require("./print/function");
 const { printCallExpression } = require("./print/call-expression");
 const { printInterface } = require("./print/interface");
@@ -128,6 +121,9 @@ const {
   printAssignmentRight,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
+const { printStatementSequence } = require("./print/statement");
+const { printMemberExpression } = require("./print/member");
+const { printBlock } = require("./print/block");
 const { printComment } = require("./print/comment");
 
 function genericPrint(path, options, printPath, args) {
@@ -404,43 +400,7 @@ function printPathNoParens(path, options, print, args) {
     }
     case "OptionalMemberExpression":
     case "MemberExpression": {
-      const parent = path.getParentNode();
-      let firstNonMemberParent;
-      let i = 0;
-      do {
-        firstNonMemberParent = path.getParentNode(i);
-        i++;
-      } while (
-        firstNonMemberParent &&
-        (firstNonMemberParent.type === "MemberExpression" ||
-          firstNonMemberParent.type === "OptionalMemberExpression" ||
-          firstNonMemberParent.type === "TSNonNullExpression")
-      );
-
-      const shouldInline =
-        (firstNonMemberParent &&
-          (firstNonMemberParent.type === "NewExpression" ||
-            firstNonMemberParent.type === "BindExpression" ||
-            (firstNonMemberParent.type === "VariableDeclarator" &&
-              firstNonMemberParent.id.type !== "Identifier") ||
-            (firstNonMemberParent.type === "AssignmentExpression" &&
-              firstNonMemberParent.left.type !== "Identifier"))) ||
-        n.computed ||
-        (n.object.type === "Identifier" &&
-          n.property.type === "Identifier" &&
-          parent.type !== "MemberExpression" &&
-          parent.type !== "OptionalMemberExpression");
-
-      return concat([
-        path.call(print, "object"),
-        shouldInline
-          ? printMemberLookup(path, options, print)
-          : group(
-              indent(
-                concat([softline, printMemberLookup(path, options, print)])
-              )
-            ),
-      ]);
+      return printMemberExpression(path, options, print);
     }
     case "MetaProperty":
       return concat([
@@ -555,65 +515,8 @@ function printPathNoParens(path, options, print, args) {
       return "import";
     case "TSModuleBlock":
     case "BlockStatement":
-    case "StaticBlock": {
-      const naked = path.call((bodyPath) => {
-        return printStatementSequence(bodyPath, options, print);
-      }, "body");
-
-      if (n.type === "StaticBlock") {
-        parts.push("static ");
-      }
-
-      const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
-      const hasDirectives = n.directives && n.directives.length > 0;
-
-      const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
-      if (
-        !hasContent &&
-        !hasDirectives &&
-        !hasDanglingComments(n) &&
-        (parent.type === "ArrowFunctionExpression" ||
-          parent.type === "FunctionExpression" ||
-          parent.type === "FunctionDeclaration" ||
-          parent.type === "ObjectMethod" ||
-          parent.type === "ClassMethod" ||
-          parent.type === "ClassPrivateMethod" ||
-          parent.type === "ForStatement" ||
-          parent.type === "WhileStatement" ||
-          parent.type === "DoWhileStatement" ||
-          parent.type === "DoExpression" ||
-          (parent.type === "CatchClause" && !parentParent.finalizer) ||
-          parent.type === "TSModuleDeclaration" ||
-          parent.type === "TSDeclareFunction" ||
-          n.type === "StaticBlock")
-      ) {
-        return concat([...parts, "{}"]);
-      }
-
-      parts.push("{");
-
-      // Babel 6
-      if (hasDirectives) {
-        path.each((childPath) => {
-          parts.push(indent(concat([hardline, print(childPath), semi])));
-          if (
-            isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-          ) {
-            parts.push(hardline);
-          }
-        }, "directives");
-      }
-
-      if (hasContent) {
-        parts.push(indent(concat([hardline, naked])));
-      }
-
-      parts.push(comments.printDanglingComments(path, options));
-      parts.push(hardline, "}");
-
-      return concat(parts);
-    }
+    case "StaticBlock":
+      return printBlock(path, options, print);
     case "ThrowStatement":
     case "ReturnStatement":
       return concat([
@@ -2464,85 +2367,6 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-function printStatementSequence(path, options, print) {
-  const printed = [];
-
-  const bodyNode = path.getNode();
-  const isClass = bodyNode.type === "ClassBody";
-
-  path.each((stmtPath, i) => {
-    const stmt = stmtPath.getValue();
-
-    // Just in case the AST has been modified to contain falsy
-    // "statements," it's safer simply to skip them.
-    /* istanbul ignore if */
-    if (!stmt) {
-      return;
-    }
-
-    // Skip printing EmptyStatement nodes to avoid leaving stray
-    // semicolons lying around.
-    if (stmt.type === "EmptyStatement") {
-      return;
-    }
-
-    const stmtPrinted = print(stmtPath);
-    const text = options.originalText;
-    const parts = [];
-
-    // in no-semi mode, prepend statement with semicolon if it might break ASI
-    // don't prepend the only JSX element in a program with semicolon
-    if (
-      !options.semi &&
-      !isClass &&
-      !isTheOnlyJSXElementInMarkdown(options, stmtPath) &&
-      stmtNeedsASIProtection(stmtPath, options)
-    ) {
-      if (stmt.comments && stmt.comments.some((comment) => comment.leading)) {
-        parts.push(print(stmtPath, { needsSemi: true }));
-      } else {
-        parts.push(";", stmtPrinted);
-      }
-    } else {
-      parts.push(stmtPrinted);
-    }
-
-    if (!options.semi && isClass) {
-      if (classPropMayCauseASIProblems(stmtPath)) {
-        parts.push(";");
-      } else if (
-        stmt.type === "ClassProperty" ||
-        stmt.type === "FieldDefinition"
-      ) {
-        const nextChild = bodyNode.body[i + 1];
-        if (classChildNeedsASIProtection(nextChild)) {
-          parts.push(";");
-        }
-      }
-    }
-
-    if (isNextLineEmpty(text, stmt, locEnd) && !isLastStatement(stmtPath)) {
-      parts.push(hardline);
-    }
-
-    printed.push(concat(parts));
-  });
-
-  return join(hardline, printed);
-}
-
-function adjustClause(node, clause, forceSpace) {
-  if (node.type === "EmptyStatement") {
-    return ";";
-  }
-
-  if (node.type === "BlockStatement" || forceSpace) {
-    return concat([" ", clause]);
-  }
-
-  return indent(concat([line, clause]));
-}
-
 function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
   const raw = rawText(node);
   const isDirectiveLiteral =
@@ -2553,55 +2377,6 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
 function printRegex(node) {
   const flags = node.flags.split("").sort().join("");
   return `/${node.pattern}/${flags}`;
-}
-
-function exprNeedsASIProtection(path, options) {
-  const node = path.getValue();
-
-  const maybeASIProblem =
-    pathNeedsParens(path, options) ||
-    node.type === "ParenthesizedExpression" ||
-    node.type === "TypeCastExpression" ||
-    (node.type === "ArrowFunctionExpression" &&
-      !shouldPrintParamsWithoutParens(path, options)) ||
-    node.type === "ArrayExpression" ||
-    node.type === "ArrayPattern" ||
-    (node.type === "UnaryExpression" &&
-      node.prefix &&
-      (node.operator === "+" || node.operator === "-")) ||
-    node.type === "TemplateLiteral" ||
-    node.type === "TemplateElement" ||
-    isJSXNode(node) ||
-    (node.type === "BindExpression" && !node.object) ||
-    node.type === "RegExpLiteral" ||
-    (node.type === "Literal" && node.pattern) ||
-    (node.type === "Literal" && node.regex);
-
-  if (maybeASIProblem) {
-    return true;
-  }
-
-  if (!hasNakedLeftSide(node)) {
-    return false;
-  }
-
-  return path.call(
-    (childPath) => exprNeedsASIProtection(childPath, options),
-    ...getLeftSidePathName(path, node)
-  );
-}
-
-function stmtNeedsASIProtection(path, options) {
-  const node = path.getNode();
-
-  if (node.type !== "ExpressionStatement") {
-    return false;
-  }
-
-  return path.call(
-    (childPath) => exprNeedsASIProtection(childPath, options),
-    "expression"
-  );
 }
 
 function canAttachComment(node) {
