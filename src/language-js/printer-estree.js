@@ -1858,7 +1858,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.declare) {
         parts.push("declare ");
       }
-      parts.push(concat(printClass(path, options, print)));
+      parts.push(printClass(path, options, print));
       return concat(parts);
     case "TSInterfaceHeritage":
     case "TSExpressionWithTypeArguments": // Babel AST
@@ -1960,29 +1960,41 @@ function printPathNoParens(path, options, print, args) {
         semi,
       ]);
     case "DeclareFunction":
-      return printFlowDeclaration(path, [
-        "function ",
-        path.call(print, "id"),
-        n.predicate ? " " : "",
-        path.call(print, "predicate"),
-        semi,
-      ]);
+      return printFlowDeclaration(
+        path,
+        concat([
+          "function ",
+          path.call(print, "id"),
+          n.predicate ? " " : "",
+          path.call(print, "predicate"),
+          semi,
+        ])
+      );
     case "DeclareModule":
-      return printFlowDeclaration(path, [
-        "module ",
-        path.call(print, "id"),
-        " ",
-        path.call(print, "body"),
-      ]);
+      return printFlowDeclaration(
+        path,
+        concat([
+          "module ",
+          path.call(print, "id"),
+          " ",
+          path.call(print, "body"),
+        ])
+      );
     case "DeclareModuleExports":
-      return printFlowDeclaration(path, [
-        "module.exports",
-        ": ",
-        path.call(print, "typeAnnotation"),
-        semi,
-      ]);
+      return printFlowDeclaration(
+        path,
+        concat([
+          "module.exports",
+          ": ",
+          path.call(print, "typeAnnotation"),
+          semi,
+        ])
+      );
     case "DeclareVariable":
-      return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
+      return printFlowDeclaration(
+        path,
+        concat(["var ", path.call(print, "id"), semi])
+      );
     case "DeclareOpaqueType":
     case "OpaqueType": {
       parts.push(
@@ -2002,7 +2014,7 @@ function printPathNoParens(path, options, print, args) {
       parts.push(semi);
 
       if (n.type === "DeclareOpaqueType") {
-        return printFlowDeclaration(path, parts);
+        return printFlowDeclaration(path, concat(parts));
       }
 
       return concat(parts);
@@ -3410,19 +3422,18 @@ function printReturnType(path, print, options) {
   return concat(parts);
 }
 
-function printFlowDeclaration(path, parts) {
+function printFlowDeclaration(path, printed) {
   const parentExportDecl = getParentExportDeclaration(path);
 
   if (parentExportDecl) {
     assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
-  } else {
-    // If the parent node has type DeclareExportDeclaration, then it
-    // will be responsible for printing the "declare" token. Otherwise
-    // it needs to be printed with this non-exported declaration node.
-    parts.unshift("declare ");
+    return printed;
   }
 
-  return concat(parts);
+  // If the parent node has type DeclareExportDeclaration, then it
+  // will be responsible for printing the "declare" token. Otherwise
+  // it needs to be printed with this non-exported declaration node.
+  return concat(["declare ", printed]);
 }
 
 function printTypeScriptModifiers(path, options, print) {

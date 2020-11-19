@@ -78,7 +78,7 @@ function printClass(path, options, print) {
 
   parts.push(" ", path.call(print, "body"));
 
-  return parts;
+  return concat(parts);
 }
 
 function hasMultipleHeritage(node) {
