@@ -70,7 +70,6 @@ const {
   isObjectType,
   isObjectTypePropertyAFunction,
   isStringLiteral,
-  isTemplateOnItsOwnLine,
   isTheOnlyJSXElementInMarkdown,
   isTSXFile,
   isBlockComment,
@@ -84,7 +83,6 @@ const { locStart, locEnd } = require("./loc");
 
 const {
   printOptionalToken,
-  printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
   printTypeScriptModifiers,
