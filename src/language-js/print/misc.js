@@ -1,5 +1,7 @@
 "use strict";
 
+/** @type {import("assert")} */
+const assert = require("assert");
 const {
   builders: { concat, softline, group, indent, join, line, hardline },
 } = require("../../document");
@@ -7,6 +9,7 @@ const {
   hasNewlineBetweenOrAfterDecorators,
   isNumericLiteral,
   isJSXNode,
+  getParentExportDeclaration,
 } = require("../utils");
 
 function printOptionalToken(path) {
@@ -105,6 +108,20 @@ function shouldInlineLogicalExpression(node) {
   return false;
 }
 
+function printFlowDeclaration(path, printed) {
+  const parentExportDecl = getParentExportDeclaration(path);
+
+  if (parentExportDecl) {
+    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
+    return printed;
+  }
+
+  // If the parent node has type DeclareExportDeclaration, then it
+  // will be responsible for printing the "declare" token. Otherwise
+  // it needs to be printed with this non-exported declaration node.
+  return concat(["declare ", printed]);
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
@@ -113,4 +130,5 @@ module.exports = {
   printTypeScriptModifiers,
   printDecorators,
   shouldInlineLogicalExpression,
+  printFlowDeclaration,
 };
