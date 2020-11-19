@@ -128,24 +128,20 @@ function coreFormat(originalText, opts, addAlignmentSize) {
     diff(
       oldCursorNodeCharArray.length,
       newCursorNodeCharArray.length,
-      (aIndex, bIndex) => {
-        return (
-          oldCursorNodeCharArray[aIndex] === newCursorNodeCharArray[bIndex]
-        );
-      },
+      (aIndex, bIndex) =>
+        oldCursorNodeCharArray[aIndex] === newCursorNodeCharArray[bIndex],
       (nCommon, aCommon, bCommon) => {
         if (done) {
           return;
         }
+        cursorOffset += bCommon - bIndex;
         for (; aIndex !== aCommon; aIndex += 1) {
           if (oldCursorNodeCharArray[aIndex] === CURSOR) {
             done = true;
             return;
           }
         }
-        cursorOffset += bCommon - bIndex;
         bIndex = bCommon;
-
         aIndex += nCommon;
         bIndex += nCommon;
         cursorOffset += nCommon;
