@@ -1,7 +1,5 @@
 "use strict";
 
-/** @typedef {import("../document").Doc} Doc */
-
 const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, join, hardline },
@@ -17,8 +15,9 @@ const {
   isTheOnlyJSXElementInMarkdown,
 } = require("../utils");
 const { locEnd } = require("../loc");
-
 const { shouldPrintParamsWithoutParens } = require("./function");
+
+/** @typedef {import("../../document").Doc} Doc */
 
 function printStatement({ path, index, bodyNode, isClass }, options, print) {
   const node = path.getValue();
