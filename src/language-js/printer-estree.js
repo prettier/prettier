@@ -123,9 +123,7 @@ const {
   printJsxSpreadChild,
 } = require("./print/jsx");
 const { printClass } = require("./print/class");
-const {
-  printTypeParameters,
-} = require("./print/type-parameters");
+const { printTypeParameters } = require("./print/type-parameters");
 const { printCallExpression } = require("./print/call-expression");
 const { printInterface } = require("./print/interface");
 
