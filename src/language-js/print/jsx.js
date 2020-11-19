@@ -1,5 +1,6 @@
 "use strict";
 
+const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: {
     concat,
@@ -29,8 +30,10 @@ const {
   isCallOrOptionalCallExpression,
   isStringLiteral,
   isBinaryish,
+  isBlockComment,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
+const { willPrintOwnComments } = require("../comments");
 
 // JSX expands children from the inside-out, instead of the outside-in.
 // This is both to break children before attributes,
@@ -634,11 +637,11 @@ function printJsxOpeningElement(path, options, print) {
   );
 }
 
-function printJsxOpeningElement(path, options, print) {
+function printJsxClosingElement(path, options, print) {
   return concat(["</", path.call(print, "name"), ">"]);
 }
 
-function printJsxOpeningClosingFragment(path, options, print) {
+function printJsxOpeningClosingFragment(path, options /*, print*/) {
   const n = path.getValue();
   const hasComment = n.comments && n.comments.length;
   const hasOwnLineComment =
@@ -653,7 +656,7 @@ function printJsxOpeningClosingFragment(path, options, print) {
           : hasComment && !isOpeningFragment
           ? " "
           : "",
-        comments.printDanglingComments(path, options, true),
+        printDanglingComments(path, options, true),
       ])
     ),
     hasOwnLineComment ? hardline : "",
@@ -662,7 +665,7 @@ function printJsxOpeningClosingFragment(path, options, print) {
 }
 
 function printJsxElement(path, options, print) {
-  const elem = comments.printComments(
+  const elem = printComments(
     path,
     () => printJsxElementInternal(path, options, print),
     options
@@ -670,23 +673,20 @@ function printJsxElement(path, options, print) {
   return maybeWrapJSXElementInParens(path, elem, options);
 }
 
-function printJsxEmptyExpression(path, options, print) {
+function printJsxEmptyExpression(path, options /*, print*/) {
   const n = path.getValue();
   const requiresHardline =
     n.comments && !n.comments.every((comment) => isBlockComment(comment));
 
   return concat([
-    comments.printDanglingComments(
-      path,
-      options,
-      /* sameIndent */ !requiresHardline
-    ),
+    printDanglingComments(path, options, /* sameIndent */ !requiresHardline),
     requiresHardline ? hardline : "",
   ]);
 }
 
 // `JSXSpreadAttribute` and `JSXSpreadChild`
 function printJsxSpreadAttribute(path, options, print) {
+  const n = path.getValue(n);
   return concat([
     "{",
     path.call(
@@ -697,12 +697,7 @@ function printJsxSpreadAttribute(path, options, print) {
           return printed;
         }
         return concat([
-          indent(
-            concat([
-              softline,
-              comments.printComments(p, () => printed, options),
-            ])
-          ),
+          indent(concat([softline, printComments(p, () => printed, options)])),
           softline,
         ]);
       },
@@ -716,9 +711,11 @@ module.exports = {
   printJsxElement,
   printJsxAttribute,
   printJsxOpeningElement,
+  printJsxClosingElement,
   printJsxOpeningClosingFragment,
   printJsxExpressionContainer,
   printJsxEmptyExpression,
   printJsxSpreadAttribute,
+  // Alias
   printJsxSpreadChild: printJsxSpreadAttribute,
 };

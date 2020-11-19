@@ -13,7 +13,6 @@ const {
   getLast,
   printString,
   printNumber,
-  getPreferredQuote,
   isNextLineEmpty,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util");
@@ -30,7 +29,6 @@ const {
     align,
     conditionalGroup,
     ifBreak,
-    lineSuffixBoundary,
   },
   utils: { isEmpty, normalizeParts },
 } = require("../document");
@@ -63,7 +61,6 @@ const {
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
-  hasIgnoreComment,
   identity,
   isBinaryish,
   isCallOrOptionalCallExpression,
@@ -125,6 +122,7 @@ const {
   printJsxElement,
   printJsxAttribute,
   printJsxOpeningElement,
+  printJsxClosingElement,
   printJsxOpeningClosingFragment,
   printJsxExpressionContainer,
   printJsxEmptyExpression,
@@ -1568,7 +1566,7 @@ function printPathNoParens(path, options, print, args) {
     case "JSXOpeningElement":
       return printJsxOpeningElement(path, options, print);
     case "JSXClosingElement":
-      return printJsxOpeningElement(path, options, print);
+      return printJsxClosingElement(path, options, print);
     case "JSXOpeningFragment":
     case "JSXClosingFragment":
       return printJsxOpeningClosingFragment(path, options, print);
@@ -3754,33 +3752,6 @@ function printReturnAndThrowArgument(path, options, print) {
   return concat(parts);
 }
 
-function willPrintOwnComments(path /*, options */) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-
-  return (
-    ((node &&
-      (isJSXNode(node) ||
-        hasFlowShorthandAnnotationComment(node) ||
-        (parent &&
-          (parent.type === "CallExpression" ||
-            parent.type === "OptionalCallExpression") &&
-          (hasFlowAnnotationComment(node.leadingComments) ||
-            hasFlowAnnotationComment(node.trailingComments))))) ||
-      (parent &&
-        (parent.type === "JSXSpreadAttribute" ||
-          parent.type === "JSXSpreadChild" ||
-          parent.type === "UnionTypeAnnotation" ||
-          parent.type === "TSUnionType" ||
-          ((parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression") &&
-            parent.superClass === node)))) &&
-    (!hasIgnoreComment(path) ||
-      parent.type === "UnionTypeAnnotation" ||
-      parent.type === "TSUnionType")
-  );
-}
-
 function canAttachComment(node) {
   return (
     node.type &&
@@ -3864,7 +3835,7 @@ module.exports = {
   insertPragma,
   massageAstNode: clean,
   hasPrettierIgnore,
-  willPrintOwnComments,
+  willPrintOwnComments: handleComments.willPrintOwnComments,
   canAttachComment,
   printComment,
   isBlockComment,
