@@ -42,17 +42,13 @@ const {
 } = require("./html-binding");
 const preprocess = require("./print-preprocess");
 const {
-  classChildNeedsASIProtection,
-  classPropMayCauseASIProblems,
   getFunctionParameters,
   getCallArguments,
-  getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
-  hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
   hasNgSideEffect,
   hasPrettierIgnore,
@@ -60,8 +56,6 @@ const {
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isJSXNode,
-  isLastStatement,
   isLiteral,
   isNgForOf,
   isObjectType,
@@ -77,7 +71,6 @@ const { locStart, locEnd } = require("./loc");
 
 const {
   printOptionalToken,
-  printMemberLookup,
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printDecorators,
@@ -128,6 +121,7 @@ const {
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
 const { printStatementSequence } = require("./print/statement");
+const { printMemberExpression } = require("./print/member");
 const { printComment } = require("./print/comment");
 
 function genericPrint(path, options, printPath, args) {
@@ -404,43 +398,7 @@ function printPathNoParens(path, options, print, args) {
     }
     case "OptionalMemberExpression":
     case "MemberExpression": {
-      const parent = path.getParentNode();
-      let firstNonMemberParent;
-      let i = 0;
-      do {
-        firstNonMemberParent = path.getParentNode(i);
-        i++;
-      } while (
-        firstNonMemberParent &&
-        (firstNonMemberParent.type === "MemberExpression" ||
-          firstNonMemberParent.type === "OptionalMemberExpression" ||
-          firstNonMemberParent.type === "TSNonNullExpression")
-      );
-
-      const shouldInline =
-        (firstNonMemberParent &&
-          (firstNonMemberParent.type === "NewExpression" ||
-            firstNonMemberParent.type === "BindExpression" ||
-            (firstNonMemberParent.type === "VariableDeclarator" &&
-              firstNonMemberParent.id.type !== "Identifier") ||
-            (firstNonMemberParent.type === "AssignmentExpression" &&
-              firstNonMemberParent.left.type !== "Identifier"))) ||
-        n.computed ||
-        (n.object.type === "Identifier" &&
-          n.property.type === "Identifier" &&
-          parent.type !== "MemberExpression" &&
-          parent.type !== "OptionalMemberExpression");
-
-      return concat([
-        path.call(print, "object"),
-        shouldInline
-          ? printMemberLookup(path, options, print)
-          : group(
-              indent(
-                concat([softline, printMemberLookup(path, options, print)])
-              )
-            ),
-      ]);
+      return printMemberExpression(path, options, print);
     }
     case "MetaProperty":
       return concat([
