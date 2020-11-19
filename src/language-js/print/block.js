@@ -5,6 +5,8 @@ const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
+const { hasDanglingComments } = require("../utils");
+const { locEnd } = require("../loc");
 
 const { printStatementSequence } = require("./statement");
 
@@ -13,6 +15,7 @@ const { printStatementSequence } = require("./statement");
 function printBlock(path, options, print) {
   const n = path.getValue();
   const parts = [];
+  const semi = options.semi ? ";" : "";
   const naked = path.call((bodyPath) => {
     return printStatementSequence(bodyPath, options, print);
   }, "body");
