@@ -25,7 +25,7 @@ const {
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
 const { printPropertyKey } = require("./property");
-const { printFunctionTypeParameters } = require("./print/misc");
+const { printFunctionTypeParameters } = require("./misc");
 
 function printFunctionDeclaration(path, print, options, expandArg) {
   const n = path.getValue();
