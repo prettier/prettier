@@ -109,7 +109,7 @@ function printList(path, options, print, listName) {
     /* sameIndent */ true,
     ({ marker }) => marker === listName
   );
-  return (
+  return concat([
     shouldIndentOnlyHeritageClauses(n)
       ? ifBreak(" ", line, {
           groupId: getTypeParametersGroupId(n.typeParameters),
@@ -122,8 +122,8 @@ function printList(path, options, print, listName) {
       indent(
         concat([line, join(concat([",", line]), path.map(print, listName))])
       )
-    )
-  );
+    ),
+  ]);
 }
 
 function printSuperClass(path, options, print) {
