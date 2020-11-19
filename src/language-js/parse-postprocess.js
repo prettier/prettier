@@ -105,10 +105,16 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
-      // Flow didn't count whitespace in `Program`, https://github.com/facebook/flow/issues/8537
       case "Program": {
-        if (options.parser === "flow") {
-          node.range = [0, options.originalText.length]
+        if (
+          // Flow don't count whitespace in `Program`
+          // https://github.com/facebook/flow/issues/8537
+          options.parser === "flow" ||
+          // Espree don't count whitespace in `Program.range`,
+          // but `Program.{start, end}` count
+          options.parser === "espree"
+        ) {
+          node.range = [0, options.originalText.length];
         }
         break;
       }
