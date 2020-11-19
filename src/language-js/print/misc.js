@@ -3,11 +3,10 @@
 /** @type {import("assert")} */
 const assert = require("assert");
 const {
-  builders: { concat, softline, group, indent, join, line, hardline },
+  builders: { concat, group, indent, join, line, hardline },
 } = require("../../document");
 const {
   hasNewlineBetweenOrAfterDecorators,
-  isNumericLiteral,
   getParentExportDeclaration,
 } = require("../utils");
 
@@ -77,6 +76,18 @@ function printFlowDeclaration(path, printed) {
   return concat(["declare ", printed]);
 }
 
+function adjustClause(node, clause, forceSpace) {
+  if (node.type === "EmptyStatement") {
+    return ";";
+  }
+
+  if (node.type === "BlockStatement" || forceSpace) {
+    return concat([" ", clause]);
+  }
+
+  return indent(concat([line, clause]));
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
@@ -84,4 +95,5 @@ module.exports = {
   printTypeScriptModifiers,
   printDecorators,
   printFlowDeclaration,
+  adjustClause,
 };

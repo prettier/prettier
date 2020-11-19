@@ -75,6 +75,7 @@ const {
   printTypeScriptModifiers,
   printDecorators,
   printFlowDeclaration,
+  adjustClause,
 } = require("./print/misc");
 const {
   printImportDeclaration,
@@ -2420,18 +2421,6 @@ function printPathNoParens(path, options, print, args) {
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
   }
-}
-
-function adjustClause(node, clause, forceSpace) {
-  if (node.type === "EmptyStatement") {
-    return ";";
-  }
-
-  if (node.type === "BlockStatement" || forceSpace) {
-    return concat([" ", clause]);
-  }
-
-  return indent(concat([line, clause]));
 }
 
 function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
