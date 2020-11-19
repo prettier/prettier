@@ -53,11 +53,11 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts(printList(path, options, print, "extends"));
+    extendsParts.push(printList(path, options, print, "extends"));
   }
 
-  extendsParts(printList(path, options, print, "mixins"));
-  extendsParts(printList(path, options, print, "implements"));
+  extendsParts.push(printList(path, options, print, "mixins"));
+  extendsParts.push(printList(path, options, print, "implements"));
 
   if (groupMode) {
     const printedExtends = concat(extendsParts);
