@@ -129,6 +129,11 @@ const {
   printJsxSpreadAttribute,
   printJsxSpreadChild,
 } = require("./print/jsx");
+const { printClass } = require("./print/class");
+const {
+  printTypeParameters,
+  getTypeParametersGroupId,
+} = require("./print/type-parameters");
 
 const needsQuoteProps = new WeakMap();
 
@@ -1646,7 +1651,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.declare) {
         parts.push("declare ");
       }
-      parts.push(concat(printClass(path, options, print)));
+      parts.push(printClass(path, options, print));
       return concat(parts);
     case "TSInterfaceHeritage":
     case "TSExpressionWithTypeArguments": // Babel AST
@@ -1748,29 +1753,41 @@ function printPathNoParens(path, options, print, args) {
         semi,
       ]);
     case "DeclareFunction":
-      return printFlowDeclaration(path, [
-        "function ",
-        path.call(print, "id"),
-        n.predicate ? " " : "",
-        path.call(print, "predicate"),
-        semi,
-      ]);
+      return printFlowDeclaration(
+        path,
+        concat([
+          "function ",
+          path.call(print, "id"),
+          n.predicate ? " " : "",
+          path.call(print, "predicate"),
+          semi,
+        ])
+      );
     case "DeclareModule":
-      return printFlowDeclaration(path, [
-        "module ",
-        path.call(print, "id"),
-        " ",
-        path.call(print, "body"),
-      ]);
+      return printFlowDeclaration(
+        path,
+        concat([
+          "module ",
+          path.call(print, "id"),
+          " ",
+          path.call(print, "body"),
+        ])
+      );
     case "DeclareModuleExports":
-      return printFlowDeclaration(path, [
-        "module.exports",
-        ": ",
-        path.call(print, "typeAnnotation"),
-        semi,
-      ]);
+      return printFlowDeclaration(
+        path,
+        concat([
+          "module.exports",
+          ": ",
+          path.call(print, "typeAnnotation"),
+          semi,
+        ])
+      );
     case "DeclareVariable":
-      return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
+      return printFlowDeclaration(
+        path,
+        concat(["var ", path.call(print, "id"), semi])
+      );
     case "DeclareOpaqueType":
     case "OpaqueType": {
       parts.push(
@@ -1790,7 +1807,7 @@ function printPathNoParens(path, options, print, args) {
       parts.push(semi);
 
       if (n.type === "DeclareOpaqueType") {
-        return printFlowDeclaration(path, parts);
+        return printFlowDeclaration(path, concat(parts));
       }
 
       return concat(parts);
@@ -3198,19 +3215,18 @@ function printReturnType(path, print, options) {
   return concat(parts);
 }
 
-function printFlowDeclaration(path, parts) {
+function printFlowDeclaration(path, printed) {
   const parentExportDecl = getParentExportDeclaration(path);
 
   if (parentExportDecl) {
     assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
-  } else {
-    // If the parent node has type DeclareExportDeclaration, then it
-    // will be responsible for printing the "declare" token. Otherwise
-    // it needs to be printed with this non-exported declaration node.
-    parts.unshift("declare ");
+    return printed;
   }
 
-  return concat(parts);
+  // If the parent node has type DeclareExportDeclaration, then it
+  // will be responsible for printing the "declare" token. Otherwise
+  // it needs to be printed with this non-exported declaration node.
+  return concat(["declare ", printed]);
 }
 
 function printTypeScriptModifiers(path, options, print) {
@@ -3219,212 +3235,6 @@ function printTypeScriptModifiers(path, options, print) {
     return "";
   }
   return concat([join(" ", path.map(print, "modifiers")), " "]);
-}
-
-const typeParametersGroupIds = new WeakMap();
-function getTypeParametersGroupId(node) {
-  if (!typeParametersGroupIds.has(node)) {
-    typeParametersGroupIds.set(node, Symbol("typeParameters"));
-  }
-  return typeParametersGroupIds.get(node);
-}
-
-function printTypeParameters(path, options, print, paramsKey) {
-  const n = path.getValue();
-
-  if (!n[paramsKey]) {
-    return "";
-  }
-
-  // for TypeParameterDeclaration typeParameters is a single node
-  if (!Array.isArray(n[paramsKey])) {
-    return path.call(print, paramsKey);
-  }
-
-  const grandparent = path.getNode(2);
-  const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
-
-  const shouldInline =
-    isParameterInTestCall ||
-    n[paramsKey].length === 0 ||
-    (n[paramsKey].length === 1 &&
-      (shouldHugType(n[paramsKey][0]) ||
-        (n[paramsKey][0].type === "GenericTypeAnnotation" &&
-          shouldHugType(n[paramsKey][0].id)) ||
-        (n[paramsKey][0].type === "TSTypeReference" &&
-          shouldHugType(n[paramsKey][0].typeName)) ||
-        n[paramsKey][0].type === "NullableTypeAnnotation"));
-
-  function printDanglingCommentsForInline(n) {
-    if (!hasDanglingComments(n)) {
-      return "";
-    }
-    const hasOnlyBlockComments = n.comments.every((comment) =>
-      isBlockComment(comment)
-    );
-    const printed = comments.printDanglingComments(
-      path,
-      options,
-      /* sameIndent */ hasOnlyBlockComments
-    );
-    if (hasOnlyBlockComments) {
-      return printed;
-    }
-    return concat([printed, hardline]);
-  }
-
-  if (shouldInline) {
-    return concat([
-      "<",
-      join(", ", path.map(print, paramsKey)),
-      printDanglingCommentsForInline(n),
-      ">",
-    ]);
-  }
-
-  return group(
-    concat([
-      "<",
-      indent(
-        concat([
-          softline,
-          join(concat([",", line]), path.map(print, paramsKey)),
-        ])
-      ),
-      ifBreak(
-        options.parser !== "typescript" &&
-          options.parser !== "babel-ts" &&
-          shouldPrintComma(options, "all")
-          ? ","
-          : ""
-      ),
-      softline,
-      ">",
-    ]),
-    { id: getTypeParametersGroupId(n) }
-  );
-}
-
-function printClass(path, options, print) {
-  const n = path.getValue();
-  const parts = [];
-
-  if (n.abstract) {
-    parts.push("abstract ");
-  }
-
-  parts.push("class");
-
-  // Keep old behaviour of extends in same line
-  // If there is only on extends and there are not comments
-  const groupMode =
-    (n.id && hasTrailingComment(n.id)) ||
-    (n.superClass &&
-      n.superClass.comments &&
-      n.superClass.comments.length !== 0) ||
-    (n.extends && n.extends.length !== 0) || // DeclareClass
-    (n.mixins && n.mixins.length !== 0) ||
-    (n.implements && n.implements.length !== 0);
-
-  const partsGroup = [];
-  const extendsParts = [];
-
-  if (n.id) {
-    partsGroup.push(" ", path.call(print, "id"));
-  }
-
-  partsGroup.push(path.call(print, "typeParameters"));
-
-  const hasMultipleHeritage =
-    ["superClass", "extends", "mixins", "implements"].filter((key) => !!n[key])
-      .length > 1;
-  const shouldIndentOnlyHeritageClauses =
-    n.typeParameters &&
-    !hasTrailingLineComment(n.typeParameters) &&
-    !hasMultipleHeritage;
-
-  function printList(listName) {
-    if (n[listName] && n[listName].length !== 0) {
-      const printedLeadingComments = comments.printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        ({ marker }) => marker === listName
-      );
-      extendsParts.push(
-        shouldIndentOnlyHeritageClauses
-          ? ifBreak(" ", line, {
-              groupId: getTypeParametersGroupId(n.typeParameters),
-            })
-          : line,
-        printedLeadingComments,
-        printedLeadingComments && hardline,
-        listName,
-        group(
-          indent(
-            concat([line, join(concat([",", line]), path.map(print, listName))])
-          )
-        )
-      );
-    }
-  }
-
-  if (n.superClass) {
-    const printSuperClass = (path) => {
-      const printed = path.call(print, "superClass");
-      const parent = path.getParentNode();
-      if (parent && parent.type === "AssignmentExpression") {
-        return concat([
-          ifBreak("("),
-          indent(concat([softline, printed])),
-          softline,
-          ifBreak(")"),
-        ]);
-      }
-      return printed;
-    };
-    const printed = concat([
-      "extends ",
-      printSuperClass(path),
-      path.call(print, "superTypeParameters"),
-    ]);
-    const printedWithComments = path.call(
-      (superClass) =>
-        comments.printComments(superClass, () => printed, options),
-      "superClass"
-    );
-    if (groupMode) {
-      extendsParts.push(line, group(printedWithComments));
-    } else {
-      extendsParts.push(" ", printedWithComments);
-    }
-  } else {
-    printList("extends");
-  }
-
-  printList("mixins");
-  printList("implements");
-
-  if (groupMode) {
-    const printedExtends = concat(extendsParts);
-    if (shouldIndentOnlyHeritageClauses) {
-      parts.push(
-        group(
-          concat(
-            partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-          )
-        )
-      );
-    } else {
-      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
-    }
-  } else {
-    parts.push(...partsGroup, ...extendsParts);
-  }
-
-  parts.push(" ", path.call(print, "body"));
-
-  return parts;
 }
 
 function shouldInlineLogicalExpression(node) {
