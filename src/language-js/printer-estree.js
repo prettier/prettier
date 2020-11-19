@@ -83,7 +83,6 @@ const {
   isLineComment,
   needsHardlineAfterDanglingComment,
   rawText,
-  returnArgumentHasLeadingComment,
   shouldPrintComma,
   shouldFlatten,
 } = require("./utils");
