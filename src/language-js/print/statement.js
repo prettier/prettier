@@ -20,69 +20,82 @@ const { locEnd } = require("../loc");
 
 const { shouldPrintParamsWithoutParens } = require("./function");
 
-function printStatementSequence(path, options, print) {
-  const printed = [];
+function printStatement({ path, index, bodyNode, isClass }, options, print) {
+  const node = path.getValue();
 
+  // Just in case the AST has been modified to contain falsy
+  // "statements," it's safer simply to skip them.
+  /* istanbul ignore if */
+  if (!node) {
+    return;
+  }
+
+  // Skip printing EmptyStatement nodes to avoid leaving stray
+  // semicolons lying around.
+  if (node.type === "EmptyStatement") {
+    return;
+  }
+
+  const printed = print(path);
+  const text = options.originalText;
+  const parts = [];
+
+  // in no-semi mode, prepend statement with semicolon if it might break ASI
+  // don't prepend the only JSX element in a program with semicolon
+  if (
+    !options.semi &&
+    !isClass &&
+    !isTheOnlyJSXElementInMarkdown(options, path) &&
+    statementNeedsASIProtection(path, options)
+  ) {
+    if (node.comments && node.comments.some((comment) => comment.leading)) {
+      parts.push(print(path, { needsSemi: true }));
+    } else {
+      parts.push(";", printed);
+    }
+  } else {
+    parts.push(printed);
+  }
+
+  if (!options.semi && isClass) {
+    if (classPropMayCauseASIProblems(path)) {
+      parts.push(";");
+    } else if (
+      node.type === "ClassProperty" ||
+      node.type === "FieldDefinition"
+    ) {
+      const nextChild = bodyNode.body[index + 1];
+      if (classChildNeedsASIProtection(nextChild)) {
+        parts.push(";");
+      }
+    }
+  }
+
+  if (isNextLineEmpty(text, node, locEnd) && !isLastStatement(path)) {
+    parts.push(hardline);
+  }
+
+  return concat(parts);
+}
+
+function printStatementSequence(path, options, print) {
   const bodyNode = path.getNode();
   const isClass = bodyNode.type === "ClassBody";
 
-  path.each((stmtPath, i) => {
-    const stmt = stmtPath.getValue();
-
-    // Just in case the AST has been modified to contain falsy
-    // "statements," it's safer simply to skip them.
-    /* istanbul ignore if */
-    if (!stmt) {
-      return;
-    }
-
-    // Skip printing EmptyStatement nodes to avoid leaving stray
-    // semicolons lying around.
-    if (stmt.type === "EmptyStatement") {
-      return;
-    }
-
-    const stmtPrinted = print(stmtPath);
-    const text = options.originalText;
-    const parts = [];
-
-    // in no-semi mode, prepend statement with semicolon if it might break ASI
-    // don't prepend the only JSX element in a program with semicolon
-    if (
-      !options.semi &&
-      !isClass &&
-      !isTheOnlyJSXElementInMarkdown(options, stmtPath) &&
-      statementNeedsASIProtection(stmtPath, options)
-    ) {
-      if (stmt.comments && stmt.comments.some((comment) => comment.leading)) {
-        parts.push(print(stmtPath, { needsSemi: true }));
-      } else {
-        parts.push(";", stmtPrinted);
-      }
-    } else {
-      parts.push(stmtPrinted);
-    }
-
-    if (!options.semi && isClass) {
-      if (classPropMayCauseASIProblems(stmtPath)) {
-        parts.push(";");
-      } else if (
-        stmt.type === "ClassProperty" ||
-        stmt.type === "FieldDefinition"
-      ) {
-        const nextChild = bodyNode.body[i + 1];
-        if (classChildNeedsASIProtection(nextChild)) {
-          parts.push(";");
-        }
-      }
-    }
-
-    if (isNextLineEmpty(text, stmt, locEnd) && !isLastStatement(stmtPath)) {
-      parts.push(hardline);
-    }
-
-    printed.push(concat(parts));
-  });
+  const printed = path
+    .map((statementPath, index) =>
+      printStatement(
+        {
+          path,
+          index,
+          bodyNode,
+          isClass,
+        },
+        options,
+        print
+      )
+    )
+    .filter(Boolean);
 
   return join(hardline, printed);
 }
