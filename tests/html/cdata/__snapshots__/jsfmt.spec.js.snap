@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`example.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span><![CDATA[<sender>John Smith</sender>]]></span>
+
+<span><![CDATA[1]]> a <![CDATA[2]]></span>
+<span><![CDATA[1]]> <br> <![CDATA[2]]></span>
+
+=====================================output=====================================
+<span><![CDATA[<sender>John Smith</sender>]]></span>
+
+<span><![CDATA[1]]> a <![CDATA[2]]></span>
+<span
+  ><![CDATA[1]]> <br />
+  <![CDATA[2]]></span
+>
+
+================================================================================
+`;

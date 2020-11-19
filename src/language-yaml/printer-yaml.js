@@ -1,6 +1,26 @@
 "use strict";
 
+const docBuilders = require("../document").builders;
+const {
+  conditionalGroup,
+  breakParent,
+  concat,
+  dedent,
+  dedentToRoot,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  join,
+  line,
+  lineSuffix,
+  literalline,
+  markAsRoot,
+  softline,
+} = docBuilders;
+const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
+const { locStart } = require("./loc");
 const {
   getAncestorCount,
   getBlockValueLineContents,
@@ -18,27 +38,8 @@ const {
   isNode,
   isEmptyNode,
   defineShortcut,
-  mapNode
+  mapNode,
 } = require("./utils");
-const docBuilders = require("../doc").builders;
-const {
-  conditionalGroup,
-  breakParent,
-  concat,
-  dedent,
-  dedentToRoot,
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  join,
-  line,
-  lineSuffix,
-  literalline,
-  markAsRoot,
-  softline
-} = docBuilders;
-const { replaceEndOfLineWith } = require("../common/util");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);
@@ -80,7 +81,7 @@ function genericPrint(path, options, print) {
       "comment",
       "directive",
       "mappingItem",
-      "sequenceItem"
+      "sequenceItem",
     ]) && !isLastDescendantNode(path)
       ? printNextEmptyLine(path, options.originalText)
       : "";
@@ -101,16 +102,15 @@ function genericPrint(path, options, print) {
       ? concat([
           node.middleComments.length === 1 ? "" : hardline,
           join(hardline, path.map(print, "middleComments")),
-          hardline
+          hardline,
         ])
       : "",
     hasPrettierIgnore(path)
       ? concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              node.position.start.offset,
-              node.position.end.offset
-            ),
+            options.originalText
+              .slice(node.position.start.offset, node.position.end.offset)
+              .trimEnd(),
             literalline
           )
         )
@@ -124,17 +124,36 @@ function genericPrint(path, options, print) {
             isInlineNode(node)
               ? ""
               : breakParent,
-            path.call(print, "trailingComment")
+            path.call(print, "trailingComment"),
+          ])
+        )
+      : "",
+    shouldPrintEndComments(node)
+      ? align(
+          node.type === "sequenceItem" ? 2 : 0,
+          concat([
+            hardline,
+            join(
+              hardline,
+              path.map(
+                (path) =>
+                  concat([
+                    isPreviousLineEmpty(
+                      options.originalText,
+                      path.getValue(),
+                      locStart
+                    )
+                      ? hardline
+                      : "",
+                    print(path),
+                  ]),
+                "endComments"
+              )
+            ),
           ])
         )
       : "",
     nextEmptyLine,
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
-      ? align(
-          node.type === "sequenceItem" ? 2 : 0,
-          concat([hardline, join(hardline, path.map(print, "endComments"))])
-        )
-      : ""
   ]);
 }
 
@@ -155,20 +174,20 @@ function _print(node, parentNode, path, options, print) {
                     "...",
                     hasTrailingComment(document)
                       ? concat([" ", path.call(print, "trailingComment")])
-                      : ""
+                      : "",
                   ])
                 : !nextDocument || hasTrailingComment(nextDocument.head)
                 ? ""
-                : concat([hardline, "---"])
+                : concat([hardline, "---"]),
             ]);
           }, "children")
         ),
         node.children.length === 0 ||
-        (lastDescendantNode =>
+        ((lastDescendantNode) =>
           isNode(lastDescendantNode, ["blockLiteral", "blockFolded"]) &&
           lastDescendantNode.chomping === "keep")(getLastDescendantNode(node))
           ? ""
-          : hardline
+          : hardline,
       ]);
     case "document": {
       const nextDocument = parentNode.children[path.getName() + 1];
@@ -193,14 +212,14 @@ function _print(node, parentNode, path, options, print) {
                     hasTrailingComment(node.head)
                       ? concat([
                           " ",
-                          path.call(print, "head", "trailingComment")
+                          path.call(print, "head", "trailingComment"),
                         ])
-                      : ""
-                  ])
+                      : "",
+                  ]),
                 ].filter(Boolean)
               )
             : "",
-          shouldPrintDocumentBody(node) ? path.call(print, "body") : ""
+          shouldPrintDocumentBody(node) ? path.call(print, "body") : "",
         ].filter(Boolean)
       );
     }
@@ -215,7 +234,7 @@ function _print(node, parentNode, path, options, print) {
       const separator =
         children.length === 0 || endComments.length === 0
           ? ""
-          : (lastDescendantNode =>
+          : ((lastDescendantNode) =>
               isNode(lastDescendantNode, ["blockFolded", "blockLiteral"])
                 ? lastDescendantNode.chomping === "keep"
                   ? // there's already a newline printed at the end of blockValue (chomping=keep, lastDescendant=true)
@@ -268,7 +287,7 @@ function _print(node, parentNode, path, options, print) {
         return concat([
           originalQuote,
           printFlowScalarContent(node.type, raw, options),
-          originalQuote
+          originalQuote,
         ]);
       } else if (raw.includes(doubleQuote)) {
         return concat([
@@ -283,7 +302,7 @@ function _print(node, parentNode, path, options, print) {
               : raw,
             options
           ),
-          singleQuote
+          singleQuote,
         ]);
       }
 
@@ -298,7 +317,7 @@ function _print(node, parentNode, path, options, print) {
               : raw,
             options
           ),
-          doubleQuote
+          doubleQuote,
         ]);
       }
 
@@ -306,12 +325,12 @@ function _print(node, parentNode, path, options, print) {
       return concat([
         quote,
         printFlowScalarContent(node.type, raw, options),
-        quote
+        quote,
       ]);
     }
     case "blockFolded":
     case "blockLiteral": {
-      const parentIndent = getAncestorCount(path, ancestorNode =>
+      const parentIndent = getAncestorCount(path, (ancestorNode) =>
         isNode(ancestorNode, ["sequence", "mapping"])
       );
       const isLastDescendant = isLastDescendantNode(path);
@@ -331,7 +350,7 @@ function _print(node, parentNode, path, options, print) {
               getBlockValueLineContents(node, {
                 parentIndent,
                 isLastDescendant,
-                options
+                options,
               }).reduce(
                 (reduced, lineWords, index, lineContents) =>
                   reduced.concat(
@@ -351,7 +370,7 @@ function _print(node, parentNode, path, options, print) {
               )
             )
           )
-        )
+        ),
       ]);
     }
     case "sequence":
@@ -359,7 +378,7 @@ function _print(node, parentNode, path, options, print) {
     case "sequenceItem":
       return concat([
         "- ",
-        align(2, !node.content ? "" : path.call(print, "content"))
+        align(2, !node.content ? "" : path.call(print, "content")),
       ]);
     case "mappingKey":
       return !node.content ? "" : path.call(print, "content");
@@ -410,10 +429,10 @@ function _print(node, parentNode, path, options, print) {
               "",
               path
                 .map(print, "value", "leadingComments")
-                .map(comment => concat([comment, hardline]))
+                .map((comment) => concat([comment, hardline]))
             ),
             ": ",
-            align(2, value)
+            align(2, value),
           ])
         : // force singleline
         isSingleLineNode(node.key.content) &&
@@ -429,7 +448,7 @@ function _print(node, parentNode, path, options, print) {
             key,
             needsSpaceInFrontOfMappingValue(node) ? " " : "",
             ": ",
-            value
+            value,
           ])
         : conditionalGroup([
             concat([
@@ -456,12 +475,12 @@ function _print(node, parentNode, path, options, print) {
                       : !node.value.content
                       ? ""
                       : line,
-                    value
+                    value,
                   ])
                 ),
                 { groupId }
-              )
-            ])
+              ),
+            ]),
           ]);
     }
     case "flowMapping":
@@ -476,10 +495,12 @@ function _print(node, parentNode, path, options, print) {
           : softline;
       const isLastItemEmptyMappingItem =
         node.children.length !== 0 &&
-        (lastItem =>
+        ((lastItem) =>
           lastItem.type === "flowMappingItem" &&
           isEmptyNode(lastItem.key) &&
           isEmptyNode(lastItem.value))(getLast(node.children));
+      const trailingComma =
+        options.trailingComma === "none" ? "" : ifBreak(",", "");
       return concat([
         openMarker,
         indent(
@@ -501,17 +522,23 @@ function _print(node, parentNode, path, options, print) {
                                 childPath,
                                 options.originalText
                               )
-                            : ""
-                        ])
+                            : "",
+                        ]),
                   ]),
                 "children"
               )
             ),
-            ifBreak(",", "")
+            trailingComma,
+            hasEndComments(node)
+              ? concat([
+                  hardline,
+                  join(hardline, path.map(print, "endComments")),
+                ])
+              : "",
           ])
         ),
         isLastItemEmptyMappingItem ? "" : bracketSpacing,
-        closeMarker
+        closeMarker,
       ]);
     }
     case "flowSequenceItem":
@@ -533,6 +560,7 @@ function align(n, doc) {
 }
 
 function isInlineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }
@@ -551,6 +579,7 @@ function isInlineNode(node) {
 }
 
 function isSingleLineNode(node) {
+  /* istanbul ignore next */
   if (!node) {
     return true;
   }
@@ -606,10 +635,7 @@ function shouldPrintDocumentHeadEndMarker(
      */
     (root.children[0] === document &&
       /---(\s|$)/.test(
-        options.originalText.slice(
-          options.locStart(document),
-          options.locStart(document) + 4
-        )
+        options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
     /**
      * %DIRECTIVE
@@ -670,7 +696,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   switch (options.proseWrap) {
     case "never":
-      return node.value.indexOf("\n") === -1;
+      return !node.value.includes("\n");
     case "always":
       return !/[\n ]/.test(node.value);
     // istanbul ignore next
@@ -683,16 +709,37 @@ function needsSpaceInFrontOfMappingValue(node) {
   return node.key.content && node.key.content.type === "alias";
 }
 
+function shouldPrintEndComments(node) {
+  return (
+    hasEndComments(node) &&
+    !isNode(node, [
+      "documentHead",
+      "documentBody",
+      "flowMapping",
+      "flowSequence",
+    ])
+  );
+}
+
+const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
   const root = path.stack[0];
 
-  root.isNextEmptyLinePrintedChecklist =
-    root.isNextEmptyLinePrintedChecklist || [];
+  let isNextEmptyLinePrintedSet;
+  if (printedEmptyLineCache.has(root)) {
+    isNextEmptyLinePrintedSet = printedEmptyLineCache.get(root);
+  } else {
+    isNextEmptyLinePrintedSet = new Set();
+    printedEmptyLineCache.set(root, isNextEmptyLinePrintedSet);
+  }
 
-  if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
-    if (isNextLineEmpty(node, originalText)) {
-      root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
+  if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
+    isNextEmptyLinePrintedSet.add(node.position.end.line);
+    if (
+      isNextLineEmpty(node, originalText) &&
+      !shouldPrintEndComments(path.getParentNode())
+    ) {
       return softline;
     }
   }
@@ -704,7 +751,7 @@ function printFlowScalarContent(nodeType, content, options) {
   const lineContents = getFlowScalarLineContents(nodeType, content, options);
   return join(
     hardline,
-    lineContents.map(lineContentWords =>
+    lineContents.map((lineContentWords) =>
       fill(join(line, lineContentWords).parts)
     )
   );
@@ -732,5 +779,5 @@ module.exports = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
-  insertPragma
+  insertPragma,
 };

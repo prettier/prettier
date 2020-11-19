@@ -1,0 +1,108 @@
+<h1>
+{{#if isAtWork}}
+  Ship that code!
+{{else if isReading}}
+  You can finish War and Peace eventually...
+{{else}}
+  Go to bed!
+{{/if}}
+</h1>
+
+<h2>
+{{#if a}}
+  A
+{{else}}
+  B
+{{/if}}
+</h2>
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
+
+{{#if a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>c</div>
+  {{/if}}
+  <div>a</div>
+  b
+  c
+{{/if}}
+
+{{~#if someCondition~}}
+  One thing
+{{~else if anotherCondition~}}
+  Another thing
+{{~/if~}}

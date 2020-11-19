@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "target": "es2015",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    // TBD it is desired to enabled strict type checking at some point:
+    "strict": false
+  },
+  "exclude": [
+    "coverage/",
+    "test*.*",
+    // [TBD] JavaScript sources *not* affected by src/language-*:
+    "src/main/ast-to-doc.js",
+    "src/main/core.js",
+    "src/common/create-ignorer.js",
+    "src/config/resolve-config.js",
+    "src/main/options-normalizer.js",
+    "src/common/get-file-info.js",
+    "src/main/multiparser.js",
+    "src/main/options.js",
+    // [TBD] src/language-* source directory trees with known JSDoc type issues:
+    "src/language-html",
+    // [TBD] JavaScript sources affected by JSDoc issues in src/language-*:
+    "src/common/load-plugins.js",
+    "src/cli/index.js",
+    "src/cli/expand-patterns.js",
+    "src/cli/util.js",
+    "src/cli/constant.js",
+    "src/cli/prettier-internal.js",
+    "src/languages.js",
+    // [TBD] top-level JavaScript sources affected by JSDoc issues
+    // in other sources:
+    "src/index.js",
+    "src/standalone.js",
+    "index.js",
+    "standalone.js",
+    "bin/",
+    "dist/",
+    "docs/",
+    "scripts/",
+    "tests/",
+    "tests_config/",
+    "tests_integration/",
+    "website/"
+  ]
+}

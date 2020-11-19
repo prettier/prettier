@@ -1,7 +1,9 @@
 "use strict";
 
-const { concat, hardline, indent, join } = require("../doc").builders;
-const preprocess = require("./preprocess");
+const {
+  builders: { concat, hardline, indent, join },
+} = require("../document");
+const preprocess = require("./print-preprocess");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -16,11 +18,11 @@ function genericPrint(path, options, print) {
             indent(
               concat([
                 hardline,
-                join(concat([",", hardline]), path.map(print, "elements"))
+                join(concat([",", hardline]), path.map(print, "elements")),
               ])
             ),
             hardline,
-            "]"
+            "]",
           ]);
     case "ObjectExpression":
       return node.properties.length === 0
@@ -30,18 +32,18 @@ function genericPrint(path, options, print) {
             indent(
               concat([
                 hardline,
-                join(concat([",", hardline]), path.map(print, "properties"))
+                join(concat([",", hardline]), path.map(print, "properties")),
               ])
             ),
             hardline,
-            "}"
+            "}",
           ]);
     case "ObjectProperty":
       return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
     case "UnaryExpression":
       return concat([
         node.operator === "+" ? "" : node.operator,
-        path.call(print, "argument")
+        path.call(print, "argument"),
       ]);
     case "NullLiteral":
       return "null";
@@ -58,23 +60,30 @@ function genericPrint(path, options, print) {
   }
 }
 
-function clean(node, newNode /*, parent*/) {
-  delete newNode.start;
-  delete newNode.end;
-  delete newNode.extra;
-  delete newNode.loc;
-  delete newNode.comments;
+const ignoredProperties = new Set([
+  "start",
+  "end",
+  "extra",
+  "loc",
+  "comments",
+  "errors",
+  "range",
+]);
 
-  if (node.type === "Identifier") {
+function clean(node, newNode /*, parent*/) {
+  const { type } = node;
+  if (type === "Identifier") {
     return { type: "StringLiteral", value: node.name };
   }
-  if (node.type === "UnaryExpression" && node.operator === "+") {
+  if (type === "UnaryExpression" && node.operator === "+") {
     return newNode.argument;
   }
 }
 
+clean.ignoredProperties = ignoredProperties;
+
 module.exports = {
   preprocess,
   print: genericPrint,
-  massageAstNode: clean
+  massageAstNode: clean,
 };

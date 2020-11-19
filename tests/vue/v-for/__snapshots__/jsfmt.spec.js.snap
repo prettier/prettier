@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<div
+  v-for="  item instanceof  items "
+></div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div v-for="  item instanceof  items "></div>
+</template>
+
+================================================================================
+`;

@@ -4,6 +4,10 @@ title: Option Philosophy
 original_id: option-philosophy
 ---
 
+> Prettier has a few options because of history. **But we don’t want more of them.**
+>
+> Read on to learn more.
+
 Prettier is not a kitchen-sink code formatter that attempts to print your code in any way you wish. It is _opinionated._ Quoting the [Why Prettier?](why-prettier.md) page:
 
 > By far the biggest reason for adopting Prettier is to stop all the on-going debates over styles.
@@ -12,21 +16,33 @@ The more options Prettier has, the further from the above goal it gets. **The de
 
 The issue about [resisting adding configuration](https://github.com/prettier/prettier/issues/40) has more 👍s than any option request issue.
 
-So why does Prettier have options at all?
+So why are there any options at all?
 
-Well, had Prettier been created around the same time as JavaScript itself was born it could have made choices that the community would have picked up (which is the case for [elm-format](https://github.com/avh4/elm-format/)). But JavaScript is far older than Prettier so the community has had time to start their holy wars about tabs vs spaces, single vs double quotes, indentation levels, trailing commas and semicolons, so Prettier more or less has to support those.
+- A few were added during Prettier’s infancy to make it take off at all. 🚀
+- A couple were added after “great demand.” 🤔
+- Some were added for compatibility reasons. 👍
 
-Then there's a bunch of interesting cases.
+What we’ve learned during the years is that it’s really hard to measure demand. Prettier has grown _a lot_ in usage. What was “great demand” back in the day is not as much today. How many is many? What about all silent users?
 
-- `--trailing-comma es5` was added to make it easier to use trailing commas in most environments without having to transpile (trailing function commas were added in ES2017).
+It’s so easy to add “just one more“ option. But where do we stop? When is one too many? There will always be a “top issue” in the issue tracker. Even if we add just that one final option.
+
+The downside of options is that they open up for debate within teams. Which options should we use? Why? Did we make the right choices?
+
+Every option also makes it much harder to say no to new ones. If _those_ options exist, why can’t this one?
+
+We’ve had several users open up option requests only to close them themselves a couple of months later. They had realized that they don’t care at all about that little syntax choice they used to feel so strongly about. Examples: [#3101](https://github.com/prettier/prettier/issues/3101#issuecomment-500927917) and [#5501](https://github.com/prettier/prettier/issues/5501#issuecomment-487025417).
+
+All of this makes the topic of options in Prettier very difficult. And mentally tiring for maintainers. What do people want? What do people _really_ want in 6 months? Are we spending time and energy on the right things?
+
+Some options are easier to motivate:
+
+- `--trailing-comma es5` lets you use trailing commas in most environments without having to transpile (trailing function commas were added in ES2017).
 - `--prose-wrap` is important to support all quirky markdown renderers in the wild.
 - `--html-whitespace-sensitivity` is needed due to the unfortunate whitespace rules of HTML.
 - `--end-of-line` makes it easier for teams to keep CRLFs out of their git repositories.
-- `--arrow-parens` was added after – at the time – [huge demand](https://github.com/prettier/prettier/issues/812). Prettier has to strike a balance between ideal goals and listening to the community.
-- `--jsx-single-quote` was also added after [great demand](https://github.com/prettier/prettier/issues/1080), but after more consideration. It took quite some time to figure out the right approach.
-- `--jsx-bracket-same-line` was needed for a big company with a huge code base (Facebook), which backed the project when it got started, to be able to [adopt Prettier at all](https://github.com/prettier/prettier/pull/661#issuecomment-295770645).
+- `--quote-props` is important for advanced usage of the Google Closure Compiler.
 
-Finally, perhaps the most interesting of them all is `--bracket-spacing`.
-The truth is that not even [Prettier's creator knows exactly why it exists](https://github.com/prettier/prettier/issues/715#issuecomment-281096495). It was added super early on without much thought. It now serves as an example of the types of options we should avoid.
+But others are harder to motivate in hindsight, and usually end up with bike shedding. `--arrow-parens`,
+`--jsx-single-quote`, `--jsx-bracket-same-line` and `--no-bracket-spacing` are not the type of options we want more of. They exist (and are difficult to remove now), but should not motivate adding more options like them.
 
-Remember, it is easy to _add_ features to a program, but hard to remove them.
+Feel free to open issues! Prettier isn’t perfect. Many times things can be improved without adding options. But if the issue _does_ seem to need a new option, we’ll generally keep it open, to let people 👍 it and add comments.

@@ -2,17 +2,18 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 
 function parseComments(ast) {
   const comments = [];
-  const startToken = ast.loc.startToken;
-  let next = startToken.next;
+  const { startToken } = ast.loc;
+  let { next } = startToken;
   while (next.kind !== "<EOF>") {
     if (next.kind === "Comment") {
       Object.assign(next, {
         // The Comment token's column starts _after_ the `#`,
         // but we need to make sure the node captures the `#`
-        column: next.column - 1
+        column: next.column - 1,
       });
       comments.push(next);
     }
@@ -38,7 +39,7 @@ function removeTokens(node) {
 function fallbackParser(parse, source) {
   const parserOptions = {
     allowLegacySDLImplementsInterfaces: false,
-    experimentalFragmentVariables: true
+    experimentalFragmentVariables: true,
   };
   try {
     return parse(source, parserOptions);
@@ -57,17 +58,17 @@ function parse(text /*, parsers, opts*/) {
     removeTokens(ast);
     return ast;
   } catch (error) {
-    const GraphQLError = require("graphql/error").GraphQLError;
+    const { GraphQLError } = require("graphql/error");
     if (error instanceof GraphQLError) {
-      throw createError(error.message, {
-        start: {
-          line: error.locations[0].line,
-          column: error.locations[0].column
-        }
-      });
-    } else {
-      throw error;
+      const {
+        message,
+        locations: [start],
+      } = error;
+      throw createError(message, { start });
     }
+
+    /* istanbul ignore next */
+    throw error;
   }
 }
 
@@ -77,18 +78,8 @@ module.exports = {
       parse,
       astFormat: "graphql",
       hasPragma,
-      locStart(node) {
-        if (typeof node.start === "number") {
-          return node.start;
-        }
-        return node.loc && node.loc.start;
-      },
-      locEnd(node) {
-        if (typeof node.end === "number") {
-          return node.end;
-        }
-        return node.loc && node.loc.end;
-      }
-    }
-  }
+      locStart,
+      locEnd,
+    },
+  },
 };

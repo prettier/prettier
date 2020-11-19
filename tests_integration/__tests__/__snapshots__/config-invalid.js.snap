@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`resolves external configuration from package.json (stderr) 1`] = `
+"[error] Invalid configuration file \`syntax-error.js\`: THIS ERROR MESSAGE MUST COME FROM THIS syntax-error.js FILE
+"
+`;
+
+exports[`resolves external configuration from package.json (stdout) 1`] = `""`;
+
+exports[`resolves external configuration from package.json (write) 1`] = `Array []`;
+
 exports[`show warning with kebab-case option key (stderr) 1`] = `
 "[warn] Ignored unknown option { \\"print-width\\": 3 }. Did you mean printWidth?
 "
@@ -19,7 +28,7 @@ exports[`show warning with unknown option (stdout) 1`] = `""`;
 exports[`show warning with unknown option (write) 1`] = `Array []`;
 
 exports[`throw error for unsupported extension (stderr) 1`] = `
-"[error] Invalid configuration file: No sync loader specified for extension \\".unsupported\\"
+"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: No loader specified for extension \\".unsupported\\"
 "
 `;
 
@@ -27,14 +36,13 @@ exports[`throw error for unsupported extension (stdout) 1`] = `""`;
 
 exports[`throw error for unsupported extension (write) 1`] = `Array []`;
 
-exports[`throw error with invalid config format (stderr) 1`] = `
-"[error] Invalid configuration file: Cannot find module '--invalid--' from '<cwd>/tests_integration/cli/config/invalid/file'
-"
-`;
-
 exports[`throw error with invalid config format (stdout) 1`] = `""`;
 
+exports[`throw error with invalid config format (stdout) 2`] = `""`;
+
 exports[`throw error with invalid config format (write) 1`] = `Array []`;
+
+exports[`throw error with invalid config format (write) 2`] = `Array []`;
 
 exports[`throw error with invalid config option (int) (stderr) 1`] = `
 "[error] Invalid tabWidth value. Expected an integer, but received 0.5.
@@ -64,7 +72,7 @@ exports[`throw error with invalid config precedence option (configPrecedence) (s
 exports[`throw error with invalid config precedence option (configPrecedence) (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config target (directory) (stderr) 1`] = `
-"[error] Invalid configuration file: EISDIR: illegal operation on a directory, read
+"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: EISDIR: illegal operation on a directory, read
 "
 `;
 

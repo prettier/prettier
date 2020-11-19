@@ -1,15 +1,13 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("./comments");
 const FastPath = require("../common/fast-path");
+const doc = require("../document");
+const comments = require("./comments");
 const multiparser = require("./multiparser");
 
-const doc = require("../doc");
 const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
-const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
+const { concat, hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;
 
 /**
@@ -34,7 +32,7 @@ const docUtils = doc.utils;
  * the path to the current node through the Abstract Syntax Tree.
  */
 function printAstToDoc(ast, options, alignmentSize = 0) {
-  const printer = options.printer;
+  const { printer } = options;
 
   if (printer.preprocess) {
     ast = printer.preprocess(ast, options);
@@ -53,14 +51,17 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     // We let JSXElement print its comments itself because it adds () around
     // UnionTypeAnnotation has to align the child without the comments
     let res;
-    if (printer.willPrintOwnComments && printer.willPrintOwnComments(path)) {
+    if (
+      printer.willPrintOwnComments &&
+      printer.willPrintOwnComments(path, options)
+    ) {
       res = callPluginPrintFunction(path, options, printGenerically, args);
     } else {
       // printComments will call the plugin print function and check for
       // comments to print
       res = comments.printComments(
         path,
-        p => callPluginPrintFunction(p, options, printGenerically, args),
+        (p) => callPluginPrintFunction(p, options, printGenerically, args),
         options,
         args && args.needsSemi
       );
@@ -88,18 +89,35 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   return doc;
 }
 
+function printPrettierIgnoredNode(node, options) {
+  const {
+    originalText,
+    [Symbol.for("comments")]: comments,
+    locStart,
+    locEnd,
+  } = options;
+
+  const start = locStart(node);
+  const end = locEnd(node);
+
+  for (const comment of comments) {
+    if (locStart(comment) >= start && locEnd(comment) <= end) {
+      comment.printed = true;
+    }
+  }
+
+  return originalText.slice(start, end);
+}
+
 function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   const node = path.getValue();
-  const printer = options.printer;
+  const { printer } = options;
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
-    return options.originalText.slice(
-      options.locStart(node),
-      options.locEnd(node)
-    );
+    return printPrettierIgnoredNode(node, options);
   }
 
   if (node) {

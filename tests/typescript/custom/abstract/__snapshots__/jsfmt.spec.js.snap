@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstractNewlineHandling.ts 1`] = `
+exports[`abstractNewlineHandling.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,17 @@ export class Y {}
 ================================================================================
 `;
 
-exports[`abstractProperties.ts 1`] = `
+exports[`abstractProperties.ts [babel-ts] format 1`] = `
+"Unexpected token (2:22)
+  1 | abstract class Foo {
+> 2 |     abstract private a: 1;
+    |                      ^
+  3 |     private abstract b: 2;
+  4 |     static abstract c: 3;
+  5 | "
+`;
+
+exports[`abstractProperties.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -76,7 +86,17 @@ abstract class Foo {
 ================================================================================
 `;
 
-exports[`abstractPropertiesWithBreaks.ts 1`] = `
+exports[`abstractPropertiesWithBreaks.ts [babel-ts] format 1`] = `
+"Unexpected token (2:22)
+  1 | abstract class Foo {
+> 2 |     abstract private foobar =
+    |                      ^
+  3 |       // comment to break
+  4 |       1 +
+  5 |       // another comment to break"
+`;
+
+exports[`abstractPropertiesWithBreaks.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

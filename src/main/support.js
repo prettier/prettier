@@ -1,155 +1,131 @@
 "use strict";
 
-const semver = require("semver");
+const semver = {
+  compare: require("semver/functions/compare"),
+  lt: require("semver/functions/lt"),
+  gte: require("semver/functions/gte"),
+};
 const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
 const coreOptions = require("./core-options").options;
 
-function getSupportInfo(version, opts) {
-  opts = Object.assign(
-    {
-      plugins: [],
-      showUnreleased: false,
-      showDeprecated: false,
-      showInternal: false
-    },
-    opts
-  );
+/**
+ * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
+ * of this function created by `withPlugins`. Don't pass them here directly.
+ * @param {object} param0
+ * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
+ * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
+ * @param {boolean=} param0.showUnreleased
+ * @param {boolean=} param0.showDeprecated
+ * @param {boolean=} param0.showInternal
+ */
+function getSupportInfo({
+  plugins = [],
+  showUnreleased = false,
+  showDeprecated = false,
+  showInternal = false,
+} = {}) {
+  // pre-release version is smaller than the normal version in semver,
+  // we need to treat it as the normal one so as to test new features.
+  const version = currentVersion.split("-", 1)[0];
 
-  if (!version) {
-    // pre-release version is smaller than the normal version in semver,
-    // we need to treat it as the normal one so as to test new features.
-    version = currentVersion.split("-", 1)[0];
-  }
-
-  const plugins = opts.plugins;
+  const languages = plugins
+    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
+    .filter(filterSince);
 
   const options = arrayify(
-    Object.assign(
-      plugins.reduce(
-        (currentOptions, plugin) =>
-          Object.assign(currentOptions, plugin.options),
-        {}
-      ),
-      coreOptions
-    ),
+    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )
+    .filter((option) => filterSince(option) && filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    .filter(filterSince)
-    .filter(filterDeprecated)
-    .map(mapDeprecated)
     .map(mapInternal)
-    .map(option => {
-      const newOption = Object.assign({}, option);
+    .map((option) => {
+      option = { ...option };
 
-      if (Array.isArray(newOption.default)) {
-        newOption.default =
-          newOption.default.length === 1
-            ? newOption.default[0].value
-            : newOption.default
+      if (Array.isArray(option.default)) {
+        option.default =
+          option.default.length === 1
+            ? option.default[0].value
+            : option.default
                 .filter(filterSince)
                 .sort((info1, info2) =>
                   semver.compare(info2.since, info1.since)
                 )[0].value;
       }
 
-      if (Array.isArray(newOption.choices)) {
-        newOption.choices = newOption.choices
-          .filter(filterSince)
-          .filter(filterDeprecated)
-          .map(mapDeprecated);
+      if (Array.isArray(option.choices)) {
+        option.choices = option.choices.filter(
+          (option) => filterSince(option) && filterDeprecated(option)
+        );
+
+        if (option.name === "parser") {
+          collectParsersFromLanguages(option, languages, plugins);
+        }
       }
 
-      return newOption;
-    })
-    .map(option => {
-      const filteredPlugins = plugins.filter(
-        plugin => plugin.defaultOptions && plugin.defaultOptions[option.name]
-      );
-      const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
-        reduced[plugin.name] = plugin.defaultOptions[option.name];
-        return reduced;
-      }, {});
-      return Object.assign(option, { pluginDefaults });
-    });
+      const pluginDefaults = plugins
+        .filter(
+          (plugin) =>
+            plugin.defaultOptions &&
+            plugin.defaultOptions[option.name] !== undefined
+        )
+        .reduce((reduced, plugin) => {
+          reduced[plugin.name] = plugin.defaultOptions[option.name];
+          return reduced;
+        }, {});
 
-  const usePostCssParser = semver.lt(version, "1.7.1");
-  const useBabylonParser = semver.lt(version, "1.16.0");
-
-  const languages = plugins
-    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
-    .filter(filterSince)
-    .map(language => {
-      // Prevent breaking changes
-      if (language.name === "Markdown") {
-        return Object.assign({}, language, {
-          parsers: ["markdown"]
-        });
-      }
-      if (language.name === "TypeScript") {
-        return Object.assign({}, language, {
-          parsers: ["typescript"]
-        });
-      }
-
-      // "babylon" was renamed to "babel" in 1.16.0
-      if (useBabylonParser && language.parsers.indexOf("babel") !== -1) {
-        return Object.assign({}, language, {
-          parsers: language.parsers.map(parser =>
-            parser === "babel" ? "babylon" : parser
-          )
-        });
-      }
-
-      if (
-        usePostCssParser &&
-        (language.name === "CSS" || language.group === "CSS")
-      ) {
-        return Object.assign({}, language, {
-          parsers: ["postcss"]
-        });
-      }
-      return language;
+      return { ...option, pluginDefaults };
     });
 
   return { languages, options };
 
   function filterSince(object) {
     return (
-      opts.showUnreleased ||
+      showUnreleased ||
       !("since" in object) ||
       (object.since && semver.gte(version, object.since))
     );
   }
+
   function filterDeprecated(object) {
     return (
-      opts.showDeprecated ||
+      showDeprecated ||
       !("deprecated" in object) ||
       (object.deprecated && semver.lt(version, object.deprecated))
     );
   }
-  function mapDeprecated(object) {
-    if (!object.deprecated || opts.showDeprecated) {
-      return object;
-    }
-    const newObject = Object.assign({}, object);
-    delete newObject.deprecated;
-    delete newObject.redirect;
-    return newObject;
-  }
+
   function mapInternal(object) {
-    if (opts.showInternal) {
+    if (showInternal) {
       return object;
     }
-    const newObject = Object.assign({}, object);
-    delete newObject.cliName;
-    delete newObject.cliCategory;
-    delete newObject.cliDescription;
+    const { cliName, cliCategory, cliDescription, ...newObject } = object;
     return newObject;
   }
 }
 
+function collectParsersFromLanguages(option, languages, plugins) {
+  const existingValues = new Set(option.choices.map((choice) => choice.value));
+  for (const language of languages) {
+    if (language.parsers) {
+      for (const value of language.parsers) {
+        if (!existingValues.has(value)) {
+          existingValues.add(value);
+          const plugin = plugins.find(
+            (plugin) => plugin.parsers && plugin.parsers[value]
+          );
+          let description = language.name;
+          if (plugin && plugin.name) {
+            description += ` (plugin: ${plugin.name})`;
+          }
+          option.choices.push({ value, description });
+        }
+      }
+    }
+  }
+}
+
 module.exports = {
-  getSupportInfo
+  getSupportInfo,
 };

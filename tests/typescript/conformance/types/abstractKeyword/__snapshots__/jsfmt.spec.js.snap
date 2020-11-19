@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstractKeyword.ts 1`] = `
+exports[`abstractKeyword.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\";\\" (1:10)
+> 1 | abstract interface I {}
+    |          ^
+  2 | "
+`;
+
+exports[`abstractKeyword.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

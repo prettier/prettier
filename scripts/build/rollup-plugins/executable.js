@@ -3,14 +3,20 @@
 const fs = require("fs");
 const path = require("path");
 
-module.exports = function() {
+module.exports = function () {
   let banner;
   let entry;
+  let file;
 
   return {
-    options(options) {
-      entry = path.resolve(options.entry);
-      return options;
+    name: "executable",
+
+    options(inputOptions) {
+      entry = path.resolve(inputOptions.input);
+    },
+
+    generateBundle(outputOptions) {
+      file = outputOptions.file;
     },
 
     load(id) {
@@ -28,16 +34,16 @@ module.exports = function() {
       }
     },
 
-    transformBundle(code) {
+    renderChunk(code) {
       if (banner) {
         return { code: banner + "\n" + code };
       }
     },
 
-    onwrite(bundle) {
-      if (banner) {
-        fs.chmodSync(bundle.dest, 0o755 & ~process.umask());
+    writeBundle() {
+      if (banner && file) {
+        fs.chmodSync(file, 0o755 & ~process.umask());
       }
-    }
+    },
   };
 };

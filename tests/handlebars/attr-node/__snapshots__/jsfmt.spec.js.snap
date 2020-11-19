@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attribute.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div title='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines'></div>
+
+<div title='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+
+<div TITLE='
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+'></div>
+
+=====================================output=====================================
+<div title="
+
+  a title with random
+
+
+  newlines"></div>
+
+<div TITLE="
+
+  a title with random
+
+
+  newlines"></div>
+
+<div title="
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+"></div>
+
+<div TITLE="
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+"></div>
+================================================================================
+`;
+
+exports[`class-name.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div class='class and other'></div>
+<div class=' class and other '></div>
+<div CLASs=' class and other '></div>
+<p class=" a list of
+
+
+weirdly formatted
+
+
+classes">String</p>
+<p class=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
+<p CLASS=" a list of
+
+
+weirdly formatted
+
+
+{{this.classes}}">String</p>
+
+=====================================output=====================================
+<div class="class and other"></div>
+<div class="class and other"></div>
+<div CLASs="class and other"></div>
+<p class="a list of
+
+
+weirdly formatted
+
+
+classes">
+  String
+</p>
+<p
+  class="a list of
+
+
+weirdly formatted
+
+  {{this.classes}}"
+>
+  String
+</p>
+<p
+  CLASS="a list of
+
+
+weirdly formatted
+
+  {{this.classes}}"
+>
+  String
+</p>
+================================================================================
+`;

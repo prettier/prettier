@@ -2,20 +2,17 @@
 
 const React = require("react");
 const PropTypes = require("prop-types");
-
-const CompLibrary = require("../../core/CompLibrary.js");
-const MarkdownBlock = CompLibrary.MarkdownBlock;
-const Container = CompLibrary.Container;
 const AnimatedLogo = require("@sandhose/prettier-animated-logo");
+const { MarkdownBlock, Container } = require("../../core/CompLibrary.js");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
-const ButtonGroup = props => (
+const ButtonGroup = (props) => (
   <div className="buttonGroup buttonWrapper">{props.children}</div>
 );
 
 ButtonGroup.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 class Button extends React.Component {
@@ -31,24 +28,24 @@ class Button extends React.Component {
 }
 
 Button.defaultProps = {
-  target: "_self"
+  target: "_self",
 };
 
 Button.propTypes = {
   href: PropTypes.string,
   target: PropTypes.string,
-  children: PropTypes.any
+  children: PropTypes.any,
 };
 
 function Tidelift() {
   return (
     <a className="tidelift" href={siteConfig.tideliftUrl}>
-      GET PROFESSIONALLY SUPPORTED PRETTIER
+      PRETTIER FOR ENTERPRISE
     </a>
   );
 }
 
-const HomeSplash = props => {
+const HomeSplash = (props) => {
   return (
     <div className="homeContainer">
       <Tidelift />
@@ -61,12 +58,9 @@ const HomeSplash = props => {
             <div className="section promoSection">
               <div className="promoRow">
                 <div className="pluginRowBlock">
-                  <Button href="/playground/">Try It Out</Button>
+                  <Button href="/playground/">Try It Online</Button>&nbsp;
                   <Button href={"/docs/" + props.language + "/install.html"}>
-                    Get Started
-                  </Button>
-                  <Button href={"/docs/" + props.language + "/options.html"}>
-                    Options
+                    Install Prettier
                   </Button>
                 </div>
               </div>
@@ -79,7 +73,7 @@ const HomeSplash = props => {
 };
 
 HomeSplash.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 const TldrSection = ({ language }) => (
@@ -89,7 +83,7 @@ const TldrSection = ({ language }) => (
         style={{
           display: "flex",
           flexFlow: "row wrap",
-          justifyContent: "space-evenly"
+          justifyContent: "space-evenly",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -118,7 +112,7 @@ const TldrSection = ({ language }) => (
 );
 
 TldrSection.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 const Language = ({ name, nameLink, showName, image, variants }) => (
@@ -127,7 +121,7 @@ const Language = ({ name, nameLink, showName, image, variants }) => (
     style={{
       display: "flex",
       alignItems: "flex-start",
-      paddingBottom: "1em"
+      paddingBottom: "1em",
     }}
   >
     <img src={image} style={{ width: "50px", padding: "0 20px" }} />
@@ -137,7 +131,7 @@ const Language = ({ name, nameLink, showName, image, variants }) => (
           {nameLink ? <a href={nameLink}>{name}</a> : name}
         </li>
       )}
-      {variants.map(variant => (
+      {variants.map((variant) => (
         <li key={variant}>
           <MarkdownBlock>{variant}</MarkdownBlock>
         </li>
@@ -151,7 +145,7 @@ Language.propTypes = {
   nameLink: PropTypes.string,
   showName: PropTypes.bool,
   image: PropTypes.string,
-  variants: PropTypes.array
+  variants: PropTypes.array,
 };
 
 const LanguagesSection = () => {
@@ -185,12 +179,12 @@ const LanguagesSection = () => {
           style={{
             display: "flex",
             flexFlow: "row wrap",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
           }}
         >
           {languageChunks.map((languageChunk, index) => (
             <div key={index} style={{ flex: "1 1 auto" }}>
-              {languageChunk.map(language => (
+              {languageChunk.map((language) => (
                 <Language key={language.name} {...language} />
               ))}
             </div>
@@ -214,7 +208,7 @@ const Editor = ({ content = "", image, name }) => (
 Editor.propTypes = {
   content: PropTypes.string,
   image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 const EditorSupportSection = () => (
@@ -225,10 +219,10 @@ const EditorSupportSection = () => (
         style={{
           display: "flex",
           flexFlow: "row wrap",
-          justifyContent: "space-around"
+          justifyContent: "space-around",
         }}
       >
-        {siteConfig.editors.map(editor => (
+        {siteConfig.editors.map((editor) => (
           <Editor key={editor.name} {...editor} />
         ))}
       </div>
@@ -246,132 +240,21 @@ const EditorSupportSection = () => (
   </div>
 );
 
-const bash = (...args) => `~~~bash\n${String.raw(...args)}\n~~~`;
-
-const json = object => `~~~json\n${JSON.stringify(object, null, 2)}\n~~~`;
-
-class GetStartedSection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      npmClient: "yarn"
-    };
-  }
-
-  render() {
-    return (
-      <div className="getStartedSection productShowcaseSection">
-        <Container>
-          <div
-            className="getStartedFlexContainer"
-            style={{
-              display: "flex",
-              flexFlow: "row",
-              alignItems: "baseline",
-              justifyContent: "space-between"
-            }}
-          >
-            <div className="getStartedSteps">
-              <h2>Get Started</h2>
-              <ol>
-                <li>
-                  Add prettier to your project:
-                  <div className="yarnOnly">
-                    <MarkdownBlock>
-                      {bash`yarn add prettier --dev --exact`}
-                    </MarkdownBlock>
-                  </div>
-                  <div className="npmOnly">
-                    <MarkdownBlock>
-                      {bash`npm install prettier --save-dev --save-exact`}
-                    </MarkdownBlock>
-                  </div>
-                </li>
-                <li>
-                  Verify by running against a file:
-                  <div className="yarnOnly">
-                    <MarkdownBlock>
-                      {bash`yarn prettier --write src/index.js`}
-                    </MarkdownBlock>
-                  </div>
-                  <div className="npmOnly">
-                    <MarkdownBlock>
-                      {bash`npx prettier --write src/index.js`}
-                    </MarkdownBlock>
-                  </div>
-                </li>
-                <li>
-                  Run prettier when commiting files:
-                  <div className="yarnOnly">
-                    <MarkdownBlock>
-                      {bash`yarn add pretty-quick husky --dev`}
-                    </MarkdownBlock>
-                  </div>
-                  <div className="npmOnly">
-                    <MarkdownBlock>
-                      {bash`npm install pretty-quick husky --save-dev`}
-                    </MarkdownBlock>
-                  </div>
-                  Then add this config to <code>package.json</code>:
-                  <MarkdownBlock>
-                    {json({
-                      husky: {
-                        hooks: {
-                          "pre-commit": "pretty-quick --staged"
-                        }
-                      }
-                    })}
-                  </MarkdownBlock>
-                </li>
-              </ol>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end",
-                flexGrow: 1,
-                marginLeft: "-75px"
-              }}
-            >
-              <ButtonGroup>
-                <a className="button active showYarnButton" href="#">
-                  yarn
-                </a>
-                <a className="button showNpmButton" href="#">
-                  npm
-                </a>
-              </ButtonGroup>
-              <img
-                className="decorativeRects"
-                style={{
-                  marginTop: "32px"
-                }}
-                src="/images/get_started_rects.svg"
-              />
-            </div>
-          </div>
-        </Container>
-      </div>
-    );
-  }
-}
-
 const UsersSection = ({ language }) => {
   const showcase = siteConfig.users
-    .filter(user => {
+    .filter((user) => {
       return user.pinned;
     })
     .map((user, i) => {
       return (
-        <a key={i} className="growOnHover" href={user.infoLink}>
+        <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
           <img className="user" src={user.greyImage} title={user.caption} />
         </a>
       );
     });
 
   return (
-    <div className="usersSection productShowcaseSection lightBackground">
+    <div className="usersSection productShowcaseSection">
       <Container>
         <h2>Used By People You Rely On</h2>
         <div style={{ textAlign: "right" }} />
@@ -379,7 +262,7 @@ const UsersSection = ({ language }) => {
           style={{
             display: "flex",
             flexFlow: "row wrap",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
           }}
         >
           {showcase}
@@ -389,14 +272,9 @@ const UsersSection = ({ language }) => {
             className="button"
             href={siteConfig.baseUrl + language + "/users/"}
             target="_self"
+            style={{ marginRight: "10px" }}
           >
-            See All Others
-          </a>
-          <a
-            className="button"
-            href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
-          >
-            Add Your Project
+            See Others
           </a>
         </div>
 
@@ -406,24 +284,9 @@ const UsersSection = ({ language }) => {
           style={{
             display: "flex",
             justifyContent: "space-around",
-            flexFlow: "row wrap"
+            flexFlow: "row wrap",
           }}
         >
-          <div style={{ display: "flex", marginTop: "22px" }}>
-            <a
-              href="https://npmjs.com/package/prettier"
-              className="growOnHover"
-            >
-              <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
-            </a>
-            <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>More than 2000 tools and integrations on npm</p>
-              <Button href="https://www.npmjs.com/browse/depended/prettier">
-                Install Them
-              </Button>
-            </div>
-          </div>
-
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
               href="https://github.com/prettier/prettier"
@@ -432,9 +295,31 @@ const UsersSection = ({ language }) => {
               <img src="/images/github_grey.svg" style={{ height: "100px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>More than 400,000 dependent repositories on GitHub</p>
+              <p>
+                More than{" "}
+                <strong data-placeholder="dependent-github">2 million</strong>{" "}
+                dependent repositories on GitHub
+              </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
                 Check Them Out
+              </Button>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", marginTop: "22px" }}>
+            <a
+              href="https://npmjs.com/package/prettier"
+              className="growOnHover"
+            >
+              <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
+            </a>
+            <div style={{ marginLeft: ".7em", width: "260px" }}>
+              <p>
+                More than <strong data-placeholder="dependent-npm">6000</strong>{" "}
+                dependent packages on npm
+              </p>
+              <Button href="https://www.npmjs.com/browse/depended/prettier">
+                See them all
               </Button>
             </div>
           </div>
@@ -445,7 +330,7 @@ const UsersSection = ({ language }) => {
 };
 
 UsersSection.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 class Index extends React.Component {
@@ -460,7 +345,6 @@ class Index extends React.Component {
           <TldrSection language={language} />
           <LanguagesSection />
           <EditorSupportSection />
-          <GetStartedSection />
           <UsersSection language={language} />
         </div>
       </div>
@@ -469,7 +353,7 @@ class Index extends React.Component {
 }
 
 Index.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 module.exports = Index;

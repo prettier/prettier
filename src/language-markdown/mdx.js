@@ -24,13 +24,14 @@
  * THE SOFTWARE.
  */
 
-const IMPORT_REGEX = /^import/;
-const EXPORT_REGEX = /^export/;
-const BLOCKS_REGEX = "[a-z\\.]+(\\.){0,1}[a-z\\.]";
+const IMPORT_REGEX = /^import\s/;
+const EXPORT_REGEX = /^export\s/;
+const BLOCKS_REGEX = "[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)*|";
+const COMMENT_REGEX = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
 const EMPTY_NEWLINE = "\n\n";
 
-const isImport = text => IMPORT_REGEX.test(text);
-const isExport = text => EXPORT_REGEX.test(text);
+const isImport = (text) => IMPORT_REGEX.test(text);
+const isExport = (text) => EXPORT_REGEX.test(text);
 
 const tokenizeEsSyntax = (eat, value) => {
   const index = value.indexOf(EMPTY_NEWLINE);
@@ -39,17 +40,18 @@ const tokenizeEsSyntax = (eat, value) => {
   if (isExport(subvalue) || isImport(subvalue)) {
     return eat(subvalue)({
       type: isExport(subvalue) ? "export" : "import",
-      value: subvalue
+      value: subvalue,
     });
   }
 };
 
+/* istanbul ignore next */
 tokenizeEsSyntax.locator = (value /*, fromIndex*/) => {
   return isExport(value) || isImport(value) ? -1 : 1;
 };
 
 function esSyntax() {
-  const Parser = this.Parser;
+  const { Parser } = this;
   const tokenizers = Parser.prototype.blockTokenizers;
   const methods = Parser.prototype.blockMethods;
 
@@ -60,5 +62,6 @@ function esSyntax() {
 
 module.exports = {
   esSyntax,
-  BLOCKS_REGEX
+  BLOCKS_REGEX,
+  COMMENT_REGEX,
 };

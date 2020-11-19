@@ -9,27 +9,16 @@
     ],
     "Usage": [
       "install",
+      "ignore",
+      "integrating-with-linters",
+      "precommit",
+      "plugins",
       "cli",
       "api",
-      "browser",
-      "plugins",
-      "precommit",
-      "watching-files",
-      "integrating-with-linters",
-      "ignore"
+      "browser"
     ],
-    "Configuring Prettier": [
-      "options",
-      "configuration"
-    ],
-    "Editors": [
-      "editors",
-      "webstorm",
-      "vim"
-    ],
-    "Misc": [
-      "technical-details",
-      "related-projects"
-    ]
+    "Configuring Prettier": ["options", "configuration"],
+    "Editors": ["editors", "webstorm", "vim", "watching-files"],
+    "Misc": ["technical-details", "related-projects", "for-enterprise"]
   }
 }

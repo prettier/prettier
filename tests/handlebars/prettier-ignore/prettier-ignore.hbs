@@ -1,0 +1,34 @@
+{{! prettier-ignore }}
+<div>
+  "hello! my parent was ignored"
+  {{#my-crazy-component     "shall"     be="preserved"}}
+    <This
+
+      is="preserved"
+    />
+  {{/my-crazy-component}}
+</div>
+
+{{#a-normal-component    isRestoredTo   = "order"    }}
+  <ThisWillBeNormal backTo    =   "normal" />
+{{/a-normal-component}}
+
+<div     class="this should be fixed"          >
+  <Sibling isFixed   =  {{true}}      />
+  {{! prettier-ignore }}
+  <div  class = " left in chaos as well as children   "     >
+
+      <SomeComponent @broken =   {{    true    }}></SomeComponent>
+
+
+  </div>
+  {{#another-sibling    as     |isFixed|}}
+
+    <div class =    "fixed"   >{{   isFixed   }}
+
+        All of this should be fixed
+
+    </div>
+
+  {{/another-sibling}}
+</div>

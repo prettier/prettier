@@ -7,11 +7,17 @@
 - image: "/images/editors/editor_emacs.svg"
   name: Emacs
   content: |
-    [`prettier-emacs`](https://github.com/prettier/prettier-emacs)
+    [`prettier-js`](https://github.com/prettier/prettier-emacs)
+    [`prettier.el`](https://github.com/jscheid/prettier.el)
+    [`Apheleia`](https://github.com/raxod502/apheleia)
 - image: /images/editors/editor_espresso.svg
   name: Espresso
   content: |
     [`espresso-prettier`](https://github.com/eablokker/espresso-prettier)
+- image: /images/editors/editor_nova.svg
+  name: Nova
+  content: |
+    [`Prettier`](https://extensions.panic.com/extensions/alexanderweiss/alexanderweiss.prettier)
 - image: /images/editors/editor_sublime.svg
   name: Sublime Text
   content: |
@@ -19,9 +25,10 @@
 - image: /images/editors/editor_vim.svg
   name: Vim
   content: |
-    [`neoformat`](https://github.com/sbdchd/neoformat)
-    [`ale`](https://github.com/w0rp/ale)
     [`vim-prettier`](https://github.com/prettier/vim-prettier)
+    [`neoformat`](https://github.com/sbdchd/neoformat)
+    [`ALE`](https://github.com/w0rp/ale)
+    [`coc-prettier`](https://github.com/neoclide/coc-prettier)
 - image: /images/editors/editor_vs.svg
   name: Visual Studio
   content: |
@@ -30,8 +37,7 @@
   name: VS Code
   content: |
     [`prettier-vscode`](https://github.com/prettier/prettier-vscode)
-    [`unibeautify-vscode`](https://github.com/Unibeautify/vscode)
 - image: /images/editors/editor_webstorm.svg
   name: WebStorm
   content: |
-    [Built-in support](https://plugins.jetbrains.com/plugin/10456-prettier)
+    [Built-in support](https://prettier.io/docs/en/webstorm.html)

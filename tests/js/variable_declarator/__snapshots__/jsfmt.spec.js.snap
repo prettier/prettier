@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-const.js [espree] format 1`] = `
+"Unexpected token ; (1:10)
+> 1 | const foo;
+    |          ^
+  2 | "
+`;
+
+exports[`invalid-const.js [flow] format 1`] = `
+"Const must be initialized (1:7)
+> 1 | const foo;
+    |       ^^^
+  2 | "
+`;
+
+exports[`invalid-const.js [meriyah] format 1`] = `
+"[1:10]: Missing initializer in const declaration (1:10)
+> 1 | const foo;
+    |          ^
+  2 | "
+`;
+
+exports[`invalid-const.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo;
+
+=====================================output=====================================
+const foo;
+
+================================================================================
+`;
+
+exports[`multiple.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var assert = require('assert'),
+  lookup = require('../lookup');
+
+const eloBar     = require("elo-bar")
+  , foo        = require("foo")
+  , otherThing = require("other-thing");
+
+var a, b, c;
+
+let superSuperSuperLong1, superSuperSuperLong2, superSuperSuperLong3, superSuperSuperLong4;
+
+for (var i = 0, len = arr.length; i < len; i++) {}
+
+var templateTagsMapping = {
+    '%{itemIndex}': 'index',
+    '%{itemContentMetaTextViews}': 'views'
+  },
+  separator = '<span class="item__content__meta__separator">•</span>',
+  templateTagsList = $.map(templateTagsMapping, function(value, key) {
+    return key;
+  }),
+  data;
+
+=====================================output=====================================
+var assert = require("assert"),
+  lookup = require("../lookup");
+
+const eloBar = require("elo-bar"),
+  foo = require("foo"),
+  otherThing = require("other-thing");
+
+var a, b, c;
+
+let superSuperSuperLong1,
+  superSuperSuperLong2,
+  superSuperSuperLong3,
+  superSuperSuperLong4;
+
+for (var i = 0, len = arr.length; i < len; i++) {}
+
+var templateTagsMapping = {
+    "%{itemIndex}": "index",
+    "%{itemContentMetaTextViews}": "views",
+  },
+  separator = '<span class="item__content__meta__separator">•</span>',
+  templateTagsList = $.map(templateTagsMapping, function (value, key) {
+    return key;
+  }),
+  data;
+
+================================================================================
+`;
+
+exports[`string.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+elements[0].innerHTML = '<div></div><div></div><div></div><div></div><div></div><div></div>';
+
+=====================================output=====================================
+elements[0].innerHTML =
+  "<div></div><div></div><div></div><div></div><div></div><div></div>";
+
+================================================================================
+`;

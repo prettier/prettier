@@ -1,65 +1,76 @@
 "use strict";
 
-const getLast = require("../utils/get-last");
+/**
+ * @typedef {import("./types/estree").Node} Node
+ */
 
 function locStart(node, opts) {
-  opts = opts || {};
+  const { ignoreDecorators } = opts || {};
+
   // Handle nodes with decorators. They should start at the first decorator
-  if (
-    !opts.ignoreDecorators &&
-    node.declaration &&
-    node.declaration.decorators &&
-    node.declaration.decorators.length > 0
-  ) {
-    return locStart(node.declaration.decorators[0]);
-  }
-  if (!opts.ignoreDecorators && node.decorators && node.decorators.length > 0) {
-    return locStart(node.decorators[0]);
+  if (!ignoreDecorators) {
+    const decorators =
+      (node.declaration && node.declaration.decorators) || node.decorators;
+
+    if (decorators && decorators.length > 0) {
+      return locStart(decorators[0]);
+    }
   }
 
-  if (node.__location) {
-    return node.__location.startOffset;
-  }
-  if (node.range) {
-    return node.range[0];
-  }
-  if (typeof node.start === "number") {
-    return node.start;
-  }
-  if (node.loc) {
-    return node.loc.start;
-  }
-  return null;
+  return node.range ? node.range[0] : node.start;
 }
 
 function locEnd(node) {
-  const endNode = node.nodes && getLast(node.nodes);
-  if (endNode && node.source && !node.source.end) {
-    node = endNode;
-  }
+  const end = node.range ? node.range[1] : node.end;
+  return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
+}
 
-  if (node.__location) {
-    return node.__location.endOffset;
-  }
+/**
+ * @param {Node} startNode
+ * @param {Node | number} endNodeOrLength
+ * @returns {number[]}
+ */
+function composeLoc(startNode, endNodeOrLength = startNode) {
+  const start = locStart(startNode);
+  const end =
+    typeof endNodeOrLength === "number"
+      ? start + endNodeOrLength
+      : locEnd(endNodeOrLength);
 
-  const loc = node.range
-    ? node.range[1]
-    : typeof node.end === "number"
-    ? node.end
-    : null;
+  return [start, end];
+}
 
-  if (node.typeAnnotation) {
-    return Math.max(loc, locEnd(node.typeAnnotation));
-  }
+/**
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @returns {boolean}
+ */
+function hasSameLocStart(nodeA, nodeB) {
+  return locStart(nodeA) === locStart(nodeB);
+}
 
-  if (node.loc && !loc) {
-    return node.loc.end;
-  }
+/**
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @returns {boolean}
+ */
+function hasSameLocEnd(nodeA, nodeB) {
+  return locEnd(nodeA) === locEnd(nodeB);
+}
 
-  return loc;
+/**
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @returns {boolean}
+ */
+function hasSameLoc(nodeA, nodeB) {
+  return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
 module.exports = {
   locStart,
-  locEnd
+  locEnd,
+  composeLoc,
+  hasSameLocStart,
+  hasSameLoc,
 };

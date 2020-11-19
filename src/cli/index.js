@@ -1,7 +1,11 @@
 "use strict";
 
-const prettier = require("../../index");
-const stringify = require("json-stable-stringify");
+// eslint-disable-next-line no-restricted-modules
+require("please-upgrade-node")(require("../../package.json"));
+
+const stringify = require("fast-json-stable-stringify");
+// eslint-disable-next-line no-restricted-modules
+const prettier = require("../index");
 const util = require("./util");
 
 function run(args) {
@@ -12,12 +16,12 @@ function run(args) {
 
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
-    if (context.argv["check"] && context.argv["list-different"]) {
+    if (context.argv.check && context.argv["list-different"]) {
       context.logger.error("Cannot use --check and --list-different together.");
       process.exit(1);
     }
 
-    if (context.argv["write"] && context.argv["debug-check"]) {
+    if (context.argv.write && context.argv["debug-check"]) {
       context.logger.error("Cannot use --write and --debug-check together.");
       process.exit(1);
     }
@@ -32,15 +36,15 @@ function run(args) {
       process.exit(1);
     }
 
-    if (context.argv["version"]) {
+    if (context.argv.version) {
       context.logger.log(prettier.version);
       process.exit(0);
     }
 
-    if (context.argv["help"] !== undefined) {
+    if (context.argv.help !== undefined) {
       context.logger.log(
-        typeof context.argv["help"] === "string" && context.argv["help"] !== ""
-          ? util.createDetailedUsage(context, context.argv["help"])
+        typeof context.argv.help === "string" && context.argv.help !== ""
+          ? util.createDetailedUsage(context, context.argv.help)
           : util.createUsage(context)
       );
       process.exit(0);
@@ -49,7 +53,7 @@ function run(args) {
     if (context.argv["support-info"]) {
       context.logger.log(
         prettier.format(stringify(prettier.getSupportInfo()), {
-          parser: "json"
+          parser: "json",
         })
       );
       process.exit(0);
@@ -57,7 +61,8 @@ function run(args) {
 
     const hasFilePatterns = context.filePatterns.length !== 0;
     const useStdin =
-      context.argv["stdin"] || (!hasFilePatterns && !process.stdin.isTTY);
+      !hasFilePatterns &&
+      (!process.stdin.isTTY || context.args["stdin-filepath"]);
 
     if (context.argv["find-config-path"]) {
       util.logResolvedConfigPathOrDie(context);
@@ -78,5 +83,5 @@ function run(args) {
 }
 
 module.exports = {
-  run
+  run,
 };

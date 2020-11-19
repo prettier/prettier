@@ -9,12 +9,12 @@ async function install() {
 
   const status = await execa.stdout("git", ["ls-files", "-m"]);
   if (status) {
-    throw Error(
+    throw new Error(
       "The lockfile needs to be updated, commit it before making the release."
     );
   }
 }
 
-module.exports = function() {
+module.exports = function () {
   return logPromise("Installing NPM dependencies", install());
 };

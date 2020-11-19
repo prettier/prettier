@@ -1,14 +1,14 @@
 "use strict";
 
 const {
-  builders: { concat, join, line }
-} = require("../doc");
+  builders: { concat, join, line, group, softline, indent },
+} = require("../document");
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();
 
   if (options.__onHtmlBindingRoot && path.getName() === null) {
-    options.__onHtmlBindingRoot(node);
+    options.__onHtmlBindingRoot(node, options);
   }
 
   if (node.type !== "File") {
@@ -17,15 +17,22 @@ function printHtmlBinding(path, options, print) {
 
   if (options.__isVueForBindingLeft) {
     return path.call(
-      functionDeclarationPath => {
+      (functionDeclarationPath) => {
+        const printed = join(
+          concat([",", line]),
+          functionDeclarationPath.map(print, "params")
+        );
+
         const { params } = functionDeclarationPath.getValue();
+        if (params.length === 1) {
+          return printed;
+        }
+
         return concat([
-          params.length > 1 ? "(" : "",
-          join(
-            concat([",", line]),
-            functionDeclarationPath.map(print, "params")
-          ),
-          params.length > 1 ? ")" : ""
+          "(",
+          indent(concat([softline, group(printed)])),
+          softline,
+          ")",
         ]);
       },
       "program",
@@ -34,9 +41,9 @@ function printHtmlBinding(path, options, print) {
     );
   }
 
-  if (options.__isVueSlotScope) {
+  if (options.__isVueBindings) {
     return path.call(
-      functionDeclarationPath =>
+      (functionDeclarationPath) =>
         join(concat([",", line]), functionDeclarationPath.map(print, "params")),
       "program",
       "body",
@@ -65,5 +72,5 @@ function isVueEventBindingExpression(node) {
 
 module.exports = {
   isVueEventBindingExpression,
-  printHtmlBinding
+  printHtmlBinding,
 };

@@ -4,172 +4,38 @@ title: Integrating with Linters
 original_id: integrating-with-linters
 ---
 
-Prettier can be integrated into workflows with existing linting tools.
-This allows you to use Prettier for code formatting concerns, while letting your linter focus on code-quality concerns as outlined in our [comparison with linters](comparison.md).
+Linters usually contain not only code quality rules, but also stylistic rules. Most stylistic rules are unnecessary when using Prettier, but worse – they might conflict with Prettier! Use Prettier for code formatting concerns, and linters for code-quality concerns, as outlined in [Prettier vs. Linters](comparison.md).
 
-Whatever linting tool you wish to integrate with, the steps are broadly similar.
-First disable any existing formatting rules in your linter that may conflict with how Prettier wishes to format your code. Then you can either add an extension to your linting tool to format your file with Prettier - so that you only need a single command for format a file, or run your linter then Prettier as separate steps.
+Luckily it’s easy to turn off rules that conflict or are unnecessary with Prettier, by using these pre-made configs:
 
-All these instructions assume you have already installed `prettier` in your `devDependencies`.
+- [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
+- [tslint-config-prettier](https://github.com/alexjoverm/tslint-config-prettier)
+- [stylelint-config-prettier](https://github.com/prettier/stylelint-config-prettier)
 
-## ESLint
+Check out the above links for instructions on how to install and set things up.
 
-### Disable formatting rules
+## Notes
 
-[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your `devDependencies`, then extend from it within your `.eslintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
+When searching for both Prettier and your linter on the Internet you’ll probably find more related projects. These are **generally not recommended,** but can be useful in certain circumstances.
 
-```bash
-yarn add --dev eslint-config-prettier
-```
+First, we have plugins that let you run Prettier as if it was a linter rule:
 
-Then in `.eslintrc.json`:
+- [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)
+- [tslint-plugin-prettier](https://github.com/ikatyang/tslint-plugin-prettier)
+- [stylelint-prettier](https://github.com/prettier/stylelint-prettier)
 
-```json
-{
-  "extends": ["prettier"]
-}
-```
+These plugins were especially useful when Prettier was new. By running Prettier inside your linters, you didn’t have to set up any new infrastructure and you could re-use your editor integrations for the linters. But these days you can run `prettier --check .` and most editors have Prettier support.
 
-### Use ESLint to run Prettier
+The downsides of those plugins are:
 
-[`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your `devDependencies`, then enable the plugin and rule.
+- You end up with a lot of red squiggly lines in your editor, which gets annoying. Prettier is supposed to make you forget about formatting – and not be in your face about it!
+- They are slower than running Prettier directly.
+- They’re yet one layer of indirection where things may break.
 
-```bash
-yarn add --dev eslint-plugin-prettier
-```
+Finally, we have tools that runs `prettier` and then immediately for example `eslint --fix` on files.
 
-Then in `.eslintrc.json`:
+- [prettier-eslint](https://github.com/prettier/prettier-eslint)
+- [prettier-tslint](https://github.com/azz/prettier-tslint)
+- [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint)
 
-```json
-{
-  "plugins": ["prettier"],
-  "rules": {
-    "prettier/prettier": "error"
-  }
-}
-```
-
-### Recommended configuration
-
-`eslint-plugin-prettier` exposes a "recommended" configuration that configures both `eslint-plugin-prettier` and `eslint-config-prettier` in a single step. Add both `eslint-plugin-prettier` and `eslint-config-prettier` as developer dependencies, then extend the recommended config:
-
-```bash
-yarn add --dev eslint-config-prettier eslint-plugin-prettier
-```
-
-Then in `.eslintrc.json`:
-
-```json
-{
-  "extends": ["plugin:prettier/recommended"]
-}
-```
-
-## TSLint
-
-### Disable formatting rules
-
-[`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your `devDependencies`, then extend from it within your `tslint.json` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
-
-```bash
-yarn add --dev tslint-config-prettier
-```
-
-Then in `tslint.json`:
-
-```json
-{
-  "extends": ["tslint-config-prettier"]
-}
-```
-
-### Use TSLint to run Prettier
-
-[`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your `devDependencies`, then enable the plugin and rule.
-
-```bash
-yarn add --dev tslint-plugin-prettier
-```
-
-Then in `tslint.json`:
-
-```json
-{
-  "extends": ["tslint-plugin-prettier"],
-  "rules": {
-    "prettier": true
-  }
-}
-```
-
-### Recommended configuration
-
-`tslint-plugin-prettier` does not expose a recommended configuration. You should combine the two steps above. Add both `tslint-plugin-prettier` and `tslint-config-prettier` as developer dependencies, then add both sets of config.
-
-```bash
-yarn add --dev tslint-config-prettier tslint-plugin-prettier
-```
-
-Then in `tslint.json`:
-
-```json
-{
-  "extends": ["tslint-plugin-prettier", "tslint-config-prettier"],
-  "rules": {
-    "prettier": true
-  }
-}
-```
-
-## Stylelint
-
-### Disable formatting rules
-
-[`stylelint-config-prettier`](https://github.com/prettier/stylelint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your `devDependencies`, then extend from it within your `.stylelintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
-
-```bash
-yarn add --dev stylelint-config-prettier
-```
-
-Then in `.stylelintrc`:
-
-```json
-{
-  "extends": ["stylelint-config-prettier"]
-}
-```
-
-### Use Stylelint to run Prettier
-
-[`stylelint-prettier`](https://github.com/prettier/stylelint-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your `devDependencies`, then enable the plugin and rule.
-
-```bash
-yarn add --dev stylelint-prettier
-```
-
-Then in `.stylelintrc`:
-
-```json
-{
-  "plugins": ["stylelint-prettier"],
-  "rules": {
-    "prettier/prettier": true
-  }
-}
-```
-
-### Recommended configuration
-
-`stylelint-prettier` exposes a "recommended" configuration that configures both `stylelint-prettier` and `stylelint-config-prettier` in a single step. Add both `stylelint-prettier` and `stylelint-config-prettier` as developer dependencies, then extend the recommended config:
-
-```bash
-yarn add --dev stylelint-config-prettier stylelint-prettier
-```
-
-Then in `.stylelintrc`:
-
-```json
-{
-  "extends": ["stylelint-prettier/recommended"]
-}
-```
+Those are useful if some aspect of Prettier’s output makes Prettier completely unusable to you. Then you can have for example `eslint --fix` fix that up for you. The downside is that these tools are much slower than just running Prettier.
