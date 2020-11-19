@@ -95,12 +95,12 @@ function stmtNeedsASIProtection(path, options) {
   }
 
   return path.call(
-    (childPath) => exprNeedsASIProtection(childPath, options),
+    (childPath) => expressionNeedsASIProtection(childPath, options),
     "expression"
   );
 }
 
-function exprNeedsASIProtection(path, options) {
+function expressionNeedsASIProtection(path, options) {
   const node = path.getValue();
 
   const maybeASIProblem =
@@ -131,7 +131,7 @@ function exprNeedsASIProtection(path, options) {
   }
 
   return path.call(
-    (childPath) => exprNeedsASIProtection(childPath, options),
+    (childPath) => expressionNeedsASIProtection(childPath, options),
     ...getLeftSidePathName(path, node)
   );
 }
