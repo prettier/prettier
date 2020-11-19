@@ -3,7 +3,7 @@
 const { isNumericLiteral } = require("../utils");
 
 const {
-  builders: { concat, softline, group, indent },
+  builders: { concat, softline, group, indent, join },
 } = require("../../document");
 
 function printOptionalToken(path) {

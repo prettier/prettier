@@ -51,7 +51,6 @@ const {
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
-  hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
@@ -60,13 +59,7 @@ const {
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
-<<<<<<< HEAD
-  hasIgnoreComment,
-=======
-  identity,
->>>>>>> master
   isBinaryish,
-  isCallOrOptionalCallExpression,
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionNotation,
@@ -83,7 +76,6 @@ const {
   isStringLiteral,
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
-  isTestCall,
   isTheOnlyJSXElementInMarkdown,
   isTSXFile,
   isBlockComment,
@@ -133,9 +125,9 @@ const {
 const { printClass } = require("./print/class");
 const {
   printTypeParameters,
-  getTypeParametersGroupId,
 } = require("./print/type-parameters");
 const { printCallExpression } = require("./print/call-expression");
+const { printInterface } = require("./print/interface");
 
 const needsQuoteProps = new WeakMap();
 
