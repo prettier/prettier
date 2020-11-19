@@ -7,7 +7,7 @@ const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak },
+  builders: { concat, line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -18,6 +18,9 @@ const {
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
+  returnArgumentHasLeadingComment,
+  isBinaryish,
+  isLineComment,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -285,9 +288,67 @@ function printReturnType(path, print, options) {
   return concat(parts);
 }
 
+// `ReturnStatement` and `ThrowStatement`
+function printReturnAndThrowArgument(path, options, print) {
+  const node = path.getValue();
+  const semi = options.semi ? ";" : "";
+  const parts = [];
+
+  if (node.argument) {
+    if (returnArgumentHasLeadingComment(options, node.argument)) {
+      parts.push(
+        concat([
+          " (",
+          indent(concat([hardline, path.call(print, "argument")])),
+          hardline,
+          ")",
+        ])
+      );
+    } else if (
+      isBinaryish(node.argument) ||
+      node.argument.type === "SequenceExpression"
+    ) {
+      parts.push(
+        group(
+          concat([
+            ifBreak(" (", " "),
+            indent(concat([softline, path.call(print, "argument")])),
+            softline,
+            ifBreak(")"),
+          ])
+        )
+      );
+    } else {
+      parts.push(" ", path.call(print, "argument"));
+    }
+  }
+
+  const lastComment =
+    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
+  const isLastCommentLine = lastComment && isLineComment(lastComment);
+
+  if (isLastCommentLine) {
+    parts.push(semi);
+  }
+
+  if (hasDanglingComments(node)) {
+    parts.push(
+      " ",
+      printDanglingComments(path, options, /* sameIndent */ true)
+    );
+  }
+
+  if (!isLastCommentLine) {
+    parts.push(semi);
+  }
+
+  return concat(parts);
+}
+
 module.exports = {
   printFunctionDeclaration,
   printArrowFunctionExpression,
   printMethod,
+  printReturnAndThrowArgument,
   shouldPrintParamsWithoutParens,
 };

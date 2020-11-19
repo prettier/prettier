@@ -134,6 +134,7 @@ const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
   printMethod,
+  printReturnAndThrowArgument,
   shouldPrintParamsWithoutParens,
 } = require("./print/function");
 
@@ -774,9 +775,10 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     }
+    case "ThrowStatement":
     case "ReturnStatement":
       return concat([
-        "return",
+        n.type === "ReturnStatement" ? "return" : "throw",
         printReturnAndThrowArgument(path, options, print),
       ]);
     case "NewExpression":
@@ -1334,11 +1336,6 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(["catch ", path.call(print, "body")]);
-    case "ThrowStatement":
-      return concat([
-        "throw",
-        printReturnAndThrowArgument(path, options, print),
-      ]);
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return concat([
@@ -3139,62 +3136,6 @@ function stmtNeedsASIProtection(path, options) {
     (childPath) => exprNeedsASIProtection(childPath, options),
     "expression"
   );
-}
-
-function printReturnAndThrowArgument(path, options, print) {
-  const node = path.getValue();
-  const semi = options.semi ? ";" : "";
-  const parts = [];
-
-  if (node.argument) {
-    if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push(
-        concat([
-          " (",
-          indent(concat([hardline, path.call(print, "argument")])),
-          hardline,
-          ")",
-        ])
-      );
-    } else if (
-      isBinaryish(node.argument) ||
-      node.argument.type === "SequenceExpression"
-    ) {
-      parts.push(
-        group(
-          concat([
-            ifBreak(" (", " "),
-            indent(concat([softline, path.call(print, "argument")])),
-            softline,
-            ifBreak(")"),
-          ])
-        )
-      );
-    } else {
-      parts.push(" ", path.call(print, "argument"));
-    }
-  }
-
-  const lastComment =
-    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
-  const isLastCommentLine = lastComment && isLineComment(lastComment);
-
-  if (isLastCommentLine) {
-    parts.push(semi);
-  }
-
-  if (hasDanglingComments(node)) {
-    parts.push(
-      " ",
-      comments.printDanglingComments(path, options, /* sameIndent */ true)
-    );
-  }
-
-  if (!isLastCommentLine) {
-    parts.push(semi);
-  }
-
-  return concat(parts);
 }
 
 function canAttachComment(node) {
