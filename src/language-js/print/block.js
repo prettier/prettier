@@ -1,6 +1,6 @@
 "use strict";
 
-const { printDanglingComments } = require("../main/comments");
+const { printDanglingComments } = require("../../main/comments");
 const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
