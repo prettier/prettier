@@ -8,7 +8,7 @@ const {
   hasTrailingLineComment,
   identity,
 } = require("../utils");
-const { getTypeParametersGroupId } = require("./print/type-parameters");
+const { getTypeParametersGroupId } = require("./type-parameters");
 const { printTypeScriptModifiers } = require("./misc");
 
 function printInterface(path, options, print) {
