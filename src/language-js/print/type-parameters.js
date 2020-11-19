@@ -46,29 +46,11 @@ function printTypeParameters(path, options, print, paramsKey) {
           shouldHugType(n[paramsKey][0].typeName)) ||
         n[paramsKey][0].type === "NullableTypeAnnotation"));
 
-  function printDanglingCommentsForInline(n) {
-    if (!hasDanglingComments(n)) {
-      return "";
-    }
-    const hasOnlyBlockComments = n.comments.every((comment) =>
-      isBlockComment(comment)
-    );
-    const printed = printDanglingComments(
-      path,
-      options,
-      /* sameIndent */ hasOnlyBlockComments
-    );
-    if (hasOnlyBlockComments) {
-      return printed;
-    }
-    return concat([printed, hardline]);
-  }
-
   if (shouldInline) {
     return concat([
       "<",
       join(", ", path.map(print, paramsKey)),
-      printDanglingCommentsForInline(n),
+      printDanglingCommentsForInline(path, options),
       ">",
     ]);
   }
@@ -94,6 +76,25 @@ function printTypeParameters(path, options, print, paramsKey) {
     ]),
     { id: getTypeParametersGroupId(n) }
   );
+}
+
+function printDanglingCommentsForInline(path, options) {
+  const n = path.getValue();
+  if (!hasDanglingComments(n)) {
+    return "";
+  }
+  const hasOnlyBlockComments = n.comments.every((comment) =>
+    isBlockComment(comment)
+  );
+  const printed = printDanglingComments(
+    path,
+    options,
+    /* sameIndent */ hasOnlyBlockComments
+  );
+  if (hasOnlyBlockComments) {
+    return printed;
+  }
+  return concat([printed, hardline]);
 }
 
 module.exports = { printTypeParameters, getTypeParametersGroupId };

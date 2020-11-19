@@ -37,54 +37,7 @@ function printClass(path, options, print) {
 
   partsGroup.push(path.call(print, "typeParameters"));
 
-  const hasMultipleHeritage =
-    ["superClass", "extends", "mixins", "implements"].filter((key) => !!n[key])
-      .length > 1;
-  const shouldIndentOnlyHeritageClauses =
-    n.typeParameters &&
-    !hasTrailingLineComment(n.typeParameters) &&
-    !hasMultipleHeritage;
-
-  function printList(listName) {
-    if (n[listName] && n[listName].length !== 0) {
-      const printedLeadingComments = printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        ({ marker }) => marker === listName
-      );
-      extendsParts.push(
-        shouldIndentOnlyHeritageClauses
-          ? ifBreak(" ", line, {
-              groupId: getTypeParametersGroupId(n.typeParameters),
-            })
-          : line,
-        printedLeadingComments,
-        printedLeadingComments && hardline,
-        listName,
-        group(
-          indent(
-            concat([line, join(concat([",", line]), path.map(print, listName))])
-          )
-        )
-      );
-    }
-  }
-
   if (n.superClass) {
-    const printSuperClass = (path) => {
-      const printed = path.call(print, "superClass");
-      const parent = path.getParentNode();
-      if (parent && parent.type === "AssignmentExpression") {
-        return concat([
-          ifBreak("("),
-          indent(concat([softline, printed])),
-          softline,
-          ifBreak(")"),
-        ]);
-      }
-      return printed;
-    };
     const printed = concat([
       "extends ",
       printSuperClass(path),
@@ -100,15 +53,15 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    printList("extends");
+    extendsParts(printList(path, options, print, "extends"));
   }
 
-  printList("mixins");
-  printList("implements");
+  extendsParts(printList(path, options, print, "mixins"));
+  extendsParts(printList(path, options, print, "implements"));
 
   if (groupMode) {
     const printedExtends = concat(extendsParts);
-    if (shouldIndentOnlyHeritageClauses) {
+    if (shouldIndentOnlyHeritageClauses(n)) {
       parts.push(
         group(
           concat(
@@ -126,6 +79,65 @@ function printClass(path, options, print) {
   parts.push(" ", path.call(print, "body"));
 
   return parts;
+}
+
+function hasMultipleHeritage(node) {
+  return (
+    ["superClass", "extends", "mixins", "implements"].filter(
+      (key) => !!node[key]
+    ).length > 1
+  );
+}
+
+function shouldIndentOnlyHeritageClauses(node) {
+  return (
+    node.typeParameters &&
+    !hasTrailingLineComment(node.typeParameters) &&
+    !hasMultipleHeritage(node)
+  );
+}
+
+function printList(path, options, print, listName) {
+  const n = path.getValue();
+  if (!n[listName] || n[listName].length === 0) {
+    return "";
+  }
+
+  const printedLeadingComments = printDanglingComments(
+    path,
+    options,
+    /* sameIndent */ true,
+    ({ marker }) => marker === listName
+  );
+  return (
+    shouldIndentOnlyHeritageClauses(n)
+      ? ifBreak(" ", line, {
+          groupId: getTypeParametersGroupId(n.typeParameters),
+        })
+      : line,
+    printedLeadingComments,
+    printedLeadingComments && hardline,
+    listName,
+    group(
+      indent(
+        concat([line, join(concat([",", line]), path.map(print, listName))])
+      )
+    )
+  );
+}
+
+function printSuperClass(path, options, print) {
+  const printed = path.call(print, "superClass");
+  const parent = path.getParentNode();
+  if (parent && parent.type === "AssignmentExpression") {
+    return concat([
+      ifBreak("("),
+      indent(concat([softline, printed])),
+      softline,
+      ifBreak(")"),
+    ]);
+  }
+  return printed;
 }
 
 module.exports = { printClass };
