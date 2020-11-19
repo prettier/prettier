@@ -40,7 +40,7 @@ function printClass(path, options, print) {
   if (n.superClass) {
     const printed = concat([
       "extends ",
-      printSuperClass(path),
+      printSuperClass(path, options, print),
       path.call(print, "superTypeParameters"),
     ]);
     const printedWithComments = path.call(
