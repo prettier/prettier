@@ -1569,12 +1569,12 @@ function printPathNoParens(path, options, print, args) {
       return printJsxClosingElement(path, options, print);
     case "JSXOpeningFragment":
     case "JSXClosingFragment":
-      return printJsxOpeningClosingFragment(path, options, print);
+      return printJsxOpeningClosingFragment(path, options /*, print*/);
     case "JSXText":
       /* istanbul ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
     case "JSXEmptyExpression":
-      return printJsxEmptyExpression(path, options, print);
+      return printJsxEmptyExpression(path, options /*, print*/);
     case "ClassBody":
       if (!n.comments && n.body.length === 0) {
         return "{}";
