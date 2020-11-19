@@ -29,7 +29,7 @@ const {
     conditionalGroup,
     ifBreak,
   },
-  utils: { isEmpty, normalizeParts },
+  utils: { isEmpty },
 } = require("../document");
 const embed = require("./embed");
 const clean = require("./clean");
@@ -57,27 +57,21 @@ const {
   hasNgSideEffect,
   hasPrettierIgnore,
   hasTrailingComment,
-  hasTrailingLineComment,
-  isBinaryish,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   isJSXNode,
   isLastStatement,
   isLiteral,
-  isMemberExpressionChain,
   isNgForOf,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isStringLiteral,
   isTheOnlyJSXElementInMarkdown,
   isTSXFile,
   isBlockComment,
-  isLineComment,
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
-  shouldFlatten,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -87,6 +81,7 @@ const {
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printDecorators,
+  printFlowDeclaration,
 } = require("./print/misc");
 const {
   printImportDeclaration,
@@ -126,8 +121,14 @@ const {
 } = require("./print/function");
 const { printCallExpression } = require("./print/call-expression");
 const { printInterface } = require("./print/interface");
-
-let uid = 0;
+const {
+  printVariableDeclarator,
+  printAssignmentExpression,
+  printAssignment,
+  printAssignmentRight,
+} = require("./print/assignment");
+const { printBinaryishExpression } = require("./print/binaryish");
+const { printComment } = require("./print/comment");
 
 function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
@@ -357,164 +358,13 @@ function printPathNoParens(path, options, print, args) {
       );
     }
     case "AssignmentExpression":
-      return printAssignment(
-        n.left,
-        path.call(print, "left"),
-        concat([" ", n.operator]),
-        n.right,
-        path.call(print, "right"),
-        options
-      );
+      return printAssignmentExpression(path, options, print);
+    case "VariableDeclarator":
+      return printVariableDeclarator(path, options, print);
     case "BinaryExpression":
     case "LogicalExpression":
-    case "NGPipeExpression": {
-      const parent = path.getParentNode();
-      const parentParent = path.getParentNode(1);
-      const isInsideParenthesis =
-        n !== parent.body &&
-        (parent.type === "IfStatement" ||
-          parent.type === "WhileStatement" ||
-          parent.type === "SwitchStatement" ||
-          parent.type === "DoWhileStatement");
-
-      const parts = printBinaryishExpressions(
-        path,
-        print,
-        options,
-        /* isNested */ false,
-        isInsideParenthesis
-      );
-
-      //   if (
-      //     this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft
-      //   ) {
-      //
-      // looks super weird, we want to break the children if the parent breaks
-      //
-      //   if (
-      //     this.hasPlugin("dynamicImports") &&
-      //     this.lookahead().type === tt.parenLeft
-      //   ) {
-      if (isInsideParenthesis) {
-        return concat(parts);
-      }
-
-      // Break between the parens in
-      // unaries or in a member or specific call expression, i.e.
-      //
-      //   (
-      //     a &&
-      //     b &&
-      //     c
-      //   ).call()
-      if (
-        ((parent.type === "CallExpression" ||
-          parent.type === "OptionalCallExpression") &&
-          parent.callee === n) ||
-        parent.type === "UnaryExpression" ||
-        ((parent.type === "MemberExpression" ||
-          parent.type === "OptionalMemberExpression") &&
-          !parent.computed)
-      ) {
-        return group(
-          concat([indent(concat([softline, concat(parts)])), softline])
-        );
-      }
-
-      // Avoid indenting sub-expressions in some cases where the first sub-expression is already
-      // indented accordingly. We should indent sub-expressions where the first case isn't indented.
-      const shouldNotIndent =
-        parent.type === "ReturnStatement" ||
-        parent.type === "ThrowStatement" ||
-        (parent.type === "JSXExpressionContainer" &&
-          parentParent.type === "JSXAttribute") ||
-        (n.operator !== "|" && parent.type === "JsExpressionRoot") ||
-        (n.type !== "NGPipeExpression" &&
-          ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
-            (parent.type === "NGMicrosyntaxExpression" &&
-              parentParent.type === "NGMicrosyntax" &&
-              parentParent.body.length === 1))) ||
-        (n === parent.body && parent.type === "ArrowFunctionExpression") ||
-        (n !== parent.body && parent.type === "ForStatement") ||
-        (parent.type === "ConditionalExpression" &&
-          parentParent.type !== "ReturnStatement" &&
-          parentParent.type !== "ThrowStatement" &&
-          parentParent.type !== "CallExpression" &&
-          parentParent.type !== "OptionalCallExpression") ||
-        parent.type === "TemplateLiteral";
-
-      const shouldIndentIfInlining =
-        parent.type === "AssignmentExpression" ||
-        parent.type === "VariableDeclarator" ||
-        parent.type === "ClassProperty" ||
-        parent.type === "FieldDefinition" ||
-        parent.type === "TSAbstractClassProperty" ||
-        parent.type === "ClassPrivateProperty" ||
-        parent.type === "ObjectProperty" ||
-        parent.type === "Property";
-
-      const samePrecedenceSubExpression =
-        isBinaryish(n.left) && shouldFlatten(n.operator, n.left.operator);
-
-      if (
-        shouldNotIndent ||
-        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
-        (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
-      ) {
-        return group(concat(parts));
-      }
-
-      if (parts.length === 0) {
-        return "";
-      }
-
-      // If the right part is a JSX node, we include it in a separate group to
-      // prevent it breaking the whole chain, so we can print the expression like:
-      //
-      //   foo && bar && (
-      //     <Foo>
-      //       <Bar />
-      //     </Foo>
-      //   )
-
-      const hasJSX = isJSXNode(n.right);
-
-      const firstGroupIndex = parts.findIndex(
-        (part) => typeof part !== "string" && part.type === "group"
-      );
-
-      // Separate the leftmost expression, possibly with its leading comments.
-      const headParts = parts.slice(
-        0,
-        firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
-      );
-
-      const rest = concat(
-        parts.slice(headParts.length, hasJSX ? -1 : undefined)
-      );
-
-      const groupId = Symbol("logicalChain-" + ++uid);
-
-      const chain = group(
-        concat([
-          // Don't include the initial expression in the indentation
-          // level. The first item is guaranteed to be the first
-          // left-most expression.
-          ...headParts,
-          indent(rest),
-        ]),
-        { id: groupId }
-      );
-
-      if (!hasJSX) {
-        return chain;
-      }
-
-      const jsxPart = getLast(parts);
-      return group(
-        concat([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })])
-      );
-    }
+    case "NGPipeExpression":
+      return printBinaryishExpression(path, options, print);
     case "AssignmentPattern":
       return concat([
         path.call(print, "left"),
@@ -1002,15 +852,6 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
-    case "VariableDeclarator":
-      return printAssignment(
-        n.id,
-        path.call(print, "id"),
-        " =",
-        n.init,
-        n.init && path.call(print, "init"),
-        options
-      );
     case "WithStatement":
       return group(
         concat([
@@ -2690,216 +2531,6 @@ function printStatementSequence(path, options, print) {
   return join(hardline, printed);
 }
 
-function printFlowDeclaration(path, printed) {
-  const parentExportDecl = getParentExportDeclaration(path);
-
-  if (parentExportDecl) {
-    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
-    return printed;
-  }
-
-  // If the parent node has type DeclareExportDeclaration, then it
-  // will be responsible for printing the "declare" token. Otherwise
-  // it needs to be printed with this non-exported declaration node.
-  return concat(["declare ", printed]);
-}
-
-function shouldInlineLogicalExpression(node) {
-  if (node.type !== "LogicalExpression") {
-    return false;
-  }
-
-  if (
-    node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
-  ) {
-    return true;
-  }
-
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
-    return true;
-  }
-
-  if (isJSXNode(node.right)) {
-    return true;
-  }
-
-  return false;
-}
-
-// For binary expressions to be consistent, we need to group
-// subsequent operators with the same precedence level under a single
-// group. Otherwise they will be nested such that some of them break
-// onto new lines but not all. Operators with the same precedence
-// level should either all break or not. Because we group them by
-// precedence level and the AST is structured based on precedence
-// level, things are naturally broken up correctly, i.e. `&&` is
-// broken before `+`.
-function printBinaryishExpressions(
-  path,
-  print,
-  options,
-  isNested,
-  isInsideParenthesis
-) {
-  /** @type{Doc[]} */
-  let parts = [];
-
-  const node = path.getValue();
-
-  // We treat BinaryExpression and LogicalExpression nodes the same.
-  if (isBinaryish(node)) {
-    // Put all operators with the same precedence level in the same
-    // group. The reason we only need to do this with the `left`
-    // expression is because given an expression like `1 + 2 - 3`, it
-    // is always parsed like `((1 + 2) - 3)`, meaning the `left` side
-    // is where the rest of the expression will exist. Binary
-    // expressions on the right side mean they have a difference
-    // precedence level and should be treated as a separate group, so
-    // print them normally. (This doesn't hold for the `**` operator,
-    // which is unique in that it is right-associative.)
-    if (shouldFlatten(node.operator, node.left.operator)) {
-      // Flatten them out by recursively calling this function.
-      parts = parts.concat(
-        path.call(
-          (left) =>
-            printBinaryishExpressions(
-              left,
-              print,
-              options,
-              /* isNested */ true,
-              isInsideParenthesis
-            ),
-          "left"
-        )
-      );
-    } else {
-      parts.push(group(path.call(print, "left")));
-    }
-
-    const shouldInline = shouldInlineLogicalExpression(node);
-    const lineBeforeOperator =
-      (node.operator === "|>" ||
-        node.type === "NGPipeExpression" ||
-        (node.operator === "|" && options.parser === "__vue_expression")) &&
-      !hasLeadingOwnLineComment(options.originalText, node.right);
-
-    const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
-    const rightSuffix =
-      node.type === "NGPipeExpression" && node.arguments.length !== 0
-        ? group(
-            indent(
-              concat([
-                softline,
-                ": ",
-                join(
-                  concat([softline, ":", ifBreak(" ")]),
-                  path
-                    .map(print, "arguments")
-                    .map((arg) => align(2, group(arg)))
-                ),
-              ])
-            )
-          )
-        : "";
-
-    const right = shouldInline
-      ? concat([operator, " ", path.call(print, "right"), rightSuffix])
-      : concat([
-          lineBeforeOperator ? line : "",
-          operator,
-          lineBeforeOperator ? " " : line,
-          path.call(print, "right"),
-          rightSuffix,
-        ]);
-
-    // If there's only a single binary expression, we want to create a group
-    // in order to avoid having a small right part like -1 be on its own line.
-    const parent = path.getParentNode();
-    const shouldBreak = hasTrailingLineComment(node.left);
-    const shouldGroup =
-      shouldBreak ||
-      (!(isInsideParenthesis && node.type === "LogicalExpression") &&
-        parent.type !== node.type &&
-        node.left.type !== node.type &&
-        node.right.type !== node.type);
-
-    parts.push(
-      lineBeforeOperator ? "" : " ",
-      shouldGroup ? group(right, { shouldBreak }) : right
-    );
-
-    // The root comments are already printed, but we need to manually print
-    // the other ones since we don't call the normal print on BinaryExpression,
-    // only for the left and right parts
-    if (isNested && node.comments) {
-      parts = normalizeParts(
-        comments.printComments(path, () => concat(parts), options).parts
-      );
-    }
-  } else {
-    // Our stopping case. Simply print the node normally.
-    parts.push(group(path.call(print)));
-  }
-
-  return parts;
-}
-
-function printAssignmentRight(leftNode, rightNode, printedRight, options) {
-  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    return indent(concat([line, printedRight]));
-  }
-
-  const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    (rightNode.type === "ConditionalExpression" &&
-      isBinaryish(rightNode.test) &&
-      !shouldInlineLogicalExpression(rightNode.test)) ||
-    rightNode.type === "StringLiteralTypeAnnotation" ||
-    (rightNode.type === "ClassExpression" &&
-      rightNode.decorators &&
-      rightNode.decorators.length) ||
-    ((leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
-      // do not put values on a separate line from the key in json
-      options.parser !== "json" &&
-      options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression";
-
-  if (canBreak) {
-    return group(indent(concat([line, printedRight])));
-  }
-
-  return concat([" ", printedRight]);
-}
-
-function printAssignment(
-  leftNode,
-  printedLeft,
-  operator,
-  rightNode,
-  printedRight,
-  options
-) {
-  if (!rightNode) {
-    return printedLeft;
-  }
-
-  const printed = printAssignmentRight(
-    leftNode,
-    rightNode,
-    printedRight,
-    options
-  );
-
-  return group(concat([printedLeft, operator, printed]));
-}
-
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
     return ";";
@@ -2984,69 +2615,6 @@ function canAttachComment(node) {
     node.type !== "TemplateElement" &&
     node.type !== "Import"
   );
-}
-
-function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
-
-  if (isLineComment(comment)) {
-    // Supports `//`, `#!`, `<!--`, and `-->`
-    return options.originalText
-      .slice(locStart(comment), locEnd(comment))
-      .trimEnd();
-  }
-
-  if (isBlockComment(comment)) {
-    if (isIndentableBlockComment(comment)) {
-      const printed = printIndentableBlockComment(comment);
-      // We need to prevent an edge case of a previous trailing comment
-      // printed as a `lineSuffix` which causes the comments to be
-      // interleaved. See https://github.com/prettier/prettier/issues/4412
-      if (
-        comment.trailing &&
-        !hasNewline(options.originalText, locStart(comment), {
-          backwards: true,
-        })
-      ) {
-        return concat([hardline, printed]);
-      }
-      return printed;
-    }
-
-    const commentEnd = locEnd(comment);
-    const isInsideFlowComment =
-      options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
-    return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
-  }
-
-  /* istanbul ignore next */
-  throw new Error("Not a comment: " + JSON.stringify(comment));
-}
-
-function isIndentableBlockComment(comment) {
-  // If the comment has multiple lines and every line starts with a star
-  // we can fix the indentation of each line. The stars in the `/*` and
-  // `*/` delimiters are not included in the comment value, so add them
-  // back first.
-  const lines = `*${comment.value}*`.split("\n");
-  return lines.length > 1 && lines.every((line) => line.trim()[0] === "*");
-}
-
-function printIndentableBlockComment(comment) {
-  const lines = comment.value.split("\n");
-
-  return concat([
-    "/*",
-    join(
-      hardline,
-      lines.map((line, index) =>
-        index === 0
-          ? line.trimEnd()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart())
-      )
-    ),
-    "*/",
-  ]);
 }
 
 module.exports = {
