@@ -103,7 +103,7 @@ const {
   shouldFlatten,
   startsWithNoLookaheadToken,
 } = require("./utils");
-const { locStart, locEnd, hasSameLoc } = require("./loc");
+const { locStart, locEnd } = require("./loc");
 
 const printMemberChain = require("./print/member-chain");
 const printCallArguments = require("./print/call-arguments");
@@ -114,9 +114,10 @@ const {
   printBindExpressionCallee,
 } = require("./print/misc");
 const {
-  printModuleSource,
-  printModuleSpecifiers,
-  printImportAssertions,
+  printImportDeclaration,
+  printExportDeclaration,
+  printExportAllDeclaration,
+  printModuleSpecifier,
 } = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
 const {
@@ -807,93 +808,24 @@ function printPathNoParens(path, options, print, args) {
       }
       return concat(parts);
     }
-    case "ImportSpecifier":
-      if (n.importKind) {
-        parts.push(path.call(print, "importKind"), " ");
-      }
-
-      parts.push(path.call(print, "imported"));
-
-      if (n.local && !hasSameLoc(n.local, n.imported)) {
-        parts.push(" as ", path.call(print, "local"));
-      }
-
-      return concat(parts);
-    case "ExportSpecifier": {
-      parts.push(path.call(print, "local"));
-
-      if (n.exported && !hasSameLoc(n.local, n.exported)) {
-        parts.push(" as ", path.call(print, "exported"));
-      }
-
-      return concat(parts);
-    }
-    case "ImportNamespaceSpecifier":
-      parts.push("* as ");
-      parts.push(path.call(print, "local"));
-      return concat(parts);
-    case "ImportDefaultSpecifier":
-      return path.call(print, "local");
     case "TSExportAssignment":
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-      return printExportDeclaration(path, options, print);
     case "DeclareExportDeclaration":
-      return concat(["declare ", printExportDeclaration(path, options, print)]);
+      return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-      parts.push("export");
-
-      if (n.exportKind === "type") {
-        parts.push(" type");
-      }
-
-      parts.push(" *");
-
-      if (n.exported) {
-        parts.push(" as ", path.call(print, "exported"));
-      }
-
-      parts.push(
-        printModuleSource(path, options, print),
-        printImportAssertions(path, options, print),
-        semi
-      );
-
-      return concat(parts);
-
+    case "DeclareExportAllDeclaration":
+      return printExportAllDeclaration(path, options, print);
+    case "ImportDeclaration":
+      return printImportDeclaration(path, options, print);
+    case "ImportSpecifier":
+    case "ExportSpecifier":
+    case "ImportNamespaceSpecifier":
     case "ExportNamespaceSpecifier":
-      return concat(["* as ", path.call(print, "exported")]);
+    case "ImportDefaultSpecifier":
     case "ExportDefaultSpecifier":
-      return path.call(print, "exported");
-    case "ImportDeclaration": {
-      parts.push("import");
-
-      if (n.importKind && n.importKind !== "value") {
-        parts.push(" ", n.importKind);
-      }
-
-      if (n.specifiers && n.specifiers.length > 0) {
-        parts.push(printModuleSpecifiers(path, options, print));
-        parts.push(printModuleSource(path, options, print));
-      } else if (
-        (n.importKind && n.importKind === "type") ||
-        // import {} from 'x'
-        /{\s*}/.test(
-          options.originalText.slice(locStart(n), locStart(n.source))
-        )
-      ) {
-        parts.push(" {}", printModuleSource(path, options, print));
-      } else {
-        parts.push(" ", path.call(print, "source"));
-      }
-
-      parts.push(printImportAssertions(path, options, print));
-
-      parts.push(semi);
-
-      return concat(parts);
-    }
+      return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
       return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
     case "Import":
@@ -2350,11 +2282,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "DeclareVariable":
       return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
-    case "DeclareExportAllDeclaration":
-      return concat([
-        "declare export *",
-        printModuleSource(path, options, print),
-      ]);
     case "DeclareOpaqueType":
     case "OpaqueType": {
       parts.push(
@@ -3803,54 +3730,6 @@ function printReturnType(path, print, options) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
     parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
-  }
-
-  return concat(parts);
-}
-
-function printExportDeclaration(path, options, print) {
-  const decl = path.getValue();
-
-  const semi = options.semi ? ";" : "";
-
-  /** @type{Doc[]} */
-  const parts = ["export "];
-
-  const isDefault = decl.default || decl.type === "ExportDefaultDeclaration";
-
-  if (isDefault) {
-    parts.push("default ");
-  }
-
-  parts.push(
-    comments.printDanglingComments(path, options, /* sameIndent */ true)
-  );
-
-  if (needsHardlineAfterDanglingComment(decl)) {
-    parts.push(hardline);
-  }
-
-  if (decl.declaration) {
-    parts.push(path.call(print, "declaration"));
-
-    if (
-      isDefault &&
-      decl.declaration.type !== "ClassDeclaration" &&
-      decl.declaration.type !== "FunctionDeclaration" &&
-      decl.declaration.type !== "TSInterfaceDeclaration" &&
-      decl.declaration.type !== "DeclareClass" &&
-      decl.declaration.type !== "DeclareFunction" &&
-      decl.declaration.type !== "TSDeclareFunction" &&
-      decl.declaration.type !== "EnumDeclaration"
-    ) {
-      parts.push(semi);
-    }
-  } else {
-    parts.push(decl.exportKind === "type" ? "type " : "");
-    parts.push(printModuleSpecifiers(path, options, print));
-    parts.push(printModuleSource(path, options, print));
-    parts.push(printImportAssertions(path, options, print));
-    parts.push(semi);
   }
 
   return concat(parts);
