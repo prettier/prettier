@@ -6,6 +6,7 @@ const {
 const {
   hasNewlineBetweenOrAfterDecorators,
   isNumericLiteral,
+  isJSXNode,
 } = require("../utils");
 
 function printOptionalToken(path) {
@@ -78,6 +79,32 @@ function printDecorators(path, options, print) {
   );
 }
 
+function shouldInlineLogicalExpression(node) {
+  if (node.type !== "LogicalExpression") {
+    return false;
+  }
+
+  if (
+    node.right.type === "ObjectExpression" &&
+    node.right.properties.length !== 0
+  ) {
+    return true;
+  }
+
+  if (
+    node.right.type === "ArrayExpression" &&
+    node.right.elements.length !== 0
+  ) {
+    return true;
+  }
+
+  if (isJSXNode(node.right)) {
+    return true;
+  }
+
+  return false;
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
@@ -85,4 +112,5 @@ module.exports = {
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printDecorators,
+  shouldInlineLogicalExpression,
 };

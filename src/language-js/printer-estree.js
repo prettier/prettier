@@ -65,11 +65,9 @@ const {
   isJSXNode,
   isLastStatement,
   isLiteral,
-  isMemberExpressionChain,
   isNgForOf,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isStringLiteral,
   isTheOnlyJSXElementInMarkdown,
   isTSXFile,
   isBlockComment,
@@ -86,6 +84,7 @@ const {
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printDecorators,
+  shouldInlineLogicalExpression,
 } = require("./print/misc");
 const {
   printImportDeclaration,
@@ -125,6 +124,7 @@ const {
 } = require("./print/function");
 const { printCallExpression } = require("./print/call-expression");
 const { printInterface } = require("./print/interface");
+const { printAssignment, printAssignmentRight } = require("./print/assignment");
 const { printComment } = require("./print/comment");
 
 let uid = 0;
@@ -2704,32 +2704,6 @@ function printFlowDeclaration(path, printed) {
   return concat(["declare ", printed]);
 }
 
-function shouldInlineLogicalExpression(node) {
-  if (node.type !== "LogicalExpression") {
-    return false;
-  }
-
-  if (
-    node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
-  ) {
-    return true;
-  }
-
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
-    return true;
-  }
-
-  if (isJSXNode(node.right)) {
-    return true;
-  }
-
-  return false;
-}
-
 // For binary expressions to be consistent, we need to group
 // subsequent operators with the same precedence level under a single
 // group. Otherwise they will be nested such that some of them break
@@ -2846,58 +2820,6 @@ function printBinaryishExpressions(
   }
 
   return parts;
-}
-
-function printAssignmentRight(leftNode, rightNode, printedRight, options) {
-  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    return indent(concat([line, printedRight]));
-  }
-
-  const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    (rightNode.type === "ConditionalExpression" &&
-      isBinaryish(rightNode.test) &&
-      !shouldInlineLogicalExpression(rightNode.test)) ||
-    rightNode.type === "StringLiteralTypeAnnotation" ||
-    (rightNode.type === "ClassExpression" &&
-      rightNode.decorators &&
-      rightNode.decorators.length) ||
-    ((leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
-      // do not put values on a separate line from the key in json
-      options.parser !== "json" &&
-      options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression";
-
-  if (canBreak) {
-    return group(indent(concat([line, printedRight])));
-  }
-
-  return concat([" ", printedRight]);
-}
-
-function printAssignment(
-  leftNode,
-  printedLeft,
-  operator,
-  rightNode,
-  printedRight,
-  options
-) {
-  if (!rightNode) {
-    return printedLeft;
-  }
-
-  const printed = printAssignmentRight(
-    leftNode,
-    rightNode,
-    printedRight,
-    options
-  );
-
-  return group(concat([printedLeft, operator, printed]));
 }
 
 function adjustClause(node, clause, forceSpace) {
