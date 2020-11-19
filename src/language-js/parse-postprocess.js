@@ -105,6 +105,13 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      // Flow
+      case "Program": {
+        if (options.parser === "flow") {
+          node.range = [0, options.originalText.length]
+        }
+        break;
+      }
       // Espree
       case "ChainExpression": {
         return transformChainExpression(node.expression);
