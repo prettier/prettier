@@ -96,11 +96,7 @@ function postprocess(ast, options) {
 
         const start = locStart(node);
         if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          if (!expression.extra) {
-            expression.extra = {};
-          }
-          expression.extra.parenthesized = true;
-          expression.extra.parenStart = start;
+          expression.extra = { ...expression.extra, parenthesized: true };
           return expression;
         }
       }
