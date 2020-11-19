@@ -16,6 +16,8 @@ const {
 
 const { shouldInlineLogicalExpression } = require("./misc");
 
+/** @typedef {import("../../document").Doc} Doc */
+
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
   const n = path.getValue();
