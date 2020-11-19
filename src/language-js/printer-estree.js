@@ -64,7 +64,6 @@ const {
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
-  hasNodeIgnoreComment,
   hasIgnoreComment,
   identity,
   isBinaryish,
@@ -85,7 +84,6 @@ const {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSimpleType,
   isSimpleNumber,
   isStringLiteral,
   isStringPropSafeToUnquote,
@@ -120,11 +118,14 @@ const {
   printModuleSpecifier,
 } = require("./print/module");
 const printTernaryOperator = require("./print/ternary");
-const {
-  printFunctionParameters,
-  shouldHugFunctionParameters,
-} = require("./print/function-parameters");
+const { printFunctionParameters } = require("./print/function-parameters");
 const { printTemplateLiteral } = require("./print/template-literal");
+const { printArray, printArrayItems } = require("./print/array");
+const { printObject } = require("./print/object");
+const {
+  printTypeAnnotation,
+  shouldHugType,
+} = require("./print/type-annotation");
 
 const needsQuoteProps = new WeakMap();
 
@@ -997,217 +998,8 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectTypeAnnotation":
     case "TSInterfaceBody":
     case "TSTypeLiteral":
-    case "RecordExpression": {
-      let propertiesField;
-
-      if (n.type === "TSTypeLiteral") {
-        propertiesField = "members";
-      } else if (n.type === "TSInterfaceBody") {
-        propertiesField = "body";
-      } else {
-        propertiesField = "properties";
-      }
-
-      const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-      const fields = [];
-      if (isTypeAnnotation) {
-        fields.push("indexers", "callProperties", "internalSlots");
-      }
-      fields.push(propertiesField);
-
-      const firstProperty = fields
-        .map((field) => n[field][0])
-        .sort((a, b) => locStart(a) - locStart(b))[0];
-
-      const parent = path.getParentNode(0);
-      const isFlowInterfaceLikeBody =
-        isTypeAnnotation &&
-        parent &&
-        (parent.type === "InterfaceDeclaration" ||
-          parent.type === "DeclareInterface" ||
-          parent.type === "DeclareClass") &&
-        path.getName() === "body";
-      const shouldBreak =
-        n.type === "TSInterfaceBody" ||
-        isFlowInterfaceLikeBody ||
-        (n.type === "ObjectPattern" &&
-          parent.type !== "FunctionDeclaration" &&
-          parent.type !== "FunctionExpression" &&
-          parent.type !== "ArrowFunctionExpression" &&
-          parent.type !== "ObjectMethod" &&
-          parent.type !== "ClassMethod" &&
-          parent.type !== "ClassPrivateMethod" &&
-          parent.type !== "AssignmentPattern" &&
-          parent.type !== "CatchClause" &&
-          n.properties.some(
-            (property) =>
-              property.value &&
-              (property.value.type === "ObjectPattern" ||
-                property.value.type === "ArrayPattern")
-          )) ||
-        (n.type !== "ObjectPattern" &&
-          firstProperty &&
-          hasNewlineInRange(
-            options.originalText,
-            locStart(n),
-            locStart(firstProperty)
-          ));
-
-      const separator = isFlowInterfaceLikeBody
-        ? ";"
-        : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
-        ? ifBreak(semi, ";")
-        : ",";
-      const leftBrace =
-        n.type === "RecordExpression" ? "#{" : n.exact ? "{|" : "{";
-      const rightBrace = n.exact ? "|}" : "}";
-
-      // Unfortunately, things are grouped together in the ast can be
-      // interleaved in the source code. So we need to reorder them before
-      // printing them.
-      const propsAndLoc = [];
-      fields.forEach((field) => {
-        path.each((childPath) => {
-          const node = childPath.getValue();
-          propsAndLoc.push({
-            node,
-            printed: print(childPath),
-            loc: locStart(node),
-          });
-        }, field);
-      });
-
-      let separatorParts = [];
-      const props = propsAndLoc
-        .sort((a, b) => a.loc - b.loc)
-        .map((prop) => {
-          const result = concat(separatorParts.concat(group(prop.printed)));
-          separatorParts = [separator, line];
-          if (
-            (prop.node.type === "TSPropertySignature" ||
-              prop.node.type === "TSMethodSignature" ||
-              prop.node.type === "TSConstructSignatureDeclaration") &&
-            hasNodeIgnoreComment(prop.node)
-          ) {
-            separatorParts.shift();
-          }
-          if (isNextLineEmpty(options.originalText, prop.node, locEnd)) {
-            separatorParts.push(hardline);
-          }
-          return result;
-        });
-
-      if (n.inexact) {
-        let printed;
-        if (hasDanglingComments(n)) {
-          const hasLineComments = !n.comments.every((comment) =>
-            isBlockComment(comment)
-          );
-          const printedDanglingComments = comments.printDanglingComments(
-            path,
-            options,
-            /* sameIndent */ true
-          );
-          printed = concat([
-            printedDanglingComments,
-            hasLineComments ||
-            hasNewline(
-              options.originalText,
-              locEnd(n.comments[n.comments.length - 1])
-            )
-              ? hardline
-              : line,
-            "...",
-          ]);
-        } else {
-          printed = "...";
-        }
-        props.push(concat(separatorParts.concat(printed)));
-      }
-
-      const lastElem = getLast(n[propertiesField]);
-
-      const canHaveTrailingSeparator = !(
-        n.inexact ||
-        (lastElem && lastElem.type === "RestElement") ||
-        (lastElem &&
-          (lastElem.type === "TSPropertySignature" ||
-            lastElem.type === "TSCallSignatureDeclaration" ||
-            lastElem.type === "TSMethodSignature" ||
-            lastElem.type === "TSConstructSignatureDeclaration") &&
-          hasNodeIgnoreComment(lastElem))
-      );
-
-      let content;
-      if (props.length === 0) {
-        if (!hasDanglingComments(n)) {
-          return concat([
-            leftBrace,
-            rightBrace,
-            printTypeAnnotation(path, options, print),
-          ]);
-        }
-
-        content = group(
-          concat([
-            leftBrace,
-            comments.printDanglingComments(path, options),
-            softline,
-            rightBrace,
-            printOptionalToken(path),
-            printTypeAnnotation(path, options, print),
-          ])
-        );
-      } else {
-        content = concat([
-          leftBrace,
-          indent(
-            concat([options.bracketSpacing ? line : softline, concat(props)])
-          ),
-          ifBreak(
-            canHaveTrailingSeparator &&
-              (separator !== "," || shouldPrintComma(options))
-              ? separator
-              : ""
-          ),
-          concat([options.bracketSpacing ? line : softline, rightBrace]),
-          printOptionalToken(path),
-          printTypeAnnotation(path, options, print),
-        ]);
-      }
-
-      // If we inline the object as first argument of the parent, we don't want
-      // to create another group so that the object breaks before the return
-      // type
-      if (
-        path.match(
-          (node) => node.type === "ObjectPattern" && !node.decorators,
-          (node, name, number) =>
-            shouldHugFunctionParameters(node) &&
-            (name === "params" ||
-              name === "parameters" ||
-              name === "this" ||
-              name === "rest") &&
-            number === 0
-        ) ||
-        path.match(
-          shouldHugType,
-          (node, name) => name === "typeAnnotation",
-          (node, name) => name === "typeAnnotation",
-          (node, name, number) =>
-            shouldHugFunctionParameters(node) &&
-            (name === "params" ||
-              name === "parameters" ||
-              name === "this" ||
-              name === "rest") &&
-            number === 0
-        )
-      ) {
-        return content;
-      }
-
-      return group(content, { shouldBreak });
-    }
+    case "RecordExpression":
+      return printObject(path, options, print);
     // Babel 6
     case "ObjectProperty": // Non-standard AST node type.
     case "Property":
@@ -1262,104 +1054,8 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "ArrayExpression":
     case "ArrayPattern":
-    case "TupleExpression": {
-      const openBracket = n.type === "TupleExpression" ? "#[" : "[";
-      const closeBracket = "]";
-      if (n.elements.length === 0) {
-        if (!hasDanglingComments(n)) {
-          parts.push(openBracket, closeBracket);
-        } else {
-          parts.push(
-            group(
-              concat([
-                openBracket,
-                comments.printDanglingComments(path, options),
-                softline,
-                closeBracket,
-              ])
-            )
-          );
-        }
-      } else {
-        const lastElem = getLast(n.elements);
-        const canHaveTrailingComma = !(
-          lastElem && lastElem.type === "RestElement"
-        );
-
-        // JavaScript allows you to have empty elements in an array which
-        // changes its length based on the number of commas. The algorithm
-        // is that if the last argument is null, we need to force insert
-        // a comma to ensure JavaScript recognizes it.
-        //   [,].length === 1
-        //   [1,].length === 1
-        //   [1,,].length === 2
-        //
-        // Note that getLast returns null if the array is empty, but
-        // we already check for an empty array just above so we are safe
-        const needsForcedTrailingComma =
-          canHaveTrailingComma && lastElem === null;
-
-        const shouldBreak =
-          !options.__inJestEach &&
-          n.elements.length > 1 &&
-          n.elements.every((element, i, elements) => {
-            const elementType = element && element.type;
-            if (
-              elementType !== "ArrayExpression" &&
-              elementType !== "ObjectExpression"
-            ) {
-              return false;
-            }
-
-            const nextElement = elements[i + 1];
-            if (nextElement && elementType !== nextElement.type) {
-              return false;
-            }
-
-            const itemsKey =
-              elementType === "ArrayExpression" ? "elements" : "properties";
-
-            return element[itemsKey] && element[itemsKey].length > 1;
-          });
-
-        parts.push(
-          group(
-            concat([
-              openBracket,
-              indent(
-                concat([
-                  softline,
-                  printArrayItems(path, options, "elements", print),
-                ])
-              ),
-              needsForcedTrailingComma ? "," : "",
-              ifBreak(
-                canHaveTrailingComma &&
-                  !needsForcedTrailingComma &&
-                  shouldPrintComma(options)
-                  ? ","
-                  : ""
-              ),
-              comments.printDanglingComments(
-                path,
-                options,
-                /* sameIndent */ true
-              ),
-              softline,
-              closeBracket,
-            ]),
-            { shouldBreak }
-          )
-        );
-      }
-
-      parts.push(
-        printOptionalToken(path),
-        printTypeAnnotation(path, options, print)
-      );
-
-      return concat(parts);
-    }
+    case "TupleExpression":
+      return printArray(path, options, print);
     case "SequenceExpression": {
       const parent = path.getParentNode(0);
       if (
@@ -3619,32 +3315,6 @@ function printMethodInternal(path, options, print) {
   return concat(parts);
 }
 
-function printTypeAnnotation(path, options, print) {
-  const node = path.getValue();
-  if (!node.typeAnnotation) {
-    return "";
-  }
-
-  const parentNode = path.getParentNode();
-  const isDefinite =
-    node.definite ||
-    (parentNode &&
-      parentNode.type === "VariableDeclarator" &&
-      parentNode.definite);
-
-  const isFunctionDeclarationIdentifier =
-    parentNode.type === "DeclareFunction" && parentNode.id === node;
-
-  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
-  }
-
-  return concat([
-    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
-    path.call(print, "typeAnnotation"),
-  ]);
-}
-
 function shouldPrintParamsWithoutParens(path, options) {
   if (options.arrowParens === "always") {
     return false;
@@ -4671,57 +4341,6 @@ function stmtNeedsASIProtection(path, options) {
     (childPath) => exprNeedsASIProtection(childPath, options),
     "expression"
   );
-}
-
-function shouldHugType(node) {
-  if (isSimpleType(node) || isObjectType(node)) {
-    return true;
-  }
-
-  if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
-    const voidCount = node.types.filter(
-      (n) =>
-        n.type === "VoidTypeAnnotation" ||
-        n.type === "TSVoidKeyword" ||
-        n.type === "NullLiteralTypeAnnotation" ||
-        n.type === "TSNullKeyword"
-    ).length;
-
-    const hasObject = node.types.some(
-      (n) =>
-        n.type === "ObjectTypeAnnotation" ||
-        n.type === "TSTypeLiteral" ||
-        // This is a bit aggressive but captures Array<{x}>
-        n.type === "GenericTypeAnnotation" ||
-        n.type === "TSTypeReference"
-    );
-
-    if (node.types.length - 1 === voidCount && hasObject) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function printArrayItems(path, options, printPath, print) {
-  const printedElements = [];
-  let separatorParts = [];
-
-  path.each((childPath) => {
-    printedElements.push(concat(separatorParts));
-    printedElements.push(group(print(childPath)));
-
-    separatorParts = [",", line];
-    if (
-      childPath.getValue() &&
-      isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-    ) {
-      separatorParts.push(softline);
-    }
-  }, printPath);
-
-  return concat(printedElements);
 }
 
 function printReturnAndThrowArgument(path, options, print) {
