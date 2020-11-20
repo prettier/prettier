@@ -6,6 +6,7 @@ const { outdent } = require("outdent");
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
+const BLOG_POST_INTRO_TEMPLATE_FILE = "BLOG_POST_INTRO_TEMPLATE.md";
 const BLOG_POST_INTRO_FILE = "blog-post-intro.md";
 const CHANGELOG_CATEGORIES = [
   "angular",
@@ -38,6 +39,7 @@ for (const file of files) {
   if (
     file !== TEMPLATE_FILE &&
     file !== BLOG_POST_INTRO_FILE &&
+    file !== BLOG_POST_INTRO_TEMPLATE_FILE &&
     !CHANGELOG_CATEGORIES.includes(file)
   ) {
     showErrorMessage(`Please remove "${file}" from "${CHANGELOG_DIR}".`);
@@ -45,7 +47,7 @@ for (const file of files) {
 }
 for (const file of [
   TEMPLATE_FILE,
-  BLOG_POST_INTRO_FILE,
+  BLOG_POST_INTRO_TEMPLATE_FILE,
   ...CHANGELOG_CATEGORIES,
 ]) {
   if (!files.includes(file)) {

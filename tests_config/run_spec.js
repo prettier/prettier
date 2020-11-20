@@ -70,6 +70,10 @@ const isUnstable = (filename, options) => {
 
 const shouldThrowOnFormat = (filename, options) => {
   const { errors = {} } = options;
+  if (errors === true) {
+    return true;
+  }
+
   const files = errors[options.parser];
 
   if (files === true || (Array.isArray(files) && files.includes(filename))) {
@@ -98,6 +102,9 @@ function runSpec(fixtures, parsers, options) {
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
   const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
+  if (IS_ERROR_TESTS) {
+    options = { errors: true, ...options };
+  }
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [undefined];
@@ -146,16 +153,18 @@ function runSpec(fixtures, parsers, options) {
   const [parser] = parsers;
   const allParsers = [...parsers];
 
-  if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
-    allParsers.push("babel-ts");
-  }
-
-  if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
-    if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
-      allParsers.push("espree");
+  if (!IS_ERROR_TESTS) {
+    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+      allParsers.push("babel-ts");
     }
-    if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
-      allParsers.push("meriyah");
+
+    if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
+      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
+        allParsers.push("espree");
+      }
+      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
+        allParsers.push("meriyah");
+      }
     }
   }
 
@@ -173,16 +182,9 @@ function runSpec(fixtures, parsers, options) {
         filepath: filename,
         parser,
       };
-      const formatWithMainParser = () => format(code, formatOptions);
-
-      if (IS_ERROR_TESTS) {
-        test("error test", () => {
-          expect(formatWithMainParser).toThrowErrorMatchingSnapshot();
-        });
-        return;
-      }
-
-      const mainParserFormatResult = formatWithMainParser();
+      const mainParserFormatResult = shouldThrowOnFormat(name, formatOptions)
+        ? { options: formatOptions, error: true }
+        : format(code, formatOptions);
 
       for (const currentParser of allParsers) {
         runTest({
@@ -214,8 +216,11 @@ function runTest({
   let formatResult = mainParserFormatResult;
   let formatTestTitle = "format";
 
-  // Verify parsers
-  if (parser !== parsers[0]) {
+  // Verify parsers or error tests
+  if (
+    mainParserFormatResult.error ||
+    mainParserFormatOptions.parser !== parser
+  ) {
     formatTestTitle = `[${parser}] format`;
     formatOptions = { ...mainParserFormatResult.options, parser };
     const runFormat = () => format(code, formatOptions);
