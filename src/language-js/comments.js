@@ -22,6 +22,26 @@ const {
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
+/**
+ * @typedef {import("./types/estree").Node} Node
+ * @typedef {import("./types/estree").Comment} Comment
+ * @typedef {import("../common/fast-path")} FastPath
+ *
+ * @typedef {Object} CommentContext
+ * @property {Comment} comment
+ * @property {Node} precedingNode
+ * @property {Node} enclosingNode
+ * @property {Node} followingNode
+ * @property {string} text
+ * @property {any} options
+ * @property {Node} ast
+ * @property {boolean} isLastComment
+ */
+
+/**
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
 function handleOwnLineComment(context) {
   return [
     handleIgnoreComments,
@@ -42,6 +62,10 @@ function handleOwnLineComment(context) {
   ].some((fn) => fn(context));
 }
 
+/**
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
 function handleEndOfLineComment(context) {
   return [
     handleClosureTypeCastComments,
@@ -61,6 +85,10 @@ function handleEndOfLineComment(context) {
   ].some((fn) => fn(context));
 }
 
+/**
+ * @param {CommentContext} context
+ * @returns {boolean}
+ */
 function handleRemainingComment(context) {
   return [
     handleIgnoreComments,
@@ -78,7 +106,12 @@ function handleRemainingComment(context) {
   ].some((fn) => fn(context));
 }
 
+/**
+ * @param {Node} node
+ * @returns {void}
+ */
 function addBlockStatementFirstComment(node, comment) {
+  // @ts-ignore
   const firstNonEmptyNode = (node.body || node.properties).find(
     ({ type }) => type !== "EmptyStatement"
   );
@@ -89,6 +122,10 @@ function addBlockStatementFirstComment(node, comment) {
   }
 }
 
+/**
+ * @param {Node} node
+ * @returns {void}
+ */
 function addBlockOrNotComment(node, comment) {
   if (node.type === "BlockStatement") {
     addBlockStatementFirstComment(node, comment);
@@ -828,8 +865,8 @@ function handleTSMappedTypeComments({
 }
 
 /**
- * @param {any} node
- * @param {(comment: any) => boolean} fn
+ * @param {Node} node
+ * @param {(comment: Comment) => boolean} fn
  * @returns boolean
  */
 function hasLeadingComment(node, fn = () => true) {
@@ -842,6 +879,10 @@ function hasLeadingComment(node, fn = () => true) {
   return false;
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isRealFunctionLikeNode(node) {
   return (
     node.type === "ArrowFunctionExpression" ||
@@ -859,6 +900,10 @@ function isRealFunctionLikeNode(node) {
   );
 }
 
+/**
+ * @param {Node} enclosingNode
+ * @returns {RegExp|void}
+ */
 function getGapRegex(enclosingNode) {
   if (
     enclosingNode &&
@@ -871,6 +916,10 @@ function getGapRegex(enclosingNode) {
   }
 }
 
+/**
+ * @param {any} node
+ * @returns {Node[]|void}
+ */
 function getCommentChildNodes(node, options) {
   // Prevent attaching comments to FunctionExpression in this case:
   //     class Foo {
@@ -896,6 +945,10 @@ function getCommentChildNodes(node, options) {
   }
 }
 
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
 function isTypeCastComment(comment) {
   return (
     isBlockComment(comment) &&
@@ -907,6 +960,10 @@ function isTypeCastComment(comment) {
   );
 }
 
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
 function willPrintOwnComments(path /*, options */) {
   const node = path.getValue();
   const parent = path.getParentNode();
