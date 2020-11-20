@@ -365,7 +365,7 @@ function handleClassComments(data) {
 }
 
 function handleMethodNameComments(data, text) {
-  const { comment, precedingNode, enclosingNode, followingNode } = data;
+  const { comment, precedingNode, enclosingNode } = data;
   // This is only needed for estree parsers (flow, typescript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
