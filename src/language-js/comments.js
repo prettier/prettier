@@ -407,12 +407,11 @@ function handleMethodNameComments(data, text) {
   return false;
 }
 
-function handleFunctionNameComments(comment, text) {
+function handleFunctionNameComments(data, text) {
+  const { comment, precedingNode, enclosingNode } = data;
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== "(") {
     return false;
   }
-
-  const { precedingNode, enclosingNode } = comment;
   if (
     precedingNode &&
     enclosingNode &&
