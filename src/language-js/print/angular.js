@@ -2,11 +2,13 @@
 
 const {
   builders: { concat, join, line, group },
-} = require("../document");
+} = require("../../document");
 const { hasNode } = require("../utils");
 const { printBinaryishExpression } = require("./binaryish");
 
-function printAngularNode(path, options, print) {
+/** @typedef {import("../../common/fast-path")} FastPath */
+
+function printAngular(path, options, print) {
   const n = path.getValue();
   switch (n.type) {
     case "NGRoot":
@@ -122,4 +124,4 @@ function hasNgSideEffect(path) {
   });
 }
 
-module.exports = { printAngularNode };
+module.exports = { printAngular };

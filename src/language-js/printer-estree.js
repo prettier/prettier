@@ -248,7 +248,7 @@ function printPathNoParens(path, options, print, args) {
     }
   }
   const printedJsx = printJsx(path, options, print);
-  if (typeof printedAngular !== "undefined") {
+  if (typeof printedJsx !== "undefined") {
     return printedJsx;
   }
 
