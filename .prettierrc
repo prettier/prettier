@@ -1,1 +1,7 @@
-{}
+overrides:
+  - files: "**/*.js"
+    options:
+      parser: meriyah
+  - files: ".prettierrc"
+    options:
+      parser: yaml
