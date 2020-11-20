@@ -196,9 +196,13 @@ function getInnerParts(doc) {
 // Remove empty docs
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => {
-    let { parts } = currentDoc;
+    const { parts } = currentDoc;
     if (Array.isArray(parts)) {
-      parts = parts.filter(Boolean);
+      for (let index = parts.length - 1; index >= 0; index--) {
+        if (parts[index] === "") {
+          parts.splice(index, 1);
+        }
+      }
       if (parts.length === 0) {
         return "";
       }
@@ -208,9 +212,7 @@ function cleanDoc(doc) {
   });
 }
 
-function stripTrailingHardline(doc, withInnerParts = false) {
-  // HACK remove ending hardline, original PR: #1984
-  doc = cleanDoc(doc);
+function stripCleanedDocTrailingHardline(doc, withInnerParts) {
   if (doc.type === "concat" && doc.parts.length !== 0) {
     const parts = withInnerParts ? getInnerParts(doc) : doc.parts;
     const lastPart = parts[parts.length - 1];
@@ -223,14 +225,18 @@ function stripTrailingHardline(doc, withInnerParts = false) {
         return { type: "concat", parts: parts.slice(0, -1) };
       }
 
-      return {
-        type: "concat",
-        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart)),
-      };
+      doc.parts[doc.parts.length - 1] = stripCleanedDocTrailingHardline(
+        lastPart
+      );
     }
   }
 
   return doc;
+}
+
+function stripTrailingHardline(doc, withInnerParts = false) {
+  // HACK remove ending hardline, original PR: #1984
+  return stripCleanedDocTrailingHardline(cleanDoc(doc), withInnerParts);
 }
 
 function normalizeParts(parts) {
