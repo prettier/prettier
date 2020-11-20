@@ -58,6 +58,7 @@ module.exports = {
 
   /** @type {typeof getFileInfo} */
   getFileInfo: withPlugins(getFileInfo),
+  /** @type {typeof getSupportInfo} */
   getSupportInfo: withPlugins(getSupportInfo, 0),
 
   version,
