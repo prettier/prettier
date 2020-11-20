@@ -241,7 +241,7 @@ function printPathNoParens(path, options, print, args) {
     return htmlBinding;
   }
 
-  if (options.parser.startWith("__ng_")) {
+  if (options.parser.startsWith("__ng_")) {
     const printedAngular = printAngular(path, options, print);
     if (typeof printedAngular !== "undefined") {
       return printedAngular;
