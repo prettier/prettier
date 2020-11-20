@@ -2405,7 +2405,7 @@ module.exports = {
   isBlockComment,
   handleComments: {
     // TODO: Make this as default behavior
-    noMutate: true,
+    avoidAstMutation: true,
     ownLine: handleComments.handleOwnLineComment,
     endOfLine: handleComments.handleEndOfLineComment,
     remaining: handleComments.handleRemainingComment,

@@ -181,7 +181,7 @@ function attach(comments, ast, text, options) {
   } = options;
   // TODO: Make this as default behavior
   const {
-    noMutate: noMutateComments,
+    avoidAstMutation,
     ownLine: handleOwnLineComment = returnFalse,
     endOfLine: handleEndOfLineComment = returnFalse,
     remaining: handleRemainingComment = returnFalse,
@@ -219,7 +219,7 @@ function attach(comments, ast, text, options) {
     };
 
     let args;
-    if (noMutateComments) {
+    if (avoidAstMutation) {
       args = [context];
     } else {
       comment.enclosingNode = enclosingNode;
@@ -294,7 +294,7 @@ function attach(comments, ast, text, options) {
 
   breakTies(tiesToBreak, text, options);
 
-  if (!noMutateComments) {
+  if (!avoidAstMutation) {
     comments.forEach((comment) => {
       // These node references were useful for breaking ties, but we
       // don't need them anymore, and they create cycles in the AST that

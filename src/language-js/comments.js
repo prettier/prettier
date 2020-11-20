@@ -97,8 +97,7 @@ function addBlockOrNotComment(node, comment) {
   }
 }
 
-function handleClosureTypeCastComments(context) {
-  const { comment, followingNode } = context;
+function handleClosureTypeCastComments({ comment, followingNode }) {
   if (followingNode && isTypeCastComment(comment)) {
     addLeadingComment(followingNode, comment);
     return true;
@@ -122,14 +121,13 @@ function handleClosureTypeCastComments(context) {
 //     // comment
 //     ...
 //   }
-function handleIfStatementComments(context) {
-  const {
-    comment,
-    precedingNode,
-    enclosingNode,
-    followingNode,
-    text,
-  } = context;
+function handleIfStatementComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
   if (
     !enclosingNode ||
     enclosingNode.type !== "IfStatement" ||
@@ -191,14 +189,13 @@ function handleIfStatementComments(context) {
   return false;
 }
 
-function handleWhileComments(context) {
-  const {
-    comment,
-    precedingNode,
-    enclosingNode,
-    followingNode,
-    text,
-  } = context;
+function handleWhileComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
   if (
     !enclosingNode ||
     enclosingNode.type !== "WhileStatement" ||
@@ -236,8 +233,12 @@ function handleWhileComments(context) {
 }
 
 // Same as IfStatement but for TryStatement
-function handleTryStatementComments(context) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleTryStatementComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
   if (
     !enclosingNode ||
     (enclosingNode.type !== "TryStatement" &&
@@ -270,9 +271,11 @@ function handleTryStatementComments(context) {
   return false;
 }
 
-function handleMemberExpressionComments(context) {
-  const { comment, enclosingNode, followingNode } = context;
-
+function handleMemberExpressionComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
   if (
     enclosingNode &&
     (enclosingNode.type === "MemberExpression" ||
@@ -287,14 +290,13 @@ function handleMemberExpressionComments(context) {
   return false;
 }
 
-function handleConditionalExpressionComments(context) {
-  const {
-    comment,
-    precedingNode,
-    enclosingNode,
-    followingNode,
-    text,
-  } = context;
+function handleConditionalExpressionComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
   const isSameLineAsPrecedingNode =
     precedingNode &&
     !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment));
@@ -312,8 +314,11 @@ function handleConditionalExpressionComments(context) {
   return false;
 }
 
-function handleObjectPropertyAssignment(context) {
-  const { comment, precedingNode, enclosingNode } = context;
+function handleObjectPropertyAssignment({
+  comment,
+  precedingNode,
+  enclosingNode,
+}) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ObjectProperty" ||
@@ -328,8 +333,12 @@ function handleObjectPropertyAssignment(context) {
   return false;
 }
 
-function handleClassComments(context) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleClassComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ClassDeclaration" ||
@@ -379,8 +388,12 @@ function handleClassComments(context) {
   return false;
 }
 
-function handleMethodNameComments(context) {
-  const { comment, precedingNode, enclosingNode, text } = context;
+function handleMethodNameComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  text,
+}) {
   // This is only needed for estree parsers (flow, typescript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
@@ -422,8 +435,12 @@ function handleMethodNameComments(context) {
   return false;
 }
 
-function handleFunctionNameComments(context) {
-  const { comment, precedingNode, enclosingNode, text } = context;
+function handleFunctionNameComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  text,
+}) {
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== "(") {
     return false;
   }
@@ -442,8 +459,7 @@ function handleFunctionNameComments(context) {
   return false;
 }
 
-function handleCommentAfterArrowParams(context) {
-  const { comment, enclosingNode, text } = context;
+function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
   if (!(enclosingNode && enclosingNode.type === "ArrowFunctionExpression")) {
     return false;
   }
@@ -457,8 +473,7 @@ function handleCommentAfterArrowParams(context) {
   return false;
 }
 
-function handleCommentInEmptyParens(context) {
-  const { comment, enclosingNode, text } = context;
+function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== ")") {
     return false;
   }
@@ -488,15 +503,13 @@ function handleCommentInEmptyParens(context) {
   return false;
 }
 
-function handleLastFunctionArgComments(context) {
-  const {
-    comment,
-    precedingNode,
-    enclosingNode,
-    followingNode,
-    text,
-  } = context;
-
+function handleLastFunctionArgComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
   // Flow function type definitions
   if (
     precedingNode &&
@@ -558,8 +571,7 @@ function handleLastFunctionArgComments(context) {
   return false;
 }
 
-function handleImportSpecifierComments(context) {
-  const { comment, enclosingNode } = context;
+function handleImportSpecifierComments({ comment, enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -567,8 +579,7 @@ function handleImportSpecifierComments(context) {
   return false;
 }
 
-function handleLabeledStatementComments(context) {
-  const { comment, enclosingNode } = context;
+function handleLabeledStatementComments({ comment, enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "LabeledStatement") {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -576,8 +587,7 @@ function handleLabeledStatementComments(context) {
   return false;
 }
 
-function handleBreakAndContinueStatementComments(context) {
-  const { comment, enclosingNode } = context;
+function handleBreakAndContinueStatementComments({ comment, enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ContinueStatement" ||
@@ -590,8 +600,11 @@ function handleBreakAndContinueStatementComments(context) {
   return false;
 }
 
-function handleCallExpressionComments(context) {
-  const { comment, precedingNode, enclosingNode } = context;
+function handleCallExpressionComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+}) {
   if (
     enclosingNode &&
     (enclosingNode.type === "CallExpression" ||
@@ -606,8 +619,12 @@ function handleCallExpressionComments(context) {
   return false;
 }
 
-function handleUnionTypeComments(context) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleUnionTypeComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
   if (
     enclosingNode &&
     (enclosingNode.type === "UnionTypeAnnotation" ||
@@ -637,8 +654,7 @@ function handleUnionTypeComments(context) {
   return false;
 }
 
-function handlePropertyComments(context) {
-  const { comment, enclosingNode } = context;
+function handlePropertyComments({ comment, enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "Property" ||
@@ -650,8 +666,7 @@ function handlePropertyComments(context) {
   return false;
 }
 
-function handleOnlyComments(context) {
-  const { comment, enclosingNode, ast, isLastComment } = context;
+function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast && ast.body && ast.body.length === 0) {
     if (isLastComment) {
@@ -677,8 +692,7 @@ function handleOnlyComments(context) {
   return false;
 }
 
-function handleForComments(context) {
-  const { comment, enclosingNode } = context;
+function handleForComments({ comment, enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ForInStatement" ||
@@ -690,8 +704,12 @@ function handleForComments(context) {
   return false;
 }
 
-function handleImportDeclarationComments(context) {
-  const { comment, precedingNode, enclosingNode, text } = context;
+function handleImportDeclarationComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  text,
+}) {
   if (
     precedingNode &&
     precedingNode.type === "ImportSpecifier" &&
@@ -705,8 +723,7 @@ function handleImportDeclarationComments(context) {
   return false;
 }
 
-function handleAssignmentPatternComments(context) {
-  const { comment, enclosingNode } = context;
+function handleAssignmentPatternComments({ comment, enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "AssignmentPattern") {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -714,8 +731,7 @@ function handleAssignmentPatternComments(context) {
   return false;
 }
 
-function handleTypeAliasComments(context) {
-  const { comment, enclosingNode } = context;
+function handleTypeAliasComments({ comment, enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "TypeAlias") {
     addLeadingComment(enclosingNode, comment);
     return true;
@@ -723,8 +739,11 @@ function handleTypeAliasComments(context) {
   return false;
 }
 
-function handleVariableDeclaratorComments(context) {
-  const { comment, enclosingNode, followingNode } = context;
+function handleVariableDeclaratorComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
   if (
     enclosingNode &&
     (enclosingNode.type === "VariableDeclarator" ||
@@ -742,8 +761,12 @@ function handleVariableDeclaratorComments(context) {
   return false;
 }
 
-function handleTSFunctionTrailingComments(context) {
-  const { comment, enclosingNode, followingNode, text } = context;
+function handleTSFunctionTrailingComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  text,
+}) {
   if (
     !followingNode &&
     enclosingNode &&
@@ -758,8 +781,7 @@ function handleTSFunctionTrailingComments(context) {
   return false;
 }
 
-function handleIgnoreComments(context) {
-  const { comment, enclosingNode, followingNode } = context;
+function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   if (
     isPrettierIgnoreComment(comment) &&
     enclosingNode &&
@@ -774,8 +796,12 @@ function handleIgnoreComments(context) {
   }
 }
 
-function handleTSMappedTypeComments(context) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleTSMappedTypeComments({
+  comment,
+  precedingNode,
+  enclosingNode,
+  followingNode,
+}) {
   if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
     return false;
   }
