@@ -241,12 +241,11 @@ function printPathNoParens(path, options, print, args) {
     return htmlBinding;
   }
 
-  if (options.parser.startsWith("__ng_")) {
-    const printedAngular = printAngular(path, options, print);
-    if (typeof printedAngular !== "undefined") {
-      return printedAngular;
-    }
+  const printedAngular = printAngular(path, options, print);
+  if (typeof printedAngular !== "undefined") {
+    return printedAngular;
   }
+
   const printedJsx = printJsx(path, options, print);
   if (typeof printedJsx !== "undefined") {
     return printedJsx;
