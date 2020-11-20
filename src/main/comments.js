@@ -167,22 +167,25 @@ function decorateComment(node, comment, options, enclosingNode) {
   return { enclosingNode, precedingNode, followingNode };
 }
 
+const returnFalse = () => false;
 function attach(comments, ast, text, options) {
   if (!Array.isArray(comments)) {
     return;
   }
 
   const tiesToBreak = [];
-  const { locStart, locEnd } = options;
+  const {
+    locStart,
+    locEnd,
+    printer: { handleComments = {} },
+  } = options;
   // TODO: Make this as default behavior
-  const noMutateComments =
-    options.printer.handleComments && options.printer.handleComments.noMutate;
-  const pluginHandleOwnLineComment =
-    options.printer.handleComments && options.printer.handleComments.ownLine;
-  const pluginHandleEndOfLineComment =
-    options.printer.handleComments && options.printer.handleComments.endOfLine;
-  const pluginHandleRemainingComment =
-    options.printer.handleComments && options.printer.handleComments.remaining;
+  const {
+    noMutate: noMutateComments,
+    ownLine: handleOwnLineComment = returnFalse,
+    endOfLine: handleEndOfLineComment = returnFalse,
+    remaining: handleRemainingComment = returnFalse,
+  } = handleComments;
 
   comments.forEach((comment, i) => {
     if (
@@ -215,59 +218,20 @@ function attach(comments, ast, text, options) {
       isLastComment,
     };
 
-    let handleOwnLineComment;
-    let handleEndOfLineComment;
-    let handleRemainingComment;
+    let args;
     if (noMutateComments) {
-      handleOwnLineComment =
-        pluginHandleOwnLineComment &&
-        pluginHandleOwnLineComment.bind(null, context);
-      handleEndOfLineComment =
-        pluginHandleEndOfLineComment &&
-        pluginHandleEndOfLineComment.bind(null, context);
-      handleRemainingComment =
-        pluginHandleRemainingComment &&
-        pluginHandleRemainingComment.bind(null, context);
+      args = [context];
     } else {
       comment.enclosingNode = enclosingNode;
       comment.precedingNode = precedingNode;
       comment.followingNode = followingNode;
-      handleOwnLineComment =
-        pluginHandleOwnLineComment &&
-        pluginHandleOwnLineComment.bind(
-          null,
-          comment,
-          text,
-          options,
-          ast,
-          isLastComment
-        );
-      handleEndOfLineComment =
-        pluginHandleEndOfLineComment &&
-        pluginHandleEndOfLineComment.bind(
-          null,
-          comment,
-          text,
-          options,
-          ast,
-          isLastComment
-        );
-      handleRemainingComment =
-        pluginHandleRemainingComment &&
-        pluginHandleRemainingComment.bind(
-          null,
-          comment,
-          text,
-          options,
-          ast,
-          isLastComment
-        );
+      args = [comment, text, options, ast, isLastComment];
     }
 
     if (hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
-      if (handleOwnLineComment && handleOwnLineComment()) {
+      if (handleOwnLineComment(...args)) {
         // We're good
       } else if (followingNode) {
         // Always a leading comment.
@@ -282,7 +246,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else if (hasNewline(text, locEnd(comment))) {
-      if (handleEndOfLineComment && handleEndOfLineComment()) {
+      if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
@@ -298,7 +262,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else {
-      if (handleRemainingComment && handleRemainingComment()) {
+      if (handleRemainingComment(...args)) {
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
