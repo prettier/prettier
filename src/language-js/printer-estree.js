@@ -38,10 +38,6 @@ const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./print-preprocess");
 const {
-  printHtmlBinding,
-  isVueEventBindingExpression,
-} = require("./print/html-binding");
-const {
   getCallArguments,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -66,6 +62,12 @@ const {
 const { locStart, locEnd } = require("./loc");
 
 const {
+  printHtmlBinding,
+  isVueEventBindingExpression,
+} = require("./print/html-binding");
+const { printAngular } = require("./print/angular");
+const { printJsx } = require("./print/jsx");
+const {
   printOptionalToken,
   printBindExpressionCallee,
   printTypeScriptModifiers,
@@ -88,7 +90,6 @@ const {
   printTypeAnnotation,
   shouldHugType,
 } = require("./print/type-annotation");
-const { printJsx } = require("./print/jsx");
 const { printClass, printClassMethod } = require("./print/class");
 const {
   printTypeParameter,
@@ -114,7 +115,6 @@ const { printStatementSequence } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock } = require("./print/block");
 const { printComment } = require("./print/comment");
-const { printAngular } = require("./print/angular");
 
 function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
