@@ -22,63 +22,60 @@ const {
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
-function handleOwnLineComment(context, text, options, ast, isLastComment) {
-  return (
-    handleIgnoreComments(context) ||
-    handleLastFunctionArgComments(context, text) ||
-    handleMemberExpressionComments(context) ||
-    handleIfStatementComments(context, text) ||
-    handleWhileComments(context, text) ||
-    handleTryStatementComments(context) ||
-    handleClassComments(context) ||
-    handleImportSpecifierComments(context) ||
-    handleForComments(context) ||
-    handleUnionTypeComments(context) ||
-    handleOnlyComments(context, ast, isLastComment) ||
-    handleImportDeclarationComments(context, text) ||
-    handleAssignmentPatternComments(context) ||
-    handleMethodNameComments(context, text) ||
-    handleLabeledStatementComments(context)
-  );
+function handleOwnLineComment(context) {
+  return [
+    handleIgnoreComments,
+    handleLastFunctionArgComments,
+    handleMemberExpressionComments,
+    handleIfStatementComments,
+    handleWhileComments,
+    handleTryStatementComments,
+    handleClassComments,
+    handleImportSpecifierComments,
+    handleForComments,
+    handleUnionTypeComments,
+    handleOnlyComments,
+    handleImportDeclarationComments,
+    handleAssignmentPatternComments,
+    handleMethodNameComments,
+    handleLabeledStatementComments,
+  ].some((fn) => fn(context));
 }
 
-function handleEndOfLineComment(context, text, options, ast, isLastComment) {
-  return (
-    handleClosureTypeCastComments(context) ||
-    handleLastFunctionArgComments(context, text) ||
-    handleConditionalExpressionComments(context, text) ||
-    handleImportSpecifierComments(context) ||
-    handleIfStatementComments(context, text) ||
-    handleWhileComments(context, text) ||
-    handleTryStatementComments(context) ||
-    handleClassComments(context) ||
-    handleLabeledStatementComments(context) ||
-    handleCallExpressionComments(context) ||
-    handlePropertyComments(context) ||
-    handleOnlyComments(context, ast, isLastComment) ||
-    handleTypeAliasComments(context) ||
-    handleVariableDeclaratorComments(context)
-  );
+function handleEndOfLineComment(context) {
+  return [
+    handleClosureTypeCastComments,
+    handleLastFunctionArgComments,
+    handleConditionalExpressionComments,
+    handleImportSpecifierComments,
+    handleIfStatementComments,
+    handleWhileComments,
+    handleTryStatementComments,
+    handleClassComments,
+    handleLabeledStatementComments,
+    handleCallExpressionComments,
+    handlePropertyComments,
+    handleOnlyComments,
+    handleTypeAliasComments,
+    handleVariableDeclaratorComments,
+  ].some((fn) => fn(context));
 }
 
-function handleRemainingComment(context, text, options, ast, isLastComment) {
-  if (
-    handleIgnoreComments(context) ||
-    handleIfStatementComments(context, text) ||
-    handleWhileComments(context, text) ||
-    handleObjectPropertyAssignment(context) ||
-    handleCommentInEmptyParens(context, text) ||
-    handleMethodNameComments(context, text) ||
-    handleOnlyComments(context, ast, isLastComment) ||
-    handleCommentAfterArrowParams(context, text) ||
-    handleFunctionNameComments(context, text) ||
-    handleTSMappedTypeComments(context) ||
-    handleBreakAndContinueStatementComments(context) ||
-    handleTSFunctionTrailingComments(context, text)
-  ) {
-    return true;
-  }
-  return false;
+function handleRemainingComment(context) {
+  return [
+    handleIgnoreComments,
+    handleIfStatementComments,
+    handleWhileComments,
+    handleObjectPropertyAssignment,
+    handleCommentInEmptyParens,
+    handleMethodNameComments,
+    handleOnlyComments,
+    handleCommentAfterArrowParams,
+    handleFunctionNameComments,
+    handleTSMappedTypeComments,
+    handleBreakAndContinueStatementComments,
+    handleTSFunctionTrailingComments,
+  ].some((fn) => fn(context));
 }
 
 function addBlockStatementFirstComment(node, comment) {
@@ -125,8 +122,14 @@ function handleClosureTypeCastComments(context) {
 //     // comment
 //     ...
 //   }
-function handleIfStatementComments(context, text) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleIfStatementComments(context) {
+  const {
+    comment,
+    precedingNode,
+    enclosingNode,
+    followingNode,
+    text,
+  } = context;
   if (
     !enclosingNode ||
     enclosingNode.type !== "IfStatement" ||
@@ -188,8 +191,14 @@ function handleIfStatementComments(context, text) {
   return false;
 }
 
-function handleWhileComments(context, text) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleWhileComments(context) {
+  const {
+    comment,
+    precedingNode,
+    enclosingNode,
+    followingNode,
+    text,
+  } = context;
   if (
     !enclosingNode ||
     enclosingNode.type !== "WhileStatement" ||
@@ -278,8 +287,14 @@ function handleMemberExpressionComments(context) {
   return false;
 }
 
-function handleConditionalExpressionComments(context, text) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleConditionalExpressionComments(context) {
+  const {
+    comment,
+    precedingNode,
+    enclosingNode,
+    followingNode,
+    text,
+  } = context;
   const isSameLineAsPrecedingNode =
     precedingNode &&
     !hasNewlineInRange(text, locEnd(precedingNode), locStart(comment));
@@ -364,8 +379,8 @@ function handleClassComments(context) {
   return false;
 }
 
-function handleMethodNameComments(context, text) {
-  const { comment, precedingNode, enclosingNode } = context;
+function handleMethodNameComments(context) {
+  const { comment, precedingNode, enclosingNode, text } = context;
   // This is only needed for estree parsers (flow, typescript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
@@ -407,8 +422,8 @@ function handleMethodNameComments(context, text) {
   return false;
 }
 
-function handleFunctionNameComments(context, text) {
-  const { comment, precedingNode, enclosingNode } = context;
+function handleFunctionNameComments(context) {
+  const { comment, precedingNode, enclosingNode, text } = context;
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== "(") {
     return false;
   }
@@ -427,8 +442,8 @@ function handleFunctionNameComments(context, text) {
   return false;
 }
 
-function handleCommentAfterArrowParams(context, text) {
-  const { comment, enclosingNode } = context;
+function handleCommentAfterArrowParams(context) {
+  const { comment, enclosingNode, text } = context;
   if (!(enclosingNode && enclosingNode.type === "ArrowFunctionExpression")) {
     return false;
   }
@@ -442,8 +457,8 @@ function handleCommentAfterArrowParams(context, text) {
   return false;
 }
 
-function handleCommentInEmptyParens(context, text) {
-  const { comment, enclosingNode } = context;
+function handleCommentInEmptyParens(context) {
+  const { comment, enclosingNode, text } = context;
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== ")") {
     return false;
   }
@@ -473,8 +488,14 @@ function handleCommentInEmptyParens(context, text) {
   return false;
 }
 
-function handleLastFunctionArgComments(context, text) {
-  const { comment, precedingNode, enclosingNode, followingNode } = context;
+function handleLastFunctionArgComments(context) {
+  const {
+    comment,
+    precedingNode,
+    enclosingNode,
+    followingNode,
+    text,
+  } = context;
 
   // Flow function type definitions
   if (
@@ -629,8 +650,8 @@ function handlePropertyComments(context) {
   return false;
 }
 
-function handleOnlyComments(context, ast, isLastComment) {
-  const { comment, enclosingNode } = context;
+function handleOnlyComments(context) {
+  const { comment, enclosingNode, ast, isLastComment } = context;
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast && ast.body && ast.body.length === 0) {
     if (isLastComment) {
@@ -669,8 +690,8 @@ function handleForComments(context) {
   return false;
 }
 
-function handleImportDeclarationComments(context, text) {
-  const { comment, precedingNode, enclosingNode } = context;
+function handleImportDeclarationComments(context) {
+  const { comment, precedingNode, enclosingNode, text } = context;
   if (
     precedingNode &&
     precedingNode.type === "ImportSpecifier" &&
@@ -721,8 +742,8 @@ function handleVariableDeclaratorComments(context) {
   return false;
 }
 
-function handleTSFunctionTrailingComments(context, text) {
-  const { comment, enclosingNode, followingNode } = context;
+function handleTSFunctionTrailingComments(context) {
+  const { comment, enclosingNode, followingNode, text } = context;
   if (
     !followingNode &&
     enclosingNode &&
