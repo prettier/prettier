@@ -1,5 +1,5 @@
 overrides:
-  - files: "**/*.js"
+  - files: "**/*.{js,mjs}"
     options:
       parser: meriyah
   - files: ".prettierrc"
