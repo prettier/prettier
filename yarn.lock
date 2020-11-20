@@ -6374,10 +6374,10 @@ rollup-pluginutils@^2.3.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@2.33.2:
-  version "2.33.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.33.2.tgz#c4c76cd405a7605e6ebe90976398c46d4c2ea166"
-  integrity sha512-QPQ6/fWCrzHtSXkI269rhKaC7qXGghYBwXU04b1JsDZ6ibZa3DJ9D1SFAYRMgx1inDg0DaTbb3N4Z1NK/r3fhw==
+rollup@2.33.3:
+  version "2.33.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.33.3.tgz#ae72ce31f992b09a580072951bfea76e9df17342"
+  integrity sha512-RpayhPTe4Gu/uFGCmk7Gp5Z9Qic2VsqZ040G+KZZvsZYdcuWaJg678JeDJJvJeEQXminu24a2au+y92CUWVd+w==
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -7166,10 +7166,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@4.1.1-rc:
-  version "4.1.1-rc"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.1-rc.tgz#4a335244b9b2754995849ca4b607c74d6ee73719"
-  integrity sha512-tgNcFrLIjlaMWEc7bKC0bxLNIt8BIAauY/HLUOQDyTP75HGskETtXOt46x4EKAHRKhWVLMc7yM02puTHa/yhCA==
+typescript@4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.2.tgz#6369ef22516fe5e10304aae5a5c4862db55380e9"
+  integrity sha512-thGloWsGH3SOxv1SoY7QojKi0tc+8FnOmiarEGMbd/lar7QOEd3hvlx3Fp5y6FlDUGl9L+pd4n2e+oToGMmhRQ==
 
 unherit@^1.0.4:
   version "1.1.3"
@@ -7447,10 +7447,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.5.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.5.0.tgz#250b3fdc1d876c7e58269d1406e7f9790af04f06"
-  integrity sha512-gyr7VE8zXJP81ZvS8+5dDphS2kaE0r8bpVWX6SxkBlzlX3hYfBS96kaltuf2cYK/BKJlUw5Aex/fKC34HUn+hA==
+webpack@5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.5.1.tgz#d6537f85554a0e59f15e6e683af11befdd0476aa"
+  integrity sha512-v4RzZP9BG2xxMLhxcFIo89M+nyIqGjh35Bhm5EE+I2N8y3dc9jT5OSb1HewUMkzMPyyDscOkVD6pSn6EMtTwNQ==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"
