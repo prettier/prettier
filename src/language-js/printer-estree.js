@@ -42,7 +42,6 @@ const {
 } = require("./html-binding");
 const preprocess = require("./print-preprocess");
 const {
-  getFunctionParameters,
   getCallArguments,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -50,18 +49,15 @@ const {
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNewlineBetweenOrAfterDecorators,
-  hasNgSideEffect,
   hasPrettierIgnore,
   hasTrailingComment,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   isLiteral,
-  isNgForOf,
   isObjectType,
   isObjectTypePropertyAFunction,
   isTheOnlyJSXElementInMarkdown,
-  isTSXFile,
   isBlockComment,
   needsHardlineAfterDanglingComment,
   rawText,
@@ -128,6 +124,7 @@ const { printStatementSequence } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock } = require("./print/block");
 const { printComment } = require("./print/comment");
+const { printAngular } = require("./print/angular");
 
 function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
@@ -254,6 +251,13 @@ function printPathNoParens(path, options, print, args) {
     return htmlBinding;
   }
 
+  if (options.parser.startWith("__ng_")) {
+    const printed = printAngular(path, options, print);
+    if (typeof printed !== "undefined") {
+      return printed;
+    }
+  }
+
   /** @type{Doc[]} */
   let parts = [];
 
@@ -362,7 +366,6 @@ function printPathNoParens(path, options, print, args) {
       return printVariableDeclarator(path, options, print);
     case "BinaryExpression":
     case "LogicalExpression":
-    case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
     case "AssignmentPattern":
       return concat([
@@ -2202,87 +2205,6 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-
-    case "NGRoot":
-      return concat(
-        [].concat(
-          path.call(print, "node"),
-          !n.node.comments || n.node.comments.length === 0
-            ? []
-            : concat([" //", n.node.comments[0].value.trimEnd()])
-        )
-      );
-    case "NGChainedExpression":
-      return group(
-        join(
-          concat([";", line]),
-          path.map(
-            (childPath) =>
-              hasNgSideEffect(childPath)
-                ? print(childPath)
-                : concat(["(", print(childPath), ")"]),
-            "expressions"
-          )
-        )
-      );
-    case "NGEmptyExpression":
-      return "";
-    case "NGQuotedExpression":
-      return concat([n.prefix, ": ", n.value.trim()]);
-    case "NGMicrosyntax":
-      return concat(
-        path.map(
-          (childPath, index) =>
-            concat([
-              index === 0
-                ? ""
-                : isNgForOf(childPath.getValue(), index, n)
-                ? " "
-                : concat([";", line]),
-              print(childPath),
-            ]),
-          "body"
-        )
-      );
-    case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(n.name)
-        ? n.name
-        : JSON.stringify(n.name);
-    case "NGMicrosyntaxExpression":
-      return concat([
-        path.call(print, "expression"),
-        n.alias === null ? "" : concat([" as ", path.call(print, "alias")]),
-      ]);
-    case "NGMicrosyntaxKeyedExpression": {
-      const index = path.getName();
-      const parentNode = path.getParentNode();
-      const shouldNotPrintColon =
-        isNgForOf(n, index, parentNode) ||
-        (((index === 1 && (n.key.name === "then" || n.key.name === "else")) ||
-          (index === 2 &&
-            n.key.name === "else" &&
-            parentNode.body[index - 1].type ===
-              "NGMicrosyntaxKeyedExpression" &&
-            parentNode.body[index - 1].key.name === "then")) &&
-          parentNode.body[0].type === "NGMicrosyntaxExpression");
-      return concat([
-        path.call(print, "key"),
-        shouldNotPrintColon ? " " : ": ",
-        path.call(print, "expression"),
-      ]);
-    }
-    case "NGMicrosyntaxLet":
-      return concat([
-        "let ",
-        path.call(print, "key"),
-        n.value === null ? "" : concat([" = ", path.call(print, "value")]),
-      ]);
-    case "NGMicrosyntaxAs":
-      return concat([
-        path.call(print, "key"),
-        " as ",
-        path.call(print, "alias"),
-      ]);
 
     case "PipelineBareFunction":
       return path.call(print, "callee");
