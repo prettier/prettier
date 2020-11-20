@@ -902,7 +902,7 @@ function isRealFunctionLikeNode(node) {
 
 /**
  * @param {Node} enclosingNode
- * @returns {RegExp|void}
+ * @returns {RegExp | void}
  */
 function getGapRegex(enclosingNode) {
   if (
@@ -918,7 +918,7 @@ function getGapRegex(enclosingNode) {
 
 /**
  * @param {any} node
- * @returns {Node[]|void}
+ * @returns {Node[] | void}
  */
 function getCommentChildNodes(node, options) {
   // Prevent attaching comments to FunctionExpression in this case:
