@@ -193,8 +193,24 @@ function getInnerParts(doc) {
   return parts;
 }
 
+// Remove empty docs
+function cleanDoc(doc) {
+  return mapDoc(doc, (currentDoc) => {
+    let { parts } = currentDoc;
+    if (Array.isArray(parts)) {
+      parts = parts.filter(Boolean);
+      if (parts.length === 0) {
+        return "";
+      }
+      currentDoc.parts = parts;
+    }
+    return currentDoc;
+  });
+}
+
 function stripTrailingHardline(doc, withInnerParts = false) {
   // HACK remove ending hardline, original PR: #1984
+  doc = cleanDoc(doc);
   if (doc.type === "concat" && doc.parts.length !== 0) {
     const parts = withInnerParts ? getInnerParts(doc) : doc.parts;
     const lastPart = parts[parts.length - 1];
