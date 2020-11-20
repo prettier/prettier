@@ -3,18 +3,18 @@
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
-const postprocess = require("./postprocess");
+const postprocess = require("./parse-postprocess");
 
 function parse(text, parsers, opts) {
   const jsx = isProbablyJsx(text);
-  let ast;
+  let result;
   try {
     // Try passing with our best guess first.
-    ast = tryParseTypeScript(text, jsx);
+    result = tryParseTypeScript(text, jsx);
   } catch (firstError) {
     try {
       // But if we get it wrong, try the opposite.
-      ast = tryParseTypeScript(text, !jsx);
+      result = tryParseTypeScript(text, !jsx);
     } catch (secondError) {
       // Suppose our guess is correct, throw the first error
       const { message, lineNumber, column } = firstError;
@@ -30,12 +30,16 @@ function parse(text, parsers, opts) {
     }
   }
 
-  return postprocess(ast, { ...opts, originalText: text });
+  return postprocess(result.ast, {
+    ...opts,
+    originalText: text,
+    tsParseResult: result,
+  });
 }
 
 function tryParseTypeScript(text, jsx) {
-  const parser = require("@typescript-eslint/typescript-estree");
-  return parser.parse(text, {
+  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
+  return parseWithNodeMaps(text, {
     // `jest@<=26.4.2` rely on `loc`
     // https://github.com/facebook/jest/issues/10444
     loc: true,
@@ -45,6 +49,7 @@ function tryParseTypeScript(text, jsx) {
     jsx,
     tokens: true,
     loggerFn: false,
+    project: [],
   });
 }
 

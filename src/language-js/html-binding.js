@@ -41,7 +41,7 @@ function printHtmlBinding(path, options, print) {
     );
   }
 
-  if (options.__isVueSlotScope) {
+  if (options.__isVueBindings) {
     return path.call(
       (functionDeclarationPath) =>
         join(concat([",", line]), functionDeclarationPath.map(print, "params")),

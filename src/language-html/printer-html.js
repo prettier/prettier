@@ -36,6 +36,8 @@ const {
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isScriptLikeTag,
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
@@ -44,11 +46,12 @@ const {
   unescapeQuoteEntities,
   isPreLikeNode,
 } = require("./utils");
-const preprocess = require("./preprocess");
+const preprocess = require("./print-preprocess");
 const { insertPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 const {
   printVueFor,
-  printVueSlotScope,
+  printVueBindings,
   isVueEventBindingExpression,
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
@@ -407,10 +410,7 @@ function genericPrint(path, options, print) {
         printOpeningTagPrefix(node, options),
         concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              options.locStart(node),
-              options.locEnd(node)
-            ),
+            options.originalText.slice(locStart(node), locEnd(node)),
             literalline
           )
         ),
@@ -563,12 +563,12 @@ function printChildren(path, options, print) {
           printOpeningTagPrefix(child, options),
           replaceEndOfLineWith(
             options.originalText.slice(
-              options.locStart(child) +
+              locStart(child) +
                 (child.prev &&
                 needsToBorrowNextOpeningTagStartMarker(child.prev)
                   ? printOpeningTagStartMarker(child).length
                   : 0),
-              options.locEnd(child) -
+              locEnd(child) -
                 (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
                   ? printClosingTagEndMarker(child, options).length
                   : 0)
@@ -698,10 +698,7 @@ function printAttributes(path, options, print) {
     return hasPrettierIgnoreAttribute(attribute)
       ? concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              options.locStart(attribute),
-              options.locEnd(attribute)
-            ),
+            options.originalText.slice(locStart(attribute), locEnd(attribute)),
             literalline
           )
         )
@@ -1083,8 +1080,8 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (node.fullName === "slot-scope") {
-      return printVueSlotScope(getValue(), textToDoc);
+    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
+      return printVueBindings(getValue(), textToDoc);
     }
 
     /**
@@ -1102,7 +1099,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     /**
      *     v-if="jsExpression"
      */
-    const jsExpressionBindingPatterns = ["^v-", "^#"];
+    const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();

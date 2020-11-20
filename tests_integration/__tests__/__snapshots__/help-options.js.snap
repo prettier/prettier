@@ -361,7 +361,7 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
 
   Which parser to use.
 
@@ -373,6 +373,7 @@ Valid options:
   babel-ts         TypeScript
   typescript       TypeScript
   espree           JavaScript
+  meriyah          JavaScript
   css              CSS
   less             Less
   scss             SCSS

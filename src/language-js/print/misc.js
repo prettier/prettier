@@ -1,10 +1,14 @@
 "use strict";
 
-const { isNumericLiteral } = require("../utils");
-
+/** @type {import("assert")} */
+const assert = require("assert");
 const {
-  builders: { concat, softline, group, indent },
+  builders: { concat, group, indent, join, line, hardline },
 } = require("../../document");
+const {
+  hasNewlineBetweenOrAfterDecorators,
+  getParentExportDeclaration,
+} = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -36,31 +40,60 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printMemberLookup(path, options, print) {
-  const property = path.call(print, "property");
+function printBindExpressionCallee(path, options, print) {
+  return concat(["::", path.call(print, "callee")]);
+}
+
+function printTypeScriptModifiers(path, options, print) {
   const n = path.getValue();
-  const optional = printOptionalToken(path);
-
-  if (!n.computed) {
-    return concat([optional, ".", property]);
+  if (!n.modifiers || !n.modifiers.length) {
+    return "";
   }
+  return concat([join(" ", path.map(print, "modifiers")), " "]);
+}
 
-  if (!n.property || isNumericLiteral(n.property)) {
-    return concat([optional, "[", property, "]"]);
-  }
-
+function printDecorators(path, options, print) {
+  const node = path.getValue();
   return group(
-    concat([optional, "[", indent(concat([softline, property])), softline, "]"])
+    concat([
+      join(line, path.map(print, "decorators")),
+      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
+    ])
   );
 }
 
-function printBindExpressionCallee(path, options, print) {
-  return concat(["::", path.call(print, "callee")]);
+function printFlowDeclaration(path, printed) {
+  const parentExportDecl = getParentExportDeclaration(path);
+
+  if (parentExportDecl) {
+    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
+    return printed;
+  }
+
+  // If the parent node has type DeclareExportDeclaration, then it
+  // will be responsible for printing the "declare" token. Otherwise
+  // it needs to be printed with this non-exported declaration node.
+  return concat(["declare ", printed]);
+}
+
+function adjustClause(node, clause, forceSpace) {
+  if (node.type === "EmptyStatement") {
+    return ";";
+  }
+
+  if (node.type === "BlockStatement" || forceSpace) {
+    return concat([" ", clause]);
+  }
+
+  return indent(concat([line, clause]));
 }
 
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
-  printMemberLookup,
   printBindExpressionCallee,
+  printTypeScriptModifiers,
+  printDecorators,
+  printFlowDeclaration,
+  adjustClause,
 };

@@ -302,6 +302,26 @@ promise.then((result) =>
 ================================================================================
 `;
 
+exports[`class-property.js [espree] format 1`] = `
+"Unexpected token = (3:22)
+  1 | const composition = (ViewComponent, ContainerComponent) =>
+  2 |   class extends React.Component {
+> 3 |     static propTypes = {};
+    |                      ^
+  4 |   };
+  5 | "
+`;
+
+exports[`class-property.js - {"arrowParens":"always"} [espree] format 1`] = `
+"Unexpected token = (3:22)
+  1 | const composition = (ViewComponent, ContainerComponent) =>
+  2 |   class extends React.Component {
+> 3 |     static propTypes = {};
+    |                      ^
+  4 |   };
+  5 | "
+`;
+
 exports[`class-property.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
@@ -321,6 +341,16 @@ const composition = (ViewComponent, ContainerComponent) =>
   };
 
 ================================================================================
+`;
+
+exports[`class-property.js - {"trailingComma":"all"} [espree] format 1`] = `
+"Unexpected token = (3:22)
+  1 | const composition = (ViewComponent, ContainerComponent) =>
+  2 |   class extends React.Component {
+> 3 |     static propTypes = {};
+    |                      ^
+  4 |   };
+  5 | "
 `;
 
 exports[`class-property.js - {"trailingComma":"all"} format 1`] = `

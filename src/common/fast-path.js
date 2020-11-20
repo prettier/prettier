@@ -77,7 +77,7 @@ class FastPath {
   }
 
   // Similar to FastPath.prototype.call, except that the value obtained by
-  // accessing this.getValue()[name1][name2]... should be array-like. The
+  // accessing this.getValue()[name1][name2]... should be array. The
   // callback will be called with a reference to this path object for each
   // element of the array.
   each(callback, ...names) {
@@ -91,11 +91,9 @@ class FastPath {
     }
 
     for (let i = 0; i < value.length; ++i) {
-      if (i in value) {
-        stack.push(i, value[i]);
-        callback(this, i);
-        stack.length -= 2;
-      }
+      stack.push(i, value[i]);
+      callback(this, i);
+      stack.length -= 2;
     }
 
     stack.length = length;
@@ -105,27 +103,10 @@ class FastPath {
   // callback function invocations are stored in an array and returned at
   // the end of the iteration.
   map(callback, ...names) {
-    const { stack } = this;
-    const { length } = stack;
-    let value = getLast(stack);
-
-    for (const name of names) {
-      value = value[name];
-      stack.push(name, value);
-    }
-
-    const result = new Array(value.length);
-
-    for (let i = 0; i < value.length; ++i) {
-      if (i in value) {
-        stack.push(i, value[i]);
-        result[i] = callback(this, i);
-        stack.length -= 2;
-      }
-    }
-
-    stack.length = length;
-
+    const result = [];
+    this.each((path, index) => {
+      result[index] = callback(path, index);
+    }, ...names);
     return result;
   }
 

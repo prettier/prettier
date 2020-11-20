@@ -130,6 +130,7 @@ const options = {
       { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "espree", since: "2.2.0", description: "JavaScript" },
+      { value: "meriyah", since: "2.2.0", description: "JavaScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       { value: "less", since: "1.7.1", description: "Less" },
       { value: "scss", since: "1.7.1", description: "SCSS" },

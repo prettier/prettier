@@ -18,7 +18,7 @@ module.exports = {
     },
     messages: {
       [MESSAGE_ID]:
-        "Call `{{function}}` directly from `src/language-js/loc.js`.",
+        "Please import `{{function}}` function and use it directly.",
     },
     fixable: "code",
   },

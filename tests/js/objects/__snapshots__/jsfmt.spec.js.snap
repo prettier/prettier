@@ -52,6 +52,28 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
+exports[`expression.js [espree] format 1`] = `
+"Unexpected token : (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js [meriyah] format 1`] = `
+"[5:4]: Expected ')' (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -113,6 +135,28 @@ const a3 = {
 ================================================================================
 `;
 
+exports[`invalid-accessor-generator.js [espree] format 1`] = `
+"Unexpected token * (5:9)
+  3 | 
+  4 | ({
+> 5 |     get *iterator() { },
+    |         ^
+  6 |     set *iterator(iter) { },
+  7 |     get iterator2() { },
+  8 |     set iterator2(iter) { },"
+`;
+
+exports[`invalid-accessor-generator.js [meriyah] format 1`] = `
+"[5:9]: A getter cannot be a generator (5:9)
+  3 | 
+  4 | ({
+> 5 |     get *iterator() { },
+    |         ^
+  6 |     set *iterator(iter) { },
+  7 |     get iterator2() { },
+  8 |     set iterator2(iter) { },"
+`;
+
 exports[`invalid-accessor-generator.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -141,6 +185,20 @@ printWidth: 80
 });
 
 ================================================================================
+`;
+
+exports[`invalid-setter.js [espree] format 1`] = `
+"setter should have exactly one param (1:9)
+> 1 | ({ set x(){} });
+    |         ^
+  2 | "
+`;
+
+exports[`invalid-setter.js [meriyah] format 1`] = `
+"[1:10]: Setter functions must have exactly one argument (1:10)
+> 1 | ({ set x(){} });
+    |          ^
+  2 | "
 `;
 
 exports[`invalid-setter.js format 1`] = `

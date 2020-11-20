@@ -38,10 +38,12 @@ Object {
       "flow",
       "typescript",
       "espree",
+      "meriyah",
     ],
     "JavaScript": Array [
       "babel",
       "espree",
+      "meriyah",
       "babel-flow",
       "babel-ts",
       "flow",
@@ -153,6 +155,7 @@ Object {
         "babel-ts",
         "typescript",
         "espree",
+        "meriyah",
         "css",
         "less",
         "scss",
@@ -319,6 +322,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"parsers\\": [
         \\"babel\\",
         \\"espree\\",
+        \\"meriyah\\",
         \\"babel-flow\\",
         \\"babel-ts\\",
         \\"flow\\",
@@ -371,7 +375,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\"babel-ts\\",
         \\"flow\\",
         \\"typescript\\",
-        \\"espree\\"
+        \\"espree\\",
+        \\"meriyah\\"
       ],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
@@ -490,6 +495,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".jscsrc\\",
         \\".jshintrc\\",
         \\".jslintrc\\",
+        \\"devcontainer.json\\",
         \\"jsconfig.json\\",
         \\"language-configuration.json\\",
         \\"tsconfig.json\\",
@@ -881,6 +887,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"value\\": \\"typescript\\"
         },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"espree\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"meriyah\\" },
         { \\"description\\": \\"CSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"css\\" },
         { \\"description\\": \\"Less\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"less\\" },
         { \\"description\\": \\"SCSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"scss\\" },

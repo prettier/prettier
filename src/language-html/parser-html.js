@@ -16,6 +16,7 @@ const {
 const { hasPragma } = require("./pragma");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
+const { locStart, locEnd } = require("./loc");
 
 function ngHtmlParser(
   input,
@@ -345,14 +346,6 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 
     return node;
   });
-}
-
-function locStart(node) {
-  return node.sourceSpan.start.offset;
-}
-
-function locEnd(node) {
-  return node.sourceSpan.end.offset;
 }
 
 function createParser({

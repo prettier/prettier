@@ -1,17 +1,11 @@
 "use strict";
 
 const {
-  concat,
-  join,
-  hardline,
-  line,
-  softline,
-  group,
-  indent,
-  ifBreak,
-} = require("../document").builders;
-const { hasIgnoreComment, isNextLineEmpty } = require("../common/util");
+  builders: { concat, join, hardline, line, softline, group, indent, ifBreak },
+} = require("../document");
+const { isNextLineEmpty } = require("../common/util");
 const { insertPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -31,11 +25,7 @@ function genericPrint(path, options, print) {
         if (index !== n.definitions.length - 1) {
           parts.push(hardline);
           if (
-            isNextLineEmpty(
-              options.originalText,
-              pathChild.getValue(),
-              options.locEnd
-            )
+            isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd)
           ) {
             parts.push(hardline);
           }
@@ -44,7 +34,7 @@ function genericPrint(path, options, print) {
       return concat([concat(parts), hardline]);
     }
     case "OperationDefinition": {
-      const hasOperation = options.originalText[options.locStart(n)] !== "{";
+      const hasOperation = options.originalText[locStart(n)] !== "{";
       const hasName = !!n.name;
       return concat([
         hasOperation ? n.operation : "",
@@ -627,7 +617,7 @@ function printSequence(sequencePath, options, print) {
     const printed = print(path);
 
     if (
-      isNextLineEmpty(options.originalText, path.getValue(), options.locEnd) &&
+      isNextLineEmpty(options.originalText, path.getValue(), locEnd) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);
@@ -677,15 +667,22 @@ function printInterfaces(path, options, print) {
   return parts;
 }
 
-function clean(node, newNode /*, parent*/) {
-  delete newNode.loc;
-  delete newNode.comments;
+function clean(/*node, newNode , parent*/) {}
+clean.ignoredProperties = new Set(["loc", "comments"]);
+
+function hasPrettierIgnore(path) {
+  const node = path.getValue();
+  return (
+    node &&
+    Array.isArray(node.comments) &&
+    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
+  );
 }
 
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
-  hasPrettierIgnore: hasIgnoreComment,
+  hasPrettierIgnore,
   insertPragma,
   printComment,
   canAttachComment,

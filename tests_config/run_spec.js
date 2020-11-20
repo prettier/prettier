@@ -40,6 +40,8 @@ const unstableTests = new Map(
     ],
     ["js/no-semi/comments.js", (options) => options.semi === false],
     ["flow/no-semi/comments.js", (options) => options.semi === false],
+    "typescript/prettier-ignore/mapped-types.ts",
+    "js/comments/html-like/comment.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -54,6 +56,7 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../tests/js", directory))
 );
+const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -67,6 +70,10 @@ const isUnstable = (filename, options) => {
 
 const shouldThrowOnFormat = (filename, options) => {
   const { errors = {} } = options;
+  if (errors === true) {
+    return true;
+  }
+
   const files = errors[options.parser];
 
   if (files === true || (Array.isArray(files) && files.includes(filename))) {
@@ -95,6 +102,9 @@ function runSpec(fixtures, parsers, options) {
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
   const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
+  if (IS_ERROR_TESTS) {
+    options = { errors: true, ...options };
+  }
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [undefined];
@@ -142,17 +152,20 @@ function runSpec(fixtures, parsers, options) {
 
   const [parser] = parsers;
   const allParsers = [...parsers];
-  if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
-    allParsers.push("babel-ts");
-  }
 
-  if (
-    parsers.includes("babel") &&
-    !parsers.includes("espree") &&
-    isTestDirectory(dirname, "js") &&
-    !espreeDisabledTests.has(dirname)
-  ) {
-    allParsers.push("espree");
+  if (!IS_ERROR_TESTS) {
+    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+      allParsers.push("babel-ts");
+    }
+
+    if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
+      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
+        allParsers.push("espree");
+      }
+      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
+        allParsers.push("meriyah");
+      }
+    }
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
@@ -169,16 +182,9 @@ function runSpec(fixtures, parsers, options) {
         filepath: filename,
         parser,
       };
-      const formatWithMainParser = () => format(code, formatOptions);
-
-      if (IS_ERROR_TESTS) {
-        test("error test", () => {
-          expect(formatWithMainParser).toThrowErrorMatchingSnapshot();
-        });
-        return;
-      }
-
-      const mainParserFormatResult = formatWithMainParser();
+      const mainParserFormatResult = shouldThrowOnFormat(name, formatOptions)
+        ? { options: formatOptions, error: true }
+        : format(code, formatOptions);
 
       for (const currentParser of allParsers) {
         runTest({
@@ -210,14 +216,18 @@ function runTest({
   let formatResult = mainParserFormatResult;
   let formatTestTitle = "format";
 
-  // Verify parsers
-  if (parser !== parsers[0]) {
+  // Verify parsers or error tests
+  if (
+    mainParserFormatResult.error ||
+    mainParserFormatOptions.parser !== parser
+  ) {
+    formatTestTitle = `[${parser}] format`;
     formatOptions = { ...mainParserFormatResult.options, parser };
     const runFormat = () => format(code, formatOptions);
 
     if (shouldThrowOnFormat(name, formatOptions)) {
-      test(`[${parser}] expect SyntaxError`, () => {
-        expect(runFormat).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+      test(formatTestTitle, () => {
+        expect(runFormat).toThrowErrorMatchingSnapshot();
       });
       return;
     }
@@ -225,7 +235,6 @@ function runTest({
     // Verify parsers format result should be the same as main parser
     output = mainParserFormatResult.outputWithCursor;
     formatResult = runFormat();
-    formatTestTitle = `[${parser}] format`;
   }
 
   test(formatTestTitle, () => {

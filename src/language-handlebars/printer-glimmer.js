@@ -1,17 +1,9 @@
 "use strict";
 
 const {
-  concat,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  join,
-  line,
-  softline,
-} = require("../document").builders;
-const locationToOffset = require("../utils/line-column-to-index");
-
+  builders: { concat, group, hardline, ifBreak, indent, join, line, softline },
+} = require("../document");
+const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {
   getNextNode,
@@ -37,11 +29,7 @@ function print(path, options, print) {
   }
 
   if (hasPrettierIgnore(path)) {
-    const startOffset = locationToOffset(n.loc.start, options.originalText);
-    const endOffset = locationToOffset(n.loc.end, options.originalText);
-
-    const ignoredText = options.originalText.slice(startOffset, endOffset);
-    return ignoredText;
+    return options.originalText.slice(locStart(n), locEnd(n));
   }
 
   switch (n.type) {
@@ -145,12 +133,10 @@ function print(path, options, print) {
       const isText = n.value.type === "TextNode";
       const isEmptyText = isText && n.value.chars === "";
 
-      // If the text is empty and the value's loc start and end columns are the
+      // If the text is empty and the value's loc start and end offsets are the
       // same, there is no value for this AttrNode and it should be printed
       // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
-      const isEmptyValue =
-        isEmptyText && n.value.loc.start.column === n.value.loc.end.column;
-      if (isEmptyValue) {
+      if (isEmptyText && locStart(n.value) === locEnd(n.value)) {
         return concat([n.name]);
       }
       const value = path.call(print, "value");
