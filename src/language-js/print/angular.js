@@ -3,7 +3,8 @@
 const {
   builders: { concat, join, line, group },
 } = require("../document");
-const { printBinaryishExpression } = require("./print/binaryish");
+const { hasNode } = require("../utils");
+const { printBinaryishExpression } = require("./binaryish");
 
 function printAngularNode(path, options, print) {
   const n = path.getValue();

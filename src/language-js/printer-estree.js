@@ -36,11 +36,11 @@ const clean = require("./clean");
 const { insertPragma } = require("./pragma");
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
+const preprocess = require("./print-preprocess");
 const {
   printHtmlBinding,
   isVueEventBindingExpression,
-} = require("./html-binding");
-const preprocess = require("./print-preprocess");
+} = require("./print/html-binding");
 const {
   getCallArguments,
   getParentExportDeclaration,
