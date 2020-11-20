@@ -79,12 +79,12 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^pr-(\d{4,})\.md$/);
+    const match = prFile.match(/^(\d{4,})\.md$/);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
       showErrorMessage(
-        `[${displayPath}]: Filename is not in form of "pr-{PR_NUMBER}.md".`
+        `[${displayPath}]: Filename is not in form of "{PR_NUMBER}.md".`
       );
       continue;
     }
