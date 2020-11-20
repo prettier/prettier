@@ -88,17 +88,7 @@ const {
   printTypeAnnotation,
   shouldHugType,
 } = require("./print/type-annotation");
-const {
-  printJsxElement,
-  printJsxAttribute,
-  printJsxOpeningElement,
-  printJsxClosingElement,
-  printJsxOpeningClosingFragment,
-  printJsxExpressionContainer,
-  printJsxEmptyExpression,
-  printJsxSpreadAttribute,
-  printJsxSpreadChild,
-} = require("./print/jsx");
+const { printJsx } = require("./print/jsx");
 const { printClass, printClassMethod } = require("./print/class");
 const {
   printTypeParameter,
@@ -252,10 +242,14 @@ function printPathNoParens(path, options, print, args) {
   }
 
   if (options.parser.startWith("__ng_")) {
-    const printed = printAngular(path, options, print);
-    if (typeof printed !== "undefined") {
-      return printed;
+    const printedAngular = printAngular(path, options, print);
+    if (typeof printedAngular !== "undefined") {
+      return printedAngular;
     }
+  }
+  const printedJsx = printJsx(path, options, print);
+  if (typeof printedAngular !== "undefined") {
+    return printedJsx;
   }
 
   /** @type{Doc[]} */
@@ -1058,43 +1052,8 @@ function printPathNoParens(path, options, print, args) {
     // JSX extensions below.
     case "DebuggerStatement":
       return concat(["debugger", semi]);
-    case "JSXAttribute":
-      return printJsxAttribute(path, options, print);
-    case "JSXIdentifier":
-      return "" + n.name;
-    case "JSXNamespacedName":
-      return join(":", [
-        path.call(print, "namespace"),
-        path.call(print, "name"),
-      ]);
-    case "JSXMemberExpression":
-      return join(".", [
-        path.call(print, "object"),
-        path.call(print, "property"),
-      ]);
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
-    case "JSXSpreadAttribute":
-      return printJsxSpreadAttribute(path, options, print);
-    case "JSXSpreadChild":
-      return printJsxSpreadChild(path, options, print);
-    case "JSXExpressionContainer":
-      return printJsxExpressionContainer(path, options, print);
-    case "JSXFragment":
-    case "JSXElement":
-      return printJsxElement(path, options, print);
-    case "JSXOpeningElement":
-      return printJsxOpeningElement(path, options, print);
-    case "JSXClosingElement":
-      return printJsxClosingElement(path, options, print);
-    case "JSXOpeningFragment":
-    case "JSXClosingFragment":
-      return printJsxOpeningClosingFragment(path, options /*, print*/);
-    case "JSXText":
-      /* istanbul ignore next */
-      throw new Error("JSXTest should be handled by JSXElement");
-    case "JSXEmptyExpression":
-      return printJsxEmptyExpression(path, options /*, print*/);
     case "ClassBody":
       if (!n.comments && n.body.length === 0) {
         return "{}";
