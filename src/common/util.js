@@ -563,7 +563,7 @@ function isNodeIgnoreComment(comment) {
 
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
-  comments.push(comment.__isWrapped ? comment.comment : comment);
+  comments.push(comment);
   comment.printed = false;
 
   // For some reason, TypeScript parses `// x` inside of JSXText as a comment
