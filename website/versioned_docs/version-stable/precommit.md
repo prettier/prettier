@@ -70,8 +70,6 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
-Read more at the [pre-commit](https://pre-commit.com) website.
-
 ## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
 **Use Case:** Great for when you want to format partially-staged files, and other options do not provide a good fit for your project.
