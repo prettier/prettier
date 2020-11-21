@@ -22,11 +22,7 @@ function printVueFor(value, textToDoc) {
     " ",
     operator,
     " ",
-    textToDoc(
-      right,
-      { parser: "__js_expression" },
-      { stripTrailingHardline: true }
-    ),
+    textToDoc(right, { parser: "__js_expression" }),
   ]);
 }
 
