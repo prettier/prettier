@@ -575,17 +575,6 @@ function isCallOrOptionalCallExpression(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasDanglingComments(node) {
-  return (
-    node.comments &&
-    node.comments.some((comment) => !comment.leading && !comment.trailing)
-  );
-}
-
-/**
  *
  * @param {any} node
  * @returns {boolean}
@@ -790,7 +779,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling &&
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
-    hasPrettierIgnore(prevSibling.expression)
+    hasNodeIgnoreComment(prevSibling.expression)
   );
 }
 
@@ -1445,7 +1434,7 @@ const COMMENT = {
  * @returns {boolean}
  */
 function hasComments(node, options, fn) {
-  if (!node || Array.isArray(node.comments) || node.comments.length === 0) {
+  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
     return false;
   }
   if (typeof options === "function") {

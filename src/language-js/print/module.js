@@ -210,13 +210,8 @@ function printModuleSpecifiers(path, options, print) {
 
       const canBreak =
         groupedSpecifiers.length > 1 ||
-<<<<<<< HEAD
-        standalonesSpecifiers.length > 0 ||
-        node.specifiers.some((node) => hasComments(node));
-=======
         standaloneSpecifiers.length > 0 ||
-        node.specifiers.some((node) => node.comments);
->>>>>>> master
+        node.specifiers.some((node) => hasComments(node));
 
       if (canBreak) {
         parts.push(

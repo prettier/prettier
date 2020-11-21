@@ -20,6 +20,7 @@ const {
   isBinaryish,
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
+  hasComments,
 } = require("../utils");
 
 function printTemplateLiteral(path, print, options) {

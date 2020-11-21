@@ -47,6 +47,7 @@ const {
   hasNewlineBetweenOrAfterDecorators,
   hasPrettierIgnore,
   hasComments,
+  COMMENT,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
@@ -962,7 +963,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "CatchClause":
       if (n.param) {
-        const hasComments = hasComments(
+        const parameterHasComments = hasComments(
           n.param,
           (comment) =>
             !isBlockComment(comment) ||
@@ -977,7 +978,7 @@ function printPathNoParens(path, options, print, args) {
 
         return concat([
           "catch ",
-          hasComments
+          parameterHasComments
             ? concat(["(", indent(concat([softline, param])), softline, ") "])
             : concat(["(", param, ") "]),
           path.call(print, "body"),
