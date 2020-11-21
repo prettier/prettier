@@ -4,13 +4,8 @@ const { printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, line, softline, group, indent, ifBreak },
 } = require("../../document");
-const {
-  getLast,
-  isNextLineEmpty,
-  hasComments,
-  COMMENT,
-} = require("../../common/util");
-const { shouldPrintComma } = require("../utils");
+const { getLast, isNextLineEmpty } = require("../../common/util");
+const { shouldPrintComma, hasComments, COMMENT } = require("../utils");
 const { locEnd } = require("../loc");
 
 const { printOptionalToken } = require("./misc");
