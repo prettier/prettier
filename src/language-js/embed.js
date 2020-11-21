@@ -1,7 +1,7 @@
 "use strict";
 
-const { hasLeadingComment } = require("./comments");
 const { isBlockComment } = require("./utils");
+const { hasLeadingComment } = require("./comments");
 const formatMarkdown = require("./embed/markdown");
 const formatCss = require("./embed/css");
 const formatGraphql = require("./embed/graphql");

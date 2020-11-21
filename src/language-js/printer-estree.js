@@ -785,7 +785,7 @@ function printPathNoParens(path, options, print, args) {
 
       if (n.alternate) {
         const commentOnOwnLine =
-          hasComments(COMMENT.trailing | COMMENT.line) ||
+          hasComments(n.consequent, COMMENT.trailing | COMMENT.line) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
