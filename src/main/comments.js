@@ -25,6 +25,7 @@ const {
   addDanglingComment,
   addTrailingComment,
 } = require("../common/util");
+const CommentsStore = require("./comments-store");
 
 const childNodesCacheKey = Symbol("child-nodes");
 
@@ -187,6 +188,11 @@ function attach(comments, ast, text, options) {
     remaining: handleRemainingComment = returnFalse,
   } = handleComments;
 
+  let commentStore;
+  if (avoidAstMutation) {
+    commentStore = new CommentsStore();
+  }
+
   comments.forEach((comment, i) => {
     if (
       options.parser === "json" ||
@@ -219,7 +225,7 @@ function attach(comments, ast, text, options) {
     };
 
     let args;
-    if (avoidAstMutation) {
+    if (commentStore) {
       args = [context];
     } else {
       comment.enclosingNode = enclosingNode;
@@ -229,10 +235,15 @@ function attach(comments, ast, text, options) {
     }
 
     if (hasNewline(text, locStart(comment), { backwards: true })) {
+      const handleResult = handleOwnLineComment(...args);
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
-      if (handleOwnLineComment(...args)) {
+      if (handleResult) {
         // We're good
+        if (commentStore) {
+          const { node, type } = handleResult;
+          commentStore.addComment(node, comment, type);
+        }
       } else if (followingNode) {
         // Always a leading comment.
         addLeadingComment(followingNode, comment);
@@ -246,7 +257,12 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else if (hasNewline(text, locEnd(comment))) {
-      if (handleEndOfLineComment(...args)) {
+      const handleResult = handleEndOfLineComment(...args);
+      if (handleResult) {
+        if (commentStore) {
+          const { node, type } = handleResult;
+          commentStore.addComment(node, comment, type);
+        }
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
@@ -262,7 +278,12 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else {
-      if (handleRemainingComment(...args)) {
+      const handleResult = handleRemainingComment(...args);
+      if (handleResult) {
+        if (commentStore) {
+          const { node, type } = handleResult;
+          commentStore.addComment(node, comment, type);
+        }
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on

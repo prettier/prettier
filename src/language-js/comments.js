@@ -6,9 +6,6 @@ const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacter,
   hasNewlineInRange,
-  addLeadingComment,
-  addTrailingComment,
-  addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util");
 const {
@@ -36,14 +33,16 @@ const { locStart, locEnd } = require("./loc");
  * @property {any} options
  * @property {Node} ast
  * @property {boolean} isLastComment
+ *
+ * @typedef {{node: any; type: string}} CommentHandleResult
  */
 
 /**
  * @param {CommentContext} context
- * @returns {boolean}
+ * @returns {CommentHandleResult | void}
  */
 function handleOwnLineComment(context) {
-  return [
+  for (const handler of [
     handleIgnoreComments,
     handleLastFunctionArgComments,
     handleMemberExpressionComments,
@@ -59,15 +58,20 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
-  ].some((fn) => fn(context));
+  ]) {
+    const result = handler(context);
+    if (result) {
+      return result;
+    }
+  }
 }
 
 /**
  * @param {CommentContext} context
- * @returns {boolean}
+ * @returns {CommentHandleResult | void}
  */
 function handleEndOfLineComment(context) {
-  return [
+  for (const handler of [
     handleClosureTypeCastComments,
     handleLastFunctionArgComments,
     handleConditionalExpressionComments,
@@ -82,15 +86,20 @@ function handleEndOfLineComment(context) {
     handleOnlyComments,
     handleTypeAliasComments,
     handleVariableDeclaratorComments,
-  ].some((fn) => fn(context));
+  ]) {
+    const result = handler(context);
+    if (result) {
+      return result;
+    }
+  }
 }
 
 /**
  * @param {CommentContext} context
- * @returns {boolean}
+ * @returns {CommentHandleResult | void}
  */
 function handleRemainingComment(context) {
-  return [
+  for (const handler of [
     handleIgnoreComments,
     handleIfStatementComments,
     handleWhileComments,
@@ -103,43 +112,44 @@ function handleRemainingComment(context) {
     handleTSMappedTypeComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
-  ].some((fn) => fn(context));
+  ]) {
+    const result = handler(context);
+    if (result) {
+      return result;
+    }
+  }
 }
 
 /**
  * @param {Node} node
- * @returns {void}
+ * @returns {CommentHandleResult}
  */
-function addBlockStatementFirstComment(node, comment) {
+function addBlockStatementFirstComment(node) {
   // @ts-ignore
   const firstNonEmptyNode = (node.body || node.properties).find(
     ({ type }) => type !== "EmptyStatement"
   );
   if (firstNonEmptyNode) {
-    addLeadingComment(firstNonEmptyNode, comment);
-  } else {
-    addDanglingComment(node, comment);
+    return { node: firstNonEmptyNode, type: "leading" };
   }
+  return { node, type: "dangling" };
 }
 
 /**
  * @param {Node} node
- * @returns {void}
+ * @returns {CommentHandleResult}
  */
-function addBlockOrNotComment(node, comment) {
+function addBlockOrNotComment(node) {
   if (node.type === "BlockStatement") {
-    addBlockStatementFirstComment(node, comment);
-  } else {
-    addLeadingComment(node, comment);
+    return addBlockStatementFirstComment(node);
   }
+  return { node, type: "leading" };
 }
 
 function handleClosureTypeCastComments({ comment, followingNode }) {
   if (followingNode && isTypeCastComment(comment)) {
-    addLeadingComment(followingNode, comment);
-    return true;
+    return { node: followingNode, type: "leading" };
   }
-  return false;
 }
 
 // There are often comments before the else clause of if statements like
@@ -170,7 +180,7 @@ function handleIfStatementComments({
     enclosingNode.type !== "IfStatement" ||
     !followingNode
   ) {
-    return false;
+    return;
   }
 
   // We unfortunately have no way using the AST or location of nodes to know
@@ -184,8 +194,7 @@ function handleIfStatementComments({
     locEnd
   );
   if (nextCharacter === ")") {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
 
   // Comments before `else`:
@@ -196,21 +205,17 @@ function handleIfStatementComments({
     followingNode === enclosingNode.alternate
   ) {
     if (precedingNode.type === "BlockStatement") {
-      addTrailingComment(precedingNode, comment);
-    } else {
-      addDanglingComment(enclosingNode, comment);
+      return { node: precedingNode, type: "trailing" };
     }
-    return true;
+    return { node: enclosingNode, type: "dangling" };
   }
 
   if (followingNode.type === "BlockStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
+    return addBlockStatementFirstComment(followingNode);
   }
 
   if (followingNode.type === "IfStatement") {
-    addBlockOrNotComment(followingNode.consequent, comment);
-    return true;
+    return addBlockOrNotComment(followingNode.consequent);
   }
 
   // For comments positioned after the condition parenthesis in an if statement
@@ -219,11 +224,8 @@ function handleIfStatementComments({
   // we look at the next character to see if the following node
   // is the consequent for the if statement
   if (enclosingNode.consequent === followingNode) {
-    addLeadingComment(followingNode, comment);
-    return true;
+    return { node: followingNode, type: "leading" };
   }
-
-  return false;
 }
 
 function handleWhileComments({
@@ -238,7 +240,7 @@ function handleWhileComments({
     enclosingNode.type !== "WhileStatement" ||
     !followingNode
   ) {
-    return false;
+    return;
   }
 
   // We unfortunately have no way using the AST or location of nodes to know
@@ -252,26 +254,20 @@ function handleWhileComments({
     locEnd
   );
   if (nextCharacter === ")") {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
 
   if (followingNode.type === "BlockStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
+    return addBlockStatementFirstComment(followingNode);
   }
 
   if (enclosingNode.body === followingNode) {
-    addLeadingComment(followingNode, comment);
-    return true;
+    return { node: followingNode, type: "leading" };
   }
-
-  return false;
 }
 
 // Same as IfStatement but for TryStatement
 function handleTryStatementComments({
-  comment,
   precedingNode,
   enclosingNode,
   followingNode,
@@ -282,37 +278,27 @@ function handleTryStatementComments({
       enclosingNode.type !== "CatchClause") ||
     !followingNode
   ) {
-    return false;
+    return;
   }
 
   if (enclosingNode.type === "CatchClause" && precedingNode) {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
 
   if (followingNode.type === "BlockStatement") {
-    addBlockStatementFirstComment(followingNode, comment);
-    return true;
+    return addBlockStatementFirstComment(followingNode);
   }
 
   if (followingNode.type === "TryStatement") {
-    addBlockOrNotComment(followingNode.finalizer, comment);
-    return true;
+    return addBlockOrNotComment(followingNode.finalizer);
   }
 
   if (followingNode.type === "CatchClause") {
-    addBlockOrNotComment(followingNode.body, comment);
-    return true;
+    return addBlockOrNotComment(followingNode.body);
   }
-
-  return false;
 }
 
-function handleMemberExpressionComments({
-  comment,
-  enclosingNode,
-  followingNode,
-}) {
+function handleMemberExpressionComments({ enclosingNode, followingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "MemberExpression" ||
@@ -320,11 +306,8 @@ function handleMemberExpressionComments({
     followingNode &&
     followingNode.type === "Identifier"
   ) {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-
-  return false;
 }
 
 function handleConditionalExpressionComments({
@@ -345,17 +328,11 @@ function handleConditionalExpressionComments({
       enclosingNode.type === "TSConditionalType") &&
     followingNode
   ) {
-    addLeadingComment(followingNode, comment);
-    return true;
+    return { node: followingNode, type: "leading" };
   }
-  return false;
 }
 
-function handleObjectPropertyAssignment({
-  comment,
-  precedingNode,
-  enclosingNode,
-}) {
+function handleObjectPropertyAssignment({ precedingNode, enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ObjectProperty" ||
@@ -364,10 +341,8 @@ function handleObjectPropertyAssignment({
     enclosingNode.key === precedingNode &&
     enclosingNode.value.type === "AssignmentPattern"
   ) {
-    addTrailingComment(enclosingNode.value.left, comment);
-    return true;
+    return { node: enclosingNode.value.left, type: "trailing" };
   }
-  return false;
 }
 
 function handleClassComments({
@@ -390,16 +365,14 @@ function handleClassComments({
       enclosingNode.decorators.length > 0 &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
-      addTrailingComment(
-        enclosingNode.decorators[enclosingNode.decorators.length - 1],
-        comment
-      );
-      return true;
+      return {
+        node: enclosingNode.decorators[enclosingNode.decorators.length - 1],
+        type: "trailing",
+      };
     }
 
     if (enclosingNode.body && followingNode === enclosingNode.body) {
-      addBlockStatementFirstComment(enclosingNode.body, comment);
-      return true;
+      return addBlockStatementFirstComment(enclosingNode.body);
     }
 
     // Don't add leading comments to `implements`, `extends`, `mixins` to
@@ -413,24 +386,16 @@ function handleClassComments({
               precedingNode === enclosingNode.typeParameters ||
               precedingNode === enclosingNode.superClass)
           ) {
-            addTrailingComment(precedingNode, comment);
-          } else {
-            addDanglingComment(enclosingNode, comment, prop);
+            return { node: precedingNode, type: "trailing" };
           }
-          return true;
+          return { node: enclosingNode, comment, type: "dangling" };
         }
       }
     }
   }
-  return false;
 }
 
-function handleMethodNameComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-  text,
-}) {
+function handleMethodNameComments({ precedingNode, enclosingNode, text }) {
   // This is only needed for estree parsers (flow, typescript) to attach
   // after a method name:
   // obj = { fn /*comment*/() {} };
@@ -447,8 +412,7 @@ function handleMethodNameComments({
     // comment should be attached to value instead of key
     getNextNonSpaceNonCommentCharacter(text, precedingNode, locEnd) !== ":"
   ) {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
 
   // Print comments between decorators and class methods as a trailing comment
@@ -465,11 +429,8 @@ function handleMethodNameComments({
       enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "MethodDefinition")
   ) {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
-
-  return false;
 }
 
 function handleFunctionNameComments({
@@ -479,7 +440,7 @@ function handleFunctionNameComments({
   text,
 }) {
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== "(") {
-    return false;
+    return;
   }
   if (
     precedingNode &&
@@ -490,29 +451,24 @@ function handleFunctionNameComments({
       enclosingNode.type === "MethodDefinition" ||
       enclosingNode.type === "ObjectMethod")
   ) {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
-  return false;
 }
 
 function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
   if (!(enclosingNode && enclosingNode.type === "ArrowFunctionExpression")) {
-    return false;
+    return;
   }
 
   const index = getNextNonSpaceNonCommentCharacterIndex(text, comment, locEnd);
   if (index !== false && text.slice(index, index + 2) === "=>") {
-    addDanglingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "dangling" };
   }
-
-  return false;
 }
 
 function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== ")") {
-    return false;
+    return;
   }
 
   // Only add dangling comments to fix the case when no params are present,
@@ -526,18 +482,15 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
         enclosingNode.type === "NewExpression") &&
         enclosingNode.arguments.length === 0))
   ) {
-    addDanglingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "dangling" };
   }
   if (
     enclosingNode &&
     enclosingNode.type === "MethodDefinition" &&
     getFunctionParameters(enclosingNode.value).length === 0
   ) {
-    addDanglingComment(enclosingNode.value, comment);
-    return true;
+    return { node: enclosingNode.value, type: "dangling" };
   }
-  return false;
 }
 
 function handleLastFunctionArgComments({
@@ -556,8 +509,7 @@ function handleLastFunctionArgComments({
     followingNode &&
     followingNode.type !== "FunctionTypeParam"
   ) {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
 
   // Real functions and TypeScript function type definitions
@@ -569,8 +521,7 @@ function handleLastFunctionArgComments({
     isRealFunctionLikeNode(enclosingNode) &&
     getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === ")"
   ) {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
 
   if (
@@ -600,48 +551,35 @@ function handleLastFunctionArgComments({
       );
     })();
     if (locStart(comment) > functionParamRightParenIndex) {
-      addBlockStatementFirstComment(followingNode, comment);
-      return true;
+      return addBlockStatementFirstComment(followingNode);
     }
   }
-
-  return false;
 }
 
-function handleImportSpecifierComments({ comment, enclosingNode }) {
+function handleImportSpecifierComments({ enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "ImportSpecifier") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-  return false;
 }
 
-function handleLabeledStatementComments({ comment, enclosingNode }) {
+function handleLabeledStatementComments({ enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "LabeledStatement") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-  return false;
 }
 
-function handleBreakAndContinueStatementComments({ comment, enclosingNode }) {
+function handleBreakAndContinueStatementComments({ enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ContinueStatement" ||
       enclosingNode.type === "BreakStatement") &&
     !enclosingNode.label
   ) {
-    addTrailingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "trailing" };
   }
-  return false;
 }
 
-function handleCallExpressionComments({
-  comment,
-  precedingNode,
-  enclosingNode,
-}) {
+function handleCallExpressionComments({ precedingNode, enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "CallExpression" ||
@@ -650,10 +588,8 @@ function handleCallExpressionComments({
     enclosingNode.callee === precedingNode &&
     enclosingNode.arguments.length > 0
   ) {
-    addLeadingComment(enclosingNode.arguments[0], comment);
-    return true;
+    return { node: enclosingNode.arguments[0], type: "leading" };
   }
-  return false;
 }
 
 function handleUnionTypeComments({
@@ -672,10 +608,9 @@ function handleUnionTypeComments({
       comment.unignore = true;
     }
     if (precedingNode) {
-      addTrailingComment(precedingNode, comment);
-      return true;
+      return { node: precedingNode, type: "trailing" };
     }
-    return false;
+    return;
   }
 
   if (
@@ -686,32 +621,27 @@ function handleUnionTypeComments({
   ) {
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
+    return { node: followingNode, type: "ignore" };
   }
-
-  return false;
 }
 
-function handlePropertyComments({ comment, enclosingNode }) {
+function handlePropertyComments({ enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "ObjectProperty")
   ) {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-  return false;
 }
 
-function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
+function handleOnlyComments({ enclosingNode, ast, isLastComment }) {
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast && ast.body && ast.body.length === 0) {
     if (isLastComment) {
-      addDanglingComment(ast, comment);
-    } else {
-      addLeadingComment(ast, comment);
+      return { node: ast, type: "dangling" };
     }
-    return true;
+    return { node: ast, type: "leading" };
   } else if (
     enclosingNode &&
     enclosingNode.type === "Program" &&
@@ -720,25 +650,20 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
     enclosingNode.directives.length === 0
   ) {
     if (isLastComment) {
-      addDanglingComment(enclosingNode, comment);
-    } else {
-      addLeadingComment(enclosingNode, comment);
+      return { node: enclosingNode, type: "dangling" };
     }
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-  return false;
 }
 
-function handleForComments({ comment, enclosingNode }) {
+function handleForComments({ enclosingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ForInStatement" ||
       enclosingNode.type === "ForOfStatement")
   ) {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-  return false;
 }
 
 function handleImportDeclarationComments({
@@ -754,26 +679,20 @@ function handleImportDeclarationComments({
     enclosingNode.type === "ImportDeclaration" &&
     hasNewline(text, locEnd(comment))
   ) {
-    addTrailingComment(precedingNode, comment);
-    return true;
+    return { node: precedingNode, type: "trailing" };
   }
-  return false;
 }
 
-function handleAssignmentPatternComments({ comment, enclosingNode }) {
+function handleAssignmentPatternComments({ enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "AssignmentPattern") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-  return false;
 }
 
-function handleTypeAliasComments({ comment, enclosingNode }) {
+function handleTypeAliasComments({ enclosingNode }) {
   if (enclosingNode && enclosingNode.type === "TypeAlias") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "leading" };
   }
-  return false;
 }
 
 function handleVariableDeclaratorComments({
@@ -792,10 +711,8 @@ function handleVariableDeclaratorComments({
       followingNode.type === "TaggedTemplateExpression" ||
       isBlockComment(comment))
   ) {
-    addLeadingComment(followingNode, comment);
-    return true;
+    return { node: followingNode, type: "leading" };
   }
-  return false;
 }
 
 function handleTSFunctionTrailingComments({
@@ -812,10 +729,8 @@ function handleTSFunctionTrailingComments({
       enclosingNode.type === "TSAbstractMethodDefinition") &&
     getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === ";"
   ) {
-    addTrailingComment(enclosingNode, comment);
-    return true;
+    return { node: enclosingNode, type: "trailing" };
   }
-  return false;
 }
 
 function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
@@ -829,18 +744,17 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   ) {
     enclosingNode.prettierIgnore = true;
     comment.unignore = true;
-    return true;
+    return { node: enclosingNode, type: "ignore" };
   }
 }
 
 function handleTSMappedTypeComments({
-  comment,
   precedingNode,
   enclosingNode,
   followingNode,
 }) {
   if (!enclosingNode || enclosingNode.type !== "TSMappedType") {
-    return false;
+    return;
   }
 
   if (
@@ -848,8 +762,7 @@ function handleTSMappedTypeComments({
     followingNode.type === "TSTypeParameter" &&
     followingNode.name
   ) {
-    addLeadingComment(followingNode.name, comment);
-    return true;
+    return { node: followingNode.name, type: "leading" };
   }
 
   if (
@@ -857,11 +770,8 @@ function handleTSMappedTypeComments({
     precedingNode.type === "TSTypeParameter" &&
     precedingNode.constraint
   ) {
-    addTrailingComment(precedingNode.constraint, comment);
-    return true;
+    return { node: precedingNode.constraint, type: "trailing" };
   }
-
-  return false;
 }
 
 /**
@@ -876,7 +786,6 @@ function hasLeadingComment(node, fn = () => true) {
   if (node.comments) {
     return node.comments.some((comment) => comment.leading && fn(comment));
   }
-  return false;
 }
 
 /**
