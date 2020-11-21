@@ -200,11 +200,11 @@ function attach(comments, ast, text, options) {
       options.parser === "__vue_expression"
     ) {
       if (locStart(comment) - locStart(ast) <= 0) {
-        addLeadingComment(ast, comment);
+        commentsStore.addLeadingComment(ast, comment);
         return;
       }
       if (locEnd(comment) - locEnd(ast) >= 0) {
-        addTrailingComment(ast, comment);
+        commentsStore.addTrailingComment(ast, comment);
         return;
       }
     }
@@ -566,10 +566,6 @@ function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
   const node = path.getValue();
 
-  if (!node || !node.comments) {
-    return "";
-  }
-
   if (commentsStore) {
     const comments = commentsStore.get(node, "dangling");
     for (const comment of comments) {
@@ -578,6 +574,10 @@ function printDanglingComments(path, options, sameIndent, filter) {
       }
     }
   } else {
+    if (!node || !node.comments) {
+      return "";
+    }
+
     path.each((commentPath) => {
       const comment = commentPath.getValue();
       if (
