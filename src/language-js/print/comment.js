@@ -8,9 +8,7 @@ const {
 const { isLineComment, isBlockComment } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
-function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
-
+function printComment(comment, options) {
   if (isLineComment(comment)) {
     // Supports `//`, `#!`, `<!--`, and `-->`
     return options.originalText
