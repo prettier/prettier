@@ -130,17 +130,21 @@ function printList(path, options, print, listName) {
 
 function printSuperClass(path, options, print) {
   const printed = path.call(print, "superClass");
-  return group(
-    ifBreak(
-      concat([
-        ifBreak("("),
-        indent(concat([softline, printed])),
-        softline,
-        ifBreak(")"),
-      ]),
-      printed
-    )
-  );
+  const parent = path.getParentNode();
+  if (parent.type === "AssignmentExpression") {
+    return group(
+      ifBreak(
+        concat([
+          ifBreak("("),
+          indent(concat([softline, printed])),
+          softline,
+          ifBreak(")"),
+        ]),
+        printed
+      )
+    );
+  }
+  return printed;
 }
 
 function printClassMethod(path, options, print) {
