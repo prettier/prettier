@@ -150,6 +150,30 @@ class A4 {
 ================================================================================
 `;
 
+exports[`long-superclass.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A extends loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong {
+  method () {
+    console.log("foo");
+  }
+};
+
+=====================================output=====================================
+class A extends (
+  loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
+) {
+  method() {
+    console.log("foo");
+  }
+}
+
+================================================================================
+`;
+
 exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
