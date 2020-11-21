@@ -46,7 +46,7 @@ const {
   hasLeadingOwnLineComment,
   hasNewlineBetweenOrAfterDecorators,
   hasPrettierIgnore,
-  hasTrailingComment,
+  hasComments,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
@@ -58,13 +58,6 @@ const {
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
-<<<<<<< HEAD
-  shouldFlatten,
-  startsWithNoLookaheadToken,
-hasComments,
-COMMENT
-=======
->>>>>>> master
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -284,7 +277,8 @@ function printPathNoParens(path, options, print, args) {
 
     case "Program": {
       const hasContents =
-        !n.body.every(({ type }) => type === "EmptyStatement") || hasComments(n);
+        !n.body.every(({ type }) => type === "EmptyStatement") ||
+        hasComments(n);
 
       // Babel 6
       if (n.directives) {
@@ -464,129 +458,8 @@ function printPathNoParens(path, options, print, args) {
         parts.push(semi);
       }
       return concat(parts);
-<<<<<<< HEAD
-    case "ArrowFunctionExpression": {
-      if (n.async) {
-        parts.push("async ");
-      }
-
-      if (shouldPrintParamsWithoutParens(path, options)) {
-        parts.push(path.call(print, "params", 0));
-      } else {
-        parts.push(
-          group(
-            concat([
-              printFunctionParameters(
-                path,
-                print,
-                options,
-                /* expandLast */ args &&
-                  (args.expandLastArg || args.expandFirstArg),
-                /* printTypeParams */ true
-              ),
-              printReturnType(path, print, options),
-            ])
-          )
-        );
-      }
-
-      const dangling = comments.printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        (comment) => {
-          const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
-            options.originalText,
-            comment,
-            locEnd
-          );
-          return (
-            nextCharacter !== false &&
-            options.originalText.slice(nextCharacter, nextCharacter + 2) ===
-              "=>"
-          );
-        }
-      );
-      if (dangling) {
-        parts.push(" ", dangling);
-      }
-
-      parts.push(" =>");
-
-      const body = path.call((bodyPath) => print(bodyPath, args), "body");
-
-      // We want to always keep these types of nodes on the same line
-      // as the arrow.
-      if (
-        !hasLeadingOwnLineComment(options.originalText, n.body) &&
-        (n.body.type === "ArrayExpression" ||
-          n.body.type === "ObjectExpression" ||
-          n.body.type === "BlockStatement" ||
-          isJSXNode(n.body) ||
-          isTemplateOnItsOwnLine(n.body, options.originalText) ||
-          n.body.type === "ArrowFunctionExpression" ||
-          n.body.type === "DoExpression")
-      ) {
-        return group(concat([concat(parts), " ", body]));
-      }
-
-      // We handle sequence expressions as the body of arrows specially,
-      // so that the required parentheses end up on their own lines.
-      if (n.body.type === "SequenceExpression") {
-        return group(
-          concat([
-            concat(parts),
-            group(
-              concat([" (", indent(concat([softline, body])), softline, ")"])
-            ),
-          ])
-        );
-      }
-
-      // if the arrow function is expanded as last argument, we are adding a
-      // level of indentation and need to add a softline to align the closing )
-      // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
-      // we should align the expression's closing } with the line with the opening {.
-      const shouldAddSoftLine =
-        ((args && args.expandLastArg) ||
-          path.getParentNode().type === "JSXExpressionContainer") &&
-        !hasComments(n);
-
-      const printTrailingComma =
-        args && args.expandLastArg && shouldPrintComma(options, "all");
-
-      // In order to avoid confusion between
-      // a => a ? a : a
-      // a <= a ? a : a
-      const shouldAddParens =
-        n.body.type === "ConditionalExpression" &&
-        !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
-
-      return group(
-        concat([
-          concat(parts),
-          group(
-            concat([
-              indent(
-                concat([
-                  line,
-                  shouldAddParens ? ifBreak("", "(") : "",
-                  body,
-                  shouldAddParens ? ifBreak("", ")") : "",
-                ])
-              ),
-              shouldAddSoftLine
-                ? concat([ifBreak(printTrailingComma ? "," : ""), softline])
-                : "",
-            ])
-          ),
-        ])
-      );
-    }
-=======
     case "ArrowFunctionExpression":
       return printArrowFunctionExpression(path, options, print, args);
->>>>>>> master
     case "YieldExpression":
       parts.push("yield");
 
@@ -680,214 +553,6 @@ function printPathNoParens(path, options, print, args) {
         return printMethod(path, options, print);
       }
 
-<<<<<<< HEAD
-      const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
-      const fields = [];
-      if (isTypeAnnotation) {
-        fields.push("indexers", "callProperties", "internalSlots");
-      }
-      fields.push(propertiesField);
-
-      const firstProperty = fields
-        .map((field) => n[field][0])
-        .sort((a, b) => locStart(a) - locStart(b))[0];
-
-      const parent = path.getParentNode(0);
-      const isFlowInterfaceLikeBody =
-        isTypeAnnotation &&
-        parent &&
-        (parent.type === "InterfaceDeclaration" ||
-          parent.type === "DeclareInterface" ||
-          parent.type === "DeclareClass") &&
-        path.getName() === "body";
-      const shouldBreak =
-        n.type === "TSInterfaceBody" ||
-        isFlowInterfaceLikeBody ||
-        (n.type === "ObjectPattern" &&
-          parent.type !== "FunctionDeclaration" &&
-          parent.type !== "FunctionExpression" &&
-          parent.type !== "ArrowFunctionExpression" &&
-          parent.type !== "ObjectMethod" &&
-          parent.type !== "ClassMethod" &&
-          parent.type !== "ClassPrivateMethod" &&
-          parent.type !== "AssignmentPattern" &&
-          parent.type !== "CatchClause" &&
-          n.properties.some(
-            (property) =>
-              property.value &&
-              (property.value.type === "ObjectPattern" ||
-                property.value.type === "ArrayPattern")
-          )) ||
-        (n.type !== "ObjectPattern" &&
-          firstProperty &&
-          hasNewlineInRange(
-            options.originalText,
-            locStart(n),
-            locStart(firstProperty)
-          ));
-
-      const separator = isFlowInterfaceLikeBody
-        ? ";"
-        : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
-        ? ifBreak(semi, ";")
-        : ",";
-      const leftBrace =
-        n.type === "RecordExpression" ? "#{" : n.exact ? "{|" : "{";
-      const rightBrace = n.exact ? "|}" : "}";
-
-      // Unfortunately, things are grouped together in the ast can be
-      // interleaved in the source code. So we need to reorder them before
-      // printing them.
-      const propsAndLoc = [];
-      fields.forEach((field) => {
-        path.each((childPath) => {
-          const node = childPath.getValue();
-          propsAndLoc.push({
-            node,
-            printed: print(childPath),
-            loc: locStart(node),
-          });
-        }, field);
-      });
-
-      let separatorParts = [];
-      const props = propsAndLoc
-        .sort((a, b) => a.loc - b.loc)
-        .map((prop) => {
-          const result = concat(separatorParts.concat(group(prop.printed)));
-          separatorParts = [separator, line];
-          if (
-            (prop.node.type === "TSPropertySignature" ||
-              prop.node.type === "TSMethodSignature" ||
-              prop.node.type === "TSConstructSignatureDeclaration") &&
-            hasNodeIgnoreComment(prop.node)
-          ) {
-            separatorParts.shift();
-          }
-          if (isNextLineEmpty(options.originalText, prop.node, locEnd)) {
-            separatorParts.push(hardline);
-          }
-          return result;
-        });
-
-      if (n.inexact) {
-        let printed;
-        if (hasDanglingComments(n)) {
-          const hasLineComments = hasComments(n, COMMENT.line);
-          const printedDanglingComments = comments.printDanglingComments(
-            path,
-            options,
-            /* sameIndent */ true
-          );
-          printed = concat([
-            printedDanglingComments,
-            hasLineComments ||
-            hasNewline(
-              options.originalText,
-              locEnd(n.comments[n.comments.length - 1])
-            )
-              ? hardline
-              : line,
-            "...",
-          ]);
-        } else {
-          printed = "...";
-        }
-        props.push(concat(separatorParts.concat(printed)));
-      }
-
-      const lastElem = getLast(n[propertiesField]);
-
-      const canHaveTrailingSeparator = !(
-        n.inexact ||
-        (lastElem && lastElem.type === "RestElement") ||
-        (lastElem &&
-          (lastElem.type === "TSPropertySignature" ||
-            lastElem.type === "TSCallSignatureDeclaration" ||
-            lastElem.type === "TSMethodSignature" ||
-            lastElem.type === "TSConstructSignatureDeclaration") &&
-          hasNodeIgnoreComment(lastElem))
-      );
-
-      let content;
-      if (props.length === 0) {
-        if (!hasDanglingComments(n)) {
-          return concat([
-            leftBrace,
-            rightBrace,
-            printTypeAnnotation(path, options, print),
-          ]);
-        }
-
-        content = group(
-          concat([
-            leftBrace,
-            comments.printDanglingComments(path, options),
-            softline,
-            rightBrace,
-            printOptionalToken(path),
-            printTypeAnnotation(path, options, print),
-          ])
-        );
-      } else {
-        content = concat([
-          leftBrace,
-          indent(
-            concat([options.bracketSpacing ? line : softline, concat(props)])
-          ),
-          ifBreak(
-            canHaveTrailingSeparator &&
-              (separator !== "," || shouldPrintComma(options))
-              ? separator
-              : ""
-          ),
-          concat([options.bracketSpacing ? line : softline, rightBrace]),
-          printOptionalToken(path),
-          printTypeAnnotation(path, options, print),
-        ]);
-      }
-
-      // If we inline the object as first argument of the parent, we don't want
-      // to create another group so that the object breaks before the return
-      // type
-      if (
-        path.match(
-          (node) => node.type === "ObjectPattern" && !node.decorators,
-          (node, name, number) =>
-            shouldHugFunctionParameters(node) &&
-            (name === "params" ||
-              name === "parameters" ||
-              name === "this" ||
-              name === "rest") &&
-            number === 0
-        ) ||
-        path.match(
-          shouldHugType,
-          (node, name) => name === "typeAnnotation",
-          (node, name) => name === "typeAnnotation",
-          (node, name, number) =>
-            shouldHugFunctionParameters(node) &&
-            (name === "params" ||
-              name === "parameters" ||
-              name === "this" ||
-              name === "rest") &&
-            number === 0
-        )
-      ) {
-        return content;
-      }
-
-      return group(content, { shouldBreak });
-    }
-    // Babel 6
-    case "ObjectProperty": // Non-standard AST node type.
-    case "Property":
-      if (n.method || n.kind === "get" || n.kind === "set") {
-        return printMethod(path, options, print);
-      }
-
-=======
->>>>>>> master
       if (n.shorthand) {
         parts.push(path.call(print, "value"));
       } else {
@@ -1118,7 +783,8 @@ function printPathNoParens(path, options, print, args) {
       parts.push(opening);
 
       if (n.alternate) {
-        const commentOnOwnLine =hasComments(COMMENT.trailing | COMMENT.line ) ||
+        const commentOnOwnLine =
+          hasComments(COMMENT.trailing | COMMENT.line) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
@@ -1296,16 +962,17 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "CatchClause":
       if (n.param) {
-        const hasComments = hasComments(n.param,
-            (comment) =>
-              !isBlockComment(comment) ||
-              (comment.leading &&
-                hasNewline(options.originalText, locEnd(comment))) ||
-              (comment.trailing &&
-                hasNewline(options.originalText, locStart(comment), {
-                  backwards: true,
-                }))
-          );
+        const hasComments = hasComments(
+          n.param,
+          (comment) =>
+            !isBlockComment(comment) ||
+            (comment.leading &&
+              hasNewline(options.originalText, locEnd(comment))) ||
+            (comment.trailing &&
+              hasNewline(options.originalText, locStart(comment), {
+                backwards: true,
+              }))
+        );
         const param = path.call(print, "param");
 
         return concat([
@@ -1383,211 +1050,6 @@ function printPathNoParens(path, options, print, args) {
       return concat(["debugger", semi]);
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
-<<<<<<< HEAD
-    case "JSXSpreadAttribute":
-    case "JSXSpreadChild": {
-      return concat([
-        "{",
-        path.call(
-          (p) => {
-            const printed = concat(["...", print(p)]);
-            const n = p.getValue();
-            if (!hasComments(n)|| !willPrintOwnComments(p)) {
-              return printed;
-            }
-            return concat([
-              indent(
-                concat([
-                  softline,
-                  comments.printComments(p, () => printed, options),
-                ])
-              ),
-              softline,
-            ]);
-          },
-          n.type === "JSXSpreadAttribute" ? "argument" : "expression"
-        ),
-        "}",
-      ]);
-    }
-    case "JSXExpressionContainer": {
-      const parent = path.getParentNode(0);
-
-      const shouldInline =
-        n.expression.type === "JSXEmptyExpression" ||
-        (!hasComments (n.expression)&&
-          (n.expression.type === "ArrayExpression" ||
-            n.expression.type === "ObjectExpression" ||
-            n.expression.type === "ArrowFunctionExpression" ||
-            n.expression.type === "CallExpression" ||
-            n.expression.type === "OptionalCallExpression" ||
-            n.expression.type === "FunctionExpression" ||
-            n.expression.type === "TemplateLiteral" ||
-            n.expression.type === "TaggedTemplateExpression" ||
-            n.expression.type === "DoExpression" ||
-            (isJSXNode(parent) &&
-              (n.expression.type === "ConditionalExpression" ||
-                isBinaryish(n.expression)))));
-
-      if (shouldInline) {
-        return group(
-          concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
-        );
-      }
-
-      return group(
-        concat([
-          "{",
-          indent(concat([softline, path.call(print, "expression")])),
-          softline,
-          lineSuffixBoundary,
-          "}",
-        ])
-      );
-    }
-    case "JSXFragment":
-    case "JSXElement": {
-      const elem = comments.printComments(
-        path,
-        () => printJSXElement(path, options, print),
-        options
-      );
-      return maybeWrapJSXElementInParens(path, elem, options);
-    }
-    case "JSXOpeningElement": {
-      const n = path.getValue();
-
-      const nameHasComments =
-        hasComments(n.name) || hasComments(n.typeParameters );
-
-      // Don't break self-closing elements with no attributes and no comments
-      if (n.selfClosing && !n.attributes.length && !nameHasComments) {
-        return concat([
-          "<",
-          path.call(print, "name"),
-          path.call(print, "typeParameters"),
-          " />",
-        ]);
-      }
-
-      // don't break up opening elements with a single long text attribute
-      if (
-        n.attributes &&
-        n.attributes.length === 1 &&
-        n.attributes[0].value &&
-        isStringLiteral(n.attributes[0].value) &&
-        !n.attributes[0].value.value.includes("\n") &&
-        // We should break for the following cases:
-        // <div
-        //   // comment
-        //   attr="value"
-        // >
-        // <div
-        //   attr="value"
-        //   // comment
-        // >
-        !nameHasComments &&
-        (!hasComments(n.attributes[0]))
-      ) {
-        return group(
-          concat([
-            "<",
-            path.call(print, "name"),
-            path.call(print, "typeParameters"),
-            " ",
-            concat(path.map(print, "attributes")),
-            n.selfClosing ? " />" : ">",
-          ])
-        );
-      }
-
-      const lastAttrHasTrailingComments =
-        n.attributes.length && hasTrailingComment(getLast(n.attributes));
-
-      const bracketSameLine =
-        // Simple tags (no attributes and no comment in tag name) should be
-        // kept unbroken regardless of `jsxBracketSameLine`
-        (!n.attributes.length && !nameHasComments) ||
-        (options.jsxBracketSameLine &&
-          // We should print the bracket in a new line for the following cases:
-          // <div
-          //   // comment
-          // >
-          // <div
-          //   attr // comment
-          // >
-          (!nameHasComments || n.attributes.length) &&
-          !lastAttrHasTrailingComments);
-
-      // We should print the opening element expanded if any prop value is a
-      // string literal with newlines
-      const shouldBreak =
-        n.attributes &&
-        n.attributes.some(
-          (attr) =>
-            attr.value &&
-            isStringLiteral(attr.value) &&
-            attr.value.value.includes("\n")
-        );
-
-      return group(
-        concat([
-          "<",
-          path.call(print, "name"),
-          path.call(print, "typeParameters"),
-          concat([
-            indent(
-              concat(
-                path.map((attr) => concat([line, print(attr)]), "attributes")
-              )
-            ),
-            n.selfClosing ? line : bracketSameLine ? ">" : softline,
-          ]),
-          n.selfClosing ? "/>" : bracketSameLine ? "" : ">",
-        ]),
-        { shouldBreak }
-      );
-    }
-    case "JSXClosingElement":
-      return concat(["</", path.call(print, "name"), ">"]);
-    case "JSXOpeningFragment":
-    case "JSXClosingFragment": {
-      const hasComment = hasComments(n);
-      const hasOwnLineComment =  hasComments(n, COMMENT.line);
-      const isOpeningFragment = n.type === "JSXOpeningFragment";
-      return concat([
-        isOpeningFragment ? "<" : "</",
-        indent(
-          concat([
-            hasOwnLineComment
-              ? hardline
-              : hasComment && !isOpeningFragment
-              ? " "
-              : "",
-            comments.printDanglingComments(path, options, true),
-          ])
-        ),
-        hasOwnLineComment ? hardline : "",
-        ">",
-      ]);
-    }
-    case "JSXText":
-      /* istanbul ignore next */
-      throw new Error("JSXTest should be handled by JSXElement");
-    case "JSXEmptyExpression": {
-      const requiresHardline = hasComments(n, COMMENT.line);
-
-      return concat([
-        comments.printDanglingComments(
-          path,
-          options,
-          /* sameIndent */ !requiresHardline
-        ),
-        requiresHardline ? hardline : "",
-      ]);
-    }
-=======
->>>>>>> master
     case "ClassBody":
       if (!hasComments(n) && n.body.length === 0) {
         return "{}";
