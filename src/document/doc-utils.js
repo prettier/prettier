@@ -196,15 +196,17 @@ function stripDocTrailingHardlineFromDoc(doc) {
     case "fill": {
       const { parts } = doc;
 
-      if (isHardline(...parts.slice(-2))) {
-        doc.parts.pop();
-        doc.parts.pop();
-        return doc;
+      while (parts.length > 1 && isHardline(...parts.slice(-2))) {
+        parts.pop();
+        parts.pop();
       }
 
-      doc.parts[doc.parts.length - 1] = stripDocTrailingHardlineFromDoc(
-        doc.parts[doc.parts.length - 1]
-      );
+      if (parts.length > 1) {
+        const lastPart = stripDocTrailingHardlineFromDoc(
+          parts[parts.length - 1]
+        );
+        parts[parts.length - 1] = lastPart;
+      }
       break;
     }
     case "align":
