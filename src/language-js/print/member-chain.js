@@ -11,8 +11,6 @@ const {
 } = require("../../common/util");
 const pathNeedsParens = require("../needs-parens");
 const {
-  hasLeadingComment,
-  hasTrailingComment,
   isCallOrOptionalCallExpression,
   isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
@@ -341,9 +339,13 @@ function printMemberChain(path, options, print) {
   const flatGroups = flat(groups);
 
   const hasComment =
-    flatGroups.slice(1, -1).some((node) => hasLeadingComment(node.node)) ||
-    flatGroups.slice(0, -1).some((node) => hasTrailingComment(node.node)) ||
-    (groups[cutoff] && hasLeadingComment(groups[cutoff][0].node));
+    flatGroups
+      .slice(1, -1)
+      .some((node) => hasComments(node.node, COMMENT.leading)) ||
+    flatGroups
+      .slice(0, -1)
+      .some((node) => hasComments(node.node, COMMENT.trailing)) ||
+    (groups[cutoff] && hasComments(groups[cutoff][0].node, COMMENT.leading));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.

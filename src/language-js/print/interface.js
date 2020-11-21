@@ -3,11 +3,7 @@
 const {
   builders: { concat, join, line, group, indent, ifBreak },
 } = require("../../document");
-const {
-  hasTrailingComment,
-  hasTrailingLineComment,
-  identity,
-} = require("../utils");
+const { hasComments, identity, COMMENT } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printTypeScriptModifiers } = require("./misc");
 
@@ -39,7 +35,8 @@ function printInterface(path, options, print) {
   }
 
   const shouldIndentOnlyHeritageClauses =
-    n.typeParameters && !hasTrailingLineComment(n.typeParameters);
+    n.typeParameters &&
+    !hasComments(n.typeParameters, COMMENT.trailing | COMMENT.line);
 
   if (n.extends && n.extends.length !== 0) {
     extendsParts.push(
@@ -56,7 +53,7 @@ function printInterface(path, options, print) {
   }
 
   if (
-    (n.id && hasTrailingComment(n.id)) ||
+    (n.id && hasComments(n.id, COMMENT.trailing)) ||
     (n.extends && n.extends.length !== 0)
   ) {
     const printedExtends = concat(extendsParts);

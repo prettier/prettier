@@ -41,7 +41,6 @@ const {
   getCallArguments,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
-  hasDanglingComments,
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNewlineBetweenOrAfterDecorators,
@@ -791,7 +790,7 @@ function printPathNoParens(path, options, print, args) {
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
 
-        if (hasDanglingComments(n)) {
+        if (hasComments(n, COMMENT.dangling)) {
           parts.push(
             comments.printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "

@@ -8,11 +8,11 @@ const {
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
-  hasTrailingLineComment,
   isBinaryish,
   isJSXNode,
   shouldFlatten,
   hasComments,
+  COMMENT,
 } = require("../utils");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -251,7 +251,7 @@ function printBinaryishExpressions(
     // If there's only a single binary expression, we want to create a group
     // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
-    const shouldBreak = hasTrailingLineComment(node.left);
+    const shouldBreak = hasComments(node.left, COMMENT.trailing | COMMENT.line);
     const shouldGroup =
       shouldBreak ||
       (!(isInsideParenthesis && node.type === "LogicalExpression") &&

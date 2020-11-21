@@ -20,7 +20,6 @@ const {
 
 const { getLast, getPreferredQuote } = require("../../common/util");
 const {
-  hasTrailingComment,
   isEmptyJSXElement,
   isJSXWhitespaceExpression,
   isJSXNode,
@@ -590,7 +589,7 @@ function printJsxOpeningElement(path, options, print) {
   }
 
   const lastAttrHasTrailingComments =
-    n.attributes.length && hasTrailingComment(getLast(n.attributes));
+    n.attributes.length && hasComments(getLast(n.attributes), COMMENT.trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be

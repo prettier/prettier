@@ -5,7 +5,6 @@ const {
   builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
 const {
-  hasDanglingComments,
   isTestCall,
   hasComments,
   COMMENT,
@@ -83,7 +82,7 @@ function printTypeParameters(path, options, print, paramsKey) {
 
 function printDanglingCommentsForInline(path, options) {
   const n = path.getValue();
-  if (!hasDanglingComments(n)) {
+  if (!hasComments(n, COMMENT.dangling)) {
     return "";
   }
   const hasOnlyBlockComments = !hasComments(n, COMMENT.line);

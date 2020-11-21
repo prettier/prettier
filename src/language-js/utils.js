@@ -1461,38 +1461,6 @@ function hasComments(node, options, fn) {
   return true;
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasLeadingComment(node) {
-  return hasComments(node, COMMENT.leading);
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasTrailingComment(node) {
-  return hasComments(node, COMMENT.trailing);
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasTrailingLineComment(node) {
-  return hasComments(node, COMMENT.trailing | COMMENT.line);
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasDanglingComments(node) {
-  return hasComments(node, COMMENT.dangling);
-}
-
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1504,19 +1472,14 @@ module.exports = {
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
-  hasDanglingComments,
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment,
-  hasLeadingComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
   hasNode,
   hasPrettierIgnore,
-  hasTrailingComment,
-  hasTrailingLineComment,
   hasIgnoreComment,
-  hasNodeIgnoreComment,
   identity,
   isBinaryish,
   isBlockComment,
