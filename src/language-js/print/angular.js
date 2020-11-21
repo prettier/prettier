@@ -3,7 +3,7 @@
 const {
   builders: { concat, join, line, group },
 } = require("../../document");
-const { hasNode } = require("../utils");
+const { hasNode, hasComments } = require("../utils");
 const { printBinaryishExpression } = require("./binaryish");
 
 /** @typedef {import("../../common/fast-path")} FastPath */
@@ -15,7 +15,7 @@ function printAngular(path, options, print) {
       return concat(
         [].concat(
           path.call(print, "node"),
-          !n.node.comments || n.node.comments.length === 0
+          !hasComments(n.node)
             ? []
             : concat([" //", n.node.comments[0].value.trimEnd()])
         )

@@ -7,7 +7,8 @@ const {
 const {
   hasDanglingComments,
   isTestCall,
-  isBlockComment,
+  hasComments,
+  COMMENT,
   isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
@@ -85,9 +86,7 @@ function printDanglingCommentsForInline(path, options) {
   if (!hasDanglingComments(n)) {
     return "";
   }
-  const hasOnlyBlockComments = n.comments.every((comment) =>
-    isBlockComment(comment)
-  );
+  const hasOnlyBlockComments = !hasComments(n, COMMENT.line);
   const printed = printDanglingComments(
     path,
     options,

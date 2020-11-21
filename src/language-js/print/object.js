@@ -14,7 +14,8 @@ const {
   hasDanglingComments,
   shouldPrintComma,
   hasNodeIgnoreComment,
-  isBlockComment,
+  hasComments,
+  COMMENT,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -129,9 +130,7 @@ function printObject(path, options, print) {
   if (n.inexact) {
     let printed;
     if (hasDanglingComments(n)) {
-      const hasLineComments = !n.comments.every((comment) =>
-        isBlockComment(comment)
-      );
+      const hasLineComments = hasComments(n, COMMENT.line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
