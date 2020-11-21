@@ -12,6 +12,7 @@ const {
   isBinaryish,
   isJSXNode,
   shouldFlatten,
+  hasComments,
 } = require("../utils");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -266,7 +267,7 @@ function printBinaryishExpressions(
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
-    if (isNested && node.comments) {
+    if (isNested && hasComments(node)) {
       parts = normalizeParts(
         printComments(path, () => concat(parts), options).parts
       );

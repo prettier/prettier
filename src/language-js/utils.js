@@ -1482,7 +1482,7 @@ function hasTrailingComment(node) {
  * @returns {boolean}
  */
 function hasTrailingLineComment(node) {
-  return hasComments(node, COMMENT.trailing | COMMENT.trailing);
+  return hasComments(node, COMMENT.trailing | COMMENT.line);
 }
 
 /**
