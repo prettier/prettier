@@ -170,11 +170,6 @@ function decorateComment(node, comment, options, enclosingNode) {
 
 const returnFalse = () => false;
 function attach(comments, ast, text, options) {
-  if (!Array.isArray(comments)) {
-    return;
-  }
-
-  const tiesToBreak = [];
   const {
     locStart,
     locEnd,
@@ -188,10 +183,14 @@ function attach(comments, ast, text, options) {
     remaining: handleRemainingComment = returnFalse,
   } = handleComments;
 
-  let commentStore;
+  let commentsStore;
   if (avoidAstMutation) {
-    commentStore = new CommentsStore();
+    commentsStore = new CommentsStore();
   }
+  if (!Array.isArray(comments)) {
+    return commentsStore;
+  }
+  const tiesToBreak = [];
 
   comments.forEach((comment, i) => {
     if (
@@ -214,7 +213,7 @@ function attach(comments, ast, text, options) {
     const decorated = decorateComment(ast, comment, options);
     const { precedingNode, enclosingNode, followingNode } = decorated;
     const context = {
-      commentStore,
+      commentsStore,
       comment,
       precedingNode,
       enclosingNode,
@@ -226,7 +225,7 @@ function attach(comments, ast, text, options) {
     };
 
     let args;
-    if (commentStore) {
+    if (commentsStore) {
       args = [context];
     } else {
       comment.enclosingNode = enclosingNode;
@@ -241,34 +240,34 @@ function attach(comments, ast, text, options) {
       // We also need to check if it's the first line of the file.
       if (handleResult) {
         // We're good
-        if (commentStore) {
+        if (commentsStore) {
           const { node, type } = handleResult;
-          commentStore.addComment(node, comment, type);
+          commentsStore.addComment(node, comment, type);
         }
       } else if (followingNode) {
         // Always a leading comment.
-        if (commentStore) {
-          commentStore.addLeadingComment(followingNode, comment);
+        if (commentsStore) {
+          commentsStore.addLeadingComment(followingNode, comment);
         } else {
           addLeadingComment(followingNode, comment);
         }
       } else if (precedingNode) {
-        if (commentStore) {
-          commentStore.addTrailingComment(precedingNode, comment);
+        if (commentsStore) {
+          commentsStore.addTrailingComment(precedingNode, comment);
         } else {
           addTrailingComment(precedingNode, comment);
         }
       } else if (enclosingNode) {
-        if (commentStore) {
-          commentStore.addDanglingComment(enclosingNode, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(enclosingNode, comment);
         } else {
           addDanglingComment(enclosingNode, comment);
         }
       } else {
         // There are no nodes, let's attach it to the root of the ast
         /* istanbul ignore next */
-        if (commentStore) {
-          commentStore.addDanglingComment(ast, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(ast, comment);
         } else {
           addDanglingComment(ast, comment);
         }
@@ -276,36 +275,36 @@ function attach(comments, ast, text, options) {
     } else if (hasNewline(text, locEnd(comment))) {
       const handleResult = handleEndOfLineComment(...args);
       if (handleResult) {
-        if (commentStore) {
+        if (commentsStore) {
           const { node, type } = handleResult;
-          commentStore.addComment(node, comment, type);
+          commentsStore.addComment(node, comment, type);
         }
         // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
         // none after it, so prefer a trailing comment of the previous node.
-        if (commentStore) {
-          commentStore.addTrailingComment(precedingNode, comment);
+        if (commentsStore) {
+          commentsStore.addTrailingComment(precedingNode, comment);
         } else {
           addTrailingComment(precedingNode, comment);
         }
       } else if (followingNode) {
-        if (commentStore) {
-          commentStore.addLeadingComment(followingNode, comment);
+        if (commentsStore) {
+          commentsStore.addLeadingComment(followingNode, comment);
         } else {
           addLeadingComment(followingNode, comment);
         }
       } else if (enclosingNode) {
-        if (commentStore) {
-          commentStore.addDanglingComment(enclosingNode, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(enclosingNode, comment);
         } else {
           addDanglingComment(enclosingNode, comment);
         }
       } else {
         // There are no nodes, let's attach it to the root of the ast
         /* istanbul ignore next */
-        if (commentStore) {
-          commentStore.addDanglingComment(ast, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(ast, comment);
         } else {
           addDanglingComment(ast, comment);
         }
@@ -313,9 +312,9 @@ function attach(comments, ast, text, options) {
     } else {
       const handleResult = handleRemainingComment(...args);
       if (handleResult) {
-        if (commentStore) {
+        if (commentsStore) {
           const { node, type } = handleResult;
-          commentStore.addComment(node, comment, type);
+          commentsStore.addComment(node, comment, type);
         }
         // We're good
       } else if (precedingNode && followingNode) {
@@ -333,28 +332,28 @@ function attach(comments, ast, text, options) {
         }
         tiesToBreak.push(context);
       } else if (precedingNode) {
-        if (commentStore) {
-          commentStore.addTrailingComment(precedingNode, comment);
+        if (commentsStore) {
+          commentsStore.addTrailingComment(precedingNode, comment);
         } else {
           addTrailingComment(precedingNode, comment);
         }
       } else if (followingNode) {
-        if (commentStore) {
-          commentStore.addLeadingComment(followingNode, comment);
+        if (commentsStore) {
+          commentsStore.addLeadingComment(followingNode, comment);
         } else {
           addLeadingComment(followingNode, comment);
         }
       } else if (enclosingNode) {
-        if (commentStore) {
-          commentStore.addDanglingComment(enclosingNode, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(enclosingNode, comment);
         } else {
           addDanglingComment(enclosingNode, comment);
         }
       } else {
         // There are no nodes, let's attach it to the root of the ast
         /* istanbul ignore next */
-        if (commentStore) {
-          commentStore.addDanglingComment(ast, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(ast, comment);
         } else {
           addDanglingComment(ast, comment);
         }
@@ -374,6 +373,8 @@ function attach(comments, ast, text, options) {
       delete comment.followingNode;
     });
   }
+
+  return commentsStore;
 }
 
 function breakTies(tiesToBreak, text, options) {
@@ -382,7 +383,7 @@ function breakTies(tiesToBreak, text, options) {
     return;
   }
   const {
-    commentStore,
+    commentsStore,
     precedingNode,
     followingNode,
     enclosingNode,
@@ -427,35 +428,35 @@ function breakTies(tiesToBreak, text, options) {
 
   tiesToBreak.forEach(({ comment }, i) => {
     if (i < indexOfFirstLeadingComment) {
-      if (commentStore) {
-        commentStore.addTrailingComment(precedingNode, comment);
+      if (commentsStore) {
+        commentsStore.addTrailingComment(precedingNode, comment);
       } else {
         addTrailingComment(precedingNode, comment);
       }
     } else {
-      if (commentStore) {
-        commentStore.addLeadingComment(followingNode, comment);
+      if (commentsStore) {
+        commentsStore.addLeadingComment(followingNode, comment);
       } else {
         addLeadingComment(followingNode, comment);
       }
     }
   });
 
-  if (commentStore) {
+  if (commentsStore) {
     for (const node of [precedingNode, followingNode]) {
       for (const comments of [
-        commentStore.get(node, "leading"),
-        commentStore.get(node, "trailing"),
-        commentStore.get(node, "dangling"),
-        commentStore.get(node, "ignore"),
-        commentStore.get(node, "all"),
+        commentsStore.get(node, "leading"),
+        commentsStore.get(node, "trailing"),
+        commentsStore.get(node, "dangling"),
+        commentsStore.get(node, "ignore"),
+        commentsStore.get(node, "all"),
       ]) {
         comments.sort((a, b) => options.locStart(a) - options.locStart(b));
       }
     }
   }
 
-  // TODO: put this in `if (!commentStore)`
+  // TODO: put this in `if (!commentsStore)`
   for (const node of [precedingNode, followingNode]) {
     if (node.comments && node.comments.length > 1) {
       node.comments.sort((a, b) => options.locStart(a) - options.locStart(b));
