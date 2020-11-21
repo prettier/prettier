@@ -37,10 +37,10 @@ const {
   utils: { willBreak },
 } = require("../../document");
 const printCallArguments = require("./call-arguments");
+const { printMemberLookup } = require("./member");
 const {
   printOptionalToken,
   printFunctionTypeParameters,
-  printMemberLookup,
   printBindExpressionCallee,
 } = require("./misc");
 
