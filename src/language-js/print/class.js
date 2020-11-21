@@ -134,12 +134,7 @@ function printSuperClass(path, options, print) {
   if (parent.type === "AssignmentExpression") {
     return group(
       ifBreak(
-        concat([
-          ifBreak("("),
-          indent(concat([softline, printed])),
-          softline,
-          ifBreak(")"),
-        ]),
+        concat(["(", indent(concat([softline, printed])), softline, ")"]),
         printed
       )
     );
