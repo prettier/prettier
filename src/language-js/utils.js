@@ -614,34 +614,6 @@ function hasDanglingComments(node) {
   );
 }
 
-/** identify if an angular expression seems to have side effects */
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), (node) => {
-    switch (node.type) {
-      case undefined:
-        return false;
-      case "CallExpression":
-      case "OptionalCallExpression":
-      case "AssignmentExpression":
-        return true;
-    }
-  });
-}
-
-function isNgForOf(node, index, parentNode) {
-  return (
-    node.type === "NGMicrosyntaxKeyedExpression" &&
-    node.key.name === "of" &&
-    index === 1 &&
-    parentNode.body[0].type === "NGMicrosyntaxLet" &&
-    parentNode.body[0].value === null
-  );
-}
-
 /**
  *
  * @param {any} node
@@ -1519,7 +1491,6 @@ module.exports = {
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
-  hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
   hasTrailingComment,
@@ -1549,7 +1520,6 @@ module.exports = {
   isMeaningfulJSXText,
   isMemberExpressionChain,
   isMemberish,
-  isNgForOf,
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,

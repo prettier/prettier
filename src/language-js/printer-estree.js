@@ -36,13 +36,8 @@ const clean = require("./clean");
 const { insertPragma } = require("./pragma");
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
-const {
-  printHtmlBinding,
-  isVueEventBindingExpression,
-} = require("./html-binding");
 const preprocess = require("./print-preprocess");
 const {
-  getFunctionParameters,
   getCallArguments,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -50,18 +45,15 @@ const {
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNewlineBetweenOrAfterDecorators,
-  hasNgSideEffect,
   hasPrettierIgnore,
   hasTrailingComment,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   isLiteral,
-  isNgForOf,
   isObjectType,
   isObjectTypePropertyAFunction,
   isTheOnlyJSXElementInMarkdown,
-  isTSXFile,
   isBlockComment,
   needsHardlineAfterDanglingComment,
   rawText,
@@ -69,6 +61,12 @@ const {
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
+const {
+  printHtmlBinding,
+  isVueEventBindingExpression,
+} = require("./print/html-binding");
+const { printAngular } = require("./print/angular");
+const { printJsx } = require("./print/jsx");
 const {
   printOptionalToken,
   printBindExpressionCallee,
@@ -92,19 +90,11 @@ const {
   printTypeAnnotation,
   shouldHugType,
 } = require("./print/type-annotation");
-const {
-  printJsxElement,
-  printJsxAttribute,
-  printJsxOpeningElement,
-  printJsxClosingElement,
-  printJsxOpeningClosingFragment,
-  printJsxExpressionContainer,
-  printJsxEmptyExpression,
-  printJsxSpreadAttribute,
-  printJsxSpreadChild,
-} = require("./print/jsx");
 const { printClass, printClassMethod } = require("./print/class");
-const { printTypeParameters } = require("./print/type-parameters");
+const {
+  printTypeParameter,
+  printTypeParameters,
+} = require("./print/type-parameters");
 const { printPropertyKey } = require("./print/property");
 const {
   printFunctionDeclaration,
@@ -251,6 +241,16 @@ function printPathNoParens(path, options, print, args) {
     return htmlBinding;
   }
 
+  const printedAngular = printAngular(path, options, print);
+  if (typeof printedAngular !== "undefined") {
+    return printedAngular;
+  }
+
+  const printedJsx = printJsx(path, options, print);
+  if (typeof printedJsx !== "undefined") {
+    return printedJsx;
+  }
+
   /** @type{Doc[]} */
   let parts = [];
 
@@ -359,7 +359,6 @@ function printPathNoParens(path, options, print, args) {
       return printVariableDeclarator(path, options, print);
     case "BinaryExpression":
     case "LogicalExpression":
-    case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
     case "AssignmentPattern":
       return concat([
@@ -1052,43 +1051,8 @@ function printPathNoParens(path, options, print, args) {
     // JSX extensions below.
     case "DebuggerStatement":
       return concat(["debugger", semi]);
-    case "JSXAttribute":
-      return printJsxAttribute(path, options, print);
-    case "JSXIdentifier":
-      return "" + n.name;
-    case "JSXNamespacedName":
-      return join(":", [
-        path.call(print, "namespace"),
-        path.call(print, "name"),
-      ]);
-    case "JSXMemberExpression":
-      return join(".", [
-        path.call(print, "object"),
-        path.call(print, "property"),
-      ]);
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
-    case "JSXSpreadAttribute":
-      return printJsxSpreadAttribute(path, options, print);
-    case "JSXSpreadChild":
-      return printJsxSpreadChild(path, options, print);
-    case "JSXExpressionContainer":
-      return printJsxExpressionContainer(path, options, print);
-    case "JSXFragment":
-    case "JSXElement":
-      return printJsxElement(path, options, print);
-    case "JSXOpeningElement":
-      return printJsxOpeningElement(path, options, print);
-    case "JSXClosingElement":
-      return printJsxClosingElement(path, options, print);
-    case "JSXOpeningFragment":
-    case "JSXClosingFragment":
-      return printJsxOpeningClosingFragment(path, options /*, print*/);
-    case "JSXText":
-      /* istanbul ignore next */
-      throw new Error("JSXTest should be handled by JSXElement");
-    case "JSXEmptyExpression":
-      return printJsxEmptyExpression(path, options /*, print*/);
     case "ClassBody":
       if (!n.comments && n.body.length === 0) {
         return "{}";
@@ -1743,59 +1707,8 @@ function printPathNoParens(path, options, print, args) {
       return printTypeParameters(path, options, print, "params");
 
     case "TSTypeParameter":
-    case "TypeParameter": {
-      const parent = path.getParentNode();
-      if (parent.type === "TSMappedType") {
-        parts.push("[", path.call(print, "name"));
-        if (n.constraint) {
-          parts.push(" in ", path.call(print, "constraint"));
-        }
-        if (parent.nameType) {
-          parts.push(
-            " as ",
-            path.callParent((path) => {
-              return path.call(print, "nameType");
-            })
-          );
-        }
-        parts.push("]");
-        return concat(parts);
-      }
-
-      if (n.variance) {
-        parts.push(path.call(print, "variance"));
-      }
-
-      parts.push(path.call(print, "name"));
-
-      if (n.bound) {
-        parts.push(": ");
-        parts.push(path.call(print, "bound"));
-      }
-
-      if (n.constraint) {
-        parts.push(" extends ", path.call(print, "constraint"));
-      }
-
-      if (n.default) {
-        parts.push(" = ", path.call(print, "default"));
-      }
-
-      // Keep comma if the file extension is .tsx and
-      // has one type parameter that isn't extend with any types.
-      // Because, otherwise formatted result will be invalid as tsx.
-      const grandParent = path.getNode(2);
-      if (
-        getFunctionParameters(parent).length === 1 &&
-        isTSXFile(options) &&
-        !n.constraint &&
-        grandParent.type === "ArrowFunctionExpression"
-      ) {
-        parts.push(",");
-      }
-
-      return concat(parts);
-    }
+    case "TypeParameter":
+      return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
       return concat(["typeof ", path.call(print, "argument")]);
     case "InferredPredicate":
@@ -2250,87 +2163,6 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-
-    case "NGRoot":
-      return concat(
-        [].concat(
-          path.call(print, "node"),
-          !n.node.comments || n.node.comments.length === 0
-            ? []
-            : concat([" //", n.node.comments[0].value.trimEnd()])
-        )
-      );
-    case "NGChainedExpression":
-      return group(
-        join(
-          concat([";", line]),
-          path.map(
-            (childPath) =>
-              hasNgSideEffect(childPath)
-                ? print(childPath)
-                : concat(["(", print(childPath), ")"]),
-            "expressions"
-          )
-        )
-      );
-    case "NGEmptyExpression":
-      return "";
-    case "NGQuotedExpression":
-      return concat([n.prefix, ": ", n.value.trim()]);
-    case "NGMicrosyntax":
-      return concat(
-        path.map(
-          (childPath, index) =>
-            concat([
-              index === 0
-                ? ""
-                : isNgForOf(childPath.getValue(), index, n)
-                ? " "
-                : concat([";", line]),
-              print(childPath),
-            ]),
-          "body"
-        )
-      );
-    case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(n.name)
-        ? n.name
-        : JSON.stringify(n.name);
-    case "NGMicrosyntaxExpression":
-      return concat([
-        path.call(print, "expression"),
-        n.alias === null ? "" : concat([" as ", path.call(print, "alias")]),
-      ]);
-    case "NGMicrosyntaxKeyedExpression": {
-      const index = path.getName();
-      const parentNode = path.getParentNode();
-      const shouldNotPrintColon =
-        isNgForOf(n, index, parentNode) ||
-        (((index === 1 && (n.key.name === "then" || n.key.name === "else")) ||
-          (index === 2 &&
-            n.key.name === "else" &&
-            parentNode.body[index - 1].type ===
-              "NGMicrosyntaxKeyedExpression" &&
-            parentNode.body[index - 1].key.name === "then")) &&
-          parentNode.body[0].type === "NGMicrosyntaxExpression");
-      return concat([
-        path.call(print, "key"),
-        shouldNotPrintColon ? " " : ": ",
-        path.call(print, "expression"),
-      ]);
-    }
-    case "NGMicrosyntaxLet":
-      return concat([
-        "let ",
-        path.call(print, "key"),
-        n.value === null ? "" : concat([" = ", path.call(print, "value")]),
-      ]);
-    case "NGMicrosyntaxAs":
-      return concat([
-        path.call(print, "key"),
-        " as ",
-        path.call(print, "alias"),
-      ]);
 
     case "PipelineBareFunction":
       return path.call(print, "callee");

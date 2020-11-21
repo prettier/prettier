@@ -13,6 +13,7 @@ const {
     fill,
     ifBreak,
     lineSuffixBoundary,
+    join,
   },
   utils: { willBreak, isLineNext, isEmpty },
 } = require("../../document");
@@ -707,15 +708,50 @@ function printJsxSpreadAttribute(path, options, print) {
   ]);
 }
 
+function printJsx(path, options, print) {
+  const n = path.getValue();
+  switch (n.type) {
+    case "JSXAttribute":
+      return printJsxAttribute(path, options, print);
+    case "JSXIdentifier":
+      return "" + n.name;
+    case "JSXNamespacedName":
+      return join(":", [
+        path.call(print, "namespace"),
+        path.call(print, "name"),
+      ]);
+    case "JSXMemberExpression":
+      return join(".", [
+        path.call(print, "object"),
+        path.call(print, "property"),
+      ]);
+    case "JSXSpreadAttribute":
+      return printJsxSpreadAttribute(path, options, print);
+    case "JSXSpreadChild": {
+      // Same as `printJsxSpreadAttribute`
+      const printJsxSpreadChild = printJsxSpreadAttribute;
+      return printJsxSpreadChild(path, options, print);
+    }
+    case "JSXExpressionContainer":
+      return printJsxExpressionContainer(path, options, print);
+    case "JSXFragment":
+    case "JSXElement":
+      return printJsxElement(path, options, print);
+    case "JSXOpeningElement":
+      return printJsxOpeningElement(path, options, print);
+    case "JSXClosingElement":
+      return printJsxClosingElement(path, options, print);
+    case "JSXOpeningFragment":
+    case "JSXClosingFragment":
+      return printJsxOpeningClosingFragment(path, options /*, print*/);
+    case "JSXEmptyExpression":
+      return printJsxEmptyExpression(path, options /*, print*/);
+    case "JSXText":
+      /* istanbul ignore next */
+      throw new Error("JSXTest should be handled by JSXElement");
+  }
+}
+
 module.exports = {
-  printJsxElement,
-  printJsxAttribute,
-  printJsxOpeningElement,
-  printJsxClosingElement,
-  printJsxOpeningClosingFragment,
-  printJsxExpressionContainer,
-  printJsxEmptyExpression,
-  printJsxSpreadAttribute,
-  // Alias
-  printJsxSpreadChild: printJsxSpreadAttribute,
+  printJsx,
 };
