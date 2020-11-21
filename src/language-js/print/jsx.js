@@ -32,6 +32,7 @@ const {
   isStringLiteral,
   isBinaryish,
   isBlockComment,
+  isLineComment,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
@@ -639,7 +640,31 @@ function printJsxOpeningElement(path, options, print) {
 }
 
 function printJsxClosingElement(path, options, print) {
-  return concat(["</", path.call(print, "name"), ">"]);
+  const n = path.getValue();
+  const parts = [];
+
+  parts.push("</");
+
+  const printed = path.call(print, "name");
+  if (
+    Array.isArray(n.name.comments) &&
+    n.name.comments.some((comment) => comment.leading && isLineComment(comment))
+  ) {
+    parts.push(indent(concat([hardline, printed])), hardline);
+  } else if (
+    Array.isArray(n.name.comments) &&
+    n.name.comments.some(
+      (comment) => comment.leading && isBlockComment(comment)
+    )
+  ) {
+    parts.push(" ", printed);
+  } else {
+    parts.push(printed);
+  }
+
+  parts.push(">");
+
+  return concat(parts);
 }
 
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
