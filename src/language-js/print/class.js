@@ -131,13 +131,13 @@ function printList(path, options, print, listName) {
 function printSuperClass(path, options, print) {
   const printed = path.call(print, "superClass");
   const parent = path.getParentNode();
-  if (parent && parent.type === "AssignmentExpression") {
-    return concat([
-      ifBreak("("),
-      indent(concat([softline, printed])),
-      softline,
-      ifBreak(")"),
-    ]);
+  if (parent.type === "AssignmentExpression") {
+    return group(
+      ifBreak(
+        concat(["(", indent(concat([softline, printed])), softline, ")"]),
+        printed
+      )
+    );
   }
   return printed;
 }
