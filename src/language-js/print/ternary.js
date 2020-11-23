@@ -141,10 +141,8 @@ function conditionalExpressionChainContainsJSX(node) {
  */
 function printTernaryOperator(path, options, print, operatorOptions) {
   const node = path.getValue();
-  const {
-    consequentNodePropertyName,
-    alternateNodePropertyName,
-  } = operatorOptions;
+  const consequentNodePropertyName = node.type === "TSConditionalType" ? "trueType" : "consequent"
+  const alternateNodePropertyName = node.type === "TSConditionalType" ? "falseType" : "alternate"
   const consequentNode = node[consequentNodePropertyName];
   const alternateNode = node[alternateNodePropertyName];
   const parts = [];
