@@ -71,7 +71,6 @@ const {
   printOptionalToken,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printDecorators,
   printFlowDeclaration,
   adjustClause,
 } = require("./print/misc");

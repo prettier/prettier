@@ -7,7 +7,7 @@ const {
 const { hasTrailingComment, hasTrailingLineComment } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
-const { printDecorators, printOptionalToken } = require("./misc");
+const { printOptionalToken } = require("./misc");
 const { printStatementSequence } = require("./statement");
 const { printPropertyKey } = require("./property");
 const { printTypeAnnotation } = require("./type-annotation");
@@ -236,6 +236,16 @@ function printClassProperty(path, options, print) {
   parts.push(semi);
 
   return group(concat(parts));
+}
+
+function printDecorators(path, options, print) {
+  const node = path.getValue();
+  return group(
+    concat([
+      join(line, path.map(print, "decorators")),
+      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
+    ])
+  );
 }
 
 module.exports = {

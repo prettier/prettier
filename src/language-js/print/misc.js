@@ -52,16 +52,6 @@ function printTypeScriptModifiers(path, options, print) {
   return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
-function printDecorators(path, options, print) {
-  const node = path.getValue();
-  return group(
-    concat([
-      join(line, path.map(print, "decorators")),
-      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-    ])
-  );
-}
-
 function printFlowDeclaration(path, printed) {
   const parentExportDecl = getParentExportDeclaration(path);
 
@@ -93,7 +83,6 @@ module.exports = {
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printDecorators,
   printFlowDeclaration,
   adjustClause,
 };
