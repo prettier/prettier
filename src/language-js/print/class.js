@@ -4,14 +4,26 @@ const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
-const { hasTrailingComment, hasTrailingLineComment } = require("../utils");
+const {
+  hasTrailingComment,
+  hasTrailingLineComment,
+  hasNewlineBetweenOrAfterDecorators,
+} = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
-const { printDecorators } = require("./misc");
+const { printOptionalToken } = require("./misc");
+const { printStatementSequence } = require("./statement");
+const { printPropertyKey } = require("./property");
+const { printTypeAnnotation } = require("./type-annotation");
+const { printAssignmentRight } = require("./assignment");
 
 function printClass(path, options, print) {
   const n = path.getValue();
   const parts = [];
+
+  if (n.declare) {
+    parts.push("declare ");
+  }
 
   if (n.abstract) {
     parts.push("abstract ");
@@ -164,4 +176,85 @@ function printClassMethod(path, options, print) {
   return concat(parts);
 }
 
-module.exports = { printClass, printClassMethod };
+function printClassBody(path, options, print) {
+  const n = path.getValue();
+  if (!n.comments && n.body.length === 0) {
+    return "{}";
+  }
+
+  return concat([
+    "{",
+    n.body.length > 0
+      ? indent(
+          concat([
+            hardline,
+            path.call((bodyPath) => {
+              return printStatementSequence(bodyPath, options, print);
+            }, "body"),
+          ])
+        )
+      : printDanglingComments(path, options),
+    hardline,
+    "}",
+  ]);
+}
+
+function printClassProperty(path, options, print) {
+  const n = path.getValue();
+  const parts = [];
+  const semi = options.semi ? ";" : "";
+
+  if (n.decorators && n.decorators.length !== 0) {
+    parts.push(printDecorators(path, options, print));
+  }
+  if (n.accessibility) {
+    parts.push(n.accessibility + " ");
+  }
+  if (n.declare) {
+    parts.push("declare ");
+  }
+  if (n.static) {
+    parts.push("static ");
+  }
+  if (n.type === "TSAbstractClassProperty" || n.abstract) {
+    parts.push("abstract ");
+  }
+  if (n.readonly) {
+    parts.push("readonly ");
+  }
+  if (n.variance) {
+    parts.push(path.call(print, "variance"));
+  }
+  parts.push(
+    printPropertyKey(path, options, print),
+    printOptionalToken(path),
+    printTypeAnnotation(path, options, print)
+  );
+  if (n.value) {
+    parts.push(
+      " =",
+      printAssignmentRight(n.key, n.value, path.call(print, "value"), options)
+    );
+  }
+
+  parts.push(semi);
+
+  return group(concat(parts));
+}
+
+function printDecorators(path, options, print) {
+  const node = path.getValue();
+  return group(
+    concat([
+      join(line, path.map(print, "decorators")),
+      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
+    ])
+  );
+}
+
+module.exports = {
+  printClass,
+  printClassMethod,
+  printClassBody,
+  printClassProperty,
+};
