@@ -23,15 +23,6 @@ const {
  * @typedef {import("../../common/fast-path")} FastPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)
- *
- * @typedef {Object} OperatorOptions
- * @property {() => Array<string | Doc>} beforeParts - Parts to print before the `?`.
- * @property {(breakClosingParen: boolean) => Array<string | Doc>} afterParts - Parts to print after the conditional expression.
- * @property {boolean} shouldCheckJsx - Whether to check for and print in JSX mode.
- * @property {string} conditionalNodeType - The type of the conditional expression node, ie "ConditionalExpression" or "TSConditionalType".
- * @property {string} consequentNodePropertyName - The property at which the consequent node can be found on the main node, eg "consequent".
- * @property {string} alternateNodePropertyName - The property at which the alternate node can be found on the main node, eg "alternate".
- * @property {string[]} testNodePropertyNames - The properties at which the test nodes can be found on the main node, eg "test".
  */
 
 // If we have nested conditional expressions, we want to print them in JSX mode
@@ -129,6 +120,40 @@ function conditionalExpressionChainContainsJSX(node) {
   return getConditionalChainContents(node).some(isJSXNode);
 }
 
+function printTernaryTest(path, options, print) {
+  const node = path.getValue();
+  const isConditionalExpression = node.type === "ConditionalExpression";
+  const alternateNodePropertyName = isConditionalExpression
+    ? "alternate"
+    : "falseType";
+
+  const parent = path.getParentNode();
+
+  const printed = isConditionalExpression
+    ? path.call(print, "test")
+    : concat([
+        path.call(print, "checkType"),
+        " ",
+        "extends",
+        " ",
+        path.call(print, "extendsType"),
+      ]);
+  /**
+   *     a
+   *       ? b
+   *       : multiline
+   *         test
+   *         node
+   *       ^^ align(2)
+   *       ? d
+   *       : e
+   */
+  if (parent.type === node.type && parent[alternateNodePropertyName] === node) {
+    return align(2, printed);
+  }
+  return printed;
+}
+
 /**
  * The following is the shared logic for
  * ternary operators, namely ConditionalExpression
@@ -136,18 +161,21 @@ function conditionalExpressionChainContainsJSX(node) {
  * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
- * @param {OperatorOptions} operatorOptionstestNodePropertyNames
 
  * @returns {Doc}
  */
-function printTernaryOperator(path, options, print, operatorOptions) {
+function printTernary(path, options, print) {
   const node = path.getValue();
-  const consequentNodePropertyName =
-    node.type === "TSConditionalType" ? "trueType" : "consequent";
-  const alternateNodePropertyName =
-    node.type === "TSConditionalType" ? "falseType" : "alternate";
-  const testNodePropertyNames =
-    node.type === "TSConditionalType" ? ["checkType", "extendsType"] : ["test"];
+  const isConditionalExpression = node.type === "ConditionalExpression";
+  const consequentNodePropertyName = isConditionalExpression
+    ? "consequent"
+    : "trueType";
+  const alternateNodePropertyName = isConditionalExpression
+    ? "alternate"
+    : "falseType";
+  const testNodePropertyNames = isConditionalExpression
+    ? ["test"]
+    : ["checkType", "extendsType"];
   const consequentNode = node[consequentNodePropertyName];
   const alternateNode = node[alternateNodePropertyName];
   const parts = [];
@@ -182,7 +210,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const lastConditionalParent = previousParent;
 
   if (
-    operatorOptions.shouldCheckJsx &&
+    isConditionalExpression &&
     (isJSXNode(node[testNodePropertyNames[0]]) ||
       isJSXNode(consequentNode) ||
       isJSXNode(alternateNode) ||
@@ -282,41 +310,12 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
-  const before =
-    node.type === "ConditionalExpression"
-      ? path.call(print, "test")
-      : concat([
-          path.call(print, "checkType"),
-          " ",
-          "extends",
-          " ",
-          path.call(print, "extendsType"),
-        ]);
-  const after =
-    node.type === "ConditionalExpression" && breakClosingParen ? softline : "";
-
   const result = maybeGroup(
-    concat(
-      [].concat(
-        ((testDoc) =>
-          /**
-           *     a
-           *       ? b
-           *       : multiline
-           *         test
-           *         node
-           *       ^^ align(2)
-           *       ? d
-           *       : e
-           */
-          parent.type === node.type &&
-          parent[alternateNodePropertyName] === node
-            ? align(2, testDoc)
-            : testDoc)(before),
-        forceNoIndent ? concat(parts) : indent(concat(parts)),
-        after
-      )
-    )
+    concat([
+      printTernaryTest(path, options, print),
+      forceNoIndent ? concat(parts) : indent(concat(parts)),
+      isConditionalExpression && breakClosingParen ? softline : "",
+    ])
   );
 
   return isParentTest
@@ -324,4 +323,4 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     : result;
 }
 
-module.exports = printTernaryOperator;
+module.exports = { printTernary };
