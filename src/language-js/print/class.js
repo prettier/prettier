@@ -7,7 +7,10 @@ const {
 const { hasTrailingComment, hasTrailingLineComment } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
-const { printOptionalToken } = require("./misc");
+const {
+  printOptionalToken,
+  hasNewlineBetweenOrAfterDecorators,
+} = require("./misc");
 const { printStatementSequence } = require("./statement");
 const { printPropertyKey } = require("./property");
 const { printTypeAnnotation } = require("./type-annotation");
