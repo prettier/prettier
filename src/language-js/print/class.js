@@ -7,12 +7,19 @@ const {
 const { hasTrailingComment, hasTrailingLineComment } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
-const { printDecorators } = require("./misc");
+const { printDecorators, printOptionalToken } = require("./misc");
 const { printStatementSequence } = require("./statement");
+const { printPropertyKey } = require("./property");
+const { printTypeAnnotation } = require("./type-annotation");
+const { printAssignmentRight } = require("./assignment");
 
 function printClass(path, options, print) {
   const n = path.getValue();
   const parts = [];
+
+  if (n.declare) {
+    parts.push("declare ");
+  }
 
   if (n.abstract) {
     parts.push("abstract ");
@@ -188,4 +195,52 @@ function printClassBody(path, options, print) {
   ]);
 }
 
-module.exports = { printClass, printClassMethod, printClassBody };
+function printClassProperty(path, options, print) {
+  const n = path.getValue();
+  const parts = [];
+  const semi = options.semi ? ";" : "";
+
+  if (n.decorators && n.decorators.length !== 0) {
+    parts.push(printDecorators(path, options, print));
+  }
+  if (n.accessibility) {
+    parts.push(n.accessibility + " ");
+  }
+  if (n.declare) {
+    parts.push("declare ");
+  }
+  if (n.static) {
+    parts.push("static ");
+  }
+  if (n.type === "TSAbstractClassProperty" || n.abstract) {
+    parts.push("abstract ");
+  }
+  if (n.readonly) {
+    parts.push("readonly ");
+  }
+  if (n.variance) {
+    parts.push(path.call(print, "variance"));
+  }
+  parts.push(
+    printPropertyKey(path, options, print),
+    printOptionalToken(path),
+    printTypeAnnotation(path, options, print)
+  );
+  if (n.value) {
+    parts.push(
+      " =",
+      printAssignmentRight(n.key, n.value, path.call(print, "value"), options)
+    );
+  }
+
+  parts.push(semi);
+
+  return group(concat(parts));
+}
+
+module.exports = {
+  printClass,
+  printClassMethod,
+  printClassBody,
+  printClassProperty,
+};
