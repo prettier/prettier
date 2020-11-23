@@ -678,13 +678,20 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     case "ConditionalExpression":
       return printTernaryOperator(path, options, print, {
-        beforeParts: () => [path.call(print, "test")],
-        afterParts: (breakClosingParen) => [breakClosingParen ? softline : ""],
         shouldCheckJsx: true,
         conditionalNodeType: "ConditionalExpression",
         consequentNodePropertyName: "consequent",
         alternateNodePropertyName: "alternate",
         testNodePropertyNames: ["test"],
+      });
+
+    case "TSConditionalType":
+      return printTernaryOperator(path, options, print, {
+        shouldCheckJsx: false,
+        conditionalNodeType: "TSConditionalType",
+        consequentNodePropertyName: "trueType",
+        alternateNodePropertyName: "falseType",
+        testNodePropertyNames: ["checkType", "extendsType"],
       });
     case "VariableDeclaration": {
       const printed = path.map((childPath) => {
@@ -2134,23 +2141,6 @@ function printPathNoParens(path, options, print, args) {
     // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
     case "TSPrivateIdentifier":
       return n.escapedText;
-
-    case "TSConditionalType":
-      return printTernaryOperator(path, options, print, {
-        beforeParts: () => [
-          path.call(print, "checkType"),
-          " ",
-          "extends",
-          " ",
-          path.call(print, "extendsType"),
-        ],
-        afterParts: () => [],
-        shouldCheckJsx: false,
-        conditionalNodeType: "TSConditionalType",
-        consequentNodePropertyName: "trueType",
-        alternateNodePropertyName: "falseType",
-        testNodePropertyNames: ["checkType", "extendsType"],
-      });
 
     case "TSInferType":
       return concat(["infer", " ", path.call(print, "typeParameter")]);

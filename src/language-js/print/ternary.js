@@ -283,6 +283,19 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
+  const before =
+    node.type === "ConditionalExpression"
+      ? path.call(print, "test")
+      : concat([
+          path.call(print, "checkType"),
+          " ",
+          "extends",
+          " ",
+          path.call(print, "extendsType"),
+        ]);
+  const after =
+    node.type === "ConditionalExpression" && breakClosingParen ? softline : "";
+
   const result = maybeGroup(
     concat(
       [].concat(
@@ -300,9 +313,9 @@ function printTernaryOperator(path, options, print, operatorOptions) {
           parent.type === operatorOptions.conditionalNodeType &&
           parent[operatorOptions.alternateNodePropertyName] === node
             ? align(2, testDoc)
-            : testDoc)(concat(operatorOptions.beforeParts())),
+            : testDoc)(before),
         forceNoIndent ? concat(parts) : indent(concat(parts)),
-        operatorOptions.afterParts(breakClosingParen)
+        after
       )
     )
   );
