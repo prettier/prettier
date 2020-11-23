@@ -1145,8 +1145,6 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "DeclareClass":
-      return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
       return printFlowDeclaration(
         path,
