@@ -101,7 +101,7 @@ const {
   printTypeParameter,
   printTypeParameters,
 } = require("./print/type-parameters");
-const { printPropertyKey } = require("./print/property");
+const { printPropertyKey, printProperty } = require("./print/property");
 const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
@@ -113,7 +113,6 @@ const { printInterface } = require("./print/interface");
 const {
   printVariableDeclarator,
   printAssignmentExpression,
-  printAssignment,
   printAssignmentRight,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
@@ -439,22 +438,17 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "argument"),
         printTypeAnnotation(path, options, print),
       ]);
+    case "TSDeclareFunction":
     case "FunctionDeclaration":
     case "FunctionExpression":
-      parts.push(
-        printFunctionDeclaration(
-          path,
-          print,
-          options,
-          args &&
-            args.expandLastArg &&
-            getCallArguments(path.getParentNode()).length > 1
-        )
+      return printFunctionDeclaration(
+        path,
+        print,
+        options,
+        args &&
+          args.expandLastArg &&
+          getCallArguments(path.getParentNode()).length > 1
       );
-      if (!n.body) {
-        parts.push(semi);
-      }
-      return concat(parts);
     case "ArrowFunctionExpression":
       return printArrowFunctionExpression(path, options, print, args);
     case "YieldExpression":
@@ -547,23 +541,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.method || n.kind === "get" || n.kind === "set") {
         return printMethod(path, options, print);
       }
-
-      if (n.shorthand) {
-        parts.push(path.call(print, "value"));
-      } else {
-        parts.push(
-          printAssignment(
-            n.key,
-            printPropertyKey(path, options, print),
-            ":",
-            n.value,
-            path.call(print, "value"),
-            options
-          )
-        );
-      }
-
-      return concat(parts); // Babel 6
+      return printProperty(path, options, print);
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
@@ -1149,14 +1127,6 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "TSDeclareFunction":
-      // For TypeScript the TSDeclareFunction node shares the AST
-      // structure with FunctionDeclaration
-      return concat([
-        n.declare ? "declare " : "",
-        printFunctionDeclaration(path, print, options),
-        semi,
-      ]);
     case "OpaqueType":
       return printOpaqueType(path, options, print);
 
