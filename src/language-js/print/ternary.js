@@ -161,7 +161,6 @@ function printTernaryTest(path, options, print) {
  * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
-
  * @returns {Doc}
  */
 function printTernary(path, options, print) {
