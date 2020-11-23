@@ -547,13 +547,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.method || n.kind === "get" || n.kind === "set") {
         return printMethod(path, options, print);
       }
-      return printProperty(path, options, print); // Babel 6
-    case "ClassMethod":
-    case "ClassPrivateMethod":
-    case "MethodDefinition":
-    case "TSAbstractMethodDefinition":
-    case "TSDeclareMethod":
-      return printClassMethod(path, options, print);
+      return printProperty(path, options, print);
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
