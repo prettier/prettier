@@ -344,7 +344,7 @@ function isJSXWhitespaceExpression(node) {
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
     node.expression.value === " " &&
-    !hasComments(node.expression)
+    !hasComment(node.expression)
   );
 }
 
@@ -592,7 +592,7 @@ function isSimpleTemplateLiteral(node) {
 
   return expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
-    if (hasComments(expr)) {
+    if (hasComment(expr)) {
       return false;
     }
 
@@ -620,7 +620,7 @@ function isSimpleTemplateLiteral(node) {
           return false;
         }
         head = head.object;
-        if (hasComments(head)) {
+        if (hasComment(head)) {
           return false;
         }
       }
@@ -850,7 +850,7 @@ function hasLeadingOwnLineComment(text, node) {
     return hasNodeIgnoreComment(node);
   }
 
-  return hasComments(node, Comment.leading, (comment) =>
+  return hasComment(node, Comment.leading, (comment) =>
     hasNewline(text, locEnd(comment))
   );
 }
@@ -990,7 +990,7 @@ function isTemplateOnItsOwnLine(n, text) {
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {
-  if (!hasComments(node)) {
+  if (!hasComment(node)) {
     return false;
   }
   const lastDanglingComment = getLast(
@@ -1412,7 +1412,7 @@ function isPrettierIgnoreComment(comment) {
 
 function hasNodeIgnoreComment(node) {
   return (
-    node && (node.prettierIgnore || hasComments(node, Comment.prettierIgnore))
+    node && (node.prettierIgnore || hasComment(node, Comment.prettierIgnore))
   );
 }
 
@@ -1433,7 +1433,7 @@ const Comment = {
  * @param {Node} node
  * @returns {boolean}
  */
-function hasComments(node, options, fn) {
+function hasComment(node, options, fn) {
   if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
     return false;
   }
@@ -1525,6 +1525,6 @@ module.exports = {
   shouldFlatten,
   startsWithNoLookaheadToken,
   getPrecedence,
-  hasComments,
+  hasComment,
   Comment,
 };

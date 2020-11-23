@@ -6,7 +6,7 @@ const {
 const { printDanglingComments } = require("../../main/comments");
 
 const {
-  hasComments,
+  hasComment,
   Comment,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
@@ -59,7 +59,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(" default");
   }
 
-  if (hasComments(node, Comment.dangling)) {
+  if (hasComment(node, Comment.dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
@@ -211,7 +211,7 @@ function printModuleSpecifiers(path, options, print) {
       const canBreak =
         groupedSpecifiers.length > 1 ||
         standaloneSpecifiers.length > 0 ||
-        node.specifiers.some((node) => hasComments(node));
+        node.specifiers.some((node) => hasComment(node));
 
       if (canBreak) {
         parts.push(

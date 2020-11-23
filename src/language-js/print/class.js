@@ -4,7 +4,7 @@ const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
-const { hasComments, Comment } = require("../utils");
+const { hasComment, Comment } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printDecorators } = require("./misc");
@@ -22,8 +22,8 @@ function printClass(path, options, print) {
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
-    (n.id && hasComments(n.id, Comment.trailing)) ||
-    (n.superClass && hasComments(n.superClass)) ||
+    (n.id && hasComment(n.id, Comment.trailing)) ||
+    (n.superClass && hasComment(n.superClass)) ||
     (n.extends && n.extends.length !== 0) || // DeclareClass
     (n.mixins && n.mixins.length !== 0) ||
     (n.implements && n.implements.length !== 0);
@@ -92,7 +92,7 @@ function hasMultipleHeritage(node) {
 function shouldIndentOnlyHeritageClauses(node) {
   return (
     node.typeParameters &&
-    !hasComments(node.typeParameters, Comment.trailing | Comment.line) &&
+    !hasComment(node.typeParameters, Comment.trailing | Comment.line) &&
     !hasMultipleHeritage(node)
   );
 }

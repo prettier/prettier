@@ -9,7 +9,7 @@ const {
 const {
   getFunctionParameters,
   iterateFunctionParametersPath,
-  hasComments,
+  hasComment,
   Comment,
   isFunctionCompositionArgs,
   isJSXNode,
@@ -55,7 +55,7 @@ function printCallArguments(path, options, print) {
     getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
-    !args.some((arg) => hasComments(arg))
+    !args.some((arg) => hasComment(arg))
   ) {
     return concat([
       "(",
@@ -235,9 +235,9 @@ function printCallArguments(path, options, print) {
 function couldGroupArg(arg) {
   return (
     (arg.type === "ObjectExpression" &&
-      (arg.properties.length > 0 || hasComments(arg))) ||
+      (arg.properties.length > 0 || hasComment(arg))) ||
     (arg.type === "ArrayExpression" &&
-      (arg.elements.length > 0 || hasComments(arg))) ||
+      (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
     (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
@@ -271,8 +271,8 @@ function shouldGroupLastArg(args) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
-    !hasComments(lastArg, Comment.leading) &&
-    !hasComments(lastArg, Comment.trailing) &&
+    !hasComment(lastArg, Comment.leading) &&
+    !hasComment(lastArg, Comment.trailing) &&
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
@@ -287,7 +287,7 @@ function shouldGroupFirstArg(args) {
 
   const [firstArg, secondArg] = args;
   return (
-    !hasComments(firstArg) &&
+    !hasComment(firstArg) &&
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&

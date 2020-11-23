@@ -13,7 +13,7 @@ const {
   isJSXNode,
   isLastStatement,
   isTheOnlyJSXElementInMarkdown,
-  hasComments,
+  hasComment,
   Comment,
 } = require("../utils");
 const { locEnd } = require("../loc");
@@ -49,7 +49,7 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
     !isTheOnlyJSXElementInMarkdown(options, path) &&
     statementNeedsASIProtection(path, options)
   ) {
-    if (hasComments(node, Comment.leading)) {
+    if (hasComment(node, Comment.leading)) {
       parts.push(print(path, { needsSemi: true }));
     } else {
       parts.push(";", printed);

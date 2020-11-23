@@ -20,7 +20,7 @@ const {
   returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
-  hasComments,
+  hasComment,
   Comment,
 } = require("../utils");
 const { locEnd } = require("../loc");
@@ -198,7 +198,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const shouldAddSoftLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
-    !hasComments(n);
+    !hasComment(n);
 
   const printTrailingComma =
     args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -237,10 +237,10 @@ function canPrintParamsWithoutParens(node) {
   return (
     parameters.length === 1 &&
     !node.typeParameters &&
-    !hasComments(node, Comment.dangling) &&
+    !hasComment(node, Comment.dangling) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
-    !hasComments(parameters[0]) &&
+    !hasComment(parameters[0]) &&
     !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -332,7 +332,7 @@ function printReturnAndThrowArgument(path, options, print) {
     parts.push(semi);
   }
 
-  if (hasComments(node, Comment.dangling)) {
+  if (hasComment(node, Comment.dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)

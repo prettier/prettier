@@ -6,7 +6,7 @@ const {
 } = require("../../document");
 const {
   isTestCall,
-  hasComments,
+  hasComment,
   Comment,
   isTSXFile,
   shouldPrintComma,
@@ -82,10 +82,10 @@ function printTypeParameters(path, options, print, paramsKey) {
 
 function printDanglingCommentsForInline(path, options) {
   const n = path.getValue();
-  if (!hasComments(n, Comment.dangling)) {
+  if (!hasComment(n, Comment.dangling)) {
     return "";
   }
-  const hasOnlyBlockComments = !hasComments(n, Comment.line);
+  const hasOnlyBlockComments = !hasComment(n, Comment.line);
   const printed = printDanglingComments(
     path,
     options,

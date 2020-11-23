@@ -5,7 +5,7 @@ const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
-const { hasComments, Comment } = require("../utils");
+const { hasComment, Comment } = require("../utils");
 const { locEnd } = require("../loc");
 
 const { printStatementSequence } = require("./statement");
@@ -32,7 +32,7 @@ function printBlock(path, options, print) {
   if (
     !hasContent &&
     !hasDirectives &&
-    !hasComments(n, Comment.dangling) &&
+    !hasComment(n, Comment.dangling) &&
     (parent.type === "ArrowFunctionExpression" ||
       parent.type === "FunctionExpression" ||
       parent.type === "FunctionDeclaration" ||

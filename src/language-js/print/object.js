@@ -10,7 +10,7 @@ const {
   hasNewlineInRange,
   hasNewline,
 } = require("../../common/util");
-const { shouldPrintComma, hasComments, Comment } = require("../utils");
+const { shouldPrintComma, hasComment, Comment } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken } = require("./misc");
@@ -111,7 +111,7 @@ function printObject(path, options, print) {
         (prop.node.type === "TSPropertySignature" ||
           prop.node.type === "TSMethodSignature" ||
           prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasComments(prop.node, Comment.prettierIgnore)
+        hasComment(prop.node, Comment.prettierIgnore)
       ) {
         separatorParts.shift();
       }
@@ -123,8 +123,8 @@ function printObject(path, options, print) {
 
   if (n.inexact) {
     let printed;
-    if (hasComments(n, Comment.dangling)) {
-      const hasLineComments = hasComments(n, Comment.line);
+    if (hasComment(n, Comment.dangling)) {
+      const hasLineComments = hasComment(n, Comment.line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
@@ -157,12 +157,12 @@ function printObject(path, options, print) {
         lastElem.type === "TSCallSignatureDeclaration" ||
         lastElem.type === "TSMethodSignature" ||
         lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasComments(lastElem, Comment.prettierIgnore))
+      hasComment(lastElem, Comment.prettierIgnore))
   );
 
   let content;
   if (props.length === 0) {
-    if (!hasComments(n, Comment.dangling)) {
+    if (!hasComment(n, Comment.dangling)) {
       return concat([
         leftBrace,
         rightBrace,
