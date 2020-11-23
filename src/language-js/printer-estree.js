@@ -67,11 +67,11 @@ const {
 } = require("./print/html-binding");
 const { printAngular } = require("./print/angular");
 const { printJsx } = require("./print/jsx");
+const { printFlow } = require("./print/flow");
 const {
   printOptionalToken,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printDecorators,
   printFlowDeclaration,
   adjustClause,
 } = require("./print/misc");
@@ -90,7 +90,12 @@ const {
   printTypeAnnotation,
   shouldHugType,
 } = require("./print/type-annotation");
-const { printClass, printClassMethod } = require("./print/class");
+const {
+  printClass,
+  printClassMethod,
+  printClassBody,
+  printClassProperty,
+} = require("./print/class");
 const {
   printTypeParameter,
   printTypeParameters,
@@ -236,19 +241,11 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
-  const htmlBinding = printHtmlBinding(path, options, print);
-  if (htmlBinding) {
-    return htmlBinding;
-  }
-
-  const printedAngular = printAngular(path, options, print);
-  if (typeof printedAngular !== "undefined") {
-    return printedAngular;
-  }
-
-  const printedJsx = printJsx(path, options, print);
-  if (typeof printedJsx !== "undefined") {
-    return printedJsx;
+  for (const printer of [printHtmlBinding, printAngular, printJsx, printFlow]) {
+    const printed = printer(path, options, print);
+    if (typeof printed !== "undefined") {
+      return printed;
+    }
   }
 
   /** @type{Doc[]} */
@@ -568,12 +565,6 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts); // Babel 6
-    case "ClassMethod":
-    case "ClassPrivateMethod":
-    case "MethodDefinition":
-    case "TSAbstractMethodDefinition":
-    case "TSDeclareMethod":
-      return printClassMethod(path, options, print);
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
@@ -1053,79 +1044,23 @@ function printPathNoParens(path, options, print, args) {
       return concat(["debugger", semi]);
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
-    case "ClassBody":
-      if (!n.comments && n.body.length === 0) {
-        return "{}";
-      }
 
-      return concat([
-        "{",
-        n.body.length > 0
-          ? indent(
-              concat([
-                hardline,
-                path.call((bodyPath) => {
-                  return printStatementSequence(bodyPath, options, print);
-                }, "body"),
-              ])
-            )
-          : comments.printDanglingComments(path, options),
-        hardline,
-        "}",
-      ]);
+    case "ClassDeclaration":
+    case "ClassExpression":
+      return printClass(path, options, print);
+    case "ClassBody":
+      return printClassBody(path, options, print);
+    case "ClassMethod":
+    case "ClassPrivateMethod":
+    case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
+    case "TSDeclareMethod":
+      return printClassMethod(path, options, print);
     case "ClassProperty":
     case "FieldDefinition":
     case "TSAbstractClassProperty":
-    case "ClassPrivateProperty": {
-      if (n.decorators && n.decorators.length !== 0) {
-        parts.push(printDecorators(path, options, print));
-      }
-      if (n.accessibility) {
-        parts.push(n.accessibility + " ");
-      }
-      if (n.declare) {
-        parts.push("declare ");
-      }
-      if (n.static) {
-        parts.push("static ");
-      }
-      if (n.type === "TSAbstractClassProperty" || n.abstract) {
-        parts.push("abstract ");
-      }
-      if (n.readonly) {
-        parts.push("readonly ");
-      }
-      if (n.variance) {
-        parts.push(path.call(print, "variance"));
-      }
-      parts.push(
-        printPropertyKey(path, options, print),
-        printOptionalToken(path),
-        printTypeAnnotation(path, options, print)
-      );
-      if (n.value) {
-        parts.push(
-          " =",
-          printAssignmentRight(
-            n.key,
-            n.value,
-            path.call(print, "value"),
-            options
-          )
-        );
-      }
-
-      parts.push(semi);
-
-      return group(concat(parts));
-    }
-    case "ClassDeclaration":
-    case "ClassExpression":
-      if (n.declare) {
-        parts.push("declare ");
-      }
-      parts.push(printClass(path, options, print));
-      return concat(parts);
+    case "ClassPrivateProperty":
+      return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
     case "TSExpressionWithTypeArguments": // Babel AST
       parts.push(path.call(print, "expression"));
@@ -1215,8 +1150,6 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "DeclareClass":
-      return printFlowDeclaration(path, printClass(path, options, print));
     case "TSDeclareFunction":
       // For TypeScript the TSDeclareFunction node shares the AST
       // structure with FunctionDeclaration

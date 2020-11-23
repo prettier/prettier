@@ -3,12 +3,9 @@
 /** @type {import("assert")} */
 const assert = require("assert");
 const {
-  builders: { concat, group, indent, join, line, hardline },
+  builders: { concat, indent, join, line },
 } = require("../../document");
-const {
-  hasNewlineBetweenOrAfterDecorators,
-  getParentExportDeclaration,
-} = require("../utils");
+const { getParentExportDeclaration } = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -52,16 +49,6 @@ function printTypeScriptModifiers(path, options, print) {
   return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
-function printDecorators(path, options, print) {
-  const node = path.getValue();
-  return group(
-    concat([
-      join(line, path.map(print, "decorators")),
-      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-    ])
-  );
-}
-
 function printFlowDeclaration(path, printed) {
   const parentExportDecl = getParentExportDeclaration(path);
 
@@ -93,7 +80,6 @@ module.exports = {
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printDecorators,
   printFlowDeclaration,
   adjustClause,
 };
