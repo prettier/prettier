@@ -95,7 +95,7 @@ const {
   printTypeParameter,
   printTypeParameters,
 } = require("./print/type-parameters");
-const { printPropertyKey } = require("./print/property");
+const { printPropertyKey, printProperty } = require("./print/property");
 const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
@@ -107,7 +107,6 @@ const { printInterface } = require("./print/interface");
 const {
   printVariableDeclarator,
   printAssignmentExpression,
-  printAssignment,
   printAssignmentRight,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
@@ -551,23 +550,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.method || n.kind === "get" || n.kind === "set") {
         return printMethod(path, options, print);
       }
-
-      if (n.shorthand) {
-        parts.push(path.call(print, "value"));
-      } else {
-        parts.push(
-          printAssignment(
-            n.key,
-            printPropertyKey(path, options, print),
-            ":",
-            n.value,
-            path.call(print, "value"),
-            options
-          )
-        );
-      }
-
-      return concat(parts); // Babel 6
+      return printProperty(path, options, print); // Babel 6
     case "ClassMethod":
     case "ClassPrivateMethod":
     case "MethodDefinition":
