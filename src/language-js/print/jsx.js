@@ -656,7 +656,7 @@ function printJsxClosingElement(path, options, print) {
 
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
   const n = path.getValue();
-  const hasComment = hasComment(n);
+  const nodeHasComment = hasComment(n);
   const hasOwnLineComment = hasComment(n, Comment.line);
   const isOpeningFragment = n.type === "JSXOpeningFragment";
   return concat([
@@ -665,7 +665,7 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
       concat([
         hasOwnLineComment
           ? hardline
-          : hasComment && !isOpeningFragment
+          : nodeHasComment && !isOpeningFragment
           ? " "
           : "",
         printDanglingComments(path, options, true),
