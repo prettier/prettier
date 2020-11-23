@@ -12,6 +12,7 @@ const {
   isStringPropSafeToUnquote,
   rawText,
 } = require("../utils");
+const { printAssignment } = require("./assignment");
 
 const needsQuoteProps = new WeakMap();
 
@@ -97,4 +98,20 @@ function printPropertyKey(path, options, print) {
   return path.call(print, "key");
 }
 
-module.exports = { printPropertyKey };
+function printProperty(path, options, print) {
+  const n = path.getValue();
+  if (n.shorthand) {
+    return path.call(print, "value");
+  }
+
+  return printAssignment(
+    n.key,
+    printPropertyKey(path, options, print),
+    ":",
+    n.value,
+    path.call(print, "value"),
+    options
+  );
+}
+
+module.exports = { printProperty, printPropertyKey };
