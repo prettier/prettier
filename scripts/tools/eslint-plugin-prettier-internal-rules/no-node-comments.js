@@ -1,4 +1,5 @@
 "use strict";
+const path = require("path");
 
 // `node.comments`
 const memberExpressionSelector = [
@@ -36,8 +37,44 @@ module.exports = {
     },
   },
   create(context) {
+    const fileName = context.getFilename();
+    const ignored = new Map(
+      context.options.map((option) => {
+        if (typeof option === "string") {
+          option = { file: option };
+        }
+        const { file, functions } = option;
+        return [
+          path.join(__dirname, "../../..", file),
+          functions ? new Set(functions) : true,
+        ];
+      })
+    );
     return {
       [selector](node) {
+        if (ignored.has(fileName)) {
+          const functionNames = ignored.get(fileName);
+          if (functionNames === true) {
+            return;
+          }
+          let isIgnored;
+          let currentNode = node.parent;
+          while (currentNode) {
+            if (
+              currentNode.type === "FunctionDeclaration" &&
+              currentNode.id &&
+              currentNode.id.type === "Identifier" &&
+              functionNames.has(currentNode.id.name)
+            ) {
+              isIgnored = true;
+              break;
+            }
+            currentNode = currentNode.parent;
+          }
+          if (isIgnored) {
+            return;
+          }
+        }
         context.report({
           node,
           messageId,

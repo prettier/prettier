@@ -993,9 +993,7 @@ function needsHardlineAfterDanglingComment(node) {
   if (!hasComment(node)) {
     return false;
   }
-  const lastDanglingComment = getLast(
-    node.comments.filter((comment) => !comment.leading && !comment.trailing)
-  );
+  const lastDanglingComment = getLast(getComments(node, Comment.dangling));
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
 
@@ -1428,37 +1426,59 @@ const Comment = {
   block: 1 << 4,
   line: 1 << 5,
   prettierIgnore: 1 << 6,
+  first: 1 << 7,
+  last: 1 << 8,
+};
+const getCommentFilter = (types, fn) => {
+  if (typeof types === "function") {
+    fn = types;
+    types = 0;
+  }
+  if (types || fn) {
+    return (comment, index, comments) =>
+      !(
+        (types & Comment.leading && !comment.leading) ||
+        (types & Comment.trailing && !comment.trailing) ||
+        (types & Comment.dangling && (comment.leading || comment.trailing)) ||
+        (types & Comment.block && !isBlockComment(comment)) ||
+        (types & Comment.line && !isLineComment(comment)) ||
+        (types & Comment.first && index !== 0) ||
+        (types & Comment.last && index !== comments.length - 1) ||
+        (types & Comment.prettierIgnore && !isPrettierIgnoreComment(comment)) ||
+        (fn && !fn(comment))
+      );
+  }
 };
 /**
  * @param {Node} node
  * @returns {boolean}
  */
 function hasComment(node, types, fn) {
-  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
+  if (!node || !Array.isArray(node.comments)) {
     return false;
   }
-  if (typeof types === "function") {
-    fn = types;
-    types = 0;
+  const test = getCommentFilter(types, fn);
+  return test
+    ? node.comments.some((comment, index, comments) =>
+        test(comment, index, comments)
+      )
+    : true;
+}
+
+/**
+ * @param {Node} node
+ * @returns {Comment[]}
+ */
+function getComments(node, types, fn) {
+  if (!node || !Array.isArray(node.comments)) {
+    return [];
   }
-  if (types || fn) {
-    return node.comments.some((comment) => {
-      if (
-        (types & Comment.leading && !comment.leading) ||
-        (types & Comment.trailing && !comment.trailing) ||
-        (types & Comment.dangling && (comment.leading || comment.trailing)) ||
-        (types & Comment.block && !isBlockComment(comment)) ||
-        (types & Comment.line && !isLineComment(comment)) ||
-        (types & Comment.prettierIgnore &&
-          !isPrettierIgnoreComment(comment)) ||
-        (fn && !fn(comment))
-      ) {
-        return false;
-      }
-      return true;
-    });
-  }
-  return true;
+  const filter = getCommentFilter(types, fn);
+  return filter
+    ? node.comments.filter((comment, index, comments) =>
+        filter(comment, index, comments)
+      )
+    : node.comments;
 }
 
 module.exports = {
@@ -1526,5 +1546,6 @@ module.exports = {
   startsWithNoLookaheadToken,
   getPrecedence,
   hasComment,
+  getComments,
   Comment,
 };

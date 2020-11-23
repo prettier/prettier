@@ -112,4 +112,13 @@ overrides:
   - files:
       - src/language-js/**/*.js
     rules:
-      prettier-internal-rules/no-node-comments: error
+      prettier-internal-rules/no-node-comments:
+        - error
+        - file: "src/language-js/utils.js"
+          functions:
+            - hasComment
+            - getComments
+        - "src/language-js/parse-postprocess.js"
+        - "src/language-js/parser-babel.js"
+        - "src/language-js/parser-meriyah.js"
+        - "src/language-js/parser-pragma.js"

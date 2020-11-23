@@ -10,7 +10,12 @@ const {
   hasNewlineInRange,
   hasNewline,
 } = require("../../common/util");
-const { shouldPrintComma, hasComment, Comment } = require("../utils");
+const {
+  shouldPrintComma,
+  hasComment,
+  getComments,
+  Comment,
+} = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken } = require("./misc");
@@ -133,10 +138,7 @@ function printObject(path, options, print) {
       printed = concat([
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(
-          options.originalText,
-          locEnd(n.comments[n.comments.length - 1])
-        )
+        hasNewline(options.originalText, locEnd(getLast(getComments(n))))
           ? hardline
           : line,
         "...",

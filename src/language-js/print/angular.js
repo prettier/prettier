@@ -3,7 +3,7 @@
 const {
   builders: { concat, join, line, group },
 } = require("../../document");
-const { hasNode, hasComment } = require("../utils");
+const { hasNode, hasComment, getComments } = require("../utils");
 const { printBinaryishExpression } = require("./binaryish");
 
 /** @typedef {import("../../common/fast-path")} FastPath */
@@ -17,7 +17,7 @@ function printAngular(path, options, print) {
           path.call(print, "node"),
           !hasComment(n.node)
             ? []
-            : concat([" //", n.node.comments[0].value.trimEnd()])
+            : concat([" //", getComments(n.node)[0].value.trimEnd()])
         )
       );
     case "NGPipeExpression":

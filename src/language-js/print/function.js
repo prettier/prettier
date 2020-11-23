@@ -21,6 +21,7 @@ const {
   isBinaryish,
   isLineComment,
   hasComment,
+  getComments,
   Comment,
 } = require("../utils");
 const { locEnd } = require("../loc");
@@ -324,8 +325,8 @@ function printReturnAndThrowArgument(path, options, print) {
     }
   }
 
-  const lastComment =
-    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
+  const comments = getComments(node);
+  const lastComment = comments[comments.length - 1];
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {
