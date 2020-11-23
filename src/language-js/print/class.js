@@ -8,6 +8,7 @@ const { hasTrailingComment, hasTrailingLineComment } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printDecorators } = require("./misc");
+const { printStatementSequence } = require("./statement");
 
 function printClass(path, options, print) {
   const n = path.getValue();
@@ -164,4 +165,27 @@ function printClassMethod(path, options, print) {
   return concat(parts);
 }
 
-module.exports = { printClass, printClassMethod };
+function printClassBody(path, options, print) {
+  const n = path.getValue();
+  if (!n.comments && n.body.length === 0) {
+    return "{}";
+  }
+
+  return concat([
+    "{",
+    n.body.length > 0
+      ? indent(
+          concat([
+            hardline,
+            path.call((bodyPath) => {
+              return printStatementSequence(bodyPath, options, print);
+            }, "body"),
+          ])
+        )
+      : printDanglingComments(path, options),
+    hardline,
+    "}",
+  ]);
+}
+
+module.exports = { printClass, printClassMethod, printClassBody };

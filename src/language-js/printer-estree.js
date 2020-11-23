@@ -90,7 +90,11 @@ const {
   printTypeAnnotation,
   shouldHugType,
 } = require("./print/type-annotation");
-const { printClass, printClassMethod } = require("./print/class");
+const {
+  printClass,
+  printClassMethod,
+  printClassBody,
+} = require("./print/class");
 const {
   printTypeParameter,
   printTypeParameters,
@@ -1054,25 +1058,7 @@ function printPathNoParens(path, options, print, args) {
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "ClassBody":
-      if (!n.comments && n.body.length === 0) {
-        return "{}";
-      }
-
-      return concat([
-        "{",
-        n.body.length > 0
-          ? indent(
-              concat([
-                hardline,
-                path.call((bodyPath) => {
-                  return printStatementSequence(bodyPath, options, print);
-                }, "body"),
-              ])
-            )
-          : comments.printDanglingComments(path, options),
-        hardline,
-        "}",
-      ]);
+      return printClassBody(path, options, print);
     case "ClassProperty":
     case "FieldDefinition":
     case "TSAbstractClassProperty":
