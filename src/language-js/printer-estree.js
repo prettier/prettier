@@ -441,22 +441,17 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "argument"),
         printTypeAnnotation(path, options, print),
       ]);
+    case "TSDeclareFunction":
     case "FunctionDeclaration":
     case "FunctionExpression":
-      parts.push(
-        printFunctionDeclaration(
-          path,
-          print,
-          options,
-          args &&
-            args.expandLastArg &&
-            getCallArguments(path.getParentNode()).length > 1
-        )
+      return printFunctionDeclaration(
+        path,
+        print,
+        options,
+        args &&
+          args.expandLastArg &&
+          getCallArguments(path.getParentNode()).length > 1
       );
-      if (!n.body) {
-        parts.push(semi);
-      }
-      return concat(parts);
     case "ArrowFunctionExpression":
       return printArrowFunctionExpression(path, options, print, args);
     case "YieldExpression":
@@ -1217,14 +1212,6 @@ function printPathNoParens(path, options, print, args) {
       return "" + n.value;
     case "DeclareClass":
       return printFlowDeclaration(path, printClass(path, options, print));
-    case "TSDeclareFunction":
-      // For TypeScript the TSDeclareFunction node shares the AST
-      // structure with FunctionDeclaration
-      return concat([
-        n.declare ? "declare " : "",
-        printFunctionDeclaration(path, print, options),
-        semi,
-      ]);
     case "DeclareFunction":
       return printFlowDeclaration(
         path,
