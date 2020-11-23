@@ -1,6 +1,5 @@
 "use strict";
 
-/** @type {import("assert")} */
 const {
   builders: { concat, indent, join, line },
 } = require("../../document");
