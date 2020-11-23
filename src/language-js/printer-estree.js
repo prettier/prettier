@@ -679,13 +679,11 @@ function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernaryOperator(path, options, print, {
         shouldCheckJsx: true,
-        testNodePropertyNames: ["test"],
       });
 
     case "TSConditionalType":
       return printTernaryOperator(path, options, print, {
         shouldCheckJsx: false,
-        testNodePropertyNames: ["checkType", "extendsType"],
       });
     case "VariableDeclaration": {
       const printed = path.map((childPath) => {

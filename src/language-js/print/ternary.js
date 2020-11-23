@@ -136,13 +136,18 @@ function conditionalExpressionChainContainsJSX(node) {
  * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
- * @param {OperatorOptions} operatorOptions
+ * @param {OperatorOptions} operatorOptionstestNodePropertyNames
+
  * @returns {Doc}
  */
 function printTernaryOperator(path, options, print, operatorOptions) {
   const node = path.getValue();
-  const consequentNodePropertyName = node.type === "TSConditionalType" ? "trueType" : "consequent"
-  const alternateNodePropertyName = node.type === "TSConditionalType" ? "falseType" : "alternate"
+  const consequentNodePropertyName =
+    node.type === "TSConditionalType" ? "trueType" : "consequent";
+  const alternateNodePropertyName =
+    node.type === "TSConditionalType" ? "falseType" : "alternate";
+  const testNodePropertyNames =
+    node.type === "TSConditionalType" ? ["checkType", "extendsType"] : ["test"];
   const consequentNode = node[consequentNodePropertyName];
   const alternateNode = node[alternateNodePropertyName];
   const parts = [];
@@ -153,7 +158,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const parent = path.getParentNode();
   const isParentTest =
     parent.type === node.type &&
-    operatorOptions.testNodePropertyNames.some((prop) => parent[prop] === node);
+    testNodePropertyNames.some((prop) => parent[prop] === node);
   let forceNoIndent = parent.type === node.type && !isParentTest;
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
@@ -169,7 +174,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   } while (
     currentParent &&
     currentParent.type === node.type &&
-    operatorOptions.testNodePropertyNames.every(
+    testNodePropertyNames.every(
       (prop) => currentParent[prop] !== previousParent
     )
   );
@@ -178,7 +183,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
 
   if (
     operatorOptions.shouldCheckJsx &&
-    (isJSXNode(node[operatorOptions.testNodePropertyNames[0]]) ||
+    (isJSXNode(node[testNodePropertyNames[0]]) ||
       isJSXNode(consequentNode) ||
       isJSXNode(alternateNode) ||
       conditionalExpressionChainContainsJSX(lastConditionalParent))
@@ -245,9 +250,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
   const comments = flat([
-    ...operatorOptions.testNodePropertyNames.map(
-      (propertyName) => node[propertyName].comments
-    ),
+    ...testNodePropertyNames.map((propertyName) => node[propertyName].comments),
     consequentNode.comments,
     alternateNode.comments,
   ]).filter(Boolean);
