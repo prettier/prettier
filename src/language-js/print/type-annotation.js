@@ -1,12 +1,13 @@
 "use strict";
 const {
-  builders: { concat },
+  builders: { concat, group },
 } = require("../../document");
 const {
   isFlowAnnotationComment,
   isSimpleType,
   isObjectType,
 } = require("../utils");
+const { printAssignmentRight } = require("./assignment");
 
 function printTypeAnnotation(path, options, print) {
   const node = path.getValue();
@@ -65,4 +66,59 @@ function shouldHugType(node) {
   return false;
 }
 
-module.exports = { printTypeAnnotation, shouldHugType };
+function printOpaqueType(path, options, print) {
+  const semi = options.semi ? ";" : "";
+  const n = path.getValue();
+  const parts = [];
+  parts.push(
+    "opaque type ",
+    path.call(print, "id"),
+    path.call(print, "typeParameters")
+  );
+
+  if (n.supertype) {
+    parts.push(": ", path.call(print, "supertype"));
+  }
+
+  if (n.impltype) {
+    parts.push(" = ", path.call(print, "impltype"));
+  }
+
+  parts.push(semi);
+
+  return concat(parts);
+}
+
+function printTypeAlias(path, options, print) {
+  const semi = options.semi ? ";" : "";
+  const n = path.getValue();
+  const parts = [];
+  if (n.declare) {
+    parts.push("declare ");
+  }
+
+  const printed = printAssignmentRight(
+    n.id,
+    n.right,
+    path.call(print, "right"),
+    options
+  );
+
+  parts.push(
+    "type ",
+    path.call(print, "id"),
+    path.call(print, "typeParameters"),
+    " =",
+    printed,
+    semi
+  );
+
+  return group(concat(parts));
+}
+
+module.exports = {
+  printOpaqueType,
+  printTypeAlias,
+  printTypeAnnotation,
+  shouldHugType,
+};

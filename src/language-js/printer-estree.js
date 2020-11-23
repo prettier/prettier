@@ -68,7 +68,7 @@ const { printTypescript } = require("./print/typescript");
 const {
   printOptionalToken,
   printBindExpressionCallee,
-  printFlowDeclaration,
+  printTypeScriptModifiers,
   adjustClause,
 } = require("./print/misc");
 const {
@@ -85,6 +85,8 @@ const { printObject } = require("./print/object");
 const {
   printTypeAnnotation,
   shouldHugType,
+  printOpaqueType,
+  printTypeAlias,
 } = require("./print/type-annotation");
 const {
   printClass,
@@ -450,10 +452,8 @@ function printPathNoParens(path, options, print, args) {
     }
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-    case "DeclareExportDeclaration":
       return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-    case "DeclareExportAllDeclaration":
       return printExportAllDeclaration(path, options, print);
     case "ImportDeclaration":
       return printImportDeclaration(path, options, print);
@@ -1036,66 +1036,8 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "DeclareFunction":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "function ",
-          path.call(print, "id"),
-          n.predicate ? " " : "",
-          path.call(print, "predicate"),
-          semi,
-        ])
-      );
-    case "DeclareModule":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module ",
-          path.call(print, "id"),
-          " ",
-          path.call(print, "body"),
-        ])
-      );
-    case "DeclareModuleExports":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module.exports",
-          ": ",
-          path.call(print, "typeAnnotation"),
-          semi,
-        ])
-      );
-    case "DeclareVariable":
-      return printFlowDeclaration(
-        path,
-        concat(["var ", path.call(print, "id"), semi])
-      );
-    case "DeclareOpaqueType":
-    case "OpaqueType": {
-      parts.push(
-        "opaque type ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters")
-      );
-
-      if (n.supertype) {
-        parts.push(": ", path.call(print, "supertype"));
-      }
-
-      if (n.impltype) {
-        parts.push(" = ", path.call(print, "impltype"));
-      }
-
-      parts.push(semi);
-
-      if (n.type === "DeclareOpaqueType") {
-        return printFlowDeclaration(path, concat(parts));
-      }
-
-      return concat(parts);
-    }
+    case "OpaqueType":
+      return printOpaqueType(path, options, print);
 
     case "EnumDeclaration":
       return concat([
@@ -1264,7 +1206,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     }
 
-    case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
       return printInterface(path, options, print);
@@ -1443,31 +1384,8 @@ function printPathNoParens(path, options, print, args) {
         return printNumber(n.extra.raw);
       }
       return printNumber(n.raw);
-
-    case "DeclareTypeAlias":
-    case "TypeAlias": {
-      if (n.type === "DeclareTypeAlias" || n.declare) {
-        parts.push("declare ");
-      }
-
-      const printed = printAssignmentRight(
-        n.id,
-        n.right,
-        path.call(print, "right"),
-        options
-      );
-
-      parts.push(
-        "type ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters"),
-        " =",
-        printed,
-        semi
-      );
-
-      return group(concat(parts));
-    }
+    case "TypeAlias":
+      return printTypeAlias(path, options, print);
     case "TypeCastExpression": {
       return concat([
         "(",
