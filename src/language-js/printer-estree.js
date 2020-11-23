@@ -67,6 +67,7 @@ const {
 } = require("./print/html-binding");
 const { printAngular } = require("./print/angular");
 const { printJsx } = require("./print/jsx");
+const { printFlow } = require("./print/flow");
 const {
   printOptionalToken,
   printBindExpressionCallee,
@@ -240,19 +241,16 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
-  const htmlBinding = printHtmlBinding(path, options, print);
-  if (htmlBinding) {
-    return htmlBinding;
-  }
-
-  const printedAngular = printAngular(path, options, print);
-  if (typeof printedAngular !== "undefined") {
-    return printedAngular;
-  }
-
-  const printedJsx = printJsx(path, options, print);
-  if (typeof printedJsx !== "undefined") {
-    return printedJsx;
+  for (const printer of [
+    printHtmlBinding,
+    printAngular,
+    printJsx,
+    printFlow,
+  ]) {
+    const printed = printer(path, options, print);
+    if (typeof printed !== "undefined") {
+      return printed;
+    }
   }
 
   /** @type{Doc[]} */
@@ -1157,8 +1155,6 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "DeclareClass":
-      return printFlowDeclaration(path, printClass(path, options, print));
     case "TSDeclareFunction":
       // For TypeScript the TSDeclareFunction node shares the AST
       // structure with FunctionDeclaration
