@@ -241,12 +241,7 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
-  for (const printer of [
-    printHtmlBinding,
-    printAngular,
-    printJsx,
-    printFlow,
-  ]) {
+  for (const printer of [printHtmlBinding, printAngular, printJsx, printFlow]) {
     const printed = printer(path, options, print);
     if (typeof printed !== "undefined") {
       return printed;
