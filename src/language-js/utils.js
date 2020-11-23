@@ -1433,23 +1433,23 @@ const Comment = {
  * @param {Node} node
  * @returns {boolean}
  */
-function hasComment(node, options, fn) {
+function hasComment(node, types, fn) {
   if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
     return false;
   }
-  if (typeof options === "function") {
-    fn = options;
-    options = 0;
+  if (typeof types === "function") {
+    fn = types;
+    types = 0;
   }
-  if (options || fn) {
+  if (types || fn) {
     return node.comments.some((comment) => {
       if (
-        (options & Comment.leading && !comment.leading) ||
-        (options & Comment.trailing && !comment.trailing) ||
-        (options & Comment.dangling && (comment.leading || comment.trailing)) ||
-        (options & Comment.block && !isBlockComment(comment)) ||
-        (options & Comment.line && !isLineComment(comment)) ||
-        (options & Comment.prettierIgnore &&
+        (types & Comment.leading && !comment.leading) ||
+        (types & Comment.trailing && !comment.trailing) ||
+        (types & Comment.dangling && (comment.leading || comment.trailing)) ||
+        (types & Comment.block && !isBlockComment(comment)) ||
+        (types & Comment.line && !isLineComment(comment)) ||
+        (types & Comment.prettierIgnore &&
           !isPrettierIgnoreComment(comment)) ||
         (fn && !fn(comment))
       ) {
