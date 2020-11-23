@@ -1158,7 +1158,7 @@ function printPathNoParens(path, options, print, args) {
         semi,
       ]);
     case "OpaqueType":
-      return printOpaqueType(path, print, options);
+      return printOpaqueType(path, options, print);
 
     case "EnumDeclaration":
       return concat([
