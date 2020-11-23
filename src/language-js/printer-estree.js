@@ -1053,14 +1053,14 @@ function printPathNoParens(path, options, print, args) {
     case "ClassDeclaration":
     case "ClassExpression":
       return printClass(path, options, print);
+    case "ClassBody":
+      return printClassBody(path, options, print);
     case "ClassMethod":
     case "ClassPrivateMethod":
     case "MethodDefinition":
     case "TSAbstractMethodDefinition":
     case "TSDeclareMethod":
       return printClassMethod(path, options, print);
-    case "ClassBody":
-      return printClassBody(path, options, print);
     case "ClassProperty":
     case "FieldDefinition":
     case "TSAbstractClassProperty":
