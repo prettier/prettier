@@ -89,6 +89,7 @@ const {
   printTypeAnnotation,
   shouldHugType,
   printOpaqueType,
+  printTypeAlias,
 } = require("./print/type-annotation");
 const {
   printClass,
