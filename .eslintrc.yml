@@ -109,3 +109,7 @@ overrides:
       - src/language-*/**/*.js
     rules:
       prettier-internal-rules/directly-loc-start-end: error
+  - files:
+      - src/language-js/**/*.js
+    rules:
+      prettier-internal-rules/no-node-comments: error
