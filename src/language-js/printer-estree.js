@@ -68,7 +68,6 @@ const { printTypescript } = require("./print/typescript");
 const {
   printOptionalToken,
   printBindExpressionCallee,
-  printTypeScriptModifiers,
   adjustClause,
 } = require("./print/misc");
 const {
@@ -107,7 +106,6 @@ const { printInterface } = require("./print/interface");
 const {
   printVariableDeclarator,
   printAssignmentExpression,
-  printAssignmentRight,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
 const { printStatementSequence } = require("./print/statement");
