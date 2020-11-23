@@ -1454,7 +1454,7 @@ const getCommentFilter = (types, fn) => {
  * @returns {boolean}
  */
 function hasComment(node, types, fn) {
-  if (!node || !Array.isArray(node.comments)) {
+  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
     return false;
   }
   const test = getCommentFilter(types, fn);
@@ -1473,10 +1473,10 @@ function getComments(node, types, fn) {
   if (!node || !Array.isArray(node.comments)) {
     return [];
   }
-  const filter = getCommentFilter(types, fn);
-  return filter
+  const test = getCommentFilter(types, fn);
+  return test
     ? node.comments.filter((comment, index, comments) =>
-        filter(comment, index, comments)
+        test(comment, index, comments)
       )
     : node.comments;
 }
