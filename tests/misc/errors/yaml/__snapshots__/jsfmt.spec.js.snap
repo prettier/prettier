@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-scalar-with-spaces-only.yml error test 1`] = `
+exports[`block-scalar-with-spaces-only.yml [yaml] format 1`] = `
 "Block scalars with more-indented leading empty lines must use an explicit indentation indicator (1:21)
 > 1 | empty block scalar: >
     |                     ^

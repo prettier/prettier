@@ -39,25 +39,21 @@ function transformInlineCode(ast) {
 }
 
 function restoreUnescapedCharacter(ast, options) {
-  return mapAst(ast, (node) => {
-    return node.type !== "text"
+  return mapAst(ast, (node) =>
+    node.type !== "text" ||
+    node.value === "*" ||
+    node.value === "_" || // handle these cases in printer
+    !isSingleCharRegex.test(node.value) ||
+    node.position.end.offset - node.position.start.offset === node.value.length
       ? node
       : {
           ...node,
-          value:
-            node.value !== "*" &&
-            node.value !== "_" &&
-            node.value !== "$" && // handle these cases in printer
-            isSingleCharRegex.test(node.value) &&
-            node.position.end.offset - node.position.start.offset !==
-              node.value.length
-              ? options.originalText.slice(
-                  node.position.start.offset,
-                  node.position.end.offset
-                )
-              : node.value,
-        };
-  });
+          value: options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          ),
+        }
+  );
 }
 
 function mergeContinuousImportExport(ast) {
