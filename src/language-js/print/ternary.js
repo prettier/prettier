@@ -141,8 +141,12 @@ function conditionalExpressionChainContainsJSX(node) {
  */
 function printTernaryOperator(path, options, print, operatorOptions) {
   const node = path.getValue();
-  const consequentNode = node[operatorOptions.consequentNodePropertyName];
-  const alternateNode = node[operatorOptions.alternateNodePropertyName];
+  const {
+    consequentNodePropertyName,
+    alternateNodePropertyName,
+  } = operatorOptions;
+  const consequentNode = node[consequentNodePropertyName];
+  const alternateNode = node[alternateNodePropertyName];
   const parts = [];
 
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
@@ -207,12 +211,12 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     parts.push(
       " ? ",
       isNil(consequentNode)
-        ? path.call(print, operatorOptions.consequentNodePropertyName)
-        : wrap(path.call(print, operatorOptions.consequentNodePropertyName)),
+        ? path.call(print, consequentNodePropertyName)
+        : wrap(path.call(print, consequentNodePropertyName)),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
-        ? path.call(print, operatorOptions.alternateNodePropertyName)
-        : wrap(path.call(print, operatorOptions.alternateNodePropertyName))
+        ? path.call(print, alternateNodePropertyName)
+        : wrap(path.call(print, alternateNodePropertyName))
     );
   } else {
     // normal mode
@@ -220,17 +224,17 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
-      align(2, path.call(print, operatorOptions.consequentNodePropertyName)),
+      align(2, path.call(print, consequentNodePropertyName)),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
       alternateNode.type === node.type
-        ? path.call(print, operatorOptions.alternateNodePropertyName)
-        : align(2, path.call(print, operatorOptions.alternateNodePropertyName)),
+        ? path.call(print, alternateNodePropertyName)
+        : align(2, path.call(print, alternateNodePropertyName)),
     ]);
     parts.push(
       parent.type !== node.type ||
-        parent[operatorOptions.alternateNodePropertyName] === node ||
+        parent[alternateNodePropertyName] === node ||
         isParentTest
         ? part
         : options.useTabs
@@ -305,7 +309,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
            *       : e
            */
           parent.type === node.type &&
-          parent[operatorOptions.alternateNodePropertyName] === node
+          parent[alternateNodePropertyName] === node
             ? align(2, testDoc)
             : testDoc)(before),
         forceNoIndent ? concat(parts) : indent(concat(parts)),

@@ -679,7 +679,6 @@ function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernaryOperator(path, options, print, {
         shouldCheckJsx: true,
-        conditionalNodeType: "ConditionalExpression",
         consequentNodePropertyName: "consequent",
         alternateNodePropertyName: "alternate",
         testNodePropertyNames: ["test"],
@@ -688,7 +687,6 @@ function printPathNoParens(path, options, print, args) {
     case "TSConditionalType":
       return printTernaryOperator(path, options, print, {
         shouldCheckJsx: false,
-        conditionalNodeType: "TSConditionalType",
         consequentNodePropertyName: "trueType",
         alternateNodePropertyName: "falseType",
         testNodePropertyNames: ["checkType", "extendsType"],
