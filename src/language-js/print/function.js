@@ -30,7 +30,6 @@ const { printFunctionTypeParameters } = require("./misc");
 function printFunctionDeclaration(path, print, options, expandArg) {
   const n = path.getValue();
   const parts = [];
-  const semi = options.semi ? ";" : "";
 
   // For TypeScript the TSDeclareFunction node shares the AST
   // structure with FunctionDeclaration
@@ -64,8 +63,8 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     path.call(print, "body")
   );
 
-  if (!n.body) {
-    parts.push(semi);
+  if (options.semi && (n.declare || !n.body)) {
+    parts.push(";");
   }
 
   return concat(parts);
