@@ -3,12 +3,9 @@
 /** @type {import("assert")} */
 const assert = require("assert");
 const {
-  builders: { concat, group, indent, join, line, hardline },
+  builders: { concat, indent, join, line },
 } = require("../../document");
-const {
-  hasNewlineBetweenOrAfterDecorators,
-  getParentExportDeclaration,
-} = require("../utils");
+const { getParentExportDeclaration } = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();

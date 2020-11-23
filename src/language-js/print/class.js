@@ -4,13 +4,14 @@ const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
-const { hasTrailingComment, hasTrailingLineComment } = require("../utils");
+const {
+  hasTrailingComment,
+  hasTrailingLineComment,
+  hasNewlineBetweenOrAfterDecorators,
+} = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
-const {
-  printOptionalToken,
-  hasNewlineBetweenOrAfterDecorators,
-} = require("./misc");
+const { printOptionalToken } = require("./misc");
 const { printStatementSequence } = require("./statement");
 const { printPropertyKey } = require("./property");
 const { printTypeAnnotation } = require("./type-annotation");
