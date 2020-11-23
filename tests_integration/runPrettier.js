@@ -84,7 +84,7 @@ function runPrettier(dir, args, options) {
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig").cosmiconfig(moduleName, {
         ...options,
-        stopDir: __dirname,
+        stopDir: path.join(__dirname, "cli"),
       })
     );
   jest
@@ -92,7 +92,7 @@ function runPrettier(dir, args, options) {
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig").cosmiconfigSync(moduleName, {
         ...options,
-        stopDir: __dirname,
+        stopDir: path.join(__dirname, "cli"),
       })
     );
   jest

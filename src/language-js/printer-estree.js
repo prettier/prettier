@@ -67,12 +67,11 @@ const {
 } = require("./print/html-binding");
 const { printAngular } = require("./print/angular");
 const { printJsx } = require("./print/jsx");
+const { printFlow } = require("./print/flow");
 const {
   printOptionalToken,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printDecorators,
-  printFlowDeclaration,
   adjustClause,
 } = require("./print/misc");
 const {
@@ -81,7 +80,7 @@ const {
   printExportAllDeclaration,
   printModuleSpecifier,
 } = require("./print/module");
-const printTernaryOperator = require("./print/ternary");
+const { printTernary } = require("./print/ternary");
 const { printFunctionParameters } = require("./print/function-parameters");
 const { printTemplateLiteral } = require("./print/template-literal");
 const { printArray, printArrayItems } = require("./print/array");
@@ -89,13 +88,20 @@ const { printObject } = require("./print/object");
 const {
   printTypeAnnotation,
   shouldHugType,
+  printOpaqueType,
+  printTypeAlias,
 } = require("./print/type-annotation");
-const { printClass, printClassMethod } = require("./print/class");
+const {
+  printClass,
+  printClassMethod,
+  printClassBody,
+  printClassProperty,
+} = require("./print/class");
 const {
   printTypeParameter,
   printTypeParameters,
 } = require("./print/type-parameters");
-const { printPropertyKey } = require("./print/property");
+const { printPropertyKey, printProperty } = require("./print/property");
 const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
@@ -107,7 +113,6 @@ const { printInterface } = require("./print/interface");
 const {
   printVariableDeclarator,
   printAssignmentExpression,
-  printAssignment,
   printAssignmentRight,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
@@ -236,19 +241,11 @@ function printPathNoParens(path, options, print, args) {
     return n;
   }
 
-  const htmlBinding = printHtmlBinding(path, options, print);
-  if (htmlBinding) {
-    return htmlBinding;
-  }
-
-  const printedAngular = printAngular(path, options, print);
-  if (typeof printedAngular !== "undefined") {
-    return printedAngular;
-  }
-
-  const printedJsx = printJsx(path, options, print);
-  if (typeof printedJsx !== "undefined") {
-    return printedJsx;
+  for (const printer of [printHtmlBinding, printAngular, printJsx, printFlow]) {
+    const printed = printer(path, options, print);
+    if (typeof printed !== "undefined") {
+      return printed;
+    }
   }
 
   /** @type{Doc[]} */
@@ -441,22 +438,17 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "argument"),
         printTypeAnnotation(path, options, print),
       ]);
+    case "TSDeclareFunction":
     case "FunctionDeclaration":
     case "FunctionExpression":
-      parts.push(
-        printFunctionDeclaration(
-          path,
-          print,
-          options,
-          args &&
-            args.expandLastArg &&
-            getCallArguments(path.getParentNode()).length > 1
-        )
+      return printFunctionDeclaration(
+        path,
+        print,
+        options,
+        args &&
+          args.expandLastArg &&
+          getCallArguments(path.getParentNode()).length > 1
       );
-      if (!n.body) {
-        parts.push(semi);
-      }
-      return concat(parts);
     case "ArrowFunctionExpression":
       return printArrowFunctionExpression(path, options, print, args);
     case "YieldExpression":
@@ -494,10 +486,8 @@ function printPathNoParens(path, options, print, args) {
       return concat(["export = ", path.call(print, "expression"), semi]);
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
-    case "DeclareExportDeclaration":
       return printExportDeclaration(path, options, print);
     case "ExportAllDeclaration":
-    case "DeclareExportAllDeclaration":
       return printExportAllDeclaration(path, options, print);
     case "ImportDeclaration":
       return printImportDeclaration(path, options, print);
@@ -551,29 +541,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.method || n.kind === "get" || n.kind === "set") {
         return printMethod(path, options, print);
       }
-
-      if (n.shorthand) {
-        parts.push(path.call(print, "value"));
-      } else {
-        parts.push(
-          printAssignment(
-            n.key,
-            printPropertyKey(path, options, print),
-            ":",
-            n.value,
-            path.call(print, "value"),
-            options
-          )
-        );
-      }
-
-      return concat(parts); // Babel 6
-    case "ClassMethod":
-    case "ClassPrivateMethod":
-    case "MethodDefinition":
-    case "TSAbstractMethodDefinition":
-    case "TSDeclareMethod":
-      return printClassMethod(path, options, print);
+      return printProperty(path, options, print);
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
@@ -677,15 +645,8 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ConditionalExpression":
-      return printTernaryOperator(path, options, print, {
-        beforeParts: () => [path.call(print, "test")],
-        afterParts: (breakClosingParen) => [breakClosingParen ? softline : ""],
-        shouldCheckJsx: true,
-        conditionalNodeType: "ConditionalExpression",
-        consequentNodePropertyName: "consequent",
-        alternateNodePropertyName: "alternate",
-        testNodePropertyNames: ["test"],
-      });
+    case "TSConditionalType":
+      return printTernary(path, options, print);
     case "VariableDeclaration": {
       const printed = path.map((childPath) => {
         return print(childPath);
@@ -1054,74 +1015,22 @@ function printPathNoParens(path, options, print, args) {
         return "{}";
       }
 
-      return concat([
-        "{",
-        n.body.length > 0
-          ? indent(
-              concat([
-                hardline,
-                path.call((bodyPath) => {
-                  return printStatementSequence(bodyPath, options, print);
-                }, "body"),
-              ])
-            )
-          : comments.printDanglingComments(path, options),
-        hardline,
-        "}",
-      ]);
+    case "ClassDeclaration":
+    case "ClassExpression":
+      return printClass(path, options, print);
+    case "ClassBody":
+      return printClassBody(path, options, print);
+    case "ClassMethod":
+    case "ClassPrivateMethod":
+    case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
+    case "TSDeclareMethod":
+      return printClassMethod(path, options, print);
     case "ClassProperty":
     case "FieldDefinition":
     case "TSAbstractClassProperty":
-    case "ClassPrivateProperty": {
-      if (n.decorators && n.decorators.length !== 0) {
-        parts.push(printDecorators(path, options, print));
-      }
-      if (n.accessibility) {
-        parts.push(n.accessibility + " ");
-      }
-      if (n.declare) {
-        parts.push("declare ");
-      }
-      if (n.static) {
-        parts.push("static ");
-      }
-      if (n.type === "TSAbstractClassProperty" || n.abstract) {
-        parts.push("abstract ");
-      }
-      if (n.readonly) {
-        parts.push("readonly ");
-      }
-      if (n.variance) {
-        parts.push(path.call(print, "variance"));
-      }
-      parts.push(
-        printPropertyKey(path, options, print),
-        printOptionalToken(path),
-        printTypeAnnotation(path, options, print)
-      );
-      if (n.value) {
-        parts.push(
-          " =",
-          printAssignmentRight(
-            n.key,
-            n.value,
-            path.call(print, "value"),
-            options
-          )
-        );
-      }
-
-      parts.push(semi);
-
-      return group(concat(parts));
-    }
-    case "ClassDeclaration":
-    case "ClassExpression":
-      if (n.declare) {
-        parts.push("declare ");
-      }
-      parts.push(printClass(path, options, print));
-      return concat(parts);
+    case "ClassPrivateProperty":
+      return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
     case "TSExpressionWithTypeArguments": // Babel AST
       parts.push(path.call(print, "expression"));
@@ -1211,76 +1120,8 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "DeclareClass":
-      return printFlowDeclaration(path, printClass(path, options, print));
-    case "TSDeclareFunction":
-      // For TypeScript the TSDeclareFunction node shares the AST
-      // structure with FunctionDeclaration
-      return concat([
-        n.declare ? "declare " : "",
-        printFunctionDeclaration(path, print, options),
-        semi,
-      ]);
-    case "DeclareFunction":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "function ",
-          path.call(print, "id"),
-          n.predicate ? " " : "",
-          path.call(print, "predicate"),
-          semi,
-        ])
-      );
-    case "DeclareModule":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module ",
-          path.call(print, "id"),
-          " ",
-          path.call(print, "body"),
-        ])
-      );
-    case "DeclareModuleExports":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module.exports",
-          ": ",
-          path.call(print, "typeAnnotation"),
-          semi,
-        ])
-      );
-    case "DeclareVariable":
-      return printFlowDeclaration(
-        path,
-        concat(["var ", path.call(print, "id"), semi])
-      );
-    case "DeclareOpaqueType":
-    case "OpaqueType": {
-      parts.push(
-        "opaque type ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters")
-      );
-
-      if (n.supertype) {
-        parts.push(": ", path.call(print, "supertype"));
-      }
-
-      if (n.impltype) {
-        parts.push(" = ", path.call(print, "impltype"));
-      }
-
-      parts.push(semi);
-
-      if (n.type === "DeclareOpaqueType") {
-        return printFlowDeclaration(path, concat(parts));
-      }
-
-      return concat(parts);
-    }
+    case "OpaqueType":
+      return printOpaqueType(path, options, print);
 
     case "EnumDeclaration":
       return concat([
@@ -1453,7 +1294,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     }
 
-    case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
     case "TSInterfaceDeclaration":
@@ -1638,31 +1478,8 @@ function printPathNoParens(path, options, print, args) {
         return printNumber(n.extra.raw);
       }
       return printNumber(n.raw);
-
-    case "DeclareTypeAlias":
-    case "TypeAlias": {
-      if (n.type === "DeclareTypeAlias" || n.declare) {
-        parts.push("declare ");
-      }
-
-      const printed = printAssignmentRight(
-        n.id,
-        n.right,
-        path.call(print, "right"),
-        options
-      );
-
-      parts.push(
-        "type ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters"),
-        " =",
-        printed,
-        semi
-      );
-
-      return group(concat(parts));
-    }
+    case "TypeAlias":
+      return printTypeAlias(path, options, print);
     case "TypeCastExpression": {
       return concat([
         "(",
@@ -2130,23 +1947,6 @@ function printPathNoParens(path, options, print, args) {
     // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
     case "TSPrivateIdentifier":
       return n.escapedText;
-
-    case "TSConditionalType":
-      return printTernaryOperator(path, options, print, {
-        beforeParts: () => [
-          path.call(print, "checkType"),
-          " ",
-          "extends",
-          " ",
-          path.call(print, "extendsType"),
-        ],
-        afterParts: () => [],
-        shouldCheckJsx: false,
-        conditionalNodeType: "TSConditionalType",
-        consequentNodePropertyName: "trueType",
-        alternateNodePropertyName: "falseType",
-        testNodePropertyNames: ["checkType", "extendsType"],
-      });
 
     case "TSInferType":
       return concat(["infer", " ", path.call(print, "typeParameter")]);

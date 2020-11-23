@@ -56,11 +56,10 @@ module.exports = {
     plugins.clearCache();
   },
 
-  getFileInfo: /** @type {typeof getFileInfo} */ (withPlugins(getFileInfo)),
-  getSupportInfo: /** @type {typeof getSupportInfo} */ (withPlugins(
-    getSupportInfo,
-    0
-  )),
+  /** @type {typeof getFileInfo} */
+  getFileInfo: withPlugins(getFileInfo),
+  /** @type {typeof getSupportInfo} */
+  getSupportInfo: withPlugins(getSupportInfo, 0),
 
   version,
 

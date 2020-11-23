@@ -10,7 +10,7 @@ const { printTypeScriptModifiers } = require("./misc");
 function printInterface(path, options, print) {
   const n = path.getValue();
   const parts = [];
-  if (n.type === "DeclareInterface" || n.declare) {
+  if (n.declare) {
     parts.push("declare ");
   }
 

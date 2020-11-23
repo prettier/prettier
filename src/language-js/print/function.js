@@ -33,6 +33,12 @@ function printFunctionDeclaration(path, print, options, expandArg) {
   const n = path.getValue();
   const parts = [];
 
+  // For TypeScript the TSDeclareFunction node shares the AST
+  // structure with FunctionDeclaration
+  if (n.type === "TSDeclareFunction" && n.declare) {
+    parts.push("declare ");
+  }
+
   if (n.async) {
     parts.push("async ");
   }
@@ -58,6 +64,10 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     n.body ? " " : "",
     path.call(print, "body")
   );
+
+  if (options.semi && (n.declare || !n.body)) {
+    parts.push(";");
+  }
 
   return concat(parts);
 }
