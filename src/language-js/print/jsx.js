@@ -31,7 +31,7 @@ const {
   isStringLiteral,
   isBinaryish,
   hasComments,
-  COMMENT,
+  Comment,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
@@ -589,7 +589,7 @@ function printJsxOpeningElement(path, options, print) {
   }
 
   const lastAttrHasTrailingComments =
-    n.attributes.length && hasComments(getLast(n.attributes), COMMENT.trailing);
+    n.attributes.length && hasComments(getLast(n.attributes), Comment.trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
@@ -641,9 +641,9 @@ function printJsxClosingElement(path, options, print) {
   parts.push("</");
 
   const printed = path.call(print, "name");
-  if (hasComments(n.name, COMMENT.leading | COMMENT.line)) {
+  if (hasComments(n.name, Comment.leading | Comment.line)) {
     parts.push(indent(concat([hardline, printed])), hardline);
-  } else if (hasComments(n.name, COMMENT.leading | COMMENT.block)) {
+  } else if (hasComments(n.name, Comment.leading | Comment.block)) {
     parts.push(" ", printed);
   } else {
     parts.push(printed);
@@ -657,7 +657,7 @@ function printJsxClosingElement(path, options, print) {
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
   const n = path.getValue();
   const hasComment = hasComments(n);
-  const hasOwnLineComment = hasComments(n, COMMENT.line);
+  const hasOwnLineComment = hasComments(n, Comment.line);
   const isOpeningFragment = n.type === "JSXOpeningFragment";
   return concat([
     isOpeningFragment ? "<" : "</",
@@ -687,7 +687,7 @@ function printJsxElement(path, options, print) {
 
 function printJsxEmptyExpression(path, options /*, print*/) {
   const n = path.getValue();
-  const requiresHardline = hasComments(n, COMMENT.line);
+  const requiresHardline = hasComments(n, Comment.line);
 
   return concat([
     printDanglingComments(path, options, /* sameIndent */ !requiresHardline),

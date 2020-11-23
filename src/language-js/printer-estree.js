@@ -46,7 +46,7 @@ const {
   hasNewlineBetweenOrAfterDecorators,
   hasPrettierIgnore,
   hasComments,
-  COMMENT,
+  Comment,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
@@ -784,13 +784,13 @@ function printPathNoParens(path, options, print, args) {
 
       if (n.alternate) {
         const commentOnOwnLine =
-          hasComments(n.consequent, COMMENT.trailing | COMMENT.line) ||
+          hasComments(n.consequent, Comment.trailing | Comment.line) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
 
-        if (hasComments(n, COMMENT.dangling)) {
+        if (hasComments(n, Comment.dangling)) {
           parts.push(
             comments.printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "

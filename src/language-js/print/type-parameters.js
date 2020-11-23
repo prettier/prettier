@@ -7,7 +7,7 @@ const {
 const {
   isTestCall,
   hasComments,
-  COMMENT,
+  Comment,
   isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
@@ -82,10 +82,10 @@ function printTypeParameters(path, options, print, paramsKey) {
 
 function printDanglingCommentsForInline(path, options) {
   const n = path.getValue();
-  if (!hasComments(n, COMMENT.dangling)) {
+  if (!hasComments(n, Comment.dangling)) {
     return "";
   }
-  const hasOnlyBlockComments = !hasComments(n, COMMENT.line);
+  const hasOnlyBlockComments = !hasComments(n, Comment.line);
   const printed = printDanglingComments(
     path,
     options,

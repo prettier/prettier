@@ -10,7 +10,7 @@ const {
   getFunctionParameters,
   iterateFunctionParametersPath,
   hasComments,
-  COMMENT,
+  Comment,
   isFunctionCompositionArgs,
   isJSXNode,
   isLongCurriedCallExpression,
@@ -271,8 +271,8 @@ function shouldGroupLastArg(args) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
-    !hasComments(lastArg, COMMENT.leading) &&
-    !hasComments(lastArg, COMMENT.trailing) &&
+    !hasComments(lastArg, Comment.leading) &&
+    !hasComments(lastArg, Comment.trailing) &&
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.

@@ -5,7 +5,7 @@ const {
   builders: { concat, line, softline, group, indent, ifBreak },
 } = require("../../document");
 const { getLast, isNextLineEmpty } = require("../../common/util");
-const { shouldPrintComma, hasComments, COMMENT } = require("../utils");
+const { shouldPrintComma, hasComments, Comment } = require("../utils");
 const { locEnd } = require("../loc");
 
 const { printOptionalToken } = require("./misc");
@@ -21,7 +21,7 @@ function printArray(path, options, print) {
   const openBracket = n.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
   if (n.elements.length === 0) {
-    if (!hasComments(n, COMMENT.dangling)) {
+    if (!hasComments(n, Comment.dangling)) {
       parts.push(openBracket, closeBracket);
     } else {
       parts.push(

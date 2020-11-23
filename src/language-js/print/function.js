@@ -21,7 +21,7 @@ const {
   isBinaryish,
   isLineComment,
   hasComments,
-  COMMENT,
+  Comment,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -237,7 +237,7 @@ function canPrintParamsWithoutParens(node) {
   return (
     parameters.length === 1 &&
     !node.typeParameters &&
-    !hasComments(node, COMMENT.dangling) &&
+    !hasComments(node, Comment.dangling) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
     !hasComments(parameters[0]) &&
@@ -332,7 +332,7 @@ function printReturnAndThrowArgument(path, options, print) {
     parts.push(semi);
   }
 
-  if (hasComments(node, COMMENT.dangling)) {
+  if (hasComments(node, Comment.dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)

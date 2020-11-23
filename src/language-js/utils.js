@@ -850,7 +850,7 @@ function hasLeadingOwnLineComment(text, node) {
     return hasNodeIgnoreComment(node);
   }
 
-  return hasComments(node, COMMENT.leading, (comment) =>
+  return hasComments(node, Comment.leading, (comment) =>
     hasNewline(text, locEnd(comment))
   );
 }
@@ -1412,7 +1412,7 @@ function isPrettierIgnoreComment(comment) {
 
 function hasNodeIgnoreComment(node) {
   return (
-    node && (node.prettierIgnore || hasComments(node, COMMENT.prettierIgnore))
+    node && (node.prettierIgnore || hasComments(node, Comment.prettierIgnore))
   );
 }
 
@@ -1421,7 +1421,7 @@ function hasIgnoreComment(path) {
   return hasNodeIgnoreComment(node);
 }
 
-const COMMENT = {
+const Comment = {
   leading: 1 << 1,
   trailing: 1 << 2,
   dangling: 1 << 3,
@@ -1444,12 +1444,12 @@ function hasComments(node, options, fn) {
   if (options || fn) {
     return node.comments.some((comment) => {
       if (
-        (options & COMMENT.leading && !comment.leading) ||
-        (options & COMMENT.trailing && !comment.trailing) ||
-        (options & COMMENT.dangling && (comment.leading || comment.trailing)) ||
-        (options & COMMENT.block && !isBlockComment(comment)) ||
-        (options & COMMENT.line && !isLineComment(comment)) ||
-        (options & COMMENT.prettierIgnore &&
+        (options & Comment.leading && !comment.leading) ||
+        (options & Comment.trailing && !comment.trailing) ||
+        (options & Comment.dangling && (comment.leading || comment.trailing)) ||
+        (options & Comment.block && !isBlockComment(comment)) ||
+        (options & Comment.line && !isLineComment(comment)) ||
+        (options & Comment.prettierIgnore &&
           !isPrettierIgnoreComment(comment)) ||
         (fn && !fn(comment))
       ) {
@@ -1526,5 +1526,5 @@ module.exports = {
   startsWithNoLookaheadToken,
   getPrecedence,
   hasComments,
-  COMMENT,
+  Comment,
 };
