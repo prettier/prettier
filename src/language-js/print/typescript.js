@@ -23,7 +23,7 @@ const {
 const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc");
-const printTernaryOperator = require("./ternary");
+const { printTernary } = require("./ternary");
 const { printFunctionParameters } = require("./function-parameters");
 const { printTemplateLiteral } = require("./template-literal");
 const { printArrayItems } = require("./array");
@@ -521,21 +521,7 @@ function printTypescript(path, options, print) {
       return n.escapedText;
 
     case "TSConditionalType":
-      return printTernaryOperator(path, options, print, {
-        beforeParts: () => [
-          path.call(print, "checkType"),
-          " ",
-          "extends",
-          " ",
-          path.call(print, "extendsType"),
-        ],
-        afterParts: () => [],
-        shouldCheckJsx: false,
-        conditionalNodeType: "TSConditionalType",
-        consequentNodePropertyName: "trueType",
-        alternateNodePropertyName: "falseType",
-        testNodePropertyNames: ["checkType", "extendsType"],
-      });
+      return printTernary(path, options, print);
 
     case "TSInferType":
       return concat(["infer", " ", path.call(print, "typeParameter")]);

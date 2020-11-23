@@ -77,7 +77,7 @@ const {
   printExportAllDeclaration,
   printModuleSpecifier,
 } = require("./print/module");
-const printTernaryOperator = require("./print/ternary");
+const { printTernary } = require("./print/ternary");
 const { printFunctionParameters } = require("./print/function-parameters");
 const { printTemplateLiteral } = require("./print/template-literal");
 const { printArray, printArrayItems } = require("./print/array");
@@ -608,15 +608,7 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "ConditionalExpression":
-      return printTernaryOperator(path, options, print, {
-        beforeParts: () => [path.call(print, "test")],
-        afterParts: (breakClosingParen) => [breakClosingParen ? softline : ""],
-        shouldCheckJsx: true,
-        conditionalNodeType: "ConditionalExpression",
-        consequentNodePropertyName: "consequent",
-        alternateNodePropertyName: "alternate",
-        testNodePropertyNames: ["test"],
-      });
+      return printTernary(path, options, print);
     case "VariableDeclaration": {
       const printed = path.map((childPath) => {
         return print(childPath);
