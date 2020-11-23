@@ -49,20 +49,6 @@ function printTypeScriptModifiers(path, options, print) {
   return concat([join(" ", path.map(print, "modifiers")), " "]);
 }
 
-function printFlowDeclaration(path, printed) {
-  const parentExportDecl = getParentExportDeclaration(path);
-
-  if (parentExportDecl) {
-    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
-    return printed;
-  }
-
-  // If the parent node has type DeclareExportDeclaration, then it
-  // will be responsible for printing the "declare" token. Otherwise
-  // it needs to be printed with this non-exported declaration node.
-  return concat(["declare ", printed]);
-}
-
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
     return ";";
@@ -80,6 +66,5 @@ module.exports = {
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printFlowDeclaration,
   adjustClause,
 };
