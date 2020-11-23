@@ -1429,7 +1429,7 @@ const Comment = {
   first: 1 << 7,
   last: 1 << 8,
 };
-const getCommentFilter = (types, fn) => {
+const getCommentTestFunction = (types, fn) => {
   if (typeof types === "function") {
     fn = types;
     types = 0;
@@ -1457,7 +1457,7 @@ function hasComment(node, types, fn) {
   if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
     return false;
   }
-  const test = getCommentFilter(types, fn);
+  const test = getCommentTestFunction(types, fn);
   return test
     ? node.comments.some((comment, index, comments) =>
         test(comment, index, comments)
@@ -1473,7 +1473,7 @@ function getComments(node, types, fn) {
   if (!node || !Array.isArray(node.comments)) {
     return [];
   }
-  const test = getCommentFilter(types, fn);
+  const test = getCommentTestFunction(types, fn);
   return test
     ? node.comments.filter((comment, index, comments) =>
         test(comment, index, comments)
