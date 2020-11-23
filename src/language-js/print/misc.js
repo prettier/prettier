@@ -1,11 +1,9 @@
 "use strict";
 
 /** @type {import("assert")} */
-const assert = require("assert");
 const {
   builders: { concat, indent, join, line },
 } = require("../../document");
-const { getParentExportDeclaration } = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();
