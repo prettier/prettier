@@ -259,6 +259,15 @@ function printJsxElementInternal(path, options, print) {
   ]);
 }
 
+const markJsxTextCommentsPrinted = (node) => {
+  const { type, comments } = node;
+  if (type === "JSXText" && comments) {
+    for (const comment of comments) {
+      comment.printed = true;
+    }
+  }
+};
+
 // JSX Children are strange, mostly for two reasons:
 // 1. JSX reads newlines into string values, instead of skipping them like JS
 // 2. up to one whitespace between elements within a line is significant,
@@ -285,6 +294,7 @@ function printJSXChildren(
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
+      markJsxTextCommentsPrinted(text);
 
       // Contains a non-whitespace character
       if (isMeaningfulJSXText(child)) {
@@ -377,6 +387,7 @@ function printJSXChildren(
         const firstWord = rawText(next)
           .trim()
           .split(matchJsxWhitespaceRegex)[0];
+        markJsxTextCommentsPrinted(next);
         children.push(
           separatorNoWhitespace(
             isFacebookTranslationTag,
