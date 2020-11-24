@@ -11,8 +11,8 @@ const {
   printTypeAlias,
   printIntersectionType,
   printUnionType,
-  FunctionTypeAnnotation,
   printFunctionType,
+  printTupleType,
 } = require("./type-annotation");
 const { printInterface } = require("./interface");
 const {
@@ -92,6 +92,8 @@ function printFlow(path, options, print) {
       return printUnionType(path, options, print);
     case "FunctionTypeAnnotation":
       return printFunctionType(path, options, print);
+    case "TupleTypeAnnotation":
+      return printTupleType(path, options, print);
   }
 }
 

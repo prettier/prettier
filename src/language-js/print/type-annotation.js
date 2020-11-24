@@ -1,6 +1,7 @@
 "use strict";
 
-const { printComments } = require("../../main/comments");
+const { printComments, printDanglingComments } = require("../../main/comments");
+const { getLast } = require("../../common/util");
 const {
   builders: { concat, group, join, line, softline, indent, align, ifBreak },
 } = require("../../document");
@@ -12,9 +13,11 @@ const {
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
+  shouldPrintComma,
 } = require("../utils");
 const { printAssignmentRight } = require("./assignment");
 const { printFunctionParameters } = require("./function-parameters");
+const { printArrayItems } = require("./array");
 
 function printTypeAnnotation(path, options, print) {
   const node = path.getValue();
@@ -301,6 +304,25 @@ function printFunctionType(path, options, print) {
   return group(concat(parts));
 }
 
+function printTupleType(path, options, print) {
+  const n = path.getValue();
+  const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
+  const hasRest =
+    n[typesField].length > 0 && getLast(n[typesField]).type === "TSRestType";
+  return group(
+    concat([
+      "[",
+      indent(
+        concat([softline, printArrayItems(path, options, typesField, print)])
+      ),
+      ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
+      printDanglingComments(path, options, /* sameIndent */ true),
+      softline,
+      "]",
+    ])
+  );
+}
+
 module.exports = {
   printOpaqueType,
   printTypeAlias,
@@ -308,5 +330,6 @@ module.exports = {
   printIntersectionType,
   printUnionType,
   printFunctionType,
+  printTupleType,
   shouldHugType,
 };

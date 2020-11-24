@@ -9,7 +9,6 @@ const assert = require("assert");
 const comments = require("../main/comments");
 const {
   hasNewline,
-  getLast,
   printString,
   printNumber,
   isNextLineEmpty,
@@ -24,7 +23,6 @@ const {
     literalline,
     group,
     indent,
-    ifBreak,
   },
   utils: { isEmpty },
 } = require("../document");
@@ -73,13 +71,11 @@ const {
   printModuleSpecifier,
 } = require("./print/module");
 const { printTernary } = require("./print/ternary");
-const { printFunctionParameters } = require("./print/function-parameters");
 const { printTemplateLiteral } = require("./print/template-literal");
 const { printArray, printArrayItems } = require("./print/array");
 const { printObject } = require("./print/object");
 const {
   printTypeAnnotation,
-  shouldHugType,
   printOpaqueType,
   printTypeAlias,
 } = require("./print/type-annotation");
@@ -996,29 +992,6 @@ function printPathNoParens(path, options, print, args) {
 
       /* istanbul ignore next */
       return "";
-    case "TSTupleType":
-    case "TupleTypeAnnotation": {
-      const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
-      const hasRest =
-        n[typesField].length > 0 &&
-        getLast(n[typesField]).type === "TSRestType";
-      return group(
-        concat([
-          "[",
-          indent(
-            concat([
-              softline,
-              printArrayItems(path, options, typesField, print),
-            ])
-          ),
-          ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
-          comments.printDanglingComments(path, options, /* sameIndent */ true),
-          softline,
-          "]",
-        ])
-      );
-    }
-
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":

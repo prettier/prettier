@@ -42,6 +42,7 @@ const {
   printIntersectionType,
   printUnionType,
   printFunctionType,
+  printTupleType,
 } = require("./type-annotation");
 
 function printTypescript(path, options, print) {
@@ -536,6 +537,8 @@ function printTypescript(path, options, print) {
       return printUnionType(path, options, print);
     case "TSFunctionType":
       return printFunctionType(path, options, print);
+    case "TSTupleType":
+      return printTupleType(path, options, print);
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":
