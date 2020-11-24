@@ -1423,15 +1423,29 @@ function hasIgnoreComment(path) {
 }
 
 const CommentCheckFlags = {
+  /** @type {number} Check comment is a leading comment */
   Leading: 1 << 1,
+  /** @type {number} Check comment is a trailing comment */
   Trailing: 1 << 2,
+  /** @type {number} Check comment is a dangling comment */
   Dangling: 1 << 3,
+  /** @type {number} Check comment is a block comment */
   Block: 1 << 4,
+  /** @type {number} Check comment is a line comment */
   Line: 1 << 5,
+  /** @type {number} Check comment is a `prettier-ignore` comment */
   PrettierIgnore: 1 << 6,
+  /** @type {number} Check comment is the first attched comment */
   First: 1 << 7,
+  /** @type {number} Check comment is the last attched comment */
   Last: 1 << 8,
 };
+
+/**
+ * @param {number | function} [flags]
+ * @param {function} [fn]
+ * @returns {function}
+ */
 const getCommentTestFunction = (flags, fn) => {
   if (typeof flags === "function") {
     fn = flags;
@@ -1456,6 +1470,8 @@ const getCommentTestFunction = (flags, fn) => {
 };
 /**
  * @param {Node} node
+ * @param {number | function} [flags]
+ * @param {function} [fn]
  * @returns {boolean}
  */
 function hasComment(node, flags, fn) {
@@ -1472,6 +1488,8 @@ function hasComment(node, flags, fn) {
 
 /**
  * @param {Node} node
+ * @param {number | function} [flags]
+ * @param {function} [fn]
  * @returns {Comment[]}
  */
 function getComments(node, flags, fn) {
