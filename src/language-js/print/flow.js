@@ -69,15 +69,7 @@ function printFlow(path, options, print) {
     case "DeclareExportAllDeclaration":
       return printFlowDeclaration(
         path,
-        printExportAllDeclaration(
-          path,
-          {
-            ...options,
-            // TODO[@fisker]: confirm `semi` can be added
-            semi: false,
-          },
-          print
-        )
+        printExportAllDeclaration(path, options, print)
       );
   }
 }
