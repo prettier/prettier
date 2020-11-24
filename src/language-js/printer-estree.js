@@ -75,7 +75,6 @@ const { printTernary } = require("./print/ternary");
 const { printTemplateLiteral } = require("./print/template-literal");
 const { printArray, printArrayItems } = require("./print/array");
 const { printObject } = require("./print/object");
-const { printOpaqueType, printTypeAlias } = require("./print/type-annotation");
 const {
   printClass,
   printClassMethod,
@@ -989,8 +988,6 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "OpaqueType":
-      return printOpaqueType(path, options, print);
 
     case "EnumDeclaration":
       return concat([
@@ -1158,8 +1155,6 @@ function printPathNoParens(path, options, print, args) {
         return printNumber(n.extra.raw);
       }
       return printNumber(n.raw);
-    case "TypeAlias":
-      return printTypeAlias(path, options, print);
     case "TypeCastExpression": {
       return concat([
         "(",

@@ -87,6 +87,10 @@ function printFlow(path, options, print) {
           print
         )
       );
+    case "OpaqueType":
+      return printOpaqueType(path, options, print);
+    case "TypeAlias":
+      return printTypeAlias(path, options, print);
     case "IntersectionTypeAnnotation":
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
