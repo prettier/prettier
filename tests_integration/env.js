@@ -18,6 +18,7 @@ const thirdParty = isProduction
 const projectRoot = path.join(__dirname, "..");
 
 module.exports = {
+  isProduction,
   thirdParty,
   prettierCli,
   projectRoot,

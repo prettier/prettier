@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`no-semi.js [espree] format 1`] = `
+"Unexpected token : (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 | 
+  4 | class A {
+  5 |   a = b;"
+`;
+
+exports[`no-semi.js [meriyah] format 1`] = `
+"[2:2]: Unexpected token: ':' (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 | 
+  4 | class A {
+  5 |   a = b;"
+`;
+
+exports[`no-semi.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token : (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 | 
+  4 | class A {
+  5 |   a = b;"
+`;
+
+exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
+"[2:2]: Unexpected token: ':' (2:2)
+  1 | a
+> 2 | ;::b.c
+    |  ^
+  3 | 
+  4 | class A {
+  5 |   a = b;"
+`;
+
 exports[`no-semi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

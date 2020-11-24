@@ -16,7 +16,7 @@ const partition = require("lodash/partition");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 // eslint-disable-next-line no-restricted-modules
-const { getStream } = require("../common/third-party");
+const { getStdin } = require("../common/third-party");
 const {
   createIgnorer,
   errors,
@@ -387,7 +387,7 @@ function formatStdin(context) {
     ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
     : path.relative(process.cwd(), filepath);
 
-  getStream(process.stdin)
+  getStdin()
     .then((input) => {
       if (
         relativeFilepath &&
@@ -918,6 +918,7 @@ function createDetailedOptionMap(supportOptions) {
 
 /** @returns {Context} */
 function createContext(args) {
+  /** @type {Context} */
   const context = { args, stack: [] };
 
   updateContextArgv(context);
@@ -931,7 +932,7 @@ function createContext(args) {
     context.argv["plugin-search-dir"]
   );
 
-  return /** @type {Context} */ (context);
+  return context;
 }
 
 function initContext(context) {
@@ -1010,7 +1011,7 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
   const argv = minimist(context.args, minimistOptions);
 
   context.argv = argv;
-  context.filePatterns = argv._;
+  context.filePatterns = argv._.map((file) => String(file));
 }
 
 function normalizeContextArgv(context, keys) {

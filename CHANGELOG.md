@@ -1,3 +1,131 @@
+# 2.2.0
+
+[diff](https://github.com/prettier/prettier/compare/2.1.2...2.2.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2020/11/20/2.2.0.html)
+
+# 2.1.2
+
+[diff](https://github.com/prettier/prettier/compare/2.1.1...2.1.2)
+
+#### Fix formatting for directives in fields ([#9116](https://github.com/prettier/prettier/pull/9116) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```graphql
+# Input
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String! @deprecated @isAuthenticated
+  versions: Versions!
+}
+
+
+# Prettier stable
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String!
+  @deprecated
+  @isAuthenticated
+  versions: Versions!
+}
+
+# Prettier master
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String!
+    @deprecated
+    @isAuthenticated
+  versions: Versions!
+}
+
+```
+
+#### Fix line breaks for CSS in JS ([#9136](https://github.com/prettier/prettier/pull/9136) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```js
+// Input
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: ${(props) => (props.isComplete ? '1' : '0')};
+  }
+`;
+styled.div`
+  ${props => getSize(props.$size.xs)}
+  ${props => getSize(props.$size.sm, 'sm')}
+  ${props => getSize(props.$size.md, 'md')}
+`;
+
+// Prettier stable
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: ${(props) =>
+    props.isComplete ? "1" : "0"};
+  }
+`;
+styled.div`
+  ${(props) => getSize(props.$size.xs)}
+  ${(props) => getSize(props.$size.sm, "sm")}
+  ${(props) =>
+    getSize(props.$size.md, "md")}
+`;
+
+// Prettier master
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+        z-index: ${(props) => (props.isComplete ? "1" : "0")};
+  }
+`;
+styled.div`
+  ${(props) => getSize(props.$size.xs)}
+  ${(props) => getSize(props.$size.sm, "sm")}
+  ${(props) => getSize(props.$size.md, "md")}
+`;
+
+```
+
+#### Fix comment printing in mapping and sequence ([#9143](https://github.com/prettier/prettier/pull/9143), [#9169](https://github.com/prettier/prettier/pull/9169) by [@sosukesuzuki](https://github.com/sosukesuzuki), [@fisker](https://github.com/fisker), fix in `yaml-unist-parser` by [@ikatyang](https://github.com/ikatyang))
+
+<!-- prettier-ignore -->
+```yaml
+# Input
+- a
+  # Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+  # Should print one empty line before
+- another
+
+# Prettier stable
+- a
+# Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+
+  # Should print one empty line before
+- another
+
+# Prettier master
+- a
+  # Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+  # Should print one empty line before
+- another
+```
+
 # 2.1.1
 
 [diff](https://github.com/prettier/prettier/compare/2.1.0...2.1.1)

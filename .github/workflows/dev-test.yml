@@ -26,6 +26,10 @@ jobs:
           - os: "ubuntu-latest"
             node: "14"
             ENABLE_CODE_COVERAGE: true
+            FULL_TEST: true
+            CHECK_TEST_PARSERS: true
+          - os: "ubuntu-latest"
+            node: "15"
         exclude:
           - os: "macos-latest"
             node: "12"
@@ -33,25 +37,21 @@ jobs:
             node: "12"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
+      FULL_TEST: ${{ matrix.FULL_TEST }}
+      CHECK_TEST_PARSERS: ${{ matrix.CHECK_TEST_PARSERS }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node }}
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-
-      # TODO: remove this task when/if this fixed
-      # https://github.com/facebook/jest/issues/9457
-      - name: Install jest@24
-        if: matrix.ENABLE_CODE_COVERAGE
-        run: yarn upgrade jest@24
 
       - name: Run Tests (macOS)
         if: matrix.os == 'macos-latest'
@@ -62,7 +62,7 @@ jobs:
         run: yarn test --maxWorkers=2
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v1.0.13
+        uses: codecov/codecov-action@v1.0.15
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -76,7 +76,7 @@ jobs:
           PRETTIER_FALLBACK_RESOLVE: true
 
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v1.0.13
+        uses: codecov/codecov-action@v1.0.15
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

@@ -2,7 +2,7 @@
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
-const { getParserName, isFrontMatterNode } = require("../common/util");
+const { inferParserByLanguage, isFrontMatterNode } = require("../common/util");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -427,7 +427,8 @@ function inferScriptParser(node, options) {
   if (options && isVueNonHtmlBlock(node, options)) {
     return (
       _inferScriptParser(node) ||
-      (!("src" in node.attrMap) && getParserName(node.attrMap.lang, options))
+      (!("src" in node.attrMap) &&
+        inferParserByLanguage(node.attrMap.lang, options))
     );
   }
 }
@@ -636,6 +637,32 @@ function isVueNonHtmlBlock(node, options) {
   );
 }
 
+function isVueSlotAttribute(attribute) {
+  const attributeName = attribute.fullName;
+  return (
+    attributeName.charAt(0) === "#" ||
+    attributeName === "slot-scope" ||
+    attributeName === "v-slot" ||
+    attributeName.startsWith("v-slot:")
+  );
+}
+
+function isVueSfcBindingsAttribute(attribute, options) {
+  const element = attribute.parent;
+  if (!isVueSfcBlock(element, options)) {
+    return false;
+  }
+  const tagName = element.fullName;
+  const attributeName = attribute.fullName;
+
+  return (
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-script-setup.md
+    (tagName === "script" && attributeName === "setup") ||
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md
+    (tagName === "style" && attributeName === "vars")
+  );
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -659,6 +686,8 @@ module.exports = {
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,

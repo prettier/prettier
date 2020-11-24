@@ -20,6 +20,7 @@ const {
   isNumericLiteral,
   isSimpleCallArgument,
 } = require("../utils");
+const { locEnd } = require("../loc");
 
 const {
   builders: {
@@ -34,10 +35,10 @@ const {
   utils: { willBreak },
 } = require("../../document");
 const printCallArguments = require("./call-arguments");
+const { printMemberLookup } = require("./member");
 const {
   printOptionalToken,
   printFunctionTypeParameters,
-  printMemberLookup,
   printBindExpressionCallee,
 } = require("./misc");
 
@@ -73,7 +74,7 @@ function printMemberChain(path, options, print) {
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       node,
-      options.locEnd
+      locEnd
     );
     const nextChar = originalText.charAt(nextCharIndex);
 
@@ -86,7 +87,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    return isNextLineEmpty(originalText, node, options.locEnd);
+    return isNextLineEmpty(originalText, node, locEnd);
   }
 
   function rec(path) {

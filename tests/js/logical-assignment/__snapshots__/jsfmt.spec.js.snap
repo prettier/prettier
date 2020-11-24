@@ -1,5 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`invalid.js [espree] format 1`] = `
+"Assigning to rvalue (1:21)
+> 1 | c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+    |                     ^
+  2 | "
+`;
+
+exports[`invalid.js [meriyah] format 1`] = `
+"[1:19]: Unexpected token: '=' (1:19)
+> 1 | c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+    |                   ^
+  2 | "
+`;
+
+exports[`invalid.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+
+=====================================output=====================================
+c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
+
+================================================================================
+`;
+
+exports[`logical-assignment.js [meriyah] format 1`] = `
+"[1:5]: Unexpected token: '=' (1:5)
+> 1 | a ||= b;
+    |     ^
+  2 | 
+  3 | a &&= \\"foo\\";
+  4 | b ||= \\"foo\\";"
+`;
+
 exports[`logical-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -26,7 +63,6 @@ c.foo["baz"] ??= result.foo.baz;
 
 a.foo.bar().baz &&= result.foo.bar().baz;
 b.foo.bar().baz ||= result.foo.bar().baz;
-c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
 b.baz ||= result.baz;
 c.baz ??= result.baz;
 
@@ -83,7 +119,6 @@ c.foo["baz"] ??= result.foo.baz;
 
 a.foo.bar().baz &&= result.foo.bar().baz;
 b.foo.bar().baz ||= result.foo.bar().baz;
-c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
 b.baz ||= result.baz;
 c.baz ??= result.baz;
 

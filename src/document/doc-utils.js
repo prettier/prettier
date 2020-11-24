@@ -1,5 +1,7 @@
 "use strict";
 
+const { literalline, concat } = require("./doc-builders");
+
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
 
@@ -258,6 +260,18 @@ function normalizeDoc(doc) {
   });
 }
 
+function replaceNewlinesWithLiterallines(doc) {
+  return mapDoc(doc, (currentDoc) =>
+    typeof currentDoc === "string" && currentDoc.includes("\n")
+      ? concat(
+          currentDoc
+            .split(/(\n)/g)
+            .map((v, i) => (i % 2 === 0 ? v : literalline))
+        )
+      : currentDoc
+  );
+}
+
 module.exports = {
   isEmpty,
   willBreak,
@@ -270,4 +284,5 @@ module.exports = {
   stripTrailingHardline,
   normalizeParts,
   normalizeDoc,
+  replaceNewlinesWithLiterallines,
 };

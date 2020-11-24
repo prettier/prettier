@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inline-comment.less error test 1`] = `
-"(postcss) CssSyntaxError Unknown word (5:4)
+exports[`inline-comment.less [less] format 1`] = `
+"CssSyntaxError: Unknown word (5:4)
   3 | a{
   4 | 	prop
 > 5 | // inline
@@ -11,8 +11,8 @@ exports[`inline-comment.less error test 1`] = `
   8 | }"
 `;
 
-exports[`open-double-quote.less error test 1`] = `
-"(postcss) CssSyntaxError Unclosed string (2:17)
+exports[`open-double-quote.less [less] format 1`] = `
+"CssSyntaxError: Unclosed string (2:17)
   1 | a {
 > 2 | background: url(\\"
     |                 ^
@@ -20,18 +20,11 @@ exports[`open-double-quote.less error test 1`] = `
   4 | "
 `;
 
-exports[`open-sigle-quote.less error test 1`] = `
-"(postcss) CssSyntaxError Unclosed string (2:17)
+exports[`open-sigle-quote.less [less] format 1`] = `
+"CssSyntaxError: Unclosed string (2:17)
   1 | a {
 > 2 | background: url('
     |                 ^
   3 | }
   4 | "
-`;
-
-exports[`scss-syntax.css error test 1`] = `
-"(postcss) CssSyntaxError Unknown word (1:15)
-> 1 | a {content: #{$foo}}
-    |               ^
-  2 | "
 `;

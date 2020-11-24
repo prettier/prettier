@@ -7,13 +7,18 @@ const {
   isNextLineEmpty,
 } = require("../../common/util");
 const {
+  getFunctionParameters,
+  iterateFunctionParametersPath,
   hasLeadingComment,
   hasTrailingComment,
   isFunctionCompositionArgs,
   isJSXNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
+  getCallArguments,
+  iterateCallArgumentsPath,
 } = require("../utils");
+const { locEnd } = require("../loc");
 
 const {
   builders: {
@@ -33,8 +38,8 @@ const {
 function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
-  const args = isDynamicImport ? [node.source] : node.arguments;
 
+  const args = getCallArguments(node);
   if (args.length === 0) {
     return concat([
       "(",
@@ -47,7 +52,7 @@ function printCallArguments(path, options, print) {
   if (
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
-    args[0].params.length === 0 &&
+    getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => arg.comments)
@@ -74,17 +79,15 @@ function printCallArguments(path, options, print) {
       arg.type !== "ArrowFunctionExpression" ||
       !arg.body ||
       arg.body.type !== "BlockStatement" ||
-      !arg.params ||
-      arg.params.length < 1
+      getFunctionParameters(arg).length === 0
     ) {
       return false;
     }
 
     let shouldBreak = false;
-    argPath.each((paramPath) => {
-      const printed = concat([print(paramPath)]);
-      shouldBreak = shouldBreak || willBreak(printed);
-    }, "params");
+    iterateFunctionParametersPath(argPath, (parameterPath) => {
+      shouldBreak = shouldBreak || willBreak(concat([print(parameterPath)]));
+    });
 
     return shouldBreak;
   }
@@ -93,13 +96,14 @@ function printCallArguments(path, options, print) {
   let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
-  const printArgument = (argPath, index) => {
+  const printedArguments = [];
+  iterateCallArgumentsPath(path, (argPath, index) => {
     const arg = argPath.getNode();
     const parts = [print(argPath)];
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, options.locEnd)) {
+    } else if (isNextLineEmpty(options.originalText, arg, locEnd)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
@@ -115,11 +119,8 @@ function printCallArguments(path, options, print) {
       argPath
     );
 
-    return concat(parts);
-  };
-  const printedArguments = isDynamicImport
-    ? [path.call((path) => printArgument(path, 0), "source")]
-    : path.map(printArgument, "arguments");
+    printedArguments.push(concat(parts));
+  });
 
   const maybeTrailingComma =
     // Dynamic imports cannot have trailing commas
@@ -160,8 +161,7 @@ function printCallArguments(path, options, print) {
 
     // We want to print the last argument with a special flag
     let printedExpanded = [];
-    let i = 0;
-    const printArgument = (argPath) => {
+    iterateCallArgumentsPath(path, (argPath, i) => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
           concat([
@@ -177,14 +177,7 @@ function printCallArguments(path, options, print) {
           .slice(0, -1)
           .concat(argPath.call((p) => print(p, { expandLastArg: true })));
       }
-      i++;
-    };
-
-    if (isDynamicImport) {
-      path.call(printArgument, "source");
-    } else {
-      path.each(printArgument, "arguments");
-    }
+    });
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 

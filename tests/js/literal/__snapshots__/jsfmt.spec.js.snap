@@ -1,5 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`invalid-exponent.js [espree] format 1`] = `
+"Invalid number (1:1)
+> 1 | 12.3e
+    | ^
+  2 | "
+`;
+
+exports[`invalid-exponent.js [meriyah] format 1`] = `
+"[1:5]: Non-number found after exponent indicator (1:5)
+> 1 | 12.3e
+    |     ^
+  2 | "
+`;
+
+exports[`invalid-exponent.js [typescript] format 1`] = `
+"Digit expected. (1:6)
+> 1 | 12.3e
+    |      ^
+  2 | "
+`;
+
+exports[`invalid-exponent.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+12.3e
+
+=====================================output=====================================
+12.3e;
+
+================================================================================
+`;
+
+exports[`number.js [espree] format 1`] = `
+"Unexpected token : (2:17)
+  1 | // parentheses around numeric literal should be preserved
+> 2 | function test5(): string {
+    |                 ^
+  3 |   return (100).toString();
+  4 | }
+  5 | "
+`;
+
+exports[`number.js [meriyah] format 1`] = `
+"[2:17]: Expected '{' (2:17)
+  1 | // parentheses around numeric literal should be preserved
+> 2 | function test5(): string {
+    |                 ^
+  3 |   return (100).toString();
+  4 | }
+  5 | "
+`;
+
 exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]

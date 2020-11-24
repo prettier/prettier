@@ -5,11 +5,9 @@ const {
   getLast,
   hasNewline,
   hasNewlineInRange,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
-const handleComments = require("./comments");
+const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -56,6 +54,7 @@ function hasFlowShorthandAnnotationComment(node) {
     node.extra &&
     node.extra.parenthesized &&
     node.trailingComments &&
+    isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
 }
@@ -65,7 +64,11 @@ function hasFlowShorthandAnnotationComment(node) {
  * @returns {boolean}
  */
 function hasFlowAnnotationComment(comments) {
-  return comments && FLOW_ANNOTATION.test(comments[0].value);
+  return (
+    comments &&
+    isBlockComment(comments[0]) &&
+    FLOW_ANNOTATION.test(comments[0].value)
+  );
 }
 
 /**
@@ -151,6 +154,35 @@ function getLeftSidePathName(path, node) {
     return ["expression"];
   }
   throw new Error("Unexpected node has no left side.");
+}
+
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
+function isBlockComment(comment) {
+  return (
+    comment.type === "Block" ||
+    comment.type === "CommentBlock" ||
+    // `meriyah`
+    comment.type === "MultiLine"
+  );
+}
+
+/**
+ * @param {Comment} comment
+ * @returns {boolean}
+ */
+function isLineComment(comment) {
+  return (
+    comment.type === "Line" ||
+    comment.type === "CommentLine" ||
+    // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
+    comment.type === "SingleLine" ||
+    comment.type === "HashbangComment" ||
+    comment.type === "HTMLOpen" ||
+    comment.type === "HTMLClose"
+  );
 }
 
 const exportDeclarationTypes = new Set([
@@ -337,19 +369,10 @@ function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
 
-/**
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @returns {boolean}
- */
-function sameLocStart(nodeA, nodeB, options) {
-  return options.locStart(nodeA) === options.locStart(nodeB);
-}
-
 // TODO: This is a bad hack and we need a better way to distinguish between
 // arrow functions and otherwise
-function isFunctionNotation(node, options) {
-  return isGetterOrSetter(node) || sameLocStart(node, node.value, options);
+function isFunctionNotation(node) {
+  return isGetterOrSetter(node) || hasSameLocStart(node, node.value);
 }
 
 // Hack to differentiate between the following two which have the same ast
@@ -359,25 +382,25 @@ function isFunctionNotation(node, options) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectTypePropertyAFunction(node, options) {
+function isObjectTypePropertyAFunction(node) {
   return (
     (node.type === "ObjectTypeProperty" ||
       node.type === "ObjectTypeInternalSlot") &&
     node.value.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !isFunctionNotation(node, options)
+    !isFunctionNotation(node)
   );
 }
 
 // Hack to differentiate between the following two which have the same ast
 // declare function f(a): void;
 // var f: (a) => void;
-function isTypeAnnotationAFunction(node, options) {
+function isTypeAnnotationAFunction(node) {
   return (
     (node.type === "TypeAnnotation" || node.type === "TSTypeAnnotation") &&
     node.typeAnnotation.type === "FunctionTypeAnnotation" &&
     !node.static &&
-    !sameLocStart(node, node.typeAnnotation, options)
+    !hasSameLocStart(node, node.typeAnnotation)
   );
 }
 
@@ -407,30 +430,72 @@ function isMemberish(node) {
   );
 }
 
-const flowTypeAnnotations = new Set([
+const simpleTypeAnnotations = new Set([
+  // `any`
   "AnyTypeAnnotation",
+  "TSAnyKeyword",
+  // `null`
   "NullLiteralTypeAnnotation",
-  "GenericTypeAnnotation",
+  "TSNullKeyword",
+  // `this`
   "ThisTypeAnnotation",
+  "TSThisType",
+  // `number`
   "NumberTypeAnnotation",
+  "TSNumberKeyword",
+  // `void`
   "VoidTypeAnnotation",
+  "TSVoidKeyword",
+  // `boolean`
+  "BooleanTypeAnnotation",
+  "TSBooleanKeyword",
+  // `bigint`
+  "BigIntTypeAnnotation",
+  "TSBigIntKeyword",
+  // `symbol`
+  "SymbolTypeAnnotation",
+  "TSSymbolKeyword",
+  // `string`
+  "StringTypeAnnotation",
+  "TSStringKeyword",
+  // literals
+  "BooleanLiteralTypeAnnotation",
+  "StringLiteralTypeAnnotation",
+  "BigIntLiteralTypeAnnotation",
+  "NumberLiteralTypeAnnotation",
+  "TSLiteralType",
+  "TSTemplateLiteralType",
+  // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
-  "BooleanTypeAnnotation",
-  "BooleanLiteralTypeAnnotation",
-  "StringTypeAnnotation",
+  // typescript only, `never`, `object`, `undefined`, `unknown`
+  "TSNeverKeyword",
+  "TSObjectKeyword",
+  "TSUndefinedKeyword",
+  "TSUnknownKeyword",
 ]);
-
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isSimpleFlowType(node) {
-  return (
-    node &&
-    flowTypeAnnotations.has(node.type) &&
-    !(node.type === "GenericTypeAnnotation" && node.typeParameters)
-  );
+function isSimpleType(node) {
+  if (!node) {
+    return false;
+  }
+
+  if (
+    (node.type === "GenericTypeAnnotation" ||
+      node.type === "TSTypeReference") &&
+    !node.typeParameters
+  ) {
+    return true;
+  }
+
+  if (simpleTypeAnnotations.has(node.type)) {
+    return true;
+  }
+
+  return false;
 }
 
 const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
@@ -491,7 +556,7 @@ function isTestCall(n, parent) {
         (n.arguments.length === 2
           ? isFunctionOrArrowExpression(n.arguments[1])
           : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
-            n.arguments[1].params.length <= 1) ||
+            getFunctionParameters(n.arguments[1]).length <= 1) ||
         isAngularTestWrapper(n.arguments[1])
       );
     }
@@ -523,7 +588,7 @@ function hasTrailingLineComment(node) {
   return (
     node.comments &&
     node.comments.some(
-      (comment) => comment.trailing && !handleComments.isBlockComment(comment)
+      (comment) => comment.trailing && !isBlockComment(comment)
     )
   );
 }
@@ -549,45 +614,23 @@ function hasDanglingComments(node) {
   );
 }
 
-/** identify if an angular expression seems to have side effects */
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), (node) => {
-    switch (node.type) {
-      case undefined:
-        return false;
-      case "CallExpression":
-      case "OptionalCallExpression":
-      case "AssignmentExpression":
-        return true;
-    }
-  });
-}
-
-function isNgForOf(node, index, parentNode) {
-  return (
-    node.type === "NGMicrosyntaxKeyedExpression" &&
-    node.key.name === "of" &&
-    index === 1 &&
-    parentNode.body[0].type === "NGMicrosyntaxLet" &&
-    parentNode.body[0].value === null
-  );
-}
-
 /**
  *
  * @param {any} node
  * @returns {boolean}
  */
 function isSimpleTemplateLiteral(node) {
-  if (node.expressions.length === 0) {
+  let expressionsKey = "expressions";
+  if (node.type === "TSTemplateLiteralType") {
+    expressionsKey = "types";
+  }
+  const expressions = node[expressionsKey];
+
+  if (expressions.length === 0) {
     return false;
   }
 
-  return node.expressions.every((expr) => {
+  return expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
     if (expr.comments) {
       return false;
@@ -634,37 +677,13 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {ObjectTypeProperty} node
- */
-function getFlowVariance(node) {
-  if (!node.variance) {
-    return null;
-  }
-
-  // Babel 7.0 currently uses variance node type, and flow should
-  // follow suit soon:
-  // https://github.com/babel/babel/issues/4722
-  const variance = node.variance.kind || node.variance;
-
-  switch (variance) {
-    case "plus":
-      return "+";
-    case "minus":
-      return "-";
-    default:
-      /* istanbul ignore next */
-      return variance;
-  }
-}
-
-/**
  * @param {FastPath} path
  * @returns {boolean}
  */
 function classPropMayCauseASIProblems(path) {
   const node = path.getNode();
 
-  if (node.type !== "ClassProperty") {
+  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
     return false;
   }
 
@@ -701,6 +720,7 @@ function classChildNeedsASIProtection(node) {
   }
   switch (node.type) {
     case "ClassProperty":
+    case "FieldDefinition":
     case "TSAbstractClassProperty":
       return node.computed;
     case "MethodDefinition": // Flow
@@ -744,10 +764,9 @@ function hasNewlineBetweenOrAfterDecorators(node, options) {
   return (
     hasNewlineInRange(
       options.originalText,
-      options.locStart(node.decorators[0]),
-      options.locEnd(getLast(node.decorators))
-    ) ||
-    hasNewline(options.originalText, options.locEnd(getLast(node.decorators)))
+      locStart(node.decorators[0]),
+      locEnd(getLast(node.decorators))
+    ) || hasNewline(options.originalText, locEnd(getLast(node.decorators)))
   );
 }
 
@@ -801,8 +820,8 @@ function hasJsxIgnoreComment(path) {
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
-    prevSibling.expression.comments.some(
-      (comment) => comment.value.trim() === "prettier-ignore"
+    prevSibling.expression.comments.some((comment) =>
+      isPrettierIgnoreComment(comment)
     )
   );
 }
@@ -854,9 +873,9 @@ function isLastStatement(path) {
  * @param {Node} typeAnnotation
  * @returns {boolean}
  */
-function isFlowAnnotationComment(text, typeAnnotation, options) {
-  const start = options.locStart(typeAnnotation);
-  const end = skipWhitespace(text, options.locEnd(typeAnnotation));
+function isFlowAnnotationComment(text, typeAnnotation) {
+  const start = locStart(typeAnnotation);
+  const end = skipWhitespace(text, locEnd(typeAnnotation));
   return (
     end !== false &&
     text.slice(start, start + 2) === "/*" &&
@@ -869,7 +888,7 @@ function isFlowAnnotationComment(text, typeAnnotation, options) {
  * @param {Node} node
  * @returns {boolean}
  */
-function hasLeadingOwnLineComment(text, node, options) {
+function hasLeadingOwnLineComment(text, node) {
   if (isJSXNode(node)) {
     return hasNodeIgnoreComment(node);
   }
@@ -877,7 +896,7 @@ function hasLeadingOwnLineComment(text, node, options) {
   const res =
     node.comments &&
     node.comments.some(
-      (comment) => comment.leading && hasNewline(text, options.locEnd(comment))
+      (comment) => comment.leading && hasNewline(text, locEnd(comment))
     );
   return res;
 }
@@ -886,7 +905,7 @@ function hasLeadingOwnLineComment(text, node, options) {
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument, options)) {
+  if (hasLeadingOwnLineComment(options.originalText, argument)) {
     return true;
   }
 
@@ -896,7 +915,7 @@ function returnArgumentHasLeadingComment(options, argument) {
     while ((newLeftMost = getLeftSide(leftMost))) {
       leftMost = newLeftMost;
 
-      if (hasLeadingOwnLineComment(options.originalText, leftMost, options)) {
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
         return true;
       }
     }
@@ -927,7 +946,7 @@ function returnArgumentHasLeadingComment(options, argument) {
 //
 // Angular does not support unquoted numbers in expressions.
 //
-// So we play it safe and only unquote numbers for the "babel" parser.
+// So we play it safe and only unquote numbers for the JavaScript parsers.
 // (Vue supports unquoted numbers in expressions, but let’s keep it simple.)
 //
 // Identifiers can be unquoted in more circumstances, though.
@@ -945,7 +964,9 @@ function isStringPropSafeToUnquote(node, options) {
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
-        options.parser === "babel"))
+        (options.parser === "babel" ||
+          options.parser === "espree" ||
+          options.parser === "meriyah")))
   );
 }
 
@@ -1001,12 +1022,12 @@ function templateLiteralHasNewLines(template) {
  * @param {string} text
  * @returns {boolean}
  */
-function isTemplateOnItsOwnLine(n, text, options) {
+function isTemplateOnItsOwnLine(n, text) {
   return (
     ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
       (n.type === "TaggedTemplateExpression" &&
         templateLiteralHasNewLines(n.quasi))) &&
-    !hasNewline(text, options.locStart(n), { backwards: true })
+    !hasNewline(text, locStart(n), { backwards: true })
   );
 }
 
@@ -1021,9 +1042,7 @@ function needsHardlineAfterDanglingComment(node) {
   const lastDanglingComment = getLast(
     node.comments.filter((comment) => !comment.leading && !comment.trailing)
   );
-  return (
-    lastDanglingComment && !handleComments.isBlockComment(lastDanglingComment)
-  );
+  return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
 
 // Logic to check for args with multiple anonymous functions. For instance,
@@ -1359,10 +1378,109 @@ function isBitwiseOperator(operator) {
   );
 }
 
+function hasRestParameter(node) {
+  if (node.rest) {
+    return true;
+  }
+  const parameters = getFunctionParameters(node);
+  return parameters.length > 0 && getLast(parameters).type === "RestElement";
+}
+
+const functionParametersCache = new WeakMap();
+function getFunctionParameters(node) {
+  if (functionParametersCache.has(node)) {
+    return functionParametersCache.get(node);
+  }
+  const parameters = [];
+  if (node.this) {
+    parameters.push(node.this);
+  }
+  // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
+  if (Array.isArray(node.parameters)) {
+    parameters.push(...node.parameters);
+  } else if (Array.isArray(node.params)) {
+    parameters.push(...node.params);
+  }
+  if (node.rest) {
+    parameters.push(node.rest);
+  }
+  functionParametersCache.set(node, parameters);
+  return parameters;
+}
+
+function iterateFunctionParametersPath(path, iteratee) {
+  const node = path.getValue();
+  let index = 0;
+  const callback = (childPath) => iteratee(childPath, index++);
+  if (node.this) {
+    path.call(callback, "this");
+  }
+  if (Array.isArray(node.parameters)) {
+    path.each(callback, "parameters");
+  } else if (Array.isArray(node.params)) {
+    path.each(callback, "params");
+  }
+  if (node.rest) {
+    path.call(callback, "rest");
+  }
+}
+
+const callArgumentsCache = new WeakMap();
+function getCallArguments(node) {
+  if (callArgumentsCache.has(node)) {
+    return callArgumentsCache.get(node);
+  }
+  const args =
+    node.type === "ImportExpression"
+      ? // No parser except `babel` supports `import("./foo.json", { assert: { type: "json" } })` yet,
+        // And `babel` parser it as `CallExpression`
+        // We need add the second argument here
+        [node.source]
+      : node.arguments;
+
+  callArgumentsCache.set(node, args);
+  return args;
+}
+
+function iterateCallArgumentsPath(path, iteratee) {
+  const node = path.getValue();
+  // See comment in `getCallArguments`
+  if (node.type === "ImportExpression") {
+    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+  } else {
+    path.each(iteratee, "arguments");
+  }
+}
+
+function isPrettierIgnoreComment(comment) {
+  return comment.value.trim() === "prettier-ignore";
+}
+
+function hasNodeIgnoreComment(node) {
+  return (
+    node &&
+    ((node.comments &&
+      node.comments.length > 0 &&
+      node.comments.some(
+        (comment) => isPrettierIgnoreComment(comment) && !comment.unignore
+      )) ||
+      node.prettierIgnore)
+  );
+}
+
+function hasIgnoreComment(path) {
+  const node = path.getValue();
+  return hasNodeIgnoreComment(node);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
-  getFlowVariance,
+  getFunctionParameters,
+  iterateFunctionParametersPath,
+  getCallArguments,
+  iterateCallArgumentsPath,
+  hasRestParameter,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -1373,13 +1491,17 @@ module.exports = {
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
-  hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
   hasTrailingComment,
   hasTrailingLineComment,
+  hasIgnoreComment,
+  hasNodeIgnoreComment,
   identity,
   isBinaryish,
+  isBlockComment,
+  isLineComment,
+  isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
   isExportDeclaration,
@@ -1398,11 +1520,10 @@ module.exports = {
   isMeaningfulJSXText,
   isMemberExpressionChain,
   isMemberish,
-  isNgForOf,
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
-  isSimpleFlowType,
+  isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
   isStringLiteral,

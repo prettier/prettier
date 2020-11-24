@@ -2,6 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 
 function parseComments(ast) {
   const comments = [];
@@ -59,16 +60,15 @@ function parse(text /*, parsers, opts*/) {
   } catch (error) {
     const { GraphQLError } = require("graphql/error");
     if (error instanceof GraphQLError) {
-      throw createError(error.message, {
-        start: {
-          line: error.locations[0].line,
-          column: error.locations[0].column,
-        },
-      });
-    } else {
-      /* istanbul ignore next */
-      throw error;
+      const {
+        message,
+        locations: [start],
+      } = error;
+      throw createError(message, { start });
     }
+
+    /* istanbul ignore next */
+    throw error;
   }
 }
 
@@ -78,18 +78,8 @@ module.exports = {
       parse,
       astFormat: "graphql",
       hasPragma,
-      locStart(node) {
-        if (typeof node.start === "number") {
-          return node.start;
-        }
-        return node.loc && node.loc.start;
-      },
-      locEnd(node) {
-        if (typeof node.end === "number") {
-          return node.end;
-        }
-        return node.loc && node.loc.end;
-      },
+      locStart,
+      locEnd,
     },
   },
 };

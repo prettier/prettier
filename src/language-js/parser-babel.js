@@ -1,9 +1,13 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const {
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getShebang,
+} = require("../common/util");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
-const postprocess = require("./postprocess");
+const postprocess = require("./parse-postprocess");
 
 function babelOptions({ sourceType, extraPlugins = [] }) {
   return {
@@ -31,9 +35,11 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
       "partialApplication",
       ["decorators", { decoratorsBeforeExport: false }],
       "privateIn",
-      ["moduleAttributes", { version: "may-2020" }],
+      "importAssertions",
       ["recordAndTuple", { syntaxType: "hash" }],
       "decimal",
+      "moduleStringNames",
+      "classStaticBlock",
       ...extraPlugins,
     ],
     tokens: true,
@@ -58,13 +64,43 @@ function resolvePluginsConflict(
   return combinations;
 }
 
+// Similar to babel
+// https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
+const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
+function isFlowFile(text, options) {
+  if (options.filepath && options.filepath.endsWith(".js.flow")) {
+    return true;
+  }
+
+  const shebang = getShebang(text);
+  if (shebang) {
+    text = text.slice(shebang.length);
+  }
+
+  const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    0
+  );
+
+  if (firstNonSpaceNonCommentCharacterIndex !== false) {
+    text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
+  }
+
+  return FLOW_PRAGMA_REGEX.test(text);
+}
+
 function createParse(parseMethod, ...pluginCombinations) {
-  return (text, parsers, opts) => {
+  return (text, parsers, opts = {}) => {
+    if (opts.parser === "babel" && isFlowFile(text, opts)) {
+      opts.parser = "babel-flow";
+      return parseFlow(text, parsers, opts);
+    }
+
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
     const sourceType =
-      opts && opts.__babelSourceType === "script" ? "script" : "module";
+      opts.__babelSourceType === "script" ? "script" : "module";
 
     let ast;
     try {
@@ -84,19 +120,16 @@ function createParse(parseMethod, ...pluginCombinations) {
         )
       );
     } catch (error) {
-      throw createError(
-        // babel error prints (l:c) with cols that are zero indexed
-        // so we need our custom error
-        error.message.replace(/ \(.*\)/, ""),
-        error.loc
-          ? {
-              start: {
-                line: error.loc.line,
-                column: error.loc.column + 1,
-              },
-            }
-          : { start: { line: 0, column: 0 } }
-      );
+      // babel error prints (l:c) with cols that are zero indexed
+      // so we need our custom error
+      const { message, loc } = error;
+
+      throw createError(message.replace(/ \(.*\)/, ""), {
+        start: {
+          line: loc ? loc.line : 0,
+          column: loc ? loc.column + 1 : 0,
+        },
+      });
     }
 
     return postprocess(ast, { ...opts, originalText: text });
@@ -129,26 +162,30 @@ function tryCombinations(fn, combinations) {
   throw error;
 }
 
+const messagesShouldThrow = new Set([
+  // TSErrors.UnexpectedTypeAnnotation
+  // https://github.com/babel/babel/blob/008fe25ae22e78288fbc637d41069bb4a1040987/packages/babel-parser/src/plugins/typescript/index.js#L95
+  "Did not expect a type annotation here.",
+  // ErrorMessages.ModuleAttributeDifferentFromType
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/parser/error-message.js#L92
+  "The only accepted module attribute is `type`",
+  // FlowErrors.UnexpectedTypeParameterBeforeAsyncArrowFunction
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/plugins/flow.js#L118
+  "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
+]);
+
+function shouldRethrow(error) {
+  const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
+  // Only works for literal message
+  return messagesShouldThrow.has(message);
+}
+
 function rethrowSomeRecoveredErrors(ast) {
-  if (ast.errors) {
-    for (const error of ast.errors) {
-      if (
-        typeof error.message === "string" &&
-        (error.message.startsWith(
-          // UnexpectedTypeAnnotation
-          // https://github.com/babel/babel/blob/2f31ecf85d85cb100fa08d4d9a09de0fe4a117e4/packages/babel-parser/src/plugins/typescript/index.js#L88
-          "Did not expect a type annotation here."
-        ) ||
-          error.message.startsWith(
-            // ModuleAttributeDifferentFromType
-            // https://github.com/babel/babel/blob/bda759ac3dce548f021ca24e9182b6e6f7c218e3/packages/babel-parser/src/parser/location.js#L99
-            "The only accepted module attribute is `type`"
-          ))
-      ) {
-        throw error;
-      }
-    }
+  const error = ast.errors.find((error) => shouldRethrow(error));
+  if (error) {
+    throw error;
   }
+
   return ast;
 }
 

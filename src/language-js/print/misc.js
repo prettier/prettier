@@ -1,9 +1,7 @@
 "use strict";
 
-const { isNumericLiteral } = require("../utils");
-
 const {
-  builders: { concat, softline, group, indent },
+  builders: { concat, indent, join, line },
 } = require("../../document");
 
 function printOptionalToken(path) {
@@ -36,31 +34,34 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printMemberLookup(path, options, print) {
-  const property = path.call(print, "property");
-  const n = path.getValue();
-  const optional = printOptionalToken(path);
-
-  if (!n.computed) {
-    return concat([optional, ".", property]);
-  }
-
-  if (!n.property || isNumericLiteral(n.property)) {
-    return concat([optional, "[", property, "]"]);
-  }
-
-  return group(
-    concat([optional, "[", indent(concat([softline, property])), softline, "]"])
-  );
-}
-
 function printBindExpressionCallee(path, options, print) {
   return concat(["::", path.call(print, "callee")]);
+}
+
+function printTypeScriptModifiers(path, options, print) {
+  const n = path.getValue();
+  if (!n.modifiers || !n.modifiers.length) {
+    return "";
+  }
+  return concat([join(" ", path.map(print, "modifiers")), " "]);
+}
+
+function adjustClause(node, clause, forceSpace) {
+  if (node.type === "EmptyStatement") {
+    return ";";
+  }
+
+  if (node.type === "BlockStatement" || forceSpace) {
+    return concat([" ", clause]);
+  }
+
+  return indent(concat([line, clause]));
 }
 
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
-  printMemberLookup,
   printBindExpressionCallee,
+  printTypeScriptModifiers,
+  adjustClause,
 };

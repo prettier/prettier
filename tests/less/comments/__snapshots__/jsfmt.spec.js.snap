@@ -387,3 +387,39 @@ a {
 
 ================================================================================
 `;
+
+exports[`value-lists.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-space-separated : #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-comma-separated: #aaaaaa, // Start with A
+  #bbbbbb, // then some B
+  #cccccc; // and round it out with C
+
+=====================================output=====================================
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-comma-separated: #aaaaaa,
+  // Start with A
+  #bbbbbb,
+  // then some B
+  #cccccc; // and round it out with C
+
+================================================================================
+`;

@@ -37,6 +37,15 @@ self.onmessage = function (event) {
   });
 };
 
+function serializeAst(ast) {
+  return JSON.stringify(
+    ast,
+    (_, value) =>
+      typeof value === "bigint" ? `BigInt('${String(value)}')` : value,
+    2
+  );
+}
+
 function handleMessage(message) {
   if (message.type === "meta") {
     return {
@@ -75,7 +84,7 @@ function handleMessage(message) {
       let ast;
       let errored = false;
       try {
-        ast = JSON.stringify(prettier.__debug.parse(message.code, options).ast);
+        ast = serializeAst(prettier.__debug.parse(message.code, options).ast);
       } catch (e) {
         errored = true;
         ast = String(e);
@@ -85,7 +94,7 @@ function handleMessage(message) {
         try {
           ast = formatCode(ast, { parser: "json", plugins });
         } catch (e) {
-          ast = JSON.stringify(ast, null, 2);
+          ast = serializeAst(ast);
         }
       }
       response.debug.ast = ast;

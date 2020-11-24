@@ -1,9 +1,12 @@
 "use strict";
 
-const { getParserName, getMaxContinuousCount } = require("../common/util");
 const {
-  builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc },
+  inferParserByLanguage,
+  getMaxContinuousCount,
+} = require("../common/util");
+const {
+  builders: { hardline, concat, markAsRoot },
+  utils: { replaceNewlinesWithLiterallines },
 } = require("../document");
 const { print: printFrontMatter } = require("../utils/front-matter");
 const { getFencedCodeBlockValue } = require("./utils");
@@ -12,10 +15,7 @@ function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
-    // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)
-    const langMatch = node.lang.match(/^[\w-]+/);
-    const lang = langMatch ? langMatch[0] : "";
-    const parser = getParserName(lang, options);
+    const parser = inferParserByLanguage(node.lang, options);
     if (parser) {
       const styleUnit = options.__inJsTemplate ? "~" : "`";
       const style = styleUnit.repeat(
@@ -66,18 +66,6 @@ function embed(path, print, textToDoc, options) {
   }
 
   return null;
-
-  function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(doc, (currentDoc) =>
-      typeof currentDoc === "string" && currentDoc.includes("\n")
-        ? concat(
-            currentDoc
-              .split(/(\n)/g)
-              .map((v, i) => (i % 2 === 0 ? v : literalline))
-          )
-        : currentDoc
-    );
-  }
 }
 
 module.exports = embed;

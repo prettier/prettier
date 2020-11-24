@@ -389,33 +389,8 @@ class Bar {
 }
 
 class MyContainerComponent {
-  @ContentChildren(MyComponent) components: QueryListSomeBigName<
-    MyComponentThat
-  >;
-}
-
-================================================================================
-`;
-
-exports[`interface.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// invalid place but shouldn't be removed
-
-@hello()
-interface MyInterface {
-  id: string;
-}
-
-=====================================output=====================================
-// invalid place but shouldn't be removed
-
-@hello()
-interface MyInterface {
-  id: string;
+  @ContentChildren(MyComponent)
+  components: QueryListSomeBigName<MyComponentThat>;
 }
 
 ================================================================================

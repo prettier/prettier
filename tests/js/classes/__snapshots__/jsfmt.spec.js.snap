@@ -1,5 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`assignment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
+) {
+  method () {
+    console.log("foo");
+  }
+};
+
+foo = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 {
+  method() {
+    console.log("foo");
+  }
+};
+
+module.exports = class A extends B {
+  method () {
+    console.log("foo");
+  }
+};
+
+=====================================output=====================================
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends bar {
+  method() {
+    console.log("foo");
+  }
+};
+
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
+  bar
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+foo = class extends (
+  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
+
+================================================================================
+`;
+
 exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -132,6 +210,16 @@ new (class {})();
 new Ctor(class {});
 
 ================================================================================
+`;
+
+exports[`property.js [espree] format 1`] = `
+"Unexpected token = (2:10)
+  1 | class A {
+> 2 |   foobar =
+    |          ^
+  3 |     // comment to break
+  4 |     1 +
+  5 |     // comment to break again"
 `;
 
 exports[`property.js format 1`] = `

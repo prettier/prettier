@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`classes.js - {"quoteProps":"as-needed"} [espree] format 1`] = `
+"Unexpected token = (2:5)
+  1 | class A {
+> 2 |   a = \\"a\\"
+    |     ^
+  3 | };
+  4 | 
+  5 | class B {"
+`;
+
 exports[`classes.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -45,6 +55,16 @@ class D {
 }
 
 ================================================================================
+`;
+
+exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} [espree] format 1`] = `
+"Unexpected token = (2:5)
+  1 | class A {
+> 2 |   a = \\"a\\"
+    |     ^
+  3 | };
+  4 | 
+  5 | class B {"
 `;
 
 exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
@@ -95,6 +115,16 @@ class D {
 ================================================================================
 `;
 
+exports[`classes.js - {"quoteProps":"consistent"} [espree] format 1`] = `
+"Unexpected token = (2:5)
+  1 | class A {
+> 2 |   a = \\"a\\"
+    |     ^
+  3 | };
+  4 | 
+  5 | class B {"
+`;
+
 exports[`classes.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -140,6 +170,16 @@ class D {
 }
 
 ================================================================================
+`;
+
+exports[`classes.js - {"quoteProps":"preserve"} [espree] format 1`] = `
+"Unexpected token = (2:5)
+  1 | class A {
+> 2 |   a = \\"a\\"
+    |     ^
+  3 | };
+  4 | 
+  5 | class B {"
 `;
 
 exports[`classes.js - {"quoteProps":"preserve"} format 1`] = `

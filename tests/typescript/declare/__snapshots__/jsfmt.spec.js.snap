@@ -8,6 +8,12 @@ printWidth: 80
 =====================================input======================================
 class B {p: number;}
 class C extends B {declare p: 256 | 1000;}
+class D {
+  declare field = "field";
+}
+declare class D {
+  field = "field";
+}
 
 =====================================output=====================================
 class B {
@@ -15,6 +21,12 @@ class B {
 }
 class C extends B {
   declare p: 256 | 1000;
+}
+class D {
+  declare field = "field";
+}
+declare class D {
+  field = "field";
 }
 
 ================================================================================
@@ -50,6 +62,8 @@ declare namespace A {
     function y(): void;
 }
 
+declare function f([]?)
+
 =====================================output=====================================
 declare function x();
 declare function y(): void;
@@ -58,6 +72,30 @@ declare namespace A {
   function x();
   function y(): void;
 }
+
+declare function f([]?);
+
+================================================================================
+`;
+
+exports[`declare_function_with_body.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid, but recoverable
+declare function foo() {}
+declare function bar() {
+  // comment
+}
+
+=====================================output=====================================
+// Invalid, but recoverable
+declare function foo() {};
+declare function bar() {
+  // comment
+};
 
 ================================================================================
 `;
@@ -72,9 +110,65 @@ declare interface Dictionary<T> {
   [index: string]: T
 }
 
+declare interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
 =====================================output=====================================
 declare interface Dictionary<T> {
   [index: string]: T;
+}
+
+declare interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
+================================================================================
+`;
+
+exports[`declare_module.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare module m {
+  class C {
+    field = "field";
+  }
+}
+
+=====================================output=====================================
+declare module m {
+  class C {
+    field = "field";
+  }
+}
+
+================================================================================
+`;
+
+exports[`declare_namespace.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare namespace m {
+  class C {
+    field = "field";
+  }
+}
+
+=====================================output=====================================
+declare namespace m {
+  class C {
+    field = "field";
+  }
 }
 
 ================================================================================

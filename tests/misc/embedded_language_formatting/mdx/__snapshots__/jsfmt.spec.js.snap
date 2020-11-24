@@ -127,13 +127,11 @@ printWidth: 80
 <Heading hi='there'>Hello, world!
 </Heading>
 
-
 ---
 
 <Hello>
     test   <World />   test
 </Hello>123
-
 
 ---
 
@@ -144,7 +142,6 @@ printWidth: 80
     test   <World />   test
 </Hello>123
 
-
 ---
 
 <Hello>
@@ -154,13 +151,11 @@ printWidth: 80
     test   <World />   test
 </Hello>       234
 
-
 ---
 
 <>
     test   <World        />   test
 </>       123
-
 
 ---
 

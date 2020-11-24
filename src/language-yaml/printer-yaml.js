@@ -20,6 +20,7 @@ const {
 } = docBuilders;
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
+const { locStart } = require("./loc");
 const {
   getAncestorCount,
   getBlockValueLineContents,
@@ -127,8 +128,7 @@ function genericPrint(path, options, print) {
           ])
         )
       : "",
-    nextEmptyLine,
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+    shouldPrintEndComments(node)
       ? align(
           node.type === "sequenceItem" ? 2 : 0,
           concat([
@@ -141,7 +141,7 @@ function genericPrint(path, options, print) {
                     isPreviousLineEmpty(
                       options.originalText,
                       path.getValue(),
-                      options.locStart
+                      locStart
                     )
                       ? hardline
                       : "",
@@ -153,6 +153,7 @@ function genericPrint(path, options, print) {
           ])
         )
       : "",
+    nextEmptyLine,
   ]);
 }
 
@@ -498,6 +499,8 @@ function _print(node, parentNode, path, options, print) {
           lastItem.type === "flowMappingItem" &&
           isEmptyNode(lastItem.key) &&
           isEmptyNode(lastItem.value))(getLast(node.children));
+      const trailingComma =
+        options.trailingComma === "none" ? "" : ifBreak(",", "");
       return concat([
         openMarker,
         indent(
@@ -525,7 +528,13 @@ function _print(node, parentNode, path, options, print) {
                 "children"
               )
             ),
-            ifBreak(",", ""),
+            trailingComma,
+            hasEndComments(node)
+              ? concat([
+                  hardline,
+                  join(hardline, path.map(print, "endComments")),
+                ])
+              : "",
           ])
         ),
         isLastItemEmptyMappingItem ? "" : bracketSpacing,
@@ -626,10 +635,7 @@ function shouldPrintDocumentHeadEndMarker(
      */
     (root.children[0] === document &&
       /---(\s|$)/.test(
-        options.originalText.slice(
-          options.locStart(document),
-          options.locStart(document) + 4
-        )
+        options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
     /**
      * %DIRECTIVE
@@ -703,16 +709,37 @@ function needsSpaceInFrontOfMappingValue(node) {
   return node.key.content && node.key.content.type === "alias";
 }
 
+function shouldPrintEndComments(node) {
+  return (
+    hasEndComments(node) &&
+    !isNode(node, [
+      "documentHead",
+      "documentBody",
+      "flowMapping",
+      "flowSequence",
+    ])
+  );
+}
+
+const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
   const root = path.stack[0];
 
-  root.isNextEmptyLinePrintedChecklist =
-    root.isNextEmptyLinePrintedChecklist || [];
+  let isNextEmptyLinePrintedSet;
+  if (printedEmptyLineCache.has(root)) {
+    isNextEmptyLinePrintedSet = printedEmptyLineCache.get(root);
+  } else {
+    isNextEmptyLinePrintedSet = new Set();
+    printedEmptyLineCache.set(root, isNextEmptyLinePrintedSet);
+  }
 
-  if (!root.isNextEmptyLinePrintedChecklist[node.position.end.line]) {
-    if (isNextLineEmpty(node, originalText)) {
-      root.isNextEmptyLinePrintedChecklist[node.position.end.line] = true;
+  if (!isNextEmptyLinePrintedSet.has(node.position.end.line)) {
+    isNextEmptyLinePrintedSet.add(node.position.end.line);
+    if (
+      isNextLineEmpty(node, originalText) &&
+      !shouldPrintEndComments(path.getParentNode())
+    ) {
       return softline;
     }
   }
