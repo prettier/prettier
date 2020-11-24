@@ -320,7 +320,7 @@ function attach(comments, ast, text, options) {
 }
 
 const isAllEmptyAndNoLineBreak = (text) =>
-  !/[\n\u2028\u2029]/.test(text) && /^\s*$/.test(text);
+  !/[\S\n\u2028\u2029]/.test(text);
 function isOwnLineComment(text, options, decoratedComments, commentIndex) {
   const { comment, precedingNode } = decoratedComments[commentIndex];
   const { locStart, locEnd } = options;
