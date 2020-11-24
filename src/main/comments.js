@@ -333,10 +333,10 @@ function breakTies(tiesToBreak, text, options) {
   ) {
     const {
       comment,
-      precedingNode: currentCommentEnclosingNode,
+      precedingNode: currentCommentPrecedingNode,
       followingNode: currentCommentFollowingNode,
     } = tiesToBreak[indexOfFirstLeadingComment - 1];
-    assert.strictEqual(currentCommentEnclosingNode, precedingNode);
+    assert.strictEqual(currentCommentPrecedingNode, precedingNode);
     assert.strictEqual(currentCommentFollowingNode, followingNode);
 
     const gap = text.slice(options.locEnd(comment), gapEndPos);
