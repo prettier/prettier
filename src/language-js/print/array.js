@@ -8,8 +8,7 @@ const { getLast, isNextLineEmpty } = require("../../common/util");
 const { shouldPrintComma, hasComment, Comment } = require("../utils");
 const { locEnd } = require("../loc");
 
-const { printOptionalToken } = require("./misc");
-const { printTypeAnnotation } = require("./type-annotation");
+const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
 /** @typedef {import("../../document").Doc} Doc */
 

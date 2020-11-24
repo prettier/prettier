@@ -11,10 +11,9 @@ const {
 } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
-const { printOptionalToken } = require("./misc");
+const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { printStatementSequence } = require("./statement");
 const { printPropertyKey } = require("./property");
-const { printTypeAnnotation } = require("./type-annotation");
 const { printAssignmentRight } = require("./assignment");
 
 function printClass(path, options, print) {

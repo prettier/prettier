@@ -28,10 +28,10 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.12.7.tgz#9329b4782a7d6bbd7eef57e11addf91ee3ef1e41"
   integrity sha512-YaxPMGs/XIWtYqrdEOZOCPsVWfEoriXopnsz3/i7apYPXQ3698UFhS6dVT1KN5qOsWmVgw/FOrmQgpRaZayGsw==
 
-"@babel/core@7.12.7", "@babel/core@^7.1.0", "@babel/core@^7.7.5":
-  version "7.12.7"
-  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.12.7.tgz#bf55363c08c8352a37691f7216ec30090bf7e3bf"
-  integrity sha512-tRKx9B53kJe8NCGGIxEQb2Bkr0riUIEuN7Sc1fxhs5H8lKlCWUvQCSNMVIB0Meva7hcbCRJ76de15KoLltdoqw==
+"@babel/core@7.12.8", "@babel/core@^7.1.0", "@babel/core@^7.7.5":
+  version "7.12.8"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.12.8.tgz#8ad76c1a7d2a6a3beecc4395fa4f7b4cb88390e6"
+  integrity sha512-ra28JXL+5z73r1IC/t+FT1ApXU5LsulFDnTDntNfLQaScJUJmcHL5Qxm/IWanCToQk3bPWQo5bflbplU5r15pg==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/generator" "^7.12.5"
@@ -39,7 +39,7 @@
     "@babel/helpers" "^7.12.5"
     "@babel/parser" "^7.12.7"
     "@babel/template" "^7.12.7"
-    "@babel/traverse" "^7.12.7"
+    "@babel/traverse" "^7.12.8"
     "@babel/types" "^7.12.7"
     convert-source-map "^1.7.0"
     debug "^4.1.0"
@@ -277,12 +277,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@7.12.5":
-  version "7.12.5"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.12.5.tgz#b4af32ddd473c0bfa643bd7ff0728b8e71b81ea0"
-  integrity sha512-FVM6RZQ0mn2KCf1VUED7KepYeUWoVShczewOCfm3nzoBybaih51h+sYVVGthW9M6lPByEPTQf+xm27PBdlpwmQ==
-
-"@babel/parser@^7.1.0", "@babel/parser@^7.12.7", "@babel/parser@^7.7.0":
+"@babel/parser@7.12.7", "@babel/parser@^7.1.0", "@babel/parser@^7.12.7", "@babel/parser@^7.7.0":
   version "7.12.7"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.12.7.tgz#fee7b39fe809d0e73e5b25eecaf5780ef3d73056"
   integrity sha512-oWR02Ubp4xTLCAqPRiNIuMVgNO5Aif/xpXtabhzW2HWUD47XJsAB4Zd/Rg30+XeQA3juXigV7hlquOTmwqLiwg==
@@ -840,10 +835,10 @@
     "@babel/parser" "^7.12.7"
     "@babel/types" "^7.12.7"
 
-"@babel/traverse@^7.1.0", "@babel/traverse@^7.10.4", "@babel/traverse@^7.12.1", "@babel/traverse@^7.12.5", "@babel/traverse@^7.12.7", "@babel/traverse@^7.7.0":
-  version "7.12.7"
-  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.12.7.tgz#572a722408681cef17d6b0bef69ef2e728ca69f1"
-  integrity sha512-nMWaqsQEeSvMNypswUDzjqQ+0rR6pqCtoQpsqGJC4/Khm9cISwPTSpai57F6/jDaOoEGz8yE/WxcO3PV6tKSmQ==
+"@babel/traverse@^7.1.0", "@babel/traverse@^7.10.4", "@babel/traverse@^7.12.1", "@babel/traverse@^7.12.5", "@babel/traverse@^7.12.8", "@babel/traverse@^7.7.0":
+  version "7.12.8"
+  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.12.8.tgz#c1c2983bf9ba0f4f0eaa11dff7e77fa63307b2a4"
+  integrity sha512-EIRQXPTwFEGRZyu6gXbjfpNORN1oZvwuzJbxcXjAgWV0iqXYDszN1Hx3FVm6YgZfu1ZQbCVAk3l+nIw95Xll9Q==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/generator" "^7.12.5"
@@ -905,13 +900,6 @@
   dependencies:
     "@glimmer/env" "^0.1.7"
 
-"@glimmer/interfaces@0.66.0":
-  version "0.66.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.66.0.tgz#f281e1985d6b7f63648d960cc2745c68562fdb92"
-  integrity sha512-fw1pO6oyczSKeTPR6anrSI4OarLlaAR0SSDAhsYrINXfW7Xd/U/es7i6VE1JjLSZqfnsAxjNOFDe0lA5lmV/dw==
-  dependencies:
-    "@simple-dom/interface" "^1.4.0"
-
 "@glimmer/interfaces@0.66.1":
   version "0.66.1"
   resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.66.1.tgz#5b50b0dd6bcae19e7848d70b42f9466a184979be"
@@ -930,24 +918,15 @@
     "@glimmer/util" "0.66.1"
     "@glimmer/validator" "0.66.1"
 
-"@glimmer/syntax@0.66.0":
-  version "0.66.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.66.0.tgz#d38561be48f6c4deeb94c24a1344a3426bb7e925"
-  integrity sha512-sgGQvoLprHjGV/TW2WY5wTmJaUjkHHgXhRJp+nLL5+JVC1zoR/mbGJk2Wfbj/R5D3pKzPln08HsSdXKj9Dl36g==
+"@glimmer/syntax@0.66.1":
+  version "0.66.1"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.66.1.tgz#901b9d0253ad5ac1f7f8199de0ef43c98c209a63"
+  integrity sha512-hzYhlfWzu5c8K7ZtTh3bSdpT5a6efxN1NsKUvGE5p1TC9XGOZuKogq/fRtlK2UGBUazEh5fvTu7qmQ8dTU1dWA==
   dependencies:
-    "@glimmer/interfaces" "0.66.0"
-    "@glimmer/util" "0.66.0"
+    "@glimmer/interfaces" "0.66.1"
+    "@glimmer/util" "0.66.1"
     "@handlebars/parser" "^1.1.0"
     simple-html-tokenizer "^0.5.10"
-
-"@glimmer/util@0.66.0":
-  version "0.66.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.66.0.tgz#c457951951f4ea1d5a1d63fa11c9ffeae8efa4f6"
-  integrity sha512-4J3sihRKZ7N4igk2BZGryC/E6qIy+20d3Dl9+jYhsM8SdviPm+PtFy7tdJsb3E+u/yITqHnvzt7+Cr+VtlT7KA==
-  dependencies:
-    "@glimmer/env" "0.1.7"
-    "@glimmer/interfaces" "0.66.0"
-    "@simple-dom/interface" "^1.4.0"
 
 "@glimmer/util@0.66.1":
   version "0.66.1"
