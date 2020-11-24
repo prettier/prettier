@@ -38,6 +38,12 @@ const { printFunctionDeclaration } = require("./function");
 const { printInterface } = require("./interface");
 const { printAssignmentRight } = require("./assignment");
 const { printBlock } = require("./block");
+const {
+  printIntersectionType,
+  printUnionType,
+  printFunctionType,
+  printTupleType,
+} = require("./type-annotation");
 
 function printTypescript(path, options, print) {
   const n = path.getValue();
@@ -525,6 +531,21 @@ function printTypescript(path, options, print) {
 
     case "TSInferType":
       return concat(["infer", " ", path.call(print, "typeParameter")]);
+    case "TSIntersectionType":
+      return printIntersectionType(path, options, print);
+    case "TSUnionType":
+      return printUnionType(path, options, print);
+    case "TSFunctionType":
+      return printFunctionType(path, options, print);
+    case "TSTupleType":
+      return printTupleType(path, options, print);
+    case "TSTypeReference":
+      return concat([
+        path.call(print, "typeName"),
+        printTypeParameters(path, options, print, "typeParameters"),
+      ]);
+    case "TSTypeAnnotation":
+      return path.call(print, "typeAnnotation");
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":
