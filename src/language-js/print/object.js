@@ -18,9 +18,9 @@ const {
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
-const { printOptionalToken } = require("./misc");
+const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { shouldHugFunctionParameters } = require("./function-parameters");
-const { printTypeAnnotation, shouldHugType } = require("./type-annotation");
+const { shouldHugType } = require("./type-annotation");
 
 /** @typedef {import("../../document").Doc} Doc */
 

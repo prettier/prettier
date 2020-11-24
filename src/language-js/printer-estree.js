@@ -62,6 +62,7 @@ const { printTypescript } = require("./print/typescript");
 const {
   printOptionalToken,
   printBindExpressionCallee,
+  printTypeAnnotation,
   adjustClause,
 } = require("./print/misc");
 const {
@@ -75,7 +76,6 @@ const { printTemplateLiteral } = require("./print/template-literal");
 const { printArray, printArrayItems } = require("./print/array");
 const { printObject } = require("./print/object");
 const {
-  printTypeAnnotation,
   printOpaqueType,
   printTypeAlias,
 } = require("./print/type-annotation");

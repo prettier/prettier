@@ -8,7 +8,6 @@ const {
 const pathNeedsParens = require("../needs-parens");
 const { locStart } = require("../loc");
 const {
-  isFlowAnnotationComment,
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
@@ -18,32 +17,6 @@ const {
 const { printAssignmentRight } = require("./assignment");
 const { printFunctionParameters } = require("./function-parameters");
 const { printArrayItems } = require("./array");
-
-function printTypeAnnotation(path, options, print) {
-  const node = path.getValue();
-  if (!node.typeAnnotation) {
-    return "";
-  }
-
-  const parentNode = path.getParentNode();
-  const isDefinite =
-    node.definite ||
-    (parentNode &&
-      parentNode.type === "VariableDeclarator" &&
-      parentNode.definite);
-
-  const isFunctionDeclarationIdentifier =
-    parentNode.type === "DeclareFunction" && parentNode.id === node;
-
-  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
-  }
-
-  return concat([
-    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
-    path.call(print, "typeAnnotation"),
-  ]);
-}
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -330,7 +303,6 @@ function printTupleType(path, options, print) {
 module.exports = {
   printOpaqueType,
   printTypeAlias,
-  printTypeAnnotation,
   printIntersectionType,
   printUnionType,
   printFunctionType,
