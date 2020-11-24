@@ -24,15 +24,15 @@ const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc");
 const { printTernary } = require("./ternary");
-const {
-  printFunctionParameters,
-  printTypeParameter,
-  printTypeParameters,
-} = require("./function-parameters");
+const { printFunctionParameters } = require("./function-parameters");
 const { printTemplateLiteral } = require("./template-literal");
 const { printArrayItems } = require("./array");
 const { printObject } = require("./object");
 const { printClassProperty, printClassMethod } = require("./class");
+const {
+  printTypeParameter,
+  printTypeParameters,
+} = require("./type-parameters");
 const { printPropertyKey } = require("./property");
 const { printFunctionDeclaration } = require("./function");
 const { printInterface } = require("./interface");
