@@ -850,7 +850,7 @@ function hasLeadingOwnLineComment(text, node) {
     return hasNodeIgnoreComment(node);
   }
 
-  return hasComment(node, Comment.leading, (comment) =>
+  return hasComment(node, CommentCheckFlags.leading, (comment) =>
     hasNewline(text, locEnd(comment))
   );
 }
@@ -993,7 +993,9 @@ function needsHardlineAfterDanglingComment(node) {
   if (!hasComment(node)) {
     return false;
   }
-  const lastDanglingComment = getLast(getComments(node, Comment.dangling));
+  const lastDanglingComment = getLast(
+    getComments(node, CommentCheckFlags.dangling)
+  );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
 
@@ -1410,7 +1412,8 @@ function isPrettierIgnoreComment(comment) {
 
 function hasNodeIgnoreComment(node) {
   return (
-    node && (node.prettierIgnore || hasComment(node, Comment.prettierIgnore))
+    node &&
+    (node.prettierIgnore || hasComment(node, CommentCheckFlags.prettierIgnore))
   );
 }
 
@@ -1419,7 +1422,7 @@ function hasIgnoreComment(path) {
   return hasNodeIgnoreComment(node);
 }
 
-const Comment = {
+const CommentCheckFlags = {
   leading: 1 << 1,
   trailing: 1 << 2,
   dangling: 1 << 3,
@@ -1437,14 +1440,16 @@ const getCommentTestFunction = (types, fn) => {
   if (types || fn) {
     return (comment, index, comments) =>
       !(
-        (types & Comment.leading && !comment.leading) ||
-        (types & Comment.trailing && !comment.trailing) ||
-        (types & Comment.dangling && (comment.leading || comment.trailing)) ||
-        (types & Comment.block && !isBlockComment(comment)) ||
-        (types & Comment.line && !isLineComment(comment)) ||
-        (types & Comment.first && index !== 0) ||
-        (types & Comment.last && index !== comments.length - 1) ||
-        (types & Comment.prettierIgnore && !isPrettierIgnoreComment(comment)) ||
+        (types & CommentCheckFlags.leading && !comment.leading) ||
+        (types & CommentCheckFlags.trailing && !comment.trailing) ||
+        (types & CommentCheckFlags.dangling &&
+          (comment.leading || comment.trailing)) ||
+        (types & CommentCheckFlags.block && !isBlockComment(comment)) ||
+        (types & CommentCheckFlags.line && !isLineComment(comment)) ||
+        (types & CommentCheckFlags.first && index !== 0) ||
+        (types & CommentCheckFlags.last && index !== comments.length - 1) ||
+        (types & CommentCheckFlags.prettierIgnore &&
+          !isPrettierIgnoreComment(comment)) ||
         (fn && !fn(comment))
       );
   }
@@ -1547,5 +1552,5 @@ module.exports = {
   getPrecedence,
   hasComment,
   getComments,
-  Comment,
+  CommentCheckFlags,
 };

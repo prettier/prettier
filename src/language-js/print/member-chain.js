@@ -18,7 +18,7 @@ const {
   isNumericLiteral,
   isSimpleCallArgument,
   hasComment,
-  Comment,
+  CommentCheckFlags,
 } = require("../utils");
 const { locEnd } = require("../loc");
 
@@ -244,7 +244,7 @@ function printMemberChain(path, options, print) {
     }
     currentGroup.push(printedNodes[i]);
 
-    if (hasComment(printedNodes[i].node, Comment.trailing)) {
+    if (hasComment(printedNodes[i].node, CommentCheckFlags.trailing)) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
@@ -341,11 +341,12 @@ function printMemberChain(path, options, print) {
   const nodeHasComment =
     flatGroups
       .slice(1, -1)
-      .some((node) => hasComment(node.node, Comment.leading)) ||
+      .some((node) => hasComment(node.node, CommentCheckFlags.leading)) ||
     flatGroups
       .slice(0, -1)
-      .some((node) => hasComment(node.node, Comment.trailing)) ||
-    (groups[cutoff] && hasComment(groups[cutoff][0].node, Comment.leading));
+      .some((node) => hasComment(node.node, CommentCheckFlags.trailing)) ||
+    (groups[cutoff] &&
+      hasComment(groups[cutoff][0].node, CommentCheckFlags.leading));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.

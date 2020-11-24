@@ -6,7 +6,7 @@ const {
 } = require("../../document");
 const {
   hasComment,
-  Comment,
+  CommentCheckFlags,
   hasNewlineBetweenOrAfterDecorators,
 } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
@@ -33,7 +33,7 @@ function printClass(path, options, print) {
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
-    (n.id && hasComment(n.id, Comment.trailing)) ||
+    (n.id && hasComment(n.id, CommentCheckFlags.trailing)) ||
     (n.superClass && hasComment(n.superClass)) ||
     (n.extends && n.extends.length !== 0) || // DeclareClass
     (n.mixins && n.mixins.length !== 0) ||
@@ -103,7 +103,10 @@ function hasMultipleHeritage(node) {
 function shouldIndentOnlyHeritageClauses(node) {
   return (
     node.typeParameters &&
-    !hasComment(node.typeParameters, Comment.trailing | Comment.line) &&
+    !hasComment(
+      node.typeParameters,
+      CommentCheckFlags.trailing | CommentCheckFlags.line
+    ) &&
     !hasMultipleHeritage(node)
   );
 }

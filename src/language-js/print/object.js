@@ -14,7 +14,7 @@ const {
   shouldPrintComma,
   hasComment,
   getComments,
-  Comment,
+  CommentCheckFlags,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -116,7 +116,7 @@ function printObject(path, options, print) {
         (prop.node.type === "TSPropertySignature" ||
           prop.node.type === "TSMethodSignature" ||
           prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasComment(prop.node, Comment.prettierIgnore)
+        hasComment(prop.node, CommentCheckFlags.prettierIgnore)
       ) {
         separatorParts.shift();
       }
@@ -128,8 +128,8 @@ function printObject(path, options, print) {
 
   if (n.inexact) {
     let printed;
-    if (hasComment(n, Comment.dangling)) {
-      const hasLineComments = hasComment(n, Comment.line);
+    if (hasComment(n, CommentCheckFlags.dangling)) {
+      const hasLineComments = hasComment(n, CommentCheckFlags.line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
@@ -159,12 +159,12 @@ function printObject(path, options, print) {
         lastElem.type === "TSCallSignatureDeclaration" ||
         lastElem.type === "TSMethodSignature" ||
         lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasComment(lastElem, Comment.prettierIgnore))
+      hasComment(lastElem, CommentCheckFlags.prettierIgnore))
   );
 
   let content;
   if (props.length === 0) {
-    if (!hasComment(n, Comment.dangling)) {
+    if (!hasComment(n, CommentCheckFlags.dangling)) {
       return concat([
         leftBrace,
         rightBrace,

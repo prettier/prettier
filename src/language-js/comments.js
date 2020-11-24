@@ -20,7 +20,7 @@ const {
   hasFlowAnnotationComment,
   hasIgnoreComment,
   hasComment,
-  Comment,
+  CommentCheckFlags,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -875,7 +875,7 @@ function hasLeadingComment(node, fn = () => true) {
   if (node.leadingComments) {
     return node.leadingComments.some(fn);
   }
-  return hasComment(node, Comment.leading, fn);
+  return hasComment(node, CommentCheckFlags.leading, fn);
 }
 
 /**

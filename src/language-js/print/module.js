@@ -7,7 +7,7 @@ const { printDanglingComments } = require("../../main/comments");
 
 const {
   hasComment,
-  Comment,
+  CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
 } = require("../utils");
@@ -56,7 +56,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(" default");
   }
 
-  if (hasComment(node, Comment.dangling)) {
+  if (hasComment(node, CommentCheckFlags.dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)

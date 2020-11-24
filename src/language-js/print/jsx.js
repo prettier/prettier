@@ -31,7 +31,7 @@ const {
   isStringLiteral,
   isBinaryish,
   hasComment,
-  Comment,
+  CommentCheckFlags,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
@@ -589,7 +589,8 @@ function printJsxOpeningElement(path, options, print) {
   }
 
   const lastAttrHasTrailingComments =
-    n.attributes.length && hasComment(getLast(n.attributes), Comment.trailing);
+    n.attributes.length &&
+    hasComment(getLast(n.attributes), CommentCheckFlags.trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
@@ -641,9 +642,11 @@ function printJsxClosingElement(path, options, print) {
   parts.push("</");
 
   const printed = path.call(print, "name");
-  if (hasComment(n.name, Comment.leading | Comment.line)) {
+  if (hasComment(n.name, CommentCheckFlags.leading | CommentCheckFlags.line)) {
     parts.push(indent(concat([hardline, printed])), hardline);
-  } else if (hasComment(n.name, Comment.leading | Comment.block)) {
+  } else if (
+    hasComment(n.name, CommentCheckFlags.leading | CommentCheckFlags.block)
+  ) {
     parts.push(" ", printed);
   } else {
     parts.push(printed);
@@ -657,7 +660,7 @@ function printJsxClosingElement(path, options, print) {
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
   const n = path.getValue();
   const nodeHasComment = hasComment(n);
-  const hasOwnLineComment = hasComment(n, Comment.line);
+  const hasOwnLineComment = hasComment(n, CommentCheckFlags.line);
   const isOpeningFragment = n.type === "JSXOpeningFragment";
   return concat([
     isOpeningFragment ? "<" : "</",
@@ -687,7 +690,7 @@ function printJsxElement(path, options, print) {
 
 function printJsxEmptyExpression(path, options /*, print*/) {
   const n = path.getValue();
-  const requiresHardline = hasComment(n, Comment.line);
+  const requiresHardline = hasComment(n, CommentCheckFlags.line);
 
   return concat([
     printDanglingComments(path, options, /* sameIndent */ !requiresHardline),

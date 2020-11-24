@@ -14,7 +14,7 @@ const {
   isLastStatement,
   isTheOnlyJSXElementInMarkdown,
   hasComment,
-  Comment,
+  CommentCheckFlags,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { shouldPrintParamsWithoutParens } = require("./function");
@@ -49,7 +49,7 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
     !isTheOnlyJSXElementInMarkdown(options, path) &&
     statementNeedsASIProtection(path, options)
   ) {
-    if (hasComment(node, Comment.leading)) {
+    if (hasComment(node, CommentCheckFlags.leading)) {
       parts.push(print(path, { needsSemi: true }));
     } else {
       parts.push(";", printed);
