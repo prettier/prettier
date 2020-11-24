@@ -6,8 +6,16 @@ const {
 } = require("../../document");
 const { getParentExportDeclaration } = require("../utils");
 const { printClass } = require("./class");
-const { printOpaqueType, printTypeAlias } = require("./type-annotation");
+const {
+  printOpaqueType,
+  printTypeAlias,
+  printIntersectionType,
+  printUnionType,
+  printFunctionType,
+  printTupleType,
+} = require("./type-annotation");
 const { printInterface } = require("./interface");
+const { printTypeParameters } = require("./type-parameters");
 const {
   printExportDeclaration,
   printExportAllDeclaration,
@@ -79,6 +87,27 @@ function printFlow(path, options, print) {
           print
         )
       );
+    case "OpaqueType":
+      return printOpaqueType(path, options, print);
+    case "TypeAlias":
+      return printTypeAlias(path, options, print);
+    case "IntersectionTypeAnnotation":
+      return printIntersectionType(path, options, print);
+    case "UnionTypeAnnotation":
+      return printUnionType(path, options, print);
+    case "FunctionTypeAnnotation":
+      return printFunctionType(path, options, print);
+    case "TupleTypeAnnotation":
+      return printTupleType(path, options, print);
+    case "GenericTypeAnnotation":
+      return concat([
+        path.call(print, "id"),
+        printTypeParameters(path, options, print, "typeParameters"),
+      ]);
+    // Type Annotations for Facebook Flow, typically stripped out or
+    // transformed away before printing.
+    case "TypeAnnotation":
+      return path.call(print, "typeAnnotation");
   }
 }
 
