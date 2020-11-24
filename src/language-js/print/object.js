@@ -116,7 +116,7 @@ function printObject(path, options, print) {
         (prop.node.type === "TSPropertySignature" ||
           prop.node.type === "TSMethodSignature" ||
           prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasComment(prop.node, CommentCheckFlags.prettierIgnore)
+        hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
       ) {
         separatorParts.shift();
       }
@@ -159,7 +159,7 @@ function printObject(path, options, print) {
         lastElem.type === "TSCallSignatureDeclaration" ||
         lastElem.type === "TSMethodSignature" ||
         lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasComment(lastElem, CommentCheckFlags.prettierIgnore))
+      hasComment(lastElem, CommentCheckFlags.PrettierIgnore))
   );
 
   let content;
