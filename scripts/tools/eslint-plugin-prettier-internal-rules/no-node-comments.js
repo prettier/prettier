@@ -12,7 +12,7 @@ const memberExpressionSelector = [
 
 // `const {comments} = node`
 // `const {comments: nodeComments} = node`
-const ObjectPatternSelector = [
+const objectPatternSelector = [
   "ObjectPattern",
   ">",
   "Property.properties",
@@ -21,7 +21,7 @@ const ObjectPatternSelector = [
   '[name="comments"]',
 ].join("");
 
-const selector = `:matches(${memberExpressionSelector}, ${ObjectPatternSelector})`;
+const selector = `:matches(${memberExpressionSelector}, ${objectPatternSelector})`;
 
 const messageId = "no-node-comments";
 
