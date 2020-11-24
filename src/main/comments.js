@@ -187,7 +187,34 @@ function attach(comments, ast, text, options) {
     remaining: handleRemainingComment = returnFalse,
   } = handleComments;
 
-  comments.forEach((comment, i) => {
+  const decoratedComments = comments.map((comment, i) => {
+    const isLastComment = comments.length - 1 === i;
+    const decorated = decorateComment(ast, comment, options);
+    const { precedingNode, enclosingNode, followingNode } = decorated;
+    return {
+      comment,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      text,
+      options,
+      ast,
+      isLastComment,
+    };
+  });
+
+  decoratedComments.forEach((context, index) => {
+    const {
+      comment,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      text,
+      options,
+      ast,
+      isLastComment,
+    } = context;
+
     if (
       options.parser === "json" ||
       options.parser === "json5" ||
@@ -204,20 +231,6 @@ function attach(comments, ast, text, options) {
       }
     }
 
-    const isLastComment = comments.length - 1 === i;
-    const decorated = decorateComment(ast, comment, options);
-    const { precedingNode, enclosingNode, followingNode } = decorated;
-    const context = {
-      comment,
-      precedingNode,
-      enclosingNode,
-      followingNode,
-      text,
-      options,
-      ast,
-      isLastComment,
-    };
-
     let args;
     if (avoidAstMutation) {
       args = [context];
@@ -228,7 +241,7 @@ function attach(comments, ast, text, options) {
       args = [comment, text, options, ast, isLastComment];
     }
 
-    if (isOwnLineComment(comment, text, options, comments, i)) {
+    if (isOwnLineComment(text, options, decoratedComments, index)) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -245,7 +258,7 @@ function attach(comments, ast, text, options) {
         /* istanbul ignore next */
         addDanglingComment(ast, comment);
       }
-    } else if (isEndOfLineComment(comment, text, options, comments, i)) {
+    } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
       if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
@@ -308,19 +321,23 @@ function attach(comments, ast, text, options) {
 
 const isAllEmptyAndNoLineBreak = (text) =>
   !/[\n\u2028\u2029]/.test(text) && /^\s*$/.test(text);
-function isOwnLineComment(comment, text, options, comments, commentIndex) {
+function isOwnLineComment(text, options, decoratedComments, commentIndex) {
+  const { comment, precedingNode } = decoratedComments[commentIndex];
   const { locStart, locEnd } = options;
   let start = locStart(comment);
 
   // Find first comment on the same line
   for (let index = commentIndex - 1; index >= 0; index--) {
-    const previousComment = comments[index];
-    if (!previousComment) {
+    const previous = decoratedComments[index];
+    if (!previous) {
       break;
     }
-    const textBetween = text.slice(locEnd(previousComment), start);
+    if (previous.precedingNode !== precedingNode) {
+      continue;
+    }
+    const textBetween = text.slice(locEnd(previous.comment), start);
     if (isAllEmptyAndNoLineBreak(textBetween)) {
-      start = locStart(previousComment);
+      start = locStart(previous.comment);
     } else {
       break;
     }
@@ -329,19 +346,27 @@ function isOwnLineComment(comment, text, options, comments, commentIndex) {
   return hasNewline(text, start, { backwards: true });
 }
 
-function isEndOfLineComment(comment, text, options, comments, commentIndex) {
+function isEndOfLineComment(text, options, decoratedComments, commentIndex) {
+  const { comment, followingNode } = decoratedComments[commentIndex];
   const { locStart, locEnd } = options;
   let end = locEnd(comment);
 
   // Find last comment on the same line
-  for (let index = commentIndex + 1; index < comments.length; index++) {
-    const nextComment = comments[index];
-    if (!nextComment) {
+  for (
+    let index = commentIndex + 1;
+    index < decoratedComments.length;
+    index++
+  ) {
+    const next = decoratedComments[index];
+    if (!next) {
       break;
     }
-    const textBetween = text.slice(end, locStart(nextComment));
+    if (next.followingNode !== followingNode) {
+      continue;
+    }
+    const textBetween = text.slice(end, locStart(next.comment));
     if (isAllEmptyAndNoLineBreak(textBetween)) {
-      end = locEnd(nextComment);
+      end = locEnd(next.comment);
     } else {
       break;
     }
