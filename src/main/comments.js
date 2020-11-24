@@ -326,20 +326,20 @@ function isOwnLineComment(text, options, decoratedComments, commentIndex) {
   const { locStart, locEnd } = options;
   let start = locStart(comment);
 
-  // Find first comment on the same line
-  for (let index = commentIndex - 1; index >= 0; index--) {
-    const previous = decoratedComments[index];
-    if (!previous) {
-      break;
-    }
-    if (previous.precedingNode !== precedingNode) {
-      continue;
-    }
-    const textBetween = text.slice(locEnd(previous.comment), start);
-    if (isAllEmptyAndNoLineBreak(textBetween)) {
-      start = locStart(previous.comment);
-    } else {
-      break;
+  if (precedingNode) {
+    // Find first comment on the same line
+    for (let index = commentIndex - 1; index >= 0; index--) {
+      const {
+        comment,
+        precedingNode: currentCommentPrecedingNode,
+      } = decoratedComments[index];
+      if (
+        currentCommentPrecedingNode !== precedingNode ||
+        !isAllEmptyAndNoLineBreak(text.slice(locEnd(comment), start))
+      ) {
+        break;
+      }
+      start = locStart(comment);
     }
   }
 
@@ -351,24 +351,24 @@ function isEndOfLineComment(text, options, decoratedComments, commentIndex) {
   const { locStart, locEnd } = options;
   let end = locEnd(comment);
 
-  // Find last comment on the same line
-  for (
-    let index = commentIndex + 1;
-    index < decoratedComments.length;
-    index++
-  ) {
-    const next = decoratedComments[index];
-    if (!next) {
-      break;
-    }
-    if (next.followingNode !== followingNode) {
-      continue;
-    }
-    const textBetween = text.slice(end, locStart(next.comment));
-    if (isAllEmptyAndNoLineBreak(textBetween)) {
-      end = locEnd(next.comment);
-    } else {
-      break;
+  if (followingNode) {
+    // Find last comment on the same line
+    for (
+      let index = commentIndex + 1;
+      index < decoratedComments.length;
+      index++
+    ) {
+      const {
+        comment,
+        followingNode: currentCommentFollowingNode,
+      } = decoratedComments[index];
+      if (
+        currentCommentFollowingNode !== followingNode ||
+        !isAllEmptyAndNoLineBreak(text.slice(end, locStart(comment)))
+      ) {
+        break;
+      }
+      end = locEnd(comment);
     }
   }
 
