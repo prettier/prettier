@@ -45,7 +45,6 @@ const {
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isObjectTypePropertyAFunction,
   isTheOnlyJSXElementInMarkdown,
   isBlockComment,
   needsHardlineAfterDanglingComment,
@@ -1115,77 +1114,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "EnumDefaultedMember":
       return path.call(print, "id");
-
-    case "FunctionTypeAnnotation":
-    case "TSFunctionType": {
-      // FunctionTypeAnnotation is ambiguous:
-      // declare function foo(a: B): void; OR
-      // var A: (a: B) => void;
-      const parent = path.getParentNode(0);
-      const parentParent = path.getParentNode(1);
-      const parentParentParent = path.getParentNode(2);
-      let isArrowFunctionTypeAnnotation =
-        n.type === "TSFunctionType" ||
-        !(
-          ((parent.type === "ObjectTypeProperty" ||
-            parent.type === "ObjectTypeInternalSlot") &&
-            !parent.variance &&
-            !parent.optional &&
-            locStart(parent) === locStart(n)) ||
-          parent.type === "ObjectTypeCallProperty" ||
-          (parentParentParent && parentParentParent.type === "DeclareFunction")
-        );
-
-      let needsColon =
-        isArrowFunctionTypeAnnotation &&
-        (parent.type === "TypeAnnotation" ||
-          parent.type === "TSTypeAnnotation");
-
-      // Sadly we can't put it inside of FastPath::needsColon because we are
-      // printing ":" as part of the expression and it would put parenthesis
-      // around :(
-      const needsParens =
-        needsColon &&
-        isArrowFunctionTypeAnnotation &&
-        (parent.type === "TypeAnnotation" ||
-          parent.type === "TSTypeAnnotation") &&
-        parentParent.type === "ArrowFunctionExpression";
-
-      if (isObjectTypePropertyAFunction(parent)) {
-        isArrowFunctionTypeAnnotation = true;
-        needsColon = true;
-      }
-
-      if (needsParens) {
-        parts.push("(");
-      }
-
-      parts.push(
-        printFunctionParameters(
-          path,
-          print,
-          options,
-          /* expandArg */ false,
-          /* printTypeParams */ true
-        )
-      );
-
-      // The returnType is not wrapped in a TypeAnnotation, so the colon
-      // needs to be added separately.
-      if (n.returnType || n.predicate || n.typeAnnotation) {
-        parts.push(
-          isArrowFunctionTypeAnnotation ? " => " : ": ",
-          path.call(print, "returnType"),
-          path.call(print, "predicate"),
-          path.call(print, "typeAnnotation")
-        );
-      }
-      if (needsParens) {
-        parts.push(")");
-      }
-
-      return group(concat(parts));
-    }
     case "FunctionTypeParam": {
       const name = n.name
         ? path.call(print, "name")

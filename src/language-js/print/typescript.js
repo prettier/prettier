@@ -24,22 +24,25 @@ const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc");
 const { printTernary } = require("./ternary");
-const { printFunctionParameters } = require("./function-parameters");
+const {
+  printFunctionParameters,
+  printTypeParameter,
+  printTypeParameters,
+} = require("./function-parameters");
 const { printTemplateLiteral } = require("./template-literal");
 const { printArrayItems } = require("./array");
 const { printObject } = require("./object");
 const { printClassProperty, printClassMethod } = require("./class");
-const {
-  printTypeParameter,
-  printTypeParameters,
-  printIntersectionType,
-  printUnionType,
-} = require("./type-parameters");
 const { printPropertyKey } = require("./property");
 const { printFunctionDeclaration } = require("./function");
 const { printInterface } = require("./interface");
 const { printAssignmentRight } = require("./assignment");
 const { printBlock } = require("./block");
+const {
+  printIntersectionType,
+  printUnionType,
+  printFunctionType,
+} = require("./type-annotation");
 
 function printTypescript(path, options, print) {
   const n = path.getValue();
@@ -531,6 +534,8 @@ function printTypescript(path, options, print) {
       return printIntersectionType(path, options, print);
     case "TSUnionType":
       return printUnionType(path, options, print);
+    case "TSFunctionType":
+      return printFunctionType(path, options, print);
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":
