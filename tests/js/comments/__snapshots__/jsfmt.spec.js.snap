@@ -1175,7 +1175,7 @@ function d() {
 }
 new Thing(/* dangling */)
 Thing(/* dangling */)
-export /* dangling */{}
+export /* dangling */ {}
 
 ================================================================================
 `;
@@ -1213,7 +1213,7 @@ function d() {
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
-export /* dangling */{};
+export /* dangling */ {};
 
 ================================================================================
 `;
@@ -1476,9 +1476,9 @@ export {
 
 =====================================output=====================================
 export //comment
-{}
+ {}
 
-export /* comment */{}
+export /* comment */ {}
 
 const foo = ""
 export {
@@ -1532,9 +1532,9 @@ export {
 
 =====================================output=====================================
 export //comment
-{};
+ {};
 
-export /* comment */{};
+export /* comment */ {};
 
 const foo = "";
 export {

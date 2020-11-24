@@ -464,6 +464,7 @@ const simpleTypeAnnotations = new Set([
   "BigIntLiteralTypeAnnotation",
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
+  "TSTemplateLiteralType",
   // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
@@ -613,45 +614,23 @@ function hasDanglingComments(node) {
   );
 }
 
-/** identify if an angular expression seems to have side effects */
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), (node) => {
-    switch (node.type) {
-      case undefined:
-        return false;
-      case "CallExpression":
-      case "OptionalCallExpression":
-      case "AssignmentExpression":
-        return true;
-    }
-  });
-}
-
-function isNgForOf(node, index, parentNode) {
-  return (
-    node.type === "NGMicrosyntaxKeyedExpression" &&
-    node.key.name === "of" &&
-    index === 1 &&
-    parentNode.body[0].type === "NGMicrosyntaxLet" &&
-    parentNode.body[0].value === null
-  );
-}
-
 /**
  *
  * @param {any} node
  * @returns {boolean}
  */
 function isSimpleTemplateLiteral(node) {
-  if (node.expressions.length === 0) {
+  let expressionsKey = "expressions";
+  if (node.type === "TSTemplateLiteralType") {
+    expressionsKey = "types";
+  }
+  const expressions = node[expressionsKey];
+
+  if (expressions.length === 0) {
     return false;
   }
 
-  return node.expressions.every((expr) => {
+  return expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
     if (expr.comments) {
       return false;
@@ -1512,7 +1491,6 @@ module.exports = {
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
-  hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
   hasTrailingComment,
@@ -1542,7 +1520,6 @@ module.exports = {
   isMeaningfulJSXText,
   isMemberExpressionChain,
   isMemberish,
-  isNgForOf,
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,

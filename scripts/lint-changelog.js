@@ -2,9 +2,11 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const { outdent } = require("outdent");
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
+const BLOG_POST_INTRO_TEMPLATE_FILE = "BLOG_POST_INTRO_TEMPLATE.md";
 const BLOG_POST_INTRO_FILE = "blog-post-intro.md";
 const CHANGELOG_CATEGORIES = [
   "angular",
@@ -37,6 +39,7 @@ for (const file of files) {
   if (
     file !== TEMPLATE_FILE &&
     file !== BLOG_POST_INTRO_FILE &&
+    file !== BLOG_POST_INTRO_TEMPLATE_FILE &&
     !CHANGELOG_CATEGORIES.includes(file)
   ) {
     showErrorMessage(`Please remove "${file}" from "${CHANGELOG_DIR}".`);
@@ -44,7 +47,7 @@ for (const file of files) {
 }
 for (const file of [
   TEMPLATE_FILE,
-  BLOG_POST_INTRO_FILE,
+  BLOG_POST_INTRO_TEMPLATE_FILE,
   ...CHANGELOG_CATEGORIES,
 ]) {
   if (!files.includes(file)) {
@@ -61,6 +64,7 @@ const template = fs.readFileSync(
 );
 const [templateComment] = template.match(/<!--[\S\s]*?-->/);
 const [templateAuthorLink] = template.match(authorRegex);
+const checkedFiles = new Map();
 
 for (const category of CHANGELOG_CATEGORIES) {
   const files = fs.readdirSync(path.join(CHANGELOG_ROOT, category));
@@ -75,21 +79,31 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^pr-(\d{4,})\.md$/);
+    const match = prFile.match(/^(\d{4,})\.md$/);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
       showErrorMessage(
-        `[${displayPath}]: Filename is not in form of "pr-{PR_NUMBER}.md".`
+        `[${displayPath}]: Filename is not in form of "{PR_NUMBER}.md".`
       );
       continue;
     }
     const [, prNumber] = match;
+    const prLink = `#${prNumber}`;
+    if (checkedFiles.has(prNumber)) {
+      showErrorMessage(
+        outdent`
+          Duplicate files for ${prLink} found.
+            - ${checkedFiles.get(prNumber)}
+            - ${displayPath}
+        `
+      );
+    }
+    checkedFiles.set(prNumber, displayPath);
     const content = fs.readFileSync(
       path.join(CHANGELOG_DIR, category, prFile),
       "utf8"
     );
-    const prLink = `#${prNumber}`;
 
     if (!content.includes(prLink)) {
       showErrorMessage(`[${displayPath}]: PR link "${prLink}" is missing.`);

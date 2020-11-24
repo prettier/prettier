@@ -1,42 +1,43 @@
 "use strict";
 
 const {
-  builders: { concat, ifBreak, line, softline },
+  builders: { concat, ifBreak, line, softline, hardline, join },
 } = require("../../document");
-const { isEmptyNode, getLast } = require("../utils");
+const { isEmptyNode, getLast, hasEndComments } = require("../utils");
 const { printNextEmptyLine, alignWithSpaces } = require("./misc");
 
 function printFlowMapping(path, print, options) {
   const node = path.getValue();
-  const bracketSpacing =
-    node.children.length !== 0 && options.bracketSpacing ? line : softline;
+  const isMapping = node.type === "flowMapping";
+  const openMarker = isMapping ? "{" : "[";
+  const closeMarker = isMapping ? "}" : "]";
+
+  let bracketSpacing = softline;
+  if (isMapping && node.children.length !== 0 && options.bracketSpacing) {
+    bracketSpacing = line;
+  }
   const lastItem = getLast(node.children);
   const isLastItemEmptyMappingItem =
-    lastItem && isEmptyNode(lastItem.key) && isEmptyNode(lastItem.value);
+    lastItem &&
+    lastItem.type === "flowMappingItem" &&
+    isEmptyNode(lastItem.key) &&
+    isEmptyNode(lastItem.value);
+
   return concat([
-    "{",
+    openMarker,
     alignWithSpaces(
       options.tabWidth,
       concat([
         bracketSpacing,
         printChildren(path, print, options),
-        ifBreak(",", ""),
+        options.trailingComma === "none" ? "" : ifBreak(",", ""),
+        hasEndComments(node)
+          ? concat([hardline, join(hardline, path.map(print, "endComments"))])
+          : "",
       ])
     ),
     isLastItemEmptyMappingItem ? "" : bracketSpacing,
-    "}",
-  ]);
-}
-
-function printFlowSequence(path, print, options) {
-  return concat([
-    "[",
-    alignWithSpaces(
-      options.tabWidth,
-      concat([softline, printChildren(path, print, options), ifBreak(",", "")])
-    ),
-    softline,
-    "]",
+    closeMarker,
   ]);
 }
 
@@ -62,4 +63,8 @@ function printChildren(path, print, options) {
   return concat(parts);
 }
 
-module.exports = { printFlowMapping, printFlowSequence };
+module.exports = {
+  printFlowMapping,
+  // Alias
+  printFlowSequence: printFlowMapping,
+};

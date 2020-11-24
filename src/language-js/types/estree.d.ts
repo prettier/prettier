@@ -7,7 +7,6 @@ import * as NGTree from "angular-estree-parser/lib/types";
 type AdditionalFields = {
   extra?: {
     parenthesized?: boolean;
-    parenStart?: number;
     raw?: string;
   };
   comments?: Comment[];
@@ -43,10 +42,7 @@ export type CallExpression = (
 ) &
   AdditionalFields;
 
-export type OptionalCallExpression = (
-  | Babel.OptionalCallExpression
-  | TSESTree.OptionalCallExpression
-) &
+export type OptionalCallExpression = Babel.OptionalCallExpression &
   AdditionalFields;
 
 export type MemberExpression = (
@@ -56,10 +52,7 @@ export type MemberExpression = (
 ) &
   AdditionalFields;
 
-export type OptionalMemberExpression = (
-  | Babel.OptionalMemberExpression
-  | TSESTree.OptionalMemberExpression
-) &
+export type OptionalMemberExpression = Babel.OptionalMemberExpression &
   AdditionalFields;
 
 export type Expression = (

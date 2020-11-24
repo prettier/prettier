@@ -7,7 +7,7 @@ const {
 } = require("../common/util");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
-const postprocess = require("./postprocess");
+const postprocess = require("./parse-postprocess");
 
 function babelOptions({ sourceType, extraPlugins = [] }) {
   return {

@@ -34,7 +34,13 @@ function printNextEmptyLine(path, originalText) {
 
 function shouldPrintEndComments(node) {
   return (
-    hasEndComments(node) && !isNode(node, ["documentHead", "documentBody"])
+    hasEndComments(node) &&
+    !isNode(node, [
+      "documentHead",
+      "documentBody",
+      "flowMapping",
+      "flowSequence",
+    ])
   );
 }
 

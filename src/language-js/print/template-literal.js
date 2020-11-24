@@ -14,6 +14,7 @@ const {
     addAlignmentToDoc,
   },
   printer: { printDocToString },
+  utils: { mapDoc },
 } = require("../../document");
 const {
   isBinaryish,
@@ -23,17 +24,24 @@ const {
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
-  const parentNode = path.getParentNode();
+  const isTemplateLiteral = node.type === "TemplateLiteral";
 
-  if (isJestEachTemplateLiteral(node, parentNode)) {
+  if (
+    isTemplateLiteral &&
+    isJestEachTemplateLiteral(node, path.getParentNode())
+  ) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
     }
   }
+  let expressionsKey = "expressions";
+  if (node.type === "TSTemplateLiteralType") {
+    expressionsKey = "types";
+  }
   const parts = [];
 
-  let expressions = path.map(print, "expressions");
+  let expressions = path.map(print, expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
@@ -69,7 +77,7 @@ function printTemplateLiteral(path, print, options) {
       let printed = expressions[i];
 
       if (!isSimple) {
-        const expression = node.expressions[i];
+        const expression = node[expressionsKey][i];
         // Breaks at the template element boundaries (${ and }) are preferred to breaking
         // in the middle of a MemberExpression
         if (
@@ -190,4 +198,49 @@ function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
-module.exports = printTemplateLiteral;
+function printTemplateExpression(path, print) {
+  const node = path.getValue();
+  let printed = print(path);
+  if (node.comments && node.comments.length) {
+    printed = group(concat([indent(concat([softline, printed])), softline]));
+  }
+  return concat(["${", printed, lineSuffixBoundary, "}"]);
+}
+
+function printTemplateExpressions(path, print) {
+  return path.map(
+    (path) => printTemplateExpression(path, print),
+    "expressions"
+  );
+}
+
+function escapeTemplateCharacters(doc, raw) {
+  return mapDoc(doc, (currentDoc) => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+
+    const parts = currentDoc.parts.map((part) => {
+      if (typeof part === "string") {
+        return raw
+          ? part.replace(/(\\*)`/g, "$1$1\\`")
+          : uncookTemplateElementValue(part);
+      }
+
+      return part;
+    });
+
+    return { ...currentDoc, parts };
+  });
+}
+
+function uncookTemplateElementValue(cookedValue) {
+  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+}
+
+module.exports = {
+  printTemplateLiteral,
+  printTemplateExpressions,
+  escapeTemplateCharacters,
+  uncookTemplateElementValue,
+};
