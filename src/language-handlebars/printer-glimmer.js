@@ -268,7 +268,7 @@ function print(path, options, print) {
       ]);
     }
     case "MustacheCommentStatement": {
-      const rawNodeContent = options.originalText(locStart(n), locEnd(n));
+      const rawNodeContent = options.originalText.slice(locStart(n), locEnd(n));
       const isLeftWhiteSpaceSensitive = rawNodeContent.startsWith("{{~");
       const isRightWhitespaceSensitive = rawNodeContent.endsWith("~}}");
 
