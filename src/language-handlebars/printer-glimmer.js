@@ -268,17 +268,25 @@ function print(path, options, print) {
       ]);
     }
     case "MustacheCommentStatement": {
-      const rawNodeContent = options.originalText.slice(locStart(n), locEnd(n));
-      const isLeftWhiteSpaceSensitive = rawNodeContent.startsWith("{{~");
-      const isRightWhitespaceSensitive = rawNodeContent.endsWith("~}}");
+      const start = locStart(n);
+      const end = locEnd(n);
+      // Starts with `{{~`
+      const isLeftWhiteSpaceSensitive =
+        options.originalText.charAt(start + 2) === "~";
+      // Ends with `{{~`
+      const isRightWhitespaceSensitive =
+        options.originalText.charAt(end - 3) === "~";
 
       const dashes = n.value.includes("}}") ? "--" : "";
       return concat([
-        isLeftWhiteSpaceSensitive ? "{{~!" : "{{!",
+        "{{",
+        isLeftWhiteSpaceSensitive ? "~" : "",
+        "!",
         dashes,
         n.value,
         dashes,
-        isRightWhitespaceSensitive ? "~}}" : "}}",
+        isRightWhitespaceSensitive ? "~" : "",
+        "}}",
       ]);
     }
     case "PathExpression": {
