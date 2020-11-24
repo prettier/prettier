@@ -27,6 +27,7 @@ printWidth: 80
   {{~!
 comment
  ~}}
+  {{~! 1 ~}}{{~! 2 ~}}
   <!-- This comment will be in the output -->
 </div>
 
@@ -58,6 +59,7 @@ comment
   {{~!
 comment
  ~}}
+  {{~! 1 ~}}{{~! 2 ~}}
   <!-- This comment will be in the output -->
 </div>
 
