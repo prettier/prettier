@@ -9,7 +9,6 @@ const assert = require("assert");
 const comments = require("../main/comments");
 const {
   hasNewline,
-  getLast,
   printString,
   printNumber,
   isNextLineEmpty,
@@ -24,8 +23,6 @@ const {
     literalline,
     group,
     indent,
-    align,
-    ifBreak,
   },
   utils: { isEmpty },
 } = require("../document");
@@ -40,15 +37,12 @@ const {
   getParentExportDeclaration,
   hasDanglingComments,
   hasFlowShorthandAnnotationComment,
-  hasLeadingOwnLineComment,
   hasNewlineBetweenOrAfterDecorators,
   hasPrettierIgnore,
   hasTrailingComment,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isObjectType,
-  isObjectTypePropertyAFunction,
   isTheOnlyJSXElementInMarkdown,
   isBlockComment,
   needsHardlineAfterDanglingComment,
@@ -68,6 +62,7 @@ const { printTypescript } = require("./print/typescript");
 const {
   printOptionalToken,
   printBindExpressionCallee,
+  printTypeAnnotation,
   adjustClause,
 } = require("./print/misc");
 const {
@@ -77,16 +72,9 @@ const {
   printModuleSpecifier,
 } = require("./print/module");
 const { printTernary } = require("./print/ternary");
-const { printFunctionParameters } = require("./print/function-parameters");
 const { printTemplateLiteral } = require("./print/template-literal");
 const { printArray, printArrayItems } = require("./print/array");
 const { printObject } = require("./print/object");
-const {
-  printTypeAnnotation,
-  shouldHugType,
-  printOpaqueType,
-  printTypeAlias,
-} = require("./print/type-annotation");
 const {
   printClass,
   printClassMethod,
@@ -99,7 +87,8 @@ const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
   printMethod,
-  printReturnAndThrowArgument,
+  printReturnStatement,
+  printThrowStatement,
 } = require("./print/function");
 const { printCallExpression } = require("./print/call-expression");
 const { printInterface } = require("./print/interface");
@@ -470,11 +459,9 @@ function printPathNoParens(path, options, print, args) {
     case "StaticBlock":
       return printBlock(path, options, print);
     case "ThrowStatement":
+      return printThrowStatement(path, options, print);
     case "ReturnStatement":
-      return concat([
-        n.type === "ReturnStatement" ? "return" : "throw",
-        printReturnAndThrowArgument(path, options, print),
-      ]);
+      return printReturnStatement(path, options, print);
     case "NewExpression":
     case "ImportExpression":
     case "OptionalCallExpression":
@@ -991,39 +978,6 @@ function printPathNoParens(path, options, print, args) {
     case "Type":
       /* istanbul ignore next */
       throw new Error("unprintable type: " + JSON.stringify(n.type));
-    // Type Annotations for Facebook Flow, typically stripped out or
-    // transformed away before printing.
-    case "TypeAnnotation":
-    case "TSTypeAnnotation":
-      if (n.typeAnnotation) {
-        return path.call(print, "typeAnnotation");
-      }
-
-      /* istanbul ignore next */
-      return "";
-    case "TSTupleType":
-    case "TupleTypeAnnotation": {
-      const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
-      const hasRest =
-        n[typesField].length > 0 &&
-        getLast(n[typesField]).type === "TSRestType";
-      return group(
-        concat([
-          "[",
-          indent(
-            concat([
-              softline,
-              printArrayItems(path, options, typesField, print),
-            ])
-          ),
-          ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
-          comments.printDanglingComments(path, options, /* sameIndent */ true),
-          softline,
-          "]",
-        ])
-      );
-    }
-
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":
@@ -1034,8 +988,6 @@ function printPathNoParens(path, options, print, args) {
       return concat([path.call(print, "elementType"), "[]"]);
     case "BooleanLiteralTypeAnnotation":
       return "" + n.value;
-    case "OpaqueType":
-      return printOpaqueType(path, options, print);
 
     case "EnumDeclaration":
       return concat([
@@ -1119,77 +1071,6 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "EnumDefaultedMember":
       return path.call(print, "id");
-
-    case "FunctionTypeAnnotation":
-    case "TSFunctionType": {
-      // FunctionTypeAnnotation is ambiguous:
-      // declare function foo(a: B): void; OR
-      // var A: (a: B) => void;
-      const parent = path.getParentNode(0);
-      const parentParent = path.getParentNode(1);
-      const parentParentParent = path.getParentNode(2);
-      let isArrowFunctionTypeAnnotation =
-        n.type === "TSFunctionType" ||
-        !(
-          ((parent.type === "ObjectTypeProperty" ||
-            parent.type === "ObjectTypeInternalSlot") &&
-            !parent.variance &&
-            !parent.optional &&
-            locStart(parent) === locStart(n)) ||
-          parent.type === "ObjectTypeCallProperty" ||
-          (parentParentParent && parentParentParent.type === "DeclareFunction")
-        );
-
-      let needsColon =
-        isArrowFunctionTypeAnnotation &&
-        (parent.type === "TypeAnnotation" ||
-          parent.type === "TSTypeAnnotation");
-
-      // Sadly we can't put it inside of FastPath::needsColon because we are
-      // printing ":" as part of the expression and it would put parenthesis
-      // around :(
-      const needsParens =
-        needsColon &&
-        isArrowFunctionTypeAnnotation &&
-        (parent.type === "TypeAnnotation" ||
-          parent.type === "TSTypeAnnotation") &&
-        parentParent.type === "ArrowFunctionExpression";
-
-      if (isObjectTypePropertyAFunction(parent)) {
-        isArrowFunctionTypeAnnotation = true;
-        needsColon = true;
-      }
-
-      if (needsParens) {
-        parts.push("(");
-      }
-
-      parts.push(
-        printFunctionParameters(
-          path,
-          print,
-          options,
-          /* expandArg */ false,
-          /* printTypeParams */ true
-        )
-      );
-
-      // The returnType is not wrapped in a TypeAnnotation, so the colon
-      // needs to be added separately.
-      if (n.returnType || n.predicate || n.typeAnnotation) {
-        parts.push(
-          isArrowFunctionTypeAnnotation ? " => " : ": ",
-          path.call(print, "returnType"),
-          path.call(print, "predicate"),
-          path.call(print, "typeAnnotation")
-        );
-      }
-      if (needsParens) {
-        parts.push(")");
-      }
-
-      return group(concat(parts));
-    }
     case "FunctionTypeParam": {
       const name = n.name
         ? path.call(print, "name")
@@ -1213,114 +1094,6 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "id"),
         path.call(print, "typeParameters"),
       ]);
-    case "TSIntersectionType":
-    case "IntersectionTypeAnnotation": {
-      const types = path.map(print, "types");
-      const result = [];
-      let wasIndented = false;
-      for (let i = 0; i < types.length; ++i) {
-        if (i === 0) {
-          result.push(types[i]);
-        } else if (isObjectType(n.types[i - 1]) && isObjectType(n.types[i])) {
-          // If both are objects, don't indent
-          result.push(
-            concat([" & ", wasIndented ? indent(types[i]) : types[i]])
-          );
-        } else if (!isObjectType(n.types[i - 1]) && !isObjectType(n.types[i])) {
-          // If no object is involved, go to the next line if it breaks
-          result.push(indent(concat([" &", line, types[i]])));
-        } else {
-          // If you go from object to non-object or vis-versa, then inline it
-          if (i > 1) {
-            wasIndented = true;
-          }
-          result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
-        }
-      }
-      return group(concat(result));
-    }
-    case "TSUnionType":
-    case "UnionTypeAnnotation": {
-      // single-line variation
-      // A | B | C
-
-      // multi-line variation
-      // | A
-      // | B
-      // | C
-
-      const parent = path.getParentNode();
-
-      // If there's a leading comment, the parent is doing the indentation
-      const shouldIndent =
-        parent.type !== "TypeParameterInstantiation" &&
-        parent.type !== "TSTypeParameterInstantiation" &&
-        parent.type !== "GenericTypeAnnotation" &&
-        parent.type !== "TSTypeReference" &&
-        parent.type !== "TSTypeAssertion" &&
-        parent.type !== "TupleTypeAnnotation" &&
-        parent.type !== "TSTupleType" &&
-        !(
-          parent.type === "FunctionTypeParam" &&
-          !parent.name &&
-          path.getParentNode(1).this !== parent
-        ) &&
-        !(
-          (parent.type === "TypeAlias" ||
-            parent.type === "VariableDeclarator" ||
-            parent.type === "TSTypeAliasDeclaration") &&
-          hasLeadingOwnLineComment(options.originalText, n)
-        );
-
-      // {
-      //   a: string
-      // } | null | void
-      // should be inlined and not be printed in the multi-line variant
-      const shouldHug = shouldHugType(n);
-
-      // We want to align the children but without its comment, so it looks like
-      // | child1
-      // // comment
-      // | child2
-      const printed = path.map((typePath) => {
-        let printedType = typePath.call(print);
-        if (!shouldHug) {
-          printedType = align(2, printedType);
-        }
-        return comments.printComments(typePath, () => printedType, options);
-      }, "types");
-
-      if (shouldHug) {
-        return join(" | ", printed);
-      }
-
-      const shouldAddStartLine =
-        shouldIndent && !hasLeadingOwnLineComment(options.originalText, n);
-
-      const code = concat([
-        ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
-        join(concat([line, "| "]), printed),
-      ]);
-
-      if (pathNeedsParens(path, options)) {
-        return group(concat([indent(code), softline]));
-      }
-
-      if (
-        (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
-        (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
-      ) {
-        return group(
-          concat([
-            indent(concat([ifBreak(concat(["(", softline])), code])),
-            softline,
-            ifBreak(")"),
-          ])
-        );
-      }
-
-      return group(shouldIndent ? indent(code) : code);
-    }
     case "NullableTypeAnnotation":
       return concat(["?", path.call(print, "typeAnnotation")]);
     case "Variance": {
@@ -1382,8 +1155,6 @@ function printPathNoParens(path, options, print, args) {
         return printNumber(n.extra.raw);
       }
       return printNumber(n.raw);
-    case "TypeAlias":
-      return printTypeAlias(path, options, print);
     case "TypeCastExpression": {
       return concat([
         "(",
@@ -1452,12 +1223,6 @@ function printPathNoParens(path, options, print, args) {
     case "VoidTypeAnnotation":
     case "TSVoidKeyword":
       return "void";
-    case "GenericTypeAnnotation":
-    case "TSTypeReference":
-      return concat([
-        path.call(print, n.type === "TSTypeReference" ? "typeName" : "id"),
-        printTypeParameters(path, options, print, "typeParameters"),
-      ]);
     case "ThisTypeAnnotation":
     case "TSThisType":
       return "this";

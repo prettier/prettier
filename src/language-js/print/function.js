@@ -355,10 +355,19 @@ function printReturnAndThrowArgument(path, options, print) {
   return concat(parts);
 }
 
+function printReturnStatement(path, options, print) {
+  return concat(["return", printReturnAndThrowArgument(path, options, print)]);
+}
+
+function printThrowStatement(path, options, print) {
+  return concat(["throw", printReturnAndThrowArgument(path, options, print)]);
+}
+
 module.exports = {
   printFunctionDeclaration,
   printArrowFunctionExpression,
   printMethod,
-  printReturnAndThrowArgument,
+  printReturnStatement,
+  printThrowStatement,
   shouldPrintParamsWithoutParens,
 };
