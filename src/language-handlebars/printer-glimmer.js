@@ -32,8 +32,6 @@ function print(path, options, print) {
     return options.originalText.slice(locStart(n), locEnd(n));
   }
 
-  const textLines = options.originalText.split("\n");
-
   switch (n.type) {
     case "Block":
     case "Program":
@@ -270,10 +268,7 @@ function print(path, options, print) {
       ]);
     }
     case "MustacheCommentStatement": {
-      const rawNodeContent = textLines[n.loc.start.line - 1].slice(
-        n.loc.start.column,
-        n.loc.end.column
-      );
+      const rawNodeContent = options.originalText(locStart(n), locEnd(n));
       const isLeftWhiteSpaceSensitive = rawNodeContent.startsWith("{{~");
       const isRightWhitespaceSensitive = rawNodeContent.endsWith("~}}");
 
