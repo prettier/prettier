@@ -187,21 +187,14 @@ function attach(comments, ast, text, options) {
     remaining: handleRemainingComment = returnFalse,
   } = handleComments;
 
-  const decoratedComments = comments.map((comment, i) => {
-    const isLastComment = comments.length - 1 === i;
-    const decorated = decorateComment(ast, comment, options);
-    const { precedingNode, enclosingNode, followingNode } = decorated;
-    return {
-      comment,
-      precedingNode,
-      enclosingNode,
-      followingNode,
-      text,
-      options,
-      ast,
-      isLastComment,
-    };
-  });
+  const decoratedComments = comments.map((comment, index) => ({
+    ...decorateComment(ast, comment, options),
+    comment,
+    text,
+    options,
+    ast,
+    isLastComment: comments.length - 1 === index,
+  }));
 
   decoratedComments.forEach((context, index) => {
     const {
