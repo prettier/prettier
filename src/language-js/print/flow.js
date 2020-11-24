@@ -6,7 +6,12 @@ const {
 } = require("../../document");
 const { getParentExportDeclaration } = require("../utils");
 const { printClass } = require("./class");
-const { printOpaqueType, printTypeAlias } = require("./type-annotation");
+const {
+  printOpaqueType,
+  printTypeAlias,
+  printIntersectionType,
+  printUnionType,
+} = require("./type-annotation");
 const { printInterface } = require("./interface");
 const {
   printExportDeclaration,
@@ -79,6 +84,10 @@ function printFlow(path, options, print) {
           print
         )
       );
+    case "IntersectionTypeAnnotation":
+      return printIntersectionType(path, options, print);
+    case "UnionTypeAnnotation":
+      return printUnionType(path, options, print);
   }
 }
 

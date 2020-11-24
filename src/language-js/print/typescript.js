@@ -32,6 +32,8 @@ const { printClassProperty, printClassMethod } = require("./class");
 const {
   printTypeParameter,
   printTypeParameters,
+  printIntersectionType,
+  printUnionType,
 } = require("./type-parameters");
 const { printPropertyKey } = require("./property");
 const { printFunctionDeclaration } = require("./function");
@@ -525,6 +527,10 @@ function printTypescript(path, options, print) {
 
     case "TSInferType":
       return concat(["infer", " ", path.call(print, "typeParameter")]);
+    case "TSIntersectionType":
+      return printIntersectionType(path, options, print);
+    case "TSUnionType":
+      return printUnionType(path, options, print);
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":

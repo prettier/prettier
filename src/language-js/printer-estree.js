@@ -24,7 +24,6 @@ const {
     literalline,
     group,
     indent,
-    align,
     ifBreak,
   },
   utils: { isEmpty },
@@ -40,14 +39,12 @@ const {
   getParentExportDeclaration,
   hasDanglingComments,
   hasFlowShorthandAnnotationComment,
-  hasLeadingOwnLineComment,
   hasNewlineBetweenOrAfterDecorators,
   hasPrettierIgnore,
   hasTrailingComment,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isObjectType,
   isObjectTypePropertyAFunction,
   isTheOnlyJSXElementInMarkdown,
   isBlockComment,
@@ -1212,114 +1209,6 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "id"),
         path.call(print, "typeParameters"),
       ]);
-    case "TSIntersectionType":
-    case "IntersectionTypeAnnotation": {
-      const types = path.map(print, "types");
-      const result = [];
-      let wasIndented = false;
-      for (let i = 0; i < types.length; ++i) {
-        if (i === 0) {
-          result.push(types[i]);
-        } else if (isObjectType(n.types[i - 1]) && isObjectType(n.types[i])) {
-          // If both are objects, don't indent
-          result.push(
-            concat([" & ", wasIndented ? indent(types[i]) : types[i]])
-          );
-        } else if (!isObjectType(n.types[i - 1]) && !isObjectType(n.types[i])) {
-          // If no object is involved, go to the next line if it breaks
-          result.push(indent(concat([" &", line, types[i]])));
-        } else {
-          // If you go from object to non-object or vis-versa, then inline it
-          if (i > 1) {
-            wasIndented = true;
-          }
-          result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
-        }
-      }
-      return group(concat(result));
-    }
-    case "TSUnionType":
-    case "UnionTypeAnnotation": {
-      // single-line variation
-      // A | B | C
-
-      // multi-line variation
-      // | A
-      // | B
-      // | C
-
-      const parent = path.getParentNode();
-
-      // If there's a leading comment, the parent is doing the indentation
-      const shouldIndent =
-        parent.type !== "TypeParameterInstantiation" &&
-        parent.type !== "TSTypeParameterInstantiation" &&
-        parent.type !== "GenericTypeAnnotation" &&
-        parent.type !== "TSTypeReference" &&
-        parent.type !== "TSTypeAssertion" &&
-        parent.type !== "TupleTypeAnnotation" &&
-        parent.type !== "TSTupleType" &&
-        !(
-          parent.type === "FunctionTypeParam" &&
-          !parent.name &&
-          path.getParentNode(1).this !== parent
-        ) &&
-        !(
-          (parent.type === "TypeAlias" ||
-            parent.type === "VariableDeclarator" ||
-            parent.type === "TSTypeAliasDeclaration") &&
-          hasLeadingOwnLineComment(options.originalText, n)
-        );
-
-      // {
-      //   a: string
-      // } | null | void
-      // should be inlined and not be printed in the multi-line variant
-      const shouldHug = shouldHugType(n);
-
-      // We want to align the children but without its comment, so it looks like
-      // | child1
-      // // comment
-      // | child2
-      const printed = path.map((typePath) => {
-        let printedType = typePath.call(print);
-        if (!shouldHug) {
-          printedType = align(2, printedType);
-        }
-        return comments.printComments(typePath, () => printedType, options);
-      }, "types");
-
-      if (shouldHug) {
-        return join(" | ", printed);
-      }
-
-      const shouldAddStartLine =
-        shouldIndent && !hasLeadingOwnLineComment(options.originalText, n);
-
-      const code = concat([
-        ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
-        join(concat([line, "| "]), printed),
-      ]);
-
-      if (pathNeedsParens(path, options)) {
-        return group(concat([indent(code), softline]));
-      }
-
-      if (
-        (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
-        (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
-      ) {
-        return group(
-          concat([
-            indent(concat([ifBreak(concat(["(", softline])), code])),
-            softline,
-            ifBreak(")"),
-          ])
-        );
-      }
-
-      return group(shouldIndent ? indent(code) : code);
-    }
     case "NullableTypeAnnotation":
       return concat(["?", path.call(print, "typeAnnotation")]);
     case "Variance": {
