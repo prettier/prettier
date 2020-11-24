@@ -37,3 +37,23 @@ Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 
     |   ^
   4 | "
 `;
+
+exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~}}
+---^
+Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~}}
+    |    ^
+  2 | "
+`;
+
+exports[`tilde-comments-2.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~~}}
+---^
+Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~~}}
+    |    ^
+  2 | "
+`;
