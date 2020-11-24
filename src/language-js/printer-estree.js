@@ -75,10 +75,7 @@ const { printTernary } = require("./print/ternary");
 const { printTemplateLiteral } = require("./print/template-literal");
 const { printArray, printArrayItems } = require("./print/array");
 const { printObject } = require("./print/object");
-const {
-  printOpaqueType,
-  printTypeAlias,
-} = require("./print/type-annotation");
+const { printOpaqueType, printTypeAlias } = require("./print/type-annotation");
 const {
   printClass,
   printClassMethod,
