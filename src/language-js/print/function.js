@@ -248,7 +248,7 @@ function canPrintParamsWithoutParens(node) {
   return (
     parameters.length === 1 &&
     !node.typeParameters &&
-    !hasComment(node, CommentCheckFlags.dangling) &&
+    !hasComment(node, CommentCheckFlags.Dangling) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
     !hasComment(parameters[0]) &&
@@ -343,7 +343,7 @@ function printReturnAndThrowArgument(path, options, print) {
     parts.push(semi);
   }
 
-  if (hasComment(node, CommentCheckFlags.dangling)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)

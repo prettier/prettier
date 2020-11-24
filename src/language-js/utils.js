@@ -850,7 +850,7 @@ function hasLeadingOwnLineComment(text, node) {
     return hasNodeIgnoreComment(node);
   }
 
-  return hasComment(node, CommentCheckFlags.leading, (comment) =>
+  return hasComment(node, CommentCheckFlags.Leading, (comment) =>
     hasNewline(text, locEnd(comment))
   );
 }
@@ -994,7 +994,7 @@ function needsHardlineAfterDanglingComment(node) {
     return false;
   }
   const lastDanglingComment = getLast(
-    getComments(node, CommentCheckFlags.dangling)
+    getComments(node, CommentCheckFlags.Dangling)
   );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
@@ -1413,7 +1413,7 @@ function isPrettierIgnoreComment(comment) {
 function hasNodeIgnoreComment(node) {
   return (
     node &&
-    (node.prettierIgnore || hasComment(node, CommentCheckFlags.prettierIgnore))
+    (node.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore))
   );
 }
 
@@ -1423,32 +1423,32 @@ function hasIgnoreComment(path) {
 }
 
 const CommentCheckFlags = {
-  leading: 1 << 1,
-  trailing: 1 << 2,
-  dangling: 1 << 3,
-  block: 1 << 4,
-  line: 1 << 5,
-  prettierIgnore: 1 << 6,
-  first: 1 << 7,
-  last: 1 << 8,
+  Leading: 1 << 1,
+  Trailing: 1 << 2,
+  Dangling: 1 << 3,
+  Block: 1 << 4,
+  Line: 1 << 5,
+  PrettierIgnore: 1 << 6,
+  First: 1 << 7,
+  Last: 1 << 8,
 };
-const getCommentTestFunction = (types, fn) => {
-  if (typeof types === "function") {
-    fn = types;
-    types = 0;
+const getCommentTestFunction = (flags, fn) => {
+  if (typeof flags === "function") {
+    fn = flags;
+    flags = 0;
   }
-  if (types || fn) {
+  if (flags || fn) {
     return (comment, index, comments) =>
       !(
-        (types & CommentCheckFlags.leading && !comment.leading) ||
-        (types & CommentCheckFlags.trailing && !comment.trailing) ||
-        (types & CommentCheckFlags.dangling &&
+        (flags & CommentCheckFlags.Leading && !comment.leading) ||
+        (flags & CommentCheckFlags.Trailing && !comment.trailing) ||
+        (flags & CommentCheckFlags.Dangling &&
           (comment.leading || comment.trailing)) ||
-        (types & CommentCheckFlags.block && !isBlockComment(comment)) ||
-        (types & CommentCheckFlags.line && !isLineComment(comment)) ||
-        (types & CommentCheckFlags.first && index !== 0) ||
-        (types & CommentCheckFlags.last && index !== comments.length - 1) ||
-        (types & CommentCheckFlags.prettierIgnore &&
+        (flags & CommentCheckFlags.Block && !isBlockComment(comment)) ||
+        (flags & CommentCheckFlags.Line && !isLineComment(comment)) ||
+        (flags & CommentCheckFlags.First && index !== 0) ||
+        (flags & CommentCheckFlags.Last && index !== comments.length - 1) ||
+        (flags & CommentCheckFlags.PrettierIgnore &&
           !isPrettierIgnoreComment(comment)) ||
         (fn && !fn(comment))
       );
@@ -1458,11 +1458,11 @@ const getCommentTestFunction = (types, fn) => {
  * @param {Node} node
  * @returns {boolean}
  */
-function hasComment(node, types, fn) {
+function hasComment(node, flags, fn) {
   if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
     return false;
   }
-  const test = getCommentTestFunction(types, fn);
+  const test = getCommentTestFunction(flags, fn);
   return test
     ? node.comments.some((comment, index, comments) =>
         test(comment, index, comments)
@@ -1474,11 +1474,11 @@ function hasComment(node, types, fn) {
  * @param {Node} node
  * @returns {Comment[]}
  */
-function getComments(node, types, fn) {
+function getComments(node, flags, fn) {
   if (!node || !Array.isArray(node.comments)) {
     return [];
   }
-  const test = getCommentTestFunction(types, fn);
+  const test = getCommentTestFunction(flags, fn);
   return test
     ? node.comments.filter((comment, index, comments) =>
         test(comment, index, comments)

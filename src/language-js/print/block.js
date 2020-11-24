@@ -32,7 +32,7 @@ function printBlock(path, options, print) {
   if (
     !hasContent &&
     !hasDirectives &&
-    !hasComment(n, CommentCheckFlags.dangling) &&
+    !hasComment(n, CommentCheckFlags.Dangling) &&
     (parent.type === "ArrowFunctionExpression" ||
       parent.type === "FunctionExpression" ||
       parent.type === "FunctionDeclaration" ||

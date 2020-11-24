@@ -271,8 +271,8 @@ function shouldGroupLastArg(args) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
-    !hasComment(lastArg, CommentCheckFlags.leading) &&
-    !hasComment(lastArg, CommentCheckFlags.trailing) &&
+    !hasComment(lastArg, CommentCheckFlags.Leading) &&
+    !hasComment(lastArg, CommentCheckFlags.Trailing) &&
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.

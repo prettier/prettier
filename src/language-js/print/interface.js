@@ -38,7 +38,7 @@ function printInterface(path, options, print) {
     n.typeParameters &&
     !hasComment(
       n.typeParameters,
-      CommentCheckFlags.trailing | CommentCheckFlags.line
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
 
   if (n.extends && n.extends.length !== 0) {
@@ -56,7 +56,7 @@ function printInterface(path, options, print) {
   }
 
   if (
-    (n.id && hasComment(n.id, CommentCheckFlags.trailing)) ||
+    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
     (n.extends && n.extends.length !== 0)
   ) {
     const printedExtends = concat(extendsParts);

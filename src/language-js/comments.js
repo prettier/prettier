@@ -875,7 +875,7 @@ function hasLeadingComment(node, fn = () => true) {
   if (node.leadingComments) {
     return node.leadingComments.some(fn);
   }
-  return hasComment(node, CommentCheckFlags.leading, fn);
+  return hasComment(node, CommentCheckFlags.Leading, fn);
 }
 
 /**

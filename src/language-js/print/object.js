@@ -128,8 +128,8 @@ function printObject(path, options, print) {
 
   if (n.inexact) {
     let printed;
-    if (hasComment(n, CommentCheckFlags.dangling)) {
-      const hasLineComments = hasComment(n, CommentCheckFlags.line);
+    if (hasComment(n, CommentCheckFlags.Dangling)) {
+      const hasLineComments = hasComment(n, CommentCheckFlags.Line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
@@ -164,7 +164,7 @@ function printObject(path, options, print) {
 
   let content;
   if (props.length === 0) {
-    if (!hasComment(n, CommentCheckFlags.dangling)) {
+    if (!hasComment(n, CommentCheckFlags.Dangling)) {
       return concat([
         leftBrace,
         rightBrace,

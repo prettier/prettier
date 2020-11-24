@@ -670,13 +670,13 @@ function printPathNoParens(path, options, print, args) {
         const commentOnOwnLine =
           hasComment(
             n.consequent,
-            CommentCheckFlags.trailing | CommentCheckFlags.line
+            CommentCheckFlags.Trailing | CommentCheckFlags.Line
           ) || needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
 
-        if (hasComment(n, CommentCheckFlags.dangling)) {
+        if (hasComment(n, CommentCheckFlags.Dangling)) {
           parts.push(
             comments.printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "

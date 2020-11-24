@@ -20,7 +20,7 @@ function printArray(path, options, print) {
   const openBracket = n.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
   if (n.elements.length === 0) {
-    if (!hasComment(n, CommentCheckFlags.dangling)) {
+    if (!hasComment(n, CommentCheckFlags.Dangling)) {
       parts.push(openBracket, closeBracket);
     } else {
       parts.push(

@@ -33,7 +33,7 @@ function printClass(path, options, print) {
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
-    (n.id && hasComment(n.id, CommentCheckFlags.trailing)) ||
+    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
     (n.superClass && hasComment(n.superClass)) ||
     (n.extends && n.extends.length !== 0) || // DeclareClass
     (n.mixins && n.mixins.length !== 0) ||
@@ -105,7 +105,7 @@ function shouldIndentOnlyHeritageClauses(node) {
     node.typeParameters &&
     !hasComment(
       node.typeParameters,
-      CommentCheckFlags.trailing | CommentCheckFlags.line
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line
     ) &&
     !hasMultipleHeritage(node)
   );

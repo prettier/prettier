@@ -49,7 +49,7 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
     !isTheOnlyJSXElementInMarkdown(options, path) &&
     statementNeedsASIProtection(path, options)
   ) {
-    if (hasComment(node, CommentCheckFlags.leading)) {
+    if (hasComment(node, CommentCheckFlags.Leading)) {
       parts.push(print(path, { needsSemi: true }));
     } else {
       parts.push(";", printed);

@@ -56,7 +56,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(" default");
   }
 
-  if (hasComment(node, CommentCheckFlags.dangling)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)

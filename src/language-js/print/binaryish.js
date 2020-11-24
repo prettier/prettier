@@ -253,7 +253,7 @@ function printBinaryishExpressions(
     const parent = path.getParentNode();
     const shouldBreak = hasComment(
       node.left,
-      CommentCheckFlags.trailing | CommentCheckFlags.line
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
     const shouldGroup =
       shouldBreak ||
