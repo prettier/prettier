@@ -2333,6 +2333,101 @@ export default AspectRatioBox;
 ================================================================================
 `;
 
+exports[`issue-7724.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+=====================================output=====================================
+const foo = "Bar"
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ */ /**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value)
+  } else {
+    return new Value(type)
+  }
+}
+
+================================================================================
+`;
+
+exports[`issue-7724.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+=====================================output=====================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ */ /**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+
+================================================================================
+`;
+
 exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
