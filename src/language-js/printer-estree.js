@@ -99,7 +99,8 @@ const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
   printMethod,
-  printReturnAndThrowArgument,
+  printReturnStatement,
+  printThrowStatement,
 } = require("./print/function");
 const { printCallExpression } = require("./print/call-expression");
 const { printInterface } = require("./print/interface");
@@ -470,11 +471,9 @@ function printPathNoParens(path, options, print, args) {
     case "StaticBlock":
       return printBlock(path, options, print);
     case "ThrowStatement":
+      return printThrowStatement(path, options, print);
     case "ReturnStatement":
-      return concat([
-        n.type === "ReturnStatement" ? "return" : "throw",
-        printReturnAndThrowArgument(path, options, print),
-      ]);
+      return printReturnStatement(path, options, print);
     case "NewExpression":
     case "ImportExpression":
     case "OptionalCallExpression":
