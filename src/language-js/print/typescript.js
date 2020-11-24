@@ -539,6 +539,13 @@ function printTypescript(path, options, print) {
       return printFunctionType(path, options, print);
     case "TSTupleType":
       return printTupleType(path, options, print);
+    case "TSTypeReference":
+      return concat([
+        path.call(print, "typeName"),
+        printTypeParameters(path, options, print, "typeParameters"),
+      ]);
+    case "TSTypeAnnotation":
+      return path.call(print, "typeAnnotation");
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":

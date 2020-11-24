@@ -15,6 +15,7 @@ const {
   printTupleType,
 } = require("./type-annotation");
 const { printInterface } = require("./interface");
+const { printTypeParameters } = require("./type-parameters");
 const {
   printExportDeclaration,
   printExportAllDeclaration,
@@ -94,6 +95,15 @@ function printFlow(path, options, print) {
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":
       return printTupleType(path, options, print);
+    case "GenericTypeAnnotation":
+      return concat([
+        path.call(print, "id"),
+        printTypeParameters(path, options, print, "typeParameters"),
+      ]);
+    // Type Annotations for Facebook Flow, typically stripped out or
+    // transformed away before printing.
+    case "TypeAnnotation":
+      return path.call(print, "typeAnnotation");
   }
 }
 

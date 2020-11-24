@@ -126,6 +126,7 @@ function printTypeAlias(path, options, print) {
   return group(concat(parts));
 }
 
+// `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
   const n = path.getValue();
   const types = path.map(print, "types");
@@ -151,6 +152,7 @@ function printIntersectionType(path, options, print) {
   return group(concat(result));
 }
 
+// `TSUnionType` and `UnionTypeAnnotation`
 function printUnionType(path, options, print) {
   const n = path.getValue();
   // single-line variation
@@ -234,6 +236,7 @@ function printUnionType(path, options, print) {
   return group(shouldIndent ? indent(code) : code);
 }
 
+// `TSFunctionType` and `FunctionTypeAnnotation`
 function printFunctionType(path, options, print) {
   const n = path.getValue();
   const parts = [];
@@ -304,6 +307,7 @@ function printFunctionType(path, options, print) {
   return group(concat(parts));
 }
 
+// `TSTupleType` and `TupleTypeAnnotation`
 function printTupleType(path, options, print) {
   const n = path.getValue();
   const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";

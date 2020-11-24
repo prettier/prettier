@@ -982,16 +982,6 @@ function printPathNoParens(path, options, print, args) {
     case "Type":
       /* istanbul ignore next */
       throw new Error("unprintable type: " + JSON.stringify(n.type));
-    // Type Annotations for Facebook Flow, typically stripped out or
-    // transformed away before printing.
-    case "TypeAnnotation":
-    case "TSTypeAnnotation":
-      if (n.typeAnnotation) {
-        return path.call(print, "typeAnnotation");
-      }
-
-      /* istanbul ignore next */
-      return "";
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":
@@ -1241,12 +1231,6 @@ function printPathNoParens(path, options, print, args) {
     case "VoidTypeAnnotation":
     case "TSVoidKeyword":
       return "void";
-    case "GenericTypeAnnotation":
-    case "TSTypeReference":
-      return concat([
-        path.call(print, n.type === "TSTypeReference" ? "typeName" : "id"),
-        printTypeParameters(path, options, print, "typeParameters"),
-      ]);
     case "ThisTypeAnnotation":
     case "TSThisType":
       return "this";
