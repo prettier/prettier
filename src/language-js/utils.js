@@ -1442,8 +1442,6 @@ const CommentCheckFlags = {
 };
 
 /**
- * @param {number | function} [flags]
- * @param {function} [fn]
  * @returns {function}
  */
 const getCommentTestFunction = (flags, fn) => {
