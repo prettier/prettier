@@ -268,13 +268,13 @@ function cleanDocFn(doc) {
       currentDoc = cleanDocFn(currentDoc);
     }
     // Concat `concat` and string
-    else if (isConcat(currentDoc) && typeof (nextDoc) === "string") {
+    else if (isConcat(currentDoc) && typeof nextDoc === "string") {
       parts.splice(index + 1, 1);
       currentDoc.parts.push(nextDoc);
       currentDoc = cleanDocFn(currentDoc);
     }
     // Concat string and `concat`
-    else if (typeof (currentDoc) === "string" && isConcat(nextDoc)) {
+    else if (typeof currentDoc === "string" && isConcat(nextDoc)) {
       parts.splice(index + 1, 1);
       nextDoc.parts.unshift(currentDoc);
       currentDoc = nextDoc;
@@ -285,7 +285,7 @@ function cleanDocFn(doc) {
     if (currentDoc === "") {
       parts.splice(index, 1);
     } else {
-      parts[index] = (currentDoc);
+      parts[index] = currentDoc;
     }
   }
 
