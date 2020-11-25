@@ -200,7 +200,7 @@ function stripDocTrailingHardlineFromDoc(doc) {
         parts.length -= 2;
       }
 
-      if (parts.length > 1) {
+      if (parts.length > 0) {
         const lastPart = stripDocTrailingHardlineFromDoc(
           parts[parts.length - 1]
         );
