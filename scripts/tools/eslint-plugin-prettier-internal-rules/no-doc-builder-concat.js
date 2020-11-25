@@ -1,6 +1,11 @@
 "use strict";
 
-const selector = ["CallExpression", ">", "Identifier.callee"].join("");
+const selector = [
+  "CallExpression",
+  ">",
+  "Identifier.callee",
+  '[name="concat"]',
+].join("");
 
 const messageId = "no-doc-builder-concat";
 
