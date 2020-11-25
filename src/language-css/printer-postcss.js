@@ -21,7 +21,7 @@ const {
     ifBreak,
     breakParent,
   },
-  utils: { removeLines },
+  utils: { removeLines, getDocParts },
 } = require("../document");
 const clean = require("./clean");
 const embed = require("./embed");
@@ -101,7 +101,7 @@ function genericPrint(path, options, print) {
       return concat([
         nodes,
         after ? ` ${after}` : "",
-        nodes.parts.length ? hardline : "",
+        getDocParts(nodes).length ? hardline : "",
       ]);
     }
     case "css-comment": {
@@ -877,9 +877,8 @@ function genericPrint(path, options, print) {
                     node.groups[2] &&
                     node.groups[2].type === "value-paren_group"
                   ) {
-                    printed.contents.contents.parts[1] = group(
-                      printed.contents.contents.parts[1]
-                    );
+                    const parts = getDocParts(printed.contents.contents);
+                    parts[1] = group(parts[1]);
 
                     return group(dedent(printed));
                   }

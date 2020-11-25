@@ -3,7 +3,7 @@
 const assert = require("assert");
 const {
   builders,
-  utils: { mapDoc, normalizeParts },
+  utils: { mapDoc, normalizeParts, getDocParts },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
@@ -995,7 +995,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : join(line, splitByHtmlWhitespace(value)).parts;
+    : getDocParts(join(line, splitByHtmlWhitespace(value)));
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

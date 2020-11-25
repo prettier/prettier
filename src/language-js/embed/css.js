@@ -2,7 +2,7 @@
 
 const {
   builders: { indent, hardline, softline, concat },
-  utils: { mapDoc, replaceNewlinesWithLiterallines },
+  utils: { mapDoc, replaceNewlinesWithLiterallines, getDocParts },
 } = require("../../document");
 const { printTemplateExpressions } = require("../print/template-literal");
 
@@ -52,11 +52,14 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
   let replaceCounter = 0;
   const newDoc = mapDoc(quasisDoc, (doc) => {
-    if (!doc || !doc.parts || !doc.parts.length) {
+    if (!doc) {
+      return doc;
+    }
+    let parts = getDocParts(doc);
+    if (!parts || !parts.length) {
       return doc;
     }
 
-    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -95,7 +98,10 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         replaceCounter++;
       });
     });
-    return { ...doc, parts: replacedParts };
+    return {
+      ...(Array.isArray(doc) ? { type: "concat" } : doc),
+      parts: replacedParts,
+    };
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }

@@ -3,6 +3,7 @@
 const { getStringWidth } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
+const { isConcat, getDocParts } = require("./doc-utils");
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -167,14 +168,13 @@ function fits(next, restCommands, width, options, mustBeFlat) {
       out.push(doc);
 
       width -= getStringWidth(doc);
+    } else if (isConcat(doc)) {
+      const parts = getDocParts(doc);
+      for (let i = parts.length - 1; i >= 0; i--) {
+        cmds.push([ind, mode, parts[i]]);
+      }
     } else {
       switch (doc.type) {
-        case "concat":
-          for (let i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
-          }
-
-          break;
         case "indent":
           cmds.push([makeIndent(ind, options), mode, doc.contents]);
 
@@ -267,16 +267,15 @@ function printDocToString(doc, options) {
           : doc;
       out.push(formatted);
       pos += getStringWidth(formatted);
+    } else if (isConcat(doc)) {
+      const parts = getDocParts(doc);
+      for (let i = parts.length - 1; i >= 0; i--) {
+        cmds.push([ind, mode, parts[i]]);
+      }
     } else {
       switch (doc.type) {
         case "cursor":
           out.push(cursor.placeholder);
-
-          break;
-        case "concat":
-          for (let i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
-          }
 
           break;
         case "indent":

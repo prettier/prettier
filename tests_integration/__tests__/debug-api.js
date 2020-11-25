@@ -27,7 +27,11 @@ describe("API", () => {
   });
 
   const doc = printToDoc(code, options);
-  test("prettier.printToDoc", () => {
+  test("prettier.printToDoc", (done) => {
+    // If it's array, it's a `concat`
+    if (Array.isArray(doc)) {
+      done();
+    }
     expect(doc.type).toBe("concat");
     expect(Array.isArray(doc.parts)).toBe(true);
   });

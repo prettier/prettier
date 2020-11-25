@@ -1,6 +1,9 @@
 "use strict";
 
-const docBuilders = require("../document").builders;
+const {
+  builders: docBuilders,
+  utils: { getDocParts },
+} = require("../document");
 const {
   conditionalGroup,
   breakParent,
@@ -229,8 +232,10 @@ function _print(node, parentNode, path, options, print) {
         [].concat(path.map(print, "children"), path.map(print, "endComments"))
       );
     case "documentBody": {
-      const children = join(hardline, path.map(print, "children")).parts;
-      const endComments = join(hardline, path.map(print, "endComments")).parts;
+      const children = getDocParts(join(hardline, path.map(print, "children")));
+      const endComments = getDocParts(
+        join(hardline, path.map(print, "endComments"))
+      );
       const separator =
         children.length === 0 || endComments.length === 0
           ? ""
@@ -355,7 +360,7 @@ function _print(node, parentNode, path, options, print) {
                 (reduced, lineWords, index, lineContents) =>
                   reduced.concat(
                     index === 0 ? hardline : "",
-                    fill(join(line, lineWords).parts),
+                    fill(getDocParts(join(line, lineWords))),
                     index !== lineContents.length - 1
                       ? lineWords.length === 0
                         ? hardline
@@ -752,7 +757,7 @@ function printFlowScalarContent(nodeType, content, options) {
   return join(
     hardline,
     lineContents.map((lineContentWords) =>
-      fill(join(line, lineContentWords).parts)
+      fill(getDocParts(join(line, lineContentWords)))
     )
   );
 }

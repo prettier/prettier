@@ -8,21 +8,32 @@
  * @property {boolean} [hard]
  * @property {boolean} [literal]
  *
- * @typedef {string | DocObject} Doc
+ * @typedef {Doc[]} DocArray
+ *
+ * @typedef {string | DocObject | DocArray} Doc
  */
 
 /**
  * @param {Doc} val
  */
 function assertDoc(val) {
-  /* istanbul ignore if */
-  if (
-    !(typeof val === "string" || (val != null && typeof val.type === "string"))
-  ) {
-    throw new Error(
-      "Value " + JSON.stringify(val) + " is not a valid document"
-    );
+  if (typeof val === "string") {
+    return;
   }
+
+  if (Array.isArray(val)) {
+    for (const doc of val) {
+      assertDoc(doc);
+    }
+    return;
+  }
+
+  if (val && typeof val.type === "string") {
+    return;
+  }
+
+  /* istanbul ignore next */
+  throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
 }
 
 /**
