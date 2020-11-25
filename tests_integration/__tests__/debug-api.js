@@ -31,6 +31,7 @@ describe("API", () => {
     // If it's array, it's a `concat`
     if (Array.isArray(doc)) {
       done();
+      return;
     }
     expect(doc.type).toBe("concat");
     expect(Array.isArray(doc.parts)).toBe(true);
