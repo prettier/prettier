@@ -534,7 +534,10 @@ function printComments(path, print, options, needsSemi) {
         !(
           options.printer.isBlockComment &&
           options.printer.isBlockComment(comment)
-        );
+        ) ||
+        hasNewline(options.originalText, options.locStart(comment), {
+          backwards: true,
+        });
     }
   }, "comments");
 
