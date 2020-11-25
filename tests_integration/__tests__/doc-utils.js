@@ -48,14 +48,14 @@ describe("traverseDoc", () => {
       return doc;
     });
     expect(result).toStrictEqual([
+      "foo",
+      { type: "concat", parts: ["foo"] },
       {
         type: "if-break",
         breakContents: { type: "concat", parts: ["foo"] },
         flatContents: undefined,
         groupId: undefined,
       },
-      { type: "concat", parts: ["foo"] },
-      "foo",
     ]);
   });
 });
