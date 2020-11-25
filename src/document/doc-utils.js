@@ -7,7 +7,8 @@ const getDocParts = (doc) => (Array.isArray(doc) ? doc : doc.parts);
 
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
-
+const toConcatIfArray = (doc) =>
+  Array.isArray(doc) ? { type: "concat", parts: doc } : doc;
 function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   const docsStack = [doc];
 
@@ -26,7 +27,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
     if (
       // Should Recurse
       !onEnter ||
-      onEnter(doc) !== false
+      onEnter(toConcatIfArray(doc)) !== false
     ) {
       // When there are multiple parts to process,
       // the parts need to be pushed onto the stack in reverse order,
