@@ -5,7 +5,7 @@ const {
   builders: { concat, line, softline, group, indent, ifBreak },
 } = require("../../document");
 const { getLast, isNextLineEmpty } = require("../../common/util");
-const { hasDanglingComments, shouldPrintComma } = require("../utils");
+const { shouldPrintComma, hasComment, CommentCheckFlags } = require("../utils");
 const { locEnd } = require("../loc");
 
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
@@ -20,7 +20,7 @@ function printArray(path, options, print) {
   const openBracket = n.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
   if (n.elements.length === 0) {
-    if (!hasDanglingComments(n)) {
+    if (!hasComment(n, CommentCheckFlags.Dangling)) {
       parts.push(openBracket, closeBracket);
     } else {
       parts.push(
