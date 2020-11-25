@@ -105,7 +105,7 @@ overrides:
   - files: src/**/*.js
     rules:
       prettier-internal-rules/prefer-fast-path-each: error
-      prettier-internal-rules/no-doc-builder-concat: error
+      prettier-internal-rules/no-doc-builder-concat: off
   - files: src/document/*.js
     rules:
       prettier-internal-rules/no-doc-builder-concat: off
