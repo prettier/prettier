@@ -236,7 +236,7 @@ function cleanDocFn(doc) {
 
   const { parts } = doc;
   for (let index = parts.length - 1; index >= 0; index--) {
-    let currentDoc = cleanDocFn(parts[index]);
+    let currentDoc = parts[index];
     // Next doc already normalized
     const nextDoc = parts[index + 1];
 
@@ -249,6 +249,17 @@ function cleanDocFn(doc) {
     else if (isConcat(currentDoc) && isConcat(nextDoc)) {
       parts.splice(index + 1, 1);
       currentDoc.parts.push(...nextDoc.parts);
+    }
+    // Concat `concat` and string
+    else if (isConcat(currentDoc) && typeof (nextDoc) === "string") {
+      parts.splice(index + 1, 1);
+      currentDoc.parts.push(nextDoc);
+    }
+    // Concat string and `concat`
+    else if (typeof (currentDoc) === "string" && isConcat(nextDoc)) {
+      parts.splice(index + 1, 1);
+      nextDoc.parts.unshift(currentDoc);
+      currentDoc = nextDoc;
     }
 
     // If empty string, remove it
