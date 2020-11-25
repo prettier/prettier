@@ -230,6 +230,22 @@ function stripTrailingHardline(doc) {
 
 const isConcat = (doc) => doc && doc.type === "concat";
 function cleanDocFn(doc) {
+  switch (doc.type) {
+    case "align":
+    case "indent":
+    case "group":
+    case "line-suffix":
+      if (!doc.contents) {
+        return "";
+      }
+      break;
+    case "if-break":
+      if (!doc.flatContents && !doc.breakContents) {
+        return "";
+      }
+      break;
+  }
+
   if (!isConcat(doc)) {
     return doc;
   }
@@ -249,24 +265,27 @@ function cleanDocFn(doc) {
     else if (isConcat(currentDoc) && isConcat(nextDoc)) {
       parts.splice(index + 1, 1);
       currentDoc.parts.push(...nextDoc.parts);
+      currentDoc = cleanDocFn(currentDoc);
     }
     // Concat `concat` and string
     else if (isConcat(currentDoc) && typeof (nextDoc) === "string") {
       parts.splice(index + 1, 1);
       currentDoc.parts.push(nextDoc);
+      currentDoc = cleanDocFn(currentDoc);
     }
     // Concat string and `concat`
     else if (typeof (currentDoc) === "string" && isConcat(nextDoc)) {
       parts.splice(index + 1, 1);
       nextDoc.parts.unshift(currentDoc);
       currentDoc = nextDoc;
+      currentDoc = cleanDocFn(currentDoc);
     }
 
     // If empty string, remove it
     if (currentDoc === "") {
       parts.splice(index, 1);
     } else {
-      parts[index] = currentDoc;
+      parts[index] = (currentDoc);
     }
   }
 
@@ -275,9 +294,8 @@ function cleanDocFn(doc) {
   }
 
   if (parts.length === 1) {
-    return cleanDocFn(parts[0]);
+    return parts[0];
   }
-
   return doc;
 }
 function cleanDoc(doc) {
