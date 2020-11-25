@@ -197,8 +197,7 @@ function stripDocTrailingHardlineFromDoc(doc) {
       const { parts } = doc;
 
       while (parts.length > 1 && isHardline(...parts.slice(-2))) {
-        parts.pop();
-        parts.pop();
+        parts.length -= 2;
       }
 
       if (parts.length > 1) {
