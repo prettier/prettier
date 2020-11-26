@@ -1,10 +1,13 @@
 "use strict";
 
-const clean = require("./clean");
+const assert = require("assert");
 const {
   builders,
-  utils: { stripTrailingHardline, mapDoc },
+  utils: { mapDoc, normalizeParts },
 } = require("../document");
+const { replaceEndOfLineWith } = require("../common/util");
+const { print: printFrontMatter } = require("../utils/front-matter");
+const clean = require("./clean");
 const {
   breakParent,
   dedentToRoot,
@@ -16,10 +19,11 @@ const {
   join,
   line,
   literalline,
-  markAsRoot,
   softline,
 } = builders;
 const {
+  htmlTrimPreserveIndentation,
+  splitByHtmlWhitespace,
   countChars,
   countParents,
   dedentString,
@@ -31,21 +35,23 @@ const {
   hasPrettierIgnore,
   inferScriptParser,
   isVueCustomBlock,
+  isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isScriptLikeTag,
   isTextLikeNode,
-  normalizeParts,
   preferHardlineAsLeadingSpaces,
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  isPreLikeNode,
 } = require("./utils");
-const { replaceEndOfLineWith } = require("../common/util");
-const preprocess = require("./preprocess");
-const assert = require("assert");
+const preprocess = require("./print-preprocess");
 const { insertPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 const {
   printVueFor,
-  printVueSlotScope,
+  printVueBindings,
   isVueEventBindingExpression,
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
@@ -61,7 +67,44 @@ function concat(parts) {
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
+
   switch (node.type) {
+    case "element": {
+      if (isScriptLikeTag(node) || node.type === "interpolation") {
+        // Fall through to "text"
+        return;
+      }
+
+      if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
+        const parser = inferScriptParser(node, options);
+        if (!parser) {
+          return;
+        }
+
+        const content = getNodeContent(node, options);
+        let isEmpty = /^\s*$/.test(content);
+        let doc = "";
+        if (!isEmpty) {
+          doc = textToDoc(
+            htmlTrimPreserveIndentation(content),
+            { parser },
+            { stripTrailingHardline: true }
+          );
+          isEmpty = doc === "";
+        }
+
+        return concat([
+          printOpeningTagPrefix(node, options),
+          group(printOpeningTag(path, options, print)),
+          isEmpty ? "" : hardline,
+          doc,
+          isEmpty ? "" : hardline,
+          printClosingTag(node, options),
+          printClosingTagSuffix(node, options),
+        ]);
+      }
+      break;
+    }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent);
@@ -70,11 +113,27 @@ function embed(path, print, textToDoc, options) {
             parser === "markdown"
               ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
               : node.value;
+          const textToDocOptions = { parser };
+          if (options.parser === "html" && parser === "babel") {
+            let sourceType = "script";
+            const { attrMap } = node.parent;
+            if (
+              attrMap &&
+              (attrMap.type === "module" ||
+                (attrMap.type === "text/babel" &&
+                  attrMap["data-type"] === "module"))
+            ) {
+              sourceType = "module";
+            }
+            textToDocOptions.__babelSourceType = sourceType;
+          }
           return builders.concat([
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(textToDoc(value, { parser })),
+              textToDoc(value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
               printClosingTagSuffix(node, options),
             ]),
           ]);
@@ -84,39 +143,24 @@ function embed(path, print, textToDoc, options) {
           indent(
             concat([
               line,
-              textToDoc(node.value, {
-                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-                ...(options.parser === "angular"
-                  ? { parser: "__ng_interpolation", trailingComma: "none" }
-                  : options.parser === "vue"
-                  ? { parser: "__vue_expression" }
-                  : { parser: "__js_expression" }),
-              }),
+              textToDoc(
+                node.value,
+                {
+                  __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+                  ...(options.parser === "angular"
+                    ? { parser: "__ng_interpolation", trailingComma: "none" }
+                    : options.parser === "vue"
+                    ? { parser: "__vue_expression" }
+                    : { parser: "__js_expression" }),
+                },
+                { stripTrailingHardline: true }
+              ),
             ])
           ),
           node.parent.next &&
           needsToBorrowPrevClosingTagEndMarker(node.parent.next)
             ? " "
             : line,
-        ]);
-      } else if (isVueCustomBlock(node.parent, options)) {
-        const parser = inferScriptParser(node.parent, options);
-        let printed;
-        if (parser) {
-          try {
-            printed = textToDoc(node.value, { parser });
-          } catch (error) {
-            // Do nothing
-          }
-        }
-        if (printed == null) {
-          printed = node.value;
-        }
-        return concat([
-          parser ? breakParent : "",
-          printOpeningTagPrefix(node),
-          stripTrailingHardline(printed, true),
-          printClosingTagSuffix(node),
         ]);
       }
       break;
@@ -157,7 +201,11 @@ function embed(path, print, textToDoc, options) {
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(code, { __isInHtmlAttribute: true, ...opts }),
+          textToDoc(
+            code,
+            { __isInHtmlAttribute: true, ...opts },
+            { stripTrailingHardline: true }
+          ),
         options
       );
       if (embeddedAttributeValueDoc) {
@@ -174,23 +222,17 @@ function embed(path, print, textToDoc, options) {
       }
       break;
     }
-    case "yaml":
-      return markAsRoot(
-        concat([
-          "---",
-          hardline,
-          node.value.trim().length === 0
-            ? ""
-            : textToDoc(node.value, { parser: "yaml" }),
-          "---",
-        ])
-      );
+    case "front-matter":
+      return printFrontMatter(node, textToDoc);
   }
 }
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
+
   switch (node.type) {
+    case "front-matter":
+      return concat(replaceEndOfLineWith(node.raw, literalline));
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -202,6 +244,17 @@ function genericPrint(path, options, print) {
       ]);
     case "element":
     case "ieConditionalComment": {
+      if (shouldPreserveContent(node, options)) {
+        return concat(
+          [].concat(
+            printOpeningTagPrefix(node, options),
+            group(printOpeningTag(path, options, print)),
+            replaceEndOfLineWith(getNodeContent(node, options), literalline),
+            printClosingTag(node, options),
+            printClosingTagSuffix(node, options)
+          )
+        );
+      }
       /**
        * do not break:
        *
@@ -285,7 +338,7 @@ function genericPrint(path, options, print) {
                           node.isWhitespaceSensitive &&
                           node.isIndentationSensitive)) &&
                       new RegExp(
-                        `\\n\\s{${
+                        `\\n[\\t ]{${
                           options.tabWidth *
                           countParents(
                             path,
@@ -357,10 +410,7 @@ function genericPrint(path, options, print) {
         printOpeningTagPrefix(node, options),
         concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              options.locStart(node),
-              options.locEnd(node)
-            ),
+            options.originalText.slice(locStart(node), locEnd(node)),
             literalline
           )
         ),
@@ -392,10 +442,8 @@ function genericPrint(path, options, print) {
         ]),
       ]);
     }
-    case "yaml":
-    case "toml":
-      return concat(replaceEndOfLineWith(node.raw, literalline));
     default:
+      /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
   }
 }
@@ -515,46 +563,18 @@ function printChildren(path, options, print) {
           printOpeningTagPrefix(child, options),
           replaceEndOfLineWith(
             options.originalText.slice(
-              options.locStart(child) +
+              locStart(child) +
                 (child.prev &&
                 needsToBorrowNextOpeningTagStartMarker(child.prev)
                   ? printOpeningTagStartMarker(child).length
                   : 0),
-              options.locEnd(child) -
+              locEnd(child) -
                 (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
                   ? printClosingTagEndMarker(child, options).length
                   : 0)
             ),
             literalline
           ),
-          printClosingTagSuffix(child, options)
-        )
-      );
-    }
-
-    if (shouldPreserveContent(child, options)) {
-      return concat(
-        [].concat(
-          printOpeningTagPrefix(child, options),
-          group(printOpeningTag(childPath, options, print)),
-          replaceEndOfLineWith(
-            options.originalText.slice(
-              child.startSourceSpan.end.offset +
-                (child.firstChild &&
-                needsToBorrowParentOpeningTagEndMarker(child.firstChild)
-                  ? -printOpeningTagEndMarker(child).length
-                  : 0),
-              child.endSourceSpan.start.offset +
-                (child.lastChild &&
-                needsToBorrowParentClosingTagStartMarker(child.lastChild)
-                  ? printClosingTagStartMarker(child, options).length
-                  : needsToBorrowLastChildClosingTagEndMarker(child)
-                  ? -printClosingTagEndMarker(child.lastChild, options).length
-                  : 0)
-            ),
-            literalline
-          ),
-          printClosingTag(child, options),
           printClosingTagSuffix(child, options)
         )
       );
@@ -626,86 +646,114 @@ function printChildren(path, options, print) {
   }
 }
 
-function printOpeningTag(path, options, print) {
+function getNodeContent(node, options) {
+  let start = node.startSourceSpan.end.offset;
+  if (
+    node.firstChild &&
+    needsToBorrowParentOpeningTagEndMarker(node.firstChild)
+  ) {
+    start -= printOpeningTagEndMarker(node).length;
+  }
+
+  let end = node.endSourceSpan.start.offset;
+  if (
+    node.lastChild &&
+    needsToBorrowParentClosingTagStartMarker(node.lastChild)
+  ) {
+    end += printClosingTagStartMarker(node, options).length;
+  } else if (needsToBorrowLastChildClosingTagEndMarker(node)) {
+    end -= printClosingTagEndMarker(node.lastChild, options).length;
+  }
+
+  return options.originalText.slice(start, end);
+}
+
+function printAttributes(path, options, print) {
   const node = path.getValue();
+
+  if (!node.attrs || node.attrs.length === 0) {
+    return node.isSelfClosing
+      ? /**
+         *     <br />
+         *        ^
+         */
+        " "
+      : "";
+  }
+
+  const ignoreAttributeData =
+    node.prev &&
+    node.prev.type === "comment" &&
+    getPrettierIgnoreAttributeCommentData(node.prev.value);
+
+  const hasPrettierIgnoreAttribute =
+    typeof ignoreAttributeData === "boolean"
+      ? () => ignoreAttributeData
+      : Array.isArray(ignoreAttributeData)
+      ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
+      : () => false;
+
+  const printedAttributes = path.map((attributePath) => {
+    const attribute = attributePath.getValue();
+    return hasPrettierIgnoreAttribute(attribute)
+      ? concat(
+          replaceEndOfLineWith(
+            options.originalText.slice(locStart(attribute), locEnd(attribute)),
+            literalline
+          )
+        )
+      : print(attributePath);
+  }, "attrs");
+
   const forceNotToBreakAttrContent =
     node.type === "element" &&
     node.fullName === "script" &&
     node.attrs.length === 1 &&
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
+
+  const parts = [
+    indent(
+      concat([
+        forceNotToBreakAttrContent ? " " : line,
+        join(line, printedAttributes),
+      ])
+    ),
+  ];
+
+  if (
+    /**
+     *     123<a
+     *       attr
+     *           ~
+     *       >456
+     */
+    (node.firstChild &&
+      needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
+    /**
+     *     <span
+     *       >123<meta
+     *                ~
+     *     /></span>
+     */
+    (node.isSelfClosing &&
+      needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
+    forceNotToBreakAttrContent
+  ) {
+    parts.push(node.isSelfClosing ? " " : "");
+  } else {
+    parts.push(node.isSelfClosing ? line : softline);
+  }
+
+  return concat(parts);
+}
+
+function printOpeningTag(path, options, print) {
+  const node = path.getValue();
+
   return concat([
     printOpeningTagStart(node, options),
-    !node.attrs || node.attrs.length === 0
-      ? node.isSelfClosing
-        ? /**
-           *     <br />
-           *        ^
-           */
-          " "
-        : ""
-      : concat([
-          indent(
-            concat([
-              forceNotToBreakAttrContent ? " " : line,
-              join(
-                line,
-                ((ignoreAttributeData) => {
-                  const hasPrettierIgnoreAttribute =
-                    typeof ignoreAttributeData === "boolean"
-                      ? () => ignoreAttributeData
-                      : Array.isArray(ignoreAttributeData)
-                      ? (attr) => ignoreAttributeData.includes(attr.rawName)
-                      : () => false;
-                  return path.map((attrPath) => {
-                    const attr = attrPath.getValue();
-                    return hasPrettierIgnoreAttribute(attr)
-                      ? concat(
-                          replaceEndOfLineWith(
-                            options.originalText.slice(
-                              options.locStart(attr),
-                              options.locEnd(attr)
-                            ),
-                            literalline
-                          )
-                        )
-                      : print(attrPath);
-                  }, "attrs");
-                })(
-                  node.prev &&
-                    node.prev.type === "comment" &&
-                    getPrettierIgnoreAttributeCommentData(node.prev.value)
-                )
-              ),
-            ])
-          ),
-          /**
-           *     123<a
-           *       attr
-           *           ~
-           *       >456
-           */
-          (node.firstChild &&
-            needsToBorrowParentOpeningTagEndMarker(node.firstChild)) ||
-          /**
-           *     <span
-           *       >123<meta
-           *                ~
-           *     /></span>
-           */
-          (node.isSelfClosing &&
-            needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? node.isSelfClosing
-              ? " "
-              : ""
-            : node.isSelfClosing
-            ? forceNotToBreakAttrContent
-              ? " "
-              : line
-            : forceNotToBreakAttrContent
-            ? ""
-            : softline,
-        ]),
+    printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
   ]);
 }
@@ -796,6 +844,7 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
    */
   return (
     node.prev &&
+    node.prev.type !== "docType" &&
     !isTextLikeNode(node.prev) &&
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
@@ -814,7 +863,8 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     node.lastChild &&
     node.lastChild.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
-    !isTextLikeNode(getLastDescendant(node.lastChild))
+    !isTextLikeNode(getLastDescendant(node.lastChild)) &&
+    !isPreLikeNode(node)
   );
 }
 
@@ -898,6 +948,7 @@ function printOpeningTagEndMarker(node) {
 
 function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
+  /* istanbul ignore next */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
@@ -941,11 +992,10 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
       : replaceEndOfLineWith(
-          dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
+          dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : // https://infra.spec.whatwg.org/#ascii-whitespace
-      join(line, value.split(/[\t\n\f\r ]+/)).parts;
+    : join(line, splitByHtmlWhitespace(value)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
@@ -989,7 +1039,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
-    originalTextToDoc(code, { __onHtmlBindingRoot, ...opts });
+    originalTextToDoc(
+      code,
+      { __onHtmlBindingRoot, ...opts },
+      { stripTrailingHardline: true }
+    );
 
   if (
     node.fullName === "srcset" &&
@@ -1009,10 +1063,14 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        textToDoc(value, {
-          parser: "css",
-          __isHTMLStyleAttribute: true,
-        })
+        textToDoc(
+          value,
+          {
+            parser: "css",
+            __isHTMLStyleAttribute: true,
+          },
+          { stripTrailingHardline: true }
+        )
       );
     }
   }
@@ -1022,8 +1080,8 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (node.fullName === "slot-scope") {
-      return printVueSlotScope(getValue(), textToDoc);
+    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
+      return printVueBindings(getValue(), textToDoc);
     }
 
     /**
@@ -1046,23 +1104,35 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       return printMaybeHug(
-        isVueEventBindingExpression(value)
-          ? textToDoc(value, { parser: "__js_expression" })
-          : stripTrailingHardline(
-              textToDoc(value, { parser: "__vue_event_binding" })
-            )
+        textToDoc(
+          value,
+          {
+            parser: isVueEventBindingExpression(value)
+              ? "__js_expression"
+              : "__vue_event_binding",
+          },
+          { stripTrailingHardline: true }
+        )
       );
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(getValue(), { parser: "__vue_expression" })
+        textToDoc(
+          getValue(),
+          { parser: "__vue_expression" },
+          { stripTrailingHardline: true }
+        )
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(getValue(), { parser: "__js_expression" })
+        textToDoc(
+          getValue(),
+          { parser: "__js_expression" },
+          { stripTrailingHardline: true }
+        )
       );
     }
   }
@@ -1070,7 +1140,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, { ...opts, trailingComma: "none" });
+      textToDoc(
+        code,
+        { ...opts, trailingComma: "none" },
+        { stripTrailingHardline: true }
+      );
 
     /**
      *     *directive="angularDirective"

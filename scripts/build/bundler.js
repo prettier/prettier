@@ -1,21 +1,24 @@
 "use strict";
 
-const execa = require("execa");
 const path = require("path");
+const fs = require("fs");
+const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("@rollup/plugin-node-resolve");
-const alias = require("@rollup/plugin-alias");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
+const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
-const babel = require("rollup-plugin-babel");
+const { babel } = require("@rollup/plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
+
+const PROJECT_ROOT = path.join(__dirname, "../..");
 
 const EXTERNALS = [
   "assert",
@@ -32,10 +35,47 @@ const EXTERNALS = [
   "util",
   "readline",
   "tty",
-
-  // See comment in jest.config.js
-  "graceful-fs",
 ];
+
+const entries = [
+  // Force using the CJS file, instead of ESM; i.e. get the file
+  // from `"main"` instead of `"module"` (rollup default) of package.json
+  {
+    find: "outdent",
+    replacement: require.resolve("outdent"),
+  },
+  {
+    find: "lines-and-columns",
+    replacement: require.resolve("lines-and-columns"),
+  },
+  {
+    find: "@angular/compiler/src",
+    replacement: path.resolve(
+      `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+    ),
+  },
+];
+
+function webpackNativeShims(config, modules) {
+  if (!config.resolve) {
+    config.resolve = {};
+  }
+  const { resolve } = config;
+  resolve.alias = resolve.alias || {};
+  resolve.fallback = resolve.fallback || {};
+  for (const module of modules) {
+    if (module in resolve.alias || module in resolve.fallback) {
+      throw new Error(`fallback/alias for "${module}" already exists.`);
+    }
+    const file = path.join(__dirname, `shims/${module}.mjs`);
+    if (fs.existsSync(file)) {
+      resolve.alias[module] = file;
+    } else {
+      resolve.fallback[module] = false;
+    }
+  }
+  return config;
+}
 
 function getBabelConfig(bundle) {
   const config = {
@@ -113,10 +153,22 @@ function getRollupConfig(bundle) {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
     replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
+    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
+    // `parser-typescript.js` will contain a path of working directory
+    // See #8268
+    replaceStrings.__filename = JSON.stringify(
+      "/prettier-security-filename-placeholder.js"
+    );
+    replaceStrings.__dirname = JSON.stringify(
+      "/prettier-security-dirname-placeholder"
+    );
   }
   Object.assign(replaceStrings, bundle.replace);
 
-  const babelConfig = getBabelConfig(bundle);
+  const babelConfig = { babelHelpers: "bundled", ...getBabelConfig(bundle) };
+
+  const alias = { ...bundle.alias };
+  alias.entries = [...entries, ...(alias.entries || [])];
 
   config.plugins = [
     replace({
@@ -126,21 +178,32 @@ function getRollupConfig(bundle) {
     executable(),
     evaluate(),
     json(),
-    bundle.alias && alias(bundle.alias),
+    rollupPluginAlias(alias),
     bundle.target === "universal" &&
       nativeShims(path.resolve(__dirname, "shims")),
-    resolve({
+    nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
     }),
     commonjs({
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
+      ignore:
+        bundle.type === "plugin"
+          ? undefined
+          : (id) => /\.\/parser-.*?/.test(id),
+      requireReturnsDefault: "preferred",
     }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
-    babelConfig && babel(babelConfig),
-    bundle.type === "plugin" && terser(),
+    babel(babelConfig),
+    bundle.minify !== false &&
+      bundle.target === "universal" &&
+      terser({
+        output: {
+          ascii_only: true,
+        },
+      }),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -150,21 +213,39 @@ function getRollupConfig(bundle) {
   return config;
 }
 
-function getRollupOutputOptions(bundle) {
+function getRollupOutputOptions(bundle, buildOptions) {
   const options = {
+    // Avoid warning form #8797
+    exports: "auto",
     file: `dist/${bundle.output}`,
-    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
-    paths: [{ "graceful-fs": "fs" }],
   };
 
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.format = "umd";
     options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
+
+    if (!bundle.format && bundle.bundler !== "webpack") {
+      return [
+        {
+          ...options,
+          format: "umd",
+        },
+        !buildOptions.playground && {
+          ...options,
+          format: "esm",
+          file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
+        },
+      ].filter(Boolean);
+    }
+    options.format = bundle.format;
   }
-  return options;
+
+  if (buildOptions.playground && bundle.bundler !== "webpack") {
+    return { skipped: true };
+  }
+  return [options];
 }
 
 function getWebpackConfig(bundle) {
@@ -174,6 +255,8 @@ function getWebpackConfig(bundle) {
 
   const root = path.resolve(__dirname, "..", "..");
   const config = {
+    mode: "production",
+    performance: { hints: false },
     entry: path.resolve(root, bundle.input),
     module: {
       rules: [
@@ -189,62 +272,101 @@ function getWebpackConfig(bundle) {
     output: {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
-      library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd",
+      library: {
+        type: "umd",
+        name: ["prettierPlugins", bundle.name],
+      },
       // https://github.com/webpack/webpack/issues/6642
       globalObject: 'new Function("return this")()',
+    },
+    optimization: {},
+    resolve: {
+      // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
+      // Ignore `exports` field to fix bundle script
+      exportsFields: [],
     },
   };
 
   if (bundle.terserOptions) {
     const TerserPlugin = require("terser-webpack-plugin");
-
-    config.optimization = {
-      minimizer: [new TerserPlugin(bundle.terserOptions)],
-    };
+    config.optimization.minimizer = [new TerserPlugin(bundle.terserOptions)];
   }
+  // config.optimization.minimize = false;
 
-  return config;
+  return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
 }
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
-    webpack(config, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
+    webpack(config, (error, stats) => {
+      if (error) {
+        reject(error);
+        return;
       }
+
+      if (stats.hasErrors()) {
+        const { errors } = stats.toJson();
+        const error = new Error(errors[0].message);
+        error.errors = errors;
+        reject(error);
+        return;
+      }
+
+      if (stats.hasWarnings()) {
+        const { warnings } = stats.toJson();
+        console.warn(warnings);
+      }
+
+      resolve();
     });
   });
 }
 
-module.exports = async function createBundle(bundle, cache) {
-  const inputOptions = getRollupConfig(bundle);
-  const outputOptions = getRollupOutputOptions(bundle);
-
+async function checkCache(cache, inputOptions, outputOption) {
   const useCache = await cache.checkBundle(
-    bundle.output,
+    outputOption.file,
     inputOptions,
-    outputOptions
+    outputOption
   );
+
   if (useCache) {
     try {
       await execa("cp", [
-        path.join(cache.cacheDir, "files", bundle.output),
-        "dist",
+        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
+        outputOption.file,
       ]);
-      return { cached: true };
+      return true;
     } catch (err) {
+      console.log(err);
       // Proceed to build
     }
+  }
+
+  return false;
+}
+
+module.exports = async function createBundle(bundle, cache, options) {
+  const inputOptions = getRollupConfig(bundle);
+  const outputOptions = getRollupOutputOptions(bundle, options);
+
+  if (!Array.isArray(outputOptions) && outputOptions.skipped) {
+    return { skipped: true };
+  }
+
+  const checkCacheResults = await Promise.all(
+    outputOptions.map((outputOption) =>
+      checkCache(cache, inputOptions, outputOption)
+    )
+  );
+  if (checkCacheResults.every((r) => r === true)) {
+    return { cached: true };
   }
 
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
     const result = await rollup(inputOptions);
-    await result.write(outputOptions);
+    await Promise.all(outputOptions.map((option) => result.write(option)));
   }
 
   return { bundled: true };

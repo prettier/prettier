@@ -1,30 +1,35 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
+const readline = require("readline");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
-const fs = require("fs");
 
 const chalk = require("chalk");
-const readline = require("readline");
-const stringify = require("json-stable-stringify");
+const stringify = require("fast-json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
 const flat = require("lodash/flatten");
+const partition = require("lodash/partition");
+// eslint-disable-next-line no-restricted-modules
+const prettier = require("../index");
+// eslint-disable-next-line no-restricted-modules
+const { getStdin } = require("../common/third-party");
+const {
+  createIgnorer,
+  errors,
+  coreOptions,
+  optionsModule,
+  optionsNormalizer,
+  utils: { arrayify },
+} = require("./prettier-internal");
 
 const minimist = require("./minimist");
-const prettier = require("../../index");
-const createIgnorer = require("../common/create-ignorer");
-const expandPatterns = require("./expand-patterns");
-const errors = require("../common/errors");
+const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
 const constant = require("./constant");
-const coreOptions = require("../main/core-options");
-const optionsModule = require("../main/options");
-const optionsNormalizer = require("../main/options-normalizer");
-const thirdParty = require("../common/third-party");
-const arrayify = require("../utils/arrayify");
-const isTTY = require("../utils/is-tty");
+const isTTY = require("./is-tty");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -56,9 +61,14 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv.write && isTTY()) {
+    // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
+    /* istanbul ignore next */
+    if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
+    }
+    if (context.argv["ignore-unknown"]) {
+      return;
     }
     if (!context.argv.check && !context.argv["list-different"]) {
       process.exitCode = 2;
@@ -88,6 +98,7 @@ function handleError(context, filename, error) {
     context.logger.error(`${filename}: ${error.message}`);
   } else {
     // `invalid.js: Error: Some unexpected error\n[stack trace]`
+    /* istanbul ignore next */
     context.logger.error(filename + ": " + (error.stack || error));
   }
 
@@ -112,7 +123,9 @@ function logFileInfoOrDie(context) {
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"],
+    resolveConfig: context.argv.config !== false,
   };
+
   context.logger.log(
     prettier.format(
       stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
@@ -354,7 +367,10 @@ function applyConfigPrecedence(context, options) {
         return options || parseArgsToOptions(context);
     }
   } catch (error) {
+    /* istanbul ignore next */
     context.logger.error(error.toString());
+
+    /* istanbul ignore next */
     process.exit(2);
   }
 }
@@ -371,10 +387,12 @@ function formatStdin(context) {
     ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
     : path.relative(process.cwd(), filepath);
 
-  thirdParty
-    .getStream(process.stdin)
+  getStdin()
     .then((input) => {
-      if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+      if (
+        relativeFilepath &&
+        ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+      ) {
         writeOutput(context, { formatted: input });
         return;
       }
@@ -429,7 +447,8 @@ function formatFiles(context) {
     const ignoreFilename = context.argv["ignore-path"]
       ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
       : filename;
-    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
+
+    const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
@@ -454,13 +473,19 @@ function formatFiles(context) {
       input = fs.readFileSync(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
+      /* istanbul ignore next */
       context.logger.log("");
 
+      /* istanbul ignore next */
       context.logger.error(
         `Unable to read file: ${filename}\n${error.message}`
       );
+
       // Don't exit the process if one file failed
+      /* istanbul ignore next */
       process.exitCode = 2;
+
+      /* istanbul ignore next */
       continue;
     }
 
@@ -501,16 +526,20 @@ function formatFiles(context) {
         try {
           fs.writeFileSync(filename, output, "utf8");
         } catch (error) {
+          /* istanbul ignore next */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
+
           // Don't exit the process if one file failed
+          /* istanbul ignore next */
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
+      /* istanbul ignore else */
       if (result.filepath) {
         context.logger.log(result.filepath);
       } else {
@@ -520,21 +549,27 @@ function formatFiles(context) {
       writeOutput(context, result, options);
     }
 
-    if ((context.argv.check || context.argv["list-different"]) && isDifferent) {
-      context.logger.log(filename);
+    if (isDifferent) {
+      if (context.argv.check) {
+        context.logger.warn(filename);
+      } else if (context.argv["list-different"]) {
+        context.logger.log(filename);
+      }
       numberOfUnformattedFilesFound += 1;
     }
   }
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
-    context.logger.log(
-      numberOfUnformattedFilesFound === 0
-        ? "All matched files use Prettier code style!"
-        : context.argv.write
-        ? "Code style issues fixed in the above file(s)."
-        : "Code style issues found in the above file(s). Forgot to run Prettier?"
-    );
+    if (numberOfUnformattedFilesFound === 0) {
+      context.logger.log("All matched files use Prettier code style!");
+    } else {
+      context.logger.warn(
+        context.argv.write
+          ? "Code style issues fixed in the above file(s)."
+          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+      );
+    }
   }
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write
@@ -706,7 +741,7 @@ function createDetailedUsage(context, flag) {
 function getOptionDefaultValue(context, optionName) {
   // --no-option
   if (!(optionName in context.detailedOptionMap)) {
-    return undefined;
+    return;
   }
 
   const option = context.detailedOptionMap[optionName];
@@ -719,8 +754,6 @@ function getOptionDefaultValue(context, optionName) {
   if (optionCamelName in context.apiDefaultOptions) {
     return context.apiDefaultOptions[optionCamelName];
   }
-
-  return undefined;
 }
 
 function indent(str, spaces) {
@@ -752,8 +785,6 @@ function createLogger(logLevel) {
     switch (logLevel) {
       case "silent":
         return false;
-      default:
-        return true;
       case "debug":
         if (loggerName === "debug") {
           return true;
@@ -787,6 +818,7 @@ function normalizeDetailedOption(name, option) {
           deprecated: false,
           ...(typeof choice === "object" ? choice : { value: choice }),
         };
+        /* istanbul ignore next */
         if (newChoice.value === true) {
           newChoice.value = ""; // backward compatibility for original boolean option
         }
@@ -804,18 +836,17 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
 }
 
 function createMinimistOptions(detailedOptions) {
-  return {
-    // we use vnopts' AliasSchema to handle aliases for better error messages
-    alias: {},
-    boolean: detailedOptions
-      .filter((option) => option.type === "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    string: detailedOptions
-      .filter((option) => option.type !== "boolean")
-      .map((option) => [option.name].concat(option.alias || []))
-      .reduce((a, b) => a.concat(b)),
-    default: detailedOptions
+  const [boolean, string] = partition(
+    detailedOptions,
+    ({ type }) => type === "boolean"
+  ).map((detailedOptions) =>
+    flat(
+      detailedOptions.map(({ name, alias }) => (alias ? [name, alias] : [name]))
+    )
+  );
+
+  const defaults = fromPairs(
+    detailedOptions
       .filter(
         (option) =>
           !option.deprecated &&
@@ -824,10 +855,15 @@ function createMinimistOptions(detailedOptions) {
             option.name === "plugin-search-dir") &&
           option.default !== undefined
       )
-      .reduce(
-        (current, option) => ({ [option.name]: option.default, ...current }),
-        {}
-      ),
+      .map((option) => [option.name, option.default])
+  );
+
+  return {
+    // we use vnopts' AliasSchema to handle aliases for better error messages
+    alias: {},
+    boolean,
+    string,
+    default: defaults,
   };
 }
 
@@ -852,6 +888,7 @@ function createDetailedOptionMap(supportOptions) {
         forwardToApi: option.name,
       };
 
+      /* istanbul ignore next */
       if (option.deprecated) {
         delete newOption.forwardToApi;
         delete newOption.description;
@@ -881,6 +918,7 @@ function createDetailedOptionMap(supportOptions) {
 
 /** @returns {Context} */
 function createContext(args) {
+  /** @type {Context} */
   const context = { args, stack: [] };
 
   updateContextArgv(context);
@@ -894,7 +932,7 @@ function createContext(args) {
     context.argv["plugin-search-dir"]
   );
 
-  return /** @type {Context} */ (context);
+  return context;
 }
 
 function initContext(context) {
@@ -973,7 +1011,7 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
   const argv = minimist(context.args, minimistOptions);
 
   context.argv = argv;
-  context.filePatterns = argv._;
+  context.filePatterns = argv._.map((file) => String(file));
 }
 
 function normalizeContextArgv(context, keys) {

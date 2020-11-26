@@ -8,6 +8,12 @@ describe("write file with --write + unformatted file", () => {
   });
 });
 
+describe("write file with -w + unformatted file", () => {
+  runPrettier("cli/write", ["-w", "unformatted.js"]).test({
+    status: 0,
+  });
+});
+
 describe("do not write file with --write + formatted file", () => {
   runPrettier("cli/write", ["--write", "formatted.js"]).test({
     write: [],

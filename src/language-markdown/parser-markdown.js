@@ -2,11 +2,13 @@
 
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+const remarkMath = require("remark-math");
+const footnotes = require("remark-footnotes");
+const { parse: parseFrontMatter } = require("../utils/front-matter");
 const pragma = require("./pragma");
-const parseFrontMatter = require("../utils/front-matter");
+const { locStart, locEnd } = require("./loc");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
-const remarkMath = require("remark-math");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -26,15 +28,17 @@ function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
       .use(remarkParse, {
-        footnotes: true,
         commonmark: true,
         ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
       })
+      .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
       .use(liquid)
-      .use(isMDX ? htmlToJsx : identity);
+      .use(isMDX ? htmlToJsx : identity)
+      .use(wikiLink)
+      .use(looseItems);
     return processor.runSync(processor.parse(text));
   };
 }
@@ -94,12 +98,69 @@ function liquid() {
   };
 }
 
+function wikiLink() {
+  const entityType = "wikiLink";
+  const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/s;
+  const proto = this.Parser.prototype;
+  const methods = proto.inlineMethods;
+  methods.splice(methods.indexOf("link"), 0, entityType);
+  proto.inlineTokenizers.wikiLink = tokenizer;
+
+  function tokenizer(eat, value) {
+    const match = wikiLinkRegex.exec(value);
+
+    if (match) {
+      const linkContents = match.groups.linkContents.trim();
+
+      return eat(match[0])({
+        type: entityType,
+        value: linkContents,
+      });
+    }
+  }
+
+  tokenizer.locator = function (value, fromIndex) {
+    return value.indexOf("[", fromIndex);
+  };
+}
+
+function looseItems() {
+  const proto = this.Parser.prototype;
+  const originalList = proto.blockTokenizers.list;
+
+  function fixListNodes(value, node, parent) {
+    if (node.type === "listItem") {
+      node.loose = node.spread || value.charAt(value.length - 1) === "\n";
+      if (node.loose) {
+        parent.loose = true;
+      }
+    }
+    return node;
+  }
+
+  proto.blockTokenizers.list = function list(realEat, value, silent) {
+    function eat(subvalue) {
+      const realAdd = realEat(subvalue);
+
+      function add(node, parent) {
+        return realAdd(fixListNodes(subvalue, node, parent), parent);
+      }
+      add.reset = function (node, parent) {
+        return realAdd.reset(fixListNodes(subvalue, node, parent), parent);
+      };
+
+      return add;
+    }
+    eat.now = realEat.now;
+    return originalList.call(this, eat, value, silent);
+  };
+}
+
 const baseParser = {
   astFormat: "mdast",
   hasPragma: pragma.hasPragma,
-  locStart: (node) => node.position.start.offset,
-  locEnd: (node) => node.position.end.offset,
-  preprocess: (text) => text.replace(/\n\s+$/, "\n"), // workaround for https://github.com/remarkjs/remark/issues/350
+  locStart,
+  locEnd,
 };
 
 const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };

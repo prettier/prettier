@@ -1,7 +1,7 @@
 "use strict";
 
-const dedent = require("dedent");
-const coreOptions = require("../main/core-options");
+const { outdent } = require("outdent");
+const { coreOptions } = require("./prettier-internal");
 
 const categoryOrder = [
   coreOptions.CATEGORY_OUTPUT,
@@ -74,7 +74,7 @@ const options = {
     type: "boolean",
     category: coreOptions.CATEGORY_OUTPUT,
     alias: "c",
-    description: dedent`
+    description: outdent`
       Check if the given files are formatted, print a human-friendly summary
       message and paths to unformatted files (see also --list-different).
     `,
@@ -112,7 +112,7 @@ const options = {
       },
       {
         value: "prefer-file",
-        description: dedent`
+        description: outdent`
           If a config file is found will evaluate it and ignore other CLI options.
           If no config file is found CLI options will evaluate as normal.
         `,
@@ -153,7 +153,7 @@ const options = {
   },
   "file-info": {
     type: "path",
-    description: dedent`
+    description: outdent`
       Extract the following info (as JSON) for a given file path. Reported fields:
       * ignored (boolean) - true if file path is filtered by --ignore-path
       * inferredParser (string | null) - name of parser inferred from file path
@@ -162,7 +162,7 @@ const options = {
   help: {
     type: "flag",
     alias: "h",
-    description: dedent`
+    description: outdent`
       Show CLI usage, or details about the given flag.
       Example: --help write
     `,
@@ -173,6 +173,11 @@ const options = {
     category: coreOptions.CATEGORY_CONFIG,
     default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore.",
+  },
+  "ignore-unknown": {
+    type: "boolean",
+    alias: "u",
+    description: "Ignore unknown files.",
   },
   "list-different": {
     type: "boolean",
@@ -203,12 +208,13 @@ const options = {
   },
   write: {
     type: "boolean",
+    alias: "w",
     category: coreOptions.CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)",
   },
 };
 
-const usageSummary = dedent`
+const usageSummary = outdent`
   Usage: prettier [options] [file/dir/glob ...]
 
   By default, output is written to stdout.

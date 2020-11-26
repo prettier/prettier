@@ -1,43 +1,55 @@
 "use strict";
 
-function clean(ast, newObj, parent) {
-  [
-    "raw", // front-matter
-    "raws",
-    "sourceIndex",
-    "source",
-    "before",
-    "after",
-    "trailingComma",
-  ].forEach((name) => {
-    delete newObj[name];
-  });
+const { isFrontMatterNode } = require("../common/util");
+const getLast = require("../utils/get-last");
 
-  if (ast.type === "yaml") {
+const ignoredProperties = new Set([
+  "raw", // front-matter
+  "raws",
+  "sourceIndex",
+  "source",
+  "before",
+  "after",
+  "trailingComma",
+]);
+
+function clean(ast, newObj, parent) {
+  if (isFrontMatterNode(ast) && ast.lang === "yaml") {
     delete newObj.value;
   }
 
-  // --insert-pragma
   if (
     ast.type === "css-comment" &&
     parent.type === "css-root" &&
-    parent.nodes.length !== 0 &&
-    // first non-front-matter comment
-    (parent.nodes[0] === ast ||
-      ((parent.nodes[0].type === "yaml" || parent.nodes[0].type === "toml") &&
-        parent.nodes[1] === ast))
+    parent.nodes.length !== 0
   ) {
-    /**
-     * something
-     *
-     * @format
-     */
-    delete newObj.text;
+    // --insert-pragma
+    // first non-front-matter comment
+    if (
+      parent.nodes[0] === ast ||
+      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast)
+    ) {
+      /**
+       * something
+       *
+       * @format
+       */
+      delete newObj.text;
 
-    // standalone pragma
-    if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+      // standalone pragma
+      if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+        return null;
+      }
+    }
+
+    // Last comment is not parsed, when omitting semicolon, #8675
+    if (parent.type === "css-root" && getLast(parent.nodes) === ast) {
       return null;
     }
+  }
+
+  if (ast.type === "value-root") {
+    delete newObj.text;
   }
 
   if (
@@ -155,6 +167,8 @@ function clean(ast, newObj, parent) {
     delete newObj.value;
   }
 }
+
+clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
   return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");

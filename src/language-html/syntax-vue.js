@@ -22,7 +22,11 @@ function printVueFor(value, textToDoc) {
     " ",
     operator,
     " ",
-    textToDoc(right, { parser: "__js_expression" }),
+    textToDoc(
+      right,
+      { parser: "__js_expression" },
+      { stripTrailingHardline: true }
+    ),
   ]);
 }
 
@@ -59,11 +63,15 @@ function parseVueFor(value) {
   };
 }
 
-function printVueSlotScope(value, textToDoc) {
-  return textToDoc(`function _(${value}) {}`, {
-    parser: "babel",
-    __isVueSlotScope: true,
-  });
+function printVueBindings(value, textToDoc) {
+  return textToDoc(
+    `function _(${value}) {}`,
+    {
+      parser: "babel",
+      __isVueBindings: true,
+    },
+    { stripTrailingHardline: true }
+  );
 }
 
 function isVueEventBindingExpression(eventBindingValue) {
@@ -82,5 +90,5 @@ function isVueEventBindingExpression(eventBindingValue) {
 module.exports = {
   isVueEventBindingExpression,
   printVueFor,
-  printVueSlotScope,
+  printVueBindings,
 };

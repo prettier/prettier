@@ -1,7 +1,7 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
 const snapshotDiff = require("snapshot-diff");
+const runPrettier = require("../runPrettier");
 
 describe("show external options with `--help`", () => {
   const originalStdout = runPrettier("plugins/options", ["--help"]).stdout;
@@ -17,6 +17,16 @@ describe("show detailed external option with `--help foo-option`", () => {
     "--plugin=./plugin",
     "--help",
     "foo-option",
+  ]).test({
+    status: 0,
+  });
+});
+
+describe("include plugin's parsers to the values of the `parser` option`", () => {
+  runPrettier("plugins/options", [
+    "--plugin=./plugin",
+    "--help",
+    "parser",
   ]).test({
     status: 0,
   });

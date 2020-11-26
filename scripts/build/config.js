@@ -1,14 +1,13 @@
 "use strict";
 
 const path = require("path");
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 /**
  * @typedef {Object} Bundle
  * @property {string} input - input of the bundle
  * @property {string?} output - path of the output file in the `dist/` folder
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
- * @property {'node' | 'universal'} target - should generate a CJS only for node or UMD bundle
+ * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
@@ -16,9 +15,9 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {Object?} terserOptions - options for `terser`
+ * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
- * @property {Object} namedExports - for cases where rollup can't infer what's exported
  * @property {string[]} ignore - paths of CJS modules to ignore
  */
 
@@ -29,32 +28,33 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-flow.js",
-    strict: false,
+    replace: {
+      // `flow-parser` use this for `globalThis`, can't work in strictMode
+      "(function(){return this}())": '(new Function("return this")())',
+    },
   },
   {
     input: "src/language-js/parser-typescript.js",
     replace: {
-      'require("@microsoft/typescript-etw")': "undefined",
+      // `typescript/lib/typescript.js` expose extra global objects
+      // `TypeScript`, `toolsVersion`, `globalThis`
+      'typeof process === "undefined" || process.browser': "false",
+      'typeof globalThis === "object"': "true",
+      // `@typescript-eslint/typescript-estree` v4
+      'require("globby")': "{}",
+      "extra.projects = prepareAndTransformProjects(":
+        "extra.projects = [] || prepareAndTransformProjects(",
+      "process.versions.node": "'999.999.999'",
     },
   },
   {
+    input: "src/language-js/parser-espree.js",
+  },
+  {
+    input: "src/language-js/parser-meriyah.js",
+  },
+  {
     input: "src/language-js/parser-angular.js",
-    alias: {
-      // Force using the CJS file, instead of ESM; i.e. get the file
-      // from `"main"` instead of `"module"` (rollup default) of package.json
-      entries: [
-        {
-          find: "lines-and-columns",
-          replacement: require.resolve("lines-and-columns"),
-        },
-        {
-          find: "@angular/compiler/src",
-          replacement: path.resolve(
-            `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-          ),
-        },
-      ],
-    },
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -64,6 +64,10 @@ const parsers = [
       // prevent terser generate extra .LICENSE file
       extractComments: false,
       terserOptions: {
+        // prevent U+FFFE in the output
+        output: {
+          ascii_only: true,
+        },
         mangle: {
           // postcss need keep_fnames when minify
           keep_fnames: true,
@@ -74,6 +78,11 @@ const parsers = [
     },
   },
   {
+    input: "dist/parser-postcss.js",
+    output: "esm/parser-postcss.mjs",
+    format: "esm",
+  },
+  {
     input: "src/language-graphql/parser-graphql.js",
   },
   {
@@ -81,28 +90,7 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    alias: {
-      entries: [
-        // `handlebars` causes webpack warning by using `require.extensions`
-        // `dist/handlebars.js` also complaint on `window` variable
-        // use cjs build instead
-        // https://github.com/prettier/prettier/issues/6656
-        {
-          find: "handlebars",
-          replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
-        },
-      ],
-    },
     commonjs: {
-      namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
-          "parse",
-          "parseWithoutProcessing",
-        ],
-        [require.resolve(
-          "@glimmer/syntax/dist/modules/es2017/index.js"
-        )]: "default",
-      },
       ignore: ["source-map"],
     },
   },
@@ -111,16 +99,6 @@ const parsers = [
   },
   {
     input: "src/language-yaml/parser-yaml.js",
-    alias: {
-      // Force using the CJS file, instead of ESM; i.e. get the file
-      // from `"main"` instead of `"module"` (rollup default) of package.json
-      entries: [
-        {
-          find: "lines-and-columns",
-          replacement: require.resolve("lines-and-columns"),
-        },
-      ],
-    },
   },
 ].map((parser) => ({
   type: "plugin",
@@ -147,19 +125,28 @@ const coreBundles = [
     type: "core",
     output: "doc.js",
     target: "universal",
+    format: "umd",
+    minify: false,
   },
   {
     input: "standalone.js",
     name: "prettier",
     type: "core",
     target: "universal",
+    // TODO: Find a better way to remove parsers
+    replace: Object.fromEntries(
+      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"])
+    ),
   },
   {
     input: "bin/prettier.js",
     type: "core",
     output: "bin-prettier.js",
     target: "node",
-    externals: [path.resolve("src/common/third-party.js")],
+    externals: [
+      path.resolve("src/index.js"),
+      path.resolve("src/common/third-party.js"),
+    ],
   },
   {
     input: "src/common/third-party.js",

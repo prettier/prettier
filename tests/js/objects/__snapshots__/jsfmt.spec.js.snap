@@ -1,0 +1,383 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`escape-sequence-key.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #6235
+const a = {
+  '\\u2139': 'why "\\\\u2139" is converted to "i"?',
+};
+
+const b = {
+  "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
+};
+
+=====================================output=====================================
+// #6235
+const a = {
+  "\\u2139": 'why "\\\\u2139" is converted to "i"?',
+};
+
+const b = {
+  "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
+};
+
+================================================================================
+`;
+
+exports[`expand.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const Component1 = ({ props }) => (
+  <Text>Test</Text>
+);
+
+const Component2 = ({
+  props
+}) => (
+  <Text>Test</Text>
+);
+
+=====================================output=====================================
+const Component1 = ({ props }) => <Text>Test</Text>;
+
+const Component2 = ({ props }) => <Text>Test</Text>;
+
+================================================================================
+`;
+
+exports[`expression.js [espree] format 1`] = `
+"Unexpected token : (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js [meriyah] format 1`] = `
+"[5:4]: Expected ')' (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js [typescript] format 1`] = `
+"')' expected. (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+() => ({}\`\`);
+({})\`\`;
+a = () => ({}).x;
+({} && a, b);
+({}::b, 0);
+({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+({}(), 0);
+({} = 0);
+(({} = 0), 1);
+
+const a1 = {
+  someKey:
+    (shortName, shortName)
+};
+
+const a2 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
+};
+
+const a3 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
+};
+
+=====================================output=====================================
+() => ({}\`\`);
+({}\`\`);
+a = () => ({}.x);
+({} && a, b);
+({}::b, 0);
+({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
+({}(), 0);
+({} = 0);
+({} = 0), 1;
+
+const a1 = {
+  someKey: (shortName, shortName),
+};
+
+const a2 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName),
+};
+
+const a3 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+    longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+    longLongLongLongLongLongLongLongLongLongLongLongLongLongName),
+};
+
+================================================================================
+`;
+
+exports[`getter-setter.js [espree] format 1`] = `
+"setter should have exactly one param (3:9)
+  1 | ({ set x(foo) {} });
+  2 | ({ get x() { return 1 } });
+> 3 | ({ set x() {} });
+    |         ^
+  4 | ({ get x(x) {} });
+  5 | "
+`;
+
+exports[`getter-setter.js [meriyah] format 1`] = `
+"[3:10]: Setter functions must have exactly one argument (3:10)
+  1 | ({ set x(foo) {} });
+  2 | ({ get x() { return 1 } });
+> 3 | ({ set x() {} });
+    |          ^
+  4 | ({ get x(x) {} });
+  5 | "
+`;
+
+exports[`getter-setter.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+({ set x(foo) {} });
+({ get x() { return 1 } });
+({ set x() {} });
+({ get x(x) {} });
+
+=====================================output=====================================
+({ set x(foo) {} });
+({
+  get x() {
+    return 1;
+  },
+});
+({ set x() {} });
+({ get x(x) {} });
+
+================================================================================
+`;
+
+exports[`invalid-accessor-generator.js [espree] format 1`] = `
+"Unexpected token * (5:9)
+  3 | 
+  4 | ({
+> 5 |     get *iterator() { },
+    |         ^
+  6 |     set *iterator(iter) { },
+  7 |     get iterator2() { },
+  8 |     set iterator2(iter) { },"
+`;
+
+exports[`invalid-accessor-generator.js [meriyah] format 1`] = `
+"[5:9]: A getter cannot be a generator (5:9)
+  3 | 
+  4 | ({
+> 5 |     get *iterator() { },
+    |         ^
+  6 |     set *iterator(iter) { },
+  7 |     get iterator2() { },
+  8 |     set iterator2(iter) { },"
+`;
+
+exports[`invalid-accessor-generator.js [typescript] format 1`] = `
+"Identifier expected. (5:9)
+  3 | 
+  4 | ({
+> 5 |     get *iterator() { },
+    |         ^
+  6 |     set *iterator(iter) { },
+  7 |     get iterator2() { },
+  8 |     set iterator2(iter) { },"
+`;
+
+exports[`invalid-accessor-generator.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid, but recoverable
+// https://github.com/babel/babel/pull/11921/
+
+({
+    get *iterator() { },
+    set *iterator(iter) { },
+    get iterator2() { },
+    set iterator2(iter) { },
+});
+
+=====================================output=====================================
+// Invalid, but recoverable
+// https://github.com/babel/babel/pull/11921/
+
+({
+  get *iterator() {},
+  set *iterator(iter) {},
+  get iterator2() {},
+  set iterator2(iter) {},
+});
+
+================================================================================
+`;
+
+exports[`invalid-setter.js [espree] format 1`] = `
+"setter should have exactly one param (1:9)
+> 1 | ({ set x(){} });
+    |         ^
+  2 | "
+`;
+
+exports[`invalid-setter.js [meriyah] format 1`] = `
+"[1:10]: Setter functions must have exactly one argument (1:10)
+> 1 | ({ set x(){} });
+    |          ^
+  2 | "
+`;
+
+exports[`invalid-setter.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+({ set x(){} });
+
+=====================================output=====================================
+({ set x() {} });
+
+================================================================================
+`;
+
+exports[`method.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = { f() {} }
+
+=====================================output=====================================
+a = { f() {} };
+
+================================================================================
+`;
+
+exports[`range.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+group(
+  concat([
+    "(",
+    indent(
+      options.tabWidth,
+      concat([line, join(concat([",", line]), printed)])
+    ),
+    options.trailingComma ? "," : "",
+    line,
+    ")"
+  ]),
+  {shouldBreak: true}
+)
+
+=====================================output=====================================
+group(
+  concat([
+    "(",
+    indent(
+      options.tabWidth,
+      concat([line, join(concat([",", line]), printed)])
+    ),
+    options.trailingComma ? "," : "",
+    line,
+    ")",
+  ]),
+  { shouldBreak: true }
+);
+
+================================================================================
+`;
+
+exports[`right-break.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const blablah =
+  "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+  "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+  "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
+
+const k = {
+  blablah: "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
+};
+
+somethingThatsAReallyLongPropName =
+  this.props.cardType === AwesomizerCardEnum.SEEFIRST;
+
+const o = {
+  somethingThatsAReallyLongPropName:
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
+};
+
+=====================================output=====================================
+const blablah =
+  "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+  "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+  "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
+
+const k = {
+  blablah:
+    "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf",
+};
+
+somethingThatsAReallyLongPropName =
+  this.props.cardType === AwesomizerCardEnum.SEEFIRST;
+
+const o = {
+  somethingThatsAReallyLongPropName:
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
+};
+
+================================================================================
+`;

@@ -1,11 +1,11 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("./comments");
 const FastPath = require("../common/fast-path");
+const doc = require("../document");
+const comments = require("./comments");
 const multiparser = require("./multiparser");
 
-const doc = require("../document");
 const docBuilders = doc.builders;
 const { concat, hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;
@@ -89,6 +89,26 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   return doc;
 }
 
+function printPrettierIgnoredNode(node, options) {
+  const {
+    originalText,
+    [Symbol.for("comments")]: comments,
+    locStart,
+    locEnd,
+  } = options;
+
+  const start = locStart(node);
+  const end = locEnd(node);
+
+  for (const comment of comments) {
+    if (locStart(comment) >= start && locEnd(comment) <= end) {
+      comment.printed = true;
+    }
+  }
+
+  return originalText.slice(start, end);
+}
+
 function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
@@ -97,10 +117,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
-    return options.originalText.slice(
-      options.locStart(node),
-      options.locEnd(node)
-    );
+    return printPrettierIgnoredNode(node, options);
   }
 
   if (node) {

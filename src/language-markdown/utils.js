@@ -1,11 +1,12 @@
 "use strict";
 
+const { getLast } = require("../common/util");
+const { locStart, locEnd } = require("./loc");
 const {
   cjkPattern,
   kPattern,
   punctuationPattern,
 } = require("./constants.evaluate");
-const { getLast } = require("../common/util");
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
@@ -13,6 +14,7 @@ const INLINE_NODE_TYPES = [
   "emphasis",
   "strong",
   "delete",
+  "wikiLink",
   "link",
   "linkReference",
   "image",
@@ -190,40 +192,19 @@ function hasGitDiffFriendlyOrderedList(node, options) {
   return secondNumber === 1;
 }
 
-// workaround for https://github.com/remarkjs/remark/issues/351
-// leading and trailing newlines are stripped by remark
+// The final new line should not include in value
+// https://github.com/remarkjs/remark/issues/512
 function getFencedCodeBlockValue(node, originalText) {
-  const text = originalText.slice(
-    node.position.start.offset,
-    node.position.end.offset
-  );
-
-  const leadingSpaceCount = text.match(/^\s*/)[0].length;
-  const replaceRegex = new RegExp(`^\\s{0,${leadingSpaceCount}}`);
-
-  const lineContents = text.split("\n");
-
-  const markerStyle = text[leadingSpaceCount]; // ` or ~
-  const marker = text
-    .slice(leadingSpaceCount)
-    .match(new RegExp(`^[${markerStyle}]+`))[0];
-
-  // https://spec.commonmark.org/0.28/#example-104: Closing fences may be indented by 0-3 spaces
-  // https://spec.commonmark.org/0.28/#example-93: The closing code fence must be at least as long as the opening fence
-  const hasEndMarker = new RegExp(`^\\s{0,3}${marker}`).test(
-    lineContents[lineContents.length - 1].slice(
-      getIndent(lineContents.length - 1)
-    )
-  );
-
-  return lineContents
-    .slice(1, hasEndMarker ? -1 : undefined)
-    .map((x, i) => x.slice(getIndent(i + 1)).replace(replaceRegex, ""))
-    .join("\n");
-
-  function getIndent(lineIndex) {
-    return node.position.indent[lineIndex - 1] - 1;
+  const { value } = node;
+  if (
+    node.position.end.offset === originalText.length &&
+    value.endsWith("\n") &&
+    // Code block has no end mark
+    originalText.endsWith("\n")
+  ) {
+    return value.slice(0, -1);
   }
+  return value;
 }
 
 function mapAst(ast, handler) {
@@ -241,6 +222,18 @@ function mapAst(ast, handler) {
   })(ast, null, null);
 }
 
+function isAutolink(node) {
+  if (!node || node.type !== "link" || node.children.length !== 1) {
+    return false;
+  }
+  const child = node.children[0];
+  return (
+    child &&
+    locStart(node) === locStart(child) &&
+    locEnd(node) === locEnd(child)
+  );
+}
+
 module.exports = {
   mapAst,
   splitText,
@@ -250,4 +243,5 @@ module.exports = {
   hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
+  isAutolink,
 };

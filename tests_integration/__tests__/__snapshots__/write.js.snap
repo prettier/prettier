@@ -35,3 +35,20 @@ Array [
   },
 ]
 `;
+
+exports[`write file with -w + unformatted file (stderr) 1`] = `""`;
+
+exports[`write file with -w + unformatted file (stdout) 1`] = `
+"unformatted.js 0ms
+"
+`;
+
+exports[`write file with -w + unformatted file (write) 1`] = `
+Array [
+  Object {
+    "content": "var x = 1;
+",
+    "filename": "unformatted.js",
+  },
+]
+`;

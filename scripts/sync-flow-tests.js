@@ -1,14 +1,14 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const flowParser = require("flow-parser");
 const globby = require("globby");
-const path = require("path");
 const rimraf = require("rimraf");
 
 const DEFAULT_SPEC_CONTENT = "run_spec(__dirname);\n";
 const SPEC_FILE_NAME = "jsfmt.spec.js";
-const FLOW_TESTS_DIR = path.join(__dirname, "..", "tests", "flow");
+const FLOW_TESTS_DIR = path.join(__dirname, "..", "tests", "flow-repo");
 
 function tryParse(file, content) {
   const ast = flowParser.parse(content, {

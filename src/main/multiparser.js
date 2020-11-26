@@ -1,5 +1,8 @@
 "use strict";
 
+const {
+  utils: { stripTrailingHardline },
+} = require("../document");
 const { normalize } = require("./options");
 const comments = require("./comments");
 
@@ -8,14 +11,27 @@ function printSubtree(path, print, options, printAstToDoc) {
     return options.printer.embed(
       path,
       print,
-      (text, partialNextOptions) =>
-        textToDoc(text, partialNextOptions, options, printAstToDoc),
+      (text, partialNextOptions, textToDocOptions) =>
+        textToDoc(
+          text,
+          partialNextOptions,
+          options,
+          printAstToDoc,
+          textToDocOptions
+        ),
       options
     );
   }
 }
 
-function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
+function textToDoc(
+  text,
+  partialNextOptions,
+  parentOptions,
+  printAstToDoc,
+  // TODO: remove `stripTrailingHardline` in v3.0.0
+  { stripTrailingHardline: shouldStripTrailingHardline = false } = {}
+) {
   const nextOptions = normalize(
     {
       ...parentOptions,
@@ -40,7 +56,23 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const astComments = ast.comments;
   delete ast.comments;
   comments.attach(astComments, ast, text, nextOptions);
-  return printAstToDoc(ast, nextOptions);
+  nextOptions[Symbol.for("comments")] = astComments || [];
+  nextOptions[Symbol.for("tokens")] = ast.tokens || [];
+
+  const doc = printAstToDoc(ast, nextOptions);
+  comments.ensureAllCommentsPrinted(astComments);
+
+  if (shouldStripTrailingHardline) {
+    // TODO: move this to `stripTrailingHardline` function in `/src/document/doc-utils.js`
+    if (typeof doc === "string") {
+      return doc.replace(/(?:\r?\n)*$/, "");
+    }
+
+    return stripTrailingHardline(doc, true);
+  }
+
+  /* istanbul ignore next */
+  return doc;
 }
 
 module.exports = {

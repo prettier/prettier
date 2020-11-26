@@ -9,17 +9,25 @@ function massageAST(ast, options, parent) {
     return ast;
   }
 
+  const cleanFunction = options.printer.massageAstNode;
+  let ignoredProperties;
+  if (cleanFunction && cleanFunction.ignoredProperties) {
+    ignoredProperties = cleanFunction.ignoredProperties;
+  } else {
+    ignoredProperties = new Set();
+  }
+
   const newObj = {};
   for (const key of Object.keys(ast)) {
-    if (typeof ast[key] !== "function") {
+    if (!ignoredProperties.has(key) && typeof ast[key] !== "function") {
       newObj[key] = massageAST(ast[key], options, ast);
     }
   }
 
-  if (options.printer.massageAstNode) {
-    const result = options.printer.massageAstNode(ast, newObj, parent);
+  if (cleanFunction) {
+    const result = cleanFunction(ast, newObj, parent);
     if (result === null) {
-      return undefined;
+      return;
     }
     if (result) {
       return result;

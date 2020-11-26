@@ -74,7 +74,7 @@ function runPrettier(dir, args, options) {
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
   jest
-    .spyOn(require(thirdParty), "getStream")
+    .spyOn(require(thirdParty), "getStdin")
     .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
   jest
     .spyOn(require(thirdParty), "isCI")
@@ -84,7 +84,7 @@ function runPrettier(dir, args, options) {
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig").cosmiconfig(moduleName, {
         ...options,
-        stopDir: __dirname,
+        stopDir: path.join(__dirname, "cli"),
       })
     );
   jest
@@ -92,7 +92,7 @@ function runPrettier(dir, args, options) {
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig").cosmiconfigSync(moduleName, {
         ...options,
-        stopDir: __dirname,
+        stopDir: path.join(__dirname, "cli"),
       })
     );
   jest

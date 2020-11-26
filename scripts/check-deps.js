@@ -1,7 +1,7 @@
 "use strict";
 
-const pkg = require("../package.json");
 const chalk = require("chalk");
+const pkg = require("../package.json");
 
 validateDependencyObject(pkg.dependencies);
 validateDependencyObject(pkg.devDependencies);

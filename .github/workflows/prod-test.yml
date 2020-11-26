@@ -13,43 +13,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12"
+        uses: actions/setup-node@v2.1.2
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Cache Build Results
-        # Prevent error on re-run
-        # https://github.com/actions/cache/issues/107#issuecomment-556037278
-        if: github.event_name == 'push' || github.event_name == 'pull_request'
         id: build-cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: .cache
-          key: v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
+          key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
           restore-keys: |
-            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
-            v1-build-cache-${{ hashFiles('yarn.lock') }}-refs/heads/${{ github.base_ref }}-
-            v1-build-cache-${{ hashFiles('yarn.lock') }}-refs/heads/master-
-
-      # Unknown reason `scripts/build/build.js` created dir can't work
-      - run: mkdir -p .cache/files
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/master-
 
       - name: Build Package
         run: yarn build
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: dist
           path: dist
+
+      # This step calls `git reset`
+      # It should be the last step
+      # The cache step might saving the result of master branch, need investigate
+      - name: Check Sizes
+        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
+        uses: preactjs/compressed-size-action@v2.0.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          compression: none
 
   lint:
     name: Lint
@@ -57,20 +57,16 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12"
+        uses: actions/setup-node@v2.1.2
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist
@@ -79,6 +75,7 @@ jobs:
         run: yarn lint:dist
 
   test:
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -87,23 +84,31 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "13"
+          - "14"
           - "12"
           - "10"
+        include:
+          - os: "ubuntu-latest"
+            node: "14"
+            FULL_TEST: true
+          - os: "ubuntu-latest"
+            node: "15"
         exclude:
           - os: "macos-latest"
-            node: "13"
+            node: "12"
+          - os: "windows-latest"
+            node: "12"
+    env:
+      FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node }}
 
@@ -111,7 +116,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist

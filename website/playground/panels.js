@@ -1,5 +1,5 @@
 import CodeMirror from "codemirror";
-import React from "react";
+import * as React from "react";
 
 class CodeMirrorPanel extends React.Component {
   constructor() {
@@ -10,6 +10,7 @@ class CodeMirrorPanel extends React.Component {
     this._overlay = null;
     this.handleChange = this.handleChange.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+    this.handleSelectionChange = this.handleSelectionChange.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +32,7 @@ class CodeMirrorPanel extends React.Component {
     );
     this._codeMirror.on("change", this.handleChange);
     this._codeMirror.on("focus", this.handleFocus);
+    this._codeMirror.on("beforeSelectionChange", this.handleSelectionChange);
 
     window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
     window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
@@ -64,6 +66,16 @@ class CodeMirrorPanel extends React.Component {
   updateValue(value) {
     this._cached = value;
     this._codeMirror.setValue(value);
+
+    if (this.props.autoFold instanceof RegExp) {
+      const lines = value.split("\n");
+      // going backwards to prevent unfolding folds created earlier
+      for (let i = lines.length - 1; i >= 0; i--) {
+        if (this.props.autoFold.test(lines[i])) {
+          this._codeMirror.foldCode(i);
+        }
+      }
+    }
   }
 
   updateOverlay() {
@@ -91,6 +103,12 @@ class CodeMirrorPanel extends React.Component {
       this._cached = doc.getValue();
       this.props.onChange(this._cached);
       this.updateOverlay();
+    }
+  }
+
+  handleSelectionChange(doc, change) {
+    if (this.props.onSelectionChange) {
+      this.props.onSelectionChange(change.ranges[0]);
     }
   }
 
@@ -180,12 +198,13 @@ export function OutputPanel(props) {
   );
 }
 
-export function DebugPanel({ value }) {
+export function DebugPanel({ value, autoFold }) {
   return (
     <CodeMirrorPanel
       readOnly={true}
       lineNumbers={false}
       foldGutter={true}
+      autoFold={autoFold}
       mode="jsx"
       value={value}
     />

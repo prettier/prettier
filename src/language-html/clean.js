@@ -1,18 +1,22 @@
 "use strict";
 
-module.exports = function (ast, newNode) {
-  delete newNode.sourceSpan;
-  delete newNode.startSourceSpan;
-  delete newNode.endSourceSpan;
-  delete newNode.nameSpan;
-  delete newNode.valueSpan;
+const { isFrontMatterNode } = require("../common/util");
 
+const ignoredProperties = new Set([
+  "sourceSpan",
+  "startSourceSpan",
+  "endSourceSpan",
+  "nameSpan",
+  "valueSpan",
+]);
+
+function clean(ast, newNode) {
   if (ast.type === "text" || ast.type === "comment") {
     return null;
   }
 
   // may be formatted by multiparser
-  if (ast.type === "yaml" || ast.type === "toml") {
+  if (isFrontMatterNode(ast) || ast.type === "yaml" || ast.type === "toml") {
     return null;
   }
 
@@ -23,4 +27,8 @@ module.exports = function (ast, newNode) {
   if (ast.type === "docType") {
     delete newNode.value;
   }
-};
+}
+
+clean.ignoredProperties = ignoredProperties;
+
+module.exports = clean;

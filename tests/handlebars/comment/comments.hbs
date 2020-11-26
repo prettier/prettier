@@ -1,0 +1,30 @@
+<div>
+  {{! Foo }}
+  {{#if @foo}}
+    Foo
+  {{/if}}
+
+  {{! Bar }}
+  {{#if @bar}}
+    Bar
+  {{/if}}
+</div>
+
+<div class="entry">
+  {{! This comment will not be in the output }}
+  {{!-- This comment as }} and will not be in the output --}}
+  {{~! This comment will not be in the output }}
+  {{! This comment will not be in the output ~}}
+  {{~! This comment will not be in the output ~}}
+  {{~!
+comment
+ ~}}
+  {{~! 1 ~}}{{~! 2 ~}}
+  <!-- This comment will be in the output -->
+</div>
+
+<div>
+  {{~!~}}
+  <span></span>
+  {{~!~}}
+</div>
