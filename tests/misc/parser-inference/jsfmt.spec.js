@@ -1,4 +1,4 @@
-const {outdent} = require("outdent");
+const { outdent } = require("outdent");
 
 run_spec({
   dirname: __dirname,
