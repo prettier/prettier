@@ -261,10 +261,7 @@ function printDocToString(doc, options) {
     const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
-      const formatted =
-        newLine !== "\n" && doc.includes("\n")
-          ? doc.replace(/\n/g, newLine)
-          : doc;
+      const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
       out.push(formatted);
       pos += getStringWidth(formatted);
     } else if (isConcat(doc)) {

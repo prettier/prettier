@@ -6,7 +6,8 @@ const {
 const { printDanglingComments } = require("../../main/comments");
 
 const {
-  hasDanglingComments,
+  hasComment,
+  CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
 } = require("../utils");
@@ -55,7 +56,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(" default");
   }
 
-  if (hasDanglingComments(node)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
@@ -203,7 +204,7 @@ function printModuleSpecifiers(path, options, print) {
       const canBreak =
         groupedSpecifiers.length > 1 ||
         standaloneSpecifiers.length > 0 ||
-        node.specifiers.some((node) => node.comments);
+        node.specifiers.some((node) => hasComment(node));
 
       if (canBreak) {
         parts.push(

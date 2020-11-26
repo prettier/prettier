@@ -20,6 +20,7 @@ const {
   isBinaryish,
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
+  hasComment,
 } = require("../utils");
 
 function printTemplateLiteral(path, print, options) {
@@ -81,7 +82,7 @@ function printTemplateLiteral(path, print, options) {
         // Breaks at the template element boundaries (${ and }) are preferred to breaking
         // in the middle of a MemberExpression
         if (
-          (expression.comments && expression.comments.length) ||
+          hasComment(expression) ||
           expression.type === "MemberExpression" ||
           expression.type === "OptionalMemberExpression" ||
           expression.type === "ConditionalExpression" ||
@@ -201,7 +202,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 function printTemplateExpression(path, print) {
   const node = path.getValue();
   let printed = print(path);
-  if (node.comments && node.comments.length) {
+  if (hasComment(node)) {
     printed = group(concat([indent(concat([softline, printed])), softline]));
   }
   return concat(["${", printed, lineSuffixBoundary, "}"]);
