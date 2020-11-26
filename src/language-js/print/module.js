@@ -6,7 +6,8 @@ const {
 const { printDanglingComments } = require("../../main/comments");
 
 const {
-  hasDanglingComments,
+  hasComment,
+  CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
 } = require("../utils");
@@ -47,9 +48,6 @@ function printExportDeclaration(path, options, print) {
   const parts = [];
 
   const { type, exportKind, declaration } = node;
-  if (type === "DeclareExportDeclaration") {
-    parts.push("declare ");
-  }
 
   parts.push("export");
 
@@ -58,7 +56,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(" default");
   }
 
-  if (hasDanglingComments(node)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
@@ -89,15 +87,11 @@ function printExportDeclaration(path, options, print) {
 
 function printExportAllDeclaration(path, options, print) {
   const node = path.getValue();
-  let semi = options.semi ? ";" : "";
+  const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   const parts = [];
 
-  const { type, exportKind, exported } = node;
-  if (type === "DeclareExportAllDeclaration") {
-    parts.push("declare ");
-    semi = "";
-  }
+  const { exportKind, exported } = node;
 
   parts.push("export");
 
@@ -210,7 +204,7 @@ function printModuleSpecifiers(path, options, print) {
       const canBreak =
         groupedSpecifiers.length > 1 ||
         standaloneSpecifiers.length > 0 ||
-        node.specifiers.some((node) => node.comments);
+        node.specifiers.some((node) => hasComment(node));
 
       if (canBreak) {
         parts.push(

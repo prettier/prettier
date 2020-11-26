@@ -11,7 +11,6 @@ const {
 } = require("../../document");
 const {
   getFunctionParameters,
-  hasDanglingComments,
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
   isJSXNode,
@@ -21,6 +20,9 @@ const {
   returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
+  hasComment,
+  getComments,
+  CommentCheckFlags,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -30,6 +32,12 @@ const { printFunctionTypeParameters } = require("./misc");
 function printFunctionDeclaration(path, print, options, expandArg) {
   const n = path.getValue();
   const parts = [];
+
+  // For TypeScript the TSDeclareFunction node shares the AST
+  // structure with FunctionDeclaration
+  if (n.type === "TSDeclareFunction" && n.declare) {
+    parts.push("declare ");
+  }
 
   if (n.async) {
     parts.push("async ");
@@ -56,6 +64,10 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     n.body ? " " : "",
     path.call(print, "body")
   );
+
+  if (options.semi && (n.declare || !n.body)) {
+    parts.push(";");
+  }
 
   return concat(parts);
 }
@@ -197,7 +209,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const shouldAddSoftLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
-    !(n.comments && n.comments.length);
+    !hasComment(n);
 
   const printTrailingComma =
     args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -236,10 +248,10 @@ function canPrintParamsWithoutParens(node) {
   return (
     parameters.length === 1 &&
     !node.typeParameters &&
-    !hasDanglingComments(node) &&
+    !hasComment(node, CommentCheckFlags.Dangling) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
-    !parameters[0].comments &&
+    !hasComment(parameters[0]) &&
     !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -323,15 +335,15 @@ function printReturnAndThrowArgument(path, options, print) {
     }
   }
 
-  const lastComment =
-    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
+  const comments = getComments(node);
+  const lastComment = comments[comments.length - 1];
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {
     parts.push(semi);
   }
 
-  if (hasDanglingComments(node)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
@@ -345,10 +357,19 @@ function printReturnAndThrowArgument(path, options, print) {
   return concat(parts);
 }
 
+function printReturnStatement(path, options, print) {
+  return concat(["return", printReturnAndThrowArgument(path, options, print)]);
+}
+
+function printThrowStatement(path, options, print) {
+  return concat(["throw", printReturnAndThrowArgument(path, options, print)]);
+}
+
 module.exports = {
   printFunctionDeclaration,
   printArrowFunctionExpression,
   printMethod,
-  printReturnAndThrowArgument,
+  printReturnStatement,
+  printThrowStatement,
   shouldPrintParamsWithoutParens,
 };

@@ -32,6 +32,12 @@ foo = class extends aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggg
   }
 };
 
+module.exports = class A extends B {
+  method () {
+    console.log("foo");
+  }
+};
+
 =====================================output=====================================
 aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
   aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
@@ -41,9 +47,7 @@ aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends 
   }
 };
 
-foo = class extends (
-  bar
-) {
+foo = class extends bar {
   method() {
     console.log("foo");
   }
@@ -60,6 +64,12 @@ aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends 
 foo = class extends (
   aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2
 ) {
+  method() {
+    console.log("foo");
+  }
+};
+
+module.exports = class A extends B {
   method() {
     console.log("foo");
   }

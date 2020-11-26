@@ -1,14 +1,9 @@
 "use strict";
 
-/** @type {import("assert")} */
-const assert = require("assert");
 const {
-  builders: { concat, group, indent, join, line, hardline },
+  builders: { concat, indent, join, line },
 } = require("../../document");
-const {
-  hasNewlineBetweenOrAfterDecorators,
-  getParentExportDeclaration,
-} = require("../utils");
+const { isFlowAnnotationComment } = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -40,6 +35,32 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
+function printTypeAnnotation(path, options, print) {
+  const node = path.getValue();
+  if (!node.typeAnnotation) {
+    return "";
+  }
+
+  const parentNode = path.getParentNode();
+  const isDefinite =
+    node.definite ||
+    (parentNode &&
+      parentNode.type === "VariableDeclarator" &&
+      parentNode.definite);
+
+  const isFunctionDeclarationIdentifier =
+    parentNode.type === "DeclareFunction" && parentNode.id === node;
+
+  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
+    return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
+  }
+
+  return concat([
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
+    path.call(print, "typeAnnotation"),
+  ]);
+}
+
 function printBindExpressionCallee(path, options, print) {
   return concat(["::", path.call(print, "callee")]);
 }
@@ -50,30 +71,6 @@ function printTypeScriptModifiers(path, options, print) {
     return "";
   }
   return concat([join(" ", path.map(print, "modifiers")), " "]);
-}
-
-function printDecorators(path, options, print) {
-  const node = path.getValue();
-  return group(
-    concat([
-      join(line, path.map(print, "decorators")),
-      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-    ])
-  );
-}
-
-function printFlowDeclaration(path, printed) {
-  const parentExportDecl = getParentExportDeclaration(path);
-
-  if (parentExportDecl) {
-    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
-    return printed;
-  }
-
-  // If the parent node has type DeclareExportDeclaration, then it
-  // will be responsible for printing the "declare" token. Otherwise
-  // it needs to be printed with this non-exported declaration node.
-  return concat(["declare ", printed]);
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -93,7 +90,6 @@ module.exports = {
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printDecorators,
-  printFlowDeclaration,
+  printTypeAnnotation,
   adjustClause,
 };
