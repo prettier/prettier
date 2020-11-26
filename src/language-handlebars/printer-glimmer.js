@@ -1,15 +1,8 @@
 "use strict";
 
 const {
-  concat,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  join,
-  line,
-  softline,
-} = require("../document").builders;
+  builders: { concat, group, hardline, ifBreak, indent, join, line, softline },
+} = require("../document");
 const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {
@@ -275,8 +268,26 @@ function print(path, options, print) {
       ]);
     }
     case "MustacheCommentStatement": {
+      const start = locStart(n);
+      const end = locEnd(n);
+      // Starts with `{{~`
+      const isLeftWhiteSpaceSensitive =
+        options.originalText.charAt(start + 2) === "~";
+      // Ends with `{{~`
+      const isRightWhitespaceSensitive =
+        options.originalText.charAt(end - 3) === "~";
+
       const dashes = n.value.includes("}}") ? "--" : "";
-      return concat(["{{!", dashes, n.value, dashes, "}}"]);
+      return concat([
+        "{{",
+        isLeftWhiteSpaceSensitive ? "~" : "",
+        "!",
+        dashes,
+        n.value,
+        dashes,
+        isRightWhitespaceSensitive ? "~" : "",
+        "}}",
+      ]);
     }
     case "PathExpression": {
       return n.original;

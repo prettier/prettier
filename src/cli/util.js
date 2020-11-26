@@ -918,6 +918,7 @@ function createDetailedOptionMap(supportOptions) {
 
 /** @returns {Context} */
 function createContext(args) {
+  /** @type {Context} */
   const context = { args, stack: [] };
 
   updateContextArgv(context);
@@ -931,7 +932,7 @@ function createContext(args) {
     context.argv["plugin-search-dir"]
   );
 
-  return /** @type {Context} */ (context);
+  return context;
 }
 
 function initContext(context) {

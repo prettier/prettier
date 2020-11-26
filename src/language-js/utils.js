@@ -344,7 +344,7 @@ function isJSXWhitespaceExpression(node) {
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
     node.expression.value === " " &&
-    !node.expression.comments
+    !hasComment(node.expression)
   );
 }
 
@@ -464,6 +464,7 @@ const simpleTypeAnnotations = new Set([
   "BigIntLiteralTypeAnnotation",
   "NumberLiteralTypeAnnotation",
   "TSLiteralType",
+  "TSTemplateLiteralType",
   // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
@@ -564,35 +565,6 @@ function isTestCall(n, parent) {
 }
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasLeadingComment(node) {
-  return node.comments && node.comments.some((comment) => comment.leading);
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasTrailingComment(node) {
-  return node.comments && node.comments.some((comment) => comment.trailing);
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasTrailingLineComment(node) {
-  return (
-    node.comments &&
-    node.comments.some(
-      (comment) => comment.trailing && !isBlockComment(comment)
-    )
-  );
-}
-
-/**
  * @param {CallExpression | OptionalCallExpression} node
  * @returns {boolean}
  */
@@ -603,57 +575,24 @@ function isCallOrOptionalCallExpression(node) {
 }
 
 /**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasDanglingComments(node) {
-  return (
-    node.comments &&
-    node.comments.some((comment) => !comment.leading && !comment.trailing)
-  );
-}
-
-/** identify if an angular expression seems to have side effects */
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), (node) => {
-    switch (node.type) {
-      case undefined:
-        return false;
-      case "CallExpression":
-      case "OptionalCallExpression":
-      case "AssignmentExpression":
-        return true;
-    }
-  });
-}
-
-function isNgForOf(node, index, parentNode) {
-  return (
-    node.type === "NGMicrosyntaxKeyedExpression" &&
-    node.key.name === "of" &&
-    index === 1 &&
-    parentNode.body[0].type === "NGMicrosyntaxLet" &&
-    parentNode.body[0].value === null
-  );
-}
-
-/**
  *
  * @param {any} node
  * @returns {boolean}
  */
 function isSimpleTemplateLiteral(node) {
-  if (node.expressions.length === 0) {
+  let expressionsKey = "expressions";
+  if (node.type === "TSTemplateLiteralType") {
+    expressionsKey = "types";
+  }
+  const expressions = node[expressionsKey];
+
+  if (expressions.length === 0) {
     return false;
   }
 
-  return node.expressions.every((expr) => {
+  return expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
-    if (expr.comments) {
+    if (hasComment(expr)) {
       return false;
     }
 
@@ -681,7 +620,7 @@ function isSimpleTemplateLiteral(node) {
           return false;
         }
         head = head.object;
-        if (head.comments) {
+        if (hasComment(head)) {
           return false;
         }
       }
@@ -840,10 +779,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling &&
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
-    prevSibling.expression.comments &&
-    prevSibling.expression.comments.some((comment) =>
-      isPrettierIgnoreComment(comment)
-    )
+    hasNodeIgnoreComment(prevSibling.expression)
   );
 }
 
@@ -914,12 +850,9 @@ function hasLeadingOwnLineComment(text, node) {
     return hasNodeIgnoreComment(node);
   }
 
-  const res =
-    node.comments &&
-    node.comments.some(
-      (comment) => comment.leading && hasNewline(text, locEnd(comment))
-    );
-  return res;
+  return hasComment(node, CommentCheckFlags.Leading, (comment) =>
+    hasNewline(text, locEnd(comment))
+  );
 }
 
 // This recurses the return argument, looking for the first token
@@ -1057,11 +990,11 @@ function isTemplateOnItsOwnLine(n, text) {
  * @returns {boolean}
  */
 function needsHardlineAfterDanglingComment(node) {
-  if (!node.comments) {
+  if (!hasComment(node)) {
     return false;
   }
   const lastDanglingComment = getLast(
-    node.comments.filter((comment) => !comment.leading && !comment.trailing)
+    getComments(node, CommentCheckFlags.Dangling)
   );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
@@ -1474,24 +1407,99 @@ function iterateCallArgumentsPath(path, iteratee) {
 }
 
 function isPrettierIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
+  return comment.value.trim() === "prettier-ignore" && !comment.unignore;
 }
 
 function hasNodeIgnoreComment(node) {
   return (
     node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        (comment) => isPrettierIgnoreComment(comment) && !comment.unignore
-      )) ||
-      node.prettierIgnore)
+    (node.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore))
   );
 }
 
 function hasIgnoreComment(path) {
   const node = path.getValue();
   return hasNodeIgnoreComment(node);
+}
+
+const CommentCheckFlags = {
+  /** @type {number} Check comment is a leading comment */
+  Leading: 1 << 1,
+  /** @type {number} Check comment is a trailing comment */
+  Trailing: 1 << 2,
+  /** @type {number} Check comment is a dangling comment */
+  Dangling: 1 << 3,
+  /** @type {number} Check comment is a block comment */
+  Block: 1 << 4,
+  /** @type {number} Check comment is a line comment */
+  Line: 1 << 5,
+  /** @type {number} Check comment is a `prettier-ignore` comment */
+  PrettierIgnore: 1 << 6,
+  /** @type {number} Check comment is the first attched comment */
+  First: 1 << 7,
+  /** @type {number} Check comment is the last attched comment */
+  Last: 1 << 8,
+};
+
+/**
+ * @returns {function}
+ */
+const getCommentTestFunction = (flags, fn) => {
+  if (typeof flags === "function") {
+    fn = flags;
+    flags = 0;
+  }
+  if (flags || fn) {
+    return (comment, index, comments) =>
+      !(
+        (flags & CommentCheckFlags.Leading && !comment.leading) ||
+        (flags & CommentCheckFlags.Trailing && !comment.trailing) ||
+        (flags & CommentCheckFlags.Dangling &&
+          (comment.leading || comment.trailing)) ||
+        (flags & CommentCheckFlags.Block && !isBlockComment(comment)) ||
+        (flags & CommentCheckFlags.Line && !isLineComment(comment)) ||
+        (flags & CommentCheckFlags.First && index !== 0) ||
+        (flags & CommentCheckFlags.Last && index !== comments.length - 1) ||
+        (flags & CommentCheckFlags.PrettierIgnore &&
+          !isPrettierIgnoreComment(comment)) ||
+        (fn && !fn(comment))
+      );
+  }
+};
+/**
+ * @param {Node} node
+ * @param {number | function} [flags]
+ * @param {function} [fn]
+ * @returns {boolean}
+ */
+function hasComment(node, flags, fn) {
+  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
+    return false;
+  }
+  const test = getCommentTestFunction(flags, fn);
+  return test
+    ? node.comments.some((comment, index, comments) =>
+        test(comment, index, comments)
+      )
+    : true;
+}
+
+/**
+ * @param {Node} node
+ * @param {number | function} [flags]
+ * @param {function} [fn]
+ * @returns {Comment[]}
+ */
+function getComments(node, flags, fn) {
+  if (!node || !Array.isArray(node.comments)) {
+    return [];
+  }
+  const test = getCommentTestFunction(flags, fn);
+  return test
+    ? node.comments.filter((comment, index, comments) =>
+        test(comment, index, comments)
+      )
+    : node.comments;
 }
 
 module.exports = {
@@ -1505,20 +1513,14 @@ module.exports = {
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
-  hasDanglingComments,
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment,
-  hasLeadingComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
-  hasNgSideEffect,
   hasNode,
   hasPrettierIgnore,
-  hasTrailingComment,
-  hasTrailingLineComment,
   hasIgnoreComment,
-  hasNodeIgnoreComment,
   identity,
   isBinaryish,
   isBlockComment,
@@ -1542,7 +1544,6 @@ module.exports = {
   isMeaningfulJSXText,
   isMemberExpressionChain,
   isMemberish,
-  isNgForOf,
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
@@ -1565,4 +1566,7 @@ module.exports = {
   shouldFlatten,
   startsWithNoLookaheadToken,
   getPrecedence,
+  hasComment,
+  getComments,
+  CommentCheckFlags,
 };

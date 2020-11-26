@@ -12,10 +12,17 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
 `;
 
 exports[`invalid-2.hbs [glimmer] format 1`] = `
-"Unclosed element \`@name\` (on line 3). (3:0)
+"Unclosed element \`@name\`: 
+
+|
+|  <{@name>
+|
+
+(error occurred in 'an unknown module' @ line 3 : column 0) (3:0)
   1 | <a>
   2 | 
 > 3 | <{@name>
+    | ^^^^^^^^
   4 | "
 `;
 
@@ -29,4 +36,24 @@ Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 
 > 3 | {{}}
     |   ^
   4 | "
+`;
+
+exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~}}
+---^
+Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~}}
+    |    ^
+  2 | "
+`;
+
+exports[`tilde-comments-2.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~~}}
+---^
+Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~~}}
+    |    ^
+  2 | "
 `;
