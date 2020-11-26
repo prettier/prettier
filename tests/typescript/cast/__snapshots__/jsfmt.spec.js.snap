@@ -8,8 +8,16 @@ printWidth: 80
 =====================================input======================================
 let x = '123' as const;
 
+// https://github.com/babel/babel/pull/11912
+x as boolean <= y; // (x as boolean) <= y;
+x as boolean ?? y; // (x as boolean) ?? y;
+
 =====================================output=====================================
 let x = "123" as const;
+
+// https://github.com/babel/babel/pull/11912
+(x as boolean) <= y; // (x as boolean) <= y;
+(x as boolean) ?? y; // (x as boolean) ?? y;
 
 ================================================================================
 `;

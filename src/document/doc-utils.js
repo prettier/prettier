@@ -1,5 +1,7 @@
 "use strict";
 
+const { literalline, concat } = require("./doc-builders");
+
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
 
@@ -14,19 +16,15 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       continue;
     }
 
-    let shouldRecurse = true;
-    if (onEnter) {
-      if (onEnter(doc) === false) {
-        shouldRecurse = false;
-      }
-    }
-
     if (onExit) {
-      docsStack.push(doc);
-      docsStack.push(traverseDocOnExitStackMarker);
+      docsStack.push(doc, traverseDocOnExitStackMarker);
     }
 
-    if (shouldRecurse) {
+    if (
+      // Should Recurse
+      !onEnter ||
+      onEnter(doc) !== false
+    ) {
       // When there are multiple parts to process,
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
@@ -222,7 +220,7 @@ function stripTrailingHardline(doc, withInnerParts = false) {
 function normalizeParts(parts) {
   const newParts = [];
 
-  const restParts = parts.slice();
+  const restParts = parts.filter(Boolean);
   while (restParts.length !== 0) {
     const part = restParts.shift();
 
@@ -240,7 +238,7 @@ function normalizeParts(parts) {
       typeof newParts[newParts.length - 1] === "string" &&
       typeof part === "string"
     ) {
-      newParts.push(newParts.pop() + part);
+      newParts[newParts.length - 1] += part;
       continue;
     }
 
@@ -248,6 +246,30 @@ function normalizeParts(parts) {
   }
 
   return newParts;
+}
+
+function normalizeDoc(doc) {
+  return mapDoc(doc, (currentDoc) => {
+    if (!currentDoc.parts) {
+      return currentDoc;
+    }
+    return {
+      ...currentDoc,
+      parts: normalizeParts(currentDoc.parts),
+    };
+  });
+}
+
+function replaceNewlinesWithLiterallines(doc) {
+  return mapDoc(doc, (currentDoc) =>
+    typeof currentDoc === "string" && currentDoc.includes("\n")
+      ? concat(
+          currentDoc
+            .split(/(\n)/g)
+            .map((v, i) => (i % 2 === 0 ? v : literalline))
+        )
+      : currentDoc
+  );
 }
 
 module.exports = {
@@ -261,4 +283,6 @@ module.exports = {
   removeLines,
   stripTrailingHardline,
   normalizeParts,
+  normalizeDoc,
+  replaceNewlinesWithLiterallines,
 };

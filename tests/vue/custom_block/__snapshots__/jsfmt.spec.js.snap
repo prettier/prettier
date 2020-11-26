@@ -128,16 +128,16 @@ query { posts: allWordPressPost {
 
 =====================================output=====================================
 <page-query lang="graphql">
-  query {
-    posts: allWordPressPost {
-      edges {
-        node {
-          id
-          title
-        }
+query {
+  posts: allWordPressPost {
+    edges {
+      node {
+        id
+        title
       }
     }
   }
+}
 </page-query>
 
 ================================================================================
@@ -210,7 +210,10 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars <b>{{ doesWhat }}</b>
+Handlebars
+<b>
+  {{doesWhat}}
+</b>
 </custom>
 
 ================================================================================
@@ -229,7 +232,10 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars <b>{{ doesWhat }}</b>
+Handlebars
+<b>
+  {{doesWhat}}
+</b>
 </custom>
 
 ================================================================================
@@ -248,7 +254,10 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-  Handlebars <b>{{ doesWhat }}</b>
+Handlebars
+<b>
+  {{doesWhat}}
+</b>
 </custom>
 
 ================================================================================
@@ -266,7 +275,10 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars <b>{{ doesWhat }}</b>
+Handlebars
+<b>
+  {{doesWhat}}
+</b>
 </custom>
 
 ================================================================================
@@ -557,37 +569,37 @@ vueIndentScriptAndStyle: true
 
 =====================================output=====================================
 <i18n lang="json">
-  {
-    "en": {
-      "hello": "hello world!"
-    },
-    "ja": {
-      "hello": "こんにちは、世界！"
-    }
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
   }
+}
 </i18n>
 
 <i18n type="application/json">
-  {
-    "en": {
-      "hello": "hello world!"
-    },
-    "ja": {
-      "hello": "こんにちは、世界！"
-    }
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
   }
+}
 </i18n>
 
 <custom lang="json">
-  {
-    "a": 1
-  }
+{
+  "a": 1
+}
 </custom>
 
 <custom lang="json">
-  {
-    "a": 1
-  }
+{
+  "a": 1
+}
 </custom>
 
 ================================================================================
@@ -747,7 +759,7 @@ const foo
 
 =====================================output=====================================
 <custom lang="js">
-  const foo = "foo";
+const foo = "foo";
 </custom>
 
 ================================================================================
@@ -986,29 +998,29 @@ vueIndentScriptAndStyle: true
 
 =====================================output=====================================
 <docs lang="markdown">
-  # Foo
+# Foo
 
-  - bar
-  - baz
+- bar
+- baz
 
-  | Age          | Time  | Food | Gold | Requirement             |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-  | Castle Age   | 02:40 | 800  | 200  | -                       |
-  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
 </docs>
 
 <docs type="text/markdown">
-  # Foo
+# Foo
 
-  - bar
-  - baz
+- bar
+- baz
 
-  | Age          | Time  | Food | Gold | Requirement             |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-  | Castle Age   | 02:40 | 800  | 200  | -                       |
-  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
 </docs>
 
 ================================================================================
@@ -1271,7 +1283,7 @@ This component should be placed inside a \`<my-component>\`.
 </docs>
 
 <custom lang="javascript">
-  const foo = "</";
+const foo = "</";
 </custom>
 
 ================================================================================
@@ -1712,10 +1724,10 @@ ja:
 
 =====================================output=====================================
 <i18n lang="yaml">
-  en:
-    hello: "hello world!"
-  ja:
-    hello: "こんにちは、世界！"
+en:
+  hello: "hello world!"
+ja:
+  hello: "こんにちは、世界！"
 </i18n>
 
 ================================================================================

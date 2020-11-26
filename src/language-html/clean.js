@@ -2,13 +2,15 @@
 
 const { isFrontMatterNode } = require("../common/util");
 
-module.exports = function (ast, newNode) {
-  delete newNode.sourceSpan;
-  delete newNode.startSourceSpan;
-  delete newNode.endSourceSpan;
-  delete newNode.nameSpan;
-  delete newNode.valueSpan;
+const ignoredProperties = new Set([
+  "sourceSpan",
+  "startSourceSpan",
+  "endSourceSpan",
+  "nameSpan",
+  "valueSpan",
+]);
 
+function clean(ast, newNode) {
   if (ast.type === "text" || ast.type === "comment") {
     return null;
   }
@@ -25,4 +27,8 @@ module.exports = function (ast, newNode) {
   if (ast.type === "docType") {
     delete newNode.value;
   }
-};
+}
+
+clean.ignoredProperties = ignoredProperties;
+
+module.exports = clean;

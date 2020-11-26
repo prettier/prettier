@@ -22,6 +22,18 @@ describe("throw error with invalid config format", () => {
   });
 });
 
+describe("throw error with invalid config format", () => {
+  runPrettier("cli/config/invalid", [
+    "--config",
+    "type-error/.prettierrc",
+  ]).test({
+    status: "non-zero",
+    stderr: expect.stringMatching(
+      "Config is only allowed to be an object, but received number in"
+    ),
+  });
+});
+
 describe("throw error with invalid config target (directory)", () => {
   runPrettier("cli/config/invalid", [
     "--config",

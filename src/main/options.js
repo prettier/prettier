@@ -105,12 +105,16 @@ function normalize(options, opts) {
 function getPlugin(options) {
   const { astFormat } = options;
 
+  // TODO: test this with plugins
+  /* istanbul ignore next */
   if (!astFormat) {
     throw new Error("getPlugin() requires astFormat to be set");
   }
   const printerPlugin = options.plugins.find(
     (plugin) => plugin.printers && plugin.printers[astFormat]
   );
+  // TODO: test this with plugins
+  /* istanbul ignore next */
   if (!printerPlugin) {
     throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);
   }
@@ -119,6 +123,7 @@ function getPlugin(options) {
 }
 
 function getInterpreter(filepath) {
+  /* istanbul ignore next */
   if (typeof filepath !== "string") {
     return "";
   }
@@ -150,6 +155,7 @@ function getInterpreter(filepath) {
   } catch (err) {
     // There are some weird cases where paths are missing, causing Jest
     // failures. It's unclear what these correspond to in the real world.
+    /* istanbul ignore next */
     return "";
   } finally {
     try {
@@ -178,7 +184,7 @@ function inferParser(filepath, plugins) {
           filename.endsWith(extension)
         )) ||
       (language.filenames &&
-        language.filenames.find((name) => name.toLowerCase() === filename))
+        language.filenames.some((name) => name.toLowerCase() === filename))
   );
 
   if (!language && !filename.includes(".")) {

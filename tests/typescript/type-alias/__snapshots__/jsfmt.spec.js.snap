@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pattern-parameter.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type C = {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+};
+
+=====================================output=====================================
+type C = {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+};
+
+================================================================================
+`;

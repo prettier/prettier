@@ -1,9 +1,9 @@
 "use strict";
 
+const parseSrcset = require("parse-srcset");
 const {
   builders: { concat, group, ifBreak, indent, join, line, softline },
 } = require("../document");
-const parseSrcset = require("parse-srcset");
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {

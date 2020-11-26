@@ -25,6 +25,47 @@ class x {
 ================================================================================
 `;
 
+exports[`class-property.js [espree] format 1`] = `
+"Unexpected token = (4:5)
+  2 |   f(/* ... */) {}
+  3 |   f() /* ... */ {}
+> 4 |   f = (/* ... */) => {};
+    |     ^
+  5 |   static f(/* ... */) {};
+  6 |   static f = (/* ... */) => {};
+  7 |   static f = function(/* ... */) {};"
+`;
+
+exports[`class-property.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  f(/* ... */) {}
+  f() /* ... */ {}
+  f = (/* ... */) => {};
+  static f(/* ... */) {};
+  static f = (/* ... */) => {};
+  static f = function(/* ... */) {};
+  static f = function f(/* ... */) {};
+}
+
+=====================================output=====================================
+class Foo {
+  f(/* ... */) {}
+  f() /* ... */ {}
+  f = (/* ... */) => {};
+  static f(/* ... */) {}
+  static f = (/* ... */) => {};
+  static f = function (/* ... */) {};
+  static f = function f(/* ... */) {};
+}
+
+================================================================================
+`;
+
 exports[`empty_paren_comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -40,16 +81,6 @@ const obj = {
   f: (/* ... */) => {},
   f: function(/* ... */) {},
   f: function f(/* ... */) {}
-}
-
-class Foo {
-  f(/* ... */) {}
-  f() /* ... */ {}
-  f = (/* ... */) => {};
-  static f(/* ... */) {};
-  static f = (/* ... */) => {};
-  static f = function(/* ... */) {};
-  static f = function f(/* ... */) {};
 }
 
 f(/* ... */);
@@ -71,16 +102,6 @@ const obj = {
   f: function (/* ... */) {},
   f: function f(/* ... */) {},
 };
-
-class Foo {
-  f(/* ... */) {}
-  f() /* ... */ {}
-  f = (/* ... */) => {};
-  static f(/* ... */) {}
-  static f = (/* ... */) => {};
-  static f = function (/* ... */) {};
-  static f = function f(/* ... */) {};
-}
 
 f(/* ... */);
 f(a /* ... */);

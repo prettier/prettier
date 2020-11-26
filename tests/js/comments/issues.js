@@ -1,12 +1,6 @@
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
-function f(
-  someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType,
-  // Trailing comment should stay after
-) {}
-
 // Comments should either stay at the end of the line or always before, but
 // not one before and one after.
 throw new ProcessSystemError({

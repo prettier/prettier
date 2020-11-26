@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API prettier.formatDoc 1`] = `
+"[
+  group([
+    \\"const\\",
+    \\" \\",
+    group([\\"foo\\", \\" =\\", group(indent([line, '\\"bar\\"']))]),
+    indent([]),
+    \\";\\",
+  ]),
+  hardline,
+  breakParent,
+];
+"
+`;

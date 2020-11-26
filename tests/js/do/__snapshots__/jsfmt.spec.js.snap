@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`do.js [espree] format 1`] = `
+"Unexpected token do (3:5)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |     ^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }"
+`;
+
+exports[`do.js [meriyah] format 1`] = `
+"[3:6]: Unexpected token: 'do' (3:6)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |      ^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }"
+`;
+
 exports[`do.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

@@ -452,6 +452,48 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`issue-9368.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<strong>a</strong>-&gt;<strong>b</strong>-&gt;
+
+=====================================output=====================================
+<strong>a</strong>-&gt;<strong>b</strong>-&gt;
+
+================================================================================
+`;
+
+exports[`issue-9368-2.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<strong>a</strong>-<strong>b</strong>-
+
+=====================================output=====================================
+<strong>a</strong>-<strong>b</strong>-
+
+================================================================================
+`;
+
+exports[`issue-9368-3.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a track<strong>pad</strong>, or a <strong>gyro</strong>scope.
+
+=====================================output=====================================
+a track<strong>pad</strong>, or a <strong>gyro</strong>scope.
+
+================================================================================
+`;
+
 exports[`more-html.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
@@ -500,6 +542,45 @@ printWidth: 80
   </head>
   <body></body>
 </html>
+
+================================================================================
+`;
+
+exports[`void-elements-2.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<video controls width="250">
+    <source src="/media/examples/flower.webm"
+            type="video/webm">
+    <source src="/media/examples/flower.mp4"
+            type="video/mp4"
+></video>text after
+
+<!-- #8626 -->
+<object data="horse.wav"><param name="autoplay" value="true"
+><param name="autoplay" value="true"
+></object>1
+
+<span><img  src="1.png"
+><img src="1.png"
+></span>1
+
+=====================================output=====================================
+<video controls width="250">
+  <source src="/media/examples/flower.webm" type="video/webm" />
+  <source src="/media/examples/flower.mp4" type="video/mp4" /></video
+>text after
+
+<!-- #8626 -->
+<object data="horse.wav">
+  <param name="autoplay" value="true" />
+  <param name="autoplay" value="true" /></object
+>1
+
+<span><img src="1.png" /><img src="1.png" /></span>1
 
 ================================================================================
 `;

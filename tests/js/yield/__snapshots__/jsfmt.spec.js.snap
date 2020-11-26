@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow.js [meriyah] format 1`] = `
+"[3:14]: Expected ')' (3:14)
+  1 | function *f() {
+  2 |   (yield a => a);
+> 3 |   (yield async a => a);
+    |              ^
+  4 |   (yield async (a) => a);
+  5 | }
+  6 | "
+`;
+
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -79,21 +90,37 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 function* f() {
-  yield <div>generator</div>
   yield (<div>generator</div>)
-  yield <div><p>generator</p></div>
   yield (<div><p>generator</p></div>)
 }
 
 =====================================output=====================================
 function* f() {
   yield <div>generator</div>;
-  yield <div>generator</div>;
   yield (
     <div>
       <p>generator</p>
     </div>
   );
+}
+
+================================================================================
+`;
+
+exports[`jsx-without-parenthesis.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function* f() {
+  yield <div>generator</div>
+  yield <div><p>generator</p></div>
+}
+
+=====================================output=====================================
+function* f() {
+  yield <div>generator</div>;
   yield (
     <div>
       <p>generator</p>

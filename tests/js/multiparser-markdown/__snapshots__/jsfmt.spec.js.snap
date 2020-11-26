@@ -109,7 +109,7 @@ markdown\`
 
 =====================================output=====================================
 markdown\`
-  const cssString = css\\\`background-color: \\$\\{color('base')\\}\\\`;
+  const cssString = css\\\` background-color: \\$\\{color('base')\\}\\\`;
 \`;
 
 markdown\`

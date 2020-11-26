@@ -1,8 +1,0 @@
-# Configuration for lock-threads - https://github.com/dessant/lock-threads
-daysUntilLock: 90
-lockLabel: locked-due-to-inactivity
-lockComment: false
-setLockReason: true
-exemptLabels:
-  - keep-unlocked
-  - status:awaiting response

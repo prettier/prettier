@@ -1,11 +1,11 @@
 let error = new Error(response.statusText);
 // comment
-(error: any).response = response
+[].response = response
 
 x;
 
-/* comment */ (error: any).response = response
+/* comment */ [].response = response
 
 x;
 
-(error: any).response = response; /* comment */
+[].response = response; /* comment */

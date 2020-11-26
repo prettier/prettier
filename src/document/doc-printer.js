@@ -18,18 +18,26 @@ function makeIndent(ind, options) {
   return generateInd(ind, { type: "indent" }, options);
 }
 
-function makeAlign(ind, n, options) {
-  return n === -Infinity
-    ? ind.root || rootIndent()
-    : n < 0
-    ? generateInd(ind, { type: "dedent" }, options)
-    : !n
-    ? ind
-    : n.type === "root"
-    ? { ...ind, root: ind }
-    : typeof n === "string"
-    ? generateInd(ind, { type: "stringAlign", n }, options)
-    : generateInd(ind, { type: "numberAlign", n }, options);
+function makeAlign(indent, n, options) {
+  if (n === -Infinity) {
+    return indent.root || rootIndent();
+  }
+
+  if (n < 0) {
+    return generateInd(indent, { type: "dedent" }, options);
+  }
+
+  if (!n) {
+    return indent;
+  }
+
+  if (n.type === "root") {
+    return { ...indent, root: indent };
+  }
+
+  const alignType = typeof n === "string" ? "stringAlign" : "numberAlign";
+
+  return generateInd(indent, { type: alignType, n }, options);
 }
 
 function generateInd(ind, newPart, options) {
@@ -253,10 +261,7 @@ function printDocToString(doc, options) {
     const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
-      const formatted =
-        newLine !== "\n" && doc.includes("\n")
-          ? doc.replace(/\n/g, newLine)
-          : doc;
+      const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
       out.push(formatted);
       pos += getStringWidth(formatted);
     } else {
@@ -517,6 +522,13 @@ function printDocToString(doc, options) {
           break;
         default:
       }
+    }
+
+    // Flush remaining line-suffix contents at the end of the document, in case
+    // there is no new line after the line-suffix.
+    if (cmds.length === 0 && lineSuffix.length) {
+      cmds.push(...lineSuffix.reverse());
+      lineSuffix = [];
     }
   }
 

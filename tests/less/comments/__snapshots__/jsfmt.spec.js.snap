@@ -62,6 +62,98 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`between-decl.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+selector {
+prop: // comment
+value;
+
+prop: /* block */ value;
+
+prop
+: value;
+}
+
+// #5603
+.grid {
+        grid-template-areas: //
+          "header header header" //
+          "sidebar content content" //
+          "footer footer footer";
+
+        grid-template-areas:
+          "header header header" //
+          "sidebar content content" //
+          "footer footer footer";
+ }
+
+// TODO: make these pretty
+selector {
+prop:
+/* block */
+value;
+
+prop/* block */:
+value;
+
+prop
+/* block */
+:
+value;
+
+prop/* before */: // after
+value;
+
+
+prop/* before */: /* after*/
+value;
+}
+
+=====================================output=====================================
+selector {
+  prop: // comment
+    value;
+
+  prop: /* block */ value;
+
+  prop: value;
+}
+
+// #5603
+.grid {
+  grid-template-areas: //
+    "header header header" //
+    "sidebar content content" //
+    "footer footer footer";
+
+  grid-template-areas: "header header header" //
+    "sidebar content content" //
+    "footer footer footer";
+}
+
+// TODO: make these pretty
+selector {
+  prop:
+/* block */ value;
+
+  prop/* block */: value;
+
+  prop/* block */
+: value;
+
+  prop/* before */: // after
+    value;
+
+  prop/* before */: /* after*/ value;
+}
+
+================================================================================
+`;
+
 exports[`block.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -292,6 +384,42 @@ a {
 a {
   // element.style */
 }
+
+================================================================================
+`;
+
+exports[`value-lists.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-space-separated : #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-comma-separated: #aaaaaa, // Start with A
+  #bbbbbb, // then some B
+  #cccccc; // and round it out with C
+
+=====================================output=====================================
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-space-separated: #aaaaaa // Start with A
+  #bbbbbb // then some B
+  #cccccc; // and round it out with C
+
+@test-comma-separated: #aaaaaa,
+  // Start with A
+  #bbbbbb,
+  // then some B
+  #cccccc; // and round it out with C
 
 ================================================================================
 `;

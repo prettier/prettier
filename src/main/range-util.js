@@ -109,6 +109,7 @@ const graphqlSourceElements = new Set([
   "ScalarTypeDefinition",
 ]);
 function isSourceElement(opts, node) {
+  /* istanbul ignore next */
   if (node == null) {
     return false;
   }
@@ -118,6 +119,8 @@ function isSourceElement(opts, node) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
+    case "espree":
+    case "meriyah":
       return isJsSourceElement(node.type);
     case "json":
       return jsonSourceElements.has(node.type);

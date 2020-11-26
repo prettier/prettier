@@ -163,6 +163,18 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
+              "description": "JavaScript",
+              "enum": Array [
+                "espree",
+              ],
+            },
+            Object {
+              "description": "JavaScript",
+              "enum": Array [
+                "meriyah",
+              ],
+            },
+            Object {
               "description": "CSS",
               "enum": Array [
                 "css",

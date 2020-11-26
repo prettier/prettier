@@ -1,5 +1,520 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`class.js [espree] format 1`] = `
+"Unexpected token ; (12:6)
+  10 | 
+  11 | class C1 {
+> 12 |   get; // The semicolon *is* necessary
+     |      ^
+  13 |   x(){}
+  14 | }
+  15 | class C2 {"
+`;
+
+exports[`class.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token ; (12:6)
+  10 | 
+  11 | class C1 {
+> 12 |   get; // The semicolon *is* necessary
+     |      ^
+  13 |   x(){}
+  14 | }
+  15 | class C2 {"
+`;
+
+exports[`class.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// TODO: upgrade parser
+// class A {
+//   async; // The semicolon is *not* necessary
+//   x(){}
+// }
+// class B {
+//   static; // The semicolon *is* necessary
+//   x(){}
+// }
+
+class C1 {
+  get; // The semicolon *is* necessary
+  x(){}
+}
+class C2 {
+  get = () => {}; // The semicolon is *not* necessary
+  x(){}
+}
+class C3 {
+  set; // The semicolon *is* necessary
+  x(){}
+}
+class C4 {
+  set = () => {}; // The semicolon is *not* necessary
+  x(){}
+}
+
+
+
+class A1 {
+  a = 0;
+  [b](){}
+
+  c = 0;
+  *d(){}
+
+  e = 0;
+  [f] = 0
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {};
+  [h](){}
+
+  p() {};
+  *i(){}
+
+  a = 1;
+  get ['y']() {}
+
+  a = 1;
+  static ['y']() {}
+
+  a = 1;
+  set ['z'](z) {}
+
+  a = 1;
+  async ['a']() {}
+
+  a = 1;
+  async *g() {}
+
+  a = 0;
+  b = 1;
+}
+
+class A2 {
+  a = 0;
+  [b](){}
+
+  c = 0;
+  *d(){}
+
+  e = 0;
+  [f] = 0
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {};
+  [h](){}
+
+  p() {};
+  *i(){}
+
+  a = 1;
+  get ['y']() {}
+
+  a = 1;
+  static ['y']() {}
+
+  a = 1;
+  set ['z'](z) {}
+
+  a = 1;
+  async ['a']() {}
+
+  a = 1;
+  async *g() {}
+
+  a = 0;
+  b = 1;
+}
+
+// being first/last shouldn't break things
+class G1 {
+  x = 1
+}
+class G2 {
+  x() {}
+}
+class G3 {
+  *x() {}
+}
+class G4 {
+  [x] = 1
+}
+
+=====================================output=====================================
+// TODO: upgrade parser
+// class A {
+//   async; // The semicolon is *not* necessary
+//   x(){}
+// }
+// class B {
+//   static; // The semicolon *is* necessary
+//   x(){}
+// }
+
+class C1 {
+  get; // The semicolon *is* necessary
+  x() {}
+}
+class C2 {
+  get = () => {} // The semicolon is *not* necessary
+  x() {}
+}
+class C3 {
+  set; // The semicolon *is* necessary
+  x() {}
+}
+class C4 {
+  set = () => {} // The semicolon is *not* necessary
+  x() {}
+}
+
+class A1 {
+  a = 0;
+  [b]() {}
+
+  c = 0;
+  *d() {}
+
+  e = 0;
+  [f] = 0
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {}
+  [h]() {}
+
+  p() {}
+  *i() {}
+
+  a = 1
+  get ["y"]() {}
+
+  a = 1
+  static ["y"]() {}
+
+  a = 1
+  set ["z"](z) {}
+
+  a = 1
+  async ["a"]() {}
+
+  a = 1
+  async *g() {}
+
+  a = 0
+  b = 1
+}
+
+class A2 {
+  a = 0;
+  [b]() {}
+
+  c = 0;
+  *d() {}
+
+  e = 0;
+  [f] = 0
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {}
+  [h]() {}
+
+  p() {}
+  *i() {}
+
+  a = 1
+  get ["y"]() {}
+
+  a = 1
+  static ["y"]() {}
+
+  a = 1
+  set ["z"](z) {}
+
+  a = 1
+  async ["a"]() {}
+
+  a = 1
+  async *g() {}
+
+  a = 0
+  b = 1
+}
+
+// being first/last shouldn't break things
+class G1 {
+  x = 1
+}
+class G2 {
+  x() {}
+}
+class G3 {
+  *x() {}
+}
+class G4 {
+  [x] = 1
+}
+
+================================================================================
+`;
+
+exports[`class.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// TODO: upgrade parser
+// class A {
+//   async; // The semicolon is *not* necessary
+//   x(){}
+// }
+// class B {
+//   static; // The semicolon *is* necessary
+//   x(){}
+// }
+
+class C1 {
+  get; // The semicolon *is* necessary
+  x(){}
+}
+class C2 {
+  get = () => {}; // The semicolon is *not* necessary
+  x(){}
+}
+class C3 {
+  set; // The semicolon *is* necessary
+  x(){}
+}
+class C4 {
+  set = () => {}; // The semicolon is *not* necessary
+  x(){}
+}
+
+
+
+class A1 {
+  a = 0;
+  [b](){}
+
+  c = 0;
+  *d(){}
+
+  e = 0;
+  [f] = 0
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {};
+  [h](){}
+
+  p() {};
+  *i(){}
+
+  a = 1;
+  get ['y']() {}
+
+  a = 1;
+  static ['y']() {}
+
+  a = 1;
+  set ['z'](z) {}
+
+  a = 1;
+  async ['a']() {}
+
+  a = 1;
+  async *g() {}
+
+  a = 0;
+  b = 1;
+}
+
+class A2 {
+  a = 0;
+  [b](){}
+
+  c = 0;
+  *d(){}
+
+  e = 0;
+  [f] = 0
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {};
+  [h](){}
+
+  p() {};
+  *i(){}
+
+  a = 1;
+  get ['y']() {}
+
+  a = 1;
+  static ['y']() {}
+
+  a = 1;
+  set ['z'](z) {}
+
+  a = 1;
+  async ['a']() {}
+
+  a = 1;
+  async *g() {}
+
+  a = 0;
+  b = 1;
+}
+
+// being first/last shouldn't break things
+class G1 {
+  x = 1
+}
+class G2 {
+  x() {}
+}
+class G3 {
+  *x() {}
+}
+class G4 {
+  [x] = 1
+}
+
+=====================================output=====================================
+// TODO: upgrade parser
+// class A {
+//   async; // The semicolon is *not* necessary
+//   x(){}
+// }
+// class B {
+//   static; // The semicolon *is* necessary
+//   x(){}
+// }
+
+class C1 {
+  get; // The semicolon *is* necessary
+  x() {}
+}
+class C2 {
+  get = () => {}; // The semicolon is *not* necessary
+  x() {}
+}
+class C3 {
+  set; // The semicolon *is* necessary
+  x() {}
+}
+class C4 {
+  set = () => {}; // The semicolon is *not* necessary
+  x() {}
+}
+
+class A1 {
+  a = 0;
+  [b]() {}
+
+  c = 0;
+  *d() {}
+
+  e = 0;
+  [f] = 0;
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {}
+  [h]() {}
+
+  p() {}
+  *i() {}
+
+  a = 1;
+  get ["y"]() {}
+
+  a = 1;
+  static ["y"]() {}
+
+  a = 1;
+  set ["z"](z) {}
+
+  a = 1;
+  async ["a"]() {}
+
+  a = 1;
+  async *g() {}
+
+  a = 0;
+  b = 1;
+}
+
+class A2 {
+  a = 0;
+  [b]() {}
+
+  c = 0;
+  *d() {}
+
+  e = 0;
+  [f] = 0;
+
+  // none of the semicolons above this comment can be omitted.
+  // none of the semicolons below this comment are necessary.
+
+  q() {}
+  [h]() {}
+
+  p() {}
+  *i() {}
+
+  a = 1;
+  get ["y"]() {}
+
+  a = 1;
+  static ["y"]() {}
+
+  a = 1;
+  set ["z"](z) {}
+
+  a = 1;
+  async ["a"]() {}
+
+  a = 1;
+  async *g() {}
+
+  a = 0;
+  b = 1;
+}
+
+// being first/last shouldn't break things
+class G1 {
+  x = 1;
+}
+class G2 {
+  x() {}
+}
+class G3 {
+  *x() {}
+}
+class G4 {
+  [x] = 1;
+}
+
+================================================================================
+`;
+
 exports[`comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -9,28 +524,28 @@ semi: false
 =====================================input======================================
 let error = new Error(response.statusText);
 // comment
-(error: any).response = response
+[].response = response
 
 x;
 
-/* comment */ (error: any).response = response
+/* comment */ [].response = response
 
 x;
 
-(error: any).response = response; /* comment */
+[].response = response; /* comment */
 
 =====================================output=====================================
 let error = new Error(response.statusText)
 // comment
-;(error: any).response = response
+;[].response = response
 
 x
 
-/* comment */ ;(error: any).response = response
+/* comment */ ;[].response = response
 
 x
 
-;(error: any).response = response /* comment */
+;[].response = response /* comment */
 
 ================================================================================
 `;
@@ -43,199 +558,28 @@ printWidth: 80
 =====================================input======================================
 let error = new Error(response.statusText);
 // comment
-(error: any).response = response
+[].response = response
 
 x;
 
-/* comment */ (error: any).response = response
+/* comment */ [].response = response
 
 x;
 
-(error: any).response = response; /* comment */
+[].response = response; /* comment */
 
 =====================================output=====================================
 let error = new Error(response.statusText);
 // comment
-(error: any).response = response;
+[].response = response;
 
 x;
 
-/* comment */ (error: any).response = response;
+/* comment */ [].response = response;
 
 x;
 
-(error: any).response = response; /* comment */
-
-================================================================================
-`;
-
-exports[`flow-interfaces.js - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-declare class A {
-    one: boolean;
-    two: { three: string }
-    | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare class B {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-declare interface C {
-    one: boolean;
-    two: { three: string }
-    | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare interface D {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-interface E {
-    one: boolean;
-    two: { three: string }
-    | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// interface F {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-=====================================output=====================================
-declare class A {
-  one: boolean;
-  two: { three: string } | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare class B {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-declare interface C {
-  one: boolean;
-  two: { three: string } | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare interface D {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-interface E {
-  one: boolean;
-  two: { three: string } | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// interface F {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-================================================================================
-`;
-
-exports[`flow-interfaces.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-declare class A {
-    one: boolean;
-    two: { three: string }
-    | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare class B {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-declare interface C {
-    one: boolean;
-    two: { three: string }
-    | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare interface D {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-interface E {
-    one: boolean;
-    two: { three: string }
-    | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// interface F {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-=====================================output=====================================
-declare class A {
-  one: boolean;
-  two: { three: string } | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare class B {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-declare interface C {
-  one: boolean;
-  two: { three: string } | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// declare interface D {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
-
-interface E {
-  one: boolean;
-  two: { three: string } | number;
-}
-
-// NOTE: Flow and Babel both fail to apply ASI here
-// interface F {
-//     one: boolean
-//     two: { three: string }
-//     | number
-// }
+[].response = response; /* comment */
 
 ================================================================================
 `;
@@ -325,100 +669,17 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: upgrade parser
-// class A {
-//   async; // The semicolon is *not* necessary
-//   x(){}
-// }
-// class B {
-//   static; // The semicolon *is* necessary
-//   x(){}
-// }
-
-class C1 {
-  get; // The semicolon *is* necessary
-  x(){}
-}
-class C2 {
-  get = () => {}; // The semicolon is *not* necessary
-  x(){}
-}
-class C3 {
-  set; // The semicolon *is* necessary
-  x(){}
-}
-class C4 {
-  set = () => {}; // The semicolon is *not* necessary
-  x(){}
-}
-
 
 // don't semicolon if it doesn't start statement
 
 if (true) (() => {})()
 
-class A {
-  a = 0;
-  [b](){}
-
-  c = 0;
-  *d(){}
-
-  e = 0;
-  [f] = 0
-
-  // none of the semicolons above this comment can be omitted.
-  // none of the semicolons below this comment are necessary.
-
-  q() {};
-  [h](){}
-
-  p() {};
-  *i(){}
-
-  a = 1;
-  get ['y']() {}
-
-  a = 1;
-  static ['y']() {}
-
-  a = 1;
-  set ['z'](z) {}
-
-  a = 1;
-  async ['a']() {}
-
-  a = 1;
-  async *g() {}
-
-  a = 0;
-  b = 1;
-}
-
-// being first/last shouldn't break things
-class G1 {
-  x = 1
-}
-class G2 {
-  x() {}
-}
-class G3 {
-  *x() {}
-}
-class G4 {
-  [x] = 1
-}
 
 // check indentation
 
 if (true) {
   x; (() => {})()
 }
-
-// flow
-
-(x: void);
-(y: void)
 
 // check statement clauses
 
@@ -503,88 +764,9 @@ x
 class X {}
 ;[1, 2, 3].forEach(fn)
 
-// TODO: upgrade parser
-// class A {
-//   async; // The semicolon is *not* necessary
-//   x(){}
-// }
-// class B {
-//   static; // The semicolon *is* necessary
-//   x(){}
-// }
-
-class C1 {
-  get; // The semicolon *is* necessary
-  x() {}
-}
-class C2 {
-  get = () => {} // The semicolon is *not* necessary
-  x() {}
-}
-class C3 {
-  set; // The semicolon *is* necessary
-  x() {}
-}
-class C4 {
-  set = () => {} // The semicolon is *not* necessary
-  x() {}
-}
-
 // don't semicolon if it doesn't start statement
 
 if (true) (() => {})()
-
-class A {
-  a = 0;
-  [b]() {}
-
-  c = 0;
-  *d() {}
-
-  e = 0;
-  [f] = 0
-
-  // none of the semicolons above this comment can be omitted.
-  // none of the semicolons below this comment are necessary.
-
-  q() {}
-  [h]() {}
-
-  p() {}
-  *i() {}
-
-  a = 1
-  get ["y"]() {}
-
-  a = 1
-  static ["y"]() {}
-
-  a = 1
-  set ["z"](z) {}
-
-  a = 1
-  async ["a"]() {}
-
-  a = 1
-  async *g() {}
-
-  a = 0
-  b = 1
-}
-
-// being first/last shouldn't break things
-class G1 {
-  x = 1
-}
-class G2 {
-  x() {}
-}
-class G3 {
-  *x() {}
-}
-class G4 {
-  [x] = 1
-}
 
 // check indentation
 
@@ -592,11 +774,6 @@ if (true) {
   x
   ;(() => {})()
 }
-
-// flow
-
-;(x: void)
-;(y: void)
 
 // check statement clauses
 
@@ -675,100 +852,17 @@ x; (x, y) => x
 
 class X {} [1, 2, 3].forEach(fn)
 
-// TODO: upgrade parser
-// class A {
-//   async; // The semicolon is *not* necessary
-//   x(){}
-// }
-// class B {
-//   static; // The semicolon *is* necessary
-//   x(){}
-// }
-
-class C1 {
-  get; // The semicolon *is* necessary
-  x(){}
-}
-class C2 {
-  get = () => {}; // The semicolon is *not* necessary
-  x(){}
-}
-class C3 {
-  set; // The semicolon *is* necessary
-  x(){}
-}
-class C4 {
-  set = () => {}; // The semicolon is *not* necessary
-  x(){}
-}
-
 
 // don't semicolon if it doesn't start statement
 
 if (true) (() => {})()
 
-class A {
-  a = 0;
-  [b](){}
-
-  c = 0;
-  *d(){}
-
-  e = 0;
-  [f] = 0
-
-  // none of the semicolons above this comment can be omitted.
-  // none of the semicolons below this comment are necessary.
-
-  q() {};
-  [h](){}
-
-  p() {};
-  *i(){}
-
-  a = 1;
-  get ['y']() {}
-
-  a = 1;
-  static ['y']() {}
-
-  a = 1;
-  set ['z'](z) {}
-
-  a = 1;
-  async ['a']() {}
-
-  a = 1;
-  async *g() {}
-
-  a = 0;
-  b = 1;
-}
-
-// being first/last shouldn't break things
-class G1 {
-  x = 1
-}
-class G2 {
-  x() {}
-}
-class G3 {
-  *x() {}
-}
-class G4 {
-  [x] = 1
-}
 
 // check indentation
 
 if (true) {
   x; (() => {})()
 }
-
-// flow
-
-(x: void);
-(y: void)
 
 // check statement clauses
 
@@ -853,88 +947,9 @@ x;
 class X {}
 [1, 2, 3].forEach(fn);
 
-// TODO: upgrade parser
-// class A {
-//   async; // The semicolon is *not* necessary
-//   x(){}
-// }
-// class B {
-//   static; // The semicolon *is* necessary
-//   x(){}
-// }
-
-class C1 {
-  get; // The semicolon *is* necessary
-  x() {}
-}
-class C2 {
-  get = () => {}; // The semicolon is *not* necessary
-  x() {}
-}
-class C3 {
-  set; // The semicolon *is* necessary
-  x() {}
-}
-class C4 {
-  set = () => {}; // The semicolon is *not* necessary
-  x() {}
-}
-
 // don't semicolon if it doesn't start statement
 
 if (true) (() => {})();
-
-class A {
-  a = 0;
-  [b]() {}
-
-  c = 0;
-  *d() {}
-
-  e = 0;
-  [f] = 0;
-
-  // none of the semicolons above this comment can be omitted.
-  // none of the semicolons below this comment are necessary.
-
-  q() {}
-  [h]() {}
-
-  p() {}
-  *i() {}
-
-  a = 1;
-  get ["y"]() {}
-
-  a = 1;
-  static ["y"]() {}
-
-  a = 1;
-  set ["z"](z) {}
-
-  a = 1;
-  async ["a"]() {}
-
-  a = 1;
-  async *g() {}
-
-  a = 0;
-  b = 1;
-}
-
-// being first/last shouldn't break things
-class G1 {
-  x = 1;
-}
-class G2 {
-  x() {}
-}
-class G3 {
-  *x() {}
-}
-class G4 {
-  [x] = 1;
-}
 
 // check indentation
 
@@ -942,11 +957,6 @@ if (true) {
   x;
   (() => {})();
 }
-
-// flow
-
-(x: void);
-(y: void);
 
 // check statement clauses
 

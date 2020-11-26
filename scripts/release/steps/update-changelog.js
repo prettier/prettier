@@ -1,8 +1,8 @@
 "use strict";
 
+const fs = require("fs");
 const chalk = require("chalk");
 const { outdent, string: outdentString } = require("outdent");
-const fs = require("fs");
 const semver = require("semver");
 const { waitForEnter, runYarn, logPromise } = require("../utils");
 
@@ -56,7 +56,7 @@ module.exports = async function ({ version, previousVersion }) {
       outdentString(chalk`
         {yellow.bold A manual step is necessary.}
 
-        You can copy the entries from {bold changelog_unreleased/*/pr-*.md} to {bold CHANGELOG.md}
+        You can copy the entries from {bold changelog_unreleased/*/*.md} to {bold CHANGELOG.md}
         and update it accordingly.
 
         You don't need to commit the file, the script will take care of that.

@@ -1,4 +1,4 @@
-const parsers = require("prettier/local")
+const parsers = require("prettier-local")
   .getSupportInfo()
   .options.find((option) => option.name === "parser")
   .choices.filter((choice) => !choice.deprecated)

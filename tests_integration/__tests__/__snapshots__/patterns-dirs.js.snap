@@ -148,3 +148,20 @@ exports[`Negative patterns with explicit files: prettier dir1/a1.js dir2/a2.js '
 "dir2/a2.js
 "
 `;
+
+exports[`plugins \`*\` (stderr) 1`] = `
+"[error] No parser could be inferred for file: unknown.unknown
+"
+`;
+
+exports[`plugins \`*\` (stdout) 1`] = `
+"javascript.js
+plugin.uppercase-rocks
+"
+`;
+
+exports[`plugins \`.\` (stdout) 1`] = `
+"javascript.js
+plugin.uppercase-rocks
+"
+`;

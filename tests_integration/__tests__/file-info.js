@@ -1,11 +1,12 @@
 "use strict";
 
 const path = require("path");
-const tempy = require("tempy");
 const fs = require("fs");
+const tempy = require("tempy");
+const fromPairs = require("lodash/fromPairs");
 
+const prettier = require("prettier-local");
 const runPrettier = require("../runPrettier");
-const prettier = require("prettier/local");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
@@ -33,11 +34,39 @@ describe("extracts file-info with ignored=true for a file in .prettierignore", (
   });
 });
 
+describe("file-info should try resolve config", () => {
+  runPrettier("cli/with-resolve-config/", ["--file-info", "file.js"]).test({
+    status: 0,
+  });
+});
+
+describe("file-info should not try resolve config with --no-config", () => {
+  runPrettier("cli/with-resolve-config/", [
+    "--file-info",
+    "file.js",
+    "--no-config",
+  ]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
+
 describe("extracts file-info with ignored=true for a file in a hand-picked .prettierignore", () => {
   runPrettier("cli/", [
     "--file-info",
     "regular-module.js",
     "--ignore-path=ignore-path/.prettierignore",
+  ]).test({
+    status: 0,
+  });
+});
+
+describe("non-exists ignore path", () => {
+  runPrettier("cli/", [
+    "--file-info",
+    "regular-module.js",
+    "--ignore-path=ignore-path/non-exists/.prettierignore",
   ]).test({
     status: 0,
   });
@@ -105,8 +134,8 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
   });
 });
 
-test("API getFileInfo with no args", () => {
-  return expect(prettier.getFileInfo()).rejects.toThrow(
+test("API getFileInfo with no args", async () => {
+  await expect(prettier.getFileInfo()).rejects.toThrow(
     new TypeError("expect `filePath` to be a string, got `undefined`")
   );
 });
@@ -117,8 +146,8 @@ test("API getFileInfo.sync with no args", () => {
   );
 });
 
-test("API getFileInfo with filepath only", () => {
-  expect(prettier.getFileInfo("README")).resolves.toMatchObject({
+test("API getFileInfo with filepath only", async () => {
+  await expect(prettier.getFileInfo("README")).resolves.toMatchObject({
     ignored: false,
     inferredParser: "markdown",
   });
@@ -131,143 +160,171 @@ test("API getFileInfo.sync with filepath only", () => {
   });
 });
 
-test("API getFileInfo with resolveConfig", () => {
-  const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config/file.foo")
+describe("API getFileInfo resolveConfig", () => {
+  const files = fromPairs(
+    ["foo", "js", "bar", "css"].map((ext) => [
+      ext,
+      path.resolve(
+        path.join(__dirname, `../cli/with-resolve-config/file.${ext}`)
+      ),
+    ])
   );
-  const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config/file.bar")
-  );
-
-  expect(prettier.getFileInfo(file1)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
+  test("{resolveConfig: undefined}", async () => {
+    await expect(prettier.getFileInfo(files.foo)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    await expect(prettier.getFileInfo(files.js)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "babel",
+    });
+    await expect(prettier.getFileInfo(files.bar)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    await expect(prettier.getFileInfo(files.css)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "css",
+    });
   });
-  expect(prettier.getFileInfo(file2)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
+  test("{resolveConfig: true}", async () => {
+    await expect(
+      prettier.getFileInfo(files.foo, { resolveConfig: true })
+    ).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "foo-parser",
+    });
+    await expect(
+      prettier.getFileInfo(files.js, { resolveConfig: true })
+    ).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "override-js-parser",
+    });
+    await expect(
+      prettier.getFileInfo(files.bar, { resolveConfig: true })
+    ).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    await expect(
+      prettier.getFileInfo(files.css, { resolveConfig: true })
+    ).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "css",
+    });
   });
-  expect(
-    prettier.getFileInfo(file1, {
-      resolveConfig: true,
-    })
-  ).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "json",
+  test("sync {resolveConfig: undefined}", () => {
+    expect(prettier.getFileInfo.sync(files.foo)).toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    expect(prettier.getFileInfo.sync(files.js)).toMatchObject({
+      ignored: false,
+      inferredParser: "babel",
+    });
+    expect(prettier.getFileInfo.sync(files.bar)).toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    expect(prettier.getFileInfo.sync(files.css)).toMatchObject({
+      ignored: false,
+      inferredParser: "css",
+    });
   });
-  expect(
-    prettier.getFileInfo(file2, {
-      resolveConfig: true,
-    })
-  ).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "babel",
+  test("sync {resolveConfig: true}", () => {
+    expect(
+      prettier.getFileInfo.sync(files.foo, {
+        resolveConfig: true,
+      })
+    ).toMatchObject({
+      ignored: false,
+      inferredParser: "foo-parser",
+    });
+    expect(
+      prettier.getFileInfo.sync(files.js, {
+        resolveConfig: true,
+      })
+    ).toMatchObject({
+      ignored: false,
+      inferredParser: "override-js-parser",
+    });
+    expect(
+      prettier.getFileInfo.sync(files.bar, {
+        resolveConfig: true,
+      })
+    ).toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    expect(
+      prettier.getFileInfo.sync(files.css, {
+        resolveConfig: true,
+      })
+    ).toMatchObject({
+      ignored: false,
+      inferredParser: "css",
+    });
   });
 });
 
-test("API getFileInfo with resolveConfig when no config is present", () => {
-  const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config-no-config/file.foo")
+describe("API getFileInfo resolveConfig when no config is present", () => {
+  const files = fromPairs(
+    ["foo", "js"].map((ext) => [
+      ext,
+      path.resolve(path.join(__dirname, `../cli/non-exists-dir/file.${ext}`)),
+    ])
   );
-  const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config-no-config/file.bar")
-  );
-
-  expect(prettier.getFileInfo(file1)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
+  test("{resolveConfig: undefined}", async () => {
+    await expect(prettier.getFileInfo(files.foo)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    await expect(prettier.getFileInfo(files.js)).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "babel",
+    });
   });
-  expect(prettier.getFileInfo(file2)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
+  test("{resolveConfig: true}", async () => {
+    await expect(
+      prettier.getFileInfo(files.foo, { resolveConfig: true })
+    ).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    await expect(
+      prettier.getFileInfo(files.js, { resolveConfig: true })
+    ).resolves.toMatchObject({
+      ignored: false,
+      inferredParser: "babel",
+    });
   });
-  expect(
-    prettier.getFileInfo(file1, {
-      resolveConfig: true,
-    })
-  ).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
+  test("sync {resolveConfig: undefined}", () => {
+    expect(prettier.getFileInfo.sync(files.foo)).toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    expect(prettier.getFileInfo.sync(files.js)).toMatchObject({
+      ignored: false,
+      inferredParser: "babel",
+    });
   });
-  expect(
-    prettier.getFileInfo(file2, {
-      resolveConfig: true,
-    })
-  ).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: null,
+  test("sync {resolveConfig: true}", () => {
+    expect(
+      prettier.getFileInfo.sync(files.foo, { resolveConfig: true })
+    ).toMatchObject({
+      ignored: false,
+      inferredParser: null,
+    });
+    expect(
+      prettier.getFileInfo.sync(files.js, { resolveConfig: true })
+    ).toMatchObject({
+      ignored: false,
+      inferredParser: "babel",
+    });
   });
 });
 
-test("API getFileInfo.sync with resolveConfig", () => {
-  const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config/file.foo")
-  );
-  const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config/file.bar")
-  );
-
-  expect(prettier.getFileInfo.sync(file1)).toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-  expect(prettier.getFileInfo.sync(file2)).toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-  expect(
-    prettier.getFileInfo.sync(file1, {
-      resolveConfig: true,
-    })
-  ).toMatchObject({
-    ignored: false,
-    inferredParser: "json",
-  });
-  expect(
-    prettier.getFileInfo.sync(file2, {
-      resolveConfig: true,
-    })
-  ).toMatchObject({
-    ignored: false,
-    inferredParser: "babel",
-  });
-});
-
-test("API getFileInfo.sync with resolveConfig when no config is present", () => {
-  const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config-no-config/file.foo")
-  );
-  const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-resolve-config-no-config/file.bar")
-  );
-
-  expect(prettier.getFileInfo.sync(file1)).toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-  expect(prettier.getFileInfo.sync(file2)).toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-  expect(
-    prettier.getFileInfo.sync(file1, {
-      resolveConfig: true,
-    })
-  ).toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-  expect(
-    prettier.getFileInfo.sync(file2, {
-      resolveConfig: true,
-    })
-  ).toMatchObject({
-    ignored: false,
-    inferredParser: null,
-  });
-});
-
-test("API getFileInfo with ignorePath", () => {
+test("API getFileInfo with ignorePath", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/ignore-path/regular-module.js")
   );
@@ -275,18 +332,40 @@ test("API getFileInfo with ignorePath", () => {
     path.join(__dirname, "../cli/ignore-path/.prettierignore")
   );
 
-  expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: false,
     inferredParser: "babel",
   });
 
-  expect(
-    prettier.getFileInfo(file, {
-      ignorePath,
-    })
+  await expect(
+    prettier.getFileInfo(file, { ignorePath })
   ).resolves.toMatchObject({
     ignored: true,
+    inferredParser: null,
+  });
+});
+
+test("API getFileInfo with ignorePath containing relative paths", async () => {
+  const file = path.resolve(
+    path.join(
+      __dirname,
+      "../cli/ignore-relative-path/level1-glob/level2-glob/level3-glob/shouldNotBeFormat.js"
+    )
+  );
+  const ignorePath = path.resolve(
+    path.join(__dirname, "../cli/ignore-relative-path/.prettierignore")
+  );
+
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+    ignored: false,
     inferredParser: "babel",
+  });
+
+  await expect(
+    prettier.getFileInfo(file, { ignorePath })
+  ).resolves.toMatchObject({
+    ignored: true,
+    inferredParser: null,
   });
 });
 
@@ -309,7 +388,7 @@ test("API getFileInfo.sync with ignorePath", () => {
     })
   ).toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
 });
 
@@ -347,15 +426,15 @@ describe("API getFileInfo.sync with ignorePath", () => {
   });
 });
 
-test("API getFileInfo with withNodeModules", () => {
+test("API getFileInfo with withNodeModules", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/with-node-modules/node_modules/file.js")
   );
-  expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: true,
-    inferredParser: "babel",
+    inferredParser: null,
   });
-  expect(
+  await expect(
     prettier.getFileInfo(file, {
       withNodeModules: true,
     })
@@ -392,16 +471,16 @@ describe("returns null parser for unknown shebang", () => {
   });
 });
 
-test("API getFileInfo with plugins loaded using pluginSearchDir", () => {
+test("API getFileInfo with plugins loaded using pluginSearchDir", async () => {
   const file = "file.foo";
   const pluginsPath = path.resolve(
     path.join(__dirname, "../plugins/automatic")
   );
-  expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: false,
     inferredParser: null,
   });
-  expect(
+  await expect(
     prettier.getFileInfo(file, {
       pluginSearchDirs: [pluginsPath],
     })
@@ -411,7 +490,7 @@ test("API getFileInfo with plugins loaded using pluginSearchDir", () => {
   });
 });
 
-test("API getFileInfo with hand-picked plugins", () => {
+test("API getFileInfo with hand-picked plugins", async () => {
   const file = "file.foo";
   const pluginPath = path.resolve(
     path.join(
@@ -419,16 +498,36 @@ test("API getFileInfo with hand-picked plugins", () => {
       "../plugins/automatic/node_modules/@prettier/plugin-foo"
     )
   );
-  expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
     ignored: false,
     inferredParser: null,
   });
-  expect(
+  await expect(
     prettier.getFileInfo(file, {
       plugins: [pluginPath],
     })
   ).resolves.toMatchObject({
     ignored: false,
     inferredParser: "foo",
+  });
+});
+
+test("API getFileInfo with ignorePath and resolveConfig should infer parser with correct filepath", async () => {
+  const dir = path.join(__dirname, "../cli/ignore-and-config/");
+  const filePath = path.join(dir, "config-dir/foo");
+  const ignorePath = path.join(dir, "ignore-path-dir/.prettierignore");
+  const options = {
+    resolveConfig: true,
+    ignorePath,
+  };
+
+  await expect(prettier.getFileInfo(filePath, options)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
+  });
+
+  expect(prettier.getFileInfo.sync(filePath, options)).toMatchObject({
+    ignored: false,
+    inferredParser: "parser-for-config-dir",
   });
 });

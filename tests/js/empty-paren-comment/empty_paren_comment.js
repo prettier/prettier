@@ -9,16 +9,6 @@ const obj = {
   f: function f(/* ... */) {}
 }
 
-class Foo {
-  f(/* ... */) {}
-  f() /* ... */ {}
-  f = (/* ... */) => {};
-  static f(/* ... */) {};
-  static f = (/* ... */) => {};
-  static f = function(/* ... */) {};
-  static f = function f(/* ... */) {};
-}
-
 f(/* ... */);
 f(a, /* ... */);
 f(a, /* ... */ b);

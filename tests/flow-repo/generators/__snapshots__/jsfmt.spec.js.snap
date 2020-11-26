@@ -245,15 +245,9 @@ if (typeof infer_stmt_next === "undefined") {
   (infer_stmt_next: boolean); // error: string ~> boolean
 }
 
-examples
-  .widen_next()
-  .next(0);
-examples
-  .widen_next()
-  .next("");
-examples
-  .widen_next()
-  .next(true);
+examples.widen_next().next(0);
+examples.widen_next().next("");
+examples.widen_next().next(true);
 
 for (var x of examples.widen_yield()) {
   if (typeof x === "number") {
@@ -263,17 +257,13 @@ for (var x of examples.widen_yield()) {
   }
 }
 
-examples
-  .delegate_next_generator()
-  .next("");
+examples.delegate_next_generator().next("");
 
 for (var x of examples.delegate_yield_generator()) {
   (x: number); // error: string ~> number
 }
 
-examples
-  .delegate_next_iterable([])
-  .next(""); // error: Iterator has no next value
+examples.delegate_next_iterable([]).next(""); // error: Iterator has no next value
 
 for (var x of examples.delegate_yield_iterable([])) {
   (x: string); // error: number ~> string

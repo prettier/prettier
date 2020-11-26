@@ -7,7 +7,7 @@ const path = require("path");
  * @property {string} input - input of the bundle
  * @property {string?} output - path of the output file in the `dist/` folder
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
- * @property {'node' | 'universal'} target - should generate a CJS only for node or UMD bundle
+ * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
@@ -28,13 +28,30 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-flow.js",
-    strict: false,
+    replace: {
+      // `flow-parser` use this for `globalThis`, can't work in strictMode
+      "(function(){return this}())": '(new Function("return this")())',
+    },
   },
   {
     input: "src/language-js/parser-typescript.js",
     replace: {
-      'require("@microsoft/typescript-etw")': "undefined",
+      // `typescript/lib/typescript.js` expose extra global objects
+      // `TypeScript`, `toolsVersion`, `globalThis`
+      'typeof process === "undefined" || process.browser': "false",
+      'typeof globalThis === "object"': "true",
+      // `@typescript-eslint/typescript-estree` v4
+      'require("globby")': "{}",
+      "extra.projects = prepareAndTransformProjects(":
+        "extra.projects = [] || prepareAndTransformProjects(",
+      "process.versions.node": "'999.999.999'",
     },
+  },
+  {
+    input: "src/language-js/parser-espree.js",
+  },
+  {
+    input: "src/language-js/parser-meriyah.js",
   },
   {
     input: "src/language-js/parser-angular.js",
@@ -47,6 +64,10 @@ const parsers = [
       // prevent terser generate extra .LICENSE file
       extractComments: false,
       terserOptions: {
+        // prevent U+FFFE in the output
+        output: {
+          ascii_only: true,
+        },
         mangle: {
           // postcss need keep_fnames when minify
           keep_fnames: true,
@@ -55,6 +76,11 @@ const parsers = [
         },
       },
     },
+  },
+  {
+    input: "dist/parser-postcss.js",
+    output: "esm/parser-postcss.mjs",
+    format: "esm",
   },
   {
     input: "src/language-graphql/parser-graphql.js",
@@ -99,6 +125,7 @@ const coreBundles = [
     type: "core",
     output: "doc.js",
     target: "universal",
+    format: "umd",
     minify: false,
   },
   {
@@ -106,6 +133,10 @@ const coreBundles = [
     name: "prettier",
     type: "core",
     target: "universal",
+    // TODO: Find a better way to remove parsers
+    replace: Object.fromEntries(
+      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"])
+    ),
   },
   {
     input: "bin/prettier.js",

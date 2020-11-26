@@ -4,6 +4,8 @@ title: API
 original_id: api
 ---
 
+If you want to run Prettier programmatically, check this page out.
+
 ```js
 const prettier = require("prettier");
 ```
@@ -34,7 +36,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 
 ## `prettier.resolveConfig(filePath [, options])`
 
-`resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument. The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start searching from the current directory). Or you can pass directly the path of the config file as `options.config` if you don't wish to search for it. A promise is returned which will resolve to:
+`resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument. The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start searching from the current directory). Or you can pass directly the path of the config file as `options.config` if you don’t wish to search for it. A promise is returned which will resolve to:
 
 - An options object, providing a [config file](configuration.md) was found.
 - `null`, if no file was found.
@@ -50,14 +52,14 @@ prettier.resolveConfig(filePath).then((options) => {
 });
 ```
 
-If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
 - `end_of_line`
 - `indent_style`
 - `indent_size`/`tab_width`
 - `max_line_length`
 
-Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
+Use `prettier.resolveConfig.sync(filePath [, options])` if you’d like to use sync version.
 
 ## `prettier.resolveConfigFile([filePath])`
 
@@ -71,14 +73,12 @@ The promise will be rejected if there was an error parsing the configuration fil
 The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
-prettier.resolveConfigFile().then((filePath) => {
-  prettier.resolveConfig(filePath).then((options) => {
-    const formatted = prettier.format(text, options);
-  });
+prettier.resolveConfigFile(filePath).then((configFile) => {
+  // you got the path of the configuration file
 });
 ```
 
-Use `prettier.resolveConfigFile.sync([filePath])` if you'd like to use sync version.
+Use `prettier.resolveConfigFile.sync([filePath])` if you’d like to use sync version.
 
 ## `prettier.clearConfigCache()`
 
@@ -99,11 +99,13 @@ The promise will be rejected if the type of `filePath` is not `string`.
 
 Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
+If the given `filePath` is ignored, the `inferredParser` is always `null`.
+
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
 When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will resolve the configuration for the given `filePath`. This is useful, for example, when the `inferredParser` might be overridden for a subset of files.
 
-Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
+Use `prettier.getFileInfo.sync(filePath [, options])` if you’d like to use sync version.
 
 ## `prettier.getSupportInfo()`
 
@@ -139,7 +141,7 @@ If you need to make modifications to the AST (such as codemods), or you want to 
 (text: string, parsers: object, options: object) => AST;
 ```
 
-Prettier's built-in parsers are exposed as properties on the `parsers` argument.
+Prettier’s built-in parsers are exposed as properties on the `parsers` argument.
 
 ```js
 prettier.format("lodash ( )", {

@@ -4802,9 +4802,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -6370,9 +6368,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -11526,9 +11522,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -13054,9 +13048,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div [class.special]="isSpecial">Special</div>
 <br /><br />
 
-<button [style.color]="isSpecial ? 'red' : 'green'">
-  button
-</button>
+<button [style.color]="isSpecial ? 'red' : 'green'">button</button>
 
 <a class="to-toc" href="#toc">top</a>
 

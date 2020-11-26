@@ -15,7 +15,7 @@ const z = obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
 
 // you can still force multi-line chaining with a comment:
-const sha256 = (data) =>
+const sha256_2 = (data) =>
   crypto // breakme
     .createHash("sha256")
     .update(data)

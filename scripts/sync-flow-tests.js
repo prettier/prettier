@@ -1,9 +1,9 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const flowParser = require("flow-parser");
 const globby = require("globby");
-const path = require("path");
 const rimraf = require("rimraf");
 
 const DEFAULT_SPEC_CONTENT = "run_spec(__dirname);\n";

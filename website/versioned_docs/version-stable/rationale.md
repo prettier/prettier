@@ -10,16 +10,16 @@ Prettier is an opinionated code formatter. This document explains some of its ch
 
 ### Correctness
 
-The first requirement of Prettier is to output valid code that has the exact same behavior as before formatting. Please report any code where Prettier fails to follow these correctness rules — that's a bug which needs to be fixed!
+The first requirement of Prettier is to output valid code that has the exact same behavior as before formatting. Please report any code where Prettier fails to follow these correctness rules — that’s a bug which needs to be fixed!
 
 ### Strings
 
-Double or single quotes? Prettier chooses the one which results in the fewest number of escapes. `"It's gettin' better!"`, not `'It\'s gettin\' better!'`. In case of a tie, Prettier defaults to double quotes (but that can be changed via the [`--single-quote`](options.html#quotes) option).
+Double or single quotes? Prettier chooses the one which results in the fewest number of escapes. `"It's gettin' better!"`, not `'It\'s gettin\' better!'`. In case of a tie or the string not containing any quotes, Prettier defaults to double quotes (but that can be changed via the [singleQuote](options.html#quotes) option).
 
-JSX has its own option for quotes: [`--jsx-single-quote`](options.html#jsx-quotes).
+JSX has its own option for quotes: [jsxSingleQuote](options.html#jsx-quotes).
 JSX takes its roots from HTML, where the dominant use of quotes for attributes is double quotes. Browser developer tools also follow this convention by always displaying HTML with double quotes, even if the source code uses single quotes. A separate option allows using single quotes for JS and double quotes for "HTML" (JSX).
 
-Prettier maintains the way your string is escaped. For example, `"🙂"` won't be formatted into `"\uD83D\uDE42"` and vice versa.
+Prettier maintains the way your string is escaped. For example, `"🙂"` won’t be formatted into `"\uD83D\uDE42"` and vice versa.
 
 ### Empty lines
 
@@ -30,9 +30,9 @@ It turns out that empty lines are very hard to automatically generate. The appro
 
 ### Multi-line objects
 
-By default, Prettier’s printing algorithm prints expressions on a single line if they fit. Objects are used for a lot of different things in JavaScript, though, and sometimes it really helps readability if they stay multiline. See [object lists], [nested configs], [stylesheets] and [keyed methods], for example. We haven't been able to find a good rule for all those cases, so Prettier instead keeps objects multiline if there's a newline between the `{` and the first key in the original source code. A consequence of this is that long singleline objects are automatically expanded, but short multiline objects are never collapsed.
+By default, Prettier’s printing algorithm prints expressions on a single line if they fit. Objects are used for a lot of different things in JavaScript, though, and sometimes it really helps readability if they stay multiline. See [object lists], [nested configs], [stylesheets] and [keyed methods], for example. We haven’t been able to find a good rule for all those cases, so Prettier instead keeps objects multiline if there’s a newline between the `{` and the first key in the original source code. A consequence of this is that long singleline objects are automatically expanded, but short multiline objects are never collapsed.
 
-**Tip:** If you have a multiline object that you'd like to join up into a single line:
+**Tip:** If you have a multiline object that you’d like to join up into a single line:
 
 ```js
 const user = {
@@ -56,7 +56,7 @@ const user = {  name: "John Doe",
 const user = { name: "John Doe", age: 30 };
 ```
 
-And if you'd like to go multiline again, add in a newline after `{`:
+And if you’d like to go multiline again, add in a newline after `{`:
 
 <!-- prettier-ignore -->
 ```js
@@ -80,7 +80,7 @@ const user = {
 
 ### Decorators
 
-Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it's nicer if they're on the _same_ line. We haven't been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn't ideal, but a pragmatic solution to a difficult problem.
+Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it’s nicer if they're on the _same_ line. We haven’t been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn’t ideal, but a pragmatic solution to a difficult problem.
 
 ```js
 @Component({
@@ -100,7 +100,7 @@ class HeroButtonComponent {
 }
 ```
 
-There's one exception: classes. We don't think it ever makes sense to inline the decorators for them, so they are always moved to their own line.
+There’s one exception: classes. We don’t think it ever makes sense to inline the decorators for them, so they are always moved to their own line.
 
 <!-- prettier-ignore -->
 ```js
@@ -140,7 +140,7 @@ export @decorator class Foo {}
 
 ### Semicolons
 
-This is about using the [`--no-semi`](options.md#semicolons) option.
+This is about using the [noSemi](options.md#semicolons) option.
 
 Consider this piece of code:
 
@@ -186,7 +186,7 @@ This practice is also common in [standard] which uses a semicolon-free style.
 
 ### Print width
 
-The [`--print-width`](options.md#print-width) is more of a guideline to Prettier than a hard rule. It generally means “try to make lines this long, go shorter if needed and longer in special cases.”
+The [printWidth](options.md#print-width) option is more of a guideline to Prettier than a hard rule. It is not the upper allowed line length limit. It is a way to say to Prettier roughly how long you’d like lines to be. Prettier will make both shorter and longer lines, but generally strive to meet the specified print width.
 
 There are some edge cases, such as really long string literals, regexps, comments and variable names, which cannot be broken across lines (without using code transforms which [Prettier doesn’t do](#what-prettier-is-_not_-concerned-about)). Or if you nest your code 50 levels deep your lines are of course going to be mostly indentation :)
 
@@ -203,7 +203,7 @@ import {
 } from "../components/collections/collection-dashboard/main";
 ```
 
-The following example doesn't fit within the print width, but Prettier prints it in a single line anyway:
+The following example doesn’t fit within the print width, but Prettier prints it in a single line anyway:
 
 ```js
 import { CollectionDashboard } from "../components/collections/collection-dashboard/main";
@@ -263,7 +263,7 @@ Secondly, [the alternate formatting makes it easier to edit the JSX](https://git
 
 ### Comments
 
-When it comes to the _contents_ of comments, Prettier can’t do much really. Comments can contain everything from prose to commented out code and ASCII diagrams. Since they can contain anything, Prettier can’t know how to format or wrap them. So they are left as-is. The only exception to this are JSDoc-style comments (block comments where every line starts with a `*`), which Prettier can fix the indentation of.
+When it comes to the _content_ of comments, Prettier can’t do much really. Comments can contain everything from prose to commented out code and ASCII diagrams. Since they can contain anything, Prettier can’t know how to format or wrap them. So they are left as-is. The only exception to this are JSDoc-style comments (block comments where every line starts with a `*`), which Prettier can fix the indentation of.
 
 Then there’s the question of _where_ to put the comments. Turns out this is a really difficult problem. Prettier tries its best to keep your comments roughly where they were, but it’s no easy task because comments can be placed almost anywhere.
 
@@ -294,7 +294,7 @@ const result =
   safeToEval && settings.allowNativeEval ? eval(input) : fallback(input);
 ```
 
-Which means that the `eslint-disable` comment is no longer effective. In this case you need to move the comment:
+Which means that the `eslint-disable-next-line` comment is no longer effective. In this case you need to move the comment:
 
 ```js
 const result =
@@ -302,9 +302,15 @@ const result =
   safeToEval && settings.allowNativeEval ? eval(input) : fallback(input);
 ```
 
+If possible, prefer comments that operate on line ranges (e.g. `eslint-disable` and `eslint-enable`) or on the statement level (e.g. `/* istanbul ignore next */`), they are even safer. It’s possible to disallow using `eslint-disable-line` and `eslint-disable-next-line` comments using [`eslint-plugin-eslint-comments`](https://github.com/mysticatea/eslint-plugin-eslint-comments).
+
+## Disclaimer about non-standard syntax
+
+Prettier is often able to recognize and format non-standard syntax such as ECMAScript early-stage proposals and Markdown syntax extensions not defined by any specification. The support for such syntax is considered best-effort and experimental. Incompatibilities may be introduced in any release and should not be viewed as breaking changes.
+
 ## What Prettier is _not_ concerned about
 
-Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let's focus on the printing and do it really well!
+Prettier only _prints_ code. It does not transform it. This is to limit the scope of Prettier. Let’s focus on the printing and do it really well!
 
 Here are a few examples of things that are out of scope for Prettier:
 

@@ -611,6 +611,52 @@ printWidth: 40
 ================================================================================
 `;
 
+exports[`textarea.hbs - {"printWidth":40} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<Textarea />
+{{#if true}}
+  Test
+{{/if}}
+
+<Textarea />
+
+{{#if true}}
+  Test
+{{/if}}
+
+<Textarea />
+
+
+
+
+{{#if true}}
+  Test
+{{/if}}
+
+=====================================output=====================================
+<Textarea />
+{{#if true}}
+  Test
+{{/if}}
+
+<Textarea />
+
+{{#if true}}
+  Test
+{{/if}}
+
+<Textarea />
+
+{{#if true}}
+  Test
+{{/if}}
+================================================================================
+`;
+
 exports[`whitespace-control.hbs - {"printWidth":40} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
