@@ -21,21 +21,19 @@ false,
 =====================================output=====================================
 {
   "printWidth": 100,
-  "overrides":
-    [
-      { "files": ".prettierrc", "options": { "parser": "json" } },
-      {
-        "files": "*.js",
-        "options":
-          {
-            "parser": "babel",
-            "singleQuote": true,
-            "printWidth": 80,
-            "semi": false,
-            "quoteProps": "as-needed",
-          },
-      },
-    ],
+  "overrides": [
+    { "files": ".prettierrc", "options": { "parser": "json" } },
+    {
+      "files": "*.js",
+      "options": {
+        "parser": "babel",
+        "singleQuote": true,
+        "printWidth": 80,
+        "semi": false,
+        "quoteProps": "as-needed"
+      }
+    }
+  ]
 }
 
 ================================================================================

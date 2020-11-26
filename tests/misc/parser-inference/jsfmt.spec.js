@@ -10,7 +10,7 @@ run_spec({
     },
     {
       name: ".prettierrc in json",
-      filename: ".prettierrc",
+      filename: "path\\to\\.prettierrc",
       code: outdent`
         {"printWidth": 100,
         "overrides": [
