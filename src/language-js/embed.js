@@ -1,6 +1,6 @@
 "use strict";
 
-const { isBlockComment } = require("./utils");
+const { hasComment, CommentCheckFlags } = require("./utils");
 const formatMarkdown = require("./embed/markdown");
 const formatCss = require("./embed/css");
 const formatGraphql = require("./embed/graphql");
@@ -266,15 +266,10 @@ function hasLanguageComment(node, languageName) {
   // we will not trim the comment value and we will expect exactly one space on
   // either side of the GraphQL string
   // Also see ./clean.js
-  return (
-    node &&
-    node.comments &&
-    node.comments.some(
-      (comment) =>
-        isBlockComment(comment) &&
-        comment.leading &&
-        comment.value === ` ${languageName} `
-    )
+  return hasComment(
+    node,
+    CommentCheckFlags.Block | CommentCheckFlags.Leading,
+    ({ value }) => value === ` ${languageName} `
   );
 }
 
