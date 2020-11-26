@@ -1,5 +1,106 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`snippet: .prettierrc in json format 1`] = `
+====================================options=====================================
+parsers: []
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{"printWidth": 100,
+"overrides": [
+  {"files": ".prettierrc",
+    "options": {"parser": "json"
+  }},
+  {"files": "*.js",
+    "options": {"parser": "babel",
+  "singleQuote": true,"printWidth": 80,"semi":
+false,
+"quoteProps": "as-needed"
+  }}
+]}
+=====================================output=====================================
+{
+  "printWidth": 100,
+  "overrides":
+    [
+      { "files": ".prettierrc", "options": { "parser": "json" } },
+      {
+        "files": "*.js",
+        "options":
+          {
+            "parser": "babel",
+            "singleQuote": true,
+            "printWidth": 80,
+            "semi": false,
+            "quoteProps": "as-needed",
+          },
+      },
+    ],
+}
+
+================================================================================
+`;
+
+exports[`snippet: .prettierrc in json(empty) format 1`] = `
+====================================options=====================================
+parsers: []
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{}
+=====================================output=====================================
+{}
+
+================================================================================
+`;
+
+exports[`snippet: .prettierrc in yaml (with flowMapping) format 1`] = `
+====================================options=====================================
+parsers: []
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# comment
+printWidth: 100
+overrides: {
+  "files": [".prettierrc", "prettierrc.json"],
+  "options": { "parser": "json"}
+}
+=====================================output=====================================
+# comment
+printWidth: 100
+overrides:
+  {
+    "files": [".prettierrc", "prettierrc.json"],
+    "options": { "parser": "json" },
+  }
+
+================================================================================
+`;
+
+exports[`snippet: .prettierrc in yaml format 1`] = `
+====================================options=====================================
+parsers: []
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# comment
+printWidth: 100
+overrides:
+  - files: '.prettierrc'
+    options:
+      parser: "json"
+=====================================output=====================================
+# comment
+printWidth: 100
+overrides:
+  - files: ".prettierrc"
+    options:
+      parser: "json"
+
+================================================================================
+`;
+
 exports[`test.html format 1`] = `
 ====================================options=====================================
 parsers: []

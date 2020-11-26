@@ -1,4 +1,4 @@
-const dedent = require("dedent");
+const {outdent} = require("outdent");
 
 run_spec({
   dirname: __dirname,
@@ -11,7 +11,7 @@ run_spec({
     {
       name: ".prettierrc in json",
       filename: ".prettierrc",
-      code: dedent`
+      code: outdent`
         {"printWidth": 100,
         "overrides": [
           {"files": ".prettierrc",
@@ -29,13 +29,25 @@ run_spec({
     {
       name: ".prettierrc in yaml",
       filename: ".prettierrc",
-      code: dedent`
+      code: outdent`
         # comment
         printWidth: 100
         overrides:
           - files: '.prettierrc'
             options:
               parser: "json"
+      `,
+    },
+    {
+      name: ".prettierrc in yaml (with flowMapping)",
+      filename: ".prettierrc",
+      code: outdent`
+        # comment
+        printWidth: 100
+        overrides: {
+          "files": [".prettierrc", "prettierrc.json"],
+          "options": { "parser": "json"}
+        }
       `,
     },
   ],
