@@ -224,10 +224,6 @@ function normalizeIndexes(text, options) {
   cursorOffset = ensureIndexInText(text, cursorOffset, -1);
   rangeStart = ensureIndexInText(text, rangeStart, 0);
   rangeEnd = ensureIndexInText(text, rangeEnd, text.length);
-
-  if (rangeStart > rangeEnd) {
-    [rangeStart, rangeEnd] = [rangeEnd, rangeStart];
-  }
   return { ...options, cursorOffset, rangeStart, rangeEnd };
 }
 
@@ -280,6 +276,13 @@ function format(originalText, originalOptions) {
     originalText,
     normalizeOptions(originalOptions)
   );
+
+  if (options.rangeStart >= options.rangeEnd) {
+    return {
+      formatted: originalText,
+      cursorOffset: originalOptions.cursorOffset,
+    };
+  }
 
   const selectedParser = parser.resolveParser(options);
   const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);

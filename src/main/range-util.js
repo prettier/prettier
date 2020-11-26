@@ -136,46 +136,34 @@ function calculateRange(text, opts, ast) {
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
   const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
-  const startNonWhitespace = Math.max(
-    opts.rangeStart + rangeStringOrig.search(/\S/),
-    opts.rangeStart
-  );
-  let endNonWhitespace;
-  for (
-    endNonWhitespace = opts.rangeEnd;
-    endNonWhitespace > opts.rangeStart;
-    --endNonWhitespace
-  ) {
-    if (/\S/.test(text[endNonWhitespace - 1])) {
-      break;
+
+  let start = opts.rangeStart;
+  let end = opts.rangeEnd;
+  if (/^\s*$/.test(rangeStringOrig)) {
+    start = end;
+  } else {
+    start = Math.max(start + rangeStringOrig.search(/\S/), start);
+    for (; end > start; --end) {
+      if (/\S/.test(text[end - 1])) {
+        break;
+      }
     }
   }
 
-  // We exclude node at `startNonWhitespace`, but include node at `endNonWhitespace`
-  // If they are equal, for example 12~12,
-  // The follow logic will find a node at `13` as `startNode`, and a node at `12` as `endNode`
-  // This doesn't make sense
-  if (startNonWhitespace >= endNonWhitespace) {
-    return {
-      rangeStart: 0,
-      rangeEnd: 0,
-    };
-  }
-
-  const startNodeAndParents = findNodeAtOffset(
-    ast,
-    // Start node should not include nodes end at `startNonWhitespace`
-    startNonWhitespace + 1,
-    opts,
-    (node) => isSourceElement(opts, node)
-  );
-  const endNodeAndParents = findNodeAtOffset(
-    ast,
-    endNonWhitespace,
-    opts,
-    (node) => isSourceElement(opts, node)
+  const endNodeAndParents = findNodeAtOffset(ast, end, opts, (node) =>
+    isSourceElement(opts, node)
   );
 
+  const startNodeAndParents =
+    start === end
+      ? endNodeAndParents
+      : findNodeAtOffset(
+          ast,
+          // Start node should not include nodes end at `start`
+          start + 1,
+          opts,
+          (node) => isSourceElement(opts, node)
+        );
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
       rangeStart: 0,
