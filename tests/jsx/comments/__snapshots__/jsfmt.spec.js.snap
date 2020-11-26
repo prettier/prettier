@@ -222,3 +222,58 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`jsx-tag-comment-after-prop.js - {"jsxBracketSameLine":true} format 1`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/typescript-eslint/typescript-eslint/pull/703
+
+const pure = () => {
+  return (
+      <Foo
+        // one
+        foo={123}
+        // two
+        bar="woof"
+      />
+  );
+}
+=====================================output=====================================
+// https://github.com/typescript-eslint/typescript-eslint/pull/703
+
+const pure = () => {
+  return (
+    <Foo
+      // one
+      foo={123}
+      // two
+      bar="woof"
+    />
+  );
+};
+
+================================================================================
+`;
+
+exports[`like-a-comment-in-jsx-text.js - {"jsxBracketSameLine":true} format 1`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<Foo
+>
+  text
+  // comment
+  text
+</Foo>
+=====================================output=====================================
+<Foo>text // comment text</Foo>;
+
+================================================================================
+`;

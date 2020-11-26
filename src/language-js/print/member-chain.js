@@ -11,14 +11,14 @@ const {
 } = require("../../common/util");
 const pathNeedsParens = require("../needs-parens");
 const {
-  hasLeadingComment,
-  hasTrailingComment,
   isCallOrOptionalCallExpression,
   isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
   isMemberish,
   isNumericLiteral,
   isSimpleCallArgument,
+  hasComment,
+  CommentCheckFlags,
 } = require("../utils");
 const { locEnd } = require("../loc");
 
@@ -244,10 +244,7 @@ function printMemberChain(path, options, print) {
     }
     currentGroup.push(printedNodes[i]);
 
-    if (
-      printedNodes[i].node.comments &&
-      printedNodes[i].node.comments.some((comment) => comment.trailing)
-    ) {
+    if (hasComment(printedNodes[i].node, CommentCheckFlags.Trailing)) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
@@ -308,7 +305,9 @@ function printMemberChain(path, options, print) {
   }
 
   const shouldMerge =
-    groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
+    groups.length >= 2 &&
+    !hasComment(groups[1][0].node) &&
+    shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
     const printed = printedGroup.map((tuple) => tuple.printed);
@@ -339,14 +338,19 @@ function printMemberChain(path, options, print) {
   const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = flat(groups);
 
-  const hasComment =
-    flatGroups.slice(1, -1).some((node) => hasLeadingComment(node.node)) ||
-    flatGroups.slice(0, -1).some((node) => hasTrailingComment(node.node)) ||
-    (groups[cutoff] && hasLeadingComment(groups[cutoff][0].node));
+  const nodeHasComment =
+    flatGroups
+      .slice(1, -1)
+      .some((node) => hasComment(node.node, CommentCheckFlags.Leading)) ||
+    flatGroups
+      .slice(0, -1)
+      .some((node) => hasComment(node.node, CommentCheckFlags.Trailing)) ||
+    (groups[cutoff] &&
+      hasComment(groups[cutoff][0].node, CommentCheckFlags.Leading));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= cutoff && !hasComment) {
+  if (groups.length <= cutoff && !nodeHasComment) {
     if (isLongCurriedCallExpression(path)) {
       return oneLine;
     }
@@ -390,7 +394,7 @@ function printMemberChain(path, options, print) {
   //  * any group but the last one has a hard line,
   //  * the last call's arguments have a hard line and other calls have non-trivial arguments.
   if (
-    hasComment ||
+    nodeHasComment ||
     (callExpressions.length > 2 &&
       callExpressions.some(
         (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))

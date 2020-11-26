@@ -19,6 +19,8 @@ const {
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
+  hasComment,
+  CommentCheckFlags,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
