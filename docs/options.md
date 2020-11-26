@@ -196,8 +196,6 @@ These options cannot be used with `cursorOffset`.
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |
 | `Infinity` | `--range-end <int>`   | `rangeEnd: <int>`   |
 
-_If `rangeStart` is greater than `rangeEnd`, they will be swapped._
-
 ## Parser
 
 Specify which parser to use.
