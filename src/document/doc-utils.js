@@ -252,40 +252,39 @@ function cleanDocFn(doc) {
 
   const { parts } = doc;
   for (let index = parts.length - 1; index >= 0; index--) {
-    let currentDoc = parts[index];
-    // Next doc already normalized
-    const nextDoc = parts[index + 1];
+    let currentPart = parts[index];
+    const nextPart = parts[index + 1];
 
     // Concat continuous string
-    if (typeof currentDoc === "string" && typeof nextDoc === "string") {
+    if (typeof currentPart === "string" && typeof nextPart === "string") {
       parts.splice(index + 1, 1);
-      currentDoc += nextDoc;
+      currentPart += nextPart;
     }
     // Concat continuous `concat`
-    else if (isConcat(currentDoc) && isConcat(nextDoc)) {
+    else if (isConcat(currentPart) && isConcat(nextPart)) {
       parts.splice(index + 1, 1);
-      currentDoc.parts.push(...nextDoc.parts);
-      currentDoc = cleanDocFn(currentDoc);
+      currentPart.parts.push(...nextPart.parts);
+      currentPart = cleanDocFn(currentPart);
     }
     // Concat `concat` and string
-    else if (isConcat(currentDoc) && typeof nextDoc === "string") {
+    else if (isConcat(currentPart) && typeof nextPart === "string") {
       parts.splice(index + 1, 1);
-      currentDoc.parts.push(nextDoc);
-      currentDoc = cleanDocFn(currentDoc);
+      currentPart.parts.push(nextPart);
+      currentPart = cleanDocFn(currentPart);
     }
     // Concat string and `concat`
-    else if (typeof currentDoc === "string" && isConcat(nextDoc)) {
+    else if (typeof currentPart === "string" && isConcat(nextPart)) {
       parts.splice(index + 1, 1);
-      nextDoc.parts.unshift(currentDoc);
-      currentDoc = nextDoc;
-      currentDoc = cleanDocFn(currentDoc);
+      nextPart.parts.unshift(currentPart);
+      currentPart = nextPart;
+      currentPart = cleanDocFn(currentPart);
     }
 
     // If empty string, remove it
-    if (currentDoc === "") {
+    if (currentPart === "") {
       parts.splice(index, 1);
     } else {
-      parts[index] = currentDoc;
+      parts[index] = currentPart;
     }
   }
 
