@@ -5,12 +5,19 @@ const docBuilders = prettier.doc.builders;
 const docUtils = prettier.doc.utils;
 
 const { cleanDoc } = docUtils;
-const { group, concat, align, indent, lineSuffix, ifBreak } = docBuilders;
+const { group, concat, align, indent, lineSuffix, ifBreak, fill } = docBuilders;
 
 describe("cleanDoc", () => {
   test.each([
     [
-      "removes empty align/indent/group/line-suffix",
+      "fill",
+      concat([fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])]),
+      concat(["1", fill(["2", "3"])]),
+    ],
+    ["nested group", group(group("_")), group("_")],
+
+    [
+      "removes empty align/indent/line-suffix",
       concat([
         group(
           concat([
@@ -24,7 +31,7 @@ describe("cleanDoc", () => {
         ),
         "_",
       ]),
-      "_",
+      concat([group(""), "_"]),
     ],
     [
       "removes empty string/concat",
