@@ -13,13 +13,13 @@ const {
     fill,
     ifBreak,
     lineSuffixBoundary,
+    join,
   },
   utils: { willBreak, isLineNext, isEmpty },
 } = require("../../document");
 
 const { getLast, getPreferredQuote } = require("../../common/util");
 const {
-  hasTrailingComment,
   isEmptyJSXElement,
   isJSXWhitespaceExpression,
   isJSXNode,
@@ -30,7 +30,8 @@ const {
   isCallOrOptionalCallExpression,
   isStringLiteral,
   isBinaryish,
-  isBlockComment,
+  hasComment,
+  CommentCheckFlags,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
@@ -506,11 +507,9 @@ function printJsxExpressionContainer(path, options, print) {
   const n = path.getValue();
   const parent = path.getParentNode(0);
 
-  const hasComments = n.expression.comments && n.expression.comments.length > 0;
-
   const shouldInline =
     n.expression.type === "JSXEmptyExpression" ||
-    (!hasComments &&
+    (!hasComment(n.expression) &&
       (n.expression.type === "ArrayExpression" ||
         n.expression.type === "ObjectExpression" ||
         n.expression.type === "ArrowFunctionExpression" ||
@@ -545,10 +544,8 @@ function printJsxOpeningElement(path, options, print) {
   const n = path.getValue();
 
   const nameHasComments =
-    (n.name && n.name.comments && n.name.comments.length > 0) ||
-    (n.typeParameters &&
-      n.typeParameters.comments &&
-      n.typeParameters.comments.length > 0);
+    (n.name && hasComment(n.name)) ||
+    (n.typeParameters && hasComment(n.typeParameters));
 
   // Don't break self-closing elements with no attributes and no comments
   if (n.selfClosing && !n.attributes.length && !nameHasComments) {
@@ -577,7 +574,7 @@ function printJsxOpeningElement(path, options, print) {
     //   // comment
     // >
     !nameHasComments &&
-    (!n.attributes[0].comments || !n.attributes[0].comments.length)
+    !hasComment(n.attributes[0])
   ) {
     return group(
       concat([
@@ -592,7 +589,8 @@ function printJsxOpeningElement(path, options, print) {
   }
 
   const lastAttrHasTrailingComments =
-    n.attributes.length && hasTrailingComment(getLast(n.attributes));
+    n.attributes.length &&
+    hasComment(getLast(n.attributes), CommentCheckFlags.Trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
@@ -638,14 +636,31 @@ function printJsxOpeningElement(path, options, print) {
 }
 
 function printJsxClosingElement(path, options, print) {
-  return concat(["</", path.call(print, "name"), ">"]);
+  const n = path.getValue();
+  const parts = [];
+
+  parts.push("</");
+
+  const printed = path.call(print, "name");
+  if (hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)) {
+    parts.push(indent(concat([hardline, printed])), hardline);
+  } else if (
+    hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)
+  ) {
+    parts.push(" ", printed);
+  } else {
+    parts.push(printed);
+  }
+
+  parts.push(">");
+
+  return concat(parts);
 }
 
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
   const n = path.getValue();
-  const hasComment = n.comments && n.comments.length;
-  const hasOwnLineComment =
-    hasComment && !n.comments.every((comment) => isBlockComment(comment));
+  const nodeHasComment = hasComment(n);
+  const hasOwnLineComment = hasComment(n, CommentCheckFlags.Line);
   const isOpeningFragment = n.type === "JSXOpeningFragment";
   return concat([
     isOpeningFragment ? "<" : "</",
@@ -653,7 +668,7 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
       concat([
         hasOwnLineComment
           ? hardline
-          : hasComment && !isOpeningFragment
+          : nodeHasComment && !isOpeningFragment
           ? " "
           : "",
         printDanglingComments(path, options, true),
@@ -675,8 +690,7 @@ function printJsxElement(path, options, print) {
 
 function printJsxEmptyExpression(path, options /*, print*/) {
   const n = path.getValue();
-  const requiresHardline =
-    n.comments && !n.comments.every((comment) => isBlockComment(comment));
+  const requiresHardline = hasComment(n, CommentCheckFlags.Line);
 
   return concat([
     printDanglingComments(path, options, /* sameIndent */ !requiresHardline),
@@ -693,7 +707,7 @@ function printJsxSpreadAttribute(path, options, print) {
       (p) => {
         const printed = concat(["...", print(p)]);
         const n = p.getValue();
-        if (!n.comments || !n.comments.length || !willPrintOwnComments(p)) {
+        if (!hasComment(n) || !willPrintOwnComments(p)) {
           return printed;
         }
         return concat([
@@ -707,15 +721,50 @@ function printJsxSpreadAttribute(path, options, print) {
   ]);
 }
 
+function printJsx(path, options, print) {
+  const n = path.getValue();
+  switch (n.type) {
+    case "JSXAttribute":
+      return printJsxAttribute(path, options, print);
+    case "JSXIdentifier":
+      return "" + n.name;
+    case "JSXNamespacedName":
+      return join(":", [
+        path.call(print, "namespace"),
+        path.call(print, "name"),
+      ]);
+    case "JSXMemberExpression":
+      return join(".", [
+        path.call(print, "object"),
+        path.call(print, "property"),
+      ]);
+    case "JSXSpreadAttribute":
+      return printJsxSpreadAttribute(path, options, print);
+    case "JSXSpreadChild": {
+      // Same as `printJsxSpreadAttribute`
+      const printJsxSpreadChild = printJsxSpreadAttribute;
+      return printJsxSpreadChild(path, options, print);
+    }
+    case "JSXExpressionContainer":
+      return printJsxExpressionContainer(path, options, print);
+    case "JSXFragment":
+    case "JSXElement":
+      return printJsxElement(path, options, print);
+    case "JSXOpeningElement":
+      return printJsxOpeningElement(path, options, print);
+    case "JSXClosingElement":
+      return printJsxClosingElement(path, options, print);
+    case "JSXOpeningFragment":
+    case "JSXClosingFragment":
+      return printJsxOpeningClosingFragment(path, options /*, print*/);
+    case "JSXEmptyExpression":
+      return printJsxEmptyExpression(path, options /*, print*/);
+    case "JSXText":
+      /* istanbul ignore next */
+      throw new Error("JSXTest should be handled by JSXElement");
+  }
+}
+
 module.exports = {
-  printJsxElement,
-  printJsxAttribute,
-  printJsxOpeningElement,
-  printJsxClosingElement,
-  printJsxOpeningClosingFragment,
-  printJsxExpressionContainer,
-  printJsxEmptyExpression,
-  printJsxSpreadAttribute,
-  // Alias
-  printJsxSpreadChild: printJsxSpreadAttribute,
+  printJsx,
 };
