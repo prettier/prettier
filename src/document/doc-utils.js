@@ -275,6 +275,12 @@ function replaceNewlinesWithLiterallines(doc) {
 const isConcat = (doc) => doc && doc.type === "concat";
 function cleanDocFn(doc) {
   switch (doc.type) {
+    case "fill": {
+      // Empty string should be able to remove;
+      doc.parts = doc.parts.filter(Boolean);
+    }
+    break;
+
     case "align":
     case "indent":
     case "group":
