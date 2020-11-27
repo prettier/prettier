@@ -277,7 +277,7 @@ function format(originalText, originalOptions) {
     normalizeOptions(originalOptions)
   );
 
-  if (options.rangeStart >= options.rangeEnd) {
+  if (options.rangeStart >= options.rangeEnd && text !== "") {
     return {
       formatted: originalText,
       cursorOffset: originalOptions.cursorOffset,

@@ -334,15 +334,7 @@ function runTest({
     });
   }
 
-  if (
-    !code.includes("\r") &&
-    !formatOptions.requirePragma &&
-    !(
-      typeof formatOptions.rangeStart === "number" &&
-      typeof formatOptions.rangeEnd === "number" &&
-      formatOptions.rangeStart >= formatOptions.rangeEnd
-    )
-  ) {
+  if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
         const output = format(code.replace(/\n/g, eol), formatOptions)
@@ -367,6 +359,25 @@ function runTest({
       expect(output).toEqual(expected);
     });
   }
+}
+
+function shouldSkipEolTest(code, options) {
+  if (code.includes("\r")) {
+    return true;
+  }
+  const { requirePragma, rangeStart, rangeEnd } = options;
+  if (requirePragma) {
+    return true;
+  }
+
+  if (
+    typeof rangeStart === "number" &&
+    typeof rangeEnd === "number" &&
+    rangeStart >= rangeEnd
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function parse(source, options) {
