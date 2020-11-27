@@ -143,6 +143,7 @@ function calculateRange(text, opts, ast) {
   if (firstNonWhitespaceCharacterIndex === -1) {
     start = end;
   } else {
+    start += firstNonWhitespaceCharacterIndex;
     for (; end > start; --end) {
       if (/\S/.test(text[end - 1])) {
         break;
