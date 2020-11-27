@@ -224,6 +224,7 @@ function normalizeIndexes(text, options) {
   cursorOffset = ensureIndexInText(text, cursorOffset, -1);
   rangeStart = ensureIndexInText(text, rangeStart, 0);
   rangeEnd = ensureIndexInText(text, rangeEnd, text.length);
+
   return { ...options, cursorOffset, rangeStart, rangeEnd };
 }
 
