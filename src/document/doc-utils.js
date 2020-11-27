@@ -194,7 +194,7 @@ function stripDocTrailingHardlineFromDoc(doc) {
   switch (doc.type) {
     case "concat":
     case "fill": {
-      const { parts } = doc;
+      const parts = [...doc.parts];
 
       while (parts.length > 1 && isHardline(...parts.slice(-2))) {
         parts.length -= 2;
@@ -206,18 +206,18 @@ function stripDocTrailingHardlineFromDoc(doc) {
         );
         parts[parts.length - 1] = lastPart;
       }
-      break;
+      return { ...doc, parts };
     }
     case "align":
     case "indent":
     case "group":
     case "line-suffix":
-      doc.contents = stripDocTrailingHardlineFromDoc(doc.contents);
-      break;
+      const contents = stripDocTrailingHardlineFromDoc(doc.contents);
+      return { ...doc, contents };
     case "if-break":
-      doc.breakContents = stripDocTrailingHardlineFromDoc(doc.breakContents);
-      doc.flatContents = stripDocTrailingHardlineFromDoc(doc.flatContents);
-      break;
+      const breakContents = stripDocTrailingHardlineFromDoc(doc.breakContents);
+      const flatContents = stripDocTrailingHardlineFromDoc(doc.flatContents);
+      return { ...doc, breakContents, flatContents };
   }
 
   return doc;
