@@ -1,5 +1,6 @@
 "use strict";
 
+const assert = require("assert");
 const comments = require("./comments");
 
 function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
@@ -133,16 +134,15 @@ function isSourceElement(opts, node) {
 }
 
 function calculateRange(text, opts, ast) {
+  let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
+  assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
-  const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
-
-  let start = opts.rangeStart;
-  let end = opts.rangeEnd;
-  if (/^\s*$/.test(rangeStringOrig)) {
+  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);
+  // All whitespace
+  if (firstNonWhitespaceCharacterIndex === -1) {
     start = end;
   } else {
-    start = Math.max(start + rangeStringOrig.search(/\S/), start);
     for (; end > start; --end) {
       if (/\S/.test(text[end - 1])) {
         break;
@@ -159,7 +159,7 @@ function calculateRange(text, opts, ast) {
       ? endNodeAndParents
       : findNodeAtOffset(
           ast,
-          // Start node should not include nodes end at `start`
+          // Start node should not include nodes ends at `start`
           start + 1,
           opts,
           (node) => isSourceElement(opts, node)
@@ -178,8 +178,8 @@ function calculateRange(text, opts, ast) {
   );
 
   return {
-    rangeStart: Math.min(opts.locStart(startNode), opts.locStart(endNode)),
-    rangeEnd: Math.max(opts.locEnd(startNode), opts.locEnd(endNode)),
+    rangeStart: Math.min(locStart(startNode), locStart(endNode)),
+    rangeEnd: Math.max(locEnd(startNode), locEnd(endNode)),
   };
 }
 
