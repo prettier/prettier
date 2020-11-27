@@ -289,9 +289,9 @@ function cleanDocFn(doc) {
 
     case "group":
       {
-        if (!doc.contents) {
-          return "";
-        }
+        // if (!doc.contents) {
+        //   return "";
+        // }
 
         // Should be able to remove nested group
         if (
