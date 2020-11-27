@@ -1,5 +1,6 @@
 "use strict";
 
+const flatten = require("lodash/flatten");
 const createError = require("../common/parser-create-error");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -8,61 +9,41 @@ const {
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
+const tryCombinations = require("./parser/try-combinations");
 
-function babelOptions({ sourceType, extraPlugins = [] }) {
-  return {
-    sourceType,
-    allowAwaitOutsideFunction: true,
-    allowImportExportEverywhere: true,
-    allowReturnOutsideFunction: true,
-    allowSuperOutsideMethod: true,
-    allowUndeclaredExports: true,
-    errorRecovery: true,
-    createParenthesizedExpressions: true,
-    plugins: [
-      // When adding a plugin, please add a test in `tests/js/babel-plugins`,
-      // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
-
-      "doExpressions",
-      "classProperties",
-      "exportDefaultFrom",
-      "functionBind",
-      "functionSent",
-      "classPrivateProperties",
-      "throwExpressions",
-      "classPrivateMethods",
-      "v8intrinsic",
-      "partialApplication",
-      ["decorators", { decoratorsBeforeExport: false }],
-      "privateIn",
-      "importAssertions",
-      ["recordAndTuple", { syntaxType: "hash" }],
-      "decimal",
-      "moduleStringNames",
-      "classStaticBlock",
-      ...extraPlugins,
-    ],
-    tokens: true,
-    ranges: true,
-  };
-}
-
-function resolvePluginsConflict(
-  condition,
-  pluginCombinations,
-  conflictPlugins
-) {
-  if (!condition) {
-    return pluginCombinations;
-  }
-  const combinations = [];
-  for (const combination of pluginCombinations) {
-    for (const plugin of conflictPlugins) {
-      combinations.push([...combination, plugin]);
-    }
-  }
-  return combinations;
-}
+const parseOptions = {
+  sourceType: "module",
+  allowAwaitOutsideFunction: true,
+  allowImportExportEverywhere: true,
+  allowReturnOutsideFunction: true,
+  allowSuperOutsideMethod: true,
+  allowUndeclaredExports: true,
+  errorRecovery: true,
+  createParenthesizedExpressions: true,
+  plugins: [
+    // When adding a plugin, please add a test in `tests/js/babel-plugins`,
+    // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+    "doExpressions",
+    "classProperties",
+    "exportDefaultFrom",
+    "functionBind",
+    "functionSent",
+    "classPrivateProperties",
+    "throwExpressions",
+    "classPrivateMethods",
+    "v8intrinsic",
+    "partialApplication",
+    ["decorators", { decoratorsBeforeExport: false }],
+    "privateIn",
+    "importAssertions",
+    ["recordAndTuple", { syntaxType: "hash" }],
+    "decimal",
+    "moduleStringNames",
+    "classStaticBlock",
+  ],
+  tokens: true,
+  ranges: true,
+};
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
@@ -89,47 +70,73 @@ function isFlowFile(text, options) {
   return FLOW_PRAGMA_REGEX.test(text);
 }
 
+function parseWithOptions(parseMethod, text, options) {
+  // Inline the require to avoid loading all the JS if we don't use it
+  const parse = require("@babel/parser")[parseMethod];
+  const ast = parse(text, options);
+  const error = ast.errors.find((error) => shouldRethrowRecoveredError(error));
+  if (error) {
+    throw error;
+  }
+  return ast;
+}
+
+function createParseError(error) {
+  // babel error prints (l:c) with cols that are zero indexed
+  // so we need our custom error
+  const { message, loc } = error;
+
+  throw createError(message.replace(/ \(.*\)/, ""), {
+    start: {
+      line: loc ? loc.line : 0,
+      column: loc ? loc.column + 1 : 0,
+    },
+  });
+}
+
 function createParse(parseMethod, ...pluginCombinations) {
+  const parserCombinations = pluginCombinations.length
+    ? pluginCombinations.map((plugins) => {
+        const { plugins: commonPlugins } = parseOptions;
+        return { ...parseOptions, plugins: [...commonPlugins, ...plugins] };
+      })
+    : [parseOptions];
+
   return (text, parsers, opts = {}) => {
     if (opts.parser === "babel" && isFlowFile(text, opts)) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
 
-    // Inline the require to avoid loading all the JS if we don't use it
-    const babel = require("@babel/parser");
+    let combinations = parserCombinations;
 
-    const sourceType =
-      opts.__babelSourceType === "script" ? "script" : "module";
+    if (opts.__babelSourceType === "script") {
+      combinations = combinations.map((options) => ({
+        ...options,
+        sourceType: "script",
+      }));
+    }
 
-    let ast;
-    try {
-      const combinations = resolvePluginsConflict(
-        text.includes("|>"),
-        pluginCombinations,
-        [
-          ["pipelineOperator", { proposal: "smart" }],
-          ["pipelineOperator", { proposal: "minimal" }],
-          ["pipelineOperator", { proposal: "fsharp" }],
-        ]
-      );
-      ast = tryCombinations(
-        (options) => babel[parseMethod](text, options),
-        combinations.map((extraPlugins) =>
-          babelOptions({ sourceType, extraPlugins })
+    if (text.includes("|>")) {
+      combinations = flatten(
+        ["smart", "minimal", "fsharp"].map((proposal) =>
+          combinations.map((options) => {
+            const { plugins } = options;
+            return {
+              ...parseOptions,
+              plugins: [...plugins, ["pipelineOperator", { proposal }]],
+            };
+          })
         )
       );
-    } catch (error) {
-      // babel error prints (l:c) with cols that are zero indexed
-      // so we need our custom error
-      const { message, loc } = error;
+    }
 
-      throw createError(message.replace(/ \(.*\)/, ""), {
-        start: {
-          line: loc ? loc.line : 0,
-          column: loc ? loc.column + 1 : 0,
-        },
-      });
+    const [ast, error] = tryCombinations(combinations, (options) =>
+      parseWithOptions(parseMethod, text, options)
+    );
+
+    if (error) {
+      throw createParseError(error);
     }
 
     return postprocess(ast, { ...opts, originalText: text });
@@ -148,20 +155,6 @@ const parseTypeScript = createParse(
 );
 const parseExpression = createParse("parseExpression", ["jsx"]);
 
-function tryCombinations(fn, combinations) {
-  let error;
-  for (let i = 0; i < combinations.length; i++) {
-    try {
-      return rethrowSomeRecoveredErrors(fn(combinations[i]));
-    } catch (_error) {
-      if (!error) {
-        error = _error;
-      }
-    }
-  }
-  throw error;
-}
-
 const messagesShouldThrow = new Set([
   // TSErrors.UnexpectedTypeAnnotation
   // https://github.com/babel/babel/blob/008fe25ae22e78288fbc637d41069bb4a1040987/packages/babel-parser/src/plugins/typescript/index.js#L95
@@ -174,19 +167,10 @@ const messagesShouldThrow = new Set([
   "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
 ]);
 
-function shouldRethrow(error) {
+function shouldRethrowRecoveredError(error) {
   const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
   // Only works for literal message
   return messagesShouldThrow.has(message);
-}
-
-function rethrowSomeRecoveredErrors(ast) {
-  const error = ast.errors.find((error) => shouldRethrow(error));
-  if (error) {
-    throw error;
-  }
-
-  return ast;
 }
 
 function parseJson(text, parsers, opts) {
