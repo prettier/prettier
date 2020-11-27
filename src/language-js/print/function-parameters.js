@@ -19,6 +19,7 @@ const {
   isObjectTypePropertyAFunction,
   hasRestParameter,
   shouldPrintComma,
+  hasComment,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionTypeParameters } = require("./misc");
@@ -59,7 +60,7 @@ function printFunctionParameters(
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugFunctionParameters(functionNode);
   const shouldExpandParameters =
-    expandArg && !parameters.some((node) => node.comments);
+    expandArg && !parameters.some((node) => hasComment(node));
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
@@ -173,7 +174,7 @@ function shouldHugFunctionParameters(node) {
   }
   const [parameter] = parameters;
   return (
-    !parameter.comments &&
+    !hasComment(parameter) &&
     (parameter.type === "ObjectPattern" ||
       parameter.type === "ArrayPattern" ||
       (parameter.type === "Identifier" &&
