@@ -231,9 +231,27 @@ function stripTrailingHardline(doc) {
 const isConcat = (doc) => doc && doc.type === "concat";
 function cleanDocFn(doc) {
   switch (doc.type) {
+    case "fill":
+      if (doc.parts.length === 0 || doc.parts.every((part) => part === "")) {
+        return "";
+      }
+      if (doc.parts.length === 1) {
+        return doc.parts[0];
+      }
+      break;
+    case "group":
+      // Remove nested only group
+      if (
+        doc.contents.type === "group" &&
+        doc.contents.id === doc.id &&
+        doc.contents.break === doc.break &&
+        doc.contents.expandedStates === doc.expandedStates
+      ) {
+        return doc.contents;
+      }
+      break;
     case "align":
     case "indent":
-    case "group":
     case "line-suffix":
       if (!doc.contents) {
         return "";
