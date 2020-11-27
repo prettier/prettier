@@ -3,6 +3,7 @@
 const { getStringWidth } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
+const { cleanDoc } = require("./doc-utils");
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -244,6 +245,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
 }
 
 function printDocToString(doc, options) {
+  doc = cleanDoc(doc);
   groupModeMap = {};
 
   const width = options.printWidth;

@@ -272,6 +272,70 @@ function replaceNewlinesWithLiterallines(doc) {
   );
 }
 
+const isConcat = (doc) => doc && doc.type === "concat";
+function cleanDocFn(doc) {
+  switch (doc.type) {
+    case "align":
+    case "indent":
+    case "group":
+    case "line-suffix":
+      if (!doc.contents) {
+        return "";
+      }
+      break;
+    case "if-break":
+      if (!doc.flatContents && !doc.breakContents) {
+        return "";
+      }
+      break;
+  }
+
+  if (!isConcat(doc)) {
+    return doc;
+  }
+
+  const { parts } = doc;
+  for (let index = parts.length - 1; index >= 0; index--) {
+    const currentPart = parts[index];
+    const nextPart = parts[index + 1];
+    // Flat `concat`
+    if (isConcat(currentPart)) {
+      const { parts: currentPartParts } = currentPart;
+      // `currentPart` already cleaned, only need concat the last string with next string
+      if (
+        typeof nextPart === "string" &&
+        typeof currentPartParts[currentPartParts.length - 1] === "string"
+      ) {
+        currentPartParts[currentPartParts.length - 1] += nextPart;
+        parts.splice(index, 2, ...currentPartParts);
+      } else {
+        parts.splice(index, 1, ...currentPartParts);
+      }
+    } else if (typeof currentPart === "string") {
+      // If empty string, remove it
+      if (currentPart === "") {
+        parts.splice(index, 1);
+      }
+      // Concat continuous string
+      else if (typeof nextPart === "string") {
+        parts.splice(index, 2, currentPart + nextPart);
+      }
+    }
+  }
+
+  if (parts.length === 0) {
+    return "";
+  }
+
+  if (parts.length === 1) {
+    return parts[0];
+  }
+  return doc;
+}
+function cleanDoc(doc) {
+  return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
+}
+
 module.exports = {
   isEmpty,
   willBreak,
@@ -285,4 +349,5 @@ module.exports = {
   normalizeParts,
   normalizeDoc,
   replaceNewlinesWithLiterallines,
+  cleanDoc,
 };
