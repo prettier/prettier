@@ -54,6 +54,23 @@ function coreFormat(originalText, opts, addAlignmentSize) {
 
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
+  require("fs").writeFileSync(
+    "test3.json",
+    JSON.stringify(
+      require("../document/doc-utils").cleanDoc(doc),
+      (key, value) => (key === "expandedStates" ? undefined : value),
+      2
+    )
+  );
+
+  require("fs").writeFileSync(
+    "test2.json",
+    JSON.stringify(
+      doc,
+      (key, value) => (key === "expandedStates" ? undefined : value),
+      2
+    )
+  );
 
   const result = printDocToString(doc, opts);
 

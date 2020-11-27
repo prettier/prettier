@@ -211,13 +211,15 @@ function stripDocTrailingHardlineFromDoc(doc) {
     case "align":
     case "indent":
     case "group":
-    case "line-suffix":
+    case "line-suffix": {
       const contents = stripDocTrailingHardlineFromDoc(doc.contents);
       return { ...doc, contents };
-    case "if-break":
+    }
+    case "if-break": {
       const breakContents = stripDocTrailingHardlineFromDoc(doc.breakContents);
       const flatContents = stripDocTrailingHardlineFromDoc(doc.flatContents);
       return { ...doc, breakContents, flatContents };
+    }
   }
 
   return doc;
