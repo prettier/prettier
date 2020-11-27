@@ -269,26 +269,18 @@ function cleanDocFn(doc) {
 
   const newParts = [];
   for (const part of doc.parts) {
-    const previousPart = newParts[newParts.length - 1];
     if (!part) {
       continue;
     }
-    // Flat `concat`
-    if (isConcat(part)) {
-      const { parts: currentPartParts } = part;
-      // `part` already cleaned, only need concat the first string with previous string
-      if (
-        typeof previousPart === "string" &&
-        typeof currentPartParts[0] === "string"
-      ) {
-        newParts[newParts.length - 1] += currentPartParts.shift();
-      }
-      newParts.push(...currentPartParts);
-    } else if (typeof part === "string" && typeof previousPart === "string") {
-      newParts[newParts.length - 1] += part;
+    const previousPart = newParts[newParts.length - 1];
+    const isPreviousePartString = typeof previousPart === "string";
+    const [currenPart, ...rest] = isConcat(part) ? part.parts : [part];
+    if (isPreviousePartString && typeof currenPart === "string") {
+      newParts[newParts.length - 1] += currenPart;
     } else {
-      newParts.push(part);
+      newParts.push(currenPart);
     }
+    newParts.push(...rest);
   }
 
   if (newParts.length === 0) {
