@@ -273,12 +273,12 @@ function cleanDocFn(doc) {
       continue;
     }
     const previousPart = newParts[newParts.length - 1];
-    const isPreviousePartString = typeof previousPart === "string";
-    const [currenPart, ...rest] = isConcat(part) ? part.parts : [part];
-    if (isPreviousePartString && typeof currenPart === "string") {
-      newParts[newParts.length - 1] += currenPart;
+    const isPreviousPartString = typeof previousPart === "string";
+    const [currentPart, ...rest] = isConcat(part) ? part.parts : [part];
+    if (isPreviousPartString && typeof currentPart === "string") {
+      newParts[newParts.length - 1] += currentPart;
     } else {
-      newParts.push(currenPart);
+      newParts.push(currentPart);
     }
     newParts.push(...rest);
   }
