@@ -267,43 +267,38 @@ function cleanDocFn(doc) {
     return doc;
   }
 
-  const { parts } = doc;
-  for (let index = parts.length - 1; index >= 0; index--) {
-    const currentPart = parts[index];
-    const nextPart = parts[index + 1];
+  const newParts = [];
+  for (const part of doc.parts) {
+    const previousPart = newParts[newParts.length - 1];
+    if (!part) {
+      continue;
+    }
     // Flat `concat`
-    if (isConcat(currentPart)) {
-      const { parts: currentPartParts } = currentPart;
-      // `currentPart` already cleaned, only need concat the last string with next string
+    if (isConcat(part)) {
+      const { parts: currentPartParts } = part;
+      // `part` already cleaned, only need concat the first string with previous string
       if (
-        typeof nextPart === "string" &&
-        typeof currentPartParts[currentPartParts.length - 1] === "string"
+        typeof previousPart === "string" &&
+        typeof currentPartParts[0] === "string"
       ) {
-        currentPartParts[currentPartParts.length - 1] += nextPart;
-        parts.splice(index, 2, ...currentPartParts);
-      } else {
-        parts.splice(index, 1, ...currentPartParts);
+        newParts[newParts.length - 1] += currentPartParts.shift();
       }
-    } else if (typeof currentPart === "string") {
-      // If empty string, remove it
-      if (currentPart === "") {
-        parts.splice(index, 1);
-      }
-      // Concat continuous string
-      else if (typeof nextPart === "string") {
-        parts.splice(index, 2, currentPart + nextPart);
-      }
+      newParts.push(...currentPartParts);
+    } else if (typeof part === "string" && typeof previousPart === "string") {
+      newParts[newParts.length - 1] += part;
+    } else {
+      newParts.push(part);
     }
   }
 
-  if (parts.length === 0) {
+  if (newParts.length === 0) {
     return "";
   }
 
-  if (parts.length === 1) {
-    return parts[0];
+  if (newParts.length === 1) {
+    return newParts[0];
   }
-  return doc;
+  return { ...doc, parts: newParts };
 }
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
