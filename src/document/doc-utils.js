@@ -252,39 +252,30 @@ function cleanDocFn(doc) {
 
   const { parts } = doc;
   for (let index = parts.length - 1; index >= 0; index--) {
-    let currentPart = parts[index];
+    const currentPart = parts[index];
     const nextPart = parts[index + 1];
-
-    // Concat continuous string
-    if (typeof currentPart === "string" && typeof nextPart === "string") {
-      parts.splice(index + 1, 1);
-      currentPart += nextPart;
-    }
-    // Concat continuous `concat`
-    else if (isConcat(currentPart) && isConcat(nextPart)) {
-      parts.splice(index + 1, 1);
-      currentPart.parts.push(...nextPart.parts);
-      currentPart = cleanDocFn(currentPart);
-    }
-    // Concat `concat` and string
-    else if (isConcat(currentPart) && typeof nextPart === "string") {
-      parts.splice(index + 1, 1);
-      currentPart.parts.push(nextPart);
-      currentPart = cleanDocFn(currentPart);
-    }
-    // Concat string and `concat`
-    else if (typeof currentPart === "string" && isConcat(nextPart)) {
-      parts.splice(index + 1, 1);
-      nextPart.parts.unshift(currentPart);
-      currentPart = nextPart;
-      currentPart = cleanDocFn(currentPart);
-    }
-
-    // If empty string, remove it
-    if (currentPart === "") {
-      parts.splice(index, 1);
-    } else {
-      parts[index] = currentPart;
+    // Flat `concat`
+    if (isConcat(currentPart)) {
+      const { parts: currentPartParts } = currentPart;
+      // `currentPart` already cleaned, only need concat the last string with next string
+      if (
+        typeof nextPart === "string" &&
+        typeof currentPartParts[currentPartParts.length - 1] === "string"
+      ) {
+        currentPartParts[currentPartParts.length - 1] += nextPart;
+        parts.splice(index, 2, ...currentPartParts);
+      } else {
+        parts.splice(index, 1, ...currentPartParts);
+      }
+    } else if (typeof currentPart === "string") {
+      // If empty string, remove it
+      if (currentPart === "") {
+        parts.splice(index, 1);
+      }
+      // Concat continuous string
+      else if (typeof nextPart === "string") {
+        parts.splice(index, 2, currentPart + nextPart);
+      }
     }
   }
 
