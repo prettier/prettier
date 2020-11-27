@@ -55,11 +55,10 @@ function findNodeAtOffset(
   const { locStart, locEnd } = options;
   const start = locStart(node);
   const end = locEnd(node);
-  if (offset < start || offset > end) {
-    return;
-  }
 
   if (
+    offset > end ||
+    offset < start ||
     (type === "rangeEnd" && offset === start) ||
     (type === "rangeStart" && offset === end)
   ) {
@@ -157,10 +156,8 @@ function calculateRange(text, opts, ast) {
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
   const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);
-  // All whitespace
-  if (firstNonWhitespaceCharacterIndex === -1) {
-    start = end;
-  } else {
+  const isAllWhitespace = firstNonWhitespaceCharacterIndex === -1;
+  if (!isAllWhitespace) {
     start += firstNonWhitespaceCharacterIndex;
     for (; end > start; --end) {
       if (/\S/.test(text[end - 1])) {
@@ -179,7 +176,8 @@ function calculateRange(text, opts, ast) {
   );
 
   const startNodeAndParents =
-    start === end
+    // No need find Node at `start`, it will be the same as `endNodeAndParents`
+    isAllWhitespace
       ? endNodeAndParents
       : findNodeAtOffset(
           ast,
