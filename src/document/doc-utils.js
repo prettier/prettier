@@ -281,15 +281,32 @@ function cleanDocFn(doc) {
         doc.parts = doc.parts.filter(Boolean);
 
         // If only one string, should be able to turn into string
-        if (doc.parts.length === 1  && typeof doc.parts[0] === "string") {
+        if (doc.parts.length === 1 && typeof doc.parts[0] === "string") {
           return doc.parts[0];
+        }
+      }
+      break;
+
+    case "group":
+      {
+        if (!doc.contents) {
+          return "";
+        }
+
+        // Should be able to remove nested group
+        if (
+          doc.contents.type === "group" &&
+          doc.contents.id === doc.id &&
+          doc.contents.break === doc.break &&
+          doc.contents.expandedStates === doc.expandedStates
+        ) {
+          return doc.contents;
         }
       }
       break;
 
     case "align":
     case "indent":
-    case "group":
     case "line-suffix":
       if (!doc.contents) {
         return "";
