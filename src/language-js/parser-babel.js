@@ -72,8 +72,10 @@ function isFlowFile(text, options) {
 
 function parseWithOptions(parseMethod, text, options) {
   // Inline the require to avoid loading all the JS if we don't use it
+  /** @type {import("@babel/parser").parse | import("@babel/parser").parseExpression} */
   const parse = require("@babel/parser")[parseMethod];
   const ast = parse(text, options);
+  // @ts-ignore
   const error = ast.errors.find((error) => shouldRethrowRecoveredError(error));
   if (error) {
     throw error;
