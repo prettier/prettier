@@ -276,17 +276,10 @@ const isConcat = (doc) => doc && doc.type === "concat";
 function cleanDocFn(doc) {
   switch (doc.type) {
     case "fill":
-      {
-        // Empty string should be able to remove;
-        // doc.parts = doc.parts.filter(Boolean);
-
-        // If only one string, should be able to turn into string
-        if (doc.parts.length === 1 && typeof doc.parts[0] === "string") {
-          return doc.parts[0];
-        }
+      if (doc.parts.length === 1) {
+        return doc.parts[0];
       }
       break;
-
     case "group":
       {
         // if (!doc.contents) {
