@@ -12,10 +12,9 @@ describe("cleanDoc", () => {
     [
       "fill",
       concat([fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])]),
-      concat(["1", fill(["2", "3"])]),
+      concat([fill(["1"]), fill(["2", "3"])]),
     ],
     ["nested group", group(group("_")), group("_")],
-
     [
       "removes empty align/indent/line-suffix",
       concat([

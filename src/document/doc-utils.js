@@ -235,9 +235,6 @@ function cleanDocFn(doc) {
       if (doc.parts.length === 0 || doc.parts.every((part) => part === "")) {
         return "";
       }
-      if (doc.parts.length === 1) {
-        return doc.parts[0];
-      }
       break;
     case "group":
       // Remove nested only group
