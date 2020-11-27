@@ -45,7 +45,7 @@ function parse(originalText, parsers, options) {
     (sourceType) => parse(text, { ...parseOptions, sourceType })
   );
 
-  if (moduleParseError) {
+  if (!ast) {
     // throw the error for `module` parsing
     throw createParseError(moduleParseError);
   }

@@ -78,7 +78,7 @@ function parse(text, parsers, options) {
     (options) => parseWithOptions(text, options)
   );
 
-  if (moduleParseError) {
+  if (!ast) {
     // Throw the error for `module` parsing
     throw createParseError(moduleParseError);
   }

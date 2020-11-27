@@ -135,7 +135,7 @@ function createParse(parseMethod, ...pluginCombinations) {
       parseWithOptions(parseMethod, text, options)
     );
 
-    if (error) {
+    if (!ast) {
       throw createParseError(error);
     }
 

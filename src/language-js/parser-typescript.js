@@ -46,7 +46,7 @@ function parse(text, parsers, opts) {
     (options) => parseWithNodeMaps(text, { ...parseOptions, ...options })
   );
 
-  if (firstError) {
+  if (!result) {
     // Suppose our guess is correct, throw the first error
     throw createParseError(firstError);
   }
