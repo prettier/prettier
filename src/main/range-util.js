@@ -44,8 +44,25 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   };
 }
 
-function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
-  if (offset < options.locStart(node) || offset > options.locEnd(node)) {
+function findNodeAtOffset(
+  node,
+  offset,
+  options,
+  predicate,
+  parentNodes = [],
+  type
+) {
+  const { locStart, locEnd } = options;
+  const start = locStart(node);
+  const end = locEnd(node);
+  if (offset < start || offset > end) {
+    return;
+  }
+
+  if (
+    (type === "rangeEnd" && offset === start) ||
+    (type === "rangeStart" && offset === end)
+  ) {
     return;
   }
 
@@ -55,7 +72,8 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
       offset,
       options,
       predicate,
-      [node, ...parentNodes]
+      [node, ...parentNodes],
+      type
     );
     if (childResult) {
       return childResult;
@@ -151,8 +169,13 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const endNodeAndParents = findNodeAtOffset(ast, end, opts, (node) =>
-    isSourceElement(opts, node)
+  const endNodeAndParents = findNodeAtOffset(
+    ast,
+    end,
+    opts,
+    (node) => isSourceElement(opts, node),
+    [],
+    "rangeEnd"
   );
 
   const startNodeAndParents =
@@ -160,10 +183,11 @@ function calculateRange(text, opts, ast) {
       ? endNodeAndParents
       : findNodeAtOffset(
           ast,
-          // Start node should not include nodes ends at `start`
-          start + 1,
+          start,
           opts,
-          (node) => isSourceElement(opts, node)
+          (node) => isSourceElement(opts, node),
+          [],
+          "rangeStart"
         );
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
