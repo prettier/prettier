@@ -304,6 +304,11 @@ function genericPrint(path, options, print) {
                         options.parser === "vue" &&
                         !options.vueIndentScriptAndStyle
                       ? childrenDoc
+                      : node.type === "element" &&
+                        node.fullName === "html" &&
+                        options.parser === "html" &&
+                        options.vueIndentScriptAndStyle
+                      ? dedentToRoot(childrenDoc)
                       : indent(childrenDoc))(
                     concat([
                       shouldHugContent
