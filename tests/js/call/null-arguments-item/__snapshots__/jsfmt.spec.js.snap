@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`null-arguments-item.js [espree] format 1`] = `
+"Unexpected token , (1:11)
+> 1 | foor('a', , 'b');
+    |           ^
+  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+  3 | "
+`;
+
+exports[`null-arguments-item.js [meriyah] format 1`] = `
+"[1:11]: Unexpected token: ',' (1:11)
+> 1 | foor('a', , 'b');
+    |           ^
+  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+  3 | "
+`;
+
+exports[`null-arguments-item.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foor('a', , 'b');
+foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+
+=====================================output=====================================
+foor("a", , "b");
+foo(
+  "looooooooooooooooooooooooooooooooooooooooooooooong",
+  ,
+  "looooooooooooooooooooooooooooooooooooooooooooooong"
+);
+
+================================================================================
+`;
