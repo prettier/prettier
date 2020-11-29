@@ -261,7 +261,7 @@ function normalizeParts(parts) {
 function normalizeDoc(doc) {
   return mapDoc(doc, (currentDoc) => {
     if (Array.isArray(currentDoc)) {
-      return { type: "concat", parts: normalizeParts(currentDoc) };
+      return normalizeParts(currentDoc);
     }
     if (!currentDoc.parts) {
       return currentDoc;
