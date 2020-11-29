@@ -239,6 +239,9 @@ function cleanDocFn(doc) {
       }
       break;
     case "group":
+      if (!doc.contents && !doc.id && !doc.break && !doc.expandedStates) {
+        return "";
+      }
       // Remove nested only group
       if (
         doc.contents.type === "group" &&
