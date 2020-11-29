@@ -12,13 +12,19 @@ describe("cleanDoc", () => {
     [
       "fill",
       concat([fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])]),
+      concat([fill(["1"]), fill(["2", "3"])]),
     ],
-    ["nested group", group(group("_"))],
+    ["nested group", group(group("_")), group("_")],
     [
       "empty group",
       concat([
         group(""),
         group(concat([""])),
+        group("_", { id: "id" }),
+        group("_", { shouldBreak: true }),
+        group("_", { expandedStates: ["_"] }),
+      ]),
+      concat([
         group("_", { id: "id" }),
         group("_", { shouldBreak: true }),
         group("_", { expandedStates: ["_"] }),
@@ -35,14 +41,16 @@ describe("cleanDoc", () => {
             "",
             lineSuffix(concat([""])),
             ifBreak("", concat([""])),
-          ]),
+          ])
         ),
         "_",
       ]),
+      "_",
     ],
     [
       "removes empty string/concat",
       concat(["", concat(["", concat([concat(["", "_", ""]), ""])]), ""]),
+      "_",
     ],
     [
       "concat string & flat concat",
@@ -53,10 +61,11 @@ describe("cleanDoc", () => {
           concat(["7", "8", group("9"), "10", "11"]),
         ])
       ),
+      group(concat([group("1"), "23", group("4"), "5678", group("9"), "1011"])),
     ],
-  ])("%s", (_, doc) => {
+  ])("%s", (_, doc, expected) => {
     const result = cleanDoc(doc);
 
-    expect(result).toMatchSnapshot();
+    expect(result).toEqual(expected);
   });
 });
