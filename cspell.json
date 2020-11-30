@@ -363,6 +363,7 @@
         "TSAs",
         "tsep",
         "TSESTree",
+        "TSESTreeOptions",
         "TSJS",
         "tslib",
         "typeahead",
