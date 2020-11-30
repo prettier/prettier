@@ -26,8 +26,7 @@ const {
   addTrailingComment,
 } = require("../common/util");
 
-const childNodesCacheKey = Symbol("child-nodes");
-
+const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
     return;
@@ -51,8 +50,8 @@ function getSortedChildNodes(node, options, resultArray) {
       resultArray.splice(i + 1, 0, node);
       return;
     }
-  } else if (node[childNodesCacheKey]) {
-    return node[childNodesCacheKey];
+  } else if (childNodesCache.has(node)) {
+    return childNodesCache.get(node);
   }
 
   const childNodes =
@@ -75,10 +74,8 @@ function getSortedChildNodes(node, options, resultArray) {
   }
 
   if (!resultArray) {
-    Object.defineProperty(node, childNodesCacheKey, {
-      value: (resultArray = []),
-      enumerable: false,
-    });
+    resultArray = [];
+    childNodesCache.set(node, resultArray);
   }
 
   childNodes.forEach((childNode) => {
