@@ -16,7 +16,7 @@ function parse(text) {
   const match = text.match(
     // trailing spaces after delimiters are allowed
     new RegExp(
-      `^(${delimiterRegex})([^\\n]*)\\n(?:([\\s\\S]*?)\\n)?\\1[^\\n\\S]*(\\n|$)`
+      `^(${delimiterRegex})([^\\n]*)\\n(?:|([\\s\\S]*?)\\n)\\1[^\\n\\S]*(\\n|$)`
     )
   );
 
