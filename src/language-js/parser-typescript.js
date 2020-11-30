@@ -6,6 +6,7 @@ const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
 const tryCombinations = require("./parser/try-combinations");
 
+/** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
   // `jest@<=26.4.2` rely on `loc`
   // https://github.com/facebook/jest/issues/10444
