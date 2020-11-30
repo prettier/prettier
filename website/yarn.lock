@@ -1525,15 +1525,14 @@ babel-code-frame@^6.22.0:
     esutils "^2.0.2"
     js-tokens "^3.0.2"
 
-babel-loader@8.2.1:
-  version "8.2.1"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.1.tgz#e53313254677e86f27536f5071d807e01d24ec00"
-  integrity sha512-dMF8sb2KQ8kJl21GUjkW1HWmcsL39GOV5vnzjqrCzEPNY0S0UfMLnumidiwIajDSBmKhYf5iRW+HXaM4cvCKBw==
+babel-loader@8.2.2:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.2.2.tgz#9363ce84c10c9a40e6c753748e1441b60c8a0b81"
+  integrity sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g==
   dependencies:
-    find-cache-dir "^2.1.0"
+    find-cache-dir "^3.3.1"
     loader-utils "^1.4.0"
-    make-dir "^2.1.0"
-    pify "^4.0.1"
+    make-dir "^3.1.0"
     schema-utils "^2.6.5"
 
 babel-plugin-dynamic-import-node@^2.3.3:
@@ -2012,13 +2011,13 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codemirror-graphql@0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-0.12.3.tgz#8b76f59ea02ead356ca39c9574827396e4b4b454"
-  integrity sha512-u0TooVA2MWGNV+Bio89RCTRW9P5FqegB1V9rnz9I0QKoGXX/c9z9/Fc+nj18p8jxkWK8ii8d7hkz7vsNsHxdkw==
+codemirror-graphql@0.12.4:
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-0.12.4.tgz#607e113035856a179ee019e8451210cd1a8ca340"
+  integrity sha512-gWxmLk2OzPVzvwAXO0K52MtU1n6ylMNbKp0LtZHioK0NEUwLnSL5iPKVXn8MgvYqS8Yos/CG5WrP9Y7RWTO4mg==
   dependencies:
-    graphql-language-service-interface "^2.4.2"
-    graphql-language-service-parser "^1.6.4"
+    graphql-language-service-interface "^2.4.3"
+    graphql-language-service-parser "^1.6.5"
 
 coffee-script@^1.12.4:
   version "1.12.7"
@@ -3235,7 +3234,7 @@ finalhandler@~1.1.2:
     statuses "~1.5.0"
     unpipe "~1.0.0"
 
-find-cache-dir@^2.0.0, find-cache-dir@^2.1.0:
+find-cache-dir@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/find-cache-dir/-/find-cache-dir-2.1.0.tgz#8d0f94cd13fe43c6c7c261a0d86115ca918c05f7"
   integrity sha512-Tq6PixE0w/VMFfCgbONnkiQIVol/JJL7nRMi20fqzA4NRs9AfeqMGeRdPi3wIhYkxjeBaWh2rxwapn5Tu3IqOQ==
@@ -3243,6 +3242,15 @@ find-cache-dir@^2.0.0, find-cache-dir@^2.1.0:
     commondir "^1.0.1"
     make-dir "^2.0.0"
     pkg-dir "^3.0.0"
+
+find-cache-dir@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/find-cache-dir/-/find-cache-dir-3.3.1.tgz#89b33fad4a4670daa94f855f7fbe31d6d84fe880"
+  integrity sha512-t2GDMt3oGC/v+BMwzmllWDuJF/xcDtE5j/fCGbqDD7OLuJkj0cfh1YSA5VKPvwMeLFLNDBkwOKZ2X85jGLVftQ==
+  dependencies:
+    commondir "^1.0.1"
+    make-dir "^3.0.2"
+    pkg-dir "^4.1.0"
 
 find-up@3.0.0, find-up@^3.0.0:
   version "3.0.0"
@@ -3592,23 +3600,22 @@ graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
-graphql-language-service-interface@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/graphql-language-service-interface/-/graphql-language-service-interface-2.4.2.tgz#77b868c0dad8f18908ff5c6a7a1706d43370bd40"
-  integrity sha512-iFLMz51cA2L5Tu7/mP19++bRGUuIe2J9ekQZrcJ6sMYStsF60x5eNu3JqheduYTLhQaSdKN55jX7RlLeIDUhQA==
+graphql-language-service-interface@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/graphql-language-service-interface/-/graphql-language-service-interface-2.4.3.tgz#bba756d9282b7a2ee818a3cba5702ec9e5da1f7e"
+  integrity sha512-WVWdviRYzb+/z+GS/6ds87OW5qqP0J6l6pGGOE0694x4It57x97//mkRHY5vfNa3knHw5OYwkUYymVzqYu4xTw==
   dependencies:
-    graphql-language-service-parser "^1.6.4"
+    graphql-language-service-parser "^1.6.5"
     graphql-language-service-types "^1.6.3"
     graphql-language-service-utils "^2.4.3"
     vscode-languageserver-types "^3.15.1"
 
-graphql-language-service-parser@^1.6.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/graphql-language-service-parser/-/graphql-language-service-parser-1.6.4.tgz#d5b92db1e50a91cdcf7f54f79253e13455e20257"
-  integrity sha512-Y365zUFfJ1GJ9NeRHb5Z/HBo6EnbuTi187Gkuldwd1YIDc0QcD7kqz6U5g043zd7BI/UZQth13Zd7pElvbb2zw==
+graphql-language-service-parser@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/graphql-language-service-parser/-/graphql-language-service-parser-1.6.5.tgz#5c9d4c48cbf4b66171f9ec5f182041627669e4f4"
+  integrity sha512-Xti3aQfnp7rTYg5dzhUnt3eqs9zbdr0tIC7S02RRcO1J5tWAwqXzv3PpYpWXGar11kD7VzP8amkh81CD4Q/m0Q==
   dependencies:
     graphql-language-service-types "^1.6.3"
-    typescript "^3.9.5"
 
 graphql-language-service-types@^1.6.3:
   version "1.6.3"
@@ -4695,6 +4702,13 @@ make-dir@^2.0.0, make-dir@^2.1.0:
     pify "^4.0.1"
     semver "^5.6.0"
 
+make-dir@^3.0.2, make-dir@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
+  integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==
+  dependencies:
+    semver "^6.0.0"
+
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
@@ -5447,7 +5461,7 @@ pkg-dir@^3.0.0:
   dependencies:
     find-up "^3.0.0"
 
-pkg-dir@^4.2.0:
+pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-4.2.0.tgz#f099133df7ede422e81d1d8448270eeb3e4261f3"
   integrity sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
@@ -6391,6 +6405,11 @@ semver@7.0.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
   integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
 
+semver@^6.0.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
+  integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
+
 send@0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/send/-/send-0.17.1.tgz#c1d8b059f7900f7466dd4938bdc44e11ddb376c8"
@@ -6915,10 +6934,10 @@ tapable@^1.0.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
   integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
 
-tapable@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.0.0.tgz#a49c3d6a8a2bb606e7db372b82904c970d537a08"
-  integrity sha512-bjzn0C0RWoffnNdTzNi7rNDhs1Zlwk2tRXgk8EiHKAOX1Mag3d6T0Y5zNa7l9CJ+EoUne/0UHdwS8tMbkh9zDg==
+tapable@^2.0.0, tapable@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.1.1.tgz#b01cc1902d42a7bb30514e320ce21c456f72fd3f"
+  integrity sha512-Wib1S8m2wdpLbmQz0RBEVosIyvb/ykfKXf3ZIDqvWoMg/zTNm6G/tDSuUM61J1kNCDXWJrLHGSFeMhAG+gAGpQ==
 
 tar-stream@^1.5.2:
   version "1.6.2"
@@ -7147,11 +7166,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^3.9.5:
-  version "3.9.7"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
-  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
-
 typical@^5.0.0, typical@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/typical/-/typical-5.2.0.tgz#4daaac4f2b5315460804f0acf6cb69c52bb93066"
@@ -7373,10 +7387,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.6.0.tgz#282d10434c403b070ed91d459b385e873b51a07d"
-  integrity sha512-SIeFuBhuheKElRbd84O35UhKc0nxlgSwtzm2ksZ0BVhRJqxVJxEguT/pYhfiR0le/pxTa1VsCp7EOYyTsa6XOA==
+webpack@5.9.0:
+  version "5.9.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.9.0.tgz#af2e9cf9d6c7867cdcf214ea3bb5eb77aece6895"
+  integrity sha512-YnnqIV/uAS5ZrNpctSv378qV7HmbJ74DL+XfvMxzbX1bV9e7eeT6eEWU4wuUw33CNr/HspBh7R/xQlVjTEyAeA==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"
@@ -7398,7 +7412,7 @@ webpack@5.6.0:
     neo-async "^2.6.2"
     pkg-dir "^4.2.0"
     schema-utils "^3.0.0"
-    tapable "^2.0.0"
+    tapable "^2.1.1"
     terser-webpack-plugin "^5.0.3"
     watchpack "^2.0.0"
     webpack-sources "^2.1.1"

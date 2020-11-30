@@ -35,11 +35,11 @@ const preprocess = require("./print-preprocess");
 const {
   getCallArguments,
   getParentExportDeclaration,
-  hasDanglingComments,
   hasFlowShorthandAnnotationComment,
   hasNewlineBetweenOrAfterDecorators,
   hasPrettierIgnore,
-  hasTrailingComment,
+  hasComment,
+  CommentCheckFlags,
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
@@ -261,7 +261,7 @@ function printPathNoParens(path, options, print, args) {
 
     case "Program": {
       const hasContents =
-        !n.body.every(({ type }) => type === "EmptyStatement") || n.comments;
+        !n.body.every(({ type }) => type === "EmptyStatement") || hasComment(n);
 
       // Babel 6
       if (n.directives) {
@@ -324,7 +324,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
-      const shouldHug = !n.expression.comments;
+      const shouldHug = !hasComment(n.expression);
       if (shouldHug) {
         return concat(["(", path.call(print, "expression"), ")"]);
       }
@@ -568,7 +568,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ");
       }
 
-      if (n.argument.comments && n.argument.comments.length > 0) {
+      if (hasComment(n.argument)) {
         parts.push(
           group(
             concat([
@@ -611,7 +611,7 @@ function printPathNoParens(path, options, print, args) {
       const hasValue = n.declarations.some((decl) => decl.init);
 
       let firstVariable;
-      if (printed.length === 1 && !n.declarations[0].comments) {
+      if (printed.length === 1 && !hasComment(n.declarations[0])) {
         firstVariable = printed[0];
       } else if (printed.length > 0) {
         // Indent first var to comply with eslint one-var rule
@@ -668,16 +668,15 @@ function printPathNoParens(path, options, print, args) {
 
       if (n.alternate) {
         const commentOnOwnLine =
-          (hasTrailingComment(n.consequent) &&
-            n.consequent.comments.some(
-              (comment) => comment.trailing && !isBlockComment(comment)
-            )) ||
-          needsHardlineAfterDanglingComment(n);
+          hasComment(
+            n.consequent,
+            CommentCheckFlags.Trailing | CommentCheckFlags.Line
+          ) || needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
 
-        if (hasDanglingComments(n)) {
+        if (hasComment(n, CommentCheckFlags.Dangling)) {
           parts.push(
             comments.printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "
@@ -849,23 +848,22 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "CatchClause":
       if (n.param) {
-        const hasComments =
-          n.param.comments &&
-          n.param.comments.some(
-            (comment) =>
-              !isBlockComment(comment) ||
-              (comment.leading &&
-                hasNewline(options.originalText, locEnd(comment))) ||
-              (comment.trailing &&
-                hasNewline(options.originalText, locStart(comment), {
-                  backwards: true,
-                }))
-          );
+        const parameterHasComments = hasComment(
+          n.param,
+          (comment) =>
+            !isBlockComment(comment) ||
+            (comment.leading &&
+              hasNewline(options.originalText, locEnd(comment))) ||
+            (comment.trailing &&
+              hasNewline(options.originalText, locStart(comment), {
+                backwards: true,
+              }))
+        );
         const param = path.call(print, "param");
 
         return concat([
           "catch ",
-          hasComments
+          parameterHasComments
             ? concat(["(", indent(concat([softline, param])), softline, ") "])
             : concat(["(", param, ") "]),
           path.call(print, "body"),

@@ -11,10 +11,10 @@ const {
   hasNewline,
 } = require("../../common/util");
 const {
-  hasDanglingComments,
   shouldPrintComma,
-  hasNodeIgnoreComment,
-  isBlockComment,
+  hasComment,
+  getComments,
+  CommentCheckFlags,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -116,7 +116,7 @@ function printObject(path, options, print) {
         (prop.node.type === "TSPropertySignature" ||
           prop.node.type === "TSMethodSignature" ||
           prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasNodeIgnoreComment(prop.node)
+        hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
       ) {
         separatorParts.shift();
       }
@@ -128,10 +128,8 @@ function printObject(path, options, print) {
 
   if (n.inexact) {
     let printed;
-    if (hasDanglingComments(n)) {
-      const hasLineComments = !n.comments.every((comment) =>
-        isBlockComment(comment)
-      );
+    if (hasComment(n, CommentCheckFlags.Dangling)) {
+      const hasLineComments = hasComment(n, CommentCheckFlags.Line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
@@ -140,10 +138,7 @@ function printObject(path, options, print) {
       printed = concat([
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(
-          options.originalText,
-          locEnd(n.comments[n.comments.length - 1])
-        )
+        hasNewline(options.originalText, locEnd(getLast(getComments(n))))
           ? hardline
           : line,
         "...",
@@ -164,12 +159,12 @@ function printObject(path, options, print) {
         lastElem.type === "TSCallSignatureDeclaration" ||
         lastElem.type === "TSMethodSignature" ||
         lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasNodeIgnoreComment(lastElem))
+      hasComment(lastElem, CommentCheckFlags.PrettierIgnore))
   );
 
   let content;
   if (props.length === 0) {
-    if (!hasDanglingComments(n)) {
+    if (!hasComment(n, CommentCheckFlags.Dangling)) {
       return concat([
         leftBrace,
         rightBrace,

@@ -12,7 +12,7 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
 `;
 
 exports[`invalid-2.hbs [glimmer] format 1`] = `
-"Syntax Error: Unclosed element \`@name\`: 
+"Unclosed element \`@name\`: 
 
 |
 |  <{@name>

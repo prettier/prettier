@@ -11,7 +11,6 @@ const {
 } = require("../../document");
 const {
   getFunctionParameters,
-  hasDanglingComments,
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
   isJSXNode,
@@ -21,6 +20,9 @@ const {
   returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
+  hasComment,
+  getComments,
+  CommentCheckFlags,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -207,7 +209,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const shouldAddSoftLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
-    !(n.comments && n.comments.length);
+    !hasComment(n);
 
   const printTrailingComma =
     args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -246,10 +248,10 @@ function canPrintParamsWithoutParens(node) {
   return (
     parameters.length === 1 &&
     !node.typeParameters &&
-    !hasDanglingComments(node) &&
+    !hasComment(node, CommentCheckFlags.Dangling) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
-    !parameters[0].comments &&
+    !hasComment(parameters[0]) &&
     !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -333,15 +335,15 @@ function printReturnAndThrowArgument(path, options, print) {
     }
   }
 
-  const lastComment =
-    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
+  const comments = getComments(node);
+  const lastComment = comments[comments.length - 1];
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {
     parts.push(semi);
   }
 
-  if (hasDanglingComments(node)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
