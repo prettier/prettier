@@ -24,7 +24,7 @@ function parse(text) {
     return { frontMatter: null, content: text };
   }
 
-  const [raw, delimiter, language, value] = match;
+  const [raw, delimiter, language, value = ""] = match;
   let lang = DELIMITER_MAP[delimiter];
   if (lang !== "toml" && language && language.trim()) {
     lang = language.trim();
