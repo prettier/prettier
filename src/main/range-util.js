@@ -177,7 +177,7 @@ function calculateRange(text, opts, ast) {
   const endNodeAndParents =
     // No need find Node at `end`, it will be the same as `startNodeAndParents`
     isAllWhitespace
-      ? endNodeAndParents
+      ? startNodeAndParents
       : findNodeAtOffset(
           ast,
           end,
