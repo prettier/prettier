@@ -24,6 +24,7 @@ const {
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
 const { locStart } = require("./loc");
+const embed = require("./embed");
 const {
   getAncestorCount,
   getBlockValueLineContents,
@@ -782,6 +783,7 @@ function clean(node, newNode /*, parent */) {
 
 module.exports = {
   preprocess,
+  embed,
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
