@@ -97,12 +97,10 @@ function createParseError(error) {
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
-  const parserCombinations = pluginCombinations.length
-    ? pluginCombinations.map((plugins) => {
-        const { plugins: commonPlugins } = parseOptions;
-        return { ...parseOptions, plugins: [...commonPlugins, ...plugins] };
-      })
-    : [parseOptions];
+  const commonPlugins = parseOptions.plugins;
+  pluginCombinations = pluginCombinations.length
+    ? pluginCombinations.map((plugins) => [...commonPlugins, ...plugins])
+    : [commonPlugins];
 
   return (text, parsers, opts = {}) => {
     if (opts.parser === "babel" && isFlowFile(text, opts)) {
@@ -110,32 +108,27 @@ function createParse(parseMethod, ...pluginCombinations) {
       return parseFlow(text, parsers, opts);
     }
 
-    let combinations = parserCombinations;
-
-    if (opts.__babelSourceType === "script") {
-      combinations = combinations.map((options) => ({
-        ...options,
-        sourceType: "script",
-      }));
-    }
-
+    let combinations = pluginCombinations;
     if (text.includes("|>")) {
       combinations = flatten(
         ["smart", "minimal", "fsharp"].map((proposal) =>
-          combinations.map((options) => {
-            const { plugins } = options;
-            return {
-              ...parseOptions,
-              plugins: [...plugins, ["pipelineOperator", { proposal }]],
-            };
-          })
+          combinations.map((plugins) => [
+            ...plugins,
+            ["pipelineOperator", { proposal }],
+          ])
         )
       );
     }
 
+    const sourceType =
+      opts.__babelSourceType === "script" ? "script" : "module";
     const { result: ast, error } = tryCombinations(
-      ...combinations.map((options) => () =>
-        parseWithOptions(parseMethod, text, options)
+      ...combinations.map((plugins) => () =>
+        parseWithOptions(parseMethod, text, {
+          ...parseOptions,
+          sourceType,
+          plugins,
+        })
       )
     );
 
