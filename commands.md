@@ -42,7 +42,7 @@ However, if any of the items inside the array have a hard break, the array will 
 ];
 ```
 
-Functions always break after the opening curly brace no matter what, so the array breaks as well for consistent formatting. See the implementation of `ArrayExpression` for an example.
+Functions always break after the opening curly brace no matter what, so the array breaks as well for consistent formatting. See [the implementation of `ArrayExpression`](#example) for an example.
 
 ### conditionalGroup
 

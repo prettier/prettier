@@ -363,7 +363,7 @@ declare export * from "ES6_ExportAllFrom_Source1";
  * @flow
  */
 
-declare export * from "ES6_ExportAllFrom_Source1"
+declare export * from "ES6_ExportAllFrom_Source1";
 
 ================================================================================
 `;
@@ -387,7 +387,7 @@ declare export * from "ES6_ExportAllFrom_Source2";
  * @flow
  */
 
-declare export * from "ES6_ExportAllFrom_Source2"
+declare export * from "ES6_ExportAllFrom_Source2";
 
 ================================================================================
 `;
@@ -454,8 +454,8 @@ declare export * from "./ES6_ExportAllFrom_Source2";
 =====================================output=====================================
 // @flow
 
-declare export * from "./ES6_ExportAllFrom_Source1"
-declare export * from "./ES6_ExportAllFrom_Source2"
+declare export * from "./ES6_ExportAllFrom_Source1";
+declare export * from "./ES6_ExportAllFrom_Source2";
 
 ================================================================================
 `;

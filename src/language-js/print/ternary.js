@@ -2,7 +2,7 @@
 
 const flat = require("lodash/flatten");
 const { hasNewlineInRange } = require("../../common/util");
-const { isJSXNode, isBlockComment } = require("../utils");
+const { isJSXNode, isBlockComment, getComments } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
   builders: {
@@ -277,10 +277,12 @@ function printTernary(path, options, print) {
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
   const comments = flat([
-    ...testNodePropertyNames.map((propertyName) => node[propertyName].comments),
-    consequentNode.comments,
-    alternateNode.comments,
-  ]).filter(Boolean);
+    ...testNodePropertyNames.map((propertyName) =>
+      getComments(node[propertyName])
+    ),
+    getComments(consequentNode),
+    getComments(alternateNode),
+  ]);
   const shouldBreak = comments.some(
     (comment) =>
       isBlockComment(comment) &&

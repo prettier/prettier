@@ -866,21 +866,6 @@ function handleTSMappedTypeComments({
 
 /**
  * @param {Node} node
- * @param {(comment: Comment) => boolean} fn
- * @returns boolean
- */
-function hasLeadingComment(node, fn = () => true) {
-  if (node.leadingComments) {
-    return node.leadingComments.some(fn);
-  }
-  if (node.comments) {
-    return node.comments.some((comment) => comment.leading && fn(comment));
-  }
-  return false;
-}
-
-/**
- * @param {Node} node
  * @returns {boolean}
  */
 function isRealFunctionLikeNode(node) {
@@ -995,7 +980,6 @@ module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
-  hasLeadingComment,
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,
