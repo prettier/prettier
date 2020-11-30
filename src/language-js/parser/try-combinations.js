@@ -1,17 +1,17 @@
 "use strict";
 
 function tryCombinations(combinations, fn) {
-  let result;
-  const errors = [];
-  for (const item of combinations) {
+  let firstError;
+  for (const [index, item] of combinations.entries()) {
     try {
-      result = fn(item);
-      break;
+      return { result: fn(item) };
     } catch (error) {
-      errors.push(error);
+      if (index === 0) {
+        firstError = error;
+      }
     }
   }
-  return [result, ...errors];
+  return { error: firstError };
 }
 
 module.exports = tryCombinations;

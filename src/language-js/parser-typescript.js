@@ -36,7 +36,7 @@ function parse(text, parsers, opts) {
   const jsx = isProbablyJsx(text);
 
   const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
-  const [result, firstError] = tryCombinations(
+  const { result, error: firstError } = tryCombinations(
     [
       // Try passing with our best guess first.
       { jsx },

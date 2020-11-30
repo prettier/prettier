@@ -40,7 +40,7 @@ function parse(originalText, parsers, options) {
     ? " ".repeat(shebang.length) + originalText.slice(shebang.length)
     : originalText;
 
-  const [ast, moduleParseError] = tryCombinations(
+  const { result: ast, error: moduleParseError } = tryCombinations(
     ["module", "script"],
     (sourceType) => parse(text, { ...parseOptions, sourceType })
   );

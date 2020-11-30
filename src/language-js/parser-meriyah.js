@@ -73,7 +73,7 @@ function createParseError(error) {
 }
 
 function parse(text, parsers, options) {
-  const [ast, moduleParseError] = tryCombinations(
+  const { result: ast, error: moduleParseError } = tryCombinations(
     [{ module: true }, { module: false }],
     (options) => parseWithOptions(text, options)
   );
