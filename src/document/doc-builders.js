@@ -51,7 +51,7 @@ function concat(parts) {
   //   // If it's a single document, no need to concat it.
   //   return parts[0];
   // }
-  return parts;
+  return { type: "concat", parts };
 }
 
 /**
@@ -188,8 +188,11 @@ const breakParent = { type: "break-parent" };
 const trim = { type: "trim" };
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
-const hardline = [{ type: "line", hard: true }, breakParent];
-const literalline = [{ type: "line", hard: true, literal: true }, breakParent];
+const hardline = concat([{ type: "line", hard: true }, breakParent]);
+const literalline = concat([
+  { type: "line", hard: true, literal: true },
+  breakParent,
+]);
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
 /**
@@ -208,7 +211,7 @@ function join(sep, arr) {
     res.push(arr[i]);
   }
 
-  return res;
+  return concat(res);
 }
 
 /**
