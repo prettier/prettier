@@ -37,13 +37,10 @@ function parse(text, parsers, opts) {
 
   const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
   const { result, error: firstError } = tryCombinations(
-    [
-      // Try passing with our best guess first.
-      { jsx },
-      // But if we get it wrong, try the opposite.
-      { jsx: !jsx },
-    ],
-    (options) => parseWithNodeMaps(text, { ...parseOptions, ...options })
+    // Try passing with our best guess first.
+    () => parseWithNodeMaps(text, { ...parseOptions, jsx }),
+    // But if we get it wrong, try the opposite.
+    () => parseWithNodeMaps(text, { ...parseOptions, jsx: !jsx })
   );
 
   if (!result) {

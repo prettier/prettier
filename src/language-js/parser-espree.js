@@ -41,8 +41,8 @@ function parse(originalText, parsers, options) {
     : originalText;
 
   const { result: ast, error: moduleParseError } = tryCombinations(
-    ["module", "script"],
-    (sourceType) => parse(text, { ...parseOptions, sourceType })
+    () => parse(text, { ...parseOptions, sourceType: "module" }),
+    () => parse(text, { ...parseOptions, sourceType: "script" })
   );
 
   if (!ast) {

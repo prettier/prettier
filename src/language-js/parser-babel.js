@@ -133,8 +133,10 @@ function createParse(parseMethod, ...pluginCombinations) {
       );
     }
 
-    const { result: ast, error } = tryCombinations(combinations, (options) =>
-      parseWithOptions(parseMethod, text, options)
+    const { result: ast, error } = tryCombinations(
+      ...combinations.map((options) => () =>
+        parseWithOptions(parseMethod, text, options)
+      )
     );
 
     if (!ast) {

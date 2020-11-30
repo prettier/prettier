@@ -42,7 +42,7 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(text, options) {
+function parseWithOptions(text, module) {
   const { parse } = require("meriyah");
   const comments = [];
   const tokens = [];
@@ -50,7 +50,7 @@ function parseWithOptions(text, options) {
   /** @type {any} */
   const ast = parse(text, {
     ...parseOptions,
-    ...options,
+    module,
     onComment: comments,
     onToken: tokens,
   });
@@ -74,8 +74,8 @@ function createParseError(error) {
 
 function parse(text, parsers, options) {
   const { result: ast, error: moduleParseError } = tryCombinations(
-    [{ module: true }, { module: false }],
-    (options) => parseWithOptions(text, options)
+    () => parseWithOptions(text, /* module */ true),
+    () => parseWithOptions(text, /* module */ false)
   );
 
   if (!ast) {

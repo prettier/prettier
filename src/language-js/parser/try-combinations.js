@@ -1,10 +1,10 @@
 "use strict";
 
-function tryCombinations(combinations, fn) {
+function tryCombinations(...combinations) {
   let firstError;
-  for (const [index, item] of combinations.entries()) {
+  for (const [index, fn] of combinations.entries()) {
     try {
-      return { result: fn(item) };
+      return { result: fn() };
     } catch (error) {
       if (index === 0) {
         firstError = error;
