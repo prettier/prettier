@@ -38,11 +38,11 @@ class Cache {
       const { version, checksums, files } = JSON.parse(manifest);
 
       // Ignore the cache if the version changed
-      assert.equal(this.version, version);
+      assert.strictEqual(this.version, version);
 
       assert.ok(typeof checksums === "object");
       // If yarn.lock changed, rebuild everything
-      assert.equal(lockfileHash, checksums["yarn.lock"]);
+      assert.strictEqual(lockfileHash, checksums["yarn.lock"]);
       this.checksums = checksums;
 
       assert.ok(typeof files === "object");
