@@ -37,33 +37,39 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ### ES Modules
 
-```js
-import prettier from "https://unpkg.com/prettier/esm/standalone.mjs";
-import parserGraphql from "https://unpkg.com/prettier/esm/parser-graphql.mjs";
+```html
+<script type="module">
+  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+  import parserGraphql from "https://unpkg.com/prettier@2.2.1/esm/parser-graphql.mjs";
 
-prettier.format("query { }", {
-  parser: "graphql",
-  plugins: [parserGraphql],
-});
+  prettier.format("query { }", {
+    parser: "graphql",
+    plugins: [parserGraphql],
+  });
+</script>
 ```
 
 ### AMD
 
-```js
-define([
-  "https://unpkg.com/prettier@2.2.1/standalone.js",
-  "https://unpkg.com/prettier@2.2.1/parser-graphql.js",
-], (prettier, ...plugins) => {
-  prettier.format("query { }", { parser: "graphql", plugins });
-});
+```html
+<script>
+  define([
+    "https://unpkg.com/prettier@2.2.1/standalone.js",
+    "https://unpkg.com/prettier@2.2.1/parser-graphql.js",
+  ], (prettier, ...plugins) => {
+    prettier.format("query { }", { parser: "graphql", plugins });
+  });
+</script>
 ```
 
 ### CommonJS
 
-```js
-const prettier = require("prettier/standalone");
-const plugins = [require("prettier/parser-graphql")];
-prettier.format("query { }", { parser: "graphql", plugins });
+```html
+<script>
+  const prettier = require("prettier/standalone");
+  const plugins = [require("prettier/parser-graphql")];
+  prettier.format("query { }", { parser: "graphql", plugins });
+</script>
 ```
 
 This syntax doesn’t necessarily work in the browser, but it can be used when bundling the code with browserify, Rollup, webpack, or another bundler.
