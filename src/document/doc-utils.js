@@ -270,30 +270,16 @@ function cleanDocFn(doc) {
     return doc;
   }
 
-  const newParts = [];
-  for (const part of doc.parts) {
-    if (!part) {
-      continue;
-    }
-    const previousPart = newParts[newParts.length - 1];
-    const isPreviousPartString = typeof previousPart === "string";
-    const [currentPart, ...rest] = isConcat(part) ? part.parts : [part];
-    if (isPreviousPartString && typeof currentPart === "string") {
-      newParts[newParts.length - 1] += currentPart;
-    } else {
-      newParts.push(currentPart);
-    }
-    newParts.push(...rest);
-  }
+  const parts = normalizeParts(doc.parts);
 
-  if (newParts.length === 0) {
+  if (parts.length === 0) {
     return "";
   }
 
-  if (newParts.length === 1) {
-    return newParts[0];
+  if (parts.length === 1) {
+    return parts[0];
   }
-  return { ...doc, parts: newParts };
+  return { ...doc, parts };
 }
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
@@ -301,32 +287,21 @@ function cleanDoc(doc) {
 
 function normalizeParts(parts) {
   const newParts = [];
-
-  const restParts = parts.filter(Boolean);
-  while (restParts.length !== 0) {
-    const part = restParts.shift();
-
-    if (!part) {
+  for (const part of parts) {
+    const [currentPart, ...restParts] = isConcat(part) ? part.parts : [part];
+    if (!currentPart) {
       continue;
     }
-
-    if (part.type === "concat") {
-      restParts.unshift(...part.parts);
-      continue;
-    }
-
     if (
-      newParts.length !== 0 &&
       typeof newParts[newParts.length - 1] === "string" &&
-      typeof part === "string"
+      typeof currentPart === "string"
     ) {
-      newParts[newParts.length - 1] += part;
-      continue;
+      newParts[newParts.length - 1] += currentPart;
+    } else {
+      newParts.push(currentPart);
     }
-
-    newParts.push(part);
+    newParts.push(...restParts);
   }
-
   return newParts;
 }
 
