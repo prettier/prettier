@@ -1,7 +1,7 @@
 "use strict";
 
 const util = require("util");
-const assert = require("assert");
+const assert = require("assert").strict;
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
