@@ -57,7 +57,7 @@ const entries = [
   // Avoid rollup `SOURCEMAP_ERROR` and `THIS_IS_UNDEFINED` error
   {
     find: "@glimmer/syntax",
-    replacement: require.resolve("@glimmer/syntax/dist/commonjs/es5/index.js"),
+    replacement: require.resolve("@glimmer/syntax"),
   },
 ];
 
