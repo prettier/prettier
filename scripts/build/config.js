@@ -45,6 +45,10 @@ const parsers = [
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
       "process.versions.node": "'999.999.999'",
+      // Somehow we got `Uncaught ReferenceError: exports is not defined`
+      // Maybe because https://github.com/rollup/plugins/pull/537
+      'Object.defineProperty(exports, "__esModule",':
+        'Object.defineProperty(module.exports, "__esModule",',
     },
   },
   {
