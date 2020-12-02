@@ -195,6 +195,7 @@ function attach(comments, ast, text, options) {
     options,
     ast,
     isLastComment: comments.length - 1 === index,
+    commentsStore,
   }));
 
   decoratedComments.forEach((context, index) => {
@@ -438,10 +439,10 @@ function breakTies(tiesToBreak, text, options) {
     return;
   }
   const {
-    commentsStore,
     precedingNode,
     followingNode,
     enclosingNode,
+    commentsStore,
   } = tiesToBreak[0];
 
   const gapRegExp =
@@ -482,6 +483,7 @@ function breakTies(tiesToBreak, text, options) {
   }
 
   tiesToBreak.forEach(({ comment }, i) => {
+    console.log({ comment, commentsStore });
     if (i < indexOfFirstLeadingComment) {
       if (commentsStore) {
         commentsStore.addTrailingComment(precedingNode, comment);
