@@ -27,8 +27,7 @@ const {
 } = require("../common/util");
 const CommentsStore = require("./comments-store");
 
-const childNodesCacheKey = Symbol("child-nodes");
-
+const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
     return;
@@ -52,8 +51,8 @@ function getSortedChildNodes(node, options, resultArray) {
       resultArray.splice(i + 1, 0, node);
       return;
     }
-  } else if (node[childNodesCacheKey]) {
-    return node[childNodesCacheKey];
+  } else if (childNodesCache.has(node)) {
+    return childNodesCache.get(node);
   }
 
   const childNodes =
@@ -76,10 +75,8 @@ function getSortedChildNodes(node, options, resultArray) {
   }
 
   if (!resultArray) {
-    Object.defineProperty(node, childNodesCacheKey, {
-      value: (resultArray = []),
-      enumerable: false,
-    });
+    resultArray = [];
+    childNodesCache.set(node, resultArray);
   }
 
   childNodes.forEach((childNode) => {
@@ -191,8 +188,27 @@ function attach(comments, ast, text, options) {
     return commentsStore;
   }
   const tiesToBreak = [];
+  const decoratedComments = comments.map((comment, index) => ({
+    ...decorateComment(ast, comment, options),
+    comment,
+    text,
+    options,
+    ast,
+    isLastComment: comments.length - 1 === index,
+  }));
 
-  comments.forEach((comment, i) => {
+  decoratedComments.forEach((context, index) => {
+    const {
+      comment,
+      precedingNode,
+      enclosingNode,
+      followingNode,
+      text,
+      options,
+      ast,
+      isLastComment,
+    } = context;
+
     if (
       options.parser === "json" ||
       options.parser === "json5" ||
@@ -209,21 +225,6 @@ function attach(comments, ast, text, options) {
       }
     }
 
-    const isLastComment = comments.length - 1 === i;
-    const decorated = decorateComment(ast, comment, options);
-    const { precedingNode, enclosingNode, followingNode } = decorated;
-    const context = {
-      commentsStore,
-      comment,
-      precedingNode,
-      enclosingNode,
-      followingNode,
-      text,
-      options,
-      ast,
-      isLastComment,
-    };
-
     let args;
     if (commentsStore) {
       args = [context];
@@ -234,7 +235,7 @@ function attach(comments, ast, text, options) {
       args = [comment, text, options, ast, isLastComment];
     }
 
-    if (hasNewline(text, locStart(comment), { backwards: true })) {
+    if (isOwnLineComment(text, options, decoratedComments, index)) {
       const handleResult = handleOwnLineComment(...args);
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
@@ -272,14 +273,13 @@ function attach(comments, ast, text, options) {
           addDanglingComment(ast, comment);
         }
       }
-    } else if (hasNewline(text, locEnd(comment))) {
+    } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
       const handleResult = handleEndOfLineComment(...args);
       if (handleResult) {
         if (commentsStore) {
           const { node, type } = handleResult;
           commentsStore.addComment(node, comment, type);
         }
-        // We're good
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
         // none after it, so prefer a trailing comment of the previous node.
@@ -375,6 +375,61 @@ function attach(comments, ast, text, options) {
   }
 
   return commentsStore;
+}
+
+const isAllEmptyAndNoLineBreak = (text) => !/[\S\n\u2028\u2029]/.test(text);
+function isOwnLineComment(text, options, decoratedComments, commentIndex) {
+  const { comment, precedingNode } = decoratedComments[commentIndex];
+  const { locStart, locEnd } = options;
+  let start = locStart(comment);
+
+  if (precedingNode) {
+    // Find first comment on the same line
+    for (let index = commentIndex - 1; index >= 0; index--) {
+      const {
+        comment,
+        precedingNode: currentCommentPrecedingNode,
+      } = decoratedComments[index];
+      if (
+        currentCommentPrecedingNode !== precedingNode ||
+        !isAllEmptyAndNoLineBreak(text.slice(locEnd(comment), start))
+      ) {
+        break;
+      }
+      start = locStart(comment);
+    }
+  }
+
+  return hasNewline(text, start, { backwards: true });
+}
+
+function isEndOfLineComment(text, options, decoratedComments, commentIndex) {
+  const { comment, followingNode } = decoratedComments[commentIndex];
+  const { locStart, locEnd } = options;
+  let end = locEnd(comment);
+
+  if (followingNode) {
+    // Find last comment on the same line
+    for (
+      let index = commentIndex + 1;
+      index < decoratedComments.length;
+      index++
+    ) {
+      const {
+        comment,
+        followingNode: currentCommentFollowingNode,
+      } = decoratedComments[index];
+      if (
+        currentCommentFollowingNode !== followingNode ||
+        !isAllEmptyAndNoLineBreak(text.slice(end, locStart(comment)))
+      ) {
+        break;
+      }
+      end = locEnd(comment);
+    }
+  }
+
+  return hasNewline(text, end);
 }
 
 function breakTies(tiesToBreak, text, options) {

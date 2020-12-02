@@ -282,6 +282,13 @@ function format(originalText, originalOptions) {
     normalizeOptions(originalOptions)
   );
 
+  if (options.rangeStart >= options.rangeEnd && text !== "") {
+    return {
+      formatted: originalText,
+      cursorOffset: originalOptions.cursorOffset,
+    };
+  }
+
   const selectedParser = parser.resolveParser(options);
   const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
   if (options.requirePragma && !hasPragma) {

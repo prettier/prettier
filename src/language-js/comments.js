@@ -16,8 +16,6 @@ const {
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
-  hasComment,
-  CommentCheckFlags,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -778,18 +776,6 @@ function handleTSMappedTypeComments({
 
 /**
  * @param {Node} node
- * @param {(comment: Comment) => boolean} fn
- * @returns boolean
- */
-function hasLeadingComment(node, fn = () => true) {
-  if (node.leadingComments) {
-    return node.leadingComments.some(fn);
-  }
-  return hasComment(node, CommentCheckFlags.Leading, fn);
-}
-
-/**
- * @param {Node} node
  * @returns {boolean}
  */
 function isRealFunctionLikeNode(node) {
@@ -904,7 +890,6 @@ module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
-  hasLeadingComment,
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,

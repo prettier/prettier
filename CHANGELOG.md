@@ -1,3 +1,35 @@
+# 2.2.1
+
+[diff](https://github.com/prettier/prettier/compare/2.2.0...2.2.1)
+
+#### Fix formatting for AssignmentExpression with ClassExpression ([#9741](https://github.com/prettier/prettier/pull/9741) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```js
+// Input
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
+
+// Prettier 2.2.0
+module.exports = class A extends (
+  B
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+// Prettier 2.2.1
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
+```
+
 # 2.2.0
 
 [diff](https://github.com/prettier/prettier/compare/2.1.2...2.2.0)
