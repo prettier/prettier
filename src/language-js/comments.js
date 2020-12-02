@@ -621,7 +621,6 @@ function handleUnionTypeComments({
   ) {
     followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
-    return { node: followingNode, type: "ignore" };
   }
 }
 
@@ -744,7 +743,6 @@ function handleIgnoreComments({ comment, enclosingNode, followingNode }) {
   ) {
     enclosingNode.prettierIgnore = true;
     comment.unignore = true;
-    return { node: enclosingNode, type: "ignore" };
   }
 }
 
