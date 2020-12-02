@@ -270,30 +270,31 @@ function cleanDocFn(doc) {
     return doc;
   }
 
-  const newParts = [];
+  const parts = [];
   for (const part of doc.parts) {
     if (!part) {
       continue;
     }
-    const previousPart = newParts[newParts.length - 1];
-    const isPreviousPartString = typeof previousPart === "string";
-    const [currentPart, ...rest] = isConcat(part) ? part.parts : [part];
-    if (isPreviousPartString && typeof currentPart === "string") {
-      newParts[newParts.length - 1] += currentPart;
+    const [currentPart, ...restParts] = isConcat(part) ? part.parts : [part];
+    if (
+      typeof currentPart === "string" &&
+      typeof parts[parts.length - 1] === "string"
+    ) {
+      parts[parts.length - 1] += currentPart;
     } else {
-      newParts.push(currentPart);
+      parts.push(currentPart);
     }
-    newParts.push(...rest);
+    parts.push(...restParts);
   }
 
-  if (newParts.length === 0) {
+  if (parts.length === 0) {
     return "";
   }
 
-  if (newParts.length === 1) {
-    return newParts[0];
+  if (parts.length === 1) {
+    return parts[0];
   }
-  return { ...doc, parts: newParts };
+  return { ...doc, parts };
 }
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
