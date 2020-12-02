@@ -68,15 +68,13 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ### CommonJS
 
-```html
-<script>
-  const prettier = require("prettier/standalone");
-  const plugins = [require("prettier/parser-graphql")];
-  prettier.format("type Query { hello: String }", {
-    parser: "graphql",
-    plugins,
-  });
-</script>
+```js
+const prettier = require("prettier/standalone");
+const plugins = [require("prettier/parser-graphql")];
+prettier.format("type Query { hello: String }", {
+  parser: "graphql",
+  plugins,
+});
 ```
 
 This syntax doesn’t necessarily work in the browser, but it can be used when bundling the code with browserify, Rollup, webpack, or another bundler.
