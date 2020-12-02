@@ -26,7 +26,7 @@ See [Usage](#usage) below for examples.
 <script src="https://unpkg.com/prettier@2.2.1/standalone.js"></script>
 <script src="https://unpkg.com/prettier@2.2.1/parser-graphql.js"></script>
 <script>
-  prettier.format("query { }", {
+  prettier.format("type Query { hello: String }", {
     parser: "graphql",
     plugins: prettierPlugins,
   });
@@ -42,7 +42,7 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
   import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
   import parserGraphql from "https://unpkg.com/prettier@2.2.1/esm/parser-graphql.mjs";
 
-  prettier.format("query { }", {
+  prettier.format("type Query { hello: String }", {
     parser: "graphql",
     plugins: [parserGraphql],
   });
@@ -57,7 +57,10 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
     "https://unpkg.com/prettier@2.2.1/standalone.js",
     "https://unpkg.com/prettier@2.2.1/parser-graphql.js",
   ], (prettier, ...plugins) => {
-    prettier.format("query { }", { parser: "graphql", plugins });
+    prettier.format("type Query { hello: String }", {
+      parser: "graphql",
+      plugins,
+    });
   });
 </script>
 ```
@@ -68,7 +71,10 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 <script>
   const prettier = require("prettier/standalone");
   const plugins = [require("prettier/parser-graphql")];
-  prettier.format("query { }", { parser: "graphql", plugins });
+  prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins,
+  });
 </script>
 ```
 
@@ -79,5 +85,8 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ```js
 importScripts("https://unpkg.com/prettier@2.2.1/standalone.js");
 importScripts("https://unpkg.com/prettier@2.2.1/parser-graphql.js");
-prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
+prettier.format("type Query { hello: String }", {
+  parser: "graphql",
+  plugins: prettierPlugins,
+});
 ```
