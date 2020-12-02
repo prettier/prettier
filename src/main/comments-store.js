@@ -1,10 +1,6 @@
 "use strict";
 
 const {
-  hasNewline,
-  skipNewline,
-  skipSpaces,
-  isPreviousLineEmpty,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,

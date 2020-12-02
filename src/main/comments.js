@@ -483,7 +483,6 @@ function breakTies(tiesToBreak, text, options) {
   }
 
   tiesToBreak.forEach(({ comment }, i) => {
-    console.log({ comment, commentsStore });
     if (i < indexOfFirstLeadingComment) {
       if (commentsStore) {
         commentsStore.addTrailingComment(precedingNode, comment);
