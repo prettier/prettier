@@ -296,6 +296,10 @@ function cleanDocFn(doc) {
   }
   return { ...doc, parts };
 }
+// A safer version of `normalizeDoc`
+// - `normalizeDoc` concat strings and flat "concat" in `fill`, while `cleanDoc` don't
+// - On `concat` object, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
+// - `cleanDoc` also remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
 }
