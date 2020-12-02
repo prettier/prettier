@@ -51,18 +51,16 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ### AMD
 
-```html
-<script>
-  define([
-    "https://unpkg.com/prettier@2.2.1/standalone.js",
-    "https://unpkg.com/prettier@2.2.1/parser-graphql.js",
-  ], (prettier, ...plugins) => {
-    prettier.format("type Query { hello: String }", {
-      parser: "graphql",
-      plugins,
-    });
+```js
+define([
+  "https://unpkg.com/prettier@2.2.1/standalone.js",
+  "https://unpkg.com/prettier@2.2.1/parser-graphql.js",
+], (prettier, ...plugins) => {
+  prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins,
   });
-</script>
+});
 ```
 
 ### CommonJS
