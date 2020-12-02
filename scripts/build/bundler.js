@@ -137,6 +137,8 @@ function getRollupConfig(bundle) {
         // We use `eval("require")` to enable dynamic requires in the
         // custom parser API
         warning.code === "EVAL" ||
+        // `editorconfig` use `(this && this.__importStar) || …`
+        warning.code === "THIS_IS_UNDEFINED" ||
         // ignore `MIXED_EXPORTS` warn
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
