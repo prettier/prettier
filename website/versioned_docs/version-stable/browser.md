@@ -15,9 +15,42 @@ The [`browser` field](https://github.com/defunctzombie/package-browser-field-spe
 
 ### `prettier.format(code, options)`
 
-Unlike the `format` function from the [main API](api.md#prettierformatsource--options), this function does not load plugins automatically, so a `plugins` property is required if you want to load plugins. Additionally, the parsers included in the Prettier package won’t be loaded automatically, so you need to load them as plugins before using them.
+Unlike the `format` function from the [main API](api.md#prettierformatsource--options), this function does not load plugins automatically, so a `plugins` property is required if you want to load [plugins](#plugins). Additionally, the parsers included in the Prettier package won’t be loaded automatically, so you need to load them as plugins before using them.
 
 See [Usage](#usage) below for examples.
+
+## Plugins
+
+All available plugins are files named `parser-*.js` in <https://unpkg.com/browse/prettier@2.2.1/> and `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.2.1/esm/>.
+
+If you want format embed code, you need load related plugins too, for example
+
+```html
+<script type="module">
+  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
+
+  prettier.format("const html = /* HTML */ `<DIV> </DIV>`", {
+    parser: "babel",
+    plugins: [parserBabel],
+  });
+</script>
+```
+
+the HTML code inside JavaScript code won't get formatted, because it requires `html` parser too, correct usage
+
+```html
+<script type="module">
+  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
+  import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
+
+  prettier.format("const html = /* HTML */ `<DIV> </DIV>`", {
+    parser: "babel",
+    plugins: [parserBabel, parserHtml],
+  });
+</script>
+```
 
 ## Usage
 
