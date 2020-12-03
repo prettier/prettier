@@ -1,11 +1,5 @@
 "use strict";
 
-const {
-  addLeadingComment,
-  addDanglingComment,
-  addTrailingComment,
-} = require("../common/util");
-
 class CommentsStore {
   constructor() {
     this.map = new WeakMap();
@@ -21,14 +15,6 @@ class CommentsStore {
     }
     const comments = this.map.get(node);
     comments[type].push(comment);
-    // TODO: remove this
-    if (type === "leading") {
-      addLeadingComment(node, comment);
-    } else if (type === "trailing") {
-      addTrailingComment(node, comment);
-    } else if (type === "dangling") {
-      addDanglingComment(node, comment);
-    }
     comments.all.push(comment);
   }
   addLeadingComment(node, comment) {
