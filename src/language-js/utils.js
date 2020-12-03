@@ -1488,8 +1488,25 @@ function hasComment(options, node, flags, fn) {
     : true;
 }
 
-const getAllComments = (options, node) =>
-  node && options[Symbol.for("commentsStore")].map.get(node);
+function getAllComments(options, node) {
+  if (!node) {
+    return;
+  }
+  // `angular` parsers has own `comments` property
+  if (
+    typeof options.parser === "string" &&
+    options.parser.startsWith("__ng_") &&
+    node.comments
+  ) {
+    return {
+      all: node.comments,
+      leading: [],
+      trailing: [],
+      dangling: node.comments,
+    };
+  }
+  return options[Symbol.for("commentsStore")].map.get(node);
+}
 /**
  * @param {Node} node
  * @param {number | function} [flags]
