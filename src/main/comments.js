@@ -504,7 +504,6 @@ function breakTies(tiesToBreak, text, options) {
         commentsStore.get(node, "leading"),
         commentsStore.get(node, "trailing"),
         commentsStore.get(node, "dangling"),
-        commentsStore.get(node, "ignore"),
         commentsStore.get(node, "all"),
       ]) {
         comments.sort((a, b) => options.locStart(a) - options.locStart(b));

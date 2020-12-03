@@ -16,7 +16,6 @@ class CommentsStore {
         leading: [],
         trailing: [],
         dangling: [],
-        ignore: [],
         all: [],
       });
     }

@@ -87,7 +87,7 @@ function printJsxElementInternal(path, options, print) {
   // This makes it easy to turn them into `jsxWhitespace` which
   // can then print as either a space or `{" "}` when breaking.
   n.children = n.children.map((child) => {
-    if (isJSXWhitespaceExpression(child)) {
+    if (isJSXWhitespaceExpression(child, options)) {
       return {
         type: "JSXText",
         value: " ",
@@ -509,7 +509,7 @@ function printJsxExpressionContainer(path, options, print) {
 
   const shouldInline =
     n.expression.type === "JSXEmptyExpression" ||
-    (!hasComment(n.expression) &&
+    (!hasComment(options, n.expression) &&
       (n.expression.type === "ArrayExpression" ||
         n.expression.type === "ObjectExpression" ||
         n.expression.type === "ArrowFunctionExpression" ||
@@ -544,8 +544,8 @@ function printJsxOpeningElement(path, options, print) {
   const n = path.getValue();
 
   const nameHasComments =
-    (n.name && hasComment(n.name)) ||
-    (n.typeParameters && hasComment(n.typeParameters));
+    (n.name && hasComment(options, n.name)) ||
+    (n.typeParameters && hasComment(options, n.typeParameters));
 
   // Don't break self-closing elements with no attributes and no comments
   if (n.selfClosing && !n.attributes.length && !nameHasComments) {
@@ -574,7 +574,7 @@ function printJsxOpeningElement(path, options, print) {
     //   // comment
     // >
     !nameHasComments &&
-    !hasComment(n.attributes[0])
+    !hasComment(options, n.attributes[0])
   ) {
     return group(
       concat([
@@ -590,7 +590,7 @@ function printJsxOpeningElement(path, options, print) {
 
   const lastAttrHasTrailingComments =
     n.attributes.length &&
-    hasComment(getLast(n.attributes), CommentCheckFlags.Trailing);
+    hasComment(options, getLast(n.attributes), CommentCheckFlags.Trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
@@ -642,10 +642,20 @@ function printJsxClosingElement(path, options, print) {
   parts.push("</");
 
   const printed = path.call(print, "name");
-  if (hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)) {
+  if (
+    hasComment(
+      options,
+      n.name,
+      CommentCheckFlags.Leading | CommentCheckFlags.Line
+    )
+  ) {
     parts.push(indent(concat([hardline, printed])), hardline);
   } else if (
-    hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)
+    hasComment(
+      options,
+      n.name,
+      CommentCheckFlags.Leading | CommentCheckFlags.Block
+    )
   ) {
     parts.push(" ", printed);
   } else {
@@ -659,8 +669,8 @@ function printJsxClosingElement(path, options, print) {
 
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
   const n = path.getValue();
-  const nodeHasComment = hasComment(n);
-  const hasOwnLineComment = hasComment(n, CommentCheckFlags.Line);
+  const nodeHasComment = hasComment(options, n);
+  const hasOwnLineComment = hasComment(options, n, CommentCheckFlags.Line);
   const isOpeningFragment = n.type === "JSXOpeningFragment";
   return concat([
     isOpeningFragment ? "<" : "</",
@@ -690,7 +700,7 @@ function printJsxElement(path, options, print) {
 
 function printJsxEmptyExpression(path, options /*, print*/) {
   const n = path.getValue();
-  const requiresHardline = hasComment(n, CommentCheckFlags.Line);
+  const requiresHardline = hasComment(options, n, CommentCheckFlags.Line);
 
   return concat([
     printDanglingComments(path, options, /* sameIndent */ !requiresHardline),
@@ -707,7 +717,7 @@ function printJsxSpreadAttribute(path, options, print) {
       (p) => {
         const printed = concat(["...", print(p)]);
         const n = p.getValue();
-        if (!hasComment(n) || !willPrintOwnComments(p)) {
+        if (!hasComment(options, n) || !willPrintOwnComments(p, options)) {
           return printed;
         }
         return concat([

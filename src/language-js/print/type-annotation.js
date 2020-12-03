@@ -156,7 +156,7 @@ function printUnionType(path, options, print) {
       (parent.type === "TypeAlias" ||
         parent.type === "VariableDeclarator" ||
         parent.type === "TSTypeAliasDeclaration") &&
-      hasLeadingOwnLineComment(options.originalText, n)
+      hasLeadingOwnLineComment(options.originalText, n, options)
     );
 
   // {
@@ -182,7 +182,7 @@ function printUnionType(path, options, print) {
   }
 
   const shouldAddStartLine =
-    shouldIndent && !hasLeadingOwnLineComment(options.originalText, n);
+    shouldIndent && !hasLeadingOwnLineComment(options.originalText, n, options);
 
   const code = concat([
     ifBreak(concat([shouldAddStartLine ? line : "", "| "])),

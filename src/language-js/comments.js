@@ -858,7 +858,7 @@ function isTypeCastComment(comment) {
  * @param {FastPath} path
  * @returns {boolean}
  */
-function willPrintOwnComments(path /*, options */) {
+function willPrintOwnComments(path , options ) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
@@ -879,7 +879,7 @@ function willPrintOwnComments(path /*, options */) {
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-    (!hasIgnoreComment(path) ||
+    (!hasIgnoreComment(path, options) ||
       parent.type === "UnionTypeAnnotation" ||
       parent.type === "TSUnionType")
   );

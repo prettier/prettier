@@ -217,7 +217,7 @@ function printBinaryishExpressions(
       (node.operator === "|>" ||
         node.type === "NGPipeExpression" ||
         (node.operator === "|" && options.parser === "__vue_expression")) &&
-      !hasLeadingOwnLineComment(options.originalText, node.right);
+      !hasLeadingOwnLineComment(options.originalText, node.right, options);
 
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
@@ -252,6 +252,7 @@ function printBinaryishExpressions(
     // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
     const shouldBreak = hasComment(
+      options,
       node.left,
       CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
@@ -270,7 +271,7 @@ function printBinaryishExpressions(
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
-    if (isNested && hasComment(node)) {
+    if (isNested && hasComment(options, node)) {
       parts = normalizeParts(
         printComments(path, () => concat(parts), options).parts
       );

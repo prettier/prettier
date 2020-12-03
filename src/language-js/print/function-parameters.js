@@ -58,9 +58,12 @@ function printFunctionParameters(
 
   const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugFunctionParameters(functionNode);
+  const shouldHugParameters = shouldHugFunctionParameters(
+    functionNode,
+    options
+  );
   const shouldExpandParameters =
-    expandArg && !parameters.some((node) => hasComment(node));
+    expandArg && !parameters.some((node) => hasComment(options, node));
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
@@ -164,7 +167,7 @@ function printFunctionParameters(
   ]);
 }
 
-function shouldHugFunctionParameters(node) {
+function shouldHugFunctionParameters(node, options) {
   if (!node) {
     return false;
   }
@@ -174,7 +177,7 @@ function shouldHugFunctionParameters(node) {
   }
   const [parameter] = parameters;
   return (
-    !hasComment(parameter) &&
+    !hasComment(options, parameter) &&
     (parameter.type === "ObjectPattern" ||
       parameter.type === "ArrayPattern" ||
       (parameter.type === "Identifier" &&

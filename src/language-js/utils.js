@@ -339,12 +339,12 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 }
 
 // Detect an expression node representing `{" "}`
-function isJSXWhitespaceExpression(node) {
+function isJSXWhitespaceExpression(node, options) {
   return (
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
     node.expression.value === " " &&
-    !hasComment(node.expression)
+    !hasComment(options, node.expression)
   );
 }
 
@@ -579,7 +579,7 @@ function isCallOrOptionalCallExpression(node) {
  * @param {any} node
  * @returns {boolean}
  */
-function isSimpleTemplateLiteral(node) {
+function isSimpleTemplateLiteral(node, options) {
   let expressionsKey = "expressions";
   if (node.type === "TSTemplateLiteralType") {
     expressionsKey = "types";
@@ -592,7 +592,7 @@ function isSimpleTemplateLiteral(node) {
 
   return expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
-    if (hasComment(expr)) {
+    if (hasComment(options, expr)) {
       return false;
     }
 
@@ -620,7 +620,7 @@ function isSimpleTemplateLiteral(node) {
           return false;
         }
         head = head.object;
-        if (hasComment(head)) {
+        if (hasComment(options, head)) {
           return false;
         }
       }
@@ -756,7 +756,7 @@ function isMeaningfulJSXText(node) {
  * @param {FastPath} path
  * @returns {boolean}
  */
-function hasJsxIgnoreComment(path) {
+function hasJsxIgnoreComment(path, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
   if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
@@ -779,7 +779,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling &&
     prevSibling.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
-    hasNodeIgnoreComment(prevSibling.expression)
+    hasNodeIgnoreComment(prevSibling.expression, options)
   );
 }
 
@@ -805,8 +805,8 @@ function isEmptyJSXElement(node) {
  * @param {FastPath} path
  * @returns {boolean}
  */
-function hasPrettierIgnore(path) {
-  return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
+function hasPrettierIgnore(path, options) {
+  return hasIgnoreComment(path, options) || hasJsxIgnoreComment(path, options);
 }
 
 /**
@@ -845,12 +845,12 @@ function isFlowAnnotationComment(text, typeAnnotation) {
  * @param {Node} node
  * @returns {boolean}
  */
-function hasLeadingOwnLineComment(text, node) {
+function hasLeadingOwnLineComment(text, node, options) {
   if (isJSXNode(node)) {
-    return hasNodeIgnoreComment(node);
+    return hasNodeIgnoreComment(node, options);
   }
 
-  return hasComment(node, CommentCheckFlags.Leading, (comment) =>
+  return hasComment(options, node, CommentCheckFlags.Leading, (comment) =>
     hasNewline(text, locEnd(comment))
   );
 }
@@ -859,7 +859,7 @@ function hasLeadingOwnLineComment(text, node) {
 // (the leftmost leaf node) and, if it (or its parents) has any
 // leadingComments, returns true (so it can be wrapped in parens).
 function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+  if (hasLeadingOwnLineComment(options.originalText, argument, options)) {
     return true;
   }
 
@@ -869,7 +869,7 @@ function returnArgumentHasLeadingComment(options, argument) {
     while ((newLeftMost = getLeftSide(leftMost))) {
       leftMost = newLeftMost;
 
-      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+      if (hasLeadingOwnLineComment(options.originalText, leftMost, options)) {
         return true;
       }
     }
@@ -989,12 +989,12 @@ function isTemplateOnItsOwnLine(n, text) {
  * @param {Node} node
  * @returns {boolean}
  */
-function needsHardlineAfterDanglingComment(node) {
-  if (!hasComment(node)) {
+function needsHardlineAfterDanglingComment(options, node) {
+  if (!hasComment(options, node)) {
     return false;
   }
   const lastDanglingComment = getLast(
-    getComments(node, CommentCheckFlags.Dangling)
+    getComments(options, node, CommentCheckFlags.Dangling)
   );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
@@ -1410,16 +1410,17 @@ function isPrettierIgnoreComment(comment) {
   return comment.value.trim() === "prettier-ignore" && !comment.unignore;
 }
 
-function hasNodeIgnoreComment(node) {
+function hasNodeIgnoreComment(node, options) {
   return (
     node &&
-    (node.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore))
+    (node.prettierIgnore ||
+      hasComment(options, node, CommentCheckFlags.PrettierIgnore))
   );
 }
 
-function hasIgnoreComment(path) {
+function hasIgnoreComment(path, options) {
   const node = path.getValue();
-  return hasNodeIgnoreComment(node);
+  return hasNodeIgnoreComment(node, options);
 }
 
 const CommentCheckFlags = {
@@ -1444,7 +1445,7 @@ const CommentCheckFlags = {
 /**
  * @returns {function}
  */
-const getCommentTestFunction = (flags, fn) => {
+const getCommentTestFunction = (allComments, flags, fn) => {
   if (typeof flags === "function") {
     fn = flags;
     flags = 0;
@@ -1452,10 +1453,12 @@ const getCommentTestFunction = (flags, fn) => {
   if (flags || fn) {
     return (comment, index, comments) =>
       !(
-        (flags & CommentCheckFlags.Leading && !comment.leading) ||
-        (flags & CommentCheckFlags.Trailing && !comment.trailing) ||
+        (flags & CommentCheckFlags.Leading &&
+          !allComments.leading.includes(comment)) ||
+        (flags & CommentCheckFlags.Trailing &&
+          !allComments.trailing.includes(comment)) ||
         (flags & CommentCheckFlags.Dangling &&
-          (comment.leading || comment.trailing)) ||
+          !allComments.dangling.includes(comment)) ||
         (flags & CommentCheckFlags.Block && !isBlockComment(comment)) ||
         (flags & CommentCheckFlags.Line && !isLineComment(comment)) ||
         (flags & CommentCheckFlags.First && index !== 0) ||
@@ -1472,34 +1475,38 @@ const getCommentTestFunction = (flags, fn) => {
  * @param {function} [fn]
  * @returns {boolean}
  */
-function hasComment(node, flags, fn) {
-  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
+function hasComment(options, node, flags, fn) {
+  const comments = getAllComments(options, node);
+  if (!comments || comments.all.length === 0) {
     return false;
   }
-  const test = getCommentTestFunction(flags, fn);
+  const test = getCommentTestFunction(comments, flags, fn);
   return test
-    ? node.comments.some((comment, index, comments) =>
+    ? comments.all.some((comment, index, comments) =>
         test(comment, index, comments)
       )
     : true;
 }
 
+const getAllComments = (options, node) =>
+  node && options[Symbol.for("commentsStore")].map.get(node);
 /**
  * @param {Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
  * @returns {Comment[]}
  */
-function getComments(node, flags, fn) {
-  if (!node || !Array.isArray(node.comments)) {
+function getComments(options, node, flags, fn) {
+  const comments = getAllComments(options, node);
+  if (!comments || !comments.all.length === 0) {
     return [];
   }
-  const test = getCommentTestFunction(flags, fn);
+  const test = getCommentTestFunction(comments, flags, fn);
   return test
-    ? node.comments.filter((comment, index, comments) =>
+    ? comments.all.filter((comment, index, comments) =>
         test(comment, index, comments)
       )
-    : node.comments;
+    : comments.all;
 }
 
 module.exports = {

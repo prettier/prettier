@@ -55,7 +55,7 @@ function printCallArguments(path, options, print) {
     getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
-    !args.some((arg) => hasComment(arg))
+    !args.some((arg) => hasComment(options, arg))
   ) {
     return concat([
       "(",
@@ -149,8 +149,8 @@ function printCallArguments(path, options, print) {
     return allArgsBrokenOut();
   }
 
-  const shouldGroupFirst = shouldGroupFirstArg(args);
-  const shouldGroupLast = shouldGroupLastArg(args);
+  const shouldGroupFirst = shouldGroupFirstArg(args, options);
+  const shouldGroupLast = shouldGroupLastArg(args, options);
   if (shouldGroupFirst || shouldGroupLast) {
     const shouldBreak =
       (shouldGroupFirst
@@ -232,14 +232,15 @@ function printCallArguments(path, options, print) {
   });
 }
 
-function couldGroupArg(arg) {
+function couldGroupArg(arg, options) {
   return (
     (arg.type === "ObjectExpression" &&
-      (arg.properties.length > 0 || hasComment(arg))) ||
+      (arg.properties.length > 0 || hasComment(options, arg))) ||
     (arg.type === "ArrayExpression" &&
-      (arg.elements.length > 0 || hasComment(arg))) ||
-    (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
-    (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
+      (arg.elements.length > 0 || hasComment(options, arg))) ||
+    (arg.type === "TSTypeAssertion" &&
+      couldGroupArg(arg.expression, options)) ||
+    (arg.type === "TSAsExpression" && couldGroupArg(arg.expression, options)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords
@@ -267,34 +268,34 @@ function couldGroupArg(arg) {
   );
 }
 
-function shouldGroupLastArg(args) {
+function shouldGroupLastArg(args, options) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
-    !hasComment(lastArg, CommentCheckFlags.Leading) &&
-    !hasComment(lastArg, CommentCheckFlags.Trailing) &&
-    couldGroupArg(lastArg) &&
+    !hasComment(options, lastArg, CommentCheckFlags.Leading) &&
+    !hasComment(options, lastArg, CommentCheckFlags.Trailing) &&
+    couldGroupArg(lastArg, options) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type)
   );
 }
 
-function shouldGroupFirstArg(args) {
+function shouldGroupFirstArg(args, options) {
   if (args.length !== 2) {
     return false;
   }
 
   const [firstArg, secondArg] = args;
   return (
-    !hasComment(firstArg) &&
+    !hasComment(options, firstArg) &&
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&
     secondArg.type !== "FunctionExpression" &&
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
-    !couldGroupArg(secondArg)
+    !couldGroupArg(secondArg, options)
   );
 }
 

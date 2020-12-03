@@ -116,7 +116,7 @@ function printObject(path, options, print) {
         (prop.node.type === "TSPropertySignature" ||
           prop.node.type === "TSMethodSignature" ||
           prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
+        hasComment(options, prop.node, CommentCheckFlags.PrettierIgnore)
       ) {
         separatorParts.shift();
       }
@@ -129,7 +129,7 @@ function printObject(path, options, print) {
   if (n.inexact) {
     let printed;
     if (hasComment(n, CommentCheckFlags.Dangling)) {
-      const hasLineComments = hasComment(n, CommentCheckFlags.Line);
+      const hasLineComments = hasComment(options, n, CommentCheckFlags.Line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
@@ -138,7 +138,10 @@ function printObject(path, options, print) {
       printed = concat([
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(options.originalText, locEnd(getLast(getComments(n))))
+        hasNewline(
+          options.originalText,
+          locEnd(getLast(getComments(options, n)))
+        )
           ? hardline
           : line,
         "...",
@@ -159,12 +162,12 @@ function printObject(path, options, print) {
         lastElem.type === "TSCallSignatureDeclaration" ||
         lastElem.type === "TSMethodSignature" ||
         lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasComment(lastElem, CommentCheckFlags.PrettierIgnore))
+      hasComment(options, lastElem, CommentCheckFlags.PrettierIgnore))
   );
 
   let content;
   if (props.length === 0) {
-    if (!hasComment(n, CommentCheckFlags.Dangling)) {
+    if (!hasComment(options, n, CommentCheckFlags.Dangling)) {
       return concat([
         leftBrace,
         rightBrace,
@@ -205,7 +208,7 @@ function printObject(path, options, print) {
     path.match(
       (node) => node.type === "ObjectPattern" && !node.decorators,
       (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
+        shouldHugFunctionParameters(node, options) &&
         (name === "params" ||
           name === "parameters" ||
           name === "this" ||
@@ -217,7 +220,7 @@ function printObject(path, options, print) {
       (node, name) => name === "typeAnnotation",
       (node, name) => name === "typeAnnotation",
       (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
+        shouldHugFunctionParameters(node, options) &&
         (name === "params" ||
           name === "parameters" ||
           name === "this" ||

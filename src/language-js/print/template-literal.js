@@ -43,7 +43,7 @@ function printTemplateLiteral(path, print, options) {
   const parts = [];
 
   let expressions = path.map(print, expressionsKey);
-  const isSimple = isSimpleTemplateLiteral(node);
+  const isSimple = isSimpleTemplateLiteral(node, options);
 
   if (isSimple) {
     expressions = expressions.map(
@@ -82,7 +82,7 @@ function printTemplateLiteral(path, print, options) {
         // Breaks at the template element boundaries (${ and }) are preferred to breaking
         // in the middle of a MemberExpression
         if (
-          hasComment(expression) ||
+          hasComment(options, expression) ||
           expression.type === "MemberExpression" ||
           expression.type === "OptionalMemberExpression" ||
           expression.type === "ConditionalExpression" ||
@@ -199,18 +199,18 @@ function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
-function printTemplateExpression(path, print) {
+function printTemplateExpression(path, options, print) {
   const node = path.getValue();
   let printed = print(path);
-  if (hasComment(node)) {
+  if (hasComment(options, node)) {
     printed = group(concat([indent(concat([softline, printed])), softline]));
   }
   return concat(["${", printed, lineSuffixBoundary, "}"]);
 }
 
-function printTemplateExpressions(path, print) {
+function printTemplateExpressions(path, options, print) {
   return path.map(
-    (path) => printTemplateExpression(path, print),
+    (path) => printTemplateExpression(path, options, print),
     "expressions"
   );
 }

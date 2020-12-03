@@ -33,8 +33,8 @@ function printClass(path, options, print) {
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
-    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
-    (n.superClass && hasComment(n.superClass)) ||
+    (n.id && hasComment(options, n.id, CommentCheckFlags.Trailing)) ||
+    (n.superClass && hasComment(options, n.superClass)) ||
     (n.extends && n.extends.length !== 0) || // DeclareClass
     (n.mixins && n.mixins.length !== 0) ||
     (n.implements && n.implements.length !== 0);
@@ -72,7 +72,7 @@ function printClass(path, options, print) {
 
   if (groupMode) {
     const printedExtends = concat(extendsParts);
-    if (shouldIndentOnlyHeritageClauses(n)) {
+    if (shouldIndentOnlyHeritageClauses(n, options)) {
       parts.push(
         group(
           concat(
@@ -100,10 +100,11 @@ function hasMultipleHeritage(node) {
   );
 }
 
-function shouldIndentOnlyHeritageClauses(node) {
+function shouldIndentOnlyHeritageClauses(node, options) {
   return (
     node.typeParameters &&
     !hasComment(
+      options,
       node.typeParameters,
       CommentCheckFlags.Trailing | CommentCheckFlags.Line
     ) &&
@@ -124,7 +125,7 @@ function printList(path, options, print, listName) {
     ({ marker }) => marker === listName
   );
   return concat([
-    shouldIndentOnlyHeritageClauses(n)
+    shouldIndentOnlyHeritageClauses(n, options)
       ? ifBreak(" ", line, {
           groupId: getTypeParametersGroupId(n.typeParameters),
         })
@@ -178,7 +179,7 @@ function printClassMethod(path, options, print) {
 
 function printClassBody(path, options, print) {
   const n = path.getValue();
-  if (!hasComment(n) && n.body.length === 0) {
+  if (!hasComment(options, n) && n.body.length === 0) {
     return "{}";
   }
 

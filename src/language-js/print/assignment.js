@@ -58,7 +58,7 @@ function printVariableDeclarator(path, options, print) {
 }
 
 function printAssignmentRight(leftNode, rightNode, printedRight, options) {
-  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
+  if (hasLeadingOwnLineComment(options.originalText, rightNode, options)) {
     return indent(concat([line, printedRight]));
   }
 
