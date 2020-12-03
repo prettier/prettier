@@ -26,11 +26,10 @@ const CURSOR = Symbol("cursor");
 
 function attachComments(text, ast, opts) {
   const astComments = ast.comments;
-  let commentsStore;
   if (astComments) {
     delete ast.comments;
-    commentsStore = comments.attach(astComments, ast, text, opts);
   }
+  const commentsStore = comments.attach(astComments, ast, text, opts);
   opts[Symbol.for("comments")] = astComments || [];
   opts[Symbol.for("tokens")] = ast.tokens || [];
   if (commentsStore) {
