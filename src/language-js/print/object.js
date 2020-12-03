@@ -128,7 +128,7 @@ function printObject(path, options, print) {
 
   if (n.inexact) {
     let printed;
-    if (hasComment(n, CommentCheckFlags.Dangling)) {
+    if (hasComment(options, n, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(options, n, CommentCheckFlags.Line);
       const printedDanglingComments = printDanglingComments(
         path,
