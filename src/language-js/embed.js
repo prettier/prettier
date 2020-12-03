@@ -9,9 +9,9 @@ const formatHtml = require("./embed/html");
 function getLanguage(path, options) {
   if (
     isStyledJsx(path) ||
-    isStyledComponents(path, options) ||
+    isStyledComponents(path) ||
     isCssProp(path) ||
-    isAngularComponentStyles(path, options)
+    isAngularComponentStyles(path)
   ) {
     return "css";
   }
@@ -24,7 +24,7 @@ function getLanguage(path, options) {
     return "html";
   }
 
-  if (isAngularComponentTemplate(path, options)) {
+  if (isAngularComponentTemplate(path)) {
     return "angular";
   }
 

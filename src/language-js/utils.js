@@ -1488,6 +1488,9 @@ function hasComment(options, node, flags, fn) {
     : true;
 }
 
+/**
+ * @returns {{all: Comment[], leading: Comment[], trailing: Comment[], dangling: Comment[]} | undefined}
+ */
 function getAllComments(options, node) {
   if (!node) {
     return;
@@ -1518,7 +1521,7 @@ function getAllComments(options, node) {
  */
 function getComments(options, node, flags, fn) {
   const comments = getAllComments(options, node);
-  if (!comments || !comments.all.length === 0) {
+  if (!comments || comments.all.length !== 0) {
     return [];
   }
   const test = getCommentTestFunction(comments, flags, fn);
