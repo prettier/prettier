@@ -1494,8 +1494,10 @@ function getAllComments(options, node) {
   }
   // `angular` parsers has own `comments` property
   if (
-    typeof options.parser === "string" &&
-    options.parser.startsWith("__ng_") &&
+    (options.parser === "__ng_action" ||
+      options.parser === "__ng_binding" ||
+      options.parser === "__ng_interpolation" ||
+      options.parser === "__ng_directive") &&
     node.comments
   ) {
     return {
@@ -1505,7 +1507,8 @@ function getAllComments(options, node) {
       dangling: node.comments,
     };
   }
-  return options[Symbol.for("commentsStore")].map.get(node);
+  const commentsStore = options[Symbol.for("commentsStore")];
+  return commentsStore && commentsStore.map.get(node);
 }
 /**
  * @param {Node} node
