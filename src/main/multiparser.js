@@ -55,9 +55,12 @@ function textToDoc(
 
   const astComments = ast.comments;
   delete ast.comments;
-  comments.attach(astComments, ast, text, nextOptions);
+  const commentsStore = comments.attach(astComments, ast, text, nextOptions);
   nextOptions[Symbol.for("comments")] = astComments || [];
   nextOptions[Symbol.for("tokens")] = ast.tokens || [];
+  if (commentsStore) {
+    nextOptions[Symbol.for("commentsStore")] = commentsStore;
+  }
 
   const doc = printAstToDoc(ast, nextOptions);
   comments.ensureAllCommentsPrinted(astComments);
