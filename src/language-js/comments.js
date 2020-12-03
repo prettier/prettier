@@ -60,7 +60,7 @@ function handleOwnLineComment(context) {
     handleLabeledStatementComments,
   ]) {
     const result = handler(context);
-    if (result) {
+    if (typeof result !== "undefined") {
       return result;
     }
   }
@@ -88,7 +88,7 @@ function handleEndOfLineComment(context) {
     handleVariableDeclaratorComments,
   ]) {
     const result = handler(context);
-    if (result) {
+    if (typeof result !== "undefined") {
       return result;
     }
   }
@@ -114,7 +114,7 @@ function handleRemainingComment(context) {
     handleTSFunctionTrailingComments,
   ]) {
     const result = handler(context);
-    if (result) {
+    if (typeof result !== "undefined") {
       return result;
     }
   }
