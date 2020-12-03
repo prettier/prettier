@@ -388,6 +388,7 @@ function handleClassComments({
           ) {
             return { node: precedingNode, type: "trailing" };
           }
+          comment.marker = prop;
           return { node: enclosingNode, comment, type: "dangling" };
         }
       }
