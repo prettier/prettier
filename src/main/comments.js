@@ -521,11 +521,11 @@ function breakTies(tiesToBreak, text, options) {
   tiesToBreak.length = 0;
 }
 
-function printComment(commentPath, options) {
+function printComment(commentPath, options, commentType) {
   const commentsStore = getCommentsStore(options);
   const comment = commentsStore ? commentPath : commentPath.getValue();
   comment.printed = true;
-  return options.printer.printComment(commentPath, options);
+  return options.printer.printComment(commentPath, options, commentType);
 }
 
 function findExpressionIndexForComment(quasis, comment, options) {
@@ -574,7 +574,7 @@ function printLeadingComment(commentPath, options) {
 function printTrailingComment(commentPath, options) {
   const commentsStore = getCommentsStore(options);
   const comment = commentsStore ? commentPath : commentPath.getValue();
-  const contents = printComment(commentPath, options);
+  const contents = printComment(commentPath, options, "trailing");
   /* istanbul ignore next */
   if (!contents) {
     return "";
