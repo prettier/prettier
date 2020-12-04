@@ -850,18 +850,16 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "CatchClause":
       if (n.param) {
-        const parameterHasComments = hasComment(
-          options,
-          n.param,
-          (comment) =>
-            !isBlockComment(comment) ||
-            (comment.leading &&
-              hasNewline(options.originalText, locEnd(comment))) ||
-            (comment.trailing &&
-              hasNewline(options.originalText, locStart(comment), {
-                backwards: true,
-              }))
-        );
+        const parameterHasComments =
+          hasComment(options, n.param, CommentCheckFlags.Line) ||
+          hasComment(options, n.param, CommentCheckFlags.Leading, (comment) =>
+            hasNewline(options.originalText, locEnd(comment))
+          ) ||
+          hasComment(options, n.param, CommentCheckFlags.Trailing, (comment) =>
+            hasNewline(options.originalText, locStart(comment), {
+              backwards: true,
+            })
+          );
         const param = path.call(print, "param");
 
         return concat([
