@@ -1489,31 +1489,6 @@ function hasComment(options, node, flags, fn) {
 }
 
 /**
- * @returns {{all: Comment[], leading: Comment[], trailing: Comment[], dangling: Comment[]} | undefined}
- */
-function getAllComments(options, node) {
-  if (!node) {
-    return;
-  }
-  // `angular` parsers has own `comments` property
-  if (
-    (options.parser === "__ng_action" ||
-      options.parser === "__ng_binding" ||
-      options.parser === "__ng_interpolation" ||
-      options.parser === "__ng_directive") &&
-    node.comments
-  ) {
-    return {
-      all: node.comments,
-      leading: [],
-      trailing: [],
-      dangling: node.comments,
-    };
-  }
-  const commentsStore = options[Symbol.for("commentsStore")];
-  return commentsStore && commentsStore.map.get(node);
-}
-/**
  * @param {Node} node
  * @param {number | function} [flags]
  * @param {function} [fn]
@@ -1521,7 +1496,7 @@ function getAllComments(options, node) {
  */
 function getComments(options, node, flags, fn) {
   const comments = getAllComments(options, node);
-  if (!comments || comments.all.length !== 0) {
+  if (!comments || comments.all.length === 0) {
     return [];
   }
   const test = getCommentTestFunction(comments, flags, fn);
@@ -1530,6 +1505,33 @@ function getComments(options, node, flags, fn) {
         test(comment, index, comments)
       )
     : comments.all;
+}
+
+/**
+ * @returns {{all: Comment[], leading: Comment[], trailing: Comment[], dangling: Comment[]} | undefined}
+ */
+function getAllComments(options, node) {
+  if (!node) {
+    return;
+  }
+  // `angular` parsers has own `comments` property
+  if (
+    options.parser === "__ng_action" ||
+    options.parser === "__ng_binding" ||
+    options.parser === "__ng_interpolation" ||
+    options.parser === "__ng_directive"
+  ) {
+    return node.comments
+      ? {
+          all: node.comments,
+          leading: [],
+          trailing: [],
+          dangling: node.comments,
+        }
+      : undefined;
+  }
+  const commentsStore = options[Symbol.for("commentsStore")];
+  return commentsStore && commentsStore.map.get(node);
 }
 
 module.exports = {
