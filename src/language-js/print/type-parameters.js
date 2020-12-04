@@ -85,7 +85,7 @@ function printDanglingCommentsForInline(path, options) {
   if (!hasComment(options, n, CommentCheckFlags.Dangling)) {
     return "";
   }
-  const hasOnlyBlockComments = !hasComment(options,n, CommentCheckFlags.Line);
+  const hasOnlyBlockComments = !hasComment(options, n, CommentCheckFlags.Line);
   const printed = printDanglingComments(
     path,
     options,

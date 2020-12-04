@@ -858,7 +858,7 @@ function isTypeCastComment(comment) {
  * @param {FastPath} path
  * @returns {boolean}
  */
-function willPrintOwnComments(path , options ) {
+function willPrintOwnComments(path, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
 

@@ -244,7 +244,7 @@ function printMemberChain(path, options, print) {
     }
     currentGroup.push(printedNodes[i]);
 
-    if (hasComment(options,printedNodes[i].node, CommentCheckFlags.Trailing)) {
+    if (hasComment(options, printedNodes[i].node, CommentCheckFlags.Trailing)) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
