@@ -121,7 +121,7 @@
     "path-browserify": "1.0.1",
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
-    "rollup": "2.34.0",
+    "rollup": "2.34.1",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.4",
