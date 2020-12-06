@@ -729,11 +729,14 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
   return false;
 }
 
-function handleForComments({ comment, enclosingNode }) {
+function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
     enclosingNode &&
     (enclosingNode.type === "ForInStatement" ||
-      enclosingNode.type === "ForOfStatement")
+      enclosingNode.type === "ForOfStatement" ||
+      enclosingNode.type === "ForStatement") &&
+    followingNode &&
+    followingNode.type !== "ExpressionStatement"
   ) {
     addLeadingComment(enclosingNode, comment);
     return true;
