@@ -19,6 +19,7 @@ const {
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
+  isForStatement,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -732,9 +733,7 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
 function handleForComments({ comment, enclosingNode, followingNode }) {
   if (
     enclosingNode &&
-    (enclosingNode.type === "ForInStatement" ||
-      enclosingNode.type === "ForOfStatement" ||
-      enclosingNode.type === "ForStatement") &&
+    isForStatement(enclosingNode) &&
     followingNode &&
     followingNode.type !== "ExpressionStatement"
   ) {

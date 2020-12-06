@@ -42,6 +42,7 @@ const {
   CommentCheckFlags,
   isExportDeclaration,
   isFunctionNotation,
+  isForStatement,
   isGetterOrSetter,
   isTheOnlyJSXElementInMarkdown,
   isBlockComment,
@@ -603,10 +604,7 @@ function printPathNoParens(path, options, print, args) {
       // semicolon, except when they in the () part of for loops.
       const parentNode = path.getParentNode();
 
-      const isParentForLoop =
-        parentNode.type === "ForStatement" ||
-        parentNode.type === "ForInStatement" ||
-        parentNode.type === "ForOfStatement";
+      const isParentForLoop = isForStatement(parentNode);
 
       const hasValue = n.declarations.some((decl) => decl.init);
 

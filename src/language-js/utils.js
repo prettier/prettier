@@ -1502,6 +1502,15 @@ function getComments(node, flags, fn) {
     : node.comments;
 }
 
+const forStatements = new Set([
+  "ForStatement",
+  "ForInStatement",
+  "ForOfStatement",
+]);
+function isForStatement(node) {
+  return forStatements.has(node.type);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1530,6 +1539,7 @@ module.exports = {
   isEmptyJSXElement,
   isExportDeclaration,
   isFlowAnnotationComment,
+  isForStatement,
   isFunctionCompositionArgs,
   isFunctionNotation,
   isFunctionOrArrowExpression,
