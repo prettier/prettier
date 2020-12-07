@@ -27,7 +27,11 @@ const {
 } = require("./prettier-internal");
 
 const minimist = require("./minimist");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
+const {
+  expandPatterns,
+  fixWindowsSlashes,
+  statSafeSync,
+} = require("./expand-patterns");
 const constant = require("./constant");
 const isTTY = require("./is-tty");
 
@@ -433,7 +437,31 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  for (const pathOrError of expandPatterns(context)) {
+  const willWriteOutput =
+    !context.argv.check &&
+    !context.argv["list-different"] &&
+    !context.argv["debug-check"];
+  let files;
+  if (willWriteOutput) {
+    if (context.filePatterns.length !== 1) {
+      context.logger.error(
+        `Expect only one filepath when format to stdout, ${context.filePatterns.length} given.`
+      );
+      process.exit(1);
+    }
+    const [file] = context.filePatterns;
+    const absolutePath = path.resolve(process.cwd(), file);
+    const stat = statSafeSync(absolutePath);
+    if (!stat || !stat.isFile()) {
+      context.logger.error(`Can't read file "${file}".`);
+      process.exit(1);
+    }
+    files = [absolutePath];
+  } else {
+    files = expandPatterns(context);
+  }
+
+  for (const pathOrError of files) {
     if (typeof pathOrError === "object") {
       context.logger.error(pathOrError.error);
       // Don't exit, but set the exit code to 2
