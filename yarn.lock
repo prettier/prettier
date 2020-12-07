@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/compiler@11.0.2":
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-11.0.2.tgz#892cd38b3afa6ba63149d0bfd9265401a3d88d0c"
-  integrity sha512-deDT5+Lcph4nNhh6sZd0mBS5OkJL3HPbX5upDMI28Wuayt18Pn0UNotWY77/KV6wwIAInmlx9N06PoH3pq3hqg==
+"@angular/compiler@11.0.3":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-11.0.3.tgz#1bf9d1d58acb12f02c16d97155de9063246a3c23"
+  integrity sha512-OjfG4TzCzqNyHO4NmQNM7kdaWlbGrfXyB2i2Kd30PS9Z8s9cuhBBZS23P8NEEYNy1PjhI26cmiozrdMZl0hTUw==
   dependencies:
     tslib "^2.0.0"
 
@@ -1894,13 +1894,13 @@ ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.4, ajv@^6.12.5, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-angular-estree-parser@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.2.1.tgz#997f981e48efe756f8672814d708d376eb6ccca3"
-  integrity sha512-bo6Gw/GOgxozOVXqsEwjc2iNgi7RJsmIKr8+aDzgq699QgZYMcIppui8fstzFT0mHt2r3SvcN9Aaf25sAUllyw==
+angular-estree-parser@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.3.0.tgz#1504d5a1b67db2a49084f952a79849a7e8dc9d5b"
+  integrity sha512-+jW3uOXSHAbDRJTpVodLhH4DhpI7Qe1NyFtemyv+MowcZXBLBF5QRwCzi1/+LWNbxjNNm8mWo7tjT9z4MUIBqg==
   dependencies:
     lines-and-columns "^1.1.6"
-    tslib "^1.9.3"
+    tslib "^2.0.3"
 
 angular-html-parser@1.7.1:
   version "1.7.1"
@@ -7022,6 +7022,11 @@ tslib@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
   integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
+
+tslib@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
+  integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
 
 tsutils@^3.17.1:
   version "3.17.1"
