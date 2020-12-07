@@ -177,6 +177,17 @@ exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
 
 exports[`show detailed usage with --help find-config-path (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help force-error-on-written-files (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help force-error-on-written-files (stdout) 1`] = `
+"--force-error-on-written-files
+
+  Exit with an error code if at least one file was formatted during the run.
+"
+`;
+
+exports[`show detailed usage with --help force-error-on-written-files (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help help (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help help (stdout) 1`] = `

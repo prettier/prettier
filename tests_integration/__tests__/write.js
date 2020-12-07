@@ -8,6 +8,17 @@ describe("write file with --write + unformatted file", () => {
   });
 });
 
+describe("exit with error code with --check and --force-error-on-written-files on unformatted file", () => {
+  runPrettier("cli/write", [
+    "--check",
+    "--force-error-on-written-files",
+    "-w",
+    "unformatted.js",
+  ]).test({
+    status: "non-zero",
+  });
+});
+
 describe("write file with -w + unformatted file", () => {
   runPrettier("cli/write", ["-w", "unformatted.js"]).test({
     status: 0,
