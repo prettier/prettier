@@ -2,7 +2,7 @@
 
 const {
   builders: { indent, hardline, softline, concat },
-  utils: { mapDoc, replaceNewlinesWithLiterallines },
+  utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
 } = require("../../document");
 const { printTemplateExpressions } = require("../print/template-literal");
 
@@ -49,53 +49,25 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
   }
-
   let replaceCounter = 0;
-  const newDoc = mapDoc(quasisDoc, (doc) => {
-    if (!doc || !doc.parts || !doc.parts.length) {
+  const newDoc = mapDoc(cleanDoc(quasisDoc), (doc) => {
+    if (typeof doc !== "string" || !doc.includes("@prettier-placeholder")) {
       return doc;
     }
-
-    let { parts } = doc;
-    const atIndex = parts.indexOf("@");
-    const placeholderIndex = atIndex + 1;
-    if (
-      atIndex > -1 &&
-      typeof parts[placeholderIndex] === "string" &&
-      parts[placeholderIndex].startsWith("prettier-placeholder")
-    ) {
-      // If placeholder is split, join it
-      const at = parts[atIndex];
-      const placeholder = parts[placeholderIndex];
-      const rest = parts.slice(placeholderIndex + 1);
-      parts = parts
-        .slice(0, atIndex)
-        .concat([at + placeholder])
-        .concat(rest);
-    }
-
-    const replacedParts = [];
-    parts.forEach((part) => {
-      if (typeof part !== "string" || !part.includes("@prettier-placeholder")) {
-        replacedParts.push(part);
-        return;
-      }
-
-      // When we have multiple placeholders in one line, like:
-      // ${Child}${Child2}:not(:first-child)
-      part.split(/@prettier-placeholder-(\d+)-id/).forEach((component, idx) => {
+    // When we have multiple placeholders in one line, like:
+    // ${Child}${Child2}:not(:first-child)
+    return concat(
+      doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
         // The placeholder is always at odd indices
         if (idx % 2 === 0) {
-          replacedParts.push(replaceNewlinesWithLiterallines(component));
-          return;
+          return replaceNewlinesWithLiterallines(component);
         }
 
         // The component will always be a number at odd index
-        replacedParts.push(expressionDocs[component]);
         replaceCounter++;
-      });
-    });
-    return { ...doc, parts: replacedParts };
+        return expressionDocs[component];
+      })
+    );
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
