@@ -111,7 +111,7 @@ function decorateComment(node, comment, options, enclosingNode) {
       return decorateComment(child, comment, options, child);
     }
 
-    if (start <= commentStart) {
+    if (end <= commentStart) {
       // This child node falls completely before the comment.
       // Because we will never consider this node or any nodes
       // before it again, this node must be the closest preceding

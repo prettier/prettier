@@ -557,10 +557,6 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-function isNodeIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
@@ -658,7 +654,6 @@ module.exports = {
   getPreferredQuote,
   printString,
   printNumber,
-  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
