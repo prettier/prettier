@@ -384,15 +384,11 @@ function genericPrint(path, options, print) {
           hasTrailingNewline ? hardline : "",
         ]);
       }
-      return fill(
-        normalizeParts(
-          [].concat(
-            printOpeningTagPrefix(node, options),
-            getTextValueParts(node),
-            printClosingTagSuffix(node, options)
-          )
-        )
-      );
+      return concat([
+        printOpeningTagPrefix(node, options),
+        fill(getTextValueParts(node)),
+        printClosingTagSuffix(node, options),
+      ]);
     }
     case "docType":
       return concat([
