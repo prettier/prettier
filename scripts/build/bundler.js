@@ -54,6 +54,20 @@ const entries = [
       `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
     ),
   },
+  // Avoid rollup `SOURCEMAP_ERROR` and `THIS_IS_UNDEFINED` error
+  {
+    find: "@glimmer/syntax",
+    replacement: require.resolve("@glimmer/syntax"),
+  },
+  // https://github.com/rollup/plugins/issues/670
+  {
+    find: "is-core-module",
+    replacement: require.resolve("is-core-module"),
+  },
+  {
+    find: "yaml/util",
+    replacement: require.resolve("yaml/util"),
+  },
 ];
 
 function webpackNativeShims(config, modules) {
