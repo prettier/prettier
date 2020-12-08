@@ -22,7 +22,7 @@ const {
     indent,
     group,
   },
-  utils: { normalizeDoc },
+  utils: { cleanDoc },
   printer: { printDocToString },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
@@ -85,15 +85,18 @@ function genericPrint(path, options, print) {
         return "";
       }
       return concat([
-        normalizeDoc(printRoot(path, options, print)),
+        printRoot(path, options, print),
         !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
           ? hardline
           : "",
       ]);
-    case "paragraph":
-      return printChildren(path, options, print, {
-        postprocessor: fill,
-      });
+    case "paragraph": {
+      const printed = cleanDoc(printChildren(path, options, print));
+      if (typeof printed === "string") {
+        return printed;
+      }
+      return fill(printed.parts);
+    }
     case "sentence":
       return printChildren(path, options, print);
     case "word": {
