@@ -4,7 +4,7 @@ const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
   builders: { concat, join, line, softline, group, indent, align, ifBreak },
-  utils: { normalizeParts },
+  utils: { cleanDoc },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -271,9 +271,14 @@ function printBinaryishExpressions(
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && hasComment(node)) {
-      parts = normalizeParts(
-        printComments(path, () => concat(parts), options).parts
+      const printed = cleanDoc(
+        printComments(path, () => concat(parts), options)
       );
+      if (printed.type === "string") {
+        parts = [printed];
+      } else {
+        parts = printed.parts;
+      }
     }
   } else {
     // Our stopping case. Simply print the node normally.
