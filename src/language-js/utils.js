@@ -1082,7 +1082,8 @@ function isSimpleCallArgument(node, depth) {
     node.type === "Super" ||
     node.type === "PrivateName" ||
     node.type === "ArgumentPlaceholder" ||
-    node.type === "Import"
+    node.type === "Import" ||
+    node.type === "Null"
   ) {
     return true;
   }
