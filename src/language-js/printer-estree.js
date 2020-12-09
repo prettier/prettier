@@ -558,9 +558,9 @@ function printPathNoParens(path, options, print, args) {
       }
       return nodeStr(n, options);
     case "Directive":
-      return path.call(print, "value"); // Babel 6
+      return concat([path.call(print, "value"), semi]); // Babel 6
     case "DirectiveLiteral":
-      return concat([nodeStr(n, options), semi]);
+      return nodeStr(n, options);
     case "UnaryExpression":
       parts.push(n.operator);
 
