@@ -2011,12 +2011,12 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codemirror-graphql@0.12.4:
-  version "0.12.4"
-  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-0.12.4.tgz#607e113035856a179ee019e8451210cd1a8ca340"
-  integrity sha512-gWxmLk2OzPVzvwAXO0K52MtU1n6ylMNbKp0LtZHioK0NEUwLnSL5iPKVXn8MgvYqS8Yos/CG5WrP9Y7RWTO4mg==
+codemirror-graphql@0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-0.13.0.tgz#bb01039fb4737f462adcdc4fd911d7aa82b72bfd"
+  integrity sha512-f2w/goKJNXL8+f8a14rD7SnfLPrEoAlvT0qmm2yobXqw7O62QbqFxIkSBcePpUyt3Ki+yyzuCiF4GVHUnGj0+Q==
   dependencies:
-    graphql-language-service-interface "^2.4.3"
+    graphql-language-service-interface "^2.5.0"
     graphql-language-service-parser "^1.6.5"
 
 coffee-script@^1.12.4:
@@ -3608,10 +3608,10 @@ graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
-graphql-language-service-interface@^2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/graphql-language-service-interface/-/graphql-language-service-interface-2.4.3.tgz#bba756d9282b7a2ee818a3cba5702ec9e5da1f7e"
-  integrity sha512-WVWdviRYzb+/z+GS/6ds87OW5qqP0J6l6pGGOE0694x4It57x97//mkRHY5vfNa3knHw5OYwkUYymVzqYu4xTw==
+graphql-language-service-interface@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/graphql-language-service-interface/-/graphql-language-service-interface-2.5.0.tgz#5af71b24e85dbb950e837910d5b218995a2327d3"
+  integrity sha512-JOT5X+BqsREMofnnacmyu3oy0CI+15JXp5NQWG+KDp4bQATjTDpiCOFeBNtw6t9z2ozaY8m7PTaknp0YjgDkvA==
   dependencies:
     graphql-language-service-parser "^1.6.5"
     graphql-language-service-types "^1.6.3"
