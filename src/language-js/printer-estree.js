@@ -267,7 +267,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.directives) {
         const directivesCount = n.directives.length;
         path.each((childPath, index) => {
-          parts.push(print(childPath), semi, hardline);
+          parts.push(print(childPath), hardline);
           if (
             (index < directivesCount - 1 || hasContents) &&
             isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
@@ -560,7 +560,7 @@ function printPathNoParens(path, options, print, args) {
     case "Directive":
       return path.call(print, "value"); // Babel 6
     case "DirectiveLiteral":
-      return nodeStr(n, options);
+      return concat([nodeStr(n, options), semi]);
     case "UnaryExpression":
       parts.push(n.operator);
 
