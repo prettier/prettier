@@ -7,7 +7,7 @@ const {
 const { hasComment, CommentCheckFlags } = require("../utils");
 
 const { printStatementSequence } = require("./statement");
-const { printBabelDirectives } = require("./misc");
+const { hasBabelDirectives, printBabelDirectives } = require("./misc");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -20,7 +20,7 @@ function printBlock(path, options, print) {
   }
 
   const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
-  const hasDirectives = n.directives && n.directives.length > 0;
+  const hasDirectives = hasBabelDirectives(n);
 
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -51,7 +51,10 @@ function printBlock(path, options, print) {
   const bodyParts = [];
   // Babel 6
   if (hasDirectives) {
-    bodyParts.push(hardline, printBabelDirectives(path, options, print));
+    bodyParts.push(
+      hardline,
+      printBabelDirectives(path, options, print, hasContent)
+    );
   }
 
   if (hasContent) {

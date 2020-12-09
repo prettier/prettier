@@ -63,7 +63,9 @@ const {
   printOptionalToken,
   printBindExpressionCallee,
   printTypeAnnotation,
+  printBabelDirectives,
   adjustClause,
+  hasBabelDirectives,
 } = require("./print/misc");
 const {
   printImportDeclaration,
@@ -264,23 +266,18 @@ function printPathNoParens(path, options, print, args) {
         !n.body.every(({ type }) => type === "EmptyStatement") || hasComment(n);
 
       // Babel 6
-      if (n.directives) {
-        const directivesCount = n.directives.length;
-        path.each((childPath, index) => {
-          parts.push(print(childPath), semi, hardline);
-          if (
-            (index < directivesCount - 1 || hasContents) &&
-            isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-          ) {
-            parts.push(hardline);
-          }
-        }, "directives");
+      if (hasBabelDirectives(n)) {
+        parts.push(
+          printBabelDirectives(path, options, print, hasContents),
+          hardline
+        );
       }
 
       parts.push(
-        path.call((bodyPath) => {
-          return printStatementSequence(bodyPath, options, print);
-        }, "body")
+        path.call(
+          (bodyPath) => printStatementSequence(bodyPath, options, print),
+          "body"
+        )
       );
 
       parts.push(

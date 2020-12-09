@@ -87,20 +87,17 @@ function adjustClause(node, clause, forceSpace) {
   return indent(concat([line, clause]));
 }
 
-function printBabelDirectives(path, options, print) {
-  const node = path.getValue();
-  if (!Array.isArray(node.directives) || node.directives.length === 0) {
-    return "";
-  }
-
+function printBabelDirectives(path, options, print, hasContents) {
   const semi = options.semi ? ";" : "";
+  const lastDirectiveIndex = path.getValue().directives.length - 1;
   return join(
     hardline,
     path.map(
-      (childPath) =>
+      (childPath, index) =>
         concat([
           print(childPath),
           semi,
+          (hasContents || index !== lastDirectiveIndex) &&
           isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
             ? hardline
             : "",
@@ -108,6 +105,10 @@ function printBabelDirectives(path, options, print) {
       "directives"
     )
   );
+}
+
+function hasBabelDirectives(node) {
+  return Array.isArray(node.directives) && node.directives.length > 0;
 }
 
 module.exports = {
@@ -118,4 +119,5 @@ module.exports = {
   printTypeAnnotation,
   printBabelDirectives,
   adjustClause,
+  hasBabelDirectives,
 };
