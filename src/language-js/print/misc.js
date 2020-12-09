@@ -1,9 +1,11 @@
 "use strict";
 
+const { isNextLineEmpty } = require("../../common/util");
 const {
-  builders: { concat, indent, join, line },
+  builders: { concat, indent, join, line, hardline },
 } = require("../../document");
 const { isFlowAnnotationComment } = require("../utils");
+const { locEnd } = require("../loc");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -85,11 +87,35 @@ function adjustClause(node, clause, forceSpace) {
   return indent(concat([line, clause]));
 }
 
+function printBabelDirectives(path, options, print) {
+  const node = path.getValue();
+  if (!Array.isArray(node.directives) || node.directives.length === 0) {
+    return "";
+  }
+
+  const semi = options.semi ? ";" : "";
+  return join(
+    hardline,
+    path.map(
+      (childPath) =>
+        concat([
+          print(childPath),
+          semi,
+          isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
+            ? hardline
+            : "",
+        ]),
+      "directives"
+    )
+  );
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printTypeAnnotation,
+  printBabelDirectives,
   adjustClause,
 };

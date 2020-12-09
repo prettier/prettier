@@ -1,24 +1,19 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
 const { hasComment, CommentCheckFlags } = require("../utils");
-const { locEnd } = require("../loc");
 
 const { printStatementSequence } = require("./statement");
+const { printBabelDirectives } = require("./misc");
 
 /** @typedef {import("../../document").Doc} Doc */
 
 function printBlock(path, options, print) {
   const n = path.getValue();
   const parts = [];
-  const semi = options.semi ? ";" : "";
-  const naked = path.call((bodyPath) => {
-    return printStatementSequence(bodyPath, options, print);
-  }, "body");
 
   if (n.type === "StaticBlock") {
     parts.push("static ");
@@ -53,20 +48,23 @@ function printBlock(path, options, print) {
 
   parts.push("{");
 
+  const bodyParts = [];
   // Babel 6
   if (hasDirectives) {
-    path.each((childPath) => {
-      parts.push(indent(concat([hardline, print(childPath), semi])));
-      if (isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)) {
-        parts.push(hardline);
-      }
-    }, "directives");
+    bodyParts.push(hardline, printBabelDirectives(path, options, print));
   }
 
   if (hasContent) {
-    parts.push(indent(concat([hardline, naked])));
+    bodyParts.push(
+      hardline,
+      path.call(
+        (bodyPath) => printStatementSequence(bodyPath, options, print),
+        "body"
+      )
+    );
   }
 
+  parts.push(indent(concat(bodyParts)));
   parts.push(printDanglingComments(path, options));
   parts.push(hardline, "}");
 
