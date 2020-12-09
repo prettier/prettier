@@ -11,10 +11,22 @@ semi: false
 'use strict';
 [].forEach();
 
+function foo() {
+// prettier-ignore
+'use strict';
+[].forEach();
+}
+
 =====================================output=====================================
 // prettier-ignore
 'use strict';
 ;[].forEach()
+
+function foo() {
+  // prettier-ignore
+  'use strict';
+  ;[].forEach()
+}
 
 ================================================================================
 `;
@@ -29,10 +41,22 @@ printWidth: 80
 'use strict';
 [].forEach();
 
+function foo() {
+// prettier-ignore
+'use strict';
+[].forEach();
+}
+
 =====================================output=====================================
 // prettier-ignore
 'use strict';
 [].forEach();
+
+function foo() {
+  // prettier-ignore
+  'use strict';
+  [].forEach();
+}
 
 ================================================================================
 `;
