@@ -70,6 +70,19 @@ run_spec(
           );
         `,
       },
+      {
+        code: outdent`
+          <p>
+            <span />\u3000{this.props.data.title}\u3000<span />
+          </p>
+        `,
+        output: outdent`
+          <p>
+            <span />\u3000{this.props.data.title}\u3000<span />
+          </p>;
+        `,
+
+      }
     ].map((test) => ({ ...test, output: test.output + "\n" })),
   },
   ["flow", "typescript"]
