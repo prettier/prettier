@@ -10,9 +10,9 @@ const {
   classPropMayCauseASIProblems,
   getLeftSidePathName,
   hasNakedLeftSide,
-  isJSXNode,
+  isJsxNode,
   isLastStatement,
-  isTheOnlyJSXElementInMarkdown,
+  isTheOnlyJsxElementInMarkdown,
   hasComment,
   CommentCheckFlags,
 } = require("../utils");
@@ -46,7 +46,7 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
   if (
     !options.semi &&
     !isClass &&
-    !isTheOnlyJSXElementInMarkdown(options, path) &&
+    !isTheOnlyJsxElementInMarkdown(options, path) &&
     statementNeedsASIProtection(path, options)
   ) {
     if (hasComment(node, CommentCheckFlags.Leading)) {
@@ -130,7 +130,7 @@ function expressionNeedsASIProtection(path, options) {
       (node.operator === "+" || node.operator === "-")) ||
     node.type === "TemplateLiteral" ||
     node.type === "TemplateElement" ||
-    isJSXNode(node) ||
+    isJsxNode(node) ||
     (node.type === "BindExpression" && !node.object) ||
     node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||

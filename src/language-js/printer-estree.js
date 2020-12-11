@@ -43,7 +43,7 @@ const {
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isTheOnlyJSXElementInMarkdown,
+  isTheOnlyJsxElementInMarkdown,
   isBlockComment,
   needsHardlineAfterDanglingComment,
   rawText,
@@ -320,7 +320,7 @@ function printPathNoParens(path, options, print, args) {
       // Do not append semicolon after the only JSX element in a program
       return concat([
         path.call(print, "expression"),
-        isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi,
+        isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
       ]);
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
