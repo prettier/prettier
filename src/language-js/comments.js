@@ -531,7 +531,8 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   }
   if (
     enclosingNode &&
-    enclosingNode.type === "MethodDefinition" &&
+    (enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
     getFunctionParameters(enclosingNode.value).length === 0
   ) {
     addDanglingComment(enclosingNode.value, comment);
