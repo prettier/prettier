@@ -392,7 +392,7 @@ function genericPrint(path, options, print) {
           printClosingTagSuffix(node, options),
         ])
       );
-      return typeof printed === "string" ? printed : fill(printed.parts);
+      return typeof printed === "string" ? printed : fill(getDocParts(printed));
     }
     case "docType":
       return concat([
