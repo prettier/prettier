@@ -21,7 +21,7 @@ module.exports = {
   create(context) {
     const ignored = new Set(context.options);
     return {
-      'Identifier[name=/JSX/]:not(Property > .key)'(node) {
+      'Identifier[name=/JSX/]:not(ObjectExpression > Property.properties > .key)'(node) {
         const {name} = node;
 
         if (ignored.has(name)) {
