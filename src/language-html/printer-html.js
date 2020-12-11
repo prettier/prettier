@@ -3,7 +3,7 @@
 const assert = require("assert");
 const {
   builders,
-  utils: { mapDoc, normalizeParts, getDocParts },
+  utils: { mapDoc, normalizeParts, cleanDoc, getDocParts },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
@@ -384,15 +384,15 @@ function genericPrint(path, options, print) {
           hasTrailingNewline ? hardline : "",
         ]);
       }
-      return fill(
-        normalizeParts(
-          [].concat(
-            printOpeningTagPrefix(node, options),
-            getTextValueParts(node),
-            printClosingTagSuffix(node, options)
-          )
-        )
+
+      const printed = cleanDoc(
+        concat([
+          printOpeningTagPrefix(node, options),
+          ...getTextValueParts(node),
+          printClosingTagSuffix(node, options),
+        ])
       );
+      return typeof printed === "string" ? printed : fill(printed.parts);
     }
     case "docType":
       return concat([

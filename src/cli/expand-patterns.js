@@ -5,7 +5,7 @@ const fs = require("fs");
 const fastGlob = require("fast-glob");
 const flat = require("lodash/flatten");
 
-/** @typedef {import('./util').Context} Context */
+/** @typedef {import('./context').Context} Context */
 
 /**
  * @param {Context} context

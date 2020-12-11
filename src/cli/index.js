@@ -6,13 +6,13 @@ require("please-upgrade-node")(require("../../package.json"));
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
-const util = require("./util");
+const core = require("./core");
 
 function run(args) {
-  const context = util.createContext(args);
+  const context = core.createContext(args);
 
   try {
-    util.initContext(context);
+    core.initContext(context);
 
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
@@ -44,8 +44,8 @@ function run(args) {
     if (context.argv.help !== undefined) {
       context.logger.log(
         typeof context.argv.help === "string" && context.argv.help !== ""
-          ? util.createDetailedUsage(context, context.argv.help)
-          : util.createUsage(context)
+          ? core.createDetailedUsage(context, context.argv.help)
+          : core.createUsage(context)
       );
       process.exit(0);
     }
@@ -65,15 +65,15 @@ function run(args) {
       (!process.stdin.isTTY || context.args["stdin-filepath"]);
 
     if (context.argv["find-config-path"]) {
-      util.logResolvedConfigPathOrDie(context);
+      core.logResolvedConfigPathOrDie(context);
     } else if (context.argv["file-info"]) {
-      util.logFileInfoOrDie(context);
+      core.logFileInfoOrDie(context);
     } else if (useStdin) {
-      util.formatStdin(context);
+      core.formatStdin(context);
     } else if (hasFilePatterns) {
-      util.formatFiles(context);
+      core.formatFiles(context);
     } else {
-      context.logger.log(util.createUsage(context));
+      context.logger.log(core.createUsage(context));
       process.exit(1);
     }
   } catch (error) {
