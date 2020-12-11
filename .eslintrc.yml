@@ -13,7 +13,6 @@ plugins:
 settings:
   import/internal-regex: ^linguist-languages/
 rules:
-  prettier-internal-rules/require-json-extensions: error
   curly: error
   dot-notation: error
   eqeqeq:
@@ -52,6 +51,9 @@ rules:
   prefer-object-spread: error
   prefer-rest-params: error
   prefer-spread: error
+  prettier-internal-rules/jsx-identifier-case:
+    - error
+  prettier-internal-rules/require-json-extensions: error
   quotes:
     - error
     - double
