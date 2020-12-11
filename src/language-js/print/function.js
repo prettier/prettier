@@ -95,11 +95,18 @@ function printMethod(path, options, print) {
 
   parts.push(
     printPropertyKey(path, options, print),
-    node.optional || node.key.optional ? "?" : "",
-    node === value
-      ? printMethodInternal(path, options, print)
-      : path.call((path) => printMethodInternal(path, options, print), "value")
+    node.optional || node.key.optional ? "?" : ""
   );
+
+  if (node === value) {
+    parts.push(printMethodInternal(path, options, print));
+  } else if (value.type === "FunctionExpression") {
+    parts.push(
+      path.call((path) => printMethodInternal(path, options, print), "value")
+    );
+  } else {
+    parts.push(concat([path.call(print, "value"), options.semi ? ";" : ""]));
+  }
 
   return concat(parts);
 }

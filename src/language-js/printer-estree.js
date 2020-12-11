@@ -1277,7 +1277,8 @@ function canAttachComment(node) {
     node.type !== "Block" &&
     node.type !== "EmptyStatement" &&
     node.type !== "TemplateElement" &&
-    node.type !== "Import"
+    node.type !== "Import" &&
+    node.type !== "TSEmptyBodyFunctionExpression"
   );
 }
 
