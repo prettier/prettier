@@ -5,18 +5,26 @@ const {
   builders: { hardline, concat, markAsRoot },
 } = require("../document");
 
+const YAML_DELIMITER = "---";
+// In some markdown processors such as pandoc,
+// "..." can be used as the end delimiter for YAML front-matter.
+const YAML_END_DELIMITER = "...";
 const DELIMITER_MAP = {
-  "---": "yaml",
+  [YAML_DELIMITER]: "yaml",
   "+++": "toml",
 };
 
 function parse(text) {
-  const delimiterRegex = Object.keys(DELIMITER_MAP).map(escape).join("|");
+  const startDelimiterRegex = Object.keys(DELIMITER_MAP).map(escape).join("|");
+  const endDelimiterRegex = Object.keys(DELIMITER_MAP)
+    .concat(YAML_END_DELIMITER)
+    .map(escape)
+    .join("|");
 
   const match = text.match(
     // trailing spaces after delimiters are allowed
     new RegExp(
-      `^(${delimiterRegex})([^\\n]*)\\n(?:|([\\s\\S]*?)\\n)\\1[^\\n\\S]*(\\n|$)`
+      `^(${startDelimiterRegex})([^\\n]*)\\n(?:|([\\s\\S]*?)\\n)(${endDelimiterRegex})[^\\n\\S]*(\\n|$)`
     )
   );
 
@@ -24,19 +32,28 @@ function parse(text) {
     return { frontMatter: null, content: text };
   }
 
-  const [raw, delimiter, language, value = ""] = match;
-  let lang = DELIMITER_MAP[delimiter];
+  const [raw, startDelimiter, language, value = "", endDelimiter] = match;
+  if (
+    startDelimiter !== endDelimiter &&
+    (startDelimiter !== YAML_DELIMITER || endDelimiter !== YAML_END_DELIMITER)
+  ) {
+    return { frontMatter: null, content: text };
+  }
+  let lang = DELIMITER_MAP[startDelimiter];
   if (lang !== "toml" && language && language.trim()) {
     lang = language.trim();
   }
 
+  const frontMatter = {
+    type: "front-matter",
+    lang,
+    value,
+    startDelimiter,
+    endDelimiter,
+    raw: raw.replace(/\n$/, ""),
+  };
   return {
-    frontMatter: {
-      type: "front-matter",
-      lang,
-      value,
-      raw: raw.replace(/\n$/, ""),
-    },
+    frontMatter,
     content: raw.replace(/[^\n]/g, " ") + text.slice(raw.length),
   };
 }
@@ -48,7 +65,13 @@ function print(node, textToDoc) {
       ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
       : "";
     return markAsRoot(
-      concat(["---", hardline, doc, doc ? hardline : "", "---"])
+      concat([
+        node.startDelimiter,
+        hardline,
+        doc,
+        doc ? hardline : "",
+        node.endDelimiter,
+      ])
     );
   }
 }
