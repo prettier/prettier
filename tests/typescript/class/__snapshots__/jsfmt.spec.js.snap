@@ -72,7 +72,7 @@ class F<__T> {}
 ================================================================================
 `;
 
-exports[`empty-method-body.js format 1`] = `
+exports[`empty-method-body.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
