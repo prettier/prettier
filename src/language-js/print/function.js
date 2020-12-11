@@ -105,7 +105,7 @@ function printMethod(path, options, print) {
       path.call((path) => printMethodInternal(path, options, print), "value")
     );
   } else {
-    parts.push(concat([path.call(print, "value"), options.semi ? ";" : ""]));
+    parts.push(path.call(print, "value"));
   }
 
   return concat(parts);
@@ -378,5 +378,6 @@ module.exports = {
   printMethod,
   printReturnStatement,
   printThrowStatement,
+  printMethodInternal,
   shouldPrintParamsWithoutParens,
 };
