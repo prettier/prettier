@@ -1,6 +1,6 @@
 ---
-author: Kevin Deisz (@kddeisz)
-authorURL: https://twitter.com/kddeisz
+author: Kevin Newton (@kddnewton)
+authorURL: https://twitter.com/kddnewton
 title: Prettier for Ruby goes v1.0 🎉
 ---
 
