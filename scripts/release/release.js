@@ -4,7 +4,7 @@
 
 const { exec, execSync } = require("child_process");
 
-async function run() {
+const run = async () => {
   const chalk = require("chalk");
   const { string: outdentString } = require("outdent");
   const minimist = require("minimist");
@@ -54,7 +54,7 @@ async function run() {
     console.error(`${chalk.red("error")} ${message}\n${stack}`);
     process.exit(1);
   }
-}
+};
 
 exec(
   [

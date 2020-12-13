@@ -15,7 +15,7 @@ if (require.main !== module) {
   );
 }
 
-function generateSchema(options) {
+const generateSchema = (options) => {
   return {
     $schema: "http://json-schema.org/draft-04/schema#",
     title: "Schema for .prettierrc",
@@ -76,9 +76,9 @@ function generateSchema(options) {
       },
     ],
   };
-}
+};
 
-function optionToSchema(option) {
+const optionToSchema = (option) => {
   return {
     description: option.description,
     default: option.default,
@@ -88,17 +88,15 @@ function optionToSchema(option) {
         : { type: optionTypeToSchemaType(option.type) }
     ),
   };
-}
+};
 
-function identity(x) {
-  return x;
-}
+const identity = (x) => x;
 
-function wrapWithArraySchema(items) {
+const wrapWithArraySchema = (items) => {
   return { type: "array", items };
-}
+};
 
-function optionTypeToSchemaType(optionType) {
+const optionTypeToSchemaType = (optionType) => {
   switch (optionType) {
     case "int":
       return "integer";
@@ -113,8 +111,8 @@ function optionTypeToSchemaType(optionType) {
     default:
       throw new Error(`Unexpected optionType '${optionType}'`);
   }
-}
+};
 
-function choiceToSchema(choice) {
+const choiceToSchema = (choice) => {
   return { enum: [choice.value], description: choice.description };
-}
+};

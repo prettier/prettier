@@ -106,15 +106,14 @@ class Cache {
   }
 }
 
-function required(name) {
+const required = (name) => {
   throw new Error(name + " is required");
-}
+};
 
-function hashString(string) {
-  return crypto.createHash("md5").update(string).digest("hex");
-}
+const hashString = (string) =>
+  crypto.createHash("md5").update(string).digest("hex");
 
-function getRollupConfig(rollupConfig) {
+const getRollupConfig = (rollupConfig) => {
   return {
     ...rollupConfig,
     onwarn() {},
@@ -126,6 +125,6 @@ function getRollupConfig(rollupConfig) {
         plugin.name !== "babel"
     ),
   };
-}
+};
 
 module.exports = Cache;

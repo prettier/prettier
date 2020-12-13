@@ -40,16 +40,16 @@ for (const { color, text } of statusConfig) {
   status[text] = chalk[color].black(padStatusText(text));
 }
 
-function fitTerminal(input) {
+const fitTerminal = (input) => {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
     input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
-}
+};
 
-async function createBundle(bundleConfig, cache, options) {
+const createBundle = async (bundleConfig, cache, options) => {
   const { output, target } = bundleConfig;
   process.stdout.write(fitTerminal(output));
   try {
@@ -81,15 +81,15 @@ async function createBundle(bundleConfig, cache, options) {
     console.log(status.FAIL + "\n");
     handleError(error);
   }
-}
+};
 
-function handleError(error) {
+const handleError = (error) => {
   loggedErrors.add(error);
   console.error(error);
   throw error;
-}
+};
 
-async function cacheFiles(cache) {
+const cacheFiles = async (cache) => {
   // Copy built files to .cache
   try {
     await execa("rm", ["-rf", path.join(".cache", "files")]);
@@ -106,9 +106,9 @@ async function cacheFiles(cache) {
   } catch (err) {
     // Don't fail the build
   }
-}
+};
 
-async function preparePackage() {
+const preparePackage = async () => {
   const pkg = await util.readJson("package.json");
   pkg.bin = "./bin-prettier.js";
   delete pkg.dependencies;
@@ -122,9 +122,9 @@ async function preparePackage() {
 
   await util.copyFile("./README.md", "./dist/README.md");
   await util.copyFile("./LICENSE", "./dist/LICENSE");
-}
+};
 
-async function run(params) {
+const run = async (params) => {
   await execa("rm", ["-rf", "dist"]);
   await execa("mkdir", ["-p", "dist"]);
   if (!params.playground) {
@@ -149,7 +149,7 @@ async function run(params) {
   if (!params.playground) {
     await preparePackage();
   }
-}
+};
 
 run(
   minimist(process.argv.slice(2), {

@@ -7,7 +7,7 @@ const builtins = require("builtin-modules");
 const EMPTY = "export default {};";
 const PREFIX = "\0shim:";
 
-module.exports = function (dir) {
+module.exports = (dir) => {
   return {
     resolveId(importee) {
       if (importee.startsWith(PREFIX)) {

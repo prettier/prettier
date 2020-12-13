@@ -103,7 +103,7 @@ fs.writeFileSync(
   )
 );
 
-function processTitle(title) {
+const processTitle = (title) => {
   return title
     .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
     .replace(/\s+/g, " ")
@@ -113,9 +113,9 @@ function processTitle(title) {
       /(?<![[`])#(\d{4,})/g,
       "[#$1](https://github.com/prettier/prettier/pull/$1)"
     );
-}
+};
 
-function printEntries({ title, filter }) {
+const printEntries = ({ title, filter }) => {
   const result = [];
 
   for (const { entries = [], title } of categories) {
@@ -131,14 +131,12 @@ function printEntries({ title, filter }) {
   }
 
   return result;
-}
+};
 
-function formatVersion(version) {
-  return `${semver.major(version)}.${semver.minor(version)}`;
-}
+const formatVersion = (version) =>
+  `${semver.major(version)}.${semver.minor(version)}`;
 
-function replaceVersions(data) {
-  return data
+const replaceVersions = (data) =>
+  data
     .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
     .replace(/prettier master/gi, `Prettier ${formatVersion(version)}`);
-}

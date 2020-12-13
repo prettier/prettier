@@ -70,7 +70,7 @@ const entries = [
   },
 ];
 
-function webpackNativeShims(config, modules) {
+const webpackNativeShims = (config, modules) => {
   if (!config.resolve) {
     config.resolve = {};
   }
@@ -89,9 +89,9 @@ function webpackNativeShims(config, modules) {
     }
   }
   return config;
-}
+};
 
-function getBabelConfig(bundle) {
+const getBabelConfig = (bundle) => {
   const config = {
     babelrc: false,
     plugins: bundle.babelPlugins || [],
@@ -126,9 +126,9 @@ function getBabelConfig(bundle) {
     { loose: true, useBuiltIns: true },
   ]);
   return config;
-}
+};
 
-function getRollupConfig(bundle) {
+const getRollupConfig = (bundle) => {
   const config = {
     input: bundle.input,
 
@@ -225,9 +225,9 @@ function getRollupConfig(bundle) {
   }
 
   return config;
-}
+};
 
-function getRollupOutputOptions(bundle, buildOptions) {
+const getRollupOutputOptions = (bundle, buildOptions) => {
   const options = {
     // Avoid warning form #8797
     exports: "auto",
@@ -260,9 +260,9 @@ function getRollupOutputOptions(bundle, buildOptions) {
     return { skipped: true };
   }
   return [options];
-}
+};
 
-function getWebpackConfig(bundle) {
+const getWebpackConfig = (bundle) => {
   if (bundle.type !== "plugin" || bundle.target !== "universal") {
     throw new Error("Must use rollup for this bundle");
   }
@@ -308,10 +308,10 @@ function getWebpackConfig(bundle) {
   // config.optimization.minimize = false;
 
   return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
-}
+};
 
-function runWebpack(config) {
-  return new Promise((resolve, reject) => {
+const runWebpack = (config) =>
+  new Promise((resolve, reject) => {
     webpack(config, (error, stats) => {
       if (error) {
         reject(error);
@@ -334,9 +334,8 @@ function runWebpack(config) {
       resolve();
     });
   });
-}
 
-async function checkCache(cache, inputOptions, outputOption) {
+const checkCache = async (cache, inputOptions, outputOption) => {
   const useCache = await cache.checkBundle(
     outputOption.file,
     inputOptions,
@@ -357,7 +356,7 @@ async function checkCache(cache, inputOptions, outputOption) {
   }
 
   return false;
-}
+};
 
 module.exports = async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);

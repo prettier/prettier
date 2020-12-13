@@ -164,9 +164,7 @@ const coreBundles = [
   },
 ];
 
-function getFileOutput(bundle) {
-  return bundle.output || path.basename(bundle.input);
-}
+const getFileOutput = (bundle) => bundle.output || path.basename(bundle.input);
 
 module.exports = coreBundles.concat(parsers).map((bundle) => ({
   ...bundle,

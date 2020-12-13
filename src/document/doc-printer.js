@@ -10,15 +10,15 @@ let groupModeMap;
 const MODE_BREAK = 1;
 const MODE_FLAT = 2;
 
-function rootIndent() {
+const rootIndent = () => {
   return { value: "", length: 0, queue: [] };
-}
+};
 
-function makeIndent(ind, options) {
+const makeIndent = (ind, options) => {
   return generateInd(ind, { type: "indent" }, options);
-}
+};
 
-function makeAlign(indent, n, options) {
+const makeAlign = (indent, n, options) => {
   if (n === -Infinity) {
     return indent.root || rootIndent();
   }
@@ -38,9 +38,9 @@ function makeAlign(indent, n, options) {
   const alignType = typeof n === "string" ? "stringAlign" : "numberAlign";
 
   return generateInd(indent, { type: alignType, n }, options);
-}
+};
 
-function generateInd(ind, newPart, options) {
+const generateInd = (ind, newPart, options) => {
   const queue =
     newPart.type === "dedent"
       ? ind.queue.slice(0, -1)
@@ -78,47 +78,47 @@ function generateInd(ind, newPart, options) {
 
   flushSpaces();
 
-  return { ...ind, value, length, queue };
-
-  function addTabs(count) {
+  const addTabs = (count) => {
     value += "\t".repeat(count);
     length += options.tabWidth * count;
-  }
+  };
 
-  function addSpaces(count) {
+  const addSpaces = (count) => {
     value += " ".repeat(count);
     length += count;
-  }
+  };
 
-  function flush() {
+  const flush = () => {
     if (options.useTabs) {
       flushTabs();
     } else {
       flushSpaces();
     }
-  }
+  };
 
-  function flushTabs() {
+  const flushTabs = () => {
     if (lastTabs > 0) {
       addTabs(lastTabs);
     }
     resetLast();
-  }
+  };
 
-  function flushSpaces() {
+  const flushSpaces = () => {
     if (lastSpaces > 0) {
       addSpaces(lastSpaces);
     }
     resetLast();
-  }
+  };
 
-  function resetLast() {
+  const resetLast = () => {
     lastTabs = 0;
     lastSpaces = 0;
-  }
-}
+  };
 
-function trim(out) {
+  return { ...ind, value, length, queue };
+};
+
+const trim = (out) => {
   if (out.length === 0) {
     return 0;
   }
@@ -141,9 +141,9 @@ function trim(out) {
   }
 
   return trimCount;
-}
+};
 
-function fits(next, restCommands, width, options, mustBeFlat) {
+const fits = (next, restCommands, width, options, mustBeFlat) => {
   let restIdx = restCommands.length;
   const cmds = [next];
   // `out` is only used for width counting because `trim` requires to look
@@ -241,9 +241,9 @@ function fits(next, restCommands, width, options, mustBeFlat) {
     }
   }
   return false;
-}
+};
 
-function printDocToString(doc, options) {
+const printDocToString = (doc, options) => {
   groupModeMap = {};
 
   const width = options.printWidth;
@@ -552,6 +552,6 @@ function printDocToString(doc, options) {
   }
 
   return { formatted: out.join("") };
-}
+};
 
 module.exports = { printDocToString };

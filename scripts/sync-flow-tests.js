@@ -10,7 +10,7 @@ const DEFAULT_SPEC_CONTENT = "run_spec(__dirname);\n";
 const SPEC_FILE_NAME = "jsfmt.spec.js";
 const FLOW_TESTS_DIR = path.join(__dirname, "..", "tests", "flow-repo");
 
-function tryParse(file, content) {
+const tryParse = (file, content) => {
   const ast = flowParser.parse(content, {
     esproposal_class_instance_fields: true,
     esproposal_class_static_fields: true,
@@ -24,9 +24,9 @@ function tryParse(file, content) {
   }
 
   return null;
-}
+};
 
-function syncTests(syncDir) {
+const syncTests = (syncDir) => {
   const specFiles = globby.sync(
     path.join(FLOW_TESTS_DIR, "**", SPEC_FILE_NAME)
   );
@@ -70,9 +70,9 @@ function syncTests(syncDir) {
   });
 
   return skipped;
-}
+};
 
-function run(argv) {
+const run = (argv) => {
   if (argv.length !== 1) {
     console.error(
       [
@@ -119,7 +119,7 @@ function run(argv) {
   );
 
   return 0;
-}
+};
 
 if (require.main === module) {
   const exitCode = run(process.argv.slice(2));

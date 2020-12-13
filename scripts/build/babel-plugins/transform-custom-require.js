@@ -2,7 +2,7 @@
 
 // `eval("require")` -> `require`
 
-module.exports = function (babel) {
+module.exports = (babel) => {
   const t = babel.types;
 
   return {

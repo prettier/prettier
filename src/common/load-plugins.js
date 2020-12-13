@@ -17,7 +17,7 @@ const clearCache = () => {
   mem.clear(memoizedSearch);
 };
 
-function load(plugins, pluginSearchDirs) {
+const load = (plugins, pluginSearchDirs) => {
   if (!plugins) {
     plugins = [];
   }
@@ -98,9 +98,9 @@ function load(plugins, pluginSearchDirs) {
     .concat(externalPluginInstances);
 
   return internalPlugins.concat(externalPlugins);
-}
+};
 
-function findPluginsInNodeModules(nodeModulesDir) {
+const findPluginsInNodeModules = (nodeModulesDir) => {
   const pluginPackageJsonPaths = globby.sync(
     [
       "prettier-plugin-*/package.json",
@@ -113,15 +113,15 @@ function findPluginsInNodeModules(nodeModulesDir) {
     }
   );
   return pluginPackageJsonPaths.map(path.dirname);
-}
+};
 
-function isDirectory(dir) {
+const isDirectory = (dir) => {
   try {
     return fs.statSync(dir).isDirectory();
   } catch (e) {
     return false;
   }
-}
+};
 
 module.exports = {
   loadPlugins: memoizedLoad,

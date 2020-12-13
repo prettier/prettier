@@ -5,12 +5,12 @@ const execa = require("execa");
 const semver = require("semver");
 const { logPromise, readJson, writeJson } = require("../utils");
 
-async function format() {
+const format = async () => {
   await execa("yarn", ["lint:eslint", "--fix"]);
   await execa("yarn", ["lint:prettier", "--write"]);
-}
+};
 
-async function commit(version) {
+const commit = async (version) => {
   await execa("git", [
     "commit",
     "-am",
@@ -27,9 +27,9 @@ async function commit(version) {
   await execa("git", ["commit", "-am", `Git blame ignore ${version}`]);
 
   await execa("git", ["push"]);
-}
+};
 
-async function bump({ version, previousVersion, previousVersionOnMaster }) {
+const bump = async ({ version, previousVersion, previousVersionOnMaster }) => {
   const pkg = await readJson("package.json");
   if (semver.diff(version, previousVersion) === "patch") {
     pkg.version = previousVersionOnMaster; // restore the `-dev` version
@@ -37,9 +37,9 @@ async function bump({ version, previousVersion, previousVersionOnMaster }) {
     pkg.version = semver.inc(version, "minor") + "-dev";
   }
   await writeJson("package.json", pkg, { spaces: 2 });
-}
+};
 
-module.exports = async function (params) {
+module.exports = async (params) => {
   const { dry, version } = params;
 
   if (dry) {

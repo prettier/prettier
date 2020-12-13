@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-module.exports = function (modules = []) {
+module.exports =  (modules = []) => {
   const requires = modules.reduce((obj, mod) => {
     obj[mod] = path.basename(mod).replace(/\.js$/, "");
     return obj;

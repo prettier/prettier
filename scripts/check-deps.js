@@ -6,7 +6,7 @@ const pkg = require("../package.json");
 validateDependencyObject(pkg.dependencies);
 validateDependencyObject(pkg.devDependencies);
 
-function validateDependencyObject(object) {
+const validateDependencyObject = (object) => {
   Object.keys(object).forEach((key) => {
     if (object[key][0] === "^" || object[key][0] === "~") {
       console.error(
@@ -16,4 +16,4 @@ function validateDependencyObject(object) {
       process.exitCode = 1;
     }
   });
-}
+};

@@ -28,7 +28,7 @@ const colorAdjusterFunctions = new Set([
   "hwba",
 ]);
 
-function getAncestorCounter(path, typeOrTypes) {
+const getAncestorCounter = (path, typeOrTypes) => {
   const types = [].concat(typeOrTypes);
 
   let counter = -1;
@@ -41,14 +41,14 @@ function getAncestorCounter(path, typeOrTypes) {
   }
 
   return -1;
-}
+};
 
-function getAncestorNode(path, typeOrTypes) {
+const getAncestorNode = (path, typeOrTypes) => {
   const counter = getAncestorCounter(path, typeOrTypes);
   return counter === -1 ? null : path.getParentNode(counter);
-}
+};
 
-function getPropOfDeclNode(path) {
+const getPropOfDeclNode = (path) => {
   const declAncestorNode = getAncestorNode(path, "css-decl");
 
   return (
@@ -56,9 +56,9 @@ function getPropOfDeclNode(path) {
     declAncestorNode.prop &&
     declAncestorNode.prop.toLowerCase()
   );
-}
+};
 
-function hasSCSSInterpolation(groupList) {
+const hasSCSSInterpolation = (groupList) => {
   if (groupList && groupList.length) {
     for (let i = groupList.length - 1; i > 0; i--) {
       // If we find `#{`, return true.
@@ -73,9 +73,9 @@ function hasSCSSInterpolation(groupList) {
     }
   }
   return false;
-}
+};
 
-function hasStringOrFunction(groupList) {
+const hasStringOrFunction = (groupList) => {
   if (groupList && groupList.length) {
     for (let i = 0; i < groupList.length; i++) {
       if (groupList[i].type === "string" || groupList[i].type === "func") {
@@ -84,27 +84,23 @@ function hasStringOrFunction(groupList) {
     }
   }
   return false;
-}
+};
 
-function isSCSS(parser, text) {
+const isSCSS = (parser, text) => {
   const hasExplicitParserChoice = parser === "less" || parser === "scss";
   const IS_POSSIBLY_SCSS = /(\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
   return hasExplicitParserChoice
     ? parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
-}
+};
 
-function isSCSSVariable(node) {
-  return !!(node && node.type === "word" && node.value.startsWith("$"));
-}
+const isSCSSVariable = (node) =>
+  !!(node && node.type === "word" && node.value.startsWith("$"));
 
-function isWideKeywords(value) {
-  return ["initial", "inherit", "unset", "revert"].includes(
-    value.toLowerCase()
-  );
-}
+const isWideKeywords = (value) =>
+  ["initial", "inherit", "unset", "revert"].includes(value.toLowerCase());
 
-function isKeyframeAtRuleKeywords(path, value) {
+const isKeyframeAtRuleKeywords = (path, value) => {
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
   return (
     atRuleAncestorNode &&
@@ -112,30 +108,29 @@ function isKeyframeAtRuleKeywords(path, value) {
     atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
     ["from", "to"].includes(value.toLowerCase())
   );
-}
+};
 
-function maybeToLowerCase(value) {
-  return value.includes("$") ||
-    value.includes("@") ||
-    value.includes("#") ||
-    value.startsWith("%") ||
-    value.startsWith("--") ||
-    value.startsWith(":--") ||
-    (value.includes("(") && value.includes(")"))
+const maybeToLowerCase = (value) =>
+  value.includes("$") ||
+  value.includes("@") ||
+  value.includes("#") ||
+  value.startsWith("%") ||
+  value.startsWith("--") ||
+  value.startsWith(":--") ||
+  (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
-}
 
-function insideValueFunctionNode(path, functionName) {
+const insideValueFunctionNode = (path, functionName) => {
   const funcAncestorNode = getAncestorNode(path, "value-func");
   return (
     funcAncestorNode &&
     funcAncestorNode.value &&
     funcAncestorNode.value.toLowerCase() === functionName
   );
-}
+};
 
-function insideICSSRuleNode(path) {
+const insideICSSRuleNode = (path) => {
   const ruleAncestorNode = getAncestorNode(path, "css-rule");
 
   return (
@@ -145,9 +140,9 @@ function insideICSSRuleNode(path) {
     (ruleAncestorNode.raws.selector.startsWith(":import") ||
       ruleAncestorNode.raws.selector.startsWith(":export"))
   );
-}
+};
 
-function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
+const insideAtRuleNode = (path, atRuleNameOrAtRuleNames) => {
   const atRuleNames = [].concat(atRuleNameOrAtRuleNames);
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
@@ -155,9 +150,9 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
     atRuleAncestorNode &&
     atRuleNames.includes(atRuleAncestorNode.name.toLowerCase())
   );
-}
+};
 
-function insideURLFunctionInImportAtRuleNode(path) {
+const insideURLFunctionInImportAtRuleNode = (path) => {
   const node = path.getValue();
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
@@ -167,13 +162,12 @@ function insideURLFunctionInImportAtRuleNode(path) {
     node.groups[0].value === "url" &&
     node.groups.length === 2
   );
-}
+};
 
-function isURLFunctionNode(node) {
-  return node.type === "value-func" && node.value.toLowerCase() === "url";
-}
+const isURLFunctionNode = (node) =>
+  node.type === "value-func" && node.value.toLowerCase() === "url";
 
-function isLastNode(path, node) {
+const isLastNode = (path, node) => {
   const parentNode = path.getParentNode();
 
   /* istanbul ignore next */
@@ -182,9 +176,9 @@ function isLastNode(path, node) {
   }
   const { nodes } = parentNode;
   return nodes && nodes.indexOf(node) === nodes.length - 1;
-}
+};
 
-function isDetachedRulesetDeclarationNode(node) {
+const isDetachedRulesetDeclarationNode = (node) => {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
@@ -197,73 +191,50 @@ function isDetachedRulesetDeclarationNode(node) {
     (typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
     (node.selector.value && /^@.+:.*$/.test(node.selector.value))
   );
-}
+};
 
-function isForKeywordNode(node) {
-  return (
-    node.type === "value-word" &&
-    ["from", "through", "end"].includes(node.value)
-  );
-}
+const isForKeywordNode = (node) =>
+  node.type === "value-word" && ["from", "through", "end"].includes(node.value);
 
-function isIfElseKeywordNode(node) {
-  return (
-    node.type === "value-word" && ["and", "or", "not"].includes(node.value)
-  );
-}
+const isIfElseKeywordNode = (node) =>
+  node.type === "value-word" && ["and", "or", "not"].includes(node.value);
 
-function isEachKeywordNode(node) {
-  return node.type === "value-word" && node.value === "in";
-}
+const isEachKeywordNode = (node) =>
+  node.type === "value-word" && node.value === "in";
 
-function isMultiplicationNode(node) {
-  return node.type === "value-operator" && node.value === "*";
-}
+const isMultiplicationNode = (node) =>
+  node.type === "value-operator" && node.value === "*";
 
-function isDivisionNode(node) {
-  return node.type === "value-operator" && node.value === "/";
-}
+const isDivisionNode = (node) =>
+  node.type === "value-operator" && node.value === "/";
 
-function isAdditionNode(node) {
-  return node.type === "value-operator" && node.value === "+";
-}
+const isAdditionNode = (node) =>
+  node.type === "value-operator" && node.value === "+";
 
-function isSubtractionNode(node) {
-  return node.type === "value-operator" && node.value === "-";
-}
+const isSubtractionNode = (node) =>
+  node.type === "value-operator" && node.value === "-";
 
-function isModuloNode(node) {
-  return node.type === "value-operator" && node.value === "%";
-}
+const isModuloNode = (node) =>
+  node.type === "value-operator" && node.value === "%";
 
-function isMathOperatorNode(node) {
-  return (
-    isMultiplicationNode(node) ||
-    isDivisionNode(node) ||
-    isAdditionNode(node) ||
-    isSubtractionNode(node) ||
-    isModuloNode(node)
-  );
-}
+const isMathOperatorNode = (node) =>
+  isMultiplicationNode(node) ||
+  isDivisionNode(node) ||
+  isAdditionNode(node) ||
+  isSubtractionNode(node) ||
+  isModuloNode(node);
 
-function isEqualityOperatorNode(node) {
-  return node.type === "value-word" && ["==", "!="].includes(node.value);
-}
+const isEqualityOperatorNode = (node) =>
+  node.type === "value-word" && ["==", "!="].includes(node.value);
 
-function isRelationalOperatorNode(node) {
-  return (
-    node.type === "value-word" && ["<", ">", "<=", ">="].includes(node.value)
-  );
-}
+const isRelationalOperatorNode = (node) =>
+  node.type === "value-word" && ["<", ">", "<=", ">="].includes(node.value);
 
-function isSCSSControlDirectiveNode(node) {
-  return (
-    node.type === "css-atrule" &&
-    ["if", "else", "for", "each", "while"].includes(node.name)
-  );
-}
+const isSCSSControlDirectiveNode = (node) =>
+  node.type === "css-atrule" &&
+  ["if", "else", "for", "each", "while"].includes(node.name);
 
-function isSCSSNestedPropertyNode(node) {
+const isSCSSNestedPropertyNode = (node) => {
   /* istanbul ignore next */
   if (!node.selector) {
     return false;
@@ -274,74 +245,54 @@ function isSCSSNestedPropertyNode(node) {
     .replace(/\/\/.*?\n/, "")
     .trim()
     .endsWith(":");
-}
+};
 
-function isDetachedRulesetCallNode(node) {
-  return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
-}
+const isDetachedRulesetCallNode = (node) =>
+  node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
 
-function isTemplatePlaceholderNode(node) {
-  return node.name.startsWith("prettier-placeholder");
-}
+const isTemplatePlaceholderNode = (node) =>
+  node.name.startsWith("prettier-placeholder");
 
-function isTemplatePropNode(node) {
-  return node.prop.startsWith("@prettier-placeholder");
-}
+const isTemplatePropNode = (node) =>
+  node.prop.startsWith("@prettier-placeholder");
 
-function isPostcssSimpleVarNode(currentNode, nextNode) {
-  return (
-    currentNode.value === "$$" &&
-    currentNode.type === "value-func" &&
-    nextNode &&
-    nextNode.type === "value-word" &&
-    !nextNode.raws.before
-  );
-}
+const isPostcssSimpleVarNode = (currentNode, nextNode) =>
+  currentNode.value === "$$" &&
+  currentNode.type === "value-func" &&
+  nextNode &&
+  nextNode.type === "value-word" &&
+  !nextNode.raws.before;
 
-function hasComposesNode(node) {
-  return (
-    node.value &&
-    node.value.type === "value-root" &&
-    node.value.group &&
-    node.value.group.type === "value-value" &&
-    node.prop.toLowerCase() === "composes"
-  );
-}
+const hasComposesNode = (node) =>
+  node.value &&
+  node.value.type === "value-root" &&
+  node.value.group &&
+  node.value.group.type === "value-value" &&
+  node.prop.toLowerCase() === "composes";
 
-function hasParensAroundNode(node) {
-  return (
-    node.value &&
-    node.value.group &&
-    node.value.group.group &&
-    node.value.group.group.type === "value-paren_group" &&
-    node.value.group.group.open !== null &&
-    node.value.group.group.close !== null
-  );
-}
+const hasParensAroundNode = (node) =>
+  node.value &&
+  node.value.group &&
+  node.value.group.group &&
+  node.value.group.group.type === "value-paren_group" &&
+  node.value.group.group.open !== null &&
+  node.value.group.group.close !== null;
 
-function hasEmptyRawBefore(node) {
-  return node.raws && node.raws.before === "";
-}
+const hasEmptyRawBefore = (node) => node.raws && node.raws.before === "";
 
-function isKeyValuePairNode(node) {
-  return (
-    node.type === "value-comma_group" &&
-    node.groups &&
-    node.groups[1] &&
-    node.groups[1].type === "value-colon"
-  );
-}
+const isKeyValuePairNode = (node) =>
+  node.type === "value-comma_group" &&
+  node.groups &&
+  node.groups[1] &&
+  node.groups[1].type === "value-colon";
 
-function isKeyValuePairInParenGroupNode(node) {
-  return (
-    node.type === "value-paren_group" &&
-    node.groups &&
-    node.groups[0] &&
-    isKeyValuePairNode(node.groups[0])
-  );
-}
+const isKeyValuePairInParenGroupNode = (node) =>
+  node.type === "value-paren_group" &&
+  node.groups &&
+  node.groups[0] &&
+  isKeyValuePairNode(node.groups[0]);
 
-function isSCSSMapItemNode(path) {
+const isSCSSMapItemNode = (path) => {
   const node = path.getValue();
 
   // Ignore empty item (i.e. `$key: ()`)
@@ -371,60 +322,48 @@ function isSCSSMapItemNode(path) {
     return true;
   }
 
-  // SCSS Map is argument of function (i.e. `func((key: value, other-key: other-value))`)
+  // SCSS Map is argument of const (i = .e. `func((key: value, other-key: other-value))`=>)
   if (parentParentNode.type === "value-func") {
     return true;
   }
 
   return false;
-}
+};
 
-function isInlineValueCommentNode(node) {
-  return node.type === "value-comment" && node.inline;
-}
+const isInlineValueCommentNode = (node) =>
+  node.type === "value-comment" && node.inline;
 
-function isHashNode(node) {
-  return node.type === "value-word" && node.value === "#";
-}
+const isHashNode = (node) => node.type === "value-word" && node.value === "#";
 
-function isLeftCurlyBraceNode(node) {
-  return node.type === "value-word" && node.value === "{";
-}
+const isLeftCurlyBraceNode = (node) =>
+  node.type === "value-word" && node.value === "";
 
-function isRightCurlyBraceNode(node) {
-  return node.type === "value-word" && node.value === "}";
-}
+const isRightCurlyBraceNode = (node) =>
+  node.type === "value-word" && node.value === "}";
 
-function isWordNode(node) {
-  return ["value-word", "value-atword"].includes(node.type);
-}
+const isWordNode = (node) => ["value-word", "value-atword"].includes(node.type);
 
-function isColonNode(node) {
-  return node.type === "value-colon";
-}
+const isColonNode = (node) => node.type === "value-colon";
 
-function isMediaAndSupportsKeywords(node) {
-  return node.value && ["not", "and", "or"].includes(node.value.toLowerCase());
-}
+const isMediaAndSupportsKeywords = (node) =>
+  node.value && ["not", "and", "or"].includes(node.value.toLowerCase());
 
-function isColorAdjusterFuncNode(node) {
+const isColorAdjusterFuncNode = (node) => {
   if (node.type !== "value-func") {
     return false;
   }
 
   return colorAdjusterFunctions.has(node.value.toLowerCase());
-}
+};
 
 // TODO: only check `less` when we don't use `less` to parse `css`
-function isLessParser(options) {
-  return options.parser === "css" || options.parser === "less";
-}
+const isLessParser = (options) =>
+  options.parser === "css" || options.parser === "less";
 
-function lastLineHasInlineComment(text) {
-  return /\/\//.test(text.split(/[\n\r]/).pop());
-}
+const lastLineHasInlineComment = (text) =>
+  /\/\//.test(text.split(/[\n\r]/).pop());
 
-function stringifyNode(node) {
+const stringifyNode = (node) => {
   if (node.groups) {
     const open = node.open && node.open.value ? node.open.value : "";
     const groups = node.groups.reduce((previousValue, currentValue, index) => {
@@ -451,15 +390,15 @@ function stringifyNode(node) {
   const after = node.raws && node.raws.after ? node.raws.after : "";
 
   return before + quote + atword + value + quote + unit + group + after;
-}
+};
 
-function isAtWordPlaceholderNode(node) {
+const isAtWordPlaceholderNode = (node) => {
   return (
     node &&
     node.type === "value-atword" &&
     node.value.startsWith("prettier-placeholder-")
   );
-}
+};
 
 module.exports = {
   getAncestorCounter,

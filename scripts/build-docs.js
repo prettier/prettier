@@ -13,9 +13,7 @@ shell.config.fatal = true;
 const rootDir = path.join(__dirname, "..");
 const docs = path.join(rootDir, "website/static/lib");
 
-function pipe(string) {
-  return new shell.ShellString(string);
-}
+const pipe = (string) => new shell.ShellString(string);
 
 const isPullRequest = process.env.PULL_REQUEST === "true";
 const prettierPath = path.join(
