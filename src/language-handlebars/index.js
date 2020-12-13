@@ -1,6 +1,7 @@
 "use strict";
 
 const createLanguage = require("../utils/create-language");
+const options = require("./options");
 const printer = require("./printer-glimmer");
 
 const languages = [
@@ -24,5 +25,6 @@ const parsers = {
 module.exports = {
   languages,
   printers,
+  options,
   parsers,
 };
