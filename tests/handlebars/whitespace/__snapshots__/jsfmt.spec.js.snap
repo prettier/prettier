@@ -1263,14 +1263,16 @@ printWidth: 40
 
 =====================================output=====================================
 <Textarea />
+{{#if true}}
+  Test
+{{/if}}
+
+<Textarea />
 
 {{#if true}}
   Test
 {{/if}}
-<Textarea />
-{{#if true}}
-  Test
-{{/if}}
+
 <Textarea />
 
 {{#if true}}
@@ -1307,14 +1309,16 @@ printWidth: 40
 
 =====================================output=====================================
 <Textarea />
+{{#if true}}
+  Test
+{{/if}}
+
+<Textarea />
 
 {{#if true}}
   Test
 {{/if}}
-<Textarea />
-{{#if true}}
-  Test
-{{/if}}
+
 <Textarea />
 
 {{#if true}}
