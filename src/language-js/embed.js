@@ -6,7 +6,7 @@ const formatCss = require("./embed/css");
 const formatGraphql = require("./embed/graphql");
 const formatHtml = require("./embed/html");
 
-function getLanguage(path) {
+const getLanguage = (path) => {
   if (
     isStyledJsx(path) ||
     isStyledComponents(path) ||
@@ -31,9 +31,9 @@ function getLanguage(path) {
   if (isMarkdown(path)) {
     return "markdown";
   }
-}
+};
 
-function embed(path, print, textToDoc, options) {
+const embed = (path, print, textToDoc, options) => {
   const node = path.getValue();
 
   if (
@@ -65,13 +65,13 @@ function embed(path, print, textToDoc, options) {
   if (language === "html" || language === "angular") {
     return formatHtml(path, print, textToDoc, options, { parser: language });
   }
-}
+};
 
 /**
  * md`...`
  * markdown`...`
  */
-function isMarkdown(path) {
+const isMarkdown = (path) => {
   const node = path.getValue();
   const parent = path.getParentNode();
   return (
@@ -81,7 +81,7 @@ function isMarkdown(path) {
     parent.tag.type === "Identifier" &&
     (parent.tag.name === "md" || parent.tag.name === "markdown")
   );
-}
+};
 
 /**
  * Template literal in these contexts:
@@ -90,7 +90,7 @@ function isMarkdown(path) {
  * css.global``
  * css.resolve``
  */
-function isStyledJsx(path) {
+const isStyledJsx = (path) => {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -114,7 +114,7 @@ function isStyledJsx(path) {
       (parent.tag.property.name === "global" ||
         parent.tag.property.name === "resolve"))
   );
-}
+};
 
 /**
  * Angular Components can have:
@@ -130,7 +130,7 @@ function isStyledJsx(path) {
  *  styles: [`h1 { color: blue; }`]
  * })
  */
-function isAngularComponentStyles(path) {
+const isAngularComponentStyles = (path) => {
   return path.match(
     (node) => node.type === "TemplateLiteral",
     (node, name) => node.type === "ArrayExpression" && name === "elements",
@@ -141,8 +141,8 @@ function isAngularComponentStyles(path) {
       name === "value",
     ...angularComponentObjectExpressionPredicates
   );
-}
-function isAngularComponentTemplate(path) {
+};
+const isAngularComponentTemplate = (path) => {
   return path.match(
     (node) => node.type === "TemplateLiteral",
     (node, name) =>
@@ -152,7 +152,7 @@ function isAngularComponentTemplate(path) {
       name === "value",
     ...angularComponentObjectExpressionPredicates
   );
-}
+};
 const angularComponentObjectExpressionPredicates = [
   (node, name) => node.type === "ObjectExpression" && name === "properties",
   (node, name) =>
@@ -166,7 +166,7 @@ const angularComponentObjectExpressionPredicates = [
 /**
  * styled-components template literals
  */
-function isStyledComponents(path) {
+const isStyledComponents = (path) => {
   const parent = path.getParentNode();
 
   if (!parent || parent.type !== "TaggedTemplateExpression") {
@@ -206,12 +206,12 @@ function isStyledComponents(path) {
     default:
       return false;
   }
-}
+};
 
 /**
  * JSX element with CSS prop
  */
-function isCssProp(path) {
+const isCssProp = (path) => {
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   return (
@@ -221,15 +221,15 @@ function isCssProp(path) {
     parentParent.name.type === "JSXIdentifier" &&
     parentParent.name.name === "css"
   );
-}
+};
 
-function isStyledIdentifier(node) {
+const isStyledIdentifier = (node) => {
   return node.type === "Identifier" && node.name === "styled";
-}
+};
 
-function isStyledExtend(node) {
+const isStyledExtend = (node) => {
   return /^[A-Z]/.test(node.object.name) && node.property.name === "extend";
-}
+};
 
 /*
  * react-relay and graphql-tag
@@ -241,7 +241,7 @@ function isStyledExtend(node) {
  * This intentionally excludes Relay Classic tags, as Prettier does not
  * support Relay Classic formatting.
  */
-function isGraphQL(path) {
+const isGraphQL = (path) => {
   const node = path.getValue();
   const parent = path.getParentNode();
 
@@ -258,9 +258,9 @@ function isGraphQL(path) {
           parent.callee.type === "Identifier" &&
           parent.callee.name === "graphql")))
   );
-}
+};
 
-function hasLanguageComment(node, languageName) {
+const hasLanguageComment = (node, languageName) => {
   // This checks for a leading comment that is exactly `/* GraphQL */`
   // In order to be in line with other implementations of this comment tag
   // we will not trim the comment value and we will expect exactly one space on
@@ -271,13 +271,13 @@ function hasLanguageComment(node, languageName) {
     CommentCheckFlags.Block | CommentCheckFlags.Leading,
     ({ value }) => value === ` ${languageName} `
   );
-}
+};
 
 /**
  *     - html`...`
  *     - HTML comment block
  */
-function isHtml(path) {
+const isHtml = (path) => {
   return (
     hasLanguageComment(path.getValue(), "HTML") ||
     path.match(
@@ -289,10 +289,10 @@ function isHtml(path) {
         name === "quasi"
     )
   );
-}
+};
 
-function hasInvalidCookedValue({ quasis }) {
+const hasInvalidCookedValue = ({ quasis }) => {
   return quasis.some(({ value: { cooked } }) => cooked === null);
-}
+};
 
 module.exports = embed;

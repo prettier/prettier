@@ -36,23 +36,23 @@ const getLeadingAndTrailingHtmlWhitespace = (string) => {
 };
 const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
 
-function arrayToMap(array) {
+const arrayToMap = (array) => {
   const map = Object.create(null);
   for (const value of array) {
     map[value] = true;
   }
   return map;
-}
+};
 
-function mapObject(object, fn) {
+const mapObject = (object, fn) => {
   const newObject = Object.create(null);
   for (const key of Object.keys(object)) {
     newObject[key] = fn(object[key], key);
   }
   return newObject;
-}
+};
 
-function shouldPreserveContent(node, options) {
+const shouldPreserveContent = (node, options) => {
   // unterminated node in ie conditional comment
   // e.g. <!--[if lt IE 9]><html><![endif]-->
   if (
@@ -89,9 +89,9 @@ function shouldPreserveContent(node, options) {
   }
 
   return false;
-}
+};
 
-function hasPrettierIgnore(node) {
+const hasPrettierIgnore = (node) => {
   /* istanbul ignore next */
   if (node.type === "attribute") {
     return false;
@@ -108,13 +108,13 @@ function hasPrettierIgnore(node) {
 
   const prevNode = node.parent.children[node.index - 1];
   return isPrettierIgnore(prevNode);
-}
+};
 
-function isPrettierIgnore(node) {
+const isPrettierIgnore = (node) => {
   return node.type === "comment" && node.value.trim() === "prettier-ignore";
-}
+};
 
-function getPrettierIgnoreAttributeCommentData(value) {
+const getPrettierIgnoreAttributeCommentData = (value) => {
   const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
 
   if (!match) {
@@ -126,14 +126,14 @@ function getPrettierIgnoreAttributeCommentData(value) {
   }
 
   return match[1].split(/\s+/);
-}
+};
 
 /** there's no opening/closing tag or it's considered not breakable */
-function isTextLikeNode(node) {
+const isTextLikeNode = (node) => {
   return node.type === "text" || node.type === "comment";
-}
+};
 
-function isScriptLikeTag(node) {
+const isScriptLikeTag = (node) => {
   return (
     node.type === "element" &&
     (node.fullName === "script" ||
@@ -142,25 +142,25 @@ function isScriptLikeTag(node) {
       (isUnknownNamespace(node) &&
         (node.name === "script" || node.name === "style")))
   );
-}
+};
 
-function canHaveInterpolation(node) {
+const canHaveInterpolation = (node) => {
   return node.children && !isScriptLikeTag(node);
-}
+};
 
-function isWhitespaceSensitiveNode(node) {
+const isWhitespaceSensitiveNode = (node) => {
   return (
     isScriptLikeTag(node) ||
     node.type === "interpolation" ||
     isIndentationSensitiveNode(node)
   );
-}
+};
 
-function isIndentationSensitiveNode(node) {
+const isIndentationSensitiveNode = (node) => {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
-}
+};
 
-function isLeadingSpaceSensitiveNode(node, options) {
+const isLeadingSpaceSensitiveNode = (node, options) => {
   const isLeadingSpaceSensitive = _isLeadingSpaceSensitiveNode();
 
   if (
@@ -175,7 +175,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 
   return isLeadingSpaceSensitive;
 
-  function _isLeadingSpaceSensitiveNode() {
+  const _isLeadingSpaceSensitiveNode = () => {
     if (isFrontMatterNode(node)) {
       return false;
     }
@@ -215,10 +215,10 @@ function isLeadingSpaceSensitiveNode(node, options) {
     }
 
     return true;
-  }
-}
+  };
+};
 
-function isTrailingSpaceSensitiveNode(node, options) {
+const isTrailingSpaceSensitiveNode = (node, options) => {
   if (isFrontMatterNode(node)) {
     return false;
   }
@@ -258,26 +258,26 @@ function isTrailingSpaceSensitiveNode(node, options) {
   }
 
   return true;
-}
+};
 
-function isDanglingSpaceSensitiveNode(node) {
+const isDanglingSpaceSensitiveNode = (node) => {
   return (
     isDanglingSpaceSensitiveCssDisplay(node.cssDisplay) &&
     !isScriptLikeTag(node)
   );
-}
+};
 
-function forceNextEmptyLine(node) {
+const forceNextEmptyLine = (node) => {
   return (
     isFrontMatterNode(node) ||
     (node.next &&
       node.sourceSpan.end &&
       node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)
   );
-}
+};
 
 /** firstChild leadingSpaces and lastChild trailingSpaces */
-function forceBreakContent(node) {
+const forceBreakContent = (node) => {
   return (
     forceBreakChildren(node) ||
     (node.type === "element" &&
@@ -291,39 +291,39 @@ function forceBreakContent(node) {
       (!node.lastChild.isTrailingSpaceSensitive ||
         hasTrailingLineBreak(node.lastChild)))
   );
-}
+};
 
 /** spaces between children */
-function forceBreakChildren(node) {
+const forceBreakChildren = (node) => {
   return (
     node.type === "element" &&
     node.children.length !== 0 &&
     (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
-}
+};
 
-function preferHardlineAsLeadingSpaces(node) {
+const preferHardlineAsLeadingSpaces = (node) => {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
     (node.prev && preferHardlineAsTrailingSpaces(node.prev)) ||
     hasSurroundingLineBreak(node)
   );
-}
+};
 
-function preferHardlineAsTrailingSpaces(node) {
+const preferHardlineAsTrailingSpaces = (node) => {
   return (
     preferHardlineAsSurroundingSpaces(node) ||
     (node.type === "element" && node.fullName === "br") ||
     hasSurroundingLineBreak(node)
   );
-}
+};
 
-function hasSurroundingLineBreak(node) {
+const hasSurroundingLineBreak = (node) => {
   return hasLeadingLineBreak(node) && hasTrailingLineBreak(node);
-}
+};
 
-function hasLeadingLineBreak(node) {
+const hasLeadingLineBreak = (node) => {
   return (
     node.hasLeadingSpaces &&
     (node.prev
@@ -331,9 +331,9 @@ function hasLeadingLineBreak(node) {
       : node.parent.type === "root" ||
         node.parent.startSourceSpan.end.line < node.sourceSpan.start.line)
   );
-}
+};
 
-function hasTrailingLineBreak(node) {
+const hasTrailingLineBreak = (node) => {
   return (
     node.hasTrailingSpaces &&
     (node.next
@@ -342,9 +342,9 @@ function hasTrailingLineBreak(node) {
         (node.parent.endSourceSpan &&
           node.parent.endSourceSpan.start.line > node.sourceSpan.end.line))
   );
-}
+};
 
-function preferHardlineAsSurroundingSpaces(node) {
+const preferHardlineAsSurroundingSpaces = (node) => {
   switch (node.type) {
     case "ieConditionalComment":
     case "comment":
@@ -354,17 +354,17 @@ function preferHardlineAsSurroundingSpaces(node) {
       return ["script", "select"].includes(node.name);
   }
   return false;
-}
+};
 
-function getLastDescendant(node) {
+const getLastDescendant = (node) => {
   return node.lastChild ? getLastDescendant(node.lastChild) : node;
-}
+};
 
-function hasNonTextChild(node) {
+const hasNonTextChild = (node) => {
   return node.children && node.children.some((child) => child.type !== "text");
-}
+};
 
-function _inferScriptParser(node) {
+const _inferScriptParser = (node) => {
   const { type, lang } = node.attrMap;
   if (
     type === "module" ||
@@ -395,9 +395,9 @@ function _inferScriptParser(node) {
   if (type === "text/x-handlebars-template") {
     return "glimmer";
   }
-}
+};
 
-function inferStyleParser(node) {
+const inferStyleParser = (node) => {
   const { lang } = node.attrMap;
   if (!lang || lang === "postcss" || lang === "css") {
     return "css";
@@ -410,9 +410,9 @@ function inferStyleParser(node) {
   if (lang === "less") {
     return "less";
   }
-}
+};
 
-function inferScriptParser(node, options) {
+const inferScriptParser = (node, options) => {
   if (node.name === "script" && !node.attrMap.src) {
     if (!node.attrMap.lang && !node.attrMap.type) {
       return "babel";
@@ -431,41 +431,41 @@ function inferScriptParser(node, options) {
         inferParserByLanguage(node.attrMap.lang, options))
     );
   }
-}
+};
 
-function isBlockLikeCssDisplay(cssDisplay) {
+const isBlockLikeCssDisplay = (cssDisplay) => {
   return (
     cssDisplay === "block" ||
     cssDisplay === "list-item" ||
     cssDisplay.startsWith("table")
   );
-}
+};
 
-function isFirstChildLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+const isFirstChildLeadingSpaceSensitiveCssDisplay = (cssDisplay) => {
   return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
-}
+};
 
-function isLastChildTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+const isLastChildTrailingSpaceSensitiveCssDisplay = (cssDisplay) => {
   return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
-}
+};
 
-function isPrevTrailingSpaceSensitiveCssDisplay(cssDisplay) {
+const isPrevTrailingSpaceSensitiveCssDisplay = (cssDisplay) => {
   return !isBlockLikeCssDisplay(cssDisplay);
-}
+};
 
-function isNextLeadingSpaceSensitiveCssDisplay(cssDisplay) {
+const isNextLeadingSpaceSensitiveCssDisplay = (cssDisplay) => {
   return !isBlockLikeCssDisplay(cssDisplay);
-}
+};
 
-function isDanglingSpaceSensitiveCssDisplay(cssDisplay) {
+const isDanglingSpaceSensitiveCssDisplay = (cssDisplay) => {
   return !isBlockLikeCssDisplay(cssDisplay) && cssDisplay !== "inline-block";
-}
+};
 
-function isPreLikeNode(node) {
+const isPreLikeNode = (node) => {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
-}
+};
 
-function countParents(path, predicate) {
+const countParents = (path, predicate) => {
   let counter = 0;
   for (let i = path.stack.length - 1; i >= 0; i--) {
     const value = path.stack[i];
@@ -479,9 +479,9 @@ function countParents(path, predicate) {
     }
   }
   return counter;
-}
+};
 
-function hasParent(node, fn) {
+const hasParent = (node, fn) => {
   let current = node;
 
   while (current) {
@@ -493,9 +493,9 @@ function hasParent(node, fn) {
   }
 
   return false;
-}
+};
 
-function getNodeCssStyleDisplay(node, options) {
+const getNodeCssStyleDisplay = (node, options) => {
   if (node.prev && node.prev.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -537,26 +537,26 @@ function getNodeCssStyleDisplay(node, options) {
       );
     }
   }
-}
+};
 
-function isUnknownNamespace(node) {
+const isUnknownNamespace = (node) => {
   return (
     node.type === "element" &&
     !node.hasExplicitNamespace &&
     !["html", "svg"].includes(node.namespace)
   );
-}
+};
 
-function getNodeCssStyleWhiteSpace(node) {
+const getNodeCssStyleWhiteSpace = (node) => {
   return (
     (node.type === "element" &&
       (!node.namespace || isUnknownNamespace(node)) &&
       CSS_WHITE_SPACE_TAGS[node.name]) ||
     CSS_WHITE_SPACE_DEFAULT
   );
-}
+};
 
-function getMinIndentation(text) {
+const getMinIndentation = (text) => {
   let minIndentation = Infinity;
 
   for (const lineText of text.split("\n")) {
@@ -580,26 +580,26 @@ function getMinIndentation(text) {
   }
 
   return minIndentation === Infinity ? 0 : minIndentation;
-}
+};
 
-function dedentString(text, minIndent = getMinIndentation(text)) {
+const dedentString = (text, minIndent = getMinIndentation(text)) => {
   return minIndent === 0
     ? text
     : text
         .split("\n")
         .map((lineText) => lineText.slice(minIndent))
         .join("\n");
-}
+};
 
-function shouldNotPrintClosingTag(node, options) {
+const shouldNotPrintClosingTag = (node, options) => {
   return (
     !node.isSelfClosing &&
     !node.endSourceSpan &&
     (hasPrettierIgnore(node) || shouldPreserveContent(node.parent, options))
   );
-}
+};
 
-function countChars(text, char) {
+const countChars = (text, char) => {
   let counter = 0;
   for (let i = 0; i < text.length; i++) {
     if (text[i] === char) {
@@ -607,37 +607,37 @@ function countChars(text, char) {
     }
   }
   return counter;
-}
+};
 
-function unescapeQuoteEntities(text) {
+const unescapeQuoteEntities = (text) => {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
-}
+};
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
 // See https://vue-loader.vuejs.org/spec.html for detail
 const vueRootElementsSet = new Set(["template", "style", "script"]);
-function isVueCustomBlock(node, options) {
+const isVueCustomBlock = (node, options) => {
   return isVueSfcBlock(node, options) && !vueRootElementsSet.has(node.fullName);
-}
+};
 
-function isVueSfcBlock(node, options) {
+const isVueSfcBlock = (node, options) => {
   return (
     options.parser === "vue" &&
     node.type === "element" &&
     node.parent.type === "root" &&
     node.fullName.toLowerCase() !== "html"
   );
-}
+};
 
-function isVueNonHtmlBlock(node, options) {
+const isVueNonHtmlBlock = (node, options) => {
   return (
     isVueSfcBlock(node, options) &&
     (isVueCustomBlock(node, options) ||
       (node.attrMap.lang && node.attrMap.lang !== "html"))
   );
-}
+};
 
-function isVueSlotAttribute(attribute) {
+const isVueSlotAttribute = (attribute) => {
   const attributeName = attribute.fullName;
   return (
     attributeName.charAt(0) === "#" ||
@@ -645,9 +645,9 @@ function isVueSlotAttribute(attribute) {
     attributeName === "v-slot" ||
     attributeName.startsWith("v-slot:")
   );
-}
+};
 
-function isVueSfcBindingsAttribute(attribute, options) {
+const isVueSfcBindingsAttribute = (attribute, options) => {
   const element = attribute.parent;
   if (!isVueSfcBlock(element, options)) {
     return false;
@@ -661,7 +661,7 @@ function isVueSfcBindingsAttribute(attribute, options) {
     // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md
     (tagName === "style" && attributeName === "vars")
   );
-}
+};
 
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,

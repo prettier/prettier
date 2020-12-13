@@ -56,16 +56,16 @@ const {
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
 
-function concat(parts) {
+const concat = (parts) => {
   const newParts = normalizeParts(parts);
   return newParts.length === 0
     ? ""
     : newParts.length === 1
     ? newParts[0]
     : builders.concat(newParts);
-}
+};
 
-function embed(path, print, textToDoc, options) {
+const embed = (path, print, textToDoc, options) => {
   const node = path.getValue();
 
   switch (node.type) {
@@ -225,9 +225,9 @@ function embed(path, print, textToDoc, options) {
     case "front-matter":
       return printFrontMatter(node, textToDoc);
   }
-}
+};
 
-function genericPrint(path, options, print) {
+const genericPrint = (path, options, print) => {
   const node = path.getValue();
 
   switch (node.type) {
@@ -446,9 +446,9 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
   }
-}
+};
 
-function printChildren(path, options, print) {
+const printChildren = (path, options, print) => {
   const node = path.getValue();
 
   if (forceBreakChildren(node)) {
@@ -554,7 +554,7 @@ function printChildren(path, options, print) {
     }, "children")
   );
 
-  function printChild(childPath) {
+  const printChild = (childPath) => {
     const child = childPath.getValue();
 
     if (hasPrettierIgnore(child)) {
@@ -581,9 +581,9 @@ function printChildren(path, options, print) {
     }
 
     return print(childPath);
-  }
+  };
 
-  function printBetweenLine(prevNode, nextNode) {
+  const printBetweenLine = (prevNode, nextNode) => {
     return isTextLikeNode(prevNode) && isTextLikeNode(nextNode)
       ? prevNode.isTrailingSpaceSensitive
         ? prevNode.hasTrailingSpaces
@@ -643,10 +643,10 @@ function printChildren(path, options, print) {
       : nextNode.hasLeadingSpaces
       ? line
       : softline;
-  }
-}
+  };
+};
 
-function getNodeContent(node, options) {
+const getNodeContent = (node, options) => {
   let start = node.startSourceSpan.end.offset;
   if (
     node.firstChild &&
@@ -666,9 +666,9 @@ function getNodeContent(node, options) {
   }
 
   return options.originalText.slice(start, end);
-}
+};
 
-function printAttributes(path, options, print) {
+const printAttributes = (path, options, print) => {
   const node = path.getValue();
 
   if (!node.attrs || node.attrs.length === 0) {
@@ -746,9 +746,9 @@ function printAttributes(path, options, print) {
   }
 
   return concat(parts);
-}
+};
 
-function printOpeningTag(path, options, print) {
+const printOpeningTag = (path, options, print) => {
   const node = path.getValue();
 
   return concat([
@@ -756,32 +756,32 @@ function printOpeningTag(path, options, print) {
     printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
   ]);
-}
+};
 
-function printOpeningTagStart(node, options) {
+const printOpeningTagStart = (node, options) => {
   return node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
     ? ""
     : concat([
         printOpeningTagPrefix(node, options),
         printOpeningTagStartMarker(node),
       ]);
-}
+};
 
-function printOpeningTagEnd(node) {
+const printOpeningTagEnd = (node) => {
   return node.firstChild &&
     needsToBorrowParentOpeningTagEndMarker(node.firstChild)
     ? ""
     : printOpeningTagEndMarker(node);
-}
+};
 
-function printClosingTag(node, options) {
+const printClosingTag = (node, options) => {
   return concat([
     node.isSelfClosing ? "" : printClosingTagStart(node, options),
     printClosingTagEnd(node, options),
   ]);
-}
+};
 
-function printClosingTagStart(node, options) {
+const printClosingTagStart = (node, options) => {
   return node.lastChild &&
     needsToBorrowParentClosingTagStartMarker(node.lastChild)
     ? ""
@@ -789,9 +789,9 @@ function printClosingTagStart(node, options) {
         printClosingTagPrefix(node, options),
         printClosingTagStartMarker(node, options),
       ]);
-}
+};
 
-function printClosingTagEnd(node, options) {
+const printClosingTagEnd = (node, options) => {
   return (
     node.next
       ? needsToBorrowPrevClosingTagEndMarker(node.next)
@@ -802,9 +802,9 @@ function printClosingTagEnd(node, options) {
         printClosingTagEndMarker(node, options),
         printClosingTagSuffix(node, options),
       ]);
-}
+};
 
-function needsToBorrowNextOpeningTagStartMarker(node) {
+const needsToBorrowNextOpeningTagStartMarker = (node) => {
   /**
    *     123<p
    *        ^^
@@ -817,9 +817,9 @@ function needsToBorrowNextOpeningTagStartMarker(node) {
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces
   );
-}
+};
 
-function needsToBorrowParentOpeningTagEndMarker(node) {
+const needsToBorrowParentOpeningTagEndMarker = (node) => {
   /**
    *     <p
    *       >123
@@ -830,9 +830,9 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
    *       ^
    */
   return !node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
-}
+};
 
-function needsToBorrowPrevClosingTagEndMarker(node) {
+const needsToBorrowPrevClosingTagEndMarker = (node) => {
   /**
    *     <p></p
    *     >123
@@ -849,9 +849,9 @@ function needsToBorrowPrevClosingTagEndMarker(node) {
     node.isLeadingSpaceSensitive &&
     !node.hasLeadingSpaces
   );
-}
+};
 
-function needsToBorrowLastChildClosingTagEndMarker(node) {
+const needsToBorrowLastChildClosingTagEndMarker = (node) => {
   /**
    *     <p
    *       ><a></a
@@ -866,9 +866,9 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
     !isTextLikeNode(getLastDescendant(node.lastChild)) &&
     !isPreLikeNode(node)
   );
-}
+};
 
-function needsToBorrowParentClosingTagStartMarker(node) {
+const needsToBorrowParentClosingTagStartMarker = (node) => {
   /**
    *     <p>
    *       123</p
@@ -886,31 +886,31 @@ function needsToBorrowParentClosingTagStartMarker(node) {
     node.isTrailingSpaceSensitive &&
     isTextLikeNode(getLastDescendant(node))
   );
-}
+};
 
-function printOpeningTagPrefix(node, options) {
+const printOpeningTagPrefix = (node, options) => {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
     ? printClosingTagEndMarker(node.prev, options)
     : "";
-}
+};
 
-function printClosingTagPrefix(node, options) {
+const printClosingTagPrefix = (node, options) => {
   return needsToBorrowLastChildClosingTagEndMarker(node)
     ? printClosingTagEndMarker(node.lastChild, options)
     : "";
-}
+};
 
-function printClosingTagSuffix(node, options) {
+const printClosingTagSuffix = (node, options) => {
   return needsToBorrowParentClosingTagStartMarker(node)
     ? printClosingTagStartMarker(node.parent, options)
     : needsToBorrowNextOpeningTagStartMarker(node)
     ? printOpeningTagStartMarker(node.next)
     : "";
-}
+};
 
-function printOpeningTagStartMarker(node) {
+const printOpeningTagStartMarker = (node) => {
   switch (node.type) {
     case "ieConditionalComment":
     case "ieConditionalStartComment":
@@ -929,9 +929,9 @@ function printOpeningTagStartMarker(node) {
     default:
       return `<${node.rawName}`;
   }
-}
+};
 
-function printOpeningTagEndMarker(node) {
+const printOpeningTagEndMarker = (node) => {
   assert(!node.isSelfClosing);
   switch (node.type) {
     case "ieConditionalComment":
@@ -944,9 +944,9 @@ function printOpeningTagEndMarker(node) {
     default:
       return ">";
   }
-}
+};
 
-function printClosingTagStartMarker(node, options) {
+const printClosingTagStartMarker = (node, options) => {
   assert(!node.isSelfClosing);
   /* istanbul ignore next */
   if (shouldNotPrintClosingTag(node, options)) {
@@ -963,9 +963,9 @@ function printClosingTagStartMarker(node, options) {
     default:
       return `</${node.rawName}`;
   }
-}
+};
 
-function printClosingTagEndMarker(node, options) {
+const printClosingTagEndMarker = (node, options) => {
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }
@@ -985,9 +985,9 @@ function printClosingTagEndMarker(node, options) {
     default:
       return ">";
   }
-}
+};
 
-function getTextValueParts(node, value = node.value) {
+const getTextValueParts = (node, value = node.value) => {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
@@ -996,9 +996,9 @@ function getTextValueParts(node, value = node.value) {
           hardline
         )
     : join(line, splitByHtmlWhitespace(value)).parts;
-}
+};
 
-function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
+const printEmbeddedAttributeValue = (node, originalTextToDoc, options) => {
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () => unescapeQuoteEntities(node.value);
@@ -1236,7 +1236,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   }
 
   return null;
-}
+};
 
 module.exports = {
   preprocess,

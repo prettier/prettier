@@ -7,7 +7,7 @@ const { isNextLineEmpty } = require("../common/util");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 
-function genericPrint(path, options, print) {
+const genericPrint = (path, options, print) => {
   const n = path.getValue();
   if (!n) {
     return "";
@@ -594,9 +594,9 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown graphql type: " + JSON.stringify(n.kind));
   }
-}
+};
 
-function printDirectives(path, print, n) {
+const printDirectives = (path, print, n) => {
   if (n.directives.length === 0) {
     return "";
   }
@@ -608,9 +608,9 @@ function printDirectives(path, print, n) {
   }
 
   return concat([" ", group(indent(concat([softline, printed])))]);
-}
+};
 
-function printSequence(sequencePath, options, print) {
+const printSequence = (sequencePath, options, print) => {
   const count = sequencePath.getValue().length;
 
   return sequencePath.map((path, i) => {
@@ -625,13 +625,13 @@ function printSequence(sequencePath, options, print) {
 
     return printed;
   });
-}
+};
 
-function canAttachComment(node) {
+const canAttachComment = (node) => {
   return node.kind && node.kind !== "Comment";
-}
+};
 
-function printComment(commentPath) {
+const printComment = (commentPath) => {
   const comment = commentPath.getValue();
   if (comment.kind === "Comment") {
     return "#" + comment.value.trimEnd();
@@ -639,9 +639,9 @@ function printComment(commentPath) {
 
   /* istanbul ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
-}
+};
 
-function printInterfaces(path, options, print) {
+const printInterfaces = (path, options, print) => {
   const node = path.getNode();
   const parts = [];
   const { interfaces } = node;
@@ -665,19 +665,19 @@ function printInterfaces(path, options, print) {
   }
 
   return parts;
-}
+};
 
-function clean(/*node, newNode , parent*/) {}
+const clean = (/*node, newNode , parent*/) => {};
 clean.ignoredProperties = new Set(["loc", "comments"]);
 
-function hasPrettierIgnore(path) {
+const hasPrettierIgnore = (path) => {
   const node = path.getValue();
   return (
     node &&
     Array.isArray(node.comments) &&
     node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
   );
-}
+};
 
 module.exports = {
   print: genericPrint,

@@ -9,7 +9,7 @@ const createError = require("../common/parser-create-error");
 const { composeLoc, locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
-function postprocess(ast, options) {
+const postprocess = (ast, options) => {
   if (
     options.parser === "typescript" ||
     options.parser === "flow" ||
@@ -179,19 +179,19 @@ function postprocess(ast, options) {
    * - `toOverrideNode` must be the last thing in `toBeOverriddenNode`
    * - do nothing if there's a semicolon on `toOverrideNode.end` (no need to fix)
    */
-  function overrideLocEnd(toBeOverriddenNode, toOverrideNode) {
+  const overrideLocEnd = (toBeOverriddenNode, toOverrideNode) => {
     if (options.originalText[locEnd(toOverrideNode)] === ";") {
       return;
     }
     toBeOverriddenNode.range = composeLoc(toBeOverriddenNode, toOverrideNode);
-  }
-}
+  };
+};
 
 // This is a workaround to transform `ChainExpression` from `espree`, `meriyah`,
 // and `typescript` into `babel` shape AST, we should do the opposite,
 // since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
-function transformChainExpression(node) {
+const transformChainExpression = (node) => {
   if (node.type === "CallExpression") {
     node.type = "OptionalCallExpression";
     node.callee = transformChainExpression(node.callee);
@@ -204,9 +204,9 @@ function transformChainExpression(node) {
     node.expression = transformChainExpression(node.expression);
   }
   return node;
-}
+};
 
-function visitNode(node, fn) {
+const visitNode = (node, fn) => {
   let entries;
 
   if (Array.isArray(node)) {
@@ -230,17 +230,17 @@ function visitNode(node, fn) {
   }
 
   return fn(node) || node;
-}
+};
 
-function isUnbalancedLogicalTree(node) {
+const isUnbalancedLogicalTree = (node) => {
   return (
     node.type === "LogicalExpression" &&
     node.right.type === "LogicalExpression" &&
     node.operator === node.right.operator
   );
-}
+};
 
-function rebalanceLogicalTree(node) {
+const rebalanceLogicalTree = (node) => {
   if (!isUnbalancedLogicalTree(node)) {
     return node;
   }
@@ -258,9 +258,9 @@ function rebalanceLogicalTree(node) {
     right: node.right.right,
     range: composeLoc(node),
   });
-}
+};
 
-function includeShebang(ast, options) {
+const includeShebang = (ast, options) => {
   const shebang = getShebang(options.originalText);
 
   if (shebang) {
@@ -270,6 +270,6 @@ function includeShebang(ast, options) {
       range: [0, shebang.length],
     });
   }
-}
+};
 
 module.exports = postprocess;

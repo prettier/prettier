@@ -9,7 +9,7 @@ const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
 
-function babelOptions({ sourceType, extraPlugins = [] }) {
+const babelOptions = ({ sourceType, extraPlugins = [] }) => {
   return {
     sourceType,
     allowAwaitOutsideFunction: true,
@@ -45,13 +45,13 @@ function babelOptions({ sourceType, extraPlugins = [] }) {
     tokens: true,
     ranges: true,
   };
-}
+};
 
-function resolvePluginsConflict(
+const resolvePluginsConflict = (
   condition,
   pluginCombinations,
   conflictPlugins
-) {
+) => {
   if (!condition) {
     return pluginCombinations;
   }
@@ -62,12 +62,12 @@ function resolvePluginsConflict(
     }
   }
   return combinations;
-}
+};
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
 const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
-function isFlowFile(text, options) {
+const isFlowFile = (text, options) => {
   if (options.filepath && options.filepath.endsWith(".js.flow")) {
     return true;
   }
@@ -87,9 +87,9 @@ function isFlowFile(text, options) {
   }
 
   return FLOW_PRAGMA_REGEX.test(text);
-}
+};
 
-function createParse(parseMethod, ...pluginCombinations) {
+const createParse = (parseMethod, ...pluginCombinations) => {
   return (text, parsers, opts = {}) => {
     if (opts.parser === "babel" && isFlowFile(text, opts)) {
       opts.parser = "babel-flow";
@@ -134,7 +134,7 @@ function createParse(parseMethod, ...pluginCombinations) {
 
     return postprocess(ast, { ...opts, originalText: text });
   };
-}
+};
 
 const parse = createParse("parse", ["jsx", "flow"]);
 const parseFlow = createParse("parse", [
@@ -148,7 +148,7 @@ const parseTypeScript = createParse(
 );
 const parseExpression = createParse("parseExpression", ["jsx"]);
 
-function tryCombinations(fn, combinations) {
+const tryCombinations = (fn, combinations) => {
   let error;
   for (let i = 0; i < combinations.length; i++) {
     try {
@@ -160,7 +160,7 @@ function tryCombinations(fn, combinations) {
     }
   }
   throw error;
-}
+};
 
 const messagesShouldThrow = new Set([
   // TSErrors.UnexpectedTypeAnnotation
@@ -174,31 +174,45 @@ const messagesShouldThrow = new Set([
   "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
 ]);
 
-function shouldRethrow(error) {
+const shouldRethrow = (error) => {
   const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
   // Only works for literal message
   return messagesShouldThrow.has(message);
-}
+};
 
-function rethrowSomeRecoveredErrors(ast) {
+const rethrowSomeRecoveredErrors = (ast) => {
   const error = ast.errors.find((error) => shouldRethrow(error));
   if (error) {
     throw error;
   }
 
   return ast;
-}
+};
 
-function parseJson(text, parsers, opts) {
+const parseJson = (text, parsers, opts) => {
   const ast = parseExpression(text, parsers, opts);
 
   ast.comments.forEach(assertJsonNode);
   assertJsonNode(ast);
 
   return ast;
-}
+};
 
-function assertJsonNode(node, parent) {
+const assertJsonNode = (node, parent) => {
+  const assertJsonChildNode = (child) => assertJsonNode(child, node);
+
+  const createJsonError = (attribute) => {
+    const name = !attribute
+      ? node.type
+      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
+    return createError(`${name} is not allowed in JSON.`, {
+      start: {
+        line: node.loc.start.line,
+        column: node.loc.start.column + 1,
+      },
+    });
+  };
+
   switch (node.type) {
     case "ArrayExpression":
       return node.elements.forEach(assertJsonChildNode);
@@ -234,23 +248,7 @@ function assertJsonNode(node, parent) {
     default:
       throw createJsonError();
   }
-
-  function assertJsonChildNode(child) {
-    return assertJsonNode(child, node);
-  }
-
-  function createJsonError(attribute) {
-    const name = !attribute
-      ? node.type
-      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in JSON.`, {
-      start: {
-        line: node.loc.start.line,
-        column: node.loc.start.column + 1,
-      },
-    });
-  }
-}
+};
 
 const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
 const babelFlow = { ...babel, parse: parseFlow };
