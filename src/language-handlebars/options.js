@@ -11,10 +11,10 @@ module.exports = {
     default: "ignore",
     description: "How to handle whitespaces in Handlebars.",
     choices: [
-      // {
-      //   value: "strict",
-      //   description: "Whitespaces are considered sensitive.",
-      // },
+      {
+        value: "strict",
+        description: "Whitespaces are considered sensitive.",
+      },
       {
         value: "ignore",
         description: "Whitespaces are considered insensitive.",
