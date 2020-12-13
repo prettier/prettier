@@ -75,6 +75,81 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`component.hbs - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<UserGreeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
+
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>hello</f.input>
+</Form>
+
+<this.label @title="hello" />
+
+<button onclick={{action next}}>Next</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled=disabled class="disabled"></button>
+
+<img alt="" />
+
+<div ...attributes>Hello</div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
+=====================================output=====================================
+<UserGreeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
+
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>
+    hello
+  </f.input>
+</Form>
+
+<this.label @title="hello" />
+
+<button onclick={{action next}}>
+  Next
+</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled="disabled" class="disabled"></button>
+
+<img alt="" />
+
+<div ...attributes>
+  Hello
+</div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
+================================================================================
+`;
+
 exports[`component.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -175,6 +250,32 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`literals.hbs - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+
+=====================================output=====================================
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+================================================================================
+`;
+
 exports[`literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -203,6 +304,38 @@ printWidth: 80
 exports[`nested-path.hbs - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div class="entry">
+  <h1>{{title}}</h1>
+  <h2>By {{author.name}}</h2>
+
+  <div class="body">
+    {{body}}
+  </div>
+</div>
+
+=====================================output=====================================
+<div class="entry">
+  <h1>
+    {{title}}
+  </h1>
+  <h2>
+    By {{author.name}}
+  </h2>
+
+  <div class="body">
+    {{body}}
+  </div>
+</div>
+================================================================================
+`;
+
+exports[`nested-path.hbs - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
@@ -266,6 +399,22 @@ printWidth: 80
 exports[`raw.hbs - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p>{{{raw}}}</p>
+
+=====================================output=====================================
+<p>
+  {{{raw}}}
+</p>
+================================================================================
+`;
+
+exports[`raw.hbs - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
