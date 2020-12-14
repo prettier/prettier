@@ -45,6 +45,7 @@ const {
   isGetterOrSetter,
   isTheOnlyJSXElementInMarkdown,
   isBlockComment,
+  isLineComment,
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
@@ -1271,10 +1272,8 @@ function printRegex(node) {
 function canAttachComment(node) {
   return (
     node.type &&
-    node.type !== "CommentBlock" &&
-    node.type !== "CommentLine" &&
-    node.type !== "Line" &&
-    node.type !== "Block" &&
+    !isBlockComment(node) &&
+    !isLineComment(node) &&
     node.type !== "EmptyStatement" &&
     node.type !== "TemplateElement" &&
     node.type !== "Import"
