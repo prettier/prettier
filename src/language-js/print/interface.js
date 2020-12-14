@@ -37,6 +37,7 @@ function printInterface(path, options, print) {
   const shouldIndentOnlyHeritageClauses =
     n.typeParameters &&
     !hasComment(
+      options,
       n.typeParameters,
       CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
@@ -56,7 +57,7 @@ function printInterface(path, options, print) {
   }
 
   if (
-    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
+    (n.id && hasComment(options, n.id, CommentCheckFlags.Trailing)) ||
     (n.extends && n.extends.length !== 0)
   ) {
     const printedExtends = concat(extendsParts);

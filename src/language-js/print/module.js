@@ -56,13 +56,13 @@ function printExportDeclaration(path, options, print) {
     parts.push(" default");
   }
 
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
+  if (hasComment(options, node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
     );
 
-    if (needsHardlineAfterDanglingComment(node)) {
+    if (needsHardlineAfterDanglingComment(options, node)) {
       parts.push(hardline);
     }
   }
@@ -204,7 +204,7 @@ function printModuleSpecifiers(path, options, print) {
       const canBreak =
         groupedSpecifiers.length > 1 ||
         standaloneSpecifiers.length > 0 ||
-        node.specifiers.some((node) => hasComment(node));
+        node.specifiers.some((node) => hasComment(options, node));
 
       if (canBreak) {
         parts.push(

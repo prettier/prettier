@@ -278,10 +278,10 @@ function printTernary(path, options, print) {
   // outer-most ConditionalExpression.
   const comments = flat([
     ...testNodePropertyNames.map((propertyName) =>
-      getComments(node[propertyName])
+      getComments(options, node[propertyName])
     ),
-    getComments(consequentNode),
-    getComments(alternateNode),
+    getComments(options, consequentNode),
+    getComments(options, alternateNode),
   ]);
   const shouldBreak = comments.some(
     (comment) =>

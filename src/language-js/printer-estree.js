@@ -262,7 +262,8 @@ function printPathNoParens(path, options, print, args) {
 
     case "Program": {
       const hasContents =
-        !n.body.every(({ type }) => type === "EmptyStatement") || hasComment(n);
+        !n.body.every(({ type }) => type === "EmptyStatement") ||
+        hasComment(options, n);
 
       // Babel 6
       if (n.directives) {
@@ -325,7 +326,7 @@ function printPathNoParens(path, options, print, args) {
       ]);
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
-      const shouldHug = !hasComment(n.expression);
+      const shouldHug = !hasComment(options, n.expression);
       if (shouldHug) {
         return concat(["(", path.call(print, "expression"), ")"]);
       }
@@ -569,7 +570,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ");
       }
 
-      if (hasComment(n.argument)) {
+      if (hasComment(options, n.argument)) {
         parts.push(
           group(
             concat([
@@ -612,7 +613,7 @@ function printPathNoParens(path, options, print, args) {
       const hasValue = n.declarations.some((decl) => decl.init);
 
       let firstVariable;
-      if (printed.length === 1 && !hasComment(n.declarations[0])) {
+      if (printed.length === 1 && !hasComment(options, n.declarations[0])) {
         firstVariable = printed[0];
       } else if (printed.length > 0) {
         // Indent first var to comply with eslint one-var rule
@@ -670,14 +671,15 @@ function printPathNoParens(path, options, print, args) {
       if (n.alternate) {
         const commentOnOwnLine =
           hasComment(
+            options,
             n.consequent,
             CommentCheckFlags.Trailing | CommentCheckFlags.Line
-          ) || needsHardlineAfterDanglingComment(n);
+          ) || needsHardlineAfterDanglingComment(options, n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
 
-        if (hasComment(n, CommentCheckFlags.Dangling)) {
+        if (hasComment(options, n, CommentCheckFlags.Dangling)) {
           parts.push(
             comments.printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "
@@ -849,17 +851,16 @@ function printPathNoParens(path, options, print, args) {
       ]);
     case "CatchClause":
       if (n.param) {
-        const parameterHasComments = hasComment(
-          n.param,
-          (comment) =>
-            !isBlockComment(comment) ||
-            (comment.leading &&
-              hasNewline(options.originalText, locEnd(comment))) ||
-            (comment.trailing &&
-              hasNewline(options.originalText, locStart(comment), {
-                backwards: true,
-              }))
-        );
+        const parameterHasComments =
+          hasComment(options, n.param, CommentCheckFlags.Line) ||
+          hasComment(options, n.param, CommentCheckFlags.Leading, (comment) =>
+            hasNewline(options.originalText, locEnd(comment))
+          ) ||
+          hasComment(options, n.param, CommentCheckFlags.Trailing, (comment) =>
+            hasNewline(options.originalText, locStart(comment), {
+              backwards: true,
+            })
+          );
         const param = path.call(print, "param");
 
         return concat([

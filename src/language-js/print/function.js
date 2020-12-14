@@ -179,7 +179,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   // We want to always keep these types of nodes on the same line
   // as the arrow.
   if (
-    !hasLeadingOwnLineComment(options.originalText, n.body) &&
+    !hasLeadingOwnLineComment(options.originalText, n.body, options) &&
     (n.body.type === "ArrayExpression" ||
       n.body.type === "ObjectExpression" ||
       n.body.type === "BlockStatement" ||
@@ -209,7 +209,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const shouldAddSoftLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
-    !hasComment(n);
+    !hasComment(options, n);
 
   const printTrailingComma =
     args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -243,15 +243,15 @@ function printArrowFunctionExpression(path, options, print, args) {
   );
 }
 
-function canPrintParamsWithoutParens(node) {
+function canPrintParamsWithoutParens(node, options) {
   const parameters = getFunctionParameters(node);
   return (
     parameters.length === 1 &&
     !node.typeParameters &&
-    !hasComment(node, CommentCheckFlags.Dangling) &&
+    !hasComment(options, node, CommentCheckFlags.Dangling) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
-    !hasComment(parameters[0]) &&
+    !hasComment(options, parameters[0]) &&
     !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -265,7 +265,7 @@ function shouldPrintParamsWithoutParens(path, options) {
 
   if (options.arrowParens === "avoid") {
     const node = path.getValue();
-    return canPrintParamsWithoutParens(node);
+    return canPrintParamsWithoutParens(node, options);
   }
 
   // Fallback default; should be unreachable
@@ -335,7 +335,7 @@ function printReturnAndThrowArgument(path, options, print) {
     }
   }
 
-  const comments = getComments(node);
+  const comments = getComments(options, node);
   const lastComment = comments[comments.length - 1];
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
@@ -343,7 +343,7 @@ function printReturnAndThrowArgument(path, options, print) {
     parts.push(semi);
   }
 
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
+  if (hasComment(options, node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)

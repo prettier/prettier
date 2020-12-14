@@ -244,7 +244,7 @@ function printMemberChain(path, options, print) {
     }
     currentGroup.push(printedNodes[i]);
 
-    if (hasComment(printedNodes[i].node, CommentCheckFlags.Trailing)) {
+    if (hasComment(options, printedNodes[i].node, CommentCheckFlags.Trailing)) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
@@ -306,7 +306,7 @@ function printMemberChain(path, options, print) {
 
   const shouldMerge =
     groups.length >= 2 &&
-    !hasComment(groups[1][0].node) &&
+    !hasComment(options, groups[1][0].node) &&
     shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
@@ -341,12 +341,16 @@ function printMemberChain(path, options, print) {
   const nodeHasComment =
     flatGroups
       .slice(1, -1)
-      .some((node) => hasComment(node.node, CommentCheckFlags.Leading)) ||
+      .some((node) =>
+        hasComment(options, node.node, CommentCheckFlags.Leading)
+      ) ||
     flatGroups
       .slice(0, -1)
-      .some((node) => hasComment(node.node, CommentCheckFlags.Trailing)) ||
+      .some((node) =>
+        hasComment(options, node.node, CommentCheckFlags.Trailing)
+      ) ||
     (groups[cutoff] &&
-      hasComment(groups[cutoff][0].node, CommentCheckFlags.Leading));
+      hasComment(options, groups[cutoff][0].node, CommentCheckFlags.Leading));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.

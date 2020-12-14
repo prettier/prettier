@@ -116,8 +116,7 @@ overrides:
         - error
         - file: "src/language-js/utils.js"
           functions:
-            - hasComment
-            - getComments
+            - getAllComments
         - "src/language-js/parse-postprocess.js"
         - "src/language-js/parser-babel.js"
         - "src/language-js/parser-meriyah.js"

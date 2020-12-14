@@ -25,6 +25,7 @@ const {
   addDanglingComment,
   addTrailingComment,
 } = require("../common/util");
+const CommentsStore = require("./comments-store");
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
@@ -166,11 +167,6 @@ function decorateComment(node, comment, options, enclosingNode) {
 
 const returnFalse = () => false;
 function attach(comments, ast, text, options) {
-  if (!Array.isArray(comments)) {
-    return;
-  }
-
-  const tiesToBreak = [];
   const {
     locStart,
     locEnd,
@@ -184,6 +180,14 @@ function attach(comments, ast, text, options) {
     remaining: handleRemainingComment = returnFalse,
   } = handleComments;
 
+  let commentsStore;
+  if (avoidAstMutation) {
+    commentsStore = new CommentsStore();
+  }
+  if (!Array.isArray(comments)) {
+    return commentsStore;
+  }
+  const tiesToBreak = [];
   const decoratedComments = comments.map((comment, index) => ({
     ...decorateComment(ast, comment, options),
     comment,
@@ -191,6 +195,7 @@ function attach(comments, ast, text, options) {
     options,
     ast,
     isLastComment: comments.length - 1 === index,
+    commentsStore,
   }));
 
   decoratedComments.forEach((context, index) => {
@@ -212,17 +217,17 @@ function attach(comments, ast, text, options) {
       options.parser === "__vue_expression"
     ) {
       if (locStart(comment) - locStart(ast) <= 0) {
-        addLeadingComment(ast, comment);
+        commentsStore.addLeadingComment(ast, comment);
         return;
       }
       if (locEnd(comment) - locEnd(ast) >= 0) {
-        addTrailingComment(ast, comment);
+        commentsStore.addTrailingComment(ast, comment);
         return;
       }
     }
 
     let args;
-    if (avoidAstMutation) {
+    if (commentsStore) {
       args = [context];
     } else {
       comment.enclosingNode = enclosingNode;
@@ -232,40 +237,86 @@ function attach(comments, ast, text, options) {
     }
 
     if (isOwnLineComment(text, options, decoratedComments, index)) {
+      const handleResult = handleOwnLineComment(...args);
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
-      if (handleOwnLineComment(...args)) {
+      if (handleResult) {
         // We're good
+        if (commentsStore) {
+          const { node, type } = handleResult;
+          commentsStore.addComment(node, comment, type);
+        }
       } else if (followingNode) {
         // Always a leading comment.
-        addLeadingComment(followingNode, comment);
+        if (commentsStore) {
+          commentsStore.addLeadingComment(followingNode, comment);
+        } else {
+          addLeadingComment(followingNode, comment);
+        }
       } else if (precedingNode) {
-        addTrailingComment(precedingNode, comment);
+        if (commentsStore) {
+          commentsStore.addTrailingComment(precedingNode, comment);
+        } else {
+          addTrailingComment(precedingNode, comment);
+        }
       } else if (enclosingNode) {
-        addDanglingComment(enclosingNode, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(enclosingNode, comment);
+        } else {
+          addDanglingComment(enclosingNode, comment);
+        }
       } else {
         // There are no nodes, let's attach it to the root of the ast
         /* istanbul ignore next */
-        addDanglingComment(ast, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(ast, comment);
+        } else {
+          addDanglingComment(ast, comment);
+        }
       }
     } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
-      if (handleEndOfLineComment(...args)) {
-        // We're good
+      const handleResult = handleEndOfLineComment(...args);
+      if (handleResult) {
+        if (commentsStore) {
+          const { node, type } = handleResult;
+          commentsStore.addComment(node, comment, type);
+        }
       } else if (precedingNode) {
         // There is content before this comment on the same line, but
         // none after it, so prefer a trailing comment of the previous node.
-        addTrailingComment(precedingNode, comment);
+        if (commentsStore) {
+          commentsStore.addTrailingComment(precedingNode, comment);
+        } else {
+          addTrailingComment(precedingNode, comment);
+        }
       } else if (followingNode) {
-        addLeadingComment(followingNode, comment);
+        if (commentsStore) {
+          commentsStore.addLeadingComment(followingNode, comment);
+        } else {
+          addLeadingComment(followingNode, comment);
+        }
       } else if (enclosingNode) {
-        addDanglingComment(enclosingNode, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(enclosingNode, comment);
+        } else {
+          addDanglingComment(enclosingNode, comment);
+        }
       } else {
         // There are no nodes, let's attach it to the root of the ast
         /* istanbul ignore next */
-        addDanglingComment(ast, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(ast, comment);
+        } else {
+          addDanglingComment(ast, comment);
+        }
       }
     } else {
-      if (handleRemainingComment(...args)) {
+      const handleResult = handleRemainingComment(...args);
+      if (handleResult) {
+        if (commentsStore) {
+          const { node, type } = handleResult;
+          commentsStore.addComment(node, comment, type);
+        }
         // We're good
       } else if (precedingNode && followingNode) {
         // Otherwise, text exists both before and after the comment on
@@ -282,15 +333,31 @@ function attach(comments, ast, text, options) {
         }
         tiesToBreak.push(context);
       } else if (precedingNode) {
-        addTrailingComment(precedingNode, comment);
+        if (commentsStore) {
+          commentsStore.addTrailingComment(precedingNode, comment);
+        } else {
+          addTrailingComment(precedingNode, comment);
+        }
       } else if (followingNode) {
-        addLeadingComment(followingNode, comment);
+        if (commentsStore) {
+          commentsStore.addLeadingComment(followingNode, comment);
+        } else {
+          addLeadingComment(followingNode, comment);
+        }
       } else if (enclosingNode) {
-        addDanglingComment(enclosingNode, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(enclosingNode, comment);
+        } else {
+          addDanglingComment(enclosingNode, comment);
+        }
       } else {
         // There are no nodes, let's attach it to the root of the ast
         /* istanbul ignore next */
-        addDanglingComment(ast, comment);
+        if (commentsStore) {
+          commentsStore.addDanglingComment(ast, comment);
+        } else {
+          addDanglingComment(ast, comment);
+        }
       }
     }
   });
@@ -307,6 +374,8 @@ function attach(comments, ast, text, options) {
       delete comment.followingNode;
     });
   }
+
+  return commentsStore;
 }
 
 const isAllEmptyAndNoLineBreak = (text) => !/[\S\n\u2028\u2029]/.test(text);
@@ -369,7 +438,12 @@ function breakTies(tiesToBreak, text, options) {
   if (tieCount === 0) {
     return;
   }
-  const { precedingNode, followingNode, enclosingNode } = tiesToBreak[0];
+  const {
+    precedingNode,
+    followingNode,
+    enclosingNode,
+    commentsStore,
+  } = tiesToBreak[0];
 
   const gapRegExp =
     (options.printer.getGapRegex &&
@@ -410,12 +484,34 @@ function breakTies(tiesToBreak, text, options) {
 
   tiesToBreak.forEach(({ comment }, i) => {
     if (i < indexOfFirstLeadingComment) {
-      addTrailingComment(precedingNode, comment);
+      if (commentsStore) {
+        commentsStore.addTrailingComment(precedingNode, comment);
+      } else {
+        addTrailingComment(precedingNode, comment);
+      }
     } else {
-      addLeadingComment(followingNode, comment);
+      if (commentsStore) {
+        commentsStore.addLeadingComment(followingNode, comment);
+      } else {
+        addLeadingComment(followingNode, comment);
+      }
     }
   });
 
+  if (commentsStore) {
+    for (const node of [precedingNode, followingNode]) {
+      for (const comments of [
+        commentsStore.get(node, "leading"),
+        commentsStore.get(node, "trailing"),
+        commentsStore.get(node, "dangling"),
+        commentsStore.get(node, "all"),
+      ]) {
+        comments.sort((a, b) => options.locStart(a) - options.locStart(b));
+      }
+    }
+  }
+
+  // TODO: put this in `if (!commentsStore)`
   for (const node of [precedingNode, followingNode]) {
     if (node.comments && node.comments.length > 1) {
       node.comments.sort((a, b) => options.locStart(a) - options.locStart(b));
@@ -425,10 +521,11 @@ function breakTies(tiesToBreak, text, options) {
   tiesToBreak.length = 0;
 }
 
-function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
+function printComment(commentPath, options, commentType) {
+  const commentsStore = getCommentsStore(options);
+  const comment = commentsStore ? commentPath : commentPath.getValue();
   comment.printed = true;
-  return options.printer.printComment(commentPath, options);
+  return options.printer.printComment(commentPath, options, commentType);
 }
 
 function findExpressionIndexForComment(quasis, comment, options) {
@@ -445,9 +542,10 @@ function findExpressionIndexForComment(quasis, comment, options) {
   /* istanbul ignore next */
   return 0;
 }
-
+const getCommentsStore = (options) => options[Symbol.for("commentsStore")];
 function printLeadingComment(commentPath, options) {
-  const comment = commentPath.getValue();
+  const commentsStore = getCommentsStore(options);
+  const comment = commentsStore ? commentPath : commentPath.getValue();
   const contents = printComment(commentPath, options);
   /* istanbul ignore next */
   if (!contents) {
@@ -474,8 +572,9 @@ function printLeadingComment(commentPath, options) {
 }
 
 function printTrailingComment(commentPath, options) {
-  const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
+  const commentsStore = getCommentsStore(options);
+  const comment = commentsStore ? commentPath : commentPath.getValue();
+  const contents = printComment(commentPath, options, "trailing");
   /* istanbul ignore next */
   if (!contents) {
     return "";
@@ -518,24 +617,34 @@ function printTrailingComment(commentPath, options) {
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
+  const commentsStore = getCommentsStore(options);
   const parts = [];
   const node = path.getValue();
 
-  if (!node || !node.comments) {
-    return "";
-  }
-
-  path.each((commentPath) => {
-    const comment = commentPath.getValue();
-    if (
-      comment &&
-      !comment.leading &&
-      !comment.trailing &&
-      (!filter || filter(comment))
-    ) {
-      parts.push(printComment(commentPath, options));
+  if (commentsStore) {
+    const comments = commentsStore.get(node, "dangling");
+    for (const comment of comments) {
+      if (!filter || filter(comment)) {
+        parts.push(printComment(comment, options));
+      }
     }
-  }, "comments");
+  } else {
+    if (!node || !node.comments) {
+      return "";
+    }
+
+    path.each((commentPath) => {
+      const comment = commentPath.getValue();
+      if (
+        comment &&
+        !comment.leading &&
+        !comment.trailing &&
+        (!filter || filter(comment))
+      ) {
+        parts.push(printComment(commentPath, options));
+      }
+    }, "comments");
+  }
 
   if (parts.length === 0) {
     return "";
@@ -555,9 +664,12 @@ function prependCursorPlaceholder(path, options, printed) {
 }
 
 function printComments(path, print, options, needsSemi) {
+  const commentsStore = getCommentsStore(options);
   const value = path.getValue();
   const printed = print(path);
-  const comments = value && value.comments;
+  const comments = commentsStore
+    ? commentsStore.get(value)
+    : value && value.comments;
 
   if (!comments || comments.length === 0) {
     return prependCursorPlaceholder(path, options, printed);
@@ -566,12 +678,9 @@ function printComments(path, print, options, needsSemi) {
   const leadingParts = [];
   const trailingParts = [needsSemi ? ";" : "", printed];
 
-  path.each((commentPath) => {
-    const comment = commentPath.getValue();
-    const { leading, trailing } = comment;
-
-    if (leading) {
-      const contents = printLeadingComment(commentPath, options);
+  if (commentsStore) {
+    for (const comment of commentsStore.get(value, "leading")) {
+      const contents = printLeadingComment(comment, options);
       /* istanbul ignore next */
       if (!contents) {
         return;
@@ -586,10 +695,36 @@ function printComments(path, print, options, needsSemi) {
       if (index !== false && hasNewline(text, index)) {
         leadingParts.push(hardline);
       }
-    } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, options));
     }
-  }, "comments");
+    for (const comment of commentsStore.get(value, "trailing")) {
+      trailingParts.push(printTrailingComment(comment, options));
+    }
+  } else {
+    path.each((commentPath) => {
+      const comment = commentPath.getValue();
+      const { leading, trailing } = comment;
+
+      if (leading) {
+        const contents = printLeadingComment(commentPath, options);
+        /* istanbul ignore next */
+        if (!contents) {
+          return;
+        }
+        leadingParts.push(contents);
+
+        const text = options.originalText;
+        const index = skipNewline(
+          text,
+          skipSpaces(text, options.locEnd(comment))
+        );
+        if (index !== false && hasNewline(text, index)) {
+          leadingParts.push(hardline);
+        }
+      } else if (trailing) {
+        trailingParts.push(printTrailingComment(commentPath, options));
+      }
+    }, "comments");
+  }
 
   return prependCursorPlaceholder(
     path,

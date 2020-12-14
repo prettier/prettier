@@ -8,7 +8,7 @@ const {
   printTemplateExpressions,
 } = require("../print/template-literal");
 
-function format(path, print, textToDoc) {
+function format(path, print, textToDoc, options) {
   const node = path.getValue();
 
   const numQuasis = node.quasis.length;
@@ -16,7 +16,7 @@ function format(path, print, textToDoc) {
     return "``";
   }
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = printTemplateExpressions(path, options, print);
   const parts = [];
 
   for (let i = 0; i < numQuasis; i++) {

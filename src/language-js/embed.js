@@ -6,7 +6,7 @@ const formatCss = require("./embed/css");
 const formatGraphql = require("./embed/graphql");
 const formatHtml = require("./embed/html");
 
-function getLanguage(path) {
+function getLanguage(path, options) {
   if (
     isStyledJsx(path) ||
     isStyledComponents(path) ||
@@ -16,11 +16,11 @@ function getLanguage(path) {
     return "css";
   }
 
-  if (isGraphQL(path)) {
+  if (isGraphQL(path, options)) {
     return "graphql";
   }
 
-  if (isHtml(path)) {
+  if (isHtml(path, options)) {
     return "html";
   }
 
@@ -45,7 +45,7 @@ function embed(path, print, textToDoc, options) {
     return;
   }
 
-  const language = getLanguage(path);
+  const language = getLanguage(path, options);
   if (!language) {
     return;
   }
@@ -55,11 +55,11 @@ function embed(path, print, textToDoc, options) {
   }
 
   if (language === "css") {
-    return formatCss(path, print, textToDoc);
+    return formatCss(path, print, textToDoc, options);
   }
 
   if (language === "graphql") {
-    return formatGraphql(path, print, textToDoc);
+    return formatGraphql(path, print, textToDoc, options);
   }
 
   if (language === "html" || language === "angular") {
@@ -241,12 +241,12 @@ function isStyledExtend(node) {
  * This intentionally excludes Relay Classic tags, as Prettier does not
  * support Relay Classic formatting.
  */
-function isGraphQL(path) {
+function isGraphQL(path, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
   return (
-    hasLanguageComment(node, "GraphQL") ||
+    hasLanguageComment(node, "GraphQL", options) ||
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&
@@ -260,13 +260,14 @@ function isGraphQL(path) {
   );
 }
 
-function hasLanguageComment(node, languageName) {
+function hasLanguageComment(node, languageName, options) {
   // This checks for a leading comment that is exactly `/* GraphQL */`
   // In order to be in line with other implementations of this comment tag
   // we will not trim the comment value and we will expect exactly one space on
   // either side of the GraphQL string
   // Also see ./clean.js
   return hasComment(
+    options,
     node,
     CommentCheckFlags.Block | CommentCheckFlags.Leading,
     ({ value }) => value === ` ${languageName} `
@@ -277,9 +278,9 @@ function hasLanguageComment(node, languageName) {
  *     - html`...`
  *     - HTML comment block
  */
-function isHtml(path) {
+function isHtml(path, options) {
   return (
-    hasLanguageComment(path.getValue(), "HTML") ||
+    hasLanguageComment(path.getValue(), "HTML", options) ||
     path.match(
       (node) => node.type === "TemplateLiteral",
       (node, name) =>

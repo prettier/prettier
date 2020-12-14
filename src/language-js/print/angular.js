@@ -15,9 +15,9 @@ function printAngular(path, options, print) {
       return concat(
         [].concat(
           path.call(print, "node"),
-          !hasComment(n.node)
+          !hasComment(options, n.node)
             ? []
-            : concat([" //", getComments(n.node)[0].value.trimEnd()])
+            : concat([" //", getComments(options, n.node)[0].value.trimEnd()])
         )
       );
     case "NGPipeExpression":

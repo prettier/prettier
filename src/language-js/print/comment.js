@@ -8,9 +8,7 @@ const {
 const { isLineComment, isBlockComment } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
-function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
-
+function printComment(comment, options, type) {
   if (isLineComment(comment)) {
     // Supports `//`, `#!`, `<!--`, and `-->`
     return options.originalText
@@ -25,7 +23,7 @@ function printComment(commentPath, options) {
       // printed as a `lineSuffix` which causes the comments to be
       // interleaved. See https://github.com/prettier/prettier/issues/4412
       if (
-        comment.trailing &&
+        type === "trailing" &&
         !hasNewline(options.originalText, locStart(comment), {
           backwards: true,
         })

@@ -28,10 +28,13 @@ function attachComments(text, ast, opts) {
   const astComments = ast.comments;
   if (astComments) {
     delete ast.comments;
-    comments.attach(astComments, ast, text, opts);
   }
+  const commentsStore = comments.attach(astComments, ast, text, opts);
   opts[Symbol.for("comments")] = astComments || [];
   opts[Symbol.for("tokens")] = ast.tokens || [];
+  if (commentsStore) {
+    opts[Symbol.for("commentsStore")] = commentsStore;
+  }
   opts.originalText = text;
   return astComments;
 }

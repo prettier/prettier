@@ -82,10 +82,10 @@ function printTypeParameters(path, options, print, paramsKey) {
 
 function printDanglingCommentsForInline(path, options) {
   const n = path.getValue();
-  if (!hasComment(n, CommentCheckFlags.Dangling)) {
+  if (!hasComment(options, n, CommentCheckFlags.Dangling)) {
     return "";
   }
-  const hasOnlyBlockComments = !hasComment(n, CommentCheckFlags.Line);
+  const hasOnlyBlockComments = !hasComment(options, n, CommentCheckFlags.Line);
   const printed = printDanglingComments(
     path,
     options,

@@ -27,7 +27,7 @@ function format(path, print, textToDoc, options, { parser }) {
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = printTemplateExpressions(path, options, print);
   if (expressionDocs.length === 0 && text.trim().length === 0) {
     return "``";
   }
