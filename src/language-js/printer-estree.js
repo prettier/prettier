@@ -268,7 +268,7 @@ function printPathNoParens(path, options, print, args) {
 
       // Babel 6
       if (hasDirectives(n)) {
-        parts.push(printDirectives(path, options, print));
+        parts.push(printDirectives(path, options, print), hardline);
         const lastDirective = getLast(n.directives);
         if (
           hasContents &&

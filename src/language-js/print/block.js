@@ -1,7 +1,7 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const { isNextLineEmpty } = require("../../common/util");
+const { getLast, isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
@@ -9,6 +9,7 @@ const { hasComment, CommentCheckFlags } = require("../utils");
 const { locEnd } = require("../loc");
 
 const { printBody } = require("./statement");
+const { printDirectives, hasDirectives } = require("./directives");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -22,13 +23,13 @@ function printBlock(path, options, print) {
   }
 
   const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
-  const hasDirectives = n.directives && n.directives.length > 0;
+  const nodeHasDirectives = hasDirectives(n);
 
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   if (
     !hasContent &&
-    !hasDirectives &&
+    !nodeHasDirectives &&
     !hasComment(n, CommentCheckFlags.Dangling) &&
     (parent.type === "ArrowFunctionExpression" ||
       parent.type === "FunctionExpression" ||
@@ -51,13 +52,15 @@ function printBlock(path, options, print) {
   parts.push("{");
 
   // Babel 6
-  if (hasDirectives) {
-    path.each((childPath) => {
-      parts.push(indent(concat([hardline, print(childPath)])));
-      if (isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)) {
-        parts.push(hardline);
-      }
-    }, "directives");
+  if (nodeHasDirectives) {
+    parts.push(
+      indent(concat([hardline, printDirectives(path, options, print)]))
+    );
+
+    const lastDirective = getLast(n.directives);
+    if (isNextLineEmpty(options.originalText, lastDirective, locEnd)) {
+      parts.push(hardline);
+    }
   }
 
   if (hasContent) {

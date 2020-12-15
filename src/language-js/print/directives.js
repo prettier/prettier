@@ -10,12 +10,13 @@ function printDirectives(path, options, print) {
   const lastDirectiveIndex = path.getValue().directives.length - 1;
   const parts = [];
   path.each((childPath, index) => {
-    parts.push(print(childPath), hardline);
-    if (
-      index < lastDirectiveIndex &&
-      isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-    ) {
+    parts.push(print(childPath));
+    if (index < lastDirectiveIndex) {
       parts.push(hardline);
+
+      if (isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)) {
+        parts.push(hardline);
+      }
     }
   }, "directives");
 
