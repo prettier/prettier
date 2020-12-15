@@ -93,7 +93,7 @@ function printBlockBody(path, options, print) {
   }
 
   if (node.type === "Program") {
-    parts.push(hardline)
+    parts.push(hardline);
   }
 
   return concat(parts);
