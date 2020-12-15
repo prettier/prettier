@@ -44,6 +44,11 @@ const parseOptions = {
   tokens: true,
   ranges: true,
 };
+const pipelineOperatorPlugins = [
+  ["pipelineOperator", { proposal: "smart" }],
+  ["pipelineOperator", { proposal: "minimal" }],
+  ["pipelineOperator", { proposal: "fsharp" }],
+];
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
@@ -111,11 +116,8 @@ function createParse(parseMethod, ...pluginCombinations) {
     let combinations = pluginCombinations;
     if (text.includes("|>")) {
       combinations = flatten(
-        ["smart", "minimal", "fsharp"].map((proposal) =>
-          combinations.map((plugins) => [
-            ...plugins,
-            ["pipelineOperator", { proposal }],
-          ])
+        pipelineOperatorPlugins.map((pipelineOperatorPlugin) =>
+          combinations.map((plugins) => [...plugins, pipelineOperatorPlugin])
         )
       );
     }
