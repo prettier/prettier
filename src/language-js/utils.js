@@ -737,6 +737,17 @@ const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
 const containsNonJsxWhitespaceRegex = new RegExp(
   "[^" + jsxWhitespaceChars + "]"
 );
+const trimJsxWhitespace = (text) =>
+  text.replace(
+    new RegExp(
+      "(?:^" +
+        matchJsxWhitespaceRegex.source +
+        "|" +
+        matchJsxWhitespaceRegex.source +
+        "$)"
+    ),
+    ""
+  );
 
 // Meaningful if it contains non-whitespace characters,
 // or it contains whitespace without a new line.
@@ -1571,4 +1582,5 @@ module.exports = {
   hasComment,
   getComments,
   CommentCheckFlags,
+  trimJsxWhitespace,
 };

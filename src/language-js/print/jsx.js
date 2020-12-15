@@ -32,6 +32,7 @@ const {
   isBinaryish,
   hasComment,
   CommentCheckFlags,
+  trimJsxWhitespace,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
@@ -373,9 +374,9 @@ function printJsxChildren(
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const firstWord = rawText(next)
-          .trim()
-          .split(matchJsxWhitespaceRegex)[0];
+        const firstWord = trimJsxWhitespace(rawText(next)).split(
+          matchJsxWhitespaceRegex
+        )[0];
         children.push(
           separatorNoWhitespace(
             isFacebookTranslationTag,
