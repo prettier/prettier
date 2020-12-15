@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { group, hardline, ifBreak, indent, join, line, softline },
+  builders: { dedent, group, hardline, ifBreak, indent, join, line, softline },
   utils: { getDocParts },
 } = require("../document");
 const { locStart, locEnd } = require("./loc");
@@ -10,6 +10,7 @@ const {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
+  isLastNodeOfSiblings,
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
@@ -39,28 +40,44 @@ function print(path, options, print) {
     case "Template": {
       return group(path.map(print, "body"));
     }
+
     case "ElementNode": {
-      // TODO: make it whitespace sensitive
-      const bim = isNextNodeOfSomeType(path, ["ElementNode"]) ? hardline : "";
+      const startingTag = group(printStartingTag(path, print));
+
+      const escapeNextElementNode =
+        options.htmlWhitespaceSensitivity !== "strict" &&
+        isNextNodeOfSomeType(path, ["ElementNode"])
+          ? softline
+          : "";
 
       if (isVoid(n)) {
-        return [group(printStartingTag(path, print)), bim];
+        return [startingTag, escapeNextElementNode];
       }
 
-      const isWhitespaceOnly = n.children.every((n) => isWhitespaceNode(n));
+      const endingTag = ["</", n.tag, ">"];
+
+      if (n.children.length === 0) {
+        return [startingTag, indent(endingTag), escapeNextElementNode];
+      }
+
+      if (options.htmlWhitespaceSensitivity !== "strict") {
+        return [
+          startingTag,
+          indent(printChildren(path, options, print)),
+          hardline,
+          indent(endingTag),
+          escapeNextElementNode,
+        ];
+      }
 
       return [
-        group(printStartingTag(path, print)),
-        group([
-          isWhitespaceOnly ? "" : indent(printChildren(path, options, print)),
-          n.children.length > 0 ? hardline : "",
-          "</",
-          n.tag,
-          ">",
-        ]),
-        bim,
+        startingTag,
+        indent(group(printChildren(path, options, print))),
+        indent(endingTag),
+        escapeNextElementNode,
       ];
     }
+
     case "BlockStatement": {
       const pp = path.getParentNode(1);
 
@@ -74,20 +91,21 @@ function print(path, options, print) {
       if (isElseIf) {
         return [
           printElseIfBlock(path, print),
-          printProgram(path, print),
-          printInverse(path, print),
+          printProgram(path, print, options),
+          printInverse(path, print, options),
         ];
       }
 
       return [
         printOpenBlock(path, print),
         group([
-          printProgram(path, print),
-          printInverse(path, print),
-          printCloseBlock(path, print),
+          printProgram(path, print, options),
+          printInverse(path, print, options),
+          printCloseBlock(path, print, options),
         ]),
       ];
     }
+
     case "ElementModifierStatement": {
       return group(["{{", printPathAndParams(path, print), softline, "}}"]);
     }
@@ -158,6 +176,65 @@ function print(path, options, print) {
       return [n.key, "=", path.call(print, "value")];
     }
     case "TextNode": {
+      const inAttrNode = path.stack.includes("attributes");
+
+      if (options.htmlWhitespaceSensitivity === "strict" && !inAttrNode) {
+        // https://infra.spec.whatwg.org/#ascii-whitespace
+        const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
+        const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
+        const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
+
+        if (n.chars.match(whitespacesOnlyRE)) {
+          let breaks = line;
+
+          const newlines = countNewLines(n.chars);
+          if (newlines) {
+            breaks = generateHardlines(newlines, 2);
+          }
+
+          if (isLastNodeOfSiblings(path)) {
+            breaks = dedent(breaks);
+          }
+
+          return breaks;
+        }
+
+        const [lead] = n.chars.match(leadingWhitespacesRE);
+        const [tail] = n.chars.match(trailingWhitespacesRE);
+
+        let text = n.chars;
+
+        let leadBreaks = [];
+        if (lead) {
+          leadBreaks = [line];
+
+          const leadingNewlines = countNewLines(lead);
+          if (leadingNewlines) {
+            leadBreaks = generateHardlines(countNewLines(lead) || 1, 2);
+          }
+
+          text = text.replace(leadingWhitespacesRE, "");
+        }
+
+        let trailBreaks = [];
+        if (tail) {
+          trailBreaks = [line];
+
+          const trailingNewlines = countNewLines(tail);
+          if (trailingNewlines) {
+            trailBreaks = generateHardlines(trailingNewlines || 1, 2);
+
+            if (isLastNodeOfSiblings(path)) {
+              trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
+            }
+          }
+
+          text = text.replace(trailingWhitespacesRE, "");
+        }
+
+        return [...leadBreaks, text, ...trailBreaks];
+      }
+
       const maxLineBreaksToPreserve = 2;
       const isFirstElement = !getPreviousNode(path);
       const isLastElement = !getNextNode(path);
@@ -191,7 +268,6 @@ function print(path, options, print) {
         }
       }
 
-      const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
         // TODO: format style and srcset attributes
         // and cleanup concat that is not necessary
@@ -343,12 +419,20 @@ function printAttributesLike(path, print) {
 }
 
 function printChildren(path, options, print) {
+  const node = path.getValue();
+  const isEmpty = node.children.every((n) => isWhitespaceNode(n));
+  if (options.htmlWhitespaceSensitivity !== "strict" && isEmpty) {
+    return "";
+  }
+
   return path.map((childPath, childIndex) => {
-    if (childIndex === 0) {
-      return [softline, print(childPath, options, print)];
+    const printedChild = print(childPath, options, print);
+
+    if (childIndex === 0 && options.htmlWhitespaceSensitivity !== "strict") {
+      return [softline, printedChild];
     }
 
-    return print(childPath, options, print);
+    return printedChild;
   }, "children");
 }
 
@@ -424,9 +508,9 @@ function printOpenBlock(path, print) {
   ]);
 }
 
-function printElseBlock(node) {
+function printElseBlock(node, options) {
   return [
-    hardline,
+    options.htmlWhitespaceSensitivity !== "strict" ? hardline : "",
     printInverseBlockOpeningMustache(node),
     "else",
     printInverseBlockClosingMustache(node),
@@ -444,11 +528,23 @@ function printElseIfBlock(path, print) {
   ];
 }
 
-function printCloseBlock(path, print) {
+function printCloseBlock(path, print, options) {
   const node = path.getValue();
 
+  if (options.htmlWhitespaceSensitivity !== "strict") {
+    const escape = blockStatementHasOnlyWhitespaceInProgram(node)
+      ? softline
+      : hardline;
+
+    return [
+      escape,
+      printClosingBlockOpeningMustache(node),
+      path.call(print, "path"),
+      printClosingBlockClosingMustache(node),
+    ];
+  }
+
   return [
-    blockStatementHasOnlyWhitespaceInProgram(node) ? softline : hardline,
     printClosingBlockOpeningMustache(node),
     path.call(print, "path"),
     printClosingBlockClosingMustache(node),
@@ -475,7 +571,7 @@ function blockStatementHasElse(node) {
   return isNodeOfSomeType(node, ["BlockStatement"]) && node.inverse;
 }
 
-function printProgram(path, print) {
+function printProgram(path, print, options) {
   const node = path.getValue();
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
@@ -483,21 +579,29 @@ function printProgram(path, print) {
   }
 
   const program = path.call(print, "program");
-  return indent([hardline, program]);
+
+  if (options.htmlWhitespaceSensitivity !== "strict") {
+    return indent([hardline, program]);
+  }
+
+  return indent(program);
 }
 
-function printInverse(path, print) {
+function printInverse(path, print, options) {
   const node = path.getValue();
 
   const inverse = path.call(print, "inverse");
-  const parts = [hardline, inverse];
+  const printed =
+    options.htmlWhitespaceSensitivity !== "strict"
+      ? [hardline, inverse]
+      : inverse;
 
   if (blockStatementHasElseIf(node)) {
-    return parts;
+    return printed;
   }
 
   if (blockStatementHasElse(node)) {
-    return [printElseBlock(node), indent(parts)];
+    return [printElseBlock(node, options), indent(printed)];
   }
 
   return "";
