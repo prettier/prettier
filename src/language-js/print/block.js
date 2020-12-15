@@ -1,7 +1,7 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const { getLast, isNextLineEmpty } = require("../../common/util");
+const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
@@ -9,7 +9,6 @@ const { hasComment, CommentCheckFlags } = require("../utils");
 const { locEnd } = require("../loc");
 
 const { printBody } = require("./statement");
-const { printDirectives, hasDirectives } = require("./directives");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -60,23 +59,26 @@ function printBlockBody(path, options, print) {
   const parts = [];
   const node = path.getValue();
 
-  const nodeHasDirectives = hasDirectives(node);
+  const nodeHasDirectives =
+    Array.isArray(node.directives) && node.directives.length > 0;
   const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
   const nodeHasComment = hasComment(node, CommentCheckFlags.Dangling);
 
   // Babel 6
   if (nodeHasDirectives) {
-    parts.push(printDirectives(path, options, print));
-
-    if (nodeHasBody || nodeHasComment) {
-      parts.push(hardline);
-
-      if (
-        isNextLineEmpty(options.originalText, getLast(node.directives), locEnd)
-      ) {
+    const lastDirectiveIndex = path.getValue().directives.length - 1;
+    path.each((childPath, index) => {
+      parts.push(print(childPath));
+      if (index < lastDirectiveIndex || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
+
+        if (
+          isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
+        ) {
+          parts.push(hardline);
+        }
       }
-    }
+    }, "directives");
   }
 
   if (nodeHasBody) {
