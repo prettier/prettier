@@ -69,11 +69,14 @@ function printBlock(path, options, print) {
   if (nodeHasBody) {
     bodyParts.push(naked);
   }
-  bodyParts.push(printDanglingComments(path, options));
-
+  if (nodeHasComment) {
+    bodyParts.push(printDanglingComments(path, options, /* sameIndent */ true));
+  }
   parts.push("{");
-  parts.push(concat([indent(concat([hardline, concat(bodyParts)])), hardline]));
-  parts.push("}");
+  parts.push(
+    bodyParts.length ? indent(concat([hardline, concat(bodyParts)])) : ""
+  );
+  parts.push(hardline, "}");
 
   return concat(parts);
 }
