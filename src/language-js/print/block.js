@@ -56,7 +56,6 @@ function printBlock(path, options, print) {
 }
 
 function printBlockBody(path, options, print) {
-  const parts = [];
   const node = path.getValue();
 
   const nodeHasDirectives =
@@ -64,6 +63,11 @@ function printBlockBody(path, options, print) {
   const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
   const nodeHasComment = hasComment(node, CommentCheckFlags.Dangling);
 
+  if (!nodeHasDirectives && !nodeHasBody && !nodeHasComment) {
+    return "";
+  }
+
+  const parts = [];
   // Babel 6
   if (nodeHasDirectives) {
     const lastDirectiveIndex = path.getValue().directives.length - 1;
@@ -71,7 +75,6 @@ function printBlockBody(path, options, print) {
       parts.push(print(childPath));
       if (index < lastDirectiveIndex || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
-
         if (
           isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
         ) {
@@ -89,7 +92,7 @@ function printBlockBody(path, options, print) {
     parts.push(printDanglingComments(path, options, /* sameIndent */ true));
   }
 
-  return parts.length === 0 ? "" : concat(parts);
+  return concat(parts);
 }
 
 module.exports = { printBlock, printBlockBody };
