@@ -12,7 +12,7 @@ const {
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
-const { printStatementSequence } = require("./statement");
+const { printBody } = require("./statement");
 const { printPropertyKey } = require("./property");
 const { printAssignmentRight } = require("./assignment");
 
@@ -185,14 +185,7 @@ function printClassBody(path, options, print) {
   return concat([
     "{",
     n.body.length > 0
-      ? indent(
-          concat([
-            hardline,
-            path.call((bodyPath) => {
-              return printStatementSequence(bodyPath, options, print);
-            }, "body"),
-          ])
-        )
+      ? indent(concat([hardline, printBody(path, options, print)]))
       : printDanglingComments(path, options),
     hardline,
     "}",

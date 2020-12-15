@@ -98,7 +98,7 @@ const {
   printAssignmentExpression,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
-const { printStatementSequence } = require("./print/statement");
+const { printBody, printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock } = require("./print/block");
 const { printComment } = require("./print/comment");
@@ -278,11 +278,7 @@ function printPathNoParens(path, options, print, args) {
         }, "directives");
       }
 
-      parts.push(
-        path.call((bodyPath) => {
-          return printStatementSequence(bodyPath, options, print);
-        }, "body")
-      );
+      parts.push(printBody(path, options, print));
 
       parts.push(
         comments.printDanglingComments(path, options, /* sameIndent */ true)
@@ -919,9 +915,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = path.call((consequentPath) => {
-          return printStatementSequence(consequentPath, options, print);
-        }, "consequent");
+        const cons = printSwitchCaseConsequent(path, options, print);
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
