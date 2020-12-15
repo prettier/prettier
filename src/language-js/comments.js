@@ -15,7 +15,7 @@ const {
   isBlockComment,
   getFunctionParameters,
   isPrettierIgnoreComment,
-  isJSXNode,
+  isJsxNode,
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
@@ -956,7 +956,7 @@ function willPrintOwnComments(path /*, options */) {
 
   return (
     ((node &&
-      (isJSXNode(node) ||
+      (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
         (parent &&
           (parent.type === "CallExpression" ||

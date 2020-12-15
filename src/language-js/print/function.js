@@ -13,7 +13,7 @@ const {
   getFunctionParameters,
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
-  isJSXNode,
+  isJsxNode,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
@@ -190,7 +190,7 @@ function printArrowFunctionExpression(path, options, print, args) {
     (n.body.type === "ArrayExpression" ||
       n.body.type === "ObjectExpression" ||
       n.body.type === "BlockStatement" ||
-      isJSXNode(n.body) ||
+      isJsxNode(n.body) ||
       isTemplateOnItsOwnLine(n.body, options.originalText) ||
       n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")

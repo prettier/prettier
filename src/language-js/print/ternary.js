@@ -2,7 +2,7 @@
 
 const flat = require("lodash/flatten");
 const { hasNewlineInRange } = require("../../common/util");
-const { isJSXNode, isBlockComment, getComments } = require("../utils");
+const { isJsxNode, isBlockComment, getComments } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
   builders: {
@@ -116,8 +116,8 @@ function getConditionalChainContents(node) {
   return nonConditionalExpressions;
 }
 
-function conditionalExpressionChainContainsJSX(node) {
-  return getConditionalChainContents(node).some(isJSXNode);
+function conditionalExpressionChainContainsJsx(node) {
+  return getConditionalChainContents(node).some(isJsxNode);
 }
 
 function printTernaryTest(path, options, print) {
@@ -210,10 +210,10 @@ function printTernary(path, options, print) {
 
   if (
     isConditionalExpression &&
-    (isJSXNode(node[testNodePropertyNames[0]]) ||
-      isJSXNode(consequentNode) ||
-      isJSXNode(alternateNode) ||
-      conditionalExpressionChainContainsJSX(lastConditionalParent))
+    (isJsxNode(node[testNodePropertyNames[0]]) ||
+      isJsxNode(consequentNode) ||
+      isJsxNode(alternateNode) ||
+      conditionalExpressionChainContainsJsx(lastConditionalParent))
   ) {
     jsxMode = true;
     forceNoIndent = true;
