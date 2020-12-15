@@ -99,11 +99,10 @@ const {
   printAssignmentExpression,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
-const { printBody, printSwitchCaseConsequent } = require("./print/statement");
+const { printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
-const { printDirectives, hasDirectives } = require("./print/directives");
 
 function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
