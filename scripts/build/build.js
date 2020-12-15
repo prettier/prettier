@@ -85,12 +85,7 @@ async function createBundle(bundleConfig, cache, options) {
       readline.cursorTo(process.stdout, 0, null);
 
       const prettyBytes = require("pretty-bytes");
-      const gzipSize = require("gzip-size").sync;
-      const getSizeText = (file, content) => {
-        const size = prettyBytes(fs.statSync(file).size);
-        const gzipped = prettyBytes(gzipSize(content));
-        return `${size}(${gzipped})`;
-      };
+      const getSizeText = (file) => prettyBytes(fs.statSync(file).size);
       const sizeTexts = [getSizeText(file, content)];
       if (
         type !== "core" &&
@@ -102,7 +97,9 @@ async function createBundle(bundleConfig, cache, options) {
         const esmContent = fs.readFileSync(esmFile, "utf8");
         sizeTexts.push(`esm ${getSizeText(esmFile, esmContent)}`);
       }
-      process.stdout.write(fitTerminal(output, sizeTexts.join(", ")));
+      process.stdout.write(
+        fitTerminal(output, sizeTexts.join(", ").concat(" "))
+      );
     }
 
     console.log(status.DONE);
