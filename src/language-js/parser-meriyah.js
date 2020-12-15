@@ -4,6 +4,7 @@ const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
+const tryCombinations = require("./parser/try-combinations");
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -59,25 +60,27 @@ function parseWithOptions(text, module) {
   return ast;
 }
 
+function createParseError(error) {
+  // throw the error for `module` parsing
+  const { message, line, column } = error;
+
+  /* istanbul ignore next */
+  if (typeof line !== "number") {
+    return error;
+  }
+
+  return createError(message, { start: { line, column } });
+}
+
 function parse(text, parsers, options) {
-  let ast;
+  const { result: ast, error: moduleParseError } = tryCombinations(
+    () => parseWithOptions(text, /* module */ true),
+    () => parseWithOptions(text, /* module */ false)
+  );
 
-  try {
-    ast = parseWithOptions(text /* module */, true);
-  } catch (moduleError) {
-    try {
-      ast = parseWithOptions(text, /* module */ false);
-    } catch (_) {
-      // throw the error for `module` parsing
-      const { message, line, column } = moduleError;
-
-      /* istanbul ignore next */
-      if (typeof line !== "number") {
-        throw moduleError;
-      }
-
-      throw createError(message, { start: { line, column } });
-    }
+  if (!ast) {
+    // Throw the error for `module` parsing
+    throw createParseError(moduleParseError);
   }
 
   return postprocess(ast, { ...options, originalText: text });
