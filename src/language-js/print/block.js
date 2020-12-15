@@ -22,15 +22,16 @@ function printBlock(path, options, print) {
     parts.push("static ");
   }
 
-  const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
   const nodeHasDirectives = hasDirectives(n);
+  const nodeHasBody = n.body.some((node) => node.type !== "EmptyStatement");
+  const nodeHasComment = hasComment(n, CommentCheckFlags.Dangling);
 
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   if (
-    !hasContent &&
+    !nodeHasBody &&
     !nodeHasDirectives &&
-    !hasComment(n, CommentCheckFlags.Dangling) &&
+    !nodeHasComment &&
     (parent.type === "ArrowFunctionExpression" ||
       parent.type === "FunctionExpression" ||
       parent.type === "FunctionDeclaration" ||
@@ -61,7 +62,7 @@ function printBlock(path, options, print) {
     }
   }
 
-  if (hasContent) {
+  if (nodeHasBody) {
     bodyParts.push(hardline, naked);
   }
   bodyParts.push(printDanglingComments(path, options));

@@ -263,15 +263,16 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
 
     case "Program": {
-      const hasContents =
-        !n.body.every(({ type }) => type === "EmptyStatement") || hasComment(n);
+      const nodeHasDirectives = hasDirectives(n);
+      const nodeHasBody = n.body.some((node) => node.type !== "EmptyStatement");
+      const nodeHasComment = hasComment(n, CommentCheckFlags.Dangling);
 
       // Babel 6
-      if (hasDirectives(n)) {
+      if (nodeHasDirectives) {
         parts.push(printDirectives(path, options, print), hardline);
         const lastDirective = getLast(n.directives);
         if (
-          hasContents &&
+          (nodeHasBody || nodeHasComment) &&
           isNextLineEmpty(options.originalText, lastDirective, locEnd)
         ) {
           parts.push(hardline);
@@ -285,7 +286,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       // Only force a trailing newline if there were any contents.
-      if (hasContents) {
+      if (nodeHasBody || nodeHasComment) {
         parts.push(hardline);
       }
 
