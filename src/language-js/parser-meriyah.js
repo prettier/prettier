@@ -1,10 +1,9 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
 const tryCombinations = require("./parser/try-combinations");
+const createParser = require("./parser/create-parser");
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -88,6 +87,6 @@ function parse(text, parsers, options) {
 
 module.exports = {
   parsers: {
-    meriyah: { parse, astFormat: "estree", hasPragma, locStart, locEnd },
+    meriyah: createParser(parse),
   },
 };

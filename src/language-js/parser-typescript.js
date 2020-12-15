@@ -1,10 +1,9 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
 const tryCombinations = require("./parser/try-combinations");
+const createParser = require("./parser/create-parser");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -70,11 +69,9 @@ function isProbablyJsx(text) {
   ).test(text);
 }
 
-const parser = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
-
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    typescript: parser,
+    typescript: createParser(parse),
   },
 };
