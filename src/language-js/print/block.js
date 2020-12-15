@@ -51,23 +51,22 @@ function printBlock(path, options, print) {
 
   parts.push("{");
 
+  const bodyParts = [];
   // Babel 6
   if (nodeHasDirectives) {
-    parts.push(
-      indent(concat([hardline, printDirectives(path, options, print)]))
-    );
+    bodyParts.push(hardline, printDirectives(path, options, print));
 
-    const lastDirective = getLast(n.directives);
-    if (isNextLineEmpty(options.originalText, lastDirective, locEnd)) {
-      parts.push(hardline);
+    if (isNextLineEmpty(options.originalText, getLast(n.directives), locEnd)) {
+      bodyParts.push(hardline);
     }
   }
 
   if (hasContent) {
-    parts.push(indent(concat([hardline, naked])));
+    bodyParts.push(hardline, naked);
   }
+  bodyParts.push(printDanglingComments(path, options));
 
-  parts.push(printDanglingComments(path, options));
+  parts.push(indent(concat(bodyParts)));
   parts.push(hardline, "}");
 
   return concat(parts);
