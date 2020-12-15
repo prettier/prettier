@@ -52,7 +52,7 @@ function fitTerminal(input, suffix = "") {
 }
 
 async function createBundle(bundleConfig, cache, options) {
-  const { output, target } = bundleConfig;
+  const { output, target, format, type } = bundleConfig;
   process.stdout.write(fitTerminal(output));
   try {
     const { cached, skipped } = await bundler(bundleConfig, cache, options);
@@ -67,26 +67,42 @@ async function createBundle(bundleConfig, cache, options) {
       return;
     }
 
+    const file = path.join("dist", output);
+    const content = fs.readFileSync(file, "utf8");
+
     // Files including U+FFEE can't load in Chrome Extension
     // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
     // details https://github.com/prettier/prettier/pull/8534
     if (target === "universal") {
-      const file = path.join("dist", output);
-      const content = fs.readFileSync(file, "utf8");
       if (content.includes("\ufffe")) {
         throw new Error("Bundled umd file should not have U+FFFE character.");
       }
-      if (options["print-size"]) {
-        // Clear previous line
-        readline.clearLine(process.stdout, 0);
-        readline.cursorTo(process.stdout, 0, null);
+    }
 
-        const prettyBytes = require("pretty-bytes");
-        const gzipSize = require("gzip-size").sync;
+    if (options["print-size"]) {
+      // Clear previous line
+      readline.clearLine(process.stdout, 0);
+      readline.cursorTo(process.stdout, 0, null);
+
+      const prettyBytes = require("pretty-bytes");
+      const gzipSize = require("gzip-size").sync;
+      const getSizeText = (file, content) => {
         const size = prettyBytes(fs.statSync(file).size);
         const gzipped = prettyBytes(gzipSize(content));
-        process.stdout.write(fitTerminal(output, ` ${size} (${gzipped}) `));
+        return `${size}(${gzipped})`;
+      };
+      const sizeTexts = [getSizeText(file, content)];
+      if (
+        type !== "core" &&
+        format !== "esm" &&
+        bundleConfig.bundler !== "webpack" &&
+        target === "universal"
+      ) {
+        const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
+        const esmContent = fs.readFileSync(esmFile, "utf8");
+        sizeTexts.push(`esm ${getSizeText(esmFile, esmContent)}`);
       }
+      process.stdout.write(fitTerminal(output, sizeTexts.join(", ")));
     }
 
     console.log(status.DONE);
