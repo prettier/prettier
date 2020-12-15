@@ -261,10 +261,8 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "Program": {
-      const printed = printBlockBody(path, options, print);
-      return printed ? concat([printed, hardline]) : printed;
-    }
+    case "Program":
+      return printBlockBody(path, options, print);
     // Babel extension.
     case "EmptyStatement":
       return "";

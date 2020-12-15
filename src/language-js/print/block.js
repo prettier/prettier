@@ -92,6 +92,10 @@ function printBlockBody(path, options, print) {
     parts.push(printDanglingComments(path, options, /* sameIndent */ true));
   }
 
+  if (node.type === "Program") {
+    parts.push(hardline)
+  }
+
   return concat(parts);
 }
 
