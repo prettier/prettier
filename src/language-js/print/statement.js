@@ -150,4 +150,19 @@ function expressionNeedsASIProtection(path, options) {
   );
 }
 
-module.exports = { printStatementSequence };
+function printBody(path, options, print) {
+  return path.call((bodyPath) => {
+    return printStatementSequence(bodyPath, options, print);
+  }, "body");
+}
+
+function printSwitchCaseConsequent(path, options, print) {
+  return path.call((bodyPath) => {
+    return printStatementSequence(bodyPath, options, print);
+  }, "consequent");
+}
+
+module.exports = {
+  printBody,
+  printSwitchCaseConsequent,
+};
