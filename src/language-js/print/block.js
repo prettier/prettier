@@ -16,7 +16,6 @@ const { printDirectives, hasDirectives } = require("./directives");
 function printBlock(path, options, print) {
   const n = path.getValue();
   const parts = [];
-  const naked = printBody(path, options, print);
 
   if (n.type === "StaticBlock") {
     parts.push("static ");
@@ -50,35 +49,49 @@ function printBlock(path, options, print) {
     return concat([...parts, "{}"]);
   }
 
-  const bodyParts = [];
+  parts.push("{");
+
+  const printed = printBlockBody(path, options, print);
+  if (printed) {
+    parts.push(indent(concat([hardline, printed])));
+  }
+  parts.push(hardline, "}");
+
+  return concat(parts);
+}
+
+function printBlockBody(path, options, print) {
+  const parts = [];
+  const node = path.getValue();
+
+  const nodeHasDirectives = hasDirectives(node);
+  const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
+  const nodeHasComment = hasComment(node, CommentCheckFlags.Dangling);
+
   // Babel 6
   if (nodeHasDirectives) {
-    bodyParts.push(printDirectives(path, options, print));
+    parts.push(printDirectives(path, options, print));
 
     if (nodeHasBody || nodeHasComment) {
-      bodyParts.push(hardline);
+      parts.push(hardline);
 
       if (
-        isNextLineEmpty(options.originalText, getLast(n.directives), locEnd)
+        isNextLineEmpty(options.originalText, getLast(node.directives), locEnd)
       ) {
-        bodyParts.push(hardline);
+        parts.push(hardline);
       }
     }
   }
 
   if (nodeHasBody) {
-    bodyParts.push(naked);
+    parts.push(printBody(path, options, print));
   }
-  if (nodeHasComment) {
-    bodyParts.push(printDanglingComments(path, options, /* sameIndent */ true));
-  }
-  parts.push("{");
-  parts.push(
-    bodyParts.length ? indent(concat([hardline, concat(bodyParts)])) : ""
-  );
-  parts.push(hardline, "}");
 
-  return concat(parts);
+  if (nodeHasComment) {
+    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+  }
+
+  return parts.length === 0 ? "" : concat(parts);
 }
 
 module.exports = { printBlock };
