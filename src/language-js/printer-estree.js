@@ -8,6 +8,7 @@ const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
+  getLast,
   hasNewline,
   printString,
   printNumber,
@@ -102,6 +103,7 @@ const { printBody, printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock } = require("./print/block");
 const { printComment } = require("./print/comment");
+const { printDirectives, hasDirectives } = require("./print/directives");
 
 function genericPrint(path, options, printPath, args) {
   const node = path.getValue();
@@ -265,17 +267,15 @@ function printPathNoParens(path, options, print, args) {
         !n.body.every(({ type }) => type === "EmptyStatement") || hasComment(n);
 
       // Babel 6
-      if (n.directives) {
-        const directivesCount = n.directives.length;
-        path.each((childPath, index) => {
-          parts.push(print(childPath), hardline);
-          if (
-            (index < directivesCount - 1 || hasContents) &&
-            isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-          ) {
-            parts.push(hardline);
-          }
-        }, "directives");
+      if (hasDirectives(n)) {
+        parts.push(printDirectives(path, options, print));
+        const lastDirective = getLast(n.directives);
+        if (
+          hasContents &&
+          isNextLineEmpty(options.originalText, lastDirective, locEnd)
+        ) {
+          parts.push(hardline);
+        }
       }
 
       parts.push(printBody(path, options, print));
