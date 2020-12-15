@@ -90,4 +90,4 @@ function printBlockBody(path, options, print) {
   return parts.length === 0 ? "" : concat(parts);
 }
 
-module.exports = { printBlock };
+module.exports = { printBlock, printBlockBody };

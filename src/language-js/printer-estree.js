@@ -101,7 +101,7 @@ const {
 const { printBinaryishExpression } = require("./print/binaryish");
 const { printBody, printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
-const { printBlock } = require("./print/block");
+const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
 const { printDirectives, hasDirectives } = require("./print/directives");
 
@@ -263,33 +263,8 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
 
     case "Program": {
-      const nodeHasDirectives = hasDirectives(n);
-      const nodeHasBody = n.body.some((node) => node.type !== "EmptyStatement");
-      const nodeHasComment = hasComment(n, CommentCheckFlags.Dangling);
-
-      // Babel 6
-      if (nodeHasDirectives) {
-        parts.push(printDirectives(path, options, print), hardline);
-        if (
-          (nodeHasBody || nodeHasComment) &&
-          isNextLineEmpty(options.originalText, getLast(n.directives), locEnd)
-        ) {
-          parts.push(hardline);
-        }
-      }
-
-      parts.push(printBody(path, options, print));
-
-      parts.push(
-        comments.printDanglingComments(path, options, /* sameIndent */ true)
-      );
-
-      // Only force a trailing newline if there were any contents.
-      if (nodeHasBody || nodeHasComment) {
-        parts.push(hardline);
-      }
-
-      return concat(parts);
+      const printed = printBlockBody(path, options, print);
+      return printed ? concat([printed, hardline]) : printed;
     }
     // Babel extension.
     case "EmptyStatement":
