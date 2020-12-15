@@ -9,7 +9,7 @@ const {
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
-  isJSXNode,
+  isJsxNode,
   shouldFlatten,
   hasComment,
   CommentCheckFlags,
@@ -127,7 +127,7 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJSX = isJSXNode(n.right);
+  const hasJsx = isJsxNode(n.right);
 
   const firstGroupIndex = parts.findIndex(
     (part) => typeof part !== "string" && part.type === "group"
@@ -139,7 +139,7 @@ function printBinaryishExpression(path, options, print) {
     firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
   );
 
-  const rest = concat(parts.slice(headParts.length, hasJSX ? -1 : undefined));
+  const rest = concat(parts.slice(headParts.length, hasJsx ? -1 : undefined));
 
   const groupId = Symbol("logicalChain-" + ++uid);
 
@@ -154,7 +154,7 @@ function printBinaryishExpression(path, options, print) {
     { id: groupId }
   );
 
-  if (!hasJSX) {
+  if (!hasJsx) {
     return chain;
   }
 
@@ -302,7 +302,7 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
-  if (isJSXNode(node.right)) {
+  if (isJsxNode(node.right)) {
     return true;
   }
 
