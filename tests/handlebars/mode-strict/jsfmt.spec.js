@@ -1,1 +1,4 @@
-run_spec(__dirname, ["glimmer"], { printWidth: 40 });
+run_spec(__dirname, ["glimmer"], {
+  htmlWhitespaceSensitivity: "strict",
+  printWidth: 40,
+});
