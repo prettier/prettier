@@ -1276,7 +1276,9 @@ function canAttachComment(node) {
     !isLineComment(node) &&
     node.type !== "EmptyStatement" &&
     node.type !== "TemplateElement" &&
-    node.type !== "Import"
+    node.type !== "Import" &&
+    // `babel-ts` don't have similar node for `class Foo { bar() /* bat */; }`
+    node.type !== "TSEmptyBodyFunctionExpression"
   );
 }
 
