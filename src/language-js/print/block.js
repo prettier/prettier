@@ -50,25 +50,30 @@ function printBlock(path, options, print) {
     return concat([...parts, "{}"]);
   }
 
-  parts.push("{");
-
   const bodyParts = [];
   // Babel 6
   if (nodeHasDirectives) {
-    bodyParts.push(hardline, printDirectives(path, options, print));
+    bodyParts.push(printDirectives(path, options, print));
 
-    if (isNextLineEmpty(options.originalText, getLast(n.directives), locEnd)) {
+    if (nodeHasBody || nodeHasComment) {
       bodyParts.push(hardline);
+
+      if (
+        isNextLineEmpty(options.originalText, getLast(n.directives), locEnd)
+      ) {
+        bodyParts.push(hardline);
+      }
     }
   }
 
   if (nodeHasBody) {
-    bodyParts.push(hardline, naked);
+    bodyParts.push(naked);
   }
   bodyParts.push(printDanglingComments(path, options));
 
-  parts.push(indent(concat(bodyParts)));
-  parts.push(hardline, "}");
+  parts.push("{");
+  parts.push(concat([indent(concat([hardline, concat(bodyParts)])), hardline]));
+  parts.push("}");
 
   return concat(parts);
 }

@@ -270,10 +270,9 @@ function printPathNoParens(path, options, print, args) {
       // Babel 6
       if (nodeHasDirectives) {
         parts.push(printDirectives(path, options, print), hardline);
-        const lastDirective = getLast(n.directives);
         if (
           (nodeHasBody || nodeHasComment) &&
-          isNextLineEmpty(options.originalText, lastDirective, locEnd)
+          isNextLineEmpty(options.originalText, getLast(n.directives), locEnd)
         ) {
           parts.push(hardline);
         }
