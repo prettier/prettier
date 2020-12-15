@@ -2,6 +2,7 @@
 
 const path = require("path");
 const fs = require("fs");
+const readline = require("readline");
 const chalk = require("chalk");
 const execa = require("execa");
 const minimist = require("minimist");
@@ -40,11 +41,12 @@ for (const { color, text } of statusConfig) {
   status[text] = chalk[color].black(padStatusText(text));
 }
 
-function fitTerminal(input) {
+function fitTerminal(input, suffix = "") {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
-    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
+    const repeatCount = WIDTH - input.length - 1 - suffix.length;
+    input += chalk.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
@@ -73,6 +75,17 @@ async function createBundle(bundleConfig, cache, options) {
       const content = fs.readFileSync(file, "utf8");
       if (content.includes("\ufffe")) {
         throw new Error("Bundled umd file should not have U+FFFE character.");
+      }
+      if (options["print-size"]) {
+        // Clear previous line
+        readline.clearLine(process.stdout, 0);
+        readline.cursorTo(process.stdout, 0, null);
+
+        const prettyBytes = require("pretty-bytes");
+        const gzipSize = require("gzip-size").sync;
+        const size = prettyBytes(fs.statSync(file).size);
+        const gzipped = prettyBytes(gzipSize(content));
+        process.stdout.write(fitTerminal(output, ` ${size} (${gzipped}) `));
       }
     }
 
@@ -153,6 +166,6 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["purge-cache", "playground"],
+    boolean: ["purge-cache", "playground", "print-size"],
   })
 );
