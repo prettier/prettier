@@ -278,10 +278,8 @@ function printJsxChildren(
   jsxWhitespace,
   isFacebookTranslationTag
 ) {
-  const n = path.getValue();
-  const children = [];
-
-  path.each((childPath, i) => {
+  const parts = [];
+  path.each((childPath, i, children) => {
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
@@ -292,11 +290,11 @@ function printJsxChildren(
 
         // Starts with whitespace
         if (words[0] === "") {
-          children.push("");
+          parts.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            const next = n.children[i + 1];
-            children.push(
+            const next = children[i + 1];
+            parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
@@ -305,7 +303,7 @@ function printJsxChildren(
               )
             );
           } else {
-            children.push(jsxWhitespace);
+            parts.push(jsxWhitespace);
           }
           words.shift();
         }
@@ -324,32 +322,32 @@ function printJsxChildren(
 
         words.forEach((word, i) => {
           if (i % 2 === 1) {
-            children.push(line);
+            parts.push(line);
           } else {
-            children.push(word);
+            parts.push(word);
           }
         });
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            const next = n.children[i + 1];
-            children.push(
+            const next = children[i + 1];
+            parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                getLast(children),
+                getLast(parts),
                 child,
                 next
               )
             );
           } else {
-            children.push(jsxWhitespace);
+            parts.push(jsxWhitespace);
           }
         } else {
-          const next = n.children[i + 1];
-          children.push(
+          const next = children[i + 1];
+          parts.push(
             separatorNoWhitespace(
               isFacebookTranslationTag,
-              getLast(children),
+              getLast(parts),
               child,
               next
             )
@@ -359,25 +357,25 @@ function printJsxChildren(
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
         if (text.match(/\n/g).length > 1) {
-          children.push("");
-          children.push(hardline);
+          parts.push("");
+          parts.push(hardline);
         }
       } else {
-        children.push("");
-        children.push(jsxWhitespace);
+        parts.push("");
+        parts.push(jsxWhitespace);
       }
     } else {
       const printedChild = print(childPath);
-      children.push(printedChild);
+      parts.push(printedChild);
 
-      const next = n.children[i + 1];
+      const next = children[i + 1];
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
         const firstWord = trimJsxWhitespace(rawText(next)).split(
           matchJsxWhitespaceRegex
         )[0];
-        children.push(
+        parts.push(
           separatorNoWhitespace(
             isFacebookTranslationTag,
             firstWord,
@@ -386,12 +384,12 @@ function printJsxChildren(
           )
         );
       } else {
-        children.push(hardline);
+        parts.push(hardline);
       }
     }
   }, "children");
 
-  return children;
+  return parts;
 }
 
 function separatorNoWhitespace(

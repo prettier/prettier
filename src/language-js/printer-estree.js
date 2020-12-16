@@ -266,11 +266,10 @@ function printPathNoParens(path, options, print, args) {
 
       // Babel 6
       if (n.directives) {
-        const directivesCount = n.directives.length;
-        path.each((childPath, index) => {
+        path.each((childPath, index, directives) => {
           parts.push(print(childPath), hardline);
           if (
-            (index < directivesCount - 1 || hasContents) &&
+            (index < directives.length - 1 || hasContents) &&
             isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
           ) {
             parts.push(hardline);
@@ -886,11 +885,11 @@ function printPathNoParens(path, options, print, args) {
                 hardline,
                 join(
                   hardline,
-                  path.map((casePath) => {
+                  path.map((casePath, index, cases) => {
                     const caseNode = casePath.getValue();
                     return concat([
                       casePath.call(print),
-                      n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
+                      index !== cases.length - 1 &&
                       isNextLineEmpty(options.originalText, caseNode, locEnd)
                         ? hardline
                         : "",
