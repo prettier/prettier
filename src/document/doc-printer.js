@@ -1,6 +1,6 @@
 "use strict";
 
-const { getStringWidth } = require("../common/util");
+const { getStringWidth, expandTabs } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
 
@@ -64,7 +64,9 @@ function generateInd(ind, newPart, options) {
       case "stringAlign":
         flush();
         value += part.n;
-        length += part.n.length;
+        length += options.useTabs
+          ? part.n.replace(/\t/g, " ".repeat(4)).length
+          : part.n.length;
         break;
       case "numberAlign":
         lastTabs += 1;
@@ -263,7 +265,7 @@ function printDocToString(doc, options) {
     if (typeof doc === "string") {
       const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
       out.push(formatted);
-      pos += getStringWidth(formatted);
+      pos += getStringWidth(expandTabs(formatted, options.tabWidth));
     } else {
       switch (doc.type) {
         case "cursor":

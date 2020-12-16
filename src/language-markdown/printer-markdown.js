@@ -5,6 +5,7 @@ const {
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
+  expandTabs,
 } = require("../common/util");
 const {
   builders: {
@@ -54,6 +55,11 @@ const SIBLING_NODE_TYPES = new Set([
 ]);
 
 function genericPrint(path, options, print) {
+  if (options.useTabs) {
+    // Hard-code tab width. In Markdown, tabs are equivalent to 4 spaces by the spec
+    // https://spec.commonmark.org/0.27/#tabs
+    options.tabWidth = 4;
+  }
   const node = path.getValue();
 
   if (shouldRemainTheSameContent(path)) {
@@ -319,24 +325,25 @@ function genericPrint(path, options, print) {
           return concat([
             prefix,
             align(
-              " ".repeat(prefix.length),
+              getSpacerForPrefix(options, prefix),
               printListItem(childPath, options, print, prefix)
             ),
           ]);
 
           function getPrefix() {
-            const rawPrefix = node.ordered
-              ? (index === 0
-                  ? node.start
-                  : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : node.start + index) +
-                (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-              : nthSiblingIndex % 2 === 0
-              ? "- "
-              : "* ";
+            const rawPrefix =
+              (node.ordered
+                ? (index === 0
+                    ? node.start
+                    : isGitDiffFriendlyOrderedList
+                    ? 1
+                    : node.start + index) +
+                  (nthSiblingIndex % 2 === 0 ? "." : ")")
+                : nthSiblingIndex % 2 === 0
+                ? "-"
+                : "*") + (options.useTabs ? "\t" : " ");
 
-            return node.isAligned ||
+            return (!options.useTabs && node.isAligned) ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock
               ? alignListPrefix(rawPrefix, options)
               : rawPrefix;
@@ -487,16 +494,30 @@ function printListItem(path, options, print, listPrefix) {
     printChildren(path, options, print, {
       processor: (childPath, index) => {
         if (index === 0 && childPath.getValue().type !== "list") {
-          return align(" ".repeat(prefix.length), childPath.call(print));
+          return align(
+            getSpacerForPrefix(options, prefix),
+            childPath.call(print)
+          );
         }
 
-        const alignment = " ".repeat(
-          clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
-        );
+        const alignment = options.useTabs
+          ? ""
+          : " ".repeat(clamp(options.tabWidth - listPrefix.length, 0, 3)); // 4+ will cause indented code block
+
         return concat([alignment, align(alignment, childPath.call(print))]);
       },
     }),
   ]);
+}
+
+function getSpacerForPrefix(options, prefix) {
+  if (options.useTabs) {
+    // How many whole tabs can we fit in the same length than the prefix
+    return "\t".repeat(
+      expandTabs(prefix, options.tabWidth).length / options.tabWidth
+    );
+  }
+  return " ".repeat(prefix.length);
 }
 
 function alignListPrefix(prefix, options) {

@@ -624,6 +624,29 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+/**
+ * Replaces tabs with spaces honoring the tab stops. Examples:
+ *
+ * ('\t', 4) =>        "    "
+ * ('1\t', 4) =>       "1   "
+ * ('123\t', 4) =>     "123 "
+ * ('1234\t', 4) =>    "1234    "
+ * ('12345\t', 4) =>   "12345   "
+ * ('12\t345\t', 4) => "12  345 "
+ */
+function expandTabs(str, tabWidth) {
+  let expandedStr = "";
+  for (let idx = 0; idx < str.length; idx++) {
+    const char = str[idx];
+    if (char !== "\t") {
+      expandedStr += char;
+    } else {
+      expandedStr += " ".repeat(tabWidth - (expandedStr.length % tabWidth));
+    }
+  }
+  return expandedStr;
+}
+
 module.exports = {
   inferParserByLanguage,
   replaceEndOfLineWith,
@@ -660,4 +683,5 @@ module.exports = {
   addTrailingComment,
   isFrontMatterNode,
   getShebang,
+  expandTabs,
 };
