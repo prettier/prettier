@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { indent, hardline, softline, concat },
   utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
@@ -46,7 +47,7 @@ function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
 function replacePlaceholders(quasisDoc, expressionDocs) {
-  if (!expressionDocs || !expressionDocs.length) {
+  if (!isNonEmptyArray(expressionDocs)) {
     return quasisDoc;
   }
   let replaceCounter = 0;

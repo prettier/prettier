@@ -924,7 +924,7 @@ function getCommentChildNodes(node, options) {
     node.value.type === "FunctionExpression" &&
     getFunctionParameters(node.value).length === 0 &&
     !node.value.returnType &&
-    (!node.value.typeParameters || node.value.typeParameters.length === 0) &&
+    !isNonEmptyArray(node.value.typeParameters) &&
     node.value.body
   ) {
     return [...(node.decorators || []), node.key, node.value.body];

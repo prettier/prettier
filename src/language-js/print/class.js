@@ -114,7 +114,7 @@ function shouldIndentOnlyHeritageClauses(node) {
 
 function printList(path, options, print, listName) {
   const n = path.getValue();
-  if (!n[listName] || n[listName].length === 0) {
+  if (!isNonEmptyArray(n[listName])) {
     return "";
   }
 

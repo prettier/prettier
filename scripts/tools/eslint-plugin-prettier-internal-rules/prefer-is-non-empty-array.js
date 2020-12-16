@@ -21,6 +21,28 @@ const selector = [
   ].join(", ")})`,
 ].join("");
 
+const negativeSelector = [
+  "LogicalExpression",
+  '[operator="||"]',
+  `:matches(${[
+    // `|| !foo.length`
+    [
+      '[right.type="UnaryExpression"]',
+      '[right.operator="!"]',
+      getLengthSelector("right.argument"),
+    ].join(""),
+    // `&& foo.length !== 0`
+    // `&& foo.length > 0`
+    [
+      '[right.type="BinaryExpression"]',
+      '[right.operator="==="]',
+      getLengthSelector("right.left"),
+      '[right.right.type="Literal"]',
+      '[right.right.raw="0"]',
+    ].join(""),
+  ].join(", ")})`,
+].join("");
+
 const isArrayIsArrayCall = (node) =>
   node.type === "CallExpression" &&
   node.callee.type === "MemberExpression" &&
@@ -84,6 +106,32 @@ module.exports = {
               [start, end],
               `isNonEmptyArray(${objectText})`
             );
+          },
+        });
+      },
+      [negativeSelector](node) {
+        const { left, right } = node;
+        if (!left.type === "UnaryExpression" || left.operator !== "!") {
+          return;
+        }
+
+        const rightObject =
+          right.type === "UnaryExpression"
+            ? right.argument.object
+            : right.left.object;
+        const leftObject = left.argument;
+
+        const objectText = sourceCode.getText(rightObject);
+        // Simple compare with code
+        if (sourceCode.getText(leftObject) !== objectText) {
+          return;
+        }
+
+        context.report({
+          node,
+          messageId: MESSAGE_ID,
+          fix(fixer) {
+            return fixer.replaceText(node, `!isNonEmptyArray(${objectText})`);
           },
         });
       },

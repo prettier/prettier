@@ -124,7 +124,7 @@ function hasPrettierIgnore(path) {
 }
 
 function isEmptyNode(node) {
-  return (!node.children || node.children.length === 0) && !hasComments(node);
+  return !isNonEmptyArray(node.children) && !hasComments(node);
 }
 
 function hasComments(node) {
