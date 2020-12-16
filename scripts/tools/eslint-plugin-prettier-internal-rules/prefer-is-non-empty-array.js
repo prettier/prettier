@@ -4,6 +4,7 @@ const getLengthSelector = (path) =>
   `[${path}.type="MemberExpression"][${path}.property.type="Identifier"][${path}.property.name="length"]`;
 const selector = [
   "LogicalExpression",
+  ':not(FunctionDeclaration[id.name="isNonEmptyArray"] *)',
   '[operator="&&"]',
   `:matches(${[
     // `&& foo.length`
@@ -60,15 +61,17 @@ module.exports = {
         const objectText = sourceCode.getText(right);
 
         // Simple compare with code
-        if (sourceCode.getText(left) === objectText) {
-          context.report({
-            node,
-            messageId: MESSAGE_ID,
-            fix(fixer) {
-              return fixer.replaceText(node, `isNonEmptyArray(${objectText})`);
-            },
-          });
+        if (sourceCode.getText(left) !== objectText) {
+          return;
         }
+
+        context.report({
+          node,
+          messageId: MESSAGE_ID,
+          fix(fixer) {
+            return fixer.replaceText(node, `isNonEmptyArray(${objectText})`);
+          },
+        });
       },
     };
   },
