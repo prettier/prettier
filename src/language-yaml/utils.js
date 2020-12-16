@@ -98,7 +98,7 @@ function isLastDescendantNode(path) {
 }
 
 function getLastDescendantNode(node) {
-  return "children" in node && node.children.length !== 0
+  return isNonEmptyArray(node.children)
     ? getLastDescendantNode(getLast(node.children))
     : node;
 }
