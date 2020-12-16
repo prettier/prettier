@@ -6,6 +6,7 @@ const {
   hasNewline,
   hasNewlineInRange,
   skipWhitespace,
+  isNonEmptyArray,
 } = require("../common/util");
 const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
@@ -1486,7 +1487,7 @@ const getCommentTestFunction = (flags, fn) => {
  * @returns {boolean}
  */
 function hasComment(node, flags, fn) {
-  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
+  if (!node || !isNonEmptyArray(node.comments)) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);

@@ -107,7 +107,12 @@ module.exports = {
         });
       },
       [negativeSelector](node) {
-        const { left, right } = node;
+        let { left, right } = node;
+
+        while (left.type === "LogicalExpression" && left.operator === "||") {
+          left = left.right;
+        }
+
         if (!left.type === "UnaryExpression" || left.operator !== "!") {
           return;
         }
@@ -127,11 +132,19 @@ module.exports = {
           return;
         }
 
+        const [start] = left.range;
+        const [, end] = node.range;
         context.report({
-          node,
+          loc: {
+            start: sourceCode.getLocFromIndex(start),
+            end: sourceCode.getLocFromIndex(end),
+          },
           messageId: MESSAGE_ID,
           fix(fixer) {
-            return fixer.replaceText(node, `!isNonEmptyArray(${objectText})`);
+            return fixer.replaceTextRange(
+              [start, end],
+              `!isNonEmptyArray(${objectText})`
+            );
           },
         });
       },
