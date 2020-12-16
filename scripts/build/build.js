@@ -68,12 +68,12 @@ async function createBundle(bundleConfig, cache, options) {
     }
 
     const file = path.join("dist", output);
-    const content = fs.readFileSync(file, "utf8");
 
     // Files including U+FFEE can't load in Chrome Extension
     // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
     // details https://github.com/prettier/prettier/pull/8534
     if (target === "universal") {
+      const content = fs.readFileSync(file, "utf8");
       if (content.includes("\ufffe")) {
         throw new Error("Bundled umd file should not have U+FFFE character.");
       }
@@ -86,7 +86,7 @@ async function createBundle(bundleConfig, cache, options) {
 
       const prettyBytes = require("pretty-bytes");
       const getSizeText = (file) => prettyBytes(fs.statSync(file).size);
-      const sizeTexts = [getSizeText(file, content)];
+      const sizeTexts = [getSizeText(file)];
       if (
         type !== "core" &&
         format !== "esm" &&
@@ -94,8 +94,7 @@ async function createBundle(bundleConfig, cache, options) {
         target === "universal"
       ) {
         const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
-        const esmContent = fs.readFileSync(esmFile, "utf8");
-        sizeTexts.push(`esm ${getSizeText(esmFile, esmContent)}`);
+        sizeTexts.push(`esm ${getSizeText(esmFile)}`);
       }
       process.stdout.write(
         fitTerminal(output, sizeTexts.join(", ").concat(" "))
