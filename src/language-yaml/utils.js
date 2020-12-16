@@ -1,6 +1,6 @@
 "use strict";
 
-const { getLast } = require("../common/util");
+const { getLast, isNonEmptyArray } = require("../common/util");
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -138,11 +138,11 @@ function hasComments(node) {
 }
 
 function hasLeadingComments(node) {
-  return node && node.leadingComments && node.leadingComments.length !== 0;
+  return node && isNonEmptyArray(node.leadingComments);
 }
 
 function hasMiddleComments(node) {
-  return node && node.middleComments && node.middleComments.length !== 0;
+  return node && isNonEmptyArray(node.middleComments);
 }
 
 function hasIndicatorComment(node) {
@@ -154,7 +154,7 @@ function hasTrailingComment(node) {
 }
 
 function hasEndComments(node) {
-  return node && node.endComments && node.endComments.length !== 0;
+  return node && isNonEmptyArray(node.endComments);
 }
 
 /**

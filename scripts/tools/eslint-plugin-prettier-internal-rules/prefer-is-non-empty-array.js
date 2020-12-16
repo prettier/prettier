@@ -49,6 +49,13 @@ module.exports = {
     return {
       [selector](node) {
         let { left, right } = node;
+
+        while (left.type === "LogicalExpression" && left.operator) {
+          left = left.right;
+        }
+
+        const startNode = left;
+
         // `Array.isArray(foo)`
         if (isArrayIsArrayCall(left)) {
           left = left.arguments[0];
@@ -65,11 +72,19 @@ module.exports = {
           return;
         }
 
+        const [start] = startNode.range;
+        const [, end] = node.range;
         context.report({
-          node,
+          loc: {
+            start: sourceCode.getLocFromIndex(start),
+            end: sourceCode.getLocFromIndex(end),
+          },
           messageId: MESSAGE_ID,
           fix(fixer) {
-            return fixer.replaceText(node, `isNonEmptyArray(${objectText})`);
+            return fixer.replaceTextRange(
+              [start, end],
+              `isNonEmptyArray(${objectText})`
+            );
           },
         });
       },

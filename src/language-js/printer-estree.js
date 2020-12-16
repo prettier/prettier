@@ -162,8 +162,7 @@ function genericPrint(path, options, printPath, args) {
   } else if (
     isExportDeclaration(node) &&
     node.declaration &&
-    node.declaration.decorators &&
-    node.declaration.decorators.length > 0 &&
+    isNonEmptyArray(node.declaration.decorators) &&
     // Only print decorators here if they were written before the export,
     // otherwise they are printed by the node.declaration
     locStart(node, { ignoreDecorators: true }) >
