@@ -1,7 +1,7 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const { isNextLineEmpty } = require("../../common/util");
+const { isNextLineEmpty, isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
@@ -22,7 +22,7 @@ function printBlock(path, options, print) {
   }
 
   const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
-  const hasDirectives = n.directives && n.directives.length > 0;
+  const hasDirectives = isNonEmptyArray(n.directives);
 
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);

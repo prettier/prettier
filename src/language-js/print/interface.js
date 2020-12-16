@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/utils");
 const {
   builders: { concat, join, line, group, indent, ifBreak },
 } = require("../../document");
@@ -41,7 +42,7 @@ function printInterface(path, options, print) {
       CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
 
-  if (n.extends && n.extends.length !== 0) {
+  if (isNonEmptyArray(n.extends)) {
     extendsParts.push(
       shouldIndentOnlyHeritageClauses
         ? ifBreak(" ", line, {
@@ -57,7 +58,7 @@ function printInterface(path, options, print) {
 
   if (
     (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
-    (n.extends && n.extends.length !== 0)
+    isNonEmptyArray(n.extends)
   ) {
     const printedExtends = concat(extendsParts);
     if (shouldIndentOnlyHeritageClauses) {

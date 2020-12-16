@@ -10,6 +10,7 @@ const {
   addTrailingComment,
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   isBlockComment,
@@ -386,8 +387,7 @@ function handleClassComments({
       enclosingNode.type === "TSInterfaceDeclaration")
   ) {
     if (
-      enclosingNode.decorators &&
-      enclosingNode.decorators.length > 0 &&
+      isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
       addTrailingComment(

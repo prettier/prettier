@@ -12,6 +12,7 @@ const {
   printString,
   printNumber,
   isNextLineEmpty,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -127,8 +128,7 @@ function genericPrint(path, options, printPath, args) {
   ) {
     // their decorators are handled themselves
   } else if (
-    node.decorators &&
-    node.decorators.length > 0 &&
+    isNonEmptyArray(node.decorators) &&
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
