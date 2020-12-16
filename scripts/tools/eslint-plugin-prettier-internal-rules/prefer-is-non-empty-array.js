@@ -116,7 +116,10 @@ module.exports = {
           right.type === "UnaryExpression"
             ? right.argument.object
             : right.left.object;
-        const leftObject = left.argument;
+        let leftObject = left.argument;
+        if (isArrayIsArrayCall(leftObject)) {
+          leftObject = leftObject.arguments[0];
+        }
 
         const objectText = sourceCode.getText(rightObject);
         // Simple compare with code
