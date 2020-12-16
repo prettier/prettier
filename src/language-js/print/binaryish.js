@@ -274,6 +274,7 @@ function printBinaryishExpressions(
       const printed = cleanDoc(
         printComments(path, () => concat(parts), options)
       );
+      /* istanbul ignore if */
       if (printed.type === "string") {
         parts = [printed];
       } else {
