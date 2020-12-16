@@ -50,29 +50,28 @@ module.exports = {
       [selector](node) {
         let { left, right } = node;
 
-        while (left.type === "LogicalExpression" && left.operator) {
+        while (left.type === "LogicalExpression" && left.operator === "&&") {
           left = left.right;
         }
 
-        const startNode = left;
-
+        let leftObject = left;
+        let rightObject = right;
         // `Array.isArray(foo)`
-        if (isArrayIsArrayCall(left)) {
-          left = left.arguments[0];
+        if (isArrayIsArrayCall(leftObject)) {
+          leftObject = leftObject.arguments[0];
         }
 
-        if (right.type === "BinaryExpression") {
-          right = right.left.object;
+        if (rightObject.type === "BinaryExpression") {
+          rightObject = rightObject.left.object;
         }
 
-        const objectText = sourceCode.getText(right);
-
+        const objectText = sourceCode.getText(rightObject);
         // Simple compare with code
-        if (sourceCode.getText(left) !== objectText) {
+        if (sourceCode.getText(leftObject) !== objectText) {
           return;
         }
 
-        const [start] = startNode.range;
+        const [start] = left.range;
         const [, end] = node.range;
         context.report({
           loc: {
