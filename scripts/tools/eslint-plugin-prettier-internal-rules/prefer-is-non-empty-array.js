@@ -31,8 +31,7 @@ const negativeSelector = [
       '[right.operator="!"]',
       getLengthSelector("right.argument"),
     ].join(""),
-    // `&& foo.length !== 0`
-    // `&& foo.length > 0`
+    // `|| foo.length === 0`
     [
       '[right.type="BinaryExpression"]',
       '[right.operator="==="]',
