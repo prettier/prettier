@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/utils");
+const { isNonEmptyArray } = require("../../common/util");
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, join, line, hardline, softline, group, indent, ifBreak },

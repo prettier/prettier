@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/utils");
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, softline, group, indent, join, line, ifBreak, hardline },
 } = require("../../document");
