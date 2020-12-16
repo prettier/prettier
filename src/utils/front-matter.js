@@ -33,15 +33,22 @@ function parse(text) {
   }
 
   const [raw, startDelimiter, language, value = "", endDelimiter] = match;
-  if (
-    startDelimiter !== endDelimiter &&
-    (startDelimiter !== YAML_DELIMITER || endDelimiter !== YAML_END_DELIMITER)
-  ) {
-    return { frontMatter: null, content: text };
-  }
+
   let lang = DELIMITER_MAP[startDelimiter];
   if (lang !== "toml" && language && language.trim()) {
     lang = language.trim();
+  }
+
+  // Only allow yaml to parse with a different end delimiter
+  if (
+    startDelimiter !== endDelimiter &&
+    !(
+      lang === "yaml" &&
+      startDelimiter === YAML_DELIMITER &&
+      endDelimiter === YAML_END_DELIMITER
+    )
+  ) {
+    return { frontMatter: null, content: text };
   }
 
   const frontMatter = {
