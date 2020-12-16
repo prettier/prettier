@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../common/util");
 const colorAdjusterFunctions = new Set([
   "red",
   "green",
@@ -59,7 +60,7 @@ function getPropOfDeclNode(path) {
 }
 
 function hasSCSSInterpolation(groupList) {
-  if (groupList && groupList.length) {
+  if (isNonEmptyArray(groupList)) {
     for (let i = groupList.length - 1; i > 0; i--) {
       // If we find `#{`, return true.
       if (
@@ -76,7 +77,7 @@ function hasSCSSInterpolation(groupList) {
 }
 
 function hasStringOrFunction(groupList) {
-  if (groupList && groupList.length) {
+  if (isNonEmptyArray(groupList)) {
     for (let i = 0; i < groupList.length; i++) {
       if (groupList[i].type === "string" || groupList[i].type === "func") {
         return true;

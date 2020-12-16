@@ -77,16 +77,13 @@ module.exports = {
         }
 
         let leftObject = left;
-        let rightObject = right;
         // `Array.isArray(foo)`
         if (isArrayIsArrayCall(leftObject)) {
           leftObject = leftObject.arguments[0];
         }
 
-        if (rightObject.type === "BinaryExpression") {
-          rightObject = rightObject.left.object;
-        }
-
+        const rightObject =
+          right.type === "BinaryExpression" ? right.left.object : right.object;
         const objectText = sourceCode.getText(rightObject);
         // Simple compare with code
         if (sourceCode.getText(leftObject) !== objectText) {
