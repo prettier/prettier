@@ -624,6 +624,10 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+function isNonEmptyArray(object) {
+  return Array.isArray(object) && object.length > 0;
+}
+
 module.exports = {
   inferParserByLanguage,
   replaceEndOfLineWith,
@@ -660,4 +664,5 @@ module.exports = {
   addTrailingComment,
   isFrontMatterNode,
   getShebang,
+  isNonEmptyArray,
 };
