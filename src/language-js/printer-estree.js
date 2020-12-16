@@ -43,8 +43,9 @@ const {
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isTheOnlyJSXElementInMarkdown,
+  isTheOnlyJsxElementInMarkdown,
   isBlockComment,
+  isLineComment,
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
@@ -97,7 +98,7 @@ const {
   printAssignmentExpression,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
-const { printStatementSequence } = require("./print/statement");
+const { printBody, printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock } = require("./print/block");
 const { printComment } = require("./print/comment");
@@ -267,7 +268,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.directives) {
         const directivesCount = n.directives.length;
         path.each((childPath, index) => {
-          parts.push(print(childPath), semi, hardline);
+          parts.push(print(childPath), hardline);
           if (
             (index < directivesCount - 1 || hasContents) &&
             isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
@@ -277,11 +278,7 @@ function printPathNoParens(path, options, print, args) {
         }, "directives");
       }
 
-      parts.push(
-        path.call((bodyPath) => {
-          return printStatementSequence(bodyPath, options, print);
-        }, "body")
-      );
+      parts.push(printBody(path, options, print));
 
       parts.push(
         comments.printDanglingComments(path, options, /* sameIndent */ true)
@@ -320,7 +317,7 @@ function printPathNoParens(path, options, print, args) {
       // Do not append semicolon after the only JSX element in a program
       return concat([
         path.call(print, "expression"),
-        isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi,
+        isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
       ]);
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
@@ -558,7 +555,7 @@ function printPathNoParens(path, options, print, args) {
       }
       return nodeStr(n, options);
     case "Directive":
-      return path.call(print, "value"); // Babel 6
+      return concat([path.call(print, "value"), semi]); // Babel 6
     case "DirectiveLiteral":
       return nodeStr(n, options);
     case "UnaryExpression":
@@ -918,9 +915,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = path.call((consequentPath) => {
-          return printStatementSequence(consequentPath, options, print);
-        }, "consequent");
+        const cons = printSwitchCaseConsequent(path, options, print);
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
@@ -1271,13 +1266,13 @@ function printRegex(node) {
 function canAttachComment(node) {
   return (
     node.type &&
-    node.type !== "CommentBlock" &&
-    node.type !== "CommentLine" &&
-    node.type !== "Line" &&
-    node.type !== "Block" &&
+    !isBlockComment(node) &&
+    !isLineComment(node) &&
     node.type !== "EmptyStatement" &&
     node.type !== "TemplateElement" &&
-    node.type !== "Import"
+    node.type !== "Import" &&
+    // `babel-ts` don't have similar node for `class Foo { bar() /* bat */; }`
+    node.type !== "TSEmptyBodyFunctionExpression"
   );
 }
 
