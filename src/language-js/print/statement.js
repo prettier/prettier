@@ -84,15 +84,12 @@ function printStatement(path, options, print, index) {
   return concat(parts);
 }
 
-function printStatementSequence(path, options, print) {
-  return join(
-    hardline,
-    path
-      .map((statementPath, index) =>
-        printStatement(statementPath, options, print, index)
-      )
-      .filter(Boolean)
-  );
+function printStatementSequence(path, options, print, property) {
+  const printed = path
+    .map((path, index) => printStatement(path, options, print, index), property)
+    .filter(Boolean);
+
+  return join(hardline, printed);
 }
 
 function statementNeedsASIProtection(path, options) {
@@ -145,17 +142,11 @@ function expressionNeedsASIProtection(path, options) {
 }
 
 function printBody(path, options, print) {
-  return path.call(
-    (bodyPath) => printStatementSequence(bodyPath, options, print),
-    "body"
-  );
+  return printStatementSequence(path, options, print, "body");
 }
 
 function printSwitchCaseConsequent(path, options, print) {
-  return path.call(
-    (bodyPath) => printStatementSequence(bodyPath, options, print),
-    "consequent"
-  );
+  return printStatementSequence(path, options, print, "consequent");
 }
 
 /**
