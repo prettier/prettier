@@ -1,12 +1,11 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const { isNextLineEmpty, isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
-const { hasComment, CommentCheckFlags } = require("../utils");
-const { locEnd } = require("../loc");
+const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
 
 const { printBody } = require("./statement");
 
@@ -73,9 +72,7 @@ function printBlockBody(path, options, print) {
       parts.push(print(childPath));
       if (index < lastDirectiveIndex || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
-        if (
-          isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-        ) {
+        if (isNextLineEmpty(childPath.getValue(), options)) {
           parts.push(hardline);
         }
       }
