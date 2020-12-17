@@ -1,10 +1,9 @@
 "use strict";
 const { getShebang } = require("../common/util");
 const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
 const tryCombinations = require("./parser/try-combinations");
+const createParser = require("./parser/create-parser");
 
 const parseOptions = {
   range: true,
@@ -55,6 +54,6 @@ function parse(originalText, parsers, options) {
 
 module.exports = {
   parsers: {
-    espree: { parse, astFormat: "estree", hasPragma, locStart, locEnd },
+    espree: createParser(parse),
   },
 };

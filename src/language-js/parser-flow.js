@@ -1,9 +1,8 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
+const createParser = require("./parser/create-parser");
 
 const parseOptions = {
   enums: true,
@@ -43,6 +42,6 @@ function parse(text, parsers, opts) {
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    flow: { parse, astFormat: "estree", hasPragma, locStart, locEnd },
+    flow: createParser(parse),
   },
 };
