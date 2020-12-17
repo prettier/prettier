@@ -20,9 +20,9 @@ function genericPrint(path, options, print) {
   switch (n.kind) {
     case "Document": {
       const parts = [];
-      path.each((pathChild, index) => {
+      path.each((pathChild, index, definitions) => {
         parts.push(concat([pathChild.call(print)]));
-        if (index !== n.definitions.length - 1) {
+        if (index !== definitions.length - 1) {
           parts.push(hardline);
           if (
             isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd)

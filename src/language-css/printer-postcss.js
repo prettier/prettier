@@ -979,10 +979,9 @@ function genericPrint(path, options, print) {
 }
 
 function printNodeSequence(path, options, print) {
-  const node = path.getValue();
   const parts = [];
-  path.each((pathChild, i) => {
-    const prevNode = node.nodes[i - 1];
+  path.each((pathChild, i, nodes) => {
+    const prevNode = nodes[i - 1];
     if (
       prevNode &&
       prevNode.type === "css-comment" &&
@@ -996,23 +995,23 @@ function printNodeSequence(path, options, print) {
       parts.push(pathChild.call(print));
     }
 
-    if (i !== node.nodes.length - 1) {
+    if (i !== nodes.length - 1) {
       if (
-        (node.nodes[i + 1].type === "css-comment" &&
-          !hasNewline(options.originalText, locStart(node.nodes[i + 1]), {
+        (nodes[i + 1].type === "css-comment" &&
+          !hasNewline(options.originalText, locStart(nodes[i + 1]), {
             backwards: true,
           }) &&
-          !isFrontMatterNode(node.nodes[i])) ||
-        (node.nodes[i + 1].type === "css-atrule" &&
-          node.nodes[i + 1].name === "else" &&
-          node.nodes[i].type !== "css-comment")
+          !isFrontMatterNode(nodes[i])) ||
+        (nodes[i + 1].type === "css-atrule" &&
+          nodes[i + 1].name === "else" &&
+          nodes[i].type !== "css-comment")
       ) {
         parts.push(" ");
       } else {
         parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
           isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd) &&
-          !isFrontMatterNode(node.nodes[i])
+          !isFrontMatterNode(nodes[i])
         ) {
           parts.push(hardline);
         }

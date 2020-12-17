@@ -854,11 +854,11 @@ function printPathNoParens(path, options, print, args) {
                 hardline,
                 join(
                   hardline,
-                  path.map((casePath) => {
+                  path.map((casePath, index, cases) => {
                     const caseNode = casePath.getValue();
                     return concat([
                       casePath.call(print),
-                      n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
+                      index !== cases.length - 1 &&
                       isNextLineEmpty(caseNode, options)
                         ? hardline
                         : "",
