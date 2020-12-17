@@ -1,6 +1,6 @@
 "use strict";
 
-const comments = require("../../main/comments");
+const { printDanglingComments } = require("../../main/comments");
 const {
   getLast,
   getPenultimate,
@@ -43,7 +43,7 @@ function printCallArguments(path, options, print) {
   if (args.length === 0) {
     return concat([
       "(",
-      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      printDanglingComments(path, options, /* sameIndent */ true),
       ")",
     ]);
   }
