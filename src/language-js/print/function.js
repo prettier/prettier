@@ -13,7 +13,7 @@ const {
   getFunctionParameters,
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
-  isJSXNode,
+  isJsxNode,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
@@ -95,11 +95,18 @@ function printMethod(path, options, print) {
 
   parts.push(
     printPropertyKey(path, options, print),
-    node.optional || node.key.optional ? "?" : "",
-    node === value
-      ? printMethodInternal(path, options, print)
-      : path.call((path) => printMethodInternal(path, options, print), "value")
+    node.optional || node.key.optional ? "?" : ""
   );
+
+  if (node === value) {
+    parts.push(printMethodInternal(path, options, print));
+  } else if (value.type === "FunctionExpression") {
+    parts.push(
+      path.call((path) => printMethodInternal(path, options, print), "value")
+    );
+  } else {
+    parts.push(path.call(print, "value"));
+  }
 
   return concat(parts);
 }
@@ -183,7 +190,7 @@ function printArrowFunctionExpression(path, options, print, args) {
     (n.body.type === "ArrayExpression" ||
       n.body.type === "ObjectExpression" ||
       n.body.type === "BlockStatement" ||
-      isJSXNode(n.body) ||
+      isJsxNode(n.body) ||
       isTemplateOnItsOwnLine(n.body, options.originalText) ||
       n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
@@ -371,5 +378,6 @@ module.exports = {
   printMethod,
   printReturnStatement,
   printThrowStatement,
+  printMethodInternal,
   shouldPrintParamsWithoutParens,
 };

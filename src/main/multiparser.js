@@ -68,7 +68,7 @@ function textToDoc(
       return doc.replace(/(?:\r?\n)*$/, "");
     }
 
-    return stripTrailingHardline(doc, true);
+    return stripTrailingHardline(doc);
   }
 
   /* istanbul ignore next */

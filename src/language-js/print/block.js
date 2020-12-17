@@ -8,17 +8,14 @@ const {
 const { hasComment, CommentCheckFlags } = require("../utils");
 const { locEnd } = require("../loc");
 
-const { printStatementSequence } = require("./statement");
+const { printBody } = require("./statement");
 
 /** @typedef {import("../../document").Doc} Doc */
 
 function printBlock(path, options, print) {
   const n = path.getValue();
   const parts = [];
-  const semi = options.semi ? ";" : "";
-  const naked = path.call((bodyPath) => {
-    return printStatementSequence(bodyPath, options, print);
-  }, "body");
+  const naked = printBody(path, options, print);
 
   if (n.type === "StaticBlock") {
     parts.push("static ");
@@ -56,7 +53,7 @@ function printBlock(path, options, print) {
   // Babel 6
   if (hasDirectives) {
     path.each((childPath) => {
-      parts.push(indent(concat([hardline, print(childPath), semi])));
+      parts.push(indent(concat([hardline, print(childPath)])));
       if (isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)) {
         parts.push(hardline);
       }
