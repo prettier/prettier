@@ -23,7 +23,7 @@ const { shouldPrintParamsWithoutParens } = require("./function");
  * @typedef {import("../../common/fast-path")} FastPath
  */
 
-function printStatement({ path, index, bodyNode, isClass }, options, print) {
+function printStatement(path, options, print, index) {
   const node = path.getValue();
 
   // Just in case the AST has been modified to contain falsy
@@ -39,6 +39,9 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
     return;
   }
 
+  const parent = path.parentNode();
+  const isClassBody = parent.type === "ClassBody";
+
   const printed = print(path);
   const text = options.originalText;
   const parts = [];
@@ -47,7 +50,7 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
   // don't prepend the only JSX element in a program with semicolon
   if (
     !options.semi &&
-    !isClass &&
+    !isClassBody &&
     !isTheOnlyJsxElementInMarkdown(options, path) &&
     statementNeedsASIProtection(path, options)
   ) {
@@ -60,14 +63,14 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
     parts.push(printed);
   }
 
-  if (!options.semi && isClass) {
+  if (!options.semi && isClassBody) {
     if (classPropMayCauseASIProblems(path)) {
       parts.push(";");
     } else if (
       node.type === "ClassProperty" ||
       node.type === "FieldDefinition"
     ) {
-      const nextChild = bodyNode.body[index + 1];
+      const nextChild = parent.body[index + 1];
       if (classChildNeedsASIProtection(nextChild)) {
         parts.push(";");
       }
@@ -82,25 +85,14 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
 }
 
 function printStatementSequence(path, options, print) {
-  const bodyNode = path.getNode();
-  const isClass = bodyNode.type === "ClassBody";
-
-  const printed = path
-    .map((statementPath, index) =>
-      printStatement(
-        {
-          path,
-          index,
-          bodyNode,
-          isClass,
-        },
-        options,
-        print
+  return join(
+    hardline,
+    path
+      .map((statementPath, index) =>
+        printStatement(statementPath, options, print, index)
       )
-    )
-    .filter(Boolean);
-
-  return join(hardline, printed);
+      .filter(Boolean)
+  );
 }
 
 function statementNeedsASIProtection(path, options) {
