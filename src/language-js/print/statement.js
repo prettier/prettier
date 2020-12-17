@@ -21,7 +21,7 @@ const { shouldPrintParamsWithoutParens } = require("./function");
  * @typedef {import("../../common/fast-path")} FastPath
  */
 
-function printStatement(path, options, print, index) {
+function printStatement(path, options, print, statements, index) {
   const node = path.getValue();
 
   // Just in case the AST has been modified to contain falsy
@@ -68,8 +68,7 @@ function printStatement(path, options, print, index) {
       node.type === "ClassProperty" ||
       node.type === "FieldDefinition"
     ) {
-      const nextChild = parent.body[index + 1];
-      if (classChildNeedsASIProtection(nextChild)) {
+      if (classChildNeedsASIProtection(statements[index + 1])) {
         parts.push(";");
       }
     }
@@ -84,7 +83,11 @@ function printStatement(path, options, print, index) {
 
 function printStatementSequence(path, options, print, property) {
   const printed = path
-    .map((path, index) => printStatement(path, options, print, index), property)
+    .map(
+      (path, index, statements) =>
+        printStatement(path, options, print, statements, index),
+      property
+    )
     .filter(Boolean);
 
   return join(hardline, printed);
