@@ -277,6 +277,9 @@ function includeShebang(ast, options) {
   }
 }
 
+// Replace holes in array with `{type: "Null"}`, so we can attach comments
+// The location is set to the location of `,` or `[` token before the hole
+// So it won't overlap the comment in case like `[/* comment */,/* comment */]`
 function replaceNullElements(node, ast, options) {
   const { elements } = node;
   if (elements.every((node) => node !== null)) {
