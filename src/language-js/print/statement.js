@@ -18,7 +18,10 @@ const {
 const { locEnd } = require("../loc");
 const { shouldPrintParamsWithoutParens } = require("./function");
 
-/** @typedef {import("../../document").Doc} Doc */
+/**
+ * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../common/fast-path")} FastPath
+ */
 
 function printStatement({ path, index, bodyNode, isClass }, options, print) {
   const node = path.getValue();
