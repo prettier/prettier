@@ -74,7 +74,10 @@ function printStatement(path, options, print, statements, index) {
     }
   }
 
-  if (isNextLineEmpty(text, node, locEnd) && !isLastStatement(path)) {
+  if (
+    isNextLineEmpty(text, node, locEnd) &&
+    !isLastStatement(statements, node)
+  ) {
     parts.push(hardline);
   }
 
@@ -151,16 +154,15 @@ function printSwitchCaseConsequent(path, options, print) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {Node[]} statements
+ * @param {Node} node
  * @returns {boolean}
  */
-function isLastStatement(path) {
-  const parent = path.getParentNode();
-  const node = path.getValue();
-  const body = (parent.body || parent.consequent).filter(
-    (stmt) => stmt.type !== "EmptyStatement"
+function isLastStatement(statements, node) {
+  statements = statements.filter(
+    (statement) => statement.type !== "EmptyStatement"
   );
-  return body[body.length - 1] === node;
+  return statements[statements.length - 1] === node;
 }
 
 /**
