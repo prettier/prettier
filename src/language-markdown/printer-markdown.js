@@ -5,6 +5,7 @@ const {
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -773,7 +774,7 @@ function printChildren(path, options, print, events) {
 
 function getLastDescendantNode(node) {
   let current = node;
-  while (current.children && current.children.length !== 0) {
+  while (isNonEmptyArray(current.children)) {
     current = current.children[current.children.length - 1];
   }
   return current;

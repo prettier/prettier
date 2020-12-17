@@ -7,6 +7,7 @@ module.exports = {
     "jsx-identifier-case": require("./jsx-identifier-case"),
     "no-node-comments": require("./no-node-comments"),
     "prefer-fast-path-each": require("./prefer-fast-path-each"),
+    "prefer-is-non-empty-array": require("./prefer-is-non-empty-array"),
     "require-json-extensions": require("./require-json-extensions"),
   },
 };

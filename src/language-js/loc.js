@@ -1,5 +1,7 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../common/util");
+
 /**
  * @typedef {import("./types/estree").Node} Node
  */
@@ -12,7 +14,7 @@ function locStart(node, opts) {
     const decorators =
       (node.declaration && node.declaration.decorators) || node.decorators;
 
-    if (decorators && decorators.length > 0) {
+    if (isNonEmptyArray(decorators)) {
       return locStart(decorators[0]);
     }
   }

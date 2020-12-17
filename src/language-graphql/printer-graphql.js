@@ -3,7 +3,7 @@
 const {
   builders: { concat, join, hardline, line, softline, group, indent, ifBreak },
 } = require("../document");
-const { isNextLineEmpty } = require("../common/util");
+const { isNextLineEmpty, isNonEmptyArray } = require("../common/util");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 
@@ -39,7 +39,7 @@ function genericPrint(path, options, print) {
       return concat([
         hasOperation ? n.operation : "",
         hasOperation && hasName ? concat([" ", path.call(print, "name")]) : "",
-        n.variableDefinitions && n.variableDefinitions.length
+        isNonEmptyArray(n.variableDefinitions)
           ? group(
               concat([
                 "(",
@@ -66,7 +66,7 @@ function genericPrint(path, options, print) {
       return concat([
         "fragment ",
         path.call(print, "name"),
-        n.variableDefinitions && n.variableDefinitions.length
+        isNonEmptyArray(n.variableDefinitions)
           ? group(
               concat([
                 "(",

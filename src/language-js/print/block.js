@@ -1,7 +1,7 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const { isNextLineEmpty } = require("../../common/util");
+const { isNextLineEmpty, isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, hardline, indent },
 } = require("../../document");
@@ -21,7 +21,6 @@ function printBlock(path, options, print) {
   }
 
   parts.push("{");
-
   const printed = printBlockBody(path, options, print);
   if (printed) {
     parts.push(indent(concat([hardline, printed])), hardline);
@@ -58,8 +57,7 @@ function printBlock(path, options, print) {
 function printBlockBody(path, options, print) {
   const node = path.getValue();
 
-  const nodeHasDirectives =
-    Array.isArray(node.directives) && node.directives.length > 0;
+  const nodeHasDirectives = isNonEmptyArray(node.directives);
   const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
   const nodeHasComment = hasComment(node, CommentCheckFlags.Dangling);
 

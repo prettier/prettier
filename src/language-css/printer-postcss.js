@@ -6,6 +6,7 @@ const {
   hasNewline,
   isFrontMatterNode,
   isNextLineEmpty,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -469,7 +470,7 @@ function genericPrint(path, options, print) {
     case "selector-pseudo": {
       return concat([
         maybeToLowerCase(node.value),
-        node.nodes && node.nodes.length > 0
+        isNonEmptyArray(node.nodes)
           ? concat(["(", join(", ", path.map(print, "nodes")), ")"])
           : "",
       ]);
