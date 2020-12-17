@@ -6,7 +6,7 @@
 const assert = require("assert");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-const comments = require("../main/comments");
+const { printDanglingComments } = require("../main/comments");
 const {
   hasNewline,
   printString,
@@ -646,7 +646,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (hasComment(n, CommentCheckFlags.Dangling)) {
           parts.push(
-            comments.printDanglingComments(path, options, true),
+            printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "
           );
         }
@@ -671,7 +671,7 @@ function printPathNoParens(path, options, print, args) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = comments.printDanglingComments(
+      const dangling = printDanglingComments(
         path,
         options,
         /* sameLine */ true
@@ -985,12 +985,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.members.length === 0 && !n.hasUnknownMembers) {
         parts.push(
           group(
-            concat([
-              "{",
-              comments.printDanglingComments(path, options),
-              softline,
-              "}",
-            ])
+            concat(["{", printDanglingComments(path, options), softline, "}"])
           )
         );
       } else {
@@ -1012,11 +1007,7 @@ function printPathNoParens(path, options, print, args) {
                   ...(n.hasUnknownMembers ? [hardline, "..."] : []),
                 ])
               ),
-              comments.printDanglingComments(
-                path,
-                options,
-                /* sameIndent */ true
-              ),
+              printDanglingComments(path, options, /* sameIndent */ true),
               hardline,
               "}",
             ])
