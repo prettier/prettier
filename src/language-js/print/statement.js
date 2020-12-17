@@ -37,7 +37,7 @@ function printStatement(path, options, print, index) {
     return;
   }
 
-  const parent = path.parentNode();
+  const parent = path.getParentNode();
   const isClassBody = parent.type === "ClassBody";
 
   const printed = print(path);
