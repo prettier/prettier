@@ -26,21 +26,6 @@ function locEnd(node) {
 }
 
 /**
- * @param {Node} startNode
- * @param {Node | number} endNodeOrLength
- * @returns {number[]}
- */
-function composeLoc(startNode, endNodeOrLength = startNode) {
-  const start = locStart(startNode);
-  const end =
-    typeof endNodeOrLength === "number"
-      ? start + endNodeOrLength
-      : locEnd(endNodeOrLength);
-
-  return [start, end];
-}
-
-/**
  * @param {Node} nodeA
  * @param {Node} nodeB
  * @returns {boolean}
@@ -70,7 +55,6 @@ function hasSameLoc(nodeA, nodeB) {
 module.exports = {
   locStart,
   locEnd,
-  composeLoc,
   hasSameLocStart,
   hasSameLoc,
 };

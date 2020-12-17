@@ -318,18 +318,18 @@ function isAngularTestWrapper(node) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isJSXNode(node) {
+function isJsxNode(node) {
   return node.type === "JSXElement" || node.type === "JSXFragment";
 }
 
-function isTheOnlyJSXElementInMarkdown(options, path) {
+function isTheOnlyJsxElementInMarkdown(options, path) {
   if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
     return false;
   }
 
   const node = path.getNode();
 
-  if (!node.expression || !isJSXNode(node.expression)) {
+  if (!node.expression || !isJsxNode(node.expression)) {
     return false;
   }
 
@@ -339,7 +339,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 }
 
 // Detect an expression node representing `{" "}`
-function isJSXWhitespaceExpression(node) {
+function isJsxWhitespaceExpression(node) {
   return (
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
@@ -737,6 +737,17 @@ const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
 const containsNonJsxWhitespaceRegex = new RegExp(
   "[^" + jsxWhitespaceChars + "]"
 );
+const trimJsxWhitespace = (text) =>
+  text.replace(
+    new RegExp(
+      "(?:^" +
+        matchJsxWhitespaceRegex.source +
+        "|" +
+        matchJsxWhitespaceRegex.source +
+        "$)"
+    ),
+    ""
+  );
 
 // Meaningful if it contains non-whitespace characters,
 // or it contains whitespace without a new line.
@@ -744,7 +755,7 @@ const containsNonJsxWhitespaceRegex = new RegExp(
  * @param {Node} node
  * @returns {boolean}
  */
-function isMeaningfulJSXText(node) {
+function isMeaningfulJsxText(node) {
   return (
     isLiteral(node) &&
     (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
@@ -759,7 +770,7 @@ function isMeaningfulJSXText(node) {
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
+  if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
     return false;
   }
 
@@ -768,7 +779,7 @@ function hasJsxIgnoreComment(path) {
   let prevSibling = null;
   for (let i = index; i > 0; i--) {
     const candidate = parent.children[i - 1];
-    if (candidate.type === "JSXText" && !isMeaningfulJSXText(candidate)) {
+    if (candidate.type === "JSXText" && !isMeaningfulJsxText(candidate)) {
       continue;
     }
     prevSibling = candidate;
@@ -787,7 +798,7 @@ function hasJsxIgnoreComment(path) {
  * @param {JSXElement} node
  * @returns {boolean}
  */
-function isEmptyJSXElement(node) {
+function isEmptyJsxElement(node) {
   if (node.children.length === 0) {
     return true;
   }
@@ -798,7 +809,7 @@ function isEmptyJSXElement(node) {
   // if there is one text child and does not contain any meaningful text
   // we can treat the element as empty.
   const child = node.children[0];
-  return isLiteral(child) && !isMeaningfulJSXText(child);
+  return isLiteral(child) && !isMeaningfulJsxText(child);
 }
 
 /**
@@ -846,7 +857,7 @@ function isFlowAnnotationComment(text, typeAnnotation) {
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
-  if (isJSXNode(node)) {
+  if (isJsxNode(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -1529,7 +1540,7 @@ module.exports = {
   isLineComment,
   isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,
-  isEmptyJSXElement,
+  isEmptyJsxElement,
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
@@ -1537,13 +1548,13 @@ module.exports = {
   isFunctionOrArrowExpression,
   isGetterOrSetter,
   isJestEachTemplateLiteral,
-  isJSXNode,
-  isJSXWhitespaceExpression,
+  isJsxNode,
+  isJsxWhitespaceExpression,
   isLastStatement,
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMeaningfulJSXText,
+  isMeaningfulJsxText,
   isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
@@ -1556,7 +1567,7 @@ module.exports = {
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
-  isTheOnlyJSXElementInMarkdown,
+  isTheOnlyJsxElementInMarkdown,
   isTSXFile,
   isTypeAnnotationAFunction,
   matchJsxWhitespaceRegex,
@@ -1571,4 +1582,5 @@ module.exports = {
   hasComment,
   getComments,
   CommentCheckFlags,
+  trimJsxWhitespace,
 };

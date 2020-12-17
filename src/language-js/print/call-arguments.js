@@ -12,7 +12,7 @@ const {
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
-  isJSXNode,
+  isJsxNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
   getCallArguments,
@@ -263,7 +263,7 @@ function couldGroupArg(arg) {
         arg.body.type === "CallExpression" ||
         arg.body.type === "OptionalCallExpression" ||
         arg.body.type === "ConditionalExpression" ||
-        isJSXNode(arg.body)))
+        isJsxNode(arg.body)))
   );
 }
 

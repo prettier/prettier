@@ -30,7 +30,7 @@ exports[`invalid-3.hbs [glimmer] format 1`] = `
 "Parse error on line 3:
 <a>{{}}
 -----^
-Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
   1 | <a>
   2 | 
 > 3 | {{}}
@@ -42,7 +42,7 @@ exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
 "Parse error on line 1:
 {{~}}
 ---^
-Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
 > 1 | {{~}}
     |    ^
   2 | "
@@ -52,7 +52,7 @@ exports[`tilde-comments-2.hbs [glimmer] format 1`] = `
 "Parse error on line 1:
 {{~~}}
 ---^
-Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
 > 1 | {{~~}}
     |    ^
   2 | "
