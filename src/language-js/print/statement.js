@@ -62,7 +62,7 @@ function printStatement(path, options, print, index) {
   }
 
   if (!options.semi && isClassBody) {
-    if (classPropMayCauseASIProblems(path)) {
+    if (classPropMayCauseASIProblems(node)) {
       parts.push(";");
     } else if (
       node.type === "ClassProperty" ||
@@ -161,12 +161,10 @@ function isLastStatement(path) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {Node} node
  * @returns {boolean}
  */
-function classPropMayCauseASIProblems(path) {
-  const node = path.getNode();
-
+function classPropMayCauseASIProblems(node) {
   if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
     return false;
   }
@@ -182,8 +180,14 @@ function classPropMayCauseASIProblems(path) {
   ) {
     return true;
   }
+
+  return false;
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function classChildNeedsASIProtection(node) {
   if (!node) {
     return;
@@ -224,10 +228,10 @@ function classChildNeedsASIProtection(node) {
     }
     case "TSIndexSignature":
       return true;
-    default:
-      /* istanbul ignore next */
-      return false;
   }
+
+  /* istanbul ignore next */
+  return false;
 }
 
 module.exports = {
