@@ -27,9 +27,7 @@ function formatMarkdown(
       isIdempotent ? [] : ["", "**Second Output:**", codeBlock(output2, syntax)]
     )
     .concat(full ? ["", "**Expected behavior:**", ""] : [])
-    .filter((part) => {
-      return part != null;
-    })
+    .filter((part) => part != null)
     .join("\n");
 }
 
