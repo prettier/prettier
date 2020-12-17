@@ -39,7 +39,6 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
   }
 
   const printed = print(path);
-  const text = options.originalText;
   const parts = [];
 
   // in no-semi mode, prepend statement with semicolon if it might break ASI
