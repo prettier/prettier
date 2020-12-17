@@ -19,6 +19,7 @@ const { shouldPrintParamsWithoutParens } = require("./function");
 /**
  * @typedef {import("../../document").Doc} Doc
  * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../types/estree").Node} Node
  */
 
 function printStatement(path, options, print, statements, index) {
@@ -166,7 +167,6 @@ function isLastStatement(statements, node) {
 }
 
 /**
- * @param {Node} node
  * @returns {boolean}
  */
 function classPropMayCauseASIProblems(node) {
@@ -190,7 +190,6 @@ function classPropMayCauseASIProblems(node) {
 }
 
 /**
- * @param {Node} node
  * @returns {boolean}
  */
 function classChildNeedsASIProtection(node) {
