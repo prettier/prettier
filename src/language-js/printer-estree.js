@@ -6,7 +6,7 @@
 const assert = require("assert");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-const comments = require("../main/comments");
+const { printDanglingComments } = require("../main/comments");
 const {
   hasNewline,
   printString,
@@ -99,9 +99,9 @@ const {
   printAssignmentExpression,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
-const { printBody, printSwitchCaseConsequent } = require("./print/statement");
+const { printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
-const { printBlock } = require("./print/block");
+const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
 
 function genericPrint(path, options, printPath, args) {
@@ -259,37 +259,8 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "Program": {
-      const hasContents =
-        !n.body.every(({ type }) => type === "EmptyStatement") || hasComment(n);
-
-      // Babel 6
-      if (n.directives) {
-        const directivesCount = n.directives.length;
-        path.each((childPath, index) => {
-          parts.push(print(childPath), hardline);
-          if (
-            (index < directivesCount - 1 || hasContents) &&
-            isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-          ) {
-            parts.push(hardline);
-          }
-        }, "directives");
-      }
-
-      parts.push(printBody(path, options, print));
-
-      parts.push(
-        comments.printDanglingComments(path, options, /* sameIndent */ true)
-      );
-
-      // Only force a trailing newline if there were any contents.
-      if (hasContents) {
-        parts.push(hardline);
-      }
-
-      return concat(parts);
-    }
+    case "Program":
+      return printBlockBody(path, options, print);
     // Babel extension.
     case "EmptyStatement":
       return "";
@@ -508,11 +479,11 @@ function printPathNoParens(path, options, print, args) {
         // the few places a SequenceExpression appears unparenthesized, we want
         // to indent expressions after the first.
         const parts = [];
-        path.each((p) => {
-          if (p.getName() === 0) {
-            parts.push(print(p));
+        path.each((expressionPath, index) => {
+          if (index === 0) {
+            parts.push(print(expressionPath));
           } else {
-            parts.push(",", indent(concat([line, print(p)])));
+            parts.push(",", indent(concat([line, print(expressionPath)])));
           }
         }, "expressions");
         return group(concat(parts));
@@ -674,7 +645,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (hasComment(n, CommentCheckFlags.Dangling)) {
           parts.push(
-            comments.printDanglingComments(path, options, true),
+            printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "
           );
         }
@@ -699,7 +670,7 @@ function printPathNoParens(path, options, print, args) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = comments.printDanglingComments(
+      const dangling = printDanglingComments(
         path,
         options,
         /* sameLine */ true
@@ -1013,12 +984,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.members.length === 0 && !n.hasUnknownMembers) {
         parts.push(
           group(
-            concat([
-              "{",
-              comments.printDanglingComments(path, options),
-              softline,
-              "}",
-            ])
+            concat(["{", printDanglingComments(path, options), softline, "}"])
           )
         );
       } else {
@@ -1040,11 +1006,7 @@ function printPathNoParens(path, options, print, args) {
                   ...(n.hasUnknownMembers ? [hardline, "..."] : []),
                 ])
               ),
-              comments.printDanglingComments(
-                path,
-                options,
-                /* sameIndent */ true
-              ),
+              printDanglingComments(path, options, /* sameIndent */ true),
               hardline,
               "}",
             ])

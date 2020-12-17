@@ -6,10 +6,9 @@ const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getShebang,
 } = require("../common/util");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
 const postprocess = require("./parse-postprocess");
 const tryCombinations = require("./parser/try-combinations");
+const createParser = require("./parser/create-parser");
 
 const parseOptions = {
   sourceType: "module",
@@ -235,17 +234,15 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
-const babelFlow = { ...babel, parse: parseFlow };
-const babelTypeScript = { ...babel, parse: parseTypeScript };
-const babelExpression = { ...babel, parse: parseExpression };
+const babel = createParser(parse);
+const babelExpression = createParser(parseExpression);
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
     babel,
-    "babel-flow": babelFlow,
-    "babel-ts": babelTypeScript,
+    "babel-flow": createParser(parseFlow),
+    "babel-ts": createParser(parseTypeScript),
     json: {
       ...babelExpression,
       hasPragma() {
@@ -253,12 +250,10 @@ module.exports = {
       },
     },
     json5: babelExpression,
-    "json-stringify": {
+    "json-stringify": createParser({
       parse: parseJson,
       astFormat: "estree-json",
-      locStart,
-      locEnd,
-    },
+    }),
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */

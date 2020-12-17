@@ -11,7 +11,6 @@ const {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxNode,
-  isLastStatement,
   isTheOnlyJsxElementInMarkdown,
   hasComment,
   CommentCheckFlags,
@@ -19,7 +18,10 @@ const {
 const { locEnd } = require("../loc");
 const { shouldPrintParamsWithoutParens } = require("./function");
 
-/** @typedef {import("../../document").Doc} Doc */
+/**
+ * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../common/fast-path")} FastPath
+ */
 
 function printStatement({ path, index, bodyNode, isClass }, options, print) {
   const node = path.getValue();
@@ -151,15 +153,30 @@ function expressionNeedsASIProtection(path, options) {
 }
 
 function printBody(path, options, print) {
-  return path.call((bodyPath) => {
-    return printStatementSequence(bodyPath, options, print);
-  }, "body");
+  return path.call(
+    (bodyPath) => printStatementSequence(bodyPath, options, print),
+    "body"
+  );
 }
 
 function printSwitchCaseConsequent(path, options, print) {
-  return path.call((bodyPath) => {
-    return printStatementSequence(bodyPath, options, print);
-  }, "consequent");
+  return path.call(
+    (bodyPath) => printStatementSequence(bodyPath, options, print),
+    "consequent"
+  );
+}
+
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
+function isLastStatement(path) {
+  const parent = path.getParentNode();
+  const node = path.getValue();
+  const body = (parent.body || parent.consequent).filter(
+    (stmt) => stmt.type !== "EmptyStatement"
+  );
+  return body[body.length - 1] === node;
 }
 
 module.exports = {
