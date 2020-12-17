@@ -294,7 +294,7 @@ function replaceNullElements(node, ast, options) {
       locEnd(token) < end &&
       isCommaToken(token, options)
   );
-  let position = start + 1;
+  let position = start;
   for (const [index, element] of elements.entries()) {
     if (element === null) {
       elements[index] = {
