@@ -821,22 +821,6 @@ function hasPrettierIgnore(path) {
 }
 
 /**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function isLastStatement(path) {
-  const parent = path.getParentNode();
-  if (!parent) {
-    return true;
-  }
-  const node = path.getValue();
-  const body = (parent.body || parent.consequent).filter(
-    (stmt) => stmt.type !== "EmptyStatement"
-  );
-  return body[body.length - 1] === node;
-}
-
-/**
  * @param {string} text
  * @param {Node} typeAnnotation
  * @returns {boolean}
@@ -1550,7 +1534,6 @@ module.exports = {
   isJestEachTemplateLiteral,
   isJsxNode,
   isJsxWhitespaceExpression,
-  isLastStatement,
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
