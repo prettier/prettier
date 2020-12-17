@@ -20,10 +20,10 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "11.0.4",
+    "@angular/compiler": "11.0.5",
     "@babel/code-frame": "7.12.11",
     "@babel/parser": "7.12.11",
-    "@glimmer/syntax": "0.71.0",
+    "@glimmer/syntax": "0.72.0",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "4.10.0",
     "angular-estree-parser": "2.3.0",
@@ -63,7 +63,7 @@
     "minimatch": "3.0.4",
     "minimist": "1.2.5",
     "n-readlines": "1.0.1",
-    "outdent": "0.7.1",
+    "outdent": "0.8.0",
     "parse-srcset": "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
     "please-upgrade-node": "3.2.0",
     "postcss-less": "3.1.4",

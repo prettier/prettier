@@ -423,11 +423,10 @@ function genericPrint(path, options, print) {
                 align(
                   " ".repeat(4),
                   printChildren(path, options, print, {
-                    processor: (childPath, index) => {
-                      return index === 0
+                    processor: (childPath, index) =>
+                      index === 0
                         ? group(concat([softline, childPath.call(print)]))
-                        : childPath.call(print);
-                    },
+                        : childPath.call(print),
                   })
                 ),
                 nextNode && nextNode.type === "footnoteDefinition"

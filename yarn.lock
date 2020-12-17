@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/compiler@11.0.4":
-  version "11.0.4"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-11.0.4.tgz#8cc4e92ac9734d707828c02c487eff2cd1a69d02"
-  integrity sha512-Smf8FKSjkqd522ZCdXjSnVv1lYA0b21AN3WC5L1mwtRwyl/VacqCA/YEklLneDGgI2FdSIC9+bzSQIV+CCVftA==
+"@angular/compiler@11.0.5":
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-11.0.5.tgz#7622dbf81356ffc3f58ab034201f71f37c35d2fb"
+  integrity sha512-japxEn07P9z9FnW8ii+M5DIfgRAGNxl6QNQWKBkNo5ytN6iCAB7pVbJI0vn1AUT9TByV3+xDW/FNuoSuzsnX3w==
   dependencies:
     tslib "^2.0.0"
 
@@ -1071,6 +1071,13 @@
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
+"@glimmer/interfaces@0.72.0":
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.72.0.tgz#34817afba6736f68974cfbd14825a88032d60a63"
+  integrity sha512-o5zLnfca4FogcO4wfmerLGHpmJHz5mfUUB7uxabnLHBI53ABu+Gfmeaaye24lgQI9NyaHY/eSJlz+GtRtvMnSg==
+  dependencies:
+    "@simple-dom/interface" "^1.4.0"
+
 "@glimmer/reference@0.71.0":
   version "0.71.0"
   resolved "https://registry.yarnpkg.com/@glimmer/reference/-/reference-0.71.0.tgz#c58be3170e550c1fb94b80f47e2d7229e083bf79"
@@ -1082,13 +1089,13 @@
     "@glimmer/util" "0.71.0"
     "@glimmer/validator" "0.71.0"
 
-"@glimmer/syntax@0.71.0":
-  version "0.71.0"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.71.0.tgz#cd3cc1b87fa6bf696537a9232b306d541c9d88c8"
-  integrity sha512-4R/tCemL93LnyZaFVCjROnvv8uxPFNgrCx/+RH+qikJkn3kmo7uHws3mpa1xt1LT4Gpeo+NHURWx4h+9aYK7eg==
+"@glimmer/syntax@0.72.0":
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.72.0.tgz#a7c22b8d1d7fb2c307d0df3ad68f826905a81794"
+  integrity sha512-HOA+dsI+tsqEvTZDZZWdnsV9wjAfCoKzmkYnzWOM+5RXOU9muRfRVp0wdu1cYF7J50QKp7gCmHLxzdLG7XcpDg==
   dependencies:
-    "@glimmer/interfaces" "0.71.0"
-    "@glimmer/util" "0.71.0"
+    "@glimmer/interfaces" "0.72.0"
+    "@glimmer/util" "0.72.0"
     "@handlebars/parser" "^2.0.0"
     simple-html-tokenizer "^0.5.10"
 
@@ -1099,6 +1106,15 @@
   dependencies:
     "@glimmer/env" "0.1.7"
     "@glimmer/interfaces" "0.71.0"
+    "@simple-dom/interface" "^1.4.0"
+
+"@glimmer/util@0.72.0":
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.72.0.tgz#77fdce5c14649651117d5e795b2870c48158b2c9"
+  integrity sha512-OlVmdMaV1o7UxWqhmuGXOlgpXgtynwp3zD5ypdWuf6IzNDeFf2OAsHaZY+GYqE+uDjx1u6xb+Q9xTXk7U7Bhow==
+  dependencies:
+    "@glimmer/env" "0.1.7"
+    "@glimmer/interfaces" "0.72.0"
     "@simple-dom/interface" "^1.4.0"
 
 "@glimmer/validator@0.71.0":
@@ -5584,10 +5600,10 @@ optionator@^0.9.1:
     type-check "^0.4.0"
     word-wrap "^1.2.3"
 
-outdent@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/outdent/-/outdent-0.7.1.tgz#e9b400443622a97760b0bc74fa3223252ccd02a2"
-  integrity sha512-VjIzdUHunL74DdhcwMDt5FhNDQ8NYmTkuW0B+usIV2afS9aWT/1c9z1TsnFW349TP3nxmYeUl7Z++XpJRByvgg==
+outdent@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/outdent/-/outdent-0.8.0.tgz#2ebc3e77bf49912543f1008100ff8e7f44428eb0"
+  integrity sha512-KiOAIsdpUTcAXuykya5fnVVT+/5uS0Q1mrkRHcF89tpieSmY33O/tmc54CqwA+bfhbtEfZUNLHaPUiB9X3jt1A==
 
 p-defer@^1.0.0:
   version "1.0.0"
