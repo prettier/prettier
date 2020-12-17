@@ -427,16 +427,16 @@ function lastLineHasInlineComment(text) {
 function stringifyNode(node) {
   if (node.groups) {
     const open = node.open && node.open.value ? node.open.value : "";
-    const groups = node.groups.reduce((previousValue, currentValue, index) => {
-      return (
+    const groups = node.groups.reduce(
+      (previousValue, currentValue, index) =>
         previousValue +
         stringifyNode(currentValue) +
         (node.groups[0].type === "comma_group" &&
         index !== node.groups.length - 1
           ? ","
-          : "")
-      );
-    }, "");
+          : ""),
+      ""
+    );
     const close = node.close && node.close.value ? node.close.value : "";
 
     return open + groups + close;

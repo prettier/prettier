@@ -440,19 +440,14 @@ function addIsSpaceSensitive(ast, options) {
 
     return node.clone({
       children: node.children
-        .map((child) => {
-          return {
-            ...child,
-            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(
-              child,
-              options
-            ),
-            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
-              child,
-              options
-            ),
-          };
-        })
+        .map((child) => ({
+          ...child,
+          isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, options),
+          isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
+            child,
+            options
+          ),
+        }))
         .map((child, index, children) => ({
           ...child,
           isLeadingSpaceSensitive:
