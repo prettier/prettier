@@ -239,7 +239,7 @@ const options = {
     category: CATEGORY_GLOBAL,
     default: 2,
     description: "Number of spaces per indentation level.",
-    range: { start: 0, end: Infinity, step: 1 },
+    range: { start: 1, end: Infinity, step: 1 },
   },
   useTabs: {
     since: "1.0.0",
