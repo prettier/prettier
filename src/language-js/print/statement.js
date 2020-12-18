@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNextLineEmpty, getLast } = require("../../common/util");
+const { getLast } = require("../../common/util");
 const {
   builders: { concat, hardline },
 } = require("../../document");
@@ -12,8 +12,8 @@ const {
   isTheOnlyJsxElementInMarkdown,
   hasComment,
   CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
-const { locEnd } = require("../loc");
 const { shouldPrintParamsWithoutParens } = require("./function");
 
 /**
@@ -75,7 +75,7 @@ function printStatementSequence(path, options, print, property) {
     if (node !== lastStatement) {
       parts.push(hardline);
 
-      if (isNextLineEmpty(options.originalText, node, locEnd)) {
+      if (isNextLineEmpty(node, options)) {
         parts.push(hardline);
       }
     }

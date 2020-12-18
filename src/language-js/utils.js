@@ -7,6 +7,7 @@ const {
   hasNewlineInRange,
   skipWhitespace,
   isNonEmptyArray,
+  isNextLineEmptyAfterIndex,
 } = require("../common/util");
 const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
@@ -1430,6 +1431,13 @@ function getComments(node, flags, fn) {
     : node.comments;
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isNextLineEmpty = (node, { originalText }) =>
+  isNextLineEmptyAfterIndex(originalText, locEnd(node));
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1482,6 +1490,7 @@ module.exports = {
   isTheOnlyJsxElementInMarkdown,
   isTSXFile,
   isTypeAnnotationAFunction,
+  isNextLineEmpty,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
   rawText,
