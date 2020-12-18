@@ -21,7 +21,6 @@ const { locStart, locEnd, hasSameLocStart } = require("./loc");
  * @typedef {import("./types/estree").Expression} Expression
  * @typedef {import("./types/estree").Property} Property
  * @typedef {import("./types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("./types/estree").JSXElement} JSXElement
  * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
  * @typedef {import("./types/estree").Literal} Literal
  *

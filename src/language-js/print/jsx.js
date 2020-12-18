@@ -33,6 +33,12 @@ const {
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
 
+/**
+ * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../types/estree").Node} Node
+ * @typedef {import("../types/estree").JSXElement} JSXElement
+ */
+
 // JSX expands children from the inside-out, instead of the outside-in.
 // This is both to break children before attributes,
 // and to ensure that when children break, their parents do as well.
