@@ -2,7 +2,7 @@
 
 const { isNextLineEmpty, getLast } = require("../../common/util");
 const {
-  builders: { concat, join, hardline },
+  builders: { concat, hardline },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {
