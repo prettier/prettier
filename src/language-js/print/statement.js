@@ -143,18 +143,6 @@ function printSwitchCaseConsequent(path, options, print) {
 }
 
 /**
- * @param {Node[]} statements
- * @param {Node} node
- * @returns {boolean}
- */
-function isLastStatement(statements, node) {
-  statements = statements.filter(
-    (statement) => statement.type !== "EmptyStatement"
-  );
-  return statements[statements.length - 1] === node;
-}
-
-/**
  * @returns {boolean}
  */
 function classPropMayCauseASIProblems(node) {
