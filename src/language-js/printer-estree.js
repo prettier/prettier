@@ -37,7 +37,6 @@ const {
   getParentExportDeclaration,
   hasFlowShorthandAnnotationComment,
   hasNewlineBetweenOrAfterDecorators,
-  hasPrettierIgnore,
   hasComment,
   CommentCheckFlags,
   isExportDeclaration,
@@ -50,6 +49,7 @@ const {
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
+  hasIgnoreComment,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -58,7 +58,7 @@ const {
   isVueEventBindingExpression,
 } = require("./print/html-binding");
 const { printAngular } = require("./print/angular");
-const { printJsx } = require("./print/jsx");
+const { printJsx, hasJsxIgnoreComment } = require("./print/jsx");
 const { printFlow } = require("./print/flow");
 const { printTypescript } = require("./print/typescript");
 const {
@@ -1241,7 +1241,9 @@ module.exports = {
   embed,
   insertPragma,
   massageAstNode: clean,
-  hasPrettierIgnore,
+  hasPrettierIgnore(path) {
+    return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
+  },
   willPrintOwnComments: handleComments.willPrintOwnComments,
   canAttachComment,
   printComment,
