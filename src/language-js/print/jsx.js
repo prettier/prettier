@@ -20,11 +20,7 @@ const {
 
 const { getLast, getPreferredQuote } = require("../../common/util");
 const {
-  isEmptyJsxElement,
-  isJsxWhitespaceExpression,
   isJsxNode,
-  isMeaningfulJsxText,
-  matchJsxWhitespaceRegex,
   rawText,
   isLiteral,
   isCallOrOptionalCallExpression,
@@ -32,7 +28,7 @@ const {
   isBinaryish,
   hasComment,
   CommentCheckFlags,
-  trimJsxWhitespace,
+  hasNodeIgnoreComment,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
@@ -764,6 +760,99 @@ function printJsx(path, options, print) {
   }
 }
 
+// Only space, newline, carriage return, and tab are treated as whitespace
+// inside JSX.
+const jsxWhitespaceChars = " \n\r\t";
+const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
+const containsNonJsxWhitespaceRegex = new RegExp(
+  "[^" + jsxWhitespaceChars + "]"
+);
+const trimJsxWhitespace = (text) =>
+  text.replace(
+    new RegExp(
+      "(?:^" +
+        matchJsxWhitespaceRegex.source +
+        "|" +
+        matchJsxWhitespaceRegex.source +
+        "$)"
+    ),
+    ""
+  );
+
+/**
+ * @param {JSXElement} node
+ * @returns {boolean}
+ */
+function isEmptyJsxElement(node) {
+  if (node.children.length === 0) {
+    return true;
+  }
+  if (node.children.length > 1) {
+    return false;
+  }
+
+  // if there is one text child and does not contain any meaningful text
+  // we can treat the element as empty.
+  const child = node.children[0];
+  return isLiteral(child) && !isMeaningfulJsxText(child);
+}
+
+// Meaningful if it contains non-whitespace characters,
+// or it contains whitespace without a new line.
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isMeaningfulJsxText(node) {
+  return (
+    isLiteral(node) &&
+    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
+      !/\n/.test(rawText(node)))
+  );
+}
+
+// Detect an expression node representing `{" "}`
+function isJsxWhitespaceExpression(node) {
+  return (
+    node.type === "JSXExpressionContainer" &&
+    isLiteral(node.expression) &&
+    node.expression.value === " " &&
+    !hasComment(node.expression)
+  );
+}
+
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
+function hasJsxIgnoreComment(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
+    return false;
+  }
+
+  // Lookup the previous sibling, ignoring any empty JSXText elements
+  const index = parent.children.indexOf(node);
+  let prevSibling = null;
+  for (let i = index; i > 0; i--) {
+    const candidate = parent.children[i - 1];
+    if (candidate.type === "JSXText" && !isMeaningfulJsxText(candidate)) {
+      continue;
+    }
+    prevSibling = candidate;
+    break;
+  }
+
+  return (
+    prevSibling &&
+    prevSibling.type === "JSXExpressionContainer" &&
+    prevSibling.expression.type === "JSXEmptyExpression" &&
+    hasNodeIgnoreComment(prevSibling.expression)
+  );
+}
+
 module.exports = {
+  hasJsxIgnoreComment,
   printJsx,
 };
