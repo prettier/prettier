@@ -343,52 +343,7 @@ function printNode(node, parentNode, path, options, print) {
     }
     case "blockFolded":
     case "blockLiteral": {
-<<<<<<< HEAD
-      const parentIndent = getAncestorCount(path, (ancestorNode) =>
-        isNode(ancestorNode, ["sequence", "mapping"])
-      );
-      const isLastDescendant = isLastDescendantNode(path);
-      return concat([
-        node.type === "blockFolded" ? ">" : "|",
-        node.indent === null ? "" : node.indent.toString(),
-        node.chomping === "clip" ? "" : node.chomping === "keep" ? "+" : "-",
-        hasIndicatorComment(node)
-          ? concat([" ", path.call(print, "indicatorComment")])
-          : "",
-        (node.indent === null ? dedent : dedentToRoot)(
-          align(
-            node.indent === null
-              ? options.tabWidth
-              : node.indent - 1 + parentIndent,
-            concat(
-              getBlockValueLineContents(node, {
-                parentIndent,
-                isLastDescendant,
-                options,
-              }).reduce(
-                (reduced, lineWords, index, lineContents) =>
-                  reduced.concat(
-                    index === 0 ? hardline : "",
-                    fill(getDocParts(join(line, lineWords))),
-                    index !== lineContents.length - 1
-                      ? lineWords.length === 0
-                        ? hardline
-                        : markAsRoot(literalline)
-                      : node.chomping === "keep" && isLastDescendant
-                      ? lineWords.length === 0
-                        ? dedentToRoot(hardline)
-                        : dedentToRoot(literalline)
-                      : ""
-                  ),
-                []
-              )
-            )
-          )
-        ),
-      ]);
-=======
       return printBlock(path, print, options);
->>>>>>> master
     }
     case "sequence":
       return join(hardline, path.map(print, "children"));
