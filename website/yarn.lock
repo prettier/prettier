@@ -7432,10 +7432,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.10.3:
-  version "5.10.3"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.10.3.tgz#933cbd5e79d62040d988049ff0f515a6dc333006"
-  integrity sha512-KFPEbpNKfNU4t2CDsUZJ7KpuUbzDqGUCZqLmz4667KSUWMc9BuR3a8jpa72Emv7JUbdGwISD9OZjoI9S5BnHig==
+webpack@5.11.0:
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.11.0.tgz#1647abc060441d86d01d8835b8f0fc1dae2fe76f"
+  integrity sha512-ubWv7iP54RqAC/VjixgpnLLogCFbAfSOREcSWnnOlZEU8GICC5eKmJSu6YEnph2N2amKqY9rvxSwgyHxVqpaRw==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"
