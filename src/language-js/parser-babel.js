@@ -2,12 +2,12 @@
 
 const flatten = require("lodash/flatten");
 const createError = require("../common/parser-create-error");
+const tryCombinations = require("../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getShebang,
 } = require("../common/util");
 const postprocess = require("./parse-postprocess");
-const tryCombinations = require("./parser/try-combinations");
 const createParser = require("./parser/create-parser");
 
 const parseOptions = {
@@ -92,7 +92,7 @@ function createParseError(error) {
   // so we need our custom error
   const { message, loc } = error;
 
-  throw createError(message.replace(/ \(.*\)/, ""), {
+  return createError(message.replace(/ \(.*\)/, ""), {
     start: {
       line: loc ? loc.line : 0,
       column: loc ? loc.column + 1 : 0,

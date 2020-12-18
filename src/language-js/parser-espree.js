@@ -1,8 +1,8 @@
 "use strict";
 const { getShebang } = require("../common/util");
 const createError = require("../common/parser-create-error");
+const tryCombinations = require("../utils/try-combinations");
 const postprocess = require("./parse-postprocess");
-const tryCombinations = require("./parser/try-combinations");
 const createParser = require("./parser/create-parser");
 
 const parseOptions = {
@@ -23,10 +23,10 @@ function createParseError(error) {
 
   /* istanbul ignore next */
   if (typeof lineNumber !== "number") {
-    throw error;
+    return error;
   }
 
-  throw createError(message, { start: { line: lineNumber, column } });
+  return createError(message, { start: { line: lineNumber, column } });
 }
 
 function parse(originalText, parsers, options) {

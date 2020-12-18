@@ -1,8 +1,8 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const tryCombinations = require("../utils/try-combinations");
 const postprocess = require("./parse-postprocess");
-const tryCombinations = require("./parser/try-combinations");
 const createParser = require("./parser/create-parser");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */

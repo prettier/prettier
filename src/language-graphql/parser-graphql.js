@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const tryCombinations = require("../utils/try-combinations");
 const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 
@@ -36,40 +37,41 @@ function removeTokens(node) {
   return node;
 }
 
-function fallbackParser(parse, source) {
-  const parserOptions = {
-    allowLegacySDLImplementsInterfaces: false,
-    experimentalFragmentVariables: true,
-  };
-  try {
-    return parse(source, parserOptions);
-  } catch (_) {
-    parserOptions.allowLegacySDLImplementsInterfaces = true;
-    return parse(source, parserOptions);
+const parseOptions = {
+  allowLegacySDLImplementsInterfaces: false,
+  experimentalFragmentVariables: true,
+};
+
+function createParseError(error) {
+  const { GraphQLError } = require("graphql/error");
+  if (error instanceof GraphQLError) {
+    const {
+      message,
+      locations: [start],
+    } = error;
+    return createError(message, { start });
   }
+
+  /* istanbul ignore next */
+  return error;
 }
 
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
-  const parser = require("graphql/language");
-  try {
-    const ast = fallbackParser(parser.parse, text);
-    ast.comments = parseComments(ast);
-    removeTokens(ast);
-    return ast;
-  } catch (error) {
-    const { GraphQLError } = require("graphql/error");
-    if (error instanceof GraphQLError) {
-      const {
-        message,
-        locations: [start],
-      } = error;
-      throw createError(message, { start });
-    }
+  const { parse } = require("graphql/language");
+  const { result: ast, error } = tryCombinations(
+    () => parse(text, { ...parseOptions }),
+    () =>
+      parse(text, { ...parseOptions, allowLegacySDLImplementsInterfaces: true })
+  );
 
-    /* istanbul ignore next */
-    throw error;
+  if (!ast) {
+    throw createParseError(error);
   }
+
+  ast.comments = parseComments(ast);
+  removeTokens(ast);
+  return ast;
 }
 
 module.exports = {
