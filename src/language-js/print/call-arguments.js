@@ -1,11 +1,7 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const {
-  getLast,
-  getPenultimate,
-  isNextLineEmpty,
-} = require("../../common/util");
+const { getLast, getPenultimate } = require("../../common/util");
 const {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -17,8 +13,8 @@ const {
   shouldPrintComma,
   getCallArguments,
   iterateCallArgumentsPath,
+  isNextLineEmpty,
 } = require("../utils");
-const { locEnd } = require("../loc");
 
 const {
   builders: {
@@ -103,7 +99,7 @@ function printCallArguments(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, locEnd)) {
+    } else if (isNextLineEmpty(arg, options)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }

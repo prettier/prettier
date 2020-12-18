@@ -1,6 +1,5 @@
 "use strict";
 
-const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, join, hardline },
 } = require("../../document");
@@ -14,8 +13,8 @@ const {
   isTheOnlyJsxElementInMarkdown,
   hasComment,
   CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
-const { locEnd } = require("../loc");
 const { shouldPrintParamsWithoutParens } = require("./function");
 
 /**
@@ -40,7 +39,6 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
   }
 
   const printed = print(path);
-  const text = options.originalText;
   const parts = [];
 
   // in no-semi mode, prepend statement with semicolon if it might break ASI
@@ -74,7 +72,7 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
     }
   }
 
-  if (isNextLineEmpty(text, node, locEnd) && !isLastStatement(path)) {
+  if (isNextLineEmpty(node, options) && !isLastStatement(path)) {
     parts.push(hardline);
   }
 

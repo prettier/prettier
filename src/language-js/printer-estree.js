@@ -11,7 +11,6 @@ const {
   hasNewline,
   printString,
   printNumber,
-  isNextLineEmpty,
   isNonEmptyArray,
 } = require("../common/util");
 const {
@@ -46,6 +45,7 @@ const {
   isTheOnlyJsxElementInMarkdown,
   isBlockComment,
   isLineComment,
+  isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
@@ -859,7 +859,7 @@ function printPathNoParens(path, options, print, args) {
                     return concat([
                       casePath.call(print),
                       index !== cases.length - 1 &&
-                      isNextLineEmpty(options.originalText, caseNode, locEnd)
+                      isNextLineEmpty(caseNode, options)
                         ? hardline
                         : "",
                     ]);
@@ -1186,7 +1186,7 @@ function printPathNoParens(path, options, print, args) {
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);
 
-      if (isNextLineEmpty(options.originalText, n, locEnd)) {
+      if (isNextLineEmpty(n, options)) {
         parts.push(hardline);
       }
 

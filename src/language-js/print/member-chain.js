@@ -5,7 +5,6 @@ const flat = require("lodash/flatten");
 const { printComments } = require("../../main/comments");
 const {
   getLast,
-  isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
@@ -19,6 +18,7 @@ const {
   isSimpleCallArgument,
   hasComment,
   CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
 const { locEnd } = require("../loc");
 
@@ -87,7 +87,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    return isNextLineEmpty(originalText, node, locEnd);
+    return isNextLineEmpty(node, options);
   }
 
   function rec(path) {
