@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNextLineEmpty } = require("../../common/util");
+const { isNextLineEmpty, getLast } = require("../../common/util");
 const {
   builders: { concat, join, hardline },
 } = require("../../document");
@@ -22,79 +22,67 @@ const { shouldPrintParamsWithoutParens } = require("./function");
  * @typedef {import("../types/estree").Node} Node
  */
 
-function printStatement(path, options, print, statements, index) {
+function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
-
-  // Just in case the AST has been modified to contain falsy
-  // "statements," it's safer simply to skip them.
-  /* istanbul ignore if */
-  if (!node) {
-    return;
-  }
-
-  // Skip printing EmptyStatement nodes to avoid leaving stray
-  // semicolons lying around.
-  if (node.type === "EmptyStatement") {
-    return;
-  }
-
-  const parent = path.getParentNode();
-  const isClassBody = parent.type === "ClassBody";
-
-  const printed = print(path);
-  const text = options.originalText;
   const parts = [];
+  const isClassBody = node.type === "ClassBody";
+  const lastStatement = getLast(
+    node[property].filter(({ type }) => type !== "EmptyStatement")
+  );
 
-  // in no-semi mode, prepend statement with semicolon if it might break ASI
-  // don't prepend the only JSX element in a program with semicolon
-  if (
-    !options.semi &&
-    !isClassBody &&
-    !isTheOnlyJsxElementInMarkdown(options, path) &&
-    statementNeedsASIProtection(path, options)
-  ) {
-    if (hasComment(node, CommentCheckFlags.Leading)) {
-      parts.push(print(path, { needsSemi: true }));
-    } else {
-      parts.push(";", printed);
+  path.each((path, index, statements) => {
+    const node = path.getValue();
+
+    // Skip printing EmptyStatement nodes to avoid leaving stray
+    // semicolons lying around.
+    if (node.type === "EmptyStatement") {
+      return;
     }
-  } else {
-    parts.push(printed);
-  }
 
-  if (!options.semi && isClassBody) {
-    if (classPropMayCauseASIProblems(node)) {
-      parts.push(";");
-    } else if (
-      node.type === "ClassProperty" ||
-      node.type === "FieldDefinition"
+    const printed = print(path);
+
+    // in no-semi mode, prepend statement with semicolon if it might break ASI
+    // don't prepend the only JSX element in a program with semicolon
+    if (
+      !options.semi &&
+      !isClassBody &&
+      !isTheOnlyJsxElementInMarkdown(options, path) &&
+      statementNeedsASIProtection(path, options)
     ) {
-      if (classChildNeedsASIProtection(statements[index + 1])) {
+      if (hasComment(node, CommentCheckFlags.Leading)) {
+        parts.push(print(path, { needsSemi: true }));
+      } else {
+        parts.push(";", printed);
+      }
+    } else {
+      parts.push(printed);
+    }
+
+    if (!options.semi && isClassBody) {
+      if (classPropMayCauseASIProblems(node)) {
         parts.push(";");
+      } else if (
+        node.type === "ClassProperty" ||
+        node.type === "FieldDefinition"
+      ) {
+        // `ClassBody` don't allow `EmptyStatement`,
+        // so we can use `statements` to get next node
+        if (classChildNeedsASIProtection(statements[index + 1])) {
+          parts.push(";");
+        }
       }
     }
-  }
 
-  if (
-    isNextLineEmpty(text, node, locEnd) &&
-    !isLastStatement(statements, node)
-  ) {
-    parts.push(hardline);
-  }
+    if (node !== lastStatement) {
+      parts.push(hardline);
+
+      if (isNextLineEmpty(options.originalText, node, locEnd)) {
+        parts.push(hardline);
+      }
+    }
+  }, property);
 
   return concat(parts);
-}
-
-function printStatementSequence(path, options, print, property) {
-  const printed = path
-    .map(
-      (path, index, statements) =>
-        printStatement(path, options, print, statements, index),
-      property
-    )
-    .filter(Boolean);
-
-  return join(hardline, printed);
 }
 
 function statementNeedsASIProtection(path, options) {
