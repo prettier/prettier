@@ -144,7 +144,7 @@ function clean(ast, newObj, parent) {
       /([\d+.Ee-]+)([A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
-        return isNaN(num) ? match : num + unit.toLowerCase();
+        return Number.isNaN(num) ? match : num + unit.toLowerCase();
       }
     );
   }

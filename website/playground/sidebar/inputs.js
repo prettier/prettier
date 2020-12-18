@@ -46,7 +46,7 @@ export function NumberInput({
         max={max}
         step={step}
         value={value}
-        onChange={(ev) => onChange(parseInt(ev.target.value, 10))}
+        onChange={(ev) => onChange(Number.parseInt(ev.target.value, 10))}
       />
     </label>
   );

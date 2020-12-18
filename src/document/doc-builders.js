@@ -94,7 +94,7 @@ function group(contents, opts) {
  * @returns Doc
  */
 function dedentToRoot(contents) {
-  return align(-Infinity, contents);
+  return align(Number.NEGATIVE_INFINITY, contents);
 }
 
 /**
@@ -219,7 +219,7 @@ function addAlignmentToDoc(doc, size, tabWidth) {
     aligned = align(size % tabWidth, aligned);
     // size is absolute from 0 and not relative to the current
     // indentation, so we use -Infinity to reset the indentation to 0
-    aligned = align(-Infinity, aligned);
+    aligned = align(Number.NEGATIVE_INFINITY, aligned);
   }
   return aligned;
 }
