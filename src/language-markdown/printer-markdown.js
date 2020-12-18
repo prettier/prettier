@@ -5,6 +5,7 @@ const {
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -422,11 +423,10 @@ function genericPrint(path, options, print) {
                 align(
                   " ".repeat(4),
                   printChildren(path, options, print, {
-                    processor: (childPath, index) => {
-                      return index === 0
+                    processor: (childPath, index) =>
+                      index === 0
                         ? group(concat([softline, childPath.call(print)]))
-                        : childPath.call(print);
-                    },
+                        : childPath.call(print),
                   })
                 ),
                 nextNode && nextNode.type === "footnoteDefinition"
@@ -774,7 +774,7 @@ function printChildren(path, options, print, events) {
 
 function getLastDescendantNode(node) {
   let current = node;
-  while (current.children && current.children.length !== 0) {
+  while (isNonEmptyArray(current.children)) {
     current = current.children[current.children.length - 1];
   }
   return current;

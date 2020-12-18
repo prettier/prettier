@@ -4,12 +4,12 @@ const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
   builders: { concat, join, line, softline, group, indent, align, ifBreak },
-  utils: { normalizeParts },
+  utils: { cleanDoc },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
-  isJSXNode,
+  isJsxNode,
   shouldFlatten,
   hasComment,
   CommentCheckFlags,
@@ -127,7 +127,7 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJSX = isJSXNode(n.right);
+  const hasJsx = isJsxNode(n.right);
 
   const firstGroupIndex = parts.findIndex(
     (part) => typeof part !== "string" && part.type === "group"
@@ -139,7 +139,7 @@ function printBinaryishExpression(path, options, print) {
     firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
   );
 
-  const rest = concat(parts.slice(headParts.length, hasJSX ? -1 : undefined));
+  const rest = concat(parts.slice(headParts.length, hasJsx ? -1 : undefined));
 
   const groupId = Symbol("logicalChain-" + ++uid);
 
@@ -154,7 +154,7 @@ function printBinaryishExpression(path, options, print) {
     { id: groupId }
   );
 
-  if (!hasJSX) {
+  if (!hasJsx) {
     return chain;
   }
 
@@ -271,9 +271,15 @@ function printBinaryishExpressions(
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && hasComment(node)) {
-      parts = normalizeParts(
-        printComments(path, () => concat(parts), options).parts
+      const printed = cleanDoc(
+        printComments(path, () => concat(parts), options)
       );
+      /* istanbul ignore if */
+      if (printed.type === "string") {
+        parts = [printed];
+      } else {
+        parts = printed.parts;
+      }
     }
   } else {
     // Our stopping case. Simply print the node normally.
@@ -302,7 +308,7 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
-  if (isJSXNode(node.right)) {
+  if (isJsxNode(node.right)) {
     return true;
   }
 

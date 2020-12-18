@@ -6,6 +6,8 @@ const {
   hasNewline,
   hasNewlineInRange,
   skipWhitespace,
+  isNonEmptyArray,
+  isNextLineEmptyAfterIndex,
 } = require("../common/util");
 const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
@@ -318,18 +320,18 @@ function isAngularTestWrapper(node) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isJSXNode(node) {
+function isJsxNode(node) {
   return node.type === "JSXElement" || node.type === "JSXFragment";
 }
 
-function isTheOnlyJSXElementInMarkdown(options, path) {
+function isTheOnlyJsxElementInMarkdown(options, path) {
   if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
     return false;
   }
 
   const node = path.getNode();
 
-  if (!node.expression || !isJSXNode(node.expression)) {
+  if (!node.expression || !isJsxNode(node.expression)) {
     return false;
   }
 
@@ -339,7 +341,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 }
 
 // Detect an expression node representing `{" "}`
-function isJSXWhitespaceExpression(node) {
+function isJsxWhitespaceExpression(node) {
   return (
     node.type === "JSXExpressionContainer" &&
     isLiteral(node.expression) &&
@@ -737,6 +739,17 @@ const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
 const containsNonJsxWhitespaceRegex = new RegExp(
   "[^" + jsxWhitespaceChars + "]"
 );
+const trimJsxWhitespace = (text) =>
+  text.replace(
+    new RegExp(
+      "(?:^" +
+        matchJsxWhitespaceRegex.source +
+        "|" +
+        matchJsxWhitespaceRegex.source +
+        "$)"
+    ),
+    ""
+  );
 
 // Meaningful if it contains non-whitespace characters,
 // or it contains whitespace without a new line.
@@ -744,7 +757,7 @@ const containsNonJsxWhitespaceRegex = new RegExp(
  * @param {Node} node
  * @returns {boolean}
  */
-function isMeaningfulJSXText(node) {
+function isMeaningfulJsxText(node) {
   return (
     isLiteral(node) &&
     (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
@@ -759,7 +772,7 @@ function isMeaningfulJSXText(node) {
 function hasJsxIgnoreComment(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
-  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
+  if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
     return false;
   }
 
@@ -768,7 +781,7 @@ function hasJsxIgnoreComment(path) {
   let prevSibling = null;
   for (let i = index; i > 0; i--) {
     const candidate = parent.children[i - 1];
-    if (candidate.type === "JSXText" && !isMeaningfulJSXText(candidate)) {
+    if (candidate.type === "JSXText" && !isMeaningfulJsxText(candidate)) {
       continue;
     }
     prevSibling = candidate;
@@ -787,7 +800,7 @@ function hasJsxIgnoreComment(path) {
  * @param {JSXElement} node
  * @returns {boolean}
  */
-function isEmptyJSXElement(node) {
+function isEmptyJsxElement(node) {
   if (node.children.length === 0) {
     return true;
   }
@@ -798,7 +811,7 @@ function isEmptyJSXElement(node) {
   // if there is one text child and does not contain any meaningful text
   // we can treat the element as empty.
   const child = node.children[0];
-  return isLiteral(child) && !isMeaningfulJSXText(child);
+  return isLiteral(child) && !isMeaningfulJsxText(child);
 }
 
 /**
@@ -807,22 +820,6 @@ function isEmptyJSXElement(node) {
  */
 function hasPrettierIgnore(path) {
   return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
-}
-
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function isLastStatement(path) {
-  const parent = path.getParentNode();
-  if (!parent) {
-    return true;
-  }
-  const node = path.getValue();
-  const body = (parent.body || parent.consequent).filter(
-    (stmt) => stmt.type !== "EmptyStatement"
-  );
-  return body[body.length - 1] === node;
 }
 
 /**
@@ -846,7 +843,7 @@ function isFlowAnnotationComment(text, typeAnnotation) {
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
-  if (isJSXNode(node)) {
+  if (isJsxNode(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -1476,7 +1473,7 @@ const getCommentTestFunction = (flags, fn) => {
  * @returns {boolean}
  */
 function hasComment(node, flags, fn) {
-  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
+  if (!node || !isNonEmptyArray(node.comments)) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);
@@ -1505,6 +1502,13 @@ function getComments(node, flags, fn) {
     : node.comments;
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isNextLineEmpty = (node, { originalText }) =>
+  isNextLineEmptyAfterIndex(originalText, locEnd(node));
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1530,7 +1534,7 @@ module.exports = {
   isLineComment,
   isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,
-  isEmptyJSXElement,
+  isEmptyJsxElement,
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
@@ -1538,13 +1542,12 @@ module.exports = {
   isFunctionOrArrowExpression,
   isGetterOrSetter,
   isJestEachTemplateLiteral,
-  isJSXNode,
-  isJSXWhitespaceExpression,
-  isLastStatement,
+  isJsxNode,
+  isJsxWhitespaceExpression,
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMeaningfulJSXText,
+  isMeaningfulJsxText,
   isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
@@ -1557,9 +1560,10 @@ module.exports = {
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
-  isTheOnlyJSXElementInMarkdown,
+  isTheOnlyJsxElementInMarkdown,
   isTSXFile,
   isTypeAnnotationAFunction,
+  isNextLineEmpty,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
   rawText,
@@ -1572,4 +1576,5 @@ module.exports = {
   hasComment,
   getComments,
   CommentCheckFlags,
+  trimJsxWhitespace,
 };

@@ -1,6 +1,6 @@
 "use strict";
 
-const { getLast } = require("../common/util");
+const { getLast, isNonEmptyArray } = require("../common/util");
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -98,7 +98,7 @@ function isLastDescendantNode(path) {
 }
 
 function getLastDescendantNode(node) {
-  return "children" in node && node.children.length !== 0
+  return isNonEmptyArray(node.children)
     ? getLastDescendantNode(getLast(node.children))
     : node;
 }
@@ -124,7 +124,7 @@ function hasPrettierIgnore(path) {
 }
 
 function isEmptyNode(node) {
-  return (!node.children || node.children.length === 0) && !hasComments(node);
+  return !isNonEmptyArray(node.children) && !hasComments(node);
 }
 
 function hasComments(node) {
@@ -138,11 +138,11 @@ function hasComments(node) {
 }
 
 function hasLeadingComments(node) {
-  return node && node.leadingComments && node.leadingComments.length !== 0;
+  return node && isNonEmptyArray(node.leadingComments);
 }
 
 function hasMiddleComments(node) {
-  return node && node.middleComments && node.middleComments.length !== 0;
+  return node && isNonEmptyArray(node.middleComments);
 }
 
 function hasIndicatorComment(node) {
@@ -154,7 +154,7 @@ function hasTrailingComment(node) {
 }
 
 function hasEndComments(node) {
-  return node && node.endComments && node.endComments.length !== 0;
+  return node && isNonEmptyArray(node.endComments);
 }
 
 /**
@@ -327,11 +327,31 @@ function getBlockValueLineContents(
   }
 }
 
+function isInlineNode(node) {
+  /* istanbul ignore next */
+  if (!node) {
+    return true;
+  }
+
+  switch (node.type) {
+    case "plain":
+    case "quoteDouble":
+    case "quoteSingle":
+    case "alias":
+    case "flowMapping":
+    case "flowSequence":
+      return true;
+    default:
+      return false;
+  }
+}
+
 module.exports = {
   getLast,
   getAncestorCount,
   isNode,
   isEmptyNode,
+  isInlineNode,
   mapNode,
   defineShortcut,
   isNextLineEmpty,

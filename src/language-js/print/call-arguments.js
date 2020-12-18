@@ -1,24 +1,20 @@
 "use strict";
 
-const comments = require("../../main/comments");
-const {
-  getLast,
-  getPenultimate,
-  isNextLineEmpty,
-} = require("../../common/util");
+const { printDanglingComments } = require("../../main/comments");
+const { getLast, getPenultimate } = require("../../common/util");
 const {
   getFunctionParameters,
   iterateFunctionParametersPath,
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
-  isJSXNode,
+  isJsxNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
   getCallArguments,
   iterateCallArgumentsPath,
+  isNextLineEmpty,
 } = require("../utils");
-const { locEnd } = require("../loc");
 
 const {
   builders: {
@@ -43,7 +39,7 @@ function printCallArguments(path, options, print) {
   if (args.length === 0) {
     return concat([
       "(",
-      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      printDanglingComments(path, options, /* sameIndent */ true),
       ")",
     ]);
   }
@@ -103,7 +99,7 @@ function printCallArguments(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, locEnd)) {
+    } else if (isNextLineEmpty(arg, options)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
@@ -263,7 +259,7 @@ function couldGroupArg(arg) {
         arg.body.type === "CallExpression" ||
         arg.body.type === "OptionalCallExpression" ||
         arg.body.type === "ConditionalExpression" ||
-        isJSXNode(arg.body)))
+        isJsxNode(arg.body)))
   );
 }
 

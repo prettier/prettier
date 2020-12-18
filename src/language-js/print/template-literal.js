@@ -217,21 +217,13 @@ function printTemplateExpressions(path, print) {
 
 function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
-    if (!currentDoc.parts) {
-      return currentDoc;
+    if (typeof currentDoc === "string") {
+      return raw
+        ? currentDoc.replace(/(\\*)`/g, "$1$1\\`")
+        : uncookTemplateElementValue(currentDoc);
     }
 
-    const parts = currentDoc.parts.map((part) => {
-      if (typeof part === "string") {
-        return raw
-          ? part.replace(/(\\*)`/g, "$1$1\\`")
-          : uncookTemplateElementValue(part);
-      }
-
-      return part;
-    });
-
-    return { ...currentDoc, parts };
+    return currentDoc;
   });
 }
 

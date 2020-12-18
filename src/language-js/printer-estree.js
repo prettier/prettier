@@ -6,12 +6,12 @@
 const assert = require("assert");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-const comments = require("../main/comments");
+const { printDanglingComments } = require("../main/comments");
 const {
   hasNewline,
   printString,
   printNumber,
-  isNextLineEmpty,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -43,8 +43,10 @@ const {
   isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
-  isTheOnlyJSXElementInMarkdown,
+  isTheOnlyJsxElementInMarkdown,
   isBlockComment,
+  isLineComment,
+  isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
@@ -97,9 +99,9 @@ const {
   printAssignmentExpression,
 } = require("./print/assignment");
 const { printBinaryishExpression } = require("./print/binaryish");
-const { printStatementSequence } = require("./print/statement");
+const { printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
-const { printBlock } = require("./print/block");
+const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
 
 function genericPrint(path, options, printPath, args) {
@@ -126,8 +128,7 @@ function genericPrint(path, options, printPath, args) {
   ) {
     // their decorators are handled themselves
   } else if (
-    node.decorators &&
-    node.decorators.length > 0 &&
+    isNonEmptyArray(node.decorators) &&
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
@@ -161,8 +162,7 @@ function genericPrint(path, options, printPath, args) {
   } else if (
     isExportDeclaration(node) &&
     node.declaration &&
-    node.declaration.decorators &&
-    node.declaration.decorators.length > 0 &&
+    isNonEmptyArray(node.declaration.decorators) &&
     // Only print decorators here if they were written before the export,
     // otherwise they are printed by the node.declaration
     locStart(node, { ignoreDecorators: true }) >
@@ -261,41 +261,8 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
 
-    case "Program": {
-      const hasContents =
-        !n.body.every(({ type }) => type === "EmptyStatement") || hasComment(n);
-
-      // Babel 6
-      if (n.directives) {
-        const directivesCount = n.directives.length;
-        path.each((childPath, index) => {
-          parts.push(print(childPath), semi, hardline);
-          if (
-            (index < directivesCount - 1 || hasContents) &&
-            isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
-          ) {
-            parts.push(hardline);
-          }
-        }, "directives");
-      }
-
-      parts.push(
-        path.call((bodyPath) => {
-          return printStatementSequence(bodyPath, options, print);
-        }, "body")
-      );
-
-      parts.push(
-        comments.printDanglingComments(path, options, /* sameIndent */ true)
-      );
-
-      // Only force a trailing newline if there were any contents.
-      if (hasContents) {
-        parts.push(hardline);
-      }
-
-      return concat(parts);
-    }
+    case "Program":
+      return printBlockBody(path, options, print);
     // Babel extension.
     case "EmptyStatement":
       return "";
@@ -322,7 +289,7 @@ function printPathNoParens(path, options, print, args) {
       // Do not append semicolon after the only JSX element in a program
       return concat([
         path.call(print, "expression"),
-        isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi,
+        isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
       ]);
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
@@ -514,11 +481,11 @@ function printPathNoParens(path, options, print, args) {
         // the few places a SequenceExpression appears unparenthesized, we want
         // to indent expressions after the first.
         const parts = [];
-        path.each((p) => {
-          if (p.getName() === 0) {
-            parts.push(print(p));
+        path.each((expressionPath, index) => {
+          if (index === 0) {
+            parts.push(print(expressionPath));
           } else {
-            parts.push(",", indent(concat([line, print(p)])));
+            parts.push(",", indent(concat([line, print(expressionPath)])));
           }
         }, "expressions");
         return group(concat(parts));
@@ -560,7 +527,7 @@ function printPathNoParens(path, options, print, args) {
       }
       return nodeStr(n, options);
     case "Directive":
-      return path.call(print, "value"); // Babel 6
+      return concat([path.call(print, "value"), semi]); // Babel 6
     case "DirectiveLiteral":
       return nodeStr(n, options);
     case "UnaryExpression":
@@ -597,9 +564,7 @@ function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernary(path, options, print);
     case "VariableDeclaration": {
-      const printed = path.map((childPath) => {
-        return print(childPath);
-      }, "declarations");
+      const printed = path.map((childPath) => print(childPath), "declarations");
 
       // We generally want to terminate all variable declarations with a
       // semicolon, except when they in the () part of for loops.
@@ -680,7 +645,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (hasComment(n, CommentCheckFlags.Dangling)) {
           parts.push(
-            comments.printDanglingComments(path, options, true),
+            printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "
           );
         }
@@ -705,7 +670,7 @@ function printPathNoParens(path, options, print, args) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = comments.printDanglingComments(
+      const dangling = printDanglingComments(
         path,
         options,
         /* sameLine */ true
@@ -891,12 +856,12 @@ function printPathNoParens(path, options, print, args) {
                 hardline,
                 join(
                   hardline,
-                  path.map((casePath) => {
+                  path.map((casePath, index, cases) => {
                     const caseNode = casePath.getValue();
                     return concat([
                       casePath.call(print),
-                      n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
-                      isNextLineEmpty(options.originalText, caseNode, locEnd)
+                      index !== cases.length - 1 &&
+                      isNextLineEmpty(caseNode, options)
                         ? hardline
                         : "",
                     ]);
@@ -920,9 +885,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = path.call((consequentPath) => {
-          return printStatementSequence(consequentPath, options, print);
-        }, "consequent");
+        const cons = printSwitchCaseConsequent(path, options, print);
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
@@ -1021,12 +984,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.members.length === 0 && !n.hasUnknownMembers) {
         parts.push(
           group(
-            concat([
-              "{",
-              comments.printDanglingComments(path, options),
-              softline,
-              "}",
-            ])
+            concat(["{", printDanglingComments(path, options), softline, "}"])
           )
         );
       } else {
@@ -1048,11 +1006,7 @@ function printPathNoParens(path, options, print, args) {
                   ...(n.hasUnknownMembers ? [hardline, "..."] : []),
                 ])
               ),
-              comments.printDanglingComments(
-                path,
-                options,
-                /* sameIndent */ true
-              ),
+              printDanglingComments(path, options, /* sameIndent */ true),
               hardline,
               "}",
             ])
@@ -1234,7 +1188,7 @@ function printPathNoParens(path, options, print, args) {
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);
 
-      if (isNextLineEmpty(options.originalText, n, locEnd)) {
+      if (isNextLineEmpty(n, options)) {
         parts.push(hardline);
       }
 
@@ -1273,13 +1227,13 @@ function printRegex(node) {
 function canAttachComment(node) {
   return (
     node.type &&
-    node.type !== "CommentBlock" &&
-    node.type !== "CommentLine" &&
-    node.type !== "Line" &&
-    node.type !== "Block" &&
+    !isBlockComment(node) &&
+    !isLineComment(node) &&
     node.type !== "EmptyStatement" &&
     node.type !== "TemplateElement" &&
-    node.type !== "Import"
+    node.type !== "Import" &&
+    // `babel-ts` don't have similar node for `class Foo { bar() /* bat */; }`
+    node.type !== "TSEmptyBodyFunctionExpression"
   );
 }
 

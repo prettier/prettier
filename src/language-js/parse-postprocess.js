@@ -6,7 +6,7 @@ const {
   getShebang,
 } = require("../common/util");
 const createError = require("../common/parser-create-error");
-const { composeLoc, locStart, locEnd } = require("./loc");
+const { locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 const isCommaToken = require("./tokens/is-comma-token");
 
@@ -131,7 +131,7 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        node.typeAnnotation.range = composeLoc(node);
+        node.typeAnnotation.range = [locStart(node), locEnd(node)];
         return node.typeAnnotation;
       }
       case "TSUnionType":
@@ -139,26 +139,28 @@ function postprocess(ast, options) {
         if (node.types.length === 1) {
           const [firstType] = node.types;
           // override loc, so that comments are attached properly
-          firstType.range = composeLoc(node);
+          firstType.range = [locStart(node), locEnd(node)];
           return firstType;
         }
         break;
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {
+          const start = locStart(node);
           node.name = {
             type: "Identifier",
             name: node.name,
-            range: composeLoc(node, node.name.length),
+            range: [start, start + node.name.length],
           };
         }
         break;
       case "SequenceExpression": {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
         const lastExpression = getLast(node.expressions);
-        if (locEnd(node) > locEnd(lastExpression)) {
-          node.range = composeLoc(node, lastExpression);
-        }
+        node.range = [
+          locStart(node),
+          Math.min(locEnd(lastExpression), locEnd(node)),
+        ];
         break;
       }
       case "ClassProperty":
@@ -188,7 +190,10 @@ function postprocess(ast, options) {
     if (options.originalText[locEnd(toOverrideNode)] === ";") {
       return;
     }
-    toBeOverriddenNode.range = composeLoc(toBeOverriddenNode, toOverrideNode);
+    toBeOverriddenNode.range = [
+      locStart(toBeOverriddenNode),
+      locEnd(toOverrideNode),
+    ];
   }
 }
 
@@ -258,10 +263,10 @@ function rebalanceLogicalTree(node) {
       operator: node.operator,
       left: node.left,
       right: node.right.left,
-      range: composeLoc(node.left, node.right.left),
+      range: [locStart(node.left), locEnd(node.right.left)],
     }),
     right: node.right.right,
-    range: composeLoc(node),
+    range: [locStart(node), locEnd(node)],
   });
 }
 

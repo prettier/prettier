@@ -4,9 +4,13 @@ const { printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, line, softline, group, indent, ifBreak },
 } = require("../../document");
-const { getLast, isNextLineEmpty } = require("../../common/util");
-const { shouldPrintComma, hasComment, CommentCheckFlags } = require("../utils");
-const { locEnd } = require("../loc");
+const { getLast } = require("../../common/util");
+const {
+  shouldPrintComma,
+  hasComment,
+  CommentCheckFlags,
+  isNextLineEmpty,
+} = require("../utils");
 
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
@@ -120,7 +124,7 @@ function printArrayItems(path, options, printPath, print) {
     separatorParts = [",", line];
     if (
       childPath.getValue() &&
-      isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)
+      isNextLineEmpty(childPath.getValue(), options)
     ) {
       separatorParts.push(softline);
     }

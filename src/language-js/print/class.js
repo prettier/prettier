@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
@@ -12,7 +13,7 @@ const {
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
-const { printStatementSequence } = require("./statement");
+const { printBody } = require("./statement");
 const { printPropertyKey } = require("./property");
 const { printAssignmentRight } = require("./assignment");
 
@@ -35,9 +36,9 @@ function printClass(path, options, print) {
   const groupMode =
     (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
     (n.superClass && hasComment(n.superClass)) ||
-    (n.extends && n.extends.length !== 0) || // DeclareClass
-    (n.mixins && n.mixins.length !== 0) ||
-    (n.implements && n.implements.length !== 0);
+    isNonEmptyArray(n.extends) || // DeclareClass
+    isNonEmptyArray(n.mixins) ||
+    isNonEmptyArray(n.implements);
 
   const partsGroup = [];
   const extendsParts = [];
@@ -113,7 +114,7 @@ function shouldIndentOnlyHeritageClauses(node) {
 
 function printList(path, options, print, listName) {
   const n = path.getValue();
-  if (!n[listName] || n[listName].length === 0) {
+  if (!isNonEmptyArray(n[listName])) {
     return "";
   }
 
@@ -158,7 +159,7 @@ function printClassMethod(path, options, print) {
   const n = path.getValue();
   const parts = [];
 
-  if (n.decorators && n.decorators.length !== 0) {
+  if (isNonEmptyArray(n.decorators)) {
     parts.push(printDecorators(path, options, print));
   }
   if (n.accessibility) {
@@ -185,14 +186,7 @@ function printClassBody(path, options, print) {
   return concat([
     "{",
     n.body.length > 0
-      ? indent(
-          concat([
-            hardline,
-            path.call((bodyPath) => {
-              return printStatementSequence(bodyPath, options, print);
-            }, "body"),
-          ])
-        )
+      ? indent(concat([hardline, printBody(path, options, print)]))
       : printDanglingComments(path, options),
     hardline,
     "}",
@@ -204,7 +198,7 @@ function printClassProperty(path, options, print) {
   const parts = [];
   const semi = options.semi ? ";" : "";
 
-  if (n.decorators && n.decorators.length !== 0) {
+  if (isNonEmptyArray(n.decorators)) {
     parts.push(printDecorators(path, options, print));
   }
   if (n.accessibility) {
