@@ -24,6 +24,7 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
+  isNonEmptyArray,
 } = require("../common/util");
 
 const childNodesCache = new WeakMap();
@@ -559,7 +560,7 @@ function printComments(path, print, options, needsSemi) {
   const printed = print(path);
   const comments = value && value.comments;
 
-  if (!comments || comments.length === 0) {
+  if (!isNonEmptyArray(comments)) {
     return prependCursorPlaceholder(path, options, printed);
   }
 

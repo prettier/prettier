@@ -13,7 +13,9 @@ plugins:
 settings:
   import/internal-regex: ^linguist-languages/
 rules:
-  prettier-internal-rules/require-json-extensions: error
+  arrow-body-style:
+    - error
+    - as-needed
   curly: error
   dot-notation: error
   eqeqeq:
@@ -52,6 +54,8 @@ rules:
   prefer-object-spread: error
   prefer-rest-params: error
   prefer-spread: error
+  prettier-internal-rules/jsx-identifier-case: error
+  prettier-internal-rules/require-json-extensions: error
   quotes:
     - error
     - double
@@ -105,6 +109,7 @@ overrides:
   - files: src/**/*.js
     rules:
       prettier-internal-rules/prefer-fast-path-each: error
+      prettier-internal-rules/prefer-is-non-empty-array: error
       prettier-internal-rules/no-doc-builder-concat: off
   - files: src/document/*.js
     rules:

@@ -20,11 +20,7 @@ const {
 
 const { getLast, getPreferredQuote } = require("../../common/util");
 const {
-  isEmptyJSXElement,
-  isJSXWhitespaceExpression,
-  isJSXNode,
-  isMeaningfulJSXText,
-  matchJsxWhitespaceRegex,
+  isJsxNode,
   rawText,
   isLiteral,
   isCallOrOptionalCallExpression,
@@ -32,9 +28,16 @@ const {
   isBinaryish,
   hasComment,
   CommentCheckFlags,
+  hasNodeIgnoreComment,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
+
+/**
+ * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../types/estree").Node} Node
+ * @typedef {import("../types/estree").JSXElement} JSXElement
+ */
 
 // JSX expands children from the inside-out, instead of the outside-in.
 // This is both to break children before attributes,
@@ -54,7 +57,7 @@ const { willPrintOwnComments } = require("../comments");
 function printJsxElementInternal(path, options, print) {
   const n = path.getValue();
 
-  if (n.type === "JSXElement" && isEmptyJSXElement(n)) {
+  if (n.type === "JSXElement" && isEmptyJsxElement(n)) {
     return concat([
       path.call(print, "openingElement"),
       path.call(print, "closingElement"),
@@ -87,7 +90,7 @@ function printJsxElementInternal(path, options, print) {
   // This makes it easy to turn them into `jsxWhitespace` which
   // can then print as either a space or `{" "}` when breaking.
   n.children = n.children.map((child) => {
-    if (isJSXWhitespaceExpression(child)) {
+    if (isJsxWhitespaceExpression(child)) {
       return {
         type: "JSXText",
         value: " ",
@@ -97,7 +100,7 @@ function printJsxElementInternal(path, options, print) {
     return child;
   });
 
-  const containsTag = n.children.filter(isJSXNode).length > 0;
+  const containsTag = n.children.filter(isJsxNode).length > 0;
   const containsMultipleExpressions =
     n.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;
@@ -123,7 +126,7 @@ function printJsxElementInternal(path, options, print) {
     n.openingElement.name &&
     n.openingElement.name.name === "fbt";
 
-  const children = printJSXChildren(
+  const children = printJsxChildren(
     path,
     options,
     print,
@@ -131,7 +134,7 @@ function printJsxElementInternal(path, options, print) {
     isFacebookTranslationTag
   );
 
-  const containsText = n.children.some((child) => isMeaningfulJSXText(child));
+  const containsText = n.children.some((child) => isMeaningfulJsxText(child));
 
   // We can end up we multiple whitespace elements with empty string
   // content between them.
@@ -143,15 +146,15 @@ function printJsxElementInternal(path, options, print) {
       children[i] === hardline &&
       children[i + 1] === "" &&
       children[i + 2] === hardline;
-    const isLineFollowedByJSXWhitespace =
+    const isLineFollowedByJsxWhitespace =
       (children[i] === softline || children[i] === hardline) &&
       children[i + 1] === "" &&
       children[i + 2] === jsxWhitespace;
-    const isJSXWhitespaceFollowedByLine =
+    const isJsxWhitespaceFollowedByLine =
       children[i] === jsxWhitespace &&
       children[i + 1] === "" &&
       (children[i + 2] === softline || children[i + 2] === hardline);
-    const isDoubleJSXWhitespace =
+    const isDoubleJsxWhitespace =
       children[i] === jsxWhitespace &&
       children[i + 1] === "" &&
       children[i + 2] === jsxWhitespace;
@@ -166,12 +169,12 @@ function printJsxElementInternal(path, options, print) {
     if (
       (isPairOfHardlines && containsText) ||
       isPairOfEmptyStrings ||
-      isLineFollowedByJSXWhitespace ||
-      isDoubleJSXWhitespace ||
+      isLineFollowedByJsxWhitespace ||
+      isDoubleJsxWhitespace ||
       isPairOfHardOrSoftLines
     ) {
       children.splice(i, 2);
-    } else if (isJSXWhitespaceFollowedByLine) {
+    } else if (isJsxWhitespaceFollowedByLine) {
       children.splice(i + 1, 2);
     }
   }
@@ -270,32 +273,30 @@ function printJsxElementInternal(path, options, print) {
 // This requires that we give it an array of alternating
 // content and whitespace elements.
 // To ensure this we add dummy `""` content elements as needed.
-function printJSXChildren(
+function printJsxChildren(
   path,
   options,
   print,
   jsxWhitespace,
   isFacebookTranslationTag
 ) {
-  const n = path.getValue();
-  const children = [];
-
-  path.each((childPath, i) => {
+  const parts = [];
+  path.each((childPath, i, children) => {
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
 
       // Contains a non-whitespace character
-      if (isMeaningfulJSXText(child)) {
+      if (isMeaningfulJsxText(child)) {
         const words = text.split(matchJsxWhitespaceRegex);
 
         // Starts with whitespace
         if (words[0] === "") {
-          children.push("");
+          parts.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            const next = n.children[i + 1];
-            children.push(
+            const next = children[i + 1];
+            parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
@@ -304,7 +305,7 @@ function printJSXChildren(
               )
             );
           } else {
-            children.push(jsxWhitespace);
+            parts.push(jsxWhitespace);
           }
           words.shift();
         }
@@ -323,32 +324,32 @@ function printJSXChildren(
 
         words.forEach((word, i) => {
           if (i % 2 === 1) {
-            children.push(line);
+            parts.push(line);
           } else {
-            children.push(word);
+            parts.push(word);
           }
         });
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            const next = n.children[i + 1];
-            children.push(
+            const next = children[i + 1];
+            parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                getLast(children),
+                getLast(parts),
                 child,
                 next
               )
             );
           } else {
-            children.push(jsxWhitespace);
+            parts.push(jsxWhitespace);
           }
         } else {
-          const next = n.children[i + 1];
-          children.push(
+          const next = children[i + 1];
+          parts.push(
             separatorNoWhitespace(
               isFacebookTranslationTag,
-              getLast(children),
+              getLast(parts),
               child,
               next
             )
@@ -358,25 +359,25 @@ function printJSXChildren(
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
         if (text.match(/\n/g).length > 1) {
-          children.push("");
-          children.push(hardline);
+          parts.push("");
+          parts.push(hardline);
         }
       } else {
-        children.push("");
-        children.push(jsxWhitespace);
+        parts.push("");
+        parts.push(jsxWhitespace);
       }
     } else {
       const printedChild = print(childPath);
-      children.push(printedChild);
+      parts.push(printedChild);
 
-      const next = n.children[i + 1];
+      const next = children[i + 1];
       const directlyFollowedByMeaningfulText =
-        next && isMeaningfulJSXText(next);
+        next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const firstWord = rawText(next)
-          .trim()
-          .split(matchJsxWhitespaceRegex)[0];
-        children.push(
+        const firstWord = trimJsxWhitespace(rawText(next)).split(
+          matchJsxWhitespaceRegex
+        )[0];
+        parts.push(
           separatorNoWhitespace(
             isFacebookTranslationTag,
             firstWord,
@@ -385,12 +386,12 @@ function printJSXChildren(
           )
         );
       } else {
-        children.push(hardline);
+        parts.push(hardline);
       }
     }
   }, "children");
 
-  return children;
+  return parts;
 }
 
 function separatorNoWhitespace(
@@ -433,7 +434,7 @@ function separatorWithWhitespace(
   return hardline;
 }
 
-function maybeWrapJSXElementInParens(path, elem, options) {
+function maybeWrapJsxElementInParens(path, elem, options) {
   const parent = path.getParentNode();
   /* istanbul ignore next */
   if (!parent) {
@@ -519,7 +520,7 @@ function printJsxExpressionContainer(path, options, print) {
         n.expression.type === "TemplateLiteral" ||
         n.expression.type === "TaggedTemplateExpression" ||
         n.expression.type === "DoExpression" ||
-        (isJSXNode(parent) &&
+        (isJsxNode(parent) &&
           (n.expression.type === "ConditionalExpression" ||
             isBinaryish(n.expression)))));
 
@@ -685,7 +686,7 @@ function printJsxElement(path, options, print) {
     () => printJsxElementInternal(path, options, print),
     options
   );
-  return maybeWrapJSXElementInParens(path, elem, options);
+  return maybeWrapJsxElementInParens(path, elem, options);
 }
 
 function printJsxEmptyExpression(path, options /*, print*/) {
@@ -765,6 +766,99 @@ function printJsx(path, options, print) {
   }
 }
 
+// Only space, newline, carriage return, and tab are treated as whitespace
+// inside JSX.
+const jsxWhitespaceChars = " \n\r\t";
+const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
+const containsNonJsxWhitespaceRegex = new RegExp(
+  "[^" + jsxWhitespaceChars + "]"
+);
+const trimJsxWhitespace = (text) =>
+  text.replace(
+    new RegExp(
+      "(?:^" +
+        matchJsxWhitespaceRegex.source +
+        "|" +
+        matchJsxWhitespaceRegex.source +
+        "$)"
+    ),
+    ""
+  );
+
+/**
+ * @param {JSXElement} node
+ * @returns {boolean}
+ */
+function isEmptyJsxElement(node) {
+  if (node.children.length === 0) {
+    return true;
+  }
+  if (node.children.length > 1) {
+    return false;
+  }
+
+  // if there is one text child and does not contain any meaningful text
+  // we can treat the element as empty.
+  const child = node.children[0];
+  return isLiteral(child) && !isMeaningfulJsxText(child);
+}
+
+// Meaningful if it contains non-whitespace characters,
+// or it contains whitespace without a new line.
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isMeaningfulJsxText(node) {
+  return (
+    isLiteral(node) &&
+    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
+      !/\n/.test(rawText(node)))
+  );
+}
+
+// Detect an expression node representing `{" "}`
+function isJsxWhitespaceExpression(node) {
+  return (
+    node.type === "JSXExpressionContainer" &&
+    isLiteral(node.expression) &&
+    node.expression.value === " " &&
+    !hasComment(node.expression)
+  );
+}
+
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
+function hasJsxIgnoreComment(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
+    return false;
+  }
+
+  // Lookup the previous sibling, ignoring any empty JSXText elements
+  const index = parent.children.indexOf(node);
+  let prevSibling = null;
+  for (let i = index; i > 0; i--) {
+    const candidate = parent.children[i - 1];
+    if (candidate.type === "JSXText" && !isMeaningfulJsxText(candidate)) {
+      continue;
+    }
+    prevSibling = candidate;
+    break;
+  }
+
+  return (
+    prevSibling &&
+    prevSibling.type === "JSXExpressionContainer" &&
+    prevSibling.expression.type === "JSXEmptyExpression" &&
+    hasNodeIgnoreComment(prevSibling.expression)
+  );
+}
+
 module.exports = {
+  hasJsxIgnoreComment,
   printJsx,
 };

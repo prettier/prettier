@@ -14,7 +14,7 @@ const {
     addAlignmentToDoc,
   },
   printer: { printDocToString },
-  utils: { mapDoc, getDocParts },
+  utils: { mapDoc },
 } = require("../../document");
 const {
   isBinaryish,
@@ -217,25 +217,13 @@ function printTemplateExpressions(path, print) {
 
 function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
-    let parts = getDocParts(currentDoc);
-    if (!parts) {
-      return currentDoc;
+    if (typeof currentDoc === "string") {
+      return raw
+        ? currentDoc.replace(/(\\*)`/g, "$1$1\\`")
+        : uncookTemplateElementValue(currentDoc);
     }
 
-    parts = parts.map((part) => {
-      if (typeof part === "string") {
-        return raw
-          ? part.replace(/(\\*)`/g, "$1$1\\`")
-          : uncookTemplateElementValue(part);
-      }
-
-      return part;
-    });
-
-    return {
-      ...(Array.isArray(currentDoc) ? { type: "concat" } : currentDoc),
-      parts,
-    };
+    return currentDoc;
   });
 }
 

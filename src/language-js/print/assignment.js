@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, line, group, indent },
 } = require("../../document");
@@ -69,8 +70,7 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       !shouldInlineLogicalExpression(rightNode.test)) ||
     rightNode.type === "StringLiteralTypeAnnotation" ||
     (rightNode.type === "ClassExpression" &&
-      rightNode.decorators &&
-      rightNode.decorators.length) ||
+      isNonEmptyArray(rightNode.decorators)) ||
     ((leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&

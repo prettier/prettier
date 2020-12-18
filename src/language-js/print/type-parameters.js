@@ -109,9 +109,7 @@ function printTypeParameter(path, options, print) {
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent((path) => {
-          return path.call(print, "nameType");
-        })
+        path.callParent((path) => path.call(print, "nameType"))
       );
     }
     parts.push("]");

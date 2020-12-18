@@ -2,10 +2,9 @@
 
 const flat = require("lodash/flatten");
 
-const comments = require("../../main/comments");
+const { printComments } = require("../../main/comments");
 const {
   getLast,
-  isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
@@ -19,6 +18,7 @@ const {
   isSimpleCallArgument,
   hasComment,
   CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
 const { locEnd } = require("../loc");
 
@@ -87,7 +87,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    return isNextLineEmpty(originalText, node, locEnd);
+    return isNextLineEmpty(node, options);
   }
 
   function rec(path) {
@@ -99,7 +99,7 @@ function printMemberChain(path, options, print) {
       printedNodes.unshift({
         node,
         printed: concat([
-          comments.printComments(
+          printComments(
             path,
             () =>
               concat([
@@ -117,7 +117,7 @@ function printMemberChain(path, options, print) {
       printedNodes.unshift({
         node,
         needsParens: pathNeedsParens(path, options),
-        printed: comments.printComments(
+        printed: printComments(
           path,
           () =>
             node.type === "OptionalMemberExpression" ||
@@ -131,7 +131,7 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
-        printed: comments.printComments(path, () => "!", options),
+        printed: printComments(path, () => "!", options),
       });
       path.call((expression) => rec(expression), "expression");
     } else {

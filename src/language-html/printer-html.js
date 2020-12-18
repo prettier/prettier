@@ -2,25 +2,25 @@
 
 const assert = require("assert");
 const {
-  builders,
-  utils: { mapDoc, normalizeParts, cleanDoc, getDocParts },
+  builders: {
+    breakParent,
+    dedentToRoot,
+    fill,
+    group,
+    hardline,
+    ifBreak,
+    indent,
+    join,
+    line,
+    literalline,
+    softline,
+    concat,
+  },
+  utils: { mapDoc, cleanDoc, getDocParts },
 } = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
 const clean = require("./clean");
-const {
-  breakParent,
-  dedentToRoot,
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  join,
-  line,
-  literalline,
-  softline,
-} = builders;
 const {
   htmlTrimPreserveIndentation,
   splitByHtmlWhitespace,
@@ -55,15 +55,6 @@ const {
   isVueEventBindingExpression,
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
-
-function concat(parts) {
-  const newParts = normalizeParts(parts);
-  return newParts.length === 0
-    ? ""
-    : newParts.length === 1
-    ? newParts[0]
-    : builders.concat(newParts);
-}
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -127,15 +118,13 @@ function embed(path, print, textToDoc, options) {
             }
             textToDocOptions.__babelSourceType = sourceType;
           }
-          return builders.concat([
-            concat([
-              breakParent,
-              printOpeningTagPrefix(node, options),
-              textToDoc(value, textToDocOptions, {
-                stripTrailingHardline: true,
-              }),
-              printClosingTagSuffix(node, options),
-            ]),
+          return concat([
+            breakParent,
+            printOpeningTagPrefix(node, options),
+            textToDoc(value, textToDocOptions, {
+              stripTrailingHardline: true,
+            }),
+            printClosingTagSuffix(node, options),
           ]);
         }
       } else if (node.parent.type === "interpolation") {
@@ -238,10 +227,7 @@ function genericPrint(path, options, print) {
         options.__onHtmlRoot(node);
       }
       // use original concat to not break stripTrailingHardline
-      return builders.concat([
-        group(printChildren(path, options, print)),
-        hardline,
-      ]);
+      return concat([group(printChildren(path, options, print)), hardline]);
     case "element":
     case "ieConditionalComment": {
       if (shouldPreserveContent(node, options)) {
@@ -671,7 +657,7 @@ function getNodeContent(node, options) {
 function printAttributes(path, options, print) {
   const node = path.getValue();
 
-  if (!node.attrs || node.attrs.length === 0) {
+  if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
       ? /**
          *     <br />

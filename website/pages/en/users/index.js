@@ -7,13 +7,11 @@ const siteConfig = require(process.cwd() + "/siteConfig.js");
 
 class Users extends React.Component {
   render() {
-    const showcase = siteConfig.users.map((user, i) => {
-      return (
-        <a key={i} href={user.infoLink}>
-          <img src={user.image} title={user.caption} />
-        </a>
-      );
-    });
+    const showcase = siteConfig.users.map((user, i) => (
+      <a key={i} href={user.infoLink}>
+        <img src={user.image} title={user.caption} />
+      </a>
+    ));
 
     return (
       <div>

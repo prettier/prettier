@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, softline, group, indent, join, line, ifBreak, hardline },
 } = require("../../document");
@@ -168,7 +169,7 @@ function printModuleSpecifiers(path, options, print) {
   /** @type{Doc[]} */
   const parts = [" "];
 
-  if (node.specifiers && node.specifiers.length > 0) {
+  if (isNonEmptyArray(node.specifiers)) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
@@ -246,7 +247,7 @@ function shouldNotPrintSpecifiers(node, options) {
 
   if (
     type !== "ImportDeclaration" ||
-    (Array.isArray(specifiers) && specifiers.length > 0) ||
+    isNonEmptyArray(specifiers) ||
     importKind === "type"
   ) {
     return false;
@@ -260,7 +261,7 @@ function shouldNotPrintSpecifiers(node, options) {
 
 function printImportAssertions(path, options, print) {
   const node = path.getNode();
-  if (Array.isArray(node.assertions) && node.assertions.length !== 0) {
+  if (isNonEmptyArray(node.assertions)) {
     return concat([
       " assert {",
       options.bracketSpacing ? " " : "",

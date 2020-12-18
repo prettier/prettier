@@ -1,9 +1,6 @@
 "use strict";
 
-const {
-  getNextNonSpaceNonCommentCharacter,
-  isNextLineEmpty,
-} = require("../../common/util");
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
 const { printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, line, hardline, softline, group, indent, ifBreak },
@@ -20,6 +17,7 @@ const {
   hasRestParameter,
   shouldPrintComma,
   hasComment,
+  isNextLineEmpty,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionTypeParameters } = require("./misc");
@@ -78,9 +76,7 @@ function printFunctionParameters(
       shouldExpandParameters
     ) {
       printed.push(" ");
-    } else if (
-      isNextLineEmpty(options.originalText, parameters[index], locEnd)
-    ) {
+    } else if (isNextLineEmpty(parameters[index], options)) {
       printed.push(hardline, hardline);
     } else {
       printed.push(line);
