@@ -6,12 +6,12 @@
 const assert = require("assert");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-const comments = require("../main/comments");
+const { printDanglingComments } = require("../main/comments");
 const {
   hasNewline,
   printString,
   printNumber,
-  isNextLineEmpty,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -46,6 +46,7 @@ const {
   isTheOnlyJsxElementInMarkdown,
   isBlockComment,
   isLineComment,
+  isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
   shouldPrintComma,
@@ -126,8 +127,7 @@ function genericPrint(path, options, printPath, args) {
   ) {
     // their decorators are handled themselves
   } else if (
-    node.decorators &&
-    node.decorators.length > 0 &&
+    isNonEmptyArray(node.decorators) &&
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
@@ -161,8 +161,7 @@ function genericPrint(path, options, printPath, args) {
   } else if (
     isExportDeclaration(node) &&
     node.declaration &&
-    node.declaration.decorators &&
-    node.declaration.decorators.length > 0 &&
+    isNonEmptyArray(node.declaration.decorators) &&
     // Only print decorators here if they were written before the export,
     // otherwise they are printed by the node.declaration
     locStart(node, { ignoreDecorators: true }) >
@@ -480,11 +479,11 @@ function printPathNoParens(path, options, print, args) {
         // the few places a SequenceExpression appears unparenthesized, we want
         // to indent expressions after the first.
         const parts = [];
-        path.each((p) => {
-          if (p.getName() === 0) {
-            parts.push(print(p));
+        path.each((expressionPath, index) => {
+          if (index === 0) {
+            parts.push(print(expressionPath));
           } else {
-            parts.push(",", indent(concat([line, print(p)])));
+            parts.push(",", indent(concat([line, print(expressionPath)])));
           }
         }, "expressions");
         return group(concat(parts));
@@ -563,9 +562,7 @@ function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernary(path, options, print);
     case "VariableDeclaration": {
-      const printed = path.map((childPath) => {
-        return print(childPath);
-      }, "declarations");
+      const printed = path.map((childPath) => print(childPath), "declarations");
 
       // We generally want to terminate all variable declarations with a
       // semicolon, except when they in the () part of for loops.
@@ -646,7 +643,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (hasComment(n, CommentCheckFlags.Dangling)) {
           parts.push(
-            comments.printDanglingComments(path, options, true),
+            printDanglingComments(path, options, true),
             commentOnOwnLine ? hardline : " "
           );
         }
@@ -671,7 +668,7 @@ function printPathNoParens(path, options, print, args) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = comments.printDanglingComments(
+      const dangling = printDanglingComments(
         path,
         options,
         /* sameLine */ true
@@ -857,12 +854,12 @@ function printPathNoParens(path, options, print, args) {
                 hardline,
                 join(
                   hardline,
-                  path.map((casePath) => {
+                  path.map((casePath, index, cases) => {
                     const caseNode = casePath.getValue();
                     return concat([
                       casePath.call(print),
-                      n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
-                      isNextLineEmpty(options.originalText, caseNode, locEnd)
+                      index !== cases.length - 1 &&
+                      isNextLineEmpty(caseNode, options)
                         ? hardline
                         : "",
                     ]);
@@ -983,12 +980,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.members.length === 0 && !n.hasUnknownMembers) {
         parts.push(
           group(
-            concat([
-              "{",
-              comments.printDanglingComments(path, options),
-              softline,
-              "}",
-            ])
+            concat(["{", printDanglingComments(path, options), softline, "}"])
           )
         );
       } else {
@@ -1010,11 +1002,7 @@ function printPathNoParens(path, options, print, args) {
                   ...(n.hasUnknownMembers ? [hardline, "..."] : []),
                 ])
               ),
-              comments.printDanglingComments(
-                path,
-                options,
-                /* sameIndent */ true
-              ),
+              printDanglingComments(path, options, /* sameIndent */ true),
               hardline,
               "}",
             ])
@@ -1196,7 +1184,7 @@ function printPathNoParens(path, options, print, args) {
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);
 
-      if (isNextLineEmpty(options.originalText, n, locEnd)) {
+      if (isNextLineEmpty(n, options)) {
         parts.push(hardline);
       }
 

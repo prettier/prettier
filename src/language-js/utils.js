@@ -6,6 +6,8 @@ const {
   hasNewline,
   hasNewlineInRange,
   skipWhitespace,
+  isNonEmptyArray,
+  isNextLineEmptyAfterIndex,
 } = require("../common/util");
 const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
@@ -821,22 +823,6 @@ function hasPrettierIgnore(path) {
 }
 
 /**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function isLastStatement(path) {
-  const parent = path.getParentNode();
-  if (!parent) {
-    return true;
-  }
-  const node = path.getValue();
-  const body = (parent.body || parent.consequent).filter(
-    (stmt) => stmt.type !== "EmptyStatement"
-  );
-  return body[body.length - 1] === node;
-}
-
-/**
  * @param {string} text
  * @param {Node} typeAnnotation
  * @returns {boolean}
@@ -1486,7 +1472,7 @@ const getCommentTestFunction = (flags, fn) => {
  * @returns {boolean}
  */
 function hasComment(node, flags, fn) {
-  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
+  if (!node || !isNonEmptyArray(node.comments)) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);
@@ -1514,6 +1500,13 @@ function getComments(node, flags, fn) {
       )
     : node.comments;
 }
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isNextLineEmpty = (node, { originalText }) =>
+  isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
 module.exports = {
   classChildNeedsASIProtection,
@@ -1550,7 +1543,6 @@ module.exports = {
   isJestEachTemplateLiteral,
   isJsxNode,
   isJsxWhitespaceExpression,
-  isLastStatement,
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
@@ -1570,6 +1562,7 @@ module.exports = {
   isTheOnlyJsxElementInMarkdown,
   isTSXFile,
   isTypeAnnotationAFunction,
+  isNextLineEmpty,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
   rawText,

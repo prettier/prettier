@@ -18,7 +18,7 @@ const {
   },
   utils: { mapDoc, cleanDoc },
 } = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
 const clean = require("./clean");
 const {
@@ -657,7 +657,7 @@ function getNodeContent(node, options) {
 function printAttributes(path, options, print) {
   const node = path.getValue();
 
-  if (!node.attrs || node.attrs.length === 0) {
+  if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
       ? /**
          *     <br />
