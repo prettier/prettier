@@ -19,7 +19,6 @@ const { shouldPrintParamsWithoutParens } = require("./function");
 /**
  * @typedef {import("../../document").Doc} Doc
  * @typedef {import("../../common/fast-path")} FastPath
- * @typedef {import("../types/estree").Node} Node
  */
 
 function printStatementSequence(path, options, print, property) {
