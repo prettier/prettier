@@ -15,7 +15,7 @@ const test = (ruleId, tests) => {
 };
 
 test("better-parent-property-check-in-needs-parens", {
-  valid: [],
+  valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
     {
       code: 'return parent.type === "MemberExpression" && name === "object";',
@@ -33,6 +33,16 @@ test("better-parent-property-check-in-needs-parens", {
       output: 'return name !== "test";',
       errors: [
         { message: 'Prefer `name !== "test"` over `parent.test !== node`.' },
+      ],
+    },
+    {
+      code: 'return parent["property"] === node;',
+      output: 'return name === "property";',
+      errors: [
+        {
+          message:
+            'Prefer `name === "property"` over `parent."property" === node`.',
+        },
       ],
     },
   ].map((testCase) => ({
@@ -64,7 +74,12 @@ test("directly-loc-start-end", {
 });
 
 test("jsx-identifier-case", {
-  valid: [],
+  valid: [
+    {
+      code: "const isJSXNode = true",
+      options: ["isJSXNode"],
+    },
+  ],
   invalid: [
     {
       code: "function isJSXNode(){}",
@@ -132,6 +147,9 @@ test("prefer-is-non-empty-array", {
         return Array.isArray(object) && object.length;
       }
     `,
+    "a.b && a.c.length",
+    "a.b || !a.b.length",
+    '!a["b"] || !a.b.length',
   ],
   invalid: [
     ...[
@@ -160,7 +178,7 @@ test("prefer-is-non-empty-array", {
 });
 
 test("require-json-extensions", {
-  valid: [],
+  valid: ['require("./not-exists")', 'require("./index")'],
   invalid: [
     {
       code: 'require("./package")',

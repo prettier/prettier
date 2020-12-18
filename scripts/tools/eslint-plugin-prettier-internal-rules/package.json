@@ -7,6 +7,6 @@
   "main": "./index.js",
   "license": "MIT",
   "scripts": {
-    "test": "node test.js"
+    "test": "nyc node test.js"
   }
 }
