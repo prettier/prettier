@@ -56,7 +56,7 @@ function printBlock(path, print, options) {
     if (index === 0) {
       contentsParts.push(hardline);
     }
-    contentsParts.push(getDocParts(fill(join(line, lineWords))));
+    contentsParts.push(fill(getDocParts(join(line, lineWords))));
     if (index !== lineContents.length - 1) {
       contentsParts.push(
         lineWords.length === 0 ? hardline : markAsRoot(literalline)
