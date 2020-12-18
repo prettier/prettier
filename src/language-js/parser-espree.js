@@ -23,10 +23,10 @@ function createParseError(error) {
 
   /* istanbul ignore next */
   if (typeof lineNumber !== "number") {
-    throw error;
+    return error;
   }
 
-  throw createError(message, { start: { line: lineNumber, column } });
+  return createError(message, { start: { line: lineNumber, column } });
 }
 
 function parse(originalText, parsers, options) {
