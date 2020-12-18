@@ -7,6 +7,11 @@
   "main": "./index.js",
   "license": "MIT",
   "scripts": {
-    "test": "nyc node test.js"
+    "test": "yarn && nyc node test.js"
+  },
+  "devDependencies": {
+    "eslint": "7.15.0",
+    "nyc": "15.1.0",
+    "outdent": "0.8.0"
   }
 }

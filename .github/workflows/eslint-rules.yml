@@ -21,8 +21,5 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.1.4
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
       - name: Check Dependencies
         run: cd scripts/tools/eslint-plugin-prettier-internal-rules && yarn test
