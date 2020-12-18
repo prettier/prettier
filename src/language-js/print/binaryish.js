@@ -279,7 +279,7 @@ function printBinaryishExpressions(
       if (printed.type === "string") {
         parts = [printed];
       } else {
-        parts = printed.parts;
+        parts = getDocParts(printed);
       }
     }
   } else {
