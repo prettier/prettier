@@ -13,7 +13,6 @@ const {
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
-const { printBody } = require("./statement");
 const { printPropertyKey } = require("./property");
 const { printAssignmentRight } = require("./assignment");
 
@@ -177,22 +176,6 @@ function printClassMethod(path, options, print) {
   return concat(parts);
 }
 
-function printClassBody(path, options, print) {
-  const n = path.getValue();
-  if (!hasComment(n) && n.body.length === 0) {
-    return "{}";
-  }
-
-  return concat([
-    "{",
-    n.body.length > 0
-      ? indent(concat([hardline, printBody(path, options, print)]))
-      : printDanglingComments(path, options),
-    hardline,
-    "}",
-  ]);
-}
-
 function printClassProperty(path, options, print) {
   const n = path.getValue();
   const parts = [];
@@ -249,6 +232,5 @@ function printDecorators(path, options, print) {
 module.exports = {
   printClass,
   printClassMethod,
-  printClassBody,
   printClassProperty,
 };
