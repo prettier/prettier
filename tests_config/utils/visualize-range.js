@@ -2,7 +2,10 @@
 
 const LinesAndColumns = require("lines-and-columns").default;
 const { codeFrameColumns } = require("@babel/code-frame");
-const codeFrameColumnsOptions = { linesAbove: Infinity, linesBelow: Infinity };
+const codeFrameColumnsOptions = {
+  linesAbove: Number.POSITIVE_INFINITY,
+  linesBelow: Number.POSITIVE_INFINITY,
+};
 
 const locationForRange = (text, rangeStart, rangeEnd) => {
   if (rangeStart > rangeEnd) {
