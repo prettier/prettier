@@ -19,7 +19,7 @@ function makeIndent(ind, options) {
 }
 
 function makeAlign(indent, n, options) {
-  if (n === -Infinity) {
+  if (n === Number.NEGATIVE_INFINITY) {
     return indent.root || rootIndent();
   }
 
