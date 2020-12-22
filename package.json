@@ -42,7 +42,7 @@
     "esutils": "2.0.3",
     "fast-glob": "3.2.4",
     "fast-json-stable-stringify": "2.1.0",
-    "fastest-levenshtein": "^1.0.12",
+    "fastest-levenshtein": "1.0.12",
     "find-parent-dir": "0.3.0",
     "flow-parser": "0.141.0",
     "get-stdin": "8.0.0",
