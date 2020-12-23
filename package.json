@@ -101,7 +101,7 @@
     "babel-jest": "26.6.3",
     "babel-loader": "8.2.2",
     "benchmark": "2.1.4",
-    "builtin-modules": "3.1.0",
+    "builtin-modules": "3.2.0",
     "cross-env": "7.0.3",
     "cspell": "4.2.5",
     "eslint": "7.16.0",
