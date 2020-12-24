@@ -103,7 +103,7 @@
     "eslint": "7.16.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-formatter-friendly": "7.0.0",
-    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-import": "2.22.1",
     "eslint-plugin-prettier": "3.3.0",
     "eslint-plugin-react": "7.20.5",
     "eslint-plugin-unicorn": "21.0.0",
