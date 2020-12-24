@@ -101,7 +101,7 @@
     "cross-env": "7.0.2",
     "cspell": "4.2.6",
     "eslint": "7.16.0",
-    "eslint-config-prettier": "6.11.0",
+    "eslint-config-prettier": "6.15.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.0",
     "eslint-plugin-prettier": "3.3.0",
