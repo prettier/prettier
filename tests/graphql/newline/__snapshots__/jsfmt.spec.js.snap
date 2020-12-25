@@ -63,16 +63,16 @@ query MyQuery
   arg2: 10
 ) {
   field
-  @skip(
-    if: true
+    @skip(
+      if: true
 
-    # comment
-    cursor: 10
-  )
-  @nope
+      # comment
+      cursor: 10
+    )
+    @nope
   otherField
   ...fragmentSpread
-  @include(if: ["this isn't even a boolean", "wow, that's really odd"])
+    @include(if: ["this isn't even a boolean", "wow, that's really odd"])
 }
 
 ================================================================================

@@ -2,6 +2,7 @@
 
 exports[`cursor-without-pragma.js - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
+cursorOffset: 27
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80
 requirePragma: true

@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`directives.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# https://github.com/graphql/graphql-js/pull/2733/files
+
+type Query {
+  someField(
+    nonDeprecated: String
+    deprecated: String @deprecated(reason: "Removed in 1.0")
+    deprecatedWithEmptyReason: String @deprecated(reason: "")
+  ): String
+}
+
+
+type Query {
+  someField(
+    nonDeprecated: String
+    deprecated: String @deprecated(reason: "Removed in 1.0")
+  ): String
+}
+
+input SomeInputObject {
+  nonDeprecated: String
+  deprecated: String @deprecated(reason: "Removed in 1.0")
+  deprecatedWithEmptyReason: String @deprecated(reason: "")
+}
+type Query {
+  someField(someArg: SomeInputObject): String
+}
+
+input SomeInputObject {
+  nonDeprecated: String
+  deprecated: String @deprecated(reason: "Removed in 1.0")
+}
+type Query {
+  someField(someArg: SomeInputObject): String
+}
+
+type Query {
+  field(arg: SomeInputObject): String
+}
+input SomeInputObject {
+  badField: String! @deprecated
+  optionalField: String @deprecated
+  anotherOptionalField: String! = "" @deprecated
+}
+
+directive @BadDirective(
+  badArg: String! @deprecated
+  optionalArg: String @deprecated
+  anotherOptionalArg: String! = "" @deprecated
+) on FIELD
+type Query {
+  test(
+    badArg: String! @deprecated
+    optionalArg: String @deprecated
+    anotherOptionalArg: String! = "" @deprecated
+  ): String
+}
+
+input MyInput {
+  oldInput: String @deprecated
+  otherInput: String @deprecated(reason: "Use newInput")
+  newInput: String
+}
+
+type Query {
+  field1: String @deprecated
+  field2: Int @deprecated(reason: "Because I said so")
+  enum: MyEnum
+  field3(oldArg: String @deprecated, arg: String): String
+  field4(oldArg: String @deprecated(reason: "Why not?"), arg: String): String
+  field5(arg: MyInput): String
+}
+
+=====================================output=====================================
+# https://github.com/graphql/graphql-js/pull/2733/files
+
+type Query {
+  someField(
+    nonDeprecated: String
+    deprecated: String @deprecated(reason: "Removed in 1.0")
+    deprecatedWithEmptyReason: String @deprecated(reason: "")
+  ): String
+}
+
+type Query {
+  someField(
+    nonDeprecated: String
+    deprecated: String @deprecated(reason: "Removed in 1.0")
+  ): String
+}
+
+input SomeInputObject {
+  nonDeprecated: String
+  deprecated: String @deprecated(reason: "Removed in 1.0")
+  deprecatedWithEmptyReason: String @deprecated(reason: "")
+}
+type Query {
+  someField(someArg: SomeInputObject): String
+}
+
+input SomeInputObject {
+  nonDeprecated: String
+  deprecated: String @deprecated(reason: "Removed in 1.0")
+}
+type Query {
+  someField(someArg: SomeInputObject): String
+}
+
+type Query {
+  field(arg: SomeInputObject): String
+}
+input SomeInputObject {
+  badField: String! @deprecated
+  optionalField: String @deprecated
+  anotherOptionalField: String! = "" @deprecated
+}
+
+directive @BadDirective(
+  badArg: String! @deprecated
+  optionalArg: String @deprecated
+  anotherOptionalArg: String! = "" @deprecated
+) on FIELD
+type Query {
+  test(
+    badArg: String! @deprecated
+    optionalArg: String @deprecated
+    anotherOptionalArg: String! = "" @deprecated
+  ): String
+}
+
+input MyInput {
+  oldInput: String @deprecated
+  otherInput: String @deprecated(reason: "Use newInput")
+  newInput: String
+}
+
+type Query {
+  field1: String @deprecated
+  field2: Int @deprecated(reason: "Because I said so")
+  enum: MyEnum
+  field3(oldArg: String @deprecated, arg: String): String
+  field4(oldArg: String @deprecated(reason: "Why not?"), arg: String): String
+  field5(arg: MyInput): String
+}
+
+================================================================================
+`;

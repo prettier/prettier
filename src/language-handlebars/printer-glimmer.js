@@ -1,16 +1,9 @@
 "use strict";
 
 const {
-  concat,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  join,
-  line,
-  softline,
-} = require("../document").builders;
-
+  builders: { concat, group, hardline, ifBreak, indent, join, line, softline },
+} = require("../document");
+const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {
   getNextNode,
@@ -36,19 +29,7 @@ function print(path, options, print) {
   }
 
   if (hasPrettierIgnore(path)) {
-    const startOffset = locationToOffset(
-      options.originalText,
-      n.loc.start.line - 1,
-      n.loc.start.column
-    );
-    const endOffset = locationToOffset(
-      options.originalText,
-      n.loc.end.line - 1,
-      n.loc.end.column
-    );
-
-    const ignoredText = options.originalText.slice(startOffset, endOffset);
-    return ignoredText;
+    return options.originalText.slice(locStart(n), locEnd(n));
   }
 
   switch (n.type) {
@@ -152,12 +133,10 @@ function print(path, options, print) {
       const isText = n.value.type === "TextNode";
       const isEmptyText = isText && n.value.chars === "";
 
-      // If the text is empty and the value's loc start and end columns are the
+      // If the text is empty and the value's loc start and end offsets are the
       // same, there is no value for this AttrNode and it should be printed
       // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
-      const isEmptyValue =
-        isEmptyText && n.value.loc.start.column === n.value.loc.end.column;
-      if (isEmptyValue) {
+      if (isEmptyText && locStart(n.value) === locEnd(n.value)) {
         return concat([n.name]);
       }
       const value = path.call(print, "value");
@@ -289,8 +268,26 @@ function print(path, options, print) {
       ]);
     }
     case "MustacheCommentStatement": {
+      const start = locStart(n);
+      const end = locEnd(n);
+      // Starts with `{{~`
+      const isLeftWhiteSpaceSensitive =
+        options.originalText.charAt(start + 2) === "~";
+      // Ends with `{{~`
+      const isRightWhitespaceSensitive =
+        options.originalText.charAt(end - 3) === "~";
+
       const dashes = n.value.includes("}}") ? "--" : "";
-      return concat(["{{!", dashes, n.value, dashes, "}}"]);
+      return concat([
+        "{{",
+        isLeftWhiteSpaceSensitive ? "~" : "",
+        "!",
+        dashes,
+        n.value,
+        dashes,
+        isRightWhitespaceSensitive ? "~" : "",
+        "}}",
+      ]);
     }
     case "PathExpression": {
       return n.original;
@@ -656,37 +653,6 @@ function printBlockParams(node) {
   }
 
   return concat([" as |", node.blockParams.join(" "), "|"]);
-}
-
-/* istanbul ignore next
-   https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/compiler/lib/location.ts#L5-L29
-*/
-function locationToOffset(source, line, column) {
-  let seenLines = 0;
-  let seenChars = 0;
-
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    if (seenChars === source.length) {
-      return null;
-    }
-
-    let nextLine = source.indexOf("\n", seenChars);
-    if (nextLine === -1) {
-      nextLine = source.length;
-    }
-
-    if (seenLines === line) {
-      if (seenChars + column > nextLine) {
-        return null;
-      }
-      return seenChars + column;
-    } else if (nextLine === -1) {
-      return null;
-    }
-    seenLines += 1;
-    seenChars = nextLine + 1;
-  }
 }
 
 function doesNotHaveHashParams(node) {

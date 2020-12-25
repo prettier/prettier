@@ -1,10 +1,10 @@
 "use strict";
 
-const { isNumericLiteral } = require("../utils");
-
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, softline, group, indent },
+  builders: { concat, indent, join, line },
 } = require("../../document");
+const { isFlowAnnotationComment } = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -36,31 +36,61 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printMemberLookup(path, options, print) {
-  const property = path.call(print, "property");
-  const n = path.getValue();
-  const optional = printOptionalToken(path);
-
-  if (!n.computed) {
-    return concat([optional, ".", property]);
+function printTypeAnnotation(path, options, print) {
+  const node = path.getValue();
+  if (!node.typeAnnotation) {
+    return "";
   }
 
-  if (!n.property || isNumericLiteral(n.property)) {
-    return concat([optional, "[", property, "]"]);
+  const parentNode = path.getParentNode();
+  const isDefinite =
+    node.definite ||
+    (parentNode &&
+      parentNode.type === "VariableDeclarator" &&
+      parentNode.definite);
+
+  const isFunctionDeclarationIdentifier =
+    parentNode.type === "DeclareFunction" && parentNode.id === node;
+
+  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
+    return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
   }
 
-  return group(
-    concat([optional, "[", indent(concat([softline, property])), softline, "]"])
-  );
+  return concat([
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
+    path.call(print, "typeAnnotation"),
+  ]);
 }
 
 function printBindExpressionCallee(path, options, print) {
   return concat(["::", path.call(print, "callee")]);
 }
 
+function printTypeScriptModifiers(path, options, print) {
+  const n = path.getValue();
+  if (!isNonEmptyArray(n.modifiers)) {
+    return "";
+  }
+  return concat([join(" ", path.map(print, "modifiers")), " "]);
+}
+
+function adjustClause(node, clause, forceSpace) {
+  if (node.type === "EmptyStatement") {
+    return ";";
+  }
+
+  if (node.type === "BlockStatement" || forceSpace) {
+    return concat([" ", clause]);
+  }
+
+  return indent(concat([line, clause]));
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
-  printMemberLookup,
   printBindExpressionCallee,
+  printTypeScriptModifiers,
+  printTypeAnnotation,
+  adjustClause,
 };

@@ -9,7 +9,14 @@ const semver = require("semver");
 
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
+const introTemplateFile = path.join(
+  changelogUnreleasedDir,
+  "BLOG_POST_INTRO_TEMPLATE.md"
+);
 const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
+if (!fs.existsSync(introFile)) {
+  fs.copyFileSync(introTemplateFile, introFile);
+}
 const previousVersion = require("prettier/package.json").version;
 const version = require("../package.json").version.replace(/-.+/, "");
 const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
@@ -57,8 +64,8 @@ for (const dir of dirs) {
   }
 
   category.entries = fs
-    .readdirSync(path.join(changelogUnreleasedDir, dir.name))
-    .filter((fileName) => /^pr-\d+\.md$/.test(fileName))
+    .readdirSync(dirPath)
+    .filter((fileName) => /^\d+\.md$/.test(fileName))
     .map((fileName) => {
       const [title, ...rest] = fs
         .readFileSync(path.join(dirPath, fileName), "utf8")
@@ -67,13 +74,7 @@ for (const dir of dirs) {
       return {
         breaking: title.includes("[BREAKING]"),
         highlight: title.includes("[HIGHLIGHT]"),
-        content: [
-          title
-            .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
-            .replace(/\s+/g, " ")
-            .replace(/^#{4} [a-z]/, (s) => s.toUpperCase()),
-          ...rest,
-        ].join("\n"),
+        content: [processTitle(title), ...rest].join("\n"),
       };
     });
 }
@@ -101,6 +102,18 @@ fs.writeFileSync(
     ].join("\n\n") + "\n"
   )
 );
+
+function processTitle(title) {
+  return title
+    .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
+    .replace(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
+    .replace(
+      /(?<![[`])#(\d{4,})/g,
+      "[#$1](https://github.com/prettier/prettier/pull/$1)"
+    );
+}
 
 function printEntries({ title, filter }) {
   const result = [];

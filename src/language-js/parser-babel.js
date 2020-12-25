@@ -1,102 +1,140 @@
 "use strict";
 
+const flatten = require("lodash/flatten");
 const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
-const postprocess = require("./postprocess");
+const tryCombinations = require("../utils/try-combinations");
+const {
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getShebang,
+} = require("../common/util");
+const postprocess = require("./parse-postprocess");
+const createParser = require("./parser/create-parser");
 
-function babelOptions({ sourceType, extraPlugins = [] }) {
-  return {
-    sourceType,
-    allowAwaitOutsideFunction: true,
-    allowImportExportEverywhere: true,
-    allowReturnOutsideFunction: true,
-    allowSuperOutsideMethod: true,
-    allowUndeclaredExports: true,
-    errorRecovery: true,
-    createParenthesizedExpressions: true,
-    plugins: [
-      // When adding a plugin, please add a test in `tests/js/babel-plugins`,
-      // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+const parseOptions = {
+  sourceType: "module",
+  allowAwaitOutsideFunction: true,
+  allowImportExportEverywhere: true,
+  allowReturnOutsideFunction: true,
+  allowSuperOutsideMethod: true,
+  allowUndeclaredExports: true,
+  errorRecovery: true,
+  createParenthesizedExpressions: true,
+  plugins: [
+    // When adding a plugin, please add a test in `tests/js/babel-plugins`,
+    // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+    "doExpressions",
+    "classProperties",
+    "exportDefaultFrom",
+    "functionBind",
+    "functionSent",
+    "classPrivateProperties",
+    "throwExpressions",
+    "classPrivateMethods",
+    "v8intrinsic",
+    "partialApplication",
+    ["decorators", { decoratorsBeforeExport: false }],
+    "privateIn",
+    "importAssertions",
+    ["recordAndTuple", { syntaxType: "hash" }],
+    "decimal",
+    "moduleStringNames",
+    "classStaticBlock",
+  ],
+  tokens: true,
+  ranges: true,
+};
+const pipelineOperatorPlugins = [
+  ["pipelineOperator", { proposal: "smart" }],
+  ["pipelineOperator", { proposal: "minimal" }],
+  ["pipelineOperator", { proposal: "fsharp" }],
+];
 
-      "doExpressions",
-      "classProperties",
-      "exportDefaultFrom",
-      "functionBind",
-      "functionSent",
-      "classPrivateProperties",
-      "throwExpressions",
-      "classPrivateMethods",
-      "v8intrinsic",
-      "partialApplication",
-      ["decorators", { decoratorsBeforeExport: false }],
-      "privateIn",
-      ["moduleAttributes", { version: "may-2020" }],
-      ["recordAndTuple", { syntaxType: "hash" }],
-      "decimal",
-      ...extraPlugins,
-    ],
-    tokens: true,
-    ranges: true,
-  };
+// Similar to babel
+// https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
+const FLOW_PRAGMA_REGEX = /@(?:no)?flow\b/;
+function isFlowFile(text, options) {
+  if (options.filepath && options.filepath.endsWith(".js.flow")) {
+    return true;
+  }
+
+  const shebang = getShebang(text);
+  if (shebang) {
+    text = text.slice(shebang.length);
+  }
+
+  const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    0
+  );
+
+  if (firstNonSpaceNonCommentCharacterIndex !== false) {
+    text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
+  }
+
+  return FLOW_PRAGMA_REGEX.test(text);
 }
 
-function resolvePluginsConflict(
-  condition,
-  pluginCombinations,
-  conflictPlugins
-) {
-  if (!condition) {
-    return pluginCombinations;
+function parseWithOptions(parseMethod, text, options) {
+  // Inline the require to avoid loading all the JS if we don't use it
+  /** @type {import("@babel/parser").parse | import("@babel/parser").parseExpression} */
+  const parse = require("@babel/parser")[parseMethod];
+  const ast = parse(text, options);
+  // @ts-ignore
+  const error = ast.errors.find((error) => shouldRethrowRecoveredError(error));
+  if (error) {
+    throw error;
   }
-  const combinations = [];
-  for (const combination of pluginCombinations) {
-    for (const plugin of conflictPlugins) {
-      combinations.push([...combination, plugin]);
-    }
-  }
-  return combinations;
+  return ast;
+}
+
+function createParseError(error) {
+  // babel error prints (l:c) with cols that are zero indexed
+  // so we need our custom error
+  const { message, loc } = error;
+
+  return createError(message.replace(/ \(.*\)/, ""), {
+    start: {
+      line: loc ? loc.line : 0,
+      column: loc ? loc.column + 1 : 0,
+    },
+  });
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
-  return (text, parsers, opts) => {
-    // Inline the require to avoid loading all the JS if we don't use it
-    const babel = require("@babel/parser");
+  const commonPlugins = parseOptions.plugins;
+  pluginCombinations = pluginCombinations.length
+    ? pluginCombinations.map((plugins) => [...commonPlugins, ...plugins])
+    : [commonPlugins];
 
-    const sourceType =
-      opts && opts.__babelSourceType === "script" ? "script" : "module";
+  return (text, parsers, opts = {}) => {
+    if (opts.parser === "babel" && isFlowFile(text, opts)) {
+      opts.parser = "babel-flow";
+      return parseFlow(text, parsers, opts);
+    }
 
-    let ast;
-    try {
-      const combinations = resolvePluginsConflict(
-        text.includes("|>"),
-        pluginCombinations,
-        [
-          ["pipelineOperator", { proposal: "smart" }],
-          ["pipelineOperator", { proposal: "minimal" }],
-          ["pipelineOperator", { proposal: "fsharp" }],
-        ]
-      );
-      ast = tryCombinations(
-        (options) => babel[parseMethod](text, options),
-        combinations.map((extraPlugins) =>
-          babelOptions({ sourceType, extraPlugins })
+    let combinations = pluginCombinations;
+    if (text.includes("|>")) {
+      combinations = flatten(
+        pipelineOperatorPlugins.map((pipelineOperatorPlugin) =>
+          combinations.map((plugins) => [...plugins, pipelineOperatorPlugin])
         )
       );
-    } catch (error) {
-      throw createError(
-        // babel error prints (l:c) with cols that are zero indexed
-        // so we need our custom error
-        error.message.replace(/ \(.*\)/, ""),
-        error.loc
-          ? {
-              start: {
-                line: error.loc.line,
-                column: error.loc.column + 1,
-              },
-            }
-          : { start: { line: 0, column: 0 } }
-      );
+    }
+
+    const sourceType =
+      opts.__babelSourceType === "script" ? "script" : "module";
+    const { result: ast, error } = tryCombinations(
+      ...combinations.map((plugins) => () =>
+        parseWithOptions(parseMethod, text, {
+          ...parseOptions,
+          sourceType,
+          plugins,
+        })
+      )
+    );
+
+    if (!ast) {
+      throw createParseError(error);
     }
 
     return postprocess(ast, { ...opts, originalText: text });
@@ -115,41 +153,22 @@ const parseTypeScript = createParse(
 );
 const parseExpression = createParse("parseExpression", ["jsx"]);
 
-function tryCombinations(fn, combinations) {
-  let error;
-  for (let i = 0; i < combinations.length; i++) {
-    try {
-      return rethrowSomeRecoveredErrors(fn(combinations[i]));
-    } catch (_error) {
-      if (!error) {
-        error = _error;
-      }
-    }
-  }
-  throw error;
-}
+const messagesShouldThrow = new Set([
+  // TSErrors.UnexpectedTypeAnnotation
+  // https://github.com/babel/babel/blob/008fe25ae22e78288fbc637d41069bb4a1040987/packages/babel-parser/src/plugins/typescript/index.js#L95
+  "Did not expect a type annotation here.",
+  // ErrorMessages.ModuleAttributeDifferentFromType
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/parser/error-message.js#L92
+  "The only accepted module attribute is `type`",
+  // FlowErrors.UnexpectedTypeParameterBeforeAsyncArrowFunction
+  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/plugins/flow.js#L118
+  "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
+]);
 
-function rethrowSomeRecoveredErrors(ast) {
-  if (ast.errors) {
-    for (const error of ast.errors) {
-      if (
-        typeof error.message === "string" &&
-        (error.message.startsWith(
-          // UnexpectedTypeAnnotation
-          // https://github.com/babel/babel/blob/2f31ecf85d85cb100fa08d4d9a09de0fe4a117e4/packages/babel-parser/src/plugins/typescript/index.js#L88
-          "Did not expect a type annotation here."
-        ) ||
-          error.message.startsWith(
-            // ModuleAttributeDifferentFromType
-            // https://github.com/babel/babel/blob/bda759ac3dce548f021ca24e9182b6e6f7c218e3/packages/babel-parser/src/parser/location.js#L99
-            "The only accepted module attribute is `type`"
-          ))
-      ) {
-        throw error;
-      }
-    }
-  }
-  return ast;
+function shouldRethrowRecoveredError(error) {
+  const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
+  // Only works for literal message
+  return messagesShouldThrow.has(message);
 }
 
 function parseJson(text, parsers, opts) {
@@ -215,17 +234,15 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = { parse, astFormat: "estree", hasPragma, locStart, locEnd };
-const babelFlow = { ...babel, parse: parseFlow };
-const babelTypeScript = { ...babel, parse: parseTypeScript };
-const babelExpression = { ...babel, parse: parseExpression };
+const babel = createParser(parse);
+const babelExpression = createParser(parseExpression);
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
     babel,
-    "babel-flow": babelFlow,
-    "babel-ts": babelTypeScript,
+    "babel-flow": createParser(parseFlow),
+    "babel-ts": createParser(parseTypeScript),
     json: {
       ...babelExpression,
       hasPragma() {
@@ -233,12 +250,10 @@ module.exports = {
       },
     },
     json5: babelExpression,
-    "json-stringify": {
+    "json-stringify": createParser({
       parse: parseJson,
       astFormat: "estree-json",
-      locStart,
-      locEnd,
-    },
+    }),
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */

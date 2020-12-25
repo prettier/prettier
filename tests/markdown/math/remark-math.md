@@ -72,7 +72,7 @@ $$
 
 $$  must
 \alpha
-$$  be ignored
+$$
 
 ---
 

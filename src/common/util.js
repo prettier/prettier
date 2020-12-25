@@ -3,7 +3,7 @@
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
-const support = require("../main/support");
+const { getSupportInfo } = require("../main/support");
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
@@ -557,39 +557,10 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-function hasIgnoreComment(path) {
-  const node = path.getValue();
-  return hasNodeIgnoreComment(node);
-}
-
-function hasNodeIgnoreComment(node) {
-  return (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
-      )) ||
-      node.prettierIgnore)
-  );
-}
-
-function isNodeIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
-
-  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
-  // We already "print" it via the raw text, we don't need to re-print it as a
-  // comment
-  /* istanbul ignore next */
-  if (node.type === "JSXText") {
-    comment.printed = true;
-  }
 }
 
 function addLeadingComment(node, comment) {
@@ -613,24 +584,6 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-// Not using
-/* istanbul ignore next */
-function isWithinParentArrayProperty(path, propertyName) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-
-  if (parent == null) {
-    return false;
-  }
-
-  if (!Array.isArray(parent[propertyName])) {
-    return false;
-  }
-
-  const key = path.getName();
-  return parent[propertyName][key] === node;
-}
-
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
@@ -642,20 +595,18 @@ function replaceEndOfLineWith(text, replacement) {
   return parts;
 }
 
-function getParserName(lang, options) {
-  const supportInfo = support.getSupportInfo({ plugins: options.plugins });
-  const language = supportInfo.languages.find(
-    (language) =>
-      language.name.toLowerCase() === lang ||
-      (language.aliases && language.aliases.includes(lang)) ||
-      (language.extensions &&
-        language.extensions.some((ext) => ext === `.${lang}`))
-  );
-  if (language) {
-    return language.parsers[0];
-  }
-
-  return null;
+function inferParserByLanguage(language, options) {
+  const { languages } = getSupportInfo({ plugins: options.plugins });
+  const matched =
+    languages.find(({ name }) => name.toLowerCase() === language) ||
+    languages.find(
+      ({ aliases }) => Array.isArray(aliases) && aliases.includes(language)
+    ) ||
+    languages.find(
+      ({ extensions }) =>
+        Array.isArray(extensions) && extensions.includes(`.${language}`)
+    );
+  return matched && matched.parsers[0];
 }
 
 function isFrontMatterNode(node) {
@@ -673,12 +624,16 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+function isNonEmptyArray(object) {
+  return Array.isArray(object) && object.length > 0;
+}
+
 module.exports = {
+  inferParserByLanguage,
   replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getParserName,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -703,14 +658,11 @@ module.exports = {
   getPreferredQuote,
   printString,
   printNumber,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
-  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isWithinParentArrayProperty,
   isFrontMatterNode,
   getShebang,
+  isNonEmptyArray,
 };

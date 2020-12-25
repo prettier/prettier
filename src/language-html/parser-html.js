@@ -1,8 +1,13 @@
 "use strict";
 
+const {
+  ParseSourceSpan,
+  ParseLocation,
+  ParseSourceFile,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
 const { parse: parseFrontMatter } = require("../utils/front-matter");
 const createError = require("../common/parser-create-error");
-const { getParserName } = require("../common/util");
+const { inferParserByLanguage } = require("../common/util");
 const {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -11,6 +16,7 @@ const {
 const { hasPragma } = require("./pragma");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
+const { locStart, locEnd } = require("./loc");
 
 function ngHtmlParser(
   input,
@@ -68,7 +74,10 @@ function ngHtmlParser(
       }
       const langAttr = node.attrs.find((attr) => attr.name === "lang");
       const langValue = langAttr && langAttr.value;
-      return langValue == null || getParserName(langValue, options) === "html";
+      return (
+        langValue == null ||
+        inferParserByLanguage(langValue, options) === "html"
+      );
     };
     if (rootNodes.some(shouldParseAsHTML)) {
       let secondParseResult;
@@ -128,9 +137,14 @@ function ngHtmlParser(
   }
 
   if (errors.length !== 0) {
-    const { msg, span } = errors[0];
-    const { line, col } = span.start;
-    throw createError(msg, { start: { line: line + 1, column: col + 1 } });
+    const {
+      msg,
+      span: { start, end },
+    } = errors[0];
+    throw createError(msg, {
+      start: { line: start.line + 1, column: start.col + 1 },
+      end: { line: end.line + 1, column: end.col + 1 },
+    });
   }
 
   const addType = (node) => {
@@ -273,17 +287,19 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
+  const file = new ParseSourceFile(text, options.filepath);
+  const start = new ParseLocation(file, 0, 0, 0);
+  const end = start.moveBy(text.length);
   const rawAst = {
     type: "root",
-    sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
+    sourceSpan: new ParseSourceSpan(start, end),
     children: ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
-    frontMatter.sourceSpan = {
-      start: { offset: 0 },
-      end: { offset: frontMatter.raw.length },
-    };
+    const start = new ParseLocation(file, 0, 0, 0);
+    const end = start.moveBy(frontMatter.raw.length);
+    frontMatter.sourceSpan = new ParseSourceSpan(start, end);
     rawAst.children.unshift(frontMatter);
   }
 
@@ -299,7 +315,6 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       parserOptions,
       false
     );
-    const ParseSourceSpan = subAst.children[0].sourceSpan.constructor;
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
       subAst.children[subAst.children.length - 1].sourceSpan.end
@@ -331,14 +346,6 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 
     return node;
   });
-}
-
-function locStart(node) {
-  return node.sourceSpan.start.offset;
-}
-
-function locEnd(node) {
-  return node.sourceSpan.end.offset;
 }
 
 function createParser({

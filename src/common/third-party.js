@@ -4,6 +4,6 @@ module.exports = {
   cosmiconfig: require("cosmiconfig").cosmiconfig,
   cosmiconfigSync: require("cosmiconfig").cosmiconfigSync,
   findParentDir: require("find-parent-dir").sync,
-  getStream: require("get-stream"),
+  getStdin: require("get-stdin"),
   isCI: () => require("ci-info").isCI,
 };

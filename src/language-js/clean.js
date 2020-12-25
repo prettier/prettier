@@ -1,32 +1,37 @@
 "use strict";
 
-function clean(ast, newObj, parent) {
-  [
-    "range",
-    "raw",
-    "comments",
-    "leadingComments",
-    "trailingComments",
-    "innerComments",
-    "extra",
-    "start",
-    "end",
-    "loc",
-    "flags",
-    "errors",
-    "tokens",
-  ].forEach((name) => {
-    delete newObj[name];
-  });
+const { isBlockComment } = require("./utils");
 
+const ignoredProperties = new Set([
+  "range",
+  "raw",
+  "comments",
+  "leadingComments",
+  "trailingComments",
+  "innerComments",
+  "extra",
+  "start",
+  "end",
+  "loc",
+  "flags",
+  "errors",
+  "tokens",
+]);
+
+function clean(ast, newObj, parent) {
   if (ast.type === "Program") {
     delete newObj.sourceType;
   }
 
-  if (ast.type === "BigIntLiteral") {
+  if (
+    ast.type === "BigIntLiteral" ||
+    ast.type === "BigIntLiteralTypeAnnotation"
+  ) {
     if (newObj.value) {
       newObj.value = newObj.value.toLowerCase();
     }
+  }
+  if (ast.type === "BigIntLiteral" || ast.type === "Literal") {
     if (newObj.bigint) {
       newObj.bigint = newObj.bigint.toLowerCase();
     }
@@ -63,6 +68,7 @@ function clean(ast, newObj, parent) {
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
       ast.type === "ClassMethod" ||
+      ast.type === "FieldDefinition" ||
       ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&
@@ -180,7 +186,7 @@ function clean(ast, newObj, parent) {
       ast.leadingComments &&
       ast.leadingComments.some(
         (comment) =>
-          comment.type === "CommentBlock" &&
+          isBlockComment(comment) &&
           ["GraphQL", "HTML"].some(
             (languageName) => comment.value === ` ${languageName} `
           )
@@ -206,6 +212,14 @@ function clean(ast, newObj, parent) {
   if (ast.type === "InterpreterDirective") {
     newObj.value = newObj.value.trimEnd();
   }
+
+  // TODO: Remove this when fixing #9760
+  if (ast.type === "ClassMethod") {
+    delete newObj.declare;
+    delete newObj.readonly;
+  }
 }
+
+clean.ignoredProperties = ignoredProperties;
 
 module.exports = clean;

@@ -238,6 +238,89 @@ const StyledH1 = styled.div\`
 ================================================================================
 `;
 
+exports[`issue-5961.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const Steps = styled.div\`
+  @media (min-width: 1px) {
+    \${Step}:nth-child(odd) {}
+  }
+\`;
+
+const Steps2 = styled.div\`
+  @media (min-width: \${breakpoints.lg}) {
+    \${Step} {
+      margin-bottom: 90px;
+    }
+
+    \${Step}:nth-child(odd) {
+      \${StepItemDescription} {
+        grid-row: 1;
+        grid-column: 3 / span 3;
+      }
+      \${Image} {
+        grid-row: 1;
+        grid-column: 7 / span 6;
+      }
+    }
+
+    \${Step}:nth-child(even) {
+      \${Image} {
+        grid-row: 1;
+        grid-column: 3 / span 6;
+      }
+      \${StepItemDescription} {
+        grid-row: 1;
+        grid-column: 10 / span 3;
+      }
+    }
+  }
+\`;
+
+=====================================output=====================================
+const Steps = styled.div\`
+  @media (min-width: 1px) {
+    \${Step}:nth-child(odd) {
+    }
+  }
+\`;
+
+const Steps2 = styled.div\`
+  @media (min-width: \${breakpoints.lg}) {
+    \${Step} {
+      margin-bottom: 90px;
+    }
+
+    \${Step}:nth-child(odd) {
+      \${StepItemDescription} {
+        grid-row: 1;
+        grid-column: 3 / span 3;
+      }
+      \${Image} {
+        grid-row: 1;
+        grid-column: 7 / span 6;
+      }
+    }
+
+    \${Step}:nth-child(even) {
+      \${Image} {
+        grid-row: 1;
+        grid-column: 3 / span 6;
+      }
+      \${StepItemDescription} {
+        grid-row: 1;
+        grid-column: 10 / span 3;
+      }
+    }
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`issue-6259.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
@@ -275,6 +358,44 @@ export const Group = styled.div\`
   & > :not(.\${inputWrap}):not(\${Button}) {
     display: flex;
   }
+\`;
+
+================================================================================
+`;
+
+exports[`issue-9072.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const style1 = css\`
+  width:\${size+10}\${sizeUnit};
+  border:\${size/10} \${sizeUnit} solid \${color};
+\`;
+
+const style2 = css\`
+  width: \${size + 10}\${sizeUnit};
+  border: \${size / 10} \${sizeUnit} solid \${color};
+\`;
+
+const style3 = css\`
+  foo: \${foo}\${bar}       \${baz};
+\`;
+
+=====================================output=====================================
+const style1 = css\`
+  width: \${size + 10}\${sizeUnit};
+  border: \${size / 10} \${sizeUnit} solid \${color};
+\`;
+
+const style2 = css\`
+  width: \${size + 10}\${sizeUnit};
+  border: \${size / 10} \${sizeUnit} solid \${color};
+\`;
+
+const style3 = css\`
+  foo: \${foo}\${bar} \${baz};
 \`;
 
 ================================================================================
@@ -535,6 +656,19 @@ const Foo = styled.p\`
   }
 \`;
 
+styled(A)\`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: \${(props) => (props.isComplete ? '1' : '0')};
+  }
+\`;
+
+const StyledDiv = styled.div\`
+  \${props => getSize(props.$size.xs)}
+  \${props => getSize(props.$size.sm, 'sm')}
+  \${props => getSize(props.$size.md, 'md')}
+\`;
+
 =====================================output=====================================
 const ListItem1 = styled.li\`\`;
 
@@ -786,6 +920,19 @@ const Foo = styled.p\`
   &.bottom {
     margin-top: 3rem;
   }
+\`;
+
+styled(A)\`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: \${(props) => (props.isComplete ? "1" : "0")};
+  }
+\`;
+
+const StyledDiv = styled.div\`
+  \${(props) => getSize(props.$size.xs)}
+  \${(props) => getSize(props.$size.sm, "sm")}
+  \${(props) => getSize(props.$size.md, "md")}
 \`;
 
 ================================================================================

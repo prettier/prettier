@@ -13,12 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.4
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -48,7 +46,7 @@ jobs:
       # The cache step might saving the result of master branch, need investigate
       - name: Check Sizes
         if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
-        uses: preactjs/compressed-size-action@v2.0.1
+        uses: preactjs/compressed-size-action@2.1.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           compression: none
@@ -59,12 +57,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.4
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -79,7 +75,7 @@ jobs:
         run: yarn lint:dist
 
   test:
-    timeout-minutes: 60
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -91,22 +87,28 @@ jobs:
           - "14"
           - "12"
           - "10"
+        include:
+          - os: "ubuntu-latest"
+            node: "14"
+            FULL_TEST: true
+          - os: "ubuntu-latest"
+            node: "15"
         exclude:
           - os: "macos-latest"
             node: "12"
           - os: "windows-latest"
             node: "12"
+    env:
+      FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node }}
 

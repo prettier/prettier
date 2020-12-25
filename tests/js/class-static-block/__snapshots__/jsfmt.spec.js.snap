@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class-static-block.js [espree] format 1`] = `
+"Unexpected character '#' (2:10)
+  1 | class C {
+> 2 |   static #x = 42;
+    |          ^
+  3 |   static y;
+  4 |   static {
+  5 |     try {"
+`;
+
+exports[`class-static-block.js [meriyah] format 1`] = `
+"[4:10]: Unexpected token: '{' (4:10)
+  2 |   static #x = 42;
+  3 |   static y;
+> 4 |   static {
+    |          ^
+  5 |     try {
+  6 |       this.y = doSomethingWith(this.#x);
+  7 |     } catch {"
+`;
+
+exports[`class-static-block.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+  
+class Foo {
+  static {}
+}
+  
+class A1 {
+  static {
+    foo;
+  }
+}
+  
+class A2 {
+  static {
+    foo;
+    bar;
+  }
+}
+  
+=====================================output=====================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+
+class Foo {
+  static {}
+}
+
+class A1 {
+  static {
+    foo;
+  }
+}
+
+class A2 {
+  static {
+    foo;
+    bar;
+  }
+}
+
+================================================================================
+`;

@@ -2,25 +2,25 @@
 
 const assert = require("assert");
 const {
-  builders,
-  utils: { mapDoc, normalizeParts },
+  builders: {
+    breakParent,
+    dedentToRoot,
+    fill,
+    group,
+    hardline,
+    ifBreak,
+    indent,
+    join,
+    line,
+    literalline,
+    softline,
+    concat,
+  },
+  utils: { mapDoc, cleanDoc },
 } = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
 const clean = require("./clean");
-const {
-  breakParent,
-  dedentToRoot,
-  fill,
-  group,
-  hardline,
-  ifBreak,
-  indent,
-  join,
-  line,
-  literalline,
-  softline,
-} = builders;
 const {
   htmlTrimPreserveIndentation,
   splitByHtmlWhitespace,
@@ -36,6 +36,8 @@ const {
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isScriptLikeTag,
   isTextLikeNode,
   preferHardlineAsLeadingSpaces,
@@ -44,23 +46,15 @@ const {
   unescapeQuoteEntities,
   isPreLikeNode,
 } = require("./utils");
-const preprocess = require("./preprocess");
+const preprocess = require("./print-preprocess");
 const { insertPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 const {
   printVueFor,
-  printVueSlotScope,
+  printVueBindings,
   isVueEventBindingExpression,
 } = require("./syntax-vue");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute");
-
-function concat(parts) {
-  const newParts = normalizeParts(parts);
-  return newParts.length === 0
-    ? ""
-    : newParts.length === 1
-    ? newParts[0]
-    : builders.concat(newParts);
-}
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -124,15 +118,13 @@ function embed(path, print, textToDoc, options) {
             }
             textToDocOptions.__babelSourceType = sourceType;
           }
-          return builders.concat([
-            concat([
-              breakParent,
-              printOpeningTagPrefix(node, options),
-              textToDoc(value, textToDocOptions, {
-                stripTrailingHardline: true,
-              }),
-              printClosingTagSuffix(node, options),
-            ]),
+          return concat([
+            breakParent,
+            printOpeningTagPrefix(node, options),
+            textToDoc(value, textToDocOptions, {
+              stripTrailingHardline: true,
+            }),
+            printClosingTagSuffix(node, options),
           ]);
         }
       } else if (node.parent.type === "interpolation") {
@@ -235,10 +227,7 @@ function genericPrint(path, options, print) {
         options.__onHtmlRoot(node);
       }
       // use original concat to not break stripTrailingHardline
-      return builders.concat([
-        group(printChildren(path, options, print)),
-        hardline,
-      ]);
+      return concat([group(printChildren(path, options, print)), hardline]);
     case "element":
     case "ieConditionalComment": {
       if (shouldPreserveContent(node, options)) {
@@ -381,15 +370,15 @@ function genericPrint(path, options, print) {
           hasTrailingNewline ? hardline : "",
         ]);
       }
-      return fill(
-        normalizeParts(
-          [].concat(
-            printOpeningTagPrefix(node, options),
-            getTextValueParts(node),
-            printClosingTagSuffix(node, options)
-          )
-        )
+
+      const printed = cleanDoc(
+        concat([
+          printOpeningTagPrefix(node, options),
+          ...getTextValueParts(node),
+          printClosingTagSuffix(node, options),
+        ])
       );
+      return typeof printed === "string" ? printed : fill(printed.parts);
     }
     case "docType":
       return concat([
@@ -407,10 +396,7 @@ function genericPrint(path, options, print) {
         printOpeningTagPrefix(node, options),
         concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              options.locStart(node),
-              options.locEnd(node)
-            ),
+            options.originalText.slice(locStart(node), locEnd(node)),
             literalline
           )
         ),
@@ -563,12 +549,12 @@ function printChildren(path, options, print) {
           printOpeningTagPrefix(child, options),
           replaceEndOfLineWith(
             options.originalText.slice(
-              options.locStart(child) +
+              locStart(child) +
                 (child.prev &&
                 needsToBorrowNextOpeningTagStartMarker(child.prev)
                   ? printOpeningTagStartMarker(child).length
                   : 0),
-              options.locEnd(child) -
+              locEnd(child) -
                 (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
                   ? printClosingTagEndMarker(child, options).length
                   : 0)
@@ -671,7 +657,7 @@ function getNodeContent(node, options) {
 function printAttributes(path, options, print) {
   const node = path.getValue();
 
-  if (!node.attrs || node.attrs.length === 0) {
+  if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
       ? /**
          *     <br />
@@ -698,10 +684,7 @@ function printAttributes(path, options, print) {
     return hasPrettierIgnoreAttribute(attribute)
       ? concat(
           replaceEndOfLineWith(
-            options.originalText.slice(
-              options.locStart(attribute),
-              options.locEnd(attribute)
-            ),
+            options.originalText.slice(locStart(attribute), locEnd(attribute)),
             literalline
           )
         )
@@ -1083,8 +1066,8 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       return printVueFor(getValue(), textToDoc);
     }
 
-    if (node.fullName === "slot-scope") {
-      return printVueSlotScope(getValue(), textToDoc);
+    if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
+      return printVueBindings(getValue(), textToDoc);
     }
 
     /**
@@ -1102,7 +1085,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     /**
      *     v-if="jsExpression"
      */
-    const jsExpressionBindingPatterns = ["^v-", "^#"];
+    const jsExpressionBindingPatterns = ["^v-"];
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();

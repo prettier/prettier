@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-const prettier = require("prettier/local");
+const prettier = require("prettier-local");
 
 test("API resolveConfigFile", async () => {
   const result = await prettier.resolveConfigFile();

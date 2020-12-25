@@ -19,7 +19,7 @@ function makeIndent(ind, options) {
 }
 
 function makeAlign(indent, n, options) {
-  if (n === -Infinity) {
+  if (n === Number.NEGATIVE_INFINITY) {
     return indent.root || rootIndent();
   }
 
@@ -261,10 +261,7 @@ function printDocToString(doc, options) {
     const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
-      const formatted =
-        newLine !== "\n" && doc.includes("\n")
-          ? doc.replace(/\n/g, newLine)
-          : doc;
+      const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
       out.push(formatted);
       pos += getStringWidth(formatted);
     } else {
@@ -525,6 +522,13 @@ function printDocToString(doc, options) {
           break;
         default:
       }
+    }
+
+    // Flush remaining line-suffix contents at the end of the document, in case
+    // there is no new line after the line-suffix.
+    if (cmds.length === 0 && lineSuffix.length) {
+      cmds.push(...lineSuffix.reverse());
+      lineSuffix = [];
     }
   }
 

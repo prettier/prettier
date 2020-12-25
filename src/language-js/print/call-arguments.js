@@ -1,18 +1,19 @@
 "use strict";
 
-const comments = require("../../main/comments");
+const { printDanglingComments } = require("../../main/comments");
+const { getLast, getPenultimate } = require("../../common/util");
 const {
-  getLast,
-  getPenultimate,
-  isNextLineEmpty,
-} = require("../../common/util");
-const {
-  hasLeadingComment,
-  hasTrailingComment,
+  getFunctionParameters,
+  iterateFunctionParametersPath,
+  hasComment,
+  CommentCheckFlags,
   isFunctionCompositionArgs,
-  isJSXNode,
+  isJsxNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
+  getCallArguments,
+  iterateCallArgumentsPath,
+  isNextLineEmpty,
 } = require("../utils");
 
 const {
@@ -33,12 +34,12 @@ const {
 function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
-  const args = isDynamicImport ? [node.source] : node.arguments;
 
+  const args = getCallArguments(node);
   if (args.length === 0) {
     return concat([
       "(",
-      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      printDanglingComments(path, options, /* sameIndent */ true),
       ")",
     ]);
   }
@@ -47,10 +48,10 @@ function printCallArguments(path, options, print) {
   if (
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
-    args[0].params.length === 0 &&
+    getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
-    !args.some((arg) => arg.comments)
+    !args.some((arg) => hasComment(arg))
   ) {
     return concat([
       "(",
@@ -74,17 +75,15 @@ function printCallArguments(path, options, print) {
       arg.type !== "ArrowFunctionExpression" ||
       !arg.body ||
       arg.body.type !== "BlockStatement" ||
-      !arg.params ||
-      arg.params.length < 1
+      getFunctionParameters(arg).length === 0
     ) {
       return false;
     }
 
     let shouldBreak = false;
-    argPath.each((paramPath) => {
-      const printed = concat([print(paramPath)]);
-      shouldBreak = shouldBreak || willBreak(printed);
-    }, "params");
+    iterateFunctionParametersPath(argPath, (parameterPath) => {
+      shouldBreak = shouldBreak || willBreak(concat([print(parameterPath)]));
+    });
 
     return shouldBreak;
   }
@@ -93,13 +92,14 @@ function printCallArguments(path, options, print) {
   let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
-  const printArgument = (argPath, index) => {
+  const printedArguments = [];
+  iterateCallArgumentsPath(path, (argPath, index) => {
     const arg = argPath.getNode();
     const parts = [print(argPath)];
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, options.locEnd)) {
+    } else if (isNextLineEmpty(arg, options)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
@@ -115,11 +115,8 @@ function printCallArguments(path, options, print) {
       argPath
     );
 
-    return concat(parts);
-  };
-  const printedArguments = isDynamicImport
-    ? [path.call((path) => printArgument(path, 0), "source")]
-    : path.map(printArgument, "arguments");
+    printedArguments.push(concat(parts));
+  });
 
   const maybeTrailingComma =
     // Dynamic imports cannot have trailing commas
@@ -160,8 +157,7 @@ function printCallArguments(path, options, print) {
 
     // We want to print the last argument with a special flag
     let printedExpanded = [];
-    let i = 0;
-    const printArgument = (argPath) => {
+    iterateCallArgumentsPath(path, (argPath, i) => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
           concat([
@@ -177,14 +173,7 @@ function printCallArguments(path, options, print) {
           .slice(0, -1)
           .concat(argPath.call((p) => print(p, { expandLastArg: true })));
       }
-      i++;
-    };
-
-    if (isDynamicImport) {
-      path.call(printArgument, "source");
-    } else {
-      path.each(printArgument, "arguments");
-    }
+    });
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
@@ -242,9 +231,9 @@ function printCallArguments(path, options, print) {
 function couldGroupArg(arg) {
   return (
     (arg.type === "ObjectExpression" &&
-      (arg.properties.length > 0 || arg.comments)) ||
+      (arg.properties.length > 0 || hasComment(arg))) ||
     (arg.type === "ArrayExpression" &&
-      (arg.elements.length > 0 || arg.comments)) ||
+      (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
     (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
@@ -270,7 +259,7 @@ function couldGroupArg(arg) {
         arg.body.type === "CallExpression" ||
         arg.body.type === "OptionalCallExpression" ||
         arg.body.type === "ConditionalExpression" ||
-        isJSXNode(arg.body)))
+        isJsxNode(arg.body)))
   );
 }
 
@@ -278,8 +267,8 @@ function shouldGroupLastArg(args) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
-    !hasLeadingComment(lastArg) &&
-    !hasTrailingComment(lastArg) &&
+    !hasComment(lastArg, CommentCheckFlags.Leading) &&
+    !hasComment(lastArg, CommentCheckFlags.Trailing) &&
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
@@ -294,7 +283,7 @@ function shouldGroupFirstArg(args) {
 
   const [firstArg, secondArg] = args;
   return (
-    (!firstArg.comments || !firstArg.comments.length) &&
+    !hasComment(firstArg) &&
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&

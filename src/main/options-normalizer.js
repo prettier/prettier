@@ -166,13 +166,11 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   }
 
   if (optionInfo.exception) {
-    parameters.validate = (value, schema, utils) => {
-      return optionInfo.exception(value) || schema.validate(value, utils);
-    };
+    parameters.validate = (value, schema, utils) =>
+      optionInfo.exception(value) || schema.validate(value, utils);
   } else {
-    parameters.validate = (value, schema, utils) => {
-      return value === undefined || schema.validate(value, utils);
-    };
+    parameters.validate = (value, schema, utils) =>
+      value === undefined || schema.validate(value, utils);
   }
 
   /* istanbul ignore next */

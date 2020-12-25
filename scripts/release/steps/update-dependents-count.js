@@ -2,6 +2,7 @@
 
 const chalk = require("chalk");
 const fetch = require("node-fetch");
+const execa = require("execa");
 const { logPromise, processFile } = require("../utils");
 
 async function update() {
@@ -14,7 +15,7 @@ async function update() {
   const dependentsCountNpm = Number(
     npmPage.match(/"dependentsCount":(\d+),/)[1]
   );
-  if (isNaN(dependentsCountNpm)) {
+  if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
       "Invalid data from https://www.npmjs.com/package/prettier"
     );
@@ -34,7 +35,7 @@ async function update() {
       )[1]
       .replace(/,/g, "")
   );
-  if (isNaN(dependentsCountNpm)) {
+  if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
       "Invalid data from https://github.com/prettier/prettier/network/dependents"
     );
@@ -51,6 +52,24 @@ async function update() {
         `$1${formatNumber(dependentsCountGithub)}$3`
       )
   );
+
+  const isUpdated = await logPromise(
+    "Checking if dependents count has been updated",
+    execa("git", ["diff", "--name-only"]).then(
+      ({ stdout }) => stdout === "website/pages/en/index.js"
+    )
+  );
+
+  if (isUpdated) {
+    logPromise(
+      "Committing and pushing to remote",
+      (async () => {
+        await execa("git", ["add", "."]);
+        await execa("git", ["commit", "-m", "Update dependents count"]);
+        await execa("git", ["push"]);
+      })()
+    );
+  }
 }
 
 function formatNumber(value) {

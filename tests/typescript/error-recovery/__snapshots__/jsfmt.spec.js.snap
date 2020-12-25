@@ -152,6 +152,28 @@ class f7<> {
 ================================================================================
 `;
 
+exports[`index-signature.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\"]\\" (4:13)
+  2 | 
+  3 | type TwoParams = {
+> 4 |   [a: string, b: string]: string;
+    |             ^
+  5 | };
+  6 | type ThreeParams = {
+  7 |   [a: string, b: string, c: string]: string;"
+`;
+
+exports[`index-signature.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
+"Unexpected token, expected \\"]\\" (4:13)
+  2 | 
+  3 | type TwoParams = {
+> 4 |   [a: string, b: string]: string;
+    |             ^
+  5 | };
+  6 | type ThreeParams = {
+  7 |   [a: string, b: string, c: string]: string;"
+`;
+
 exports[`index-signature.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -213,6 +235,17 @@ type TooLongSingleParam = {
 };
 
 ================================================================================
+`;
+
+exports[`index-signature.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
+"Unexpected token, expected \\"]\\" (4:13)
+  2 | 
+  3 | type TwoParams = {
+> 4 |   [a: string, b: string]: string;
+    |             ^
+  5 | };
+  6 | type ThreeParams = {
+  7 |   [a: string, b: string, c: string]: string;"
 `;
 
 exports[`index-signature.ts - {"trailingComma":"es5"} format 1`] = `
@@ -340,6 +373,24 @@ type TooLongSingleParam = {
 ================================================================================
 `;
 
+exports[`jsdoc_only_types.ts [babel-ts] format 1`] = `
+"Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
+`;
+
+exports[`jsdoc_only_types.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
+"Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
+`;
+
 exports[`jsdoc_only_types.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -367,6 +418,15 @@ let g: !string;
 let h: !(string | number);
 
 ================================================================================
+`;
+
+exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
+"Unexpected token (1:8)
+> 1 | let a: *;
+    |        ^
+  2 | function b(x: ?) {}
+  3 | let c: ?string;
+  4 | let d: string?;"
 `;
 
 exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} format 1`] = `

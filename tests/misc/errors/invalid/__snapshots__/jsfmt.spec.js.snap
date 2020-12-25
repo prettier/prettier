@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Unexpected token, expected \\"(\\" (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [babel-flow] format 1`] = `
+"Unexpected token, expected \\"(\\" (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Unexpected token, expected \\"(\\" (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Unexpected token each (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`(\` (1:5)
+> 1 | for each (a in b) {}
+    |     ^^^^"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"'(' expected. (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;

@@ -12,3 +12,7 @@ class A {
         return new A()
     }
 }
+
+class B {
+  constructor<>() {}
+}

@@ -5,6 +5,7 @@ const {
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -25,10 +26,12 @@ const {
   utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
-const { replaceEndOfLineWith, isFrontMatterNode } = require("../common/util");
+const { replaceEndOfLineWith } = require("../common/util");
 const embed = require("./embed");
-const pragma = require("./pragma");
-const preprocess = require("./preprocess");
+const { insertPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
+const preprocess = require("./print-preprocess");
+const clean = require("./clean");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -39,8 +42,12 @@ const {
   isAutolink,
 } = require("./utils");
 
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
+
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
+const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
   "definition",
@@ -92,7 +99,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word": {
       let escapedValue = node.value
-        .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
+        .replace(/\*/g, "\\$&") // escape all `*`
         .replace(
           new RegExp(
             [
@@ -111,7 +118,7 @@ function genericPrint(path, options, print) {
       const isFirstSentence = (node, name, index) =>
         node.type === "sentence" && index === 0;
       const isLastChildAutolink = (node, name, index) =>
-        isAutolink(node.children[index - 1], options);
+        isAutolink(node.children[index - 1]);
 
       if (
         escapedValue !== node.value &&
@@ -146,7 +153,7 @@ function genericPrint(path, options, print) {
     }
     case "emphasis": {
       let style;
-      if (isAutolink(node.children[0], options)) {
+      if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
         const parentNode = path.getParentNode();
@@ -178,6 +185,16 @@ function genericPrint(path, options, print) {
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
+    }
+    case "wikiLink": {
+      let contents = "";
+      if (options.proseWrap === "preserve") {
+        contents = node.value;
+      } else {
+        contents = node.value.replace(/[\t\n]+/g, " ");
+      }
+
+      return concat(["[[", contents, "]]"]);
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
@@ -406,11 +423,10 @@ function genericPrint(path, options, print) {
                 align(
                   " ".repeat(4),
                   printChildren(path, options, print, {
-                    processor: (childPath, index) => {
-                      return index === 0
+                    processor: (childPath, index) =>
+                      index === 0
                         ? group(concat([softline, childPath.call(print)]))
-                        : childPath.call(print);
-                    },
+                        : childPath.call(print),
                   })
                 ),
                 nextNode && nextNode.type === "footnoteDefinition"
@@ -431,11 +447,12 @@ function genericPrint(path, options, print) {
     case "liquidNode":
       return concat(replaceEndOfLineWith(node.value, hardline));
     // MDX
+    // fallback to the original text if multiparser failed
+    // or `embeddedLanguageFormatting: "off"`
     case "importExport":
-    case "jsx":
-      // fallback to the original text if multiparser failed
-      // or `embeddedLanguageFormatting: "off"`
       return concat([node.value, hardline]);
+    case "jsx":
+      return node.value;
     case "math":
       return concat([
         "$$",
@@ -451,10 +468,7 @@ function genericPrint(path, options, print) {
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
-      return options.originalText.slice(
-        options.locStart(node),
-        options.locEnd(node)
-      );
+      return options.originalText.slice(locStart(node), locEnd(node));
     }
 
     case "tableRow": // handled in "table"
@@ -566,115 +580,78 @@ function printLine(path, value, options) {
 function printTable(path, options, print) {
   const hardlineWithoutBreakParent = hardline.parts[0];
   const node = path.getValue();
-  const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
 
-  path.map((rowPath) => {
-    const rowContents = [];
-
-    rowPath.map((cellPath) => {
-      rowContents.push(
-        printDocToString(cellPath.call(print), options).formatted
-      );
-    }, "children");
-
-    contents.push(rowContents);
-  }, "children");
-
-  // Get the width of each column
-  const columnMaxWidths = contents.reduce(
-    (currentWidths, rowContents) =>
-      currentWidths.map((width, columnIndex) =>
-        Math.max(width, getStringWidth(rowContents[columnIndex]))
-      ),
-    contents[0].map(() => 3) // minimum width = 3 (---, :--, :-:, --:)
+  const columnMaxWidths = [];
+  // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
+  const contents = path.map(
+    (rowPath) =>
+      rowPath.map((cellPath, columnIndex) => {
+        const text = printDocToString(cellPath.call(print), options).formatted;
+        const width = getStringWidth(text);
+        columnMaxWidths[columnIndex] = Math.max(
+          columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
+          width
+        );
+        return { text, width };
+      }, "children"),
+    "children"
   );
-  const alignedTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0]),
-    printSeparator(),
-    join(
-      hardlineWithoutBreakParent,
-      contents.slice(1).map((rowContents) => printRow(rowContents))
-    ),
-  ]);
 
+  const alignedTable = printTableContents(/* isCompact */ false);
   if (options.proseWrap !== "never") {
     return concat([breakParent, alignedTable]);
   }
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
-  const compactTable = join(hardlineWithoutBreakParent, [
-    printRow(contents[0], /* isCompact */ true),
-    printSeparator(/* isCompact */ true),
-    join(
-      hardlineWithoutBreakParent,
-      contents
-        .slice(1)
-        .map((rowContents) => printRow(rowContents, /* isCompact */ true))
-    ),
-  ]);
-
+  const compactTable = printTableContents(/* isCompact */ true);
   return concat([breakParent, group(ifBreak(compactTable, alignedTable))]);
 
-  function printSeparator(isCompact) {
-    return concat([
-      "| ",
-      join(
-        " | ",
-        columnMaxWidths.map((width, index) => {
-          const spaces = isCompact ? 3 : width;
-          switch (node.align[index]) {
-            case "left":
-              return ":" + "-".repeat(spaces - 1);
-            case "right":
-              return "-".repeat(spaces - 1) + ":";
-            case "center":
-              return ":" + "-".repeat(spaces - 2) + ":";
-            default:
-              return "-".repeat(spaces);
-          }
-        })
-      ),
-      " |",
-    ]);
+  function printTableContents(isCompact) {
+    /** @type{Doc[]} */
+    const parts = [printRow(contents[0], isCompact), printAlign(isCompact)];
+    if (contents.length > 1) {
+      parts.push(
+        join(
+          hardlineWithoutBreakParent,
+          contents
+            .slice(1)
+            .map((rowContents) => printRow(rowContents, isCompact))
+        )
+      );
+    }
+    return join(hardlineWithoutBreakParent, parts);
+  }
+
+  function printAlign(isCompact) {
+    const align = columnMaxWidths.map((width, index) => {
+      const align = node.align[index];
+      const first = align === "center" || align === "left" ? ":" : "-";
+      const last = align === "center" || align === "right" ? ":" : "-";
+      const middle = isCompact ? "-" : "-".repeat(width - 2);
+      return `${first}${middle}${last}`;
+    });
+
+    return `| ${align.join(" | ")} |`;
   }
 
   function printRow(rowContents, isCompact) {
-    return concat([
-      "| ",
-      join(
-        " | ",
-        isCompact
-          ? rowContents
-          : rowContents.map((rowContent, columnIndex) => {
-              switch (node.align[columnIndex]) {
-                case "right":
-                  return alignRight(rowContent, columnMaxWidths[columnIndex]);
-                case "center":
-                  return alignCenter(rowContent, columnMaxWidths[columnIndex]);
-                default:
-                  return alignLeft(rowContent, columnMaxWidths[columnIndex]);
-              }
-            })
-      ),
-      " |",
-    ]);
-  }
+    const columns = rowContents.map(({ text, width }, columnIndex) => {
+      if (isCompact) {
+        return text;
+      }
+      const spaces = columnMaxWidths[columnIndex] - width;
+      const align = node.align[columnIndex];
+      let before = 0;
+      if (align === "right") {
+        before = spaces;
+      } else if (align === "center") {
+        before = Math.floor(spaces / 2);
+      }
+      const after = spaces - before;
+      return `${" ".repeat(before)}${text}${" ".repeat(after)}`;
+    });
 
-  function alignLeft(text, width) {
-    const spaces = width - getStringWidth(text);
-    return concat([text, " ".repeat(spaces)]);
-  }
-
-  function alignRight(text, width) {
-    const spaces = width - getStringWidth(text);
-    return concat([" ".repeat(spaces), text]);
-  }
-
-  function alignCenter(text, width) {
-    const spaces = width - getStringWidth(text);
-    const left = Math.floor(spaces / 2);
-    const right = spaces - left;
-    return concat([" ".repeat(left), text, " ".repeat(right)]);
+    return `| ${columns.join(" | ")} |`;
   }
 }
 
@@ -751,7 +728,7 @@ function printChildren(path, options, print, events) {
 
   let lastChildNode;
 
-  path.map((childPath, index) => {
+  path.each((childPath, index) => {
     const childNode = childPath.getValue();
 
     const result = processor(childPath, index);
@@ -797,7 +774,7 @@ function printChildren(path, options, print, events) {
 
 function getLastDescendantNode(node) {
   let current = node;
-  while (current.children && current.children.length !== 0) {
+  while (isNonEmptyArray(current.children)) {
     current = current.children[current.children.length - 1];
   }
   return current;
@@ -927,70 +904,6 @@ function clamp(value, min, max) {
   return value < min ? min : value > max ? max : value;
 }
 
-function clean(ast, newObj, parent) {
-  delete newObj.position;
-  delete newObj.raw; // front-matter
-
-  // for codeblock
-  if (
-    ast.type === "front-matter" ||
-    ast.type === "code" ||
-    ast.type === "yaml" ||
-    ast.type === "import" ||
-    ast.type === "export" ||
-    ast.type === "jsx"
-  ) {
-    delete newObj.value;
-  }
-
-  if (ast.type === "list") {
-    delete newObj.isAligned;
-  }
-
-  if (ast.type === "list" || ast.type === "listItem") {
-    delete newObj.spread;
-    delete newObj.loose;
-  }
-
-  // texts can be splitted or merged
-  if (ast.type === "text") {
-    return null;
-  }
-
-  if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
-  }
-
-  if (ast.type === "definition" || ast.type === "linkReference") {
-    newObj.label = ast.label
-      .trim()
-      .replace(/[\t\n ]+/g, " ")
-      .toLowerCase();
-  }
-
-  if (
-    (ast.type === "definition" ||
-      ast.type === "link" ||
-      ast.type === "image") &&
-    ast.title
-  ) {
-    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
-  }
-
-  // for insert pragma
-  if (
-    parent &&
-    parent.type === "root" &&
-    parent.children.length > 0 &&
-    (parent.children[0] === ast ||
-      (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&
-    ast.type === "html" &&
-    pragma.startWithPragma(ast.value)
-  ) {
-    return null;
-  }
-}
-
 function hasPrettierIgnore(path) {
   const index = +path.getName();
 
@@ -1008,5 +921,5 @@ module.exports = {
   embed,
   massageAstNode: clean,
   hasPrettierIgnore,
-  insertPragma: pragma.insertPragma,
+  insertPragma,
 };
