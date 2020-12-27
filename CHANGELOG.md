@@ -8,7 +8,7 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.14.1
+## prettierx 0.14.2
 
 - Add tslib to avoid a peerDependencies warning
 - Update some dependencies
@@ -18,7 +18,9 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
   - lodash -> 4.17.20
   - unified -> 9.2.0
 
-[compare prettierx-0.14.0...prettierx-0.14.1](https://github.com/brodybits/prettierx/compare/prettierx-0.14.0...prettierx-0.14.1)
+[compare prettierx-0.14.0...prettierx-0.14.2](https://github.com/brodybits/prettierx/compare/prettierx-0.14.0...prettierx-0.14.2)
+
+NOTE: prettierx release 0.14.1 was inadvertently skipped in package.json.
 
 ## prettierx 0.14.0
 
