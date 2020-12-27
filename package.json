@@ -25,6 +25,9 @@
     "* latest updates of ci-info from GitHub are not needed for prettierx",
     "* flow-parser & typescript are moved to devDependencies, and",
     "  they are specified as optional in peerDependenciesMeta",
+    "* tslib is added to dependencies to avoid a peerDependencies warning",
+    "  with @angular/compiler version 9",
+    "  (should not be an issue with @angular/compiler version >= 10)",
     "* codecov is removed from devDependencies",
     "<!-- -->"
   ],
@@ -82,6 +85,7 @@
     "semver": "7.3.2",
     "srcset": "3.0.0",
     "string-width": "4.2.0",
+    "tslib": "1.14.1",
     "unicode-regex": "3.0.0",
     "unified": "9.2.0",
     "vnopts": "1.0.2",
