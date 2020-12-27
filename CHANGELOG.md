@@ -18,7 +18,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
   - lodash -> 4.17.20
   - unified -> 9.2.0
 
-[compare prettierx-0.14.0...prettierx-0.14.1](https://github.com/brodybits/prettierx/compare/prettierx-0.14.0...prettierx-0.14.0...prettierx-0.14.1)
+[compare prettierx-0.14.0...prettierx-0.14.1](https://github.com/brodybits/prettierx/compare/prettierx-0.14.0...prettierx-0.14.1)
 
 ## prettierx 0.14.0
 
