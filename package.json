@@ -1,6 +1,6 @@
 {
   "name": "prettierx",
-  "version": "0.14.3-dev",
+  "version": "0.14.3",
   "description": "prettierx - less opinionated code formatter fork of prettier",
   "bin": "./bin/prettierx.js",
   "repository": "brodybits/prettierx",
