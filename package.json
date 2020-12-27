@@ -124,7 +124,7 @@
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.15",
     "tempy": "0.6.0",
-    "terser-webpack-plugin": "4.1.0",
+    "terser-webpack-plugin": "4.2.3",
     "typescript": "3.9.7",
     "webpack": "4.44.1"
   },
