@@ -18,6 +18,17 @@ const {
 } = require("./option-map");
 const createMinimistOptions = require("./create-minimist-options");
 
+class Context {
+  constructor(args) {
+    this.args = args;
+    this.stack = [];
+    updateContextArgv(this);
+    normalizeContextArgv(this, ["loglevel", "plugin", "plugin-search-dir"]);
+    this.logger = createLogger(this.argv.loglevel);
+    updateContextArgv(this, this.argv.plugin, this.argv["plugin-search-dir"]);
+  }
+}
+
 /**
  * @typedef {Object} Context
  * @property logger
@@ -31,25 +42,6 @@ const createMinimistOptions = require("./create-minimist-options");
  * @property languages
  * @property {Partial<Context>[]} stack
  */
-
-/** @returns {Context} */
-function createContext(args) {
-  /** @type {Context} */
-  const context = { args, stack: [] };
-
-  updateContextArgv(context);
-  normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
-
-  context.logger = createLogger(context.argv.loglevel);
-
-  updateContextArgv(
-    context,
-    context.argv.plugin,
-    context.argv["plugin-search-dir"]
-  );
-
-  return context;
-}
 
 function initContext(context) {
   // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
@@ -142,7 +134,7 @@ function normalizeContextArgv(context, keys) {
 }
 
 module.exports = {
-  createContext,
+  Context,
   initContext,
   popContextPlugins,
   pushContextPlugins,

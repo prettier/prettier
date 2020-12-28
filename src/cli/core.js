@@ -8,7 +8,7 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index");
 
 const { format, formatStdin, formatFiles } = require("./format");
-const { createContext, initContext } = require("./context");
+const { initContext, Context } = require("./context");
 const {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
@@ -44,7 +44,7 @@ function logFileInfoOrDie(context) {
 }
 
 module.exports = {
-  createContext,
+  Context,
   createDetailedOptionMap,
   createDetailedUsage,
   createUsage,
