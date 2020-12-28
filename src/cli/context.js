@@ -48,6 +48,10 @@ class Context {
     );
     updateContextOptions(this, plugins, pluginSearchDirs);
   }
+
+  popContextPlugins() {
+    Object.assign(this, this.stack.pop());
+  }
 }
 
 /**
@@ -103,13 +107,6 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
   });
 }
 
-/**
- * @param {Context} context
- */
-function popContextPlugins(context) {
-  Object.assign(context, context.stack.pop());
-}
-
 function updateContextArgv(context, plugins, pluginSearchDirs) {
   context.pushContextPlugins(plugins, pluginSearchDirs);
 
@@ -133,5 +130,4 @@ function normalizeContextArgv(context, keys) {
 
 module.exports = {
   Context,
-  popContextPlugins,
 };

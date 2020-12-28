@@ -8,7 +8,6 @@ const fromPairs = require("lodash/fromPairs");
 const prettier = require("../index");
 
 const minimist = require("./minimist");
-const { popContextPlugins } = require("./context");
 const { optionsNormalizer } = require("./prettier-internal");
 const createMinimistOptions = require("./create-minimist-options");
 
@@ -133,7 +132,7 @@ function getOptionsForFile(context, filepath) {
   );
 
   if (hasPlugins) {
-    popContextPlugins(context);
+    context.popContextPlugins();
   }
 
   return appliedOptions;
