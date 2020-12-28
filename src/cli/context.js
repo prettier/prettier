@@ -31,6 +31,23 @@ class Context {
   initContext() {
     normalizeContextArgv(this);
   }
+
+  /**
+   * @param {string[]} plugins
+   * @param {string[]=} pluginSearchDirs
+   */
+  pushContextPlugins(plugins, pluginSearchDirs) {
+    this.stack.push(
+      pick(this, [
+        "supportOptions",
+        "detailedOptions",
+        "detailedOptionMap",
+        "apiDefaultOptions",
+        "languages",
+      ])
+    );
+    updateContextOptions(this, plugins, pluginSearchDirs);
+  }
 }
 
 /**
@@ -88,31 +105,13 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
 
 /**
  * @param {Context} context
- * @param {string[]} plugins
- * @param {string[]=} pluginSearchDirs
- */
-function pushContextPlugins(context, plugins, pluginSearchDirs) {
-  context.stack.push(
-    pick(context, [
-      "supportOptions",
-      "detailedOptions",
-      "detailedOptionMap",
-      "apiDefaultOptions",
-      "languages",
-    ])
-  );
-  updateContextOptions(context, plugins, pluginSearchDirs);
-}
-
-/**
- * @param {Context} context
  */
 function popContextPlugins(context) {
   Object.assign(context, context.stack.pop());
 }
 
 function updateContextArgv(context, plugins, pluginSearchDirs) {
-  pushContextPlugins(context, plugins, pluginSearchDirs);
+  context.pushContextPlugins(plugins, pluginSearchDirs);
 
   const minimistOptions = createMinimistOptions(context.detailedOptions);
   const argv = minimist(context.args, minimistOptions);
@@ -135,5 +134,4 @@ function normalizeContextArgv(context, keys) {
 module.exports = {
   Context,
   popContextPlugins,
-  pushContextPlugins,
 };
