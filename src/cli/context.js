@@ -37,13 +37,13 @@ class Context {
     this.args = args;
     this.stack = [];
     this._updateContextArgv();
-    normalizeContextArgv(this, ["loglevel", "plugin", "plugin-search-dir"]);
+    this._normalizeContextArgv(["loglevel", "plugin", "plugin-search-dir"]);
     this.logger = createLogger(this.argv.loglevel);
     this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
   }
 
   initContext() {
-    normalizeContextArgv(this);
+    this._normalizeContextArgv();
   }
 
   /**
@@ -73,6 +73,16 @@ class Context {
     const argv = minimist(this.args, minimistOptions);
     this.argv = argv;
     this.filePatterns = argv._.map((file) => String(file));
+  }
+
+  _normalizeContextArgv(keys) {
+    const detailedOptions = !keys
+      ? this.detailedOptions
+      : this.detailedOptions.filter((option) => keys.includes(option.name));
+    const argv = !keys ? this.argv : pick(this.argv, keys);
+    this.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
+      logger: this.logger,
+    });
   }
 }
 
@@ -112,17 +122,6 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     detailedOptionMap,
     apiDefaultOptions,
     languages,
-  });
-}
-
-function normalizeContextArgv(context, keys) {
-  const detailedOptions = !keys
-    ? context.detailedOptions
-    : context.detailedOptions.filter((option) => keys.includes(option.name));
-  const argv = !keys ? context.argv : pick(context.argv, keys);
-
-  context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
-    logger: context.logger,
   });
 }
 
