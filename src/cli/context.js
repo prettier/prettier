@@ -18,6 +18,20 @@ const {
 } = require("./option-map");
 const createMinimistOptions = require("./create-minimist-options");
 
+/**
+ * @typedef {Object} Context
+ * @property logger
+ * @property {string[]} args
+ * @property argv
+ * @property {string[]} filePatterns
+ * @property {any[]} supportOptions
+ * @property detailedOptions
+ * @property detailedOptionMap
+ * @property apiDefaultOptions
+ * @property languages
+ * @property {Partial<Context>[]} stack
+ */
+
 class Context {
   constructor(args) {
     this.args = args;
@@ -53,20 +67,6 @@ class Context {
     Object.assign(this, this.stack.pop());
   }
 }
-
-/**
- * @typedef {Object} Context
- * @property logger
- * @property {string[]} args
- * @property argv
- * @property {string[]} filePatterns
- * @property {any[]} supportOptions
- * @property detailedOptions
- * @property detailedOptionMap
- * @property apiDefaultOptions
- * @property languages
- * @property {Partial<Context>[]} stack
- */
 
 /**
  * @param {Context} context
