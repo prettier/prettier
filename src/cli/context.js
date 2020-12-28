@@ -126,6 +126,4 @@ class Context {
   }
 }
 
-module.exports = {
-  Context,
-};
+module.exports = Context;
