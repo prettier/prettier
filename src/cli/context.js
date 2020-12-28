@@ -36,10 +36,10 @@ class Context {
   constructor(args) {
     this.args = args;
     this.stack = [];
-    updateContextArgv(this);
+    this._updateContextArgv();
     normalizeContextArgv(this, ["loglevel", "plugin", "plugin-search-dir"]);
     this.logger = createLogger(this.argv.loglevel);
-    updateContextArgv(this, this.argv.plugin, this.argv["plugin-search-dir"]);
+    this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
   }
 
   initContext() {
@@ -65,6 +65,14 @@ class Context {
 
   popContextPlugins() {
     Object.assign(this, this.stack.pop());
+  }
+
+  _updateContextArgv(plugins, pluginSearchDirs) {
+    this.pushContextPlugins(plugins, pluginSearchDirs);
+    const minimistOptions = createMinimistOptions(this.detailedOptions);
+    const argv = minimist(this.args, minimistOptions);
+    this.argv = argv;
+    this.filePatterns = argv._.map((file) => String(file));
   }
 }
 
@@ -105,16 +113,6 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     apiDefaultOptions,
     languages,
   });
-}
-
-function updateContextArgv(context, plugins, pluginSearchDirs) {
-  context.pushContextPlugins(plugins, pluginSearchDirs);
-
-  const minimistOptions = createMinimistOptions(context.detailedOptions);
-  const argv = minimist(context.args, minimistOptions);
-
-  context.argv = argv;
-  context.filePatterns = argv._.map((file) => String(file));
 }
 
 function normalizeContextArgv(context, keys) {
