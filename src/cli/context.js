@@ -27,6 +27,10 @@ class Context {
     this.logger = createLogger(this.argv.loglevel);
     updateContextArgv(this, this.argv.plugin, this.argv["plugin-search-dir"]);
   }
+
+  initContext() {
+    normalizeContextArgv(this);
+  }
 }
 
 /**
@@ -42,11 +46,6 @@ class Context {
  * @property languages
  * @property {Partial<Context>[]} stack
  */
-
-function initContext(context) {
-  // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
-  normalizeContextArgv(context);
-}
 
 /**
  * @param {Context} context
@@ -135,7 +134,6 @@ function normalizeContextArgv(context, keys) {
 
 module.exports = {
   Context,
-  initContext,
   popContextPlugins,
   pushContextPlugins,
 };

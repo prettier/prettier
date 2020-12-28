@@ -8,7 +8,7 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index");
 
 const { format, formatStdin, formatFiles } = require("./format");
-const { initContext, Context } = require("./context");
+const { Context } = require("./context");
 const {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
@@ -51,7 +51,6 @@ module.exports = {
   format,
   formatFiles,
   formatStdin,
-  initContext,
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
   normalizeDetailedOptionMap,

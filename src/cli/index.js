@@ -12,7 +12,7 @@ function run(args) {
   const context = new core.Context(args);
 
   try {
-    core.initContext(context);
+    context.initContext();
 
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
