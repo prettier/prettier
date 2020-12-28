@@ -675,6 +675,13 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // absolute paths are only parsed as one token if they are part of url(/abs/path) call
+        // but if you have custom -fb-url(/abs/path/) then it is parsed as "division /" and rest
+        // of the path. We don't want to put a space after that first division in this case.
+        if (!iPrevNode && isDivisionNode(iNode)) {
+          continue;
+        }
+
         // Print spaces before and after addition and subtraction math operators as is in `calc` function
         // due to the fact that it is not valid syntax
         // (i.e. `calc(1px+1px)`, `calc(1px+ 1px)`, `calc(1px +1px)`, `calc(1px + 1px)`)
