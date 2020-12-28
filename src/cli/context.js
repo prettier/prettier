@@ -60,7 +60,7 @@ class Context {
         "languages",
       ])
     );
-    updateContextOptions(this, plugins, pluginSearchDirs);
+    this._updateContextOptions(plugins, pluginSearchDirs);
   }
 
   popContextPlugins() {
@@ -84,45 +84,43 @@ class Context {
       logger: this.logger,
     });
   }
-}
 
-/**
- * @param {Context} context
- * @param {string[]} plugins
- * @param {string[]=} pluginSearchDirs
- */
-function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = prettier.getSupportInfo({
-    showDeprecated: true,
-    showUnreleased: true,
-    showInternal: true,
-    plugins,
-    pluginSearchDirs,
-  });
+  /**
+   * @param {string[]} plugins
+   * @param {string[]=} pluginSearchDirs
+   */
+  _updateContextOptions(plugins, pluginSearchDirs) {
+    const { options: supportOptions, languages } = prettier.getSupportInfo({
+      showDeprecated: true,
+      showUnreleased: true,
+      showInternal: true,
+      plugins,
+      pluginSearchDirs,
+    });
+    const detailedOptionMap = normalizeDetailedOptionMap({
+      ...createDetailedOptionMap(supportOptions),
+      ...constant.options,
+    });
 
-  const detailedOptionMap = normalizeDetailedOptionMap({
-    ...createDetailedOptionMap(supportOptions),
-    ...constant.options,
-  });
+    const detailedOptions = arrayify(detailedOptionMap, "name");
 
-  const detailedOptions = arrayify(detailedOptionMap, "name");
+    const apiDefaultOptions = {
+      ...optionsModule.hiddenDefaults,
+      ...fromPairs(
+        supportOptions
+          .filter(({ deprecated }) => !deprecated)
+          .map((option) => [option.name, option.default])
+      ),
+    };
 
-  const apiDefaultOptions = {
-    ...optionsModule.hiddenDefaults,
-    ...fromPairs(
-      supportOptions
-        .filter(({ deprecated }) => !deprecated)
-        .map((option) => [option.name, option.default])
-    ),
-  };
-
-  Object.assign(context, {
-    supportOptions,
-    detailedOptions,
-    detailedOptionMap,
-    apiDefaultOptions,
-    languages,
-  });
+    Object.assign(this, {
+      supportOptions,
+      detailedOptions,
+      detailedOptionMap,
+      apiDefaultOptions,
+      languages,
+    });
+  }
 }
 
 module.exports = {
