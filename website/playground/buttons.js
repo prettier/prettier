@@ -48,3 +48,51 @@ export class ClipboardButton extends React.Component {
     );
   }
 }
+
+export function FileButton({ children, accept, onFile, ...rest }) {
+  const inputRef = React.useRef();
+
+  function handleClick() {
+    inputRef.current.click();
+  }
+
+  function handleChange(e) {
+    readFile(e.target.files[0])
+      .then(onFile)
+      .catch((err) => {
+        alert(err.message);
+      })
+      .then(() => {
+        // clear the value so the same file may be uploaded again
+        inputRef.current.value = "";
+      });
+  }
+
+  return (
+    <>
+      <Button onClick={handleClick} {...rest}>
+        {children}
+      </Button>
+      <input
+        ref={inputRef}
+        onChange={handleChange}
+        hidden
+        type="file"
+        accept={accept}
+      />
+    </>
+  );
+}
+
+function readFile(file) {
+  const reader = new FileReader();
+  return new Promise((resolve, reject) => {
+    reader.addEventListener("load", (e) => {
+      resolve(e.target.result);
+    });
+    reader.addEventListener("error", (e) => {
+      reject(e);
+    });
+    reader.readAsText(file);
+  });
+}
