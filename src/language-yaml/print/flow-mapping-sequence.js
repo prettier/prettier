@@ -14,7 +14,7 @@ function printFlowMapping(path, print, options) {
 
   /** @type {softline | line} */
   let bracketSpacing = softline;
-  if (isMapping && node.children.length !== 0 && options.bracketSpacing) {
+  if (isMapping && node.children.length > 0 && options.bracketSpacing) {
     bracketSpacing = line;
   }
   const lastItem = getLast(node.children);

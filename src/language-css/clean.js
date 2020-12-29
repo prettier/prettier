@@ -21,7 +21,7 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "css-comment" &&
     parent.type === "css-root" &&
-    parent.nodes.length !== 0
+    parent.nodes.length > 0
   ) {
     // --insert-pragma
     // first non-front-matter comment

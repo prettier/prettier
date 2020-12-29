@@ -221,7 +221,7 @@ function printBinaryishExpressions(
 
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
-      node.type === "NGPipeExpression" && node.arguments.length !== 0
+      node.type === "NGPipeExpression" && node.arguments.length > 0
         ? group(
             indent(
               concat([
@@ -296,15 +296,12 @@ function shouldInlineLogicalExpression(node) {
 
   if (
     node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
+    node.right.properties.length > 0
   ) {
     return true;
   }
 
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
+  if (node.right.type === "ArrayExpression" && node.right.elements.length > 0) {
     return true;
   }
 

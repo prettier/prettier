@@ -102,7 +102,7 @@ function genericPrint(path, options, print) {
       return concat([
         nodes,
         after ? ` ${after}` : "",
-        nodes.parts.length ? hardline : "",
+        nodes.parts.length > 0 ? hardline : "",
       ]);
     }
     case "css-comment": {

@@ -53,7 +53,7 @@ function print(path, options, print) {
         group(
           concat([
             isWhitespaceOnly ? "" : indent(printChildren(path, options, print)),
-            n.children.length ? hardline : "",
+            n.children.length > 0 ? hardline : "",
             concat(["</", n.tag, ">"]),
           ])
         ),
@@ -336,13 +336,13 @@ function printAttributesLike(path, print) {
 
   return indent(
     concat([
-      node.attributes.length ? line : "",
+      node.attributes.length > 0 ? line : "",
       join(line, path.map(print, "attributes")),
 
-      node.modifiers.length ? line : "",
+      node.modifiers.length > 0 ? line : "",
       join(line, path.map(print, "modifiers")),
 
-      node.comments.length ? line : "",
+      node.comments.length > 0 ? line : "",
       join(line, path.map(print, "comments")),
     ])
   );
@@ -630,7 +630,7 @@ function printParams(path, print) {
   const node = path.getValue();
   const parts = [];
 
-  if (node.params.length) {
+  if (node.params.length > 0) {
     const params = path.map(print, "params");
     parts.push(...params);
   }
@@ -640,7 +640,7 @@ function printParams(path, print) {
     parts.push(hash);
   }
 
-  if (!parts.length) {
+  if (parts.length === 0) {
     return "";
   }
 
@@ -648,7 +648,7 @@ function printParams(path, print) {
 }
 
 function printBlockParams(node) {
-  if (!node || !node.blockParams.length) {
+  if (!node || node.blockParams.length === 0) {
     return "";
   }
 

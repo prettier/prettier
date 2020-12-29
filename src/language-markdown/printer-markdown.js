@@ -688,7 +688,7 @@ function printRoot(path, options, print) {
 
   return printChildren(path, options, print, {
     processor: (childPath, index) => {
-      if (ignoreRanges.length !== 0) {
+      if (ignoreRanges.length > 0) {
         const ignoreRange = ignoreRanges[0];
 
         if (index === ignoreRange.start.index) {

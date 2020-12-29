@@ -197,8 +197,8 @@ function printModuleSpecifiers(path, options, print) {
 
     parts.push(join(", ", standaloneSpecifiers));
 
-    if (groupedSpecifiers.length !== 0) {
-      if (standaloneSpecifiers.length !== 0) {
+    if (groupedSpecifiers.length > 0) {
+      if (standaloneSpecifiers.length > 0) {
         parts.push(", ");
       }
 

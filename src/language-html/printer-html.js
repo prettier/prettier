@@ -599,7 +599,7 @@ function printChildren(path, options, print) {
              *             ~
              *       attr
              */
-            (nextNode.type === "element" && nextNode.attrs.length !== 0))) ||
+            (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
         /**
          *     <img
          *       src="long"

@@ -984,13 +984,14 @@ function printPathNoParens(path, options, print, args) {
           )
         );
       } else {
-        const members = n.members.length
-          ? [
-              hardline,
-              printArrayItems(path, options, "members", print),
-              n.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
-            ]
-          : [];
+        const members =
+          n.members.length > 0
+            ? [
+                hardline,
+                printArrayItems(path, options, "members", print),
+                n.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
+              ]
+            : [];
 
         parts.push(
           group(

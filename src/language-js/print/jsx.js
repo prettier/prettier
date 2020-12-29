@@ -181,7 +181,7 @@ function printJsxElementInternal(path, options, print) {
 
   // Trim trailing lines (or empty strings)
   while (
-    children.length &&
+    children.length > 0 &&
     (isLineNext(getLast(children)) || isEmpty(getLast(children)))
   ) {
     children.pop();
@@ -189,7 +189,7 @@ function printJsxElementInternal(path, options, print) {
 
   // Trim leading lines (or empty strings)
   while (
-    children.length &&
+    children.length > 0 &&
     (isLineNext(children[0]) || isEmpty(children[0])) &&
     (isLineNext(children[1]) || isEmpty(children[1]))
   ) {
@@ -549,7 +549,7 @@ function printJsxOpeningElement(path, options, print) {
     (n.typeParameters && hasComment(n.typeParameters));
 
   // Don't break self-closing elements with no attributes and no comments
-  if (n.selfClosing && !n.attributes.length && !nameHasComments) {
+  if (n.selfClosing && n.attributes.length === 0 && !nameHasComments) {
     return concat([
       "<",
       path.call(print, "name"),
@@ -590,13 +590,13 @@ function printJsxOpeningElement(path, options, print) {
   }
 
   const lastAttrHasTrailingComments =
-    n.attributes.length &&
+    n.attributes.length > 0 &&
     hasComment(getLast(n.attributes), CommentCheckFlags.Trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
     // kept unbroken regardless of `jsxBracketSameLine`
-    (!n.attributes.length && !nameHasComments) ||
+    (n.attributes.length === 0 && !nameHasComments) ||
     (options.jsxBracketSameLine &&
       // We should print the bracket in a new line for the following cases:
       // <div
@@ -605,7 +605,7 @@ function printJsxOpeningElement(path, options, print) {
       // <div
       //   attr // comment
       // >
-      (!nameHasComments || n.attributes.length) &&
+      (!nameHasComments || n.attributes.length > 0) &&
       !lastAttrHasTrailingComments);
 
   // We should print the opening element expanded if any prop value is a

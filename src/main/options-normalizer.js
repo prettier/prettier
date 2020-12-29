@@ -26,7 +26,7 @@ class FlagSchema extends vnopts.ChoiceSchema {
   preprocess(value, utils) {
     if (
       typeof value === "string" &&
-      value.length !== 0 &&
+      value.length > 0 &&
       !this._flags.includes(value)
     ) {
       const suggestion = this._flags.find((flag) => leven(flag, value) < 3);

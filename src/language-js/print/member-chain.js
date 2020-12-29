@@ -282,7 +282,7 @@ function printMemberChain(path, options, print) {
   }
 
   function shouldNotWrap(groups) {
-    const hasComputed = groups[1].length && groups[1][0].node.computed;
+    const hasComputed = groups[1].length > 0 && groups[1][0].node.computed;
 
     if (groups[0].length === 1) {
       const firstNode = groups[0][0].node;

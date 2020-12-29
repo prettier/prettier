@@ -587,7 +587,7 @@ function addTrailingComment(node, comment) {
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
-    if (parts.length !== 0) {
+    if (parts.length > 0) {
       parts.push(replacement);
     }
     parts.push(part);

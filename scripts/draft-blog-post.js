@@ -120,13 +120,13 @@ function printEntries({ title, filter }) {
 
   for (const { entries = [], title } of categories) {
     const filteredEntries = entries.filter(filter);
-    if (filteredEntries.length) {
+    if (filteredEntries.length > 0) {
       result.push("### " + title);
       result.push(...filteredEntries.map((entry) => entry.content));
     }
   }
 
-  if (result.length) {
+  if (result.length > 0) {
     result.unshift("## " + title);
   }
 

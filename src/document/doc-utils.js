@@ -8,7 +8,7 @@ const traverseDocOnExitStackMarker = {};
 function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   const docsStack = [doc];
 
-  while (docsStack.length !== 0) {
+  while (docsStack.length > 0) {
     const doc = docsStack.pop();
 
     if (doc === traverseDocOnExitStackMarker) {
@@ -308,7 +308,7 @@ function normalizeParts(parts) {
   const newParts = [];
 
   const restParts = parts.filter(Boolean);
-  while (restParts.length !== 0) {
+  while (restParts.length > 0) {
     const part = restParts.shift();
 
     if (!part) {
@@ -321,7 +321,7 @@ function normalizeParts(parts) {
     }
 
     if (
-      newParts.length !== 0 &&
+      newParts.length > 0 &&
       typeof newParts[newParts.length - 1] === "string" &&
       typeof part === "string"
     ) {

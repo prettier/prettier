@@ -67,6 +67,7 @@ rules:
     - never
     - exceptRange: true
   unicorn/better-regex: error
+  unicorn/explicit-length-check: error
   unicorn/new-for-builtins: error
   unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
