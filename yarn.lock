@@ -3112,10 +3112,10 @@ eslint-plugin-react@7.21.5:
     resolve "^1.18.1"
     string.prototype.matchall "^4.0.2"
 
-eslint-plugin-unicorn@24.0.0:
-  version "24.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-24.0.0.tgz#08017ccd7ac704777d459cff6e13a35f54cbcab1"
-  integrity sha512-NfLjIZas/ZUwc3S+pUtbTRqgCkODxPEkJBJ5ZR8wIu90BmX4jmXp10hoOZMScR2CR1NYTtrx0OX4BQvBnbzZzA==
+eslint-plugin-unicorn@25.0.0:
+  version "25.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-25.0.0.tgz#b5718381ac615f2bcf7814e4acf0aac78b11a10f"
+  integrity sha512-RuhPUrsKuRj0YGz8lMuh5Z5DJoC/hmUR6omvlquLlY6SYY+oZXMFyp83ckpqLMhbafqUx+JttWOPOjfP4W9Y+Q==
   dependencies:
     ci-info "^2.0.0"
     clean-regexp "^1.0.0"
