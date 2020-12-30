@@ -46,6 +46,7 @@ class Context {
   }
 
   initContext() {
+    // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
     this._normalizeContextArgv();
   }
 
