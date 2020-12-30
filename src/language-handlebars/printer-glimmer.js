@@ -321,17 +321,17 @@ function printStartingTag(path, print) {
   const node = path.getValue();
 
   const attributesLike = [];
-  if (node.attributes.length > 0) {
+  if (isNonEmptyArray(node.attributes)) {
     const attributes = join(line, path.map(print, "attributes"));
     attributesLike.push(line, attributes);
   }
 
-  if (node.modifiers.length > 0) {
+  if (isNonEmptyArray(node.modifiers)) {
     const modifiers = join(line, path.map(print, "modifiers"));
     attributesLike.push(line, modifiers);
   }
 
-  if (node.comments.length > 0) {
+  if (isNonEmptyArray(node.comments.length)) {
     const comments = join(line, path.map(print, "comments"));
     attributesLike.push(line, comments);
   }
