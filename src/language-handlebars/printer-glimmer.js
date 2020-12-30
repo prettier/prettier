@@ -338,7 +338,7 @@ function printStartingTag(path, print) {
 
   if (isNonEmptyArray(node.blockParams)) {
     const blockParams = printBlockParams(node);
-    attributesLike.push(blockParams);
+    attributesLike.push(line, blockParams);
   }
 
   return [
@@ -423,20 +423,27 @@ function printOpenBlock(path, print) {
   const node = path.getValue();
 
   const openingMustache = printOpeningBlockOpeningMustache(node);
-  const pathAndParam = printPathAndParams(path, print);
   const closingMustache = printOpeningBlockClosingMustache(node);
 
-  if (isNonEmptyArray(node.program.blockParams)) {
-    return group([
-      openingMustache,
-      pathAndParam,
-      printBlockParams(node.program),
-      softline,
-      closingMustache,
-    ]);
+  const p = printPath(path, print);
+  const pathAndParam = [p];
+
+  const params = printParams(path, print);
+  if (params) {
+    pathAndParam.push(line, params);
   }
 
-  return group([openingMustache, pathAndParam, softline, closingMustache]);
+  if (isNonEmptyArray(node.program.blockParams)) {
+    const block = printBlockParams(node.program);
+    pathAndParam.push(line, block);
+  }
+
+  return group([
+    openingMustache,
+    indent(group(pathAndParam)),
+    softline,
+    closingMustache,
+  ]);
 }
 
 function printElseBlock(node) {
@@ -649,7 +656,7 @@ function printParams(path, print) {
 }
 
 function printBlockParams(node) {
-  return [" as |", node.blockParams.join(" "), "|"];
+  return ["as |", node.blockParams.join(" "), "|"];
 }
 
 function doesNotHaveHashParams(node) {
