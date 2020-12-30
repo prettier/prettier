@@ -18,6 +18,11 @@ const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
 const { locStart, locEnd } = require("./loc");
 
+/**
+ * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} ASTNode
+ * @typedef {ASTNode & {type: string}} NodeWithType
+ */
+
 function ngHtmlParser(
   input,
   {
@@ -148,6 +153,7 @@ function ngHtmlParser(
     });
   }
 
+  /** @param {NodeWithType} node */
   const addType = (node) => {
     if (node instanceof Attribute) {
       node.type = "attribute";
