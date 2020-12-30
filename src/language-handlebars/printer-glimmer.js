@@ -320,31 +320,33 @@ function print(path, options, print) {
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  const attributes = indent(
-    concat([
-      node.attributes.length ? line : "",
-      join(line, path.map(print, "attributes")),
-
-      node.modifiers.length ? line : "",
-      join(line, path.map(print, "modifiers")),
-
-      node.comments.length ? line : "",
-      join(line, path.map(print, "comments")),
-    ])
-  );
-  const startingTagEndMarker = printStartingTagEndMarker(node);
-
-  if (isNonEmptyArray(node.blockParams)) {
-    return [
-      "<",
-      node.tag,
-      attributes,
-      printBlockParams(node),
-      startingTagEndMarker,
-    ];
+  const attributesLike = [];
+  if (node.attributes.length > 0) {
+    const attributes = join(line, path.map(print, "attributes"));
+    attributesLike.push(line, attributes);
   }
 
-  return ["<", node.tag, attributes, startingTagEndMarker];
+  if (node.modifiers.length > 0) {
+    const modifiers = join(line, path.map(print, "modifiers"));
+    attributesLike.push(line, modifiers);
+  }
+
+  if (node.comments.length > 0) {
+    const comments = join(line, path.map(print, "comments"));
+    attributesLike.push(line, comments);
+  }
+
+  if (isNonEmptyArray(node.blockParams)) {
+    const blockParams = printBlockParams(node);
+    attributesLike.push(blockParams);
+  }
+
+  return [
+    "<",
+    node.tag,
+    indent(attributesLike),
+    printStartingTagEndMarker(node),
+  ];
 }
 
 function printChildren(path, options, print) {
