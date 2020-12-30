@@ -331,7 +331,7 @@ function printStartingTag(path, print) {
     attributesLike.push(line, modifiers);
   }
 
-  if (isNonEmptyArray(node.comments.length)) {
+  if (isNonEmptyArray(node.comments)) {
     const comments = join(line, path.map(print, "comments"));
     attributesLike.push(line, comments);
   }
@@ -425,22 +425,21 @@ function printOpenBlock(path, print) {
   const openingMustache = printOpeningBlockOpeningMustache(node);
   const closingMustache = printOpeningBlockClosingMustache(node);
 
-  const p = printPath(path, print);
-  const pathAndParam = [p];
+  const attributes = [printPath(path, print)];
 
   const params = printParams(path, print);
   if (params) {
-    pathAndParam.push(line, params);
+    attributes.push(line, params);
   }
 
   if (isNonEmptyArray(node.program.blockParams)) {
     const block = printBlockParams(node.program);
-    pathAndParam.push(line, block);
+    attributes.push(line, block);
   }
 
   return group([
     openingMustache,
-    indent(group(pathAndParam)),
+    indent(group(attributes)),
     softline,
     closingMustache,
   ]);
