@@ -990,7 +990,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     group([indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""]);
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
-  const textToDoc = (code, opts) =>
+  const attributeTextToDoc = (code, opts) =>
     originalTextToDoc(
       code,
       { __onHtmlBindingRoot, ...opts },
@@ -1015,7 +1015,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        textToDoc(
+        attributeTextToDoc(
           value,
           {
             parser: "css",
@@ -1029,11 +1029,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueFor(getValue(), textToDoc);
+      return printVueFor(getValue(), attributeTextToDoc);
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(getValue(), textToDoc);
+      return printVueBindings(getValue(), attributeTextToDoc);
     }
 
     /**
@@ -1056,7 +1056,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       return printMaybeHug(
-        textToDoc(
+        attributeTextToDoc(
           value,
           {
             parser: isVueEventBindingExpression(value)
@@ -1070,7 +1070,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(
+        attributeTextToDoc(
           getValue(),
           { parser: "__vue_expression" },
           { stripTrailingHardline: true }
@@ -1080,7 +1080,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(
+        attributeTextToDoc(
           getValue(),
           { parser: "__js_expression" },
           { stripTrailingHardline: true }
@@ -1092,7 +1092,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(
+      attributeTextToDoc(
         code,
         { ...opts, trailingComma: "none" },
         { stripTrailingHardline: true }
