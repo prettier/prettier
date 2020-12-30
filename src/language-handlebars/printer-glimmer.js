@@ -4,6 +4,8 @@ const {
   builders: { group, hardline, ifBreak, indent, join, line, softline },
   utils: { getDocParts },
 } = require("../document");
+const { isNonEmptyArray } = require("../common/util");
+
 const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {
@@ -318,13 +320,20 @@ function print(path, options, print) {
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  return [
-    "<",
-    node.tag,
-    printAttributesLike(path, print),
-    printBlockParams(node),
-    printStartingTagEndMarker(node),
-  ];
+  const attributes = printAttributesLike(path, print);
+  const startingTagEndMarker = printStartingTagEndMarker(node);
+
+  if (isNonEmptyArray(node.blockParams)) {
+    return [
+      "<",
+      node.tag,
+      attributes,
+      printBlockParams(node),
+      startingTagEndMarker,
+    ];
+  }
+
+  return ["<", node.tag, attributes, startingTagEndMarker];
 }
 
 function printAttributesLike(path, print) {
@@ -415,13 +424,21 @@ function printInverseBlockClosingMustache(node) {
 function printOpenBlock(path, print) {
   const node = path.getValue();
 
-  return group([
-    printOpeningBlockOpeningMustache(node),
-    printPathAndParams(path, print),
-    printBlockParams(node.program),
-    softline,
-    printOpeningBlockClosingMustache(node),
-  ]);
+  const openingMustache = printOpeningBlockOpeningMustache(node);
+  const pathAndParam = printPathAndParams(path, print);
+  const closingMustache = printOpeningBlockClosingMustache(node);
+
+  if (isNonEmptyArray(node.program.blockParams)) {
+    return group([
+      openingMustache,
+      pathAndParam,
+      printBlockParams(node.program),
+      softline,
+      closingMustache,
+    ]);
+  }
+
+  return group([openingMustache, pathAndParam, softline, closingMustache]);
 }
 
 function printElseBlock(node) {
@@ -634,10 +651,6 @@ function printParams(path, print) {
 }
 
 function printBlockParams(node) {
-  if (!node || node.blockParams.length === 0) {
-    return "";
-  }
-
   return [" as |", node.blockParams.join(" "), "|"];
 }
 
