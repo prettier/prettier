@@ -7,7 +7,16 @@ const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const {
-  builders: { line, softline, group, indent, ifBreak, hardline },
+  builders: {
+    concat,
+    line,
+    softline,
+    group,
+    indent,
+    ifBreak,
+    hardline,
+    dedent,
+  },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -175,6 +184,53 @@ function printArrowFunctionExpression(path, options, print, args) {
   parts.push(" =>");
 
   const body = path.call((bodyPath) => print(bodyPath, args), "body");
+
+  // For curried arrow functions like:
+  //  const foo =
+  //    (argument1) =>
+  //    (argument2) =>
+  //    (argument3) =>
+  //    (argument4) =>
+  //    (argument5) =>
+  //    (argument6) => ({
+  //      foo: bar,
+  //      bar: foo,
+  //    });
+  if (n.body.type === "ArrowFunctionExpression") {
+    const isCurriedChainingRoot = (path) =>
+      path.getParentNode().type !== "ArrowFunctionExpression";
+    const isCurriedChainingArrowFunction = (path) => {
+      if (isCurriedChainingRoot(path)) {
+        let arrowChainCount = 0;
+        let { body } = path.getNode();
+        while (body.type === "ArrowFunctionExpression") {
+          arrowChainCount++;
+          body = body.body;
+        }
+        return arrowChainCount > 3;
+      }
+      return path.callParent(isCurriedChainingArrowFunction);
+    };
+    if (isCurriedChainingArrowFunction(path)) {
+      if (isCurriedChainingRoot(path)) {
+        const name = path.getName();
+        const isOperand = name === "init" || name === "right";
+        const isParentCallExpr = path.getParentNode().type === "CallExpression";
+        return group(
+          indent(
+            concat([
+              isOperand || isParentCallExpr ? softline : "",
+              concat(parts),
+              line,
+              body,
+              isParentCallExpr ? dedent(softline) : "",
+            ])
+          )
+        );
+      }
+      return concat([concat(parts), line, body]);
+    }
+  }
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.
