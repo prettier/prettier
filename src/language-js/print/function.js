@@ -205,9 +205,10 @@ function printArrowFunctionExpression(path, options, print, args) {
         let { body } = path.getNode();
         while (body.type === "ArrowFunctionExpression") {
           arrowChainCount++;
+          if (arrowChainCount >= 3) return true;
           body = body.body;
         }
-        return arrowChainCount >= 3;
+        return false;
       }
       return path.callParent(isCurriedChainingArrowFunction);
     };
