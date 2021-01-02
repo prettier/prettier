@@ -207,7 +207,7 @@ function printArrowFunctionExpression(path, options, print, args) {
           arrowChainCount++;
           body = body.body;
         }
-        return arrowChainCount > 2;
+        return arrowChainCount >= 3;
       }
       return path.callParent(isCurriedChainingArrowFunction);
     };
