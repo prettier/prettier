@@ -1934,7 +1934,7 @@ export const bem = block =>
 ================================================================================
 `;
 
-exports[`curries.js - {"arrowParens":"always"} format 1`] = `
+exports[`curried.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -2298,7 +2298,7 @@ bar(
 ================================================================================
 `;
 
-exports[`curries.js - {"arrowParens":"avoid"} format 1`] = `
+exports[`curried.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
