@@ -162,3 +162,7 @@ bar(
     })
   )
 );
+
+const baaaz = (aaaaa1, bbbbb1) => (aaaaa2, bbbbb2) => (aaaaa3, bbbbb3) => (aaaaa4, bbbbb4) => ({
+  foo: bar
+});
