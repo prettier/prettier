@@ -197,42 +197,25 @@ function printArrowFunctionExpression(path, options, print, args) {
   //      bar: foo,
   //    });
   if (n.body.type === "ArrowFunctionExpression") {
-    const isCurriedChainingRoot = (path) =>
-      path.getParentNode().type !== "ArrowFunctionExpression";
-    const isCurriedChainingArrowFunction = (path) => {
-      if (isCurriedChainingRoot(path)) {
-        let arrowChainCount = 0;
-        let { body } = path.getNode();
-        while (body.type === "ArrowFunctionExpression") {
-          arrowChainCount++;
-          if (arrowChainCount >= 1) {
-            return true;
-          }
-          body = body.body;
-        }
-        return false;
-      }
-      return path.callParent(isCurriedChainingArrowFunction);
-    };
-    if (isCurriedChainingArrowFunction(path)) {
-      if (isCurriedChainingRoot(path)) {
-        const name = path.getName();
-        const isOperand = name === "init" || name === "right";
-        const isParentCallExpr = path.getParentNode().type === "CallExpression";
-        return group(
-          indent(
-            concat([
-              isOperand || isParentCallExpr ? softline : "",
-              concat(parts),
-              line,
-              body,
-              isParentCallExpr ? dedent(softline) : "",
-            ])
-          )
-        );
-      }
-      return concat([concat(parts), line, body]);
+    const parent = path.getParentNode();
+    const isCurriedChainingRoot = parent.type !== "ArrowFunctionExpression";
+    if (isCurriedChainingRoot) {
+      const name = path.getName();
+      const isOperand = name === "init" || name === "right";
+      const isParentCallExpr = parent.type === "CallExpression";
+      return group(
+        indent(
+          concat([
+            isOperand || isParentCallExpr ? softline : "",
+            concat(parts),
+            line,
+            body,
+            isParentCallExpr ? dedent(softline) : "",
+          ])
+        )
+      );
     }
+    return concat([concat(parts), line, body]);
   }
 
   // We want to always keep these types of nodes on the same line
