@@ -252,6 +252,8 @@ Valid options:
 
 Print spaces between parens, WordPress style (not recommended with default `arrowParens: "always" setting).
 
+Status: experimental, with some known paren spacing formatting issues.
+
 | Default | CLI Override      | API Override           |
 | ------- | ----------------- | ---------------------- |
 | `false` | `--paren-spacing` | `parenSpacing: <bool>` |
