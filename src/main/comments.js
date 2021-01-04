@@ -468,10 +468,10 @@ function printLeadingComment(commentPath, options) {
         : line
       : " ";
 
-    return concat([contents, lineBreak]);
+    return ([contents, lineBreak]);
   }
 
-  return concat([contents, hardline]);
+  return ([contents, hardline]);
 }
 
 function printTrailingComment(commentPath, options) {
@@ -504,15 +504,15 @@ function printTrailingComment(commentPath, options) {
     );
 
     return lineSuffix(
-      concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
+      ([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
   }
 
-  let printed = concat([" ", contents]);
+  let printed = ([" ", contents]);
 
   // Trailing block comments never need a newline
   if (!isBlock) {
-    printed = concat([lineSuffix(printed), breakParent]);
+    printed = ([lineSuffix(printed), breakParent]);
   }
 
   return printed;
@@ -545,12 +545,12 @@ function printDanglingComments(path, options, sameIndent, filter) {
   if (sameIndent) {
     return join(hardline, parts);
   }
-  return indent(concat([hardline, join(hardline, parts)]));
+  return indent(([hardline, join(hardline, parts)]));
 }
 
 function prependCursorPlaceholder(path, options, printed) {
   if (path.getNode() === options.cursorNode && path.getValue()) {
-    return concat([cursor, printed, cursor]);
+    return ([cursor, printed, cursor]);
   }
   return printed;
 }
@@ -595,7 +595,7 @@ function printComments(path, print, options, needsSemi) {
   return prependCursorPlaceholder(
     path,
     options,
-    concat(leadingParts.concat(trailingParts))
+    (leadingParts.concat(trailingParts))
   );
 }
 

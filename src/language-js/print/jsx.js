@@ -58,7 +58,7 @@ function printJsxElementInternal(path, options, print) {
   const n = path.getValue();
 
   if (n.type === "JSXElement" && isEmptyJsxElement(n)) {
-    return concat([
+    return ([
       path.call(print, "openingElement"),
       path.call(print, "closingElement"),
     ]);
@@ -79,9 +79,9 @@ function printJsxElementInternal(path, options, print) {
     (n.children[0].expression.type === "TemplateLiteral" ||
       n.children[0].expression.type === "TaggedTemplateExpression")
   ) {
-    return concat([
+    return ([
       openingLines,
-      concat(path.map(print, "children")),
+      (path.map(print, "children")),
       closingLines,
     ]);
   }
@@ -118,8 +118,8 @@ function printJsxElementInternal(path, options, print) {
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = isMdxBlock
-    ? concat([" "])
-    : ifBreak(concat([rawJsxWhitespace, softline]), " ");
+    ? ([" "])
+    : ifBreak(([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =
     n.openingElement &&
@@ -211,7 +211,7 @@ function printJsxElementInternal(path, options, print) {
           return;
         }
         // Leading whitespace
-        multilineChildren.push(concat([rawJsxWhitespace, hardline]));
+        multilineChildren.push(([rawJsxWhitespace, hardline]));
         return;
       } else if (i === children.length - 1) {
         // Trailing whitespace
@@ -236,16 +236,16 @@ function printJsxElementInternal(path, options, print) {
   // to output each on a separate line.
   const content = containsText
     ? fill(multilineChildren)
-    : group(concat(multilineChildren), { shouldBreak: true });
+    : group((multilineChildren), { shouldBreak: true });
 
   if (isMdxBlock) {
     return content;
   }
 
   const multiLineElem = group(
-    concat([
+    ([
       openingLines,
-      indent(concat([hardline, content])),
+      indent(([hardline, content])),
       hardline,
       closingLines,
     ])
@@ -256,7 +256,7 @@ function printJsxElementInternal(path, options, print) {
   }
 
   return conditionalGroup([
-    group(concat([openingLines, concat(children), closingLines])),
+    group(([openingLines, (children), closingLines])),
     multiLineElem,
   ]);
 }
@@ -467,9 +467,9 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   const needsParens = pathNeedsParens(path, options);
 
   return group(
-    concat([
+    ([
       needsParens ? "" : ifBreak("("),
-      indent(concat([softline, elem])),
+      indent(([softline, elem])),
       softline,
       needsParens ? "" : ifBreak(")"),
     ]),
@@ -494,14 +494,14 @@ function printJsxAttribute(path, options, print) {
       );
       const escape = quote === "'" ? "&apos;" : "&quot;";
       final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
-      res = concat([quote, final, quote]);
+      res = ([quote, final, quote]);
     } else {
       res = path.call(print, "value");
     }
     parts.push("=", res);
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 function printJsxExpressionContainer(path, options, print) {
@@ -526,14 +526,14 @@ function printJsxExpressionContainer(path, options, print) {
 
   if (shouldInline) {
     return group(
-      concat(["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
+      (["{", path.call(print, "expression"), lineSuffixBoundary, "}"])
     );
   }
 
   return group(
-    concat([
+    ([
       "{",
-      indent(concat([softline, path.call(print, "expression")])),
+      indent(([softline, path.call(print, "expression")])),
       softline,
       lineSuffixBoundary,
       "}",
@@ -550,7 +550,7 @@ function printJsxOpeningElement(path, options, print) {
 
   // Don't break self-closing elements with no attributes and no comments
   if (n.selfClosing && n.attributes.length === 0 && !nameHasComments) {
-    return concat([
+    return ([
       "<",
       path.call(print, "name"),
       path.call(print, "typeParameters"),
@@ -578,12 +578,12 @@ function printJsxOpeningElement(path, options, print) {
     !hasComment(n.attributes[0])
   ) {
     return group(
-      concat([
+      ([
         "<",
         path.call(print, "name"),
         path.call(print, "typeParameters"),
         " ",
-        concat(path.map(print, "attributes")),
+        (path.map(print, "attributes")),
         n.selfClosing ? " />" : ">",
       ])
     );
@@ -620,13 +620,13 @@ function printJsxOpeningElement(path, options, print) {
     );
 
   return group(
-    concat([
+    ([
       "<",
       path.call(print, "name"),
       path.call(print, "typeParameters"),
-      concat([
+      ([
         indent(
-          concat(path.map((attr) => concat([line, print(attr)]), "attributes"))
+          (path.map((attr) => ([line, print(attr)]), "attributes"))
         ),
         n.selfClosing ? line : bracketSameLine ? ">" : softline,
       ]),
@@ -644,7 +644,7 @@ function printJsxClosingElement(path, options, print) {
 
   const printed = path.call(print, "name");
   if (hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)) {
-    parts.push(indent(concat([hardline, printed])), hardline);
+    parts.push(indent(([hardline, printed])), hardline);
   } else if (
     hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)
   ) {
@@ -655,7 +655,7 @@ function printJsxClosingElement(path, options, print) {
 
   parts.push(">");
 
-  return concat(parts);
+  return (parts);
 }
 
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
@@ -663,10 +663,10 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
   const nodeHasComment = hasComment(n);
   const hasOwnLineComment = hasComment(n, CommentCheckFlags.Line);
   const isOpeningFragment = n.type === "JSXOpeningFragment";
-  return concat([
+  return ([
     isOpeningFragment ? "<" : "</",
     indent(
-      concat([
+      ([
         hasOwnLineComment
           ? hardline
           : nodeHasComment && !isOpeningFragment
@@ -693,7 +693,7 @@ function printJsxEmptyExpression(path, options /*, print*/) {
   const n = path.getValue();
   const requiresHardline = hasComment(n, CommentCheckFlags.Line);
 
-  return concat([
+  return ([
     printDanglingComments(path, options, /* sameIndent */ !requiresHardline),
     requiresHardline ? hardline : "",
   ]);
@@ -702,17 +702,17 @@ function printJsxEmptyExpression(path, options /*, print*/) {
 // `JSXSpreadAttribute` and `JSXSpreadChild`
 function printJsxSpreadAttribute(path, options, print) {
   const n = path.getValue();
-  return concat([
+  return ([
     "{",
     path.call(
       (p) => {
-        const printed = concat(["...", print(p)]);
+        const printed = (["...", print(p)]);
         const n = p.getValue();
         if (!hasComment(n) || !willPrintOwnComments(p)) {
           return printed;
         }
-        return concat([
-          indent(concat([softline, printComments(p, () => printed, options)])),
+        return ([
+          indent(([softline, printComments(p, () => printed, options)])),
           softline,
         ]);
       },

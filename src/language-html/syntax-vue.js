@@ -12,7 +12,7 @@ const {
  */
 function printVueFor(value, textToDoc) {
   const { left, operator, right } = parseVueFor(value);
-  return concat([
+  return ([
     group(
       textToDoc(`function _(${left}) {}`, {
         parser: "babel",

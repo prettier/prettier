@@ -56,7 +56,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
   parts.push(
     printFunctionTypeParameters(path, options, print),
     group(
-      concat([
+      ([
         printFunctionParameters(path, print, options, expandArg),
         printReturnType(path, print, options),
       ])
@@ -69,7 +69,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     parts.push(";");
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 function printMethod(path, options, print) {
@@ -108,14 +108,14 @@ function printMethod(path, options, print) {
     parts.push(path.call(print, "value"));
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 function printMethodInternal(path, options, print) {
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group(
-      concat([
+      ([
         printFunctionParameters(path, print, options),
         printReturnType(path, print, options),
       ])
@@ -128,7 +128,7 @@ function printMethodInternal(path, options, print) {
     parts.push(options.semi ? ";" : "");
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 function printArrowFunctionExpression(path, options, print, args) {
@@ -144,7 +144,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   } else {
     parts.push(
       group(
-        concat([
+        ([
           printFunctionParameters(
             path,
             print,
@@ -195,16 +195,16 @@ function printArrowFunctionExpression(path, options, print, args) {
       n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
   ) {
-    return group(concat([concat(parts), " ", body]));
+    return group(([(parts), " ", body]));
   }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
   if (n.body.type === "SequenceExpression") {
     return group(
-      concat([
-        concat(parts),
-        group(concat([" (", indent(concat([softline, body])), softline, ")"])),
+      ([
+        (parts),
+        group(([" (", indent(([softline, body])), softline, ")"])),
       ])
     );
   }
@@ -229,12 +229,12 @@ function printArrowFunctionExpression(path, options, print, args) {
     !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
 
   return group(
-    concat([
-      concat(parts),
+    ([
+      (parts),
       group(
-        concat([
+        ([
           indent(
-            concat([
+            ([
               line,
               shouldAddParens ? ifBreak("", "(") : "",
               body,
@@ -242,7 +242,7 @@ function printArrowFunctionExpression(path, options, print, args) {
             ])
           ),
           shouldAddSoftLine
-            ? concat([ifBreak(printTrailingComma ? "," : ""), softline])
+            ? ([ifBreak(printTrailingComma ? "," : ""), softline])
             : "",
         ])
       ),
@@ -288,7 +288,7 @@ function printReturnType(path, print, options) {
     n.returnType &&
     isFlowAnnotationComment(options.originalText, n.returnType)
   ) {
-    return concat([" /*: ", returnType, " */"]);
+    return ([" /*: ", returnType, " */"]);
   }
 
   const parts = [returnType];
@@ -304,7 +304,7 @@ function printReturnType(path, print, options) {
     parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 // `ReturnStatement` and `ThrowStatement`
@@ -316,9 +316,9 @@ function printReturnAndThrowArgument(path, options, print) {
   if (node.argument) {
     if (returnArgumentHasLeadingComment(options, node.argument)) {
       parts.push(
-        concat([
+        ([
           " (",
-          indent(concat([hardline, path.call(print, "argument")])),
+          indent(([hardline, path.call(print, "argument")])),
           hardline,
           ")",
         ])
@@ -329,9 +329,9 @@ function printReturnAndThrowArgument(path, options, print) {
     ) {
       parts.push(
         group(
-          concat([
+          ([
             ifBreak(" (", " "),
-            indent(concat([softline, path.call(print, "argument")])),
+            indent(([softline, path.call(print, "argument")])),
             softline,
             ifBreak(")"),
           ])
@@ -361,15 +361,15 @@ function printReturnAndThrowArgument(path, options, print) {
     parts.push(semi);
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 function printReturnStatement(path, options, print) {
-  return concat(["return", printReturnAndThrowArgument(path, options, print)]);
+  return (["return", printReturnAndThrowArgument(path, options, print)]);
 }
 
 function printThrowStatement(path, options, print) {
-  return concat(["throw", printReturnAndThrowArgument(path, options, print)]);
+  return (["throw", printReturnAndThrowArgument(path, options, print)]);
 }
 
 module.exports = {

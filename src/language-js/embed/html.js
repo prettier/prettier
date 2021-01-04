@@ -71,7 +71,7 @@ function format(path, print, textToDoc, options, { parser }) {
       parts.push(expressionDocs[placeholderIndex]);
     }
 
-    return concat(parts);
+    return (parts);
   });
 
   const leadingWhitespace = /^\s/.test(text) ? " " : "";
@@ -86,9 +86,9 @@ function format(path, print, textToDoc, options, { parser }) {
 
   if (linebreak) {
     return group(
-      concat([
+      ([
         "`",
-        indent(concat([linebreak, group(contentDoc)])),
+        indent(([linebreak, group(contentDoc)])),
         linebreak,
         "`",
       ])
@@ -96,7 +96,7 @@ function format(path, print, textToDoc, options, { parser }) {
   }
 
   return group(
-    concat([
+    ([
       "`",
       leadingWhitespace,
       topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),

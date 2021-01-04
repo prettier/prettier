@@ -52,7 +52,7 @@ function genericPrint(path, options, print) {
 
   if (node.type !== "mappingValue" && hasLeadingComments(node)) {
     parts.push(
-      concat([join(hardline, path.map(print, "leadingComments")), hardline])
+      ([join(hardline, path.map(print, "leadingComments")), hardline])
     );
   }
 
@@ -94,7 +94,7 @@ function genericPrint(path, options, print) {
 
   if (hasMiddleComments(node)) {
     parts.push(
-      concat([
+      ([
         node.middleComments.length === 1 ? "" : hardline,
         join(hardline, path.map(print, "middleComments")),
         hardline,
@@ -105,7 +105,7 @@ function genericPrint(path, options, print) {
   const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
-      concat(
+      (
         replaceEndOfLineWith(
           options.originalText
             .slice(node.position.start.offset, node.position.end.offset)
@@ -121,7 +121,7 @@ function genericPrint(path, options, print) {
   if (hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])) {
     parts.push(
       lineSuffix(
-        concat([
+        ([
           node.type === "mappingValue" && !node.content ? "" : " ",
           parentNode.type === "mappingKey" &&
           path.getParentNode(2).type === "mapping" &&
@@ -138,13 +138,13 @@ function genericPrint(path, options, print) {
     parts.push(
       alignWithSpaces(
         node.type === "sequenceItem" ? 2 : 0,
-        concat([
+        ([
           hardline,
           join(
             hardline,
             path.map(
               (path) =>
-                concat([
+                ([
                   isPreviousLineEmpty(
                     options.originalText,
                     path.getValue(),
@@ -162,7 +162,7 @@ function genericPrint(path, options, print) {
     );
   }
   parts.push(nextEmptyLine);
-  return concat(parts);
+  return (parts);
 }
 
 function printNode(node, parentNode, path, options, print) {
@@ -194,7 +194,7 @@ function printNode(node, parentNode, path, options, print) {
       ) {
         parts.push(hardline);
       }
-      return concat(parts);
+      return (parts);
     }
     case "document": {
       const nextDocument = parentNode.children[path.getName() + 1];
@@ -213,7 +213,7 @@ function printNode(node, parentNode, path, options, print) {
 
         if (hasTrailingComment(node.head)) {
           parts.push(
-            concat(["---", " ", path.call(print, "head", "trailingComment")])
+            (["---", " ", path.call(print, "head", "trailingComment")])
           );
         } else {
           parts.push("---");
@@ -241,32 +241,32 @@ function printNode(node, parentNode, path, options, print) {
         if (isNode(lastDescendantNode, ["blockFolded", "blockLiteral"])) {
           // an extra newline for better readability
           if (lastDescendantNode.chomping !== "keep") {
-            separator = concat([hardline, hardline]);
+            separator = ([hardline, hardline]);
           }
         } else {
           separator = hardline;
         }
       }
 
-      return concat([
+      return ([
         join(hardline, path.map(print, "children")),
         separator,
         join(hardline, path.map(print, "endComments")),
       ]);
     }
     case "directive":
-      return concat(["%", join(" ", [node.name].concat(node.parameters))]);
+      return (["%", join(" ", [node.name].concat(node.parameters))]);
     case "comment":
-      return concat(["#", node.value]);
+      return (["#", node.value]);
     case "alias":
-      return concat(["*", node.value]);
+      return (["*", node.value]);
     case "tag":
       return options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset
       );
     case "anchor":
-      return concat(["&", node.value]);
+      return (["&", node.value]);
     case "plain":
       return printFlowScalarContent(
         node.type,
@@ -294,13 +294,13 @@ function printNode(node, parentNode, path, options, print) {
         // and quoteSingle do not need to escape backslashes
         const originalQuote =
           node.type === "quoteDouble" ? doubleQuote : singleQuote;
-        return concat([
+        return ([
           originalQuote,
           printFlowScalarContent(node.type, raw, options),
           originalQuote,
         ]);
       } else if (raw.includes(doubleQuote)) {
-        return concat([
+        return ([
           singleQuote,
           printFlowScalarContent(
             node.type,
@@ -317,7 +317,7 @@ function printNode(node, parentNode, path, options, print) {
       }
 
       if (raw.includes(singleQuote)) {
-        return concat([
+        return ([
           doubleQuote,
           printFlowScalarContent(
             node.type,
@@ -332,7 +332,7 @@ function printNode(node, parentNode, path, options, print) {
       }
 
       const quote = options.singleQuote ? singleQuote : doubleQuote;
-      return concat([
+      return ([
         quote,
         printFlowScalarContent(node.type, raw, options),
         quote,
@@ -345,7 +345,7 @@ function printNode(node, parentNode, path, options, print) {
     case "sequence":
       return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return concat([
+      return ([
         "- ",
         alignWithSpaces(2, !node.content ? "" : path.call(print, "content")),
       ]);

@@ -51,7 +51,7 @@ function printInterface(path, options, print) {
         : line,
       "extends ",
       (n.extends.length === 1 ? identity : indent)(
-        join(concat([",", line]), path.map(print, "extends"))
+        join(([",", line]), path.map(print, "extends"))
       )
     );
   }
@@ -60,17 +60,17 @@ function printInterface(path, options, print) {
     (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
     isNonEmptyArray(n.extends)
   ) {
-    const printedExtends = concat(extendsParts);
+    const printedExtends = (extendsParts);
     if (shouldIndentOnlyHeritageClauses) {
       parts.push(
         group(
-          concat(
+          (
             partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
           )
         )
       );
     } else {
-      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+      parts.push(group(indent((partsGroup.concat(printedExtends)))));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);
@@ -78,7 +78,7 @@ function printInterface(path, options, print) {
 
   parts.push(" ", path.call(print, "body"));
 
-  return group(concat(parts));
+  return group((parts));
 }
 
 module.exports = { printInterface };

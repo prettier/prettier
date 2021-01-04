@@ -24,11 +24,11 @@ function format(path, print, textToDoc) {
     ),
     true
   );
-  return concat([
+  return ([
     "`",
     hasIndent
-      ? indent(concat([softline, doc]))
-      : concat([literalline, dedentToRoot(doc)]),
+      ? indent(([softline, doc]))
+      : ([literalline, dedentToRoot(doc)]),
     softline,
     "`",
   ]);

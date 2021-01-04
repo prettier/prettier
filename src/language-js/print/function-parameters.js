@@ -36,7 +36,7 @@ function printFunctionParameters(
     : "";
 
   if (parameters.length === 0) {
-    return concat([
+    return ([
       typeParams,
       "(",
       printDanglingComments(
@@ -95,10 +95,10 @@ function printFunctionParameters(
   //                         })
   if (shouldExpandParameters) {
     return group(
-      concat([
+      ([
         removeLines(typeParams),
         "(",
-        concat(printed.map(removeLines)),
+        (printed.map(removeLines)),
         ")",
       ])
     );
@@ -113,12 +113,12 @@ function printFunctionParameters(
   // }) {}
   const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
-    return concat([typeParams, "(", concat(printed), ")"]);
+    return ([typeParams, "(", (printed), ")"]);
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    return concat([typeParams, "(", concat(printed), ")"]);
+    return ([typeParams, "(", (printed), ")"]);
   }
 
   const isFlowShorthandWithOneArg =
@@ -141,15 +141,15 @@ function printFunctionParameters(
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
-      return concat(["(", concat(printed), ")"]);
+      return (["(", (printed), ")"]);
     }
-    return concat(printed);
+    return (printed);
   }
 
-  return concat([
+  return ([
     typeParams,
     "(",
-    indent(concat([softline, concat(printed)])),
+    indent(([softline, (printed)])),
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","

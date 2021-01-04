@@ -93,7 +93,7 @@ function printTemplateLiteral(path, print, options) {
           expression.type === "TSAsExpression" ||
           isBinaryish(expression)
         ) {
-          printed = concat([indent(concat([softline, printed])), softline]);
+          printed = ([indent(([softline, printed])), softline]);
         }
       }
 
@@ -102,13 +102,13 @@ function printTemplateLiteral(path, print, options) {
           ? align(Number.NEGATIVE_INFINITY, printed)
           : addAlignmentToDoc(printed, indentSize, tabWidth);
 
-      parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
+      parts.push(group((["${", aligned, lineSuffixBoundary, "}"])));
     }
   }, "quasis");
 
   parts.push("`");
 
-  return concat(parts);
+  return (parts);
 }
 
 function printJestEachTemplateLiteral(path, options, print) {
@@ -177,7 +177,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       lineSuffixBoundary,
       "`",
       indent(
-        concat([
+        ([
           hardline,
           join(
             hardline,
@@ -198,7 +198,7 @@ function printJestEachTemplateLiteral(path, options, print) {
       hardline,
       "`"
     );
-    return concat(parts);
+    return (parts);
   }
 }
 
@@ -206,9 +206,9 @@ function printTemplateExpression(path, print) {
   const node = path.getValue();
   let printed = print(path);
   if (hasComment(node)) {
-    printed = group(concat([indent(concat([softline, printed])), softline]));
+    printed = group(([indent(([softline, printed])), softline]));
   }
-  return concat(["${", printed, lineSuffixBoundary, "}"]);
+  return (["${", printed, lineSuffixBoundary, "}"]);
 }
 
 function printTemplateExpressions(path, print) {

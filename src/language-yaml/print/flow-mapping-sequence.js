@@ -24,16 +24,16 @@ function printFlowMapping(path, print, options) {
     isEmptyNode(lastItem.key) &&
     isEmptyNode(lastItem.value);
 
-  return concat([
+  return ([
     openMarker,
     alignWithSpaces(
       options.tabWidth,
-      concat([
+      ([
         bracketSpacing,
         printChildren(path, print, options),
         options.trailingComma === "none" ? "" : ifBreak(",", ""),
         hasEndComments(node)
-          ? concat([hardline, join(hardline, path.map(print, "endComments"))])
+          ? ([hardline, join(hardline, path.map(print, "endComments"))])
           : "",
       ])
     ),
@@ -46,11 +46,11 @@ function printChildren(path, print, options) {
   const node = path.getValue();
   const parts = path.map(
     (childPath, index) =>
-      concat([
+      ([
         print(childPath),
         index === node.children.length - 1
           ? ""
-          : concat([
+          : ([
               ",",
               line,
               node.children[index].position.start.line !==
@@ -61,7 +61,7 @@ function printChildren(path, print, options) {
       ]),
     "children"
   );
-  return concat(parts);
+  return (parts);
 }
 
 module.exports = {

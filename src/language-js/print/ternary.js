@@ -131,7 +131,7 @@ function printTernaryTest(path, options, print) {
 
   const printed = isConditionalExpression
     ? path.call(print, "test")
-    : concat([
+    : ([
         path.call(print, "checkType"),
         " ",
         "extends",
@@ -222,9 +222,9 @@ function printTernary(path, options, print) {
     // parens when using ?: within JSX, because the parens are analogous to
     // curly braces in an if statement.
     const wrap = (doc) =>
-      concat([
+      ([
         ifBreak("(", ""),
-        indent(concat([softline, doc])),
+        indent(([softline, doc])),
         softline,
         ifBreak(")", ""),
       ]);
@@ -250,7 +250,7 @@ function printTernary(path, options, print) {
     );
   } else {
     // normal mode
-    const part = concat([
+    const part = ([
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
@@ -296,7 +296,7 @@ function printTernary(path, options, print) {
     parent === firstNonConditionalParent
       ? group(doc, { shouldBreak })
       : shouldBreak
-      ? concat([doc, breakParent])
+      ? ([doc, breakParent])
       : doc;
 
   // Break the closing paren to keep the chain right after it:
@@ -312,15 +312,15 @@ function printTernary(path, options, print) {
     !parent.computed;
 
   const result = maybeGroup(
-    concat([
+    ([
       printTernaryTest(path, options, print),
-      forceNoIndent ? concat(parts) : indent(concat(parts)),
+      forceNoIndent ? (parts) : indent((parts)),
       isConditionalExpression && breakClosingParen ? softline : "",
     ])
   );
 
   return isParentTest
-    ? group(concat([indent(concat([softline, result])), softline]))
+    ? group(([indent(([softline, result])), softline]))
     : result;
 }
 

@@ -29,7 +29,7 @@ function printArray(path, options, print) {
     } else {
       parts.push(
         group(
-          concat([
+          ([
             openBracket,
             printDanglingComments(path, options),
             softline,
@@ -79,10 +79,10 @@ function printArray(path, options, print) {
 
     parts.push(
       group(
-        concat([
+        ([
           openBracket,
           indent(
-            concat([
+            ([
               softline,
               printArrayItems(path, options, "elements", print),
             ])
@@ -109,7 +109,7 @@ function printArray(path, options, print) {
     printTypeAnnotation(path, options, print)
   );
 
-  return concat(parts);
+  return (parts);
 }
 
 function printArrayItems(path, options, printPath, print) {
@@ -117,7 +117,7 @@ function printArrayItems(path, options, printPath, print) {
   let separatorParts = [];
 
   path.each((childPath) => {
-    printedElements.push(concat(separatorParts));
+    printedElements.push((separatorParts));
     printedElements.push(group(print(childPath)));
 
     separatorParts = [",", line];
@@ -129,7 +129,7 @@ function printArrayItems(path, options, printPath, print) {
     }
   }, printPath);
 
-  return concat(printedElements);
+  return (printedElements);
 }
 
 module.exports = { printArray, printArrayItems };

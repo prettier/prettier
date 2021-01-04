@@ -45,12 +45,12 @@ function printCallExpression(path, options, print) {
     iterateCallArgumentsPath(path, (argPath) => {
       printed.push(print(argPath));
     });
-    return concat([
+    return ([
       isNew ? "new " : "",
       path.call(print, "callee"),
       optional,
       printFunctionTypeParameters(path, options, print),
-      concat(["(", join(", ", printed), ")"]),
+      (["(", join(", ", printed), ")"]),
     ]);
   }
 
@@ -80,7 +80,7 @@ function printCallExpression(path, options, print) {
     return printMemberChain(path, options, print);
   }
 
-  const contents = concat([
+  const contents = ([
     isNew ? "new " : "",
     isDynamicImport ? "import" : path.call(print, "callee"),
     optional,

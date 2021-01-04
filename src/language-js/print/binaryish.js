@@ -48,7 +48,7 @@ function printBinaryishExpression(path, options, print) {
   //     this.lookahead().type === tt.parenLeft
   //   ) {
   if (isInsideParenthesis) {
-    return concat(parts);
+    return (parts);
   }
 
   // Break between the parens in
@@ -68,7 +68,7 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "OptionalMemberExpression") &&
       !parent.computed)
   ) {
-    return group(concat([indent(concat([softline, concat(parts)])), softline]));
+    return group(([indent(([softline, (parts)])), softline]));
   }
 
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
@@ -111,7 +111,7 @@ function printBinaryishExpression(path, options, print) {
     (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
     (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
   ) {
-    return group(concat(parts));
+    return group((parts));
   }
 
   if (parts.length === 0) {
@@ -140,12 +140,12 @@ function printBinaryishExpression(path, options, print) {
     firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
   );
 
-  const rest = concat(parts.slice(headParts.length, hasJsx ? -1 : undefined));
+  const rest = (parts.slice(headParts.length, hasJsx ? -1 : undefined));
 
   const groupId = Symbol("logicalChain-" + ++uid);
 
   const chain = group(
-    concat([
+    ([
       // Don't include the initial expression in the indentation
       // level. The first item is guaranteed to be the first
       // left-most expression.
@@ -160,7 +160,7 @@ function printBinaryishExpression(path, options, print) {
   }
 
   const jsxPart = getLast(parts);
-  return group(concat([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })]));
+  return group(([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })]));
 }
 
 // For binary expressions to be consistent, we need to group
@@ -225,11 +225,11 @@ function printBinaryishExpressions(
       node.type === "NGPipeExpression" && node.arguments.length > 0
         ? group(
             indent(
-              concat([
+              ([
                 softline,
                 ": ",
                 join(
-                  concat([softline, ":", ifBreak(" ")]),
+                  ([softline, ":", ifBreak(" ")]),
                   path
                     .map(print, "arguments")
                     .map((arg) => align(2, group(arg)))
@@ -240,8 +240,8 @@ function printBinaryishExpressions(
         : "";
 
     const right = shouldInline
-      ? concat([operator, " ", path.call(print, "right"), rightSuffix])
-      : concat([
+      ? ([operator, " ", path.call(print, "right"), rightSuffix])
+      : ([
           lineBeforeOperator ? line : "",
           operator,
           lineBeforeOperator ? " " : line,
@@ -273,7 +273,7 @@ function printBinaryishExpressions(
     // only for the left and right parts
     if (isNested && hasComment(node)) {
       const printed = cleanDoc(
-        printComments(path, () => concat(parts), options)
+        printComments(path, () => (parts), options)
       );
       /* istanbul ignore if */
       if (printed.type === "string") {

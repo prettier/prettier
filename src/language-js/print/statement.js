@@ -81,7 +81,7 @@ function printStatementSequence(path, options, print, property) {
     }
   }, property);
 
-  return concat(parts);
+  return (parts);
 }
 
 function statementNeedsASIProtection(path, options) {

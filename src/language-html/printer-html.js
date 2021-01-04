@@ -84,7 +84,7 @@ function embed(path, print, textToDoc, options) {
           isEmpty = doc === "";
         }
 
-        return concat([
+        return ([
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
           isEmpty ? "" : hardline,
@@ -118,7 +118,7 @@ function embed(path, print, textToDoc, options) {
             }
             textToDocOptions.__babelSourceType = sourceType;
           }
-          return concat([
+          return ([
             breakParent,
             printOpeningTagPrefix(node, options),
             textToDoc(value, textToDocOptions, {
@@ -128,9 +128,9 @@ function embed(path, print, textToDoc, options) {
           ]);
         }
       } else if (node.parent.type === "interpolation") {
-        return concat([
+        return ([
           indent(
-            concat([
+            ([
               line,
               textToDoc(
                 node.value,
@@ -168,7 +168,7 @@ function embed(path, print, textToDoc, options) {
           )
         )
       ) {
-        return concat([node.rawName, "=", node.value]);
+        return ([node.rawName, "=", node.value]);
       }
 
       // lwc: html`<my-element data-for={value}></my-element>`
@@ -182,7 +182,7 @@ function embed(path, print, textToDoc, options) {
             )
           )
         ) {
-          return concat([node.rawName, "=", node.value]);
+          return ([node.rawName, "=", node.value]);
         }
       }
 
@@ -198,7 +198,7 @@ function embed(path, print, textToDoc, options) {
         options
       );
       if (embeddedAttributeValueDoc) {
-        return concat([
+        return ([
           node.rawName,
           '="',
           group(
@@ -221,17 +221,17 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return concat(replaceEndOfLineWith(node.raw, literalline));
+      return (replaceEndOfLineWith(node.raw, literalline));
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
       }
       // use original concat to not break stripTrailingHardline
-      return concat([group(printChildren(path, options, print)), hardline]);
+      return ([group(printChildren(path, options, print)), hardline]);
     case "element":
     case "ieConditionalComment": {
       if (shouldPreserveContent(node, options)) {
-        return concat(
+        return (
           [].concat(
             printOpeningTagPrefix(node, options),
             group(printOpeningTag(path, options, print)),
@@ -269,15 +269,15 @@ function genericPrint(path, options, print) {
         node.lastChild.isTrailingSpaceSensitive &&
         !node.lastChild.hasTrailingSpaces;
       const attrGroupId = Symbol("element-attr-group-id");
-      return concat([
+      return ([
         group(
-          concat([
+          ([
             group(printOpeningTag(path, options, print), { id: attrGroupId }),
             node.children.length === 0
               ? node.hasDanglingSpaces && node.isDanglingSpaceSensitive
                 ? line
                 : ""
-              : concat([
+              : ([
                   forceBreakContent(node) ? breakParent : "",
                   ((childrenDoc) =>
                     shouldHugContent
@@ -291,7 +291,7 @@ function genericPrint(path, options, print) {
                         !options.vueIndentScriptAndStyle
                       ? childrenDoc
                       : indent(childrenDoc))(
-                    concat([
+                    ([
                       shouldHugContent
                         ? ifBreak(softline, "", { groupId: attrGroupId })
                         : node.firstChild.hasLeadingSpaces &&
@@ -350,11 +350,11 @@ function genericPrint(path, options, print) {
     }
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
-      return concat([printOpeningTagStart(node), printClosingTagEnd(node)]);
+      return ([printOpeningTagStart(node), printClosingTagEnd(node)]);
     case "interpolation":
-      return concat([
+      return ([
         printOpeningTagStart(node, options),
-        concat(path.map(print, "children")),
+        (path.map(print, "children")),
         printClosingTagEnd(node, options),
       ]);
     case "text": {
@@ -365,14 +365,14 @@ function genericPrint(path, options, print) {
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return concat([
-          concat(replaceEndOfLineWith(value, literalline)),
+        return ([
+          (replaceEndOfLineWith(value, literalline)),
           hasTrailingNewline ? hardline : "",
         ]);
       }
 
       const printed = cleanDoc(
-        concat([
+        ([
           printOpeningTagPrefix(node, options),
           ...getTextValueParts(node),
           printClosingTagSuffix(node, options),
@@ -381,9 +381,9 @@ function genericPrint(path, options, print) {
       return typeof printed === "string" ? printed : fill(getDocParts(printed));
     }
     case "docType":
-      return concat([
+      return ([
         group(
-          concat([
+          ([
             printOpeningTagStart(node, options),
             " ",
             node.value.replace(/^html\b/i, "html").replace(/\s+/g, " "),
@@ -392,9 +392,9 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options),
       ]);
     case "comment": {
-      return concat([
+      return ([
         printOpeningTagPrefix(node, options),
-        concat(
+        (
           replaceEndOfLineWith(
             options.originalText.slice(locStart(node), locEnd(node)),
             literalline
@@ -411,12 +411,12 @@ function genericPrint(path, options, print) {
       const singleQuoteCount = countChars(value, "'");
       const doubleQuoteCount = countChars(value, '"');
       const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
-      return concat([
+      return ([
         node.rawName,
-        concat([
+        ([
           "=",
           quote,
-          concat(
+          (
             replaceEndOfLineWith(
               quote === '"'
                 ? value.replace(/"/g, "&quot;")
@@ -438,18 +438,18 @@ function printChildren(path, options, print) {
   const node = path.getValue();
 
   if (forceBreakChildren(node)) {
-    return concat([
+    return ([
       breakParent,
-      concat(
+      (
         path.map((childPath) => {
           const childNode = childPath.getValue();
           const prevBetweenLine = !childNode.prev
             ? ""
             : printBetweenLine(childNode.prev, childNode);
-          return concat([
+          return ([
             !prevBetweenLine
               ? ""
-              : concat([
+              : ([
                   prevBetweenLine,
                   forceNextEmptyLine(childNode.prev) ? hardline : "",
                 ]),
@@ -461,7 +461,7 @@ function printChildren(path, options, print) {
   }
 
   const groupIds = node.children.map(() => Symbol(""));
-  return concat(
+  return (
     path.map((childPath, childIndex) => {
       const childNode = childPath.getValue();
 
@@ -470,9 +470,9 @@ function printChildren(path, options, print) {
           const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
           if (prevBetweenLine) {
             if (forceNextEmptyLine(childNode.prev)) {
-              return concat([hardline, hardline, printChild(childPath)]);
+              return ([hardline, hardline, printChild(childPath)]);
             }
-            return concat([prevBetweenLine, printChild(childPath)]);
+            return ([prevBetweenLine, printChild(childPath)]);
           }
         }
         return printChild(childPath);
@@ -523,13 +523,13 @@ function printChildren(path, options, print) {
         }
       }
 
-      return concat(
+      return (
         [].concat(
           prevParts,
           group(
-            concat([
-              concat(leadingParts),
-              group(concat([printChild(childPath), concat(trailingParts)]), {
+            ([
+              (leadingParts),
+              group(([printChild(childPath), (trailingParts)]), {
                 id: groupIds[childIndex],
               }),
             ])
@@ -544,7 +544,7 @@ function printChildren(path, options, print) {
     const child = childPath.getValue();
 
     if (hasPrettierIgnore(child)) {
-      return concat(
+      return (
         [].concat(
           printOpeningTagPrefix(child, options),
           replaceEndOfLineWith(
@@ -682,7 +682,7 @@ function printAttributes(path, options, print) {
   const printedAttributes = path.map((attributePath) => {
     const attribute = attributePath.getValue();
     return hasPrettierIgnoreAttribute(attribute)
-      ? concat(
+      ? (
           replaceEndOfLineWith(
             options.originalText.slice(locStart(attribute), locEnd(attribute)),
             literalline
@@ -700,7 +700,7 @@ function printAttributes(path, options, print) {
 
   const parts = [
     indent(
-      concat([
+      ([
         forceNotToBreakAttrContent ? " " : line,
         join(line, printedAttributes),
       ])
@@ -731,13 +731,13 @@ function printAttributes(path, options, print) {
     parts.push(node.isSelfClosing ? line : softline);
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 function printOpeningTag(path, options, print) {
   const node = path.getValue();
 
-  return concat([
+  return ([
     printOpeningTagStart(node, options),
     printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
@@ -747,7 +747,7 @@ function printOpeningTag(path, options, print) {
 function printOpeningTagStart(node, options) {
   return node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
     ? ""
-    : concat([
+    : ([
         printOpeningTagPrefix(node, options),
         printOpeningTagStartMarker(node),
       ]);
@@ -761,7 +761,7 @@ function printOpeningTagEnd(node) {
 }
 
 function printClosingTag(node, options) {
-  return concat([
+  return ([
     node.isSelfClosing ? "" : printClosingTagStart(node, options),
     printClosingTagEnd(node, options),
   ]);
@@ -771,7 +771,7 @@ function printClosingTagStart(node, options) {
   return node.lastChild &&
     needsToBorrowParentClosingTagStartMarker(node.lastChild)
     ? ""
-    : concat([
+    : ([
         printClosingTagPrefix(node, options),
         printClosingTagStartMarker(node, options),
       ]);
@@ -784,7 +784,7 @@ function printClosingTagEnd(node, options) {
       : needsToBorrowLastChildClosingTagEndMarker(node.parent)
   )
     ? ""
-    : concat([
+    : ([
         printClosingTagEndMarker(node, options),
         printClosingTagSuffix(node, options),
       ]);
@@ -1017,8 +1017,8 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printHug = (doc) => group(doc);
   const printExpand = (doc, canHaveTrailingWhitespace = true) =>
     group(
-      concat([
-        indent(concat([softline, doc])),
+      ([
+        indent(([softline, doc])),
         canHaveTrailingWhitespace ? softline : "",
       ])
     );
@@ -1187,15 +1187,15 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       const parts = [];
       value.split(interpolationRegex).forEach((part, index) => {
         if (index % 2 === 0) {
-          parts.push(concat(replaceEndOfLineWith(part, literalline)));
+          parts.push((replaceEndOfLineWith(part, literalline)));
         } else {
           try {
             parts.push(
               group(
-                concat([
+                ([
                   "{{",
                   indent(
-                    concat([
+                    ([
                       line,
                       ngTextToDoc(part, {
                         parser: "__ng_interpolation",
@@ -1211,13 +1211,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
           } catch (e) {
             parts.push(
               "{{",
-              concat(replaceEndOfLineWith(part, literalline)),
+              (replaceEndOfLineWith(part, literalline)),
               "}}"
             );
           }
         }
       });
-      return group(concat(parts));
+      return group((parts));
     }
   }
 

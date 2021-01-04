@@ -9,7 +9,7 @@ function embed(path, print, textToDoc /*, options */) {
 
   if (node.type === "front-matter") {
     const doc = printFrontMatter(node, textToDoc);
-    return doc ? concat([doc, hardline]) : "";
+    return doc ? ([doc, hardline]) : "";
   }
 }
 

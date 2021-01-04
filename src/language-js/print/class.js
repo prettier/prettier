@@ -49,7 +49,7 @@ function printClass(path, options, print) {
   partsGroup.push(path.call(print, "typeParameters"));
 
   if (n.superClass) {
-    const printed = concat([
+    const printed = ([
       "extends ",
       printSuperClass(path, options, print),
       path.call(print, "superTypeParameters"),
@@ -71,17 +71,17 @@ function printClass(path, options, print) {
   extendsParts.push(printList(path, options, print, "implements"));
 
   if (groupMode) {
-    const printedExtends = concat(extendsParts);
+    const printedExtends = (extendsParts);
     if (shouldIndentOnlyHeritageClauses(n)) {
       parts.push(
         group(
-          concat(
+          (
             partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
           )
         )
       );
     } else {
-      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+      parts.push(group(indent((partsGroup.concat(printedExtends)))));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);
@@ -89,7 +89,7 @@ function printClass(path, options, print) {
 
   parts.push(" ", path.call(print, "body"));
 
-  return concat(parts);
+  return (parts);
 }
 
 function hasMultipleHeritage(node) {
@@ -123,7 +123,7 @@ function printList(path, options, print, listName) {
     /* sameIndent */ true,
     ({ marker }) => marker === listName
   );
-  return concat([
+  return ([
     shouldIndentOnlyHeritageClauses(n)
       ? ifBreak(" ", line, {
           groupId: getTypeParametersGroupId(n.typeParameters),
@@ -134,7 +134,7 @@ function printList(path, options, print, listName) {
     listName,
     group(
       indent(
-        concat([line, join(concat([",", line]), path.map(print, listName))])
+        ([line, join(([",", line]), path.map(print, listName))])
       )
     ),
   ]);
@@ -146,7 +146,7 @@ function printSuperClass(path, options, print) {
   if (parent.type === "AssignmentExpression") {
     return group(
       ifBreak(
-        concat(["(", indent(concat([softline, printed])), softline, ")"]),
+        (["(", indent(([softline, printed])), softline, ")"]),
         printed
       )
     );
@@ -173,7 +173,7 @@ function printClassMethod(path, options, print) {
 
   parts.push(printMethod(path, options, print));
 
-  return concat(parts);
+  return (parts);
 }
 
 function printClassProperty(path, options, print) {
@@ -216,13 +216,13 @@ function printClassProperty(path, options, print) {
 
   parts.push(semi);
 
-  return group(concat(parts));
+  return group((parts));
 }
 
 function printDecorators(path, options, print) {
   const node = path.getValue();
   return group(
-    concat([
+    ([
       join(line, path.map(print, "decorators")),
       hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
     ])

@@ -98,11 +98,11 @@ function printMemberChain(path, options, print) {
     ) {
       printedNodes.unshift({
         node,
-        printed: concat([
+        printed: ([
           printComments(
             path,
             () =>
-              concat([
+              ([
                 printOptionalToken(path),
                 printFunctionTypeParameters(path, options, print),
                 printCallArguments(path, options, print),
@@ -147,7 +147,7 @@ function printMemberChain(path, options, print) {
   const node = path.getValue();
   printedNodes.unshift({
     node,
-    printed: concat([
+    printed: ([
       printOptionalToken(path),
       printFunctionTypeParameters(path, options, print),
       printCallArguments(path, options, print),
@@ -317,9 +317,9 @@ function printMemberChain(path, options, print) {
       printedGroup.length > 0 &&
       printedGroup[printedGroup.length - 1].needsParens
     ) {
-      return concat(["(", ...printed, ")"]);
+      return (["(", ...printed, ")"]);
     }
-    return concat(printed);
+    return (printed);
   }
 
   function printIndentedGroup(groups) {
@@ -328,12 +328,12 @@ function printMemberChain(path, options, print) {
       return "";
     }
     return indent(
-      group(concat([hardline, join(hardline, groups.map(printGroup))]))
+      group(([hardline, join(hardline, groups.map(printGroup))]))
     );
   }
 
   const printedGroups = groups.map(printGroup);
-  const oneLine = concat(printedGroups);
+  const oneLine = (printedGroups);
 
   const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = flat(groups);
@@ -364,9 +364,9 @@ function printMemberChain(path, options, print) {
     !isCallOrOptionalCallExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
-  const expanded = concat([
+  const expanded = ([
     printGroup(groups[0]),
-    shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
+    shouldMerge ? (groups.slice(1, 2).map(printGroup)) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
   ]);
@@ -405,7 +405,7 @@ function printMemberChain(path, options, print) {
     return group(expanded);
   }
 
-  return concat([
+  return ([
     // We only need to check `oneLine` because if `expanded` is chosen
     // that means that the parent group has already been broken
     // naturally

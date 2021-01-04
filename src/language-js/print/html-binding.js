@@ -19,7 +19,7 @@ function printHtmlBinding(path, options, print) {
     return path.call(
       (functionDeclarationPath) => {
         const printed = join(
-          concat([",", line]),
+          ([",", line]),
           functionDeclarationPath.map(print, "params")
         );
 
@@ -28,9 +28,9 @@ function printHtmlBinding(path, options, print) {
           return printed;
         }
 
-        return concat([
+        return ([
           "(",
-          indent(concat([softline, group(printed)])),
+          indent(([softline, group(printed)])),
           softline,
           ")",
         ]);
@@ -44,7 +44,7 @@ function printHtmlBinding(path, options, print) {
   if (options.__isVueBindings) {
     return path.call(
       (functionDeclarationPath) =>
-        join(concat([",", line]), functionDeclarationPath.map(print, "params")),
+        join(([",", line]), functionDeclarationPath.map(print, "params")),
       "program",
       "body",
       0

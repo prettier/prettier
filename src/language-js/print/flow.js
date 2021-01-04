@@ -30,7 +30,7 @@ function printFlow(path, options, print) {
     case "DeclareFunction":
       return printFlowDeclaration(
         path,
-        concat([
+        ([
           "function ",
           path.call(print, "id"),
           n.predicate ? " " : "",
@@ -41,7 +41,7 @@ function printFlow(path, options, print) {
     case "DeclareModule":
       return printFlowDeclaration(
         path,
-        concat([
+        ([
           "module ",
           path.call(print, "id"),
           " ",
@@ -51,7 +51,7 @@ function printFlow(path, options, print) {
     case "DeclareModuleExports":
       return printFlowDeclaration(
         path,
-        concat([
+        ([
           "module.exports",
           ": ",
           path.call(print, "typeAnnotation"),
@@ -61,7 +61,7 @@ function printFlow(path, options, print) {
     case "DeclareVariable":
       return printFlowDeclaration(
         path,
-        concat(["var ", path.call(print, "id"), semi])
+        (["var ", path.call(print, "id"), semi])
       );
     case "DeclareOpaqueType":
       return printFlowDeclaration(path, printOpaqueType(path, options, print));
@@ -92,7 +92,7 @@ function printFlow(path, options, print) {
     case "TupleTypeAnnotation":
       return printTupleType(path, options, print);
     case "GenericTypeAnnotation":
-      return concat([
+      return ([
         path.call(print, "id"),
         printTypeParameters(path, options, print, "typeParameters"),
       ]);
@@ -114,7 +114,7 @@ function printFlowDeclaration(path, printed) {
   // If the parent node has type DeclareExportDeclaration, then it
   // will be responsible for printing the "declare" token. Otherwise
   // it needs to be printed with this non-exported declaration node.
-  return concat(["declare ", printed]);
+  return (["declare ", printed]);
 }
 
 module.exports = { printFlow };

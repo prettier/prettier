@@ -48,7 +48,7 @@ function print(node, textToDoc) {
       ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
       : "";
     return markAsRoot(
-      concat(["---", hardline, doc, doc ? hardline : "", "---"])
+      (["---", hardline, doc, doc ? hardline : "", "---"])
     );
   }
 }

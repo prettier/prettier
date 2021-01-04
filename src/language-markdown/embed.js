@@ -27,7 +27,7 @@ function embed(path, print, textToDoc, options) {
         { stripTrailingHardline: true }
       );
       return markAsRoot(
-        concat([
+        ([
           style,
           node.lang,
           node.meta ? " " + node.meta : "",
@@ -46,7 +46,7 @@ function embed(path, print, textToDoc, options) {
 
     // MDX
     case "importExport":
-      return concat([
+      return ([
         textToDoc(
           node.value,
           { parser: "babel" },

@@ -49,7 +49,7 @@ function printTypeParameters(path, options, print, paramsKey) {
         n[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
-    return concat([
+    return ([
       "<",
       join(", ", path.map(print, paramsKey)),
       printDanglingCommentsForInline(path, options),
@@ -58,12 +58,12 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   return group(
-    concat([
+    ([
       "<",
       indent(
-        concat([
+        ([
           softline,
-          join(concat([",", line]), path.map(print, paramsKey)),
+          join(([",", line]), path.map(print, paramsKey)),
         ])
       ),
       ifBreak(
@@ -94,7 +94,7 @@ function printDanglingCommentsForInline(path, options) {
   if (hasOnlyBlockComments) {
     return printed;
   }
-  return concat([printed, hardline]);
+  return ([printed, hardline]);
 }
 
 function printTypeParameter(path, options, print) {
@@ -113,7 +113,7 @@ function printTypeParameter(path, options, print) {
       );
     }
     parts.push("]");
-    return concat(parts);
+    return (parts);
   }
 
   if (n.variance) {
@@ -148,7 +148,7 @@ function printTypeParameter(path, options, print) {
     parts.push(",");
   }
 
-  return concat(parts);
+  return (parts);
 }
 
 module.exports = {
