@@ -45,42 +45,6 @@ room = room.map( ( row, rowIndex ) =>
 ================================================================================
 `;
 
-exports[`crewdress.js 1`] = `
-====================================options=====================================
-alignTernaryLines: true
-arrowParens: "avoid"
-parenSpacing: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
-let isSpace = false
-
-const dress = isSpace ? {
-      spaceSuit: 3,
-      oxygenCylinders: 6
-    } : {
-      shirts: 3,
-      paints: 3
-    }
-
-=====================================output=====================================
-let isSpace = false;
-
-const dress = isSpace
-  ? {
-      spaceSuit: 3,
-      oxygenCylinders: 6
-    }
-  : {
-      shirts: 3,
-      paints: 3
-    };
-
-================================================================================
-`;
-
 exports[`func-call.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
