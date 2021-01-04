@@ -70,3 +70,76 @@ const dress = isSpace
 
 ================================================================================
 `;
+
+exports[`crewdress.js 3`] = `
+====================================options=====================================
+alignTernaryLines: false
+arrowParens: "avoid"
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+let isSpace = false
+
+const dress = isSpace ? {
+      spaceSuit: 3,
+      oxygenCylinders: 6
+    } : {
+      shirts: 3,
+      paints: 3
+    }
+
+=====================================output=====================================
+let isSpace = false;
+
+const dress = isSpace
+	? {
+		spaceSuit: 3,
+		oxygenCylinders: 6
+	}
+	: {
+		shirts: 3,
+		paints: 3
+	};
+
+================================================================================
+`;
+
+exports[`crewdress.js 4`] = `
+====================================options=====================================
+alignTernaryLines: false
+arrowParens: "avoid"
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+let isSpace = false
+
+const dress = isSpace ? {
+      spaceSuit: 3,
+      oxygenCylinders: 6
+    } : {
+      shirts: 3,
+      paints: 3
+    }
+
+=====================================output=====================================
+let isSpace = false;
+
+const dress = isSpace
+	? {
+		spaceSuit: 3,
+		oxygenCylinders: 6
+	}
+	: {
+		shirts: 3,
+		paints: 3
+	};
+
+================================================================================
+`;
