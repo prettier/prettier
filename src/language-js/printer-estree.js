@@ -461,7 +461,7 @@ function printPathNoParens(path, options, print, args) {
         }, "expressions");
         return group(parts);
       }
-      return group([join([",", line], path.map(print, "expressions"))]);
+      return group(join([",", line], path.map(print, "expressions")));
     }
     case "ThisExpression":
       return "this";

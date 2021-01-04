@@ -208,7 +208,7 @@ function genericPrint(path, options, print) {
         if (node.function) {
           return [
             node.name,
-            [path.call(print, "params")],
+            path.call(print, "params"),
             isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";",
           ];
         }
@@ -218,7 +218,7 @@ function genericPrint(path, options, print) {
             "@",
             node.name,
             ": ",
-            node.value ? [path.call(print, "value")] : "",
+            node.value ? path.call(print, "value") : "",
             node.raws.between.trim() ? node.raws.between.trim() + " " : "",
             node.nodes
               ? [
