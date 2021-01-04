@@ -109,9 +109,9 @@ overrides:
       prettier-internal-rules/better-parent-property-check-in-needs-parens: error
   - files: src/**/*.js
     rules:
+      prettier-internal-rules/no-doc-builder-concat: off
       prettier-internal-rules/prefer-fast-path-each: error
       prettier-internal-rules/prefer-is-non-empty-array: error
-      prettier-internal-rules/no-doc-builder-concat: off
   - files: src/document/*.js
     rules:
       prettier-internal-rules/no-doc-builder-concat: off
