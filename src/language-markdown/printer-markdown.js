@@ -10,7 +10,6 @@ const {
 const {
   builders: {
     breakParent,
-    concat,
     join,
     line,
     literalline,
@@ -699,7 +698,7 @@ function printRoot(path, options, print) {
 function printChildren(path, options, print, events) {
   events = events || {};
 
-  const postprocessor = events.postprocessor || concat;
+  const { postprocessor } = events;
   const processor = events.processor || ((childPath) => childPath.call(print));
 
   const node = path.getValue();
@@ -748,7 +747,7 @@ function printChildren(path, options, print, events) {
     }
   }, "children");
 
-  return postprocessor(parts);
+  return postprocessor ? postprocessor(parts) : parts;
 }
 
 function getLastDescendantNode(node) {
