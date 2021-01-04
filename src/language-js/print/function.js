@@ -204,18 +204,16 @@ function printArrowFunctionExpression(path, options, print, args) {
       const isOperand = name === "init" || name === "right";
       const isParentCallExpr = parent.type === "CallExpression";
       return group(
-        indent(
-          concat([
-            isOperand || isParentCallExpr ? softline : "",
-            concat(parts),
-            line,
-            body,
-            isParentCallExpr ? dedent(softline) : "",
-          ])
-        )
+        indent([
+          isOperand || isParentCallExpr ? softline : "",
+          parts,
+          line,
+          body,
+          isParentCallExpr ? dedent(softline) : "",
+        ])
       );
     }
-    return concat([concat(parts), line, body]);
+    return [...parts, line, body];
   }
 
   // We want to always keep these types of nodes on the same line
