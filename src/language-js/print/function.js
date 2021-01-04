@@ -207,8 +207,7 @@ function printArrowFunctionExpression(path, options, print, args) {
         indent([
           isOperand || isParentCallExpr ? softline : "",
           parts,
-          line,
-          body,
+          group([line, body]),
           isParentCallExpr ? dedent(softline) : "",
         ])
       );
