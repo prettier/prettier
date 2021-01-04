@@ -50,8 +50,14 @@ module.exports = {
         ];
       })
     );
+    // avoid report on `const {comments} = node` twice
+    const reported = new Set();
     return {
       [selector](node) {
+        if (reported.has(node)) {
+          return;
+        }
+
         if (ignored.has(fileName)) {
           const functionNames = ignored.get(fileName);
           if (functionNames === true) {
@@ -75,6 +81,7 @@ module.exports = {
             return;
           }
         }
+        reported.add(node);
         context.report({
           node,
           messageId,

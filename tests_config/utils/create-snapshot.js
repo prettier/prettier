@@ -10,7 +10,7 @@ function printSeparator(width, description) {
 }
 
 function stringify(value) {
-  return value === Infinity
+  return value === Number.POSITIVE_INFINITY
     ? "Infinity"
     : Array.isArray(value)
     ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`

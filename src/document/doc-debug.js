@@ -76,7 +76,7 @@ function printDoc(doc) {
   }
 
   if (doc.type === "align") {
-    return doc.n === -Infinity
+    return doc.n === Number.NEGATIVE_INFINITY
       ? "dedentToRoot(" + printDoc(doc.contents) + ")"
       : doc.n < 0
       ? "dedent(" + printDoc(doc.contents) + ")"

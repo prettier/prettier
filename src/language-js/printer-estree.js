@@ -80,7 +80,6 @@ const { printObject } = require("./print/object");
 const {
   printClass,
   printClassMethod,
-  printClassBody,
   printClassProperty,
 } = require("./print/class");
 const { printTypeParameters } = require("./print/type-parameters");
@@ -424,6 +423,7 @@ function printPathNoParens(path, options, print, args) {
       return "import";
     case "BlockStatement":
     case "StaticBlock":
+    case "ClassBody":
       return printBlock(path, options, print);
     case "ThrowStatement":
       return printThrowStatement(path, options, print);
@@ -901,8 +901,6 @@ function printPathNoParens(path, options, print, args) {
     case "ClassDeclaration":
     case "ClassExpression":
       return printClass(path, options, print);
-    case "ClassBody":
-      return printClassBody(path, options, print);
     case "ClassMethod":
     case "ClassPrivateMethod":
     case "MethodDefinition":

@@ -54,7 +54,7 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "int",
     default: -1,
-    range: { start: -1, end: Infinity, step: 1 },
+    range: { start: -1, end: Number.POSITIVE_INFINITY, step: 1 },
     description: outdent`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
@@ -195,14 +195,14 @@ const options = {
     type: "int",
     default: 80,
     description: "The line length where Prettier will try wrap.",
-    range: { start: 0, end: Infinity, step: 1 },
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
   },
   rangeEnd: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
-    default: Infinity,
-    range: { start: 0, end: Infinity, step: 1 },
+    default: Number.POSITIVE_INFINITY,
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
     description: outdent`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
@@ -215,7 +215,7 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "int",
     default: 0,
-    range: { start: 0, end: Infinity, step: 1 },
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
     description: outdent`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
@@ -239,7 +239,7 @@ const options = {
     category: CATEGORY_GLOBAL,
     default: 2,
     description: "Number of spaces per indentation level.",
-    range: { start: 0, end: Infinity, step: 1 },
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
   },
   useTabs: {
     since: "1.0.0",

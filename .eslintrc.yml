@@ -70,6 +70,7 @@ rules:
   unicorn/new-for-builtins: error
   unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
+  unicorn/prefer-number-properties: error
   unicorn/prefer-string-slice: error
 overrides:
   - files:

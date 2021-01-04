@@ -41,7 +41,8 @@ function printBlock(path, options, print) {
         (parent.type === "CatchClause" && !parentParent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
         parent.type === "TSDeclareFunction" ||
-        node.type === "StaticBlock"
+        node.type === "StaticBlock" ||
+        node.type === "ClassBody"
       )
     ) {
       parts.push(hardline);
