@@ -1,5 +1,7 @@
 "use strict";
-// TODO: Remove this rule when deprecated `concat` is removed.
+
+// TODO: Remove this rule when deprecated `concat` is not using in codebase, #9993.
+
 const selector = [
   "CallExpression",
   '[callee.type="Identifier"]',
