@@ -118,7 +118,7 @@ function printJsxElementInternal(path, options, print) {
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = isMdxBlock
-    ? concat([" "])
+    ? " "
     : ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =

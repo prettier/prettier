@@ -21,7 +21,7 @@ function genericPrint(path, options, print) {
     case "Document": {
       const parts = [];
       path.each((pathChild, index, definitions) => {
-        parts.push(concat([pathChild.call(print)]));
+        parts.push(pathChild.call(print));
         if (index !== definitions.length - 1) {
           parts.push(hardline);
           if (

@@ -111,6 +111,7 @@ overrides:
   - files: src/**/*.js
     rules:
       prettier-internal-rules/no-doc-builder-concat: off
+      prettier-internal-rules/no-single-doc-concat: error
       prettier-internal-rules/prefer-fast-path-each: error
       prettier-internal-rules/prefer-is-non-empty-array: error
   - files: src/document/*.js
