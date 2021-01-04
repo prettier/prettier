@@ -16,9 +16,9 @@ const {
     softline,
     concat,
   },
-  utils: { mapDoc, cleanDoc },
+  utils: { mapDoc, cleanDoc, getDocParts },
 } = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
+const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
 const clean = require("./clean");
 const {
@@ -378,7 +378,7 @@ function genericPrint(path, options, print) {
           printClosingTagSuffix(node, options),
         ])
       );
-      return typeof printed === "string" ? printed : fill(printed.parts);
+      return typeof printed === "string" ? printed : fill(getDocParts(printed));
     }
     case "docType":
       return concat([
@@ -599,7 +599,7 @@ function printChildren(path, options, print) {
              *             ~
              *       attr
              */
-            (nextNode.type === "element" && nextNode.attrs.length !== 0))) ||
+            (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
         /**
          *     <img
          *       src="long"
@@ -657,7 +657,7 @@ function getNodeContent(node, options) {
 function printAttributes(path, options, print) {
   const node = path.getValue();
 
-  if (!node.attrs || node.attrs.length === 0) {
+  if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
       ? /**
          *     <br />
@@ -981,7 +981,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : join(line, splitByHtmlWhitespace(value)).parts;
+    : getDocParts(join(line, splitByHtmlWhitespace(value)));
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

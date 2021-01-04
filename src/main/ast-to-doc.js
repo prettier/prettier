@@ -3,7 +3,7 @@
 const assert = require("assert");
 const FastPath = require("../common/fast-path");
 const doc = require("../document");
-const comments = require("./comments");
+const { printComments } = require("./comments");
 const multiparser = require("./multiparser");
 
 const docBuilders = doc.builders;
@@ -59,7 +59,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     } else {
       // printComments will call the plugin print function and check for
       // comments to print
-      res = comments.printComments(
+      res = printComments(
         path,
         (p) => callPluginPrintFunction(p, options, printGenerically, args),
         options,

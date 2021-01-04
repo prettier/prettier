@@ -48,7 +48,10 @@ function printTemplateLiteral(path, print, options) {
   if (isSimple) {
     expressions = expressions.map(
       (doc) =>
-        printDocToString(doc, { ...options, printWidth: Infinity }).formatted
+        printDocToString(doc, {
+          ...options,
+          printWidth: Number.POSITIVE_INFINITY,
+        }).formatted
     );
   }
 
@@ -96,7 +99,7 @@ function printTemplateLiteral(path, print, options) {
 
       const aligned =
         indentSize === 0 && quasi.value.raw.endsWith("\n")
-          ? align(-Infinity, printed)
+          ? align(Number.NEGATIVE_INFINITY, printed)
           : addAlignmentToDoc(printed, indentSize, tabWidth);
 
       parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
@@ -119,7 +122,7 @@ function printJestEachTemplateLiteral(path, options, print) {
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
-    headerNames.some((headerName) => headerName.length !== 0)
+    headerNames.some((headerName) => headerName.length > 0)
   ) {
     options.__inJestEach = true;
     const expressions = path.map(print, "expressions");
@@ -130,7 +133,7 @@ function printJestEachTemplateLiteral(path, options, print) {
         "${" +
         printDocToString(doc, {
           ...options,
-          printWidth: Infinity,
+          printWidth: Number.POSITIVE_INFINITY,
           endOfLine: "lf",
         }).formatted +
         "}"
@@ -159,7 +162,7 @@ function printJestEachTemplateLiteral(path, options, print) {
     const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
     const table = [
       { cells: headerNames },
-      ...tableBody.filter((row) => row.cells.length !== 0),
+      ...tableBody.filter((row) => row.cells.length > 0),
     ];
     for (const { cells } of table.filter((row) => !row.hasLineBreak)) {
       cells.forEach((cell, index) => {

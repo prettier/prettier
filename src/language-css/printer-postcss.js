@@ -6,6 +6,7 @@ const {
   hasNewline,
   isFrontMatterNode,
   isNextLineEmpty,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -21,7 +22,7 @@ const {
     ifBreak,
     breakParent,
   },
-  utils: { removeLines },
+  utils: { removeLines, getDocParts },
 } = require("../document");
 const clean = require("./clean");
 const embed = require("./embed");
@@ -101,7 +102,7 @@ function genericPrint(path, options, print) {
       return concat([
         nodes,
         after ? ` ${after}` : "",
-        nodes.parts.length ? hardline : "",
+        getDocParts(nodes).length > 0 ? hardline : "",
       ]);
     }
     case "css-comment": {
@@ -469,7 +470,7 @@ function genericPrint(path, options, print) {
     case "selector-pseudo": {
       return concat([
         maybeToLowerCase(node.value),
-        node.nodes && node.nodes.length > 0
+        isNonEmptyArray(node.nodes)
           ? concat(["(", join(", ", path.map(print, "nodes")), ")"])
           : "",
       ]);
@@ -671,6 +672,13 @@ function genericPrint(path, options, print) {
             (isNextMathOperator && isRightCurlyBraceNode(iNode))) &&
           hasEmptyRawBefore(iNextNode)
         ) {
+          continue;
+        }
+
+        // absolute paths are only parsed as one token if they are part of url(/abs/path) call
+        // but if you have custom -fb-url(/abs/path/) then it is parsed as "division /" and rest
+        // of the path. We don't want to put a space after that first division in this case.
+        if (!iPrevNode && isDivisionNode(iNode)) {
           continue;
         }
 
@@ -884,9 +892,8 @@ function genericPrint(path, options, print) {
                     node.groups[2] &&
                     node.groups[2].type === "value-paren_group"
                   ) {
-                    printed.contents.contents.parts[1] = group(
-                      printed.contents.contents.parts[1]
-                    );
+                    const parts = getDocParts(printed.contents.contents);
+                    parts[1] = group(parts[1]);
 
                     return group(dedent(printed));
                   }
@@ -978,10 +985,9 @@ function genericPrint(path, options, print) {
 }
 
 function printNodeSequence(path, options, print) {
-  const node = path.getValue();
   const parts = [];
-  path.each((pathChild, i) => {
-    const prevNode = node.nodes[i - 1];
+  path.each((pathChild, i, nodes) => {
+    const prevNode = nodes[i - 1];
     if (
       prevNode &&
       prevNode.type === "css-comment" &&
@@ -995,23 +1001,23 @@ function printNodeSequence(path, options, print) {
       parts.push(pathChild.call(print));
     }
 
-    if (i !== node.nodes.length - 1) {
+    if (i !== nodes.length - 1) {
       if (
-        (node.nodes[i + 1].type === "css-comment" &&
-          !hasNewline(options.originalText, locStart(node.nodes[i + 1]), {
+        (nodes[i + 1].type === "css-comment" &&
+          !hasNewline(options.originalText, locStart(nodes[i + 1]), {
             backwards: true,
           }) &&
-          !isFrontMatterNode(node.nodes[i])) ||
-        (node.nodes[i + 1].type === "css-atrule" &&
-          node.nodes[i + 1].name === "else" &&
-          node.nodes[i].type !== "css-comment")
+          !isFrontMatterNode(nodes[i])) ||
+        (nodes[i + 1].type === "css-atrule" &&
+          nodes[i + 1].name === "else" &&
+          nodes[i].type !== "css-comment")
       ) {
         parts.push(" ");
       } else {
         parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
           isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd) &&
-          !isFrontMatterNode(node.nodes[i])
+          !isFrontMatterNode(nodes[i])
         ) {
           parts.push(hardline);
         }

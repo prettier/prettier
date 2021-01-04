@@ -20,11 +20,7 @@ const {
 
 const { getLast, getPreferredQuote } = require("../../common/util");
 const {
-  isEmptyJsxElement,
-  isJsxWhitespaceExpression,
   isJsxNode,
-  isMeaningfulJsxText,
-  matchJsxWhitespaceRegex,
   rawText,
   isLiteral,
   isCallOrOptionalCallExpression,
@@ -32,10 +28,16 @@ const {
   isBinaryish,
   hasComment,
   CommentCheckFlags,
-  trimJsxWhitespace,
+  hasNodeIgnoreComment,
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
+
+/**
+ * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../types/estree").Node} Node
+ * @typedef {import("../types/estree").JSXElement} JSXElement
+ */
 
 // JSX expands children from the inside-out, instead of the outside-in.
 // This is both to break children before attributes,
@@ -179,7 +181,7 @@ function printJsxElementInternal(path, options, print) {
 
   // Trim trailing lines (or empty strings)
   while (
-    children.length &&
+    children.length > 0 &&
     (isLineNext(getLast(children)) || isEmpty(getLast(children)))
   ) {
     children.pop();
@@ -187,7 +189,7 @@ function printJsxElementInternal(path, options, print) {
 
   // Trim leading lines (or empty strings)
   while (
-    children.length &&
+    children.length > 0 &&
     (isLineNext(children[0]) || isEmpty(children[0])) &&
     (isLineNext(children[1]) || isEmpty(children[1]))
   ) {
@@ -278,10 +280,8 @@ function printJsxChildren(
   jsxWhitespace,
   isFacebookTranslationTag
 ) {
-  const n = path.getValue();
-  const children = [];
-
-  path.each((childPath, i) => {
+  const parts = [];
+  path.each((childPath, i, children) => {
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
@@ -292,11 +292,11 @@ function printJsxChildren(
 
         // Starts with whitespace
         if (words[0] === "") {
-          children.push("");
+          parts.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            const next = n.children[i + 1];
-            children.push(
+            const next = children[i + 1];
+            parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
@@ -305,7 +305,7 @@ function printJsxChildren(
               )
             );
           } else {
-            children.push(jsxWhitespace);
+            parts.push(jsxWhitespace);
           }
           words.shift();
         }
@@ -324,32 +324,32 @@ function printJsxChildren(
 
         words.forEach((word, i) => {
           if (i % 2 === 1) {
-            children.push(line);
+            parts.push(line);
           } else {
-            children.push(word);
+            parts.push(word);
           }
         });
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            const next = n.children[i + 1];
-            children.push(
+            const next = children[i + 1];
+            parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                getLast(children),
+                getLast(parts),
                 child,
                 next
               )
             );
           } else {
-            children.push(jsxWhitespace);
+            parts.push(jsxWhitespace);
           }
         } else {
-          const next = n.children[i + 1];
-          children.push(
+          const next = children[i + 1];
+          parts.push(
             separatorNoWhitespace(
               isFacebookTranslationTag,
-              getLast(children),
+              getLast(parts),
               child,
               next
             )
@@ -359,25 +359,25 @@ function printJsxChildren(
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
         if (text.match(/\n/g).length > 1) {
-          children.push("");
-          children.push(hardline);
+          parts.push("");
+          parts.push(hardline);
         }
       } else {
-        children.push("");
-        children.push(jsxWhitespace);
+        parts.push("");
+        parts.push(jsxWhitespace);
       }
     } else {
       const printedChild = print(childPath);
-      children.push(printedChild);
+      parts.push(printedChild);
 
-      const next = n.children[i + 1];
+      const next = children[i + 1];
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
         const firstWord = trimJsxWhitespace(rawText(next)).split(
           matchJsxWhitespaceRegex
         )[0];
-        children.push(
+        parts.push(
           separatorNoWhitespace(
             isFacebookTranslationTag,
             firstWord,
@@ -386,12 +386,12 @@ function printJsxChildren(
           )
         );
       } else {
-        children.push(hardline);
+        parts.push(hardline);
       }
     }
   }, "children");
 
-  return children;
+  return parts;
 }
 
 function separatorNoWhitespace(
@@ -549,7 +549,7 @@ function printJsxOpeningElement(path, options, print) {
     (n.typeParameters && hasComment(n.typeParameters));
 
   // Don't break self-closing elements with no attributes and no comments
-  if (n.selfClosing && !n.attributes.length && !nameHasComments) {
+  if (n.selfClosing && n.attributes.length === 0 && !nameHasComments) {
     return concat([
       "<",
       path.call(print, "name"),
@@ -590,13 +590,13 @@ function printJsxOpeningElement(path, options, print) {
   }
 
   const lastAttrHasTrailingComments =
-    n.attributes.length &&
+    n.attributes.length > 0 &&
     hasComment(getLast(n.attributes), CommentCheckFlags.Trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
     // kept unbroken regardless of `jsxBracketSameLine`
-    (!n.attributes.length && !nameHasComments) ||
+    (n.attributes.length === 0 && !nameHasComments) ||
     (options.jsxBracketSameLine &&
       // We should print the bracket in a new line for the following cases:
       // <div
@@ -605,7 +605,7 @@ function printJsxOpeningElement(path, options, print) {
       // <div
       //   attr // comment
       // >
-      (!nameHasComments || n.attributes.length) &&
+      (!nameHasComments || n.attributes.length > 0) &&
       !lastAttrHasTrailingComments);
 
   // We should print the opening element expanded if any prop value is a
@@ -766,6 +766,99 @@ function printJsx(path, options, print) {
   }
 }
 
+// Only space, newline, carriage return, and tab are treated as whitespace
+// inside JSX.
+const jsxWhitespaceChars = " \n\r\t";
+const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
+const containsNonJsxWhitespaceRegex = new RegExp(
+  "[^" + jsxWhitespaceChars + "]"
+);
+const trimJsxWhitespace = (text) =>
+  text.replace(
+    new RegExp(
+      "(?:^" +
+        matchJsxWhitespaceRegex.source +
+        "|" +
+        matchJsxWhitespaceRegex.source +
+        "$)"
+    ),
+    ""
+  );
+
+/**
+ * @param {JSXElement} node
+ * @returns {boolean}
+ */
+function isEmptyJsxElement(node) {
+  if (node.children.length === 0) {
+    return true;
+  }
+  if (node.children.length > 1) {
+    return false;
+  }
+
+  // if there is one text child and does not contain any meaningful text
+  // we can treat the element as empty.
+  const child = node.children[0];
+  return isLiteral(child) && !isMeaningfulJsxText(child);
+}
+
+// Meaningful if it contains non-whitespace characters,
+// or it contains whitespace without a new line.
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isMeaningfulJsxText(node) {
+  return (
+    isLiteral(node) &&
+    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
+      !/\n/.test(rawText(node)))
+  );
+}
+
+// Detect an expression node representing `{" "}`
+function isJsxWhitespaceExpression(node) {
+  return (
+    node.type === "JSXExpressionContainer" &&
+    isLiteral(node.expression) &&
+    node.expression.value === " " &&
+    !hasComment(node.expression)
+  );
+}
+
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
+function hasJsxIgnoreComment(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
+    return false;
+  }
+
+  // Lookup the previous sibling, ignoring any empty JSXText elements
+  const index = parent.children.indexOf(node);
+  let prevSibling = null;
+  for (let i = index; i > 0; i--) {
+    const candidate = parent.children[i - 1];
+    if (candidate.type === "JSXText" && !isMeaningfulJsxText(candidate)) {
+      continue;
+    }
+    prevSibling = candidate;
+    break;
+  }
+
+  return (
+    prevSibling &&
+    prevSibling.type === "JSXExpressionContainer" &&
+    prevSibling.expression.type === "JSXEmptyExpression" &&
+    hasNodeIgnoreComment(prevSibling.expression)
+  );
+}
+
 module.exports = {
+  hasJsxIgnoreComment,
   printJsx,
 };

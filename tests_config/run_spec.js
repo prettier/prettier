@@ -144,7 +144,7 @@ function runSpec(fixtures, parsers, options) {
 
   // Make sure tests are in correct location
   if (process.env.CHECK_TEST_PARSERS) {
-    if (!Array.isArray(parsers) || !parsers.length) {
+    if (!Array.isArray(parsers) || parsers.length === 0) {
       throw new Error(`No parsers were specified for ${dirname}`);
     }
     checkParsers({ dirname, files }, parsers);

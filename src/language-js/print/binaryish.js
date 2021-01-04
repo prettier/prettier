@@ -4,7 +4,7 @@ const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
   builders: { concat, join, line, softline, group, indent, align, ifBreak },
-  utils: { cleanDoc },
+  utils: { cleanDoc, getDocParts },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -130,7 +130,8 @@ function printBinaryishExpression(path, options, print) {
   const hasJsx = isJsxNode(n.right);
 
   const firstGroupIndex = parts.findIndex(
-    (part) => typeof part !== "string" && part.type === "group"
+    (part) =>
+      typeof part !== "string" && !Array.isArray(part) && part.type === "group"
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
@@ -221,7 +222,7 @@ function printBinaryishExpressions(
 
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
-      node.type === "NGPipeExpression" && node.arguments.length !== 0
+      node.type === "NGPipeExpression" && node.arguments.length > 0
         ? group(
             indent(
               concat([
@@ -278,7 +279,7 @@ function printBinaryishExpressions(
       if (printed.type === "string") {
         parts = [printed];
       } else {
-        parts = printed.parts;
+        parts = getDocParts(printed);
       }
     }
   } else {
@@ -296,15 +297,12 @@ function shouldInlineLogicalExpression(node) {
 
   if (
     node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
+    node.right.properties.length > 0
   ) {
     return true;
   }
 
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
+  if (node.right.type === "ArrayExpression" && node.right.elements.length > 0) {
     return true;
   }
 

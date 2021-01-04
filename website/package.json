@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "clipboard": "2.0.6",
-    "codemirror-graphql": "0.13.0",
+    "codemirror-graphql": "0.13.1",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
     "react": "17.0.1",
@@ -23,7 +23,7 @@
     "docusaurus": "1.14.6",
     "js-yaml": "3.14.1",
     "svgo": "1.3.2",
-    "webpack": "5.10.3",
-    "webpack-cli": "4.2.0"
+    "webpack": "5.11.1",
+    "webpack-cli": "4.3.0"
   }
 }

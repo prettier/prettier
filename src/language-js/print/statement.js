@@ -1,6 +1,5 @@
 "use strict";
 
-const { isNextLineEmpty } = require("../../common/util");
 const {
   builders: { concat, join, hardline },
 } = require("../../document");
@@ -11,15 +10,17 @@ const {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxNode,
-  isLastStatement,
   isTheOnlyJsxElementInMarkdown,
   hasComment,
   CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
-const { locEnd } = require("../loc");
 const { shouldPrintParamsWithoutParens } = require("./function");
 
-/** @typedef {import("../../document").Doc} Doc */
+/**
+ * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../common/fast-path")} FastPath
+ */
 
 function printStatement({ path, index, bodyNode, isClass }, options, print) {
   const node = path.getValue();
@@ -38,7 +39,6 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
   }
 
   const printed = print(path);
-  const text = options.originalText;
   const parts = [];
 
   // in no-semi mode, prepend statement with semicolon if it might break ASI
@@ -72,7 +72,7 @@ function printStatement({ path, index, bodyNode, isClass }, options, print) {
     }
   }
 
-  if (isNextLineEmpty(text, node, locEnd) && !isLastStatement(path)) {
+  if (isNextLineEmpty(node, options) && !isLastStatement(path)) {
     parts.push(hardline);
   }
 
@@ -151,15 +151,30 @@ function expressionNeedsASIProtection(path, options) {
 }
 
 function printBody(path, options, print) {
-  return path.call((bodyPath) => {
-    return printStatementSequence(bodyPath, options, print);
-  }, "body");
+  return path.call(
+    (bodyPath) => printStatementSequence(bodyPath, options, print),
+    "body"
+  );
 }
 
 function printSwitchCaseConsequent(path, options, print) {
-  return path.call((bodyPath) => {
-    return printStatementSequence(bodyPath, options, print);
-  }, "consequent");
+  return path.call(
+    (bodyPath) => printStatementSequence(bodyPath, options, print),
+    "consequent"
+  );
+}
+
+/**
+ * @param {FastPath} path
+ * @returns {boolean}
+ */
+function isLastStatement(path) {
+  const parent = path.getParentNode();
+  const node = path.getValue();
+  const body = (parent.body || parent.consequent).filter(
+    (stmt) => stmt.type !== "EmptyStatement"
+  );
+  return body[body.length - 1] === node;
 }
 
 module.exports = {

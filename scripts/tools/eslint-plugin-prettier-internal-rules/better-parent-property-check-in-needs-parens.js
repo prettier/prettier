@@ -53,7 +53,7 @@ module.exports = {
     },
     messages: {
       [MESSAGE_ID_PREFER_NAME_CHECK]:
-        "Prefer `name {{operator}}　{{property}}` over `parent.{{property}} {{operator}} node`",
+        "Prefer `name {{operator}} {{propertyText}}` over `parent.{{property}} {{operator}} node`.",
       [MESSAGE_ID_NAME_CHECK_FIRST]:
         "`name` comparison should be on left side.",
     },
@@ -79,7 +79,11 @@ module.exports = {
         context.report({
           node,
           messageId: MESSAGE_ID_PREFER_NAME_CHECK,
-          data: { property: propertyText, operator },
+          data: {
+            property: sourceCode.getText(property),
+            propertyText,
+            operator,
+          },
           fix: (fixer) =>
             fixer.replaceText(node, `name ${operator} ${propertyText}`),
         });

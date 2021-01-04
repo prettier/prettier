@@ -4,17 +4,13 @@ const { printDanglingComments } = require("../../main/comments");
 const {
   builders: { concat, line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
-const {
-  getLast,
-  isNextLineEmpty,
-  hasNewlineInRange,
-  hasNewline,
-} = require("../../common/util");
+const { getLast, hasNewlineInRange, hasNewline } = require("../../common/util");
 const {
   shouldPrintComma,
   hasComment,
   getComments,
   CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -106,6 +102,7 @@ function printObject(path, options, print) {
     }, field);
   });
 
+  /** @type {Doc[]} */
   let separatorParts = [];
   const props = propsAndLoc
     .sort((a, b) => a.loc - b.loc)
@@ -120,7 +117,7 @@ function printObject(path, options, print) {
       ) {
         separatorParts.shift();
       }
-      if (isNextLineEmpty(options.originalText, prop.node, locEnd)) {
+      if (isNextLineEmpty(prop.node, options)) {
         separatorParts.push(hardline);
       }
       return result;

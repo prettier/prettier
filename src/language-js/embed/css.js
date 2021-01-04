@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { indent, hardline, softline, concat },
   utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
@@ -12,11 +13,17 @@ function format(path, print, textToDoc) {
   // Get full template literal with expressions replaced by placeholders
   const rawQuasis = node.quasis.map((q) => q.value.raw);
   let placeholderID = 0;
-  const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-    return idx === 0
-      ? currVal
-      : prevVal + "@prettier-placeholder-" + placeholderID++ + "-id" + currVal;
-  }, "");
+  const text = rawQuasis.reduce(
+    (prevVal, currVal, idx) =>
+      idx === 0
+        ? currVal
+        : prevVal +
+          "@prettier-placeholder-" +
+          placeholderID++ +
+          "-id" +
+          currVal,
+    ""
+  );
   const doc = textToDoc(
     text,
     { parser: "scss" },
@@ -46,7 +53,7 @@ function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
 function replacePlaceholders(quasisDoc, expressionDocs) {
-  if (!expressionDocs || !expressionDocs.length) {
+  if (!isNonEmptyArray(expressionDocs)) {
     return quasisDoc;
   }
   let replaceCounter = 0;

@@ -45,32 +45,30 @@ function Tidelift() {
   );
 }
 
-const HomeSplash = (props) => {
-  return (
-    <div className="homeContainer">
-      <Tidelift />
-      <div className="homeSplashFade">
-        <div className="wrapper homeWrapper">
-          <div className="animatedLogoWrapper">
-            <AnimatedLogo version="wide" />
-          </div>
-          <div className="inner">
-            <div className="section promoSection">
-              <div className="promoRow">
-                <div className="pluginRowBlock">
-                  <Button href="/playground/">Try It Online</Button>&nbsp;
-                  <Button href={"/docs/" + props.language + "/install.html"}>
-                    Install Prettier
-                  </Button>
-                </div>
+const HomeSplash = (props) => (
+  <div className="homeContainer">
+    <Tidelift />
+    <div className="homeSplashFade">
+      <div className="wrapper homeWrapper">
+        <div className="animatedLogoWrapper">
+          <AnimatedLogo version="wide" />
+        </div>
+        <div className="inner">
+          <div className="section promoSection">
+            <div className="promoRow">
+              <div className="pluginRowBlock">
+                <Button href="/playground/">Try It Online</Button>&nbsp;
+                <Button href={"/docs/" + props.language + "/install.html"}>
+                  Install Prettier
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 HomeSplash.propTypes = {
   language: PropTypes.string,
@@ -242,16 +240,12 @@ const EditorSupportSection = () => (
 
 const UsersSection = ({ language }) => {
   const showcase = siteConfig.users
-    .filter((user) => {
-      return user.pinned;
-    })
-    .map((user, i) => {
-      return (
-        <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
-          <img className="user" src={user.greyImage} title={user.caption} />
-        </a>
-      );
-    });
+    .filter((user) => user.pinned)
+    .map((user, i) => (
+      <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
+        <img className="user" src={user.greyImage} title={user.caption} />
+      </a>
+    ));
 
   return (
     <div className="usersSection productShowcaseSection">
