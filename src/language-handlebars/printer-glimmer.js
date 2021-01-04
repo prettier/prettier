@@ -142,7 +142,10 @@ function print(path, options, print) {
       }
       const value = path.call(print, "value");
       const quotedValue = isText
-        ? printStringLiteral(getDocParts(value).join(), options)
+        ? printStringLiteral(
+            typeof value === "string" ? value : getDocParts(value).join(),
+            options
+          )
         : value;
       return concat([n.name, "=", quotedValue]);
     }
