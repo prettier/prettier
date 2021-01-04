@@ -30,7 +30,7 @@ function printComment(commentPath, options) {
           backwards: true,
         })
       ) {
-        return ([hardline, printed]);
+        return [hardline, printed];
       }
       return printed;
     }
@@ -57,7 +57,7 @@ function isIndentableBlockComment(comment) {
 function printIndentableBlockComment(comment) {
   const lines = comment.value.split("\n");
 
-  return ([
+  return [
     "/*",
     join(
       hardline,
@@ -68,7 +68,7 @@ function printIndentableBlockComment(comment) {
       )
     ),
     "*/",
-  ]);
+  ];
 }
 
 module.exports = { printComment };

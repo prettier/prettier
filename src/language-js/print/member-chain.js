@@ -98,19 +98,18 @@ function printMemberChain(path, options, print) {
     ) {
       printedNodes.unshift({
         node,
-        printed: ([
+        printed: [
           printComments(
             path,
-            () =>
-              ([
-                printOptionalToken(path),
-                printFunctionTypeParameters(path, options, print),
-                printCallArguments(path, options, print),
-              ]),
+            () => [
+              printOptionalToken(path),
+              printFunctionTypeParameters(path, options, print),
+              printCallArguments(path, options, print),
+            ],
             options
           ),
           shouldInsertEmptyLineAfter(node) ? hardline : "",
-        ]),
+        ],
       });
       path.call((callee) => rec(callee), "callee");
     } else if (isMemberish(node)) {
@@ -147,11 +146,11 @@ function printMemberChain(path, options, print) {
   const node = path.getValue();
   printedNodes.unshift({
     node,
-    printed: ([
+    printed: [
       printOptionalToken(path),
       printFunctionTypeParameters(path, options, print),
       printCallArguments(path, options, print),
-    ]),
+    ],
   });
 
   if (node.callee) {
@@ -317,9 +316,9 @@ function printMemberChain(path, options, print) {
       printedGroup.length > 0 &&
       printedGroup[printedGroup.length - 1].needsParens
     ) {
-      return (["(", ...printed, ")"]);
+      return ["(", ...printed, ")"];
     }
-    return (printed);
+    return printed;
   }
 
   function printIndentedGroup(groups) {
@@ -327,13 +326,11 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(
-      group(([hardline, join(hardline, groups.map(printGroup))]))
-    );
+    return indent(group([hardline, join(hardline, groups.map(printGroup))]));
   }
 
   const printedGroups = groups.map(printGroup);
-  const oneLine = (printedGroups);
+  const oneLine = printedGroups;
 
   const cutoff = shouldMerge ? 3 : 2;
   const flatGroups = flat(groups);
@@ -364,12 +361,12 @@ function printMemberChain(path, options, print) {
     !isCallOrOptionalCallExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
-  const expanded = ([
+  const expanded = [
     printGroup(groups[0]),
-    shouldMerge ? (groups.slice(1, 2).map(printGroup)) : "",
+    shouldMerge ? groups.slice(1, 2).map(printGroup) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
-  ]);
+  ];
 
   const callExpressions = printedNodes
     .map(({ node }) => node)
@@ -405,13 +402,13 @@ function printMemberChain(path, options, print) {
     return group(expanded);
   }
 
-  return ([
+  return [
     // We only need to check `oneLine` because if `expanded` is chosen
     // that means that the parent group has already been broken
     // naturally
     willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
     conditionalGroup([oneLine, expanded]),
-  ]);
+  ];
 }
 
 module.exports = printMemberChain;

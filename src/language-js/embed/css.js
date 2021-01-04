@@ -45,7 +45,7 @@ function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
-  return (["`", indent(([hardline, newDoc])), softline, "`"]);
+  return ["`", indent([hardline, newDoc]), softline, "`"];
 }
 
 // Search all the placeholders in the quasisDoc tree
@@ -63,18 +63,16 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     }
     // When we have multiple placeholders in one line, like:
     // ${Child}${Child2}:not(:first-child)
-    return (
-      doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
-        // The placeholder is always at odd indices
-        if (idx % 2 === 0) {
-          return replaceNewlinesWithLiterallines(component);
-        }
+    return doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
+      // The placeholder is always at odd indices
+      if (idx % 2 === 0) {
+        return replaceNewlinesWithLiterallines(component);
+      }
 
-        // The component will always be a number at odd index
-        replaceCounter++;
-        return expressionDocs[component];
-      })
-    );
+      // The component will always be a number at odd index
+      replaceCounter++;
+      return expressionDocs[component];
+    });
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }

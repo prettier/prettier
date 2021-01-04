@@ -24,14 +24,12 @@ function format(path, print, textToDoc) {
     ),
     true
   );
-  return ([
+  return [
     "`",
-    hasIndent
-      ? indent(([softline, doc]))
-      : ([literalline, dedentToRoot(doc)]),
+    hasIndent ? indent([softline, doc]) : [literalline, dedentToRoot(doc)],
     softline,
     "`",
-  ]);
+  ];
 }
 
 function getIndentation(str) {

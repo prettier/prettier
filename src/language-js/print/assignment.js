@@ -31,7 +31,7 @@ function printAssignment(
     options
   );
 
-  return group(([printedLeft, operator, printed]));
+  return group([printedLeft, operator, printed]);
 }
 
 function printAssignmentExpression(path, options, print) {
@@ -39,7 +39,7 @@ function printAssignmentExpression(path, options, print) {
   return printAssignment(
     n.left,
     path.call(print, "left"),
-    ([" ", n.operator]),
+    [" ", n.operator],
     n.right,
     path.call(print, "right"),
     options
@@ -60,7 +60,7 @@ function printVariableDeclarator(path, options, print) {
 
 function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    return indent(([line, printedRight]));
+    return indent([line, printedRight]);
   }
 
   const canBreak =
@@ -81,10 +81,10 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
     rightNode.type === "SequenceExpression";
 
   if (canBreak) {
-    return group(indent(([line, printedRight])));
+    return group(indent([line, printedRight]));
   }
 
-  return ([" ", printedRight]);
+  return [" ", printedRight];
 }
 
 module.exports = {

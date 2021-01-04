@@ -58,20 +58,18 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
 
   if (shouldRemainTheSameContent(path)) {
-    return (
-      splitText(
-        options.originalText.slice(
-          node.position.start.offset,
-          node.position.end.offset
-        ),
-        options
-      ).map((node) =>
-        node.type === "word"
-          ? node.value
-          : node.value === ""
-          ? ""
-          : printLine(path, node.value, options)
-      )
+    return splitText(
+      options.originalText.slice(
+        node.position.start.offset,
+        node.position.end.offset
+      ),
+      options
+    ).map((node) =>
+      node.type === "word"
+        ? node.value
+        : node.value === ""
+        ? ""
+        : printLine(path, node.value, options)
     );
   }
 
@@ -85,12 +83,12 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return ([
+      return [
         normalizeDoc(printRoot(path, options, print)),
         !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
           ? hardline
           : "",
-      ]);
+      ];
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill,
@@ -174,17 +172,17 @@ function genericPrint(path, options, print) {
         style =
           hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       }
-      return ([style, printChildren(path, options, print), style]);
+      return [style, printChildren(path, options, print), style];
     }
     case "strong":
-      return (["**", printChildren(path, options, print), "**"]);
+      return ["**", printChildren(path, options, print), "**"];
     case "delete":
-      return (["~~", printChildren(path, options, print), "~~"]);
+      return ["~~", printChildren(path, options, print), "~~"];
     case "inlineCode": {
       const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
-      return ([style, gap, node.value, gap, style]);
+      return [style, gap, node.value, gap, style];
     }
     case "wikiLink": {
       let contents = "";
@@ -194,7 +192,7 @@ function genericPrint(path, options, print) {
         contents = node.value.replace(/[\t\n]+/g, " ");
       }
 
-      return (["[[", contents, "]]"]);
+      return ["[[", contents, "]]"];
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
@@ -209,17 +207,17 @@ function genericPrint(path, options, print) {
             ) !== mailto
               ? node.url.slice(mailto.length)
               : node.url;
-          return (["<", url, ">"]);
+          return ["<", url, ">"];
         }
         case "[":
-          return ([
+          return [
             "[",
             printChildren(path, options, print),
             "](",
             printUrl(node.url, ")"),
             printTitle(node.title, options),
             ")",
-          ]);
+          ];
         default:
           return options.originalText.slice(
             node.position.start.offset,
@@ -227,32 +225,29 @@ function genericPrint(path, options, print) {
           );
       }
     case "image":
-      return ([
+      return [
         "![",
         node.alt || "",
         "](",
         printUrl(node.url, ")"),
         printTitle(node.title, options),
         ")",
-      ]);
+      ];
     case "blockquote":
-      return (["> ", align("> ", printChildren(path, options, print))]);
+      return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
-      return ([
+      return [
         "#".repeat(node.depth) + " ",
         printChildren(path, options, print),
-      ]);
+      ];
     case "code": {
       if (node.isIndented) {
         // indented code block
         const alignment = " ".repeat(4);
-        return align(
+        return align(alignment, [
           alignment,
-          ([
-            alignment,
-            (replaceEndOfLineWith(node.value, hardline)),
-          ])
-        );
+          replaceEndOfLineWith(node.value, hardline),
+        ]);
       }
 
       // fenced code block
@@ -260,20 +255,18 @@ function genericPrint(path, options, print) {
       const style = styleUnit.repeat(
         Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      return ([
+      return [
         style,
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-        (
-          replaceEndOfLineWith(
-            getFencedCodeBlockValue(node, options.originalText),
-            hardline
-          )
+        replaceEndOfLineWith(
+          getFencedCodeBlockValue(node, options.originalText),
+          hardline
         ),
         hardline,
         style,
-      ]);
+      ];
     }
     case "html": {
       const parentNode = path.getParentNode();
@@ -282,11 +275,9 @@ function genericPrint(path, options, print) {
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
-      return (
-        replaceEndOfLineWith(
-          value,
-          isHtmlComment ? hardline : markAsRoot(literalline)
-        )
+      return replaceEndOfLineWith(
+        value,
+        isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
     case "list": {
@@ -311,19 +302,16 @@ function genericPrint(path, options, print) {
             childNode.children[0].position.start.column !==
               childNode.children[1].position.start.column
           ) {
-            return ([
-              prefix,
-              printListItem(childPath, options, print, prefix),
-            ]);
+            return [prefix, printListItem(childPath, options, print, prefix)];
           }
 
-          return ([
+          return [
             prefix,
             align(
               " ".repeat(prefix.length),
               printListItem(childPath, options, print, prefix)
             ),
-          ]);
+          ];
 
           function getPrefix() {
             const rawPrefix = node.ordered
@@ -357,52 +345,48 @@ function genericPrint(path, options, print) {
       return nthSiblingIndex % 2 === 0 ? "***" : "---";
     }
     case "linkReference":
-      return ([
+      return [
         "[",
         printChildren(path, options, print),
         "]",
         node.referenceType === "full"
-          ? (["[", node.identifier, "]"])
+          ? ["[", node.identifier, "]"]
           : node.referenceType === "collapsed"
           ? "[]"
           : "",
-      ]);
+      ];
     case "imageReference":
       switch (node.referenceType) {
         case "full":
-          return (["![", node.alt || "", "][", node.identifier, "]"]);
+          return ["![", node.alt || "", "][", node.identifier, "]"];
         default:
-          return ([
+          return [
             "![",
             node.alt,
             "]",
             node.referenceType === "collapsed" ? "[]" : "",
-          ]);
+          ];
       }
     case "definition": {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
-      return group(
-        ([
-          (["[", node.identifier, "]:"]),
-          indent(
-            ([
-              lineOrSpace,
-              printUrl(node.url),
-              node.title === null
-                ? ""
-                : ([lineOrSpace, printTitle(node.title, options, false)]),
-            ])
-          ),
-        ])
-      );
+      return group([
+        ["[", node.identifier, "]:"],
+        indent([
+          lineOrSpace,
+          printUrl(node.url),
+          node.title === null
+            ? ""
+            : [lineOrSpace, printTitle(node.title, options, false)],
+        ]),
+      ]);
     }
     // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
     // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
     /* istanbul ignore next */
     case "footnote":
-      return (["[^", printChildren(path, options, print), "]"]);
+      return ["[^", printChildren(path, options, print), "]"];
     case "footnoteReference":
-      return (["[^", node.identifier, "]"]);
+      return ["[^", node.identifier, "]"];
     case "footnoteDefinition": {
       const nextNode = path.getParentNode().children[path.getName() + 1];
       const shouldInlineFootnote =
@@ -412,29 +396,27 @@ function genericPrint(path, options, print) {
           (options.proseWrap === "preserve" &&
             node.children[0].position.start.line ===
               node.children[0].position.end.line));
-      return ([
+      return [
         "[^",
         node.identifier,
         "]: ",
         shouldInlineFootnote
           ? printChildren(path, options, print)
-          : group(
-              ([
-                align(
-                  " ".repeat(4),
-                  printChildren(path, options, print, {
-                    processor: (childPath, index) =>
-                      index === 0
-                        ? group(([softline, childPath.call(print)]))
-                        : childPath.call(print),
-                  })
-                ),
-                nextNode && nextNode.type === "footnoteDefinition"
-                  ? softline
-                  : "",
-              ])
-            ),
-      ]);
+          : group([
+              align(
+                " ".repeat(4),
+                printChildren(path, options, print, {
+                  processor: (childPath, index) =>
+                    index === 0
+                      ? group([softline, childPath.call(print)])
+                      : childPath.call(print),
+                })
+              ),
+              nextNode && nextNode.type === "footnoteDefinition"
+                ? softline
+                : "",
+            ]),
+      ];
     }
     case "table":
       return printTable(path, options, print);
@@ -442,29 +424,26 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "break":
       return /\s/.test(options.originalText[node.position.start.offset])
-        ? (["  ", markAsRoot(literalline)])
-        : (["\\", hardline]);
+        ? ["  ", markAsRoot(literalline)]
+        : ["\\", hardline];
     case "liquidNode":
-      return (replaceEndOfLineWith(node.value, hardline));
+      return replaceEndOfLineWith(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
     case "importExport":
-      return ([node.value, hardline]);
+      return [node.value, hardline];
     case "jsx":
       return node.value;
     case "math":
-      return ([
+      return [
         "$$",
         hardline,
         node.value
-          ? ([
-              (replaceEndOfLineWith(node.value, hardline)),
-              hardline,
-            ])
+          ? [replaceEndOfLineWith(node.value, hardline), hardline]
           : "",
         "$$",
-      ]);
+      ];
     case "inlineMath": {
       // remark-math trims content but we don't want to remove whitespaces
       // since it's very possible that it's recognized as math accidentally
@@ -482,7 +461,7 @@ function genericPrint(path, options, print) {
 function printListItem(path, options, print, listPrefix) {
   const node = path.getValue();
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
-  return ([
+  return [
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
@@ -493,10 +472,10 @@ function printListItem(path, options, print, listPrefix) {
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
-        return ([alignment, align(alignment, childPath.call(print))]);
+        return [alignment, align(alignment, childPath.call(print))];
       },
     }),
-  ]);
+  ];
 }
 
 function alignListPrefix(prefix, options) {
@@ -599,12 +578,12 @@ function printTable(path, options, print) {
 
   const alignedTable = printTableContents(/* isCompact */ false);
   if (options.proseWrap !== "never") {
-    return ([breakParent, alignedTable]);
+    return [breakParent, alignedTable];
   }
 
   // Only if the --prose-wrap never is set and it exceeds the print width.
   const compactTable = printTableContents(/* isCompact */ true);
-  return ([breakParent, group(ifBreak(compactTable, alignedTable))]);
+  return [breakParent, group(ifBreak(compactTable, alignedTable))];
 
   function printTableContents(isCompact) {
     /** @type{Doc[]} */
@@ -692,14 +671,14 @@ function printRoot(path, options, print) {
         const ignoreRange = ignoreRanges[0];
 
         if (index === ignoreRange.start.index) {
-          return ([
+          return [
             children[ignoreRange.start.index].value,
             options.originalText.slice(
               ignoreRange.start.offset,
               ignoreRange.end.offset
             ),
             children[ignoreRange.end.index].value,
-          ]);
+          ];
         }
 
         if (ignoreRange.start.index < index && index < ignoreRange.end.index) {

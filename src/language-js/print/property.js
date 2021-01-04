@@ -20,7 +20,7 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    return (["[", path.call(print, "key"), "]"]);
+    return ["[", path.call(print, "key"), "]"];
   }
 
   const parent = path.getParentNode();
@@ -31,7 +31,7 @@ function printPropertyKey(path, options, print) {
     // flow has `Identifier` key, and babel has `PrivateName` key
     key.type === "Identifier"
   ) {
-    return (["#", path.call(print, "key")]);
+    return ["#", path.call(print, "key")];
   }
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {

@@ -68,18 +68,16 @@ function printBlock(path, print, options) {
     }
   }
   if (node.indent === null) {
-    parts.push(
-      dedent(alignWithSpaces(options.tabWidth, (contentsParts)))
-    );
+    parts.push(dedent(alignWithSpaces(options.tabWidth, contentsParts)));
   } else {
     parts.push(
       dedentToRoot(
-        alignWithSpaces(node.indent - 1 + parentIndent, (contentsParts))
+        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts)
       )
     );
   }
 
-  return (parts);
+  return parts;
 }
 
 module.exports = printBlock;

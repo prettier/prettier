@@ -26,17 +26,15 @@ function embed(path, print, textToDoc, options) {
         { parser },
         { stripTrailingHardline: true }
       );
-      return markAsRoot(
-        ([
-          style,
-          node.lang,
-          node.meta ? " " + node.meta : "",
-          hardline,
-          replaceNewlinesWithLiterallines(doc),
-          hardline,
-          style,
-        ])
-      );
+      return markAsRoot([
+        style,
+        node.lang,
+        node.meta ? " " + node.meta : "",
+        hardline,
+        replaceNewlinesWithLiterallines(doc),
+        hardline,
+        style,
+      ]);
     }
   }
 
@@ -46,14 +44,14 @@ function embed(path, print, textToDoc, options) {
 
     // MDX
     case "importExport":
-      return ([
+      return [
         textToDoc(
           node.value,
           { parser: "babel" },
           { stripTrailingHardline: true }
         ),
         hardline,
-      ]);
+      ];
     case "jsx":
       return textToDoc(
         `<$>${node.value}</$>`,

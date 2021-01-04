@@ -22,7 +22,7 @@ function printBlock(path, options, print) {
   parts.push("{");
   const printed = printBlockBody(path, options, print);
   if (printed) {
-    parts.push(indent(([hardline, printed])), hardline);
+    parts.push(indent([hardline, printed]), hardline);
   } else {
     const parent = path.getParentNode();
     const parentParent = path.getParentNode(1);
@@ -51,7 +51,7 @@ function printBlock(path, options, print) {
 
   parts.push("}");
 
-  return (parts);
+  return parts;
 }
 
 function printBlockBody(path, options, print) {
@@ -91,7 +91,7 @@ function printBlockBody(path, options, print) {
     parts.push(hardline);
   }
 
-  return (parts);
+  return parts;
 }
 
 module.exports = { printBlock, printBlockBody };

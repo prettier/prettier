@@ -12,7 +12,7 @@ const {
  */
 function printVueFor(value, textToDoc) {
   const { left, operator, right } = parseVueFor(value);
-  return ([
+  return [
     group(
       textToDoc(`function _(${left}) {}`, {
         parser: "babel",
@@ -27,7 +27,7 @@ function printVueFor(value, textToDoc) {
       { parser: "__js_expression" },
       { stripTrailingHardline: true }
     ),
-  ]);
+  ];
 }
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387

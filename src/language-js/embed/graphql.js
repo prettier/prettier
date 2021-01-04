@@ -75,12 +75,7 @@ function format(path, print, textToDoc) {
     }
   }
 
-  return ([
-    "`",
-    indent(([hardline, join(hardline, parts)])),
-    hardline,
-    "`",
-  ]);
+  return ["`", indent([hardline, join(hardline, parts)]), hardline, "`"];
 }
 
 function printGraphqlComments(lines) {
@@ -99,7 +94,7 @@ function printGraphqlComments(lines) {
       if (array[i - 1] === "" && seenComment) {
         // If a non-first comment is preceded by a blank (whitespace only) line,
         // add in a blank line.
-        parts.push(([hardline, textLine]));
+        parts.push([hardline, textLine]);
       } else {
         parts.push(textLine);
       }

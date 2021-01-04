@@ -40,7 +40,7 @@ function printImportDeclaration(path, options, print) {
 
   parts.push(semi);
 
-  return (parts);
+  return parts;
 }
 
 function printExportDeclaration(path, options, print) {
@@ -83,7 +83,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(";");
   }
 
-  return (parts);
+  return parts;
 }
 
 function printExportAllDeclaration(path, options, print) {
@@ -112,7 +112,7 @@ function printExportAllDeclaration(path, options, print) {
     semi
   );
 
-  return (parts);
+  return parts;
 }
 
 function shouldExportDeclarationPrintSemi(node, options) {
@@ -156,7 +156,7 @@ function printModuleSource(path, options, print) {
   }
   parts.push(" ", path.call(print, "source"));
 
-  return (parts);
+  return parts;
 }
 
 function printModuleSpecifiers(path, options, print) {
@@ -209,37 +209,31 @@ function printModuleSpecifiers(path, options, print) {
 
       if (canBreak) {
         parts.push(
-          group(
-            ([
-              "{",
-              indent(
-                ([
-                  options.bracketSpacing ? line : softline,
-                  join(([",", line]), groupedSpecifiers),
-                ])
-              ),
-              ifBreak(shouldPrintComma(options) ? "," : ""),
-              options.bracketSpacing ? line : softline,
-              "}",
-            ])
-          )
-        );
-      } else {
-        parts.push(
-          ([
+          group([
             "{",
-            options.bracketSpacing ? " " : "",
-            (groupedSpecifiers),
-            options.bracketSpacing ? " " : "",
+            indent([
+              options.bracketSpacing ? line : softline,
+              join([",", line], groupedSpecifiers),
+            ]),
+            ifBreak(shouldPrintComma(options) ? "," : ""),
+            options.bracketSpacing ? line : softline,
             "}",
           ])
         );
+      } else {
+        parts.push([
+          "{",
+          options.bracketSpacing ? " " : "",
+          groupedSpecifiers,
+          options.bracketSpacing ? " " : "",
+          "}",
+        ]);
       }
     }
   } else {
     parts.push("{}");
   }
-  return (parts);
+  return parts;
 }
 
 function shouldNotPrintSpecifiers(node, options) {
@@ -262,13 +256,13 @@ function shouldNotPrintSpecifiers(node, options) {
 function printImportAssertions(path, options, print) {
   const node = path.getNode();
   if (isNonEmptyArray(node.assertions)) {
-    return ([
+    return [
       " assert {",
       options.bracketSpacing ? " " : "",
       join(", ", path.map(print, "assertions")),
       options.bracketSpacing ? " " : "",
       "}",
-    ]);
+    ];
   }
   return "";
 }
@@ -307,7 +301,7 @@ function printModuleSpecifier(path, options, print) {
   }
 
   parts.push(left, left && right ? " as " : "", right);
-  return (parts);
+  return parts;
 }
 
 module.exports = {

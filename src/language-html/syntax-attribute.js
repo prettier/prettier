@@ -40,7 +40,7 @@ function printImgSrcset(value) {
   const maxDescriptorLeftLength = getMax(descriptorLeftLengths);
 
   return join(
-    ([",", line]),
+    [",", line],
     urls.map((url, index) => {
       const parts = [url];
 
@@ -54,7 +54,7 @@ function printImgSrcset(value) {
         parts.push(ifBreak(alignment, " "), descriptor + unit);
       }
 
-      return (parts);
+      return parts;
     })
   );
 }

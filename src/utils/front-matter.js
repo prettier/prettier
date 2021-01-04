@@ -47,9 +47,7 @@ function print(node, textToDoc) {
     const doc = value
       ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
       : "";
-    return markAsRoot(
-      (["---", hardline, doc, doc ? hardline : "", "---"])
-    );
+    return markAsRoot(["---", hardline, doc, doc ? hardline : "", "---"]);
   }
 }
 

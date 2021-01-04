@@ -36,14 +36,12 @@ function printMemberExpression(path, options, print) {
       parent.type !== "MemberExpression" &&
       parent.type !== "OptionalMemberExpression");
 
-  return ([
+  return [
     path.call(print, "object"),
     shouldInline
       ? printMemberLookup(path, options, print)
-      : group(
-          indent(([softline, printMemberLookup(path, options, print)]))
-        ),
-  ]);
+      : group(indent([softline, printMemberLookup(path, options, print)])),
+  ];
 }
 
 function printMemberLookup(path, options, print) {
@@ -52,16 +50,14 @@ function printMemberLookup(path, options, print) {
   const optional = printOptionalToken(path);
 
   if (!n.computed) {
-    return ([optional, ".", property]);
+    return [optional, ".", property];
   }
 
   if (!n.property || isNumericLiteral(n.property)) {
-    return ([optional, "[", property, "]"]);
+    return [optional, "[", property, "]"];
   }
 
-  return group(
-    ([optional, "[", indent(([softline, property])), softline, "]"])
-  );
+  return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
 module.exports = { printMemberExpression, printMemberLookup };

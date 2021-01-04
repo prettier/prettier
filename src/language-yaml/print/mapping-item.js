@@ -23,7 +23,7 @@ function printMappingItem(node, parentNode, path, print, options) {
   const isEmptyMappingValue = isEmptyNode(value);
 
   if (isEmptyMappingKey && isEmptyMappingValue) {
-    return ([": "]);
+    return [": "];
   }
 
   const printedKey = path.call(print, "key");
@@ -40,20 +40,20 @@ function printMappingItem(node, parentNode, path, print, options) {
       !hasTrailingComment(key.content) &&
       (!parentNode.tag || parentNode.tag.value !== "tag:yaml.org,2002:set")
     ) {
-      return ([printedKey, spaceBeforeColon, ":"]);
+      return [printedKey, spaceBeforeColon, ":"];
     }
 
-    return (["? ", alignWithSpaces(2, printedKey)]);
+    return ["? ", alignWithSpaces(2, printedKey)];
   }
 
   const printedValue = path.call(print, "value");
   if (isEmptyMappingKey) {
-    return ([": ", alignWithSpaces(2, printedValue)]);
+    return [": ", alignWithSpaces(2, printedValue)];
   }
 
   // force explicit Key
   if (hasLeadingComments(value) || !isInlineNode(key.content)) {
-    return ([
+    return [
       "? ",
       alignWithSpaces(2, printedKey),
       hardline,
@@ -61,11 +61,11 @@ function printMappingItem(node, parentNode, path, print, options) {
         "",
         path
           .map(print, "value", "leadingComments")
-          .map((comment) => ([comment, hardline]))
+          .map((comment) => [comment, hardline])
       ),
       ": ",
       alignWithSpaces(2, printedValue),
-    ]);
+    ];
   }
 
   // force singleline
@@ -80,17 +80,15 @@ function printMappingItem(node, parentNode, path, print, options) {
     !hasEndComments(value) &&
     isAbsolutelyPrintedAsSingleLineNode(value.content, options)
   ) {
-    return ([printedKey, spaceBeforeColon, ": ", printedValue]);
+    return [printedKey, spaceBeforeColon, ": ", printedValue];
   }
 
   const groupId = Symbol("mappingKey");
-  const groupedKey = group(
-    ([
-      ifBreak("? "),
-      group(alignWithSpaces(2, printedKey), { id: groupId }),
-    ])
-  );
-  const breakValue = ([hardline, ": ", alignWithSpaces(2, printedValue)]);
+  const groupedKey = group([
+    ifBreak("? "),
+    group(alignWithSpaces(2, printedKey), { id: groupId }),
+  ]);
+  const breakValue = [hardline, ": ", alignWithSpaces(2, printedValue)];
   /** @type {Doc[]} */
   const flatValueParts = [spaceBeforeColon, ":"];
   if (
@@ -110,10 +108,10 @@ function printMappingItem(node, parentNode, path, print, options) {
     flatValueParts.push(line);
   }
   flatValueParts.push(printedValue);
-  const flatValue = alignWithSpaces(options.tabWidth, (flatValueParts));
+  const flatValue = alignWithSpaces(options.tabWidth, flatValueParts);
 
   return conditionalGroup([
-    ([groupedKey, ifBreak(breakValue, flatValue, { groupId })]),
+    [groupedKey, ifBreak(breakValue, flatValue, { groupId })],
   ]);
 }
 

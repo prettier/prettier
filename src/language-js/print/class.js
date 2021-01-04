@@ -49,11 +49,11 @@ function printClass(path, options, print) {
   partsGroup.push(path.call(print, "typeParameters"));
 
   if (n.superClass) {
-    const printed = ([
+    const printed = [
       "extends ",
       printSuperClass(path, options, print),
       path.call(print, "superTypeParameters"),
-    ]);
+    ];
     const printedWithComments = path.call(
       (superClass) => printComments(superClass, () => printed, options),
       "superClass"
@@ -71,17 +71,15 @@ function printClass(path, options, print) {
   extendsParts.push(printList(path, options, print, "implements"));
 
   if (groupMode) {
-    const printedExtends = (extendsParts);
+    const printedExtends = extendsParts;
     if (shouldIndentOnlyHeritageClauses(n)) {
       parts.push(
         group(
-          (
-            partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-          )
+          partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
         )
       );
     } else {
-      parts.push(group(indent((partsGroup.concat(printedExtends)))));
+      parts.push(group(indent(partsGroup.concat(printedExtends))));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);
@@ -89,7 +87,7 @@ function printClass(path, options, print) {
 
   parts.push(" ", path.call(print, "body"));
 
-  return (parts);
+  return parts;
 }
 
 function hasMultipleHeritage(node) {
@@ -123,7 +121,7 @@ function printList(path, options, print, listName) {
     /* sameIndent */ true,
     ({ marker }) => marker === listName
   );
-  return ([
+  return [
     shouldIndentOnlyHeritageClauses(n)
       ? ifBreak(" ", line, {
           groupId: getTypeParametersGroupId(n.typeParameters),
@@ -132,12 +130,8 @@ function printList(path, options, print, listName) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(
-      indent(
-        ([line, join(([",", line]), path.map(print, listName))])
-      )
-    ),
-  ]);
+    group(indent([line, join([",", line], path.map(print, listName))])),
+  ];
 }
 
 function printSuperClass(path, options, print) {
@@ -145,10 +139,7 @@ function printSuperClass(path, options, print) {
   const parent = path.getParentNode();
   if (parent.type === "AssignmentExpression") {
     return group(
-      ifBreak(
-        (["(", indent(([softline, printed])), softline, ")"]),
-        printed
-      )
+      ifBreak(["(", indent([softline, printed]), softline, ")"], printed)
     );
   }
   return printed;
@@ -173,7 +164,7 @@ function printClassMethod(path, options, print) {
 
   parts.push(printMethod(path, options, print));
 
-  return (parts);
+  return parts;
 }
 
 function printClassProperty(path, options, print) {
@@ -216,17 +207,15 @@ function printClassProperty(path, options, print) {
 
   parts.push(semi);
 
-  return group((parts));
+  return group(parts);
 }
 
 function printDecorators(path, options, print) {
   const node = path.getValue();
-  return group(
-    ([
-      join(line, path.map(print, "decorators")),
-      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-    ])
-  );
+  return group([
+    join(line, path.map(print, "decorators")),
+    hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
+  ]);
 }
 
 module.exports = {

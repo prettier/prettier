@@ -51,9 +51,7 @@ function genericPrint(path, options, print) {
   const parts = [];
 
   if (node.type !== "mappingValue" && hasLeadingComments(node)) {
-    parts.push(
-      ([join(hardline, path.map(print, "leadingComments")), hardline])
-    );
+    parts.push([join(hardline, path.map(print, "leadingComments")), hardline]);
   }
 
   const { tag, anchor } = node;
@@ -93,25 +91,21 @@ function genericPrint(path, options, print) {
   }
 
   if (hasMiddleComments(node)) {
-    parts.push(
-      ([
-        node.middleComments.length === 1 ? "" : hardline,
-        join(hardline, path.map(print, "middleComments")),
-        hardline,
-      ])
-    );
+    parts.push([
+      node.middleComments.length === 1 ? "" : hardline,
+      join(hardline, path.map(print, "middleComments")),
+      hardline,
+    ]);
   }
 
   const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
-      (
-        replaceEndOfLineWith(
-          options.originalText
-            .slice(node.position.start.offset, node.position.end.offset)
-            .trimEnd(),
-          literalline
-        )
+      replaceEndOfLineWith(
+        options.originalText
+          .slice(node.position.start.offset, node.position.end.offset)
+          .trimEnd(),
+        literalline
       )
     );
   } else {
@@ -120,49 +114,43 @@ function genericPrint(path, options, print) {
 
   if (hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])) {
     parts.push(
-      lineSuffix(
-        ([
-          node.type === "mappingValue" && !node.content ? "" : " ",
-          parentNode.type === "mappingKey" &&
-          path.getParentNode(2).type === "mapping" &&
-          isInlineNode(node)
-            ? ""
-            : breakParent,
-          path.call(print, "trailingComment"),
-        ])
-      )
+      lineSuffix([
+        node.type === "mappingValue" && !node.content ? "" : " ",
+        parentNode.type === "mappingKey" &&
+        path.getParentNode(2).type === "mapping" &&
+        isInlineNode(node)
+          ? ""
+          : breakParent,
+        path.call(print, "trailingComment"),
+      ])
     );
   }
 
   if (shouldPrintEndComments(node)) {
     parts.push(
-      alignWithSpaces(
-        node.type === "sequenceItem" ? 2 : 0,
-        ([
+      alignWithSpaces(node.type === "sequenceItem" ? 2 : 0, [
+        hardline,
+        join(
           hardline,
-          join(
-            hardline,
-            path.map(
-              (path) =>
-                ([
-                  isPreviousLineEmpty(
-                    options.originalText,
-                    path.getValue(),
-                    locStart
-                  )
-                    ? hardline
-                    : "",
-                  print(path),
-                ]),
-              "endComments"
-            )
-          ),
-        ])
-      )
+          path.map(
+            (path) => [
+              isPreviousLineEmpty(
+                options.originalText,
+                path.getValue(),
+                locStart
+              )
+                ? hardline
+                : "",
+              print(path),
+            ],
+            "endComments"
+          )
+        ),
+      ])
     );
   }
   parts.push(nextEmptyLine);
-  return (parts);
+  return parts;
 }
 
 function printNode(node, parentNode, path, options, print) {
@@ -194,7 +182,7 @@ function printNode(node, parentNode, path, options, print) {
       ) {
         parts.push(hardline);
       }
-      return (parts);
+      return parts;
     }
     case "document": {
       const nextDocument = parentNode.children[path.getName() + 1];
@@ -212,9 +200,7 @@ function printNode(node, parentNode, path, options, print) {
         }
 
         if (hasTrailingComment(node.head)) {
-          parts.push(
-            (["---", " ", path.call(print, "head", "trailingComment")])
-          );
+          parts.push(["---", " ", path.call(print, "head", "trailingComment")]);
         } else {
           parts.push("---");
         }
@@ -241,32 +227,32 @@ function printNode(node, parentNode, path, options, print) {
         if (isNode(lastDescendantNode, ["blockFolded", "blockLiteral"])) {
           // an extra newline for better readability
           if (lastDescendantNode.chomping !== "keep") {
-            separator = ([hardline, hardline]);
+            separator = [hardline, hardline];
           }
         } else {
           separator = hardline;
         }
       }
 
-      return ([
+      return [
         join(hardline, path.map(print, "children")),
         separator,
         join(hardline, path.map(print, "endComments")),
-      ]);
+      ];
     }
     case "directive":
-      return (["%", join(" ", [node.name].concat(node.parameters))]);
+      return ["%", join(" ", [node.name].concat(node.parameters))];
     case "comment":
-      return (["#", node.value]);
+      return ["#", node.value];
     case "alias":
-      return (["*", node.value]);
+      return ["*", node.value];
     case "tag":
       return options.originalText.slice(
         node.position.start.offset,
         node.position.end.offset
       );
     case "anchor":
-      return (["&", node.value]);
+      return ["&", node.value];
     case "plain":
       return printFlowScalarContent(
         node.type,
@@ -294,13 +280,13 @@ function printNode(node, parentNode, path, options, print) {
         // and quoteSingle do not need to escape backslashes
         const originalQuote =
           node.type === "quoteDouble" ? doubleQuote : singleQuote;
-        return ([
+        return [
           originalQuote,
           printFlowScalarContent(node.type, raw, options),
           originalQuote,
-        ]);
+        ];
       } else if (raw.includes(doubleQuote)) {
-        return ([
+        return [
           singleQuote,
           printFlowScalarContent(
             node.type,
@@ -313,11 +299,11 @@ function printNode(node, parentNode, path, options, print) {
             options
           ),
           singleQuote,
-        ]);
+        ];
       }
 
       if (raw.includes(singleQuote)) {
-        return ([
+        return [
           doubleQuote,
           printFlowScalarContent(
             node.type,
@@ -328,15 +314,11 @@ function printNode(node, parentNode, path, options, print) {
             options
           ),
           doubleQuote,
-        ]);
+        ];
       }
 
       const quote = options.singleQuote ? singleQuote : doubleQuote;
-      return ([
-        quote,
-        printFlowScalarContent(node.type, raw, options),
-        quote,
-      ]);
+      return [quote, printFlowScalarContent(node.type, raw, options), quote];
     }
     case "blockFolded":
     case "blockLiteral": {
@@ -345,10 +327,10 @@ function printNode(node, parentNode, path, options, print) {
     case "sequence":
       return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return ([
+      return [
         "- ",
         alignWithSpaces(2, !node.content ? "" : path.call(print, "content")),
-      ]);
+      ];
     case "mappingKey":
       return !node.content ? "" : path.call(print, "content");
     case "mappingValue":

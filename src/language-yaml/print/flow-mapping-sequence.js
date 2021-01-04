@@ -24,44 +24,40 @@ function printFlowMapping(path, print, options) {
     isEmptyNode(lastItem.key) &&
     isEmptyNode(lastItem.value);
 
-  return ([
+  return [
     openMarker,
-    alignWithSpaces(
-      options.tabWidth,
-      ([
-        bracketSpacing,
-        printChildren(path, print, options),
-        options.trailingComma === "none" ? "" : ifBreak(",", ""),
-        hasEndComments(node)
-          ? ([hardline, join(hardline, path.map(print, "endComments"))])
-          : "",
-      ])
-    ),
+    alignWithSpaces(options.tabWidth, [
+      bracketSpacing,
+      printChildren(path, print, options),
+      options.trailingComma === "none" ? "" : ifBreak(",", ""),
+      hasEndComments(node)
+        ? [hardline, join(hardline, path.map(print, "endComments"))]
+        : "",
+    ]),
     isLastItemEmptyMappingItem ? "" : bracketSpacing,
     closeMarker,
-  ]);
+  ];
 }
 
 function printChildren(path, print, options) {
   const node = path.getValue();
   const parts = path.map(
-    (childPath, index) =>
-      ([
-        print(childPath),
-        index === node.children.length - 1
-          ? ""
-          : ([
-              ",",
-              line,
-              node.children[index].position.start.line !==
-              node.children[index + 1].position.start.line
-                ? printNextEmptyLine(childPath, options.originalText)
-                : "",
-            ]),
-      ]),
+    (childPath, index) => [
+      print(childPath),
+      index === node.children.length - 1
+        ? ""
+        : [
+            ",",
+            line,
+            node.children[index].position.start.line !==
+            node.children[index + 1].position.start.line
+              ? printNextEmptyLine(childPath, options.originalText)
+              : "",
+          ],
+    ],
     "children"
   );
-  return (parts);
+  return parts;
 }
 
 module.exports = {
