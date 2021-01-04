@@ -582,7 +582,7 @@ function handleLastFunctionArgComments({
   ) {
     const functionParamRightParenIndex = (() => {
       const parameters = getFunctionParameters(enclosingNode);
-      if (parameters.length !== 0) {
+      if (parameters.length > 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
           locEnd(getLast(parameters))

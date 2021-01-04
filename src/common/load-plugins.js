@@ -26,7 +26,7 @@ function load(plugins, pluginSearchDirs) {
     pluginSearchDirs = [];
   }
   // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
-  if (!pluginSearchDirs.length) {
+  if (pluginSearchDirs.length === 0) {
     const autoLoadDir = thirdParty.findParentDir(__dirname, "node_modules");
     if (autoLoadDir) {
       pluginSearchDirs = [autoLoadDir];

@@ -135,7 +135,7 @@ function trim(out) {
     trimCount += out.pop().length;
   }
 
-  if (out.length && typeof out[out.length - 1] === "string") {
+  if (out.length > 0 && typeof out[out.length - 1] === "string") {
     const trimmed = out[out.length - 1].replace(/[\t ]*$/, "");
     trimCount += out[out.length - 1].length - trimmed.length;
     out[out.length - 1] = trimmed;
@@ -257,7 +257,7 @@ function printDocToString(doc, options) {
   let shouldRemeasure = false;
   let lineSuffix = [];
 
-  while (cmds.length !== 0) {
+  while (cmds.length > 0) {
     const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
@@ -496,7 +496,7 @@ function printDocToString(doc, options) {
             // fallthrough
 
             case MODE_BREAK:
-              if (lineSuffix.length) {
+              if (lineSuffix.length > 0) {
                 cmds.push([ind, mode, doc]);
                 cmds.push(...lineSuffix.reverse());
                 lineSuffix = [];
@@ -525,7 +525,7 @@ function printDocToString(doc, options) {
 
     // Flush remaining line-suffix contents at the end of the document, in case
     // there is no new line after the line-suffix.
-    if (cmds.length === 0 && lineSuffix.length) {
+    if (cmds.length === 0 && lineSuffix.length > 0) {
       cmds.push(...lineSuffix.reverse());
       lineSuffix = [];
     }

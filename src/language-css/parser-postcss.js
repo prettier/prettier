@@ -105,7 +105,7 @@ function parseValueNode(valueNode, options) {
       };
       commaGroupStack.push(commaGroup);
     } else if (node.type === "paren" && node.value === ")") {
-      if (commaGroup.groups.length) {
+      if (commaGroup.groups.length > 0) {
         parenGroup.groups.push(commaGroup);
       }
       parenGroup.close = node;

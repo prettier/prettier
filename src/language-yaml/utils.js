@@ -218,8 +218,8 @@ function getFlowScalarLineContents(nodeType, content, options) {
     .reduce(
       (reduced, lineContentWords, index) =>
         index !== 0 &&
-        rawLineContents[index - 1].length !== 0 &&
-        lineContentWords.length !== 0 &&
+        rawLineContents[index - 1].length > 0 &&
+        lineContentWords.length > 0 &&
         !(
           // trailing backslash in quoteDouble should be preserved
           (
@@ -277,8 +277,8 @@ function getBlockValueLineContents(
       .reduce(
         (reduced, lineContentWords, index) =>
           index !== 0 &&
-          rawLineContents[index - 1].length !== 0 &&
-          lineContentWords.length !== 0 &&
+          rawLineContents[index - 1].length > 0 &&
+          lineContentWords.length > 0 &&
           !/^\s/.test(lineContentWords[0]) &&
           !/^\s|\s$/.test(getLast(reduced))
             ? reduced.concat([reduced.pop().concat(lineContentWords)])
@@ -289,7 +289,7 @@ function getBlockValueLineContents(
         lineContentWords.reduce(
           (reduced, word) =>
             // disallow trailing spaces
-            reduced.length !== 0 && /\s$/.test(getLast(reduced))
+            reduced.length > 0 && /\s$/.test(getLast(reduced))
               ? reduced.concat(reduced.pop() + " " + word)
               : reduced.concat(word),
           []

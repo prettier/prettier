@@ -102,9 +102,10 @@ function createParseError(error) {
 
 function createParse(parseMethod, ...pluginCombinations) {
   const commonPlugins = parseOptions.plugins;
-  pluginCombinations = pluginCombinations.length
-    ? pluginCombinations.map((plugins) => [...commonPlugins, ...plugins])
-    : [commonPlugins];
+  pluginCombinations =
+    pluginCombinations.length > 0
+      ? pluginCombinations.map((plugins) => [...commonPlugins, ...plugins])
+      : [commonPlugins];
 
   return (text, parsers, opts = {}) => {
     if (opts.parser === "babel" && isFlowFile(text, opts)) {

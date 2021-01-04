@@ -122,7 +122,7 @@ function printJestEachTemplateLiteral(path, options, print) {
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
-    headerNames.some((headerName) => headerName.length !== 0)
+    headerNames.some((headerName) => headerName.length > 0)
   ) {
     options.__inJestEach = true;
     const expressions = path.map(print, "expressions");
@@ -162,7 +162,7 @@ function printJestEachTemplateLiteral(path, options, print) {
     const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
     const table = [
       { cells: headerNames },
-      ...tableBody.filter((row) => row.cells.length !== 0),
+      ...tableBody.filter((row) => row.cells.length > 0),
     ];
     for (const { cells } of table.filter((row) => !row.hasLineBreak)) {
       cells.forEach((cell, index) => {

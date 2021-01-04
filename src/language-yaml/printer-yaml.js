@@ -207,10 +207,7 @@ function printNode(node, parentNode, path, options, print) {
           options
         ) === "head"
       ) {
-        if (
-          node.head.children.length !== 0 ||
-          node.head.endComments.length !== 0
-        ) {
+        if (node.head.children.length > 0 || node.head.endComments.length > 0) {
           parts.push(path.call(print, "head"));
         }
 
@@ -238,7 +235,7 @@ function printNode(node, parentNode, path, options, print) {
       const { children, endComments } = node;
       /** @type {Doc} */
       let separator = "";
-      if (children.length !== 0 && endComments.length !== 0) {
+      if (children.length > 0 && endComments.length > 0) {
         const lastDescendantNode = getLastDescendantNode(node);
         // there's already a newline printed at the end of blockValue (chomping=keep, lastDescendant=true)
         if (isNode(lastDescendantNode, ["blockFolded", "blockLiteral"])) {
@@ -375,7 +372,7 @@ function printNode(node, parentNode, path, options, print) {
 }
 
 function shouldPrintDocumentBody(document) {
-  return document.body.children.length !== 0 || hasEndComments(document.body);
+  return document.body.children.length > 0 || hasEndComments(document.body);
 }
 
 function shouldPrintDocumentEndMarker(document, nextDocument) {
@@ -390,7 +387,7 @@ function shouldPrintDocumentEndMarker(document, nextDocument) {
        * %DIRECTIVE
        * ---
        */
-      (nextDocument.head.children.length !== 0 ||
+      (nextDocument.head.children.length > 0 ||
         /**
          * ...
          * # endComment
@@ -419,7 +416,7 @@ function shouldPrintDocumentHeadEndMarker(
      * %DIRECTIVE
      * ---
      */
-    document.head.children.length !== 0 ||
+    document.head.children.length > 0 ||
     /**
      * # end comment
      * ---
