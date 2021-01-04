@@ -248,10 +248,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(
           alignment,
-          concat([
-            alignment,
-            concat(replaceEndOfLineWith(node.value, hardline)),
-          ])
+          concat([alignment, ...replaceEndOfLineWith(node.value, hardline)])
         );
       }
 
@@ -265,11 +262,10 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-        concat(
-          replaceEndOfLineWith(
-            getFencedCodeBlockValue(node, options.originalText),
-            hardline
-          )
+
+        ...replaceEndOfLineWith(
+          getFencedCodeBlockValue(node, options.originalText),
+          hardline
         ),
         hardline,
         style,
@@ -383,7 +379,9 @@ function genericPrint(path, options, print) {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group(
         concat([
-          concat(["[", node.identifier, "]:"]),
+          "[",
+          node.identifier,
+          "]:",
           indent(
             concat([
               lineOrSpace,
@@ -458,10 +456,7 @@ function genericPrint(path, options, print) {
         "$$",
         hardline,
         node.value
-          ? concat([
-              concat(replaceEndOfLineWith(node.value, hardline)),
-              hardline,
-            ])
+          ? concat([...replaceEndOfLineWith(node.value, hardline), hardline])
           : "",
         "$$",
       ]);

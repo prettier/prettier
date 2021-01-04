@@ -354,7 +354,7 @@ function genericPrint(path, options, print) {
     case "interpolation":
       return concat([
         printOpeningTagStart(node, options),
-        concat(path.map(print, "children")),
+        ...path.map(print, "children"),
         printClosingTagEnd(node, options),
       ]);
     case "text": {
@@ -366,7 +366,7 @@ function genericPrint(path, options, print) {
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
         return concat([
-          concat(replaceEndOfLineWith(value, literalline)),
+          ...replaceEndOfLineWith(value, literalline),
           hasTrailingNewline ? hardline : "",
         ]);
       }
@@ -394,11 +394,10 @@ function genericPrint(path, options, print) {
     case "comment": {
       return concat([
         printOpeningTagPrefix(node, options),
-        concat(
-          replaceEndOfLineWith(
-            options.originalText.slice(locStart(node), locEnd(node)),
-            literalline
-          )
+
+        ...replaceEndOfLineWith(
+          options.originalText.slice(locStart(node), locEnd(node)),
+          literalline
         ),
         printClosingTagSuffix(node, options),
       ]);
@@ -413,19 +412,17 @@ function genericPrint(path, options, print) {
       const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
       return concat([
         node.rawName,
-        concat([
-          "=",
-          quote,
-          concat(
-            replaceEndOfLineWith(
-              quote === '"'
-                ? value.replace(/"/g, "&quot;")
-                : value.replace(/'/g, "&apos;"),
-              literalline
-            )
-          ),
-          quote,
-        ]),
+
+        "=",
+        quote,
+
+        ...replaceEndOfLineWith(
+          quote === '"'
+            ? value.replace(/"/g, "&quot;")
+            : value.replace(/'/g, "&apos;"),
+          literalline
+        ),
+        quote,
       ]);
     }
     default:
@@ -440,23 +437,22 @@ function printChildren(path, options, print) {
   if (forceBreakChildren(node)) {
     return concat([
       breakParent,
-      concat(
-        path.map((childPath) => {
-          const childNode = childPath.getValue();
-          const prevBetweenLine = !childNode.prev
+
+      ...path.map((childPath) => {
+        const childNode = childPath.getValue();
+        const prevBetweenLine = !childNode.prev
+          ? ""
+          : printBetweenLine(childNode.prev, childNode);
+        return concat([
+          !prevBetweenLine
             ? ""
-            : printBetweenLine(childNode.prev, childNode);
-          return concat([
-            !prevBetweenLine
-              ? ""
-              : concat([
-                  prevBetweenLine,
-                  forceNextEmptyLine(childNode.prev) ? hardline : "",
-                ]),
-            printChild(childPath),
-          ]);
-        }, "children")
-      ),
+            : concat([
+                prevBetweenLine,
+                forceNextEmptyLine(childNode.prev) ? hardline : "",
+              ]),
+          printChild(childPath),
+        ]);
+      }, "children"),
     ]);
   }
 
@@ -528,8 +524,8 @@ function printChildren(path, options, print) {
           prevParts,
           group(
             concat([
-              concat(leadingParts),
-              group(concat([printChild(childPath), concat(trailingParts)]), {
+              ...leadingParts,
+              group(concat([printChild(childPath), ...trailingParts]), {
                 id: groupIds[childIndex],
               }),
             ])
