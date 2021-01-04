@@ -197,8 +197,12 @@ function printArrowFunctionExpression(path, options, print, args) {
   //      foo: bar,
   //      bar: foo,
   //    });
-  if (n.body.type === "ArrowFunctionExpression") {
-    const parent = path.getParentNode();
+  const parent = path.getParentNode();
+  const isLastOfCurriedChaining =
+    n.body.type !== "BlockStatement" &&
+    parent.type === "ArrowFunctionExpression" &&
+    path.getParentNode(1).type === "ArrowFunctionExpression";
+  if (n.body.type === "ArrowFunctionExpression" || isLastOfCurriedChaining) {
     const isCurriedChainingRoot = parent.type !== "ArrowFunctionExpression";
     if (isCurriedChainingRoot) {
       const name = path.getName();

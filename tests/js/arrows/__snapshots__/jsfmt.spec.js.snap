@@ -687,8 +687,7 @@ jest.mock(
 );
 
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  (action) =>
-  (next) => dispatch(action)
+  (action) => (next) => dispatch(action)
 );
 
 foo(
@@ -1485,8 +1484,7 @@ jest.mock(
 );
 
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  action =>
-  next => dispatch(action)
+  action => next => dispatch(action)
 );
 
 foo(
@@ -1847,12 +1845,12 @@ export const bem =
    * @returns {String}
    */
   (modifier) =>
-    [
-      ".",
-      css(block),
-      element ? \`__\${css(element)}\` : "",
-      modifier ? \`--\${css(modifier)}\` : "",
-    ].join("");
+  [
+    ".",
+    css(block),
+    element ? \`__\${css(element)}\` : "",
+    modifier ? \`--\${css(modifier)}\` : "",
+  ].join("");
 
 <FlatList
   renderItem={(
@@ -1921,12 +1919,12 @@ export const bem =
    * @returns {String}
    */
   modifier =>
-    [
-      ".",
-      css(block),
-      element ? \`__\${css(element)}\` : "",
-      modifier ? \`--\${css(modifier)}\` : "",
-    ].join("");
+  [
+    ".",
+    css(block),
+    element ? \`__\${css(element)}\` : "",
+    modifier ? \`--\${css(modifier)}\` : "",
+  ].join("");
 
 <FlatList
   renderItem={(
@@ -2128,18 +2126,9 @@ const fn9 = (a) => (b) => ({ foo: bar, bar: baz, baz: foo });
 const fn10 = (a) => (b) => (c) => ({ foo: bar, bar: baz, baz: foo });
 const fn11 = (a) => (b) => (c) => (d) => ({ foo: bar, bar: baz, baz: foo });
 const fn12 =
-  (a) =>
-  (b) =>
-  (c) =>
-  (d) =>
-  (e) => ({ foo: bar, bar: baz, baz: foo });
+  (a) => (b) => (c) => (d) => (e) => ({ foo: bar, bar: baz, baz: foo });
 const fn13 =
-  (a) =>
-  (b) =>
-  (c) =>
-  (d) =>
-  (e) =>
-  (g) => ({ foo: bar, bar: baz, baz: foo });
+  (a) => (b) => (c) => (d) => (e) => (g) => ({ foo: bar, bar: baz, baz: foo });
 const fn14 =
   (a) =>
   (b) =>
@@ -2147,7 +2136,8 @@ const fn14 =
   (d) =>
   (e) =>
   (g) =>
-  (f) => ({ foo: bar, bar: baz, baz: foo });
+  (f) =>
+  ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
   (argument1) =>
@@ -2161,7 +2151,8 @@ const curryTest =
   (argument9) =>
   (argument10) =>
   (argument11) =>
-  (argument12) => ({
+  (argument12) =>
+  ({
     foo: argument1,
     bar: argument2,
   });
@@ -2218,74 +2209,6 @@ throw (argument1) =>
 
 foo(
   (argument1) =>
-  (argument2) =>
-  (argument3) =>
-  (argument4) =>
-  (argument5) =>
-  (argument6) =>
-  (argument7) =>
-  (argument8) =>
-  (argument9) =>
-  (argument10) =>
-  (argument11) =>
-  (argument12) => 3
-);
-
-foo(
-  (argument1) =>
-  (argument2) =>
-  (argument3) =>
-  (argument4) =>
-  (argument5) =>
-  (argument6) =>
-  (argument7) =>
-  (argument8) =>
-  (argument9) =>
-  (argument10) =>
-  (argument11) =>
-  (argument12) => ({
-    foo: bar,
-    bar: baz,
-    baz: foo,
-  })
-);
-
-foo(
-  (argument1) =>
-  (argument2) =>
-  (argument3) =>
-  (argument4) =>
-  (argument5) =>
-  (argument6) =>
-  (argument7) =>
-  (argument8) =>
-  (argument9) =>
-  (argument10) =>
-  (argument11) =>
-  (argument12) => {
-    const foo = "foo";
-    return foo + "bar";
-  }
-);
-
-(
-  (argument1) =>
-  (argument2) =>
-  (argument3) =>
-  (argument4) =>
-  (argument5) =>
-  (argument6) =>
-  (argument7) =>
-  (argument8) =>
-  (argument9) =>
-  (argument10) =>
-  (argument11) =>
-  (argument12) => 3
-)(3);
-
-bar(
-  foo(
-    (argument1) =>
     (argument2) =>
     (argument3) =>
     (argument4) =>
@@ -2296,10 +2219,82 @@ bar(
     (argument9) =>
     (argument10) =>
     (argument11) =>
-    (argument12) => ({
+    (argument12) =>
+    3
+);
+
+foo(
+  (argument1) =>
+    (argument2) =>
+    (argument3) =>
+    (argument4) =>
+    (argument5) =>
+    (argument6) =>
+    (argument7) =>
+    (argument8) =>
+    (argument9) =>
+    (argument10) =>
+    (argument11) =>
+    (argument12) =>
+    ({
       foo: bar,
       bar: baz,
+      baz: foo,
     })
+);
+
+foo(
+  (argument1) =>
+    (argument2) =>
+    (argument3) =>
+    (argument4) =>
+    (argument5) =>
+    (argument6) =>
+    (argument7) =>
+    (argument8) =>
+    (argument9) =>
+    (argument10) =>
+    (argument11) =>
+    (argument12) => {
+      const foo = "foo";
+      return foo + "bar";
+    }
+);
+
+(
+  (argument1) =>
+    (argument2) =>
+    (argument3) =>
+    (argument4) =>
+    (argument5) =>
+    (argument6) =>
+    (argument7) =>
+    (argument8) =>
+    (argument9) =>
+    (argument10) =>
+    (argument11) =>
+    (argument12) =>
+    3
+)(3);
+
+bar(
+  foo(
+    (argument1) =>
+      (argument2) =>
+      (argument3) =>
+      (argument4) =>
+      (argument5) =>
+      (argument6) =>
+      (argument7) =>
+      (argument8) =>
+      (argument9) =>
+      (argument10) =>
+      (argument11) =>
+      (argument12) =>
+      ({
+        foo: bar,
+        bar: baz,
+      })
   )
 );
 
@@ -2307,7 +2302,8 @@ const baaaz =
   (aaaaa1, bbbbb1) =>
   (aaaaa2, bbbbb2) =>
   (aaaaa3, bbbbb3) =>
-  (aaaaa4, bbbbb4) => ({
+  (aaaaa4, bbbbb4) =>
+  ({
     foo: bar,
   });
 
@@ -2506,13 +2502,7 @@ const fn11 = a => b => c => d => ({ foo: bar, bar: baz, baz: foo });
 const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
 const fn13 = a => b => c => d => e => g => ({ foo: bar, bar: baz, baz: foo });
 const fn14 =
-  a =>
-  b =>
-  c =>
-  d =>
-  e =>
-  g =>
-  f => ({ foo: bar, bar: baz, baz: foo });
+  a => b => c => d => e => g => f => ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
   argument1 =>
@@ -2526,7 +2516,8 @@ const curryTest =
   argument9 =>
   argument10 =>
   argument11 =>
-  argument12 => ({
+  argument12 =>
+  ({
     foo: argument1,
     bar: argument2,
   });
@@ -2583,74 +2574,6 @@ throw argument1 =>
 
 foo(
   argument1 =>
-  argument2 =>
-  argument3 =>
-  argument4 =>
-  argument5 =>
-  argument6 =>
-  argument7 =>
-  argument8 =>
-  argument9 =>
-  argument10 =>
-  argument11 =>
-  argument12 => 3
-);
-
-foo(
-  argument1 =>
-  argument2 =>
-  argument3 =>
-  argument4 =>
-  argument5 =>
-  argument6 =>
-  argument7 =>
-  argument8 =>
-  argument9 =>
-  argument10 =>
-  argument11 =>
-  argument12 => ({
-    foo: bar,
-    bar: baz,
-    baz: foo,
-  })
-);
-
-foo(
-  argument1 =>
-  argument2 =>
-  argument3 =>
-  argument4 =>
-  argument5 =>
-  argument6 =>
-  argument7 =>
-  argument8 =>
-  argument9 =>
-  argument10 =>
-  argument11 =>
-  argument12 => {
-    const foo = "foo";
-    return foo + "bar";
-  }
-);
-
-(
-  argument1 =>
-  argument2 =>
-  argument3 =>
-  argument4 =>
-  argument5 =>
-  argument6 =>
-  argument7 =>
-  argument8 =>
-  argument9 =>
-  argument10 =>
-  argument11 =>
-  argument12 => 3
-)(3);
-
-bar(
-  foo(
-    argument1 =>
     argument2 =>
     argument3 =>
     argument4 =>
@@ -2661,10 +2584,82 @@ bar(
     argument9 =>
     argument10 =>
     argument11 =>
-    argument12 => ({
+    argument12 =>
+    3
+);
+
+foo(
+  argument1 =>
+    argument2 =>
+    argument3 =>
+    argument4 =>
+    argument5 =>
+    argument6 =>
+    argument7 =>
+    argument8 =>
+    argument9 =>
+    argument10 =>
+    argument11 =>
+    argument12 =>
+    ({
       foo: bar,
       bar: baz,
+      baz: foo,
     })
+);
+
+foo(
+  argument1 =>
+    argument2 =>
+    argument3 =>
+    argument4 =>
+    argument5 =>
+    argument6 =>
+    argument7 =>
+    argument8 =>
+    argument9 =>
+    argument10 =>
+    argument11 =>
+    argument12 => {
+      const foo = "foo";
+      return foo + "bar";
+    }
+);
+
+(
+  argument1 =>
+    argument2 =>
+    argument3 =>
+    argument4 =>
+    argument5 =>
+    argument6 =>
+    argument7 =>
+    argument8 =>
+    argument9 =>
+    argument10 =>
+    argument11 =>
+    argument12 =>
+    3
+)(3);
+
+bar(
+  foo(
+    argument1 =>
+      argument2 =>
+      argument3 =>
+      argument4 =>
+      argument5 =>
+      argument6 =>
+      argument7 =>
+      argument8 =>
+      argument9 =>
+      argument10 =>
+      argument11 =>
+      argument12 =>
+      ({
+        foo: bar,
+        bar: baz,
+      })
   )
 );
 
@@ -2672,7 +2667,8 @@ const baaaz =
   (aaaaa1, bbbbb1) =>
   (aaaaa2, bbbbb2) =>
   (aaaaa3, bbbbb3) =>
-  (aaaaa4, bbbbb4) => ({
+  (aaaaa4, bbbbb4) =>
+  ({
     foo: bar,
   });
 
