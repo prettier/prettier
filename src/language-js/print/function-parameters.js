@@ -3,7 +3,7 @@
 const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, line, hardline, softline, group, indent, ifBreak },
+  builders: { line, hardline, softline, group, indent, ifBreak },
   utils: { removeLines },
 } = require("../../document");
 const {

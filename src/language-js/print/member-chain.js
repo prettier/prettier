@@ -23,15 +23,7 @@ const {
 const { locEnd } = require("../loc");
 
 const {
-  builders: {
-    concat,
-    join,
-    hardline,
-    group,
-    indent,
-    conditionalGroup,
-    breakParent,
-  },
+  builders: { join, hardline, group, indent, conditionalGroup, breakParent },
   utils: { willBreak },
 } = require("../../document");
 const printCallArguments = require("./call-arguments");

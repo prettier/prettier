@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, join, line, group, indent, ifBreak },
+  builders: { join, line, group, indent, ifBreak },
 } = require("../../document");
 const { hasComment, identity, CommentCheckFlags } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");

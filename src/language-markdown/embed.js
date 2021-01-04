@@ -5,7 +5,7 @@ const {
   getMaxContinuousCount,
 } = require("../common/util");
 const {
-  builders: { hardline, concat, markAsRoot },
+  builders: { hardline, markAsRoot },
   utils: { replaceNewlinesWithLiterallines },
 } = require("../document");
 const { print: printFrontMatter } = require("../utils/front-matter");

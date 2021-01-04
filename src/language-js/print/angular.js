@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, line, group },
+  builders: { join, line, group },
 } = require("../../document");
 const { hasNode, hasComment, getComments } = require("../utils");
 const { printBinaryishExpression } = require("./binaryish");

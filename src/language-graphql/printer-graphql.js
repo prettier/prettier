@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, hardline, line, softline, group, indent, ifBreak },
+  builders: { join, hardline, line, softline, group, indent, ifBreak },
 } = require("../document");
 const { isNextLineEmpty, isNonEmptyArray } = require("../common/util");
 const { insertPragma } = require("./pragma");

@@ -2,7 +2,7 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak },
+  builders: { line, softline, group, indent, ifBreak },
 } = require("../../document");
 const { getLast } = require("../../common/util");
 const {

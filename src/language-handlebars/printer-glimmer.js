@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, group, hardline, ifBreak, indent, join, line, softline },
+  builders: { group, hardline, ifBreak, indent, join, line, softline },
   utils: { getDocParts },
 } = require("../document");
 const { locStart, locEnd } = require("./loc");

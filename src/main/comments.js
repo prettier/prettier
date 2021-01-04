@@ -4,16 +4,7 @@
 const assert = require("assert");
 
 const {
-  builders: {
-    concat,
-    line,
-    hardline,
-    breakParent,
-    indent,
-    lineSuffix,
-    join,
-    cursor,
-  },
+  builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
 } = require("../document");
 
 const {

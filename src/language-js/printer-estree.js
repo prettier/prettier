@@ -14,16 +14,7 @@ const {
   isNonEmptyArray,
 } = require("../common/util");
 const {
-  builders: {
-    concat,
-    join,
-    line,
-    hardline,
-    softline,
-    literalline,
-    group,
-    indent,
-  },
+  builders: { join, line, hardline, softline, literalline, group, indent },
   utils: { isEmpty },
 } = require("../document");
 const embed = require("./embed");

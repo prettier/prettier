@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, group },
+  builders: { join, group },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {

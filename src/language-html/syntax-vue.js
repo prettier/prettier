@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, group },
+  builders: { group },
 } = require("../document");
 
 /**

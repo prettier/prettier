@@ -2,7 +2,7 @@
 
 const escape = require("escape-string-regexp");
 const {
-  builders: { hardline, concat, markAsRoot },
+  builders: { hardline, markAsRoot },
 } = require("../document");
 
 const DELIMITER_MAP = {

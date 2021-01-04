@@ -6,7 +6,6 @@ const { isJsxNode, isBlockComment, getComments } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
   builders: {
-    concat,
     line,
     softline,
     group,

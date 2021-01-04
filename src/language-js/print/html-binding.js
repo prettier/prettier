@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, line, group, softline, indent },
+  builders: { join, line, group, softline, indent },
 } = require("../../document");
 
 function printHtmlBinding(path, options, print) {

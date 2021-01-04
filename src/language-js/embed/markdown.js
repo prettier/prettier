@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { indent, softline, literalline, concat, dedentToRoot },
+  builders: { indent, softline, literalline, dedentToRoot },
 } = require("../../document");
 const { escapeTemplateCharacters } = require("../print/template-literal");
 

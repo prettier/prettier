@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, ifBreak, line, softline, hardline, join },
+  builders: { ifBreak, line, softline, hardline, join },
 } = require("../../document");
 const { isEmptyNode, getLast, hasEndComments } = require("../utils");
 const { printNextEmptyLine, alignWithSpaces } = require("./misc");

@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, hardline, indent, join },
+  builders: { hardline, indent, join },
 } = require("../document");
 const preprocess = require("./print-preprocess");
 

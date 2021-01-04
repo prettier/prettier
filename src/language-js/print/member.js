@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, softline, group, indent },
+  builders: { softline, group, indent },
 } = require("../../document");
 const { isNumericLiteral } = require("../utils");
 const { printOptionalToken } = require("./misc");

@@ -18,7 +18,6 @@ const {
 
 const {
   builders: {
-    concat,
     line,
     hardline,
     softline,

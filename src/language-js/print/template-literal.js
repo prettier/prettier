@@ -3,7 +3,6 @@
 const { getStringWidth, getIndentSize } = require("../../common/util");
 const {
   builders: {
-    concat,
     join,
     hardline,
     softline,

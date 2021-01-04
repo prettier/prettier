@@ -4,7 +4,6 @@
 
 const {
   builders: {
-    concat,
     dedent,
     dedentToRoot,
     fill,

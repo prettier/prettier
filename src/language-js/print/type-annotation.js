@@ -3,7 +3,7 @@
 const { printComments, printDanglingComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
-  builders: { concat, group, join, line, softline, indent, align, ifBreak },
+  builders: { group, join, line, softline, indent, align, ifBreak },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const { locStart } = require("../loc");

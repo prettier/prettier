@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { indent, join, hardline, concat },
+  builders: { indent, join, hardline },
 } = require("../../document");
 const {
   escapeTemplateCharacters,

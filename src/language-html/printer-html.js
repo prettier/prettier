@@ -14,7 +14,6 @@ const {
     line,
     literalline,
     softline,
-    concat,
   },
   utils: { mapDoc, cleanDoc, getDocParts },
 } = require("../document");

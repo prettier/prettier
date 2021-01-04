@@ -10,7 +10,6 @@ const {
 } = require("../common/util");
 const {
   builders: {
-    concat,
     join,
     line,
     hardline,

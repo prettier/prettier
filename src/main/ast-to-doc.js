@@ -7,7 +7,7 @@ const { printComments } = require("./comments");
 const multiparser = require("./multiparser");
 
 const docBuilders = doc.builders;
-const { concat, hardline, addAlignmentToDoc } = docBuilders;
+const { hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;
 
 /**

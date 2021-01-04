@@ -2,7 +2,7 @@
 
 const { getLast } = require("../../common/util");
 const {
-  builders: { concat, hardline },
+  builders: { hardline },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {

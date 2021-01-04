@@ -4,7 +4,6 @@ const { printDanglingComments } = require("../../main/comments");
 const { hasNewlineInRange } = require("../../common/util");
 const {
   builders: {
-    concat,
     join,
     line,
     hardline,

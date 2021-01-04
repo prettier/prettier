@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { indent, hardline, softline, concat },
+  builders: { indent, hardline, softline },
   utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
 } = require("../../document");
 const { printTemplateExpressions } = require("../print/template-literal");

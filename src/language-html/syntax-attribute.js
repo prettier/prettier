@@ -2,7 +2,7 @@
 
 const parseSrcset = require("parse-srcset");
 const {
-  builders: { concat, ifBreak, join, line },
+  builders: { ifBreak, join, line },
 } = require("../document");
 
 function printImgSrcset(value) {

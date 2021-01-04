@@ -2,7 +2,7 @@
 
 const { hasNewline } = require("../../common/util");
 const {
-  builders: { concat, join, hardline },
+  builders: { join, hardline },
 } = require("../../document");
 
 const { isLineComment, isBlockComment } = require("../utils");

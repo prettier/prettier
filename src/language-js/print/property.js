@@ -3,9 +3,6 @@
 const { printComments } = require("../../main/comments");
 const { printString, printNumber } = require("../../common/util");
 const {
-  builders: { concat },
-} = require("../../document");
-const {
   isNumericLiteral,
   isSimpleNumber,
   isStringLiteral,

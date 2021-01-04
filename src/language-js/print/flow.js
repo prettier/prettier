@@ -1,9 +1,6 @@
 "use strict";
 
 const assert = require("assert");
-const {
-  builders: { concat },
-} = require("../../document");
 const { getParentExportDeclaration } = require("../utils");
 const { printClass } = require("./class");
 const {

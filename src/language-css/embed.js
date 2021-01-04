@@ -1,6 +1,6 @@
 "use strict";
 const {
-  builders: { hardline, concat },
+  builders: { hardline },
 } = require("../document");
 const { print: printFrontMatter } = require("../utils/front-matter");
 

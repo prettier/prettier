@@ -3,7 +3,6 @@
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: {
-    concat,
     line,
     hardline,
     softline,

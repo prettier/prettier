@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, line, group, indent },
+  builders: { line, group, indent },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,

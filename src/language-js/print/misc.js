@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, indent, join, line },
+  builders: { indent, join, line },
 } = require("../../document");
 const { isFlowAnnotationComment } = require("../utils");
 
