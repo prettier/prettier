@@ -32,6 +32,7 @@ const {
   hasComment,
   getComments,
   CommentCheckFlags,
+  identity,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -207,7 +208,7 @@ function printArrowFunctionExpression(path, options, print, args) {
         indent([
           isOperand || isParentCallExpr ? softline : "",
           parts,
-          group([line, body]),
+          group((isParentCallExpr ? indent : identity)([line, body])),
           isParentCallExpr ? dedent(softline) : "",
         ])
       );
