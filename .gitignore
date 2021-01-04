@@ -21,3 +21,5 @@ package-lock.json
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+.nyc_output
+/scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
