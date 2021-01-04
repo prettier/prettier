@@ -14,6 +14,7 @@ const {
     lineSuffix,
     literalline,
   },
+  utils: { getDocParts },
 } = require("../document");
 const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
@@ -441,7 +442,7 @@ function printFlowScalarContent(nodeType, content, options) {
   return join(
     hardline,
     lineContents.map((lineContentWords) =>
-      fill(join(line, lineContentWords).parts)
+      fill(getDocParts(join(line, lineContentWords)))
     )
   );
 }

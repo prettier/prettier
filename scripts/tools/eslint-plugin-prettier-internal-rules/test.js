@@ -94,6 +94,22 @@ test("jsx-identifier-case", {
   ],
 });
 
+test("no-doc-builder-concat", {
+  valid: ["notConcat([])", "concat", "[].concat([])"],
+  invalid: [
+    {
+      code: "concat(parts)",
+      output: "(parts)",
+      errors: 1,
+    },
+    {
+      code: "concat(['foo', line])",
+      output: "(['foo', line])",
+      errors: 1,
+    },
+  ],
+});
+
 test("no-node-comments", {
   valid: [
     "const comments = node.notComments",

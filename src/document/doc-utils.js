@@ -2,6 +2,9 @@
 
 const { literalline, concat } = require("./doc-builders");
 
+const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
+const getDocParts = (doc) => (Array.isArray(doc) ? doc : doc.parts);
+
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
 
@@ -29,9 +32,10 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
       // when the stack is popped.
-      if (doc.type === "concat" || doc.type === "fill") {
-        for (let ic = doc.parts.length, i = ic - 1; i >= 0; --i) {
-          docsStack.push(doc.parts[i]);
+      if (isConcat(doc) || doc.type === "fill") {
+        const parts = getDocParts(doc);
+        for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
+          docsStack.push(parts[i]);
         }
       } else if (doc.type === "if-break") {
         if (doc.flatContents) {
@@ -56,7 +60,9 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 }
 
 function mapDoc(doc, cb) {
-  if (doc.type === "concat" || doc.type === "fill") {
+  if (Array.isArray(doc)) {
+    return cb(doc.map((part) => mapDoc(part, cb)));
+  } else if (doc.type === "concat" || doc.type === "fill") {
     const parts = doc.parts.map((part) => mapDoc(part, cb));
     return cb({ ...doc, parts });
   } else if (doc.type === "if-break") {
@@ -191,23 +197,21 @@ function stripDocTrailingHardlineFromDoc(doc) {
     return doc;
   }
 
-  switch (doc.type) {
-    case "concat":
-    case "fill": {
-      const parts = [...doc.parts];
+  if (isConcat(doc) || doc.type === "fill") {
+    const parts = getDocParts(doc);
 
-      while (parts.length > 1 && isHardline(...parts.slice(-2))) {
-        parts.length -= 2;
-      }
-
-      if (parts.length > 0) {
-        const lastPart = stripDocTrailingHardlineFromDoc(
-          parts[parts.length - 1]
-        );
-        parts[parts.length - 1] = lastPart;
-      }
-      return { ...doc, parts };
+    while (parts.length > 1 && isHardline(...parts.slice(-2))) {
+      parts.length -= 2;
     }
+
+    if (parts.length > 0) {
+      const lastPart = stripDocTrailingHardlineFromDoc(parts[parts.length - 1]);
+      parts[parts.length - 1] = lastPart;
+    }
+    return Array.isArray(doc) ? parts : { ...doc, parts };
+  }
+
+  switch (doc.type) {
     case "align":
     case "indent":
     case "group":
@@ -230,7 +234,6 @@ function stripTrailingHardline(doc) {
   return stripDocTrailingHardlineFromDoc(cleanDoc(doc));
 }
 
-const isConcat = (doc) => doc && doc.type === "concat";
 function cleanDocFn(doc) {
   switch (doc.type) {
     case "fill":
@@ -271,11 +274,13 @@ function cleanDocFn(doc) {
   }
 
   const parts = [];
-  for (const part of doc.parts) {
+  for (const part of getDocParts(doc)) {
     if (!part) {
       continue;
     }
-    const [currentPart, ...restParts] = isConcat(part) ? part.parts : [part];
+    const [currentPart, ...restParts] = isConcat(part)
+      ? getDocParts(part)
+      : [part];
     if (
       typeof currentPart === "string" &&
       typeof parts[parts.length - 1] === "string"
@@ -294,7 +299,7 @@ function cleanDocFn(doc) {
   if (parts.length === 1) {
     return parts[0];
   }
-  return { ...doc, parts };
+  return Array.isArray(doc) ? parts : { ...doc, parts };
 }
 // A safer version of `normalizeDoc`
 // - `normalizeDoc` concat strings and flat "concat" in `fill`, while `cleanDoc` don't
@@ -315,8 +320,8 @@ function normalizeParts(parts) {
       continue;
     }
 
-    if (part.type === "concat") {
-      restParts.unshift(...part.parts);
+    if (isConcat(part)) {
+      restParts.unshift(...getDocParts(part));
       continue;
     }
 
@@ -337,6 +342,9 @@ function normalizeParts(parts) {
 
 function normalizeDoc(doc) {
   return mapDoc(doc, (currentDoc) => {
+    if (Array.isArray(currentDoc)) {
+      return normalizeParts(currentDoc);
+    }
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -360,6 +368,8 @@ function replaceNewlinesWithLiterallines(doc) {
 }
 
 module.exports = {
+  isConcat,
+  getDocParts,
   isEmpty,
   willBreak,
   isLineNext,

@@ -14,6 +14,7 @@ const {
     literalline,
     markAsRoot,
   },
+  utils: { getDocParts },
 } = require("../../document");
 const {
   getAncestorCount,
@@ -55,7 +56,7 @@ function printBlock(path, print, options) {
     if (index === 0) {
       contentsParts.push(hardline);
     }
-    contentsParts.push(fill(join(line, lineWords).parts));
+    contentsParts.push(fill(getDocParts(join(line, lineWords))));
     if (index !== lineContents.length - 1) {
       contentsParts.push(
         lineWords.length === 0 ? hardline : markAsRoot(literalline)

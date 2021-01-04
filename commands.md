@@ -2,14 +2,6 @@ The core of the algorithm is implemented in `doc-{printer,builders,utils,debug}.
 
 The following commands are available:
 
-### concat
-
-```ts
-declare function concat(docs: Doc[]): Doc;
-```
-
-Combine an array into a single string.
-
 ### group
 
 ```ts
@@ -97,7 +89,7 @@ declare var breakParent: Doc;
 Include this anywhere to force all parent groups to break. See `group` for more info. Example:
 
 ```js
-group(concat([" ", expr, " ", breakParent]));
+group([" ", expr, " ", breakParent]);
 ```
 
 ### join
@@ -149,7 +141,7 @@ declare function lineSuffix(suffix: Doc): Doc;
 This is used to implement trailing comments. In practice, it is not practical to find where the line ends and you don't want to accidentally print some code at the end of the comment. `lineSuffix` will buffer the output and flush it before any new line.
 
 ```js
-concat(["a", lineSuffix(" // comment"), ";", hardline]);
+["a", lineSuffix(" // comment"), ";", hardline];
 ```
 
 will output
@@ -167,7 +159,7 @@ declare var lineSuffixBoundary: Doc;
 In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. lineSuffixBoundary is an explicit marker you can use to flush code in addition to newlines.
 
 ```js
-concat(["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline]);
+["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline];
 ```
 
 will output
@@ -260,21 +252,31 @@ For an example, here's the implementation of the `ArrayExpression` node type:
 <!-- prettier-ignore -->
 ```js
 group(
-  concat([
+  [
     "[",
     indent(
-      concat([
+      [
         line,
         join(
-          concat([",", line]),
+          [",", line],
           path.map(print, "elements")
         )
-      ])
+      ]
     ),
     line,
     "]"
-  ])
+  ]
 );
 ```
 
 This is a group with opening and closing brackets, and possibly indented contents. Because it's a `group` it will always be broken up if any of the sub-expressions are broken.
+
+### [Deprecated] concat
+
+> This command is deprecated, use `Doc[]` instead.
+
+```ts
+declare function concat(docs: Doc[]): Doc;
+```
+
+Combine an array into a single string.

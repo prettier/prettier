@@ -4,7 +4,7 @@ const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
   builders: { concat, join, line, softline, group, indent, align, ifBreak },
-  utils: { cleanDoc },
+  utils: { cleanDoc, getDocParts },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -130,7 +130,8 @@ function printBinaryishExpression(path, options, print) {
   const hasJsx = isJsxNode(n.right);
 
   const firstGroupIndex = parts.findIndex(
-    (part) => typeof part !== "string" && part.type === "group"
+    (part) =>
+      typeof part !== "string" && !Array.isArray(part) && part.type === "group"
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
@@ -278,7 +279,7 @@ function printBinaryishExpressions(
       if (printed.type === "string") {
         parts = [printed];
       } else {
-        parts = printed.parts;
+        parts = getDocParts(printed);
       }
     }
   } else {

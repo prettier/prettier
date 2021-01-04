@@ -16,7 +16,7 @@ const {
     softline,
     concat,
   },
-  utils: { mapDoc, cleanDoc },
+  utils: { mapDoc, cleanDoc, getDocParts },
 } = require("../document");
 const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
@@ -378,7 +378,7 @@ function genericPrint(path, options, print) {
           printClosingTagSuffix(node, options),
         ])
       );
-      return typeof printed === "string" ? printed : fill(printed.parts);
+      return typeof printed === "string" ? printed : fill(getDocParts(printed));
     }
     case "docType":
       return concat([
@@ -981,7 +981,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : join(line, splitByHtmlWhitespace(value)).parts;
+    : getDocParts(join(line, splitByHtmlWhitespace(value)));
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

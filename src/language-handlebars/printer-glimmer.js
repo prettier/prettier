@@ -2,6 +2,7 @@
 
 const {
   builders: { concat, group, hardline, ifBreak, indent, join, line, softline },
+  utils: { getDocParts },
 } = require("../document");
 const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
@@ -141,7 +142,7 @@ function print(path, options, print) {
       }
       const value = path.call(print, "value");
       const quotedValue = isText
-        ? printStringLiteral(value.parts.join(), options)
+        ? printStringLiteral(getDocParts(value).join(), options)
         : value;
       return concat([n.name, "=", quotedValue]);
     }
