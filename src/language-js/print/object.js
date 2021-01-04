@@ -102,6 +102,7 @@ function printObject(path, options, print) {
     }, field);
   });
 
+  /** @type {Doc[]} */
   let separatorParts = [];
   const props = propsAndLoc
     .sort((a, b) => a.loc - b.loc)
