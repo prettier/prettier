@@ -23,7 +23,7 @@ function printMappingItem(node, parentNode, path, print, options) {
   const isEmptyMappingValue = isEmptyNode(value);
 
   if (isEmptyMappingKey && isEmptyMappingValue) {
-    return concat([": "]);
+    return ": ";
   }
 
   const printedKey = path.call(print, "key");

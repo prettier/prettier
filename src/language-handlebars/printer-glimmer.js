@@ -138,7 +138,7 @@ function print(path, options, print) {
       // same, there is no value for this AttrNode and it should be printed
       // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
       if (isEmptyText && locStart(n.value) === locEnd(n.value)) {
-        return concat([n.name]);
+        return n.name;
       }
       const value = path.call(print, "value");
       const quotedValue = isText
@@ -157,7 +157,7 @@ function print(path, options, print) {
     }
 
     case "Hash": {
-      return concat([join(line, path.map(print, "pairs"))]);
+      return join(line, path.map(print, "pairs"));
     }
     case "HashPair": {
       return concat([n.key, "=", path.call(print, "value")]);
@@ -201,7 +201,7 @@ function print(path, options, print) {
         // TODO: format style and srcset attributes
         // and cleanup concat that is not necessary
         if (!isInAttributeOfName(path, "class")) {
-          return concat([n.chars]);
+          return n.chars;
         }
 
         let leadingSpace = "";
