@@ -1,12 +1,11 @@
 "use strict";
 
+const { getLast } = require("../../common/util");
 const {
-  builders: { concat, join, hardline },
+  builders: { concat, hardline },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {
-  classChildNeedsASIProtection,
-  classPropMayCauseASIProblems,
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxNode,
@@ -22,83 +21,67 @@ const { shouldPrintParamsWithoutParens } = require("./function");
  * @typedef {import("../../common/fast-path")} FastPath
  */
 
-function printStatement({ path, index, bodyNode, isClass }, options, print) {
+function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
-
-  // Just in case the AST has been modified to contain falsy
-  // "statements," it's safer simply to skip them.
-  /* istanbul ignore if */
-  if (!node) {
-    return;
-  }
-
-  // Skip printing EmptyStatement nodes to avoid leaving stray
-  // semicolons lying around.
-  if (node.type === "EmptyStatement") {
-    return;
-  }
-
-  const printed = print(path);
   const parts = [];
+  const isClassBody = node.type === "ClassBody";
+  const lastStatement = getLast(
+    node[property].filter(({ type }) => type !== "EmptyStatement")
+  );
 
-  // in no-semi mode, prepend statement with semicolon if it might break ASI
-  // don't prepend the only JSX element in a program with semicolon
-  if (
-    !options.semi &&
-    !isClass &&
-    !isTheOnlyJsxElementInMarkdown(options, path) &&
-    statementNeedsASIProtection(path, options)
-  ) {
-    if (hasComment(node, CommentCheckFlags.Leading)) {
-      parts.push(print(path, { needsSemi: true }));
-    } else {
-      parts.push(";", printed);
+  path.each((path, index, statements) => {
+    const node = path.getValue();
+
+    // Skip printing EmptyStatement nodes to avoid leaving stray
+    // semicolons lying around.
+    if (node.type === "EmptyStatement") {
+      return;
     }
-  } else {
-    parts.push(printed);
-  }
 
-  if (!options.semi && isClass) {
-    if (classPropMayCauseASIProblems(path)) {
-      parts.push(";");
-    } else if (
-      node.type === "ClassProperty" ||
-      node.type === "FieldDefinition"
+    const printed = print(path);
+
+    // in no-semi mode, prepend statement with semicolon if it might break ASI
+    // don't prepend the only JSX element in a program with semicolon
+    if (
+      !options.semi &&
+      !isClassBody &&
+      !isTheOnlyJsxElementInMarkdown(options, path) &&
+      statementNeedsASIProtection(path, options)
     ) {
-      const nextChild = bodyNode.body[index + 1];
-      if (classChildNeedsASIProtection(nextChild)) {
+      if (hasComment(node, CommentCheckFlags.Leading)) {
+        parts.push(print(path, { needsSemi: true }));
+      } else {
+        parts.push(";", printed);
+      }
+    } else {
+      parts.push(printed);
+    }
+
+    if (!options.semi && isClassBody) {
+      if (classPropMayCauseASIProblems(node)) {
         parts.push(";");
+      } else if (
+        node.type === "ClassProperty" ||
+        node.type === "FieldDefinition"
+      ) {
+        // `ClassBody` don't allow `EmptyStatement`,
+        // so we can use `statements` to get next node
+        if (classChildNeedsASIProtection(statements[index + 1])) {
+          parts.push(";");
+        }
       }
     }
-  }
 
-  if (isNextLineEmpty(node, options) && !isLastStatement(path)) {
-    parts.push(hardline);
-  }
+    if (node !== lastStatement) {
+      parts.push(hardline);
+
+      if (isNextLineEmpty(node, options)) {
+        parts.push(hardline);
+      }
+    }
+  }, property);
 
   return concat(parts);
-}
-
-function printStatementSequence(path, options, print) {
-  const bodyNode = path.getNode();
-  const isClass = bodyNode.type === "ClassBody";
-
-  const printed = path
-    .map((statementPath, index) =>
-      printStatement(
-        {
-          path,
-          index,
-          bodyNode,
-          isClass,
-        },
-        options,
-        print
-      )
-    )
-    .filter(Boolean);
-
-  return join(hardline, printed);
 }
 
 function statementNeedsASIProtection(path, options) {
@@ -151,30 +134,83 @@ function expressionNeedsASIProtection(path, options) {
 }
 
 function printBody(path, options, print) {
-  return path.call(
-    (bodyPath) => printStatementSequence(bodyPath, options, print),
-    "body"
-  );
+  return printStatementSequence(path, options, print, "body");
 }
 
 function printSwitchCaseConsequent(path, options, print) {
-  return path.call(
-    (bodyPath) => printStatementSequence(bodyPath, options, print),
-    "consequent"
-  );
+  return printStatementSequence(path, options, print, "consequent");
 }
 
 /**
- * @param {FastPath} path
  * @returns {boolean}
  */
-function isLastStatement(path) {
-  const parent = path.getParentNode();
-  const node = path.getValue();
-  const body = (parent.body || parent.consequent).filter(
-    (stmt) => stmt.type !== "EmptyStatement"
-  );
-  return body[body.length - 1] === node;
+function classPropMayCauseASIProblems(node) {
+  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
+    return false;
+  }
+
+  const name = node.key && node.key.name;
+
+  // this isn't actually possible yet with most parsers available today
+  // so isn't properly tested yet.
+  if (
+    (name === "static" || name === "get" || name === "set") &&
+    !node.value &&
+    !node.typeAnnotation
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * @returns {boolean}
+ */
+function classChildNeedsASIProtection(node) {
+  if (!node) {
+    return;
+  }
+
+  if (
+    node.static ||
+    node.accessibility // TypeScript
+  ) {
+    return false;
+  }
+
+  if (!node.computed) {
+    const name = node.key && node.key.name;
+    if (name === "in" || name === "instanceof") {
+      return true;
+    }
+  }
+  switch (node.type) {
+    case "ClassProperty":
+    case "FieldDefinition":
+    case "TSAbstractClassProperty":
+      return node.computed;
+    case "MethodDefinition": // Flow
+    case "TSAbstractMethodDefinition": // TypeScript
+    case "ClassMethod":
+    case "ClassPrivateMethod": {
+      // Babel
+      const isAsync = node.value ? node.value.async : node.async;
+      const isGenerator = node.value ? node.value.generator : node.generator;
+      if (isAsync || node.kind === "get" || node.kind === "set") {
+        return false;
+      }
+      if (node.computed || isGenerator) {
+        return true;
+      }
+      return false;
+    }
+    case "TSIndexSignature":
+      return true;
+  }
+
+  /* istanbul ignore next */
+  return false;
 }
 
 module.exports = {
