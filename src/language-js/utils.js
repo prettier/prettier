@@ -938,11 +938,7 @@ function isSimpleCallArgument(node, depth) {
     return isChildSimple(node.source);
   }
 
-  if (
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "NewExpression"
-  ) {
+  if (isCallLikeExpression(node)) {
     return (
       isSimpleCallArgument(node.callee, depth) &&
       node.arguments.every(isChildSimple)
@@ -1333,6 +1329,10 @@ function getComments(node, flags, fn) {
 const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
+function isCallLikeExpression(node) {
+  return isCallOrOptionalCallExpression(node) || node.type === "NewExpression";
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1353,6 +1353,7 @@ module.exports = {
   identity,
   isBinaryish,
   isBlockComment,
+  isCallLikeExpression,
   isLineComment,
   isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,

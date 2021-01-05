@@ -2112,6 +2112,28 @@ const baaaz = (aaaaa1, bbbbb1) => (aaaaa2, bbbbb2) => (aaaaa3, bbbbb3) => (aaaaa
   foo: bar
 });
 
+new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  (action) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    dispatch(action)
+);
+
+foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  (action) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    dispatch(action)
+);
+
 =====================================output=====================================
 const fn1 = (a) => 3;
 const fn2 = (a) => (b) => 3;
@@ -2307,6 +2329,28 @@ const baaaz =
     foo: bar,
   });
 
+new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  (action) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    dispatch(action)
+);
+
+foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  (action) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    dispatch(action)
+);
+
 ================================================================================
 `;
 
@@ -2485,6 +2529,28 @@ bar(
 const baaaz = (aaaaa1, bbbbb1) => (aaaaa2, bbbbb2) => (aaaaa3, bbbbb3) => (aaaaa4, bbbbb4) => ({
   foo: bar
 });
+
+new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  (action) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    dispatch(action)
+);
+
+foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  (action) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    (next) =>
+    dispatch(action)
+);
 
 =====================================output=====================================
 const fn1 = a => 3;
@@ -2671,6 +2737,14 @@ const baaaz =
   ({
     foo: bar,
   });
+
+new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  action => next => next => next => next => next => next => dispatch(action)
+);
+
+foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
+  action => next => next => next => next => next => next => dispatch(action)
+);
 
 ================================================================================
 `;

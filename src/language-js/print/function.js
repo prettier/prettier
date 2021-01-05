@@ -33,6 +33,7 @@ const {
   getComments,
   CommentCheckFlags,
   identity,
+  isCallLikeExpression,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -207,7 +208,7 @@ function printArrowFunctionExpression(path, options, print, args) {
     if (isCurriedChainingRoot) {
       const name = path.getName();
       const isOperand = name === "init" || name === "right";
-      const isParentCallExpr = parent.type === "CallExpression";
+      const isParentCallExpr = isCallLikeExpression(parent);
       return group(
         indent([
           isOperand || isParentCallExpr ? softline : "",
