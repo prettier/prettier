@@ -57,8 +57,8 @@ const {
   hasComposesNode,
   hasParensAroundNode,
   hasEmptyRawBefore,
-  isKey,
   isKeyValuePairNode,
+  isKeyInValuePairNode,
   isDetachedRulesetCallNode,
   isTemplatePlaceholderNode,
   isTemplatePropNode,
@@ -921,7 +921,7 @@ function genericPrint(path, options, print) {
         ]),
         {
           shouldBreak:
-            isSCSSMapItem && !(isKeyValuePairNode(parentNode) && isKey(path)),
+            isSCSSMapItem && !(isKeyInValuePairNode(node, parentNode)),
         }
       );
     }

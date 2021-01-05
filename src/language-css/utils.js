@@ -404,21 +404,19 @@ function isColonNode(node) {
   return node && node.type === "value-colon";
 }
 
-function isKey(path) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode();
-  if (
-    parentNode.type === "value-comma_group" &&
-    parentNode.groups &&
-    parentNode.groups.includes(node)
-  ) {
-    const index = parentNode.groups.indexOf(node);
-    const nextNode = parentNode.groups[index + 1];
-    if (nextNode && isColonNode(nextNode)) {
-      return true;
-    }
+function isKeyInValuePairNode(node, parentNode) {
+  if (!isKeyValuePairNode(parentNode)) {
+    return false;
   }
-  return false;
+
+  const {groups} = parentNode;
+  const index = groups.indexOf(node);
+
+  if (index === -1) {
+    return false;
+  }
+
+  return isColonNode(groups[index + 1]);
 }
 
 function isMediaAndSupportsKeywords(node) {
@@ -518,9 +516,9 @@ module.exports = {
   isTemplatePlaceholderNode,
   isTemplatePropNode,
   isPostcssSimpleVarNode,
-  isKey,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,
+  isKeyInValuePairNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
   isHashNode,
