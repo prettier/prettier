@@ -57,6 +57,7 @@ const {
   hasComposesNode,
   hasParensAroundNode,
   hasEmptyRawBefore,
+  isKey,
   isKeyValuePairNode,
   isDetachedRulesetCallNode,
   isTemplatePlaceholderNode,
@@ -546,11 +547,15 @@ function genericPrint(path, options, print) {
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
-        parts.push(printed[i]);
-
-        const iPrevNode = node.groups[i - 1];
         const iNode = node.groups[i];
         const iNextNode = node.groups[i + 1];
+
+        if (iNode.type === "value-paren_group" && isColonNode(iNextNode)) {
+          parts.push(dedent(printed[i]));
+        } else {
+          parts.push(printed[i]);
+        }
+        const iPrevNode = node.groups[i - 1];
         const iNextNextNode = node.groups[i + 2];
 
         if (insideURLFunction) {
@@ -915,7 +920,8 @@ function genericPrint(path, options, print) {
           node.close ? path.call(print, "close") : "",
         ]),
         {
-          shouldBreak: isSCSSMapItem,
+          shouldBreak:
+            isSCSSMapItem && !(isKeyValuePairNode(parentNode) && isKey(path)),
         }
       );
     }
@@ -951,7 +957,9 @@ function genericPrint(path, options, print) {
       return concat([
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
-        (prevNode && prevNode.value[prevNode.value.length - 1] === "\\") ||
+        (prevNode &&
+          typeof prevNode.value === "string" &&
+          prevNode.value[prevNode.value.length - 1] === "\\") ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""

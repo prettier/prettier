@@ -401,7 +401,24 @@ function isWordNode(node) {
 }
 
 function isColonNode(node) {
-  return node.type === "value-colon";
+  return node && node.type === "value-colon";
+}
+
+function isKey(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode();
+  if (
+    parentNode.type === "value-comma_group" &&
+    parentNode.groups &&
+    parentNode.groups.includes(node)
+  ) {
+    const index = parentNode.groups.indexOf(node);
+    const nextNode = parentNode.groups[index + 1];
+    if (nextNode && isColonNode(nextNode)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function isMediaAndSupportsKeywords(node) {
@@ -501,6 +518,7 @@ module.exports = {
   isTemplatePlaceholderNode,
   isTemplatePropNode,
   isPostcssSimpleVarNode,
+  isKey,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,
   isSCSSMapItemNode,
