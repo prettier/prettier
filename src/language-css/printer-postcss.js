@@ -548,14 +548,17 @@ function genericPrint(path, options, print) {
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
         const iNode = node.groups[i];
-        const iNextNode = node.groups[i + 1];
-
-        if (iNode.type === "value-paren_group" && isColonNode(iNextNode)) {
+        if (
+          iNode.type === "value-paren_group" &&
+          isKeyInValuePairNode(iNode, parentNode)
+        ) {
           parts.push(dedent(printed[i]));
         } else {
           parts.push(printed[i]);
         }
+
         const iPrevNode = node.groups[i - 1];
+        const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
 
         if (insideURLFunction) {
