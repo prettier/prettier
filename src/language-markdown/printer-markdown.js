@@ -5,6 +5,7 @@ const {
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   builders: {
@@ -22,7 +23,7 @@ const {
     indent,
     group,
   },
-  utils: { normalizeDoc },
+  utils: { normalizeDoc, getDocParts },
   printer: { printDocToString },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
@@ -422,11 +423,10 @@ function genericPrint(path, options, print) {
                 align(
                   " ".repeat(4),
                   printChildren(path, options, print, {
-                    processor: (childPath, index) => {
-                      return index === 0
+                    processor: (childPath, index) =>
+                      index === 0
                         ? group(concat([softline, childPath.call(print)]))
-                        : childPath.call(print);
-                    },
+                        : childPath.call(print),
                   })
                 ),
                 nextNode && nextNode.type === "footnoteDefinition"
@@ -578,7 +578,7 @@ function printLine(path, value, options) {
 }
 
 function printTable(path, options, print) {
-  const hardlineWithoutBreakParent = hardline.parts[0];
+  const hardlineWithoutBreakParent = getDocParts(hardline)[0];
   const node = path.getValue();
 
   const columnMaxWidths = [];
@@ -688,7 +688,7 @@ function printRoot(path, options, print) {
 
   return printChildren(path, options, print, {
     processor: (childPath, index) => {
-      if (ignoreRanges.length !== 0) {
+      if (ignoreRanges.length > 0) {
         const ignoreRange = ignoreRanges[0];
 
         if (index === ignoreRange.start.index) {
@@ -774,7 +774,7 @@ function printChildren(path, options, print, events) {
 
 function getLastDescendantNode(node) {
   let current = node;
-  while (current.children && current.children.length !== 0) {
+  while (isNonEmptyArray(current.children)) {
     current = current.children[current.children.length - 1];
   }
   return current;

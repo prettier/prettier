@@ -72,7 +72,6 @@ const languages = [
     since: "1.5.0",
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
-    filenames: [...data.filenames, ".prettierrc"],
     extensions: data.extensions.filter((extension) => extension !== ".jsonl"),
   })),
   createLanguage(

@@ -11,16 +11,18 @@ const {
 } = require("../../document");
 const {
   getFunctionParameters,
-  hasDanglingComments,
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
-  isJSXNode,
+  isJsxNode,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
   returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
+  hasComment,
+  getComments,
+  CommentCheckFlags,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -93,11 +95,18 @@ function printMethod(path, options, print) {
 
   parts.push(
     printPropertyKey(path, options, print),
-    node.optional || node.key.optional ? "?" : "",
-    node === value
-      ? printMethodInternal(path, options, print)
-      : path.call((path) => printMethodInternal(path, options, print), "value")
+    node.optional || node.key.optional ? "?" : ""
   );
+
+  if (node === value) {
+    parts.push(printMethodInternal(path, options, print));
+  } else if (value.type === "FunctionExpression") {
+    parts.push(
+      path.call((path) => printMethodInternal(path, options, print), "value")
+    );
+  } else {
+    parts.push(path.call(print, "value"));
+  }
 
   return concat(parts);
 }
@@ -181,7 +190,7 @@ function printArrowFunctionExpression(path, options, print, args) {
     (n.body.type === "ArrayExpression" ||
       n.body.type === "ObjectExpression" ||
       n.body.type === "BlockStatement" ||
-      isJSXNode(n.body) ||
+      isJsxNode(n.body) ||
       isTemplateOnItsOwnLine(n.body, options.originalText) ||
       n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
@@ -207,7 +216,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const shouldAddSoftLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
-    !(n.comments && n.comments.length);
+    !hasComment(n);
 
   const printTrailingComma =
     args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -246,10 +255,10 @@ function canPrintParamsWithoutParens(node) {
   return (
     parameters.length === 1 &&
     !node.typeParameters &&
-    !hasDanglingComments(node) &&
+    !hasComment(node, CommentCheckFlags.Dangling) &&
     parameters[0].type === "Identifier" &&
     !parameters[0].typeAnnotation &&
-    !parameters[0].comments &&
+    !hasComment(parameters[0]) &&
     !parameters[0].optional &&
     !node.predicate &&
     !node.returnType
@@ -333,15 +342,15 @@ function printReturnAndThrowArgument(path, options, print) {
     }
   }
 
-  const lastComment =
-    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
+  const comments = getComments(node);
+  const lastComment = comments[comments.length - 1];
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {
     parts.push(semi);
   }
 
-  if (hasDanglingComments(node)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
@@ -369,5 +378,6 @@ module.exports = {
   printMethod,
   printReturnStatement,
   printThrowStatement,
+  printMethodInternal,
   shouldPrintParamsWithoutParens,
 };

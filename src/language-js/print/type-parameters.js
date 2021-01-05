@@ -5,9 +5,9 @@ const {
   builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
 const {
-  hasDanglingComments,
   isTestCall,
-  isBlockComment,
+  hasComment,
+  CommentCheckFlags,
   isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
@@ -82,12 +82,10 @@ function printTypeParameters(path, options, print, paramsKey) {
 
 function printDanglingCommentsForInline(path, options) {
   const n = path.getValue();
-  if (!hasDanglingComments(n)) {
+  if (!hasComment(n, CommentCheckFlags.Dangling)) {
     return "";
   }
-  const hasOnlyBlockComments = n.comments.every((comment) =>
-    isBlockComment(comment)
-  );
+  const hasOnlyBlockComments = !hasComment(n, CommentCheckFlags.Line);
   const printed = printDanglingComments(
     path,
     options,
@@ -111,9 +109,7 @@ function printTypeParameter(path, options, print) {
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent((path) => {
-          return path.call(print, "nameType");
-        })
+        path.callParent((path) => path.call(print, "nameType"))
       );
     }
     parts.push("]");

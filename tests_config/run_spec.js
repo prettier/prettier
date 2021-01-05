@@ -144,7 +144,7 @@ function runSpec(fixtures, parsers, options) {
 
   // Make sure tests are in correct location
   if (process.env.CHECK_TEST_PARSERS) {
-    if (!Array.isArray(parsers) || !parsers.length) {
+    if (!Array.isArray(parsers) || parsers.length === 0) {
       throw new Error(`No parsers were specified for ${dirname}`);
     }
     checkParsers({ dirname, files }, parsers);
@@ -334,7 +334,7 @@ function runTest({
     });
   }
 
-  if (!code.includes("\r") && !formatOptions.requirePragma) {
+  if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
         const output = format(code.replace(/\n/g, eol), formatOptions)
@@ -359,6 +359,25 @@ function runTest({
       expect(output).toEqual(expected);
     });
   }
+}
+
+function shouldSkipEolTest(code, options) {
+  if (code.includes("\r")) {
+    return true;
+  }
+  const { requirePragma, rangeStart, rangeEnd } = options;
+  if (requirePragma) {
+    return true;
+  }
+
+  if (
+    typeof rangeStart === "number" &&
+    typeof rangeEnd === "number" &&
+    rangeStart >= rangeEnd
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function parse(source, options) {

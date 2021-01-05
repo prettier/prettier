@@ -2,13 +2,16 @@
 
 const { literalline, concat } = require("./doc-builders");
 
+const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
+const getDocParts = (doc) => (Array.isArray(doc) ? doc : doc.parts);
+
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
 
 function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   const docsStack = [doc];
 
-  while (docsStack.length !== 0) {
+  while (docsStack.length > 0) {
     const doc = docsStack.pop();
 
     if (doc === traverseDocOnExitStackMarker) {
@@ -29,9 +32,10 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
       // when the stack is popped.
-      if (doc.type === "concat" || doc.type === "fill") {
-        for (let ic = doc.parts.length, i = ic - 1; i >= 0; --i) {
-          docsStack.push(doc.parts[i]);
+      if (isConcat(doc) || doc.type === "fill") {
+        const parts = getDocParts(doc);
+        for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
+          docsStack.push(parts[i]);
         }
       } else if (doc.type === "if-break") {
         if (doc.flatContents) {
@@ -56,7 +60,9 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 }
 
 function mapDoc(doc, cb) {
-  if (doc.type === "concat" || doc.type === "fill") {
+  if (Array.isArray(doc)) {
+    return cb(doc.map((part) => mapDoc(part, cb)));
+  } else if (doc.type === "concat" || doc.type === "fill") {
     const parts = doc.parts.map((part) => mapDoc(part, cb));
     return cb({ ...doc, parts });
   } else if (doc.type === "if-break") {
@@ -191,34 +197,33 @@ function stripDocTrailingHardlineFromDoc(doc) {
     return doc;
   }
 
-  switch (doc.type) {
-    case "concat":
-    case "fill": {
-      const { parts } = doc;
+  if (isConcat(doc) || doc.type === "fill") {
+    const parts = getDocParts(doc);
 
-      while (parts.length > 1 && isHardline(...parts.slice(-2))) {
-        parts.pop();
-        parts.pop();
-      }
-
-      if (parts.length > 1) {
-        const lastPart = stripDocTrailingHardlineFromDoc(
-          parts[parts.length - 1]
-        );
-        parts[parts.length - 1] = lastPart;
-      }
-      break;
+    while (parts.length > 1 && isHardline(...parts.slice(-2))) {
+      parts.length -= 2;
     }
+
+    if (parts.length > 0) {
+      const lastPart = stripDocTrailingHardlineFromDoc(parts[parts.length - 1]);
+      parts[parts.length - 1] = lastPart;
+    }
+    return Array.isArray(doc) ? parts : { ...doc, parts };
+  }
+
+  switch (doc.type) {
     case "align":
     case "indent":
     case "group":
-    case "line-suffix":
-      doc.contents = stripDocTrailingHardlineFromDoc(doc.contents);
-      break;
-    case "if-break":
-      doc.breakContents = stripDocTrailingHardlineFromDoc(doc.breakContents);
-      doc.flatContents = stripDocTrailingHardlineFromDoc(doc.flatContents);
-      break;
+    case "line-suffix": {
+      const contents = stripDocTrailingHardlineFromDoc(doc.contents);
+      return { ...doc, contents };
+    }
+    case "if-break": {
+      const breakContents = stripDocTrailingHardlineFromDoc(doc.breakContents);
+      const flatContents = stripDocTrailingHardlineFromDoc(doc.flatContents);
+      return { ...doc, breakContents, flatContents };
+    }
   }
 
   return doc;
@@ -229,35 +234,62 @@ function stripTrailingHardline(doc) {
   return stripDocTrailingHardlineFromDoc(cleanDoc(doc));
 }
 
-const isConcat = (doc) => doc && doc.type === "concat";
 function cleanDocFn(doc) {
+  switch (doc.type) {
+    case "fill":
+      if (doc.parts.length === 0 || doc.parts.every((part) => part === "")) {
+        return "";
+      }
+      break;
+    case "group":
+      if (!doc.contents && !doc.id && !doc.break && !doc.expandedStates) {
+        return "";
+      }
+      // Remove nested only group
+      if (
+        doc.contents.type === "group" &&
+        doc.contents.id === doc.id &&
+        doc.contents.break === doc.break &&
+        doc.contents.expandedStates === doc.expandedStates
+      ) {
+        return doc.contents;
+      }
+      break;
+    case "align":
+    case "indent":
+    case "line-suffix":
+      if (!doc.contents) {
+        return "";
+      }
+      break;
+    case "if-break":
+      if (!doc.flatContents && !doc.breakContents) {
+        return "";
+      }
+      break;
+  }
+
   if (!isConcat(doc)) {
     return doc;
   }
 
-  const { parts } = doc;
-  for (let index = parts.length - 1; index >= 0; index--) {
-    let currentDoc = cleanDocFn(parts[index]);
-    // Next doc already normalized
-    const nextDoc = parts[index + 1];
-
-    // Concat continuous string
-    if (typeof currentDoc === "string" && typeof nextDoc === "string") {
-      parts.splice(index + 1, 1);
-      currentDoc += nextDoc;
+  const parts = [];
+  for (const part of getDocParts(doc)) {
+    if (!part) {
+      continue;
     }
-    // Concat continuous `concat`
-    else if (isConcat(currentDoc) && isConcat(nextDoc)) {
-      parts.splice(index + 1, 1);
-      currentDoc.parts.push(...nextDoc.parts);
-    }
-
-    // If empty string, remove it
-    if (currentDoc === "") {
-      parts.splice(index, 1);
+    const [currentPart, ...restParts] = isConcat(part)
+      ? getDocParts(part)
+      : [part];
+    if (
+      typeof currentPart === "string" &&
+      typeof parts[parts.length - 1] === "string"
+    ) {
+      parts[parts.length - 1] += currentPart;
     } else {
-      parts[index] = currentDoc;
+      parts.push(currentPart);
     }
+    parts.push(...restParts);
   }
 
   if (parts.length === 0) {
@@ -265,11 +297,14 @@ function cleanDocFn(doc) {
   }
 
   if (parts.length === 1) {
-    return cleanDocFn(parts[0]);
+    return parts[0];
   }
-
-  return doc;
+  return Array.isArray(doc) ? parts : { ...doc, parts };
 }
+// A safer version of `normalizeDoc`
+// - `normalizeDoc` concat strings and flat "concat" in `fill`, while `cleanDoc` don't
+// - On `concat` object, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
+// - `cleanDoc` also remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
 }
@@ -278,20 +313,20 @@ function normalizeParts(parts) {
   const newParts = [];
 
   const restParts = parts.filter(Boolean);
-  while (restParts.length !== 0) {
+  while (restParts.length > 0) {
     const part = restParts.shift();
 
     if (!part) {
       continue;
     }
 
-    if (part.type === "concat") {
-      restParts.unshift(...part.parts);
+    if (isConcat(part)) {
+      restParts.unshift(...getDocParts(part));
       continue;
     }
 
     if (
-      newParts.length !== 0 &&
+      newParts.length > 0 &&
       typeof newParts[newParts.length - 1] === "string" &&
       typeof part === "string"
     ) {
@@ -307,6 +342,9 @@ function normalizeParts(parts) {
 
 function normalizeDoc(doc) {
   return mapDoc(doc, (currentDoc) => {
+    if (Array.isArray(currentDoc)) {
+      return normalizeParts(currentDoc);
+    }
     if (!currentDoc.parts) {
       return currentDoc;
     }
@@ -330,6 +368,8 @@ function replaceNewlinesWithLiterallines(doc) {
 }
 
 module.exports = {
+  isConcat,
+  getDocParts,
   isEmpty,
   willBreak,
   isLineNext,

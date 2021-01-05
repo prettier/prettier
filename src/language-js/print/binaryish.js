@@ -4,14 +4,15 @@ const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
   builders: { concat, join, line, softline, group, indent, align, ifBreak },
-  utils: { normalizeParts },
+  utils: { cleanDoc, getDocParts },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
-  hasTrailingLineComment,
   isBinaryish,
-  isJSXNode,
+  isJsxNode,
   shouldFlatten,
+  hasComment,
+  CommentCheckFlags,
 } = require("../utils");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -126,10 +127,11 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJSX = isJSXNode(n.right);
+  const hasJsx = isJsxNode(n.right);
 
   const firstGroupIndex = parts.findIndex(
-    (part) => typeof part !== "string" && part.type === "group"
+    (part) =>
+      typeof part !== "string" && !Array.isArray(part) && part.type === "group"
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
@@ -138,7 +140,7 @@ function printBinaryishExpression(path, options, print) {
     firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
   );
 
-  const rest = concat(parts.slice(headParts.length, hasJSX ? -1 : undefined));
+  const rest = concat(parts.slice(headParts.length, hasJsx ? -1 : undefined));
 
   const groupId = Symbol("logicalChain-" + ++uid);
 
@@ -153,7 +155,7 @@ function printBinaryishExpression(path, options, print) {
     { id: groupId }
   );
 
-  if (!hasJSX) {
+  if (!hasJsx) {
     return chain;
   }
 
@@ -220,7 +222,7 @@ function printBinaryishExpressions(
 
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
-      node.type === "NGPipeExpression" && node.arguments.length !== 0
+      node.type === "NGPipeExpression" && node.arguments.length > 0
         ? group(
             indent(
               concat([
@@ -250,7 +252,10 @@ function printBinaryishExpressions(
     // If there's only a single binary expression, we want to create a group
     // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
-    const shouldBreak = hasTrailingLineComment(node.left);
+    const shouldBreak = hasComment(
+      node.left,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line
+    );
     const shouldGroup =
       shouldBreak ||
       (!(isInsideParenthesis && node.type === "LogicalExpression") &&
@@ -266,10 +271,16 @@ function printBinaryishExpressions(
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
-    if (isNested && node.comments) {
-      parts = normalizeParts(
-        printComments(path, () => concat(parts), options).parts
+    if (isNested && hasComment(node)) {
+      const printed = cleanDoc(
+        printComments(path, () => concat(parts), options)
       );
+      /* istanbul ignore if */
+      if (printed.type === "string") {
+        parts = [printed];
+      } else {
+        parts = getDocParts(printed);
+      }
     }
   } else {
     // Our stopping case. Simply print the node normally.
@@ -286,19 +297,16 @@ function shouldInlineLogicalExpression(node) {
 
   if (
     node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
+    node.right.properties.length > 0
   ) {
     return true;
   }
 
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
+  if (node.right.type === "ArrayExpression" && node.right.elements.length > 0) {
     return true;
   }
 
-  if (isJSXNode(node.right)) {
+  if (isJsxNode(node.right)) {
     return true;
   }
 

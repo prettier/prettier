@@ -1,12 +1,14 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, softline, group, indent, join, line, ifBreak, hardline },
 } = require("../../document");
 const { printDanglingComments } = require("../../main/comments");
 
 const {
-  hasDanglingComments,
+  hasComment,
+  CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
 } = require("../utils");
@@ -55,7 +57,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(" default");
   }
 
-  if (hasDanglingComments(node)) {
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
@@ -167,7 +169,7 @@ function printModuleSpecifiers(path, options, print) {
   /** @type{Doc[]} */
   const parts = [" "];
 
-  if (node.specifiers && node.specifiers.length > 0) {
+  if (isNonEmptyArray(node.specifiers)) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
@@ -195,15 +197,15 @@ function printModuleSpecifiers(path, options, print) {
 
     parts.push(join(", ", standaloneSpecifiers));
 
-    if (groupedSpecifiers.length !== 0) {
-      if (standaloneSpecifiers.length !== 0) {
+    if (groupedSpecifiers.length > 0) {
+      if (standaloneSpecifiers.length > 0) {
         parts.push(", ");
       }
 
       const canBreak =
         groupedSpecifiers.length > 1 ||
         standaloneSpecifiers.length > 0 ||
-        node.specifiers.some((node) => node.comments);
+        node.specifiers.some((node) => hasComment(node));
 
       if (canBreak) {
         parts.push(
@@ -245,7 +247,7 @@ function shouldNotPrintSpecifiers(node, options) {
 
   if (
     type !== "ImportDeclaration" ||
-    (Array.isArray(specifiers) && specifiers.length > 0) ||
+    isNonEmptyArray(specifiers) ||
     importKind === "type"
   ) {
     return false;
@@ -259,7 +261,7 @@ function shouldNotPrintSpecifiers(node, options) {
 
 function printImportAssertions(path, options, print) {
   const node = path.getNode();
-  if (Array.isArray(node.assertions) && node.assertions.length !== 0) {
+  if (isNonEmptyArray(node.assertions)) {
     return concat([
       " assert {",
       options.bracketSpacing ? " " : "",

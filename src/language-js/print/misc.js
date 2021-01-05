@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { concat, indent, join, line },
 } = require("../../document");
@@ -67,7 +68,7 @@ function printBindExpressionCallee(path, options, print) {
 
 function printTypeScriptModifiers(path, options, print) {
   const n = path.getValue();
-  if (!n.modifiers || !n.modifiers.length) {
+  if (!isNonEmptyArray(n.modifiers)) {
     return "";
   }
   return concat([join(" ", path.map(print, "modifiers")), " "]);

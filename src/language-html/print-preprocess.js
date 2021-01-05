@@ -41,7 +41,7 @@ function removeIgnorableFirstLf(ast /*, options */) {
     if (
       node.type === "element" &&
       node.tagDefinition.ignoreFirstLf &&
-      node.children.length !== 0 &&
+      node.children.length > 0 &&
       node.children[0].type === "text" &&
       node.children[0].value[0] === "\n"
     ) {
@@ -260,7 +260,7 @@ function extractInterpolation(ast, options) {
 
         if (i % 2 === 0) {
           endSourceSpan = startSourceSpan.moveBy(value.length);
-          if (value.length !== 0) {
+          if (value.length > 0) {
             newChildren.push({
               type: "text",
               value,
@@ -317,7 +317,7 @@ function extractWhitespaces(ast /*, options*/) {
     ) {
       return node.clone({
         children: [],
-        hasDanglingSpaces: node.children.length !== 0,
+        hasDanglingSpaces: node.children.length > 0,
       });
     }
 
@@ -440,19 +440,14 @@ function addIsSpaceSensitive(ast, options) {
 
     return node.clone({
       children: node.children
-        .map((child) => {
-          return {
-            ...child,
-            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(
-              child,
-              options
-            ),
-            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
-              child,
-              options
-            ),
-          };
-        })
+        .map((child) => ({
+          ...child,
+          isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, options),
+          isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
+            child,
+            options
+          ),
+        }))
         .map((child, index, children) => ({
           ...child,
           isLeadingSpaceSensitive:
