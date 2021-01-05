@@ -11,6 +11,7 @@ const bundler = require("./bundler");
 const bundleConfigs = require("./config");
 const util = require("./util");
 const Cache = require("./cache");
+const saveLicense = require("./save-license");
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -160,6 +161,25 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
+  const withoutCache = !fs.existsSync(path.join(__dirname, "../../.cache"));
+
+  const allDependencies = [];
+  if (withoutCache) {
+    params.onLicenseFound = (dependencies) => {
+      for (const dependency of dependencies) {
+        if (
+          !allDependencies.some(
+            (item) =>
+              item.name === dependency.name &&
+              item.version === dependency.version
+          )
+        ) {
+          allDependencies.push(dependency);
+        }
+      }
+    };
+  }
+
   const bundleCache = new Cache(".cache/", CACHE_VERSION);
   await bundleCache.load();
 
@@ -173,6 +193,15 @@ async function run(params) {
 
   if (!params.playground) {
     await preparePackage();
+    if (withoutCache) {
+      saveLicense(allDependencies);
+    } else {
+      console.warn(
+        chalk.red(
+          "Bundled dependencies licenses not included in `dist/LICENSE`."
+        )
+      );
+    }
   }
 }
 
