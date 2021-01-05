@@ -550,7 +550,7 @@ function genericPrint(path, options, print) {
         const iNode = node.groups[i];
         if (
           iNode.type === "value-paren_group" &&
-          isKeyInValuePairNode(iNode, parentNode)
+          isKeyInValuePairNode(iNode, node)
         ) {
           parts.push(dedent(printed[i]));
         } else {
