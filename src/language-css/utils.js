@@ -409,7 +409,7 @@ function isKeyInValuePairNode(node, parentNode) {
     return false;
   }
 
-  const {groups} = parentNode;
+  const { groups } = parentNode;
   const index = groups.indexOf(node);
 
   if (index === -1) {

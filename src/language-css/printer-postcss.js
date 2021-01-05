@@ -920,8 +920,7 @@ function genericPrint(path, options, print) {
           node.close ? path.call(print, "close") : "",
         ]),
         {
-          shouldBreak:
-            isSCSSMapItem && !(isKeyInValuePairNode(node, parentNode)),
+          shouldBreak: isSCSSMapItem && !isKeyInValuePairNode(node, parentNode),
         }
       );
     }
