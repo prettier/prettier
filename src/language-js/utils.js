@@ -1333,6 +1333,16 @@ function isCallLikeExpression(node) {
   return isCallOrOptionalCallExpression(node) || node.type === "NewExpression";
 }
 
+function isCurriedArrowFunctionExpression(node) {
+  if (!node) {
+    return false;
+  }
+  return (
+    node.type === "ArrowFunctionExpression" &&
+    node.body.type === "ArrowFunctionExpression"
+  );
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1354,6 +1364,7 @@ module.exports = {
   isBinaryish,
   isBlockComment,
   isCallLikeExpression,
+  isCurriedArrowFunctionExpression,
   isLineComment,
   isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,

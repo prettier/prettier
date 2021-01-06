@@ -14,8 +14,8 @@ const {
   getCallArguments,
   iterateCallArgumentsPath,
   isNextLineEmpty,
+  isCurriedArrowFunctionExpression,
 } = require("../utils");
-const { isCurriedArrowFunctionExpression } = require("./function");
 
 const {
   builders: {

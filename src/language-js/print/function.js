@@ -7,16 +7,7 @@ const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const {
-  builders: {
-    concat,
-    line,
-    softline,
-    group,
-    indent,
-    ifBreak,
-    hardline,
-    dedent,
-  },
+  builders: { concat, line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -32,8 +23,8 @@ const {
   hasComment,
   getComments,
   CommentCheckFlags,
-  identity,
   isCallLikeExpression,
+  isCurriedArrowFunctionExpression,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -218,9 +209,8 @@ function printArrowFunctionExpression(path, options, print, args) {
       ) {
         if (name === "callee") {
           return group([indent([softline, ...content]), softline]);
-        } else {
-          return group(indent(content));
         }
+        return group(indent(content));
       }
     }
     return content;
@@ -402,13 +392,6 @@ function printThrowStatement(path, options, print) {
   return ["throw", printReturnAndThrowArgument(path, options, print)];
 }
 
-function isCurriedArrowFunctionExpression(node) {
-  if (!node || node.type !== "ArrowFunctionExpression") {
-    return false;
-  }
-  return node.body.type === "ArrowFunctionExpression";
-}
-
 module.exports = {
   printFunctionDeclaration,
   printArrowFunctionExpression,
@@ -417,5 +400,4 @@ module.exports = {
   printThrowStatement,
   printMethodInternal,
   shouldPrintParamsWithoutParens,
-  isCurriedArrowFunctionExpression,
 };
