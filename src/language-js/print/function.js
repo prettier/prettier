@@ -235,7 +235,6 @@ function printArrowFunctionExpression(path, options, print, args) {
       n.body.type === "BlockStatement" ||
       isJsxNode(n.body) ||
       isTemplateOnItsOwnLine(n.body, options.originalText) ||
-      n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
   ) {
     return group([...parts, " ", body]);
