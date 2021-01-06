@@ -188,3 +188,5 @@ foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
     (next) =>
     dispatch(action)
 );
+
+foo(action => action => action);

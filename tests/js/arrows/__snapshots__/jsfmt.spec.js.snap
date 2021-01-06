@@ -2134,6 +2134,8 @@ foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
     dispatch(action)
 );
 
+foo(action => action => action);
+
 =====================================output=====================================
 const fn1 = (a) => 3;
 const fn2 = (a) => (b) => 3;
@@ -2362,6 +2364,8 @@ foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
     dispatch(action)
 );
 
+foo((action) => (action) => action);
+
 ================================================================================
 `;
 
@@ -2563,6 +2567,8 @@ foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
     dispatch(action)
 );
 
+foo(action => action => action);
+
 =====================================output=====================================
 const fn1 = a => 3;
 const fn2 = a => b => 3;
@@ -2763,6 +2769,8 @@ new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
 foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
   action => next => next => next => next => next => next => dispatch(action)
 );
+
+foo(action => action => action);
 
 ================================================================================
 `;
