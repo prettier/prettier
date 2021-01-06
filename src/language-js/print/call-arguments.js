@@ -15,6 +15,7 @@ const {
   iterateCallArgumentsPath,
   isNextLineEmpty,
 } = require("../utils");
+const { isCurriedArrowFunctionExpression } = require("./function");
 
 const {
   builders: {
@@ -248,7 +249,8 @@ function couldGroupArg(arg) {
         !arg.returnType.typeAnnotation ||
         arg.returnType.typeAnnotation.type !== "TSTypeReference") &&
       (arg.body.type === "BlockStatement" ||
-        arg.body.type === "ArrowFunctionExpression" ||
+        (arg.body.type === "ArrowFunctionExpression" &&
+          !isCurriedArrowFunctionExpression(arg)) ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         arg.body.type === "CallExpression" ||

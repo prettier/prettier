@@ -2148,9 +2148,20 @@ const fn9 = (a) => (b) => ({ foo: bar, bar: baz, baz: foo });
 const fn10 = (a) => (b) => (c) => ({ foo: bar, bar: baz, baz: foo });
 const fn11 = (a) => (b) => (c) => (d) => ({ foo: bar, bar: baz, baz: foo });
 const fn12 =
-  (a) => (b) => (c) => (d) => (e) => ({ foo: bar, bar: baz, baz: foo });
+  (a) =>
+  (b) =>
+  (c) =>
+  (d) =>
+  (e) =>
+  ({ foo: bar, bar: baz, baz: foo });
 const fn13 =
-  (a) => (b) => (c) => (d) => (e) => (g) => ({ foo: bar, bar: baz, baz: foo });
+  (a) =>
+  (b) =>
+  (c) =>
+  (d) =>
+  (e) =>
+  (g) =>
+  ({ foo: bar, bar: baz, baz: foo });
 const fn14 =
   (a) =>
   (b) =>
@@ -2285,18 +2296,18 @@ foo(
 
 (
   (argument1) =>
-    (argument2) =>
-    (argument3) =>
-    (argument4) =>
-    (argument5) =>
-    (argument6) =>
-    (argument7) =>
-    (argument8) =>
-    (argument9) =>
-    (argument10) =>
-    (argument11) =>
-    (argument12) =>
-    3
+  (argument2) =>
+  (argument3) =>
+  (argument4) =>
+  (argument5) =>
+  (argument6) =>
+  (argument7) =>
+  (argument8) =>
+  (argument9) =>
+  (argument10) =>
+  (argument11) =>
+  (argument12) =>
+  3
 )(3);
 
 bar(
@@ -2568,7 +2579,14 @@ const fn11 = a => b => c => d => ({ foo: bar, bar: baz, baz: foo });
 const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
 const fn13 = a => b => c => d => e => g => ({ foo: bar, bar: baz, baz: foo });
 const fn14 =
-  a => b => c => d => e => g => f => ({ foo: bar, bar: baz, baz: foo });
+  a =>
+  b =>
+  c =>
+  d =>
+  e =>
+  g =>
+  f =>
+  ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
   argument1 =>
@@ -2694,18 +2712,18 @@ foo(
 
 (
   argument1 =>
-    argument2 =>
-    argument3 =>
-    argument4 =>
-    argument5 =>
-    argument6 =>
-    argument7 =>
-    argument8 =>
-    argument9 =>
-    argument10 =>
-    argument11 =>
-    argument12 =>
-    3
+  argument2 =>
+  argument3 =>
+  argument4 =>
+  argument5 =>
+  argument6 =>
+  argument7 =>
+  argument8 =>
+  argument9 =>
+  argument10 =>
+  argument11 =>
+  argument12 =>
+  3
 )(3);
 
 bar(

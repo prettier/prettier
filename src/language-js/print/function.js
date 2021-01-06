@@ -203,22 +203,27 @@ function printArrowFunctionExpression(path, options, print, args) {
     n.body.type !== "BlockStatement" &&
     parent.type === "ArrowFunctionExpression" &&
     path.getParentNode(1).type === "ArrowFunctionExpression";
-  if (n.body.type === "ArrowFunctionExpression" || isLastOfCurriedChaining) {
+  if (isCurriedArrowFunctionExpression(n) || isLastOfCurriedChaining) {
     const isCurriedChainingRoot = parent.type !== "ArrowFunctionExpression";
+    const content = [...parts, line, body];
     if (isCurriedChainingRoot) {
       const name = path.getName();
-      const isOperand = name === "init" || name === "right";
-      const isParentCallExpr = isCallLikeExpression(parent);
-      return group(
-        indent([
-          isOperand || isParentCallExpr ? softline : "",
-          parts,
-          group((isParentCallExpr ? indent : identity)([line, body])),
-          isParentCallExpr ? dedent(softline) : "",
-        ])
-      );
+      if (name === "init" || name === "right") {
+        return group(indent([softline, ...content]));
+      }
+      if (
+        isCallLikeExpression(parent) ||
+        parent.type === "ReturnStatement" ||
+        parent.type === "ThrowStatement"
+      ) {
+        if (name === "callee") {
+          return group([indent([softline, ...content]), softline]);
+        } else {
+          return group(indent(content));
+        }
+      }
     }
-    return [...parts, line, body];
+    return content;
   }
 
   // We want to always keep these types of nodes on the same line
@@ -398,6 +403,13 @@ function printThrowStatement(path, options, print) {
   return ["throw", printReturnAndThrowArgument(path, options, print)];
 }
 
+function isCurriedArrowFunctionExpression(node) {
+  if (!node || node.type !== "ArrowFunctionExpression") {
+    return false;
+  }
+  return node.body.type === "ArrowFunctionExpression";
+}
+
 module.exports = {
   printFunctionDeclaration,
   printArrowFunctionExpression,
@@ -406,4 +418,5 @@ module.exports = {
   printThrowStatement,
   printMethodInternal,
   shouldPrintParamsWithoutParens,
+  isCurriedArrowFunctionExpression,
 };
