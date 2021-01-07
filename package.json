@@ -45,7 +45,7 @@
     "find-parent-dir": "0.3.0",
     "flow-parser": "0.141.0",
     "get-stdin": "8.0.0",
-    "globby": "11.0.1",
+    "globby": "11.0.2",
     "graphql": "15.4.0",
     "html-element-attributes": "2.3.0",
     "html-styles": "1.0.0",
