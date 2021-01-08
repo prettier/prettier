@@ -1334,10 +1334,8 @@ function isCallLikeExpression(node) {
 }
 
 function isCurriedArrowFunctionExpression(node) {
-  if (!node) {
-    return false;
-  }
   return (
+    node &&
     node.type === "ArrowFunctionExpression" &&
     node.body.type === "ArrowFunctionExpression"
   );
