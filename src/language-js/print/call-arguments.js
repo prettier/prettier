@@ -47,6 +47,7 @@ function printCallArguments(path, options, print) {
   // useEffect(() => { ... }, [foo, bar, baz])
   if (
     args.length === 2 &&
+    args[0] &&
     args[0].type === "ArrowFunctionExpression" &&
     getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
@@ -284,6 +285,7 @@ function shouldGroupFirstArg(args) {
   const [firstArg, secondArg] = args;
   return (
     !hasComment(firstArg) &&
+    firstArg &&
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&
