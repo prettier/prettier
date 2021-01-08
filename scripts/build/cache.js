@@ -1,14 +1,10 @@
 "use strict";
 
-const util = require("util");
 const assert = require("assert").strict;
 const crypto = require("crypto");
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 const { rollup } = require("rollup");
-
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
 
 const ROOT = path.join(__dirname, "..", "..");
 
@@ -29,12 +25,12 @@ class Cache {
   // Loads the manifest.json file with the information from the last build
   async load() {
     // This should never throw, if it does, let it fail the build
-    const lockfile = await readFile("yarn.lock", "utf-8");
+    const lockfile = await fs.readFile("yarn.lock", "utf-8");
     const lockfileHash = hashString(lockfile);
     this.updated.checksums["yarn.lock"] = lockfileHash;
 
     try {
-      const manifest = await readFile(this.manifest, "utf-8");
+      const manifest = await fs.readFile(this.manifest, "utf-8");
       const { version, checksums, files } = JSON.parse(manifest);
 
       // Ignore the cache if the version changed
@@ -99,7 +95,7 @@ class Cache {
 
   async save() {
     try {
-      await writeFile(this.manifest, JSON.stringify(this.updated, null, 2));
+      await fs.writeFile(this.manifest, JSON.stringify(this.updated, null, 2));
     } catch (err) {
       // Don't fail the build
     }
