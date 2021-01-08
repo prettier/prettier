@@ -376,28 +376,32 @@ function printTypescript(path, options, print) {
     }
     case "TSMethodSignature":
       parts.push(
-        n.accessibility ? concat([n.accessibility, " "]) : "",
-        n.export ? "export " : "",
-        n.static ? "static " : "",
-        n.readonly ? "readonly " : "",
-        n.computed ? "[" : "",
-        path.call(print, "key"),
-        n.computed ? "]" : "",
-        printOptionalToken(path),
-        printFunctionParameters(
-          path,
-          print,
-          options,
-          /* expandArg */ false,
-          /* printTypeParams */ true
-        )
+        group([
+          n.accessibility ? concat([n.accessibility, " "]) : "",
+          n.export ? "export " : "",
+          n.static ? "static " : "",
+          n.readonly ? "readonly " : "",
+          n.computed ? "[" : "",
+          path.call(print, "key"),
+          n.computed ? "]" : "",
+          printOptionalToken(path),
+          printFunctionParameters(
+            path,
+            print,
+            options,
+            /* expandArg */ false,
+            /* printTypeParams */ true
+          ),
+        ])
       );
 
       if (n.returnType || n.typeAnnotation) {
         parts.push(
-          ": ",
-          path.call(print, "returnType"),
-          path.call(print, "typeAnnotation")
+          group([
+            ": ",
+            path.call(print, "returnType"),
+            path.call(print, "typeAnnotation"),
+          ])
         );
       }
       return group(concat(parts));
