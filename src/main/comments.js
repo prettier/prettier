@@ -503,16 +503,14 @@ function printTrailingComment(commentPath, options) {
       locStart
     );
 
-    return lineSuffix(
-      concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
-    );
+    return concat([hardline, isLineBeforeEmpty ? hardline : "", contents]);
   }
 
   let printed = concat([" ", contents]);
 
   // Trailing block comments never need a newline
   if (!isBlock) {
-    printed = concat([lineSuffix(printed), breakParent]);
+    printed = concat([printed, breakParent]);
   }
 
   return printed;
@@ -564,8 +562,9 @@ function printComments(path, print, options, needsSemi) {
     return prependCursorPlaceholder(path, options, printed);
   }
 
-  const leadingParts = [];
-  const trailingParts = [needsSemi ? ";" : "", printed];
+  const leadingComments = [];
+  const trailingComments = [];
+  let needLineSuffix = false;
 
   path.each((commentPath) => {
     const comment = commentPath.getValue();
@@ -577,7 +576,7 @@ function printComments(path, print, options, needsSemi) {
       if (!contents) {
         return;
       }
-      leadingParts.push(contents);
+      leadingComments.push(contents);
 
       const text = options.originalText;
       const index = skipNewline(
@@ -585,17 +584,32 @@ function printComments(path, print, options, needsSemi) {
         skipSpaces(text, options.locEnd(comment))
       );
       if (index !== false && hasNewline(text, index)) {
-        leadingParts.push(hardline);
+        leadingComments.push(hardline);
       }
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, options));
+      trailingComments.push(printTrailingComment(commentPath, options));
+      needLineSuffix =
+        needLineSuffix ||
+        !(
+          options.printer.isBlockComment &&
+          options.printer.isBlockComment(comment)
+        );
     }
   }, "comments");
 
   return prependCursorPlaceholder(
     path,
     options,
-    concat(leadingParts.concat(trailingParts))
+    concat([
+      concat(leadingComments),
+      needsSemi ? ";" : "",
+      printed,
+      trailingComments.length === 0
+        ? ""
+        : needLineSuffix
+        ? lineSuffix(concat(trailingComments))
+        : concat(trailingComments),
+    ])
   );
 }
 
