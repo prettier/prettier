@@ -4,6 +4,7 @@ const assert = require("assert").strict;
 const crypto = require("crypto");
 const fs = require("fs").promises;
 const path = require("path");
+const execa = require("execa");
 const { rollup } = require("rollup");
 
 const ROOT = path.join(__dirname, "..", "..");
@@ -99,6 +100,27 @@ class Cache {
     } catch (err) {
       // Don't fail the build
     }
+  }
+
+  async isCached(inputOptions, outputOption) {
+    const useCache = await this.checkBundle(
+      outputOption.file,
+      inputOptions,
+      outputOption
+    );
+    if (useCache) {
+      try {
+        await execa("cp", [
+          path.join(this.cacheDir, outputOption.file.replace("dist", "files")),
+          outputOption.file,
+        ]);
+        return true;
+      } catch (err) {
+        console.log(err);
+        // Proceed to build
+      }
+    }
+    return false;
   }
 }
 
