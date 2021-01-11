@@ -162,7 +162,12 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const withoutCache = !fs.existsSync(path.join(__dirname, "../../.cache"));
+  let withoutCache = false;
+  try {
+    withoutCache = Boolean(await fs.stat(path.join(__dirname, "../../.cache")));
+  } catch (_) {
+    // noop
+  }
 
   const allDependencies = [];
   if (withoutCache) {
