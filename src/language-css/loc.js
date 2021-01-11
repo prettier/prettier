@@ -1,7 +1,11 @@
 "use strict";
 
 const lineColumnToIndex = require("../utils/line-column-to-index");
-const { getLast, skipEverythingButNewLine } = require("../common/util");
+const {
+  getLast,
+  skipEverythingButNewLine,
+  isNonEmptyArray,
+} = require("../common/util");
 
 function calculateLocStart(node, text) {
   // `postcss>=8`
@@ -46,7 +50,7 @@ function calculateLocEnd(node, text) {
   if (node.source) {
     if (node.source.end) {
       return lineColumnToIndex(node.source.end, text);
-    } else if (Array.isArray(node.nodes) && node.nodes.length > 0) {
+    } else if (isNonEmptyArray(node.nodes)) {
       return calculateLocEnd(getLast(node.nodes), text);
     }
   }

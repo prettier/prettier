@@ -1,8 +1,6 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs");
-const execa = require("execa");
 const { rollup } = require("rollup");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
