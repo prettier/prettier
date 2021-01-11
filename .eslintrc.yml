@@ -110,9 +110,7 @@ overrides:
       prettier-internal-rules/better-parent-property-check-in-needs-parens: error
   - files: src/**/*.js
     rules:
-      prettier-internal-rules/no-concat-in-concat: error
-      prettier-internal-rules/no-doc-builder-concat: off
-      prettier-internal-rules/no-single-doc-concat: error
+      prettier-internal-rules/no-doc-builder-concat: error
       prettier-internal-rules/prefer-fast-path-each: error
       prettier-internal-rules/prefer-is-non-empty-array: error
   - files: src/document/*.js

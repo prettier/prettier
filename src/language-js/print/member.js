@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, softline, group, indent },
+  builders: { softline, group, indent },
 } = require("../../document");
 const { isNumericLiteral } = require("../utils");
 const { printOptionalToken } = require("./misc");
@@ -36,14 +36,12 @@ function printMemberExpression(path, options, print) {
       parent.type !== "MemberExpression" &&
       parent.type !== "OptionalMemberExpression");
 
-  return concat([
+  return [
     path.call(print, "object"),
     shouldInline
       ? printMemberLookup(path, options, print)
-      : group(
-          indent(concat([softline, printMemberLookup(path, options, print)]))
-        ),
-  ]);
+      : group(indent([softline, printMemberLookup(path, options, print)])),
+  ];
 }
 
 function printMemberLookup(path, options, print) {
@@ -52,16 +50,14 @@ function printMemberLookup(path, options, print) {
   const optional = printOptionalToken(path);
 
   if (!n.computed) {
-    return concat([optional, ".", property]);
+    return [optional, ".", property];
   }
 
   if (!n.property || isNumericLiteral(n.property)) {
-    return concat([optional, "[", property, "]"]);
+    return [optional, "[", property, "]"];
   }
 
-  return group(
-    concat([optional, "[", indent(concat([softline, property])), softline, "]"])
-  );
+  return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
 module.exports = { printMemberExpression, printMemberLookup };

@@ -94,27 +94,6 @@ test("jsx-identifier-case", {
   ],
 });
 
-test("no-concat-in-concat", {
-  valid: [],
-  invalid: [
-    {
-      code: "concat([concat([hardline, hardline]), 'extra'])",
-      output: "concat([hardline, hardline, 'extra'])",
-      errors: 1,
-    },
-    {
-      code: "concat([concat([hardline, hardline, ]), 'extra'])",
-      output: "concat([hardline, hardline , 'extra'])",
-      errors: 1,
-    },
-    {
-      code: "concat([concat(parts), 'extra'])",
-      output: "concat([...parts, 'extra'])",
-      errors: 1,
-    },
-  ],
-});
-
 test("no-doc-builder-concat", {
   valid: ["notConcat([])", "concat", "[].concat([])"],
   invalid: [
@@ -161,17 +140,6 @@ test("no-node-comments", {
       filename: path.join(__dirname, "../../..", "a.js"),
       options: [{ file: "a.js", functions: ["functionName"] }],
       errors: [{ message: "Do not access node.comments." }],
-    },
-  ],
-});
-
-test("no-single-doc-concat", {
-  valid: [],
-  invalid: [
-    {
-      code: 'concat([path.call(print, "params")])',
-      output: 'path.call(print, "params")',
-      errors: 1,
     },
   ],
 });

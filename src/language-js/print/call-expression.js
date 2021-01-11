@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, group },
+  builders: { join, group },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {
@@ -45,7 +45,7 @@ function printCallExpression(path, options, print) {
     iterateCallArgumentsPath(path, (argPath) => {
       printed.push(print(argPath));
     });
-    return concat([
+    return [
       isNew ? "new " : "",
       path.call(print, "callee"),
       optional,
@@ -53,7 +53,7 @@ function printCallExpression(path, options, print) {
       "(",
       join(", ", printed),
       ")",
-    ]);
+    ];
   }
 
   // Inline Flow annotation comments following Identifiers in Call nodes need to
@@ -82,7 +82,7 @@ function printCallExpression(path, options, print) {
     return printMemberChain(path, options, print);
   }
 
-  const contents = concat([
+  const contents = [
     isNew ? "new " : "",
     isDynamicImport ? "import" : path.call(print, "callee"),
     optional,
@@ -91,7 +91,7 @@ function printCallExpression(path, options, print) {
       : "",
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
-  ]);
+  ];
 
   // We group here when the callee is itself a call expression.
   // See `isLongCurriedCallExpression` for more info.
