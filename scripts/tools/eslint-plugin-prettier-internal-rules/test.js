@@ -144,17 +144,6 @@ test("no-node-comments", {
   ],
 });
 
-test("no-single-doc-concat", {
-  valid: [],
-  invalid: [
-    {
-      code: 'concat([path.call(print, "params")])',
-      output: 'path.call(print, "params")',
-      errors: 1,
-    },
-  ],
-});
-
 test("prefer-fast-path-each", {
   valid: ["const foo = path.map()"],
   invalid: [

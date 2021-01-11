@@ -7,7 +7,7 @@ const { printComments } = require("./comments");
 const multiparser = require("./multiparser");
 
 const docBuilders = doc.builders;
-const { concat, hardline, addAlignmentToDoc } = docBuilders;
+const { hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;
 
 /**
@@ -78,11 +78,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
-    doc = addAlignmentToDoc(
-      concat([hardline, doc]),
-      alignmentSize,
-      options.tabWidth
-    );
+    doc = addAlignmentToDoc([hardline, doc], alignmentSize, options.tabWidth);
   }
   docUtils.propagateBreaks(doc);
 

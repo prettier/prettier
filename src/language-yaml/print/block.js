@@ -4,7 +4,6 @@
 
 const {
   builders: {
-    concat,
     dedent,
     dedentToRoot,
     fill,
@@ -68,18 +67,16 @@ function printBlock(path, print, options) {
     }
   }
   if (node.indent === null) {
-    parts.push(
-      dedent(alignWithSpaces(options.tabWidth, concat(contentsParts)))
-    );
+    parts.push(dedent(alignWithSpaces(options.tabWidth, contentsParts)));
   } else {
     parts.push(
       dedentToRoot(
-        alignWithSpaces(node.indent - 1 + parentIndent, concat(contentsParts))
+        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts)
       )
     );
   }
 
-  return concat(parts);
+  return parts;
 }
 
 module.exports = printBlock;

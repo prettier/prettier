@@ -2,7 +2,7 @@
 
 const { hasNewline } = require("../../common/util");
 const {
-  builders: { concat, join, hardline },
+  builders: { join, hardline },
 } = require("../../document");
 
 const { isLineComment, isBlockComment } = require("../utils");
@@ -30,7 +30,7 @@ function printComment(commentPath, options) {
           backwards: true,
         })
       ) {
-        return concat([hardline, printed]);
+        return [hardline, printed];
       }
       return printed;
     }
@@ -57,7 +57,7 @@ function isIndentableBlockComment(comment) {
 function printIndentableBlockComment(comment) {
   const lines = comment.value.split("\n");
 
-  return concat([
+  return [
     "/*",
     join(
       hardline,
@@ -68,7 +68,7 @@ function printIndentableBlockComment(comment) {
       )
     ),
     "*/",
-  ]);
+  ];
 }
 
 module.exports = { printComment };

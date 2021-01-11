@@ -62,7 +62,7 @@ jobs:
         run: yarn test --maxWorkers=2
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v1.1.1
+        uses: codecov/codecov-action@v1.2.1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -76,7 +76,7 @@ jobs:
           PRETTIER_FALLBACK_RESOLVE: true
 
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v1.1.1
+        uses: codecov/codecov-action@v1.2.1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
