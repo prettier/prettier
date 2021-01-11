@@ -64,6 +64,7 @@
         "codemirror",
         "codemod",
         "codemods",
+        "colorette",
         "combinator",
         "commonmark",
         "concating",
