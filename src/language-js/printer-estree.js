@@ -397,9 +397,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "OptionalMemberExpression") &&
           parent.object === n)
       ) {
-        return group(
-          concat([indent(concat([softline, concat(parts)])), softline])
-        );
+        return group(concat([indent(concat([softline, ...parts])), softline]));
       }
       return concat(parts);
     }

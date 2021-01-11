@@ -31,7 +31,7 @@ function genericPrint(path, options, print) {
           }
         }
       }, "definitions");
-      return concat([concat(parts), hardline]);
+      return concat([...parts, hardline]);
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(n)] !== "{";
@@ -274,10 +274,7 @@ function genericPrint(path, options, print) {
         "type ",
         path.call(print, "name"),
         n.interfaces.length > 0
-          ? concat([
-              " implements ",
-              concat(printInterfaces(path, options, print)),
-            ])
+          ? concat([" implements ", ...printInterfaces(path, options, print)])
           : "",
         printDirectives(path, print, n),
         n.fields.length > 0
@@ -363,7 +360,8 @@ function genericPrint(path, options, print) {
             )
           : "",
         n.repeatable ? " repeatable" : "",
-        concat([" on ", join(" | ", path.map(print, "locations"))]),
+        " on ",
+        join(" | ", path.map(print, "locations")),
       ]);
     }
 
@@ -492,10 +490,7 @@ function genericPrint(path, options, print) {
         "interface ",
         path.call(print, "name"),
         n.interfaces.length > 0
-          ? concat([
-              " implements ",
-              concat(printInterfaces(path, options, print)),
-            ])
+          ? concat([" implements ", ...printInterfaces(path, options, print)])
           : "",
         printDirectives(path, print, n),
         n.fields.length > 0

@@ -55,7 +55,9 @@ function print(path, options, print) {
           concat([
             isWhitespaceOnly ? "" : indent(printChildren(path, options, print)),
             n.children.length > 0 ? hardline : "",
-            concat(["</", n.tag, ">"]),
+            "</",
+            n.tag,
+            ">",
           ])
         ),
         bim,

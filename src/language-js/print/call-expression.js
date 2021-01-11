@@ -50,7 +50,9 @@ function printCallExpression(path, options, print) {
       path.call(print, "callee"),
       optional,
       printFunctionTypeParameters(path, options, print),
-      concat(["(", join(", ", printed), ")"]),
+      "(",
+      join(", ", printed),
+      ")",
     ]);
   }
 

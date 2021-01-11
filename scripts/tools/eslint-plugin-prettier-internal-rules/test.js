@@ -94,6 +94,27 @@ test("jsx-identifier-case", {
   ],
 });
 
+test("no-concat-in-concat", {
+  valid: [],
+  invalid: [
+    {
+      code: "concat([concat([hardline, hardline]), 'extra'])",
+      output: "concat([hardline, hardline, 'extra'])",
+      errors: 1,
+    },
+    {
+      code: "concat([concat([hardline, hardline, ]), 'extra'])",
+      output: "concat([hardline, hardline , 'extra'])",
+      errors: 1,
+    },
+    {
+      code: "concat([concat(parts), 'extra'])",
+      output: "concat([...parts, 'extra'])",
+      errors: 1,
+    },
+  ],
+});
+
 test("no-doc-builder-concat", {
   valid: ["notConcat([])", "concat", "[].concat([])"],
   invalid: [

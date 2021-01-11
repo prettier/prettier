@@ -68,7 +68,7 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "OptionalMemberExpression") &&
       !parent.computed)
   ) {
-    return group(concat([indent(concat([softline, concat(parts)])), softline]));
+    return group(concat([indent(concat([softline, ...parts])), softline]));
   }
 
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
