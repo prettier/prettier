@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const fs = require("fs");
 const execa = require("execa");
 const { rollup } = require("rollup");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
@@ -51,6 +52,20 @@ const entries = [
     replacement: path.resolve(
       `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
     ),
+  },
+  // Avoid rollup `SOURCEMAP_ERROR` and `THIS_IS_UNDEFINED` error
+  {
+    find: "@glimmer/syntax",
+    replacement: require.resolve("@glimmer/syntax"),
+  },
+  // https://github.com/rollup/plugins/issues/670
+  {
+    find: "is-core-module",
+    replacement: require.resolve("is-core-module"),
+  },
+  {
+    find: "yaml/util",
+    replacement: require.resolve("yaml/util"),
   },
 ];
 
@@ -226,29 +241,6 @@ function getRollupOutputOptions(bundle, buildOptions) {
   return [options];
 }
 
-async function checkCache(cache, inputOptions, outputOption) {
-  const useCache = await cache.checkBundle(
-    outputOption.file,
-    inputOptions,
-    outputOption
-  );
-
-  if (useCache) {
-    try {
-      await execa("cp", [
-        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
-        outputOption.file,
-      ]);
-      return true;
-    } catch (err) {
-      console.log(err);
-      // Proceed to build
-    }
-  }
-
-  return false;
-}
-
 module.exports = async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle, options);
@@ -257,12 +249,16 @@ module.exports = async function createBundle(bundle, cache, options) {
     return { skipped: true };
   }
 
-  const checkCacheResults = await Promise.all(
-    outputOptions.map((outputOption) =>
-      checkCache(cache, inputOptions, outputOption)
-    )
-  );
-  if (checkCacheResults.every((r) => r === true)) {
+  if (
+    !options["purge-cache"] &&
+    (
+      await Promise.all(
+        outputOptions.map((outputOption) =>
+          cache.isCached(inputOptions, outputOption)
+        )
+      )
+    ).every((cached) => cached)
+  ) {
     return { cached: true };
   }
 

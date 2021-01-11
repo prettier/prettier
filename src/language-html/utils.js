@@ -281,7 +281,7 @@ function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
     (node.type === "element" &&
-      node.children.length !== 0 &&
+      node.children.length > 0 &&
       (["body", "script", "style"].includes(node.name) ||
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
@@ -297,7 +297,7 @@ function forceBreakContent(node) {
 function forceBreakChildren(node) {
   return (
     node.type === "element" &&
-    node.children.length !== 0 &&
+    node.children.length > 0 &&
     (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
@@ -557,7 +557,7 @@ function getNodeCssStyleWhiteSpace(node) {
 }
 
 function getMinIndentation(text) {
-  let minIndentation = Infinity;
+  let minIndentation = Number.POSITIVE_INFINITY;
 
   for (const lineText of text.split("\n")) {
     if (lineText.length === 0) {
@@ -579,7 +579,7 @@ function getMinIndentation(text) {
     }
   }
 
-  return minIndentation === Infinity ? 0 : minIndentation;
+  return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
 }
 
 function dedentString(text, minIndent = getMinIndentation(text)) {
@@ -637,6 +637,32 @@ function isVueNonHtmlBlock(node, options) {
   );
 }
 
+function isVueSlotAttribute(attribute) {
+  const attributeName = attribute.fullName;
+  return (
+    attributeName.charAt(0) === "#" ||
+    attributeName === "slot-scope" ||
+    attributeName === "v-slot" ||
+    attributeName.startsWith("v-slot:")
+  );
+}
+
+function isVueSfcBindingsAttribute(attribute, options) {
+  const element = attribute.parent;
+  if (!isVueSfcBlock(element, options)) {
+    return false;
+  }
+  const tagName = element.fullName;
+  const attributeName = attribute.fullName;
+
+  return (
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-script-setup.md
+    (tagName === "script" && attributeName === "setup") ||
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md
+    (tagName === "style" && attributeName === "vars")
+  );
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -660,6 +686,8 @@ module.exports = {
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,

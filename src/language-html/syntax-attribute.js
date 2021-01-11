@@ -2,7 +2,7 @@
 
 const parseSrcset = require("parse-srcset");
 const {
-  builders: { concat, ifBreak, join, line },
+  builders: { ifBreak, join, line },
 } = require("../document");
 
 function printImgSrcset(value) {
@@ -40,7 +40,7 @@ function printImgSrcset(value) {
   const maxDescriptorLeftLength = getMax(descriptorLeftLengths);
 
   return join(
-    concat([",", line]),
+    [",", line],
     urls.map((url, index) => {
       const parts = [url];
 
@@ -54,7 +54,7 @@ function printImgSrcset(value) {
         parts.push(ifBreak(alignment, " "), descriptor + unit);
       }
 
-      return concat(parts);
+      return parts;
     })
   );
 }

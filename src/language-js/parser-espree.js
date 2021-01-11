@@ -1,11 +1,11 @@
 "use strict";
 const { getShebang } = require("../common/util");
 const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
-const postprocess = require("./postprocess");
+const tryCombinations = require("../utils/try-combinations");
+const postprocess = require("./parse-postprocess");
+const createParser = require("./parser/create-parser");
 
-const espreeOptions = {
+const parseOptions = {
   range: true,
   loc: true,
   comment: true,
@@ -18,9 +18,20 @@ const espreeOptions = {
   },
 };
 
+function createParseError(error) {
+  const { message, lineNumber, column } = error;
+
+  /* istanbul ignore next */
+  if (typeof lineNumber !== "number") {
+    return error;
+  }
+
+  return createError(message, { start: { line: lineNumber, column } });
+}
+
 function parse(originalText, parsers, options) {
   const { parse, latestEcmaVersion } = require("espree");
-  espreeOptions.ecmaVersion = latestEcmaVersion;
+  parseOptions.ecmaVersion = latestEcmaVersion;
 
   // Replace shebang with space
   const shebang = getShebang(originalText);
@@ -28,24 +39,14 @@ function parse(originalText, parsers, options) {
     ? " ".repeat(shebang.length) + originalText.slice(shebang.length)
     : originalText;
 
-  let ast;
+  const { result: ast, error: moduleParseError } = tryCombinations(
+    () => parse(text, { ...parseOptions, sourceType: "module" }),
+    () => parse(text, { ...parseOptions, sourceType: "script" })
+  );
 
-  try {
-    ast = parse(text, espreeOptions);
-  } catch (moduleError) {
-    try {
-      ast = parse(text, { ...espreeOptions, sourceType: "script" });
-    } catch (_) {
-      // throw the error for `module` parsing
-      const { message, lineNumber, column } = moduleError;
-
-      /* istanbul ignore next */
-      if (typeof lineNumber !== "number") {
-        throw moduleError;
-      }
-
-      throw createError(message, { start: { line: lineNumber, column } });
-    }
+  if (!ast) {
+    // throw the error for `module` parsing
+    throw createParseError(moduleParseError);
   }
 
   return postprocess(ast, { ...options, originalText });
@@ -53,6 +54,6 @@ function parse(originalText, parsers, options) {
 
 module.exports = {
   parsers: {
-    espree: { parse, astFormat: "estree", hasPragma, locStart, locEnd },
+    espree: createParser(parse),
   },
 };

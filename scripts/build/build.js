@@ -1,7 +1,8 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs");
+const fs = require("fs").promises;
+const readline = require("readline");
 const chalk = require("chalk");
 const execa = require("execa");
 const minimist = require("minimist");
@@ -40,17 +41,18 @@ for (const { color, text } of statusConfig) {
   status[text] = chalk[color].black(padStatusText(text));
 }
 
-function fitTerminal(input) {
+function fitTerminal(input, suffix = "") {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
-    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
+    const repeatCount = WIDTH - input.length - 1 - suffix.length;
+    input += chalk.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
 
 async function createBundle(bundleConfig, cache, options) {
-  const { output, target } = bundleConfig;
+  const { output, target, format, type } = bundleConfig;
   process.stdout.write(fitTerminal(output));
   try {
     const { cached, skipped } = await bundler(bundleConfig, cache, options);
@@ -65,15 +67,39 @@ async function createBundle(bundleConfig, cache, options) {
       return;
     }
 
+    const file = path.join("dist", output);
+
     // Files including U+FFEE can't load in Chrome Extension
     // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
     // details https://github.com/prettier/prettier/pull/8534
     if (target === "universal") {
-      const file = path.join("dist", output);
-      const content = fs.readFileSync(file, "utf8");
+      const content = await fs.readFile(file, "utf8");
       if (content.includes("\ufffe")) {
         throw new Error("Bundled umd file should not have U+FFFE character.");
       }
+    }
+
+    if (options["print-size"]) {
+      // Clear previous line
+      readline.clearLine(process.stdout, 0);
+      readline.cursorTo(process.stdout, 0, null);
+
+      const prettyBytes = require("pretty-bytes");
+      const getSizeText = async (file) =>
+        prettyBytes((await fs.stat(file)).size);
+      const sizeTexts = [await getSizeText(file)];
+      if (
+        type !== "core" &&
+        format !== "esm" &&
+        bundleConfig.bundler !== "webpack" &&
+        target === "universal"
+      ) {
+        const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
+        sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
+      }
+      process.stdout.write(
+        fitTerminal(output, sizeTexts.join(", ").concat(" "))
+      );
     }
 
     console.log(status.DONE);
@@ -153,6 +179,6 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["purge-cache", "playground"],
+    boolean: ["purge-cache", "playground", "print-size"],
   })
 );

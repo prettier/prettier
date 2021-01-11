@@ -118,7 +118,7 @@ class Playground extends React.Component {
     this.setState((state) => {
       const options = { ...state.options };
 
-      if (option.type === "int" && isNaN(value)) {
+      if (option.type === "int" && Number.isNaN(value)) {
         delete options[option.name];
       } else {
         options[option.name] = value;

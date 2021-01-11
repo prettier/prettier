@@ -557,39 +557,10 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-function hasIgnoreComment(path) {
-  const node = path.getValue();
-  return hasNodeIgnoreComment(node);
-}
-
-function hasNodeIgnoreComment(node) {
-  return (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
-      )) ||
-      node.prettierIgnore)
-  );
-}
-
-function isNodeIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
-
-  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
-  // We already "print" it via the raw text, we don't need to re-print it as a
-  // comment
-  /* istanbul ignore next */
-  if (node.type === "JSXText") {
-    comment.printed = true;
-  }
 }
 
 function addLeadingComment(node, comment) {
@@ -616,7 +587,7 @@ function addTrailingComment(node, comment) {
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
-    if (parts.length !== 0) {
+    if (parts.length > 0) {
       parts.push(replacement);
     }
     parts.push(part);
@@ -653,6 +624,10 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+function isNonEmptyArray(object) {
+  return Array.isArray(object) && object.length > 0;
+}
+
 module.exports = {
   inferParserByLanguage,
   replaceEndOfLineWith,
@@ -683,13 +658,11 @@ module.exports = {
   getPreferredQuote,
   printString,
   printNumber,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
-  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
   getShebang,
+  isNonEmptyArray,
 };

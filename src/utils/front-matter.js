@@ -2,7 +2,7 @@
 
 const escape = require("escape-string-regexp");
 const {
-  builders: { hardline, concat, markAsRoot },
+  builders: { hardline, markAsRoot },
 } = require("../document");
 
 const DELIMITER_MAP = {
@@ -16,7 +16,7 @@ function parse(text) {
   const match = text.match(
     // trailing spaces after delimiters are allowed
     new RegExp(
-      `^(${delimiterRegex})([^\\n]*)\\n(?:([\\s\\S]*?)\\n)?\\1[^\\n\\S]*(\\n|$)`
+      `^(${delimiterRegex})([^\\n]*)\\n(?:|([\\s\\S]*?)\\n)\\1[^\\n\\S]*(\\n|$)`
     )
   );
 
@@ -24,7 +24,7 @@ function parse(text) {
     return { frontMatter: null, content: text };
   }
 
-  const [raw, delimiter, language, value] = match;
+  const [raw, delimiter, language, value = ""] = match;
   let lang = DELIMITER_MAP[delimiter];
   if (lang !== "toml" && language && language.trim()) {
     lang = language.trim();
@@ -47,9 +47,7 @@ function print(node, textToDoc) {
     const doc = value
       ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
       : "";
-    return markAsRoot(
-      concat(["---", hardline, doc, doc ? hardline : "", "---"])
-    );
+    return markAsRoot(["---", hardline, doc, doc ? hardline : "", "---"]);
   }
 }
 

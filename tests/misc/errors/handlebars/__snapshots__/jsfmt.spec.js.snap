@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid.hbs error test 1`] = `
+exports[`invalid.hbs [glimmer] format 1`] = `
 "Parse error on line 2:
 <A >x, {{@name}
 --------------^
@@ -11,22 +11,49 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
   3 | "
 `;
 
-exports[`invalid-2.hbs error test 1`] = `
-"Unclosed element \`@name\` (on line 3). (3:0)
+exports[`invalid-2.hbs [glimmer] format 1`] = `
+"Unclosed element \`@name\`: 
+
+|
+|  <{@name>
+|
+
+(error occurred in 'an unknown module' @ line 3 : column 0) (3:0)
   1 | <a>
   2 | 
 > 3 | <{@name>
+    | ^^^^^^^^
   4 | "
 `;
 
-exports[`invalid-3.hbs error test 1`] = `
+exports[`invalid-3.hbs [glimmer] format 1`] = `
 "Parse error on line 3:
 <a>{{}}
 -----^
-Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
   1 | <a>
   2 | 
 > 3 | {{}}
     |   ^
   4 | "
+`;
+
+exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~}}
+---^
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~}}
+    |    ^
+  2 | "
+`;
+
+exports[`tilde-comments-2.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~~}}
+---^
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~~}}
+    |    ^
+  2 | "
 `;

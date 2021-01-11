@@ -15,3 +15,5 @@ This ia an english paragraph with a CJK quote “中文“.
 :::
 
 IVS 麻󠄁羽󠄀‼️
+
+⿰あ⿱あ⿲あ⿳あ⿴あ⿵あ⿶あ⿷あ⿸あ⿹あ⿺あ⿻あ

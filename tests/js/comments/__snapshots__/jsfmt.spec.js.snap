@@ -1175,7 +1175,7 @@ function d() {
 }
 new Thing(/* dangling */)
 Thing(/* dangling */)
-export /* dangling */{}
+export /* dangling */ {}
 
 ================================================================================
 `;
@@ -1213,7 +1213,7 @@ function d() {
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
-export /* dangling */{};
+export /* dangling */ {};
 
 ================================================================================
 `;
@@ -1476,9 +1476,9 @@ export {
 
 =====================================output=====================================
 export //comment
-{}
+ {}
 
-export /* comment */{}
+export /* comment */ {}
 
 const foo = ""
 export {
@@ -1532,9 +1532,9 @@ export {
 
 =====================================output=====================================
 export //comment
-{};
+ {};
 
-export /* comment */{};
+export /* comment */ {};
 
 const foo = "";
 export {
@@ -2148,6 +2148,282 @@ if (14) {
   /* comment */
   /* comment */ // comment
   true;
+
+================================================================================
+`;
+
+exports[`issue-3532.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+import React from 'react';
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float *//*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({
+  aspectRatio,
+  children,
+  ...props
+}) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${props => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+);
+
+export default AspectRatioBox;
+
+=====================================output=====================================
+import React from "react"
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float */ /*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({ aspectRatio, children, ...props }) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${(props) => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+)
+
+export default AspectRatioBox
+
+================================================================================
+`;
+
+exports[`issue-3532.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import React from 'react';
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float *//*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({
+  aspectRatio,
+  children,
+  ...props
+}) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${props => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+);
+
+export default AspectRatioBox;
+
+=====================================output=====================================
+import React from "react";
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float */ /*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({ aspectRatio, children, ...props }) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${(props) => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+);
+
+export default AspectRatioBox;
+
+================================================================================
+`;
+
+exports[`issue-7724.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+=====================================output=====================================
+const foo = "Bar"
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ */ /**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value)
+  } else {
+    return new Value(type)
+  }
+}
+
+================================================================================
+`;
+
+exports[`issue-7724.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+=====================================output=====================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ */ /**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
 
 ================================================================================
 `;
@@ -3337,6 +3613,424 @@ y;
 
 x; /*1*/ /*2*/
 y;
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+/*========= All on same line =========*/
+a;
+/*1*//*2*//*3*/
+b;
+
+a;/*1*//*2*//*3*/
+b;
+
+a;
+/*1*//*2*//*3*/b;
+
+a;
+/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/b;
+
+/*========= First two on same line =========*/
+a;
+/*1*//*2*/
+/*3*/
+b;
+
+a;/*1*//*2*/
+/*3*/
+b;
+
+a;
+/*1*//*2*/
+/*3*/b;
+
+a;
+/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/b;
+
+/*========= Last two on same line =========*/
+a;
+/*1*/
+/*2*//*3*/
+b;
+
+a;/*1*/
+/*2*//*3*/
+b;
+
+a;
+/*1*/
+/*2*//*3*/b;
+
+a;
+/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/b;
+
+=====================================output=====================================
+/*========= All on same line =========*/
+a
+/*1*/ /*2*/ /*3*/
+b
+
+a /*1*/ /*2*/ /*3*/
+b
+
+a
+/*1*/ /*2*/ /*3*/ b
+
+a
+/*
+1*/ /*2*/ /*3
+ */
+b
+
+a /*
+1*/ /*2*/
+/*3
+ */
+b
+
+a
+/*
+1*/ /*2*/ /*3
+ */ b
+
+/*========= First two on same line =========*/
+a
+/*1*/ /*2*/
+/*3*/
+b
+
+a /*1*/ /*2*/
+/*3*/
+b
+
+a
+/*1*/ /*2*/
+/*3*/ b
+
+a
+/*
+1*/ /*2*/
+/*3
+ */
+b
+
+a /*
+1*/ /*2*/
+/*3
+ */
+b
+
+a /*
+1*/ /*2*/
+/*3
+ */ b
+
+/*========= Last two on same line =========*/
+a
+/*1*/
+/*2*/ /*3*/
+b
+
+a /*1*/
+/*2*/ /*3*/
+b
+
+a
+/*1*/
+/*2*/ /*3*/ b
+
+a
+/*
+1*/
+/*2*/ /*3
+ */
+b
+
+a /*
+1*/
+/*2*/ /*3
+ */
+b
+
+a /*
+1*/
+/*2*/ /*3
+ */ b
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*========= All on same line =========*/
+a;
+/*1*//*2*//*3*/
+b;
+
+a;/*1*//*2*//*3*/
+b;
+
+a;
+/*1*//*2*//*3*/b;
+
+a;
+/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/b;
+
+/*========= First two on same line =========*/
+a;
+/*1*//*2*/
+/*3*/
+b;
+
+a;/*1*//*2*/
+/*3*/
+b;
+
+a;
+/*1*//*2*/
+/*3*/b;
+
+a;
+/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/b;
+
+/*========= Last two on same line =========*/
+a;
+/*1*/
+/*2*//*3*/
+b;
+
+a;/*1*/
+/*2*//*3*/
+b;
+
+a;
+/*1*/
+/*2*//*3*/b;
+
+a;
+/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/b;
+
+=====================================output=====================================
+/*========= All on same line =========*/
+a;
+/*1*/ /*2*/ /*3*/
+b;
+
+a; /*1*/ /*2*/ /*3*/
+b;
+
+a;
+/*1*/ /*2*/ /*3*/ b;
+
+a;
+/*
+1*/ /*2*/ /*3
+ */
+b;
+
+a; /*
+1*/ /*2*/
+/*3
+ */
+b;
+
+a;
+/*
+1*/ /*2*/ /*3
+ */ b;
+
+/*========= First two on same line =========*/
+a;
+/*1*/ /*2*/
+/*3*/
+b;
+
+a; /*1*/ /*2*/
+/*3*/
+b;
+
+a;
+/*1*/ /*2*/
+/*3*/ b;
+
+a;
+/*
+1*/ /*2*/
+/*3
+ */
+b;
+
+a; /*
+1*/ /*2*/
+/*3
+ */
+b;
+
+a; /*
+1*/ /*2*/
+/*3
+ */ b;
+
+/*========= Last two on same line =========*/
+a;
+/*1*/
+/*2*/ /*3*/
+b;
+
+a; /*1*/
+/*2*/ /*3*/
+b;
+
+a;
+/*1*/
+/*2*/ /*3*/ b;
+
+a;
+/*
+1*/
+/*2*/ /*3
+ */
+b;
+
+a; /*
+1*/
+/*2*/ /*3
+ */
+b;
+
+a; /*
+1*/
+/*2*/ /*3
+ */ b;
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line-2.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+/* 1 */ /* 2 */ /* 3 */ a;
+a; /* 4 */ /* 5 */ /* 6 */
+
+=====================================output=====================================
+/* 1 */ /* 2 */ /* 3 */ a
+a /* 4 */ /* 5 */ /* 6 */
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* 1 */ /* 2 */ /* 3 */ a;
+a; /* 4 */ /* 5 */ /* 6 */
+
+=====================================output=====================================
+/* 1 */ /* 2 */ /* 3 */ a;
+a; /* 4 */ /* 5 */ /* 6 */
 
 ================================================================================
 `;
