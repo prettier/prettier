@@ -10,6 +10,7 @@ const {
 const {
   builders: {
     breakParent,
+    concat,
     join,
     line,
     literalline,
@@ -245,7 +246,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          replaceEndOfLineWith(node.value, hardline),
+          ...replaceEndOfLineWith(node.value, hardline),
         ]);
       }
 
@@ -259,7 +260,8 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-        replaceEndOfLineWith(
+
+        ...replaceEndOfLineWith(
           getFencedCodeBlockValue(node, options.originalText),
           hardline
         ),
@@ -369,7 +371,9 @@ function genericPrint(path, options, print) {
     case "definition": {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group([
-        ["[", node.identifier, "]:"],
+        "[",
+        node.identifier,
+        "]:",
         indent([
           lineOrSpace,
           printUrl(node.url),
@@ -439,7 +443,7 @@ function genericPrint(path, options, print) {
         "$$",
         hardline,
         node.value
-          ? [replaceEndOfLineWith(node.value, hardline), hardline]
+          ? [...replaceEndOfLineWith(node.value, hardline), hardline]
           : "",
         "$$",
       ];

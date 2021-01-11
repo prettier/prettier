@@ -126,7 +126,7 @@ function printCallArguments(path, options, print) {
 
   function allArgsBrokenOut() {
     return group(
-      ["(", indent([line, printedArguments]), maybeTrailingComma, line, ")"],
+      ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
       { shouldBreak: true }
     );
   }
@@ -170,7 +170,7 @@ function printCallArguments(path, options, print) {
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
-    const simpleConcat = ["(", printedExpanded, ")"];
+    const simpleConcat = ["(", ...printedExpanded, ")"];
 
     return [
       somePrintedArgumentsWillBreak ? breakParent : "",
@@ -185,12 +185,12 @@ function printCallArguments(path, options, print) {
             ? [
                 "(",
                 group(printedExpanded[0], { shouldBreak: true }),
-                printedExpanded.slice(1),
+                ...printedExpanded.slice(1),
                 ")",
               ]
             : [
                 "(",
-                printedArguments.slice(0, -1),
+                ...printedArguments.slice(0, -1),
                 group(getLast(printedExpanded), {
                   shouldBreak: true,
                 }),
@@ -205,7 +205,7 @@ function printCallArguments(path, options, print) {
 
   const contents = [
     "(",
-    indent([softline, printedArguments]),
+    indent([softline, ...printedArguments]),
     ifBreak(maybeTrailingComma),
     softline,
     ")",

@@ -54,7 +54,9 @@ function print(path, options, print) {
         group([
           isWhitespaceOnly ? "" : indent(printChildren(path, options, print)),
           n.children.length > 0 ? hardline : "",
-          ["</", n.tag, ">"],
+          "</",
+          n.tag,
+          ">",
         ]),
         bim,
       ];

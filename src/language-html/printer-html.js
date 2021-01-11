@@ -345,7 +345,7 @@ function genericPrint(path, options, print) {
     case "interpolation":
       return [
         printOpeningTagStart(node, options),
-        path.map(print, "children"),
+        ...path.map(print, "children"),
         printClosingTagEnd(node, options),
       ];
     case "text": {
@@ -357,7 +357,7 @@ function genericPrint(path, options, print) {
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
         return [
-          replaceEndOfLineWith(value, literalline),
+          ...replaceEndOfLineWith(value, literalline),
           hasTrailingNewline ? hardline : "",
         ];
       }
@@ -381,7 +381,8 @@ function genericPrint(path, options, print) {
     case "comment": {
       return [
         printOpeningTagPrefix(node, options),
-        replaceEndOfLineWith(
+
+        ...replaceEndOfLineWith(
           options.originalText.slice(locStart(node), locEnd(node)),
           literalline
         ),
@@ -398,17 +399,17 @@ function genericPrint(path, options, print) {
       const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
       return [
         node.rawName,
-        [
-          "=",
-          quote,
-          replaceEndOfLineWith(
-            quote === '"'
-              ? value.replace(/"/g, "&quot;")
-              : value.replace(/'/g, "&apos;"),
-            literalline
-          ),
-          quote,
-        ],
+
+        "=",
+        quote,
+
+        ...replaceEndOfLineWith(
+          quote === '"'
+            ? value.replace(/"/g, "&quot;")
+            : value.replace(/'/g, "&apos;"),
+          literalline
+        ),
+        quote,
       ];
     }
     default:
@@ -423,7 +424,8 @@ function printChildren(path, options, print) {
   if (forceBreakChildren(node)) {
     return [
       breakParent,
-      path.map((childPath) => {
+
+      ...path.map((childPath) => {
         const childNode = childPath.getValue();
         const prevBetweenLine = !childNode.prev
           ? ""
@@ -506,8 +508,8 @@ function printChildren(path, options, print) {
     return [].concat(
       prevParts,
       group([
-        leadingParts,
-        group([printChild(childPath), trailingParts], {
+        ...leadingParts,
+        group([printChild(childPath), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),

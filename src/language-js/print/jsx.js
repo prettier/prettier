@@ -78,7 +78,7 @@ function printJsxElementInternal(path, options, print) {
     (n.children[0].expression.type === "TemplateLiteral" ||
       n.children[0].expression.type === "TaggedTemplateExpression")
   ) {
-    return [openingLines, path.map(print, "children"), closingLines];
+    return [openingLines, ...path.map(print, "children"), closingLines];
   }
 
   // Convert `{" "}` to text nodes containing a space.
@@ -249,7 +249,7 @@ function printJsxElementInternal(path, options, print) {
   }
 
   return conditionalGroup([
-    group([openingLines, children, closingLines]),
+    group([openingLines, ...children, closingLines]),
     multiLineElem,
   ]);
 }
@@ -576,7 +576,7 @@ function printJsxOpeningElement(path, options, print) {
       path.call(print, "name"),
       path.call(print, "typeParameters"),
       " ",
-      path.map(print, "attributes"),
+      ...path.map(print, "attributes"),
       n.selfClosing ? " />" : ">",
     ]);
   }
@@ -616,10 +616,9 @@ function printJsxOpeningElement(path, options, print) {
       "<",
       path.call(print, "name"),
       path.call(print, "typeParameters"),
-      [
-        indent(path.map((attr) => [line, print(attr)], "attributes")),
-        n.selfClosing ? line : bracketSameLine ? ">" : softline,
-      ],
+
+      indent(path.map((attr) => [line, print(attr)], "attributes")),
+      n.selfClosing ? line : bracketSameLine ? ">" : softline,
       n.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],
     { shouldBreak }

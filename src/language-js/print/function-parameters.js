@@ -94,7 +94,12 @@ function printFunctionParameters(
   //   })                    ) => {
   //                         })
   if (shouldExpandParameters) {
-    return group([removeLines(typeParams), "(", printed.map(removeLines), ")"]);
+    return group([
+      removeLines(typeParams),
+      "(",
+      ...printed.map(removeLines),
+      ")",
+    ]);
   }
 
   // Single object destructuring should hug
@@ -106,12 +111,12 @@ function printFunctionParameters(
   // }) {}
   const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
-    return [typeParams, "(", printed, ")"];
+    return [typeParams, "(", ...printed, ")"];
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    return [typeParams, "(", printed, ")"];
+    return [typeParams, "(", ...printed, ")"];
   }
 
   const isFlowShorthandWithOneArg =
@@ -134,7 +139,7 @@ function printFunctionParameters(
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
-      return ["(", printed, ")"];
+      return ["(", ...printed, ")"];
     }
     return printed;
   }
@@ -142,7 +147,7 @@ function printFunctionParameters(
   return [
     typeParams,
     "(",
-    indent([softline, printed]),
+    indent([softline, ...printed]),
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","

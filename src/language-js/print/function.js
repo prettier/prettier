@@ -188,14 +188,14 @@ function printArrowFunctionExpression(path, options, print, args) {
       n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
   ) {
-    return group([parts, " ", body]);
+    return group([...parts, " ", body]);
   }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
   if (n.body.type === "SequenceExpression") {
     return group([
-      parts,
+      ...parts,
       group([" (", indent([softline, body]), softline, ")"]),
     ]);
   }
@@ -220,7 +220,7 @@ function printArrowFunctionExpression(path, options, print, args) {
     !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
 
   return group([
-    parts,
+    ...parts,
     group([
       indent([
         line,

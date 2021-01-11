@@ -224,7 +224,7 @@ function printModuleSpecifiers(path, options, print) {
         parts.push([
           "{",
           options.bracketSpacing ? " " : "",
-          groupedSpecifiers,
+          ...groupedSpecifiers,
           options.bracketSpacing ? " " : "",
           "}",
         ]);
