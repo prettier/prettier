@@ -367,15 +367,17 @@ module.exports = async function createBundle(bundle, cache, options) {
     return { skipped: true };
   }
 
-  if (!options["purge-cache"]) {
-    const checkCacheResults = await Promise.all(
-      outputOptions.map((outputOption) =>
-        checkCache(cache, inputOptions, outputOption)
+  if (
+    !options["purge-cache"] &&
+    (
+      await Promise.all(
+        outputOptions.map((outputOption) =>
+          checkCache(cache, inputOptions, outputOption)
+        )
       )
-    );
-    if (checkCacheResults.every((r) => r === true)) {
-      return { cached: true };
-    }
+    ).every((cached) => cached)
+  ) {
+    return { cached: true };
   }
 
   if (bundle.bundler === "webpack") {
