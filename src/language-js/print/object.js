@@ -182,14 +182,15 @@ function printObject(path, options, print) {
   } else {
     content = concat([
       leftBrace,
-      indent(concat([options.bracketSpacing ? line : softline, concat(props)])),
+      indent(concat([options.bracketSpacing ? line : softline, ...props])),
       ifBreak(
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
           : ""
       ),
-      concat([options.bracketSpacing ? line : softline, rightBrace]),
+      options.bracketSpacing ? line : softline,
+      rightBrace,
       printOptionalToken(path),
       printTypeAnnotation(path, options, print),
     ]);

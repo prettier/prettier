@@ -195,7 +195,7 @@ function printArrowFunctionExpression(path, options, print, args) {
       n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
   ) {
-    return group(concat([concat(parts), " ", body]));
+    return group(concat([...parts, " ", body]));
   }
 
   // We handle sequence expressions as the body of arrows specially,
@@ -203,7 +203,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   if (n.body.type === "SequenceExpression") {
     return group(
       concat([
-        concat(parts),
+        ...parts,
         group(concat([" (", indent(concat([softline, body])), softline, ")"])),
       ])
     );
@@ -230,7 +230,7 @@ function printArrowFunctionExpression(path, options, print, args) {
 
   return group(
     concat([
-      concat(parts),
+      ...parts,
       group(
         concat([
           indent(

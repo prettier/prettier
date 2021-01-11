@@ -341,7 +341,7 @@ function genericPrint(path, options, print) {
       if (!node.nodes) {
         return node.value;
       }
-      return concat(["(", concat(path.map(print, "nodes")), ")"]);
+      return concat(["(", ...path.map(print, "nodes"), ")"]);
     }
     case "media-feature": {
       return maybeToLowerCase(

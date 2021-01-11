@@ -229,7 +229,7 @@ function printModuleSpecifiers(path, options, print) {
           concat([
             "{",
             options.bracketSpacing ? " " : "",
-            concat(groupedSpecifiers),
+            ...groupedSpecifiers,
             options.bracketSpacing ? " " : "",
             "}",
           ])
