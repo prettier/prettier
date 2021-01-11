@@ -10,7 +10,6 @@ const {
 const {
   builders: {
     breakParent,
-    concat,
     join,
     line,
     literalline,
