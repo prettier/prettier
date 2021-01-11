@@ -628,76 +628,6 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function classPropMayCauseASIProblems(path) {
-  const node = path.getNode();
-
-  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
-    return false;
-  }
-
-  const name = node.key && node.key.name;
-
-  // this isn't actually possible yet with most parsers available today
-  // so isn't properly tested yet.
-  if (
-    (name === "static" || name === "get" || name === "set") &&
-    !node.value &&
-    !node.typeAnnotation
-  ) {
-    return true;
-  }
-}
-
-function classChildNeedsASIProtection(node) {
-  if (!node) {
-    return;
-  }
-
-  if (
-    node.static ||
-    node.accessibility // TypeScript
-  ) {
-    return false;
-  }
-
-  if (!node.computed) {
-    const name = node.key && node.key.name;
-    if (name === "in" || name === "instanceof") {
-      return true;
-    }
-  }
-  switch (node.type) {
-    case "ClassProperty":
-    case "FieldDefinition":
-    case "TSAbstractClassProperty":
-      return node.computed;
-    case "MethodDefinition": // Flow
-    case "TSAbstractMethodDefinition": // TypeScript
-    case "ClassMethod":
-    case "ClassPrivateMethod": {
-      // Babel
-      const isAsync = node.value ? node.value.async : node.async;
-      const isGenerator = node.value ? node.value.generator : node.generator;
-      if (isAsync || node.kind === "get" || node.kind === "set") {
-        return false;
-      }
-      if (node.computed || isGenerator) {
-        return true;
-      }
-      return false;
-    }
-    case "TSIndexSignature":
-      return true;
-    default:
-      /* istanbul ignore next */
-      return false;
-  }
-}
-
-/**
  * @param {string} tokenNode
  * @param {string} keyword
  * @returns {string}
@@ -1408,8 +1338,6 @@ const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
 module.exports = {
-  classChildNeedsASIProtection,
-  classPropMayCauseASIProblems,
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,

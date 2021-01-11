@@ -3,7 +3,7 @@
 const { printDanglingComments } = require("../../main/comments");
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, hardline, indent },
+  builders: { hardline, indent },
 } = require("../../document");
 const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
 
@@ -22,7 +22,7 @@ function printBlock(path, options, print) {
   parts.push("{");
   const printed = printBlockBody(path, options, print);
   if (printed) {
-    parts.push(indent(concat([hardline, printed])), hardline);
+    parts.push(indent([hardline, printed]), hardline);
   } else {
     const parent = path.getParentNode();
     const parentParent = path.getParentNode(1);
@@ -51,7 +51,7 @@ function printBlock(path, options, print) {
 
   parts.push("}");
 
-  return concat(parts);
+  return parts;
 }
 
 function printBlockBody(path, options, print) {
@@ -91,7 +91,7 @@ function printBlockBody(path, options, print) {
     parts.push(hardline);
   }
 
-  return concat(parts);
+  return parts;
 }
 
 module.exports = { printBlock, printBlockBody };

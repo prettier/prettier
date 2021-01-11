@@ -2,7 +2,7 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak },
+  builders: { line, softline, group, indent, ifBreak },
 } = require("../../document");
 const { getLast } = require("../../common/util");
 const {
@@ -28,14 +28,12 @@ function printArray(path, options, print) {
       parts.push(openBracket, closeBracket);
     } else {
       parts.push(
-        group(
-          concat([
-            openBracket,
-            printDanglingComments(path, options),
-            softline,
-            closeBracket,
-          ])
-        )
+        group([
+          openBracket,
+          printDanglingComments(path, options),
+          softline,
+          closeBracket,
+        ])
       );
     }
   } else {
@@ -79,14 +77,9 @@ function printArray(path, options, print) {
 
     parts.push(
       group(
-        concat([
+        [
           openBracket,
-          indent(
-            concat([
-              softline,
-              printArrayItems(path, options, "elements", print),
-            ])
-          ),
+          indent([softline, printArrayItems(path, options, "elements", print)]),
           needsForcedTrailingComma ? "," : "",
           ifBreak(
             canHaveTrailingComma &&
@@ -98,7 +91,7 @@ function printArray(path, options, print) {
           printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           closeBracket,
-        ]),
+        ],
         { shouldBreak }
       )
     );
@@ -109,7 +102,7 @@ function printArray(path, options, print) {
     printTypeAnnotation(path, options, print)
   );
 
-  return concat(parts);
+  return parts;
 }
 
 function printArrayItems(path, options, printPath, print) {
@@ -117,7 +110,7 @@ function printArrayItems(path, options, printPath, print) {
   let separatorParts = [];
 
   path.each((childPath) => {
-    printedElements.push(concat(separatorParts));
+    printedElements.push(separatorParts);
     printedElements.push(group(print(childPath)));
 
     separatorParts = [",", line];
@@ -129,7 +122,7 @@ function printArrayItems(path, options, printPath, print) {
     }
   }, printPath);
 
-  return concat(printedElements);
+  return printedElements;
 }
 
 module.exports = { printArray, printArrayItems };

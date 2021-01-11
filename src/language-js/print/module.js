@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, softline, group, indent, join, line, ifBreak, hardline },
+  builders: { softline, group, indent, join, line, ifBreak, hardline },
 } = require("../../document");
 const { printDanglingComments } = require("../../main/comments");
 
@@ -40,7 +40,7 @@ function printImportDeclaration(path, options, print) {
 
   parts.push(semi);
 
-  return concat(parts);
+  return parts;
 }
 
 function printExportDeclaration(path, options, print) {
@@ -83,7 +83,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(";");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printExportAllDeclaration(path, options, print) {
@@ -112,7 +112,7 @@ function printExportAllDeclaration(path, options, print) {
     semi
   );
 
-  return concat(parts);
+  return parts;
 }
 
 function shouldExportDeclarationPrintSemi(node, options) {
@@ -156,7 +156,7 @@ function printModuleSource(path, options, print) {
   }
   parts.push(" ", path.call(print, "source"));
 
-  return concat(parts);
+  return parts;
 }
 
 function printModuleSpecifiers(path, options, print) {
@@ -209,37 +209,31 @@ function printModuleSpecifiers(path, options, print) {
 
       if (canBreak) {
         parts.push(
-          group(
-            concat([
-              "{",
-              indent(
-                concat([
-                  options.bracketSpacing ? line : softline,
-                  join(concat([",", line]), groupedSpecifiers),
-                ])
-              ),
-              ifBreak(shouldPrintComma(options) ? "," : ""),
-              options.bracketSpacing ? line : softline,
-              "}",
-            ])
-          )
-        );
-      } else {
-        parts.push(
-          concat([
+          group([
             "{",
-            options.bracketSpacing ? " " : "",
-            concat(groupedSpecifiers),
-            options.bracketSpacing ? " " : "",
+            indent([
+              options.bracketSpacing ? line : softline,
+              join([",", line], groupedSpecifiers),
+            ]),
+            ifBreak(shouldPrintComma(options) ? "," : ""),
+            options.bracketSpacing ? line : softline,
             "}",
           ])
         );
+      } else {
+        parts.push([
+          "{",
+          options.bracketSpacing ? " " : "",
+          ...groupedSpecifiers,
+          options.bracketSpacing ? " " : "",
+          "}",
+        ]);
       }
     }
   } else {
     parts.push("{}");
   }
-  return concat(parts);
+  return parts;
 }
 
 function shouldNotPrintSpecifiers(node, options) {
@@ -262,13 +256,13 @@ function shouldNotPrintSpecifiers(node, options) {
 function printImportAssertions(path, options, print) {
   const node = path.getNode();
   if (isNonEmptyArray(node.assertions)) {
-    return concat([
+    return [
       " assert {",
       options.bracketSpacing ? " " : "",
       join(", ", path.map(print, "assertions")),
       options.bracketSpacing ? " " : "",
       "}",
-    ]);
+    ];
   }
   return "";
 }
@@ -307,7 +301,7 @@ function printModuleSpecifier(path, options, print) {
   }
 
   parts.push(left, left && right ? " as " : "", right);
-  return concat(parts);
+  return parts;
 }
 
 module.exports = {

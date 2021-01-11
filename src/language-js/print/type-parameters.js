@@ -2,7 +2,7 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
+  builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
 const {
   isTestCall,
@@ -49,23 +49,18 @@ function printTypeParameters(path, options, print, paramsKey) {
         n[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
-    return concat([
+    return [
       "<",
       join(", ", path.map(print, paramsKey)),
       printDanglingCommentsForInline(path, options),
       ">",
-    ]);
+    ];
   }
 
   return group(
-    concat([
+    [
       "<",
-      indent(
-        concat([
-          softline,
-          join(concat([",", line]), path.map(print, paramsKey)),
-        ])
-      ),
+      indent([softline, join([",", line], path.map(print, paramsKey))]),
       ifBreak(
         options.parser !== "typescript" &&
           options.parser !== "babel-ts" &&
@@ -75,7 +70,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       ),
       softline,
       ">",
-    ]),
+    ],
     { id: getTypeParametersGroupId(n) }
   );
 }
@@ -94,7 +89,7 @@ function printDanglingCommentsForInline(path, options) {
   if (hasOnlyBlockComments) {
     return printed;
   }
-  return concat([printed, hardline]);
+  return [printed, hardline];
 }
 
 function printTypeParameter(path, options, print) {
@@ -113,7 +108,7 @@ function printTypeParameter(path, options, print) {
       );
     }
     parts.push("]");
-    return concat(parts);
+    return parts;
   }
 
   if (n.variance) {
@@ -148,7 +143,7 @@ function printTypeParameter(path, options, print) {
     parts.push(",");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 module.exports = {

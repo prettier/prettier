@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { indent, softline, literalline, concat, dedentToRoot },
+  builders: { indent, softline, literalline, dedentToRoot },
 } = require("../../document");
 const { escapeTemplateCharacters } = require("../print/template-literal");
 
@@ -24,14 +24,12 @@ function format(path, print, textToDoc) {
     ),
     true
   );
-  return concat([
+  return [
     "`",
-    hasIndent
-      ? indent(concat([softline, doc]))
-      : concat([literalline, dedentToRoot(doc)]),
+    hasIndent ? indent([softline, doc]) : [literalline, dedentToRoot(doc)],
     softline,
     "`",
-  ]);
+  ];
 }
 
 function getIndentation(str) {

@@ -1,9 +1,6 @@
 "use strict";
 
 const assert = require("assert");
-const {
-  builders: { concat },
-} = require("../../document");
 const { getParentExportDeclaration } = require("../utils");
 const { printClass } = require("./class");
 const {
@@ -28,41 +25,29 @@ function printFlow(path, options, print) {
     case "DeclareClass":
       return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "function ",
-          path.call(print, "id"),
-          n.predicate ? " " : "",
-          path.call(print, "predicate"),
-          semi,
-        ])
-      );
+      return printFlowDeclaration(path, [
+        "function ",
+        path.call(print, "id"),
+        n.predicate ? " " : "",
+        path.call(print, "predicate"),
+        semi,
+      ]);
     case "DeclareModule":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module ",
-          path.call(print, "id"),
-          " ",
-          path.call(print, "body"),
-        ])
-      );
+      return printFlowDeclaration(path, [
+        "module ",
+        path.call(print, "id"),
+        " ",
+        path.call(print, "body"),
+      ]);
     case "DeclareModuleExports":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module.exports",
-          ": ",
-          path.call(print, "typeAnnotation"),
-          semi,
-        ])
-      );
+      return printFlowDeclaration(path, [
+        "module.exports",
+        ": ",
+        path.call(print, "typeAnnotation"),
+        semi,
+      ]);
     case "DeclareVariable":
-      return printFlowDeclaration(
-        path,
-        concat(["var ", path.call(print, "id"), semi])
-      );
+      return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
     case "DeclareOpaqueType":
       return printFlowDeclaration(path, printOpaqueType(path, options, print));
     case "DeclareInterface":
@@ -92,10 +77,10 @@ function printFlow(path, options, print) {
     case "TupleTypeAnnotation":
       return printTupleType(path, options, print);
     case "GenericTypeAnnotation":
-      return concat([
+      return [
         path.call(print, "id"),
         printTypeParameters(path, options, print, "typeParameters"),
-      ]);
+      ];
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
@@ -114,7 +99,7 @@ function printFlowDeclaration(path, printed) {
   // If the parent node has type DeclareExportDeclaration, then it
   // will be responsible for printing the "declare" token. Otherwise
   // it needs to be printed with this non-exported declaration node.
-  return concat(["declare ", printed]);
+  return ["declare ", printed];
 }
 
 module.exports = { printFlow };

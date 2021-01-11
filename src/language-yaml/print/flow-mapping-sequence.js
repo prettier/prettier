@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, ifBreak, line, softline, hardline, join },
+  builders: { ifBreak, line, softline, hardline, join },
 } = require("../../document");
 const { isEmptyNode, getLast, hasEndComments } = require("../utils");
 const { printNextEmptyLine, alignWithSpaces } = require("./misc");
@@ -24,44 +24,40 @@ function printFlowMapping(path, print, options) {
     isEmptyNode(lastItem.key) &&
     isEmptyNode(lastItem.value);
 
-  return concat([
+  return [
     openMarker,
-    alignWithSpaces(
-      options.tabWidth,
-      concat([
-        bracketSpacing,
-        printChildren(path, print, options),
-        options.trailingComma === "none" ? "" : ifBreak(",", ""),
-        hasEndComments(node)
-          ? concat([hardline, join(hardline, path.map(print, "endComments"))])
-          : "",
-      ])
-    ),
+    alignWithSpaces(options.tabWidth, [
+      bracketSpacing,
+      printChildren(path, print, options),
+      options.trailingComma === "none" ? "" : ifBreak(",", ""),
+      hasEndComments(node)
+        ? [hardline, join(hardline, path.map(print, "endComments"))]
+        : "",
+    ]),
     isLastItemEmptyMappingItem ? "" : bracketSpacing,
     closeMarker,
-  ]);
+  ];
 }
 
 function printChildren(path, print, options) {
   const node = path.getValue();
   const parts = path.map(
-    (childPath, index) =>
-      concat([
-        print(childPath),
-        index === node.children.length - 1
-          ? ""
-          : concat([
-              ",",
-              line,
-              node.children[index].position.start.line !==
-              node.children[index + 1].position.start.line
-                ? printNextEmptyLine(childPath, options.originalText)
-                : "",
-            ]),
-      ]),
+    (childPath, index) => [
+      print(childPath),
+      index === node.children.length - 1
+        ? ""
+        : [
+            ",",
+            line,
+            node.children[index].position.start.line !==
+            node.children[index + 1].position.start.line
+              ? printNextEmptyLine(childPath, options.originalText)
+              : "",
+          ],
+    ],
     "children"
   );
-  return concat(parts);
+  return parts;
 }
 
 module.exports = {
