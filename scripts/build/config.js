@@ -65,6 +65,10 @@ const parsers = [
         keep_classnames: true,
       },
     },
+    replace: {
+      // `colorette`
+      '"NO_COLOR" in process.env': "true",
+    },
   },
   {
     input: "src/language-graphql/parser-graphql.js",
