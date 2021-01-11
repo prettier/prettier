@@ -102,7 +102,7 @@ class Cache {
     }
   }
 
-  async checkCache(inputOptions, outputOption) {
+  async isCached(inputOptions, outputOption) {
     const useCache = await this.checkBundle(
       outputOption.file,
       inputOptions,

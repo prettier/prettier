@@ -348,7 +348,7 @@ module.exports = async function createBundle(bundle, cache, options) {
     (
       await Promise.all(
         outputOptions.map((outputOption) =>
-          cache.checkCache(cache, inputOptions, outputOption)
+          cache.isCached(inputOptions, outputOption)
         )
       )
     ).every((cached) => cached)
