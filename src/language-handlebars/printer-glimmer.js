@@ -196,7 +196,6 @@ function print(path, options, print) {
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
         // TODO: format style and srcset attributes
-        // and cleanup concat that is not necessary
         if (!isInAttributeOfName(path, "class")) {
           return n.chars;
         }
