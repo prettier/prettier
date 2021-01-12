@@ -185,7 +185,7 @@ function print(path, options, print) {
         const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
 
         if (n.chars.match(whitespacesOnlyRE)) {
-          let breaks = line;
+          let breaks = [line];
 
           const newlines = countNewLines(n.chars);
           if (newlines) {
@@ -193,7 +193,7 @@ function print(path, options, print) {
           }
 
           if (isLastNodeOfSiblings(path)) {
-            breaks = dedent(breaks);
+            breaks = breaks.map((newline) => dedent(newline));
           }
 
           return breaks;
