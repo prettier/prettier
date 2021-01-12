@@ -130,7 +130,7 @@ function trim(out) {
   while (
     out.length > 0 &&
     typeof out[out.length - 1] === "string" &&
-    out[out.length - 1].match(/^[\t ]*$/)
+    /^[\t ]*$/.test(out[out.length - 1])
   ) {
     trimCount += out.pop().length;
   }
