@@ -184,7 +184,7 @@ function print(path, options, print) {
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
         const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
 
-        if (n.chars.match(whitespacesOnlyRE)) {
+        if (whitespacesOnlyRE.test(n.chars)) {
           let breaks = [line];
 
           const newlines = countNewLines(n.chars);
