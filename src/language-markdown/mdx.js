@@ -46,9 +46,8 @@ const tokenizeEsSyntax = (eat, value) => {
 };
 
 /* istanbul ignore next */
-tokenizeEsSyntax.locator = (value /*, fromIndex*/) => {
-  return isExport(value) || isImport(value) ? -1 : 1;
-};
+tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
+  isExport(value) || isImport(value) ? -1 : 1;
 
 function esSyntax() {
   const { Parser } = this;

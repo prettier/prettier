@@ -92,7 +92,7 @@ class FastPath {
 
     for (let i = 0; i < value.length; ++i) {
       stack.push(i, value[i]);
-      callback(this, i);
+      callback(this, i, value);
       stack.length -= 2;
     }
 
@@ -104,8 +104,8 @@ class FastPath {
   // the end of the iteration.
   map(callback, ...names) {
     const result = [];
-    this.each((path, index) => {
-      result[index] = callback(path, index);
+    this.each((path, index, value) => {
+      result[index] = callback(path, index, value);
     }, ...names);
     return result;
   }

@@ -3,6 +3,7 @@
 const { getStringWidth } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
+const { isConcat, getDocParts } = require("./doc-utils");
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -19,7 +20,7 @@ function makeIndent(ind, options) {
 }
 
 function makeAlign(indent, n, options) {
-  if (n === -Infinity) {
+  if (n === Number.NEGATIVE_INFINITY) {
     return indent.root || rootIndent();
   }
 
@@ -134,7 +135,7 @@ function trim(out) {
     trimCount += out.pop().length;
   }
 
-  if (out.length && typeof out[out.length - 1] === "string") {
+  if (out.length > 0 && typeof out[out.length - 1] === "string") {
     const trimmed = out[out.length - 1].replace(/[\t ]*$/, "");
     trimCount += out[out.length - 1].length - trimmed.length;
     out[out.length - 1] = trimmed;
@@ -167,14 +168,13 @@ function fits(next, restCommands, width, options, mustBeFlat) {
       out.push(doc);
 
       width -= getStringWidth(doc);
+    } else if (isConcat(doc)) {
+      const parts = getDocParts(doc);
+      for (let i = parts.length - 1; i >= 0; i--) {
+        cmds.push([ind, mode, parts[i]]);
+      }
     } else {
       switch (doc.type) {
-        case "concat":
-          for (let i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
-          }
-
-          break;
         case "indent":
           cmds.push([makeIndent(ind, options), mode, doc.contents]);
 
@@ -257,23 +257,22 @@ function printDocToString(doc, options) {
   let shouldRemeasure = false;
   let lineSuffix = [];
 
-  while (cmds.length !== 0) {
+  while (cmds.length > 0) {
     const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
       const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
       out.push(formatted);
       pos += getStringWidth(formatted);
+    } else if (isConcat(doc)) {
+      const parts = getDocParts(doc);
+      for (let i = parts.length - 1; i >= 0; i--) {
+        cmds.push([ind, mode, parts[i]]);
+      }
     } else {
       switch (doc.type) {
         case "cursor":
           out.push(cursor.placeholder);
-
-          break;
-        case "concat":
-          for (let i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
-          }
 
           break;
         case "indent":
@@ -497,7 +496,7 @@ function printDocToString(doc, options) {
             // fallthrough
 
             case MODE_BREAK:
-              if (lineSuffix.length) {
+              if (lineSuffix.length > 0) {
                 cmds.push([ind, mode, doc]);
                 cmds.push(...lineSuffix.reverse());
                 lineSuffix = [];
@@ -526,7 +525,7 @@ function printDocToString(doc, options) {
 
     // Flush remaining line-suffix contents at the end of the document, in case
     // there is no new line after the line-suffix.
-    if (cmds.length === 0 && lineSuffix.length) {
+    if (cmds.length === 0 && lineSuffix.length > 0) {
       cmds.push(...lineSuffix.reverse());
       lineSuffix = [];
     }

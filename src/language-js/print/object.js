@@ -2,19 +2,15 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak, hardline },
+  builders: { line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
-const {
-  getLast,
-  isNextLineEmpty,
-  hasNewlineInRange,
-  hasNewline,
-} = require("../../common/util");
+const { getLast, hasNewlineInRange, hasNewline } = require("../../common/util");
 const {
   shouldPrintComma,
   hasComment,
   getComments,
   CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -106,11 +102,12 @@ function printObject(path, options, print) {
     }, field);
   });
 
+  /** @type {Doc[]} */
   let separatorParts = [];
   const props = propsAndLoc
     .sort((a, b) => a.loc - b.loc)
     .map((prop) => {
-      const result = concat(separatorParts.concat(group(prop.printed)));
+      const result = separatorParts.concat(group(prop.printed));
       separatorParts = [separator, line];
       if (
         (prop.node.type === "TSPropertySignature" ||
@@ -120,7 +117,7 @@ function printObject(path, options, print) {
       ) {
         separatorParts.shift();
       }
-      if (isNextLineEmpty(options.originalText, prop.node, locEnd)) {
+      if (isNextLineEmpty(prop.node, options)) {
         separatorParts.push(hardline);
       }
       return result;
@@ -135,18 +132,18 @@ function printObject(path, options, print) {
         options,
         /* sameIndent */ true
       );
-      printed = concat([
+      printed = [
         printedDanglingComments,
         hasLineComments ||
         hasNewline(options.originalText, locEnd(getLast(getComments(n))))
           ? hardline
           : line,
         "...",
-      ]);
+      ];
     } else {
       printed = "...";
     }
-    props.push(concat(separatorParts.concat(printed)));
+    props.push(separatorParts.concat(printed));
   }
 
   const lastElem = getLast(n[propertiesField]);
@@ -165,37 +162,32 @@ function printObject(path, options, print) {
   let content;
   if (props.length === 0) {
     if (!hasComment(n, CommentCheckFlags.Dangling)) {
-      return concat([
-        leftBrace,
-        rightBrace,
-        printTypeAnnotation(path, options, print),
-      ]);
+      return [leftBrace, rightBrace, printTypeAnnotation(path, options, print)];
     }
 
-    content = group(
-      concat([
-        leftBrace,
-        printDanglingComments(path, options),
-        softline,
-        rightBrace,
-        printOptionalToken(path),
-        printTypeAnnotation(path, options, print),
-      ])
-    );
-  } else {
-    content = concat([
+    content = group([
       leftBrace,
-      indent(concat([options.bracketSpacing ? line : softline, concat(props)])),
+      printDanglingComments(path, options),
+      softline,
+      rightBrace,
+      printOptionalToken(path),
+      printTypeAnnotation(path, options, print),
+    ]);
+  } else {
+    content = [
+      leftBrace,
+      indent([options.bracketSpacing ? line : softline, ...props]),
       ifBreak(
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
           : ""
       ),
-      concat([options.bracketSpacing ? line : softline, rightBrace]),
+      options.bracketSpacing ? line : softline,
+      rightBrace,
       printOptionalToken(path),
       printTypeAnnotation(path, options, print),
-    ]);
+    ];
   }
 
   // If we inline the object as first argument of the parent, we don't want

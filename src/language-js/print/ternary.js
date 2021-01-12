@@ -2,11 +2,10 @@
 
 const flat = require("lodash/flatten");
 const { hasNewlineInRange } = require("../../common/util");
-const { isJSXNode, isBlockComment, getComments } = require("../utils");
+const { isJsxNode, isBlockComment, getComments } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
   builders: {
-    concat,
     line,
     softline,
     group,
@@ -116,8 +115,8 @@ function getConditionalChainContents(node) {
   return nonConditionalExpressions;
 }
 
-function conditionalExpressionChainContainsJSX(node) {
-  return getConditionalChainContents(node).some(isJSXNode);
+function conditionalExpressionChainContainsJsx(node) {
+  return getConditionalChainContents(node).some(isJsxNode);
 }
 
 function printTernaryTest(path, options, print) {
@@ -131,13 +130,13 @@ function printTernaryTest(path, options, print) {
 
   const printed = isConditionalExpression
     ? path.call(print, "test")
-    : concat([
+    : [
         path.call(print, "checkType"),
         " ",
         "extends",
         " ",
         path.call(print, "extendsType"),
-      ]);
+      ];
   /**
    *     a
    *       ? b
@@ -210,10 +209,10 @@ function printTernary(path, options, print) {
 
   if (
     isConditionalExpression &&
-    (isJSXNode(node[testNodePropertyNames[0]]) ||
-      isJSXNode(consequentNode) ||
-      isJSXNode(alternateNode) ||
-      conditionalExpressionChainContainsJSX(lastConditionalParent))
+    (isJsxNode(node[testNodePropertyNames[0]]) ||
+      isJsxNode(consequentNode) ||
+      isJsxNode(alternateNode) ||
+      conditionalExpressionChainContainsJsx(lastConditionalParent))
   ) {
     jsxMode = true;
     forceNoIndent = true;
@@ -221,13 +220,12 @@ function printTernary(path, options, print) {
     // Even though they don't need parens, we wrap (almost) everything in
     // parens when using ?: within JSX, because the parens are analogous to
     // curly braces in an if statement.
-    const wrap = (doc) =>
-      concat([
-        ifBreak("(", ""),
-        indent(concat([softline, doc])),
-        softline,
-        ifBreak(")", ""),
-      ]);
+    const wrap = (doc) => [
+      ifBreak("(", ""),
+      indent([softline, doc]),
+      softline,
+      ifBreak(")", ""),
+    ];
 
     // The only things we don't wrap are:
     // * Nested conditional expressions in alternates
@@ -250,7 +248,7 @@ function printTernary(path, options, print) {
     );
   } else {
     // normal mode
-    const part = concat([
+    const part = [
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
@@ -261,7 +259,7 @@ function printTernary(path, options, print) {
       alternateNode.type === node.type
         ? path.call(print, alternateNodePropertyName)
         : align(2, path.call(print, alternateNodePropertyName)),
-    ]);
+    ];
     parts.push(
       parent.type !== node.type ||
         parent[alternateNodePropertyName] === node ||
@@ -296,7 +294,7 @@ function printTernary(path, options, print) {
     parent === firstNonConditionalParent
       ? group(doc, { shouldBreak })
       : shouldBreak
-      ? concat([doc, breakParent])
+      ? [doc, breakParent]
       : doc;
 
   // Break the closing paren to keep the chain right after it:
@@ -311,17 +309,13 @@ function printTernary(path, options, print) {
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
-  const result = maybeGroup(
-    concat([
-      printTernaryTest(path, options, print),
-      forceNoIndent ? concat(parts) : indent(concat(parts)),
-      isConditionalExpression && breakClosingParen ? softline : "",
-    ])
-  );
+  const result = maybeGroup([
+    printTernaryTest(path, options, print),
+    forceNoIndent ? parts : indent(parts),
+    isConditionalExpression && breakClosingParen ? softline : "",
+  ]);
 
-  return isParentTest
-    ? group(concat([indent(concat([softline, result])), softline]))
-    : result;
+  return isParentTest ? group([indent([softline, result]), softline]) : result;
 }
 
 module.exports = { printTernary };

@@ -1,8 +1,9 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { indent, hardline, softline, concat },
-  utils: { mapDoc, replaceNewlinesWithLiterallines },
+  builders: { indent, hardline, softline },
+  utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
 } = require("../../document");
 const { printTemplateExpressions } = require("../print/template-literal");
 
@@ -12,11 +13,17 @@ function format(path, print, textToDoc) {
   // Get full template literal with expressions replaced by placeholders
   const rawQuasis = node.quasis.map((q) => q.value.raw);
   let placeholderID = 0;
-  const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-    return idx === 0
-      ? currVal
-      : prevVal + "@prettier-placeholder-" + placeholderID++ + "-id" + currVal;
-  }, "");
+  const text = rawQuasis.reduce(
+    (prevVal, currVal, idx) =>
+      idx === 0
+        ? currVal
+        : prevVal +
+          "@prettier-placeholder-" +
+          placeholderID++ +
+          "-id" +
+          currVal,
+    ""
+  );
   const doc = textToDoc(
     text,
     { parser: "scss" },
@@ -38,7 +45,7 @@ function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
-  return concat(["`", indent(concat([hardline, newDoc])), softline, "`"]);
+  return ["`", indent([hardline, newDoc]), softline, "`"];
 }
 
 // Search all the placeholders in the quasisDoc tree
@@ -46,56 +53,26 @@ function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
 function replacePlaceholders(quasisDoc, expressionDocs) {
-  if (!expressionDocs || !expressionDocs.length) {
+  if (!isNonEmptyArray(expressionDocs)) {
     return quasisDoc;
   }
-
   let replaceCounter = 0;
-  const newDoc = mapDoc(quasisDoc, (doc) => {
-    if (!doc || !doc.parts || !doc.parts.length) {
+  const newDoc = mapDoc(cleanDoc(quasisDoc), (doc) => {
+    if (typeof doc !== "string" || !doc.includes("@prettier-placeholder")) {
       return doc;
     }
-
-    let { parts } = doc;
-    const atIndex = parts.indexOf("@");
-    const placeholderIndex = atIndex + 1;
-    if (
-      atIndex > -1 &&
-      typeof parts[placeholderIndex] === "string" &&
-      parts[placeholderIndex].startsWith("prettier-placeholder")
-    ) {
-      // If placeholder is split, join it
-      const at = parts[atIndex];
-      const placeholder = parts[placeholderIndex];
-      const rest = parts.slice(placeholderIndex + 1);
-      parts = parts
-        .slice(0, atIndex)
-        .concat([at + placeholder])
-        .concat(rest);
-    }
-
-    const replacedParts = [];
-    parts.forEach((part) => {
-      if (typeof part !== "string" || !part.includes("@prettier-placeholder")) {
-        replacedParts.push(part);
-        return;
+    // When we have multiple placeholders in one line, like:
+    // ${Child}${Child2}:not(:first-child)
+    return doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
+      // The placeholder is always at odd indices
+      if (idx % 2 === 0) {
+        return replaceNewlinesWithLiterallines(component);
       }
 
-      // When we have multiple placeholders in one line, like:
-      // ${Child}${Child2}:not(:first-child)
-      part.split(/@prettier-placeholder-(\d+)-id/).forEach((component, idx) => {
-        // The placeholder is always at odd indices
-        if (idx % 2 === 0) {
-          replacedParts.push(replaceNewlinesWithLiterallines(component));
-          return;
-        }
-
-        // The component will always be a number at odd index
-        replacedParts.push(expressionDocs[component]);
-        replaceCounter++;
-      });
+      // The component will always be a number at odd index
+      replaceCounter++;
+      return expressionDocs[component];
     });
-    return { ...doc, parts: replacedParts };
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }

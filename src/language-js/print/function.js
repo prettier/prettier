@@ -7,13 +7,13 @@ const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak, hardline },
+  builders: { line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
 const {
   getFunctionParameters,
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
-  isJSXNode,
+  isJsxNode,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
@@ -55,12 +55,10 @@ function printFunctionDeclaration(path, print, options, expandArg) {
 
   parts.push(
     printFunctionTypeParameters(path, options, print),
-    group(
-      concat([
-        printFunctionParameters(path, print, options, expandArg),
-        printReturnType(path, print, options),
-      ])
-    ),
+    group([
+      printFunctionParameters(path, print, options, expandArg),
+      printReturnType(path, print, options),
+    ]),
     n.body ? " " : "",
     path.call(print, "body")
   );
@@ -69,7 +67,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     parts.push(";");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printMethod(path, options, print) {
@@ -95,24 +93,29 @@ function printMethod(path, options, print) {
 
   parts.push(
     printPropertyKey(path, options, print),
-    node.optional || node.key.optional ? "?" : "",
-    node === value
-      ? printMethodInternal(path, options, print)
-      : path.call((path) => printMethodInternal(path, options, print), "value")
+    node.optional || node.key.optional ? "?" : ""
   );
 
-  return concat(parts);
+  if (node === value) {
+    parts.push(printMethodInternal(path, options, print));
+  } else if (value.type === "FunctionExpression") {
+    parts.push(
+      path.call((path) => printMethodInternal(path, options, print), "value")
+    );
+  } else {
+    parts.push(path.call(print, "value"));
+  }
+
+  return parts;
 }
 
 function printMethodInternal(path, options, print) {
   const parts = [
     printFunctionTypeParameters(path, options, print),
-    group(
-      concat([
-        printFunctionParameters(path, print, options),
-        printReturnType(path, print, options),
-      ])
-    ),
+    group([
+      printFunctionParameters(path, print, options),
+      printReturnType(path, print, options),
+    ]),
   ];
 
   if (path.getNode().body) {
@@ -121,7 +124,7 @@ function printMethodInternal(path, options, print) {
     parts.push(options.semi ? ";" : "");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printArrowFunctionExpression(path, options, print, args) {
@@ -136,19 +139,16 @@ function printArrowFunctionExpression(path, options, print, args) {
     parts.push(path.call(print, "params", 0));
   } else {
     parts.push(
-      group(
-        concat([
-          printFunctionParameters(
-            path,
-            print,
-            options,
-            /* expandLast */ args &&
-              (args.expandLastArg || args.expandFirstArg),
-            /* printTypeParams */ true
-          ),
-          printReturnType(path, print, options),
-        ])
-      )
+      group([
+        printFunctionParameters(
+          path,
+          print,
+          options,
+          /* expandLast */ args && (args.expandLastArg || args.expandFirstArg),
+          /* printTypeParams */ true
+        ),
+        printReturnType(path, print, options),
+      ])
     );
   }
 
@@ -183,23 +183,21 @@ function printArrowFunctionExpression(path, options, print, args) {
     (n.body.type === "ArrayExpression" ||
       n.body.type === "ObjectExpression" ||
       n.body.type === "BlockStatement" ||
-      isJSXNode(n.body) ||
+      isJsxNode(n.body) ||
       isTemplateOnItsOwnLine(n.body, options.originalText) ||
       n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
   ) {
-    return group(concat([concat(parts), " ", body]));
+    return group([...parts, " ", body]);
   }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
   if (n.body.type === "SequenceExpression") {
-    return group(
-      concat([
-        concat(parts),
-        group(concat([" (", indent(concat([softline, body])), softline, ")"])),
-      ])
-    );
+    return group([
+      ...parts,
+      group([" (", indent([softline, body]), softline, ")"]),
+    ]);
   }
 
   // if the arrow function is expanded as last argument, we are adding a
@@ -221,26 +219,20 @@ function printArrowFunctionExpression(path, options, print, args) {
     n.body.type === "ConditionalExpression" &&
     !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
 
-  return group(
-    concat([
-      concat(parts),
-      group(
-        concat([
-          indent(
-            concat([
-              line,
-              shouldAddParens ? ifBreak("", "(") : "",
-              body,
-              shouldAddParens ? ifBreak("", ")") : "",
-            ])
-          ),
-          shouldAddSoftLine
-            ? concat([ifBreak(printTrailingComma ? "," : ""), softline])
-            : "",
-        ])
-      ),
-    ])
-  );
+  return group([
+    ...parts,
+    group([
+      indent([
+        line,
+        shouldAddParens ? ifBreak("", "(") : "",
+        body,
+        shouldAddParens ? ifBreak("", ")") : "",
+      ]),
+      shouldAddSoftLine
+        ? [ifBreak(printTrailingComma ? "," : ""), softline]
+        : "",
+    ]),
+  ]);
 }
 
 function canPrintParamsWithoutParens(node) {
@@ -281,7 +273,7 @@ function printReturnType(path, print, options) {
     n.returnType &&
     isFlowAnnotationComment(options.originalText, n.returnType)
   ) {
-    return concat([" /*: ", returnType, " */"]);
+    return [" /*: ", returnType, " */"];
   }
 
   const parts = [returnType];
@@ -297,7 +289,7 @@ function printReturnType(path, print, options) {
     parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
   }
 
-  return concat(parts);
+  return parts;
 }
 
 // `ReturnStatement` and `ThrowStatement`
@@ -308,27 +300,23 @@ function printReturnAndThrowArgument(path, options, print) {
 
   if (node.argument) {
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push(
-        concat([
-          " (",
-          indent(concat([hardline, path.call(print, "argument")])),
-          hardline,
-          ")",
-        ])
-      );
+      parts.push([
+        " (",
+        indent([hardline, path.call(print, "argument")]),
+        hardline,
+        ")",
+      ]);
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"
     ) {
       parts.push(
-        group(
-          concat([
-            ifBreak(" (", " "),
-            indent(concat([softline, path.call(print, "argument")])),
-            softline,
-            ifBreak(")"),
-          ])
-        )
+        group([
+          ifBreak(" (", " "),
+          indent([softline, path.call(print, "argument")]),
+          softline,
+          ifBreak(")"),
+        ])
       );
     } else {
       parts.push(" ", path.call(print, "argument"));
@@ -354,15 +342,15 @@ function printReturnAndThrowArgument(path, options, print) {
     parts.push(semi);
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printReturnStatement(path, options, print) {
-  return concat(["return", printReturnAndThrowArgument(path, options, print)]);
+  return ["return", printReturnAndThrowArgument(path, options, print)];
 }
 
 function printThrowStatement(path, options, print) {
-  return concat(["throw", printReturnAndThrowArgument(path, options, print)]);
+  return ["throw", printReturnAndThrowArgument(path, options, print)];
 }
 
 module.exports = {
@@ -371,5 +359,6 @@ module.exports = {
   printMethod,
   printReturnStatement,
   printThrowStatement,
+  printMethodInternal,
   shouldPrintParamsWithoutParens,
 };

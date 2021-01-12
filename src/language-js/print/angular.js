@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, line, group },
+  builders: { join, line, group },
 } = require("../../document");
 const { hasNode, hasComment, getComments } = require("../utils");
 const { printBinaryishExpression } = require("./binaryish");
@@ -12,25 +12,23 @@ function printAngular(path, options, print) {
   const n = path.getValue();
   switch (n.type) {
     case "NGRoot":
-      return concat(
-        [].concat(
-          path.call(print, "node"),
-          !hasComment(n.node)
-            ? []
-            : concat([" //", getComments(n.node)[0].value.trimEnd()])
-        )
+      return [].concat(
+        path.call(print, "node"),
+        !hasComment(n.node)
+          ? []
+          : [" //", getComments(n.node)[0].value.trimEnd()]
       );
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
     case "NGChainedExpression":
       return group(
         join(
-          concat([";", line]),
+          [";", line],
           path.map(
             (childPath) =>
               hasNgSideEffect(childPath)
                 ? print(childPath)
-                : concat(["(", print(childPath), ")"]),
+                : ["(", print(childPath), ")"],
             "expressions"
           )
         )
@@ -38,31 +36,28 @@ function printAngular(path, options, print) {
     case "NGEmptyExpression":
       return "";
     case "NGQuotedExpression":
-      return concat([n.prefix, ": ", n.value.trim()]);
+      return [n.prefix, ": ", n.value.trim()];
     case "NGMicrosyntax":
-      return concat(
-        path.map(
-          (childPath, index) =>
-            concat([
-              index === 0
-                ? ""
-                : isNgForOf(childPath.getValue(), index, n)
-                ? " "
-                : concat([";", line]),
-              print(childPath),
-            ]),
-          "body"
-        )
+      return path.map(
+        (childPath, index) => [
+          index === 0
+            ? ""
+            : isNgForOf(childPath.getValue(), index, n)
+            ? " "
+            : [";", line],
+          print(childPath),
+        ],
+        "body"
       );
     case "NGMicrosyntaxKey":
       return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(n.name)
         ? n.name
         : JSON.stringify(n.name);
     case "NGMicrosyntaxExpression":
-      return concat([
+      return [
         path.call(print, "expression"),
-        n.alias === null ? "" : concat([" as ", path.call(print, "alias")]),
-      ]);
+        n.alias === null ? "" : [" as ", path.call(print, "alias")],
+      ];
     case "NGMicrosyntaxKeyedExpression": {
       const index = path.getName();
       const parentNode = path.getParentNode();
@@ -75,24 +70,20 @@ function printAngular(path, options, print) {
               "NGMicrosyntaxKeyedExpression" &&
             parentNode.body[index - 1].key.name === "then")) &&
           parentNode.body[0].type === "NGMicrosyntaxExpression");
-      return concat([
+      return [
         path.call(print, "key"),
         shouldNotPrintColon ? " " : ": ",
         path.call(print, "expression"),
-      ]);
+      ];
     }
     case "NGMicrosyntaxLet":
-      return concat([
+      return [
         "let ",
         path.call(print, "key"),
-        n.value === null ? "" : concat([" = ", path.call(print, "value")]),
-      ]);
+        n.value === null ? "" : [" = ", path.call(print, "value")],
+      ];
     case "NGMicrosyntaxAs":
-      return concat([
-        path.call(print, "key"),
-        " as ",
-        path.call(print, "alias"),
-      ]);
+      return [path.call(print, "key"), " as ", path.call(print, "alias")];
   }
 }
 

@@ -1,7 +1,8 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, softline, group, indent, join, line, ifBreak, hardline },
+  builders: { softline, group, indent, join, line, ifBreak, hardline },
 } = require("../../document");
 const { printDanglingComments } = require("../../main/comments");
 
@@ -39,7 +40,7 @@ function printImportDeclaration(path, options, print) {
 
   parts.push(semi);
 
-  return concat(parts);
+  return parts;
 }
 
 function printExportDeclaration(path, options, print) {
@@ -82,7 +83,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(";");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printExportAllDeclaration(path, options, print) {
@@ -111,7 +112,7 @@ function printExportAllDeclaration(path, options, print) {
     semi
   );
 
-  return concat(parts);
+  return parts;
 }
 
 function shouldExportDeclarationPrintSemi(node, options) {
@@ -155,7 +156,7 @@ function printModuleSource(path, options, print) {
   }
   parts.push(" ", path.call(print, "source"));
 
-  return concat(parts);
+  return parts;
 }
 
 function printModuleSpecifiers(path, options, print) {
@@ -168,7 +169,7 @@ function printModuleSpecifiers(path, options, print) {
   /** @type{Doc[]} */
   const parts = [" "];
 
-  if (node.specifiers && node.specifiers.length > 0) {
+  if (isNonEmptyArray(node.specifiers)) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
@@ -196,8 +197,8 @@ function printModuleSpecifiers(path, options, print) {
 
     parts.push(join(", ", standaloneSpecifiers));
 
-    if (groupedSpecifiers.length !== 0) {
-      if (standaloneSpecifiers.length !== 0) {
+    if (groupedSpecifiers.length > 0) {
+      if (standaloneSpecifiers.length > 0) {
         parts.push(", ");
       }
 
@@ -208,37 +209,31 @@ function printModuleSpecifiers(path, options, print) {
 
       if (canBreak) {
         parts.push(
-          group(
-            concat([
-              "{",
-              indent(
-                concat([
-                  options.bracketSpacing ? line : softline,
-                  join(concat([",", line]), groupedSpecifiers),
-                ])
-              ),
-              ifBreak(shouldPrintComma(options) ? "," : ""),
-              options.bracketSpacing ? line : softline,
-              "}",
-            ])
-          )
-        );
-      } else {
-        parts.push(
-          concat([
+          group([
             "{",
-            options.bracketSpacing ? " " : "",
-            concat(groupedSpecifiers),
-            options.bracketSpacing ? " " : "",
+            indent([
+              options.bracketSpacing ? line : softline,
+              join([",", line], groupedSpecifiers),
+            ]),
+            ifBreak(shouldPrintComma(options) ? "," : ""),
+            options.bracketSpacing ? line : softline,
             "}",
           ])
         );
+      } else {
+        parts.push([
+          "{",
+          options.bracketSpacing ? " " : "",
+          ...groupedSpecifiers,
+          options.bracketSpacing ? " " : "",
+          "}",
+        ]);
       }
     }
   } else {
     parts.push("{}");
   }
-  return concat(parts);
+  return parts;
 }
 
 function shouldNotPrintSpecifiers(node, options) {
@@ -246,7 +241,7 @@ function shouldNotPrintSpecifiers(node, options) {
 
   if (
     type !== "ImportDeclaration" ||
-    (Array.isArray(specifiers) && specifiers.length > 0) ||
+    isNonEmptyArray(specifiers) ||
     importKind === "type"
   ) {
     return false;
@@ -260,14 +255,14 @@ function shouldNotPrintSpecifiers(node, options) {
 
 function printImportAssertions(path, options, print) {
   const node = path.getNode();
-  if (Array.isArray(node.assertions) && node.assertions.length !== 0) {
-    return concat([
+  if (isNonEmptyArray(node.assertions)) {
+    return [
       " assert {",
       options.bracketSpacing ? " " : "",
       join(", ", path.map(print, "assertions")),
       options.bracketSpacing ? " " : "",
       "}",
-    ]);
+    ];
   }
   return "";
 }
@@ -306,7 +301,7 @@ function printModuleSpecifier(path, options, print) {
   }
 
   parts.push(left, left && right ? " as " : "", right);
-  return concat(parts);
+  return parts;
 }
 
 module.exports = {

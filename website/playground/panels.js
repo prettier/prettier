@@ -128,7 +128,7 @@ function getIndexPosition(text, indexes) {
   let lineStart = 0;
   const result = [];
 
-  while (indexes.length) {
+  while (indexes.length > 0) {
     const index = indexes.shift();
 
     while (count < index && count < text.length) {

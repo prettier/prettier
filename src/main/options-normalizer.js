@@ -26,7 +26,7 @@ class FlagSchema extends vnopts.ChoiceSchema {
   preprocess(value, utils) {
     if (
       typeof value === "string" &&
-      value.length !== 0 &&
+      value.length > 0 &&
       !this._flags.includes(value)
     ) {
       const suggestion = this._flags.find((flag) => leven(flag, value) < 3);
@@ -166,13 +166,11 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   }
 
   if (optionInfo.exception) {
-    parameters.validate = (value, schema, utils) => {
-      return optionInfo.exception(value) || schema.validate(value, utils);
-    };
+    parameters.validate = (value, schema, utils) =>
+      optionInfo.exception(value) || schema.validate(value, utils);
   } else {
-    parameters.validate = (value, schema, utils) => {
-      return value === undefined || schema.validate(value, utils);
-    };
+    parameters.validate = (value, schema, utils) =>
+      value === undefined || schema.validate(value, utils);
   }
 
   /* istanbul ignore next */

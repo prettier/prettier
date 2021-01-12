@@ -6,6 +6,8 @@ const {
   hasNewline,
   hasNewlineInRange,
   skipWhitespace,
+  isNonEmptyArray,
+  isNextLineEmptyAfterIndex,
 } = require("../common/util");
 const { locStart, locEnd, hasSameLocStart } = require("./loc");
 
@@ -20,7 +22,6 @@ const { locStart, locEnd, hasSameLocStart } = require("./loc");
  * @typedef {import("./types/estree").Expression} Expression
  * @typedef {import("./types/estree").Property} Property
  * @typedef {import("./types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("./types/estree").JSXElement} JSXElement
  * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
  * @typedef {import("./types/estree").Literal} Literal
  *
@@ -318,34 +319,24 @@ function isAngularTestWrapper(node) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isJSXNode(node) {
+function isJsxNode(node) {
   return node.type === "JSXElement" || node.type === "JSXFragment";
 }
 
-function isTheOnlyJSXElementInMarkdown(options, path) {
+function isTheOnlyJsxElementInMarkdown(options, path) {
   if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
     return false;
   }
 
   const node = path.getNode();
 
-  if (!node.expression || !isJSXNode(node.expression)) {
+  if (!node.expression || !isJsxNode(node.expression)) {
     return false;
   }
 
   const parent = path.getParentNode();
 
   return parent.type === "Program" && parent.body.length === 1;
-}
-
-// Detect an expression node representing `{" "}`
-function isJSXWhitespaceExpression(node) {
-  return (
-    node.type === "JSXExpressionContainer" &&
-    isLiteral(node.expression) &&
-    node.expression.value === " " &&
-    !hasComment(node.expression)
-  );
 }
 
 /**
@@ -637,76 +628,6 @@ function isSimpleTemplateLiteral(node) {
 }
 
 /**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function classPropMayCauseASIProblems(path) {
-  const node = path.getNode();
-
-  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
-    return false;
-  }
-
-  const name = node.key && node.key.name;
-
-  // this isn't actually possible yet with most parsers available today
-  // so isn't properly tested yet.
-  if (
-    (name === "static" || name === "get" || name === "set") &&
-    !node.value &&
-    !node.typeAnnotation
-  ) {
-    return true;
-  }
-}
-
-function classChildNeedsASIProtection(node) {
-  if (!node) {
-    return;
-  }
-
-  if (
-    node.static ||
-    node.accessibility // TypeScript
-  ) {
-    return false;
-  }
-
-  if (!node.computed) {
-    const name = node.key && node.key.name;
-    if (name === "in" || name === "instanceof") {
-      return true;
-    }
-  }
-  switch (node.type) {
-    case "ClassProperty":
-    case "FieldDefinition":
-    case "TSAbstractClassProperty":
-      return node.computed;
-    case "MethodDefinition": // Flow
-    case "TSAbstractMethodDefinition": // TypeScript
-    case "ClassMethod":
-    case "ClassPrivateMethod": {
-      // Babel
-      const isAsync = node.value ? node.value.async : node.async;
-      const isGenerator = node.value ? node.value.generator : node.generator;
-      if (isAsync || node.kind === "get" || node.kind === "set") {
-        return false;
-      }
-      if (node.computed || isGenerator) {
-        return true;
-      }
-      return false;
-    }
-    case "TSIndexSignature":
-      return true;
-    default:
-      /* istanbul ignore next */
-      return false;
-  }
-}
-
-/**
  * @param {string} tokenNode
  * @param {string} keyword
  * @returns {string}
@@ -730,101 +651,6 @@ function hasNewlineBetweenOrAfterDecorators(node, options) {
   );
 }
 
-// Only space, newline, carriage return, and tab are treated as whitespace
-// inside JSX.
-const jsxWhitespaceChars = " \n\r\t";
-const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
-const containsNonJsxWhitespaceRegex = new RegExp(
-  "[^" + jsxWhitespaceChars + "]"
-);
-
-// Meaningful if it contains non-whitespace characters,
-// or it contains whitespace without a new line.
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isMeaningfulJSXText(node) {
-  return (
-    isLiteral(node) &&
-    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
-      !/\n/.test(rawText(node)))
-  );
-}
-
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function hasJsxIgnoreComment(path) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-  if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
-    return false;
-  }
-
-  // Lookup the previous sibling, ignoring any empty JSXText elements
-  const index = parent.children.indexOf(node);
-  let prevSibling = null;
-  for (let i = index; i > 0; i--) {
-    const candidate = parent.children[i - 1];
-    if (candidate.type === "JSXText" && !isMeaningfulJSXText(candidate)) {
-      continue;
-    }
-    prevSibling = candidate;
-    break;
-  }
-
-  return (
-    prevSibling &&
-    prevSibling.type === "JSXExpressionContainer" &&
-    prevSibling.expression.type === "JSXEmptyExpression" &&
-    hasNodeIgnoreComment(prevSibling.expression)
-  );
-}
-
-/**
- * @param {JSXElement} node
- * @returns {boolean}
- */
-function isEmptyJSXElement(node) {
-  if (node.children.length === 0) {
-    return true;
-  }
-  if (node.children.length > 1) {
-    return false;
-  }
-
-  // if there is one text child and does not contain any meaningful text
-  // we can treat the element as empty.
-  const child = node.children[0];
-  return isLiteral(child) && !isMeaningfulJSXText(child);
-}
-
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function hasPrettierIgnore(path) {
-  return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
-}
-
-/**
- * @param {FastPath} path
- * @returns {boolean}
- */
-function isLastStatement(path) {
-  const parent = path.getParentNode();
-  if (!parent) {
-    return true;
-  }
-  const node = path.getValue();
-  const body = (parent.body || parent.consequent).filter(
-    (stmt) => stmt.type !== "EmptyStatement"
-  );
-  return body[body.length - 1] === node;
-}
-
 /**
  * @param {string} text
  * @param {Node} typeAnnotation
@@ -846,7 +672,7 @@ function isFlowAnnotationComment(text, typeAnnotation) {
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
-  if (isJSXNode(node)) {
+  if (isJsxNode(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -1008,15 +834,17 @@ function isFunctionCompositionArgs(args) {
   }
   let count = 0;
   for (const arg of args) {
-    if (isFunctionOrArrowExpression(arg)) {
-      count += 1;
-      if (count > 1) {
-        return true;
-      }
-    } else if (isCallOrOptionalCallExpression(arg)) {
-      for (const childArg of arg.arguments) {
-        if (isFunctionOrArrowExpression(childArg)) {
+    if (arg) {
+      if (isFunctionOrArrowExpression(arg)) {
+        count += 1;
+        if (count > 1) {
           return true;
+        }
+      } else if (isCallOrOptionalCallExpression(arg)) {
+        for (const childArg of arg.arguments) {
+          if (isFunctionOrArrowExpression(childArg)) {
+            return true;
+          }
         }
       }
     }
@@ -1473,7 +1301,7 @@ const getCommentTestFunction = (flags, fn) => {
  * @returns {boolean}
  */
 function hasComment(node, flags, fn) {
-  if (!node || !Array.isArray(node.comments) || node.comments.length === 0) {
+  if (!node || !isNonEmptyArray(node.comments)) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);
@@ -1511,9 +1339,14 @@ function isForStatement(node) {
   return forStatements.has(node.type);
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isNextLineEmpty = (node, { originalText }) =>
+  isNextLineEmptyAfterIndex(originalText, locEnd(node));
+
 module.exports = {
-  classChildNeedsASIProtection,
-  classPropMayCauseASIProblems,
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,
@@ -1528,15 +1361,14 @@ module.exports = {
   hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
   hasNode,
-  hasPrettierIgnore,
   hasIgnoreComment,
+  hasNodeIgnoreComment,
   identity,
   isBinaryish,
   isBlockComment,
   isLineComment,
   isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,
-  isEmptyJSXElement,
   isExportDeclaration,
   isFlowAnnotationComment,
   isForStatement,
@@ -1545,13 +1377,10 @@ module.exports = {
   isFunctionOrArrowExpression,
   isGetterOrSetter,
   isJestEachTemplateLiteral,
-  isJSXNode,
-  isJSXWhitespaceExpression,
-  isLastStatement,
+  isJsxNode,
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMeaningfulJSXText,
   isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
@@ -1564,10 +1393,10 @@ module.exports = {
   isStringPropSafeToUnquote,
   isTemplateOnItsOwnLine,
   isTestCall,
-  isTheOnlyJSXElementInMarkdown,
+  isTheOnlyJsxElementInMarkdown,
   isTSXFile,
   isTypeAnnotationAFunction,
-  matchJsxWhitespaceRegex,
+  isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
   returnArgumentHasLeadingComment,

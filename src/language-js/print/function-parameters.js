@@ -1,12 +1,9 @@
 "use strict";
 
-const {
-  getNextNonSpaceNonCommentCharacter,
-  isNextLineEmpty,
-} = require("../../common/util");
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, line, hardline, softline, group, indent, ifBreak },
+  builders: { line, hardline, softline, group, indent, ifBreak },
   utils: { removeLines },
 } = require("../../document");
 const {
@@ -20,6 +17,7 @@ const {
   hasRestParameter,
   shouldPrintComma,
   hasComment,
+  isNextLineEmpty,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionTypeParameters } = require("./misc");
@@ -38,7 +36,7 @@ function printFunctionParameters(
     : "";
 
   if (parameters.length === 0) {
-    return concat([
+    return [
       typeParams,
       "(",
       printDanglingComments(
@@ -53,7 +51,7 @@ function printFunctionParameters(
           ) === ")"
       ),
       ")",
-    ]);
+    ];
   }
 
   const parent = path.getParentNode();
@@ -78,9 +76,7 @@ function printFunctionParameters(
       shouldExpandParameters
     ) {
       printed.push(" ");
-    } else if (
-      isNextLineEmpty(options.originalText, parameters[index], locEnd)
-    ) {
+    } else if (isNextLineEmpty(parameters[index], options)) {
       printed.push(hardline, hardline);
     } else {
       printed.push(line);
@@ -98,14 +94,12 @@ function printFunctionParameters(
   //   })                    ) => {
   //                         })
   if (shouldExpandParameters) {
-    return group(
-      concat([
-        removeLines(typeParams),
-        "(",
-        concat(printed.map(removeLines)),
-        ")",
-      ])
-    );
+    return group([
+      removeLines(typeParams),
+      "(",
+      ...printed.map(removeLines),
+      ")",
+    ]);
   }
 
   // Single object destructuring should hug
@@ -117,12 +111,12 @@ function printFunctionParameters(
   // }) {}
   const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
-    return concat([typeParams, "(", concat(printed), ")"]);
+    return [typeParams, "(", ...printed, ")"];
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    return concat([typeParams, "(", concat(printed), ")"]);
+    return [typeParams, "(", ...printed, ")"];
   }
 
   const isFlowShorthandWithOneArg =
@@ -145,15 +139,15 @@ function printFunctionParameters(
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
-      return concat(["(", concat(printed), ")"]);
+      return ["(", ...printed, ")"];
     }
-    return concat(printed);
+    return printed;
   }
 
-  return concat([
+  return [
     typeParams,
     "(",
-    indent(concat([softline, concat(printed)])),
+    indent([softline, ...printed]),
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
@@ -161,7 +155,7 @@ function printFunctionParameters(
     ),
     softline,
     ")",
-  ]);
+  ];
 }
 
 function shouldHugFunctionParameters(node) {

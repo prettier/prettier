@@ -118,8 +118,7 @@ class A1 extends B {
 }
 
 class A2 /* a */ extends B {}
-class A3 extends B /* a */ {
-}
+class A3 extends B /* a */ {}
 class A4 /* a */ extends B {}
 
 (class A5 // comment 1
@@ -133,8 +132,7 @@ class A4 /* a */ extends B {}
 });
 
 (class A7 /* a */ extends B {});
-(class A8 extends B /* a */ {
-});
+(class A8 extends B /* a */ {});
 (class A9 /* a */ extends B {});
 
 class a extends b {
