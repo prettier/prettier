@@ -4,6 +4,8 @@ const {
   builders: { group, hardline, ifBreak, indent, join, line, softline },
   utils: { getDocParts },
 } = require("../document");
+const { isNonEmptyArray } = require("../common/util");
+
 const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {
@@ -194,7 +196,6 @@ function print(path, options, print) {
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
         // TODO: format style and srcset attributes
-        // and cleanup concat that is not necessary
         if (!isInAttributeOfName(path, "class")) {
           return n.chars;
         }
@@ -318,28 +319,33 @@ function print(path, options, print) {
 function printStartingTag(path, print) {
   const node = path.getValue();
 
+  const attributesLike = [];
+  if (isNonEmptyArray(node.attributes)) {
+    const attributes = join(line, path.map(print, "attributes"));
+    attributesLike.push(line, attributes);
+  }
+
+  if (isNonEmptyArray(node.modifiers)) {
+    const modifiers = join(line, path.map(print, "modifiers"));
+    attributesLike.push(line, modifiers);
+  }
+
+  if (isNonEmptyArray(node.comments)) {
+    const comments = join(line, path.map(print, "comments"));
+    attributesLike.push(line, comments);
+  }
+
+  if (isNonEmptyArray(node.blockParams)) {
+    const blockParams = printBlockParams(node);
+    attributesLike.push(line, blockParams);
+  }
+
   return [
     "<",
     node.tag,
-    printAttributesLike(path, print),
-    printBlockParams(node),
+    indent(attributesLike),
     printStartingTagEndMarker(node),
   ];
-}
-
-function printAttributesLike(path, print) {
-  const node = path.getValue();
-
-  return indent([
-    node.attributes.length > 0 ? line : "",
-    join(line, path.map(print, "attributes")),
-
-    node.modifiers.length > 0 ? line : "",
-    join(line, path.map(print, "modifiers")),
-
-    node.comments.length > 0 ? line : "",
-    join(line, path.map(print, "comments")),
-  ]);
 }
 
 function printChildren(path, options, print) {
@@ -415,12 +421,26 @@ function printInverseBlockClosingMustache(node) {
 function printOpenBlock(path, print) {
   const node = path.getValue();
 
+  const openingMustache = printOpeningBlockOpeningMustache(node);
+  const closingMustache = printOpeningBlockClosingMustache(node);
+
+  const attributes = [printPath(path, print)];
+
+  const params = printParams(path, print);
+  if (params) {
+    attributes.push(line, params);
+  }
+
+  if (isNonEmptyArray(node.program.blockParams)) {
+    const block = printBlockParams(node.program);
+    attributes.push(line, block);
+  }
+
   return group([
-    printOpeningBlockOpeningMustache(node),
-    printPathAndParams(path, print),
-    printBlockParams(node.program),
+    openingMustache,
+    indent(group(attributes)),
     softline,
-    printOpeningBlockClosingMustache(node),
+    closingMustache,
   ]);
 }
 
@@ -634,11 +654,7 @@ function printParams(path, print) {
 }
 
 function printBlockParams(node) {
-  if (!node || node.blockParams.length === 0) {
-    return "";
-  }
-
-  return [" as |", node.blockParams.join(" "), "|"];
+  return ["as |", node.blockParams.join(" "), "|"];
 }
 
 function doesNotHaveHashParams(node) {
