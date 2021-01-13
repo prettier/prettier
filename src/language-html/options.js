@@ -32,4 +32,10 @@ module.exports = {
     default: false,
     description: "Indent script and style tags in Vue files.",
   },
+  htmlVoidTags: {
+    category: CATEGORY_HTML,
+    type: "boolean",
+    default: false,
+    description: "Format void HTML elements as void tags.",
+  },
 };

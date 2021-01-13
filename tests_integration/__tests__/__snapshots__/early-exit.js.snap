@@ -82,6 +82,8 @@ Format options:
                            Defaults to lf.
   --generator-star-spacing Add spaces around the star ('*') in generator functions (before and after - from eslint).
                            Defaults to false.
+  --html-void-tags         Format void HTML elements as void tags.
+                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -256,6 +258,8 @@ Format options:
                            Which end of line characters to apply.
                            Defaults to lf.
   --generator-star-spacing Add spaces around the star ('*') in generator functions (before and after - from eslint).
+                           Defaults to false.
+  --html-void-tags         Format void HTML elements as void tags.
                            Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.

@@ -15,9 +15,9 @@ exports[` 1`] = `
 +                            Defaults to bar.
     --generator-star-spacing Add spaces around the star ('*') in generator functions (before and after - from eslint).
                              Defaults to false.
-    --html-whitespace-sensitivity <css|strict|ignore>
-                             How to handle whitespaces in HTML.
-                             Defaults to css."
+    --html-void-tags         Format void HTML elements as void tags.
+                             Defaults to false.
+    --html-whitespace-sensitivity <css|strict|ignore>"
 `;
 
 exports[`show detailed external option with \`--help foo-string\` (stderr) 1`] = `""`;

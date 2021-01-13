@@ -61,6 +61,7 @@
     "html-element-attributes": "2.2.1",
     "html-styles": "1.0.0",
     "html-tag-names": "1.1.5",
+    "html-void-elements": "1.0.5",
     "ignore": "4.0.6",
     "jest-docblock": "26.0.0",
     "json-stable-stringify": "1.0.1",

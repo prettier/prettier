@@ -124,6 +124,10 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "htmlVoidTags": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "htmlWhitespaceSensitivity": Object {
       "choices": Array [
         "css",
@@ -832,6 +836,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Add spaces around the star ('*') in generator functions (before and after - from eslint).\\",
       \\"name\\": \\"generatorStarSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"default\\": false,
+      \\"description\\": \\"Format void HTML elements as void tags.\\",
+      \\"name\\": \\"htmlVoidTags\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },

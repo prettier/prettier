@@ -1,5 +1,6 @@
 "use strict";
 
+const htmlVoidElements = require("html-void-elements");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -12,6 +13,8 @@ const htmlElementAttributes = require("html-element-attributes");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
+
+const HTML_VOID_ELEMENT_SET = new Set(htmlVoidElements);
 
 function arrayToMap(array) {
   const map = Object.create(null);
@@ -625,6 +628,14 @@ function unescapeQuoteEntities(text) {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
 }
 
+function isHtmlVoidTagNeeded(node, options) {
+  return (
+    options.htmlVoidTags &&
+    options.parser === "html" &&
+    HTML_VOID_ELEMENT_SET.has(node.fullName)
+  );
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -658,4 +669,5 @@ module.exports = {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  isHtmlVoidTagNeeded,
 };

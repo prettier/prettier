@@ -91,6 +91,11 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Add spaces around the star ('*') in generator functions (before and after - from eslint).",
           "type": "boolean",
         },
+        "htmlVoidTags": Object {
+          "default": false,
+          "description": "Format void HTML elements as void tags.",
+          "type": "boolean",
+        },
         "htmlWhitespaceSensitivity": Object {
           "default": "css",
           "description": "How to handle whitespaces in HTML.",

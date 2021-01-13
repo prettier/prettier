@@ -223,6 +223,19 @@ exports[`show detailed usage with --help help (stdout) 1`] = `
 
 exports[`show detailed usage with --help help (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help html-void-tags (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help html-void-tags (stdout) 1`] = `
+"--html-void-tags
+
+  Format void HTML elements as void tags.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help html-void-tags (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help html-whitespace-sensitivity (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help html-whitespace-sensitivity (stdout) 1`] = `
