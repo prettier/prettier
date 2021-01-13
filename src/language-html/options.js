@@ -32,6 +32,7 @@ module.exports = {
     default: false,
     description: "Indent script and style tags in Vue files.",
   },
+  // [prettierx] support --html-void-tags option:
   htmlVoidTags: {
     category: CATEGORY_HTML,
     type: "boolean",

@@ -43,6 +43,7 @@ prettierx <options> <file(s)>
 | paren spacing                                        | `false`       | `--paren-spacing`                          | `parenSpacing: <bool>`                     | Print spaces between parens, WordPress style (not recommended with default `arrowParens: "always" setting). Status: experimental, with some known paren spacing formatting issues.                  |
 | break before else                                    | `false`       | `--break-before-else`                      | `breakBeforeElse: <bool>`                  | Always add a line break before else.                                                                                                                                                                |
 | Formatting of import statements                      | `auto`        | see [./docs/options.md](./docs/options.md) | see [./docs/options.md](./docs/options.md) | Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.                                                                                         |
+| HTML void element tags                               | `false`       | `--html-void-tags`                         | Format void HTML elements as void tags.    |
 
 ## "Standard JS" formatting options
 

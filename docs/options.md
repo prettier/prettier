@@ -279,6 +279,14 @@ Valid options:
 | -------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | `"auto"` | <code>--import-formatting <auto&#124;oneline></code> | <code>importFormatting: "<auto&#124;oneline>"</code> |
 
+## HTML void element tags
+
+Format void HTML elements as void tags.
+
+| Default | CLI Override       | API Override           |
+| ------- | ------------------ | ---------------------- |
+| `false` | `--html-void-tags` | `htmlVoidTags: <bool>` |
+
 ## Parser
 
 Specify which parser to use.

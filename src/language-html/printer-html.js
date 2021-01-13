@@ -37,6 +37,7 @@ const {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  // [prettierx] support --html-void-tags option:
   isHtmlVoidTagNeeded,
 } = require("./utils");
 const { replaceEndOfLineWith } = require("../common/util");
@@ -617,7 +618,8 @@ function printOpeningTag(path, options, print) {
   return concat([
     printOpeningTagStart(node, options),
     !node.attrs || node.attrs.length === 0
-      ? node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
+      ? // [prettierx] --html-void-tags option:
+        node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
         ? /**
            *     <br />
            *        ^
@@ -675,10 +677,12 @@ function printOpeningTag(path, options, print) {
            */
           (node.isSelfClosing &&
             needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
+            ? // [prettierx] support --html-void-tags option
+              node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
               ? " "
               : ""
-            : node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
+            : // [prettierx] support --html-void-tags option
+            node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
             ? forceNotToBreakAttrContent
               ? " "
               : line
@@ -908,6 +912,7 @@ function printClosingTagEndMarker(node, options) {
       return "}}";
     case "element":
       if (node.isSelfClosing) {
+        // [prettierx] support --html-void-tags option:
         return isHtmlVoidTagNeeded(node, options) ? ">" : "/>";
       }
     // fall through
