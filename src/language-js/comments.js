@@ -903,7 +903,7 @@ function getGapRegex(enclosingNode) {
  * @param {any} node
  * @returns {Node[] | void}
  */
-function getCommentChildNodes(node, options) {
+function getCommentChildNodes(node, { parser, originalText: text }) {
   // Prevent attaching comments to FunctionExpression in this case:
   //     class Foo {
   //       bar() // comment
@@ -912,10 +912,10 @@ function getCommentChildNodes(node, options) {
   //       }
   //     }
   if (
-    (options.parser === "typescript" ||
-      options.parser === "flow" ||
-      options.parser === "espree" ||
-      options.parser === "meriyah") &&
+    (parser === "typescript" ||
+      parser === "flow" ||
+      parser === "espree" ||
+      parser === "meriyah") &&
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&
@@ -926,6 +926,48 @@ function getCommentChildNodes(node, options) {
   ) {
     return [...(node.decorators || []), node.key, node.value.body];
   }
+
+  if (node.type === "ForStatement") {
+    const result = [];
+    for (const prop of ["init", "test", "update"]) {
+      result.push(
+        node[prop] ||
+          createPseudoNode(
+            node,
+            prop,
+            result.length > 0
+              ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+                  text,
+                  getNextSemicolonIndex(text, locEnd(getLast(result))) + 1
+                )
+              : getNextSemicolonIndex(text, locStart(node))
+          )
+      );
+    }
+    result.push(node.body);
+    return result;
+  }
+}
+
+function getNextSemicolonIndex(text, idx) {
+  let nextIdx = idx;
+  for (;;) {
+    nextIdx = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+      text,
+      nextIdx
+    );
+    if (nextIdx === false) {
+      return idx;
+    }
+    if (text.charAt(nextIdx) === ";") {
+      return nextIdx;
+    }
+    nextIdx++;
+  }
+}
+
+function createPseudoNode(ref, marker, loc) {
+  return { type: "PrettierPseudoNode", ref, marker, range: [loc, loc] };
 }
 
 /**

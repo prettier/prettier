@@ -622,41 +622,36 @@ function printPathNoParens(path, options, print, args) {
     case "ForStatement": {
       const body = adjustClause(n.body, path.call(print, "body"));
 
-      // We want to keep dangling comments above the loop to stay consistent.
-      // Any comment positioned between the for statement and the parentheses
-      // is going to be printed before the statement.
-      const dangling = printDanglingComments(
-        path,
-        options,
-        /* sameLine */ true
-      );
-      const printedComments = dangling ? [dangling, softline] : "";
-
-      if (!n.init && !n.test && !n.update) {
-        return [printedComments, group(["for (;;)", body])];
+      if (
+        !n.init &&
+        !n.test &&
+        !n.update &&
+        !hasComment(n, CommentCheckFlags.Dangling)
+      ) {
+        return group(["for (;;)", body]);
       }
 
-      return [
-        printedComments,
+      return group([
+        "for (",
         group([
-          "for (",
-          group([
-            indent([
-              softline,
-              path.call(print, "init"),
-              ";",
-              line,
-              path.call(print, "test"),
-              ";",
-              line,
-              path.call(print, "update"),
-            ]),
+          indent([
             softline,
+            printDanglingComments(path, options, true, "init"),
+            path.call(print, "init"),
+            ";",
+            line,
+            printDanglingComments(path, options, true, "test"),
+            path.call(print, "test"),
+            ";",
+            line,
+            printDanglingComments(path, options, true, "update"),
+            path.call(print, "update"),
           ]),
-          ")",
-          body,
+          softline,
         ]),
-      ];
+        ")",
+        body,
+      ]);
     }
     case "WhileStatement":
       return group([

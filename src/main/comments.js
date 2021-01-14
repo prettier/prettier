@@ -518,15 +518,25 @@ function printDanglingComments(path, options, sameIndent, filter) {
     return "";
   }
 
+  const isBlockComment = options.printer.isBlockComment || (() => true);
+
   path.each((commentPath) => {
     const comment = commentPath.getValue();
     if (
       comment &&
       !comment.leading &&
       !comment.trailing &&
-      (!filter || filter(comment))
+      (typeof filter === "string"
+        ? comment.marker === filter
+        : typeof filter === "function"
+        ? filter(comment)
+        : true)
     ) {
-      parts.push(printComment(commentPath, options));
+      let printed = printComment(commentPath, options);
+      if (!isBlockComment(comment)) {
+        printed = [lineSuffix(printed), breakParent];
+      }
+      parts.push(printed);
     }
   }, "comments");
 

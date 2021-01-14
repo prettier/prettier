@@ -554,6 +554,10 @@ function getStringWidth(text) {
 }
 
 function addCommentHelper(node, comment) {
+  if (node.type === "PrettierPseudoNode") {
+    addDanglingComment(node.ref, comment, node.marker);
+    return;
+  }
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
