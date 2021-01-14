@@ -17,8 +17,9 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
   - globby -> 11.0.2
   - graphql -> 15.4.0
   - html-element-attributes -> 2.3.0
+- fix & update some documentation
 
-[compare prettierx-0.14.3...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.14.3...dev)
+[compare prettierx-0.14.3...prettierx-0.15.0](https://github.com/brodybits/prettierx/compare/prettierx-0.14.3...prettierx-0.15.0)
 
 ## prettierx 0.14.3
 
