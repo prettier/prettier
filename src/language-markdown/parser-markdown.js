@@ -52,7 +52,7 @@ function htmlToJsx() {
     mapAst(ast, (node, _index, [parent]) => {
       if (
         node.type !== "html" ||
-        node.value.match(mdx.COMMENT_REGEX) ||
+        mdx.COMMENT_REGEX.test(node.value) ||
         INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
       ) {
         return node;

@@ -27,7 +27,7 @@
 const IMPORT_REGEX = /^import\s/;
 const EXPORT_REGEX = /^export\s/;
 const BLOCKS_REGEX = "[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)*|";
-const COMMENT_REGEX = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
+const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/;
 const EMPTY_NEWLINE = "\n\n";
 
 const isImport = (text) => IMPORT_REGEX.test(text);

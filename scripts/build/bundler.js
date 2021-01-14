@@ -2,7 +2,6 @@
 
 const path = require("path");
 const fs = require("fs");
-const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
@@ -336,29 +335,6 @@ function runWebpack(config) {
   });
 }
 
-async function checkCache(cache, inputOptions, outputOption) {
-  const useCache = await cache.checkBundle(
-    outputOption.file,
-    inputOptions,
-    outputOption
-  );
-
-  if (useCache) {
-    try {
-      await execa("cp", [
-        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
-        outputOption.file,
-      ]);
-      return true;
-    } catch (err) {
-      console.log(err);
-      // Proceed to build
-    }
-  }
-
-  return false;
-}
-
 module.exports = async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle, options);
@@ -367,12 +343,16 @@ module.exports = async function createBundle(bundle, cache, options) {
     return { skipped: true };
   }
 
-  const checkCacheResults = await Promise.all(
-    outputOptions.map((outputOption) =>
-      checkCache(cache, inputOptions, outputOption)
-    )
-  );
-  if (checkCacheResults.every((r) => r === true)) {
+  if (
+    !options["purge-cache"] &&
+    (
+      await Promise.all(
+        outputOptions.map((outputOption) =>
+          cache.isCached(inputOptions, outputOption)
+        )
+      )
+    ).every((cached) => cached)
+  ) {
     return { cached: true };
   }
 

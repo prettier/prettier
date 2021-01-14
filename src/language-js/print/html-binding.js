@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, line, group, softline, indent },
+  builders: { join, line, group, softline, indent },
 } = require("../../document");
 
 function printHtmlBinding(path, options, print) {
@@ -19,7 +19,7 @@ function printHtmlBinding(path, options, print) {
     return path.call(
       (functionDeclarationPath) => {
         const printed = join(
-          concat([",", line]),
+          [",", line],
           functionDeclarationPath.map(print, "params")
         );
 
@@ -28,12 +28,7 @@ function printHtmlBinding(path, options, print) {
           return printed;
         }
 
-        return concat([
-          "(",
-          indent(concat([softline, group(printed)])),
-          softline,
-          ")",
-        ]);
+        return ["(", indent([softline, group(printed)]), softline, ")"];
       },
       "program",
       "body",
@@ -44,7 +39,7 @@ function printHtmlBinding(path, options, print) {
   if (options.__isVueBindings) {
     return path.call(
       (functionDeclarationPath) =>
-        join(concat([",", line]), functionDeclarationPath.map(print, "params")),
+        join([",", line], functionDeclarationPath.map(print, "params")),
       "program",
       "body",
       0

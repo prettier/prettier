@@ -2,7 +2,7 @@
 
 const { getLast } = require("../../common/util");
 const {
-  builders: { concat, hardline },
+  builders: { hardline },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {
@@ -81,7 +81,7 @@ function printStatementSequence(path, options, print, property) {
     }
   }, property);
 
-  return concat(parts);
+  return parts;
 }
 
 function statementNeedsASIProtection(path, options) {

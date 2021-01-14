@@ -18,7 +18,6 @@ const {
 
 const {
   builders: {
-    concat,
     line,
     hardline,
     softline,
@@ -37,11 +36,11 @@ function printCallArguments(path, options, print) {
 
   const args = getCallArguments(node);
   if (args.length === 0) {
-    return concat([
+    return [
       "(",
       printDanglingComments(path, options, /* sameIndent */ true),
       ")",
-    ]);
+    ];
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
@@ -53,13 +52,13 @@ function printCallArguments(path, options, print) {
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
   ) {
-    return concat([
+    return [
       "(",
       path.call(print, "arguments", 0),
       ", ",
       path.call(print, "arguments", 1),
       ")",
-    ]);
+    ];
   }
 
   // func(
@@ -115,7 +114,7 @@ function printCallArguments(path, options, print) {
       argPath
     );
 
-    printedArguments.push(concat(parts));
+    printedArguments.push(parts);
   });
 
   const maybeTrailingComma =
@@ -127,13 +126,7 @@ function printCallArguments(path, options, print) {
 
   function allArgsBrokenOut() {
     return group(
-      concat([
-        "(",
-        indent(concat([line, concat(printedArguments)])),
-        maybeTrailingComma,
-        line,
-        ")",
-      ]),
+      ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
       { shouldBreak: true }
     );
   }
@@ -160,12 +153,12 @@ function printCallArguments(path, options, print) {
     iterateCallArgumentsPath(path, (argPath, i) => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
-          concat([
+          [
             argPath.call((p) => print(p, { expandFirstArg: true })),
             printedArguments.length > 1 ? "," : "",
             hasEmptyLineFollowingFirstArg ? hardline : line,
             hasEmptyLineFollowingFirstArg ? hardline : "",
-          ]),
+          ],
         ].concat(printedArguments.slice(1));
       }
       if (shouldGroupLast && i === args.length - 1) {
@@ -177,9 +170,9 @@ function printCallArguments(path, options, print) {
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
-    const simpleConcat = concat(["(", concat(printedExpanded), ")"]);
+    const simpleConcat = ["(", ...printedExpanded, ")"];
 
-    return concat([
+    return [
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
@@ -189,34 +182,34 @@ function printCallArguments(path, options, print) {
             ? simpleConcat
             : ifBreak(allArgsBrokenOut(), simpleConcat),
           shouldGroupFirst
-            ? concat([
+            ? [
                 "(",
                 group(printedExpanded[0], { shouldBreak: true }),
-                concat(printedExpanded.slice(1)),
+                ...printedExpanded.slice(1),
                 ")",
-              ])
-            : concat([
+              ]
+            : [
                 "(",
-                concat(printedArguments.slice(0, -1)),
+                ...printedArguments.slice(0, -1),
                 group(getLast(printedExpanded), {
                   shouldBreak: true,
                 }),
                 ")",
-              ]),
+              ],
           allArgsBrokenOut(),
         ],
         { shouldBreak }
       ),
-    ]);
+    ];
   }
 
-  const contents = concat([
+  const contents = [
     "(",
-    indent(concat([softline, concat(printedArguments)])),
+    indent([softline, ...printedArguments]),
     ifBreak(maybeTrailingComma),
     softline,
     ")",
-  ]);
+  ];
   if (isLongCurriedCallExpression(path)) {
     // By not wrapping the arguments in a group, the printer prioritizes
     // breaking up these arguments rather than the args of the parent call.
