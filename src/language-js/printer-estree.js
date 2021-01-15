@@ -1090,9 +1090,10 @@ function printPathNoParens(path, options, print, args) {
     case "TSThisType":
       return "this";
 
+    case "PrivateIdentifier":
+      return ["#", path.call(print, "name")];
     case "PrivateName":
-      // babel use `id`, meriyah use `name`
-      return ["#", path.call(print, n.id ? "id" : "name")];
+      return ["#", path.call(print, "id")];
 
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);

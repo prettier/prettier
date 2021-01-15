@@ -907,6 +907,7 @@ function isSimpleCallArgument(node, depth) {
     node.type === "ThisExpression" ||
     node.type === "Super" ||
     node.type === "PrivateName" ||
+    node.type === "PrivateIdentifier" ||
     node.type === "ArgumentPlaceholder" ||
     node.type === "Import"
   ) {
