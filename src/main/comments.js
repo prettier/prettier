@@ -588,14 +588,9 @@ function printMarkedDanglingComments(path, options, marker) {
       doc = [" ", doc];
     }
     if (endOfLine && (isBlock || startOfLine)) {
-      const isLineBeforeEmpty = isPreviousLineEmpty(
-        originalText,
-        comment,
-        locStart
-      );
       doc = [
         lineSuffixBoundary,
-        isLineBeforeEmpty ? hardline : "",
+        isPreviousLineEmpty(originalText, comment, locStart) ? hardline : "",
         doc,
         i === printedComments.length - 1 ? "" : hardline,
       ];
