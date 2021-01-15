@@ -62,7 +62,7 @@ function printStatementSequence(path, options, print, property) {
         parts.push(";");
       } else if (
         node.type === "ClassProperty" ||
-        node.type === "FieldDefinition"
+        node.type === "PropertyDefinition"
       ) {
         // `ClassBody` don't allow `EmptyStatement`,
         // so we can use `statements` to get next node
@@ -145,7 +145,7 @@ function printSwitchCaseConsequent(path, options, print) {
  * @returns {boolean}
  */
 function classPropMayCauseASIProblems(node) {
-  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
+  if (node.type !== "ClassProperty" && node.type !== "PropertyDefinition") {
     return false;
   }
 
@@ -187,7 +187,7 @@ function classChildNeedsASIProtection(node) {
   }
   switch (node.type) {
     case "ClassProperty":
-    case "FieldDefinition":
+    case "PropertyDefinition":
     case "TSAbstractClassProperty":
       return node.computed;
     case "MethodDefinition": // Flow

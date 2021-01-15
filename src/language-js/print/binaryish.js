@@ -97,7 +97,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "AssignmentExpression" ||
     parent.type === "VariableDeclarator" ||
     parent.type === "ClassProperty" ||
-    parent.type === "FieldDefinition" ||
+    parent.type === "PropertyDefinition" ||
     parent.type === "TSAbstractClassProperty" ||
     parent.type === "ClassPrivateProperty" ||
     parent.type === "ObjectProperty" ||
