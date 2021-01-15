@@ -511,17 +511,44 @@ function printTrailingComment(commentPath, options) {
   return printed;
 }
 
-// This function is also used by external plugins (e.g. @prettier/plugin-php)
-// and thus should be changed with caution.
 function printDanglingComments(path, options, sameIndent, filter) {
+  const parts = [];
   const node = path.getValue();
 
   if (!node || !node.comments) {
     return "";
   }
 
-  const marker = typeof filter === "string" ? filter : undefined;
-  const { printer, originalText, locStart } = options;
+  path.each((commentPath) => {
+    const comment = commentPath.getValue();
+    if (
+      comment &&
+      !comment.leading &&
+      !comment.trailing &&
+      (!filter || filter(comment))
+    ) {
+      parts.push(printComment(commentPath, options));
+    }
+  }, "comments");
+
+  if (parts.length === 0) {
+    return "";
+  }
+
+  if (sameIndent) {
+    return join(hardline, parts);
+  }
+  return indent([hardline, join(hardline, parts)]);
+}
+
+function printMarkedDanglingComments(path, options, marker) {
+  const node = path.getValue();
+
+  if (!node || !node.comments) {
+    return "";
+  }
+
+  const { printer, originalText, locStart, locEnd } = options;
   const isBlockComment = printer.isBlockComment || (() => true);
   const printedComments = [];
 
@@ -531,11 +558,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
       comment &&
       !comment.leading &&
       !comment.trailing &&
-      (marker
-        ? comment.marker === marker
-        : typeof filter === "function"
-        ? filter(comment)
-        : true)
+      comment.marker === marker
     ) {
       const doc = printComment(commentPath, options);
       printedComments.push({ comment, doc });
@@ -546,46 +569,35 @@ function printDanglingComments(path, options, sameIndent, filter) {
     return "";
   }
 
-  if (marker) {
-    return printedComments.map(({ comment, doc }, i) => {
-      const startOfLine = hasNewline(originalText, locStart(comment), {
-        backwards: true,
-      });
-      const endOfLine = hasNewline(
-        options.originalText,
-        options.locEnd(comment)
-      );
-      const isBlock = isBlockComment(comment);
-
-      if (!startOfLine && i !== 0) {
-        doc = [" ", doc];
-      }
-      if (endOfLine && (isBlock || startOfLine)) {
-        const isLineBeforeEmpty = isPreviousLineEmpty(
-          originalText,
-          comment,
-          locStart
-        );
-        doc = [
-          lineSuffixBoundary,
-          isLineBeforeEmpty ? hardline : "",
-          doc,
-          i === printedComments.length - 1 ? "" : hardline,
-        ];
-      } else if (isBlock) {
-        doc = [lineSuffixBoundary, doc];
-      } else {
-        doc = [lineSuffix(doc), breakParent];
-      }
-      return doc;
+  return printedComments.map(({ comment, doc }, i) => {
+    const startOfLine = hasNewline(originalText, locStart(comment), {
+      backwards: true,
     });
-  }
+    const endOfLine = hasNewline(originalText, locEnd(comment));
+    const isBlock = isBlockComment(comment);
 
-  const parts = printedComments.map(({ doc }) => doc);
-  if (sameIndent) {
-    return join(hardline, parts);
-  }
-  return indent([hardline, join(hardline, parts)]);
+    if (!startOfLine && i !== 0) {
+      doc = [" ", doc];
+    }
+    if (endOfLine && (isBlock || startOfLine)) {
+      const isLineBeforeEmpty = isPreviousLineEmpty(
+        originalText,
+        comment,
+        locStart
+      );
+      doc = [
+        lineSuffixBoundary,
+        isLineBeforeEmpty ? hardline : "",
+        doc,
+        i === printedComments.length - 1 ? "" : hardline,
+      ];
+    } else if (isBlock) {
+      doc = [lineSuffixBoundary, doc];
+    } else {
+      doc = [lineSuffix(doc), breakParent];
+    }
+    return doc;
+  });
 }
 
 function prependCursorPlaceholder(path, options, printed) {
@@ -659,6 +671,7 @@ module.exports = {
   attach,
   printComments,
   printDanglingComments,
+  printMarkedDanglingComments,
   getSortedChildNodes,
   ensureAllCommentsPrinted,
 };
