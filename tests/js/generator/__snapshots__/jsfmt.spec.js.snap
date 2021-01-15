@@ -51,3 +51,29 @@ const f3 = function* () {};
 
 ================================================================================
 `;
+
+exports[`function-name-starts-with-get.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/meriyah/meriyah/issues/164
+
+function get() {}
+
+function* getData() {
+    return yield get();
+}
+
+=====================================output=====================================
+// https://github.com/meriyah/meriyah/issues/164
+
+function get() {}
+
+function* getData() {
+  return yield get();
+}
+
+================================================================================
+`;
