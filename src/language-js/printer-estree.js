@@ -647,7 +647,7 @@ function printPathNoParens(path, options, print, args) {
             path.call(print, "test"),
             ";",
             line,
-            printMarkedDanglingComments(path, options, "update"),
+            printMarkedDanglingComments(path, options, "update", true),
             path.call(print, "update"),
           ]),
           softline,

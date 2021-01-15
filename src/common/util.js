@@ -555,7 +555,11 @@ function getStringWidth(text) {
 
 function addCommentHelper(node, comment) {
   if (node.type === "PrettierPseudoNode") {
-    addDanglingComment(node.ref, comment, node.marker);
+    addDanglingComment(
+      node.ref,
+      comment,
+      node.marker + (comment.trailing ? "-trailing" : "")
+    );
     return;
   }
   const comments = node.comments || (node.comments = []);

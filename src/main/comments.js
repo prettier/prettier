@@ -549,7 +549,12 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent([hardline, join(hardline, parts)]);
 }
 
-function printMarkedDanglingComments(path, options, marker) {
+function printMarkedDanglingComments(
+  path,
+  options,
+  marker,
+  avoidTrailingLineBreak = false
+) {
   const node = path.getValue();
 
   if (!node || !node.comments) {
@@ -566,7 +571,7 @@ function printMarkedDanglingComments(path, options, marker) {
       comment &&
       !comment.leading &&
       !comment.trailing &&
-      comment.marker === marker
+      (comment.marker === marker || comment.marker === marker + "-trailing")
     ) {
       const doc = printComment(commentPath, options);
       printedComments.push({ comment, doc });
@@ -583,16 +588,19 @@ function printMarkedDanglingComments(path, options, marker) {
     });
     const endOfLine = hasNewline(originalText, locEnd(comment));
     const isBlock = isBlockComment(comment);
+    const isFirst = i === 0;
+    const isLeading = comment.marker === marker;
 
-    if (!startOfLine && i !== 0) {
+    if (!startOfLine && !isFirst) {
       doc = [" ", doc];
     }
-    if (endOfLine && (isBlock || startOfLine)) {
+    if (endOfLine && (isBlock || startOfLine || (isLeading && isFirst))) {
+      const isLast = i === printedComments.length - 1;
       doc = [
         lineSuffixBoundary,
         isPreviousLineEmpty(originalText, comment, locStart) ? hardline : "",
         doc,
-        i === printedComments.length - 1 ? "" : hardline,
+        isLast && avoidTrailingLineBreak ? "" : hardline,
       ];
     } else if (isBlock) {
       doc = [lineSuffixBoundary, doc];
