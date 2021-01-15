@@ -4,7 +4,16 @@
 const assert = require("assert");
 
 const {
-  builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
+  builders: {
+    line,
+    hardline,
+    breakParent,
+    indent,
+    lineSuffix,
+    lineSuffixBoundary,
+    join,
+    cursor,
+  },
 } = require("../document");
 
 const {
@@ -17,7 +26,6 @@ const {
   addTrailingComment,
   isNonEmptyArray,
 } = require("../common/util");
-const { lineSuffixBoundary } = require("../document/doc-builders");
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
