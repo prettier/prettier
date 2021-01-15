@@ -23,7 +23,7 @@ function printPropertyKey(path, options, print) {
   const parent = path.getParentNode();
   const { key } = node;
 
-  // flow has `Identifier` key, other parsers use `PrivateIdentifier` (ESTree) or `privateName`
+  // flow has `Identifier` key, other parsers use `PrivateIdentifier` (ESTree) or `PrivateName`
   if (node.type === "ClassPrivateProperty" && key.type === "Identifier") {
     return ["#", path.call(print, "key")];
   }
