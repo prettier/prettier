@@ -583,18 +583,20 @@ function printMarkedDanglingComments(
   }
 
   return printedComments.map(({ comment, doc }, i) => {
-    const startOfLine = hasNewline(originalText, locStart(comment), {
-      backwards: true,
-    });
+    const isLeading = comment.marker === marker;
+    const startOfLine =
+      hasNewline(originalText, locStart(comment), { backwards: true }) ||
+      (isLeading &&
+        (i === 0 ||
+          skipSpaces(originalText, locStart(comment), { backwards: true }) !==
+            locEnd(printedComments[i - 1].comment) + 1));
     const endOfLine = hasNewline(originalText, locEnd(comment));
     const isBlock = isBlockComment(comment);
-    const isFirst = i === 0;
-    const isLeading = comment.marker === marker;
 
-    if (!startOfLine && !isFirst) {
+    if (!startOfLine) {
       doc = [" ", doc];
     }
-    if (endOfLine && (isBlock || startOfLine || (isLeading && isFirst))) {
+    if (endOfLine && (isBlock || startOfLine)) {
       const isLast = i === printedComments.length - 1;
       doc = [
         lineSuffixBoundary,
