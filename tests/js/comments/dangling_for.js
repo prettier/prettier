@@ -60,3 +60,7 @@ for // a
 for (;;
 // ...
 );
+
+for (
+  // comment
+;;);
