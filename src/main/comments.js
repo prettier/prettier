@@ -17,6 +17,7 @@ const {
   addTrailingComment,
   isNonEmptyArray,
 } = require("../common/util");
+const { lineSuffixBoundary } = require("../document/doc-builders");
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
@@ -510,15 +511,19 @@ function printTrailingComment(commentPath, options) {
   return printed;
 }
 
+// This function is also used by external plugins (e.g. @prettier/plugin-php)
+// and thus should be changed with caution.
 function printDanglingComments(path, options, sameIndent, filter) {
-  const parts = [];
   const node = path.getValue();
 
   if (!node || !node.comments) {
     return "";
   }
 
-  const isBlockComment = options.printer.isBlockComment || (() => true);
+  const marker = typeof filter === "string" ? filter : undefined;
+  const { printer, originalText, locStart } = options;
+  const isBlockComment = printer.isBlockComment || (() => true);
+  const printedComments = [];
 
   path.each((commentPath) => {
     const comment = commentPath.getValue();
@@ -526,24 +531,57 @@ function printDanglingComments(path, options, sameIndent, filter) {
       comment &&
       !comment.leading &&
       !comment.trailing &&
-      (typeof filter === "string"
-        ? comment.marker === filter
+      (marker
+        ? comment.marker === marker
         : typeof filter === "function"
         ? filter(comment)
         : true)
     ) {
-      let printed = printComment(commentPath, options);
-      if (!isBlockComment(comment)) {
-        printed = [lineSuffix(printed), breakParent];
-      }
-      parts.push(printed);
+      const doc = printComment(commentPath, options);
+      printedComments.push({ comment, doc });
     }
   }, "comments");
 
-  if (parts.length === 0) {
+  if (printedComments.length === 0) {
     return "";
   }
 
+  if (marker) {
+    return printedComments.map(({ comment, doc }, i) => {
+      const startOfLine = hasNewline(originalText, locStart(comment), {
+        backwards: true,
+      });
+      const endOfLine = hasNewline(
+        options.originalText,
+        options.locEnd(comment)
+      );
+      const isBlock = isBlockComment(comment);
+
+      if (!startOfLine && i !== 0) {
+        doc = [" ", doc];
+      }
+      if (endOfLine && (isBlock || startOfLine)) {
+        const isLineBeforeEmpty = isPreviousLineEmpty(
+          originalText,
+          comment,
+          locStart
+        );
+        doc = [
+          lineSuffixBoundary,
+          isLineBeforeEmpty ? hardline : "",
+          doc,
+          i === printedComments.length - 1 ? "" : hardline,
+        ];
+      } else if (isBlock) {
+        doc = [lineSuffixBoundary, doc];
+      } else {
+        doc = [lineSuffix(doc), breakParent];
+      }
+      return doc;
+    });
+  }
+
+  const parts = printedComments.map(({ doc }) => doc);
   if (sameIndent) {
     return join(hardline, parts);
   }

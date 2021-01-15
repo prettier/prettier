@@ -36,3 +36,23 @@ for(
   // c
   /* m++ */ // no update
 ) {}
+
+for(
+  // a
+  /* m = 10 */; // no init
+  // b
+  m > 0 /* (!) */; // test
+  // c
+  /* 1 */ /* 2 */
+  /* m++ */ // no update
+  /* n++ */ // no update2
+
+  // d
+) {}
+
+for // a
+// b
+( // c
+;
+;
+);
