@@ -957,6 +957,7 @@ function getNextSemicolonIndex(text, idx) {
       nextIdx
     );
     if (nextIdx === false) {
+      /* istanbul ignore next */
       return idx;
     }
     if (text.charAt(nextIdx) === ";") {
