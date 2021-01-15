@@ -597,7 +597,10 @@ function printMarkedDanglingComments(path, options, marker) {
     } else if (isBlock) {
       doc = [lineSuffixBoundary, doc];
     } else {
-      doc = [lineSuffix(doc), breakParent];
+      doc = lineSuffix(doc);
+    }
+    if (!isBlock) {
+      doc = [doc, breakParent];
     }
     return doc;
   });
