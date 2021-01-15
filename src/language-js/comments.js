@@ -21,6 +21,7 @@ const {
   hasFlowAnnotationComment,
   hasIgnoreComment,
   isCallLikeExpression,
+  getCallArguments,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -523,7 +524,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
       (isCallLikeExpression(enclosingNode) &&
-        enclosingNode.arguments.length === 0))
+        getCallArguments(enclosingNode).length === 0))
   ) {
     addDanglingComment(enclosingNode, comment);
     return true;

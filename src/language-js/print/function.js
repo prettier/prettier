@@ -204,7 +204,6 @@ function printArrowFunctionExpression(path, options, print, args) {
       }
       if (
         isCallLikeExpression(parent) ||
-        parent.type === "ImportExpression" ||
         parent.type === "ReturnStatement" ||
         parent.type === "ThrowStatement"
       ) {

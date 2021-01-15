@@ -1330,7 +1330,11 @@ const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
 function isCallLikeExpression(node) {
-  return isCallOrOptionalCallExpression(node) || node.type === "NewExpression";
+  return (
+    isCallOrOptionalCallExpression(node) ||
+    node.type === "NewExpression" ||
+    node.type === "ImportExpression"
+  );
 }
 
 function isCurriedArrowFunctionExpression(node) {
