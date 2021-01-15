@@ -109,7 +109,7 @@ function genericPrint(path, options, printPath, args) {
     node.type === "ClassMethod" ||
     node.type === "ClassPrivateMethod" ||
     node.type === "ClassProperty" ||
-    node.type === "FieldDefinition" ||
+    node.type === "PropertyDefinition" ||
     node.type === "TSAbstractClassProperty" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "MethodDefinition" ||
@@ -836,7 +836,7 @@ function printPathNoParens(path, options, print, args) {
     case "MethodDefinition":
       return printClassMethod(path, options, print);
     case "ClassProperty":
-    case "FieldDefinition":
+    case "PropertyDefinition":
     case "ClassPrivateProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
