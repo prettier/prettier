@@ -25,9 +25,7 @@ function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
   const parts = [];
   const isClassBody = node.type === "ClassBody";
-  const lastStatement = getLast(
-    node[property].filter(({ type }) => type !== "EmptyStatement")
-  );
+  const lastStatement = getLastStatement(node[property]);
 
   path.each((path, index, statements) => {
     const node = path.getValue();
@@ -82,6 +80,14 @@ function printStatementSequence(path, options, print, property) {
   }, property);
 
   return parts;
+}
+
+function getLastStatement(statements) {
+  const last = getLast(statements);
+  if (last.type !== "EmptyStatement") {
+    return last;
+  }
+  return getLast(statements.filter(({ type }) => type !== "EmptyStatement"));
 }
 
 function statementNeedsASIProtection(path, options) {
