@@ -2,7 +2,7 @@
 
 const parseSrcset = require("parse-srcset");
 const {
-  builders: { concat, group, ifBreak, indent, join, line, softline },
+  builders: { group, ifBreak, indent, join, line, softline },
 } = require("../document");
 
 function printImgSrcset(value) {
@@ -40,7 +40,7 @@ function printImgSrcset(value) {
   const maxDescriptorLeftLength = getMax(descriptorLeftLengths);
 
   return join(
-    concat([",", line]),
+    [",", line],
     urls.map((url, index) => {
       const parts = [url];
 
@@ -54,7 +54,7 @@ function printImgSrcset(value) {
         parts.push(ifBreak(alignment, " "), descriptor + unit);
       }
 
-      return concat(parts);
+      return parts;
     })
   );
 }
@@ -93,18 +93,16 @@ function printClassNames(value) {
     previousPrefix = prefix;
   }
 
-  return concat([
-    indent(
-      concat([
-        softline,
-        join(
-          line,
-          groupedByPrefix.map((classNames) => group(join(line, classNames)))
-        ),
-      ])
-    ),
+  return [
+    indent([
+      softline,
+      join(
+        line,
+        groupedByPrefix.map((classNames) => group(join(line, classNames)))
+      ),
+    ]),
     softline,
-  ]);
+  ];
 }
 
 module.exports = {

@@ -37,7 +37,7 @@ function attachComments(text, ast, opts) {
 }
 
 function coreFormat(originalText, opts, addAlignmentSize) {
-  if (!originalText || !originalText.trim().length) {
+  if (!originalText || originalText.trim().length === 0) {
     return { formatted: "", cursorOffset: -1 };
   }
 
@@ -162,7 +162,7 @@ function formatRange(originalText, opts) {
     {
       ...opts,
       rangeStart: 0,
-      rangeEnd: Infinity,
+      rangeEnd: Number.POSITIVE_INFINITY,
       // Track the cursor offset only if it's within our range
       cursorOffset:
         opts.cursorOffset > rangeStart && opts.cursorOffset < rangeEnd
@@ -209,7 +209,7 @@ function formatRange(originalText, opts) {
 function ensureIndexInText(text, index, defaultValue) {
   if (
     typeof index !== "number" ||
-    isNaN(index) ||
+    Number.isNaN(index) ||
     index < 0 ||
     index > text.length
   ) {
@@ -277,6 +277,13 @@ function format(originalText, originalOptions) {
     originalText,
     normalizeOptions(originalOptions)
   );
+
+  if (options.rangeStart >= options.rangeEnd && text !== "") {
+    return {
+      formatted: originalText,
+      cursorOffset: originalOptions.cursorOffset,
+    };
+  }
 
   const selectedParser = parser.resolveParser(options);
   const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);

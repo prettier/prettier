@@ -213,9 +213,9 @@ function mapAst(ast, handler) {
 
     const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
-      newNode.children = newNode.children.map((child, index) => {
-        return preorder(child, index, [newNode].concat(parentStack));
-      });
+      newNode.children = newNode.children.map((child, index) =>
+        preorder(child, index, [newNode].concat(parentStack))
+      );
     }
 
     return newNode;

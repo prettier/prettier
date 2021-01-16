@@ -15,19 +15,52 @@ The [`browser` field](https://github.com/defunctzombie/package-browser-field-spe
 
 ### `prettier.format(code, options)`
 
-Unlike the `format` function from the [main API](api.md#prettierformatsource--options), this function does not load plugins automatically, so a `plugins` property is required if you want to load plugins. Additionally, the parsers included in the Prettier package won’t be loaded automatically, so you need to load them as plugins before using them.
+Unlike the `format` function from the [main API](api.md#prettierformatsource--options), this function does not load plugins automatically, so a `plugins` property is required if you want to load [plugins](#plugins). Additionally, the parsers included in the Prettier package won’t be loaded automatically, so you need to load them as plugins before using them.
 
 See [Usage](#usage) below for examples.
+
+## Plugins
+
+All available plugins are files named `parser-*.js` in <https://unpkg.com/browse/prettier@2.2.1/> and `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.2.1/esm/>.
+
+If you want format embed code, you need load related plugins too, for example
+
+```html
+<script type="module">
+  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
+
+  prettier.format("const html = /* HTML */ `<DIV> </DIV>`", {
+    parser: "babel",
+    plugins: [parserBabel],
+  });
+</script>
+```
+
+the HTML code inside JavaScript code won't get formatted, because it requires `html` parser too, correct usage
+
+```html
+<script type="module">
+  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
+  import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
+
+  prettier.format("const html = /* HTML */ `<DIV> </DIV>`", {
+    parser: "babel",
+    plugins: [parserBabel, parserHtml],
+  });
+</script>
+```
 
 ## Usage
 
 ### Global
 
 ```html
-<script src="https://unpkg.com/prettier@2.2.0/standalone.js"></script>
-<script src="https://unpkg.com/prettier@2.2.0/parser-graphql.js"></script>
+<script src="https://unpkg.com/prettier@2.2.1/standalone.js"></script>
+<script src="https://unpkg.com/prettier@2.2.1/parser-graphql.js"></script>
 <script>
-  prettier.format("query { }", {
+  prettier.format("type Query { hello: String }", {
     parser: "graphql",
     plugins: prettierPlugins,
   });
@@ -38,24 +71,29 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ### ES Modules
 
-```js
-import prettier from "https://unpkg.com/prettier/esm/standalone.mjs";
-import parserGraphql from "https://unpkg.com/prettier/esm/parser-graphql.mjs";
+```html
+<script type="module">
+  import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+  import parserGraphql from "https://unpkg.com/prettier@2.2.1/esm/parser-graphql.mjs";
 
-prettier.format("query { }", {
-  parser: "graphql",
-  plugins: [parserGraphql],
-});
+  prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins: [parserGraphql],
+  });
+</script>
 ```
 
 ### AMD
 
 ```js
 define([
-  "https://unpkg.com/prettier@2.2.0/standalone.js",
-  "https://unpkg.com/prettier@2.2.0/parser-graphql.js",
+  "https://unpkg.com/prettier@2.2.1/standalone.js",
+  "https://unpkg.com/prettier@2.2.1/parser-graphql.js",
 ], (prettier, ...plugins) => {
-  prettier.format("query { }", { parser: "graphql", plugins });
+  prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins,
+  });
 });
 ```
 
@@ -64,7 +102,10 @@ define([
 ```js
 const prettier = require("prettier/standalone");
 const plugins = [require("prettier/parser-graphql")];
-prettier.format("query { }", { parser: "graphql", plugins });
+prettier.format("type Query { hello: String }", {
+  parser: "graphql",
+  plugins,
+});
 ```
 
 This syntax doesn’t necessarily work in the browser, but it can be used when bundling the code with browserify, Rollup, webpack, or another bundler.
@@ -72,7 +113,10 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ### Worker
 
 ```js
-importScripts("https://unpkg.com/prettier@2.2.0/standalone.js");
-importScripts("https://unpkg.com/prettier@2.2.0/parser-graphql.js");
-prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
+importScripts("https://unpkg.com/prettier@2.2.1/standalone.js");
+importScripts("https://unpkg.com/prettier@2.2.1/parser-graphql.js");
+prettier.format("type Query { hello: String }", {
+  parser: "graphql",
+  plugins: prettierPlugins,
+});
 ```

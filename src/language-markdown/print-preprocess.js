@@ -164,7 +164,7 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
 
 function markAlignedList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
-    if (node.type === "list" && node.children.length !== 0) {
+    if (node.type === "list" && node.children.length > 0) {
       // if one of its parents is not aligned, it's not possible to be aligned in sub-lists
       for (let i = 0; i < parentStack.length; i++) {
         const parent = parentStack[i];

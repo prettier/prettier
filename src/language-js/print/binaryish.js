@@ -3,13 +3,13 @@
 const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
-  builders: { concat, join, line, softline, group, indent, align, ifBreak },
-  utils: { normalizeParts },
+  builders: { join, line, softline, group, indent, align, ifBreak },
+  utils: { cleanDoc, getDocParts },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
-  isJSXNode,
+  isJsxNode,
   shouldFlatten,
   hasComment,
   CommentCheckFlags,
@@ -48,7 +48,7 @@ function printBinaryishExpression(path, options, print) {
   //     this.lookahead().type === tt.parenLeft
   //   ) {
   if (isInsideParenthesis) {
-    return concat(parts);
+    return parts;
   }
 
   // Break between the parens in
@@ -68,7 +68,7 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "OptionalMemberExpression") &&
       !parent.computed)
   ) {
-    return group(concat([indent(concat([softline, concat(parts)])), softline]));
+    return group([indent([softline, ...parts]), softline]);
   }
 
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
@@ -97,7 +97,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "AssignmentExpression" ||
     parent.type === "VariableDeclarator" ||
     parent.type === "ClassProperty" ||
-    parent.type === "FieldDefinition" ||
+    parent.type === "PropertyDefinition" ||
     parent.type === "TSAbstractClassProperty" ||
     parent.type === "ClassPrivateProperty" ||
     parent.type === "ObjectProperty" ||
@@ -111,7 +111,7 @@ function printBinaryishExpression(path, options, print) {
     (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
     (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
   ) {
-    return group(concat(parts));
+    return group(parts);
   }
 
   if (parts.length === 0) {
@@ -127,10 +127,11 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJSX = isJSXNode(n.right);
+  const hasJsx = isJsxNode(n.right);
 
   const firstGroupIndex = parts.findIndex(
-    (part) => typeof part !== "string" && part.type === "group"
+    (part) =>
+      typeof part !== "string" && !Array.isArray(part) && part.type === "group"
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
@@ -139,27 +140,27 @@ function printBinaryishExpression(path, options, print) {
     firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
   );
 
-  const rest = concat(parts.slice(headParts.length, hasJSX ? -1 : undefined));
+  const rest = parts.slice(headParts.length, hasJsx ? -1 : undefined);
 
   const groupId = Symbol("logicalChain-" + ++uid);
 
   const chain = group(
-    concat([
+    [
       // Don't include the initial expression in the indentation
       // level. The first item is guaranteed to be the first
       // left-most expression.
       ...headParts,
       indent(rest),
-    ]),
+    ],
     { id: groupId }
   );
 
-  if (!hasJSX) {
+  if (!hasJsx) {
     return chain;
   }
 
   const jsxPart = getLast(parts);
-  return group(concat([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })]));
+  return group([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })]);
 }
 
 // For binary expressions to be consistent, we need to group
@@ -221,32 +222,28 @@ function printBinaryishExpressions(
 
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
-      node.type === "NGPipeExpression" && node.arguments.length !== 0
+      node.type === "NGPipeExpression" && node.arguments.length > 0
         ? group(
-            indent(
-              concat([
-                softline,
-                ": ",
-                join(
-                  concat([softline, ":", ifBreak(" ")]),
-                  path
-                    .map(print, "arguments")
-                    .map((arg) => align(2, group(arg)))
-                ),
-              ])
-            )
+            indent([
+              softline,
+              ": ",
+              join(
+                [softline, ":", ifBreak(" ")],
+                path.map(print, "arguments").map((arg) => align(2, group(arg)))
+              ),
+            ])
           )
         : "";
 
     const right = shouldInline
-      ? concat([operator, " ", path.call(print, "right"), rightSuffix])
-      : concat([
+      ? [operator, " ", path.call(print, "right"), rightSuffix]
+      : [
           lineBeforeOperator ? line : "",
           operator,
           lineBeforeOperator ? " " : line,
           path.call(print, "right"),
           rightSuffix,
-        ]);
+        ];
 
     // If there's only a single binary expression, we want to create a group
     // in order to avoid having a small right part like -1 be on its own line.
@@ -271,9 +268,13 @@ function printBinaryishExpressions(
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && hasComment(node)) {
-      parts = normalizeParts(
-        printComments(path, () => concat(parts), options).parts
-      );
+      const printed = cleanDoc(printComments(path, () => parts, options));
+      /* istanbul ignore if */
+      if (printed.type === "string") {
+        parts = [printed];
+      } else {
+        parts = getDocParts(printed);
+      }
     }
   } else {
     // Our stopping case. Simply print the node normally.
@@ -290,19 +291,16 @@ function shouldInlineLogicalExpression(node) {
 
   if (
     node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
+    node.right.properties.length > 0
   ) {
     return true;
   }
 
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
+  if (node.right.type === "ArrayExpression" && node.right.elements.length > 0) {
     return true;
   }
 
-  if (isJSXNode(node.right)) {
+  if (isJsxNode(node.right)) {
     return true;
   }
 
