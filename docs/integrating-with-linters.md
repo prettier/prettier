@@ -28,7 +28,6 @@ These plugins were especially useful when Prettier was new. By running Prettier 
 The downsides of those plugins are:
 
 - You end up with a lot of red squiggly lines in your editor, which gets annoying. Prettier is supposed to make you forget about formatting – and not be in your face about it!
-- They are slower than running Prettier directly.
 - They’re yet one layer of indirection where things may break.
 
 Finally, we have tools that runs `prettier` and then immediately for example `eslint --fix` on files.
