@@ -25,7 +25,6 @@ function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
   const parts = [];
   const isClassBody = node.type === "ClassBody";
-  const classNode = isClassBody && path.getParentNode();
   const lastStatement = getLastStatement(node[property]);
 
   path.each((path, index, statements) => {
@@ -44,6 +43,7 @@ function printStatementSequence(path, options, print, property) {
       isClassBody &&
       !hasComment(node, CommentCheckFlags.Leading)
     ) {
+      const classNode = path.getParentNode(1);
       parts.push(
         ifBreak(
           ifBreak("", hardline, { groupId: getImplementsGroupId(classNode) }),

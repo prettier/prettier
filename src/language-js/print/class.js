@@ -149,9 +149,14 @@ function printList(path, options, print, listName, groupId) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(indent([line, join([",", line], path.map(print, listName))]), {
-      id: groupId,
-    }),
+    group(
+      indent([line, join([",", line], path.map(print, listName))]),
+      groupId
+        ? {
+            id: groupId,
+          }
+        : undefined
+    ),
   ];
 }
 
