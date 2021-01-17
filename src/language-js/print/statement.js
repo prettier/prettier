@@ -14,7 +14,7 @@ const {
   isNextLineEmpty,
 } = require("../utils");
 const { shouldPrintParamsWithoutParens } = require("./function");
-const { getHeritageGroupId } = require("./class");
+const { getHeritageGroupId, getImplementsGroupId } = require("./class");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -45,7 +45,11 @@ function printStatementSequence(path, options, print, property) {
       !hasComment(node, CommentCheckFlags.Leading)
     ) {
       parts.push(
-        ifBreak(hardline, "", { groupId: getHeritageGroupId(classNode) })
+        ifBreak(
+          ifBreak("", hardline, { groupId: getImplementsGroupId(classNode) }),
+          "",
+          { groupId: getHeritageGroupId(classNode) }
+        )
       );
     }
 

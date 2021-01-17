@@ -33,3 +33,21 @@ export class VisTimelineComponent
 export class VisTimelineComponent2
 	implements AfterViewInit, OnChanges, OnDestroy, AndSomethingReallyReallyLong {
 }
+
+class loooooooooooooooooooong extends looooooooooooooooooong implements loooooooooooooooooooong {
+  // leading comment
+  property: string;
+}
+
+class loooooooooooooooooooong extends looooooooooooooooooong implements loooooooooooooooooooong {
+  property: string;
+}
+
+class loooooooooooooooooooong extends looooooooooooooooooong implements loooooooooooooooooooong {
+
+  property: string;
+}
+
+class loooooooooooooooooooong extends looooooooooooooooooong implements loooooooooooooooooooong, loooooooooooooooooooong, loooooooooooooooooooong {
+  property: string;
+}

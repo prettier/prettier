@@ -84,6 +84,7 @@ b // comment-b2
 class a1
   extends b // comment
   implements z {
+
   constructor() {}
 }
 
@@ -96,6 +97,7 @@ class a3
   extends b
   // comment
   implements z, y {
+
   constructor() {}
 }
 
@@ -234,12 +236,14 @@ class G1<T> implements IPoly<T> {
 
 class G2<T> // g2
   implements IPoly<T> {
+
   x: T;
 }
 
 class G3<T> // g3
   extends U
   implements IPoly<T> {
+
   x: T;
 }
 
@@ -248,6 +252,7 @@ class G4<
   >
   extends U
   implements IPoly<T> {
+
   x: T;
 }
 

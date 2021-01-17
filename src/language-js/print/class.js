@@ -68,7 +68,9 @@ function printClass(path, options, print) {
   }
 
   extendsParts.push(printList(path, options, print, "mixins"));
-  extendsParts.push(printList(path, options, print, "implements"));
+  extendsParts.push(
+    printList(path, options, print, "implements", getImplementsGroupId(n))
+  );
 
   if (groupMode) {
     const printedExtends = extendsParts;
@@ -99,6 +101,14 @@ function getHeritageGroupId(node) {
   return heritageGroupIds.get(node);
 }
 
+const implementsGroupIds = new WeakMap();
+function getImplementsGroupId(node) {
+  if (!implementsGroupIds.has(node)) {
+    implementsGroupIds.set(node, Symbol("implementsGroup"));
+  }
+  return implementsGroupIds.get(node);
+}
+
 function hasMultipleHeritage(node) {
   return (
     ["superClass", "extends", "mixins", "implements"].filter(
@@ -118,7 +128,7 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-function printList(path, options, print, listName) {
+function printList(path, options, print, listName, groupId) {
   const n = path.getValue();
   if (!isNonEmptyArray(n[listName])) {
     return "";
@@ -139,7 +149,9 @@ function printList(path, options, print, listName) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(indent([line, join([",", line], path.map(print, listName))])),
+    group(indent([line, join([",", line], path.map(print, listName))]), {
+      id: groupId,
+    }),
   ];
 }
 
@@ -232,4 +244,5 @@ module.exports = {
   printClassMethod,
   printClassProperty,
   getHeritageGroupId,
+  getImplementsGroupId,
 };
