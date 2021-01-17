@@ -97,6 +97,10 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "breakLongMethodChains": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "cursorOffset": Object {
       "default": -1,
       "range": Object {
@@ -783,6 +787,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Always add a line break before else.\\",
       \\"name\\": \\"breakBeforeElse\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Break method chains with more than 3 method calls, like Prettier 1.x.\\",
+      \\"name\\": \\"breakLongMethodChains\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },

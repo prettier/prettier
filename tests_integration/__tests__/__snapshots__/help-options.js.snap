@@ -70,6 +70,19 @@ Default: false
 
 exports[`show detailed usage with --help break-before-else (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help break-long-method-chains (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help break-long-method-chains (stdout) 1`] = `
+"--break-long-method-chains
+
+  Break method chains with more than 3 method calls, like Prettier 1.x.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help break-long-method-chains (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help check (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help check (stdout) 1`] = `

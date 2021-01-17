@@ -110,6 +110,13 @@ module.exports = {
     default: false,
     description: "Always add a line break before else.",
   },
+  breakLongMethodChains: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Break method chains with more than 3 method calls, like Prettier 1.x.",
+  },
   singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {
     since: "1.15.0",

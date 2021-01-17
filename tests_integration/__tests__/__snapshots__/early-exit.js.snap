@@ -77,6 +77,9 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --break-before-else      Always add a line break before else.
                            Defaults to false.
+  --break-long-method-chains
+                           Break method chains with more than 3 method calls, like Prettier 1.x.
+                           Defaults to false.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
@@ -253,6 +256,9 @@ Format options:
                            Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
   --break-before-else      Always add a line break before else.
+                           Defaults to false.
+  --break-long-method-chains
+                           Break method chains with more than 3 method calls, like Prettier 1.x.
                            Defaults to false.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.

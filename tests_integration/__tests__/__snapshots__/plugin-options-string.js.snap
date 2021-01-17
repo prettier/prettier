@@ -5,8 +5,8 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -23,10 +23,12 @@
-    --break-before-else      Always add a line break before else.
+@@ -26,10 +26,12 @@
+                             Break method chains with more than 3 method calls, like Prettier 1.x.
                              Defaults to false.
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.

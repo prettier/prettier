@@ -211,6 +211,14 @@ Align colons in multiline object literals (not applied with any of the JSON pars
 | ------- | --------------------------- | ------------------------------- |
 | `false` | `--align-object-properties` | `alignObjectProperties: <bool>` |
 
+## break long method chains
+
+Break method chains with more than 3 method calls, like Prettier 1.x.
+
+| Default | CLI Override                 | API Override                    |
+| ------- | ---------------------------- | ------------------------------- |
+| `false` | `--break-long-method-chains` | `breakLongMethodChains: <bool>` |
+
 ## Space before function parentheses
 
 Put a space before function parenthesis, in all declarations. (Default is to put a space before function parenthesis for anonymous functions only.)

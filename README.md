@@ -44,6 +44,7 @@ prettierx <options> <file(s)>
 | break before else                                    | `false`       | `--break-before-else`                      | `breakBeforeElse: <bool>`                  | Always add a line break before else.                                                                                                                                                                |
 | Formatting of import statements                      | `auto`        | see [./docs/options.md](./docs/options.md) | see [./docs/options.md](./docs/options.md) | Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.                                                                                         |
 | HTML void element tags                               | `false`       | `--html-void-tags`                         | Format void HTML elements as void tags.    |
+| break long method chains                             | `false`       | `--break-long-method-chains`               | `breakLongMethodChains: <bool>`            | Break method chains with more than 3 method calls, like Prettier 1.x.                                                                                                                               |
 
 ## "Standard JS" formatting options
 
@@ -66,6 +67,7 @@ Any known conflicts with ["Standard JS"](https://standardjs.com/) will be tracke
 ## recommended options
 
 - `--arrow-parens avoid` (`arrowParens: "avoid"`), especially in combination with `--paren-spacing` (`parenSpacing: true`).
+- `break-long-method-chains`
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ## Prettier 2.0

@@ -5634,11 +5634,14 @@ function printMemberChain(path, options, print) {
 
   // We don't want to print in one line if the chain has:
   //  * A comment.
+  //  * [prettierx] --break-long-method-chains option if enabled:
+  //    at least 3 chained method calls
   //  * Non-trivial arguments.
   //  * Any group but the last one has a hard line.
   // If the last group is a function it's okay to inline if it fits.
   if (
     hasComment ||
+    (options.breakLongMethodChains && callExpressions.length >= 3) ||
     (callExpressions.length > 2 &&
       callExpressions.some(
         (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))

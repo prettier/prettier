@@ -44,6 +44,11 @@ Object {
           "description": "Always add a line break before else.",
           "type": "boolean",
         },
+        "breakLongMethodChains": Object {
+          "default": false,
+          "description": "Break method chains with more than 3 method calls, like Prettier 1.x.",
+          "type": "boolean",
+        },
         "cursorOffset": Object {
           "default": -1,
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.
