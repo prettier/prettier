@@ -5,8 +5,6 @@ const {
   getLast,
   hasNewline,
   hasNewlineInRange,
-  skipNewline,
-  skipSpaces,
   skipWhitespace,
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
