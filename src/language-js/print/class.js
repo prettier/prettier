@@ -81,7 +81,7 @@ function printClass(path, options, print) {
     } else {
       printedPartsGroup = indent([...partsGroup, printedExtends]);
     }
-    parts.push(group(printedPartsGroup, { id: getExtendsGroupId(n) }));
+    parts.push(group(printedPartsGroup, { id: getHeritageGroupId(n) }));
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
@@ -91,12 +91,12 @@ function printClass(path, options, print) {
   return parts;
 }
 
-const extendsGroupIds = new WeakMap();
-function getExtendsGroupId(node) {
-  if (!extendsGroupIds.has(node)) {
-    extendsGroupIds.set(node, Symbol("extendsGroup"));
+const heritageGroupIds = new WeakMap();
+function getHeritageGroupId(node) {
+  if (!heritageGroupIds.has(node)) {
+    heritageGroupIds.set(node, Symbol("heritageGroup"));
   }
-  return extendsGroupIds.get(node);
+  return heritageGroupIds.get(node);
 }
 
 function hasMultipleHeritage(node) {
@@ -231,5 +231,5 @@ module.exports = {
   printClass,
   printClassMethod,
   printClassProperty,
-  getExtendsGroupId,
+  getHeritageGroupId,
 };
