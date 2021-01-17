@@ -39,7 +39,11 @@ function printStatementSequence(path, options, print, property) {
 
     const printed = print(path);
 
-    if (index === 0 && isClassBody) {
+    if (
+      index === 0 &&
+      isClassBody &&
+      !hasComment(node, CommentCheckFlags.Leading)
+    ) {
       parts.push(
         ifBreak(hardline, "", { groupId: getExtendsGroupId(classNode) })
       );
