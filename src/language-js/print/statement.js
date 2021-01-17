@@ -83,11 +83,12 @@ function printStatementSequence(path, options, print, property) {
 }
 
 function getLastStatement(statements) {
-  const last = getLast(statements);
-  if (last.type !== "EmptyStatement") {
-    return last;
+  for (let i = statements.length - 1; i >= 0; i--) {
+    const statement = statements[i];
+    if (statement.type !== "EmptyStatement") {
+      return statement;
+    }
   }
-  return getLast(statements.filter(({ type }) => type !== "EmptyStatement"));
 }
 
 function statementNeedsASIProtection(path, options) {
