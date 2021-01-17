@@ -1,6 +1,5 @@
 "use strict";
 
-const { getLast } = require("../../common/util");
 const {
   builders: { hardline },
 } = require("../../document");
