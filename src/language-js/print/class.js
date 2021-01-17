@@ -72,15 +72,16 @@ function printClass(path, options, print) {
 
   if (groupMode) {
     const printedExtends = extendsParts;
+    let printedPartsGroup;
     if (shouldIndentOnlyHeritageClauses(n)) {
-      parts.push(
-        group(
-          partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-        )
-      );
+      printedPartsGroup = [
+        ...partsGroup,
+        ifBreak(indent(printedExtends), printedExtends),
+      ];
     } else {
-      parts.push(group(indent(partsGroup.concat(printedExtends))));
+      printedPartsGroup = indent([...partsGroup, printedExtends]);
     }
+    parts.push(group(printedPartsGroup, { id: getExtendsGroupId(n) }));
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
@@ -88,6 +89,14 @@ function printClass(path, options, print) {
   parts.push(" ", path.call(print, "body"));
 
   return parts;
+}
+
+const extendsGroupIds = new WeakMap();
+function getExtendsGroupId(node) {
+  if (!extendsGroupIds.has(node)) {
+    extendsGroupIds.set(node, Symbol("extendsGroup"));
+  }
+  return extendsGroupIds.get(node);
 }
 
 function hasMultipleHeritage(node) {
@@ -222,4 +231,5 @@ module.exports = {
   printClass,
   printClassMethod,
   printClassProperty,
+  getExtendsGroupId,
 };

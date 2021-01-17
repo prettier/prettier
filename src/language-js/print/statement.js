@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { hardline },
+  builders: { hardline, ifBreak },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {
@@ -14,6 +14,7 @@ const {
   isNextLineEmpty,
 } = require("../utils");
 const { shouldPrintParamsWithoutParens } = require("./function");
+const { getExtendsGroupId } = require("./class");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -24,6 +25,7 @@ function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
   const parts = [];
   const isClassBody = node.type === "ClassBody";
+  const classNode = isClassBody && path.getParentNode();
   const lastStatement = getLastStatement(node[property]);
 
   path.each((path, index, statements) => {
@@ -36,6 +38,12 @@ function printStatementSequence(path, options, print, property) {
     }
 
     const printed = print(path);
+
+    if (index === 0 && isClassBody) {
+      parts.push(
+        ifBreak(hardline, "", { groupId: getExtendsGroupId(classNode) })
+      );
+    }
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
     // don't prepend the only JSX element in a program with semicolon
