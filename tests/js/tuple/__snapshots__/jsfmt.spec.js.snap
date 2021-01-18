@@ -48,6 +48,13 @@ assert(rest[1] === 3);
 ================================================================================
 `;
 
+exports[`invalid-tuple-holes.js [babel] format 1`] = `
+"Unexpected token ',' (1:4)
+> 1 | #[,]
+    |    ^
+  2 | "
+`;
+
 exports[`invalid-tuple-holes.js [espree] format 1`] = `
 "Unexpected character '#' (1:1)
 > 1 | #[,]
@@ -60,20 +67,6 @@ exports[`invalid-tuple-holes.js [meriyah] format 1`] = `
 > 1 | #[,]
     | ^
   2 | "
-`;
-
-exports[`invalid-tuple-holes.js format 1`] = `
-====================================options=====================================
-parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-#[,]
-
-=====================================output=====================================
-#[,];
-
-================================================================================
 `;
 
 exports[`syntax.js [espree] format 1`] = `

@@ -834,17 +834,15 @@ function isFunctionCompositionArgs(args) {
   }
   let count = 0;
   for (const arg of args) {
-    if (arg) {
-      if (isFunctionOrArrowExpression(arg)) {
-        count += 1;
-        if (count > 1) {
+    if (isFunctionOrArrowExpression(arg)) {
+      count += 1;
+      if (count > 1) {
+        return true;
+      }
+    } else if (isCallOrOptionalCallExpression(arg)) {
+      for (const childArg of arg.arguments) {
+        if (isFunctionOrArrowExpression(childArg)) {
           return true;
-        }
-      } else if (isCallOrOptionalCallExpression(arg)) {
-        for (const childArg of arg.arguments) {
-          if (isFunctionOrArrowExpression(childArg)) {
-            return true;
-          }
         }
       }
     }
