@@ -157,8 +157,11 @@ function needsParens(path, options) {
     case "SpreadProperty":
       return (
         parent.type === "MemberExpression" &&
-        name === "object" &&
-        parent.object === node
+        // [prettierx] cleanup: removed extra parent.object condition
+        // not needed ref:
+        // - https://github.com/brodybits/prettierx/pull/333
+        // - https://github.com/prettier/prettier/pull/8878
+        name === "object"
       );
 
     case "UpdateExpression":
@@ -287,9 +290,11 @@ function needsParens(path, options) {
           ) {
             return false;
           }
-          // [prettierx merge from prettier@1.19.0] (...)
-          // return name === "object";
-          return name === "object" && parent.object === node;
+          // [prettierx] cleanup: removed extra parent.object condition
+          // not needed ref:
+          // - https://github.com/brodybits/prettierx/pull/333
+          // - https://github.com/prettier/prettier/pull/8878
+          return name === "object";
 
         case "AssignmentExpression":
           return (
@@ -497,8 +502,11 @@ function needsParens(path, options) {
       return (
         parent.type === "MemberExpression" &&
         typeof node.value === "number" &&
-        name === "object" &&
-        parent.object === node
+        // [prettierx] cleanup: removed extra parent.object condition
+        // not needed ref:
+        // - https://github.com/brodybits/prettierx/pull/333
+        // - https://github.com/prettier/prettier/pull/8878
+        name === "object"
       );
 
     case "AssignmentExpression": {
