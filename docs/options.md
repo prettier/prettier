@@ -324,6 +324,21 @@ Valid options:
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
 | `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
 
+## HTML Whitespace Sensitivity for Handlebars
+
+_First available in v2.3.0_
+
+Specify the global whitespace sensitivity for Handlebars files, see [whitespace-sensitive formatting] for more info.
+
+Valid options:
+
+- `"strict"` - Whitespaces are considered sensitive.
+- `"ignore"` - Whitespaces are considered insensitive.
+
+| Default    | CLI Override                                                    | API Override                                                   |
+| ---------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `"ignore"` | <code>--html-whitespace-sensitivity <ignore&#124;strict></code> | <code>htmlWhitespaceSensitivity: "<ignore&#124;strict>"</code> |
+
 ## Vue files script and style tags indentation
 
 _First available in v1.19.0_
