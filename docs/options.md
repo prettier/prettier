@@ -308,36 +308,21 @@ Valid options:
 
 ## HTML Whitespace Sensitivity
 
-_First available in v1.15.0_
+_First available in v1.15.0. First available for Handlebars in 2.3.0_
 
-Specify the global whitespace sensitivity for HTML files, see [whitespace-sensitive formatting] for more info.
+Specify the global whitespace sensitivity for HTML, Vue, Angular, and Handlebars. See [whitespace-sensitive formatting] for more info.
 
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 
 Valid options:
 
-- `"css"` - Respect the default value of CSS `display` property.
-- `"strict"` - Whitespaces are considered sensitive.
-- `"ignore"` - Whitespaces are considered insensitive.
+- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `ignore`.
+- `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
+- `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 
 | Default | CLI Override                                                             | API Override                                                            |
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
 | `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
-
-## HTML Whitespace Sensitivity for Handlebars
-
-_First available in v2.3.0_
-
-Specify the global whitespace sensitivity for Handlebars files, see [whitespace-sensitive formatting] for more info.
-
-Valid options:
-
-- `"strict"` - Whitespaces are considered sensitive.
-- `"ignore"` - Whitespaces are considered insensitive.
-
-| Default    | CLI Override                                                    | API Override                                                   |
-| ---------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
-| `"ignore"` | <code>--html-whitespace-sensitivity <ignore&#124;strict></code> | <code>htmlWhitespaceSensitivity: "<ignore&#124;strict>"</code> |
 
 ## Vue files script and style tags indentation
 
