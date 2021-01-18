@@ -52,7 +52,7 @@
     "editorconfig-to-prettier": "0.1.1",
     "escape-string-regexp": "4.0.0",
     "esutils": "2.0.3",
-    "fast-glob": "3.2.4",
+    "fast-glob": "3.2.5",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
     "get-stream": "6.0.0",
