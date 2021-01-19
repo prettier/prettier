@@ -932,7 +932,7 @@ function getCommentChildNodes(node, { parser, originalText: text }) {
     for (const prop of ["init", "test", "update"]) {
       result.push(
         node[prop] ||
-          createPseudoNode(
+          createCommentAnchorPseudoNode(
             node,
             prop,
             result.length > 0
@@ -967,8 +967,8 @@ function getNextSemicolonIndex(text, idx) {
   }
 }
 
-function createPseudoNode(ref, marker, loc) {
-  return { type: "PrettierPseudoNode", ref, marker, range: [loc, loc] };
+function createCommentAnchorPseudoNode(ref, marker, loc) {
+  return { type: "Prettier:CommentAnchor", ref, marker, range: [loc, loc] };
 }
 
 /**

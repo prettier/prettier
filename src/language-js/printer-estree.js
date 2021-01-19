@@ -8,7 +8,7 @@ const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const {
   printDanglingComments,
-  printMarkedDanglingComments,
+  printAnchoredDanglingComments,
 } = require("../main/comments");
 const {
   hasNewline,
@@ -639,15 +639,15 @@ function printPathNoParens(path, options, print, args) {
         group([
           indent([
             softline,
-            printMarkedDanglingComments(path, options, "init"),
+            printAnchoredDanglingComments(path, options, "init"),
             path.call(print, "init"),
             ";",
             line,
-            printMarkedDanglingComments(path, options, "test"),
+            printAnchoredDanglingComments(path, options, "test"),
             path.call(print, "test"),
             ";",
             line,
-            printMarkedDanglingComments(path, options, "update", true),
+            printAnchoredDanglingComments(path, options, "update", true),
             path.call(print, "update"),
           ]),
           softline,

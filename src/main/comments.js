@@ -549,7 +549,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent([hardline, join(hardline, parts)]);
 }
 
-function printMarkedDanglingComments(
+function printAnchoredDanglingComments(
   path,
   options,
   marker,
@@ -687,7 +687,7 @@ module.exports = {
   attach,
   printComments,
   printDanglingComments,
-  printMarkedDanglingComments,
+  printAnchoredDanglingComments,
   getSortedChildNodes,
   ensureAllCommentsPrinted,
 };
