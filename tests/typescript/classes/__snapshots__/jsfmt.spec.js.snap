@@ -133,7 +133,8 @@ class loooooooooooooooooooong
   implements
     loooooooooooooooooooong,
     loooooooooooooooooooong,
-    loooooooooooooooooooong {
+    loooooooooooooooooooong
+{
   property: string;
 }
 

@@ -71,9 +71,7 @@ function printClass(path, options, print) {
   }
 
   extendsParts.push(printList(path, options, print, "mixins"));
-  extendsParts.push(
-    printList(path, options, print, "implements", getImplementsGroupId(n))
-  );
+  extendsParts.push(printList(path, options, print, "implements"));
 
   if (groupMode) {
     const printedExtends = extendsParts;
@@ -97,14 +95,9 @@ function printClass(path, options, print) {
 }
 
 const getHeritageGroupId = getGroupIdWithDescription("heritageGroup");
-const getImplementsGroupId = getGroupIdWithDescription("implementsGroup");
 
 function printHardlineAfterHeritage(node) {
-  return ifBreak(
-    ifBreak("", hardline, { groupId: getImplementsGroupId(node) }),
-    "",
-    { groupId: getHeritageGroupId(node) }
-  );
+  return ifBreak(hardline, "", { groupId: getHeritageGroupId(node) });
 }
 
 function hasMultipleHeritage(node) {
@@ -126,7 +119,7 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-function printList(path, options, print, listName, groupId) {
+function printList(path, options, print, listName) {
   const n = path.getValue();
   if (!isNonEmptyArray(n[listName])) {
     return "";
@@ -147,14 +140,7 @@ function printList(path, options, print, listName, groupId) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(
-      indent([line, join([",", line], path.map(print, listName))]),
-      groupId
-        ? {
-            id: groupId,
-          }
-        : undefined
-    ),
+    group(indent([line, join([",", line], path.map(print, listName))])),
   ];
 }
 

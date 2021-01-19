@@ -105,7 +105,8 @@ class a4
   extends b
   implements
     z, // comment
-    y {
+    y
+{
   constructor() {}
 }
 
@@ -113,7 +114,8 @@ class a5
   extends b
   implements
     z, // comment-z
-    y {
+    y
+{
   // comment-y
   constructor() {}
 }
@@ -124,7 +126,8 @@ class a6
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   constructor() {}
 }
@@ -135,7 +138,8 @@ class a7
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   // comment-y3
   //comment-body
@@ -148,7 +152,8 @@ class a8
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   constructor() {}
 }
@@ -161,7 +166,8 @@ class a9
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   constructor() {}
 }
