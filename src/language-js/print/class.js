@@ -1,6 +1,9 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const {
+  isNonEmptyArray,
+  getGroupIdWithDescription,
+} = require("../../common/util");
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
@@ -93,21 +96,8 @@ function printClass(path, options, print) {
   return parts;
 }
 
-const heritageGroupIds = new WeakMap();
-function getHeritageGroupId(node) {
-  if (!heritageGroupIds.has(node)) {
-    heritageGroupIds.set(node, Symbol("heritageGroup"));
-  }
-  return heritageGroupIds.get(node);
-}
-
-const implementsGroupIds = new WeakMap();
-function getImplementsGroupId(node) {
-  if (!implementsGroupIds.has(node)) {
-    implementsGroupIds.set(node, Symbol("implementsGroup"));
-  }
-  return implementsGroupIds.get(node);
-}
+const getHeritageGroupId = getGroupIdWithDescription("heritageGroup");
+const getImplementsGroupId = getGroupIdWithDescription("implementsGroup");
 
 function hasMultipleHeritage(node) {
   return (

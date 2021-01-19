@@ -13,14 +13,9 @@ const {
   getFunctionParameters,
 } = require("../utils");
 const { shouldHugType } = require("./type-annotation");
+const { getGroupIdWithDescription } = require("../../common/util");
 
-const typeParametersGroupIds = new WeakMap();
-function getTypeParametersGroupId(node) {
-  if (!typeParametersGroupIds.has(node)) {
-    typeParametersGroupIds.set(node, Symbol("typeParameters"));
-  }
-  return typeParametersGroupIds.get(node);
-}
+const getTypeParametersGroupId = getGroupIdWithDescription("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
