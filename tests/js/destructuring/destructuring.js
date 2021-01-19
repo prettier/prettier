@@ -45,3 +45,9 @@ class A {
 }
 
 const { a: { innerMember }, b: { anotherInnerMember } } = something;
+
+// small enough for one line:
+const reducer1 = ({ first, second : { third } }) => combine(second, third);
+
+// these arguments should be destructured on multiple lines:
+const r2 = ({ a: { data1 }, b: { data2, data3 } }) => f(data1, data2, data3);
