@@ -632,7 +632,7 @@ function isNonEmptyArray(object) {
  * @param {string} description
  * @returns {(node: any) => symbol}
  */
-function getGroupIdWithDescription(description) {
+function createGroupIdMapper(description) {
   const groupIds = new WeakMap();
   return function (node) {
     if (!groupIds.has(node)) {
@@ -679,5 +679,5 @@ module.exports = {
   isFrontMatterNode,
   getShebang,
   isNonEmptyArray,
-  getGroupIdWithDescription,
+  createGroupIdMapper,
 };

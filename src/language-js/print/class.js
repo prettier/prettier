@@ -1,9 +1,6 @@
 "use strict";
 
-const {
-  isNonEmptyArray,
-  getGroupIdWithDescription,
-} = require("../../common/util");
+const { isNonEmptyArray, createGroupIdMapper } = require("../../common/util");
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
@@ -94,7 +91,7 @@ function printClass(path, options, print) {
   return parts;
 }
 
-const getHeritageGroupId = getGroupIdWithDescription("heritageGroup");
+const getHeritageGroupId = createGroupIdMapper("heritageGroup");
 
 function printHardlineAfterHeritage(node) {
   return ifBreak(hardline, "", { groupId: getHeritageGroupId(node) });

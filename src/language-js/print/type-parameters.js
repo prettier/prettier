@@ -12,10 +12,10 @@ const {
   shouldPrintComma,
   getFunctionParameters,
 } = require("../utils");
-const { getGroupIdWithDescription } = require("../../common/util");
+const { createGroupIdMapper } = require("../../common/util");
 const { shouldHugType } = require("./type-annotation");
 
-const getTypeParametersGroupId = getGroupIdWithDescription("typeParameters");
+const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
