@@ -57,9 +57,7 @@ const [one, two = null, three = null] = arr;
 a = ([s = 1]) => 1;
 const { children, ...props } = this.props;
 
-const {
-  user: { firstName, lastName },
-} = this.props;
+const { user: { firstName, lastName } } = this.props;
 
 const {
   name: { first, last },
@@ -79,12 +77,7 @@ const UserComponent = function ({
   return;
 };
 
-const {
-  a,
-  b,
-  c,
-  d: { e },
-} = someObject;
+const { a, b, c, d: { e } } = someObject;
 
 try {
   // code
@@ -94,11 +87,7 @@ try {
 
 try {
   // code
-} catch ({
-  data: {
-    message: { errors },
-  },
-}) {
+} catch ({ data: { message: { errors } } }) {
   // code
 }
 
