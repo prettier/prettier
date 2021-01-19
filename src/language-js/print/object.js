@@ -65,12 +65,12 @@ function printObject(path, options, print) {
       parent.type !== "ClassPrivateMethod" &&
       parent.type !== "AssignmentPattern" &&
       parent.type !== "CatchClause" &&
-      n.properties.some(
+      n.properties.filter(
         (property) =>
           property.value &&
           (property.value.type === "ObjectPattern" ||
             property.value.type === "ArrayPattern")
-      )) ||
+      ).length > 1) ||
     (n.type !== "ObjectPattern" &&
       firstProperty &&
       hasNewlineInRange(
