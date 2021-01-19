@@ -71,3 +71,6 @@ try {
 } catch ({ first: { info1, info2 }, second: { info3, info4 } }) {
   // code
 }
+
+// these destructured objects should be split into multiple lines:
+const { a: { innerData1, innerData2 } = {}, b: { innerData3 } = {} } = thing;
