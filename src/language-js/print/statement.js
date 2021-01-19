@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { hardline, ifBreak },
+  builders: { hardline },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const {
@@ -14,7 +14,6 @@ const {
   isNextLineEmpty,
 } = require("../utils");
 const { shouldPrintParamsWithoutParens } = require("./function");
-const { getHeritageGroupId, getImplementsGroupId } = require("./class");
 
 /**
  * @typedef {import("../../document").Doc} Doc

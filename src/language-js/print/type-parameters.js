@@ -12,8 +12,8 @@ const {
   shouldPrintComma,
   getFunctionParameters,
 } = require("../utils");
-const { shouldHugType } = require("./type-annotation");
 const { getGroupIdWithDescription } = require("../../common/util");
+const { shouldHugType } = require("./type-annotation");
 
 const getTypeParametersGroupId = getGroupIdWithDescription("typeParameters");
 

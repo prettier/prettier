@@ -3,7 +3,7 @@
 const { printDanglingComments } = require("../../main/comments");
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { hardline, indent, ifBreak },
+  builders: { hardline, indent },
 } = require("../../document");
 const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
 const { printHardlineAfterHeritage } = require("./class");
