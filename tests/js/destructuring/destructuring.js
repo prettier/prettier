@@ -43,3 +43,5 @@ class A {
     return id + title;
   }
 }
+
+const { a: { innerMember }, b: { anotherInnerMember } } = something;

@@ -52,6 +52,8 @@ class A {
   }
 }
 
+const { a: { innerMember }, b: { anotherInnerMember } } = something;
+
 =====================================output=====================================
 const [one, two = null, three = null] = arr;
 a = ([s = 1]) => 1;
@@ -102,6 +104,11 @@ class A {
     return id + title;
   }
 }
+
+const {
+  a: { innerMember },
+  b: { anotherInnerMember },
+} = something;
 
 ================================================================================
 `;
