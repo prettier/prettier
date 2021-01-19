@@ -4,16 +4,7 @@
 const assert = require("assert");
 
 const {
-  builders: {
-    concat,
-    line,
-    hardline,
-    breakParent,
-    indent,
-    lineSuffix,
-    join,
-    cursor,
-  },
+  builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
 } = require("../document");
 
 const {
@@ -24,6 +15,7 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
+  isNonEmptyArray,
 } = require("../common/util");
 
 const childNodesCache = new WeakMap();
@@ -111,7 +103,7 @@ function decorateComment(node, comment, options, enclosingNode) {
       return decorateComment(child, comment, options, child);
     }
 
-    if (start <= commentStart) {
+    if (end <= commentStart) {
       // This child node falls completely before the comment.
       // Because we will never consider this node or any nodes
       // before it again, this node must be the closest preceding
@@ -467,10 +459,10 @@ function printLeadingComment(commentPath, options) {
         : line
       : " ";
 
-    return concat([contents, lineBreak]);
+    return [contents, lineBreak];
   }
 
-  return concat([contents, hardline]);
+  return [contents, hardline];
 }
 
 function printTrailingComment(commentPath, options) {
@@ -502,16 +494,14 @@ function printTrailingComment(commentPath, options) {
       locStart
     );
 
-    return lineSuffix(
-      concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
-    );
+    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", contents]);
   }
 
-  let printed = concat([" ", contents]);
+  let printed = [" ", contents];
 
   // Trailing block comments never need a newline
   if (!isBlock) {
-    printed = concat([lineSuffix(printed), breakParent]);
+    printed = [lineSuffix(printed), breakParent];
   }
 
   return printed;
@@ -544,12 +534,12 @@ function printDanglingComments(path, options, sameIndent, filter) {
   if (sameIndent) {
     return join(hardline, parts);
   }
-  return indent(concat([hardline, join(hardline, parts)]));
+  return indent([hardline, join(hardline, parts)]);
 }
 
 function prependCursorPlaceholder(path, options, printed) {
   if (path.getNode() === options.cursorNode && path.getValue()) {
-    return concat([cursor, printed, cursor]);
+    return [cursor, printed, cursor];
   }
   return printed;
 }
@@ -559,7 +549,7 @@ function printComments(path, print, options, needsSemi) {
   const printed = print(path);
   const comments = value && value.comments;
 
-  if (!comments || comments.length === 0) {
+  if (!isNonEmptyArray(comments)) {
     return prependCursorPlaceholder(path, options, printed);
   }
 
@@ -594,7 +584,7 @@ function printComments(path, print, options, needsSemi) {
   return prependCursorPlaceholder(
     path,
     options,
-    concat(leadingParts.concat(trailingParts))
+    leadingParts.concat(trailingParts)
   );
 }
 

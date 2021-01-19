@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../common/util");
 const NODES_KEYS = {
   attrs: true,
   children: true,
@@ -71,13 +72,11 @@ class Node {
   }
 
   get firstChild() {
-    return this.children && this.children.length !== 0
-      ? this.children[0]
-      : null;
+    return isNonEmptyArray(this.children) ? this.children[0] : null;
   }
 
   get lastChild() {
-    return this.children && this.children.length !== 0
+    return isNonEmptyArray(this.children)
       ? this.children[this.children.length - 1]
       : null;
   }

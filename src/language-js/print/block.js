@@ -1,76 +1,97 @@
 "use strict";
 
 const { printDanglingComments } = require("../../main/comments");
-const { isNextLineEmpty } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, hardline, indent },
+  builders: { hardline, indent },
 } = require("../../document");
-const { hasComment, CommentCheckFlags } = require("../utils");
-const { locEnd } = require("../loc");
+const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
 
-const { printStatementSequence } = require("./statement");
+const { printBody } = require("./statement");
 
 /** @typedef {import("../../document").Doc} Doc */
 
 function printBlock(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
-  const semi = options.semi ? ";" : "";
-  const naked = path.call((bodyPath) => {
-    return printStatementSequence(bodyPath, options, print);
-  }, "body");
 
-  if (n.type === "StaticBlock") {
+  if (node.type === "StaticBlock") {
     parts.push("static ");
   }
 
-  const hasContent = n.body.some((node) => node.type !== "EmptyStatement");
-  const hasDirectives = n.directives && n.directives.length > 0;
-
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
-  if (
-    !hasContent &&
-    !hasDirectives &&
-    !hasComment(n, CommentCheckFlags.Dangling) &&
-    (parent.type === "ArrowFunctionExpression" ||
-      parent.type === "FunctionExpression" ||
-      parent.type === "FunctionDeclaration" ||
-      parent.type === "ObjectMethod" ||
-      parent.type === "ClassMethod" ||
-      parent.type === "ClassPrivateMethod" ||
-      parent.type === "ForStatement" ||
-      parent.type === "WhileStatement" ||
-      parent.type === "DoWhileStatement" ||
-      parent.type === "DoExpression" ||
-      (parent.type === "CatchClause" && !parentParent.finalizer) ||
-      parent.type === "TSModuleDeclaration" ||
-      parent.type === "TSDeclareFunction" ||
-      n.type === "StaticBlock")
-  ) {
-    return concat([...parts, "{}"]);
+  parts.push("{");
+  const printed = printBlockBody(path, options, print);
+  if (printed) {
+    parts.push(indent([hardline, printed]), hardline);
+  } else {
+    const parent = path.getParentNode();
+    const parentParent = path.getParentNode(1);
+    if (
+      !(
+        parent.type === "ArrowFunctionExpression" ||
+        parent.type === "FunctionExpression" ||
+        parent.type === "FunctionDeclaration" ||
+        parent.type === "ObjectMethod" ||
+        parent.type === "ClassMethod" ||
+        parent.type === "ClassPrivateMethod" ||
+        parent.type === "ForStatement" ||
+        parent.type === "WhileStatement" ||
+        parent.type === "DoWhileStatement" ||
+        parent.type === "DoExpression" ||
+        (parent.type === "CatchClause" && !parentParent.finalizer) ||
+        parent.type === "TSModuleDeclaration" ||
+        parent.type === "TSDeclareFunction" ||
+        node.type === "StaticBlock" ||
+        node.type === "ClassBody"
+      )
+    ) {
+      parts.push(hardline);
+    }
   }
 
-  parts.push("{");
+  parts.push("}");
 
+  return parts;
+}
+
+function printBlockBody(path, options, print) {
+  const node = path.getValue();
+
+  const nodeHasDirectives = isNonEmptyArray(node.directives);
+  const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
+  const nodeHasComment = hasComment(node, CommentCheckFlags.Dangling);
+
+  if (!nodeHasDirectives && !nodeHasBody && !nodeHasComment) {
+    return "";
+  }
+
+  const parts = [];
   // Babel 6
-  if (hasDirectives) {
-    path.each((childPath) => {
-      parts.push(indent(concat([hardline, print(childPath), semi])));
-      if (isNextLineEmpty(options.originalText, childPath.getValue(), locEnd)) {
+  if (nodeHasDirectives) {
+    path.each((childPath, index, directives) => {
+      parts.push(print(childPath));
+      if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
+        if (isNextLineEmpty(childPath.getValue(), options)) {
+          parts.push(hardline);
+        }
       }
     }, "directives");
   }
 
-  if (hasContent) {
-    parts.push(indent(concat([hardline, naked])));
+  if (nodeHasBody) {
+    parts.push(printBody(path, options, print));
   }
 
-  parts.push(printDanglingComments(path, options));
-  parts.push(hardline, "}");
+  if (nodeHasComment) {
+    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+  }
 
-  return concat(parts);
+  if (node.type === "Program") {
+    parts.push(hardline);
+  }
+
+  return parts;
 }
 
-module.exports = { printBlock };
+module.exports = { printBlock, printBlockBody };

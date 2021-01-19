@@ -557,10 +557,6 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-function isNodeIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
@@ -591,7 +587,7 @@ function addTrailingComment(node, comment) {
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
-    if (parts.length !== 0) {
+    if (parts.length > 0) {
       parts.push(replacement);
     }
     parts.push(part);
@@ -628,6 +624,10 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+function isNonEmptyArray(object) {
+  return Array.isArray(object) && object.length > 0;
+}
+
 module.exports = {
   inferParserByLanguage,
   replaceEndOfLineWith,
@@ -658,11 +658,11 @@ module.exports = {
   getPreferredQuote,
   printString,
   printNumber,
-  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
   getShebang,
+  isNonEmptyArray,
 };

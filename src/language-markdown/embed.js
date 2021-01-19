@@ -5,7 +5,7 @@ const {
   getMaxContinuousCount,
 } = require("../common/util");
 const {
-  builders: { hardline, concat, markAsRoot },
+  builders: { hardline, markAsRoot },
   utils: { replaceNewlinesWithLiterallines },
 } = require("../document");
 const { print: printFrontMatter } = require("../utils/front-matter");
@@ -26,17 +26,15 @@ function embed(path, print, textToDoc, options) {
         { parser },
         { stripTrailingHardline: true }
       );
-      return markAsRoot(
-        concat([
-          style,
-          node.lang,
-          node.meta ? " " + node.meta : "",
-          hardline,
-          replaceNewlinesWithLiterallines(doc),
-          hardline,
-          style,
-        ])
-      );
+      return markAsRoot([
+        style,
+        node.lang,
+        node.meta ? " " + node.meta : "",
+        hardline,
+        replaceNewlinesWithLiterallines(doc),
+        hardline,
+        style,
+      ]);
     }
   }
 
@@ -46,14 +44,14 @@ function embed(path, print, textToDoc, options) {
 
     // MDX
     case "importExport":
-      return concat([
+      return [
         textToDoc(
           node.value,
           { parser: "babel" },
           { stripTrailingHardline: true }
         ),
         hardline,
-      ]);
+      ];
     case "jsx":
       return textToDoc(
         `<$>${node.value}</$>`,

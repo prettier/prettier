@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, hardline, indent, join },
+  builders: { hardline, indent, join },
 } = require("../document");
 const preprocess = require("./print-preprocess");
 
@@ -9,42 +9,38 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "JsonRoot":
-      return concat([path.call(print, "node"), hardline]);
+      return [path.call(print, "node"), hardline];
     case "ArrayExpression":
       return node.elements.length === 0
         ? "[]"
-        : concat([
+        : [
             "[",
-            indent(
-              concat([
-                hardline,
-                join(concat([",", hardline]), path.map(print, "elements")),
-              ])
-            ),
+            indent([
+              hardline,
+              join([",", hardline], path.map(print, "elements")),
+            ]),
             hardline,
             "]",
-          ]);
+          ];
     case "ObjectExpression":
       return node.properties.length === 0
         ? "{}"
-        : concat([
+        : [
             "{",
-            indent(
-              concat([
-                hardline,
-                join(concat([",", hardline]), path.map(print, "properties")),
-              ])
-            ),
+            indent([
+              hardline,
+              join([",", hardline], path.map(print, "properties")),
+            ]),
             hardline,
             "}",
-          ]);
+          ];
     case "ObjectProperty":
-      return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
+      return [path.call(print, "key"), ": ", path.call(print, "value")];
     case "UnaryExpression":
-      return concat([
+      return [
         node.operator === "+" ? "" : node.operator,
         path.call(print, "argument"),
-      ]);
+      ];
     case "NullLiteral":
       return "null";
     case "BooleanLiteral":

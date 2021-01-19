@@ -1,7 +1,8 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, indent, join, line },
+  builders: { indent, join, line },
 } = require("../../document");
 const { isFlowAnnotationComment } = require("../utils");
 
@@ -52,25 +53,25 @@ function printTypeAnnotation(path, options, print) {
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
   if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
+    return [" /*: ", path.call(print, "typeAnnotation"), " */"];
   }
 
-  return concat([
+  return [
     isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
     path.call(print, "typeAnnotation"),
-  ]);
+  ];
 }
 
 function printBindExpressionCallee(path, options, print) {
-  return concat(["::", path.call(print, "callee")]);
+  return ["::", path.call(print, "callee")];
 }
 
 function printTypeScriptModifiers(path, options, print) {
   const n = path.getValue();
-  if (!n.modifiers || !n.modifiers.length) {
+  if (!isNonEmptyArray(n.modifiers)) {
     return "";
   }
-  return concat([join(" ", path.map(print, "modifiers")), " "]);
+  return [join(" ", path.map(print, "modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -79,10 +80,10 @@ function adjustClause(node, clause, forceSpace) {
   }
 
   if (node.type === "BlockStatement" || forceSpace) {
-    return concat([" ", clause]);
+    return [" ", clause];
   }
 
-  return indent(concat([line, clause]));
+  return indent([line, clause]);
 }
 
 module.exports = {

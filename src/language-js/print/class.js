@@ -1,8 +1,9 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
+  builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
 const {
   hasComment,
@@ -12,7 +13,6 @@ const {
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
-const { printStatementSequence } = require("./statement");
 const { printPropertyKey } = require("./property");
 const { printAssignmentRight } = require("./assignment");
 
@@ -35,9 +35,9 @@ function printClass(path, options, print) {
   const groupMode =
     (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
     (n.superClass && hasComment(n.superClass)) ||
-    (n.extends && n.extends.length !== 0) || // DeclareClass
-    (n.mixins && n.mixins.length !== 0) ||
-    (n.implements && n.implements.length !== 0);
+    isNonEmptyArray(n.extends) || // DeclareClass
+    isNonEmptyArray(n.mixins) ||
+    isNonEmptyArray(n.implements);
 
   const partsGroup = [];
   const extendsParts = [];
@@ -49,11 +49,11 @@ function printClass(path, options, print) {
   partsGroup.push(path.call(print, "typeParameters"));
 
   if (n.superClass) {
-    const printed = concat([
+    const printed = [
       "extends ",
       printSuperClass(path, options, print),
       path.call(print, "superTypeParameters"),
-    ]);
+    ];
     const printedWithComments = path.call(
       (superClass) => printComments(superClass, () => printed, options),
       "superClass"
@@ -71,17 +71,15 @@ function printClass(path, options, print) {
   extendsParts.push(printList(path, options, print, "implements"));
 
   if (groupMode) {
-    const printedExtends = concat(extendsParts);
+    const printedExtends = extendsParts;
     if (shouldIndentOnlyHeritageClauses(n)) {
       parts.push(
         group(
-          concat(
-            partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-          )
+          partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
         )
       );
     } else {
-      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+      parts.push(group(indent(partsGroup.concat(printedExtends))));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);
@@ -89,7 +87,7 @@ function printClass(path, options, print) {
 
   parts.push(" ", path.call(print, "body"));
 
-  return concat(parts);
+  return parts;
 }
 
 function hasMultipleHeritage(node) {
@@ -113,7 +111,7 @@ function shouldIndentOnlyHeritageClauses(node) {
 
 function printList(path, options, print, listName) {
   const n = path.getValue();
-  if (!n[listName] || n[listName].length === 0) {
+  if (!isNonEmptyArray(n[listName])) {
     return "";
   }
 
@@ -123,7 +121,7 @@ function printList(path, options, print, listName) {
     /* sameIndent */ true,
     ({ marker }) => marker === listName
   );
-  return concat([
+  return [
     shouldIndentOnlyHeritageClauses(n)
       ? ifBreak(" ", line, {
           groupId: getTypeParametersGroupId(n.typeParameters),
@@ -132,12 +130,8 @@ function printList(path, options, print, listName) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(
-      indent(
-        concat([line, join(concat([",", line]), path.map(print, listName))])
-      )
-    ),
-  ]);
+    group(indent([line, join([",", line], path.map(print, listName))])),
+  ];
 }
 
 function printSuperClass(path, options, print) {
@@ -145,10 +139,7 @@ function printSuperClass(path, options, print) {
   const parent = path.getParentNode();
   if (parent.type === "AssignmentExpression") {
     return group(
-      ifBreak(
-        concat(["(", indent(concat([softline, printed])), softline, ")"]),
-        printed
-      )
+      ifBreak(["(", indent([softline, printed]), softline, ")"], printed)
     );
   }
   return printed;
@@ -158,7 +149,7 @@ function printClassMethod(path, options, print) {
   const n = path.getValue();
   const parts = [];
 
-  if (n.decorators && n.decorators.length !== 0) {
+  if (isNonEmptyArray(n.decorators)) {
     parts.push(printDecorators(path, options, print));
   }
   if (n.accessibility) {
@@ -173,30 +164,7 @@ function printClassMethod(path, options, print) {
 
   parts.push(printMethod(path, options, print));
 
-  return concat(parts);
-}
-
-function printClassBody(path, options, print) {
-  const n = path.getValue();
-  if (!hasComment(n) && n.body.length === 0) {
-    return "{}";
-  }
-
-  return concat([
-    "{",
-    n.body.length > 0
-      ? indent(
-          concat([
-            hardline,
-            path.call((bodyPath) => {
-              return printStatementSequence(bodyPath, options, print);
-            }, "body"),
-          ])
-        )
-      : printDanglingComments(path, options),
-    hardline,
-    "}",
-  ]);
+  return parts;
 }
 
 function printClassProperty(path, options, print) {
@@ -204,7 +172,7 @@ function printClassProperty(path, options, print) {
   const parts = [];
   const semi = options.semi ? ";" : "";
 
-  if (n.decorators && n.decorators.length !== 0) {
+  if (isNonEmptyArray(n.decorators)) {
     parts.push(printDecorators(path, options, print));
   }
   if (n.accessibility) {
@@ -239,22 +207,19 @@ function printClassProperty(path, options, print) {
 
   parts.push(semi);
 
-  return group(concat(parts));
+  return group(parts);
 }
 
 function printDecorators(path, options, print) {
   const node = path.getValue();
-  return group(
-    concat([
-      join(line, path.map(print, "decorators")),
-      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-    ])
-  );
+  return group([
+    join(line, path.map(print, "decorators")),
+    hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
+  ]);
 }
 
 module.exports = {
   printClass,
   printClassMethod,
-  printClassBody,
   printClassProperty,
 };
