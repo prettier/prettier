@@ -20,7 +20,7 @@ function printBlock(path, options, print) {
     parts.push("static ");
   }
 
-  if (node.type === "ClassBody" || isNonEmptyArray(node.body)) {
+  if (node.type === "ClassBody" && isNonEmptyArray(node.body)) {
     const parent = path.getParentNode();
     parts.push(printHardlineAfterHeritage(parent));
   }

@@ -176,18 +176,15 @@ class ImplementsInterfaceClassWithComments1<
 =====================================output=====================================
 class Class
   extends AbstractClass
-  implements Interface1, Interface2, Interface3, Interface4
-{}
+  implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces1
   extends AbstractClass
-  implements Interface1, Interface2, Interface3, Interface4
-{}
+  implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces2
   extends AAAAAAAAAAAAAAbstractClass
-  implements Interface1, Interface2, Interface3, Interface4
-{}
+  implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces3
   extends AAAAAAAAAAAAAAbstractClass
@@ -233,12 +230,10 @@ class ExtendsAbstractClassAndImplementsInterfaces5
 
 class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
   extends FOOOOOOOOOOOOOOOOO
-  implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR
-{}
+  implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
 
 class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO>
-  implements Foo
-{}
+  implements Foo {}
 
 class ImplementsInterfaceAndExtendsAbstractClass2<
     TypeArgumentNumberOne,
@@ -246,23 +241,20 @@ class ImplementsInterfaceAndExtendsAbstractClass2<
     TypeArgumentNumberThree
   >
   extends FOOOOOOOOOOOOOOOOOO
-  implements BaseInterface
-{}
+  implements BaseInterface {}
 
 class ImplementsInterfaceClass1<
   TypeArgumentNumberOne,
   TypeArgumentNumberTwo,
   TypeArgumentNumberThree
-> implements BaseInterface
-{}
+> implements BaseInterface {}
 
 class ImplementsInterfaceClassWithComments1<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
     TypeArgumentNumberThree
   > // comments
-  implements BaseInterface
-{}
+  implements BaseInterface {}
 
 ================================================================================
 `;

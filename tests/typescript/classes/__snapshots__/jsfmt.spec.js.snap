@@ -70,13 +70,11 @@ class MyContractSelectionWidget
 
 class DisplayObject1
   extends utils.EventEmitter
-  implements interaction_InteractiveTarget
-{}
+  implements interaction_InteractiveTarget {}
 
 class DisplayObject2
   extends utils.EventEmitter
-  implements interaction_InteractiveTarget
-{}
+  implements interaction_InteractiveTarget {}
 
 class DisplayObject3
   extends utils.EventEmitter
@@ -87,13 +85,11 @@ class DisplayObject3
 
 class DisplayObject4
   extends utils.EventEmitter
-  implements interaction_InteractiveTarget
-{}
+  implements interaction_InteractiveTarget {}
 class Readable extends events.EventEmitter implements NodeJS_ReadableStream {}
 class InMemoryAppender
   extends log4javascript.Appender
-  implements ICachedLogMessageProvider
-{}
+  implements ICachedLogMessageProvider {}
 
 class Foo extends Immutable.Record({
   ipaddress: "",
@@ -102,11 +98,13 @@ class Foo extends Immutable.Record({
 }
 
 export class VisTimelineComponent
-  implements AfterViewInit, OnChanges, OnDestroy
-{}
+  implements AfterViewInit, OnChanges, OnDestroy {}
 export class VisTimelineComponent2
-  implements AfterViewInit, OnChanges, OnDestroy, AndSomethingReallyReallyLong
-{}
+  implements
+    AfterViewInit,
+    OnChanges,
+    OnDestroy,
+    AndSomethingReallyReallyLong {}
 
 class loooooooooooooooooooong
   extends looooooooooooooooooong
