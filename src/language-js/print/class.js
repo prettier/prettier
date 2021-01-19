@@ -99,6 +99,14 @@ function printClass(path, options, print) {
 const getHeritageGroupId = getGroupIdWithDescription("heritageGroup");
 const getImplementsGroupId = getGroupIdWithDescription("implementsGroup");
 
+function printHardlineAfterHeritage(node) {
+  return ifBreak(
+    ifBreak("", hardline, { groupId: getImplementsGroupId(node) }),
+    "",
+    { groupId: getHeritageGroupId(node) }
+  );
+}
+
 function hasMultipleHeritage(node) {
   return (
     ["superClass", "extends", "mixins", "implements"].filter(
@@ -238,6 +246,5 @@ module.exports = {
   printClass,
   printClassMethod,
   printClassProperty,
-  getHeritageGroupId,
-  getImplementsGroupId,
+  printHardlineAfterHeritage,
 };

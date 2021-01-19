@@ -38,21 +38,6 @@ function printStatementSequence(path, options, print, property) {
 
     const printed = print(path);
 
-    if (
-      index === 0 &&
-      isClassBody &&
-      !hasComment(node, CommentCheckFlags.Leading)
-    ) {
-      const classNode = path.getParentNode(1);
-      parts.push(
-        ifBreak(
-          ifBreak("", hardline, { groupId: getImplementsGroupId(classNode) }),
-          "",
-          { groupId: getHeritageGroupId(classNode) }
-        )
-      );
-    }
-
     // in no-semi mode, prepend statement with semicolon if it might break ASI
     // don't prepend the only JSX element in a program with semicolon
     if (
