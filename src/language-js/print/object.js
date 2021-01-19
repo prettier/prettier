@@ -61,7 +61,8 @@ function printObject(path, options, print) {
         (property) =>
           property.value &&
           (property.value.type === "ObjectPattern" ||
-            property.value.type === "ArrayPattern")
+            property.value.type === "ArrayPattern" ||
+            property.value.type === 'AssignmentPattern')
       ).length > 1) ||
     (n.type !== "ObjectPattern" &&
       firstProperty &&
