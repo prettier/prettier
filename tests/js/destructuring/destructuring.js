@@ -52,10 +52,10 @@ function f2({ first: { inner1, inner2 }, second: { inner3, inner4 } }) {}
 // small enough for one line:
 const reducer1 = ({ first, second : { third } }) => combine(second, third);
 
-// xxx these arguments should be destructured on multiple lines:
+// these arguments should be destructured on multiple lines:
 const r2 = ({ a: { data1 }, b: { data2, data3 } }) => f(data1, data2, data3);
 
-// xxx support destructuring with a blank line in the middle:
+// support destructuring with a blank line in the middle:
 const reducer3 = ({
   firstMember,
 
