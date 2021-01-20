@@ -186,11 +186,15 @@ function printObject(path, options, print) {
     ];
   }
 
+  const isTSTypeLiteral = !isTypeAnnotation && n.type === "TSTypeLiteral";
+
+  // Only needed in case of a type annotation or shouldBreak is false:
   // If we inline the object as first argument of the parent, we don't want
   // to create another group so that the object breaks before the return
   // type
   if (
-    path.match(
+    (isTypeAnnotation || isTSTypeLiteral || !shouldBreak) &&
+    (path.match(
       (node) => node.type === "ObjectPattern" && !node.decorators,
       (node, name, number) =>
         shouldHugFunctionParameters(node) &&
@@ -200,18 +204,18 @@ function printObject(path, options, print) {
           name === "rest") &&
         number === 0
     ) ||
-    path.match(
-      shouldHugType,
-      (node, name) => name === "typeAnnotation",
-      (node, name) => name === "typeAnnotation",
-      (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
-        (name === "params" ||
-          name === "parameters" ||
-          name === "this" ||
-          name === "rest") &&
-        number === 0
-    )
+      path.match(
+        shouldHugType,
+        (node, name) => name === "typeAnnotation",
+        (node, name) => name === "typeAnnotation",
+        (node, name, number) =>
+          shouldHugFunctionParameters(node) &&
+          (name === "params" ||
+            name === "parameters" ||
+            name === "this" ||
+            name === "rest") &&
+          number === 0
+      ))
   ) {
     return content;
   }
