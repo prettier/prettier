@@ -146,7 +146,8 @@ class c extends d {
 }
 
 class C2 // comment
-  extends Base {
+  extends Base
+{
   foo() {}
 }
 

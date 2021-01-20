@@ -6,6 +6,7 @@ const {
   builders: { hardline, indent },
 } = require("../../document");
 const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
+const { printHardlineAfterHeritage } = require("./class");
 
 const { printBody } = require("./statement");
 
@@ -17,6 +18,11 @@ function printBlock(path, options, print) {
 
   if (node.type === "StaticBlock") {
     parts.push("static ");
+  }
+
+  if (node.type === "ClassBody" && isNonEmptyArray(node.body)) {
+    const parent = path.getParentNode();
+    parts.push(printHardlineAfterHeritage(parent));
   }
 
   parts.push("{");
