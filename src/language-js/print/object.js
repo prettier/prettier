@@ -46,6 +46,7 @@ function printObject(path, options, print) {
     .sort((a, b) => locStart(a) - locStart(b))[0];
 
   const parent = path.getParentNode(0);
+
   const isFlowInterfaceLikeBody =
     isTypeAnnotation &&
     parent &&
@@ -53,6 +54,7 @@ function printObject(path, options, print) {
       parent.type === "DeclareInterface" ||
       parent.type === "DeclareClass") &&
     path.getName() === "body";
+
   const shouldBreak =
     n.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
