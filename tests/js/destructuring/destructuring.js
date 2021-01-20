@@ -72,5 +72,11 @@ try {
   // code
 }
 
+// small enough for one line:
+const { a: { innerData } = {} } = thing;
+
+// small enough for one line:
+const { firstMember = {}, secondMember = {} } = thing;
+
 // these destructured objects should be split into multiple lines:
 const { a: { innerData1, innerData2 } = {}, b: { innerData3 } = {} } = thing;
