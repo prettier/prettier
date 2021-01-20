@@ -64,21 +64,20 @@ function printObject(path, options, print) {
   const shouldBreak =
     n.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
+    // XXX TODO consider adding & testing shouldBreak with ArrayPattern type condition as well
     (n.type === "ObjectPattern" &&
-      parent.type !== "FunctionDeclaration" &&
-      parent.type !== "FunctionExpression" &&
-      parent.type !== "ArrowFunctionExpression" &&
-      parent.type !== "ObjectMethod" &&
-      parent.type !== "ClassMethod" &&
+      // XXX TODO support & test ObjectPattern with these parent types:
       parent.type !== "ClassPrivateMethod" &&
       parent.type !== "AssignmentPattern" &&
-      parent.type !== "CatchClause" &&
       n.properties.filter(
         ({ value }) =>
           value &&
           (value.type === "ObjectPattern" ||
+            // XXX TODO test with `value.type === "ArrayPattern"` filter condition below, and
+            // test with a combination of ObjectPattern & ArrayPattern value types.
             value.type === "ArrayPattern" ||
             (value.type === "AssignmentPattern" &&
+              // XXX TODO support & test with `value.left.type === "ArrayPattern" condition here.
               value.left.type === "ObjectPattern"))
       ).length > 1) ||
     (n.type !== "ObjectPattern" &&
