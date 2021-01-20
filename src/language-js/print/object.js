@@ -60,10 +60,9 @@ function printObject(path, options, print) {
     isFlowInterfaceLikeBody ||
     (n.type === "ObjectPattern" &&
       n.properties.filter(
-        (property) =>
-          property.value &&
-          (property.value.type === "ObjectPattern" ||
-            property.value.type === "ArrayPattern")
+        ({ value }) =>
+          value &&
+          (value.type === "ObjectPattern" || value.type === "ArrayPattern")
       ).length > 1) ||
     (n.type !== "ObjectPattern" &&
       firstProperty &&
