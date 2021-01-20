@@ -73,9 +73,9 @@ function printObject(path, options, print) {
         ({ value }) =>
           value &&
           (value.type === "ObjectPattern" ||
-            // XXX TODO test with `value.type === "ArrayPattern"` filter condition below, and
+            // XXX TODO support & test with `value.type === "ArrayPattern"` filter condition below, and
             // test with a combination of ObjectPattern & ArrayPattern value types.
-            value.type === "ArrayPattern" ||
+            // value.type === "ArrayPattern" ||
             (value.type === "AssignmentPattern" &&
               // XXX TODO support & test with `value.left.type === "ArrayPattern" condition here.
               value.left.type === "ObjectPattern"))
