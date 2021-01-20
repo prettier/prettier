@@ -967,8 +967,13 @@ function indexOfSemicolon(text, startIdx) {
   }
 }
 
-function createCommentAnchorPseudoNode(ref, marker, loc) {
-  return { type: "Prettier:CommentAnchor", ref, marker, range: [loc, loc] };
+function createCommentAnchorPseudoNode(enclosingNode, name, loc) {
+  return {
+    type: "Prettier:CommentAnchor",
+    enclosingNode,
+    name,
+    range: [loc, loc],
+  };
 }
 
 /**

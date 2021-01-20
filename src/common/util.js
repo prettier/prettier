@@ -556,9 +556,9 @@ function getStringWidth(text) {
 function addCommentHelper(node, comment) {
   if (node.type === "Prettier:CommentAnchor") {
     addDanglingComment(
-      node.ref,
+      node.enclosingNode,
       comment,
-      node.marker + (comment.trailing ? "-trailing" : "")
+      node.name + (comment.trailing ? "-trailing" : "")
     );
     return;
   }
