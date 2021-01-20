@@ -60,7 +60,7 @@ const Component3 = (props: {
 
 exports[`prop-types.js format 2`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["babel-ts", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

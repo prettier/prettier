@@ -5,5 +5,5 @@ const errors = {
 
 run_spec(__dirname, ["babel", "babel-flow", "flow"], { errors });
 
-// different output from `typescript` & `babel-ts` parsers
-run_spec(__dirname, ["typescript"]);
+// different output when using TypeScript parsers
+run_spec(__dirname, ["babel-ts", "typescript"]);
