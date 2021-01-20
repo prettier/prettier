@@ -938,9 +938,9 @@ function getCommentChildNodes(node, { parser, originalText: text }) {
             result.length > 0
               ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
                   text,
-                  getNextSemicolonIndex(text, locEnd(getLast(result))) + 1
+                  indexOfSemicolon(text, locEnd(getLast(result))) + 1
                 )
-              : getNextSemicolonIndex(text, locStart(node))
+              : indexOfSemicolon(text, locStart(node))
           )
       );
     }
@@ -949,8 +949,8 @@ function getCommentChildNodes(node, { parser, originalText: text }) {
   }
 }
 
-function getNextSemicolonIndex(text, idx) {
-  let nextIdx = idx;
+function indexOfSemicolon(text, startIdx) {
+  let nextIdx = startIdx;
   for (;;) {
     nextIdx = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
       text,
@@ -958,7 +958,7 @@ function getNextSemicolonIndex(text, idx) {
     );
     if (nextIdx === false) {
       /* istanbul ignore next */
-      return idx;
+      return startIdx;
     }
     if (text.charAt(nextIdx) === ";") {
       return nextIdx;

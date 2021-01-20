@@ -562,7 +562,6 @@ function printAnchoredDanglingComments(
   }
 
   const { printer, originalText, locStart, locEnd } = options;
-  const isBlockComment = printer.isBlockComment || (() => true);
   const printedComments = [];
 
   path.each((commentPath) => {
@@ -587,15 +586,23 @@ function printAnchoredDanglingComments(
     const startOfLine =
       hasNewline(originalText, locStart(comment), { backwards: true }) ||
       (isLeading &&
+        // A comment is also treated as start-of-line if it is preceded by something on the same line,
+        // and that thing is not the previous comment. Example:
+        //
+        //     for( // comment
+        //      ; i < len; i++) { ... }
+        //      ^ - anchor point
+        //
         (i === 0 ||
           skipSpaces(originalText, locStart(comment), { backwards: true }) !==
             locEnd(printedComments[i - 1].comment) + 1));
     const endOfLine = hasNewline(originalText, locEnd(comment));
-    const isBlock = isBlockComment(comment);
+    const isBlock = !printer.isBlockComment || printer.isBlockComment(comment);
 
     if (!startOfLine) {
       doc = [" ", doc];
     }
+
     if (endOfLine && (isBlock || startOfLine)) {
       const isLast = i === printedComments.length - 1;
       doc = [
@@ -609,9 +616,11 @@ function printAnchoredDanglingComments(
     } else {
       doc = lineSuffix(doc);
     }
+
     if (!isBlock) {
       doc = [doc, breakParent];
     }
+
     return doc;
   });
 }
