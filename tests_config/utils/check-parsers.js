@@ -50,7 +50,7 @@ const categoryParsers = new Map([
   [
     "js",
     {
-      parsers: ["babel", "meriyah", "espree"],
+      parsers: ["babel", "meriyah", "espree", "babel-typescript"],
       verifyParsers: [
         "babel",
         "meriyah",
