@@ -927,7 +927,9 @@ function getCommentChildNodes(node, { parser, originalText: text }) {
     return [...(node.decorators || []), node.key, node.value.body];
   }
 
-  if (node.type === "ForStatement") {
+  // If `text` is undefined, it means that `getSortedChildNodes` was called for formatting a range,
+  // not for comment attachment.
+  if (node.type === "ForStatement" && text) {
     const result = [];
     for (const prop of ["init", "test", "update"]) {
       result.push(
