@@ -224,6 +224,10 @@ header h1 {
   margin-left: 10px;
 }
 
+.sub-options > .btn + .btn {
+  margin-top: 10px;
+}
+
 label {
   font-family: Consolas, Courier New, Courier, monospace;
   margin: 10px 0;

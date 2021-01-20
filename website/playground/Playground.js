@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Button, ClipboardButton } from "./buttons";
+import { Button, ClipboardButton, FileButton } from "./buttons";
 import EditorState from "./EditorState";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels";
 import PrettierFormat from "./PrettierFormat";
@@ -9,6 +9,7 @@ import * as urlHash from "./urlHash";
 import formatMarkdown from "./markdown";
 import * as util from "./util";
 import getCodeSample from "./codeSamples";
+import { parseConfig } from "./parseConfig";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components";
 import SidebarOptions from "./sidebar/SidebarOptions";
@@ -76,6 +77,15 @@ class Playground extends React.Component {
     this.setContent = (content) => this.setState({ content });
     this.clearContent = this.setContent.bind(this, "");
     this.resetOptions = () => this.setState({ options: defaultOptions });
+    this.setOptionsFromFile = (file) => {
+      const opts = parseConfig(file);
+      this.setState((state) => ({
+        options: {
+          ...state.options,
+          ...opts,
+        },
+      }));
+    };
     this.setSelection = (selection) => this.setState({ selection });
     this.setSelectionAsRange = () => {
       const { selection, content, options } = this.state;
@@ -233,6 +243,9 @@ class Playground extends React.Component {
                         <Button onClick={this.resetOptions}>
                           Reset to defaults
                         </Button>
+                        <FileButton onFile={this.setOptionsFromFile}>
+                          Upload config file
+                        </FileButton>
                       </div>
                     </Sidebar>
                     <div className="editors">
