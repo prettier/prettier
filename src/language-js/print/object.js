@@ -62,7 +62,10 @@ function printObject(path, options, print) {
       n.properties.filter(
         ({ value }) =>
           value &&
-          (value.type === "ObjectPattern" || value.type === "ArrayPattern")
+          (value.type === "ObjectPattern" ||
+            value.type === "ArrayPattern" ||
+            (value.type === "AssignmentPattern" &&
+              value.left.type === "ObjectPattern"))
       ).length > 1) ||
     (n.type !== "ObjectPattern" &&
       firstProperty &&
