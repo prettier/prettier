@@ -65,6 +65,14 @@ function printObject(path, options, print) {
     n.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
     (n.type === "ObjectPattern" &&
+      parent.type !== "FunctionDeclaration" &&
+      parent.type !== "FunctionExpression" &&
+      parent.type !== "ArrowFunctionExpression" &&
+      parent.type !== "ObjectMethod" &&
+      parent.type !== "ClassMethod" &&
+      parent.type !== "ClassPrivateMethod" &&
+      parent.type !== "AssignmentPattern" &&
+      parent.type !== "CatchClause" &&
       n.properties.filter(
         ({ value }) =>
           value &&
