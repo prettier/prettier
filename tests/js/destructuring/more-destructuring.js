@@ -60,6 +60,6 @@ cb(({a: { b, c } }) => combine(b, c))
 // should be split into multiple lines:
 cb(({a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
 
-// XXX TODO should be split into multiple lines
+// XXX TODO [KNOWN REGRESSION] should be split into multiple lines
 // due to the deep member:
 const { a: { b: { deepMember } } } = abc
