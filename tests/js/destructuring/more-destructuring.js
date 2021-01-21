@@ -28,19 +28,6 @@ const reducer1 = ({ first, second : { third } }) => combine(second, third);
 // these arguments should be destructured on multiple lines:
 const r2 = ({ a: { data1 }, b: { data2, data3 } }) => f(data1, data2, data3);
 
-// support destructuring with a blank line in the middle:
-const reducer3 = ({
-  firstMember,
-
-  second: { data2, data3 }
-}) => f(firstMember, data2, data3);
-
-// this destructuring is small enough for one line:
-const reducer4 = ({
-  a,
-  innerData: { b, c }
-}) => f(a, b, c);
-
 const obj2 = {
   // these arguments should be destructured on multiple lines:
   func({ a: { info1, info2 }, b: { info3, info4 } }) {}
