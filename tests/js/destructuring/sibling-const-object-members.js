@@ -28,10 +28,10 @@ const { firstMember = {}, secondMember = {} } = thing;
 // these destructured objects should be split into multiple lines:
 const { a: { innerData1, innerData2 } = {}, b: { innerData3 } = {} } = thing;
 
-// XXX TODO: these destructured objects should be split into multiple lines:
+// these destructured objects should be split into multiple lines:
 const { a: [innerData4] = [], b: [innerData5] = [] } = thing;
 
-// XXX TODO: these destructured objects should be split into multiple lines:
+// these destructured objects should be split into multiple lines:
 const { a: { innerData6 } = {}, b: [innerData7] = [] } = thing;
 
 // small enough for one line:

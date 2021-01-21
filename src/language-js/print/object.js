@@ -75,8 +75,8 @@ function printObject(path, options, print) {
           (value.type === "ObjectPattern" ||
             value.type === "ArrayPattern" ||
             (value.type === "AssignmentPattern" &&
-              // XXX TODO support & test with `value.left.type === "ArrayPattern" condition here.
-              value.left.type === "ObjectPattern"))
+              (value.left.type === "ArrayPattern" ||
+                value.left.type === "ObjectPattern")))
       ).length > 1) ||
     (n.type !== "ObjectPattern" &&
       firstProperty &&
