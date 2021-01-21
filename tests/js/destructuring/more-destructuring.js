@@ -1,4 +1,8 @@
+// these siblings should be destructured on multiple lines:
 const { a: { innerMember }, b: { anotherInnerMember } } = something;
+
+// these siblings are small enough for one line:
+const { a: { innerMember2 }, littleSibling } = something;
 
 // these arguments should be destructured on multiple lines:
 function f2({ first: { inner1, inner2 }, second: { inner3, inner4 } }) {}
@@ -15,6 +19,12 @@ const reducer3 = ({
 
   second: { data2, data3 }
 }) => f(firstMember, data2, data3);
+
+// this destructuring is small enough for one line:
+const reducer4 = ({
+  a,
+  innerData: { b, c }
+}) => f(a, b, c);
 
 const obj2 = {
   // these arguments should be destructured on multiple lines:
@@ -49,3 +59,7 @@ cb(({a: { b, c } }) => getData())
 // in arrow function arguments nested inside a function call,
 // XXX TODO should be split into multiple lines:
 cb(({a: { b, c }, d: {e, f } }) => getData())
+
+// XXX TODO should be split into multiple lines
+// due to the deep member:
+const { a: { b: { deepMember } } } = abc
