@@ -1,8 +1,8 @@
 // small enough for one line:
-const reducer1 = ({ first, second : { third } }) => combine(second, third);
+const f1 = ({ first, second : { third } }) => combine(second, third);
 
 // these arguments should be destructured on multiple lines:
-const r2 = ({ a: { data1 }, b: { data2, data3 } }) => f(data1, data2, data3);
+const f2 = ({ a: { data1 }, b: { data2, data3 } }) => f(data1, data2, data3);
 
 // in arrow function arguments nested inside a function call,
 // small enough for one line:
