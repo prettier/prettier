@@ -10,12 +10,13 @@ const {
   addTrailingComment,
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   isBlockComment,
   getFunctionParameters,
   isPrettierIgnoreComment,
-  isJSXNode,
+  isJsxNode,
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
@@ -386,8 +387,7 @@ function handleClassComments({
       enclosingNode.type === "TSInterfaceDeclaration")
   ) {
     if (
-      enclosingNode.decorators &&
-      enclosingNode.decorators.length > 0 &&
+      isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
       addTrailingComment(
@@ -459,7 +459,7 @@ function handleMethodNameComments({
     precedingNode.type === "Decorator" &&
     (enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ClassProperty" ||
-      enclosingNode.type === "FieldDefinition" ||
+      enclosingNode.type === "PropertyDefinition" ||
       enclosingNode.type === "TSAbstractClassProperty" ||
       enclosingNode.type === "TSAbstractMethodDefinition" ||
       enclosingNode.type === "TSDeclareMethod" ||
@@ -531,7 +531,8 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   }
   if (
     enclosingNode &&
-    enclosingNode.type === "MethodDefinition" &&
+    (enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
     getFunctionParameters(enclosingNode.value).length === 0
   ) {
     addDanglingComment(enclosingNode.value, comment);
@@ -581,7 +582,7 @@ function handleLastFunctionArgComments({
   ) {
     const functionParamRightParenIndex = (() => {
       const parameters = getFunctionParameters(enclosingNode);
-      if (parameters.length !== 0) {
+      if (parameters.length > 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
           locEnd(getLast(parameters))
@@ -923,7 +924,7 @@ function getCommentChildNodes(node, options) {
     node.value.type === "FunctionExpression" &&
     getFunctionParameters(node.value).length === 0 &&
     !node.value.returnType &&
-    (!node.value.typeParameters || node.value.typeParameters.length === 0) &&
+    !isNonEmptyArray(node.value.typeParameters) &&
     node.value.body
   ) {
     return [...(node.decorators || []), node.key, node.value.body];
@@ -955,7 +956,7 @@ function willPrintOwnComments(path /*, options */) {
 
   return (
     ((node &&
-      (isJSXNode(node) ||
+      (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
         (parent &&
           (parent.type === "CallExpression" ||

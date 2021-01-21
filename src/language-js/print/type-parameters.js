@@ -2,7 +2,7 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
+  builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
 const {
   isTestCall,
@@ -12,15 +12,10 @@ const {
   shouldPrintComma,
   getFunctionParameters,
 } = require("../utils");
+const { createGroupIdMapper } = require("../../common/util");
 const { shouldHugType } = require("./type-annotation");
 
-const typeParametersGroupIds = new WeakMap();
-function getTypeParametersGroupId(node) {
-  if (!typeParametersGroupIds.has(node)) {
-    typeParametersGroupIds.set(node, Symbol("typeParameters"));
-  }
-  return typeParametersGroupIds.get(node);
-}
+const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
@@ -49,23 +44,18 @@ function printTypeParameters(path, options, print, paramsKey) {
         n[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
-    return concat([
+    return [
       "<",
       join(", ", path.map(print, paramsKey)),
       printDanglingCommentsForInline(path, options),
       ">",
-    ]);
+    ];
   }
 
   return group(
-    concat([
+    [
       "<",
-      indent(
-        concat([
-          softline,
-          join(concat([",", line]), path.map(print, paramsKey)),
-        ])
-      ),
+      indent([softline, join([",", line], path.map(print, paramsKey))]),
       ifBreak(
         options.parser !== "typescript" &&
           options.parser !== "babel-ts" &&
@@ -75,7 +65,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       ),
       softline,
       ">",
-    ]),
+    ],
     { id: getTypeParametersGroupId(n) }
   );
 }
@@ -94,7 +84,7 @@ function printDanglingCommentsForInline(path, options) {
   if (hasOnlyBlockComments) {
     return printed;
   }
-  return concat([printed, hardline]);
+  return [printed, hardline];
 }
 
 function printTypeParameter(path, options, print) {
@@ -109,13 +99,11 @@ function printTypeParameter(path, options, print) {
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent((path) => {
-          return path.call(print, "nameType");
-        })
+        path.callParent((path) => path.call(print, "nameType"))
       );
     }
     parts.push("]");
-    return concat(parts);
+    return parts;
   }
 
   if (n.variance) {
@@ -150,7 +138,7 @@ function printTypeParameter(path, options, print) {
     parts.push(",");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 module.exports = {

@@ -136,7 +136,7 @@ function ngHtmlParser(
     errors = htmlParseResult.errors;
   }
 
-  if (errors.length !== 0) {
+  if (errors.length > 0) {
     const {
       msg,
       span: { start, end },

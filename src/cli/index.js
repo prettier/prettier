@@ -9,10 +9,10 @@ const prettier = require("../index");
 const core = require("./core");
 
 function run(args) {
-  const context = core.createContext(args);
+  const context = new core.Context(args);
 
   try {
-    core.initContext(context);
+    context.initContext();
 
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
@@ -26,12 +26,12 @@ function run(args) {
       process.exit(1);
     }
 
-    if (context.argv["find-config-path"] && context.filePatterns.length) {
+    if (context.argv["find-config-path"] && context.filePatterns.length > 0) {
       context.logger.error("Cannot use --find-config-path with multiple files");
       process.exit(1);
     }
 
-    if (context.argv["file-info"] && context.filePatterns.length) {
+    if (context.argv["file-info"] && context.filePatterns.length > 0) {
       context.logger.error("Cannot use --file-info with multiple files");
       process.exit(1);
     }
@@ -59,7 +59,7 @@ function run(args) {
       process.exit(0);
     }
 
-    const hasFilePatterns = context.filePatterns.length !== 0;
+    const hasFilePatterns = context.filePatterns.length > 0;
     const useStdin =
       !hasFilePatterns &&
       (!process.stdin.isTTY || context.args["stdin-filepath"]);

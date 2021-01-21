@@ -4,7 +4,7 @@ function stringifyOptions(options) {
   const string = JSON.stringify(options || {}, (key, value) =>
     key === "plugins" || key === "errors"
       ? undefined
-      : value === Infinity
+      : value === Number.POSITIVE_INFINITY
       ? "Infinity"
       : value
   );

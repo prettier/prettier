@@ -175,7 +175,7 @@ function createDetailedUsage(context, flag) {
       : "";
 
   const pluginDefaults =
-    option.pluginDefaults && Object.keys(option.pluginDefaults).length
+    option.pluginDefaults && Object.keys(option.pluginDefaults).length > 0
       ? `\nPlugin defaults:${Object.keys(option.pluginDefaults).map(
           (key) =>
             `\n* ${key}: ${createDefaultValueDisplay(

@@ -1,12 +1,14 @@
 "use strict";
 
-function flattenDoc(doc) {
-  if (doc.type === "concat") {
-    const res = [];
+const { isConcat, getDocParts } = require("./doc-utils");
 
-    for (let i = 0; i < doc.parts.length; ++i) {
-      const doc2 = doc.parts[i];
-      if (typeof doc2 !== "string" && doc2.type === "concat") {
+function flattenDoc(doc) {
+  if (isConcat(doc)) {
+    const res = [];
+    const parts = getDocParts(doc);
+    for (let i = 0; i < parts.length; ++i) {
+      const doc2 = parts[i];
+      if (typeof doc2 !== "string" && isConcat(doc2)) {
         res.push(...flattenDoc(doc2).parts);
       } else {
         const flattened = flattenDoc(doc2);
@@ -16,7 +18,7 @@ function flattenDoc(doc) {
       }
     }
 
-    return { ...doc, parts: res };
+    return { type: "concat", parts: res };
   } else if (doc.type === "if-break") {
     return {
       ...doc,
@@ -44,6 +46,10 @@ function printDoc(doc) {
     return JSON.stringify(doc);
   }
 
+  if (isConcat(doc)) {
+    return "[" + getDocParts(doc).map(printDoc).join(", ") + "]";
+  }
+
   if (doc.type === "line") {
     if (doc.literal) {
       return "literalline";
@@ -65,16 +71,12 @@ function printDoc(doc) {
     return "trim";
   }
 
-  if (doc.type === "concat") {
-    return "[" + doc.parts.map(printDoc).join(", ") + "]";
-  }
-
   if (doc.type === "indent") {
     return "indent(" + printDoc(doc.contents) + ")";
   }
 
   if (doc.type === "align") {
-    return doc.n === -Infinity
+    return doc.n === Number.NEGATIVE_INFINITY
       ? "dedentToRoot(" + printDoc(doc.contents) + ")"
       : doc.n < 0
       ? "dedent(" + printDoc(doc.contents) + ")"

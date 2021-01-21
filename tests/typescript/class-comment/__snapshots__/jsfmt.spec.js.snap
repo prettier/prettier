@@ -83,7 +83,8 @@ b // comment-b2
 =====================================output=====================================
 class a1
   extends b // comment
-  implements z {
+  implements z
+{
   constructor() {}
 }
 
@@ -95,7 +96,8 @@ class a2 extends b implements z {
 class a3
   extends b
   // comment
-  implements z, y {
+  implements z, y
+{
   constructor() {}
 }
 
@@ -103,7 +105,8 @@ class a4
   extends b
   implements
     z, // comment
-    y {
+    y
+{
   constructor() {}
 }
 
@@ -111,7 +114,8 @@ class a5
   extends b
   implements
     z, // comment-z
-    y {
+    y
+{
   // comment-y
   constructor() {}
 }
@@ -122,7 +126,8 @@ class a6
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   constructor() {}
 }
@@ -133,7 +138,8 @@ class a7
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   // comment-y3
   //comment-body
@@ -146,7 +152,8 @@ class a8
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   constructor() {}
 }
@@ -159,7 +166,8 @@ class a9
   implements
     z, // comment-z2
     // comment-y1
-    y {
+    y
+{
   // comment-y2
   constructor() {}
 }
@@ -188,7 +196,8 @@ extends B<T> // 3
 =====================================output=====================================
 declare class a // 1
   // extends b   // 2
-  implements z, x {
+  implements z, x
+{
   // 3
   doo: boolean;
 }
@@ -233,13 +242,15 @@ class G1<T> implements IPoly<T> {
 }
 
 class G2<T> // g2
-  implements IPoly<T> {
+  implements IPoly<T>
+{
   x: T;
 }
 
 class G3<T> // g3
   extends U
-  implements IPoly<T> {
+  implements IPoly<T>
+{
   x: T;
 }
 
@@ -247,7 +258,8 @@ class G4<
     T // g4
   >
   extends U
-  implements IPoly<T> {
+  implements IPoly<T>
+{
   x: T;
 }
 

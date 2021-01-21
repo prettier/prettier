@@ -587,7 +587,7 @@ function addTrailingComment(node, comment) {
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
-    if (parts.length !== 0) {
+    if (parts.length > 0) {
       parts.push(replacement);
     }
     parts.push(part);
@@ -622,6 +622,24 @@ function getShebang(text) {
     return text;
   }
   return text.slice(0, index);
+}
+
+function isNonEmptyArray(object) {
+  return Array.isArray(object) && object.length > 0;
+}
+
+/**
+ * @param {string} description
+ * @returns {(node: any) => symbol}
+ */
+function createGroupIdMapper(description) {
+  const groupIds = new WeakMap();
+  return function (node) {
+    if (!groupIds.has(node)) {
+      groupIds.set(node, Symbol(description));
+    }
+    return groupIds.get(node);
+  };
 }
 
 module.exports = {
@@ -660,4 +678,6 @@ module.exports = {
   addTrailingComment,
   isFrontMatterNode,
   getShebang,
+  isNonEmptyArray,
+  createGroupIdMapper,
 };

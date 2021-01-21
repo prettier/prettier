@@ -63,7 +63,7 @@ function Versions(props) {
                   (master)
                 </td>
               </tr>
-              {pastDocsVersions.length !== 0 &&
+              {pastDocsVersions.length > 0 &&
                 pastDocsVersions.map((pastDocsVersion, index) => {
                   const pastMajorVersion = pastDocsVersion.replace(/^v/, "");
                   return (

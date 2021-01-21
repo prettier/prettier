@@ -2,7 +2,7 @@
 
 const escape = require("escape-string-regexp");
 const {
-  builders: { hardline, concat, markAsRoot },
+  builders: { hardline, markAsRoot },
 } = require("../document");
 
 const YAML_DELIMITER = "---";
@@ -71,15 +71,13 @@ function print(node, textToDoc) {
     const doc = value
       ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
       : "";
-    return markAsRoot(
-      concat([
-        node.startDelimiter,
-        hardline,
-        doc,
-        doc ? hardline : "",
-        node.endDelimiter,
-      ])
-    );
+    return markAsRoot([
+      node.startDelimiter,
+      hardline,
+      doc,
+      doc ? hardline : "",
+      node.endDelimiter,
+    ]);
   }
 }
 

@@ -3,7 +3,7 @@
 const { printComments, printDanglingComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
-  builders: { concat, group, join, line, softline, indent, align, ifBreak },
+  builders: { group, join, line, softline, indent, align, ifBreak },
 } = require("../../document");
 const pathNeedsParens = require("../needs-parens");
 const { locStart } = require("../loc");
@@ -69,7 +69,7 @@ function printOpaqueType(path, options, print) {
 
   parts.push(semi);
 
-  return concat(parts);
+  return parts;
 }
 
 function printTypeAlias(path, options, print) {
@@ -96,7 +96,7 @@ function printTypeAlias(path, options, print) {
     semi
   );
 
-  return group(concat(parts));
+  return group(parts);
 }
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
@@ -110,10 +110,10 @@ function printIntersectionType(path, options, print) {
       result.push(types[i]);
     } else if (isObjectType(n.types[i - 1]) && isObjectType(n.types[i])) {
       // If both are objects, don't indent
-      result.push(concat([" & ", wasIndented ? indent(types[i]) : types[i]]));
+      result.push([" & ", wasIndented ? indent(types[i]) : types[i]]);
     } else if (!isObjectType(n.types[i - 1]) && !isObjectType(n.types[i])) {
       // If no object is involved, go to the next line if it breaks
-      result.push(indent(concat([" &", line, types[i]])));
+      result.push(indent([" &", line, types[i]]));
     } else {
       // If you go from object to non-object or vis-versa, then inline it
       if (i > 1) {
@@ -122,7 +122,7 @@ function printIntersectionType(path, options, print) {
       result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
     }
   }
-  return group(concat(result));
+  return group(result);
 }
 
 // `TSUnionType` and `UnionTypeAnnotation`
@@ -184,26 +184,24 @@ function printUnionType(path, options, print) {
   const shouldAddStartLine =
     shouldIndent && !hasLeadingOwnLineComment(options.originalText, n);
 
-  const code = concat([
-    ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
-    join(concat([line, "| "]), printed),
-  ]);
+  const code = [
+    ifBreak([shouldAddStartLine ? line : "", "| "]),
+    join([line, "| "], printed),
+  ];
 
   if (pathNeedsParens(path, options)) {
-    return group(concat([indent(code), softline]));
+    return group([indent(code), softline]);
   }
 
   if (
     (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
     (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
   ) {
-    return group(
-      concat([
-        indent(concat([ifBreak(concat(["(", softline])), code])),
-        softline,
-        ifBreak(")"),
-      ])
-    );
+    return group([
+      indent([ifBreak(["(", softline]), code]),
+      softline,
+      ifBreak(")"),
+    ]);
   }
 
   return group(shouldIndent ? indent(code) : code);
@@ -277,7 +275,7 @@ function printFunctionType(path, options, print) {
     parts.push(")");
   }
 
-  return group(concat(parts));
+  return group(parts);
 }
 
 // `TSTupleType` and `TupleTypeAnnotation`
@@ -286,18 +284,14 @@ function printTupleType(path, options, print) {
   const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
   const hasRest =
     n[typesField].length > 0 && getLast(n[typesField]).type === "TSRestType";
-  return group(
-    concat([
-      "[",
-      indent(
-        concat([softline, printArrayItems(path, options, typesField, print)])
-      ),
-      ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
-      printDanglingComments(path, options, /* sameIndent */ true),
-      softline,
-      "]",
-    ])
-  );
+  return group([
+    "[",
+    indent([softline, printArrayItems(path, options, typesField, print)]),
+    ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
+    printDanglingComments(path, options, /* sameIndent */ true),
+    softline,
+    "]",
+  ]);
 }
 
 module.exports = {
