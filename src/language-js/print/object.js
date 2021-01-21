@@ -69,7 +69,6 @@ function printObject(path, options, print) {
       // XXX TODO support & test ObjectPattern with these parent types
       // (already tested with the other, parent object types)
       parent.type !== "ClassPrivateMethod" &&
-      parent.type !== "AssignmentPattern" &&
       n.properties.filter(
         ({ value }) =>
           value &&
