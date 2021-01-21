@@ -43,6 +43,21 @@ function printCallArguments(path, options, print) {
     ];
   }
 
+  // XXX TODO this is a very naive solution to correctly format this case:
+  // cb(({a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
+  // This is not expected to correctly handle some more complex cases such as:
+  // cb((first, {a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
+  // and is expected to fail this test: tests/js/arrows
+  // XXX TODO a more general solution with some more test cases is needed.
+  if (
+    args.length === 1 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    args[0].params.length > 0 &&
+    args[0].params[0].type === "ObjectPattern"
+  ) {
+    return ["(", path.call(print, "arguments", 0), ")"];
+  }
+
   // useEffect(() => { ... }, [foo, bar, baz])
   if (
     args.length === 2 &&
