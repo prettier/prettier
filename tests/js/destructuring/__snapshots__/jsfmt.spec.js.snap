@@ -106,7 +106,7 @@ class A {
 ================================================================================
 `;
 
-exports[`more-destructuring.js format 1`] = `
+exports[`sibling-arrow-function-object-members.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
