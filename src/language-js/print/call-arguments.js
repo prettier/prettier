@@ -43,17 +43,29 @@ function printCallArguments(path, options, print) {
     ];
   }
 
-  // XXX TODO this is a very naive solution to correctly format this case:
+  // XXX TODO this is a very naive solution, including filter code copy-pasted
+  // from src/language-js/print/object.js to correctly format this case:
   // cb(({a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
   // This is not expected to correctly handle some more complex cases such as:
   // cb((first, {a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
-  // and is expected to fail this test: tests/js/arrows
   // XXX TODO a more general solution with some more test cases is needed.
   if (
     args.length === 1 &&
     args[0].type === "ArrowFunctionExpression" &&
     args[0].params.length > 0 &&
-    args[0].params[0].type === "ObjectPattern"
+    args[0].params[0].type === "ObjectPattern" &&
+    // XXX TBD filter code copy-pasted from src/language-js/print/object.js
+    args[0].params[0].properties.filter(
+      ({ value }) =>
+        value &&
+        (value.type === "ObjectPattern" ||
+          // XXX TODO support & test with `value.type === "ArrayPattern"` filter condition below, and
+          // test with a combination of ObjectPattern & ArrayPattern value types.
+          // value.type === "ArrayPattern" ||
+          (value.type === "AssignmentPattern" &&
+            // XXX TODO support & test with `value.left.type === "ArrayPattern" condition here.
+            value.left.type === "ObjectPattern"))
+    ).length > 1
   ) {
     return ["(", path.call(print, "arguments", 0), ")"];
   }
