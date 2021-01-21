@@ -62,11 +62,13 @@ function printObject(path, options, print) {
     path.getName() === "body";
 
   const shouldBreak =
+    // XXX TODO move & reuse isTSTypeLiteral; review Flow vs TypeScript interface body
     n.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
     // XXX TODO consider adding & testing shouldBreak with ArrayPattern type condition as well
     (n.type === "ObjectPattern" &&
-      // XXX TODO support & test ObjectPattern with these parent types:
+      // XXX TODO support & test ObjectPattern with these parent types
+      // (already tested with the other, parent object types)
       parent.type !== "ClassPrivateMethod" &&
       parent.type !== "AssignmentPattern" &&
       n.properties.filter(
