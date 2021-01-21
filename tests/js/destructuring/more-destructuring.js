@@ -4,6 +4,21 @@ const { a: { innerMember }, b: { anotherInnerMember } } = something;
 // these siblings are small enough for one line:
 const { a: { innerMember2 }, littleSibling } = something;
 
+// small enough for one line:
+const {
+  tinySibling1,
+  tinySibling2,
+  tinySibling3
+} = something;
+
+// respect blank line within destrucured const object:
+const {
+  tinySibling4,
+
+  tinySibling5,
+  tinySibling6
+} = something;
+
 // these arguments should be destructured on multiple lines:
 function f2({ first: { inner1, inner2 }, second: { inner3, inner4 } }) {}
 
