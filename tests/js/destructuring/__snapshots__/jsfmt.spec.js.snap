@@ -131,13 +131,6 @@ class A2 {
   func({ a: { info1, info2 }, b: { info3, info4 } }) {}
 }
 
-// these catch arguments should be destructured on multiple lines:
-try {
-  // code
-} catch ({ first: { info1, info2 }, second: { info3, info4 } }) {
-  // code
-}
-
 // in arrow function arguments nested inside a function call,
 // small enough for one line:
 registerReducer(({a: { b, c } }) => combine(b, c))
@@ -182,16 +175,6 @@ class A2 {
   }) {}
 }
 
-// these catch arguments should be destructured on multiple lines:
-try {
-  // code
-} catch ({
-  first: { info1, info2 },
-  second: { info3, info4 },
-}) {
-  // code
-}
-
 // in arrow function arguments nested inside a function call,
 // small enough for one line:
 registerReducer(({ a: { b, c } }) => combine(b, c));
@@ -206,6 +189,33 @@ registerReducer(({
 // in second arrow function argument nested inside a function call,
 // XXX TODO should be split into multiple lines:
 registerReducer((event, { a: { b, c }, d: { e, f } }) => combine(b, c, e, f));
+
+================================================================================
+`;
+
+exports[`sibling-catch-object-members.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// these catch arguments should be destructured on multiple lines:
+try {
+  // code
+} catch ({ first: { info1, info2 }, second: { info3, info4 } }) {
+  // code
+}
+
+=====================================output=====================================
+// these catch arguments should be destructured on multiple lines:
+try {
+  // code
+} catch ({
+  first: { info1, info2 },
+  second: { info3, info4 },
+}) {
+  // code
+}
 
 ================================================================================
 `;

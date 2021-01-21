@@ -17,13 +17,6 @@ class A2 {
   func({ a: { info1, info2 }, b: { info3, info4 } }) {}
 }
 
-// these catch arguments should be destructured on multiple lines:
-try {
-  // code
-} catch ({ first: { info1, info2 }, second: { info3, info4 } }) {
-  // code
-}
-
 // in arrow function arguments nested inside a function call,
 // small enough for one line:
 registerReducer(({a: { b, c } }) => combine(b, c))
