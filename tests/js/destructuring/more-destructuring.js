@@ -54,11 +54,11 @@ const { a: { innerData1, innerData2 } = {}, b: { innerData3 } = {} } = thing;
 
 // in arrow function arguments nested inside a function call,
 // small enough for one line:
-cb(({a: { b, c } }) => getData())
+cb(({a: { b, c } }) => combine(b, c))
 
 // in arrow function arguments nested inside a function call,
 // XXX TODO should be split into multiple lines:
-cb(({a: { b, c }, d: {e, f } }) => getData())
+cb(({a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
 
 // XXX TODO should be split into multiple lines
 // due to the deep member:
