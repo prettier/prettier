@@ -204,7 +204,7 @@ const {
   tinySibling3
 } = something;
 
-// respect blank line within destrucured const object:
+// respect blank line within destructured const object:
 const {
   tinySibling4,
 
@@ -247,7 +247,7 @@ const { a: { innerMember2 }, littleSibling } = something;
 // small enough for one line:
 const { tinySibling1, tinySibling2, tinySibling3 } = something;
 
-// respect blank line within destrucured const object:
+// respect blank line within destructured const object:
 const {
   tinySibling4,
 

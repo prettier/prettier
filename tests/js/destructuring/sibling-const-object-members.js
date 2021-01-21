@@ -11,7 +11,7 @@ const {
   tinySibling3
 } = something;
 
-// respect blank line within destrucured const object:
+// respect blank line within destructured const object:
 const {
   tinySibling4,
 
