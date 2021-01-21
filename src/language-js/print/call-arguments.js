@@ -43,12 +43,16 @@ function printCallArguments(path, options, print) {
     ];
   }
 
-  // XXX TODO this is a very naive solution, including filter code copy-pasted
-  // from src/language-js/print/object.js to correctly format this case:
-  // cb(({a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
-  // This is not expected to correctly handle some more complex cases such as:
-  // cb((first, {a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
-  // XXX TODO a more general solution with some more test cases is needed.
+  // Very simple solution to split a case like this into multiple lines:
+  //
+  // registerReducer(({
+  //   a: { b, c },
+  //   d: { e, f },
+  // }) => combine(b, c, e, f));
+  //
+  // Fails to handle a case with more arguments, like this:
+  //
+  // registerReducer((event, { a: { b, c }, d: { e, f } }) => combine(b, c, e, f))
   if (
     args.length === 1 &&
     args[0].type === "ArrowFunctionExpression" &&
