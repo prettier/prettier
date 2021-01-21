@@ -120,7 +120,7 @@
     "jest-watch-typeahead": "0.6.1",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
-    "rollup": "2.36.2",
+    "rollup": "2.37.1",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-terser": "7.0.2",
