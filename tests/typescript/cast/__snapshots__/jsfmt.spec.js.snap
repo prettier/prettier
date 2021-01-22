@@ -165,9 +165,7 @@ function y() {
   >{ property1: "myPropertyVal" };
 
   const testArrayLiteral = <Immutable.Map<string, any>>[
-    "first",
-    "second",
-    "third",
+    "first", "second", "third",
   ];
 
   const testArrayLiteral2 = <
@@ -249,9 +247,7 @@ function x() {
   >{ prop1: "myPropVal" };
 
   const testArrayLiteral = <PermissionsChecker<any> | undefined>[
-    "first",
-    "second",
-    "third",
+    "first", "second", "third",
   ];
 
   const testArrayLiteral2 = <
