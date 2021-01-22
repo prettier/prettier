@@ -2,7 +2,7 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { line, softline, group, indent, ifBreak },
+  builders: { line, softline, group, indent, ifBreak, fill },
 } = require("../../document");
 const { getLast } = require("../../common/util");
 const {
@@ -10,8 +10,10 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
+  isNumericLiteral,
 } = require("../utils");
 
+const { hardline } = require("../../document/doc-builders");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -75,11 +77,20 @@ function printArray(path, options, print) {
         return element[itemsKey] && element[itemsKey].length > 1;
       });
 
+    const shouldUseFill =
+      n.elements.length > 1 &&
+      n.elements.every((element) => element && isNumericLiteral(element));
+
     parts.push(
       group(
         [
           openBracket,
-          indent([softline, printArrayItems(path, options, "elements", print)]),
+          indent([
+            softline,
+            shouldUseFill
+              ? printArrayItemsUsingFill(path, options, "elements", print)
+              : printArrayItems(path, options, "elements", print),
+          ]),
           needsForcedTrailingComma ? "," : "",
           ifBreak(
             canHaveTrailingComma &&
@@ -122,6 +133,34 @@ function printArrayItems(path, options, printPath, print) {
   }, printPath);
 
   return printedElements;
+}
+
+function printArrayItemsUsingFill(path, options, printPath, print) {
+  const parts = [];
+
+  path.each((childPath, i, elements) => {
+    const isLast = i === elements.length - 1;
+
+    parts.push([print(childPath), isLast ? "" : ","]);
+
+    if (!isLast) {
+      const element = elements[i];
+      const nextElement = elements[i + 1];
+      parts.push(
+        element &&
+          nextElement &&
+          isNextLineEmpty(element, options) &&
+          hasComment(
+            nextElement,
+            CommentCheckFlags.Leading | CommentCheckFlags.Line
+          )
+          ? [hardline, hardline]
+          : line
+      );
+    }
+  }, printPath);
+
+  return fill(parts);
 }
 
 module.exports = { printArray, printArrayItems };
