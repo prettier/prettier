@@ -144,7 +144,7 @@ function printArrayItemsUsingFill(path, options, printPath, print) {
 
     if (!isLast) {
       parts.push(
-        elements[i] && isNextLineEmpty(elements[i], options)
+        childPath.getValue() && isNextLineEmpty(childPath.getValue(), options)
           ? [hardline, hardline]
           : line
       );
