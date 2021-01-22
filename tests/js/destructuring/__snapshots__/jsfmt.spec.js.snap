@@ -2,7 +2,7 @@
 
 exports[`destructuring.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -108,7 +108,7 @@ class A {
 
 exports[`sibling-arrow-function-object-members.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -160,7 +160,7 @@ registerReducer((event, { a: { b, c }, d: { e, f } }) => combine(b, c, e, f));
 
 exports[`sibling-catch-object-members.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -187,7 +187,7 @@ try {
 
 exports[`sibling-const-object-members.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -291,7 +291,7 @@ const { a: { b: { deepMember } } } = abc;
 
 exports[`sibling-function-object-array-members.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -325,7 +325,7 @@ function f3({
 
 exports[`sibling-function-object-members.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
