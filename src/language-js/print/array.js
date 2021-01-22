@@ -2,7 +2,7 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { line, softline, group, indent, ifBreak, fill },
+  builders: { line, softline, hardline, group, indent, ifBreak, fill },
 } = require("../../document");
 const { getLast } = require("../../common/util");
 const {
@@ -14,7 +14,6 @@ const {
   isStringLiteral,
 } = require("../utils");
 
-const { hardline } = require("../../document/doc-builders");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -151,16 +150,8 @@ function printArrayItemsUsingFill(path, options, printPath, print) {
     parts.push([print(childPath), isLast ? "" : ","]);
 
     if (!isLast) {
-      const element = elements[i];
-      const nextElement = elements[i + 1];
       parts.push(
-        element &&
-          nextElement &&
-          isNextLineEmpty(element, options) &&
-          hasComment(
-            nextElement,
-            CommentCheckFlags.Leading | CommentCheckFlags.Line
-          )
+        elements[i] && isNextLineEmpty(elements[i], options)
           ? [hardline, hardline]
           : line
       );
