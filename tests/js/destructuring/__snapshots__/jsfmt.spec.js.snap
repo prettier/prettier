@@ -388,3 +388,79 @@ class A {
 
 ================================================================================
 `;
+
+exports[`sibling-private-function-object-members.js [babel-flow] format 1`] = `
+====================================options=====================================
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  // small enough for one line:
+  #f1({ a, b }) {}
+
+  // XXX TODO: these arguments should be destructured on multiple lines:
+  #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}
+}
+
+
+=====================================output=====================================
+class A {
+  // small enough for one line:
+  #f1({ a, b }) {}
+
+  // XXX TODO: these arguments should be destructured on multiple lines:
+  #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}
+}
+
+================================================================================
+`;
+
+exports[`sibling-private-function-object-members.js [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["espree", "babel-flow", "flow", "babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  // small enough for one line:
+  #f1({ a, b }) {}
+
+  // XXX TODO: these arguments should be destructured on multiple lines:
+  #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}
+}
+
+
+=====================================output=====================================
+class A {
+  // small enough for one line:
+  #f1({ a, b }) {}
+
+  // XXX TODO: these arguments should be destructured on multiple lines:
+  #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}
+}
+
+================================================================================
+`;
+
+exports[`sibling-private-function-object-members.js [espree] format 1`] = `
+"Unexpected character '#' (3:3)
+  1 | class A {
+  2 |   // small enough for one line:
+> 3 |   #f1({ a, b }) {}
+    |   ^
+  4 | 
+  5 |   // XXX TODO: these arguments should be destructured on multiple lines:
+  6 |   #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}"
+`;
+
+exports[`sibling-private-function-object-members.js [flow] format 1`] = `
+"Classes may not have private methods. (3:3)
+  1 | class A {
+  2 |   // small enough for one line:
+> 3 |   #f1({ a, b }) {}
+    |   ^^^^^^^^^^^^^^^^
+  4 | 
+  5 |   // XXX TODO: these arguments should be destructured on multiple lines:
+  6 |   #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}"
+`;
