@@ -4,7 +4,7 @@ const { printDanglingComments } = require("../../main/comments");
 const {
   builders: { line, softline, hardline, group, indent, ifBreak, fill },
 } = require("../../document");
-const { getLast } = require("../../common/util");
+const { getLast, hasNewline } = require("../../common/util");
 const {
   shouldPrintComma,
   hasComment,
@@ -12,6 +12,7 @@ const {
   isNextLineEmpty,
   isNumericLiteral,
 } = require("../utils");
+const { locStart } = require("../loc");
 
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
@@ -78,7 +79,19 @@ function printArray(path, options, print) {
 
     const shouldUseFill =
       n.elements.length > 1 &&
-      n.elements.every((element) => element && isNumericLiteral(element));
+      n.elements.every(
+        (element) =>
+          element &&
+          isNumericLiteral(element) &&
+          !hasComment(
+            element,
+            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+            (comment) =>
+              !hasNewline(options.originalText, locStart(comment), {
+                backwards: true,
+              })
+          )
+      );
 
     parts.push(
       group(
