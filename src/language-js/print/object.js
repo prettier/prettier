@@ -62,7 +62,6 @@ function printObject(path, options, print) {
     path.getName() === "body";
 
   const shouldBreak =
-    // XXX TODO move & reuse isTSTypeLiteral; review Flow vs TypeScript interface body
     n.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
     (n.type === "ObjectPattern" &&
