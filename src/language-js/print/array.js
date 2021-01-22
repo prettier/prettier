@@ -11,6 +11,7 @@ const {
   CommentCheckFlags,
   isNextLineEmpty,
   isNumericLiteral,
+  isStringLiteral,
 } = require("../utils");
 
 const { hardline } = require("../../document/doc-builders");
@@ -79,7 +80,12 @@ function printArray(path, options, print) {
 
     const shouldUseFill =
       n.elements.length > 1 &&
-      n.elements.every((element) => element && isNumericLiteral(element));
+      n.elements.every(
+        (element) =>
+          element &&
+          (isNumericLiteral(element) ||
+            (isStringLiteral(element) && element.value.length < 9))
+      );
 
     parts.push(
       group(
