@@ -30,6 +30,8 @@ const {
   utils: { willBreak },
 } = require("../../document");
 
+const { shouldBreakForObjectPattern } = require("./object");
+
 function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
@@ -57,19 +59,7 @@ function printCallArguments(path, options, print) {
     args.length === 1 &&
     args[0].type === "ArrowFunctionExpression" &&
     args[0].params.length > 0 &&
-    args[0].params[0].type === "ObjectPattern" &&
-    // XXX TBD filter code copy-pasted from src/language-js/print/object.js
-    args[0].params[0].properties.filter(
-      ({ value }) =>
-        value &&
-        (value.type === "ObjectPattern" ||
-          // XXX TODO support & test with `value.type === "ArrayPattern"` filter condition below, and
-          // test with a combination of ObjectPattern & ArrayPattern value types.
-          // value.type === "ArrayPattern" ||
-          (value.type === "AssignmentPattern" &&
-            // XXX TODO support & test with `value.left.type === "ArrayPattern" condition here.
-            value.left.type === "ObjectPattern"))
-    ).length > 1
+    shouldBreakForObjectPattern(args[0].params[0])
   ) {
     return ["(", path.call(print, "arguments", 0), ")"];
   }

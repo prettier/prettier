@@ -26,6 +26,21 @@ const { printHardlineAfterHeritage } = require("./class");
 
 /** @typedef {import("../../document").Doc} Doc */
 
+function shouldBreakForObjectPattern(n) {
+  return (
+    n.type === "ObjectPattern" &&
+    n.properties.filter(
+      ({ value }) =>
+        value &&
+        (value.type === "ObjectPattern" ||
+          value.type === "ArrayPattern" ||
+          (value.type === "AssignmentPattern" &&
+            (value.left.type === "ArrayPattern" ||
+              value.left.type === "ObjectPattern")))
+    ).length > 1
+  );
+}
+
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const n = path.getValue();
@@ -64,16 +79,7 @@ function printObject(path, options, print) {
   const shouldBreak =
     n.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
-    (n.type === "ObjectPattern" &&
-      n.properties.filter(
-        ({ value }) =>
-          value &&
-          (value.type === "ObjectPattern" ||
-            value.type === "ArrayPattern" ||
-            (value.type === "AssignmentPattern" &&
-              (value.left.type === "ArrayPattern" ||
-                value.left.type === "ObjectPattern")))
-      ).length > 1) ||
+    shouldBreakForObjectPattern(n) ||
     (n.type !== "ObjectPattern" &&
       firstProperty &&
       hasNewlineInRange(
@@ -233,4 +239,4 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-module.exports = { printObject };
+module.exports = { shouldBreakForObjectPattern, printObject };
