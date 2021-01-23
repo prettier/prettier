@@ -489,8 +489,7 @@ function printDocToString(doc, options) {
 
             case MODE_BREAK:
               if (lineSuffix.length > 0) {
-                cmds.push([ind, mode, doc]);
-                cmds.push(...lineSuffix.reverse());
+                cmds.push([ind, mode, doc], ...lineSuffix.reverse());
                 lineSuffix = [];
                 break;
               }
