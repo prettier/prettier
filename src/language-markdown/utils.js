@@ -114,6 +114,7 @@ function splitText(text, options) {
     }
   }
 
+  // @ts-ignore
   return nodes;
 
   function appendNode(node) {
