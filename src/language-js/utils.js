@@ -247,6 +247,14 @@ function isNumericLiteral(node) {
   );
 }
 
+function isSignedNumericLiteral(node) {
+  return (
+    node.type === "UnaryExpression" &&
+    (node.operator === "+" || node.operator === "-") &&
+    isNumericLiteral(node.argument)
+  );
+}
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -1373,6 +1381,7 @@ module.exports = {
   isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
+  isSignedNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleType,

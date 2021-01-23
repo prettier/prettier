@@ -11,6 +11,7 @@ const {
   CommentCheckFlags,
   isNextLineEmpty,
   isNumericLiteral,
+  isSignedNumericLiteral,
 } = require("../utils");
 const { locStart } = require("../loc");
 
@@ -92,7 +93,9 @@ function printArray(path, options, print) {
       n.elements.every(
         (element) =>
           element &&
-          isNumericLiteral(element) &&
+          (isNumericLiteral(element) ||
+            (isSignedNumericLiteral(element) &&
+              !hasComment(element.argument))) &&
           !hasComment(
             element,
             CommentCheckFlags.Trailing | CommentCheckFlags.Line,
