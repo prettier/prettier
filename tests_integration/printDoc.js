@@ -4,24 +4,26 @@
 const prettier = require("prettier-local");
 
 function printDoc(doc) {
-  return prettier.format("_", {
-    plugins: [
-      {
-        parsers: {
-          doc: {
-            parse: () => doc,
-            astFormat: "doc",
-          },
-        },
-        printers: {
-          doc: {
-            print: (path) => path.getValue(),
-          },
-        },
-        languages: [{ name: "doc", parsers: ["doc"] }],
+  // This dummy plugin ignores the input and simply returns the given doc.
+  // This is to make sure that the doc will go through all the stages a real doc
+  // returned by a real plugin would go (e.g. `propagateBreaks`).
+  const dummyPlugin = {
+    parsers: {
+      dummy: {
+        parse: () => ({}),
+        astFormat: "dummy",
       },
-    ],
-    parser: "doc",
+    },
+    printers: {
+      dummy: {
+        print: () => doc,
+      },
+    },
+  };
+
+  return prettier.format("_", {
+    plugins: [dummyPlugin],
+    parser: "dummy",
   });
 }
 
