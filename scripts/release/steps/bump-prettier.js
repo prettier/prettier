@@ -56,6 +56,6 @@ module.exports = async function (params) {
   );
 
   await logPromise("Updating files", format());
-  await logPromise("Bump main version", bump(params));
+  await logPromise("Bump default branch version", bump(params));
   await logPromise("Committing changed files", commit(version));
 };
