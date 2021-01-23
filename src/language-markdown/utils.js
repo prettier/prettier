@@ -54,7 +54,6 @@ function splitText(text, options) {
     ? text
     : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
   ).split(/([\t\n ]+)/);
-
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
@@ -72,7 +71,6 @@ function splitText(text, options) {
     }
 
     const innerTokens = token.split(new RegExp(`(${cjkPattern})`));
-
     for (const [innerIndex, innerToken] of innerTokens.entries()) {
       if (
         (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&

@@ -400,7 +400,7 @@ function breakTies(tiesToBreak, text, options) {
     }
   }
 
-  for (const [i, { comment }] of tiesToBreak) {
+  for (const [i, { comment }] of tiesToBreak.entries()) {
     if (i < indexOfFirstLeadingComment) {
       addTrailingComment(precedingNode, comment);
     } else {
