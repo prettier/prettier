@@ -157,8 +157,13 @@ function printArrayItemsUsingFill(path, options, printPath, print) {
 
     if (!isLast) {
       parts.push(
-        childPath.getValue() && isNextLineEmpty(childPath.getValue(), options)
+        isNextLineEmpty(childPath.getValue(), options)
           ? [hardline, hardline]
+          : hasComment(
+              elements[i + 1],
+              CommentCheckFlags.Leading | CommentCheckFlags.Line
+            )
+          ? hardline
           : line
       );
     }
