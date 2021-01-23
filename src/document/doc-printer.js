@@ -403,11 +403,9 @@ function printDocToString(doc, options) {
 
           if (parts.length === 2) {
             if (contentFits) {
-              cmds.push(whitespaceFlatCmd);
-              cmds.push(contentFlatCmd);
+              cmds.push(whitespaceFlatCmd, contentFlatCmd);
             } else {
-              cmds.push(whitespaceBreakCmd);
-              cmds.push(contentBreakCmd);
+              cmds.push(whitespaceBreakCmd, contentBreakCmd);
             }
             break;
           }
@@ -436,17 +434,11 @@ function printDocToString(doc, options) {
           );
 
           if (firstAndSecondContentFits) {
-            cmds.push(remainingCmd);
-            cmds.push(whitespaceFlatCmd);
-            cmds.push(contentFlatCmd);
+            cmds.push(remainingCmd, whitespaceFlatCmd, contentFlatCmd);
           } else if (contentFits) {
-            cmds.push(remainingCmd);
-            cmds.push(whitespaceBreakCmd);
-            cmds.push(contentFlatCmd);
+            cmds.push(remainingCmd, whitespaceBreakCmd, contentFlatCmd);
           } else {
-            cmds.push(remainingCmd);
-            cmds.push(whitespaceBreakCmd);
-            cmds.push(contentBreakCmd);
+            cmds.push(remainingCmd, whitespaceBreakCmd, contentBreakCmd);
           }
           break;
         }
