@@ -32,7 +32,7 @@ const siteConfig = {
   tideliftUrl:
     "https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=website",
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
-  editUrl: `${GITHUB_URL}/edit/master/docs/`,
+  editUrl: `${GITHUB_URL}/edit/main/docs/`,
   headerLinks: [
     { href: "/playground/", label: "Playground" },
     { doc: "index", label: "Docs" },

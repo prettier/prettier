@@ -10,7 +10,7 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/master/scripts/eslint-plugin-prettier-internal-rules/jsx-identifier-case.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/jsx-identifier-case.js",
     },
     messages: {
       [MESSAGE_ID]: "Please rename '{{name}}' to '{{fixed}}'.",

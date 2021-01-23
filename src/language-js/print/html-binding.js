@@ -47,7 +47,7 @@ function printHtmlBinding(path, options, print) {
   }
 }
 
-// based on https://github.com/prettier/prettier/blob/master/src/language-html/syntax-vue.js isVueEventBindingExpression()
+// based on https://github.com/prettier/prettier/blob/main/src/language-html/syntax-vue.js isVueEventBindingExpression()
 function isVueEventBindingExpression(node) {
   switch (node.type) {
     case "MemberExpression":
