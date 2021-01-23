@@ -52,7 +52,17 @@ function printArray(path, options, print) {
     //
     // Note that getLast returns null if the array is empty, but
     // we already check for an empty array just above so we are safe
-    const needsForcedTrailingComma = canHaveTrailingComma && lastElem === null;
+    const needsForcedTrailingComma = lastElem === null;
+
+    const groupId = Symbol("array");
+
+    const trailingComma = !canHaveTrailingComma
+      ? ""
+      : needsForcedTrailingComma
+      ? ","
+      : !shouldPrintComma(options)
+      ? ""
+      : ifBreak(",", "", { groupId });
 
     const shouldBreak =
       !options.__inJestEach &&
@@ -77,7 +87,7 @@ function printArray(path, options, print) {
         return element[itemsKey] && element[itemsKey].length > 1;
       });
 
-    const shouldUseFill =
+    const shouldUseConciseFormatting =
       n.elements.length > 1 &&
       n.elements.every(
         (element) =>
@@ -99,23 +109,18 @@ function printArray(path, options, print) {
           openBracket,
           indent([
             softline,
-            shouldUseFill
-              ? printArrayItemsUsingFill(path, options, "elements", print)
-              : printArrayItems(path, options, "elements", print),
+            shouldUseConciseFormatting
+              ? printArrayItemsConcisely(path, options, print, trailingComma)
+              : [
+                  printArrayItems(path, options, "elements", print),
+                  trailingComma,
+                ],
+            printDanglingComments(path, options, /* sameIndent */ true),
           ]),
-          needsForcedTrailingComma ? "," : "",
-          ifBreak(
-            canHaveTrailingComma &&
-              !needsForcedTrailingComma &&
-              shouldPrintComma(options)
-              ? ","
-              : ""
-          ),
-          printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           closeBracket,
         ],
-        { shouldBreak }
+        { shouldBreak, id: groupId }
       )
     );
   }
@@ -147,13 +152,13 @@ function printArrayItems(path, options, printPath, print) {
   return printedElements;
 }
 
-function printArrayItemsUsingFill(path, options, printPath, print) {
+function printArrayItemsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
   path.each((childPath, i, elements) => {
     const isLast = i === elements.length - 1;
 
-    parts.push([print(childPath), isLast ? "" : ","]);
+    parts.push([print(childPath), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(
@@ -167,7 +172,7 @@ function printArrayItemsUsingFill(path, options, printPath, print) {
           : line
       );
     }
-  }, printPath);
+  }, "elements");
 
   return fill(parts);
 }
