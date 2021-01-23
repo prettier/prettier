@@ -40,7 +40,6 @@ const punctuationRegex = new RegExp(punctuationPattern);
 /**
  * split text into whitespaces and words
  * @param {string} text
- * @return {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>}
  */
 function splitText(text, options) {
   const KIND_NON_CJK = "non-cjk";
@@ -48,6 +47,7 @@ function splitText(text, options) {
   const KIND_K_LETTER = "k-letter";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
+  /** @type {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>} */
   const nodes = [];
 
   const tokens = (options.proseWrap === "preserve"
@@ -114,7 +114,6 @@ function splitText(text, options) {
     }
   }
 
-  // @ts-ignore
   return nodes;
 
   function appendNode(node) {
