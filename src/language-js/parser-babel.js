@@ -164,6 +164,9 @@ const messagesShouldThrow = new Set([
   // FlowErrors.UnexpectedTypeParameterBeforeAsyncArrowFunction
   // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/plugins/flow.js#L118
   "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
+  // Rethrow on omitted call arguments: foo("a", , "b");
+  // ErrorMessages.UnexpectedToken
+  "Unexpected token ','",
 ]);
 
 function shouldRethrowRecoveredError(error) {

@@ -8,7 +8,7 @@ export default function ({ version }) {
   let href;
   if (match) {
     href = `pull/${match[1]}`;
-  } else if (version.match(/\.0$/)) {
+  } else if (/\.0$/.test(version)) {
     href = `releases/tag/${version}`;
   } else {
     href = `blob/master/CHANGELOG.md#${version.replace(/\./g, "")}`;

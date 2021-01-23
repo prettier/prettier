@@ -37,6 +37,7 @@ function getMarkdownSyntax(options) {
     case "babel-flow":
     case "flow":
     case "espree":
+    case "meriyah":
       return "jsx";
     case "babel-ts":
     case "typescript":
