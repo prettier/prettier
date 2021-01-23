@@ -185,9 +185,7 @@ function genericPrint(path, options, printPath, args) {
   if (needsParens) {
     const node = path.getValue();
     if (hasFlowShorthandAnnotationComment(node)) {
-      parts.push(" /*");
-      parts.push(node.trailingComments[0].value.trimStart());
-      parts.push("*/");
+      parts.push(" /*", node.trailingComments[0].value.trimStart(), "*/");
       node.trailingComments[0].printed = true;
     }
 
@@ -700,9 +698,8 @@ function printPathNoParens(path, options, print, args) {
       } else {
         parts.push(hardline);
       }
-      parts.push("while (");
-
       parts.push(
+        "while (",
         group([indent([softline, path.call(print, "test")]), softline]),
         ")",
         semi

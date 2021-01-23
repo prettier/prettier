@@ -110,8 +110,7 @@ function printArrayItems(path, options, printPath, print) {
   let separatorParts = [];
 
   path.each((childPath) => {
-    printedElements.push(separatorParts);
-    printedElements.push(group(print(childPath)));
+    printedElements.push(separatorParts, group(print(childPath)));
 
     separatorParts = [",", line];
     if (
