@@ -140,5 +140,5 @@ function formatVersion(version) {
 function replaceVersions(data) {
   return data
     .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
-    .replace(/prettier master/gi, `Prettier ${formatVersion(version)}`);
+    .replace(/prettier main/gi, `Prettier ${formatVersion(version)}`);
 }

@@ -229,7 +229,7 @@ const EditorSupportSection = () => (
     <div style={{ float: "right" }}>
       <span>Got more? </span>
       <a
-        href={`${siteConfig.githubUrl}/edit/master/website/data/editors.yml`}
+        href={`${siteConfig.githubUrl}/edit/main/website/data/editors.yml`}
         className="button"
       >
         Send a PR

@@ -30,7 +30,7 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/master/scripts/eslint-plugin-prettier-internal-rules/no-node-comments.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-node-comments.js",
     },
     messages: {
       [messageId]: "Do not access node.comments.",
