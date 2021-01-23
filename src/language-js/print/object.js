@@ -97,7 +97,7 @@ function printObject(path, options, print) {
   // interleaved in the source code. So we need to reorder them before
   // printing them.
   const propsAndLoc = [];
-  fields.forEach((field) => {
+  for (const field of fields) {
     path.each((childPath) => {
       const node = childPath.getValue();
       propsAndLoc.push({
@@ -106,7 +106,7 @@ function printObject(path, options, print) {
         loc: locStart(node),
       });
     }, field);
-  });
+  }
 
   /** @type {Doc[]} */
   let separatorParts = [];

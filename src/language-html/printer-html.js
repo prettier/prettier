@@ -1147,7 +1147,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];
-      value.split(interpolationRegex).forEach((part, index) => {
+      for (const [index, part] of value.split(interpolationRegex).entries()) {
         if (index % 2 === 0) {
           parts.push(replaceEndOfLineWith(part, literalline));
         } else {
@@ -1170,7 +1170,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
             parts.push("{{", replaceEndOfLineWith(part, literalline), "}}");
           }
         }
-      });
+      }
       return group(parts);
     }
   }

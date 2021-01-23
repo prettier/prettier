@@ -1119,7 +1119,7 @@ function shouldFlatten(parentOp, nodeOp) {
 }
 
 const PRECEDENCE = {};
-[
+for (const [i, tier] of [
   ["|>"],
   ["??"],
   ["||"],
@@ -1133,11 +1133,11 @@ const PRECEDENCE = {};
   ["+", "-"],
   ["*", "/", "%"],
   ["**"],
-].forEach((tier, i) => {
-  tier.forEach((op) => {
+].entries()) {
+  for (const op of tier) {
     PRECEDENCE[op] = i;
-  });
-});
+  }
+}
 
 function getPrecedence(op) {
   return PRECEDENCE[op];

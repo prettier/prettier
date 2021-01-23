@@ -184,7 +184,7 @@ function ngHtmlParser(
   const restoreNameAndValue = (node) => {
     if (node instanceof Element) {
       restoreName(node);
-      node.attrs.forEach((attr) => {
+      for (const attr of node.attrs) {
         restoreName(attr);
         if (!attr.valueSpan) {
           attr.value = null;
@@ -194,7 +194,7 @@ function ngHtmlParser(
             attr.value = attr.value.slice(1, -1);
           }
         }
-      });
+      }
     } else if (node instanceof Comment) {
       node.value = node.sourceSpan
         .toString()
@@ -225,7 +225,7 @@ function ngHtmlParser(
       if (normalizeAttributeName) {
         const CURRENT_HTML_ELEMENT_ATTRIBUTES =
           HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-        node.attrs.forEach((attr) => {
+        for (const attr of node.attrs) {
           if (!attr.namespace) {
             attr.name = lowerCaseIfFn(
               attr.name,
@@ -235,7 +235,7 @@ function ngHtmlParser(
                   lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
             );
           }
-        });
+        }
       }
     }
   };

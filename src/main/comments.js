@@ -70,9 +70,9 @@ function getSortedChildNodes(node, options, resultArray) {
     childNodesCache.set(node, resultArray);
   }
 
-  childNodes.forEach((childNode) => {
+  for (const childNode of childNodes) {
     getSortedChildNodes(childNode, options, resultArray);
-  });
+  }
 
   return resultArray;
 }
@@ -185,7 +185,7 @@ function attach(comments, ast, text, options) {
     isLastComment: comments.length - 1 === index,
   }));
 
-  decoratedComments.forEach((context, index) => {
+  for (const [index, context] of decoratedComments.entries()) {
     const {
       comment,
       precedingNode,
@@ -205,11 +205,11 @@ function attach(comments, ast, text, options) {
     ) {
       if (locStart(comment) - locStart(ast) <= 0) {
         addLeadingComment(ast, comment);
-        return;
+        continue;
       }
       if (locEnd(comment) - locEnd(ast) >= 0) {
         addTrailingComment(ast, comment);
-        return;
+        continue;
       }
     }
 
@@ -285,19 +285,19 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     }
-  });
+  }
 
   breakTies(tiesToBreak, text, options);
 
   if (!avoidAstMutation) {
-    comments.forEach((comment) => {
+    for (const comment of comments) {
       // These node references were useful for breaking ties, but we
       // don't need them anymore, and they create cycles in the AST that
       // may lead to infinite recursion if we don't delete them here.
       delete comment.precedingNode;
       delete comment.enclosingNode;
       delete comment.followingNode;
-    });
+    }
   }
 }
 
@@ -593,7 +593,7 @@ function ensureAllCommentsPrinted(astComments) {
     return;
   }
 
-  astComments.forEach((comment) => {
+  for (const comment of astComments) {
     if (!comment.printed) {
       throw new Error(
         'Comment "' +
@@ -602,7 +602,7 @@ function ensureAllCommentsPrinted(astComments) {
       );
     }
     delete comment.printed;
-  });
+  }
 }
 
 module.exports = {

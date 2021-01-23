@@ -119,7 +119,7 @@ function runPrettier(dir, args, options) {
   const testResult = (testOptions) => {
     testOptions = testOptions || {};
 
-    Object.keys(result).forEach((name) => {
+    for (const name of Object.keys(result)) {
       test(`(${name})`, () => {
         const value =
           // \r is trimmed from jest snapshots by default;
@@ -140,7 +140,7 @@ function runPrettier(dir, args, options) {
           expect(value).toMatchSnapshot();
         }
       });
-    });
+    }
 
     return result;
   };
