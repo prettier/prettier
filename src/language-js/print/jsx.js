@@ -352,12 +352,10 @@ function printJsxChildren(
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
         if (text.match(/\n/g).length > 1) {
-          parts.push("");
-          parts.push(hardline);
+          parts.push("", hardline);
         }
       } else {
-        parts.push("");
-        parts.push(jsxWhitespace);
+        parts.push("", jsxWhitespace);
       }
     } else {
       const printedChild = print(childPath);

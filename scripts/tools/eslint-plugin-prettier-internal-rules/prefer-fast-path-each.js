@@ -21,7 +21,7 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/master/scripts/eslint-plugin-prettier-internal-rules/require-json-extensions.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/require-json-extensions.js",
     },
     messages: {
       [messageId]: "Prefer `FastPath#each()` over `FastPath#map()`.",

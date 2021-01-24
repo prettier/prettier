@@ -70,6 +70,7 @@ rules:
   unicorn/explicit-length-check: error
   unicorn/new-for-builtins: error
   unicorn/no-array-for-each: error
+  unicorn/no-array-push-push: error
   unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
   unicorn/prefer-number-properties: error
