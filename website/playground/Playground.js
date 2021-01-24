@@ -163,6 +163,7 @@ class Playground extends React.Component {
             options={options}
             debugAst={editorState.showAst}
             debugDoc={editorState.showDoc}
+            debugComments={editorState.showComments}
             reformat={editorState.showSecondFormat}
           >
             {({ formatted, debug }) => {
@@ -224,6 +225,11 @@ class Playground extends React.Component {
                           onChange={editorState.toggleDoc}
                         />
                         <Checkbox
+                          label="show comments"
+                          checked={editorState.showComments}
+                          onChange={editorState.toggleComments}
+                        />
+                        <Checkbox
                           label="show second format"
                           checked={editorState.showSecondFormat}
                           onChange={editorState.toggleSecondFormat}
@@ -254,6 +260,12 @@ class Playground extends React.Component {
                       ) : null}
                       {editorState.showDoc ? (
                         <DebugPanel value={debug.doc || ""} />
+                      ) : null}
+                      {editorState.showComments ? (
+                        <DebugPanel
+                          value={debug.comments || ""}
+                          autoFold={util.getAstAutoFold(options.parser)}
+                        />
                       ) : null}
                       <OutputPanel
                         mode={util.getCodemirrorMode(options.parser)}

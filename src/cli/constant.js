@@ -132,6 +132,9 @@ const options = {
   "debug-print-doc": {
     type: "boolean",
   },
+  "debug-print-comments": {
+    type: "boolean",
+  },
   "debug-repeat": {
     // Repeat the formatting a few times and measure the average duration.
     type: "int",

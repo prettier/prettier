@@ -557,6 +557,7 @@ function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
+  comment.nodeDescription = describeNodeForDebugging(node);
 }
 
 function addLeadingComment(node, comment) {
@@ -636,6 +637,23 @@ function createGroupIdMapper(description) {
     }
     return groupIds.get(node);
   };
+}
+
+function describeNodeForDebugging(node) {
+  const nodeType = node.type || node.kind || "-none-";
+  let nodeName = String(
+    node.name ||
+      (node.id && (typeof node.id === "object" ? node.id.name : node.id)) ||
+      (node.key && (typeof node.key === "object" ? node.key.name : node.key)) ||
+      (node.value &&
+        (typeof node.value === "object" ? "" : String(node.value))) ||
+      node.operator ||
+      ""
+  );
+  if (nodeName.length > 20) {
+    nodeName = nodeName.slice(0, 19) + "…";
+  }
+  return nodeType + (nodeName ? " " + nodeName : "");
 }
 
 module.exports = {

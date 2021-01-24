@@ -136,7 +136,11 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
     return { formatted: result.formatted, cursorOffset };
   }
 
-  return { formatted: result.formatted, cursorOffset: -1 };
+  return {
+    formatted: result.formatted,
+    cursorOffset: -1,
+    comments: astComments,
+  };
 }
 
 function formatRange(originalText, opts) {
