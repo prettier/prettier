@@ -40,7 +40,7 @@
     "escape-string-regexp": "4.0.0",
     "espree": "7.3.1",
     "esutils": "2.0.3",
-    "fast-glob": "3.2.4",
+    "fast-glob": "3.2.5",
     "fast-json-stable-stringify": "2.1.0",
     "find-parent-dir": "0.3.0",
     "flow-parser": "0.143.1",
