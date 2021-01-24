@@ -89,6 +89,8 @@ Valid options:
 | ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
 
+Note that Prettier never unquotes numeric property names in TypeScript and Flow as the distinction between string and numeric keys is significant in these languages. See: [TypeScript](https://www.typescriptlang.org/play?#code/DYUwLgBAhhC8EG8IEYBcKA0EBM7sQF8AoUSAIzkQgHJlr1ktrt6dCiiATEAY2CgBOICKWhR0AaxABPAPYAzCGGkAHEAugBuLr35CR4CGTKSZG5Wo1ltRKDHjHtQA), [Flow](https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g).
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.
