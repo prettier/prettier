@@ -1,5 +1,7 @@
 "use strict";
 
+const last = require("lodash/last");
+
 const { isNonEmptyArray } = require("../common/util");
 const NODES_KEYS = {
   attrs: true,
@@ -80,9 +82,7 @@ class Node {
   }
 
   get lastChild() {
-    return isNonEmptyArray(this.children)
-      ? this.children[this.children.length - 1]
-      : null;
+    return last(this.children);
   }
 
   // for element and attribute
