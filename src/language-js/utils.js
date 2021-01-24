@@ -1250,27 +1250,24 @@ function hasIgnoreComment(path) {
 }
 
 const CommentCheckFlags = {
-  /** @type {number} Check comment is a leading comment */
+  /** Check comment is a leading comment */
   Leading: 1 << 1,
-  /** @type {number} Check comment is a trailing comment */
+  /** Check comment is a trailing comment */
   Trailing: 1 << 2,
-  /** @type {number} Check comment is a dangling comment */
+  /** Check comment is a dangling comment */
   Dangling: 1 << 3,
-  /** @type {number} Check comment is a block comment */
+  /** Check comment is a block comment */
   Block: 1 << 4,
-  /** @type {number} Check comment is a line comment */
+  /** Check comment is a line comment */
   Line: 1 << 5,
-  /** @type {number} Check comment is a `prettier-ignore` comment */
+  /** Check comment is a `prettier-ignore` comment */
   PrettierIgnore: 1 << 6,
-  /** @type {number} Check comment is the first attched comment */
+  /** Check comment is the first attached comment */
   First: 1 << 7,
-  /** @type {number} Check comment is the last attched comment */
+  /** Check comment is the last attached comment */
   Last: 1 << 8,
 };
 
-/**
- * @returns {function}
- */
 const getCommentTestFunction = (flags, fn) => {
   if (typeof flags === "function") {
     fn = flags;
@@ -1304,11 +1301,7 @@ function hasComment(node, flags, fn) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);
-  return test
-    ? node.comments.some((comment, index, comments) =>
-        test(comment, index, comments)
-      )
-    : true;
+  return test ? node.comments.some(test) : true;
 }
 
 /**
@@ -1322,11 +1315,7 @@ function getComments(node, flags, fn) {
     return [];
   }
   const test = getCommentTestFunction(flags, fn);
-  return test
-    ? node.comments.filter((comment, index, comments) =>
-        test(comment, index, comments)
-      )
-    : node.comments;
+  return test ? node.comments.filter(test) : node.comments;
 }
 
 /**
