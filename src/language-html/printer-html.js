@@ -1015,14 +1015,10 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        attributeTextToDoc(
-          value,
-          {
-            parser: "css",
-            __isHTMLStyleAttribute: true,
-          },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(value, {
+          parser: "css",
+          __isHTMLStyleAttribute: true,
+        })
       );
     }
   }
@@ -1056,35 +1052,23 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       return printMaybeHug(
-        attributeTextToDoc(
-          value,
-          {
-            parser: isVueEventBindingExpression(value)
-              ? "__js_expression"
-              : "__vue_event_binding",
-          },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(value, {
+          parser: isVueEventBindingExpression(value)
+            ? "__js_expression"
+            : "__vue_event_binding",
+        })
       );
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(
-          getValue(),
-          { parser: "__vue_expression" },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(getValue(), { parser: "__vue_expression" })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(
-          getValue(),
-          { parser: "__js_expression" },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(getValue(), { parser: "__js_expression" })
       );
     }
   }
@@ -1092,11 +1076,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      attributeTextToDoc(
-        code,
-        { ...opts, trailingComma: "none" },
-        { stripTrailingHardline: true }
-      );
+      attributeTextToDoc(code, { ...opts, trailingComma: "none" });
 
     /**
      *     *directive="angularDirective"
