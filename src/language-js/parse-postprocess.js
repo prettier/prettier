@@ -8,6 +8,7 @@ const {
 const createError = require("../common/parser-create-error");
 const { locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
+const isCommaToken = require("./tokens/is-comma-token");
 
 function postprocess(ast, options) {
   if (
@@ -105,6 +106,10 @@ function postprocess(ast, options) {
 
   ast = visitNode(ast, (node) => {
     switch (node.type) {
+      case "ArrayPattern":
+      case "ArrayExpression": {
+        return replaceNullElements(node, ast, options);
+      }
       // Espree
       case "ChainExpression": {
         return transformChainExpression(node.expression);
@@ -275,6 +280,41 @@ function includeShebang(ast, options) {
       range: [0, shebang.length],
     });
   }
+}
+
+// Replace holes in array with `{type: "Null"}`, so we can attach comments
+// The location is set to the location of `,` or `[` token before the hole
+// So it won't overlap the comment in case like `[/* comment */,/* comment */]`
+function replaceNullElements(node, ast, options) {
+  const { elements } = node;
+  if (elements.every((node) => node !== null)) {
+    return node;
+  }
+
+  const start = locStart(node);
+  const end = locEnd(node);
+  const tokens = ast.tokens.filter(
+    (token) =>
+      locStart(token) > start &&
+      locEnd(token) < end &&
+      isCommaToken(token, options)
+  );
+  let position = start;
+  for (const [index, element] of elements.entries()) {
+    if (element === null) {
+      elements[index] = {
+        type: "Null",
+        range: [position, position],
+      };
+    } else {
+      position = locEnd(element);
+    }
+    if (index !== elements.length - 1) {
+      const nextToken = tokens.find((token) => locStart(token) >= position);
+      position = locEnd(nextToken);
+    }
+  }
+  return node;
 }
 
 module.exports = postprocess;

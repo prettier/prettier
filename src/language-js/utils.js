@@ -907,7 +907,8 @@ function isSimpleCallArgument(node, depth) {
     node.type === "PrivateName" ||
     node.type === "PrivateIdentifier" ||
     node.type === "ArgumentPlaceholder" ||
-    node.type === "Import"
+    node.type === "Import" ||
+    node.type === "Null"
   ) {
     return true;
   }

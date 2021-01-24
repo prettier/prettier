@@ -50,7 +50,8 @@ function printArray(path, options, print) {
     //
     // Note that getLast returns null if the array is empty, but
     // we already check for an empty array just above so we are safe
-    const needsForcedTrailingComma = canHaveTrailingComma && lastElem === null;
+    const needsForcedTrailingComma =
+      canHaveTrailingComma && (lastElem === null || lastElem.type === "Null");
 
     const shouldBreak =
       !options.__inJestEach &&
