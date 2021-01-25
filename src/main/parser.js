@@ -27,9 +27,7 @@ function getParsers(options) {
   return parsers;
 }
 
-function resolveParser(opts, parsers) {
-  parsers = parsers || getParsers(opts);
-
+function resolveParser(opts, parsers = getParsers(opts)) {
   if (typeof opts.parser === "function") {
     // Custom parser API always works with JavaScript.
     return {
