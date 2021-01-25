@@ -227,7 +227,10 @@ function getFlowScalarLineContents(nodeType, content, options) {
             getLast(getLast(reduced)).endsWith("\\")
           )
         )
-          ? [...reduced.slice(0, -1), [...reduced.pop(), ...lineContentWords]]
+          ? [
+              ...reduced.slice(0, -1),
+              [...getLast(reduced), ...lineContentWords],
+            ]
           : [...reduced, lineContentWords],
       []
     )
