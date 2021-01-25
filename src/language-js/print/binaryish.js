@@ -196,7 +196,8 @@ function printBinaryishExpressions(
     // which is unique in that it is right-associative.)
     if (shouldFlatten(node.operator, node.left.operator)) {
       // Flatten them out by recursively calling this function.
-      parts = parts.concat(
+      parts = [
+        ...parts,
         path.call(
           (left) =>
             printBinaryishExpressions(
@@ -207,8 +208,8 @@ function printBinaryishExpressions(
               isInsideParenthesis
             ),
           "left"
-        )
-      );
+        ),
+      ];
     } else {
       parts.push(group(path.call(print, "left")));
     }

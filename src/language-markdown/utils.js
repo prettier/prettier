@@ -28,7 +28,8 @@ const INLINE_NODE_TYPES = [
   "inlineMath",
 ];
 
-const INLINE_NODE_WRAPPER_TYPES = [...INLINE_NODE_TYPES, 
+const INLINE_NODE_WRAPPER_TYPES = [
+  ...INLINE_NODE_TYPES,
   "tableCell",
   "paragraph",
   "heading",
@@ -208,7 +209,7 @@ function mapAst(ast, handler) {
     const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) =>
-        preorder(child, index, [newNode].concat(parentStack))
+        preorder(child, index, [newNode, ...parentStack])
       );
     }
 

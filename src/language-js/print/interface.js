@@ -63,9 +63,7 @@ function printInterface(path, options, print) {
     const printedExtends = extendsParts;
     if (shouldIndentOnlyHeritageClauses) {
       parts.push(
-        group(
-          partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-        )
+        group([...partsGroup, ifBreak(indent(printedExtends), printedExtends)])
       );
     } else {
       parts.push(group(indent([...partsGroup, ...printedExtends])));

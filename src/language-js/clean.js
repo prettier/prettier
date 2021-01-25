@@ -103,7 +103,7 @@ function clean(ast, newObj, parent) {
       .map((container) => container.expression);
 
     const quasis = templateLiterals.reduce(
-      (quasis, templateLiteral) => quasis.concat(templateLiteral.quasis),
+      (quasis, templateLiteral) => [...quasis, ...templateLiteral.quasis],
       []
     );
 

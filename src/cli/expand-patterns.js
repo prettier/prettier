@@ -130,9 +130,10 @@ function* expandPatternsInternal(context) {
       const filenames = flat(
         context.languages.map((lang) => lang.filenames || [])
       );
-      supportedFilesGlob = `**/{${extensions
-        .map((ext) => "*" + (ext[0] === "." ? ext : "." + ext))
-        .concat(filenames)}}`;
+      supportedFilesGlob = `**/{${[
+        ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
+        ...filenames,
+      ]}}`;
     }
     return supportedFilesGlob;
   }

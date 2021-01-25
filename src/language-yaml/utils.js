@@ -227,7 +227,7 @@ function getFlowScalarLineContents(nodeType, content, options) {
             getLast(getLast(reduced)).endsWith("\\")
           )
         )
-          ? [...reduced, reduced.pop().concat(lineContentWords)]
+          ? [...reduced, [...reduced.pop(), ...lineContentWords]]
           : [...reduced, lineContentWords],
       []
     )
@@ -281,7 +281,7 @@ function getBlockValueLineContents(
           lineContentWords.length > 0 &&
           !/^\s/.test(lineContentWords[0]) &&
           !/^\s|\s$/.test(getLast(reduced))
-            ? [...reduced, reduced.pop().concat(lineContentWords)]
+            ? [...reduced, [...reduced.pop(), ...lineContentWords]]
             : [...reduced, lineContentWords],
         []
       )
@@ -290,8 +290,8 @@ function getBlockValueLineContents(
           (reduced, word) =>
             // disallow trailing spaces
             reduced.length > 0 && /\s$/.test(getLast(reduced))
-              ? reduced.concat(reduced.pop() + " " + word)
-              : reduced.concat(word),
+              ? [...reduced, reduced.pop() + " " + word]
+              : [...reduced, word],
           []
         )
       )

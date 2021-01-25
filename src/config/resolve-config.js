@@ -155,8 +155,8 @@ function mergeOverrides(configResult, filePath) {
 
 // Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
 function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
-  const patternList = [].concat(patterns);
-  const excludedPatternList = [].concat(excludedPatterns || []);
+  const patternList = [...patterns];
+  const excludedPatternList = [...(excludedPatterns || [])];
   const opts = { matchBase: true, dot: true };
 
   return (

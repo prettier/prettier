@@ -331,7 +331,7 @@ function extractWhitespaces(ast /*, options*/) {
         // extract whitespace nodes
         .reduce((newChildren, child) => {
           if (child.type !== "text" || isWhitespaceSensitive) {
-            return newChildren.concat(child);
+            return [...newChildren, child];
           }
 
           const localChildren = [];
@@ -375,11 +375,14 @@ function extractWhitespaces(ast /*, options*/) {
             i !== children.length - 1 &&
             children[i + 1].type === TYPE_WHITESPACE;
 
-          return newChildren.concat({
-            ...child,
-            hasLeadingSpaces,
-            hasTrailingSpaces,
-          });
+          return [
+            ...newChildren,
+            {
+              ...child,
+              hasLeadingSpaces,
+              hasTrailingSpaces,
+            },
+          ];
         }, []),
     });
   });

@@ -73,7 +73,7 @@ function parseValueNode(valueNode, options) {
       for (let i = 0; i < groups.length; i++) {
         const group = groups[i];
         if (group.type === "comma_group") {
-          groupList = groupList.concat(group.groups);
+          groupList = [...groupList, ...group.groups];
         } else {
           groupList.push(group);
         }

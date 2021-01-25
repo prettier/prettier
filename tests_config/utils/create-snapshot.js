@@ -28,20 +28,18 @@ function createSnapshot(input, output, options, { codeOffset }) {
       ? (codeOffset ? " ".repeat(codeOffset - 1) + "|" : "") +
         " ".repeat(options.printWidth) +
         "| printWidth"
-      : [];
+      : "";
   return raw(
-    []
-      .concat(
-        printSeparator(separatorWidth, "options"),
-        printOptions(options),
-        printWidthIndicator,
-        printSeparator(separatorWidth, "input"),
-        input,
-        printSeparator(separatorWidth, "output"),
-        output,
-        printSeparator(separatorWidth)
-      )
-      .join("\n")
+    [
+      printSeparator(separatorWidth, "options"),
+      printOptions(options),
+      printWidthIndicator,
+      printSeparator(separatorWidth, "input"),
+      input,
+      printSeparator(separatorWidth, "output"),
+      output,
+      printSeparator(separatorWidth),
+    ].join("\n")
   );
 }
 

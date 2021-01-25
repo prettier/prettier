@@ -159,12 +159,14 @@ function printCallArguments(path, options, print) {
             hasEmptyLineFollowingFirstArg ? hardline : line,
             hasEmptyLineFollowingFirstArg ? hardline : "",
           ],
-        ].concat(printedArguments.slice(1));
+          ...printedArguments.slice(1),
+        ];
       }
       if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = printedArguments
-          .slice(0, -1)
-          .concat(argPath.call((p) => print(p, { expandLastArg: true })));
+        printedExpanded = [
+          ...printedArguments.slice(0, -1),
+          argPath.call((p) => print(p, { expandLastArg: true })),
+        ];
       }
     });
 
