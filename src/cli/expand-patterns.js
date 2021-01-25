@@ -57,7 +57,7 @@ function* expandPatternsInternal(context) {
     dot: true,
     ignore: Object.entries(silentlyIgnoredDirs)
       .filter(([, value]) => value)
-      .map((dir) => "**/" + dir),
+      .map(([dir]) => "**/" + dir),
   };
 
   let supportedFilesGlob;
