@@ -3,7 +3,7 @@ name: Prod
 on:
   push:
     branches:
-      - master
+      - main
       - patch-release
       - next
   pull_request:
@@ -31,7 +31,7 @@ jobs:
           restore-keys: |
             v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
             v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/master-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/main-
 
       - name: Build Package
         run: yarn build
@@ -44,7 +44,7 @@ jobs:
 
       # This step calls `git reset`
       # It should be the last step
-      # The cache step might saving the result of master branch, need investigate
+      # The cache step might saving the result of main branch, need investigate
       - name: Check Sizes
         if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
         uses: preactjs/compressed-size-action@2.1.0

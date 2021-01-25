@@ -57,7 +57,7 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/master/scripts/eslint-plugin-prettier-internal-rules/prefer-is-non-empty-array.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/prefer-is-non-empty-array.js",
     },
     messages: {
       [MESSAGE_ID]: "Please use `isNonEmptyArray()`.",

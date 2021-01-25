@@ -164,12 +164,12 @@ function printJestEachTemplateLiteral(path, options, print) {
       ...tableBody.filter((row) => row.cells.length > 0),
     ];
     for (const { cells } of table.filter((row) => !row.hasLineBreak)) {
-      cells.forEach((cell, index) => {
+      for (const [index, cell] of cells.entries()) {
         maxColumnWidths[index] = Math.max(
           maxColumnWidths[index],
           getStringWidth(cell)
         );
-      });
+      }
     }
 
     parts.push(

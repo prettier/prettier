@@ -645,7 +645,7 @@ function printRoot(path, options, print) {
   let ignoreStart = null;
 
   const { children } = path.getValue();
-  children.forEach((childNode, index) => {
+  for (const [index, childNode] of children.entries()) {
     switch (isPrettierIgnore(childNode)) {
       case "start":
         if (ignoreStart === null) {
@@ -665,7 +665,7 @@ function printRoot(path, options, print) {
         // do nothing
         break;
     }
-  });
+  }
 
   return printChildren(path, options, print, {
     processor: (childPath, index) => {

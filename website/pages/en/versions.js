@@ -15,12 +15,12 @@ const CWD = process.cwd();
 const versions = require(`${CWD}/versions.json`);
 
 const rootPackageJson = require(`${CWD}/../package.json`);
-const masterVersion = rootPackageJson.version;
-const isMasterDevVersion = masterVersion.endsWith("-dev");
-const devVersion = isMasterDevVersion ? masterVersion : null;
-const latestVersion = isMasterDevVersion
+const defaultBranchVersion = rootPackageJson.version;
+const isDefaultBranchDevVersion = defaultBranchVersion.endsWith("-dev");
+const devVersion = isDefaultBranchDevVersion ? defaultBranchVersion : null;
+const latestVersion = isDefaultBranchDevVersion
   ? rootPackageJson.devDependencies.prettier
-  : masterVersion;
+  : defaultBranchVersion;
 const [latestDocsVersion, ...pastDocsVersions] = versions;
 
 function Versions(props) {
@@ -60,7 +60,7 @@ function Versions(props) {
                   <a href={`${siteConfig.baseUrl}docs/en/next/index.html`}>
                     next
                   </a>{" "}
-                  (master)
+                  (main)
                 </td>
               </tr>
               {pastDocsVersions.length > 0 &&

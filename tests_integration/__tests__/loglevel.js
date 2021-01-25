@@ -44,9 +44,9 @@ function runPrettierWithLogLevel(logLevel, patterns) {
   const stderr = stripAnsi(result.stderr);
 
   if (patterns) {
-    patterns.forEach((pattern) => {
+    for (const pattern of patterns) {
       expect(stderr).toMatch(pattern);
-    });
+    }
   } else {
     expect(stderr).toMatch(/^\s*$/);
   }

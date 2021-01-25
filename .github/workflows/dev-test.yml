@@ -3,7 +3,7 @@ name: Dev
 on:
   push:
     branches:
-      - master
+      - main
       - patch-release
       - next
   pull_request:

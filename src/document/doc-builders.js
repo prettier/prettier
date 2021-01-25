@@ -42,7 +42,9 @@ function assertDoc(val) {
  */
 function concat(parts) {
   if (process.env.NODE_ENV !== "production") {
-    parts.forEach(assertDoc);
+    for (const part of parts) {
+      assertDoc(part);
+    }
   }
 
   // We cannot do this until we change `printJSXElement` to not
@@ -140,7 +142,9 @@ function conditionalGroup(states, opts) {
  */
 function fill(parts) {
   if (process.env.NODE_ENV !== "production") {
-    parts.forEach(assertDoc);
+    for (const part of parts) {
+      assertDoc(part);
+    }
   }
 
   return { type: "fill", parts };

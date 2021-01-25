@@ -113,8 +113,7 @@ function printTypeParameter(path, options, print) {
   parts.push(path.call(print, "name"));
 
   if (n.bound) {
-    parts.push(": ");
-    parts.push(path.call(print, "bound"));
+    parts.push(": ", path.call(print, "bound"));
   }
 
   if (n.constraint) {

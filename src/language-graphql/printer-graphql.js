@@ -581,8 +581,7 @@ function printInterfaces(path, options, print) {
       const hasComment = textBetween.includes("#");
       const separator = textBetween.replace(/#.*/g, "").trim();
 
-      parts.push(separator === "," ? "," : " &");
-      parts.push(hasComment ? line : " ");
+      parts.push(separator === "," ? "," : " &", hasComment ? line : " ");
     }
   }
 
