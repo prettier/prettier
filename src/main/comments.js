@@ -224,7 +224,7 @@ function attach(comments, ast, text, options) {
     }
 
     if (isOwnLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "own-line";
+      comment.placement = "ownLine";
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -242,7 +242,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
-      comment.placement = "end-of-line";
+      comment.placement = "endOfLine";
       if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
