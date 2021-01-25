@@ -640,7 +640,7 @@ function createGroupIdMapper(description) {
 }
 
 function describeNodeForDebugging(node) {
-  const nodeType = node.type || node.kind || "-none-";
+  const nodeType = node.type || node.kind || "(unknown type)";
   let nodeName = String(
     node.name ||
       (node.id && (typeof node.id === "object" ? node.id.name : node.id)) ||
