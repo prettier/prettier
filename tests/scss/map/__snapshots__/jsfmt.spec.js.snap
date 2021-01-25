@@ -1,5 +1,166 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`key-values.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+$map: (
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  ('key': 'value',),
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  ('list'),
+  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
+  ('list'),
+  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
+  ('key': 'value',),
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  1,
+);
+
+=====================================output=====================================
+$map: (
+  (
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value"
+): (
+    "key": "value"
+  ),
+  (
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value"
+): (
+    "list"
+  ),
+  (
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list"
+): (
+    "list"
+  ),
+  (
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list"
+): (
+    "key": "value"
+  ),
+  (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value"
+  ):
+    1
+);
+
+================================================================================
+`;
+
+exports[`key-values.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$map: (
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  ('key': 'value',),
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  ('list'),
+  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
+  ('list'),
+  ('list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list', 'list'):
+  ('key': 'value',),
+  ('key': 'value', 'key': 'value','key': 'value','key': 'value','key': 'value',):
+  1,
+);
+
+=====================================output=====================================
+$map: (
+  (
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value",
+): (
+    "key": "value",
+  ),
+  (
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value",
+  "key": "value",
+): (
+    "list",
+  ),
+  (
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+): (
+    "list",
+  ),
+  (
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+  "list",
+): (
+    "key": "value",
+  ),
+  (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+  ):
+    1,
+);
+
+================================================================================
+`;
+
 exports[`keys.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
