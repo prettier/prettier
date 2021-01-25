@@ -505,15 +505,16 @@ function printChildren(path, options, print) {
       }
     }
 
-    return [...prevParts].concat(
+    return [
+      ...prevParts,
       group([
         ...leadingParts,
         group([printChild(childPath), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),
-      nextParts
-    );
+      ...nextParts,
+    ];
   }, "children");
 
   function printChild(childPath) {
