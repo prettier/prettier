@@ -21,7 +21,7 @@ function getOptions(argv, detailedOptions) {
 
 function cliifyOptions(object, apiDetailedOptionMap) {
   return fromPairs(
-    Object.keys(object || {}).map((key, value) => {
+    Object.entries(object || {}).map(([key, value]) => {
       const apiOption = apiDetailedOptionMap[key];
       const cliKey = apiOption ? apiOption.name : key;
 

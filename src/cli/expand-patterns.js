@@ -56,7 +56,7 @@ function* expandPatternsInternal(context) {
   const globOptions = {
     dot: true,
     ignore: Object.entries(silentlyIgnoredDirs)
-      .filter(([, value]) => value)
+      .filter(([, ignored]) => ignored)
       .map(([dir]) => "**/" + dir),
   };
 
