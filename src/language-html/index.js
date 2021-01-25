@@ -17,7 +17,8 @@ const languages = [
     since: "1.15.0",
     parsers: ["html"],
     vscodeLanguageIds: ["html"],
-    extensions: [...data.extensions, 
+    extensions: [
+      ...data.extensions,
       ".mjml", // MJML is considered XML in Linguist but it should be formatted as HTML
     ],
   })),
