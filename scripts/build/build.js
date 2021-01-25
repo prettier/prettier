@@ -97,9 +97,7 @@ async function createBundle(bundleConfig, cache, options) {
         const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
         sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
       }
-      process.stdout.write(
-        fitTerminal(output, [...sizeTexts.join(", "), " "])
-      );
+      process.stdout.write(fitTerminal(output, `${sizeTexts.join(", ")} `));
     }
 
     console.log(status.DONE);

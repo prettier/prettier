@@ -198,7 +198,7 @@ function printBinaryishExpressions(
       // Flatten them out by recursively calling this function.
       parts = [
         ...parts,
-        path.call(
+        ...path.call(
           (left) =>
             printBinaryishExpressions(
               left,

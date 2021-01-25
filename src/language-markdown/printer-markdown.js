@@ -840,6 +840,11 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
+/**
+ * @param {string} url
+ * @param {string[] | string} [dangerousCharOrChars]
+ * @returns {string}
+ */
 function printUrl(url, dangerousCharOrChars = []) {
   const dangerousChars = [
     " ",
