@@ -28,11 +28,11 @@ const INLINE_NODE_TYPES = [
   "inlineMath",
 ];
 
-const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
+const INLINE_NODE_WRAPPER_TYPES = [...INLINE_NODE_TYPES, 
   "tableCell",
   "paragraph",
   "heading",
-]);
+];
 
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);

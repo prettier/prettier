@@ -68,7 +68,7 @@ function printInterface(path, options, print) {
         )
       );
     } else {
-      parts.push(group(indent(partsGroup.concat(printedExtends))));
+      parts.push(group(indent([...partsGroup, ...printedExtends])));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);

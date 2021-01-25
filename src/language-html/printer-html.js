@@ -505,8 +505,7 @@ function printChildren(path, options, print) {
       }
     }
 
-    return [].concat(
-      prevParts,
+    return [...prevParts].concat(
       group([
         ...leadingParts,
         group([printChild(childPath), ...trailingParts], {

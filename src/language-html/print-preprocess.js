@@ -361,7 +361,7 @@ function extractWhitespaces(ast /*, options*/) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
 
-          return newChildren.concat(localChildren);
+          return [...newChildren, ...localChildren];
         }, [])
         // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
         .reduce((newChildren, child, i, children) => {

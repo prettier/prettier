@@ -98,7 +98,7 @@ async function createBundle(bundleConfig, cache, options) {
         sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
       }
       process.stdout.write(
-        fitTerminal(output, sizeTexts.join(", ").concat(" "))
+        fitTerminal(output, [...sizeTexts.join(", "), " "])
       );
     }
 
