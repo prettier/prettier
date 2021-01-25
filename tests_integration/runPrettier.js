@@ -6,9 +6,8 @@ const stripAnsi = require("strip-ansi");
 const { SynchronousPromise } = require("synchronous-promise");
 const { prettierCli, thirdParty } = require("./env");
 
-function runPrettier(dir, args, options) {
-  args = args || [];
-  options = options || {};
+function runPrettier(dir, args = [], options = {}) {
+  args = Array.isArray(args) ? args : [args];
 
   let status;
   let stdout = "";
