@@ -874,6 +874,8 @@ function genericPrint(path, options, print) {
                   isKeyValuePairNode(node) &&
                   node.type === "value-comma_group" &&
                   node.groups &&
+                  (!node.groups[0] ||
+                    node.groups[0].type !== "value-paren_group") &&
                   node.groups[2] &&
                   node.groups[2].type === "value-paren_group"
                 ) {

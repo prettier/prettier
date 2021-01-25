@@ -23,51 +23,55 @@ $map: (
 =====================================output=====================================
 $map: (
   (
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value"
-): (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
     "key": "value"
-  ),
+  ):
+    (
+      "key": "value"
+    ),
   (
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value"
-): (
-    "list"
-  ),
-  (
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list"
-): (
-    "list"
-  ),
-  (
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list"
-): (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
     "key": "value"
-  ),
+  ):
+    (
+      "list"
+    ),
+  (
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list"
+  ):
+    (
+      "list"
+    ),
+  (
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list"
+  ):
+    (
+      "key": "value"
+    ),
   (
     "key": "value",
     "key": "value",
@@ -103,51 +107,55 @@ $map: (
 =====================================output=====================================
 $map: (
   (
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value",
-): (
     "key": "value",
-  ),
-  (
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value",
-  "key": "value",
-): (
-    "list",
-  ),
-  (
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-): (
-    "list",
-  ),
-  (
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-  "list",
-): (
     "key": "value",
-  ),
+    "key": "value",
+    "key": "value",
+    "key": "value",
+  ):
+    (
+      "key": "value",
+    ),
+  (
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+    "key": "value",
+  ):
+    (
+      "list",
+    ),
+  (
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+  ):
+    (
+      "list",
+    ),
+  (
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+    "list",
+  ):
+    (
+      "key": "value",
+    ),
   (
     "key": "value",
     "key": "value",
