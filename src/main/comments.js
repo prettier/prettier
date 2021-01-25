@@ -597,7 +597,7 @@ function printAnchoredDanglingComments(
           skipSpaces(originalText, locStart(comment), { backwards: true }) !==
             locEnd(printedComments[i - 1].comment) + 1));
     const endOfLine = hasNewline(originalText, locEnd(comment));
-    const isBlock = !printer.isBlockComment || printer.isBlockComment(comment);
+    const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
     if (!startOfLine) {
       doc = [" ", doc];
