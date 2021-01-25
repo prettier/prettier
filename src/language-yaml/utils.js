@@ -284,7 +284,10 @@ function getBlockValueLineContents(
           lineContentWords.length > 0 &&
           !/^\s/.test(lineContentWords[0]) &&
           !/^\s|\s$/.test(getLast(reduced))
-            ? [...reduced, [...reduced.pop(), ...lineContentWords]]
+            ? [
+                ...reduced.slice(0, -1),
+                [...getLast(reduced), ...lineContentWords],
+              ]
             : [...reduced, lineContentWords],
         []
       )
@@ -293,7 +296,7 @@ function getBlockValueLineContents(
           (reduced, word) =>
             // disallow trailing spaces
             reduced.length > 0 && /\s$/.test(getLast(reduced))
-              ? [...reduced, reduced.pop() + " " + word]
+              ? [...reduced.slice(0, -1), getLast(reduced) + " " + word]
               : [...reduced, word],
           []
         )
