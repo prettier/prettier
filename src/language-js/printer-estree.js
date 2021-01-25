@@ -54,7 +54,7 @@ const { printFlow } = require("./print/flow");
 const { printTypescript } = require("./print/typescript");
 const {
   printOptionalToken,
-  printBindExpressionCallee,
+  printBindExpression,
   printTypeAnnotation,
   adjustClause,
 } = require("./print/misc");
@@ -306,17 +306,7 @@ function printPathNoParens(path, options, print, args) {
     case "MetaProperty":
       return [path.call(print, "meta"), ".", path.call(print, "property")];
     case "BindExpression":
-      if (n.object) {
-        parts.push(path.call(print, "object"));
-      }
-
-      parts.push(
-        group(
-          indent([softline, printBindExpressionCallee(path, options, print)])
-        )
-      );
-
-      return parts;
+      return printBindExpression(path, options, print);
     case "Identifier": {
       return [
         n.name,

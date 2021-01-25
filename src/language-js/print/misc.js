@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { indent, join, line },
+  builders: { indent, join, line, group, softline },
 } = require("../../document");
 const { isFlowAnnotationComment } = require("../utils");
 
@@ -62,8 +62,11 @@ function printTypeAnnotation(path, options, print) {
   ];
 }
 
-function printBindExpressionCallee(path, options, print) {
-  return ["::", path.call(print, "callee")];
+function printBindExpression(path, options, print) {
+  const node = path.getValue();
+  const printedObject = node.object ? path.call(print, "object") : "";
+  const printedCallee = ["::", path.call(print, "callee")];
+  return [printedObject, group(indent([softline, ...printedCallee]))];
 }
 
 function printTypeScriptModifiers(path, options, print) {
@@ -89,7 +92,7 @@ function adjustClause(node, clause, forceSpace) {
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
-  printBindExpressionCallee,
+  printBindExpression,
   printTypeScriptModifiers,
   printTypeAnnotation,
   adjustClause,
