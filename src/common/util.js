@@ -554,7 +554,7 @@ function getStringWidth(text) {
 }
 
 function addCommentHelper(node, comment) {
-  if (node.type === "Prettier:CommentAnchor") {
+  if (node.type === "::CommentAnchor") {
     addDanglingComment(
       node.enclosingNode,
       comment,

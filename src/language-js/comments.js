@@ -970,12 +970,7 @@ function nextIndexOf(char, text, startIdx) {
 }
 
 function createCommentAnchorPseudoNode(enclosingNode, name, loc) {
-  return {
-    type: "Prettier:CommentAnchor",
-    enclosingNode,
-    name,
-    range: [loc, loc],
-  };
+  return { type: "::CommentAnchor", enclosingNode, name, range: [loc, loc] };
 }
 
 /**
