@@ -645,7 +645,7 @@ function printRoot(path, options, print) {
   let ignoreStart = null;
 
   const { children } = path.getValue();
-  children.forEach((childNode, index) => {
+  for (const [index, childNode] of children.entries()) {
     switch (isPrettierIgnore(childNode)) {
       case "start":
         if (ignoreStart === null) {
@@ -665,7 +665,7 @@ function printRoot(path, options, print) {
         // do nothing
         break;
     }
-  });
+  }
 
   return printChildren(path, options, print, {
     processor: (childPath, index) => {
@@ -721,7 +721,7 @@ function printChildren(path, options, print, events) {
         options,
       };
 
-      if (!shouldNotPrePrintHardline(childNode, data)) {
+      if (shouldPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
         // Can't find a case to pass `shouldPrePrintTripleHardline`
@@ -772,7 +772,7 @@ function isPrettierIgnore(node) {
   return match === null ? false : match[1] ? match[1] : "next";
 }
 
-function shouldNotPrePrintHardline(node, data) {
+function shouldPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
   const isInlineNode = INLINE_NODE_TYPES.includes(node.type);
 
@@ -780,7 +780,7 @@ function shouldNotPrePrintHardline(node, data) {
     node.type === "html" &&
     INLINE_NODE_WRAPPER_TYPES.includes(data.parentNode.type);
 
-  return isFirstNode || isInlineNode || isInlineHTML;
+  return !isFirstNode && !isInlineNode && !isInlineHTML;
 }
 
 function shouldPrePrintDoubleHardline(node, data) {

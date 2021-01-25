@@ -85,7 +85,7 @@ function _resolveConfig(filePath, opts, sync) {
       ...mergeOverrides(result, filePath),
     };
 
-    ["plugins", "pluginSearchDirs"].forEach((optionName) => {
+    for (const optionName of ["plugins", "pluginSearchDirs"]) {
       if (Array.isArray(merged[optionName])) {
         merged[optionName] = merged[optionName].map((value) =>
           typeof value === "string" && value.startsWith(".") // relative path
@@ -93,7 +93,7 @@ function _resolveConfig(filePath, opts, sync) {
             : value
         );
       }
-    });
+    }
 
     if (!result && !editorConfigured) {
       return null;

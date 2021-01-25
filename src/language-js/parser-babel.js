@@ -164,6 +164,9 @@ const messagesShouldThrow = new Set([
   // FlowErrors.UnexpectedTypeParameterBeforeAsyncArrowFunction
   // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/plugins/flow.js#L118
   "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
+  // Rethrow on omitted call arguments: foo("a", , "b");
+  // ErrorMessages.UnexpectedToken
+  "Unexpected token ','",
 ]);
 
 function shouldRethrowRecoveredError(error) {
@@ -175,7 +178,9 @@ function shouldRethrowRecoveredError(error) {
 function parseJson(text, parsers, opts) {
   const ast = parseExpression(text, parsers, opts);
 
-  ast.comments.forEach(assertJsonNode);
+  for (const comment of ast.comments) {
+    assertJsonNode(comment);
+  }
   assertJsonNode(ast);
 
   return ast;
@@ -184,9 +189,15 @@ function parseJson(text, parsers, opts) {
 function assertJsonNode(node, parent) {
   switch (node.type) {
     case "ArrayExpression":
-      return node.elements.forEach(assertJsonChildNode);
+      for (const element of node.elements) {
+        assertJsonChildNode(element);
+      }
+      return;
     case "ObjectExpression":
-      return node.properties.forEach(assertJsonChildNode);
+      for (const property of node.properties) {
+        assertJsonChildNode(property);
+      }
+      return;
     case "ObjectProperty":
       if (node.computed) {
         throw createJsonError("computed");
@@ -195,7 +206,10 @@ function assertJsonNode(node, parent) {
       if (node.shorthand) {
         throw createJsonError("shorthand");
       }
-      return [node.key, node.value].forEach(assertJsonChildNode);
+
+      assertJsonChildNode(node.key);
+      assertJsonChildNode(node.value);
+      return;
     case "UnaryExpression":
       switch (node.operator) {
         case "+":

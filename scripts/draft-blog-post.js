@@ -121,8 +121,10 @@ function printEntries({ title, filter }) {
   for (const { entries = [], title } of categories) {
     const filteredEntries = entries.filter(filter);
     if (filteredEntries.length > 0) {
-      result.push("### " + title);
-      result.push(...filteredEntries.map((entry) => entry.content));
+      result.push(
+        "### " + title,
+        ...filteredEntries.map((entry) => entry.content)
+      );
     }
   }
 
@@ -140,5 +142,5 @@ function formatVersion(version) {
 function replaceVersions(data) {
   return data
     .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
-    .replace(/prettier master/gi, `Prettier ${formatVersion(version)}`);
+    .replace(/prettier main/gi, `Prettier ${formatVersion(version)}`);
 }

@@ -34,6 +34,6 @@
 // Prettier stable
 foo ?? baz || baz;
 
-// Prettier master
+// Prettier main
 (foo ?? baz) || baz;
 ```

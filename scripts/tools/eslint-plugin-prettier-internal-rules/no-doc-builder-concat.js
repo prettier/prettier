@@ -14,7 +14,7 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/master/scripts/eslint-plugin-prettier-internal-rules/no-doc-builder-concat.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-doc-builder-concat.js",
     },
     messages: {
       [messageId]: "Use array directly instead of `concat([])`",

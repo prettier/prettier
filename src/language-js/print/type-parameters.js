@@ -12,15 +12,10 @@ const {
   shouldPrintComma,
   getFunctionParameters,
 } = require("../utils");
+const { createGroupIdMapper } = require("../../common/util");
 const { shouldHugType } = require("./type-annotation");
 
-const typeParametersGroupIds = new WeakMap();
-function getTypeParametersGroupId(node) {
-  if (!typeParametersGroupIds.has(node)) {
-    typeParametersGroupIds.set(node, Symbol("typeParameters"));
-  }
-  return typeParametersGroupIds.get(node);
-}
+const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
@@ -118,8 +113,7 @@ function printTypeParameter(path, options, print) {
   parts.push(path.call(print, "name"));
 
   if (n.bound) {
-    parts.push(": ");
-    parts.push(path.call(print, "bound"));
+    parts.push(": ", path.call(print, "bound"));
   }
 
   if (n.constraint) {

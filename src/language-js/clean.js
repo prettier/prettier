@@ -68,7 +68,7 @@ function clean(ast, newObj, parent) {
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
       ast.type === "ClassMethod" ||
-      ast.type === "FieldDefinition" ||
+      ast.type === "PropertyDefinition" ||
       ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&
@@ -107,7 +107,9 @@ function clean(ast, newObj, parent) {
       []
     );
 
-    quasis.forEach((q) => delete q.value);
+    for (const q of quasis) {
+      delete q.value;
+    }
   }
 
   // CSS template literals in css prop
@@ -117,7 +119,9 @@ function clean(ast, newObj, parent) {
     ast.value.type === "JSXExpressionContainer" &&
     ast.value.expression.type === "TemplateLiteral"
   ) {
-    newObj.value.expression.quasis.forEach((q) => delete q.value);
+    for (const q of newObj.value.expression.quasis) {
+      delete q.value;
+    }
   }
 
   // We change quotes
@@ -139,7 +143,10 @@ function clean(ast, newObj, parent) {
     expression.arguments.length === 1
   ) {
     const astProps = ast.expression.arguments[0].properties;
-    newObj.expression.arguments[0].properties.forEach((prop, index) => {
+    for (const [
+      index,
+      prop,
+    ] of newObj.expression.arguments[0].properties.entries()) {
       let templateLiteral = null;
 
       switch (astProps[index].key.name) {
@@ -156,9 +163,11 @@ function clean(ast, newObj, parent) {
       }
 
       if (templateLiteral) {
-        templateLiteral.quasis.forEach((q) => delete q.value);
+        for (const q of templateLiteral.quasis) {
+          delete q.value;
+        }
       }
-    });
+    }
   }
 
   // styled-components, graphql, markdown
@@ -174,7 +183,9 @@ function clean(ast, newObj, parent) {
           ast.tag.name === "html")) ||
       ast.tag.type === "CallExpression")
   ) {
-    newObj.quasi.quasis.forEach((quasi) => delete quasi.value);
+    for (const quasi of newObj.quasi.quasis) {
+      delete quasi.value;
+    }
   }
   if (ast.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
@@ -195,17 +206,19 @@ function clean(ast, newObj, parent) {
       hasLanguageComment ||
       (parent.type === "CallExpression" && parent.callee.name === "graphql")
     ) {
-      newObj.quasis.forEach((quasi) => delete quasi.value);
+      for (const quasi of newObj.quasis) {
+        delete quasi.value;
+      }
     }
 
     // TODO: check parser
     // `flow` and `typescript` don't have `leadingComments`
     if (!ast.leadingComments) {
-      newObj.quasis.forEach((quasi) => {
+      for (const quasi of newObj.quasis) {
         if (quasi.value) {
           delete quasi.value.cooked;
         }
-      });
+      }
     }
   }
 

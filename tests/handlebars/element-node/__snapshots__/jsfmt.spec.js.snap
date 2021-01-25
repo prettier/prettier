@@ -43,6 +43,8 @@ printWidth: 80
 <div></div>
 <img />
 
+<MyComponent @prop={{true}} @prop2={{true}} @prop3={{true}} @prop4={{true}} as |thing|></MyComponent>
+
 =====================================output=====================================
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
@@ -80,5 +82,13 @@ printWidth: 80
 
 <div></div>
 <img />
+
+<MyComponent
+  @prop={{true}}
+  @prop2={{true}}
+  @prop3={{true}}
+  @prop4={{true}}
+  as |thing|
+/>
 ================================================================================
 `;
