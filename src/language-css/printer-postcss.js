@@ -532,17 +532,9 @@ function genericPrint(path, options, print) {
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
-        const iNode = node.groups[i];
-        if (
-          iNode.type === "value-paren_group" &&
-          isKeyInValuePairNode(iNode, node)
-        ) {
-          parts.push(dedent(printed[i]));
-        } else {
-          parts.push(printed[i]);
-        }
-
+        parts.push(printed[i]);
         const iPrevNode = node.groups[i - 1];
+        const iNode = node.groups[i];
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
 
@@ -864,8 +856,9 @@ function genericPrint(path, options, print) {
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
+      const isKey = isKeyInValuePairNode(node, parentNode);
 
-      return group(
+      const printed = group(
         [
           node.open ? path.call(print, "open") : "",
           indent([
@@ -906,9 +899,11 @@ function genericPrint(path, options, print) {
           node.close ? path.call(print, "close") : "",
         ],
         {
-          shouldBreak: isSCSSMapItem && !isKeyInValuePairNode(node, parentNode),
+          shouldBreak: isSCSSMapItem && !isKey,
         }
       );
+
+      return isKey ? dedent(printed) : printed;
     }
     case "value-func": {
       return [
