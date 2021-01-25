@@ -86,9 +86,9 @@ function normalize(options, opts) {
 
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
-  for (const k of Object.keys(mixedDefaults)) {
+  for (const [k, value] of Object.entries(mixedDefaults)) {
     if (rawOptions[k] == null) {
-      rawOptions[k] = mixedDefaults[k];
+      rawOptions[k] = value;
     }
   }
 
