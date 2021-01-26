@@ -9,6 +9,11 @@ function clean(ast, newNode /*, parent*/) {
     }
     newNode.chars = trimmed;
   }
+
+  // `class` is reformatted
+  if (ast.type === "AttrNode" && ast.name === "class") {
+    delete newNode.value;
+  }
 }
 clean.ignoredProperties = new Set(["loc", "selfClosing"]);
 
