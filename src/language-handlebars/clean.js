@@ -11,7 +11,7 @@ function clean(ast, newNode /*, parent*/) {
   }
 
   // `class` is reformatted
-  if (ast.type === "AttrNode" && ast.name === "class") {
+  if (ast.type === "AttrNode" && ast.name.toLowerCase() === "class") {
     delete newNode.value;
   }
 }
