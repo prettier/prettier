@@ -55,9 +55,9 @@ function* expandPatternsInternal(context) {
 
   const globOptions = {
     dot: true,
-    ignore: Object.keys(silentlyIgnoredDirs)
-      .filter((dir) => silentlyIgnoredDirs[dir])
-      .map((dir) => "**/" + dir),
+    ignore: Object.entries(silentlyIgnoredDirs)
+      .filter(([, ignored]) => ignored)
+      .map(([dir]) => "**/" + dir),
   };
 
   let supportedFilesGlob;

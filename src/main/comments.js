@@ -50,16 +50,16 @@ function getSortedChildNodes(node, options, resultArray) {
     (printer.getCommentChildNodes &&
       printer.getCommentChildNodes(node, options)) ||
     (typeof node === "object" &&
-      Object.keys(node)
+      Object.entries(node)
         .filter(
-          (n) =>
+          ([n]) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
             n !== "followingNode" &&
             n !== "tokens" &&
             n !== "comments"
         )
-        .map((n) => node[n]));
+        .map(([, value]) => value));
 
   if (!childNodes) {
     return;
