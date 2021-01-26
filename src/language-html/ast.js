@@ -1,5 +1,6 @@
 "use strict";
 
+const fromPairs = require("lodash/fromPairs");
 const { isNonEmptyArray } = require("../common/util");
 const NODES_KEYS = {
   attrs: true,
@@ -8,8 +9,7 @@ const NODES_KEYS = {
 
 class Node {
   constructor(props = {}) {
-    for (const key of Object.keys(props)) {
-      const value = props[key];
+    for (const [key, value] of Object.entries(props)) {
       if (key in NODES_KEYS) {
         this._setNodes(key, value);
       } else {
@@ -123,10 +123,13 @@ function cloneAndUpdateNodes(nodes, parent) {
 }
 
 function setNonEnumerableProperties(obj, props) {
-  const descriptors = Object.keys(props).reduce((reduced, key) => {
-    reduced[key] = { value: props[key], enumerable: false };
-    return reduced;
-  }, {});
+  const descriptors = fromPairs(
+    Object.entries(props).map(([key, value]) => [
+      key,
+      { value, enumerable: false },
+    ])
+  );
+
   Object.defineProperties(obj, descriptors);
 }
 

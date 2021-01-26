@@ -64,7 +64,7 @@ function htmlToJsx() {
 
 function frontMatter() {
   const proto = this.Parser.prototype;
-  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
+  proto.blockMethods = ["frontMatter", ...proto.blockMethods];
   proto.blockTokenizers.frontMatter = tokenizer;
 
   function tokenizer(eat, value) {

@@ -193,7 +193,7 @@ function genericPrint(path, options, printPath, args) {
   }
 
   if (decorators.length > 0) {
-    return group(decorators.concat(parts));
+    return group([...decorators, ...parts]);
   }
   return parts;
 }

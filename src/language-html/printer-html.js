@@ -228,13 +228,13 @@ function genericPrint(path, options, print) {
     case "element":
     case "ieConditionalComment": {
       if (shouldPreserveContent(node, options)) {
-        return [].concat(
+        return [
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          replaceEndOfLineWith(getNodeContent(node, options), literalline),
-          printClosingTag(node, options),
-          printClosingTagSuffix(node, options)
-        );
+          ...replaceEndOfLineWith(getNodeContent(node, options), literalline),
+          ...printClosingTag(node, options),
+          printClosingTagSuffix(node, options),
+        ];
       }
       /**
        * do not break:
@@ -505,25 +505,25 @@ function printChildren(path, options, print) {
       }
     }
 
-    return [].concat(
-      prevParts,
+    return [
+      ...prevParts,
       group([
         ...leadingParts,
         group([printChild(childPath), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),
-      nextParts
-    );
+      ...nextParts,
+    ];
   }, "children");
 
   function printChild(childPath) {
     const child = childPath.getValue();
 
     if (hasPrettierIgnore(child)) {
-      return [].concat(
+      return [
         printOpeningTagPrefix(child, options),
-        replaceEndOfLineWith(
+        ...replaceEndOfLineWith(
           options.originalText.slice(
             locStart(child) +
               (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
@@ -536,8 +536,8 @@ function printChildren(path, options, print) {
           ),
           literalline
         ),
-        printClosingTagSuffix(child, options)
-      );
+        printClosingTagSuffix(child, options),
+      ];
     }
 
     return print(childPath);

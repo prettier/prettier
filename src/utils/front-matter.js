@@ -16,8 +16,7 @@ const DELIMITER_MAP = {
 
 function parse(text) {
   const startDelimiterRegex = Object.keys(DELIMITER_MAP).map(escape).join("|");
-  const endDelimiterRegex = Object.keys(DELIMITER_MAP)
-    .concat(YAML_END_DELIMITER)
+  const endDelimiterRegex = [...Object.keys(DELIMITER_MAP), YAML_END_DELIMITER]
     .map(escape)
     .join("|");
 

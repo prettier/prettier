@@ -55,9 +55,9 @@ function* expandPatternsInternal(context) {
 
   const globOptions = {
     dot: true,
-    ignore: Object.keys(silentlyIgnoredDirs)
-      .filter((dir) => silentlyIgnoredDirs[dir])
-      .map((dir) => "**/" + dir),
+    ignore: Object.entries(silentlyIgnoredDirs)
+      .filter(([, ignored]) => ignored)
+      .map(([dir]) => "**/" + dir),
   };
 
   let supportedFilesGlob;
@@ -130,9 +130,10 @@ function* expandPatternsInternal(context) {
       const filenames = flat(
         context.languages.map((lang) => lang.filenames || [])
       );
-      supportedFilesGlob = `**/{${extensions
-        .map((ext) => "*" + (ext[0] === "." ? ext : "." + ext))
-        .concat(filenames)}}`;
+      supportedFilesGlob = `**/{${[
+        ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
+        ...filenames,
+      ]}}`;
     }
     return supportedFilesGlob;
   }

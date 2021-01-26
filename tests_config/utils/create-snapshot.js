@@ -24,23 +24,23 @@ function createSnapshot(input, output, options, { codeOffset }) {
   const separatorWidth = 80;
   const printWidthIndicator =
     options.printWidth > 0 && Number.isFinite(options.printWidth)
-      ? (codeOffset ? " ".repeat(codeOffset - 1) + "|" : "") +
-        " ".repeat(options.printWidth) +
-        "| printWidth"
+      ? [
+          (codeOffset ? " ".repeat(codeOffset - 1) + "|" : "") +
+            " ".repeat(options.printWidth) +
+            "| printWidth",
+        ]
       : [];
   return raw(
-    []
-      .concat(
-        printSeparator(separatorWidth, "options"),
-        printOptions(options),
-        printWidthIndicator,
-        printSeparator(separatorWidth, "input"),
-        input,
-        printSeparator(separatorWidth, "output"),
-        output,
-        printSeparator(separatorWidth)
-      )
-      .join("\n")
+    [
+      printSeparator(separatorWidth, "options"),
+      printOptions(options),
+      ...printWidthIndicator,
+      printSeparator(separatorWidth, "input"),
+      input,
+      printSeparator(separatorWidth, "output"),
+      output,
+      printSeparator(separatorWidth),
+    ].join("\n")
   );
 }
 

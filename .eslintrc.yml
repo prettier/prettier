@@ -76,6 +76,7 @@ rules:
   unicorn/prefer-includes: error
   unicorn/prefer-number-properties: error
   unicorn/prefer-regexp-test: error
+  unicorn/prefer-spread: error
   unicorn/prefer-string-slice: error
 overrides:
   - files:

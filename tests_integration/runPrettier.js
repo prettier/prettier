@@ -7,6 +7,8 @@ const { SynchronousPromise } = require("synchronous-promise");
 const { prettierCli, thirdParty } = require("./env");
 
 function runPrettier(dir, args = [], options = {}) {
+  args = Array.isArray(args) ? args : [args];
+
   let status;
   let stdout = "";
   let stderr = "";
@@ -63,7 +65,7 @@ function runPrettier(dir, args = [], options = {}) {
   process.chdir(normalizeDir(dir));
   process.stdin.isTTY = !!options.isTTY;
   process.stdout.isTTY = !!options.stdoutIsTTY;
-  process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
+  process.argv = ["path/to/node", "path/to/prettier/bin", ...args];
 
   jest.resetModules();
 

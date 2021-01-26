@@ -148,7 +148,7 @@ function createUsage(context) {
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
-  return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
+  return [constant.usageSummary, ...optionsUsage, ""].join("\n\n");
 }
 
 function createDetailedUsage(context, flag) {
@@ -176,11 +176,8 @@ function createDetailedUsage(context, flag) {
 
   const pluginDefaults =
     option.pluginDefaults && Object.keys(option.pluginDefaults).length > 0
-      ? `\nPlugin defaults:${Object.keys(option.pluginDefaults).map(
-          (key) =>
-            `\n* ${key}: ${createDefaultValueDisplay(
-              option.pluginDefaults[key]
-            )}`
+      ? `\nPlugin defaults:${Object.entries(option.pluginDefaults).map(
+          ([key, value]) => `\n* ${key}: ${createDefaultValueDisplay(value)}`
         )}`
       : "";
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
