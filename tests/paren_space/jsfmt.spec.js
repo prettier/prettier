@@ -1,1 +1,3 @@
-run_spec(__dirname, ["babel"], { parenSpacing: true });
+run_spec(__dirname, ["babel", "babel-flow", "babel-ts"], {
+  parenSpacing: true,
+});

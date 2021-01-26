@@ -3,7 +3,7 @@
 exports[`arrays.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -34,7 +34,7 @@ printWidth: 80
 exports[`bind.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -123,7 +123,7 @@ a::( ( b ) => c );
 exports[`class.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -164,7 +164,7 @@ class X {
 exports[`conditionals.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -232,7 +232,7 @@ foo || bar || baz || qux || xyz;
 exports[`destructuring.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -251,7 +251,7 @@ const { children, ...props } = this.props;
 exports[`expressions.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -294,7 +294,7 @@ object.foo().bar().baz();
 exports[`functions.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -345,7 +345,7 @@ new ( function () {} )();
 exports[`html-template-literals.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -422,7 +422,7 @@ setFoo(
 exports[`import-export.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -453,7 +453,7 @@ export default ( function f() {} );
 exports[`jest-test-each.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -482,7 +482,7 @@ test.each\`
 exports[`loops.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -538,7 +538,7 @@ for ( var i = 0, len = arr.length; i < len; i++ ) {}
 exports[`nullish.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -563,7 +563,7 @@ foo ?? bar ?? baz;
 exports[`objects.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -594,7 +594,7 @@ a = () => ( {}.x );
 exports[`return.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -621,7 +621,7 @@ function f() {
 exports[`sequence.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -664,7 +664,7 @@ printWidth: 80
 exports[`spread.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -693,7 +693,7 @@ declare class C {
 exports[`switch.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -732,7 +732,7 @@ switch ( a ) {
 exports[`template-literals.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -854,7 +854,7 @@ return (
 exports[`ternaries.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -896,7 +896,7 @@ const obj = {
 exports[`throw.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -923,7 +923,7 @@ lint( ast, {
 exports[`try-catch.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -946,7 +946,7 @@ try {
 exports[`with.js 1`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel"]
+parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
