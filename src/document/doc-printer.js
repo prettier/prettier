@@ -45,7 +45,7 @@ function generateInd(ind, newPart, options) {
   const queue =
     newPart.type === "dedent"
       ? ind.queue.slice(0, -1)
-      : ind.queue.concat(newPart);
+      : [...ind.queue, newPart];
 
   let value = "";
   let length = 0;

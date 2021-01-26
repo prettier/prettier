@@ -581,11 +581,10 @@ function printComments(path, print, options, needsSemi) {
     }
   }, "comments");
 
-  return prependCursorPlaceholder(
-    path,
-    options,
-    leadingParts.concat(trailingParts)
-  );
+  return prependCursorPlaceholder(path, options, [
+    ...leadingParts,
+    ...trailingParts,
+  ]);
 }
 
 function ensureAllCommentsPrinted(astComments) {

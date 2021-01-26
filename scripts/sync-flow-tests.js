@@ -101,9 +101,9 @@ function run(argv) {
         "but that's not interesting for Prettier's tests.",
         "This is the skipped stuff:",
         "",
-      ]
-        .concat(skipped, "")
-        .join("\n")
+        ...skipped,
+        "",
+      ].join("\n")
     );
   }
 

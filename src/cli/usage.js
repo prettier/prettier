@@ -148,7 +148,7 @@ function createUsage(context) {
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
-  return [constant.usageSummary].concat(optionsUsage, [""]).join("\n\n");
+  return [constant.usageSummary, ...optionsUsage, ""].join("\n\n");
 }
 
 function createDetailedUsage(context, flag) {

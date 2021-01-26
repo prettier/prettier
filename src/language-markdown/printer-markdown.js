@@ -522,7 +522,7 @@ function getNthSiblingIndex(node, parentNode, condition) {
 }
 
 function getAncestorCounter(path, typeOrTypes) {
-  const types = [].concat(typeOrTypes);
+  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
 
   let counter = -1;
   let ancestorNode;
@@ -840,8 +840,18 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-function printUrl(url, dangerousCharOrChars) {
-  const dangerousChars = [" "].concat(dangerousCharOrChars || []);
+/**
+ * @param {string} url
+ * @param {string[] | string} [dangerousCharOrChars]
+ * @returns {string}
+ */
+function printUrl(url, dangerousCharOrChars = []) {
+  const dangerousChars = [
+    " ",
+    ...(Array.isArray(dangerousCharOrChars)
+      ? dangerousCharOrChars
+      : [dangerousCharOrChars]),
+  ];
   return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
     ? `<${url}>`
     : url;
