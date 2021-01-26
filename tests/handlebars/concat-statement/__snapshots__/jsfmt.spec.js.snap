@@ -140,8 +140,8 @@ singleQuote: true
 </div>
 <a
   href='a-very-long-href-from-a-third-party-marketing-platform{{
-      id
-    }}longer-than-eighty-chars'
+    id
+  }}longer-than-eighty-chars'
 >
   Link
 </a>
@@ -180,8 +180,8 @@ printWidth: 80
 </div>
 <a
   href="a-very-long-href-from-a-third-party-marketing-platform{{
-      id
-    }}longer-than-eighty-chars"
+    id
+  }}longer-than-eighty-chars"
 >
   Link
 </a>

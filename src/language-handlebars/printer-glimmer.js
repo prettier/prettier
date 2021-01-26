@@ -169,9 +169,13 @@ function print(path, options, print) {
 
       const valueDoc = path.call(print, "value");
 
-      return quote
-        ? [n.name, "=", quote, group(indent(valueDoc)), quote]
-        : [n.name, "=", valueDoc];
+      return [
+        n.name,
+        "=",
+        quote,
+        n.name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
+        quote,
+      ];
     }
 
     case "ConcatStatement": {
