@@ -503,7 +503,7 @@ function getNthListSiblingIndex(node, parentNode) {
   );
 }
 
-function getNthSiblingIndex(node, parentNode, condition = (_) => true) {
+function getNthSiblingIndex(node, parentNode, condition) {
   let index = -1;
 
   for (const childNode of parentNode.children) {
