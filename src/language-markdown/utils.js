@@ -211,7 +211,7 @@ function mapAst(ast, handler) {
     }
 
     return newNode;
-  })(ast, null, null);
+  })(ast, null);
 }
 
 function isAutolink(node) {
