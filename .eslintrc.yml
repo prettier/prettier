@@ -33,7 +33,7 @@ rules:
   no-unused-vars:
     - error
     - ignoreRestSiblings: true
-    - argsIgnorePattern: ^_
+      argsIgnorePattern: ^_
   no-var: error
   object-shorthand: error
   one-var:
