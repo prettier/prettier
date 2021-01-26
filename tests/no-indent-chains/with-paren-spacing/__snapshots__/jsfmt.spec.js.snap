@@ -4,6 +4,7 @@ exports[`member-chain.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 indentChains: false
+parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -60,52 +61,52 @@ const sel = this.connections
 
 =====================================output=====================================
 foo
-.doSomething("Hello World")
-.doAnotherThing("Foo", { foo: bar })
+.doSomething( "Hello World" )
+.doAnotherThing( "Foo", { foo: bar } )
 // App configuration.
-.doOneMoreThing(config)
-.run(() => console.log("Bar"));
+.doOneMoreThing( config )
+.run( () => console.log( "Bar" ) );
 
 bigDeal
-.doSomething("Hello World")
+.doSomething( "Hello World" )
 
 // Hello world
-.doAnotherThing("Foo", { foo: bar })
+.doAnotherThing( "Foo", { foo: bar } )
 
 // App configuration.
-.doOneMoreThing(config)
+.doOneMoreThing( config )
 
-.run(() => console.log("Bar"));
+.run( () => console.log( "Bar" ) );
 
 bar.baz
-.doSomething("Hello World")
+.doSomething( "Hello World" )
 
 // Hello world
-.foo.bar.doAnotherThing("Foo", { foo: bar })
+.foo.bar.doAnotherThing( "Foo", { foo: bar } )
 
-.doOneMoreThing(config)
-.bar.run(() => console.log("Bar"));
+.doOneMoreThing( config )
+.bar.run( () => console.log( "Bar" ) );
 
-(somethingGood ? thisIsIt : maybeNot)
+( somethingGood ? thisIsIt : maybeNot )
 // Hello world
-.doSomething("Hello World")
-.doAnotherThing("Foo", { foo: bar }) // Run this
-.run(() => console.log("Bar")); // Do this
+.doSomething( "Hello World" )
+.doAnotherThing( "Foo", { foo: bar } ) // Run this
+.run( () => console.log( "Bar" ) ); // Do this
 
-helloWorld.text().then(t => t);
+helloWorld.text().then( t => t );
 
 (
   veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 )
-.map(tickets => TicketRecord.createFromSomeLongString())
+.map( tickets => TicketRecord.createFromSomeLongString() )
 
-.filter(obj => !!obj);
+.filter( obj => !! obj );
 
 const sel = this.connections
-.concat(this.activities.concat(this.operators))
-.filter(x => x.selected);
+.concat( this.activities.concat( this.operators ) )
+.filter( x => x.selected );
 
 ================================================================================
 `;
