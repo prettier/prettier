@@ -401,7 +401,22 @@ function isWordNode(node) {
 }
 
 function isColonNode(node) {
-  return node.type === "value-colon";
+  return node && node.type === "value-colon";
+}
+
+function isKeyInValuePairNode(node, parentNode) {
+  if (!isKeyValuePairNode(parentNode)) {
+    return false;
+  }
+
+  const { groups } = parentNode;
+  const index = groups.indexOf(node);
+
+  if (index === -1) {
+    return false;
+  }
+
+  return isColonNode(groups[index + 1]);
 }
 
 function isMediaAndSupportsKeywords(node) {
@@ -503,6 +518,7 @@ module.exports = {
   isPostcssSimpleVarNode,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,
+  isKeyInValuePairNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
   isHashNode,
