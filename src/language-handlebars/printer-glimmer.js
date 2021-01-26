@@ -179,7 +179,7 @@ function print(path, options, print) {
     }
 
     case "ConcatStatement": {
-      return path.map((partPath) => print(partPath), "parts");
+      return path.map(print, "parts");
     }
 
     case "Hash": {
