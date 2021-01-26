@@ -2,14 +2,14 @@ name: Mark Issue Duplicate
 
 on:
   issue_comment:
-    types: [created]
+    types:
+      - created
 
 jobs:
   mark-duplicate:
     runs-on: ubuntu-latest
     steps:
-      - name: mark-duplicate
-        uses: actions-cool/issues-helper@v2
+      - uses: actions-cool/issues-helper@v2
         with:
           actions: "mark-duplicate"
           token: ${{ secrets.GITHUB_TOKEN }}
