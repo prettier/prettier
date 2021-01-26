@@ -1,4 +1,4 @@
-name: Issue Mark Duplicate
+name: Mark Issue Duplicate
 
 on:
   issue_comment:
@@ -11,8 +11,9 @@ jobs:
       - name: mark-duplicate
         uses: actions-cool/issues-helper@1.x
         with:
-          actions: 'mark-duplicate'
+          actions: "mark-duplicate"
           token: ${{ secrets.GITHUB_TOKEN }}
-          duplicate-labels: 'type:duplicate'
-          allow-permissions: 'admin, write'
+          duplicate-labels: "type:duplicate"
+          allow-permissions: "admin, write"
           close-issue: true
+
