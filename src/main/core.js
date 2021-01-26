@@ -295,7 +295,12 @@ function formatWithCursor(originalText, originalOptions) {
   if (options.rangeStart > 0 || options.rangeEnd < text.length) {
     result = formatRange(text, options);
   } else {
-    if (!hasPragma && options.insertPragma && options.printer.insertPragma) {
+    if (
+      !options.requirePragma &&
+      options.insertPragma &&
+      options.printer.insertPragma &&
+      !hasPragma(text, options)
+    ) {
       text = options.printer.insertPragma(text);
     }
     result = coreFormat(text, options);
