@@ -395,26 +395,14 @@ function print(path, options, print) {
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  const attributesLike = [];
-  if (isNonEmptyArray(node.attributes)) {
-    const attributes = join(line, path.map(print, "attributes"));
-    attributesLike.push(line, attributes);
-  }
-
-  if (isNonEmptyArray(node.modifiers)) {
-    const modifiers = join(line, path.map(print, "modifiers"));
-    attributesLike.push(line, modifiers);
-  }
-
-  if (isNonEmptyArray(node.comments)) {
-    const comments = join(line, path.map(print, "comments"));
-    attributesLike.push(line, comments);
-  }
-
-  if (isNonEmptyArray(node.blockParams)) {
-    const blockParams = printBlockParams(node);
-    attributesLike.push(line, blockParams);
-  }
+  const attributesLike = ["attributes", "modifiers", "comments", "blockParams"]
+    .filter((property) => isNonEmptyArray(node[property]))
+    .map((property) => [
+      line,
+      property === "blockParams"
+        ? printBlockParams(node)
+        : join(line, path.map(print, property)),
+    ]);
 
   return [
     "<",
