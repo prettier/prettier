@@ -33,7 +33,7 @@ function* expandPatterns(context) {
     yield relativePath;
   }
 
-  if (noResults) {
+  if (noResults && context.argv["error-on-unmatched-pattern"] !== false) {
     // If there was no files and no other errors, let's yield a general error.
     yield {
       error: `No matching files. Patterns: ${context.filePatterns.join(" ")}`,
@@ -116,7 +116,9 @@ function* expandPatternsInternal(context) {
     }
 
     if (result.length === 0) {
-      yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
+      if (context.argv["error-on-unmatched-pattern"] !== false) {
+        yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
+      }
     } else {
       yield* sortPaths(result);
     }

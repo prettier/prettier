@@ -148,6 +148,10 @@ const options = {
       "Don't take .editorconfig into account when parsing configuration.",
     default: true,
   },
+  "error-on-unmatched-pattern": {
+    type: "boolean",
+    oppositeDescription: "Prevent errors when pattern is unmatched.",
+  },
   "find-config-path": {
     type: "path",
     category: coreOptions.CATEGORY_CONFIG,
