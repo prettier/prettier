@@ -101,17 +101,10 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
       return true;
     case "ConditionalExpression": {
       const { test } = rightNode;
-      if (isBinaryish(test) && !shouldInlineLogicalExpression(test)) {
-        return true;
-      }
-      break;
+      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
     }
-    case "ClassExpression": {
-      if (isNonEmptyArray(rightNode.decorators)) {
-        return true;
-      }
-      break;
-    }
+    case "ClassExpression":
+      return isNonEmptyArray(rightNode.decorators);
   }
 
   if (
