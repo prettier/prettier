@@ -504,8 +504,6 @@ function getNthListSiblingIndex(node, parentNode) {
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
-  condition = condition || (() => true);
-
   let index = -1;
 
   for (const childNode of parentNode.children) {
@@ -698,9 +696,7 @@ function printRoot(path, options, print) {
   });
 }
 
-function printChildren(path, options, print, events) {
-  events = events || {};
-
+function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
   const processor = events.processor || ((childPath) => childPath.call(print));
 

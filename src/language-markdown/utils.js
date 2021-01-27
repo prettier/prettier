@@ -204,8 +204,6 @@ function getFencedCodeBlockValue(node, originalText) {
 
 function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
-    parentStack = parentStack || [];
-
     const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) =>
@@ -214,7 +212,7 @@ function mapAst(ast, handler) {
     }
 
     return newNode;
-  })(ast, null, null);
+  })(ast, null, []);
 }
 
 function isAutolink(node) {

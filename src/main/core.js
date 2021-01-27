@@ -36,12 +36,10 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function coreFormat(originalText, opts, addAlignmentSize) {
+function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
     return { formatted: "", cursorOffset: -1 };
   }
-
-  addAlignmentSize = addAlignmentSize || 0;
 
   const { ast, text } = parser.parse(originalText, opts);
 
@@ -181,8 +179,7 @@ function formatRange(originalText, opts) {
   let { cursorOffset } = opts;
   if (cursorOffset >= rangeEnd) {
     // handle the case where the cursor was past the end of the range
-    cursorOffset =
-      opts.cursorOffset + (rangeTrimmed.length - rangeString.length);
+    cursorOffset += rangeTrimmed.length - rangeString.length;
   } else if (rangeResult.cursorOffset >= 0) {
     // handle the case where the cursor was in the range
     cursorOffset = rangeResult.cursorOffset + rangeStart;
@@ -272,22 +269,21 @@ function normalizeInputAndOptions(text, options) {
   };
 }
 
-function format(originalText, originalOptions) {
+function hasPragma(text, options) {
+  const selectedParser = parser.resolveParser(options);
+  return !selectedParser.hasPragma || selectedParser.hasPragma(text);
+}
+
+function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
     normalizeOptions(originalOptions)
   );
 
-  if (options.rangeStart >= options.rangeEnd && text !== "") {
-    return {
-      formatted: originalText,
-      cursorOffset: originalOptions.cursorOffset,
-    };
-  }
-
-  const selectedParser = parser.resolveParser(options);
-  const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
-  if (options.requirePragma && !hasPragma) {
+  if (
+    (options.rangeStart >= options.rangeEnd && text !== "") ||
+    (options.requirePragma && !hasPragma(text, options))
+  ) {
     return {
       formatted: originalText,
       cursorOffset: originalOptions.cursorOffset,
@@ -299,7 +295,12 @@ function format(originalText, originalOptions) {
   if (options.rangeStart > 0 || options.rangeEnd < text.length) {
     result = formatRange(text, options);
   } else {
-    if (!hasPragma && options.insertPragma && options.printer.insertPragma) {
+    if (
+      !options.requirePragma &&
+      options.insertPragma &&
+      options.printer.insertPragma &&
+      !hasPragma(text, options)
+    ) {
       text = options.printer.insertPragma(text);
     }
     result = coreFormat(text, options);
@@ -317,7 +318,8 @@ function format(originalText, originalOptions) {
 }
 
 module.exports = {
-  formatWithCursor: format,
+  formatWithCursor,
+
   parse(originalText, originalOptions, massage) {
     const { text, options } = normalizeInputAndOptions(
       originalText,
@@ -338,8 +340,10 @@ module.exports = {
 
   // Doesn't handle shebang for now
   formatDoc(doc, options) {
-    return format(printDocToDebug(doc), { ...options, parser: "babel" })
-      .formatted;
+    return formatWithCursor(printDocToDebug(doc), {
+      ...options,
+      parser: "babel",
+    }).formatted;
   },
 
   printToDoc(originalText, options) {

@@ -2,8 +2,7 @@
 
 const raw = require("jest-snapshot-serializer-raw").wrap;
 
-function printSeparator(width, description) {
-  description = description || "";
+function printSeparator(width, description = "") {
   const leftLength = Math.floor((width - description.length) / 2);
   const rightLength = width - leftLength - description.length;
   return "=".repeat(leftLength) + description + "=".repeat(rightLength);

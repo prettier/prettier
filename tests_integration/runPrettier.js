@@ -116,8 +116,6 @@ function runPrettier(dir, args = [], options = {}) {
   const result = { status, stdout, stderr, write };
 
   const testResult = (testOptions) => {
-    testOptions = testOptions || {};
-
     for (const name of Object.keys(result)) {
       test(`(${name})`, () => {
         const value =

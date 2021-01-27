@@ -164,8 +164,7 @@ function skipNewline(text, index, opts) {
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasNewline(text, index, opts) {
-  opts = opts || {};
+function hasNewline(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   const idx2 = skipNewline(text, idx, opts);
   return idx !== idx2;
@@ -292,8 +291,7 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasSpaces(text, index, opts) {
-  opts = opts || {};
+function hasSpaces(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
@@ -304,9 +302,7 @@ function hasSpaces(text, index, opts) {
  * @param {number=} startIndex
  * @returns {number}
  */
-function getAlignmentSize(value, tabWidth, startIndex) {
-  startIndex = startIndex || 0;
-
+function getAlignmentSize(value, tabWidth, startIndex = 0) {
   let size = 0;
   for (let i = startIndex; i < value.length; ++i) {
     if (value[i] === "\t") {
