@@ -74,17 +74,6 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   return [" ", printedRight];
 }
 
-/**
- * @param {Node} node
- * @returns {Node}
- */
-function getUnaryArgument(node) {
-  while (node.type === "UnaryExpression") {
-    node = node.argument;
-  }
-  return node;
-}
-
 function canBreakAssignmentRight(leftNode, rightNode, options) {
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
     return true;
@@ -108,13 +97,17 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
   }
 
   if (
-    (leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-    (isStringLiteral(getUnaryArgument(rightNode)) ||
-      isMemberExpressionChain(getUnaryArgument(rightNode)))
+    leftNode.type === "Identifier" ||
+    isStringLiteral(leftNode) ||
+    leftNode.type === "MemberExpression"
   ) {
-    return true;
+    let node = rightNode;
+    while (node.type === "UnaryExpression") {
+      node = node.argument;
+    }
+    if (isStringLiteral(node) || isMemberExpressionChain(node)) {
+      return true;
+    }
   }
 
   return false;
