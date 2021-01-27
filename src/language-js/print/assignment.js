@@ -86,24 +86,47 @@ function getUnaryArgument(node) {
 }
 
 function canBreakAssignmentRight(leftNode, rightNode, options) {
-  return (
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    (rightNode.type === "ConditionalExpression" &&
-      isBinaryish(rightNode.test) &&
-      !shouldInlineLogicalExpression(rightNode.test)) ||
-    rightNode.type === "StringLiteralTypeAnnotation" ||
-    (rightNode.type === "ClassExpression" &&
-      isNonEmptyArray(rightNode.decorators)) ||
-    ((leftNode.type === "Identifier" ||
+  if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
+    return true;
+  }
+
+  if (
+    rightNode.type === "ConditionalExpression" &&
+    isBinaryish(rightNode.test) &&
+    !shouldInlineLogicalExpression(rightNode.test)
+  ) {
+    return true;
+  }
+
+  if (rightNode.type === "StringLiteralTypeAnnotation") {
+    return true;
+  }
+
+  if (
+    rightNode.type === "ClassExpression" &&
+    isNonEmptyArray(rightNode.decorators)
+  ) {
+    return true;
+  }
+
+  if (
+    (leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&
-      (isStringLiteral(getUnaryArgument(rightNode)) ||
-        isMemberExpressionChain(getUnaryArgument(rightNode))) &&
-      // do not put values on a separate line from the key in json
-      options.parser !== "json" &&
-      options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression"
-  );
+    (isStringLiteral(getUnaryArgument(rightNode)) ||
+      isMemberExpressionChain(getUnaryArgument(rightNode))) &&
+    // do not put values on a separate line from the key in json
+    options.parser !== "json" &&
+    options.parser !== "json5"
+  ) {
+    return true;
+  }
+
+  if (rightNode.type === "SequenceExpression") {
+    return true;
+  }
+
+  return false;
 }
 
 module.exports = {
