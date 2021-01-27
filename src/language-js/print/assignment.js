@@ -90,6 +90,11 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
     return true;
   }
 
+  // do not put values on a separate line from the key in json
+  if (options.parser === "json5" || options.parser === "json") {
+    return false;
+  }
+
   switch (rightNode.type) {
     case "StringLiteralTypeAnnotation":
     case "SequenceExpression":
@@ -107,11 +112,6 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
       }
       break;
     }
-  }
-
-  // do not put values on a separate line from the key in json
-  if (options.parser === "json5" || options.parser === "json") {
-    return false;
   }
 
   if (
