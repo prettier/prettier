@@ -90,23 +90,28 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
     return true;
   }
 
-  if (
-    rightNode.type === "ConditionalExpression" &&
-    isBinaryish(rightNode.test) &&
-    !shouldInlineLogicalExpression(rightNode.test)
-  ) {
-    return true;
+  switch (rightNode.type) {
+    case "StringLiteralTypeAnnotation":
+    case "SequenceExpression":
+      return true;
+    case "ConditionalExpression": {
+      const { test } = rightNode;
+      if (isBinaryish(test) && !shouldInlineLogicalExpression(test)) {
+        return true;
+      }
+      break;
+    }
+    case "ClassExpression": {
+      if (isNonEmptyArray(rightNode.decorators)) {
+        return true;
+      }
+      break;
+    }
   }
 
-  if (rightNode.type === "StringLiteralTypeAnnotation") {
-    return true;
-  }
-
-  if (
-    rightNode.type === "ClassExpression" &&
-    isNonEmptyArray(rightNode.decorators)
-  ) {
-    return true;
+  // do not put values on a separate line from the key in json
+  if (options.parser === "json5" || options.parser === "json") {
+    return false;
   }
 
   if (
@@ -114,15 +119,8 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&
     (isStringLiteral(getUnaryArgument(rightNode)) ||
-      isMemberExpressionChain(getUnaryArgument(rightNode))) &&
-    // do not put values on a separate line from the key in json
-    options.parser !== "json" &&
-    options.parser !== "json5"
+      isMemberExpressionChain(getUnaryArgument(rightNode)))
   ) {
-    return true;
-  }
-
-  if (rightNode.type === "SequenceExpression") {
     return true;
   }
 
