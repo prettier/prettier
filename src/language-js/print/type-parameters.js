@@ -61,7 +61,9 @@ function printTypeParameters(path, options, print, paramsKey) {
     !n[paramsKey][0].constraint &&
     path.getParentNode().type === "ArrowFunctionExpression"
       ? ","
-      : ifBreak(shouldPrintComma(options, "all") ? "," : "");
+      : shouldPrintComma(options, "all")
+      ? ifBreak(",", "")
+      : "";
 
   return group(
     [
