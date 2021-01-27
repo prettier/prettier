@@ -12,6 +12,10 @@ const {
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 
+/**
+ * @typedef {import("../types/estree").Node} Node
+ */
+
 function printAssignment(
   leftNode,
   printedLeft,
@@ -63,6 +67,17 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
     return indent([line, printedRight]);
   }
 
+  /**
+   * @param {Node} node
+   * @returns {Node}
+   */
+  function getUnaryArgument(node) {
+    if (node.type === "UnaryExpression") {
+      return node.argument;
+    }
+    return node;
+  }
+
   const canBreak =
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
     (rightNode.type === "ConditionalExpression" &&
@@ -74,7 +89,8 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
     ((leftNode.type === "Identifier" ||
       isStringLiteral(leftNode) ||
       leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
+      (isStringLiteral(getUnaryArgument(rightNode)) ||
+        isMemberExpressionChain(getUnaryArgument(rightNode))) &&
       // do not put values on a separate line from the key in json
       options.parser !== "json" &&
       options.parser !== "json5") ||

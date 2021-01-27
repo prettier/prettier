@@ -1,0 +1,4 @@
+const loooooooooooooooooooooooooong1 = void looooooooooooooong.looooooooooooooong.loooooong;
+const loooooooooooooooooooooooooong2 = void "looooooooooooooooooooooooooooooooooooooooooog";
+const loooooooooooooooooooooooooong3 = !looooooooooooooong.looooooooooooooong.loooooong;
+const loooooooooooooooooooooooooong4 = !"looooooooooooooooooooooooooooooooooooooooooog";
