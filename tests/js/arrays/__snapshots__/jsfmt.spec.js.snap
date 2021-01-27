@@ -35,6 +35,24 @@ new Test().test().test([, 0]).test();
 ================================================================================
 `;
 
+exports[`issue-10159.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function isSourceErrorModule(currentFilePath, targetModulePath, src) {
+for (const srcPath of [src, \`\${src}.js\`, \`\${src}/index\`, \`\${src}/index.js\`]) {}}
+
+=====================================output=====================================
+function isSourceErrorModule(currentFilePath, targetModulePath, src) {
+  for (const srcPath of [src, \`\${src}.js\`, \`\${src}/index\`, \`\${src}/index.js\`]) {
+  }
+}
+
+================================================================================
+`;
+
 exports[`last.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
