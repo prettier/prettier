@@ -236,10 +236,10 @@ function print(path, options, print) {
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
         const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
 
-        if (whitespacesOnlyRE.test(n.chars)) {
+        if (whitespacesOnlyRE.test(text)) {
           let breaks = [line];
 
-          const newlines = countNewLines(n.chars);
+          const newlines = countNewLines(text);
           if (newlines) {
             breaks = generateHardlines(newlines, 2);
           }
@@ -251,8 +251,8 @@ function print(path, options, print) {
           return breaks;
         }
 
-        const [lead] = n.chars.match(leadingWhitespacesRE);
-        const [tail] = n.chars.match(trailingWhitespacesRE);
+        const [lead] = text.match(leadingWhitespacesRE);
+        const [tail] = text.match(trailingWhitespacesRE);
 
         let leadBreaks = [];
         if (lead) {
@@ -288,11 +288,11 @@ function print(path, options, print) {
       const maxLineBreaksToPreserve = 2;
       const isFirstElement = !getPreviousNode(path);
       const isLastElement = !getNextNode(path);
-      const isWhitespaceOnly = !/\S/.test(n.chars);
-      const lineBreaksCount = countNewLines(n.chars);
+      const isWhitespaceOnly = !/\S/.test(text);
+      const lineBreaksCount = countNewLines(text);
 
-      let leadingLineBreaksCount = countLeadingNewLines(n.chars);
-      let trailingLineBreaksCount = countTrailingNewLines(n.chars);
+      let leadingLineBreaksCount = countLeadingNewLines(text);
+      let trailingLineBreaksCount = countTrailingNewLines(text);
 
       if (
         (isFirstElement || isLastElement) &&
