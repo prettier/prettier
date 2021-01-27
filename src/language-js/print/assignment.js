@@ -75,13 +75,13 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
 }
 
 function canBreakAssignmentRight(leftNode, rightNode, options) {
-  if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
-    return true;
-  }
-
   // do not put values on a separate line from the key in json
   if (options.parser === "json5" || options.parser === "json") {
     return false;
+  }
+
+  if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
+    return true;
   }
 
   switch (rightNode.type) {
