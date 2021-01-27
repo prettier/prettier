@@ -104,9 +104,9 @@ function printArray(path, options, print) {
       ? ","
       : !shouldPrintComma(options)
       ? ""
-      : ifBreak(",", "", {
-          groupId: shouldUseConciseFormatting ? groupId : undefined,
-        });
+      : shouldUseConciseFormatting
+      ? ifBreak(",", "", groupId)
+      : ifBreak(",");
 
     parts.push(
       group(
