@@ -351,6 +351,8 @@ Nodes with comments are expected to have a `comments` property containing an arr
 
 The example above uses `util.addTrailingComment`, which automatically sets `comment.leading`/`trailing`/`printed` to appropriate values and adds the comment to the AST node's `comments` array.
 
+The `--debug-print-comments` CLI flag can help with debugging comment attachment issues. It prints a detailed list of comments, which includes information on how every comment was classified (`ownLine`/`endOfLine`/`remaining`, `leading`/`trailing`/`dangling`) and to which node it was attached. For Prettier’s built-in languages, this information is also available on the Playground (the 'show comments' checkbox in the Debug section).
+
 ### `options`
 
 `options` is an object containing the custom options your plugin supports.

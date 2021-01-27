@@ -10,10 +10,12 @@ export default class extends React.Component {
       showSidebar: false,
       showAst: false,
       showDoc: false,
+      showComments: false,
       showSecondFormat: false,
       toggleSidebar: () => this.setState(stateToggler("showSidebar")),
       toggleAst: () => this.setState(stateToggler("showAst")),
       toggleDoc: () => this.setState(stateToggler("showDoc")),
+      toggleComments: () => this.setState(stateToggler("showComments")),
       toggleSecondFormat: () => this.setState(stateToggler("showSecondFormat")),
       ...storage.get("editor_state"),
     };

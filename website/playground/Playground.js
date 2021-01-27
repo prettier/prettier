@@ -151,8 +151,13 @@ class Playground extends React.Component {
   }
 
   render() {
-    const { worker } = this.props;
+    const { worker, version } = this.props;
     const { content, options } = this.state;
+
+    // TODO: remove this when v2.3.0 is released
+    const [major, minor] = version.split(".", 2).map(Number);
+    const showShowComments =
+      Number.isNaN(major) || (major === 2 && minor >= 3) || major > 2;
 
     return (
       <EditorState>
@@ -163,6 +168,7 @@ class Playground extends React.Component {
             options={options}
             debugAst={editorState.showAst}
             debugDoc={editorState.showDoc}
+            debugComments={showShowComments && editorState.showComments}
             reformat={editorState.showSecondFormat}
           >
             {({ formatted, debug }) => {
@@ -223,6 +229,13 @@ class Playground extends React.Component {
                           checked={editorState.showDoc}
                           onChange={editorState.toggleDoc}
                         />
+                        {showShowComments && (
+                          <Checkbox
+                            label="show comments"
+                            checked={editorState.showComments}
+                            onChange={editorState.toggleComments}
+                          />
+                        )}
                         <Checkbox
                           label="show second format"
                           checked={editorState.showSecondFormat}
@@ -254,6 +267,12 @@ class Playground extends React.Component {
                       ) : null}
                       {editorState.showDoc ? (
                         <DebugPanel value={debug.doc || ""} />
+                      ) : null}
+                      {showShowComments && editorState.showComments ? (
+                        <DebugPanel
+                          value={debug.comments || ""}
+                          autoFold={util.getAstAutoFold(options.parser)}
+                        />
                       ) : null}
                       <OutputPanel
                         mode={util.getCodemirrorMode(options.parser)}

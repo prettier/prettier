@@ -38,7 +38,7 @@ function attachComments(text, ast, opts) {
 
 function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
-    return { formatted: "", cursorOffset: -1 };
+    return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
   const { ast, text } = parser.parse(originalText, opts);
@@ -102,6 +102,7 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
       return {
         formatted: result.formatted,
         cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
+        comments: astComments,
       };
     }
 
@@ -133,10 +134,14 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
       }
     }
 
-    return { formatted: result.formatted, cursorOffset };
+    return { formatted: result.formatted, cursorOffset, comments: astComments };
   }
 
-  return { formatted: result.formatted, cursorOffset: -1 };
+  return {
+    formatted: result.formatted,
+    cursorOffset: -1,
+    comments: astComments,
+  };
 }
 
 function formatRange(originalText, opts) {
@@ -200,7 +205,7 @@ function formatRange(originalText, opts) {
     formatted = formatted.replace(/\n/g, eol);
   }
 
-  return { formatted, cursorOffset };
+  return { formatted, cursorOffset, comments: rangeResult.comments };
 }
 
 function ensureIndexInText(text, index, defaultValue) {
@@ -287,6 +292,7 @@ function formatWithCursor(originalText, originalOptions) {
     return {
       formatted: originalText,
       cursorOffset: originalOptions.cursorOffset,
+      comments: [],
     };
   }
 
