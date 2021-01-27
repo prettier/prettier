@@ -73,7 +73,7 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
    */
   function getUnaryArgument(node) {
     if (node.type === "UnaryExpression") {
-      return node.argument;
+      return getUnaryArgument(node.argument);
     }
     return node;
   }
