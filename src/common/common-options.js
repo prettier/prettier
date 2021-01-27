@@ -18,7 +18,7 @@ module.exports = {
     category: CATEGORY_COMMON,
     type: "boolean",
     default: false,
-    description: "Print spaces between parens, WordPress style.",
+    description: "Put spaces between parens, WordPress style.",
   },
   singleQuote: {
     since: "0.0.0",

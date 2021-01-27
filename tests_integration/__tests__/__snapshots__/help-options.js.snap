@@ -18,7 +18,7 @@ exports[`show detailed usage with --help align-ternary-lines (stderr) 1`] = `""`
 exports[`show detailed usage with --help align-ternary-lines (stdout) 1`] = `
 "--align-ternary-lines
 
-  Align ternary lines.
+  Keep default alignment of ternary expression lines.
 
 Default: true
 "
@@ -216,7 +216,7 @@ exports[`show detailed usage with --help generator-star-spacing (stderr) 1`] = `
 exports[`show detailed usage with --help generator-star-spacing (stdout) 1`] = `
 "--generator-star-spacing
 
-  Add spaces around the star ('*') in generator functions (before and after - from eslint).
+  Put spaces around the star (\`*\`) in generator functions (before and after - similar to eslint option). (Default is after only.)
 
 Default: false
 "
@@ -304,7 +304,7 @@ exports[`show detailed usage with --help indent-chains (stderr) 1`] = `""`;
 exports[`show detailed usage with --help indent-chains (stdout) 1`] = `
 "--indent-chains
 
-  Print indents at the start of chained calls.
+  Put indents at the start of chained calls.
 
 Default: true
 "
@@ -388,7 +388,7 @@ exports[`show detailed usage with --help no-align-ternary-lines (stderr) 1`] = `
 exports[`show detailed usage with --help no-align-ternary-lines (stdout) 1`] = `
 "--no-align-ternary-lines
 
-  Do not align ternary lines.
+  Disable default alignment of ternary expression lines. Adds some more consistency with \\"Standard JS\\" in case of certain nested ternary expressions, may lead to some other conflicts with \\"Standard JS\\".
 "
 `;
 
@@ -443,7 +443,7 @@ exports[`show detailed usage with --help no-indent-chains (stderr) 1`] = `""`;
 exports[`show detailed usage with --help no-indent-chains (stdout) 1`] = `
 "--no-indent-chains
 
-  Do not print indents at the start of chained calls.
+  Disable indents at the start of chained calls.
 "
 `;
 
@@ -465,7 +465,7 @@ exports[`show detailed usage with --help paren-spacing (stderr) 1`] = `""`;
 exports[`show detailed usage with --help paren-spacing (stdout) 1`] = `
 "--paren-spacing
 
-  Print spaces between parens, WordPress style.
+  Put spaces between parens, WordPress style.
 
 Default: false
 "
@@ -660,7 +660,7 @@ exports[`show detailed usage with --help space-before-function-paren (stderr) 1`
 exports[`show detailed usage with --help space-before-function-paren (stdout) 1`] = `
 "--space-before-function-paren
 
-  Put a space before function parenthesis.
+  Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
 
 Default: false
 "
@@ -786,7 +786,7 @@ exports[`show detailed usage with --help yield-star-spacing (stderr) 1`] = `""`;
 exports[`show detailed usage with --help yield-star-spacing (stdout) 1`] = `
 "--yield-star-spacing
 
-  Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).
+  Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to eslint option). (Default is after only.)
 
 Default: false
 "

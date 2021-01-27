@@ -32,8 +32,8 @@ module.exports = {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: true,
-    description: "Print indents at the start of chained calls.",
-    oppositeDescription: "Do not print indents at the start of chained calls.",
+    description: "Put indents at the start of chained calls.",
+    oppositeDescription: "Disable indents at the start of chained calls.",
   },
   parenSpacing: commonOptions.parenSpacing,
   importFormatting: {
@@ -81,28 +81,30 @@ module.exports = {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: true,
-    description: "Align ternary lines.",
-    oppositeDescription: "Do not align ternary lines.",
+    description: "Keep default alignment of ternary expression lines.",
+    oppositeDescription:
+      'Disable default alignment of ternary expression lines. Adds some more consistency with "Standard JS" in case of certain nested ternary expressions, may lead to some other conflicts with "Standard JS".',
   },
   generatorStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description:
-      "Add spaces around the star ('*') in generator functions (before and after - from eslint).",
+      "Put spaces around the star (`*`) in generator functions (before and after - similar to eslint option). (Default is after only.)",
   },
   yieldStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description:
-      "Add spaces around the star ('*') in `yield*` expressions (before and after - from eslint).",
+      "Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to eslint option). (Default is after only.)",
   },
   spaceBeforeFunctionParen: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
-    description: "Put a space before function parenthesis.",
+    description:
+      "Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
   },
   breakBeforeElse: {
     category: CATEGORY_JAVASCRIPT,

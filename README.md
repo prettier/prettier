@@ -7,20 +7,7 @@ Unofficial fork, intended to provide some additional options to help improve con
 
 ## prettierx as a Prettier plugin
 
-Provides the additional formatting options in a prettier plugin (or two).
-
-Status: experimental
-
-- [`brodybits/prettier-plugin-prettierx-babel`](https://github.com/brodybits/prettier-plugin-prettierx-babel)
-- [`brodybits/prettier-plugin-prettierx-typescript`](https://github.com/brodybits/prettier-plugin-prettierx-typescript)
-
-Major TODO items:
-
-- update to use recent prettierx which uses Babel parser to parse TypeScript by default ref: [`brodybits/prettierx#54`](https://github.com/brodybits/prettierx/issues/54)
-- ~~support the additional formatting options from the command line, somehow~~ (additional formatting options will work from the command line if run with the plugin)
-- improve the documentation
-
-ref: [`brodybits/prettierx#8`](https://github.com/brodybits/prettierx/issues/8)
+[`prettier-plugin-x`](https://www.npmjs.com/package/prettier-plugin-x) - provides the additional formatting options in a prettier plugin
 
 ## CLI Usage
 
@@ -35,16 +22,18 @@ prettierx <options> <file(s)>
 | Option                                               | Default value | CLI Override                               | API Override                               | Description                                                                                                                                                                                         |
 | ---------------------------------------------------- | ------------- | ------------------------------------------ | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Align object properties                              | `false`       | `--align-object-properties`                | `alignObjectProperties: <bool>`            | Align colons in multiline object literals (not applied with any of the JSON parsers).                                                                                                               |
-| Space before function parentheses                    | `false`       | `--space-before-function-paren`            | `spaceBeforeFunctionParen: <bool>`         | Put a space before function parenthesis, in all declarations. (Default is to put a space before function parenthesis for anonymous functions only.)                                                 |
-| Spaces around the star (\*\) in generator functions  | `false`       | `--generator-star-spacing`                 | `generatorStarSpacing: <bool>`             | Add spaces around the star (\*) in generator functions (before and after - from eslint). (Default is after only.)                                                                                   |
-| Spaces around the star (\*\) in `yield*` expressions | `false`       | `--yield-star-spacing`                     | `yieldStarSpacing: <bool>`                 | Add spaces around the star (\*) in yield\* expressions (before and after - from eslint).                                                                                                            |
-| Indent chains                                        | `true`        | `--no-indent-chains`                       | `indentChains: <bool>`                     | Print indents at the start of chained calls.                                                                                                                                                        |
-| Align ternary lines                                  | `true`        | `--no-align-ternary-lines`                 | `alignTernaryLines: <bool>`                | Keep default alignment of ternary expression lines, which is in conflict with "Standard JS" formatting in case of certain nested ternary expressions. See [./docs/options.md](./docs/options.md) .. |
-| paren spacing                                        | `false`       | `--paren-spacing`                          | `parenSpacing: <bool>`                     | Print spaces between parens, WordPress style (not recommended with default `arrowParens: "always" setting). Status: experimental, with some known paren spacing formatting issues.                  |
+| Space before function parentheses                    | `false`       | `--space-before-function-paren`            | `spaceBeforeFunctionParen: <bool>`         | Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)               |
+| Spaces around the star (`*`) in generator functions  | `false`       | `--generator-star-spacing`                 | `generatorStarSpacing: <bool>`             | Put spaces around the star (`*`) in generator functions (before and after - similar to eslint option). (Default is after only.)                                                                     |
+| Spaces around the star (`*`) in `yield*` expressions | `false`       | `--yield-star-spacing`                     | `yieldStarSpacing: <bool>`                 | Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to eslint option). (Default is after only.)                                                                    |
+| Indent chains                                        | `true`        | `--no-indent-chains`                       | `indentChains: <bool>`                     | Put or disable indents at the start of chained calls.                                                                                                                                               |
+| Align ternary lines                                  | `true`        | `--no-align-ternary-lines`                 | `alignTernaryLines: <bool>`                | Keep or disable default alignment of ternary expression lines, which may be in conflict with "Standard JS" formatting in certain nested ternary cases ... see [`docs/options.md`](docs/options.md). |
+| paren spacing                                        | `false`       | `--paren-spacing`                          | `parenSpacing: <bool>`                     | Put spaces between parens, WordPress style (not recommended with default `arrowParens: "always"` setting). Status: experimental, with some known paren spacing formatting issues.                   |
 | break before else                                    | `false`       | `--break-before-else`                      | `breakBeforeElse: <bool>`                  | Always add a line break before else.                                                                                                                                                                |
-| Formatting of import statements                      | `auto`        | see [./docs/options.md](./docs/options.md) | see [./docs/options.md](./docs/options.md) | Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.                                                                                         |
-| HTML void element tags                               | `false`       | `--html-void-tags`                         | Format void HTML elements as void tags.    |
+| Formatting of import statements                      | `auto`        | (See [`docs/options.md`](docs/options.md)) | (See [`docs/options.md`](docs/options.md)) | Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.                                                                                         |
+| HTML void element tags                               | `false`       | `--html-void-tags`                         | `htmlVoidTags: <bool>`                     | Format void HTML elements as void tags.                                                                                                                                                             |
 | break long method chains                             | `false`       | `--break-long-method-chains`               | `breakLongMethodChains: <bool>`            | Break method chains with more than 3 method calls, like Prettier 1.x.                                                                                                                               |
+
+(See [`docs/options.md`](docs/options.md) for more information.)
 
 ## "Standard JS" formatting options
 
@@ -58,7 +47,7 @@ The following options should be used to _format_ the code _as consistently as po
 - `--no-semi` (`semi: false`)
 - `--yield-star-spacing` (`yieldStarSpacing: true`)
 - `--trailing-comma none` (`trailingComma: "none"`)
-- and possibly `--no-align-ternary-lines` (`alignTernaryLines: false`) - see [./docs/options.md](./docs/options.md) for some more info
+- and possibly `--no-align-ternary-lines` (`alignTernaryLines: false`) - see [`docs/options.md`](docs/options.md) for some more information
 
 Note that this tool does **not** follow any of the other ["Standard JS"](https://standardjs.com/) rules. It is recommended to use this tool together with eslint, in some form, to archive correct formatting according to ["Standard JS"](https://standardjs.com/).
 
@@ -67,7 +56,7 @@ Any known conflicts with ["Standard JS"](https://standardjs.com/) will be tracke
 ## recommended options
 
 - `--arrow-parens avoid` (`arrowParens: "avoid"`), especially in combination with `--paren-spacing` (`parenSpacing: true`).
-- `break-long-method-chains`
+- `--break-long-method-chains`
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ## Prettier 2.0

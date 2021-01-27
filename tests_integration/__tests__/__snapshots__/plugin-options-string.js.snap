@@ -13,7 +13,7 @@ exports[` 1`] = `
                              Defaults to lf.
 +   --foo-string <string>    foo description
 +                            Defaults to bar.
-    --generator-star-spacing Add spaces around the star ('*') in generator functions (before and after - from eslint).
+    --generator-star-spacing Put spaces around the star (\`*\`) in generator functions (before and after - similar to eslint option). (Default is after only.)
                              Defaults to false.
     --html-void-tags         Format void HTML elements as void tags.
                              Defaults to false.

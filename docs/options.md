@@ -56,12 +56,12 @@ Valid options:
 
 ## Indent chains
 
-Print indents at the start of chained calls.
+Put or disable indents at the start of chained calls.
 
 Valid options:
 
-- `true` - Print indents at the start of chained calls.
-- `false` - Do not print indents at the start of chained calls.
+- `true` - Put indents at the start of chained calls.
+- `false` - Disable indents at the start of chained calls.
 
 | Default | CLI Override         | API Override           |
 | ------- | -------------------- | ---------------------- |
@@ -221,7 +221,7 @@ Break method chains with more than 3 method calls, like Prettier 1.x.
 
 ## Space before function parentheses
 
-Put a space before function parenthesis, in all declarations. (Default is to put a space before function parenthesis for anonymous functions only.)
+Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
 
 | Default | CLI Override                    | API Override                       |
 | ------- | ------------------------------- | ---------------------------------- |
@@ -229,7 +229,7 @@ Put a space before function parenthesis, in all declarations. (Default is to put
 
 ## Generator star spacing
 
-Add spaces around the star (\*) in generator functions (before and after - from eslint). (Default is after only.)
+Put spaces around the star (`*`) in generator functions (before and after - similar to eslint option). (Default is after only.)
 
 | Default | CLI Override               | API Override                   |
 | ------- | -------------------------- | ------------------------------ |
@@ -237,7 +237,7 @@ Add spaces around the star (\*) in generator functions (before and after - from 
 
 ## Yield star spacing
 
-Add spaces around the star (\*) in `yield_` expressions (before and after - from eslint).
+Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to eslint option). (Default is after only.)
 
 | Default | CLI Override           | API Override               |
 | ------- | ---------------------- | -------------------------- |
@@ -245,7 +245,7 @@ Add spaces around the star (\*) in `yield_` expressions (before and after - from
 
 ## Align ternary lines
 
-Keep default alignment of ternary expression lines, which is in conflict with "Standard JS" formatting in case of certain nested ternary expressions.
+Keep or disable default alignment of ternary expression lines, which may be in conflict with "Standard JS" formatting in certain nested ternary cases.
 
 Valid options:
 
@@ -258,7 +258,7 @@ Valid options:
 
 ## paren spacing
 
-Print spaces between parens, WordPress style (not recommended with default `arrowParens: "always" setting).
+Put spaces between parens, WordPress style (not recommended with default `arrowParens: "always"` setting).
 
 Status: experimental, with some known paren spacing formatting issues.
 

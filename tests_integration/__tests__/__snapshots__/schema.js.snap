@@ -13,7 +13,7 @@ Object {
         },
         "alignTernaryLines": Object {
           "default": true,
-          "description": "Align ternary lines.",
+          "description": "Keep default alignment of ternary expression lines.",
           "type": "boolean",
         },
         "arrowParens": Object {
@@ -93,7 +93,7 @@ This option cannot be used with --range-start and --range-end.",
         },
         "generatorStarSpacing": Object {
           "default": false,
-          "description": "Add spaces around the star ('*') in generator functions (before and after - from eslint).",
+          "description": "Put spaces around the star (\`*\`) in generator functions (before and after - similar to eslint option). (Default is after only.)",
           "type": "boolean",
         },
         "htmlVoidTags": Object {
@@ -145,7 +145,7 @@ This option cannot be used with --range-start and --range-end.",
         },
         "indentChains": Object {
           "default": true,
-          "description": "Print indents at the start of chained calls.",
+          "description": "Put indents at the start of chained calls.",
           "type": "boolean",
         },
         "insertPragma": Object {
@@ -165,7 +165,7 @@ This option cannot be used with --range-start and --range-end.",
         },
         "parenSpacing": Object {
           "default": false,
-          "description": "Print spaces between parens, WordPress style.",
+          "description": "Put spaces between parens, WordPress style.",
           "type": "boolean",
         },
         "parser": Object {
@@ -391,7 +391,7 @@ in order for it to be formatted.",
         },
         "spaceBeforeFunctionParen": Object {
           "default": false,
-          "description": "Put a space before function parenthesis.",
+          "description": "Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
           "type": "boolean",
         },
         "tabWidth": Object {
@@ -435,7 +435,7 @@ in order for it to be formatted.",
         },
         "yieldStarSpacing": Object {
           "default": false,
-          "description": "Add spaces around the star ('*') in \`yield*\` expressions (before and after - from eslint).",
+          "description": "Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to eslint option). (Default is after only.)",
           "type": "boolean",
         },
       },
