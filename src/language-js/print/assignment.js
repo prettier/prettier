@@ -67,18 +67,26 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
     return indent([line, printedRight]);
   }
 
-  /**
-   * @param {Node} node
-   * @returns {Node}
-   */
-  function getUnaryArgument(node) {
-    if (node.type === "UnaryExpression") {
-      return getUnaryArgument(node.argument);
-    }
-    return node;
+  if (canBreakAssignmentRight(leftNode, rightNode, options)) {
+    return group(indent([line, printedRight]));
   }
 
-  const canBreak =
+  return [" ", printedRight];
+}
+
+/**
+ * @param {Node} node
+ * @returns {Node}
+ */
+function getUnaryArgument(node) {
+  if (node.type === "UnaryExpression") {
+    return getUnaryArgument(node.argument);
+  }
+  return node;
+}
+
+function canBreakAssignmentRight(leftNode, rightNode, options) {
+  return (
     (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
     (rightNode.type === "ConditionalExpression" &&
       isBinaryish(rightNode.test) &&
@@ -94,13 +102,8 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       // do not put values on a separate line from the key in json
       options.parser !== "json" &&
       options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression";
-
-  if (canBreak) {
-    return group(indent([line, printedRight]));
-  }
-
-  return [" ", printedRight];
+    rightNode.type === "SequenceExpression"
+  );
 }
 
 module.exports = {
