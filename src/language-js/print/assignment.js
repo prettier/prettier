@@ -85,7 +85,28 @@ function getUnaryArgument(node) {
   return node;
 }
 
+function canBreakUnaryExpression(leftNode, rightNode, options) {
+  if (
+    leftNode.type !== "Identifier" &&
+    leftNode.type !== "MemberExpression" &&
+    !isStringLiteral(leftNode)
+  ) {
+    return false;
+  }
+
+  const unaryExpressionArgument = getUnaryArgument(rightNode);
+  return (
+    isStringLiteral(unaryExpressionArgument) ||
+    isMemberExpressionChain(unaryExpressionArgument)
+  );
+}
+
 function canBreakAssignmentRight(leftNode, rightNode, options) {
+  // do not put values on a separate line from the key in json
+  if (options.parser === "json5" || options.parser === "json") {
+    return false;
+  }
+
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
     return true;
   }
@@ -96,32 +117,13 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
       return true;
     case "ConditionalExpression": {
       const { test } = rightNode;
-      if (isBinaryish(test) && !shouldInlineLogicalExpression(test)) {
-        return true;
-      }
-      break;
+      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
     }
-    case "ClassExpression": {
-      if (isNonEmptyArray(rightNode.decorators)) {
-        return true;
-      }
-      break;
+    case "ClassExpression":
+      return isNonEmptyArray(rightNode.decorators);
+    case "UnaryExpression": {
+      return canBreakUnaryExpression(leftNode, rightNode, options);
     }
-  }
-
-  // do not put values on a separate line from the key in json
-  if (options.parser === "json5" || options.parser === "json") {
-    return false;
-  }
-
-  if (
-    (leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-    (isStringLiteral(getUnaryArgument(rightNode)) ||
-      isMemberExpressionChain(getUnaryArgument(rightNode)))
-  ) {
-    return true;
   }
 
   return false;
