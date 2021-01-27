@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow-functions.tsx - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const f1 = <T,>() => 1;
+const f2 = <
+  Tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt,
+>() => 1;
+
+=====================================output=====================================
+const f1 = <T,>() => 1;
+const f2 = <
+  Tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt,
+>() => 1;
+
+================================================================================
+`;
+
+exports[`arrow-functions.tsx - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const f1 = <T,>() => 1;
+const f2 = <
+  Tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt,
+>() => 1;
+
+=====================================output=====================================
+const f1 = <T,>() => 1;
+const f2 = <
+  Tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt,
+>() => 1;
+
+================================================================================
+`;
+
+exports[`arrow-functions.tsx - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+const f1 = <T,>() => 1;
+const f2 = <
+  Tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt,
+>() => 1;
+
+=====================================output=====================================
+const f1 = <T,>() => 1;
+const f2 = <
+  Tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt,
+>() => 1;
+
+================================================================================
+`;
+
 exports[`trailing.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
