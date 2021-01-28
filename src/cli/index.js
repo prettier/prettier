@@ -78,7 +78,7 @@ function run(args) {
       process.exit(1);
     }
   } catch (error) {
-    context.logger.error(error.message);
+    logger.error(error.message);
     process.exit(1);
   }
 }
