@@ -38,17 +38,8 @@ const createMinimistOptions = require("./create-minimist-options");
 class Context {
   constructor(args) {
     this.args = args;
-    this.stack = [];
+    this.stack = [{}];
 
-    this.stack.push(
-      pick(this, [
-        "supportOptions",
-        "detailedOptions",
-        "detailedOptionMap",
-        "apiDefaultOptions",
-        "languages",
-      ])
-    );
     this._updateContextOptions();
 
     const minimistOptions = createMinimistOptions(this.detailedOptions);
