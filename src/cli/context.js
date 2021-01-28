@@ -45,7 +45,13 @@ class Context {
     const argv = parseArgv(args, contextOptions.detailedOptions);
     this.argv = argv;
     this.filePatterns = argv._.map((file) => String(file));
-    this._normalizeContextArgv(["loglevel", "plugin", "plugin-search-dir"]);
+
+    this.argv = normalizeContextArgv(contextOptions.detailedOptions, argv, [
+      "loglevel",
+      "plugin",
+      "plugin-search-dir",
+    ]);
+
     this.logger = createLogger(this.argv.loglevel);
     this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
   }
