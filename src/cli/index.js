@@ -14,11 +14,7 @@ function run(args) {
   const result = init(args);
   const logger = createLogger(result.argv.loglevel);
 
-  main({ ...result, logger });
-}
-
-function main(options) {
-  const context = new core.Context(options);
+  const context = new core.Context({ ...result, logger });
 
   try {
     context.initContext();
@@ -26,28 +22,24 @@ function main(options) {
     context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
     if (context.argv.check && context.argv["list-different"]) {
-      context.logger.error("Cannot use --check and --list-different together.");
-      process.exit(1);
+      throw new Error("Cannot use --check and --list-different together.");
     }
 
     if (context.argv.write && context.argv["debug-check"]) {
-      context.logger.error("Cannot use --write and --debug-check together.");
-      process.exit(1);
+      throw new Error("Cannot use --write and --debug-check together.");
     }
 
     if (context.argv["find-config-path"] && context.filePatterns.length > 0) {
-      context.logger.error("Cannot use --find-config-path with multiple files");
-      process.exit(1);
+      throw new Error("Cannot use --find-config-path with multiple files");
     }
 
     if (context.argv["file-info"] && context.filePatterns.length > 0) {
-      context.logger.error("Cannot use --file-info with multiple files");
-      process.exit(1);
+      throw new Error("Cannot use --file-info with multiple files");
     }
 
     if (context.argv.version) {
       context.logger.log(prettier.version);
-      process.exit(0);
+      return;
     }
 
     if (context.argv.help !== undefined) {
@@ -56,7 +48,7 @@ function main(options) {
           ? core.createDetailedUsage(context, context.argv.help)
           : core.createUsage(context)
       );
-      process.exit(0);
+      return;
     }
 
     if (context.argv["support-info"]) {
@@ -65,7 +57,7 @@ function main(options) {
           parser: "json",
         })
       );
-      process.exit(0);
+      return;
     }
 
     const hasFilePatterns = context.filePatterns.length > 0;
