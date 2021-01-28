@@ -14,7 +14,11 @@ function run(args) {
   const result = init(args);
   const logger = createLogger(result.argv.loglevel);
 
-  const context = new core.Context(args, { ...result, logger });
+  main({ ...result, logger });
+}
+
+function main(options) {
+  const context = new core.Context(options);
 
   try {
     context.initContext();

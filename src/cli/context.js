@@ -35,11 +35,11 @@ const createMinimistOptions = require("./create-minimist-options");
  */
 
 class Context {
-  constructor(args, result) {
-    this.args = args;
+  constructor(result) {
     this.stack = [{}];
 
-    const { contextOptions, argv, filePatterns, logger } = result;
+    const { args, contextOptions, argv, filePatterns, logger } = result;
+    this.args = args;
 
     Object.assign(this, contextOptions);
     this.argv = argv;
@@ -161,7 +161,7 @@ function init(args) {
     "plugin-search-dir",
   ]);
 
-  return { contextOptions, argv, filePatterns };
+  return { args, contextOptions, argv, filePatterns };
 }
 
 module.exports = { init, Context };
