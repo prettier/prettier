@@ -42,10 +42,9 @@ class Context {
 
     const contextOptions = getContextOptions();
     Object.assign(this, contextOptions);
-
-    this.argv = parseArgv(args, contextOptions);
+    const argv = parseArgv(args, contextOptions.detailedOptions);
+    this.argv = argv;
     this.filePatterns = argv._.map((file) => String(file));
-
     this._normalizeContextArgv(["loglevel", "plugin", "plugin-search-dir"]);
     this.logger = createLogger(this.argv.loglevel);
     this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
@@ -79,8 +78,7 @@ class Context {
 
   _updateContextArgv(plugins, pluginSearchDirs) {
     this.pushContextPlugins(plugins, pluginSearchDirs);
-    const minimistOptions = createMinimistOptions(this.detailedOptions);
-    const argv = minimist(this.args, minimistOptions);
+    const argv = parseArgv(this.args, this.detailedOptions);
     this.argv = argv;
     this.filePatterns = argv._.map((file) => String(file));
   }
@@ -137,8 +135,7 @@ function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-function parseArgv(args, contextOptions) {
-  const { detailedOptions } = contextOptions;
+function parseArgv(args, detailedOptions) {
   const minimistOptions = createMinimistOptions(detailedOptions);
   return minimist(args, minimistOptions);
 }
