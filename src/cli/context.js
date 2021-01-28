@@ -40,7 +40,17 @@ class Context {
     this.args = args;
     this.stack = [];
 
-    this.pushContextPlugins();
+    this.stack.push(
+      pick(this, [
+        "supportOptions",
+        "detailedOptions",
+        "detailedOptionMap",
+        "apiDefaultOptions",
+        "languages",
+      ])
+    );
+    this._updateContextOptions();
+
     const minimistOptions = createMinimistOptions(this.detailedOptions);
     const argv = minimist(this.args, minimistOptions);
     this.argv = argv;
