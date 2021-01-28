@@ -63,7 +63,13 @@ class Context {
     this.filePatterns = filePatterns;
     this.logger = logger;
 
-    this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
+    const { plugin } = argv;
+    const pluginSearchDirs = argv["plugin-search-dir"];
+
+    this.pushContextPlugins(plugin, pluginSearchDirs);
+    const argv2 = parseArgv(this.args, this.detailedOptions);
+    this.argv = argv2;
+    this.filePatterns = argv2._.map((file) => String(file));
   }
 
   initContext() {
@@ -90,13 +96,6 @@ class Context {
 
   popContextPlugins() {
     Object.assign(this, this.stack.pop());
-  }
-
-  _updateContextArgv(plugins, pluginSearchDirs) {
-    this.pushContextPlugins(plugins, pluginSearchDirs);
-    const argv = parseArgv(this.args, this.detailedOptions);
-    this.argv = argv;
-    this.filePatterns = argv._.map((file) => String(file));
   }
 
   _normalizeContextArgv(keys) {
