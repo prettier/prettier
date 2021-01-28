@@ -101,37 +101,41 @@ class Context {
    * @param {string[]=} pluginSearchDirs
    */
   _updateContextOptions(plugins, pluginSearchDirs) {
-    const { options: supportOptions, languages } = prettier.getSupportInfo({
-      showDeprecated: true,
-      showUnreleased: true,
-      showInternal: true,
-      plugins,
-      pluginSearchDirs,
-    });
-    const detailedOptionMap = normalizeDetailedOptionMap({
-      ...createDetailedOptionMap(supportOptions),
-      ...constant.options,
-    });
-
-    const detailedOptions = arrayify(detailedOptionMap, "name");
-
-    const apiDefaultOptions = {
-      ...optionsModule.hiddenDefaults,
-      ...fromPairs(
-        supportOptions
-          .filter(({ deprecated }) => !deprecated)
-          .map((option) => [option.name, option.default])
-      ),
-    };
-
-    Object.assign(this, {
-      supportOptions,
-      detailedOptions,
-      detailedOptionMap,
-      apiDefaultOptions,
-      languages,
-    });
+    Object.assign(this, getContextOptions(plugins, pluginSearchDirs));
   }
+}
+
+function getContextOptions(plugins, pluginSearchDirs) {
+  const { options: supportOptions, languages } = prettier.getSupportInfo({
+    showDeprecated: true,
+    showUnreleased: true,
+    showInternal: true,
+    plugins,
+    pluginSearchDirs,
+  });
+  const detailedOptionMap = normalizeDetailedOptionMap({
+    ...createDetailedOptionMap(supportOptions),
+    ...constant.options,
+  });
+
+  const detailedOptions = arrayify(detailedOptionMap, "name");
+
+  const apiDefaultOptions = {
+    ...optionsModule.hiddenDefaults,
+    ...fromPairs(
+      supportOptions
+        .filter(({ deprecated }) => !deprecated)
+        .map((option) => [option.name, option.default])
+    ),
+  };
+
+  return {
+    supportOptions,
+    detailedOptions,
+    detailedOptionMap,
+    apiDefaultOptions,
+    languages,
+  };
 }
 
 module.exports = Context;
