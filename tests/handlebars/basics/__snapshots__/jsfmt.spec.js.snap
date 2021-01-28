@@ -68,8 +68,7 @@ printWidth: 80
   Hello
 </div>
 
-<ul class="list-unstyled
-  one-tab">
+<ul class="list-unstyled one-tab">
 </ul>
 ================================================================================
 `;
