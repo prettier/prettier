@@ -84,13 +84,12 @@ class Context {
   }
 
   _normalizeContextArgv(keys) {
-    const detailedOptions = !keys
-      ? this.detailedOptions
-      : this.detailedOptions.filter((option) => keys.includes(option.name));
-    const argv = !keys ? this.argv : pick(this.argv, keys);
-    this.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
-      logger: this.logger,
-    });
+    this.argv = normalizeContextArgv(
+      this.detailedOptions,
+      this.argv,
+      keys,
+      this.logger
+    );
   }
 
   /**
@@ -138,6 +137,19 @@ function getContextOptions(plugins, pluginSearchDirs) {
 function parseArgv(args, detailedOptions) {
   const minimistOptions = createMinimistOptions(detailedOptions);
   return minimist(args, minimistOptions);
+}
+
+function normalizeContextArgv(detailedOptions, argv, keys, logger) {
+  if (keys) {
+    detailedOptions = detailedOptions.filter((option) =>
+      keys.includes(option.name)
+    );
+    argv = pick(argv, keys);
+  }
+
+  return optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
+    logger,
+  });
 }
 
 module.exports = Context;
