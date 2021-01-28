@@ -7,9 +7,14 @@ const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 const core = require("./core");
+const { createLogger } = require("./logger");
+const { init } = require("./context");
 
 function run(args) {
-  const context = new core.Context(args);
+  const result = init(args);
+  const logger = createLogger(result.argv.loglevel);
+
+  const context = new core.Context(args, { ...result, logger });
 
   try {
     context.initContext();

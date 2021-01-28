@@ -4,7 +4,6 @@ const pick = require("lodash/pick");
 
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
-const { createLogger } = require("./logger");
 const {
   optionsModule,
   optionsNormalizer,
@@ -35,28 +34,12 @@ const createMinimistOptions = require("./create-minimist-options");
  * @property popContextPlugins
  */
 
-function init(args) {
-  const contextOptions = getContextOptions();
-  let argv = parseArgv(args, contextOptions.detailedOptions);
-  const filePatterns = argv._.map((file) => String(file));
-
-  argv = normalizeContextArgv(contextOptions.detailedOptions, argv, [
-    "loglevel",
-    "plugin",
-    "plugin-search-dir",
-  ]);
-
-  const logger = createLogger(argv.loglevel);
-
-  return { contextOptions, argv, filePatterns, logger };
-}
-
 class Context {
-  constructor(args) {
+  constructor(args, result) {
     this.args = args;
     this.stack = [{}];
 
-    const { contextOptions, argv, filePatterns, logger } = init(args);
+    const { contextOptions, argv, filePatterns, logger } = result;
 
     Object.assign(this, contextOptions);
     this.argv = argv;
@@ -167,4 +150,18 @@ function normalizeContextArgv(detailedOptions, argv, keys, logger) {
   });
 }
 
-module.exports = Context;
+function init(args) {
+  const contextOptions = getContextOptions();
+  let argv = parseArgv(args, contextOptions.detailedOptions);
+  const filePatterns = argv._.map((file) => String(file));
+
+  argv = normalizeContextArgv(contextOptions.detailedOptions, argv, [
+    "loglevel",
+    "plugin",
+    "plugin-search-dir",
+  ]);
+
+  return { contextOptions, argv, filePatterns };
+}
+
+module.exports = { init, Context };
