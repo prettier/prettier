@@ -1,12 +1,9 @@
 "use strict";
 
 const {
-  parse,
-  formatAST,
-  formatDoc,
-  printToDoc,
-  printDocToString,
-} = require("prettier-local").__debug;
+  __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
+  doc: { builders },
+} = require("prettier-local");
 const { outdent } = require("outdent");
 
 const code = outdent`
@@ -44,5 +41,14 @@ describe("API", () => {
   const { formatted: stringFromDoc } = printDocToString(doc, options);
   test("prettier.printDocToString", () => {
     expect(stringFromDoc).toBe(formatted);
+  });
+
+  const doc2 = new Function(
+    `{${Object.keys(builders)}}`,
+    "return " + formatResultFromDoc
+  )(builders);
+  const { formatted: stringFromDoc2 } = printDocToString(doc2, options);
+  test("output of prettier.formatDoc can be reused as code", () => {
+    expect(stringFromDoc2).toBe(formatted);
   });
 });
