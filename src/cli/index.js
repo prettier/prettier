@@ -24,7 +24,6 @@ function run(args) {
 
 function main(options) {
   const context = new core.Context(options);
-  context.initContext();
 
   context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 

@@ -41,7 +41,6 @@ class Context {
     const { args, contextOptions, argv, filePatterns, logger } = result;
     this.args = args;
 
-
     Object.assign(this, contextOptions);
     this.argv = argv;
     this.filePatterns = filePatterns;
@@ -54,11 +53,13 @@ class Context {
     const argv2 = parseArgv(this.args, this.detailedOptions);
     this.argv = argv2;
     this.filePatterns = argv2._.map((file) => String(file));
-  }
 
-  initContext() {
-    // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
-    this._normalizeContextArgv();
+    this.argv = normalizeContextArgv(
+      this.detailedOptions,
+      this.argv,
+      undefined,
+      this.logger
+    );
   }
 
   /**
@@ -80,15 +81,6 @@ class Context {
 
   popContextPlugins() {
     Object.assign(this, this.stack.pop());
-  }
-
-  _normalizeContextArgv(keys) {
-    this.argv = normalizeContextArgv(
-      this.detailedOptions,
-      this.argv,
-      keys,
-      this.logger
-    );
   }
 
   /**
