@@ -39,7 +39,13 @@ class Context {
   constructor(args) {
     this.args = args;
     this.stack = [];
-    this._updateContextArgv();
+
+    this.pushContextPlugins();
+    const minimistOptions = createMinimistOptions(this.detailedOptions);
+    const argv = minimist(this.args, minimistOptions);
+    this.argv = argv;
+    this.filePatterns = argv._.map((file) => String(file));
+
     this._normalizeContextArgv(["loglevel", "plugin", "plugin-search-dir"]);
     this.logger = createLogger(this.argv.loglevel);
     this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
