@@ -40,7 +40,7 @@ class Context {
     this.args = args;
     this.stack = [{}];
 
-    this._updateContextOptions();
+    Object.assign(this, getContextOptions());
 
     const minimistOptions = createMinimistOptions(this.detailedOptions);
     const argv = minimist(this.args, minimistOptions);
