@@ -35,24 +35,34 @@ const createMinimistOptions = require("./create-minimist-options");
  * @property popContextPlugins
  */
 
+function init(args) {
+  const contextOptions = getContextOptions();
+  let argv = parseArgv(args, contextOptions.detailedOptions);
+  const filePatterns = argv._.map((file) => String(file));
+
+  argv = normalizeContextArgv(contextOptions.detailedOptions, argv, [
+    "loglevel",
+    "plugin",
+    "plugin-search-dir",
+  ]);
+
+  const logger = createLogger(argv.loglevel);
+
+  return { contextOptions, argv, filePatterns, logger };
+}
+
 class Context {
   constructor(args) {
     this.args = args;
     this.stack = [{}];
 
-    const contextOptions = getContextOptions();
+    const { contextOptions, argv, filePatterns, logger } = init(args);
+
     Object.assign(this, contextOptions);
-    const argv = parseArgv(args, contextOptions.detailedOptions);
     this.argv = argv;
-    this.filePatterns = argv._.map((file) => String(file));
+    this.filePatterns = filePatterns;
+    this.logger = logger;
 
-    this.argv = normalizeContextArgv(contextOptions.detailedOptions, argv, [
-      "loglevel",
-      "plugin",
-      "plugin-search-dir",
-    ]);
-
-    this.logger = createLogger(this.argv.loglevel);
     this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
   }
 
