@@ -81,7 +81,7 @@ function main(options) {
     core.formatFiles(context);
   } else {
     context.logger.log(core.createUsage(context));
-    process.exit(1);
+    process.exitCode = 1;
   }
 }
 
