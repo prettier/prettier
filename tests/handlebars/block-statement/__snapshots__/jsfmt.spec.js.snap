@@ -60,9 +60,7 @@ printWidth: 80
 </MyComponent>
 
 =====================================output=====================================
-{{#block param hashKey=hashValue as |blockParam|}}
-  Hello
-{{/block}}
+{{#block param hashKey=hashValue as |blockParam|}}Hello{{/block}}
 
 {{#block
   almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars
@@ -80,9 +78,7 @@ printWidth: 80
   param
   hashKey=hashValue
   as |blockParam|
-}}
-  Hello
-{{/block}}
+}}Hello{{/block}}
 
 {{#block
   param
@@ -94,9 +90,7 @@ printWidth: 80
   param
   hashKey=HashValue
   hashKey=hashValue
-}}
-  Hello
-{{/block}}
+}}Hello{{/block}}
 
 {{#block
   param
@@ -112,9 +106,7 @@ printWidth: 80
   param
   param
   param
-}}
-  Hello
-{{/block}}
+}}Hello{{/block}}
 
 {{#block
   hashKey=HashValue
@@ -122,39 +114,19 @@ printWidth: 80
   hashKey=HashValue
   hashKey=hashValue
   hashKey=HashValue
-}}
-  Hello
-{{/block}}
+}}Hello{{/block}}
 
-{{#block}}
-  {{#block}}
-    hello
-  {{/block}}
-{{/block}}
+{{#block}}{{#block}}hello{{/block}}{{/block}}
 
-{{#block}}
-  {{#block param}}
-    hello
-  {{/block}}
-{{/block}}
+{{#block}}{{#block param}}hello{{/block}}{{/block}}
 
-{{#block param}}
-  {{#block param}}
-    hello
-  {{/block}}
-{{/block}}
+{{#block param}}{{#block param}}hello{{/block}}{{/block}}
 
-{{#block}}
-  hello
-{{/block}}
+{{#block}}hello{{/block}}
 
-<MyComponent as |firstName|>
-  {{firstName}}
-</MyComponent>
+<MyComponent as |firstName|>{{firstName}}</MyComponent>
 
-<MyComponent as |firstName lastName|>
-  {{firstName}} {{lastName}}
-</MyComponent>
+<MyComponent as |firstName lastName|>{{firstName}} {{lastName}}</MyComponent>
 ================================================================================
 `;
 
@@ -172,18 +144,10 @@ printWidth: 80
 </div>
 
 =====================================output=====================================
-<div id="comments">
-  {{#each comments}}
-    <h2>
-      <a href="/posts/{{permalink}}#{{id}}">
-        {{title}}
-      </a>
-    </h2>
-    <div>
-      {{body}}
-    </div>
-  {{/each}}
-</div>
+<div id="comments">{{#each comments}}<h2><a
+        href="/posts/{{permalink}}#{{id}}"
+      >{{title}}</a></h2>
+    <div>{{body}}</div>{{/each}}</div>
 ================================================================================
 `;
 
@@ -303,118 +267,35 @@ printWidth: 80
 {{~/if~}}
 
 =====================================output=====================================
-<h1>
-  {{#if isAtWork}}
-    Ship that code!
-  {{else if isReading}}
-    You can finish War and Peace eventually...
-  {{else}}
-    Go to bed!
-  {{/if}}
-</h1>
+<h1>{{#if isAtWork}}Ship that code!{{else if isReading}}You can finish War and
+    Peace eventually...{{else}}Go to bed!{{/if}}</h1>
 
-<h2>
-  {{#if a}}
-    A
-  {{else}}
-    B
-  {{/if}}
-</h2>
+<h2>{{#if a}}A{{else}}B{{/if}}</h2>
 
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  e
-{{/if}}
+{{#if a}}b{{else if c}}d{{else}}e{{/if}}
 
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
-{{/if}}
+{{#if a}}b{{else if c}}d{{else}}hello
+  {{#if f}}g{{/if}}
+  e{{/if}}
 
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else if e}}
-  f
-{{else if g}}
-  h
-{{else}}
-  j
-{{/if}}
+{{#if a}}b{{else if c}}d{{else if e}}f{{else if g}}h{{else}}j{{/if}}
 
-<div>
-  {{#if a}}
-    b
-  {{else if c}}
-    d
-  {{else}}
-    e
-  {{/if}}
-</div>
+<div>{{#if a}}b{{else if c}}d{{else}}e{{/if}}</div>
 
-<div>
-  <div>
-    {{#if a}}
-      b
-    {{else if c}}
-      d
-    {{else}}
-      e
-    {{/if}}
-  </div>
-</div>
+<div><div>{{#if a}}b{{else if c}}d{{else}}e{{/if}}</div></div>
 
-{{#if a}}
-  b
-{{else}}
-  {{#each c as |d|}}
-    e
-  {{/each}}
-{{/if}}
+{{#if a}}b{{else}}{{#each c as |d|}}e{{/each}}{{/if}}
 
-{{#if a}}
-  {{#if b}}
-    ab
-  {{else if c}}
-    ac
-  {{/if}}
-{{/if}}
+{{#if a}}{{#if b}}ab{{else if c}}ac{{/if}}{{/if}}
 
-{{#if a}}
-  a
-  <div>
-    b
-  </div>
-  c
-{{else}}
-  {{#if c}}
-    a b
-    <div>
-      c
-    </div>
-  {{/if}}
-  <div>
-    a
-  </div>
-  b c
-{{/if}}
+{{#if a}}a
+  <div>b</div>
+  c{{else}}{{#if c}}a b
+    <div>c</div>{{/if}}
+  <div>a</div>
+  b c{{/if}}
 
-{{~#if someCondition~}}
-  One thing
-{{~else if anotherCondition~}}
-  Another thing
-{{~/if~}}
+{{~#if someCondition~}}One thing{{~else if anotherCondition~}}Another thing{{~/if~}}
 ================================================================================
 `;
 
@@ -431,12 +312,8 @@ printWidth: 80
 </ul>
 
 =====================================output=====================================
-<ul>
-  {{#each speakers key="@index" as |speaker|}}
-    <li>
-      {{speaker}}
-    </li>
-  {{/each}}
-</ul>
+<ul>{{#each speakers key="@index" as |speaker|}}<li>{{
+        speaker
+      }}</li>{{/each}}</ul>
 ================================================================================
 `;

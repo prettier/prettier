@@ -52,12 +52,11 @@ printWidth: 80
   {{/my-crazy-component}}
 </div>
 
-{{#a-normal-component isRestoredTo="order"}}
-  <ThisWillBeNormal backTo="normal" />
-{{/a-normal-component}}
+{{#a-normal-component isRestoredTo="order"}}<ThisWillBeNormal
+    backTo="normal"
+  />{{/a-normal-component}}
 
-<div class="this should be fixed">
-  <Sibling isFixed={{true}} />
+<div class="this should be fixed"><Sibling isFixed={{true}} />
   {{! prettier-ignore }}
   <div  class = " left in chaos as well as children   "     >
 
@@ -65,13 +64,8 @@ printWidth: 80
 
 
   </div>
-  {{#another-sibling as |isFixed|}}
-    <div class="fixed">
-      {{isFixed}}
+  {{#another-sibling as |isFixed|}}<div class="fixed">{{isFixed}}
 
-      All of this should be fixed
-    </div>
-  {{/another-sibling}}
-</div>
+      All of this should be fixed</div>{{/another-sibling}}</div>
 ================================================================================
 `;

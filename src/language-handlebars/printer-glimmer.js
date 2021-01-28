@@ -60,7 +60,7 @@ function print(path, options, print) {
       const startingTag = group(printStartingTag(path, print));
 
       const escapeNextElementNode =
-        options.htmlWhitespaceSensitivity !== "strict" &&
+        options.htmlWhitespaceSensitivity === "ignore" &&
         isNextNodeOfSomeType(path, ["ElementNode"])
           ? softline
           : "";
@@ -75,7 +75,7 @@ function print(path, options, print) {
         return [startingTag, indent(endingTag), escapeNextElementNode];
       }
 
-      if (options.htmlWhitespaceSensitivity !== "strict") {
+      if (options.htmlWhitespaceSensitivity === "ignore") {
         return [
           startingTag,
           indent(printChildren(path, options, print)),
@@ -443,14 +443,14 @@ function printStartingTag(path, print) {
 function printChildren(path, options, print) {
   const node = path.getValue();
   const isEmpty = node.children.every((n) => isWhitespaceNode(n));
-  if (options.htmlWhitespaceSensitivity !== "strict" && isEmpty) {
+  if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
     return "";
   }
 
   return path.map((childPath, childIndex) => {
     const printedChild = print(childPath, options, print);
 
-    if (childIndex === 0 && options.htmlWhitespaceSensitivity !== "strict") {
+    if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
     }
 
@@ -546,7 +546,7 @@ function printOpenBlock(path, print) {
 
 function printElseBlock(node, options) {
   return [
-    options.htmlWhitespaceSensitivity !== "strict" ? hardline : "",
+    options.htmlWhitespaceSensitivity === "ignore" ? hardline : "",
     printInverseBlockOpeningMustache(node),
     "else",
     printInverseBlockClosingMustache(node),
@@ -567,7 +567,7 @@ function printElseIfBlock(path, print) {
 function printCloseBlock(path, print, options) {
   const node = path.getValue();
 
-  if (options.htmlWhitespaceSensitivity !== "strict") {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
     const escape = blockStatementHasOnlyWhitespaceInProgram(node)
       ? softline
       : hardline;
@@ -616,7 +616,7 @@ function printProgram(path, print, options) {
 
   const program = path.call(print, "program");
 
-  if (options.htmlWhitespaceSensitivity !== "strict") {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
     return indent([hardline, program]);
   }
 
@@ -628,7 +628,7 @@ function printInverse(path, print, options) {
 
   const inverse = path.call(print, "inverse");
   const printed =
-    options.htmlWhitespaceSensitivity !== "strict"
+    options.htmlWhitespaceSensitivity === "ignore"
       ? [hardline, inverse]
       : inverse;
 
