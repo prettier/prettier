@@ -5,13 +5,11 @@ const { isConcat, getDocParts } = require("./doc-utils");
 function flattenDoc(doc) {
   if (isConcat(doc)) {
     const res = [];
-    const parts = getDocParts(doc);
-    for (let i = 0; i < parts.length; ++i) {
-      const doc2 = parts[i];
-      if (typeof doc2 !== "string" && isConcat(doc2)) {
-        res.push(...flattenDoc(doc2).parts);
+    for (const part of getDocParts(doc)) {
+      if (isConcat(part)) {
+        res.push(...flattenDoc(part).parts);
       } else {
-        const flattened = flattenDoc(doc2);
+        const flattened = flattenDoc(part);
         if (flattened !== "") {
           res.push(flattened);
         }
@@ -35,27 +33,33 @@ function flattenDoc(doc) {
         ? doc.expandedStates.map(flattenDoc)
         : doc.expandedStates,
     };
+  } else if (doc.type === "fill") {
+    return { type: "fill", parts: doc.parts.map(flattenDoc) };
   } else if (doc.contents) {
     return { ...doc, contents: flattenDoc(doc.contents) };
   }
   return doc;
 }
 
-function printDoc(doc) {
+function printDoc(doc, index, parentParts) {
   if (typeof doc === "string") {
     return JSON.stringify(doc);
   }
 
   if (isConcat(doc)) {
-    return "[" + getDocParts(doc).map(printDoc).join(", ") + "]";
+    return `[${getDocParts(doc).map(printDoc).filter(Boolean).join(", ")}]`;
   }
 
   if (doc.type === "line") {
+    const withBreakParent =
+      Array.isArray(parentParts) &&
+      parentParts[index + 1] &&
+      parentParts[index + 1].type === "break-parent";
     if (doc.literal) {
-      return "literalline";
+      return withBreakParent ? "literalline" : "literallineNoBreak";
     }
     if (doc.hard) {
-      return "hardline";
+      return withBreakParent ? "hardline" : "hardlineNoBreak";
     }
     if (doc.soft) {
       return "softline";
@@ -64,7 +68,12 @@ function printDoc(doc) {
   }
 
   if (doc.type === "break-parent") {
-    return "breakParent";
+    const afterHardline =
+      Array.isArray(parentParts) &&
+      parentParts[index - 1] &&
+      parentParts[index - 1].type === "line" &&
+      parentParts[index - 1].hard;
+    return afterHardline ? undefined : "breakParent";
   }
 
   if (doc.type === "trim") {
@@ -90,30 +99,43 @@ function printDoc(doc) {
       "ifBreak(" +
       printDoc(doc.breakContents) +
       (doc.flatContents ? ", " + printDoc(doc.flatContents) : "") +
+      (doc.groupId
+        ? (!doc.flatContents ? ', ""' : "") +
+          (", { groupId: " + JSON.stringify(printGroupId(doc.groupId)) + " }")
+        : "") +
       ")"
     );
   }
 
   if (doc.type === "group") {
+    const optionsParts = [];
+
+    if (doc.break && doc.break !== "propagated") {
+      optionsParts.push("break: true");
+    }
+
+    if (doc.id) {
+      optionsParts.push("id: " + JSON.stringify(printGroupId(doc.id)));
+    }
+
+    const options =
+      optionsParts.length > 0 ? ", { " + optionsParts.join(", ") + " }" : "";
+
     if (doc.expandedStates) {
       return (
-        "conditionalGroup(" +
-        "[" +
+        "conditionalGroup([" +
         doc.expandedStates.map(printDoc).join(",") +
-        "])"
+        "]" +
+        options +
+        ")"
       );
     }
 
-    return (
-      (doc.break ? "wrappedGroup" : "group") +
-      "(" +
-      printDoc(doc.contents) +
-      ")"
-    );
+    return "group(" + printDoc(doc.contents) + options + ")";
   }
 
   if (doc.type === "fill") {
-    return "fill" + "(" + doc.parts.map(printDoc).join(", ") + ")";
+    return "fill([" + doc.parts.map(printDoc).join(", ") + "])";
   }
 
   if (doc.type === "line-suffix") {
@@ -127,8 +149,33 @@ function printDoc(doc) {
   throw new Error("Unknown doc type " + doc.type);
 }
 
-module.exports = {
-  printDocToDebug(doc) {
-    return printDoc(flattenDoc(doc));
-  },
-};
+let symbolMap;
+let usedStrings;
+
+function printGroupId(id) {
+  if (typeof id !== "symbol") {
+    return String(id);
+  }
+
+  if (id in symbolMap) {
+    return symbolMap[id];
+  }
+
+  const prefix = id.description || "symbol";
+  for (let i = 0; ; i++) {
+    const string = prefix + (i > 0 ? " #" + i : "");
+    if (!usedStrings.has(string)) {
+      symbolMap[id] = string;
+      usedStrings.add(string);
+      return string;
+    }
+  }
+}
+
+function printDocToDebug(doc) {
+  symbolMap = Object.create(null);
+  usedStrings = new Set();
+  return printDoc(flattenDoc(doc));
+}
+
+module.exports = { printDocToDebug };
