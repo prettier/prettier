@@ -41,6 +41,7 @@ class Context {
     const { args, contextOptions, argv, filePatterns, logger } = result;
     this.args = args;
 
+
     Object.assign(this, contextOptions);
     this.argv = argv;
     this.filePatterns = filePatterns;
