@@ -42,11 +42,8 @@ class Context {
 
     const contextOptions = getContextOptions();
     Object.assign(this, contextOptions);
-    const { detailedOptions } = contextOptions;
-    const minimistOptions = createMinimistOptions(detailedOptions);
 
-    const argv = minimist(this.args, minimistOptions);
-    this.argv = argv;
+    this.argv = parseArgv(args, contextOptions);
     this.filePatterns = argv._.map((file) => String(file));
 
     this._normalizeContextArgv(["loglevel", "plugin", "plugin-search-dir"]);
@@ -138,6 +135,12 @@ function getContextOptions(plugins, pluginSearchDirs) {
     apiDefaultOptions,
     languages,
   };
+}
+
+function parseArgv(args, contextOptions) {
+  const { detailedOptions } = contextOptions;
+  const minimistOptions = createMinimistOptions(detailedOptions);
+  return minimist(args, minimistOptions);
 }
 
 module.exports = Context;
