@@ -40,9 +40,11 @@ class Context {
     this.args = args;
     this.stack = [{}];
 
-    Object.assign(this, getContextOptions());
+    const contextOptions = getContextOptions();
+    Object.assign(this, contextOptions);
+    const { detailedOptions } = contextOptions;
+    const minimistOptions = createMinimistOptions(detailedOptions);
 
-    const minimistOptions = createMinimistOptions(this.detailedOptions);
     const argv = minimist(this.args, minimistOptions);
     this.argv = argv;
     this.filePatterns = argv._.map((file) => String(file));
