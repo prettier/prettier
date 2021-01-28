@@ -38,12 +38,11 @@ class Context {
   constructor(result) {
     this.stack = [{}];
 
-    const { args, contextOptions, argv, filePatterns, logger } = result;
+    const { args, contextOptions, argv, logger } = result;
     this.args = args;
 
     Object.assign(this, contextOptions);
     this.argv = argv;
-    this.filePatterns = filePatterns;
     this.logger = logger;
 
     const { plugin } = argv;
@@ -146,7 +145,6 @@ function normalizeContextArgv(detailedOptions, argv, keys, logger) {
 function init(args) {
   const contextOptions = getContextOptions();
   let argv = parseArgv(args, contextOptions.detailedOptions);
-  const filePatterns = argv._.map((file) => String(file));
 
   argv = normalizeContextArgv(contextOptions.detailedOptions, argv, [
     "loglevel",
@@ -154,7 +152,7 @@ function init(args) {
     "plugin-search-dir",
   ]);
 
-  return { args, contextOptions, argv, filePatterns };
+  return { args, contextOptions, argv };
 }
 
 module.exports = { init, Context };
