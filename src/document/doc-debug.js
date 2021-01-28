@@ -101,7 +101,7 @@ function printDoc(doc, index, parentParts) {
       (doc.flatContents ? ", " + printDoc(doc.flatContents) : "") +
       (doc.groupId
         ? (!doc.flatContents ? ', ""' : "") +
-          (", { groupId: " + JSON.stringify(printGroupId(doc.groupId)) + " }")
+          `, { groupId: ${JSON.stringify(printGroupId(doc.groupId))} }`
         : "") +
       ")"
     );
@@ -115,27 +115,23 @@ function printDoc(doc, index, parentParts) {
     }
 
     if (doc.id) {
-      optionsParts.push("id: " + JSON.stringify(printGroupId(doc.id)));
+      optionsParts.push(`id: ${JSON.stringify(printGroupId(doc.id))}`);
     }
 
     const options =
-      optionsParts.length > 0 ? ", { " + optionsParts.join(", ") + " }" : "";
+      optionsParts.length > 0 ? `, { ${optionsParts.join(", ")} }` : "";
 
     if (doc.expandedStates) {
-      return (
-        "conditionalGroup([" +
-        doc.expandedStates.map(printDoc).join(",") +
-        "]" +
-        options +
-        ")"
-      );
+      return `conditionalGroup([${doc.expandedStates
+        .map(printDoc)
+        .join(",")}]${options})`;
     }
 
-    return "group(" + printDoc(doc.contents) + options + ")";
+    return `group(${printDoc(doc.contents)}${options})`;
   }
 
   if (doc.type === "fill") {
-    return "fill([" + doc.parts.map(printDoc).join(", ") + "])";
+    return `fill([${doc.parts.map(printDoc).join(", ")}])`;
   }
 
   if (doc.type === "line-suffix") {
