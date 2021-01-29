@@ -42,8 +42,8 @@ function flattenDoc(doc) {
 }
 
 function printDocToDebug(doc) {
-  const symbolMap = Object.create(null);
-  const usedStrings = new Set();
+  const symbolsToKeysMap = Object.create(null);
+  const usedKeysForSymbols = new Set();
   return printDoc(flattenDoc(doc));
 
   function printDoc(doc, index, parentParts) {
@@ -112,7 +112,7 @@ function printDocToDebug(doc) {
         (doc.flatContents ? ", " + printDoc(doc.flatContents) : "") +
         (doc.groupId
           ? (!doc.flatContents ? ', ""' : "") +
-            `, { groupId: ${JSON.stringify(printGroupId(doc.groupId))} }`
+            `, { groupId: ${printGroupId(doc.groupId)} }`
           : "") +
         ")"
       );
@@ -126,7 +126,7 @@ function printDocToDebug(doc) {
       }
 
       if (doc.id) {
-        optionsParts.push(`id: ${JSON.stringify(printGroupId(doc.id))}`);
+        optionsParts.push(`id: ${printGroupId(doc.id)}`);
       }
 
       const options =
@@ -161,16 +161,16 @@ function printDocToDebug(doc) {
       return JSON.stringify(String(id));
     }
 
-    if (id in symbolMap) {
-      return symbolMap[id];
+    if (id in symbolsToKeysMap) {
+      return symbolsToKeysMap[id];
     }
 
     const prefix = id.description || "symbol";
     for (let counter = 0; ; counter++) {
       const string = prefix + (counter > 0 ? ` #${counter}` : "");
-      if (!usedStrings.has(string)) {
-        usedStrings.add(string);
-        return (symbolMap[id] = `Symbol.for(${JSON.stringify(string)})`);
+      if (!usedKeysForSymbols.has(string)) {
+        usedKeysForSymbols.add(string);
+        return (symbolsToKeysMap[id] = `Symbol.for(${JSON.stringify(string)})`);
       }
     }
   }
