@@ -42,7 +42,9 @@ function flattenDoc(doc) {
 }
 
 function printDocToDebug(doc) {
+  /** @type Record<symbol, string> */
   const printedSymbols = Object.create(null);
+  /** @type Set<string> */
   const usedKeysForSymbols = new Set();
   return printDoc(flattenDoc(doc));
 
