@@ -44,7 +44,7 @@ class Context {
       "plugin-search-dir": pluginSearchDirs,
     } = parseArgvWithoutPlugin(
       rawArguments,
-      ["plugin", '"plugin-search-dir"'],
+      ["plugin", "plugin-search-dir"],
       logger
     );
 
@@ -135,7 +135,7 @@ function parseArgvWithoutPlugin(rawArguments, keys, logger) {
   return parseArgv(
     rawArguments,
     contextOptionsWithoutPlugin.detailedOptions,
-    Array.isArray(keys) ? keys : [keys],
+    typeof keys === "string" ? [keys] : keys,
     logger
   );
 }
