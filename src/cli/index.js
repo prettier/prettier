@@ -8,14 +8,18 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index");
 const core = require("./core");
 const { createLogger } = require("./logger");
-const { init } = require("./context");
+const { parseArgv } = require("./context");
 
 function run(rawArguments) {
   const {
     loglevel: logLevel,
     plugin: plugins,
     "plugin-search-dir": pluginSearchDirs,
-  } = init(rawArguments);
+  } = parseArgv(rawArguments, undefined, [
+    "loglevel",
+    "plugin",
+    "plugin-search-dir",
+  ]);
   const logger = createLogger(logLevel);
   const options = { rawArguments, plugins, pluginSearchDirs, logger };
   try {

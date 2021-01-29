@@ -38,9 +38,7 @@ class Context {
   constructor({ rawArguments, plugins, pluginSearchDirs, logger }) {
     this.args = rawArguments;
     this.logger = logger;
-    this.stack = [{}];
-
-    this.pushContextPlugins();
+    this.stack = [];
     this.pushContextPlugins(plugins, pluginSearchDirs);
     const argv = parseArgv(
       rawArguments,
@@ -109,6 +107,7 @@ function getContextOptions(plugins, pluginSearchDirs) {
 }
 
 function parseArgv(rawArguments, detailedOptions, keys, logger) {
+  detailedOptions = detailedOptions || getContextOptions().detailedOptions;
   const minimistOptions = createMinimistOptions(detailedOptions);
   const parsed = minimist(rawArguments, minimistOptions);
   const normalized = normalizeContextArgv(
@@ -131,14 +130,4 @@ function normalizeContextArgv(argv, detailedOptions, keys, logger) {
   return normalizeCliOptions(argv, detailedOptions, { logger });
 }
 
-function init(rawArguments) {
-  const { detailedOptions } = getContextOptions();
-  const argv = parseArgv(rawArguments, detailedOptions, [
-    "loglevel",
-    "plugin",
-    "plugin-search-dir",
-  ]);
-  return argv;
-}
-
-module.exports = { init, Context };
+module.exports = { parseArgv, Context };
