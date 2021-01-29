@@ -42,7 +42,7 @@ class Context {
     const {
       plugin: plugins,
       "plugin-search-dir": pluginSearchDirs,
-    } = parseArgvWithoutPlugin(
+    } = parseArgvWithoutPlugins(
       rawArguments,
       ["plugin", "plugin-search-dir"],
       logger
@@ -130,14 +130,14 @@ function parseArgv(rawArguments, detailedOptions, keys, logger) {
   return normalizeCliOptions(argv, detailedOptions, { logger });
 }
 
-const contextOptionsWithoutPlugin = getContextOptions();
-function parseArgvWithoutPlugin(rawArguments, keys, logger) {
+const contextOptionsWithoutPlugins = getContextOptions();
+function parseArgvWithoutPlugins(rawArguments, keys, logger) {
   return parseArgv(
     rawArguments,
-    contextOptionsWithoutPlugin.detailedOptions,
+    contextOptionsWithoutPlugins.detailedOptions,
     typeof keys === "string" ? [keys] : keys,
     logger
   );
 }
 
-module.exports = { Context, parseArgvWithoutPlugin };
+module.exports = { Context, parseArgvWithoutPlugins };

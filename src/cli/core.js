@@ -8,7 +8,7 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index");
 
 const { format, formatStdin, formatFiles } = require("./format");
-const { Context, parseArgvWithoutPlugin } = require("./context");
+const { Context, parseArgvWithoutPlugins } = require("./context");
 const {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
@@ -55,6 +55,6 @@ module.exports = {
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
   normalizeDetailedOptionMap,
-  parseArgvWithoutPlugin,
+  parseArgvWithoutPlugins,
   createLogger,
 };

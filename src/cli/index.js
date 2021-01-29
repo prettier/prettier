@@ -9,7 +9,7 @@ const prettier = require("../index");
 const core = require("./core");
 
 function run(rawArguments) {
-  const { loglevel } = core.parseArgvWithoutPlugin(rawArguments, "loglevel");
+  const { loglevel } = core.parseArgvWithoutPlugins(rawArguments, "loglevel");
   const logger = core.createLogger(loglevel);
 
   try {
