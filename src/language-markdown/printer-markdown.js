@@ -21,8 +21,9 @@ const {
     align,
     indent,
     group,
+    hardlineWithoutBreakParent,
   },
-  utils: { normalizeDoc, getDocParts },
+  utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
@@ -557,7 +558,6 @@ function printLine(path, value, options) {
 }
 
 function printTable(path, options, print) {
-  const hardlineWithoutBreakParent = getDocParts(hardline)[0];
   const node = path.getValue();
 
   const columnMaxWidths = [];

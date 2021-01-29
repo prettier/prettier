@@ -56,10 +56,10 @@ function printDoc(doc, index, parentParts) {
       parentParts[index + 1] &&
       parentParts[index + 1].type === "break-parent";
     if (doc.literal) {
-      return withBreakParent ? "literalline" : "literallineNoBreak";
+      return withBreakParent ? "literalline" : "literallineWithoutBreakParent";
     }
     if (doc.hard) {
-      return withBreakParent ? "hardline" : "hardlineNoBreak";
+      return withBreakParent ? "hardline" : "hardlineWithoutBreakParent";
     }
     if (doc.soft) {
       return "softline";
