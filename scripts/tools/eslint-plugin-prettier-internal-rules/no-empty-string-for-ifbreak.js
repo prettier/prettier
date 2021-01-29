@@ -28,7 +28,7 @@ module.exports = {
     return {
       [selector](node) {
         const { parent } = node;
-        if (parent.arguments.length == 2) {
+        if (parent.arguments.length === 2) {
           const firstArg = parent.arguments[0];
           context.report({
             node,
