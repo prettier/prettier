@@ -22,14 +22,14 @@ async function run(rawArguments) {
       logger = core.createLogger(logLevel);
     }
 
-    main(rawArguments, logger);
+    await main(rawArguments, logger);
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
   }
 }
 
-function main(rawArguments, logger) {
+async function main(rawArguments, logger) {
   const context = new core.Context({ rawArguments, logger });
 
   logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
@@ -79,13 +79,13 @@ function main(rawArguments, logger) {
     (!process.stdin.isTTY || context.argv["stdin-filepath"]);
 
   if (context.argv["find-config-path"]) {
-    core.logResolvedConfigPathOrDie(context);
+    await core.logResolvedConfigPathOrDie(context);
   } else if (context.argv["file-info"]) {
-    core.logFileInfoOrDie(context);
+    await core.logFileInfoOrDie(context);
   } else if (useStdin) {
-    core.formatStdin(context);
+    await core.formatStdin(context);
   } else if (hasFilePatterns) {
-    core.formatFiles(context);
+    await core.formatFiles(context);
   } else {
     logger.log(core.createUsage(context));
     process.exitCode = 1;
