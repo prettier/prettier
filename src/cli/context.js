@@ -34,11 +34,22 @@ const createMinimistOptions = require("./create-minimist-options");
  */
 
 class Context {
-  constructor({ rawArguments, plugins, pluginSearchDirs, logger }) {
+  constructor({ rawArguments, logger }) {
     this.rawArguments = rawArguments;
     this.logger = logger;
     this.stack = [];
+
+    const {
+      plugin: plugins,
+      "plugin-search-dir": pluginSearchDirs,
+    } = parseArgvWithoutPlugin(
+      rawArguments,
+      ["plugin", '"plugin-search-dir"'],
+      logger
+    );
+
     this.pushContextPlugins(plugins, pluginSearchDirs);
+
     const argv = parseArgv(
       rawArguments,
       this.detailedOptions,
@@ -124,7 +135,7 @@ function parseArgvWithoutPlugin(rawArguments, keys, logger) {
   return parseArgv(
     rawArguments,
     contextOptionsWithoutPlugin.detailedOptions,
-    keys,
+    Array.isArray(keys) ? keys : [keys],
     logger
   );
 }

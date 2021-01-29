@@ -9,19 +9,11 @@ const prettier = require("../index");
 const core = require("./core");
 
 function run(rawArguments) {
-  const {
-    loglevel: logLevel,
-    plugin: plugins,
-    "plugin-search-dir": pluginSearchDirs,
-  } = core.parseArgvWithoutPlugin(rawArguments, [
-    "loglevel",
-    "plugin",
-    "plugin-search-dir",
-  ]);
-  const logger = core.createLogger(logLevel);
-  const options = { rawArguments, plugins, pluginSearchDirs, logger };
+  const { loglevel } = core.parseArgvWithoutPlugin(rawArguments, "loglevel");
+  const logger = core.createLogger(loglevel);
+
   try {
-    main(options);
+    main({ rawArguments, logger });
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
