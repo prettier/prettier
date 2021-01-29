@@ -13,17 +13,17 @@ function run(rawArguments) {
   const logger = core.createLogger(loglevel);
 
   try {
-    main({ rawArguments, logger });
+    main(rawArguments, logger);
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
   }
 }
 
-function main(options) {
-  const context = new core.Context(options);
+function main(rawArguments, logger) {
+  const context = new core.Context({ rawArguments, logger });
 
-  context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
+  logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
   if (context.argv.check && context.argv["list-different"]) {
     throw new Error("Cannot use --check and --list-different together.");
@@ -42,12 +42,12 @@ function main(options) {
   }
 
   if (context.argv.version) {
-    context.logger.log(prettier.version);
+    logger.log(prettier.version);
     return;
   }
 
   if (context.argv.help !== undefined) {
-    context.logger.log(
+    logger.log(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? core.createDetailedUsage(context, context.argv.help)
         : core.createUsage(context)
@@ -56,7 +56,7 @@ function main(options) {
   }
 
   if (context.argv["support-info"]) {
-    context.logger.log(
+    logger.log(
       prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
       })
@@ -78,7 +78,7 @@ function main(options) {
   } else if (hasFilePatterns) {
     core.formatFiles(context);
   } else {
-    context.logger.log(core.createUsage(context));
+    logger.log(core.createUsage(context));
     process.exitCode = 1;
   }
 }
