@@ -42,7 +42,7 @@ function flattenDoc(doc) {
 }
 
 function printDocToDebug(doc) {
-  const symbolsToKeysMap = Object.create(null);
+  const printedSymbols = Object.create(null);
   const usedKeysForSymbols = new Set();
   return printDoc(flattenDoc(doc));
 
@@ -161,16 +161,16 @@ function printDocToDebug(doc) {
       return JSON.stringify(String(id));
     }
 
-    if (id in symbolsToKeysMap) {
-      return symbolsToKeysMap[id];
+    if (id in printedSymbols) {
+      return printedSymbols[id];
     }
 
     const prefix = id.description || "symbol";
     for (let counter = 0; ; counter++) {
-      const string = prefix + (counter > 0 ? ` #${counter}` : "");
-      if (!usedKeysForSymbols.has(string)) {
-        usedKeysForSymbols.add(string);
-        return (symbolsToKeysMap[id] = `Symbol.for(${JSON.stringify(string)})`);
+      const key = prefix + (counter > 0 ? ` #${counter}` : "");
+      if (!usedKeysForSymbols.has(key)) {
+        usedKeysForSymbols.add(key);
+        return (printedSymbols[id] = `Symbol.for(${JSON.stringify(key)})`);
       }
     }
   }
