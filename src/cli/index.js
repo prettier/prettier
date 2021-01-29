@@ -24,7 +24,7 @@ function run(rawArguments) {
     main(options);
   } catch (error) {
     logger.error(error.message);
-    process.exit(1);
+    process.exitCode = 1;
   }
 }
 

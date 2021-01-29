@@ -108,18 +108,8 @@ function getContextOptions(plugins, pluginSearchDirs) {
 
 function parseArgv(rawArguments, detailedOptions, keys, logger) {
   const minimistOptions = createMinimistOptions(detailedOptions);
-  const parsed = minimist(rawArguments, minimistOptions);
+  let argv = minimist(rawArguments, minimistOptions);
 
-  const normalized = normalizeContextArgv(
-    parsed,
-    detailedOptions,
-    keys,
-    logger
-  );
-  return normalized;
-}
-
-function normalizeContextArgv(argv, detailedOptions, keys, logger) {
   if (keys) {
     detailedOptions = detailedOptions.filter((option) =>
       keys.includes(option.name)
