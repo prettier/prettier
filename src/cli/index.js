@@ -7,20 +7,18 @@ const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 const core = require("./core");
-const { createLogger } = require("./logger");
-const { parseArgv } = require("./context");
 
 function run(rawArguments) {
   const {
     loglevel: logLevel,
     plugin: plugins,
     "plugin-search-dir": pluginSearchDirs,
-  } = parseArgv(rawArguments, undefined, [
+  } = core.parseArgvWithoutPlugin(rawArguments, [
     "loglevel",
     "plugin",
     "plugin-search-dir",
   ]);
-  const logger = createLogger(logLevel);
+  const logger = core.createLogger(logLevel);
   const options = { rawArguments, plugins, pluginSearchDirs, logger };
   try {
     main(options);

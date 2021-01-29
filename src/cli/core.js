@@ -8,12 +8,13 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index");
 
 const { format, formatStdin, formatFiles } = require("./format");
-const { Context } = require("./context");
+const { Context, parseArgvWithoutPlugin } = require("./context");
 const {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
 } = require("./option-map");
 const { createDetailedUsage, createUsage } = require("./usage");
+const { createLogger } = require("./logger");
 
 function logResolvedConfigPathOrDie(context) {
   const configFile = prettier.resolveConfigFile.sync(
@@ -54,4 +55,6 @@ module.exports = {
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
   normalizeDetailedOptionMap,
+  parseArgvWithoutPlugin,
+  createLogger,
 };

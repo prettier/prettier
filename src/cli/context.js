@@ -107,9 +107,9 @@ function getContextOptions(plugins, pluginSearchDirs) {
 }
 
 function parseArgv(rawArguments, detailedOptions, keys, logger) {
-  detailedOptions = detailedOptions || getContextOptions().detailedOptions;
   const minimistOptions = createMinimistOptions(detailedOptions);
   const parsed = minimist(rawArguments, minimistOptions);
+
   const normalized = normalizeContextArgv(
     parsed,
     detailedOptions,
@@ -130,4 +130,14 @@ function normalizeContextArgv(argv, detailedOptions, keys, logger) {
   return normalizeCliOptions(argv, detailedOptions, { logger });
 }
 
-module.exports = { parseArgv, Context };
+const contextOptionsWithoutPlugin = getContextOptions();
+function parseArgvWithoutPlugin(rawArguments, keys, logger) {
+  return parseArgv(
+    rawArguments,
+    contextOptionsWithoutPlugin.detailedOptions,
+    keys,
+    logger
+  );
+}
+
+module.exports = { Context, parseArgvWithoutPlugin };
