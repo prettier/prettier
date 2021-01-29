@@ -49,16 +49,15 @@ class Context {
     const pluginSearchDirs = argv["plugin-search-dir"];
 
     this.pushContextPlugins(plugin, pluginSearchDirs);
-    const argv2 = parseArgv(this.args, this.detailedOptions);
-    this.argv = argv2;
-    this.filePatterns = argv2._.map((file) => String(file));
-
-    this.argv = normalizeContextArgv(
+    const argv2 = parseArgv(
+      this.args,
       this.detailedOptions,
-      this.argv,
       undefined,
       this.logger
     );
+
+    this.argv = argv2;
+    this.filePatterns = argv2._.map((file) => String(file));
   }
 
   /**
@@ -124,9 +123,16 @@ function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-function parseArgv(args, detailedOptions) {
+function parseArgv(args, detailedOptions, keys, logger) {
   const minimistOptions = createMinimistOptions(detailedOptions);
-  return minimist(args, minimistOptions);
+  const parsed = minimist(args, minimistOptions);
+  const normalized = normalizeContextArgv(
+    detailedOptions,
+    parsed,
+    keys,
+    logger
+  );
+  return normalized;
 }
 
 function normalizeContextArgv(detailedOptions, argv, keys, logger) {
@@ -144,9 +150,7 @@ function normalizeContextArgv(detailedOptions, argv, keys, logger) {
 
 function init(args) {
   const contextOptions = getContextOptions();
-  let argv = parseArgv(args, contextOptions.detailedOptions);
-
-  argv = normalizeContextArgv(contextOptions.detailedOptions, argv, [
+  const argv = parseArgv(args, contextOptions.detailedOptions, [
     "loglevel",
     "plugin",
     "plugin-search-dir",
