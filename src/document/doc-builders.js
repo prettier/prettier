@@ -42,7 +42,9 @@ function assertDoc(val) {
  */
 function concat(parts) {
   if (process.env.NODE_ENV !== "production") {
-    parts.forEach(assertDoc);
+    for (const part of parts) {
+      assertDoc(part);
+    }
   }
 
   // We cannot do this until we change `printJSXElement` to not
@@ -84,9 +86,7 @@ function align(n, contents) {
  * @param {object} [opts] - TBD ???
  * @returns Doc
  */
-function group(contents, opts) {
-  opts = opts || {};
-
+function group(contents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
@@ -140,7 +140,9 @@ function conditionalGroup(states, opts) {
  */
 function fill(parts) {
   if (process.env.NODE_ENV !== "production") {
-    parts.forEach(assertDoc);
+    for (const part of parts) {
+      assertDoc(part);
+    }
   }
 
   return { type: "fill", parts };
@@ -152,9 +154,7 @@ function fill(parts) {
  * @param {object} [opts] - TBD ???
  * @returns Doc
  */
-function ifBreak(breakContents, flatContents, opts) {
-  opts = opts || {};
-
+function ifBreak(breakContents, flatContents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     if (breakContents) {
       assertDoc(breakContents);

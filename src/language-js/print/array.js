@@ -2,15 +2,18 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { line, softline, group, indent, ifBreak },
+  builders: { line, softline, hardline, group, indent, ifBreak, fill },
 } = require("../../document");
-const { getLast } = require("../../common/util");
+const { getLast, hasNewline } = require("../../common/util");
 const {
   shouldPrintComma,
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
+  isNumericLiteral,
+  isSignedNumericLiteral,
 } = require("../utils");
+const { locStart } = require("../loc");
 
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
@@ -50,7 +53,17 @@ function printArray(path, options, print) {
     //
     // Note that getLast returns null if the array is empty, but
     // we already check for an empty array just above so we are safe
-    const needsForcedTrailingComma = canHaveTrailingComma && lastElem === null;
+    const needsForcedTrailingComma = lastElem === null;
+
+    const groupId = Symbol("array");
+
+    const trailingComma = !canHaveTrailingComma
+      ? ""
+      : needsForcedTrailingComma
+      ? ","
+      : !shouldPrintComma(options)
+      ? ""
+      : ifBreak(",", "", { groupId });
 
     const shouldBreak =
       !options.__inJestEach &&
@@ -75,24 +88,42 @@ function printArray(path, options, print) {
         return element[itemsKey] && element[itemsKey].length > 1;
       });
 
+    const shouldUseConciseFormatting =
+      n.elements.length > 1 &&
+      n.elements.every(
+        (element) =>
+          element &&
+          (isNumericLiteral(element) ||
+            (isSignedNumericLiteral(element) &&
+              !hasComment(element.argument))) &&
+          !hasComment(
+            element,
+            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+            (comment) =>
+              !hasNewline(options.originalText, locStart(comment), {
+                backwards: true,
+              })
+          )
+      );
+
     parts.push(
       group(
         [
           openBracket,
-          indent([softline, printArrayItems(path, options, "elements", print)]),
-          needsForcedTrailingComma ? "," : "",
-          ifBreak(
-            canHaveTrailingComma &&
-              !needsForcedTrailingComma &&
-              shouldPrintComma(options)
-              ? ","
-              : ""
-          ),
-          printDanglingComments(path, options, /* sameIndent */ true),
+          indent([
+            softline,
+            shouldUseConciseFormatting
+              ? printArrayItemsConcisely(path, options, print, trailingComma)
+              : [
+                  printArrayItems(path, options, "elements", print),
+                  trailingComma,
+                ],
+            printDanglingComments(path, options, /* sameIndent */ true),
+          ]),
           softline,
           closeBracket,
         ],
-        { shouldBreak }
+        { shouldBreak, id: groupId }
       )
     );
   }
@@ -110,8 +141,7 @@ function printArrayItems(path, options, printPath, print) {
   let separatorParts = [];
 
   path.each((childPath) => {
-    printedElements.push(separatorParts);
-    printedElements.push(group(print(childPath)));
+    printedElements.push(separatorParts, group(print(childPath)));
 
     separatorParts = [",", line];
     if (
@@ -123,6 +153,31 @@ function printArrayItems(path, options, printPath, print) {
   }, printPath);
 
   return printedElements;
+}
+
+function printArrayItemsConcisely(path, options, print, trailingComma) {
+  const parts = [];
+
+  path.each((childPath, i, elements) => {
+    const isLast = i === elements.length - 1;
+
+    parts.push([print(childPath), isLast ? trailingComma : ","]);
+
+    if (!isLast) {
+      parts.push(
+        isNextLineEmpty(childPath.getValue(), options)
+          ? [hardline, hardline]
+          : hasComment(
+              elements[i + 1],
+              CommentCheckFlags.Leading | CommentCheckFlags.Line
+            )
+          ? hardline
+          : line
+      );
+    }
+  }, "elements");
+
+  return fill(parts);
 }
 
 module.exports = { printArray, printArrayItems };

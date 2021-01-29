@@ -18,9 +18,7 @@ const hiddenDefaults = {
 };
 
 // Copy options and fill in default values.
-function normalize(options, opts) {
-  opts = opts || {};
-
+function normalize(options, opts = {}) {
   const rawOptions = { ...options };
 
   const supportOptions = getSupportInfo({
@@ -86,11 +84,11 @@ function normalize(options, opts) {
 
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
-  Object.keys(mixedDefaults).forEach((k) => {
+  for (const [k, value] of Object.entries(mixedDefaults)) {
     if (rawOptions[k] == null) {
-      rawOptions[k] = mixedDefaults[k];
+      rawOptions[k] = value;
     }
-  });
+  }
 
   if (rawOptions.parser === "json") {
     rawOptions.trailingComma = "none";

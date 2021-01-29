@@ -29,10 +29,14 @@ async function commit(version) {
   await execa("git", ["push"]);
 }
 
-async function bump({ version, previousVersion, previousVersionOnMaster }) {
+async function bump({
+  version,
+  previousVersion,
+  previousVersionOnDefaultBranch,
+}) {
   const pkg = await readJson("package.json");
   if (semver.diff(version, previousVersion) === "patch") {
-    pkg.version = previousVersionOnMaster; // restore the `-dev` version
+    pkg.version = previousVersionOnDefaultBranch; // restore the `-dev` version
   } else {
     pkg.version = semver.inc(version, "minor") + "-dev";
   }
@@ -52,6 +56,6 @@ module.exports = async function (params) {
   );
 
   await logPromise("Updating files", format());
-  await logPromise("Bump master version", bump(params));
+  await logPromise("Bump default branch version", bump(params));
   await logPromise("Committing changed files", commit(version));
 };

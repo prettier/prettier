@@ -12,12 +12,12 @@ function printAngular(path, options, print) {
   const n = path.getValue();
   switch (n.type) {
     case "NGRoot":
-      return [].concat(
+      return [
         path.call(print, "node"),
         !hasComment(n.node)
-          ? []
-          : [" //", getComments(n.node)[0].value.trimEnd()]
-      );
+          ? ""
+          : " //" + getComments(n.node)[0].value.trimEnd(),
+      ];
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
     case "NGChainedExpression":

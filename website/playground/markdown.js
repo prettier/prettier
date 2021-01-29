@@ -22,11 +22,11 @@ function formatMarkdown(
     "",
     "**Output:**",
     codeBlock(output, syntax),
+    ...(isIdempotent
+      ? []
+      : ["", "**Second Output:**", codeBlock(output2, syntax)]),
+    ...(full ? ["", "**Expected behavior:**", ""] : []),
   ]
-    .concat(
-      isIdempotent ? [] : ["", "**Second Output:**", codeBlock(output2, syntax)]
-    )
-    .concat(full ? ["", "**Expected behavior:**", ""] : [])
     .filter((part) => part != null)
     .join("\n");
 }
@@ -37,6 +37,7 @@ function getMarkdownSyntax(options) {
     case "babel-flow":
     case "flow":
     case "espree":
+    case "meriyah":
       return "jsx";
     case "babel-ts":
     case "typescript":

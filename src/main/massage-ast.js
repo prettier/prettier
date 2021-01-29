@@ -18,9 +18,9 @@ function massageAST(ast, options, parent) {
   }
 
   const newObj = {};
-  for (const key of Object.keys(ast)) {
-    if (!ignoredProperties.has(key) && typeof ast[key] !== "function") {
-      newObj[key] = massageAST(ast[key], options, ast);
+  for (const [key, value] of Object.entries(ast)) {
+    if (!ignoredProperties.has(key) && typeof value !== "function") {
+      newObj[key] = massageAST(value, options, ast);
     }
   }
 

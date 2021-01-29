@@ -204,3 +204,46 @@ test("require-json-extensions", {
     },
   ],
 });
+
+test("no-empty-flat-contents-for-if-break", {
+  valid: [
+    "ifBreak('foo', 'bar')",
+    "ifBreak(doc1, doc2)",
+    "ifBreak(',')",
+    "ifBreak(doc)",
+    "ifBreak('foo', '', { groupId })",
+    "ifBreak(...foo, { groupId })",
+  ],
+  invalid: [
+    {
+      code: "ifBreak('foo', '')",
+      output: "ifBreak('foo')",
+      errors: [
+        {
+          message:
+            "Please don't pass an empty string to second parameter of ifBreak.",
+        },
+      ],
+    },
+    {
+      code: "ifBreak('foo'    ,     ''   )",
+      output: "ifBreak('foo')",
+      errors: [
+        {
+          message:
+            "Please don't pass an empty string to second parameter of ifBreak.",
+        },
+      ],
+    },
+    {
+      code: "ifBreak(doc, '')",
+      output: "ifBreak(doc)",
+      errors: [
+        {
+          message:
+            "Please don't pass an empty string to second parameter of ifBreak.",
+        },
+      ],
+    },
+  ],
+});

@@ -35,10 +35,9 @@ function printImportDeclaration(path, options, print) {
   parts.push(
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
-    printImportAssertions(path, options, print)
+    printImportAssertions(path, options, print),
+    semi
   );
-
-  parts.push(semi);
 
   return parts;
 }

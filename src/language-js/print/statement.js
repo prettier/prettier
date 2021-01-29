@@ -1,6 +1,5 @@
 "use strict";
 
-const { getLast } = require("../../common/util");
 const {
   builders: { hardline },
 } = require("../../document");
@@ -25,9 +24,7 @@ function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
   const parts = [];
   const isClassBody = node.type === "ClassBody";
-  const lastStatement = getLast(
-    node[property].filter(({ type }) => type !== "EmptyStatement")
-  );
+  const lastStatement = getLastStatement(node[property]);
 
   path.each((path, index, statements) => {
     const node = path.getValue();
@@ -62,7 +59,7 @@ function printStatementSequence(path, options, print, property) {
         parts.push(";");
       } else if (
         node.type === "ClassProperty" ||
-        node.type === "FieldDefinition"
+        node.type === "PropertyDefinition"
       ) {
         // `ClassBody` don't allow `EmptyStatement`,
         // so we can use `statements` to get next node
@@ -82,6 +79,15 @@ function printStatementSequence(path, options, print, property) {
   }, property);
 
   return parts;
+}
+
+function getLastStatement(statements) {
+  for (let i = statements.length - 1; i >= 0; i--) {
+    const statement = statements[i];
+    if (statement.type !== "EmptyStatement") {
+      return statement;
+    }
+  }
 }
 
 function statementNeedsASIProtection(path, options) {
@@ -145,7 +151,7 @@ function printSwitchCaseConsequent(path, options, print) {
  * @returns {boolean}
  */
 function classPropMayCauseASIProblems(node) {
-  if (node.type !== "ClassProperty" && node.type !== "FieldDefinition") {
+  if (node.type !== "ClassProperty" && node.type !== "PropertyDefinition") {
     return false;
   }
 
@@ -187,7 +193,7 @@ function classChildNeedsASIProtection(node) {
   }
   switch (node.type) {
     case "ClassProperty":
-    case "FieldDefinition":
+    case "PropertyDefinition":
     case "TSAbstractClassProperty":
       return node.computed;
     case "MethodDefinition": // Flow

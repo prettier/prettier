@@ -109,7 +109,7 @@ function genericPrint(path, options, printPath, args) {
     node.type === "ClassMethod" ||
     node.type === "ClassPrivateMethod" ||
     node.type === "ClassProperty" ||
-    node.type === "FieldDefinition" ||
+    node.type === "PropertyDefinition" ||
     node.type === "TSAbstractClassProperty" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "MethodDefinition" ||
@@ -185,9 +185,7 @@ function genericPrint(path, options, printPath, args) {
   if (needsParens) {
     const node = path.getValue();
     if (hasFlowShorthandAnnotationComment(node)) {
-      parts.push(" /*");
-      parts.push(node.trailingComments[0].value.trimStart());
-      parts.push("*/");
+      parts.push(" /*", node.trailingComments[0].value.trimStart(), "*/");
       node.trailingComments[0].printed = true;
     }
 
@@ -195,7 +193,7 @@ function genericPrint(path, options, printPath, args) {
   }
 
   if (decorators.length > 0) {
-    return group(decorators.concat(parts));
+    return group([...decorators, ...parts]);
   }
   return parts;
 }
@@ -700,9 +698,8 @@ function printPathNoParens(path, options, print, args) {
       } else {
         parts.push(hardline);
       }
-      parts.push("while (");
-
       parts.push(
+        "while (",
         group([indent([softline, path.call(print, "test")]), softline]),
         ")",
         semi
@@ -836,7 +833,7 @@ function printPathNoParens(path, options, print, args) {
     case "MethodDefinition":
       return printClassMethod(path, options, print);
     case "ClassProperty":
-    case "FieldDefinition":
+    case "PropertyDefinition":
     case "ClassPrivateProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
@@ -1090,9 +1087,10 @@ function printPathNoParens(path, options, print, args) {
     case "TSThisType":
       return "this";
 
+    case "PrivateIdentifier":
+      return ["#", path.call(print, "name")];
     case "PrivateName":
-      // babel use `id`, meriyah use `name`
-      return ["#", path.call(print, n.id ? "id" : "name")];
+      return ["#", path.call(print, "id")];
 
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);

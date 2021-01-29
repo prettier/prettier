@@ -144,5 +144,11 @@ for (const category of CHANGELOG_CATEGORIES) {
         `[${displayPath}]: Please put one space between title and PR link.`
       );
     }
+
+    if (/prettier master/i.test(content)) {
+      showErrorMessage(
+        `[${displayPath}]: Please use "main" instead of "master".`
+      );
+    }
   }
 }

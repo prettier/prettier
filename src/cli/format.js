@@ -116,6 +116,15 @@ function format(context, input, opt) {
     return { formatted: prettier.__debug.formatDoc(doc) };
   }
 
+  if (context.argv["debug-print-comments"]) {
+    return {
+      formatted: prettier.format(
+        JSON.stringify(prettier.formatWithCursor(input, opt).comments || []),
+        { parser: "json" }
+      ),
+    };
+  }
+
   if (context.argv["debug-check"]) {
     const pp = prettier.format(input, opt);
     const pppp = prettier.format(pp, opt);

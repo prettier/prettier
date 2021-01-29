@@ -97,7 +97,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "AssignmentExpression" ||
     parent.type === "VariableDeclarator" ||
     parent.type === "ClassProperty" ||
-    parent.type === "FieldDefinition" ||
+    parent.type === "PropertyDefinition" ||
     parent.type === "TSAbstractClassProperty" ||
     parent.type === "ClassPrivateProperty" ||
     parent.type === "ObjectProperty" ||
@@ -196,8 +196,9 @@ function printBinaryishExpressions(
     // which is unique in that it is right-associative.)
     if (shouldFlatten(node.operator, node.left.operator)) {
       // Flatten them out by recursively calling this function.
-      parts = parts.concat(
-        path.call(
+      parts = [
+        ...parts,
+        ...path.call(
           (left) =>
             printBinaryishExpressions(
               left,
@@ -207,8 +208,8 @@ function printBinaryishExpressions(
               isInsideParenthesis
             ),
           "left"
-        )
-      );
+        ),
+      ];
     } else {
       parts.push(group(path.call(print, "left")));
     }

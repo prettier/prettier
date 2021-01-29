@@ -78,7 +78,8 @@ printWidth: 80
   param
   param
   param
-  hashKey=hashValue as |blockParam|
+  hashKey=hashValue
+  as |blockParam|
 }}
   Hello
 {{/block}}
