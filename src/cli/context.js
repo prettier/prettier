@@ -6,7 +6,7 @@ const pick = require("lodash/pick");
 const prettier = require("../index");
 const {
   optionsModule,
-  optionsNormalizer,
+  optionsNormalizer: { normalizeCliOptions },
   utils: { arrayify },
 } = require("./prettier-internal");
 const minimist = require("./minimist");
@@ -40,7 +40,7 @@ class Context {
     this.logger = logger;
     this.stack = [{}];
 
-    Object.assign(this, getContextOptions());
+    this.pushContextPlugins();
     this.pushContextPlugins(plugins, pluginSearchDirs);
     const argv = parseArgv(
       rawArguments,
@@ -66,19 +66,12 @@ class Context {
         "languages",
       ])
     );
-    this._updateContextOptions(plugins, pluginSearchDirs);
+
+    Object.assign(this, getContextOptions(plugins, pluginSearchDirs));
   }
 
   popContextPlugins() {
     Object.assign(this, this.stack.pop());
-  }
-
-  /**
-   * @param {string[]} plugins
-   * @param {string[]=} pluginSearchDirs
-   */
-  _updateContextOptions(plugins, pluginSearchDirs) {
-    Object.assign(this, getContextOptions(plugins, pluginSearchDirs));
   }
 }
 
@@ -115,19 +108,19 @@ function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-function parseArgv(args, detailedOptions, keys, logger) {
+function parseArgv(rawArguments, detailedOptions, keys, logger) {
   const minimistOptions = createMinimistOptions(detailedOptions);
-  const parsed = minimist(args, minimistOptions);
+  const parsed = minimist(rawArguments, minimistOptions);
   const normalized = normalizeContextArgv(
-    detailedOptions,
     parsed,
+    detailedOptions,
     keys,
     logger
   );
   return normalized;
 }
 
-function normalizeContextArgv(detailedOptions, argv, keys, logger) {
+function normalizeContextArgv(argv, detailedOptions, keys, logger) {
   if (keys) {
     detailedOptions = detailedOptions.filter((option) =>
       keys.includes(option.name)
@@ -135,9 +128,7 @@ function normalizeContextArgv(detailedOptions, argv, keys, logger) {
     argv = pick(argv, keys);
   }
 
-  return optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
-    logger,
-  });
+  return normalizeCliOptions(argv, detailedOptions, { logger });
 }
 
 function init(rawArguments) {
