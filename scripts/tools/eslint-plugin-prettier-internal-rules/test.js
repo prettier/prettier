@@ -205,13 +205,14 @@ test("require-json-extensions", {
   ],
 });
 
-test("no-empty-string-for-ifbreak", {
+test("no-empty-flat-contents-for-if-break", {
   valid: [
     "ifBreak('foo', 'bar')",
     "ifBreak(doc1, doc2)",
     "ifBreak(',')",
     "ifBreak(doc)",
     "ifBreak('foo', '', { groupId })",
+    "ifBreak(...foo, { groupId })",
   ],
   invalid: [
     {
