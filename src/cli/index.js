@@ -67,7 +67,7 @@ function main(options) {
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
     !hasFilePatterns &&
-    (!process.stdin.isTTY || context.args["stdin-filepath"]);
+    (!process.stdin.isTTY || context.argv["stdin-filepath"]);
 
   if (context.argv["find-config-path"]) {
     core.logResolvedConfigPathOrDie(context);
