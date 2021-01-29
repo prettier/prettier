@@ -45,7 +45,7 @@ describe("API", () => {
 
   const doc2 = new Function(
     `{ ${Object.keys(builders)} }`,
-    "return " + formatResultFromDoc
+    `return ${formatResultFromDoc}`
   )(builders);
   const { formatted: stringFromDoc2 } = printDocToString(doc2, options);
   const formatResultFromDoc2 = formatDoc(doc2, options);

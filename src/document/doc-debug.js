@@ -158,8 +158,8 @@ function printGroupId(id) {
   }
 
   const prefix = id.description || "symbol";
-  for (let i = 0; ; i++) {
-    const string = prefix + (i > 0 ? " #" + i : "");
+  for (let counter = 0; ; counter++) {
+    const string = prefix + (counter > 0 ? ` #${counter}` : "");
     if (!usedStrings.has(string)) {
       symbolMap[id] = string;
       usedStrings.add(string);
