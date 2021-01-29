@@ -211,6 +211,7 @@ test("no-empty-string-for-ifbreak", {
     "ifBreak(doc1, doc2)",
     "ifBreak(',')",
     "ifBreak(doc)",
+    "ifBreak('foo', '', { groupId })",
   ],
   invalid: [
     {

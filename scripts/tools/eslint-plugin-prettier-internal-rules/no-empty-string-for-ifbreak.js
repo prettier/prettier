@@ -5,7 +5,7 @@ const selector = [
   '[callee.name="ifBreak"]',
   "[arguments]",
   ">",
-  ":nth-child(2)",
+  ":last-child",
   '[value=""]',
 ].join("");
 
@@ -28,13 +28,15 @@ module.exports = {
     return {
       [selector](node) {
         const { parent } = node;
-        const firstArg = parent.arguments[0];
-        context.report({
-          node,
-          messageId,
-          fix: (fixer) =>
-            fixer.removeRange([firstArg.range[1], parent.range[1] - 1]),
-        });
+        if (parent.arguments.length == 2) {
+          const firstArg = parent.arguments[0];
+          context.report({
+            node,
+            messageId,
+            fix: (fixer) =>
+              fixer.removeRange([firstArg.range[1], parent.range[1] - 1]),
+          });
+        }
       },
     };
   },
