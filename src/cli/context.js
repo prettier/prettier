@@ -20,7 +20,7 @@ const createMinimistOptions = require("./create-minimist-options");
 /**
  * @typedef {Object} Context
  * @property logger
- * @property {string[]} args
+ * @property {string[]} rawArguments
  * @property argv
  * @property {string[]} filePatterns
  * @property {any[]} supportOptions
@@ -35,7 +35,7 @@ const createMinimistOptions = require("./create-minimist-options");
 
 class Context {
   constructor({ rawArguments, plugins, pluginSearchDirs, logger }) {
-    this.args = rawArguments;
+    this.rawArguments = rawArguments;
     this.logger = logger;
     this.stack = [];
     this.pushContextPlugins(plugins, pluginSearchDirs);
