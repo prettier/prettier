@@ -931,18 +931,20 @@ function getCommentChildNodes(node, { parser, originalText: text }) {
   // not for comment attachment.
   if (node.type === "ForStatement" && text) {
     const result = [];
-    for (const prop of ["init", "test", "update"]) {
+    for (const propertyName of ["init", "test", "update"]) {
       result.push(
-        node[prop] ||
+        node[propertyName] ||
           createCommentAnchorPseudoNode(
             node,
-            prop,
+            propertyName,
             result.length > 0
               ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
                   text,
                   nextIndexOf(";", text, locEnd(getLast(result))) + 1
                 )
-              : nextIndexOf(";", text, locStart(node))
+              : nextIndexOf(";", text, locStart(node)),
+            true,
+            propertyName !== "update"
           )
       );
     }
@@ -969,8 +971,21 @@ function nextIndexOf(char, text, startIdx) {
   }
 }
 
-function createCommentAnchorPseudoNode(enclosingNode, name, loc) {
-  return { type: "::CommentAnchor", enclosingNode, name, range: [loc, loc] };
+function createCommentAnchorPseudoNode(
+  enclosingNode,
+  name,
+  loc,
+  acceptsLeadingComments,
+  acceptsTrailingComments
+) {
+  return {
+    type: "::CommentAnchor",
+    enclosingNode,
+    name,
+    range: [loc, loc],
+    acceptsLeadingComments,
+    acceptsTrailingComments,
+  };
 }
 
 /**
