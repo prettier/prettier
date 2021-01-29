@@ -5,9 +5,8 @@ const selector = [
   '[callee.name="ifBreak"]',
   "[arguments.length=2]",
   ':not([arguments.0.type="SpreadElement"])',
-  ">",
-  ":last-child",
-  '[value=""]',
+  '[arguments.1.type="Literal"]',
+  '[arguments.1.value=""]',
 ].join("");
 
 const messageId = "no-empty-flat-contents-for-if-break";
@@ -28,13 +27,12 @@ module.exports = {
   create(context) {
     return {
       [selector](node) {
-        const { parent } = node;
-        const firstArg = parent.arguments[0];
+        const firstArg = node.arguments[0];
         context.report({
           node,
           messageId,
           fix: (fixer) =>
-            fixer.removeRange([firstArg.range[1], parent.range[1] - 1]),
+            fixer.removeRange([firstArg.range[1], node.range[1] - 1]),
         });
       },
     };
