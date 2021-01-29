@@ -29,7 +29,6 @@ const createMinimistOptions = require("./create-minimist-options");
  * @property apiDefaultOptions
  * @property languages
  * @property {Partial<Context>[]} stack
- * @property initContext
  * @property pushContextPlugins
  * @property popContextPlugins
  */
