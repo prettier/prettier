@@ -315,7 +315,21 @@ function printTernary(path, options, print) {
     isConditionalExpression && breakClosingParen ? softline : "",
   ]);
 
-  return isParentTest ? group([indent([softline, result]), softline]) : result;
+  // foo = (
+  //   condition
+  //     ? first
+  //     : second
+  // ) as SomeType;
+  const shouldExtraIndent =
+    isConditionalExpression &&
+    parent.type === "TSAsExpression" &&
+    ["right", "init", "argument"].includes(
+      path.callParent((path) => path.getName())
+    );
+
+  return isParentTest || shouldExtraIndent
+    ? group([indent([softline, result]), softline])
+    : result;
 }
 
 module.exports = { printTernary };
