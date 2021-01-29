@@ -4,7 +4,7 @@ const pick = require("lodash/pick");
 
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
-const { createLogger } = require("./logger");
+const Logger = require("./logger");
 const {
   optionsModule,
   optionsNormalizer,
@@ -41,7 +41,7 @@ class Context {
     this.stack = [];
     this._updateContextArgv();
     this._normalizeContextArgv(["loglevel", "plugin", "plugin-search-dir"]);
-    this.logger = createLogger(this.argv.loglevel);
+    this.logger = new Logger(this.argv.loglevel);
     this._updateContextArgv(this.argv.plugin, this.argv["plugin-search-dir"]);
   }
 
