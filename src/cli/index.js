@@ -10,10 +10,14 @@ const core = require("./core");
 const { createLogger } = require("./logger");
 const { init } = require("./context");
 
-function run(args) {
-  const result = init(args);
-  const logger = createLogger(result.argv.loglevel);
-  const options = { ...result, logger };
+function run(rawArguments) {
+  const {
+    loglevel: logLevel,
+    plugin: plugins,
+    "plugin-search-dir": pluginSearchDirs,
+  } = init(rawArguments);
+  const logger = createLogger(logLevel);
+  const options = { rawArguments, plugins, pluginSearchDirs, logger };
   try {
     main(options);
   } catch (error) {

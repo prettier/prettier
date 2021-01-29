@@ -35,29 +35,21 @@ const createMinimistOptions = require("./create-minimist-options");
  */
 
 class Context {
-  constructor(result) {
+  constructor({ rawArguments, plugins, pluginSearchDirs, logger }) {
+    this.args = rawArguments;
+    this.logger = logger;
     this.stack = [{}];
 
-    const { args, contextOptions, argv, logger } = result;
-    this.args = args;
-
-    Object.assign(this, contextOptions);
-    this.argv = argv;
-    this.logger = logger;
-
-    const { plugin } = argv;
-    const pluginSearchDirs = argv["plugin-search-dir"];
-
-    this.pushContextPlugins(plugin, pluginSearchDirs);
-    const argv2 = parseArgv(
-      this.args,
+    Object.assign(this, getContextOptions());
+    this.pushContextPlugins(plugins, pluginSearchDirs);
+    const argv = parseArgv(
+      rawArguments,
       this.detailedOptions,
       undefined,
-      this.logger
+      logger
     );
-
-    this.argv = argv2;
-    this.filePatterns = argv2._.map((file) => String(file));
+    this.argv = argv;
+    this.filePatterns = argv._.map((file) => String(file));
   }
 
   /**
@@ -148,15 +140,14 @@ function normalizeContextArgv(detailedOptions, argv, keys, logger) {
   });
 }
 
-function init(args) {
-  const contextOptions = getContextOptions();
-  const argv = parseArgv(args, contextOptions.detailedOptions, [
+function init(rawArguments) {
+  const { detailedOptions } = getContextOptions();
+  const argv = parseArgv(rawArguments, detailedOptions, [
     "loglevel",
     "plugin",
     "plugin-search-dir",
   ]);
-
-  return { args, contextOptions, argv };
+  return argv;
 }
 
 module.exports = { init, Context };
