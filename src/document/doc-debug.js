@@ -150,7 +150,7 @@ let usedStrings;
 
 function printGroupId(id) {
   if (typeof id !== "symbol") {
-    return String(id);
+    return JSON.stringify(String(id));
   }
 
   if (id in symbolMap) {
@@ -161,9 +161,8 @@ function printGroupId(id) {
   for (let counter = 0; ; counter++) {
     const string = prefix + (counter > 0 ? ` #${counter}` : "");
     if (!usedStrings.has(string)) {
-      symbolMap[id] = string;
       usedStrings.add(string);
-      return string;
+      return (symbolMap[id] = `Symbol.for(${JSON.stringify(string)})`);
     }
   }
 }
