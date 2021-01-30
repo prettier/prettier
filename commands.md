@@ -1,4 +1,4 @@
-The core of the algorithm is implemented in `doc-{printer,builders,utils,debug}.js`. The printer should use the basic formatting abstractions provided to construct a format when printing a node. Parts of the API only exist to be compatible with recast's previous API to ease migration, but over time we can clean it up.
+The core of the algorithm is implemented in `doc-{printer,builders,utils,debug}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
 
 The following commands are available:
 
@@ -68,6 +68,8 @@ This is an alternative type of group which behaves like text layout: it's going 
 fill(["I", line, "love", line, "prettier"]);
 ```
 
+Expects the `docs` argument to be an array of alternating content and whitespace. The whitespace contains the line breaks.
+
 ### ifBreak
 
 ```ts
@@ -83,7 +85,7 @@ ifBreak(";", " ");
 ### breakParent
 
 ```ts
-declare var breakParent: Doc;
+declare const breakParent: Doc;
 ```
 
 Include this anywhere to force all parent groups to break. See `group` for more info. Example:
@@ -103,7 +105,7 @@ Join an array of items with a separator.
 ### line
 
 ```ts
-declare var line: Doc;
+declare const line: Doc;
 ```
 
 Specify a line break. If an expression fits on one line, the line break will be replaced with a space. Line breaks always indent the next line with the current level of indentation.
@@ -111,7 +113,7 @@ Specify a line break. If an expression fits on one line, the line break will be 
 ### softline
 
 ```ts
-declare var softline: Doc;
+declare const softline: Doc;
 ```
 
 Specify a line break. The difference from `line` is that if the expression fits on one line, it will be replaced with nothing.
@@ -119,7 +121,7 @@ Specify a line break. The difference from `line` is that if the expression fits 
 ### hardline
 
 ```ts
-declare var hardline: Doc;
+declare const hardline: Doc;
 ```
 
 Specify a line break that is **always** included in the output, no matter if the expression fits on one line or not.
@@ -127,10 +129,10 @@ Specify a line break that is **always** included in the output, no matter if the
 ### literalline
 
 ```ts
-declare var literalline: Doc;
+declare const literalline: Doc;
 ```
 
-Specify a line break that is **always** included in the output, and don't indent the next line. This is used for template literals.
+Specify a line break that is **always** included in the output and doesn't indent the next line. Also, unlike `hardline`, this kind of line break preserves trailing whitespace on the line it ends. This is used for template literals.
 
 ### lineSuffix
 
@@ -153,10 +155,10 @@ a; // comment
 ### lineSuffixBoundary
 
 ```ts
-declare var lineSuffixBoundary: Doc;
+declare const lineSuffixBoundary: Doc;
 ```
 
-In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. lineSuffixBoundary is an explicit marker you can use to flush code in addition to newlines.
+In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush code in addition to newlines.
 
 ```js
 ["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline];
@@ -199,7 +201,7 @@ Decrease the level of indentation. (Each `align` is considered one level of inde
 declare function align(n: number | string, doc: Doc): Doc;
 ```
 
-This is similar to indent but it increases the level of indentation by a fixed number or a string.
+This is similar to `indent` but it increases the level of indentation by a fixed number or a string.
 Trailing alignments in indentation are still spaces, but middle ones are transformed into one tab per `align` when `useTabs` enabled.
 If it's using in a whitespace-sensitive language, e.g. markdown, you should use `n` with string value to force print it.
 
@@ -232,27 +234,44 @@ This will dedent the current indentation to the root marked by `markAsRoot`.
 ### trim
 
 ```ts
-declare var trim: Doc;
+declare const trim: Doc;
 ```
 
 This will trim any whitespace or tab character on the current line. This is used for preprocessor directives.
 
 ### hardlineWithoutBreakParent and literallineWithoutBreakParent
 
-These are used very rarely, for advanced formatting tricks.
+_Added in v2.3.0_
+
+```ts
+declare const hardlineWithoutBreakParent: Doc;
+declare const literallineWithoutBreakParent: Doc;
+```
+
+These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit `breakParent`.
 
 Examples:
 
 - `hardlineWithoutBreakParent` is used for printing tables in Prettier's Markdown printer. With `proseWrap` set to `never`, the columns are aligned only if none of the rows exceeds `printWidth`.
-- `literallineWithoutBreakParent` (called `literalLineNoBreak` [there](https://github.com/prettier/plugin-ruby/blob/9e658db13d3f0524d816528e060b1381e0431559/src/ruby/nodes/heredocs.js)) is used in the [Ruby plugin](https://github.com/prettier/plugin-ruby) for printing heredoc syntax.
+- `literallineWithoutBreakParent` is used in the [Ruby plugin](https://github.com/prettier/plugin-ruby) for [printing heredoc syntax](https://github.com/prettier/plugin-ruby/blob/master/src/ruby/nodes/heredocs.js).
 
 ### cursor
 
 ```ts
-declare var cursor: Doc;
+declare const cursor: Doc;
 ```
 
 This is a placeholder value where the cursor is in the original input in order to find where it would be printed.
+
+### [Deprecated] concat
+
+_This command has been deprecated in v2.3.0, use `Doc[]` instead_
+
+```ts
+declare function concat(docs: Doc[]): Doc;
+```
+
+Combine an array into a single string.
 
 ## Example
 
@@ -279,13 +298,3 @@ group(
 ```
 
 This is a group with opening and closing brackets, and possibly indented contents. Because it's a `group` it will always be broken up if any of the sub-expressions are broken.
-
-### [Deprecated] concat
-
-> This command is deprecated, use `Doc[]` instead.
-
-```ts
-declare function concat(docs: Doc[]): Doc;
-```
-
-Combine an array into a single string.
