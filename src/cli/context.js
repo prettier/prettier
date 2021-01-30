@@ -130,11 +130,11 @@ function parseArgv(rawArguments, detailedOptions, keys, logger) {
   return normalizeCliOptions(argv, detailedOptions, { logger });
 }
 
-const contextOptionsWithoutPlugins = getContextOptions();
+const detailedOptionsWithoutPlugins = getContextOptions().detailedOptions;
 function parseArgvWithoutPlugins(rawArguments, keys, logger) {
   return parseArgv(
     rawArguments,
-    contextOptionsWithoutPlugins.detailedOptions,
+    detailedOptionsWithoutPlugins,
     typeof keys === "string" ? [keys] : keys,
     logger
   );
