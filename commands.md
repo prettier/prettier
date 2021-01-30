@@ -253,7 +253,7 @@ These are used very rarely, for advanced formatting tricks. Unlike their "normal
 Examples:
 
 - `hardlineWithoutBreakParent` is used for printing tables in Prettier's Markdown printer. With `proseWrap` set to `never`, the columns are aligned only if none of the rows exceeds `printWidth`.
-- `literallineWithoutBreakParent` is used in the [Ruby plugin](https://github.com/prettier/plugin-ruby) for [printing heredoc syntax](https://github.com/prettier/plugin-ruby/blob/master/src/ruby/nodes/heredocs.js).
+- `literallineWithoutBreakParent` is used in the [Ruby plugin](https://github.com/prettier/plugin-ruby) for [printing heredoc syntax](https://github.com/prettier/plugin-ruby/blob/b6e7bd6bc3f70de8f146aa58ad0c8310518bf467/src/ruby/nodes/heredocs.js).
 
 ### cursor
 
