@@ -134,20 +134,21 @@ class Playground extends React.Component {
     });
   }
 
-  getMarkdown(formatted, reformatted, full) {
+  getMarkdown({ formatted, reformatted, full, doc }) {
     const { content, options } = this.state;
     const { availableOptions, version } = this.props;
 
-    return formatMarkdown(
-      content,
-      formatted,
-      reformatted || "",
+    return formatMarkdown({
+      input: content,
+      output: formatted,
+      output2: reformatted,
+      doc,
       version,
-      window.location.href,
+      url: window.location.href,
       options,
-      util.buildCliArgs(availableOptions, options),
-      full
-    );
+      cliOptions: util.buildCliArgs(availableOptions, options),
+      full,
+    });
   }
 
   render() {
@@ -172,11 +173,11 @@ class Playground extends React.Component {
             reformat={editorState.showSecondFormat}
           >
             {({ formatted, debug }) => {
-              const fullReport = this.getMarkdown(
+              const fullReport = this.getMarkdown({
                 formatted,
-                debug.reformatted,
-                true
-              );
+                reformatted: debug.reformatted,
+                full: true,
+              });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
               return (
@@ -241,6 +242,13 @@ class Playground extends React.Component {
                           checked={editorState.showSecondFormat}
                           onChange={editorState.toggleSecondFormat}
                         />
+                        {editorState.showDoc && debug.doc && (
+                          <ClipboardButton
+                            copy={() => this.getMarkdown({ doc: debug.doc })}
+                          >
+                            Copy doc
+                          </ClipboardButton>
+                        )}
                       </SidebarCategory>
                       <div className="sub-options">
                         <Button onClick={this.resetOptions}>
@@ -315,7 +323,10 @@ class Playground extends React.Component {
                       </ClipboardButton>
                       <ClipboardButton
                         copy={() =>
-                          this.getMarkdown(formatted, debug.reformatted)
+                          this.getMarkdown({
+                            formatted,
+                            reformatted: debug.reformatted,
+                          })
                         }
                       >
                         Copy markdown
