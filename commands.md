@@ -1,4 +1,4 @@
-The core of the algorithm is implemented in `src/document/doc-{printer,builders,utils,debug}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
+The core of the algorithm is implemented in `src/document/doc-{printer,builders,utils}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
 
 ## Prettier's intermediate representation: `Doc`
 
@@ -10,7 +10,7 @@ type Doc = string | Doc[] | DocCommand;
 
 - _strings_ are printed directly as is (however for the algorithm to work properly they shouldn't contain line break characters)
 - _arrays_ are used to concatenate a list of docs to be printed sequentially into a single doc
-- `DocCommand` is one of the following:
+- `DocCommand` is any of the following:
 
 ### group
 
