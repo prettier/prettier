@@ -131,8 +131,10 @@ function breakParentGroup(groupStack) {
     const parentGroup = groupStack[groupStack.length - 1];
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
-    if (!parentGroup.expandedStates) {
-      parentGroup.break = true;
+    if (!parentGroup.expandedStates && !parentGroup.break) {
+      // An alternative truthy value allows to distinguish propagated group breaks
+      // and not to print them as `group(..., { break: true })` in `--debug-print-doc`.
+      parentGroup.break = "propagated";
     }
   }
   return null;

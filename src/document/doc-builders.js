@@ -186,13 +186,19 @@ function lineSuffix(contents) {
 const lineSuffixBoundary = { type: "line-suffix-boundary" };
 const breakParent = { type: "break-parent" };
 const trim = { type: "trim" };
+
+const hardlineWithoutBreakParent = { type: "line", hard: true };
+const literallineWithoutBreakParent = {
+  type: "line",
+  hard: true,
+  literal: true,
+};
+
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
-const hardline = concat([{ type: "line", hard: true }, breakParent]);
-const literalline = concat([
-  { type: "line", hard: true, literal: true },
-  breakParent,
-]);
+const hardline = concat([hardlineWithoutBreakParent, breakParent]);
+const literalline = concat([literallineWithoutBreakParent, breakParent]);
+
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
 /**
@@ -257,4 +263,6 @@ module.exports = {
   markAsRoot,
   dedentToRoot,
   dedent,
+  hardlineWithoutBreakParent,
+  literallineWithoutBreakParent,
 };

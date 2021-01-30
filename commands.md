@@ -237,6 +237,15 @@ declare var trim: Doc;
 
 This will trim any whitespace or tab character on the current line. This is used for preprocessor directives.
 
+### hardlineWithoutBreakParent and literallineWithoutBreakParent
+
+These are used very rarely, for advanced formatting tricks.
+
+Examples:
+
+- `hardlineWithoutBreakParent` is used for printing tables in Prettier's Markdown printer. With `proseWrap` set to `never`, the columns are aligned only if none of the rows exceeds `printWidth`.
+- `literallineWithoutBreakParent` (called `literalLineNoBreak` [there](https://github.com/prettier/plugin-ruby/blob/9e658db13d3f0524d816528e060b1381e0431559/src/ruby/nodes/heredocs.js)) is used in the [Ruby plugin](https://github.com/prettier/plugin-ruby) for printing heredoc syntax.
+
 ### cursor
 
 ```ts

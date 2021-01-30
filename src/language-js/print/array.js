@@ -57,14 +57,6 @@ function printArray(path, options, print) {
 
     const groupId = Symbol("array");
 
-    const trailingComma = !canHaveTrailingComma
-      ? ""
-      : needsForcedTrailingComma
-      ? ","
-      : !shouldPrintComma(options)
-      ? ""
-      : ifBreak(",", "", { groupId });
-
     const shouldBreak =
       !options.__inJestEach &&
       n.elements.length > 1 &&
@@ -105,6 +97,16 @@ function printArray(path, options, print) {
               })
           )
       );
+
+    const trailingComma = !canHaveTrailingComma
+      ? ""
+      : needsForcedTrailingComma
+      ? ","
+      : !shouldPrintComma(options)
+      ? ""
+      : shouldUseConciseFormatting
+      ? ifBreak(",", "", { groupId })
+      : ifBreak(",");
 
     parts.push(
       group(
