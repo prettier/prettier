@@ -1,4 +1,4 @@
-The core of the algorithm is implemented in `doc-{printer,builders,utils,debug}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
+The core of the algorithm is implemented in `src/document/doc-{printer,builders,utils,debug}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
 
 The following commands are available:
 
