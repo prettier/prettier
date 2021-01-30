@@ -75,13 +75,13 @@ conditionalGroup([a, b, c]);
 declare function fill(docs: Doc[]): Doc;
 ```
 
-This is an alternative type of group which behaves like text layout: it's going to add a break whenever the next element doesn't fit in the line anymore. The difference with a typical group is that it's not going to break all the separators, just the ones that are at the end of lines.
+This is an alternative type of group which behaves like text layout: it's going to add a break whenever the next element doesn't fit in the line anymore. The difference with [`group`](#group) is that it's not going to break all the separators, just the ones that are at the end of lines.
 
 ```js
-fill(["I", line, "love", line, "prettier"]);
+fill(["I", line, "love", line, "Prettier"]);
 ```
 
-Expects the `docs` argument to be an array of alternating content and whitespace. The whitespace contains the line breaks.
+Expects the `docs` argument to be an array of alternating content and line breaks. In other words, elements with odd indices must be line breaks (e.g., [`softline`](#softline)).
 
 ### ifBreak
 
@@ -173,7 +173,7 @@ a; // comment
 declare const lineSuffixBoundary: Doc;
 ```
 
-In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush the `lineSuffix` buffer in addition to line breaks.
+In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush the [`lineSuffix`](#lineSuffix) buffer in addition to line breaks.
 
 ```js
 ["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline];
@@ -216,9 +216,9 @@ Decrease the level of indentation. (Each `align` is considered one level of inde
 declare function align(n: number | string, doc: Doc): Doc;
 ```
 
-Increase the indentation by a fixed number of spaces or a string. A variant of `indent`.
+Increase the indentation by a fixed number of spaces or a string. A variant of [`indent`](#indent).
 
-When `useTabs` is enabled, trailing alignments in indentation are still spaces, but middle ones are transformed one tab per `align`. In a whitespace-sensitive context, e.g. Markdown, you should pass spaces as a string value to prevent their replacement with tabs.
+When `useTabs` is enabled, trailing alignments in indentation are still spaces, but middle ones are transformed one tab per `align`. In a whitespace-sensitive context (e.g., Markdown), you should pass spaces to `align` as strings to prevent their replacement with tabs.
 
 For example:
 
@@ -236,7 +236,7 @@ For example:
 declare function markAsRoot(doc: Doc): Doc;
 ```
 
-Mark the current indentation as root for `dedentToRoot` and `literalline`s.
+Mark the current indentation as root for [`dedentToRoot`](#dedentToRoot) and [`literalline`](#literalline)s.
 
 ### dedentToRoot
 
@@ -244,7 +244,7 @@ Mark the current indentation as root for `dedentToRoot` and `literalline`s.
 declare function dedentToRoot(doc: Doc): Doc;
 ```
 
-Decrease the current indentation to the root marked by `markAsRoot`.
+Decrease the current indentation to the root marked by [`markAsRoot`](#markAsRoot).
 
 ### trim
 
@@ -263,7 +263,7 @@ declare const hardlineWithoutBreakParent: Doc;
 declare const literallineWithoutBreakParent: Doc;
 ```
 
-These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit `breakParent`.
+These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit (`breakParent`)[#breakParent].
 
 Examples:
 
