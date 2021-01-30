@@ -23,7 +23,7 @@ const {
     group,
     hardlineWithoutBreakParent,
   },
-  utils: { cleanDoc },
+  utils: { cleanDoc, getDocParts },
   printer: { printDocToString },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
