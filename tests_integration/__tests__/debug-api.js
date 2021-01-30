@@ -2,7 +2,10 @@
 
 const {
   __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
-  doc: { builders },
+  doc: {
+    builders,
+    utils: { cleanDoc },
+  },
 } = require("prettier-local");
 const { outdent } = require("outdent");
 
@@ -52,5 +55,24 @@ describe("API", () => {
   test("output of prettier.formatDoc can be reused as code", () => {
     expect(stringFromDoc2).toBe(formatted);
     expect(formatResultFromDoc2).toBe(formatResultFromDoc);
+  });
+
+  test("prettier.formatDoc prints things as expected", () => {
+    const { indent, hardline, literalline, fill } = builders;
+
+    expect(formatDoc([indent(hardline), indent(literalline)])).toBe(
+      "[indent(hardline), indent(literalline)]"
+    );
+
+    expect(formatDoc(fill(["foo", hardline, "bar", literalline, "baz"]))).toBe(
+      'fill(["foo", hardline, "bar", literalline, "baz"])'
+    );
+
+    expect(
+      formatDoc(
+        // The argument of fill must not be passed to cleanDoc because it's not a doc
+        fill(cleanDoc(["foo", literalline, "bar"])) // invalid fill
+      )
+    ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
   });
 });

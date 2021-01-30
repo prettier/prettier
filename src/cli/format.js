@@ -113,7 +113,7 @@ function format(context, input, opt) {
 
   if (context.argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
-    return { formatted: prettier.__debug.formatDoc(doc) };
+    return { formatted: prettier.__debug.formatDoc(doc) + "\n" };
   }
 
   if (context.argv["debug-print-comments"]) {
