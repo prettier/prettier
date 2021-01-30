@@ -84,7 +84,7 @@ Expects the `docs` argument to be an array of alternating content and whitespace
 ### ifBreak
 
 ```ts
-declare function ifBreak(ifBreak: Doc, noBreak: Doc, groupId: symbol): Doc;
+declare function ifBreak(ifBreak: Doc, noBreak?: Doc, groupId?: symbol): Doc;
 ```
 
 Prints something if the current group breaks and something else if it doesn't.
