@@ -25,7 +25,7 @@ declare function group(doc: Doc, opts?: GroupOpts): Doc;
 
 Mark a group of items which the printer should try to fit on one line. This is the basic command to tell the printer when to break. Groups are usually nested, and the printer will try to fit everything on one line, but if it doesn't fit it will break the outermost group first and try again. It will continue breaking groups until everything fits (or there are no more groups to break).
 
-A document can force parent groups to break by including `breakParent` (see below). A hard and literal line automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
+A group is forced to break if it's created with the `shouldBreak` option set to `true` or if it includes [`breakParent`](#breakParent). A [hard](#hardline) and [literal](#literalline) line breaks automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
 
 For example, an array will try to fit on one line:
 
@@ -46,6 +46,8 @@ However, if any of the items inside the array have a hard break, the array will 
 ```
 
 Functions always break after the opening curly brace no matter what, so the array breaks as well for consistent formatting. See [the implementation of `ArrayExpression`](#example) for an example.
+
+The `id` option can be used in [`ifBreak`](#ifBreak) checks.
 
 ### conditionalGroup
 
@@ -87,7 +89,7 @@ Expects the `docs` argument to be an array of alternating content and whitespace
 declare function ifBreak(ifBreak: Doc, noBreak?: Doc, groupId?: symbol): Doc;
 ```
 
-Prints something if the current group breaks and something else if it doesn't.
+Print something if the current group breaks and something else if it doesn't.
 
 ```js
 ifBreak(";", " ");
@@ -101,7 +103,7 @@ ifBreak(";", " ");
 declare const breakParent: Doc;
 ```
 
-Include this anywhere to force all parent groups to break. See `group` for more info. Example:
+Include this anywhere to force all parent groups to break. See [`group`](#group) for more info. Example:
 
 ```js
 group([" ", expr, " ", breakParent]);
@@ -113,7 +115,7 @@ group([" ", expr, " ", breakParent]);
 declare function join(sep: Doc, docs: Doc[]): Doc;
 ```
 
-Join an array of items with a separator.
+Join an array of docs with a separator.
 
 ### line
 
@@ -153,7 +155,7 @@ Specify a line break that is **always** included in the output and doesn't inden
 declare function lineSuffix(suffix: Doc): Doc;
 ```
 
-This is used to implement trailing comments. In practice, it is not practical to find where the line ends and you don't want to accidentally print some code at the end of the comment. `lineSuffix` will buffer the output and flush it before any new line.
+This is used to implement trailing comments. It's not practical to constantly check where the line ends to avoid accidentally printing some code at the end of a comment. `lineSuffix` buffers docs passed to it and flushes them before any new line.
 
 ```js
 ["a", lineSuffix(" // comment"), ";", hardline];
@@ -171,7 +173,7 @@ a; // comment
 declare const lineSuffixBoundary: Doc;
 ```
 
-In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush code in addition to newlines.
+In cases where you embed code inside of templates, comments shouldn't be able to leave the code part. `lineSuffixBoundary` is an explicit marker you can use to flush the `lineSuffix` buffer in addition to line breaks.
 
 ```js
 ["{", lineSuffix(" // comment"), lineSuffixBoundary, "}", hardline];
@@ -214,9 +216,9 @@ Decrease the level of indentation. (Each `align` is considered one level of inde
 declare function align(n: number | string, doc: Doc): Doc;
 ```
 
-This is similar to `indent` but it increases the level of indentation by a fixed number or a string.
-Trailing alignments in indentation are still spaces, but middle ones are transformed into one tab per `align` when `useTabs` enabled.
-If it's using in a whitespace-sensitive language, e.g. markdown, you should use `n` with string value to force print it.
+Increase the indentation by a fixed number of spaces or a string. A variant of `indent`.
+
+When `useTabs` is enabled, trailing alignments in indentation are still spaces, but middle ones are transformed one tab per `align`. In a whitespace-sensitive context, e.g. Markdown, you should pass spaces as a string value to prevent their replacement with tabs.
 
 For example:
 
@@ -234,7 +236,7 @@ For example:
 declare function markAsRoot(doc: Doc): Doc;
 ```
 
-This marks the current indentation as root for `dedentToRoot` and `literalline`s.
+Mark the current indentation as root for `dedentToRoot` and `literalline`s.
 
 ### dedentToRoot
 
@@ -242,7 +244,7 @@ This marks the current indentation as root for `dedentToRoot` and `literalline`s
 declare function dedentToRoot(doc: Doc): Doc;
 ```
 
-This will dedent the current indentation to the root marked by `markAsRoot`.
+Decrease the current indentation to the root marked by `markAsRoot`.
 
 ### trim
 
@@ -250,7 +252,7 @@ This will dedent the current indentation to the root marked by `markAsRoot`.
 declare const trim: Doc;
 ```
 
-This will trim any whitespace or tab character on the current line. This is used for preprocessor directives.
+Trim any whitespace or tab character on the current line. This can be used for preprocessor directives.
 
 ### hardlineWithoutBreakParent and literallineWithoutBreakParent
 
@@ -284,7 +286,7 @@ _This command has been deprecated in v2.3.0, use `Doc[]` instead_
 declare function concat(docs: Doc[]): Doc;
 ```
 
-Combine an array into a single string.
+Combine an array into a single doc.
 
 ## Example
 
