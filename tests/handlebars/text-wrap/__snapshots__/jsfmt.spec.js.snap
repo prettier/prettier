@@ -155,7 +155,8 @@ printWidth: 80
 =====================================output=====================================
 {{! Wrapping text }}
 <div>
-  Some text that would need to wrap on to a new line in order to display correctly and nicely
+  Some text that would need to wrap on to a new line in order to display
+  correctly and nicely
 </div>
 
 {{! Wrapping tags }}
@@ -221,7 +222,8 @@ printWidth: 80
 <div>
   before
   <div>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at mollis lorem.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at mollis
+    lorem.
   </div>
   after
 </div>
@@ -281,17 +283,20 @@ printWidth: 80
 
 {{! leading whitespace }}
 <div>
-  First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth
+  First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
+  Twelfth Thirteenth Fourteenth
 </div>
 
 {{! trailing whitespace }}
 <div>
-  First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth
+  First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
+  Twelfth Thirteenth Fourteenth
 </div>
 
 {{! no leading or trailing whitespace }}
 <div>
-  First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth
+  First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
+  Twelfth Thirteenth Fourteenth
 </div>
 
 {{! translation leave text around tag }}
@@ -299,8 +304,7 @@ printWidth: 80
   <span>
     First
   </span>
-  ,
-  (
+  , (
   <span>
     Second
   </span>
@@ -311,8 +315,7 @@ printWidth: 80
   <span>
     First second third fourth fifth sixth seventh
   </span>
-  ,
-  (
+  , (
   <span>
     Second
   </span>
@@ -358,7 +361,8 @@ printWidth: 80
 <div>
   Before
   <div>
-    {"Enough text to make this element wrap on to multiple lines when formatting"}
+    {"Enough text to make this element wrap on to multiple lines when
+    formatting"}
   </div>
   After
 </div>
@@ -367,12 +371,10 @@ printWidth: 80
 <div>
   Before{" "}
   <div>
-    {
-      "Enough text to make this element wrap on to multiple lines when formatting"
-    }
+    { "Enough text to make this element wrap on to multiple lines when
+    formatting" }
   </div>
-  {" "}
-  After
+  {" "} After
 </div>
 
 {{! dont preserve blank lines when contains text }}

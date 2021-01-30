@@ -399,8 +399,7 @@ printWidth: 80
   c
 {{else}}
   {{#if c}}
-    a
-    b
+    a b
     <div>
       c
     </div>
@@ -408,8 +407,7 @@ printWidth: 80
   <div>
     a
   </div>
-  b
-  c
+  b c
 {{/if}}
 
 {{~#if someCondition~}}

@@ -1,7 +1,18 @@
 "use strict";
 
 const {
-  builders: { dedent, group, hardline, ifBreak, indent, join, line, softline },
+  builders: {
+    dedent,
+    fill,
+    group,
+    hardline,
+    ifBreak,
+    indent,
+    join,
+    line,
+    softline,
+  },
+  utils: { getDocParts },
 } = require("../document");
 const { isNonEmptyArray, replaceEndOfLineWith } = require("../common/util");
 
@@ -282,7 +293,7 @@ function print(path, options, print) {
           text = text.replace(trailingWhitespacesRE, "");
         }
 
-        return [...leadBreaks, text, ...trailBreaks];
+        return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
       }
 
       const maxLineBreaksToPreserve = 2;
@@ -345,9 +356,11 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
+      text = text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace);
+
       return [
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-        text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+        fill(getTextValueParts(text)),
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ];
     }
@@ -627,6 +640,14 @@ function printInverse(path, print, options) {
 }
 
 /* TextNode print helpers */
+
+function getTextValueParts(value) {
+  return getDocParts(join(line, splitByHtmlWhitespace(value)));
+}
+
+function splitByHtmlWhitespace(string) {
+  return string.split(/[\t\n\f\r ]+/);
+}
 
 function getCurrentAttributeName(path) {
   for (let depth = 0; depth < 2; depth++) {
