@@ -1,12 +1,23 @@
 The core of the algorithm is implemented in `src/document/doc-{printer,builders,utils,debug}.js`. The printer uses the basic formatting abstractions provided to construct a format when printing a node.
 
-The following commands are available:
+## Prettier's intermediate representation: `Doc`
+
+A doc can be a string, an array of docs, or a command.
+
+```ts
+type Doc = string | Doc[] | DocCommand;
+```
+
+- _strings_ are printed directly as is (however for the algorithm to work properly they shouldn't contain line break characters)
+- _arrays_ are used to concatenate a list of docs to be printed sequentially into a single doc
+- `DocCommand` is one of the following:
 
 ### group
 
 ```ts
 type GroupOpts = {
   shouldBreak?: boolean;
+  id?: symbol;
   expandedStates?: Doc[];
 };
 declare function group(doc: Doc, opts?: GroupOpts): Doc;
@@ -73,7 +84,7 @@ Expects the `docs` argument to be an array of alternating content and whitespace
 ### ifBreak
 
 ```ts
-declare function ifBreak(ifBreak: Doc, noBreak: Doc): Doc;
+declare function ifBreak(ifBreak: Doc, noBreak: Doc, groupId: symbol): Doc;
 ```
 
 Prints something if the current group breaks and something else if it doesn't.
@@ -81,6 +92,8 @@ Prints something if the current group breaks and something else if it doesn't.
 ```js
 ifBreak(";", " ");
 ```
+
+`groupId` can be used to check another _already printed_ group instead of the current group.
 
 ### breakParent
 
