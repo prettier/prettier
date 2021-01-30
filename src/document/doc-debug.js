@@ -54,7 +54,8 @@ function printDocToDebug(doc) {
     }
 
     if (isConcat(doc)) {
-      return `[${getDocParts(doc).map(printDoc).filter(Boolean).join(", ")}]`;
+      const printed = getDocParts(doc).map(printDoc).filter(Boolean);
+      return printed.length === 1 ? printed[0] : `[${printed.join(", ")}]`;
     }
 
     if (doc.type === "line") {
@@ -144,7 +145,7 @@ function printDocToDebug(doc) {
     }
 
     if (doc.type === "fill") {
-      return `fill([${doc.parts.map(printDoc).join(", ")}])`;
+      return `fill([${doc.parts.map((part) => printDoc(part)).join(", ")}])`;
     }
 
     if (doc.type === "line-suffix") {

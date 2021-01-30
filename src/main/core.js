@@ -348,7 +348,7 @@ module.exports = {
   formatDoc(doc, options) {
     return formatWithCursor(printDocToDebug(doc), {
       ...options,
-      parser: "babel",
+      parser: "__js_expression",
     }).formatted;
   },
 
