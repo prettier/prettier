@@ -91,3 +91,30 @@ export function getAstAutoFold(parser) {
       return astAutoFold.glimmer;
   }
 }
+
+export function convertSelectionToRange({ head, anchor }, content) {
+  const lines = content.split("\n");
+  return [head, anchor]
+    .map(
+      ({ ch, line }) =>
+        lines.slice(0, line).join("\n").length + ch + (line ? 1 : 0)
+    )
+    .sort((a, b) => a - b);
+}
+
+export function convertOffsetToPosition(offset, content) {
+  if (offset >= content.length) {
+    return { line: 0, ch: 0 };
+  }
+  let line = 0;
+  let ch = -1;
+  for (let i = 0; i <= offset; i++) {
+    if (content[i] === "\n") {
+      line++;
+      ch = -1;
+    } else {
+      ch++;
+    }
+  }
+  return { line, ch };
+}

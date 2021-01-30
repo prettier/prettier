@@ -95,6 +95,8 @@ function handleMessage(message) {
 
     const response = {
       formatted: formatResult.formatted,
+      cursorOffset: formatResult.cursorOffset,
+      error: formatResult.error,
       debug: {
         ast: null,
         doc: null,
@@ -127,10 +129,10 @@ function handleMessage(message) {
       try {
         response.debug.doc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
-          { parser: "babel", plugins }
+          { plugins }
         );
       } catch (e) {
-        response.debug.doc = String(e);
+        response.debug.doc = "";
       }
     }
 
@@ -158,10 +160,10 @@ function formatCode(text, options) {
   } catch (e) {
     if (e.constructor && e.constructor.name === "SyntaxError") {
       // Likely something wrong with the user's code
-      return { formatted: String(e) };
+      return { formatted: String(e), error: true };
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return { formatted: e.stack || String(e) };
+    return { formatted: e.stack || String(e), error: true };
   }
 }
