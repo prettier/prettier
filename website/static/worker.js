@@ -14,7 +14,6 @@ function importScriptOnce(url) {
 
 importScripts("lib/parsers-location.js");
 importScripts("lib/standalone.js");
-importScripts("doc-explorer.js");
 
 // this is required to only load parsers when we need them
 const parsers = Object.create(null);
@@ -30,6 +29,25 @@ for (const file in parsersLocation) {
     });
   }
 }
+
+const docExplorerPlugin = {
+  parsers: {
+    "prettier-doc": {
+      parse: (text) =>
+        new Function(
+          `{ ${Object.keys(prettier.doc.builders)} }`,
+          `const result = ${text || "''"}; return result;`
+        )(prettier.doc.builders),
+      astFormat: "prettier-doc",
+    },
+  },
+  printers: {
+    "prettier-doc": {
+      print: (path) => path.getValue(),
+    },
+  },
+  languages: [{ name: "prettier-doc", parsers: ["prettier-doc"] }],
+};
 
 self.onmessage = function (event) {
   self.postMessage({
@@ -55,7 +73,7 @@ function handleMessage(message) {
         JSON.stringify(
           prettier.getSupportInfo({
             showUnreleased: true,
-            plugins: [prettierPlugins.docExplorer],
+            plugins: [docExplorerPlugin],
           })
         )
       ),
@@ -70,7 +88,7 @@ function handleMessage(message) {
     delete options.doc;
     delete options.output2;
 
-    const plugins = [{ parsers }, prettierPlugins.docExplorer];
+    const plugins = [{ parsers }, docExplorerPlugin];
     options.plugins = plugins;
 
     const formatResult = formatCode(message.code, options);
