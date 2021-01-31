@@ -274,9 +274,10 @@ class Playground extends React.Component {
                           checked={editorState.showSecondFormat}
                           onChange={editorState.toggleSecondFormat}
                         />
-                        {editorState.showDoc && debug.doc && (
+                        {editorState.showDoc && (
                           <ClipboardButton
                             copy={() => this.getMarkdown({ doc: debug.doc })}
+                            disabled={!debug.doc}
                           >
                             Copy doc
                           </ClipboardButton>
