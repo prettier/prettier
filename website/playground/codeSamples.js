@@ -307,7 +307,7 @@ export default function (parser) {
         "  </body>",
         "</HTML>",
       ].join("\n");
-    case "prettier-doc":
+    case "doc-explorer":
       return [
         "group([",
         '  "(*",',

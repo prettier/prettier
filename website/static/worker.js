@@ -32,21 +32,21 @@ for (const file in parsersLocation) {
 
 const docExplorerPlugin = {
   parsers: {
-    "prettier-doc": {
+    "doc-explorer": {
       parse: (text) =>
         new Function(
           `{ ${Object.keys(prettier.doc.builders)} }`,
           `const result = ${text || "''"}; return result;`
         )(prettier.doc.builders),
-      astFormat: "prettier-doc",
+      astFormat: "doc-explorer",
     },
   },
   printers: {
-    "prettier-doc": {
+    "doc-explorer": {
       print: (path) => path.getValue(),
     },
   },
-  languages: [{ name: "prettier-doc", parsers: ["prettier-doc"] }],
+  languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
 };
 
 self.onmessage = function (event) {

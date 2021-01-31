@@ -150,7 +150,7 @@ class Playground extends React.Component {
   }
 
   handleInputPanelFormat() {
-    if (this.state.options.parser !== "prettier-doc") {
+    if (this.state.options.parser !== "doc-explorer") {
       return;
     }
 
