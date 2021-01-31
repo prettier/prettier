@@ -101,8 +101,8 @@ function printHardlineAfterHeritage(node) {
 
 function hasMultipleHeritage(node) {
   return (
-    ["superClass", "extends", "mixins", "implements"].filter(
-      (key) => !!node[key]
+    ["superClass", "extends", "mixins", "implements"].filter((key) =>
+      Boolean(node[key])
     ).length > 1
   );
 }

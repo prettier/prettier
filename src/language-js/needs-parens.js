@@ -581,7 +581,7 @@ function needsParens(path, options) {
     case "ArrowFunctionExpression":
       switch (parent.type) {
         case "PipelineTopicExpression":
-          return !!(node.extra && node.extra.parenthesized);
+          return Boolean(node.extra && node.extra.parenthesized);
 
         case "BinaryExpression":
           return (

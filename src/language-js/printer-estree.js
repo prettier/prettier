@@ -490,7 +490,7 @@ function printPathNoParens(path, options, print, args) {
         return printNumber(n.raw);
       }
       if (typeof n.value !== "string") {
-        return "" + n.value;
+        return String(n.value);
       }
       return nodeStr(n, options);
     case "Directive":
@@ -873,7 +873,7 @@ function printPathNoParens(path, options, print, args) {
     case "ArrayTypeAnnotation":
       return [path.call(print, "elementType"), "[]"];
     case "BooleanLiteralTypeAnnotation":
-      return "" + n.value;
+      return String(n.value);
 
     case "EnumDeclaration":
       return ["enum ", path.call(print, "id"), " ", path.call(print, "body")];

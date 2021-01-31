@@ -892,7 +892,7 @@ function clamp(value, min, max) {
 }
 
 function hasPrettierIgnore(path) {
-  const index = +path.getName();
+  const index = Number(path.getName());
 
   if (index === 0) {
     return false;

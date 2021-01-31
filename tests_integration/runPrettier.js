@@ -63,8 +63,8 @@ function runPrettier(dir, args = [], options = {}) {
   const originalStdoutIsTTY = process.stdout.isTTY;
 
   process.chdir(normalizeDir(dir));
-  process.stdin.isTTY = !!options.isTTY;
-  process.stdout.isTTY = !!options.stdoutIsTTY;
+  process.stdin.isTTY = Boolean(options.isTTY);
+  process.stdout.isTTY = Boolean(options.stdoutIsTTY);
   process.argv = ["path/to/node", "path/to/prettier/bin", ...args];
 
   jest.resetModules();
@@ -77,7 +77,7 @@ function runPrettier(dir, args = [], options = {}) {
     .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
   jest
     .spyOn(require(thirdParty), "isCI")
-    .mockImplementation(() => !!options.ci);
+    .mockImplementation(() => Boolean(options.ci));
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>

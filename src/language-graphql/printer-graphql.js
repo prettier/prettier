@@ -35,7 +35,7 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(n)] !== "{";
-      const hasName = !!n.name;
+      const hasName = Boolean(n.name);
       return [
         hasOperation ? n.operation : "",
         hasOperation && hasName ? [" ", path.call(print, "name")] : "",
