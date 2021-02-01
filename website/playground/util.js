@@ -103,15 +103,12 @@ export function convertSelectionToRange({ head, anchor }, content) {
 }
 
 export function convertOffsetToPosition(offset, content) {
-  if (offset >= content.length) {
-    return { line: 0, ch: 0 };
-  }
   let line = 0;
-  let ch = -1;
-  for (let i = 0; i <= offset; i++) {
+  let ch = 0;
+  for (let i = 0; i < offset && i <= content.length; i++) {
     if (content[i] === "\n") {
       line++;
-      ch = -1;
+      ch = 0;
     } else {
       ch++;
     }
