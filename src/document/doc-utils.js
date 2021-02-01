@@ -1,6 +1,6 @@
 "use strict";
 
-const { literalline, concat } = require("./doc-builders");
+const { literalline } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => (Array.isArray(doc) ? doc : doc.parts);

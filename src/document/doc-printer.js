@@ -2,7 +2,7 @@
 
 const { getStringWidth } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
-const { concat, fill, cursor } = require("./doc-builders");
+const { fill, cursor } = require("./doc-builders");
 const { isConcat, getDocParts } = require("./doc-utils");
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
