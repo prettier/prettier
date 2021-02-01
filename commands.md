@@ -89,7 +89,7 @@ Expects the `docs` argument to be an array of alternating content and line break
 declare function ifBreak(ifBreak: Doc, noBreak?: Doc, groupId?: symbol): Doc;
 ```
 
-Print something if the current `group` or `fill` breaks and something else if it doesn't.
+Print something if the current `group` or the current element of `fill` breaks and something else if it doesn't.
 
 ```js
 ifBreak(";", " ");
