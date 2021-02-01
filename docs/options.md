@@ -203,7 +203,7 @@ These options cannot be used with `cursorOffset`.
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |
 | `Infinity` | `--range-end <int>`   | `rangeEnd: <int>`   |
 
-## break before else
+## Align object properties
 
 Align colons in multiline object literals (not applied with any of the JSON parsers).
 
@@ -266,7 +266,7 @@ Status: experimental, with some known paren spacing formatting issues.
 | ------- | ----------------- | ---------------------- |
 | `false` | `--paren-spacing` | `parenSpacing: <bool>` |
 
-## Align object properties
+## break before else
 
 Always add a line break before else.
 
