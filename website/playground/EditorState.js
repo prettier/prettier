@@ -7,7 +7,7 @@ export default class extends React.Component {
   constructor() {
     super();
     this.state = {
-      showSidebar: false,
+      showSidebar: true,
       showAst: false,
       showDoc: false,
       showComments: false,
