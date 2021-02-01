@@ -90,7 +90,7 @@
     "@babel/types": "7.12.12",
     "@glimmer/reference": "0.73.2",
     "@rollup/plugin-alias": "3.1.2",
-    "@rollup/plugin-babel": "5.2.2",
+    "@rollup/plugin-babel": "5.2.3",
     "@rollup/plugin-commonjs": "16.0.0",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-node-resolve": "11.1.1",
