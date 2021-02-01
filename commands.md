@@ -252,7 +252,7 @@ Decrease the current indentation to the root marked by [`markAsRoot`](#markAsRoo
 declare const trim: Doc;
 ```
 
-Trim any whitespace or tab character on the current line. This can be used for preprocessor directives.
+Trim all the indentation on the current line. This can be used for preprocessor directives. Should be placed after a line break.
 
 ### hardlineWithoutBreakParent and literallineWithoutBreakParent
 
