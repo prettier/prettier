@@ -86,7 +86,11 @@ Expects the `docs` argument to be an array of alternating content and line break
 ### ifBreak
 
 ```ts
-declare function ifBreak(ifBreak: Doc, noBreak?: Doc, groupId?: symbol): Doc;
+declare function ifBreak(
+  ifBreak: Doc,
+  noBreak?: Doc,
+  options?: { groupId?: symbol }
+): Doc;
 ```
 
 Print something if the current `group` or the current element of `fill` breaks and something else if it doesn't.
