@@ -15,11 +15,11 @@ type Doc = string | Doc[] | DocCommand;
 ### group
 
 ```ts
-type GroupOpts = {
+type GroupOptions = {
   shouldBreak?: boolean;
   id?: symbol;
 };
-declare function group(doc: Doc, opts?: GroupOpts): Doc;
+declare function group(doc: Doc, options?: GroupOptions): Doc;
 ```
 
 Mark a group of items which the printer should try to fit on one line. This is the basic command to tell the printer when to break. Groups are usually nested, and the printer will try to fit everything on one line, but if it doesn't fit it will break the outermost group first and try again. It will continue breaking groups until everything fits (or there are no more groups to break).
@@ -53,7 +53,10 @@ The `id` option can be used in [`ifBreak`](#ifBreak) checks.
 This should be used as **last resort** as it triggers an exponential complexity when nested.
 
 ```ts
-declare function conditionalGroup(alternatives: Doc[], opts?: GroupOpts): Doc;
+declare function conditionalGroup(
+  alternatives: Doc[],
+  options?: GroupOptions
+): Doc;
 ```
 
 This will try to print the first argument, if it fit use it, otherwise go to the next one and so on.
