@@ -95,7 +95,7 @@ function group(contents, opts = {}) {
     type: "group",
     id: opts.id,
     contents,
-    break: !!opts.shouldBreak,
+    break: Boolean(opts.shouldBreak),
     expandedStates: opts.expandedStates,
   };
 }

@@ -197,13 +197,12 @@ function format(context, input, opt) {
         repeat +
         " times."
     );
-    // should be using `performance.now()`, but only `Date` is cross-platform enough
-    const now = Date.now ? () => Date.now() : () => +new Date();
     let totalMs = 0;
     for (let i = 0; i < repeat; ++i) {
-      const startMs = now();
+      // should be using `performance.now()`, but only `Date` is cross-platform enough
+      const startMs = Date.now();
       prettier.formatWithCursor(input, opt);
-      totalMs += now() - startMs;
+      totalMs += Date.now() - startMs;
     }
     const averageMs = totalMs / repeat;
     const results = {

@@ -27,6 +27,7 @@ rules:
     - devDependencies: ["tests*/**", "scripts/**"]
   import/order: error
   no-else-return: error
+  no-implicit-coercion: error
   no-inner-declarations: error
   no-unneeded-ternary: error
   no-useless-return: error

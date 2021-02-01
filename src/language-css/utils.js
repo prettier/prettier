@@ -96,7 +96,7 @@ function isSCSS(parser, text) {
 }
 
 function isSCSSVariable(node) {
-  return !!(node && node.type === "word" && node.value.startsWith("$"));
+  return Boolean(node && node.type === "word" && node.value.startsWith("$"));
 }
 
 function isWideKeywords(value) {

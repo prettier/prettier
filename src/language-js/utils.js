@@ -1160,7 +1160,7 @@ function getLeftMost(node) {
 
 function isBitwiseOperator(operator) {
   return (
-    !!bitshiftOperators[operator] ||
+    Boolean(bitshiftOperators[operator]) ||
     operator === "|" ||
     operator === "^" ||
     operator === "&"

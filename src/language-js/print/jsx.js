@@ -713,7 +713,7 @@ function printJsx(path, options, print) {
     case "JSXAttribute":
       return printJsxAttribute(path, options, print);
     case "JSXIdentifier":
-      return "" + n.name;
+      return String(n.name);
     case "JSXNamespacedName":
       return join(":", [
         path.call(print, "namespace"),
