@@ -18,7 +18,6 @@ type Doc = string | Doc[] | DocCommand;
 type GroupOpts = {
   shouldBreak?: boolean;
   id?: symbol;
-  expandedStates?: Doc[];
 };
 declare function group(doc: Doc, opts?: GroupOpts): Doc;
 ```
@@ -54,13 +53,7 @@ The `id` option can be used in [`ifBreak`](#ifBreak) checks.
 This should be used as **last resort** as it triggers an exponential complexity when nested.
 
 ```ts
-type ConditionalGroupOpts = {
-  shouldBreak?: boolean;
-};
-declare function conditionalGroup(
-  alternatives: Doc[],
-  opts?: ConditionalGroupOpts
-): Doc;
+declare function conditionalGroup(alternatives: Doc[], opts?: GroupOpts): Doc;
 ```
 
 This will try to print the first argument, if it fit use it, otherwise go to the next one and so on.
