@@ -356,7 +356,9 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
-      text = text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace);
+      text = text
+        .replace(/^[\t\n\f\r ]+/g, leadingSpace)
+        .replace(/[\t\n\f\r ]+$/, trailingSpace);
 
       return [
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
