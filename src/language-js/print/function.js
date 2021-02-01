@@ -7,7 +7,7 @@ const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak, hardline },
+  builders: { line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
 const {
   getFunctionParameters,
