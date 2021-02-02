@@ -85,7 +85,13 @@ class Context {
   parseArgsToOptions(overrideDefaults) {
     const { detailedOptions, rawArguments } = this;
     const minimistOptions = createMinimistOptions(detailedOptions);
-    const apiDetailedOptionMap = createApiDetailedOptionMap(detailedOptions);
+    const apiDetailedOptionMap = fromPairs(
+      detailedOptions
+        .filter(
+          (option) => option.forwardToApi && option.forwardToApi !== option.name
+        )
+        .map((option) => [option.forwardToApi, option])
+    );
     return getOptions(
       normalizeCliOptions(
         minimist(rawArguments, {
@@ -117,16 +123,6 @@ function getOptions(argv, detailedOptions) {
     detailedOptions
       .filter(({ forwardToApi }) => forwardToApi)
       .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
-  );
-}
-
-function createApiDetailedOptionMap(detailedOptions) {
-  return fromPairs(
-    detailedOptions
-      .filter(
-        (option) => option.forwardToApi && option.forwardToApi !== option.name
-      )
-      .map((option) => [option.forwardToApi, option])
   );
 }
 
