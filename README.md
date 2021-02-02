@@ -20,11 +20,11 @@ prettierx <options> <file(s)>
 ## Additional prettierX options
 
 - `--align-object-properties` (`alignObjectProperties: true`): Align colons in multiline object literals (not applied with any of the JSON parsers).
+- `--offset-ternary-expressions` (`offsetTernaryExpressions: true`): Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).
 - `--space-before-function-paren` (`spaceBeforeFunctionParen: true`): Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
 - `--generator-star-spacing` (`generatorStarSpacing: true`): Put spaces around the star (`*`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
 - `--yield-star-spacing` (`yieldStarSpacing: true`): Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
 - `--no-indent-chains` (`indentChains: false`): Disable indents at the start of chained calls.
-- `--no-align-ternary-lines` (`alignTernaryLines: false`): Disable default alignment of ternary expression lines, which may be in conflict with "Standard JS" formatting in certain nested ternary cases ... see [`docs/options.md`](docs/options.md).
 - `--break-before-else` (`breakBeforeElse: true`): Always add a line break before else.
 - <code>--import-formatting <auto&#124;oneline></code> (<code>importFormatting: "<auto&#124;oneline>"</code>): Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.
 - `--html-void-tags` (`htmlVoidTags: true`): Format void HTML elements as void tags.
@@ -56,9 +56,9 @@ The following options should be used to _format_ the code _as consistently as po
 - `--single-quote` (`singleQuote: true`)
 - `--jsx-single-quote` (`jsxSingleQuote: true`)
 - `--no-semi` (`semi: false`)
+- `--offset-ternary-expressions` (`offsetTernaryExpressions: true`)
 - `--yield-star-spacing` (`yieldStarSpacing: true`)
 - `--trailing-comma none` (`trailingComma: "none"`)
-- and possibly `--no-align-ternary-lines` (`alignTernaryLines: false`) - see [`docs/options.md`](docs/options.md) for some more information
 
 Note that this tool does **not** follow any of the other ["Standard JS"](https://standardjs.com/) rules. It is recommended to use this tool together with eslint, in some form, to archive correct formatting according to ["Standard JS"](https://standardjs.com/).
 
@@ -68,9 +68,11 @@ Any known conflicts with ["Standard JS"](https://standardjs.com/) will be tracke
 
 - `--arrow-parens avoid` (`arrowParens: "avoid"`), especially in combination with `--space-in-parens` (`spaceInParens: true`).
 - `--break-long-method-chains` (`breakLongMethodChains: true`)
+- `--offset-ternary-expressions` (`offsetTernaryExpressions: true`)
 
 ## options removed
 
+- `--no-align-ternary-lines` - replaced with: `--offset-ternary-expressions`
 - `--paren-spacing` - replaced with finer-grained options:
   - `--array-bracket-spacing`
   - `--css-paren-spacing`

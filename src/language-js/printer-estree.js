@@ -432,8 +432,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       consequentNode.type === operatorOptions.conditionalNodeType
         ? ifBreak("", concat(["(", parenSpace]))
         : "",
-      // [prettierx] alignTernaryLines option support:
-      options.alignTernaryLines
+      // [prettierx] offsetTernaryExpressions option support:
+      !options.offsetTernaryExpressions
         ? align(2, path.call(print, operatorOptions.consequentNodePropertyName))
         : path.call(print, operatorOptions.consequentNodePropertyName),
       // [prettierx] spaceInParens option support (...)
@@ -442,26 +442,27 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         : "",
       line,
       ": ",
-      // [prettierx] alignTernaryLines option support:
-      !options.alignTernaryLines ||
+      // [prettierx] offsetTernaryExpressions option support:
+      options.offsetTernaryExpressions ||
       alternateNode.type === operatorOptions.conditionalNodeType
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : align(2, path.call(print, operatorOptions.alternateNodePropertyName)),
     ]);
     parts.push(
-      // [prettierx merge] from prettier@2.0.0:
+      // [prettierx] with offsetTernaryExpressions option support below:
       parent.type !== operatorOptions.conditionalNodeType ||
         parent[operatorOptions.alternateNodePropertyName] === node ||
         isParentTest
         ? part
-        : options.useTabs || !options.alignTernaryLines // [prettierx] (...)
+        : options.useTabs || options.offsetTernaryExpressions // [prettierx] offsetTernaryExpressions option support (...)
         ? dedent(indent(part))
         : align(Math.max(0, options.tabWidth - 2), part)
     );
 
-    // [prettierx] alignTernaryLines option support:
-    // Indent the whole ternary if alignTernaryLines:false (like ESLint).
-    if (!options.alignTernaryLines) {
+    // [prettierx] offsetTernaryExpressions option support:
+    // Indent the whole ternary if offsetTernaryExpressions is enabled
+    // (like ESLint).
+    if (options.offsetTernaryExpressions) {
       forceNoIndent = false;
     }
   }
@@ -499,8 +500,6 @@ function printTernaryOperator(path, options, print, operatorOptions) {
            *       ? d
            *       : e
            */
-          // [prettierx] alignTernaryLines option support:
-          options.alignTernaryLines &&
           parent.type === operatorOptions.conditionalNodeType &&
           parent[operatorOptions.alternateNodePropertyName] === node
             ? align(2, testDoc)

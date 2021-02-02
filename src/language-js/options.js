@@ -153,13 +153,12 @@ module.exports = {
     default: false,
     description: "Align colons in multiline object literals.",
   },
-  alignTernaryLines: {
+  offsetTernaryExpressions: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
-    default: true,
-    description: "Keep default alignment of ternary expression lines.",
-    oppositeDescription:
-      'Disable default alignment of ternary expression lines. Adds some more consistency with "Standard JS" in case of certain nested ternary expressions, may lead to some other conflicts with "Standard JS".',
+    default: false,
+    description:
+      'Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).',
   },
   generatorStarSpacing: {
     category: CATEGORY_JAVASCRIPT,

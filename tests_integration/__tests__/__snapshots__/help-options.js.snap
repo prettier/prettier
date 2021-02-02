@@ -13,19 +13,6 @@ Default: false
 
 exports[`show detailed usage with --help align-object-properties (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help align-ternary-lines (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help align-ternary-lines (stdout) 1`] = `
-"--align-ternary-lines
-
-  Keep default alignment of ternary expression lines.
-
-Default: true
-"
-`;
-
-exports[`show detailed usage with --help align-ternary-lines (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help array-bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help array-bracket-spacing (stdout) 1`] = `
@@ -448,17 +435,6 @@ Default: log
 
 exports[`show detailed usage with --help loglevel (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help no-align-ternary-lines (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help no-align-ternary-lines (stdout) 1`] = `
-"--no-align-ternary-lines
-
-  Disable default alignment of ternary expression lines. Adds some more consistency with \\"Standard JS\\" in case of certain nested ternary expressions, may lead to some other conflicts with \\"Standard JS\\".
-"
-`;
-
-exports[`show detailed usage with --help no-align-ternary-lines (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help no-color (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-color (stdout) 1`] = `
@@ -592,6 +568,19 @@ Default: true
 `;
 
 exports[`show detailed usage with --help object-curly-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help offset-ternary-expressions (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help offset-ternary-expressions (stdout) 1`] = `
+"--offset-ternary-expressions
+
+  Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help offset-ternary-expressions (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 

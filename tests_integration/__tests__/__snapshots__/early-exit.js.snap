@@ -70,7 +70,6 @@ Format options:
   --align-object-properties
                            Align colons in multiline object literals.
                            Defaults to false.
-  --no-align-ternary-lines Disable default alignment of ternary expression lines. Adds some more consistency with \\"Standard JS\\" in case of certain nested ternary expressions, may lead to some other conflicts with \\"Standard JS\\".
   --array-bracket-spacing  Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
                            Defaults to false.
   --arrow-parens <always|avoid>
@@ -112,6 +111,9 @@ Format options:
                            Defaults to false.
   --no-object-curly-spacing
                            Disable spaces between object curly braces.
+  --offset-ternary-expressions
+                           Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).
+                           Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -276,7 +278,6 @@ Format options:
   --align-object-properties
                            Align colons in multiline object literals.
                            Defaults to false.
-  --no-align-ternary-lines Disable default alignment of ternary expression lines. Adds some more consistency with \\"Standard JS\\" in case of certain nested ternary expressions, may lead to some other conflicts with \\"Standard JS\\".
   --array-bracket-spacing  Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
                            Defaults to false.
   --arrow-parens <always|avoid>
@@ -318,6 +319,9 @@ Format options:
                            Defaults to false.
   --no-object-curly-spacing
                            Disable spaces between object curly braces.
+  --offset-ternary-expressions
+                           Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).
+                           Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.

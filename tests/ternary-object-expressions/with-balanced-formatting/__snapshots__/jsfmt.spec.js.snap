@@ -2,8 +2,8 @@
 
 exports[`crewdress.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
@@ -37,8 +37,8 @@ const dress = isSpace
 
 exports[`crewdress.js 2`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
@@ -73,8 +73,8 @@ const dress = isSpace
 
 exports[`crewdress.js 3`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
@@ -109,8 +109,8 @@ const dress = isSpace
 
 exports[`crewdress.js 4`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
@@ -146,8 +146,8 @@ const dress = isSpace
 
 exports[`nested-ternary-promises.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
@@ -189,8 +189,8 @@ function test1() {
 
 exports[`nested-ternary-promises.js 2`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
@@ -233,8 +233,8 @@ function test1() {
 
 exports[`nested-ternary-promises.js 3`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
@@ -277,8 +277,8 @@ function test1() {
 
 exports[`nested-ternary-promises.js 4`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4

@@ -5,7 +5,7 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -34,10 +34,12 @@
+@@ -33,10 +33,12 @@
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.
                              Defaults to lf.

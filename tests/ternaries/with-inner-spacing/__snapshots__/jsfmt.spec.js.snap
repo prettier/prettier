@@ -2,7 +2,6 @@
 
 exports[`binary.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: true
 arrayBracketSpacing: true
 arrowParens: "avoid"
 computedPropertySpacing: true
@@ -51,7 +50,6 @@ room = room.map( ( row, rowIndex ) =>
 
 exports[`func-call.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: true
 arrayBracketSpacing: true
 arrowParens: "avoid"
 computedPropertySpacing: true
@@ -87,7 +85,6 @@ fn(
 
 exports[`indent.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: true
 arrayBracketSpacing: true
 arrowParens: "avoid"
 computedPropertySpacing: true
@@ -424,7 +421,6 @@ a
 
 exports[`nested.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: true
 arrayBracketSpacing: true
 arrowParens: "avoid"
 computedPropertySpacing: true
@@ -635,7 +631,6 @@ a
 
 exports[`nested-in-condition.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: true
 arrayBracketSpacing: true
 arrowParens: "avoid"
 computedPropertySpacing: true
@@ -731,7 +726,6 @@ const value = (
 
 exports[`parenthesis.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: true
 arrayBracketSpacing: true
 arrowParens: "avoid"
 computedPropertySpacing: true
@@ -775,7 +769,6 @@ a =>
 
 exports[`test.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: true
 arrayBracketSpacing: true
 arrowParens: "avoid"
 computedPropertySpacing: true

@@ -2,11 +2,11 @@
 
 exports[`correct.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
@@ -705,11 +705,11 @@ function * generator () {<LF>
 
 exports[`correct-ternaries.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
@@ -955,8 +955,8 @@ let icecream =<LF>
 a<LF>
   ? literalline<LF>
   : {<LF>
-    123: 12<LF>
-  }<LF>
+      123: 12<LF>
+    }<LF>
     ? line<LF>
     : softline<LF>
 <LF>
@@ -1056,11 +1056,11 @@ const StorybookLoader = ({ match }) =><LF>
 
 exports[`incorrect.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
@@ -1838,11 +1838,11 @@ const dress = isSpace<LF>
 
 exports[`incorrect-ternaries.js 1`] = `
 ====================================options=====================================
-alignTernaryLines: false
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
+offsetTernaryExpressions: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
@@ -2060,8 +2060,8 @@ let icecream =<LF>
 a<LF>
   ? literalline<LF>
   : {<LF>
-    123: 12<LF>
-  }<LF>
+      123: 12<LF>
+    }<LF>
     ? line<LF>
     : softline<LF>
 <LF>

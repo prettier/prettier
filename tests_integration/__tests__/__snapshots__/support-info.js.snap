@@ -77,10 +77,6 @@ Object {
       "default": false,
       "type": "boolean",
     },
-    "alignTernaryLines": Object {
-      "default": true,
-      "type": "boolean",
-    },
     "arrayBracketSpacing": Object {
       "default": false,
       "type": "boolean",
@@ -187,6 +183,10 @@ Object {
     },
     "objectCurlySpacing": Object {
       "default": true,
+      "type": "boolean",
+    },
+    "offsetTernaryExpressions": Object {
+      "default": false,
       "type": "boolean",
     },
     "parser": Object {
@@ -794,15 +794,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"category\\": \\"JavaScript\\",
-      \\"default\\": true,
-      \\"description\\": \\"Keep default alignment of ternary expression lines.\\",
-      \\"name\\": \\"alignTernaryLines\\",
-      \\"oppositeDescription\\": \\"Disable default alignment of ternary expression lines. Adds some more consistency with \\\\\\"Standard JS\\\\\\" in case of certain nested ternary expressions, may lead to some other conflicts with \\\\\\"Standard JS\\\\\\".\\",
-      \\"pluginDefaults\\": {},
-      \\"type\\": \\"boolean\\"
-    },
-    {
-      \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
       \\"description\\": \\"Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
       \\"name\\": \\"arrayBracketSpacing\\",
@@ -1031,6 +1022,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\": \\"Put spaces between object curly braces (similar to the corresponding eslint option).\\",
       \\"name\\": \\"objectCurlySpacing\\",
       \\"oppositeDescription\\": \\"Disable spaces between object curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Indent and align ternary expression branches more consistently with \\\\\\"Standard JS\\\\\\" (similar to the corresponding eslint option).\\",
+      \\"name\\": \\"offsetTernaryExpressions\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },

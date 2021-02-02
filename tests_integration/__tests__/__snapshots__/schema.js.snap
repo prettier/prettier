@@ -11,11 +11,6 @@ Object {
           "description": "Align colons in multiline object literals.",
           "type": "boolean",
         },
-        "alignTernaryLines": Object {
-          "default": true,
-          "description": "Keep default alignment of ternary expression lines.",
-          "type": "boolean",
-        },
         "arrayBracketSpacing": Object {
           "default": false,
           "description": "Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
@@ -191,6 +186,11 @@ This option cannot be used with --range-start and --range-end.",
         "objectCurlySpacing": Object {
           "default": true,
           "description": "Put spaces between object curly braces (similar to the corresponding eslint option).",
+          "type": "boolean",
+        },
+        "offsetTernaryExpressions": Object {
+          "default": false,
+          "description": "Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).",
           "type": "boolean",
         },
         "parser": Object {

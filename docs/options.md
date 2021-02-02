@@ -243,19 +243,6 @@ Put spaces around the star (`*`) in `yield*` expressions (before and after - sim
 | ------- | ---------------------- | -------------------------- |
 | `false` | `--yield-star-spacing` | `yieldStarSpacing: <bool>` |
 
-## Align ternary lines
-
-Keep or disable default alignment of ternary expression lines, which may be in conflict with "Standard JS" formatting in certain nested ternary cases.
-
-Valid options:
-
-- `true` - Keep default alignment of ternary expression lines.
-- `false` - Disable default alignment of ternary expression lines. Adds some more consistency with "Standard JS" in case of certain nested ternary expressions, may lead to some other conflicts with "Standard JS".
-
-| Default | CLI Override               | API Override                |
-| ------- | -------------------------- | --------------------------- |
-| `true`  | `--no-align-ternary-lines` | `alignTernaryLines: <bool>` |
-
 ## break before else
 
 Always add a line break before else.
@@ -308,6 +295,14 @@ Put spaces between computed property brackets (similar to the corresponding esli
 | Default | CLI Override                  | API Override                      |
 | ------- | ----------------------------- | --------------------------------- |
 | `false` | `--computed-property-spacing` | `computedPropertySpacing: <bool>` |
+
+## Offset ternary expressions
+
+Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).
+
+| Default | CLI Override                   | API Override                       |
+| ------- | ------------------------------ | ---------------------------------- |
+| `false` | `--offset-ternary-expressions` | `offsetTernaryExpressions: <bool>` |
 
 ## Space after unary operator symbols
 
