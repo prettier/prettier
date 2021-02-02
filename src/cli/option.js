@@ -1,63 +1,10 @@
 "use strict";
 
-const dashify = require("dashify");
-
-const fromPairs = require("lodash/fromPairs");
-
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 
-const minimist = require("./minimist");
 const { optionsNormalizer } = require("./prettier-internal");
 const createMinimistOptions = require("./create-minimist-options");
-
-function getOptions(argv, detailedOptions) {
-  return fromPairs(
-    detailedOptions
-      .filter(({ forwardToApi }) => forwardToApi)
-      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
-  );
-}
-
-function cliifyOptions(object, apiDetailedOptionMap) {
-  return fromPairs(
-    Object.entries(object || {}).map(([key, value]) => {
-      const apiOption = apiDetailedOptionMap[key];
-      const cliKey = apiOption ? apiOption.name : key;
-
-      return [dashify(cliKey), value];
-    })
-  );
-}
-
-function createApiDetailedOptionMap(detailedOptions) {
-  return fromPairs(
-    detailedOptions
-      .filter(
-        (option) => option.forwardToApi && option.forwardToApi !== option.name
-      )
-      .map((option) => [option.forwardToApi, option])
-  );
-}
-
-function parseArgsToOptions(context, overrideDefaults) {
-  const minimistOptions = createMinimistOptions(context.detailedOptions);
-  const apiDetailedOptionMap = createApiDetailedOptionMap(
-    context.detailedOptions
-  );
-  return getOptions(
-    optionsNormalizer.normalizeCliOptions(
-      minimist(context.rawArguments, {
-        string: minimistOptions.string,
-        boolean: minimistOptions.boolean,
-        default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
-      }),
-      context.detailedOptions,
-      { logger: false }
-    ),
-    context.detailedOptions
-  );
-}
 
 function getOptionsOrDie(context, filePath) {
   try {
@@ -93,11 +40,11 @@ function applyConfigPrecedence(context, options) {
   try {
     switch (context.argv["config-precedence"]) {
       case "cli-override":
-        return parseArgsToOptions(context, options);
+        return context.parseArgsToOptions(options);
       case "file-override":
-        return { ...parseArgsToOptions(context), ...options };
+        return { ...context.parseArgsToOptions(), ...options };
       case "prefer-file":
-        return options || parseArgsToOptions(context);
+        return options || context.parseArgsToOptions();
     }
   } catch (error) {
     /* istanbul ignore next */

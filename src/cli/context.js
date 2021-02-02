@@ -1,15 +1,15 @@
 "use strict";
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
-
+const dashify = require("dashify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
+const minimist = require("./minimist");
 const {
   optionsModule,
   optionsNormalizer: { normalizeCliOptions },
   utils: { arrayify },
 } = require("./prettier-internal");
-const minimist = require("./minimist");
 const constant = require("./constant");
 const {
   createDetailedOptionMap,
@@ -81,6 +81,53 @@ class Context {
   popContextPlugins() {
     Object.assign(this, this.stack.pop());
   }
+
+  parseArgsToOptions(overrideDefaults) {
+    const { detailedOptions, rawArguments } = this;
+    const minimistOptions = createMinimistOptions(detailedOptions);
+    const apiDetailedOptionMap = createApiDetailedOptionMap(detailedOptions);
+    return getOptions(
+      normalizeCliOptions(
+        minimist(rawArguments, {
+          string: minimistOptions.string,
+          boolean: minimistOptions.boolean,
+          default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
+        }),
+        detailedOptions,
+        { logger: false }
+      ),
+      detailedOptions
+    );
+  }
+}
+
+function cliifyOptions(object, apiDetailedOptionMap) {
+  return fromPairs(
+    Object.entries(object || {}).map(([key, value]) => {
+      const apiOption = apiDetailedOptionMap[key];
+      const cliKey = apiOption ? apiOption.name : key;
+
+      return [dashify(cliKey), value];
+    })
+  );
+}
+
+function getOptions(argv, detailedOptions) {
+  return fromPairs(
+    detailedOptions
+      .filter(({ forwardToApi }) => forwardToApi)
+      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
+  );
+}
+
+function createApiDetailedOptionMap(detailedOptions) {
+  return fromPairs(
+    detailedOptions
+      .filter(
+        (option) => option.forwardToApi && option.forwardToApi !== option.name
+      )
+      .map((option) => [option.forwardToApi, option])
+  );
 }
 
 function getContextOptions(plugins, pluginSearchDirs) {
