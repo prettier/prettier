@@ -36,7 +36,7 @@ export { fitsIn, oneLine };
 
 exports[`bracket.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+exportCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -87,7 +87,7 @@ export {} from ".";
 
 exports[`empty.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+exportCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

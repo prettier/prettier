@@ -195,7 +195,7 @@ printWidth: 80
 
 exports[`angularjs.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -297,7 +297,7 @@ printWidth: 80
 
 exports[`attr-name.component.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -1723,7 +1723,7 @@ printWidth: 80
 
 exports[`attributes.component.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2444,7 +2444,7 @@ printWidth: 80
 
 exports[`first-lf.component.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2795,7 +2795,7 @@ printWidth: 80
 
 exports[`ignore-attribute.component.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -3731,7 +3731,7 @@ printWidth: 80
 
 exports[`interpolation.component.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -12033,7 +12033,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 exports[`real-world.component.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -13620,7 +13620,7 @@ printWidth: 80
 
 exports[`tag-name.component.html 5`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth

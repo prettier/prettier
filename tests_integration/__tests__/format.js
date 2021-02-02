@@ -55,9 +55,7 @@ test("should work with foo plugin instance", () => {
     JSON.stringify(
       prettier.format(input, { parser: "foo-parser", plugins: [fooPlugin] })
     )
-  ).toMatchInlineSnapshot(
-    '"\\"{\\\\\\"tabWidth\\\\\\":8,\\\\\\"bracketSpacing\\\\\\":false}\\""'
-  );
+  ).toMatchInlineSnapshot('"\\"{\\\\\\"tabWidth\\\\\\":8}\\""');
 });
 
 test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", () => {

@@ -29,7 +29,7 @@ function needsParens(path, options) {
   // to avoid unexpected `}}` in HTML interpolations
   if (
     options.__isInHtmlInterpolation &&
-    !options.bracketSpacing &&
+    !options.objectCurlySpacing &&
     endsWithRightBracket(node) &&
     isFollowedByRightBracket(path)
   ) {

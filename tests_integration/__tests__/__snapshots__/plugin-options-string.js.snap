@@ -5,19 +5,19 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -33,10 +33,12 @@
-    --css-paren-spacing      Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
-                             Defaults to false.
+@@ -34,10 +34,12 @@
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.
                              Defaults to lf.
+    --no-export-curly-spacing
+                             Disable spaces between export curly braces.
 +   --foo-string <string>    foo description
 +                            Defaults to bar.
     --generator-star-spacing Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
                              Defaults to false.
-    --html-void-tags         Format void HTML elements as void tags.
-                             Defaults to false.
-    --html-whitespace-sensitivity <css|strict|ignore>"
+    --no-graphql-curly-spacing
+                             Do not put spaces between curly braces for GraphQL.
+    --html-void-tags         Format void HTML elements as void tags."
 `;
 
 exports[`show detailed external option with \`--help foo-string\` (stderr) 1`] = `""`;

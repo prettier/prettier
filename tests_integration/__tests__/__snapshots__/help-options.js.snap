@@ -57,19 +57,6 @@ Default: always
 
 exports[`show detailed usage with --help arrow-parens (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help bracket-spacing (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help bracket-spacing (stdout) 1`] = `
-"--bracket-spacing
-
-  Print spaces between brackets.
-
-Default: true
-"
-`;
-
-exports[`show detailed usage with --help bracket-spacing (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help break-before-else (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help break-before-else (stdout) 1`] = `
@@ -226,6 +213,19 @@ Default: lf
 
 exports[`show detailed usage with --help end-of-line (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help export-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help export-curly-spacing (stdout) 1`] = `
+"--export-curly-spacing
+
+  Put spaces between export curly braces.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help export-curly-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help file-info (stdout) 1`] = `
@@ -262,6 +262,19 @@ Default: false
 `;
 
 exports[`show detailed usage with --help generator-star-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help graphql-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help graphql-curly-spacing (stdout) 1`] = `
+"--graphql-curly-spacing
+
+  Put spaces between curly braces for GraphQL.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help graphql-curly-spacing (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help help (stderr) 1`] = `""`;
 
@@ -319,6 +332,19 @@ Default: .prettierignore
 `;
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help import-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help import-curly-spacing (stdout) 1`] = `
+"--import-curly-spacing
+
+  Put spaces between import curly braces.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help import-curly-spacing (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help import-formatting (stderr) 1`] = `""`;
 
@@ -433,17 +459,6 @@ exports[`show detailed usage with --help no-align-ternary-lines (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-align-ternary-lines (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help no-bracket-spacing (stdout) 1`] = `
-"--no-bracket-spacing
-
-  Do not print spaces between brackets.
-"
-`;
-
-exports[`show detailed usage with --help no-bracket-spacing (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help no-color (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-color (stdout) 1`] = `
@@ -477,6 +492,39 @@ exports[`show detailed usage with --help no-editorconfig (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-editorconfig (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help no-export-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-export-curly-spacing (stdout) 1`] = `
+"--no-export-curly-spacing
+
+  Disable spaces between export curly braces.
+"
+`;
+
+exports[`show detailed usage with --help no-export-curly-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-graphql-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-graphql-curly-spacing (stdout) 1`] = `
+"--no-graphql-curly-spacing
+
+  Do not put spaces between curly braces for GraphQL.
+"
+`;
+
+exports[`show detailed usage with --help no-graphql-curly-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-import-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-import-curly-spacing (stdout) 1`] = `
+"--no-import-curly-spacing
+
+  Disable spaces between import curly braces.
+"
+`;
+
+exports[`show detailed usage with --help no-import-curly-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help no-indent-chains (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-indent-chains (stdout) 1`] = `
@@ -488,6 +536,17 @@ exports[`show detailed usage with --help no-indent-chains (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-indent-chains (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help no-object-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-object-curly-spacing (stdout) 1`] = `
+"--no-object-curly-spacing
+
+  Disable spaces between object curly braces.
+"
+`;
+
+exports[`show detailed usage with --help no-object-curly-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-semi (stdout) 1`] = `
@@ -498,6 +557,41 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-type-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-type-curly-spacing (stdout) 1`] = `
+"--no-type-curly-spacing
+
+  Disable spaces between type curly braces.
+"
+`;
+
+exports[`show detailed usage with --help no-type-curly-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-yaml-bracket-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-yaml-bracket-spacing (stdout) 1`] = `
+"--no-yaml-bracket-spacing
+
+  Do not put spaces between brackets / curly braces for YAML.
+"
+`;
+
+exports[`show detailed usage with --help no-yaml-bracket-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help object-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help object-curly-spacing (stdout) 1`] = `
+"--object-curly-spacing
+
+  Put spaces between object curly braces (similar to the corresponding eslint option).
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help object-curly-spacing (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
@@ -813,6 +907,19 @@ Default: false
 
 exports[`show detailed usage with --help type-bracket-spacing (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help type-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help type-curly-spacing (stdout) 1`] = `
+"--type-curly-spacing
+
+  Put spaces between type curly braces.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help type-curly-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help use-tabs (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help use-tabs (stdout) 1`] = `
@@ -871,6 +978,19 @@ exports[`show detailed usage with --help write (stdout) 1`] = `
 `;
 
 exports[`show detailed usage with --help write (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help yaml-bracket-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help yaml-bracket-spacing (stdout) 1`] = `
+"--yaml-bracket-spacing
+
+  Put spaces between brackets / curly braces for YAML.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help yaml-bracket-spacing (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help yield-star-spacing (stderr) 1`] = `""`;
 

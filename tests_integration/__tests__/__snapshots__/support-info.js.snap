@@ -93,10 +93,6 @@ Object {
       "default": "always",
       "type": "choice",
     },
-    "bracketSpacing": Object {
-      "default": true,
-      "type": "boolean",
-    },
     "breakBeforeElse": Object {
       "default": false,
       "type": "boolean",
@@ -132,12 +128,20 @@ Object {
       "default": "lf",
       "type": "choice",
     },
+    "exportCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "filepath": Object {
       "default": undefined,
       "type": "path",
     },
     "generatorStarSpacing": Object {
       "default": false,
+      "type": "boolean",
+    },
+    "graphqlCurlySpacing": Object {
+      "default": true,
       "type": "boolean",
     },
     "htmlVoidTags": Object {
@@ -152,6 +156,10 @@ Object {
       ],
       "default": "css",
       "type": "choice",
+    },
+    "importCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
     },
     "importFormatting": Object {
       "choices": Array [
@@ -175,6 +183,10 @@ Object {
     },
     "jsxSingleQuote": Object {
       "default": false,
+      "type": "boolean",
+    },
+    "objectCurlySpacing": Object {
+      "default": true,
       "type": "boolean",
     },
     "parser": Object {
@@ -309,12 +321,20 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "typeCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "useTabs": Object {
       "default": false,
       "type": "boolean",
     },
     "vueIndentScriptAndStyle": Object {
       "default": false,
+      "type": "boolean",
+    },
+    "yamlBracketSpacing": Object {
+      "default": true,
       "type": "boolean",
     },
     "yieldStarSpacing": Object {
@@ -809,16 +829,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"choice\\"
     },
     {
-      \\"category\\": \\"Common\\",
-      \\"default\\": true,
-      \\"description\\": \\"Print spaces between brackets.\\",
-      \\"name\\": \\"bracketSpacing\\",
-      \\"oppositeDescription\\": \\"Do not print spaces between brackets.\\",
-      \\"pluginDefaults\\": {},
-      \\"since\\": \\"0.0.0\\",
-      \\"type\\": \\"boolean\\"
-    },
-    {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
       \\"description\\": \\"Always add a line break before else.\\",
@@ -888,6 +898,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"choice\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between export curly braces.\\",
+      \\"name\\": \\"exportCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between export curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Special\\",
       \\"description\\": \\"Specify the input filepath. This will be used to do parser inference.\\",
       \\"name\\": \\"filepath\\",
@@ -900,6 +919,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)\\",
       \\"name\\": \\"generatorStarSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Other\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between curly braces for GraphQL.\\",
+      \\"name\\": \\"graphqlCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Do not put spaces between curly braces for GraphQL.\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
@@ -933,6 +961,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between import curly braces.\\",
+      \\"name\\": \\"importCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between import curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"JavaScript\\",
@@ -986,6 +1023,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"jsxSingleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between object curly braces (similar to the corresponding eslint option).\\",
+      \\"name\\": \\"objectCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between object curly braces.\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
     {
@@ -1234,6 +1280,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between type curly braces.\\",
+      \\"name\\": \\"typeCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between type curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"default\\": false,
       \\"description\\": \\"Indent with tabs instead of spaces.\\",
@@ -1249,6 +1304,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"vueIndentScriptAndStyle\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.19.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Other\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between brackets / curly braces for YAML.\\",
+      \\"name\\": \\"yamlBracketSpacing\\",
+      \\"oppositeDescription\\": \\"Do not put spaces between brackets / curly braces for YAML.\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
     {

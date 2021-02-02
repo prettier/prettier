@@ -26,7 +26,6 @@ module.exports = {
       },
     ],
   },
-  bracketSpacing: commonOptions.bracketSpacing,
   // [prettierx ...]
   arrayBracketSpacing: {
     category: CATEGORY_JAVASCRIPT,
@@ -101,6 +100,35 @@ module.exports = {
     default: false,
     description:
       "Print spaces between type brackets. Status: experimental, with limited testing.",
+  },
+  exportCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put spaces between export curly braces.",
+    oppositeDescription: "Disable spaces between export curly braces.",
+  },
+  importCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put spaces between import curly braces.",
+    oppositeDescription: "Disable spaces between import curly braces.",
+  },
+  objectCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description:
+      "Put spaces between object curly braces (similar to the corresponding eslint option).",
+    oppositeDescription: "Disable spaces between object curly braces.",
+  },
+  typeCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put spaces between type curly braces.",
+    oppositeDescription: "Disable spaces between type curly braces.",
   },
   jsxBracketSameLine: {
     since: "0.17.0",

@@ -24,7 +24,7 @@ fragment Visit on HighlightedVisit
 
 exports[`bracket_spacing.graphql 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+graphqlCurlySpacing: false
 parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth

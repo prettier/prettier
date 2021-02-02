@@ -471,7 +471,8 @@ function _print(node, parentNode, path, options, print) {
       const bracketSpacing =
         node.type === "flowMapping" &&
         node.children.length !== 0 &&
-        options.bracketSpacing
+        // [prettierx] yamlBracketSpacing option
+        options.yamlBracketSpacing
           ? line
           : softline;
       const isLastItemEmptyMappingItem =

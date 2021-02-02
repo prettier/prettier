@@ -1192,10 +1192,12 @@ function printPathNoParens(path, options, print, args) {
           parts.push(
             concat([
               "{",
-              options.bracketSpacing ? " " : "",
+              // [prettierx] importCurlySpacing option
+              options.importCurlySpacing ? " " : "",
               // prettierx: importFormatting
               join(", ", grouped),
-              options.bracketSpacing ? " " : "",
+              // [prettierx] importCurlySpacing option
+              options.importCurlySpacing ? " " : "",
               "}",
             ])
           );
@@ -1206,12 +1208,14 @@ function printPathNoParens(path, options, print, args) {
                 "{",
                 indent(
                   concat([
-                    options.bracketSpacing ? line : softline,
+                    // [prettierx] importCurlySpacing option
+                    options.importCurlySpacing ? line : softline,
                     join(concat([",", line]), grouped),
                   ])
                 ),
                 ifBreak(shouldPrintComma(options) ? "," : ""),
-                options.bracketSpacing ? line : softline,
+                // [prettierx] importCurlySpacing option
+                options.importCurlySpacing ? line : softline,
                 "}",
               ])
             )
@@ -1596,7 +1600,10 @@ function printPathNoParens(path, options, print, args) {
         content = concat([
           leftBrace,
           indent(
-            concat([options.bracketSpacing ? line : softline, concat(props)])
+            concat([
+              options.objectCurlySpacing ? line : softline,
+              concat(props),
+            ])
           ),
           ifBreak(
             canHaveTrailingSeparator &&
@@ -1604,7 +1611,7 @@ function printPathNoParens(path, options, print, args) {
               ? separator
               : ""
           ),
-          concat([options.bracketSpacing ? line : softline, rightBrace]),
+          concat([options.objectCurlySpacing ? line : softline, rightBrace]),
           printOptionalToken(path),
           printTypeAnnotation(path, options, print),
         ]);
@@ -3666,7 +3673,8 @@ function printPathNoParens(path, options, print, args) {
           "{",
           indent(
             concat([
-              options.bracketSpacing ? line : softline,
+              // [prettierx] typeCurlySpacing option support:
+              options.typeCurlySpacing ? line : softline,
               n.readonly
                 ? concat([
                     getTypeScriptMappedTypeModifier(n.readonly, "readonly"),
@@ -3684,7 +3692,8 @@ function printPathNoParens(path, options, print, args) {
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
-          options.bracketSpacing ? line : softline,
+          // [prettierx] typeCurlySpacing option support:
+          options.typeCurlySpacing ? line : softline,
           "}",
         ]),
         { shouldBreak }
@@ -4998,21 +5007,25 @@ function printExportDeclaration(path, options, print) {
               "{",
               indent(
                 concat([
-                  options.bracketSpacing ? line : softline,
+                  // [prettierx] exportCurlySpacing option
+                  options.exportCurlySpacing ? line : softline,
                   join(concat([",", line]), specifiers),
                 ])
               ),
               ifBreak(shouldPrintComma(options) ? "," : ""),
-              options.bracketSpacing ? line : softline,
+              // [prettierx] exportCurlySpacing option
+              options.exportCurlySpacing ? line : softline,
               "}",
             ])
           );
         } else {
           printed = concat([
             "{",
-            options.bracketSpacing ? " " : "",
+            // [prettierx] exportCurlySpacing option
+            options.exportCurlySpacing ? " " : "",
             concat(specifiers),
-            options.bracketSpacing ? " " : "",
+            // [prettierx] exportCurlySpacing option
+            options.exportCurlySpacing ? " " : "",
             "}",
           ]);
         }

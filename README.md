@@ -37,6 +37,12 @@ prettierx <options> <file(s)>
 - `--template-curly-spacing` (`templateCurlySpacing: true`): Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
 - `--type-angle-bracket-spacing` (`typeAngleBracketSpacing: true`): Put spaces between type angle brackets. Status: experimental, with limited testing.
 - `--type-bracket-spacing` (`typeBracketSpacing: true`): Put spaces between type brackets. Status: experimental, with limited testing.
+- `--no-export-curly-spacing` (`exportCurlySpacing: false`): Put or disable spaces between export curly braces.
+- `--no-import-curly-spacing` (`importCurlySpacing: false`): Put or disable spaces between import curly braces.
+- `--no-object-curly-spacing` (`objectCurlySpacing: false`): Disable spaces between object curly braces (similar to the corresponding eslint option).
+- `--no-graphql-curly-spacing` (`graphqlCurlySpacing: false`): Disable spaces between curly braces for GraphQL.
+- `--no-yaml-bracket-spacing` (`yamlBracketSpacing: false`): Disable spaces between brackets / curly braces for YAML.
+- `--no-type-curly-spacing` (`typeCurlySpacing: false`): Disable spaces between type curly braces.
 
 (See [`docs/options.md`](docs/options.md) for more information.)
 
@@ -74,6 +80,13 @@ Any known conflicts with ["Standard JS"](https://standardjs.com/) will be tracke
   - `--template-curly-spacing`
   - `--type-angle-bracket-spacing`
   - `--type-bracket-spacing`
+- `no-bracket-spacing` - replaced with finer-grained options:
+  - `--no-export-curly-spacing`
+  - `--no-import-curly-spacing`
+  - `--no-object-curly-spacing`
+  - `--no-graphql-curly-spacing`
+  - `--no-yaml-bracket-spacing`
+  - `--no-type-curly-spacing`
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ## Prettier 2.0

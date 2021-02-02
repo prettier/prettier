@@ -209,7 +209,8 @@ function genericPrint(path, options, print) {
       return group(
         concat([
           "{",
-          options.bracketSpacing && n.fields.length > 0 ? " " : "",
+          // [prettierx] graphqlCurlySpacing option (...)
+          options.graphqlCurlySpacing && n.fields.length > 0 ? " " : "",
           indent(
             concat([
               softline,
@@ -220,7 +221,11 @@ function genericPrint(path, options, print) {
             ])
           ),
           softline,
-          ifBreak("", options.bracketSpacing && n.fields.length > 0 ? " " : ""),
+          // [prettierx] graphqlCurlySpacing option (...)
+          ifBreak(
+            "",
+            options.graphqlCurlySpacing && n.fields.length > 0 ? " " : ""
+          ),
           "}",
         ])
       );

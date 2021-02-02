@@ -120,18 +120,18 @@ Valid options:
 | ------- | --------------------------------- | --------------------------------- |
 | `"es5"` | `--trailing-comma <es5|none|all>` | `trailingComma: "<es5|none|all>"` |
 
-## Bracket Spacing
+## Object curly spacing
 
-Print spaces between brackets in object literals.
+Put or disable spaces between object curly braces (similar to the corresponding eslint option).
 
 Valid options:
 
 - `true` - Example: `{ foo: bar }`.
 - `false` - Example: `{foo: bar}`.
 
-| Default | CLI Override           | API Override             |
-| ------- | ---------------------- | ------------------------ |
-| `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-object-curly-spacing` | `objectCurlySpacing: <bool>` |
 
 ## JSX Brackets
 
@@ -348,6 +348,46 @@ Put spaces between type brackets. Status: experimental, with limited testing.
 | Default | CLI Override             | API Override                 |
 | ------- | ------------------------ | ---------------------------- |
 | `false` | `--type-bracket-spacing` | `typeBracketSpacing: <bool>` |
+
+## export curly spacing
+
+Put or disable spaces between export curly braces.
+
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-export-curly-spacing` | `exportCurlySpacing: <bool>` |
+
+## import curly spacing
+
+Put or disable spaces between import curly braces.
+
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-import-curly-spacing` | `importCurlySpacing: <bool>` |
+
+## GraphQL curly spacing
+
+Put or disable spaces between curly braces for GraphQL.
+
+| Default | CLI Override                 | API Override                  |
+| ------- | ---------------------------- | ----------------------------- |
+| `true`  | `--no-graphql-curly-spacing` | `graphqlCurlySpacing: <bool>` |
+
+## YAML curly spacing
+
+Put or disable spaces between brackets / curly braces for YAML.
+
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-yaml-bracket-spacing` | `yamlBracketSpacing: <bool>` |
+
+## Type curly spacing
+
+Put or disable spaces between type curly braces.
+
+| Default | CLI Override              | API Override               |
+| ------- | ------------------------- | -------------------------- |
+| `true`  | `--no-type-curly-spacing` | `typeCurlySpacing: <bool>` |
 
 ## Parser
 

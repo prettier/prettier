@@ -18,7 +18,7 @@ const arr2 = [1, 2, 3, 4];
 
 exports[`array.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -51,7 +51,7 @@ const obj2 = { a: 1, b: 2, c: 3 };
 
 exports[`object.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

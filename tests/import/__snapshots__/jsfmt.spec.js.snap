@@ -36,7 +36,7 @@ import { fitsIn, oneLine } from ".";
 
 exports[`brackets.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -175,7 +175,7 @@ import x, {
 
 exports[`comments.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -294,7 +294,7 @@ import {} from "@types/googlemaps";
 
 exports[`empty-import.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -334,7 +334,7 @@ import {
 
 exports[`inline.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -374,7 +374,7 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 
 exports[`long-line.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -403,7 +403,7 @@ import a, * as b from "a";
 
 exports[`multiple_standalones.js 2`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
