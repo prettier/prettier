@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { join, line, group, indent, ifBreak, indentIfBreak },
+  builders: { join, line, group, indent, ifBreak },
 } = require("../../document");
 const { hasComment, identity, CommentCheckFlags } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
@@ -61,7 +61,7 @@ function printInterface(path, options, print) {
     isNonEmptyArray(n.extends)
   ) {
     if (shouldIndentOnlyHeritageClauses) {
-      parts.push(group([...partsGroup, indentIfBreak(extendsParts)]));
+      parts.push(group([...partsGroup, indent(extendsParts)]));
     } else {
       parts.push(group(indent([...partsGroup, ...extendsParts])));
     }
