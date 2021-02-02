@@ -7,7 +7,7 @@ export default class extends React.Component {
   constructor() {
     super();
     this.state = {
-      showSidebar: true,
+      showSidebar: window.innerWidth > window.innerHeight,
       showAst: false,
       showDoc: false,
       showComments: false,
