@@ -84,11 +84,7 @@ describe("API", () => {
     ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
 
     expect(
-      formatDoc(
-        indentIfBreak(group(["1", line, "2"]), { groupId: Symbol("Q") })
-      )
-    ).toBe(
-      'indentIfBreak(group(["1", line, "2"]), { groupId: Symbol.for("Q") })'
-    );
+      formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" }))
+    ).toBe('indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })');
   });
 });
