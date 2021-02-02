@@ -13,7 +13,6 @@ const { getStdin } = require("../common/third-party");
 
 const { createIgnorer, errors } = require("./prettier-internal");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
-const { getOptionsForFile } = require("./option");
 const isTTY = require("./is-tty");
 
 function diff(a, b) {
@@ -253,7 +252,7 @@ function formatStdin(context) {
         return;
       }
 
-      const options = getOptionsForFile(context, filepath);
+      const options = context.getOptionsForFile(context, filepath);
 
       if (listDifferent(context, input, options, "(stdin)")) {
         return;
@@ -304,7 +303,7 @@ function formatFiles(context) {
     }
 
     const options = {
-      ...getOptionsForFile(context, filename),
+      ...context.getOptionsForFile(context, filename),
       filepath: filename,
     };
 

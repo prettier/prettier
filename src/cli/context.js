@@ -7,7 +7,7 @@ const prettier = require("../index");
 const minimist = require("./minimist");
 const {
   optionsModule,
-  optionsNormalizer: { normalizeCliOptions },
+  optionsNormalizer: { normalizeCliOptions, normalizeApiOptions },
   utils: { arrayify },
 } = require("./prettier-internal");
 const constant = require("./constant");
@@ -123,6 +123,71 @@ class Context {
         return { ...this.parseArgsToOptions(), ...options };
       case "prefer-file":
         return options || this.parseArgsToOptions();
+    }
+  }
+
+  getOptionsForFile(filepath) {
+    const { argv, logger } = this;
+    const options = this.getOptionsOrDie(filepath);
+
+    const hasPlugins = options && options.plugins;
+    if (hasPlugins) {
+      this.pushContextPlugins(options.plugins);
+    }
+
+    let appliedOptions;
+    try {
+      appliedOptions = this.applyConfigPrecedence(
+        options && normalizeApiOptions(options, this.supportOptions, { logger })
+      );
+    } catch (error) {
+      /* istanbul ignore next */
+      logger.error(error.toString());
+
+      /* istanbul ignore next */
+      process.exit(2);
+    }
+
+    appliedOptions = { filepath, ...appliedOptions };
+
+    logger.debug(
+      `applied config-precedence (${argv["config-precedence"]}): ` +
+        `${JSON.stringify(appliedOptions)}`
+    );
+
+    if (hasPlugins) {
+      this.popContextPlugins();
+    }
+
+    return appliedOptions;
+  }
+
+  getOptionsOrDie(filePath) {
+    const { argv, logger } = this;
+    try {
+      if (argv.config === false) {
+        logger.debug("'--no-config' option found, skip loading config file.");
+        return;
+      }
+
+      logger.debug(
+        argv.config
+          ? `load config file from '${argv.config}'`
+          : `resolve config from '${filePath}'`
+      );
+
+      const options = prettier.resolveConfig.sync(filePath, {
+        editorconfig: argv.editorconfig,
+        config: argv.config,
+      });
+
+      logger.debug("loaded options `" + JSON.stringify(options) + "`");
+      return options;
+    } catch (error) {
+      logger.error(
+        `Invalid configuration file \`${filePath}\`: ` + error.message
+      );
+      process.exit(2);
     }
   }
 }
