@@ -71,7 +71,7 @@ module.exports = {
     coreOptions: require("./main/core-options"),
     createIgnorer: require("./common/create-ignorer"),
     optionsModule: require("./main/options"),
-    optionsNormalizer: require("./main/options-normalizer"),
+    normalizeOptions: require("./main/options-normalizer"),
     utils: {
       arrayify: require("./utils/arrayify"),
     },

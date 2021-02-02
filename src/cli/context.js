@@ -6,7 +6,6 @@ const pick = require("lodash/pick");
 const prettier = require("../index");
 const {
   optionsModule,
-  optionsNormalizer: { normalizeCliOptions },
   utils: { arrayify },
 } = require("./prettier-internal");
 const minimist = require("./minimist");
@@ -16,6 +15,7 @@ const {
   normalizeDetailedOptionMap,
 } = require("./option-map");
 const createMinimistOptions = require("./create-minimist-options");
+const { normalizeCliOptions } = require("./option");
 
 /**
  * @typedef {Object} Context

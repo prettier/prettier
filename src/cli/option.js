@@ -8,7 +8,7 @@ const fromPairs = require("lodash/fromPairs");
 const prettier = require("../index");
 
 const minimist = require("./minimist");
-const { optionsNormalizer } = require("./prettier-internal");
+const { normalizeOptions } = require("./prettier-internal");
 const createMinimistOptions = require("./create-minimist-options");
 
 function getOptions(argv, detailedOptions) {
@@ -46,7 +46,7 @@ function parseArgsToOptions(context, overrideDefaults) {
     context.detailedOptions
   );
   return getOptions(
-    optionsNormalizer.normalizeCliOptions(
+    normalizeCliOptions(
       minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
@@ -121,7 +121,7 @@ function getOptionsForFile(context, filepath) {
     ...applyConfigPrecedence(
       context,
       options &&
-        optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
+        normalizeOptions(options, context.supportOptions, {
           logger: context.logger,
         })
     ),
@@ -139,7 +139,12 @@ function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
+function normalizeCliOptions(options, optionInfos, opts) {
+  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
+}
+
 module.exports = {
   getOptionsForFile,
   createMinimistOptions,
+  normalizeCliOptions,
 };

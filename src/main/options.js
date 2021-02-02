@@ -6,7 +6,7 @@ const readlines = require("n-readlines");
 const fromPairs = require("lodash/fromPairs");
 const { UndefinedParserError } = require("../common/errors");
 const { getSupportInfo } = require("../main/support");
-const normalizer = require("./options-normalizer");
+const normalizeOptions = require("./options-normalizer");
 const { resolveParser } = require("./parser");
 
 const hiddenDefaults = {
@@ -55,7 +55,7 @@ function normalize(options, opts = {}) {
   }
 
   const parser = resolveParser(
-    normalizer.normalizeApiOptions(
+    normalizeOptions(
       rawOptions,
       [supportOptions.find((x) => x.name === "parser")],
       { passThrough: true, logger: false }

@@ -212,15 +212,4 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     : SchemaConstructor.create({ ...parameters, ...handlers });
 }
 
-function normalizeApiOptions(options, optionInfos, opts) {
-  return normalizeOptions(options, optionInfos, opts);
-}
-
-function normalizeCliOptions(options, optionInfos, opts) {
-  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
-}
-
-module.exports = {
-  normalizeApiOptions,
-  normalizeCliOptions,
-};
+module.exports = normalizeOptions;
