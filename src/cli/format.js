@@ -165,10 +165,10 @@ function format(context, input, opt) {
     try {
       benchmark = eval("require")("benchmark");
     } catch (err) {
-      context.logger.debug(
+      process.exitCode = 2;
+      throw new Error(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
       );
-      process.exit(2);
     }
     context.logger.debug(
       "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module."
@@ -225,9 +225,9 @@ function createIgnorerFromContextOrDie(context) {
       context.argv["ignore-path"],
       context.argv["with-node-modules"]
     );
-  } catch (e) {
-    context.logger.error(e.message);
-    process.exit(2);
+  } catch (error) {
+    process.exitCode = 2;
+    throw error;
   }
 }
 

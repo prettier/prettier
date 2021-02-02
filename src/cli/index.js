@@ -15,8 +15,11 @@ function run(rawArguments) {
   try {
     main(rawArguments, logger);
   } catch (error) {
+    if (typeof process.exitCode === "undefined") {
+      process.exitCode = 1;
+    }
+
     logger.error(error.message);
-    process.exitCode = 1;
   }
 }
 
