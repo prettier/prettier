@@ -106,7 +106,10 @@ exports[`accepts configuration from --config (stdout) 1`] = `
 
 exports[`accepts configuration from --config (write) 1`] = `Array []`;
 
-exports[`prints nothing when no file found with --find-config-path (stderr) 1`] = `""`;
+exports[`prints nothing when no file found with --find-config-path (stderr) 1`] = `
+"[error] Can not find configure file for \\"..\\"
+"
+`;
 
 exports[`prints nothing when no file found with --find-config-path (write) 1`] = `Array []`;
 
