@@ -153,6 +153,7 @@ function printTernaryTest(path, options, print) {
   return printed;
 }
 
+const rightSideNodeNamesSet = new Set(["right", "init", "argument"]);
 function shouldExtraIndentForConditionalExpression(path) {
   const node = path.getValue();
 
@@ -162,7 +163,6 @@ function shouldExtraIndentForConditionalExpression(path) {
 
   const parent = path.getParentNode();
   const parentName = path.callParent((path) => path.getName());
-  const rightSideNodeNamesSet = new Set(["right", "init", "argument"]);
 
   /**
    * foo = (
