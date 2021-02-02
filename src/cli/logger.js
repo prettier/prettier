@@ -1,5 +1,6 @@
 "use strict";
 
+const readline = require("readline");
 const chalk = require("chalk");
 const stripAnsi = require("strip-ansi");
 const wcwidth = require("wcwidth");
@@ -18,11 +19,11 @@ const clear = (stream, text) => () => {
 
   for (let line = 0; line < lineCount; line++) {
     if (line > 0) {
-      stream.moveCursor(0, -1);
+      readline.moveCursor(stream, 0, -1);
     }
 
-    stream.clearLine();
-    stream.cursorTo(0);
+    readline.clearLine(stream, 0);
+    readline.cursorTo(stream, 0);
   }
 };
 
