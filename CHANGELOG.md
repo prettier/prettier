@@ -10,13 +10,13 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.17.0
 
-[compare prettierx-0.16.1...prettierx-0.17.0](https://github.com/brodybits/prettierx/compare/prettierx-0.16.1...prettierx-0.17.0)
-
-- Update graphql -> 15.5.0
 - replace --no-align-ternary-lines with --offset-ternary-expressions (with updated formatting)
 - replace --no-bracket-spacing with finer-grained options
-- replace --no-bracket-spacing with finer-grained options
-- update some descriptions & some documentation
+- replace --paren-spacing with finer-grained options
+- update graphql -> 15.5.0
+- update some descriptions & update some documentation
+
+[compare prettierx-0.16.1...prettierx-0.17.0](https://github.com/brodybits/prettierx/compare/prettierx-0.16.1...prettierx-0.17.0)
 
 ## prettierx 0.16.1
 
