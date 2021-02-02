@@ -349,6 +349,9 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
  * @returns {boolean}
  */
 function isMemberExpressionChain(node) {
+  if (node.type === "TSNonNullExpression") {
+    return true;
+  }
   if (!isMemberExpression(node)) {
     return false;
   }

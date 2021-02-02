@@ -2,13 +2,15 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { line, group, indent },
+  builders: { line, group, indent, ifBreak },
+  utils: { canBreak },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
   isMemberExpressionChain,
   isStringLiteral,
+  isNumericLiteral,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 
@@ -17,7 +19,6 @@ const { shouldInlineLogicalExpression } = require("./binaryish");
  */
 
 function printAssignment(
-  leftNode,
   printedLeft,
   operator,
   rightNode,
@@ -28,20 +29,28 @@ function printAssignment(
     return printedLeft;
   }
 
-  const printed = printAssignmentRight(
-    leftNode,
-    rightNode,
+  const { doc: printed, separateLineBreak } = printAssignmentRight(
+    printedLeft,
     printedRight,
+    rightNode,
     options
   );
 
-  return group([printedLeft, operator, printed]);
+  if (separateLineBreak) {
+    const groupId = Symbol("assignment");
+    return [
+      group([group(printedLeft), operator]),
+      group(indent(line), { id: groupId }),
+      ifBreak(indent(printed), printed, { groupId }),
+    ];
+  }
+
+  return group([group(printedLeft), operator, printed]);
 }
 
 function printAssignmentExpression(path, options, print) {
   const n = path.getValue();
   return printAssignment(
-    n.left,
     path.call(print, "left"),
     [" ", n.operator],
     n.right,
@@ -53,7 +62,6 @@ function printAssignmentExpression(path, options, print) {
 function printVariableDeclarator(path, options, print) {
   const n = path.getValue();
   return printAssignment(
-    n.id,
     path.call(print, "id"),
     " =",
     n.init,
@@ -62,19 +70,27 @@ function printVariableDeclarator(path, options, print) {
   );
 }
 
-function printAssignmentRight(leftNode, rightNode, printedRight, options) {
+function printAssignmentRight(printedLeft, printedRight, rightNode, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    return indent([line, printedRight]);
+    return { doc: indent([line, printedRight]) };
   }
 
-  if (canBreakAssignmentRight(leftNode, rightNode, options)) {
-    return group(indent([line, printedRight]));
+  if (shouldBreakAfterOperator(rightNode, options)) {
+    return { doc: group(indent([line, printedRight])) };
   }
 
-  return [" ", printedRight];
+  if (shouldNeverBreakAfterOperator(rightNode, options)) {
+    return { doc: [" ", printedRight] };
+  }
+
+  if (canBreak(printedLeft) || canBreak(printedRight)) {
+    return { separateLineBreak: true, doc: printedRight };
+  }
+
+  return { doc: group(indent([line, printedRight])) };
 }
 
-function canBreakAssignmentRight(leftNode, rightNode, options) {
+function shouldBreakAfterOperator(rightNode, options) {
   // do not put values on a separate line from the key in json
   if (options.parser === "json5" || options.parser === "json") {
     return false;
@@ -96,26 +112,34 @@ function canBreakAssignmentRight(leftNode, rightNode, options) {
       return isNonEmptyArray(rightNode.decorators);
   }
 
-  if (
-    leftNode.type === "Identifier" ||
-    isStringLiteral(leftNode) ||
-    leftNode.type === "MemberExpression"
-  ) {
-    let node = rightNode;
-    while (node.type === "UnaryExpression") {
-      node = node.argument;
-    }
-    if (isStringLiteral(node) || isMemberExpressionChain(node)) {
-      return true;
-    }
+  let node = rightNode;
+  while (node.type === "UnaryExpression") {
+    node = node.argument;
+  }
+  if (isStringLiteral(node) || isMemberExpressionChain(node)) {
+    return true;
   }
 
   return false;
+}
+
+function shouldNeverBreakAfterOperator(rightNode, options) {
+  return (
+    rightNode.type === "TemplateLiteral" ||
+    rightNode.type === "TaggedTemplateExpression" ||
+    rightNode.type === "BooleanLiteral" ||
+    isNumericLiteral(rightNode) ||
+    (rightNode.type === "CallExpression" &&
+      rightNode.callee.name === "require") ||
+    rightNode.type === "ClassExpression" ||
+    rightNode.type === "ParenthesizedExpression" ||
+    options.parser === "json5" ||
+    options.parser === "json"
+  );
 }
 
 module.exports = {
   printVariableDeclarator,
   printAssignmentExpression,
   printAssignment,
-  printAssignmentRight,
 };

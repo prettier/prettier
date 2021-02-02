@@ -99,7 +99,6 @@ function printProperty(path, options, print) {
   }
 
   return printAssignment(
-    n.key,
     printPropertyKey(path, options, print),
     ":",
     n.value,

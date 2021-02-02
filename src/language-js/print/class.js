@@ -14,7 +14,7 @@ const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { printPropertyKey } = require("./property");
-const { printAssignmentRight } = require("./assignment");
+const { printAssignment } = require("./assignment");
 
 function printClass(path, options, print) {
   const n = path.getValue();
@@ -203,16 +203,11 @@ function printClassProperty(path, options, print) {
     printOptionalToken(path),
     printTypeAnnotation(path, options, print)
   );
-  if (n.value) {
-    parts.push(
-      " =",
-      printAssignmentRight(n.key, n.value, path.call(print, "value"), options)
-    );
-  }
 
-  parts.push(semi);
-
-  return group(parts);
+  return [
+    printAssignment(parts, " =", n.value, path.call(print, "value"), options),
+    semi,
+  ];
 }
 
 function printDecorators(path, options, print) {

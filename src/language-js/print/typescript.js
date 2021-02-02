@@ -35,9 +35,9 @@ const {
 const { printPropertyKey } = require("./property");
 const { printFunctionDeclaration, printMethodInternal } = require("./function");
 const { printInterface } = require("./interface");
-const { printAssignmentRight } = require("./assignment");
 const { printBlock } = require("./block");
 const {
+  printTypeAlias,
   printIntersectionType,
   printUnionType,
   printFunctionType,
@@ -87,29 +87,8 @@ function printTypescript(path, options, print) {
     case "TSInterfaceBody":
     case "TSTypeLiteral":
       return printObject(path, options, print);
-    case "TSTypeAliasDeclaration": {
-      if (n.declare) {
-        parts.push("declare ");
-      }
-
-      const printed = printAssignmentRight(
-        n.id,
-        n.typeAnnotation,
-        n.typeAnnotation && path.call(print, "typeAnnotation"),
-        options
-      );
-
-      parts.push(
-        "type ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters"),
-        " =",
-        printed,
-        semi
-      );
-
-      return group(parts);
-    }
+    case "TSTypeAliasDeclaration":
+      return printTypeAlias(path, options, print);
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "TSAbstractMethodDefinition":

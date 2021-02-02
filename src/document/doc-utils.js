@@ -137,6 +137,16 @@ function willBreak(doc) {
   return findInDoc(doc, willBreakFn, false);
 }
 
+function canBreakFn(doc) {
+  if (doc.type === "line") {
+    return true;
+  }
+}
+
+function canBreak(doc) {
+  return findInDoc(doc, canBreakFn, false);
+}
+
 function breakParentGroup(groupStack) {
   if (groupStack.length > 0) {
     const parentGroup = groupStack[groupStack.length - 1];
@@ -384,6 +394,7 @@ module.exports = {
   getDocParts,
   isEmpty,
   willBreak,
+  canBreak,
   isLineNext,
   traverseDoc,
   findInDoc,

@@ -66,6 +66,34 @@ const {
 ================================================================================
 `;
 
+exports[`issue-10218.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const _id1 = data.createTestMessageWithAReallyLongName.someVeryLongProperty.thisIsAlsoALongProperty._id;
+
+const {_id2} = data.createTestMessageWithAReallyLongName.someVeryLongProperty.thisIsAlsoALongProperty;
+
+const {_id:id3} = data.createTestMessageWithAReallyLongName.someVeryLongProperty.thisIsAlsoALongProperty;
+
+=====================================output=====================================
+const _id1 =
+  data.createTestMessageWithAReallyLongName.someVeryLongProperty
+    .thisIsAlsoALongProperty._id;
+
+const { _id2 } =
+  data.createTestMessageWithAReallyLongName.someVeryLongProperty
+    .thisIsAlsoALongProperty;
+
+const { _id: id3 } =
+  data.createTestMessageWithAReallyLongName.someVeryLongProperty
+    .thisIsAlsoALongProperty;
+
+================================================================================
+`;
+
 exports[`sequence.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
