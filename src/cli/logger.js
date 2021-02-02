@@ -1,7 +1,32 @@
 "use strict";
 
 const chalk = require("chalk");
+const stripAnsi = require("strip-ansi");
+const wcwidth = require("wcwidth");
 
+const countLines = (stream, text) => {
+  const columns = stream.columns || 80;
+  let lineCount = 0;
+  for (const line of stripAnsi(text).split("\n")) {
+    lineCount += Math.max(1, Math.ceil(wcwidth(line) / columns));
+  }
+  return lineCount;
+};
+
+const clearLines = (stream, text) => () => {
+  const lines = countLines(stream, text);
+
+  for (let i = 0; i < lines; i++) {
+    if (i > 0) {
+      stream.moveCursor(0, -1);
+    }
+
+    stream.clearLine();
+    stream.cursorTo(0);
+  }
+};
+
+const emptyLogResult = { clear() {} };
 function createLogger(logLevel) {
   return {
     warn: createLogFunc("warn", "yellow"),
@@ -12,14 +37,26 @@ function createLogger(logLevel) {
 
   function createLogFunc(loggerName, color) {
     if (!shouldLog(loggerName)) {
-      return () => {};
+      return () => emptyLogResult;
     }
 
     const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
-    return function (message, opts) {
-      opts = { newline: true, ...opts };
-      const stream = process[loggerName === "log" ? "stdout" : "stderr"];
-      stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
+    const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+
+    return function (message, options) {
+      const { newline, clearable } = {
+        newline: true,
+        clearable: false,
+        ...options,
+      };
+      message = message.replace(/^/gm, prefix) + (newline ? "\n" : "");
+      stream.write(message);
+
+      if (clearable) {
+        return {
+          clear: clearLines(stream, message),
+        };
+      }
     };
   }
 
