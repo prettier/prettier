@@ -153,6 +153,72 @@ function printTernaryTest(path, options, print) {
   return printed;
 }
 
+function shouldExtraIndentForConditionalExpression(path) {
+  const node = path.getValue();
+
+  if (node.type !== "ConditionalExpression") {
+    return false;
+  }
+
+  const parent = path.getParentNode();
+  const parentName = path.callParent((path) => path.getName());
+  const rightSideNodeNamesSet = new Set(["right", "init", "argument"]);
+
+  /**
+   * foo = (
+   *   condition
+   *     ? first
+   *     : second
+   * ) as SomeType;
+   */
+  if (
+    parent.type === "TSAsExpression" &&
+    rightSideNodeNamesSet.has(parentName)
+  ) {
+    return true;
+  }
+
+  /**
+   * foo = (
+   *   condition
+   *     ? first
+   *     : second
+   * )(arguments);
+   */
+  if (
+    parent.type === "CallExpression" &&
+    rightSideNodeNamesSet.has(parentName) &&
+    path.getName() === "callee"
+  ) {
+    return true;
+  }
+
+  /**
+   * foo = (
+   *   condition
+   *     ? first
+   *     : second
+   * ).member.chaining;
+   */
+  if (
+    parent.type === "MemberExpression" ||
+    parent.type === "OptionalMemberExpression"
+  ) {
+    const memberChainingRootNodeName = path.callParent((path) => {
+      let name = path.getName();
+      while (name === "object") {
+        name = path.callParent((path) => path.getName());
+      }
+      return name;
+    });
+    if (rightSideNodeNamesSet.has(memberChainingRootNodeName)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 /**
  * The following is the shared logic for
  * ternary operators, namely ConditionalExpression
@@ -309,23 +375,14 @@ function printTernary(path, options, print) {
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
+  const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
   const result = maybeGroup([
     printTernaryTest(path, options, print),
     forceNoIndent ? parts : indent(parts),
-    isConditionalExpression && breakClosingParen ? softline : "",
+    isConditionalExpression && breakClosingParen && !shouldExtraIndent
+      ? softline
+      : "",
   ]);
-
-  // foo = (
-  //   condition
-  //     ? first
-  //     : second
-  // ) as SomeType;
-  const shouldExtraIndent =
-    isConditionalExpression &&
-    parent.type === "TSAsExpression" &&
-    ["right", "init", "argument"].includes(
-      path.callParent((path) => path.getName())
-    );
 
   return isParentTest || shouldExtraIndent
     ? group([indent([softline, result]), softline])
