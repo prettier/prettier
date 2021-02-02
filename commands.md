@@ -12,7 +12,7 @@ type Doc = string | Doc[] | DocCommand;
 - _arrays_ are used to concatenate a list of docs to be printed sequentially into a single doc
 - `DocCommand` is any of the following:
 
-### group
+### `group`
 
 ```ts
 type GroupOptions = {
@@ -48,7 +48,7 @@ Functions always break after the opening curly brace no matter what, so the arra
 
 The `id` option can be used in [`ifBreak`](#ifBreak) checks.
 
-### conditionalGroup
+### `conditionalGroup`
 
 This should be used as **last resort** as it triggers an exponential complexity when nested.
 
@@ -65,7 +65,7 @@ This will try to print the first argument, if it fit use it, otherwise go to the
 conditionalGroup([a, b, c]);
 ```
 
-### fill
+### `fill`
 
 ```ts
 declare function fill(docs: Doc[]): Doc;
@@ -79,7 +79,7 @@ fill(["I", line, "love", line, "Prettier"]);
 
 Expects the `docs` argument to be an array of alternating content and line breaks. In other words, elements with odd indices must be line breaks (e.g., [`softline`](#softline)).
 
-### ifBreak
+### `ifBreak`
 
 ```ts
 declare function ifBreak(
@@ -97,7 +97,7 @@ ifBreak(";", " ");
 
 `groupId` can be used to check another _already printed_ group instead of the current group.
 
-### breakParent
+### `breakParent`
 
 ```ts
 declare const breakParent: Doc;
@@ -109,7 +109,7 @@ Include this anywhere to force all parent groups to break. See [`group`](#group)
 group([" ", expr, " ", breakParent]);
 ```
 
-### join
+### `join`
 
 ```ts
 declare function join(sep: Doc, docs: Doc[]): Doc;
@@ -117,7 +117,7 @@ declare function join(sep: Doc, docs: Doc[]): Doc;
 
 Join an array of docs with a separator.
 
-### line
+### `line`
 
 ```ts
 declare const line: Doc;
@@ -125,7 +125,7 @@ declare const line: Doc;
 
 Specify a line break. If an expression fits on one line, the line break will be replaced with a space. Line breaks always indent the next line with the current level of indentation.
 
-### softline
+### `softline`
 
 ```ts
 declare const softline: Doc;
@@ -133,7 +133,7 @@ declare const softline: Doc;
 
 Specify a line break. The difference from `line` is that if the expression fits on one line, it will be replaced with nothing.
 
-### hardline
+### `hardline`
 
 ```ts
 declare const hardline: Doc;
@@ -141,7 +141,7 @@ declare const hardline: Doc;
 
 Specify a line break that is **always** included in the output, no matter if the expression fits on one line or not.
 
-### literalline
+### `literalline`
 
 ```ts
 declare const literalline: Doc;
@@ -149,7 +149,7 @@ declare const literalline: Doc;
 
 Specify a line break that is **always** included in the output and doesn't indent the next line. Also, unlike `hardline`, this kind of line break preserves trailing whitespace on the line it ends. This is used for template literals.
 
-### lineSuffix
+### `lineSuffix`
 
 ```ts
 declare function lineSuffix(suffix: Doc): Doc;
@@ -167,7 +167,7 @@ will output
 a; // comment
 ```
 
-### lineSuffixBoundary
+### `lineSuffixBoundary`
 
 ```ts
 declare const lineSuffixBoundary: Doc;
@@ -194,7 +194,7 @@ and **not**
 {} // comment
 ```
 
-### indent
+### `indent`
 
 ```ts
 declare function indent(doc: Doc): Doc;
@@ -202,7 +202,7 @@ declare function indent(doc: Doc): Doc;
 
 Increase the level of indentation.
 
-### dedent
+### `dedent`
 
 ```ts
 declare function dedent(doc: Doc): Doc;
@@ -210,7 +210,7 @@ declare function dedent(doc: Doc): Doc;
 
 Decrease the level of indentation. (Each `align` is considered one level of indentation.)
 
-### align
+### `align`
 
 ```ts
 declare function align(n: number | string, doc: Doc): Doc;
@@ -230,7 +230,7 @@ For example:
     - `<indent><align 2><indent><align 2>` -> `<tab><tab><tab><2 space>`
     - `<indent><align 4><indent><align 2>` -> `<tab><tab><tab><2 space>`
 
-### markAsRoot
+### `markAsRoot`
 
 ```ts
 declare function markAsRoot(doc: Doc): Doc;
@@ -238,7 +238,7 @@ declare function markAsRoot(doc: Doc): Doc;
 
 Mark the current indentation as root for [`dedentToRoot`](#dedentToRoot) and [`literalline`](#literalline)s.
 
-### dedentToRoot
+### `dedentToRoot`
 
 ```ts
 declare function dedentToRoot(doc: Doc): Doc;
@@ -246,7 +246,7 @@ declare function dedentToRoot(doc: Doc): Doc;
 
 Decrease the current indentation to the root marked by [`markAsRoot`](#markAsRoot).
 
-### trim
+### `trim`
 
 ```ts
 declare const trim: Doc;
@@ -254,7 +254,7 @@ declare const trim: Doc;
 
 Trim all the indentation on the current line. This can be used for preprocessor directives. Should be placed after a line break.
 
-### hardlineWithoutBreakParent and literallineWithoutBreakParent
+### `hardlineWithoutBreakParent` and `literallineWithoutBreakParent`
 
 _Added in v2.3.0_
 
@@ -270,7 +270,7 @@ Examples:
 - `hardlineWithoutBreakParent` is used for printing tables in Prettier's Markdown printer. With `proseWrap` set to `never`, the columns are aligned only if none of the rows exceeds `printWidth`.
 - `literallineWithoutBreakParent` is used in the [Ruby plugin](https://github.com/prettier/plugin-ruby) for [printing heredoc syntax](https://github.com/prettier/plugin-ruby/blob/b6e7bd6bc3f70de8f146aa58ad0c8310518bf467/src/ruby/nodes/heredocs.js).
 
-### cursor
+### `cursor`
 
 ```ts
 declare const cursor: Doc;
@@ -278,7 +278,7 @@ declare const cursor: Doc;
 
 This is a placeholder value where the cursor is in the original input in order to find where it would be printed.
 
-### [Deprecated] concat
+### [Deprecated] `concat`
 
 _This command has been deprecated in v2.3.0, use `Doc[]` instead_
 
