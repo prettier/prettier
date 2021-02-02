@@ -3,7 +3,9 @@
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 
-const { optionsNormalizer } = require("./prettier-internal");
+const {
+  optionsNormalizer: { normalizeApiOptions },
+} = require("./prettier-internal");
 const createMinimistOptions = require("./create-minimist-options");
 
 function getOptionsOrDie(context, filePath) {
@@ -12,7 +14,7 @@ function getOptionsOrDie(context, filePath) {
       context.logger.debug(
         "'--no-config' option found, skip loading config file."
       );
-      return null;
+      return;
     }
 
     context.logger.debug(
@@ -36,25 +38,6 @@ function getOptionsOrDie(context, filePath) {
   }
 }
 
-function applyConfigPrecedence(context, options) {
-  try {
-    switch (context.argv["config-precedence"]) {
-      case "cli-override":
-        return context.parseArgsToOptions(options);
-      case "file-override":
-        return { ...context.parseArgsToOptions(), ...options };
-      case "prefer-file":
-        return options || context.parseArgsToOptions();
-    }
-  } catch (error) {
-    /* istanbul ignore next */
-    context.logger.error(error.toString());
-
-    /* istanbul ignore next */
-    process.exit(2);
-  }
-}
-
 function getOptionsForFile(context, filepath) {
   const options = getOptionsOrDie(context, filepath);
 
@@ -63,16 +46,23 @@ function getOptionsForFile(context, filepath) {
     context.pushContextPlugins(options.plugins);
   }
 
-  const appliedOptions = {
-    filepath,
-    ...applyConfigPrecedence(
-      context,
+  let appliedOptions;
+  try {
+    appliedOptions = context.applyConfigPrecedence(
       options &&
-        optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
+        normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger,
         })
-    ),
-  };
+    );
+  } catch (error) {
+    /* istanbul ignore next */
+    context.logger.error(error.toString());
+
+    /* istanbul ignore next */
+    process.exit(2);
+  }
+
+  appliedOptions = { filepath, ...appliedOptions };
 
   context.logger.debug(
     `applied config-precedence (${context.argv["config-precedence"]}): ` +

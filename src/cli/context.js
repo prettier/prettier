@@ -114,6 +114,17 @@ class Context {
         .map(({ forwardToApi, name }) => [forwardToApi, normalized[name]])
     );
   }
+
+  applyConfigPrecedence(options) {
+    switch (this.argv["config-precedence"]) {
+      case "cli-override":
+        return this.parseArgsToOptions(options);
+      case "file-override":
+        return { ...this.parseArgsToOptions(), ...options };
+      case "prefer-file":
+        return options || this.parseArgsToOptions();
+    }
+  }
 }
 
 function getContextOptions(plugins, pluginSearchDirs) {
