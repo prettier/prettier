@@ -43,16 +43,16 @@ function createLogger(logLevel) {
     const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
 
-    return function (message, options) {
-      const { newline, clearable } = {
+    return (message, options) => {
+      options = {
         newline: true,
         clearable: false,
         ...options,
       };
-      message = message.replace(/^/gm, prefix) + (newline ? "\n" : "");
+      message = message.replace(/^/gm, prefix) + (options.newline ? "\n" : "");
       stream.write(message);
 
-      if (clearable) {
+      if (options.clearable) {
         return {
           clear: clearLines(stream, message),
         };
