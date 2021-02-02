@@ -84,46 +84,36 @@ class Context {
 
   parseArgsToOptions(overrideDefaults) {
     const { detailedOptions, rawArguments } = this;
-    const minimistOptions = createMinimistOptions(detailedOptions);
     const apiDetailedOptionMap = fromPairs(
       detailedOptions
         .filter(
-          (option) => option.forwardToApi && option.forwardToApi !== option.name
+          ({ forwardToApi, name }) => forwardToApi && forwardToApi !== name
         )
         .map((option) => [option.forwardToApi, option])
     );
-    return getOptions(
-      normalizeCliOptions(
-        minimist(rawArguments, {
-          string: minimistOptions.string,
-          boolean: minimistOptions.boolean,
-          default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
-        }),
-        detailedOptions,
-        { logger: false }
-      ),
+    const cliifyOptions = fromPairs(
+      Object.entries(overrideDefaults || {}).map(([key, value]) => {
+        const apiOption = apiDetailedOptionMap[key];
+        const cliKey = apiOption ? apiOption.name : key;
+        return [dashify(cliKey), value];
+      })
+    );
+
+    const argv = minimist(rawArguments, {
+      ...createMinimistOptions(detailedOptions),
+      default: cliifyOptions,
+    });
+
+    const normalized = normalizeCliOptions(argv, detailedOptions, {
+      logger: false,
+    });
+
+    return fromPairs(
       detailedOptions
+        .filter(({ forwardToApi }) => forwardToApi)
+        .map(({ forwardToApi, name }) => [forwardToApi, normalized[name]])
     );
   }
-}
-
-function cliifyOptions(object, apiDetailedOptionMap) {
-  return fromPairs(
-    Object.entries(object || {}).map(([key, value]) => {
-      const apiOption = apiDetailedOptionMap[key];
-      const cliKey = apiOption ? apiOption.name : key;
-
-      return [dashify(cliKey), value];
-    })
-  );
-}
-
-function getOptions(argv, detailedOptions) {
-  return fromPairs(
-    detailedOptions
-      .filter(({ forwardToApi }) => forwardToApi)
-      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
-  );
 }
 
 function getContextOptions(plugins, pluginSearchDirs) {
