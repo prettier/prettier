@@ -221,6 +221,11 @@ class Playground extends React.Component {
                       </SidebarCategory>
                       <SidebarCategory title="Debug">
                         <Checkbox
+                          label="show input"
+                          checked={editorState.showInput}
+                          onChange={editorState.toggleInput}
+                        />
+                        <Checkbox
                           label="show AST"
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
@@ -238,19 +243,14 @@ class Playground extends React.Component {
                           />
                         )}
                         <Checkbox
-                          label="show second format"
-                          checked={editorState.showSecondFormat}
-                          onChange={editorState.toggleSecondFormat}
-                        />
-                        <Checkbox
                           label="show output"
                           checked={editorState.showOutput}
                           onChange={editorState.toggleOutput}
                         />
                         <Checkbox
-                          label="show input"
-                          checked={editorState.showInput}
-                          onChange={editorState.toggleInput}
+                          label="show second format"
+                          checked={editorState.showSecondFormat}
+                          onChange={editorState.toggleSecondFormat}
                         />
                         {editorState.showDoc && debug.doc && (
                           <ClipboardButton
