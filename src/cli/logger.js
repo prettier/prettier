@@ -2,8 +2,9 @@
 
 const chalk = require("chalk");
 
-function createLogger(logLevel) {
+function createLogger(logLevel = "log") {
   return {
+    logLevel,
     warn: createLogFunc("warn", "yellow"),
     error: createLogFunc("error", "red"),
     debug: createLogFunc("debug", "blue"),
