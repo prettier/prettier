@@ -9,6 +9,7 @@ const {
     group,
     hardline,
     ifBreak,
+    indentIfBreak,
     indent,
     join,
     line,
@@ -275,9 +276,7 @@ function genericPrint(path, options, print) {
                 forceBreakContent(node) ? breakParent : "",
                 ((childrenDoc) =>
                   shouldHugContent
-                    ? ifBreak(indent(childrenDoc), childrenDoc, {
-                        groupId: attrGroupId,
-                      })
+                    ? indentIfBreak(childrenDoc, { groupId: attrGroupId })
                     : (isScriptLikeTag(node) ||
                         isVueCustomBlock(node, options)) &&
                       node.parent.type === "root" &&

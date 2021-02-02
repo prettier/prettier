@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { join, line, group, indent, ifBreak },
+  builders: { join, line, group, indent, ifBreak, indentIfBreak },
 } = require("../../document");
 const { hasComment, identity, CommentCheckFlags } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
@@ -60,13 +60,10 @@ function printInterface(path, options, print) {
     (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
     isNonEmptyArray(n.extends)
   ) {
-    const printedExtends = extendsParts;
     if (shouldIndentOnlyHeritageClauses) {
-      parts.push(
-        group([...partsGroup, ifBreak(indent(printedExtends), printedExtends)])
-      );
+      parts.push(group([...partsGroup, indentIfBreak(extendsParts)]));
     } else {
-      parts.push(group(indent([...partsGroup, ...printedExtends])));
+      parts.push(group(indent([...partsGroup, ...extendsParts])));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);

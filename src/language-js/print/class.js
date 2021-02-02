@@ -3,7 +3,16 @@
 const { isNonEmptyArray, createGroupIdMapper } = require("../../common/util");
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
-  builders: { join, line, hardline, softline, group, indent, ifBreak },
+  builders: {
+    join,
+    line,
+    hardline,
+    softline,
+    group,
+    indent,
+    ifBreak,
+    indentIfBreak,
+  },
 } = require("../../document");
 const {
   hasComment,
@@ -73,15 +82,11 @@ function printClass(path, options, print) {
   );
 
   if (groupMode) {
-    const printedExtends = extendsParts;
     let printedPartsGroup;
     if (shouldIndentOnlyHeritageClauses(n)) {
-      printedPartsGroup = [
-        ...partsGroup,
-        ifBreak(indent(printedExtends), printedExtends),
-      ];
+      printedPartsGroup = [...partsGroup, indentIfBreak(extendsParts)];
     } else {
-      printedPartsGroup = indent([...partsGroup, printedExtends]);
+      printedPartsGroup = indent([...partsGroup, extendsParts]);
     }
     parts.push(group(printedPartsGroup, { id: getHeritageGroupId(n) }));
   } else {

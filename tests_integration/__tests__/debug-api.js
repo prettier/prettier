@@ -58,7 +58,15 @@ describe("API", () => {
   });
 
   test("prettier.formatDoc prints things as expected", () => {
-    const { indent, hardline, literalline, fill } = builders;
+    const {
+      indent,
+      hardline,
+      literalline,
+      fill,
+      indentIfBreak,
+      group,
+      line,
+    } = builders;
 
     expect(formatDoc([indent(hardline), indent(literalline)])).toBe(
       "[indent(hardline), indent(literalline)]"
@@ -74,5 +82,13 @@ describe("API", () => {
         fill(cleanDoc(["foo", literalline, "bar"])) // invalid fill
       )
     ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
+
+    expect(
+      formatDoc(
+        indentIfBreak(group(["1", line, "2"]), { groupId: Symbol("Q") })
+      )
+    ).toBe(
+      'indentIfBreak(group(["1", line, "2"]), { groupId: Symbol.for("Q") })'
+    );
   });
 });

@@ -121,6 +121,15 @@ function printDocToDebug(doc) {
       );
     }
 
+    if (doc.type === "indent-if-break") {
+      return (
+        "indentIfBreak(" +
+        printDoc(doc.contents) +
+        (doc.groupId ? `, { groupId: ${printGroupId(doc.groupId)} }` : "") +
+        ")"
+      );
+    }
+
     if (doc.type === "group") {
       const optionsParts = [];
 
