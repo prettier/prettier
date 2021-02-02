@@ -25,6 +25,7 @@ const {
   CommentCheckFlags,
   isCallLikeExpression,
   isCurriedArrowFunctionExpression,
+  identity,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -185,18 +186,20 @@ function printArrowFunctionExpression(path, options, print, args) {
   //    (argument3) =>
   //    (argument4) =>
   //    (argument5) =>
-  //    (argument6) => ({
-  //      foo: bar,
-  //      bar: foo,
-  //    });
+  //    (argument6) =>
+  //      ({
+  //        foo: bar,
+  //        bar: foo,
+  //      });
   const parent = path.getParentNode();
-  const isLastOfCurriedChaining =
-    n.body.type !== "BlockStatement" &&
-    parent.type === "ArrowFunctionExpression" &&
-    path.getParentNode(1).type === "ArrowFunctionExpression";
-  if (isCurriedArrowFunctionExpression(n) || isLastOfCurriedChaining) {
+  const isChildOfCurriedChaining = parent.type === "ArrowFunctionExpression";
+  if (isCurriedArrowFunctionExpression(n) || isChildOfCurriedChaining) {
     const isCurriedChainingRoot = parent.type !== "ArrowFunctionExpression";
-    const content = [...parts, line, body];
+    const isEndOfChaining = n.body.type !== "ArrowFunctionExpression";
+    const hasBlockBody = n.body.type === "BlockStatement";
+    const innerContent = [...parts, hasBlockBody ? " " : line, body];
+    const content =
+      isEndOfChaining && !hasBlockBody ? [indent(innerContent)] : innerContent;
     if (isCurriedChainingRoot) {
       const name = path.getName();
       if (name === "init" || name === "right") {
