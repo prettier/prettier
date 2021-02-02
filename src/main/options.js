@@ -94,7 +94,7 @@ function normalize(options, opts = {}) {
     rawOptions.trailingComma = "none";
   }
 
-  return normalizer.normalizeApiOptions(rawOptions, supportOptions, {
+  return normalizeOptions(rawOptions, supportOptions, {
     passThrough: Object.keys(hiddenDefaults),
     ...opts,
   });
