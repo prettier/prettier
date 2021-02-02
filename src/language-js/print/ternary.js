@@ -377,6 +377,7 @@ function printTernary(path, options, print) {
     !parent.computed;
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
+
   const result = maybeGroup([
     printTernaryTest(path, options, print),
     forceNoIndent ? parts : indent(parts),
