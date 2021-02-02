@@ -210,16 +210,20 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
             const breakContents =
               doc.type === "if-break"
                 ? doc.breakContents
-                : doc.contents
-                ? indent(doc.contents)
-                : undefined;
+                : doc.negate
+                ? doc.contents
+                : indent(doc.contents);
             if (breakContents) {
               cmds.push([ind, mode, breakContents]);
             }
           }
           if (groupMode === MODE_FLAT) {
             const flatContents =
-              doc.type === "if-break" ? doc.flatContents : doc.contents;
+              doc.type === "if-break"
+                ? doc.flatContents
+                : doc.negate
+                ? indent(doc.contents)
+                : doc.contents;
             if (flatContents) {
               cmds.push([ind, mode, flatContents]);
             }
@@ -475,16 +479,20 @@ function printDocToString(doc, options) {
             const breakContents =
               doc.type === "if-break"
                 ? doc.breakContents
-                : doc.contents
-                ? indent(doc.contents)
-                : undefined;
+                : doc.negate
+                ? doc.contents
+                : indent(doc.contents);
             if (breakContents) {
               cmds.push([ind, mode, breakContents]);
             }
           }
           if (groupMode === MODE_FLAT) {
             const flatContents =
-              doc.type === "if-break" ? doc.flatContents : doc.contents;
+              doc.type === "if-break"
+                ? doc.flatContents
+                : doc.negate
+                ? indent(doc.contents)
+                : doc.contents;
             if (flatContents) {
               cmds.push([ind, mode, flatContents]);
             }

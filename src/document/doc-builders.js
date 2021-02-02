@@ -175,13 +175,14 @@ function ifBreak(breakContents, flatContents, opts = {}) {
 /**
  * Optimized version of `ifBreak(indent(doc), doc)`
  * @param {Doc} [contents]
- * @param {{ groupId?: symbol }} [opts]
+ * @param {{ negate?: boolean, groupId?: symbol }} [opts]
  * @returns Doc
  */
 function indentIfBreak(contents, opts = {}) {
   return {
     type: "indent-if-break",
     contents,
+    negate: opts.negate,
     groupId: opts.groupId,
   };
 }
