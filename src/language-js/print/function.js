@@ -25,7 +25,6 @@ const {
   CommentCheckFlags,
   isCallLikeExpression,
   isCurriedArrowFunctionExpression,
-  identity,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
