@@ -13,11 +13,11 @@ const countLines = (stream, text) => {
   return lineCount;
 };
 
-const clearLines = (stream, text) => () => {
-  const lines = countLines(stream, text);
+const clear = (stream, text) => () => {
+  const lineCount = countLines(stream, text);
 
-  for (let i = 0; i < lines; i++) {
-    if (i > 0) {
+  for (let line = 0; line < lineCount; line++) {
+    if (line > 0) {
       stream.moveCursor(0, -1);
     }
 
@@ -54,7 +54,7 @@ function createLogger(logLevel) {
 
       if (options.clearable) {
         return {
-          clear: clearLines(stream, message),
+          clear: clear(stream, message),
         };
       }
     };
