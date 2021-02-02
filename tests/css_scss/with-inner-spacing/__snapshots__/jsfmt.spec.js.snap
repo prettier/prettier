@@ -2,7 +2,7 @@
 
 exports[`comments.scss 1`] = `
 ====================================options=====================================
-parenSpacing: true
+cssParenSpacing: true
 parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
@@ -39,7 +39,7 @@ printWidth: 80
 
 exports[`import_comma.scss 1`] = `
 ====================================options=====================================
-parenSpacing: true
+cssParenSpacing: true
 parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
@@ -54,7 +54,7 @@ printWidth: 80
 
 exports[`scss.scss 1`] = `
 ====================================options=====================================
-parenSpacing: true
+cssParenSpacing: true
 parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
@@ -2087,7 +2087,7 @@ label {
 
 exports[`string-concatanation.scss 1`] = `
 ====================================options=====================================
-parenSpacing: true
+cssParenSpacing: true
 parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth

@@ -3,9 +3,12 @@
 exports[`arrow_function_expression.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 (a => {}).length
@@ -88,9 +91,12 @@ a = b => {
 exports[`block_like.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 a = () => ({} = this);
@@ -104,9 +110,12 @@ a = () => ( {} = this );
 exports[`call.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 Seq(typeDef.interface.groups).forEach(group =>
@@ -902,9 +911,12 @@ foo(
 exports[`comment.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 /**
@@ -976,9 +988,12 @@ export const bem = block =>
 exports[`currying.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const fn = b => c => d => {
@@ -1024,9 +1039,12 @@ const middleware = options => ( req, res, next ) => {
 exports[`long-call-no-args.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
@@ -1043,9 +1061,12 @@ veryLongCall(
 exports[`long-contents.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const foo = () => {
@@ -1068,9 +1089,12 @@ const foo = () => {
 exports[`parens.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 promise.then(
@@ -1120,9 +1144,12 @@ foo( a => b, d );
 exports[`short_body.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const initializeSnapshotState = (
@@ -1146,9 +1173,12 @@ const initializeSnapshotState = (
 exports[`type_params.js 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 <T>(a) => { }

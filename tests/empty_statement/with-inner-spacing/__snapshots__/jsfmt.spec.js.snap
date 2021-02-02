@@ -2,9 +2,9 @@
 
 exports[`body.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
                                                                                 | printWidth
 =====================================input======================================
 with (a);
@@ -32,9 +32,9 @@ while ( 1 );
 
 exports[`no-newline.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
                                                                                 | printWidth
 =====================================input======================================
 if (a) {

@@ -256,16 +256,6 @@ Valid options:
 | ------- | -------------------------- | --------------------------- |
 | `true`  | `--no-align-ternary-lines` | `alignTernaryLines: <bool>` |
 
-## paren spacing
-
-Put spaces between parens, WordPress style (not recommended with default `arrowParens: "always"` setting).
-
-Status: experimental, with some known paren spacing formatting issues.
-
-| Default | CLI Override      | API Override           |
-| ------- | ----------------- | ---------------------- |
-| `false` | `--paren-spacing` | `parenSpacing: <bool>` |
-
 ## break before else
 
 Always add a line break before else.
@@ -294,6 +284,70 @@ Format void HTML elements as void tags.
 | Default | CLI Override       | API Override           |
 | ------- | ------------------ | ---------------------- |
 | `false` | `--html-void-tags` | `htmlVoidTags: <bool>` |
+
+## Array bracket spacing
+
+Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override              | API Override                  |
+| ------- | ------------------------- | ----------------------------- |
+| `false` | `--array-bracket-spacing` | `arrayBracketSpacing: <bool>` |
+
+## CSS paren spacing
+
+Put spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
+
+| Default | CLI Override          | API Override              |
+| ------- | --------------------- | ------------------------- |
+| `false` | `--css-paren-spacing` | `cssParenSpacing: <bool>` |
+
+## Computed property spacing
+
+Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override                  | API Override                      |
+| ------- | ----------------------------- | --------------------------------- |
+| `false` | `--computed-property-spacing` | `computedPropertySpacing: <bool>` |
+
+## Space after unary operator symbols
+
+Put spaces after unary operator symbols, except in the middle of `!!` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override        | API Override            |
+| ------- | ------------------- | ----------------------- |
+| `false` | `--space-unary-ops` | `spaceUnaryOps: <bool>` |
+
+## Spaces in parens
+
+Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default `arrowParens: "always"` option. Status: experimental, with limited testing.
+
+| Default | CLI Override        | API Override            |
+| ------- | ------------------- | ----------------------- |
+| `false` | `--space-in-parens` | `spaceInParens: <bool>` |
+
+## Template curly spacing
+
+Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override               | API Override                   |
+| ------- | -------------------------- | ------------------------------ |
+| `false` | `--template-curly-spacing` | `templateCurlySpacing: <bool>` |
+
+## Type angle bracket spacing
+
+Put spaces between type angle brackets. Status: experimental, with limited testing.
+
+| Default | CLI Override                   | API Override                      |
+| ------- | ------------------------------ | --------------------------------- |
+| `false` | `--type-angle-bracket-spacing` | `typeAngleBracketSpacing: <bool>` |
+
+## Type bracket spacing
+
+Put spaces between type brackets. Status: experimental, with limited testing.
+
+| Default | CLI Override             | API Override                 |
+| ------- | ------------------------ | ---------------------------- |
+| `false` | `--type-bracket-spacing` | `typeBracketSpacing: <bool>` |
 
 ## Parser
 

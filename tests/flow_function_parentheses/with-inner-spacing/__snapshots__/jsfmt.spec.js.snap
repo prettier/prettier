@@ -2,9 +2,10 @@
 
 exports[`single.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const selectorByPath:
@@ -27,9 +28,10 @@ const selectorByPath: ( Path ) => SomethingSelector<
 
 exports[`test.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 type Banana = {

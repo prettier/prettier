@@ -2,9 +2,9 @@
 
 exports[`single-parameter.ts 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
+spaceInParens: true
                                                                                 | printWidth
 =====================================input======================================
 type X = (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
@@ -24,9 +24,9 @@ type Y = new ( options: {
 
 exports[`type-annotation.ts 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
+spaceInParens: true
                                                                                 | printWidth
 =====================================input======================================
 const foo = (): () => void => (): void => null;

@@ -232,7 +232,7 @@ function escapeTemplateCharacters(doc, raw) {
   });
 }
 
-// [prettierx] parenSpace option support (...)
+// [prettierx] templateCurlySpacing option support (...)
 function transformCssDoc(quasisDoc, path, print, options) {
   const parentNode = path.getValue();
 
@@ -246,7 +246,7 @@ function transformCssDoc(quasisDoc, path, print, options) {
     ? path.map(print, "expressions")
     : [];
 
-  // [prettierx] parenSpace option support (...)
+  // [prettierx] templateCurlySpacing option support (...)
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs, options);
 
   /* istanbul ignore if */
@@ -310,14 +310,20 @@ function replacePlaceholders(quasisDoc, expressionDocs, options) {
       const suffix = placeholderMatch[2];
       const expression = expressions[placeholderID];
 
-      // [prettierx] parenSpace option support (...)
-      const parenSpace = options.parenSpacing ? " " : "";
+      // [prettierx] templateCurlySpacing option support (...)
+      const templateCurlySpace = options.templateCurlySpacing ? " " : "";
 
       replaceCounter++;
       parts = parts
         .slice(0, atPlaceholderIndex)
-        // [prettierx] parenSpace option support (...)
-        .concat(["${", parenSpace, expression, parenSpace, "}" + suffix])
+        // [prettierx] templateCurlySpacing option support (...)
+        .concat([
+          "${",
+          templateCurlySpace,
+          expression,
+          templateCurlySpace,
+          "}" + suffix,
+        ])
         .concat(rest);
     }
     return { ...doc, parts };
@@ -568,8 +574,8 @@ let htmlTemplateLiteralCounter = 0;
 function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   const node = path.getValue();
 
-  // [prettierx] parenSpace option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
+  // [prettierx] templateCurlySpacing option support (...)
+  const templateCurlySpace = options.templateCurlySpacing ? " " : "";
 
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
@@ -627,12 +633,12 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
 
         const placeholderIndex = +component;
         parts.push(
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] templateCurlySpacing option support (...)
           concat([
             "${",
-            parenSpace,
+            templateCurlySpace,
             group(expressionDocs[placeholderIndex]),
-            parenSpace,
+            templateCurlySpace,
             "}",
           ])
         );

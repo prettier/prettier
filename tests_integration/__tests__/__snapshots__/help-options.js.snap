@@ -26,6 +26,19 @@ Default: true
 
 exports[`show detailed usage with --help align-ternary-lines (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help array-bracket-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help array-bracket-spacing (stdout) 1`] = `
+"--array-bracket-spacing
+
+  Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help array-bracket-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `
@@ -108,6 +121,19 @@ Default: true
 
 exports[`show detailed usage with --help color (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help computed-property-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help computed-property-spacing (stdout) 1`] = `
+"--computed-property-spacing
+
+  Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help computed-property-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help config (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help config (stdout) 1`] = `
@@ -138,6 +164,19 @@ Default: cli-override
 `;
 
 exports[`show detailed usage with --help config-precedence (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help css-paren-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help css-paren-spacing (stdout) 1`] = `
+"--css-paren-spacing
+
+  Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help css-paren-spacing (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help cursor-offset (stderr) 1`] = `""`;
 
@@ -460,19 +499,6 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help paren-spacing (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help paren-spacing (stdout) 1`] = `
-"--paren-spacing
-
-  Put spaces between parens, WordPress style.
-
-Default: false
-"
-`;
-
-exports[`show detailed usage with --help paren-spacing (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
@@ -668,6 +694,32 @@ Default: false
 
 exports[`show detailed usage with --help space-before-function-paren (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help space-in-parens (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help space-in-parens (stdout) 1`] = `
+"--space-in-parens
+
+  Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\"always\\"\` option. Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help space-in-parens (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help space-unary-ops (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help space-unary-ops (stdout) 1`] = `
+"--space-unary-ops
+
+  Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help space-unary-ops (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help stdin-filepath (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `
@@ -703,6 +755,19 @@ Default: 2
 
 exports[`show detailed usage with --help tab-width (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help template-curly-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help template-curly-spacing (stdout) 1`] = `
+"--template-curly-spacing
+
+  Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help template-curly-spacing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help trailing-comma (stdout) 1`] = `
@@ -721,6 +786,32 @@ Default: es5
 `;
 
 exports[`show detailed usage with --help trailing-comma (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help type-angle-bracket-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help type-angle-bracket-spacing (stdout) 1`] = `
+"--type-angle-bracket-spacing
+
+  Put spaces between type angle brackets. Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help type-angle-bracket-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help type-bracket-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help type-bracket-spacing (stdout) 1`] = `
+"--type-bracket-spacing
+
+  Print spaces between type brackets. Status: experimental, with limited testing.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help type-bracket-spacing (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help use-tabs (stderr) 1`] = `""`;
 

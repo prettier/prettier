@@ -8,7 +8,7 @@ run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   // "Standard JS":
   alignObjectProperties: true,
   // prettierx: test with --paren-spacing
-  parenSpacing: true,
+  computedPropertySpacing: true,
   // "Standard JS":
   trailingComma: "none",
 });

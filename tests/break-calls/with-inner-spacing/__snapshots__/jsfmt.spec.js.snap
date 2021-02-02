@@ -2,10 +2,13 @@
 
 exports[`break.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
 trailingComma: "none"
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 h(f(g(() => {
@@ -108,10 +111,13 @@ expect(
 
 exports[`parent.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
 trailingComma: "none"
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 runtimeAgent.getProperties(
@@ -140,10 +146,13 @@ runtimeAgent.getProperties(
 
 exports[`react.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
 trailingComma: "none"
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function helloWorld() {
@@ -242,10 +251,13 @@ function MyComponent( props ) {
 
 exports[`type_args.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
 trailingComma: "none"
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const response = something.$http.get<ThingamabobService.DetailsData>(

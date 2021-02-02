@@ -12,14 +12,6 @@ module.exports = {
     description: "Print spaces between brackets.",
     oppositeDescription: "Do not print spaces between brackets.",
   },
-  // [prettierx]
-  parenSpacing: {
-    since: "0.0.0",
-    category: CATEGORY_COMMON,
-    type: "boolean",
-    default: false,
-    description: "Put spaces between parens, WordPress style.",
-  },
   singleQuote: {
     since: "0.0.0",
     category: CATEGORY_COMMON,

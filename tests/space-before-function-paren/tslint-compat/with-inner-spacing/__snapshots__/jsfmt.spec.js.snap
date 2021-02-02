@@ -2,11 +2,12 @@
 
 exports[`tsbaz.ts 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
 spaceBeforeFunctionParen: true
+spaceInParens: true
 trailingComma: "none"
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 // Results of using spaceBeforeFunctionParen: true setting
@@ -123,10 +124,11 @@ var foo = async () => 1;
 
 exports[`tsbaz.ts 2`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
+spaceInParens: true
 trailingComma: "none"
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 // Results of using spaceBeforeFunctionParen: true setting

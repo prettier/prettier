@@ -4,12 +4,13 @@ exports[`correct.ts 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
+spaceInParens: true
+typeAngleBracketSpacing: true
 yieldStarSpacing: true
                                                                                 | printWidth
 =====================================input======================================
@@ -57,12 +58,13 @@ exports[`incorrect.ts 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
+spaceInParens: true
+typeAngleBracketSpacing: true
 yieldStarSpacing: true
                                                                                 | printWidth
 =====================================input======================================

@@ -81,6 +81,10 @@ Object {
       "default": true,
       "type": "boolean",
     },
+    "arrayBracketSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "arrowParens": Object {
       "choices": Array [
         "always",
@@ -98,6 +102,14 @@ Object {
       "type": "boolean",
     },
     "breakLongMethodChains": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "computedPropertySpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "cssParenSpacing": Object {
       "default": false,
       "type": "boolean",
     },
@@ -162,10 +174,6 @@ Object {
       "type": "boolean",
     },
     "jsxSingleQuote": Object {
-      "default": false,
-      "type": "boolean",
-    },
-    "parenSpacing": Object {
       "default": false,
       "type": "boolean",
     },
@@ -263,6 +271,14 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "spaceInParens": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "spaceUnaryOps": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "tabWidth": Object {
       "default": 2,
       "range": Object {
@@ -272,6 +288,10 @@ Object {
       },
       "type": "int",
     },
+    "templateCurlySpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "trailingComma": Object {
       "choices": Array [
         "es5",
@@ -280,6 +300,14 @@ Object {
       ],
       "default": "es5",
       "type": "choice",
+    },
+    "typeAngleBracketSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "typeBracketSpacing": Object {
+      "default": false,
+      "type": "boolean",
     },
     "useTabs": Object {
       "default": false,
@@ -755,6 +783,14 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"arrayBracketSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
         {
           \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
@@ -795,6 +831,22 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Break method chains with more than 3 method calls, like Prettier 1.x.\\",
       \\"name\\": \\"breakLongMethodChains\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"computedPropertySpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Other\\",
+      \\"default\\": false,
+      \\"description\\": \\"Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"cssParenSpacing\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
@@ -934,15 +986,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"jsxSingleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
-      \\"type\\": \\"boolean\\"
-    },
-    {
-      \\"category\\": \\"Common\\",
-      \\"default\\": false,
-      \\"description\\": \\"Put spaces between parens, WordPress style.\\",
-      \\"name\\": \\"parenSpacing\\",
-      \\"pluginDefaults\\": {},
-      \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"boolean\\"
     },
     {
@@ -1122,6 +1165,22 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\\\\\"always\\\\\\"\` option. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"spaceInParens\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"spaceUnaryOps\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"default\\": 2,
       \\"description\\": \\"Number of spaces per indentation level.\\",
@@ -1129,6 +1188,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"templateCurlySpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"JavaScript\\",
@@ -1149,6 +1216,22 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between type angle brackets. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"typeAngleBracketSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Print spaces between type brackets. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"typeBracketSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Global\\",

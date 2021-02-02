@@ -16,6 +16,11 @@ Object {
           "description": "Keep default alignment of ternary expression lines.",
           "type": "boolean",
         },
+        "arrayBracketSpacing": Object {
+          "default": false,
+          "description": "Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
         "arrowParens": Object {
           "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",
@@ -47,6 +52,16 @@ Object {
         "breakLongMethodChains": Object {
           "default": false,
           "description": "Break method chains with more than 3 method calls, like Prettier 1.x.",
+          "type": "boolean",
+        },
+        "computedPropertySpacing": Object {
+          "default": false,
+          "description": "Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
+        "cssParenSpacing": Object {
+          "default": false,
+          "description": "Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.",
           "type": "boolean",
         },
         "cursorOffset": Object {
@@ -161,11 +176,6 @@ This option cannot be used with --range-start and --range-end.",
         "jsxSingleQuote": Object {
           "default": false,
           "description": "Use single quotes in JSX.",
-          "type": "boolean",
-        },
-        "parenSpacing": Object {
-          "default": false,
-          "description": "Put spaces between parens, WordPress style.",
           "type": "boolean",
         },
         "parser": Object {
@@ -394,10 +404,25 @@ in order for it to be formatted.",
           "description": "Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
           "type": "boolean",
         },
+        "spaceInParens": Object {
+          "default": false,
+          "description": "Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\"always\\"\` option. Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
+        "spaceUnaryOps": Object {
+          "default": false,
+          "description": "Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
         "tabWidth": Object {
           "default": 2,
           "description": "Number of spaces per indentation level.",
           "type": "integer",
+        },
+        "templateCurlySpacing": Object {
+          "default": false,
+          "description": "Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
         },
         "trailingComma": Object {
           "default": "es5",
@@ -422,6 +447,16 @@ in order for it to be formatted.",
               ],
             },
           ],
+        },
+        "typeAngleBracketSpacing": Object {
+          "default": false,
+          "description": "Put spaces between type angle brackets. Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
+        "typeBracketSpacing": Object {
+          "default": false,
+          "description": "Print spaces between type brackets. Status: experimental, with limited testing.",
+          "type": "boolean",
         },
         "useTabs": Object {
           "default": false,

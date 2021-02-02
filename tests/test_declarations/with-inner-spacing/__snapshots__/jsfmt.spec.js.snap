@@ -2,10 +2,13 @@
 
 exports[`angular_async.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 beforeEach(async(() => {
@@ -78,10 +81,13 @@ function x() {
 
 exports[`angular_fakeAsync.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 beforeEach(fakeAsync(() => {
@@ -143,10 +149,13 @@ function x() {
 
 exports[`angularjs_inject.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 beforeEach(inject(($fooService, $barService) => {
@@ -214,10 +223,13 @@ function x() {
 
 exports[`jest-each.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 describe.each\`
@@ -360,10 +372,13 @@ test.each( [
 
 exports[`test_declarations.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 // Shouldn't break

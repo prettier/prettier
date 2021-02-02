@@ -71,6 +71,8 @@ Format options:
                            Align colons in multiline object literals.
                            Defaults to false.
   --no-align-ternary-lines Disable default alignment of ternary expression lines. Adds some more consistency with \\"Standard JS\\" in case of certain nested ternary expressions, may lead to some other conflicts with \\"Standard JS\\".
+  --array-bracket-spacing  Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
@@ -79,6 +81,11 @@ Format options:
                            Defaults to false.
   --break-long-method-chains
                            Break method chains with more than 3 method calls, like Prettier 1.x.
+                           Defaults to false.
+  --computed-property-spacing
+                           Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
+  --css-paren-spacing      Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
                            Defaults to false.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
@@ -98,8 +105,6 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --paren-spacing          Put spaces between parens, WordPress style.
-                           Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -116,11 +121,22 @@ Format options:
   --space-before-function-paren
                            Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
                            Defaults to false.
+  --space-in-parens        Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\"always\\"\` option. Status: experimental, with limited testing.
+                           Defaults to false.
+  --space-unary-ops        Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --template-curly-spacing Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
+  --type-angle-bracket-spacing
+                           Put spaces between type angle brackets. Status: experimental, with limited testing.
+                           Defaults to false.
+  --type-bracket-spacing   Print spaces between type brackets. Status: experimental, with limited testing.
+                           Defaults to false.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
@@ -251,6 +267,8 @@ Format options:
                            Align colons in multiline object literals.
                            Defaults to false.
   --no-align-ternary-lines Disable default alignment of ternary expression lines. Adds some more consistency with \\"Standard JS\\" in case of certain nested ternary expressions, may lead to some other conflicts with \\"Standard JS\\".
+  --array-bracket-spacing  Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
@@ -259,6 +277,11 @@ Format options:
                            Defaults to false.
   --break-long-method-chains
                            Break method chains with more than 3 method calls, like Prettier 1.x.
+                           Defaults to false.
+  --computed-property-spacing
+                           Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
+  --css-paren-spacing      Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
                            Defaults to false.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
@@ -278,8 +301,6 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --paren-spacing          Put spaces between parens, WordPress style.
-                           Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -296,11 +317,22 @@ Format options:
   --space-before-function-paren
                            Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
                            Defaults to false.
+  --space-in-parens        Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\"always\\"\` option. Status: experimental, with limited testing.
+                           Defaults to false.
+  --space-unary-ops        Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --template-curly-spacing Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
+  --type-angle-bracket-spacing
+                           Put spaces between type angle brackets. Status: experimental, with limited testing.
+                           Defaults to false.
+  --type-bracket-spacing   Print spaces between type brackets. Status: experimental, with limited testing.
+                           Defaults to false.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style

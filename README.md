@@ -25,11 +25,18 @@ prettierx <options> <file(s)>
 - `--yield-star-spacing` (`yieldStarSpacing: true`): Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
 - `--no-indent-chains` (`indentChains: false`): Disable indents at the start of chained calls.
 - `--no-align-ternary-lines` (`alignTernaryLines: false`): Disable default alignment of ternary expression lines, which may be in conflict with "Standard JS" formatting in certain nested ternary cases ... see [`docs/options.md`](docs/options.md).
-- `--paren-spacing` (`parenSpacing: true`): Put spaces between parens, WordPress style (not recommended with default `arrowParens: "always"` setting). Status: experimental, with some known paren spacing formatting issues.
 - `--break-before-else` (`breakBeforeElse: true`): Always add a line break before else.
 - <code>--import-formatting <auto&#124;oneline></code> (<code>importFormatting: "<auto&#124;oneline>"</code>): Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.
 - `--html-void-tags` (`htmlVoidTags: true`): Format void HTML elements as void tags.
 - `--break-long-method-chains` (`breakLongMethodChains: true`): Break method chains with more than 3 method calls, like Prettier 1.x.
+- `--array-bracket-spacing` (`arrayBracketSpacing: true`): Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+- `--css-paren-spacing` (`cssParenSpacing: true`): Put spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
+- `--computed-property-spacing` (`computedPropertySpacing: true`): Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+- `--space-in-parens` (`spaceInParens: true`): Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default `arrowParens: "always"` option. Status: experimental, with limited testing.
+- `--space-unary-ops` (`spaceUnaryOps: true`): Put spaces after unary operator symbols, except in the middle of `!!` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+- `--template-curly-spacing` (`templateCurlySpacing: true`): Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+- `--type-angle-bracket-spacing` (`typeAngleBracketSpacing: true`): Put spaces between type angle brackets. Status: experimental, with limited testing.
+- `--type-bracket-spacing` (`typeBracketSpacing: true`): Put spaces between type brackets. Status: experimental, with limited testing.
 
 (See [`docs/options.md`](docs/options.md) for more information.)
 
@@ -53,8 +60,20 @@ Any known conflicts with ["Standard JS"](https://standardjs.com/) will be tracke
 
 ## recommended options
 
-- `--arrow-parens avoid` (`arrowParens: "avoid"`), especially in combination with `--paren-spacing` (`parenSpacing: true`).
+- `--arrow-parens avoid` (`arrowParens: "avoid"`), especially in combination with `--space-in-parens` (`spaceInParens: true`).
 - `--break-long-method-chains` (`breakLongMethodChains: true`)
+
+## options removed
+
+- `--paren-spacing` - replaced with finer-grained options:
+  - `--array-bracket-spacing`
+  - `--css-paren-spacing`
+  - `--computed-property-spacing`
+  - `--space-in-parens`
+  - `--space-unary-ops`
+  - `--template-curly-spacing`
+  - `--type-angle-bracket-spacing`
+  - `--type-bracket-spacing`
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ## Prettier 2.0

@@ -5,9 +5,10 @@
 const dirpath = `${__dirname}/..`;
 
 run_spec(dirpath, ["typescript"], {
-  parenSpacing: true,
+  spaceInParens: true,
   yieldStarSpacing: true,
   generatorStarSpacing: true,
+  typeAngleBracketSpacing: true,
   spaceBeforeFunctionParen: true,
   singleQuote: true,
   jsxSingleQuote: true,

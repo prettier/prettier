@@ -2,9 +2,9 @@
 
 exports[`class.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
                                                                                 | printWidth
 =====================================input======================================
 class x {
@@ -28,9 +28,9 @@ class x {
 
 exports[`class_property.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
                                                                                 | printWidth
 =====================================input======================================
 class Foo {
@@ -59,9 +59,9 @@ class Foo {
 
 exports[`empty_paren_comment.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
                                                                                 | printWidth
 =====================================input======================================
 let f1 = (/* ... */) => {}

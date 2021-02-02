@@ -2,9 +2,10 @@
 
 exports[`minustoken.ts 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
+typeAngleBracketSpacing: true
+typeBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 type MutableRequired<T> = { 
@@ -29,9 +30,10 @@ type ReadonlyPartial< T > = {
 
 exports[`question.ts 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
+typeAngleBracketSpacing: true
+typeBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 var x: {
@@ -48,9 +50,10 @@ var x: {
 
 exports[`readonly.ts 1`] = `
 ====================================options=====================================
-parenSpacing: true
 parsers: ["typescript"]
 printWidth: 80
+typeAngleBracketSpacing: true
+typeBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 var x: {

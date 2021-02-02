@@ -5,8 +5,8 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -26,10 +26,12 @@
-                             Break method chains with more than 3 method calls, like Prettier 1.x.
+@@ -33,10 +33,12 @@
+    --css-paren-spacing      Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
                              Defaults to false.
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.

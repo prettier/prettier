@@ -2,10 +2,15 @@
 
 exports[`bracket_0.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function a() {
@@ -35,10 +40,15 @@ function a() {
 
 exports[`break-last-call.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 export default store => {
@@ -163,10 +173,15 @@ it( "should group messages with same created time", () => {
 
 exports[`break-last-member.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 SomeVeryLongUpperCaseConstant.someVeryLongCallExpression().some_very_long_member_expression
@@ -235,10 +250,15 @@ const {
 
 exports[`break-multiple.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 object.foo().bar().baz();
@@ -259,10 +279,15 @@ foo().bar.baz();
 
 exports[`comment.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function f() {
@@ -413,10 +438,15 @@ angular
 
 exports[`computed.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 nock(/test/)
@@ -439,10 +469,15 @@ nock( /test/ )
 
 exports[`computed-merge.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 [].forEach(key => {
@@ -485,10 +520,15 @@ window.Data[ key ]( "foo" )
 
 exports[`conditional.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 (a ? b : c).d();
@@ -552,10 +592,15 @@ object[
 
 exports[`d3.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 d3.select('body')
@@ -597,10 +642,15 @@ not.d3.scaleLinear().domain( [ 1950, 1980 ] ).range( [ 0, width ] );
 
 exports[`first_long.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 export default function theFunction(action$, store) {
@@ -678,10 +728,15 @@ function f() {
 
 exports[`inline_merge.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 Object.keys(
@@ -725,10 +780,15 @@ var jqxhr = $.ajax( "example.php" ).done( doneFn ).fail( failFn );
 
 exports[`issue-4125.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 // examples from https://github.com/prettier/prettier/issues/4125
@@ -894,7 +954,7 @@ const x = moment().add( 1, "day" ).valueOf();
 
 // should stay on one line:
 obj.foo( 1 ).foo( 2 ).foo( 3 );
-obj.foo( -1 ).foo( import( "2" ) ).foo( ! x ).check( /[A-Z]/ );
+obj.foo( - 1 ).foo( import( "2" ) ).foo( ! x ).check( /[A-Z]/ );
 
 // better on multiple lines:
 somePromise
@@ -1056,10 +1116,15 @@ var l = base
 
 exports[`logical.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const someLongVariableName = (idx(
@@ -1112,10 +1177,15 @@ const someLongVariableName = (
 
 exports[`multiple-members.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 if (testConfig.ENABLE_ONLINE_TESTS === "true") {
@@ -1208,10 +1278,15 @@ wrapper
 
 exports[`object-literal.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 of("test")
@@ -1252,10 +1327,15 @@ of( "test" )
 
 exports[`short-names.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const svgJsFiles = fs
@@ -1274,10 +1354,15 @@ const svgJsFiles = fs
 
 exports[`square_0.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const version = someLongString
@@ -1306,10 +1391,15 @@ const component = find( ".org-lclp-edit-copy-url-banner__link" )[ 0 ]
 
 exports[`test.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 method().then(x => x)
@@ -1333,10 +1423,15 @@ method()
 
 exports[`this.js 1`] = `
 ====================================options=====================================
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const sel = this.connections

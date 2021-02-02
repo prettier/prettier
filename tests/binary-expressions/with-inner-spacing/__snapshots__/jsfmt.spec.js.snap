@@ -2,9 +2,12 @@
 
 exports[`arrow.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function f() {
@@ -49,9 +52,12 @@ function f() {
 
 exports[`bitwise-flags.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const FLAG_A = 1 << 0;
@@ -72,9 +78,12 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 
 exports[`call.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 (
@@ -203,9 +212,12 @@ printWidth: 80
 
 exports[`comment.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 a = (
@@ -226,9 +238,12 @@ a =
 
 exports[`equality.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 x == y == z;
@@ -257,9 +272,12 @@ x !== y !== z;
 
 exports[`exp.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 a ** b ** c;
@@ -276,9 +294,9 @@ a ** (b * c);
 a ** ( b ** c );
 ( a ** b ) ** c;
 a.b ** c;
-( -a ) ** b;
-a ** -b;
--( a ** b );
+( - a ) ** b;
+a ** - b;
+- ( a ** b );
 ( a * b ) ** c;
 a ** ( b * c );
 ( a % b ) ** c;
@@ -288,9 +306,12 @@ a ** ( b * c );
 
 exports[`if.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 if (this.hasPlugin("dynamicImports") && this.lookahead().type) {}
@@ -328,9 +349,12 @@ if (
 
 exports[`inline-jsx.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
@@ -367,9 +391,12 @@ const avatar = ( hasAvatar || showPlaceholder ) && (
 
 exports[`inline-object-array.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 prevState = prevState || {
@@ -562,9 +589,12 @@ const obj = {
 
 exports[`jsx_parent.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -647,9 +677,12 @@ printWidth: 80
 
 exports[`math.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 x + y / z;
@@ -704,9 +737,12 @@ x & ( y >> z );
 
 exports[`return.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function foo() {
@@ -752,9 +788,12 @@ function foo() {
 
 exports[`short-right.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 this._cumulativeHeights &&
@@ -791,7 +830,7 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
 const isPartOfPackageJSON =
   dependenciesArray.indexOf(
     dependencyWithOutRelativePath.split( "/" )[ 0 ]
-  ) !== -1;
+  ) !== - 1;
 
 defaultContent.filter( ( defaultLocale ) => {
   // ...
@@ -802,9 +841,12 @@ defaultContent.filter( ( defaultLocale ) => {
 
 exports[`test.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 // It should always break the highest precedence operators first, and
@@ -892,9 +934,12 @@ foo(
 
 exports[`unary.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const anyTestFailures = !(

@@ -6,5 +6,7 @@ const dirpath = `${__dirname}/..`;
 
 run_spec(dirpath, ["typescript"], {
   // [prettierx] test with --paren-spacing
-  parenSpacing: true,
+  spaceInParens: true,
+  typeAngleBracketSpacing: true,
+  typeBracketSpacing: true,
 });

@@ -2,9 +2,13 @@
 
 exports[`arrays.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 [[]];
@@ -33,9 +37,13 @@ printWidth: 80
 
 exports[`bind.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 (a || b):: c;
@@ -82,7 +90,7 @@ a:: (b => c);
 a || b::c;
 ::obj.prop;
 ( void 0 )::func();
-( +0 )::is( -0 );
+( + 0 )::is( - 0 );
 a::b.c;
 a::( b.c() );
 a::b.c();
@@ -122,9 +130,13 @@ a::( ( b ) => c );
 
 exports[`class.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 class c {
@@ -163,9 +175,13 @@ class X {
 
 exports[`conditionals.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 if (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD)) { }
@@ -231,9 +247,13 @@ foo || bar || baz || qux || xyz;
 
 exports[`destructuring.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const [one, two = null, three = null] = arr;
@@ -250,9 +270,13 @@ const { children, ...props } = this.props;
 
 exports[`expressions.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 (this.x++).toString()
@@ -293,9 +317,13 @@ object.foo().bar().baz();
 
 exports[`functions.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function* f() {
@@ -344,9 +372,13 @@ new ( function () {} )();
 
 exports[`html-template-literals.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const nestedFun = /* HTML */ \`\${outerExpr(1)}
@@ -421,9 +453,13 @@ setFoo(
 
 exports[`import-export.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 import { fitsIn, oneLine } from '.';
@@ -452,9 +488,13 @@ export default ( function f() {} );
 
 exports[`jest-test-each.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 test.each\`
@@ -481,9 +521,13 @@ test.each\`
 
 exports[`loops.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 while (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD)) { }
@@ -537,9 +581,13 @@ for ( var i = 0, len = arr.length; i < len; i++ ) {}
 
 exports[`nullish.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const x = (foo, bar = foo ?? bar) => { };
@@ -562,9 +610,13 @@ foo ?? bar ?? baz;
 
 exports[`objects.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 () => ({}\`\`);
@@ -593,9 +645,13 @@ a = () => ( {}.x );
 
 exports[`return.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function f() {
@@ -620,9 +676,13 @@ function f() {
 
 exports[`sequence.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 (a = b ? c : function () { return 0; }),
@@ -663,9 +723,13 @@ printWidth: 80
 
 exports[`spread.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 const foo = { ...(a || b) };
@@ -692,9 +756,13 @@ declare class C {
 
 exports[`switch.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 switch (a) {
@@ -731,9 +799,13 @@ switch ( a ) {
 
 exports[`template-literals.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 \`\${1 ?? 2}\`;
@@ -853,9 +925,13 @@ return (
 
 exports[`ternaries.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 a => a ? () => { a } : () => { a }
@@ -895,9 +971,13 @@ const obj = {
 
 exports[`throw.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 function f() {
@@ -922,9 +1002,13 @@ lint( ast, {
 
 exports[`try-catch.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 try { foo() }
@@ -945,9 +1029,13 @@ try {
 
 exports[`with.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "babel-ts"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
                                                                                 | printWidth
 =====================================input======================================
 with (0) { };

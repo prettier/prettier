@@ -28,6 +28,20 @@ module.exports = {
   },
   bracketSpacing: commonOptions.bracketSpacing,
   // [prettierx ...]
+  arrayBracketSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
+  computedPropertySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
   indentChains: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
@@ -35,7 +49,6 @@ module.exports = {
     description: "Put indents at the start of chained calls.",
     oppositeDescription: "Disable indents at the start of chained calls.",
   },
-  parenSpacing: commonOptions.parenSpacing,
   importFormatting: {
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
@@ -53,6 +66,41 @@ module.exports = {
         description: "keep import statements on one line",
       },
     ],
+  },
+  spaceInParens: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      'Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default `arrowParens: "always"` option. Status: experimental, with limited testing.',
+  },
+  spaceUnaryOps: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces after unary operator symbols, except in the middle of `!!` (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
+  templateCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
+  typeAngleBracketSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between type angle brackets. Status: experimental, with limited testing.",
+  },
+  typeBracketSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Print spaces between type brackets. Status: experimental, with limited testing.",
   },
   jsxBracketSameLine: {
     since: "0.17.0",

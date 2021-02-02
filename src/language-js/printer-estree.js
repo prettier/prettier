@@ -144,8 +144,8 @@ function genericPrint(path, options, printPath, args) {
   let needsParens = false;
   const linesWithoutParens = printPathNoParens(path, options, printPath, args);
 
-  // [prettierx] parenSpace option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
 
   if (!node || isEmpty(linesWithoutParens)) {
     return linesWithoutParens;
@@ -226,7 +226,7 @@ function genericPrint(path, options, printPath, args) {
 
   const parts = [];
   if (needsParens) {
-    // [prettierx] parenSpace option support (...)
+    // [prettierx] spaceInParens option support (...)
     parts.unshift("(", parenSpace);
   }
 
@@ -241,7 +241,7 @@ function genericPrint(path, options, printPath, args) {
       node.trailingComments[0].printed = true;
     }
 
-    // [prettierx] parenSpace option support (...)
+    // [prettierx] spaceInParens option support (...)
     parts.push(hasAddedLine(linesWithoutParens) ? "" : parenSpace, ")");
   }
 
@@ -252,7 +252,7 @@ function genericPrint(path, options, printPath, args) {
 }
 
 // [prettierx] for alignObjectProperties option
-// (with parenSpacing support):
+// with computedPropertySpacing option support
 function getPropertyPadding(options, path) {
   if (!options.alignObjectProperties) {
     return "";
@@ -286,7 +286,8 @@ function getPropertyPadding(options, path) {
       ? n.extra.raw.length
       : undefined;
 
-  const computedPropertyOverhead = options.parenSpacing ? 4 : 2;
+  // [prettierx] computedPropertySpacing option support
+  const computedPropertyOverhead = options.computedPropertySpacing ? 4 : 2;
 
   // FUTURE TBD from arijs/prettier-miscellaneous#10
   // (does not seem to be needed to pass the tests):
@@ -348,8 +349,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const alternateNode = node[operatorOptions.alternateNodePropertyName];
   const parts = [];
 
-  // [prettierx] parenSpace option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
 
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
   // See tests/jsx/conditional-expression.js for more info.
@@ -427,7 +428,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     const part = concat([
       line,
       "? ",
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       consequentNode.type === operatorOptions.conditionalNodeType
         ? ifBreak("", concat(["(", parenSpace]))
         : "",
@@ -435,7 +436,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       options.alignTernaryLines
         ? align(2, path.call(print, operatorOptions.consequentNodePropertyName))
         : path.call(print, operatorOptions.consequentNodePropertyName),
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       consequentNode.type === operatorOptions.conditionalNodeType
         ? ifBreak("", concat([parenSpace, ")"]))
         : "",
@@ -521,9 +522,13 @@ function printPathNoParens(path, options, print, args) {
   const n = path.getValue();
   const semi = options.semi ? ";" : "";
 
-  // [prettierx] parenSpace option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
-  const parenLine = options.parenSpacing ? line : softline;
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
+  const parenLine = options.spaceInParens ? line : softline;
+
+  // [prettierx] templateCurlySpacing option support (...)
+  const templateCurlySpace = options.templateCurlySpacing ? " " : "";
+  const templateCurlyLine = options.templateCurlySpacing ? line : softline;
 
   if (!n) {
     return "";
@@ -624,15 +629,15 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "expression"),
         isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi,
       ]);
-    // prettierx: parenSpace option support (...)
+    // prettierx: spaceInParens option support (...)
     // Babel non-standard node. Used for Closure-style type casts.
     // See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug = !n.expression.comments;
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       if (shouldHug) {
         return concat([
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           "(",
           parenSpace,
           path.call(print, "expression"),
@@ -641,11 +646,11 @@ function printPathNoParens(path, options, print, args) {
         ]);
       }
       return group(
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] spaceInParens option support (...)
         concat([
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           "(",
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           indent(concat([parenLine, path.call(print, "expression")])),
           parenLine,
           // [prettierx merge from prettier@2.0.5 ...]
@@ -696,7 +701,7 @@ function printPathNoParens(path, options, print, args) {
         return concat(parts);
       }
 
-      // [prettierx] parenSpace option support
+      // [prettierx] spaceInParens option support
       // (...)
       //
       // Break between the parens in
@@ -718,9 +723,9 @@ function printPathNoParens(path, options, print, args) {
           !parent.computed)
       ) {
         return group(
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           concat([
-            // [prettierx] parenSpace option support (...)
+            // [prettierx] spaceInParens option support (...)
             "(",
             indent(concat([parenLine, concat(parts)])),
             parenLine,
@@ -994,7 +999,7 @@ function printPathNoParens(path, options, print, args) {
           n.body.type === "DoExpression")
       ) {
         return group(concat([concat(parts), " ", body]), {
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           addedLine: hasAddedLine(body), // pass the option from a nested => arrow => function
         });
       }
@@ -1007,7 +1012,7 @@ function printPathNoParens(path, options, print, args) {
             concat(parts),
             // [prettierx merge from prettier@2.0.5 ...]
             group(
-              // [prettierx] parenSpace option support (...)
+              // [prettierx] spaceInParens option support (...)
               concat([" (", indent(concat([parenLine, body])), parenLine, ")"])
             ),
           ])
@@ -1326,10 +1331,10 @@ function printPathNoParens(path, options, print, args) {
           path.call(print, "callee"),
           optional,
           printFunctionTypeParameters(path, options, print),
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           concat([
             "(",
-            // [prettierx] parenSpace option support (...)
+            // [prettierx] spaceInParens option support (...)
             parenSpace,
             join(", ", path.map(print, "arguments")),
             parenSpace,
@@ -1652,9 +1657,16 @@ function printPathNoParens(path, options, print, args) {
         // to use the same printPropertyKey call for both
         // computed & non-computed properties
 
+        // [prettierx] computedPropertySpacing option support
+        const computedPropertySpace = options.computedPropertySpacing
+          ? " "
+          : "";
+
         // [prettierx] calculate this overhead in case it is needed,
-        // with parenSpacing support:
-        const computedPropertyOverhead = options.parenSpacing ? 4 : 2;
+        // with computedPropertySpacing option support:
+        const computedPropertyOverhead = options.computedPropertySpacing
+          ? 4
+          : 2;
 
         // [prettierx] compose left part,
         // for alignObjectProperties option
@@ -1663,11 +1675,11 @@ function printPathNoParens(path, options, print, args) {
               // [prettierx] computed property key,
               // with padding as needed for alignment
               "[",
-              // [prettierx] parenSpace option support (...)
-              parenSpace,
+              // [prettierx] computedPropertySpacing option support (...)
+              computedPropertySpace,
               path.call(print, "key"),
-              // [prettierx] parenSpace option support (...)
-              parenSpace,
+              // [prettierx] computedPropertySpacing option support (...)
+              computedPropertySpace,
               "]",
               propertyPadding.slice(computedPropertyOverhead),
             ])
@@ -1782,17 +1794,17 @@ function printPathNoParens(path, options, print, args) {
             return element[itemsKey] && element[itemsKey].length > 1;
           });
 
-        // [prettierx merge from prettier@1.19.0] (...)
+        // [prettierx] arrayBracketSpacing option support (...)
         parts.push(
           group(
-            // [prettierx] parenSpace option support (...)
+            // [prettierx] arrayBracketSpacing option support (...)
             concat([
               "[",
               indent(
-                // [prettierx] parenSpace option support (...)
+                // [prettierx] arrayBracketSpacing option support (...)
                 concat([
-                  // [prettierx merge from prettier@2.0.5 ...]
-                  parenLine,
+                  // [prettierx] arrayBracketSpacing option support (...)
+                  options.arrayBracketSpacing ? line : softline,
                   printArrayItems(path, options, "elements", print),
                 ])
               ),
@@ -1809,9 +1821,8 @@ function printPathNoParens(path, options, print, args) {
                 options,
                 /* sameIndent */ true
               ),
-              // [prettierx] parenSpace option support (...)
-              parenLine,
-              // [prettierx merge from prettier@2.0.5 ...]
+              // [prettierx] arrayBracketSpacing option support (...)
+              options.arrayBracketSpacing ? line : softline,
               "]",
             ]),
             { shouldBreak }
@@ -1892,12 +1903,13 @@ function printPathNoParens(path, options, print, args) {
     case "UnaryExpression":
       parts.push(n.operator);
 
-      // [prettierx] with --paren-spacing option support (...)
+      // [prettierx] spaceUnaryOps option support (...)
       if (
         /[a-z]$/.test(n.operator) ||
-        (options.parenSpacing &&
-          n.operator === "!" &&
+        (options.spaceUnaryOps &&
+          // [prettierx] no space between `!!`
           !(
+            n.operator === "!" &&
             n.argument &&
             n.argument.type === "UnaryExpression" &&
             n.argument.operator === "!"
@@ -1934,7 +1946,7 @@ function printPathNoParens(path, options, print, args) {
       return printTernaryOperator(path, options, print, {
         beforeParts: () => [path.call(print, "test")],
         afterParts:
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           (breakClosingParen) => [breakClosingParen ? parenLine : ""],
         shouldCheckJsx: true,
         conditionalNodeType: "ConditionalExpression",
@@ -2021,10 +2033,10 @@ function printPathNoParens(path, options, print, args) {
       );
     case "WithStatement":
       return group(
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] spaceInParens option support (...)
         concat([
           "with (",
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           parenSpace,
           path.call(print, "object"),
           parenSpace,
@@ -2036,11 +2048,11 @@ function printPathNoParens(path, options, print, args) {
       const con = adjustClause(n.consequent, path.call(print, "consequent"));
       const opening = group(
         concat([
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           "if (",
           group(
             concat([
-              // [prettierx] parenSpace option support (...)
+              // [prettierx] spaceInParens option support (...)
               indent(concat([parenLine, path.call(print, "test")])),
               parenLine,
             ])
@@ -2141,9 +2153,9 @@ function printPathNoParens(path, options, print, args) {
         concat([
           "while (",
           group(
-            // [prettierx] parenSpace option support (...)
+            // [prettierx] spaceInParens option support (...)
             concat([
-              // [prettierx] parenSpace option support (...)
+              // [prettierx] spaceInParens option support (...)
               indent(concat([parenLine, path.call(print, "test")])),
               parenLine,
             ])
@@ -2155,10 +2167,10 @@ function printPathNoParens(path, options, print, args) {
     case "ForInStatement":
       // Note: esprima can't actually parse "for each (".
       return group(
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] spaceInParens option support (...)
         concat([
           n.each ? "for each (" : "for (",
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           parenSpace,
           path.call(print, "left"),
           " in ",
@@ -2171,12 +2183,12 @@ function printPathNoParens(path, options, print, args) {
 
     case "ForOfStatement":
       return group(
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] spaceInParens option support (...)
         concat([
           "for",
           n.await ? " await" : "",
           " (",
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           parenSpace,
           path.call(print, "left"),
           " of ",
@@ -2201,9 +2213,9 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(
         group(
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           concat([
-            // [prettierx] parenSpace option support (...)
+            // [prettierx] spaceInParens option support (...)
             indent(concat([parenLine, path.call(print, "test")])),
             parenLine,
           ])
@@ -2270,7 +2282,7 @@ function printPathNoParens(path, options, print, args) {
         const param = path.call(print, "param");
 
         return concat([
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           "catch ",
           hasComments
             ? concat(["(", indent(concat([parenLine, param])), parenLine, ") "])
@@ -2290,10 +2302,10 @@ function printPathNoParens(path, options, print, args) {
     case "SwitchStatement":
       return concat([
         group(
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           concat([
             "switch (",
-            // [prettierx] parenSpace option support (...)
+            // [prettierx] spaceInParens option support (...)
             indent(concat([parenLine, path.call(print, "discriminant")])),
             parenLine,
             // [prettierx merge from prettier@2.0.5 ...]
@@ -2404,21 +2416,21 @@ function printPathNoParens(path, options, print, args) {
             const n = p.getValue();
 
             if (!n.comments || !n.comments.length) {
-              // [prettierx] with --paren-spacing option support (...)
-              return concat([parenSpace, printed, parenSpace]);
+              // [prettierx] templateCurlySpacing option support (...)
+              return concat([templateCurlySpace, printed, templateCurlySpace]);
             }
 
-            // [prettierx] with --paren-spacing option support (...)
+            // [prettierx] with templateCurlySpacing option support (...)
             return concat([
               indent(
                 concat([
-                  // [prettierx] with --paren-spacing option support (...)
-                  parenLine,
+                  // [prettierx] templateCurlySpacing option support (...)
+                  templateCurlyLine,
                   comments.printComments(p, () => printed, options),
                 ])
               ),
-              // [prettierx] with --paren-spacing option support (...)
-              parenLine,
+              // [prettierx] templateCurlySpacing option support (...)
+              templateCurlyLine,
             ]);
           },
           n.type === "JSXSpreadAttribute" ? "argument" : "expression"
@@ -2451,26 +2463,26 @@ function printPathNoParens(path, options, print, args) {
       if (shouldInline) {
         const printed = path.call(print, "expression");
         return group(
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] templateCurlySpacing option support (...)
           concat([
             "{",
-            // [prettierx] parenSpace option support (...)
-            parenSpace,
+            // [prettierx] templateCurlySpacing option support (...)
+            templateCurlySpace,
             printed,
             lineSuffixBoundary,
-            hasAddedLine(printed) ? "" : parenSpace,
+            hasAddedLine(printed) ? "" : templateCurlySpace,
             "}",
           ])
         );
       }
 
       return group(
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] templateCurlySpacing option support (...)
         concat([
           "{",
-          // [prettierx] parenSpace option support (...)
-          indent(concat([parenLine, path.call(print, "expression")])),
-          parenLine,
+          // [prettierx] templateCurlySpacing option support (...)
+          indent(concat([templateCurlyLine, path.call(print, "expression")])),
+          templateCurlyLine,
           lineSuffixBoundary,
           "}",
         ])
@@ -2754,7 +2766,7 @@ function printPathNoParens(path, options, print, args) {
           if (!isSimple) {
             // Breaks at the template element boundaries (${ and }) are preferred to breaking
             // in the middle of a MemberExpression
-            // [prettierx] with --paren-spacing option support (...)
+            // [prettierx] templateCurlySpacing option support (...)
             if (
               (n.expressions[i].comments && n.expressions[i].comments.length) ||
               n.expressions[i].type === "MemberExpression" ||
@@ -2765,13 +2777,17 @@ function printPathNoParens(path, options, print, args) {
               isBinaryish(n.expressions[i])
             ) {
               printed = concat([
-                // [prettierx] with --paren-spacing option support (...)
-                indent(concat([parenLine, printed])),
-                parenLine,
+                // [prettierx] templateCurlySpacing option support (...)
+                indent(concat([templateCurlyLine, printed])),
+                templateCurlyLine,
               ]);
             } else {
-              // [prettierx] --paren-spacing option support (...)
-              printed = concat([parenSpace, printed, parenSpace]);
+              // [prettierx] templateCurlySpacing option support (...)
+              printed = concat([
+                templateCurlySpace,
+                printed,
+                templateCurlySpace,
+              ]);
             }
           }
 
@@ -3039,7 +3055,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (needsParens) {
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] spaceInParens option support (...)
         parts.push("(", parenSpace);
       }
 
@@ -3064,7 +3080,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
       if (needsParens) {
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] spaceInParens option support (...)
         parts.push(parenSpace, ")");
       }
 
@@ -3373,13 +3389,14 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameter": {
       const parent = path.getParentNode();
       if (parent.type === "TSMappedType") {
-        // [prettierx] parenSpacing option support (...)
-        parts.push("[", parenSpace, path.call(print, "name"));
+        // [prettierx] typeBracketSpacing option support (...)
+        const typeBracketSpace = options.typeBracketSpacing ? " " : "";
+        parts.push("[", typeBracketSpace, path.call(print, "name"));
         if (n.constraint) {
           parts.push(" in ", path.call(print, "constraint"));
         }
-        // [prettierx] parenSpacing option support (...)
-        parts.push(parenSpace, "]");
+        // [prettierx] typeBracketSpacing option support (...)
+        parts.push(typeBracketSpace, "]");
         return concat(parts);
       }
 
@@ -3600,12 +3617,11 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         path.call(print, "objectType"),
         "[",
-        // [prettierx] parenSpacing option support (...)
-        parenSpace,
+        // [prettierx] typeBracketSpacing option support (...)
+        options.typeBracketSpacing ? " " : "",
         path.call(print, "indexType"),
-        // [prettierx] parenSpacing option support (...)
-        parenSpace,
-        // [prettierx merge from prettier@2.0.5 ...]
+        // [prettierx] typeBracketSpacing option support (...)
+        options.typeBracketSpacing ? " " : "",
         "]",
       ]);
     case "TSConstructSignatureDeclaration":
@@ -4046,9 +4062,15 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    // [prettierx] parenSpacing option support (...)
-    const parenSpace = options.parenSpacing ? " " : "";
-    return concat(["[", parenSpace, path.call(print, "key"), parenSpace, "]"]);
+    // [prettierx] computedPropertySpacing option support (...)
+    const computedPropertySpace = options.computedPropertySpacing ? " " : "";
+    return concat([
+      "[",
+      computedPropertySpace,
+      path.call(print, "key"),
+      computedPropertySpace,
+      "]",
+    ]);
   }
 
   const parent = path.getParentNode();
@@ -4244,21 +4266,21 @@ function printJestEachTemplateLiteral(node, expressions, options) {
   ) {
     const parts = [];
 
-    // [prettierx] parenSpace option support (...)
-    const parenSpace = options.parenSpacing ? " " : "";
+    // [prettierx] templateCurlySpacing option support (...)
+    const templateCurlySpace = options.templateCurlySpacing ? " " : "";
 
     const stringifiedExpressions = expressions.map(
       // [prettierx merge from prettier@2.0.5 ...]
       (doc) =>
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] templateCurlySpacing option support (...)
         "${" +
-        parenSpace +
+        templateCurlySpace +
         printDocToString(doc, {
           ...options,
           printWidth: Infinity,
           endOfLine: "lf",
         }).formatted +
-        parenSpace +
+        templateCurlySpace +
         "}"
     );
 
@@ -4345,8 +4367,8 @@ function printArgumentsList(path, options, print) {
   const args = node.arguments;
 
   // [prettierx] for --paren-spacing option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
-  const parenLine = options.parenSpacing ? line : softline;
+  const parenSpace = options.spaceInParens ? " " : "";
+  const parenLine = options.spaceInParens ? line : softline;
 
   if (args.length === 0) {
     return concat([
@@ -4367,12 +4389,12 @@ function printArgumentsList(path, options, print) {
   ) {
     return concat([
       "(",
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       parenSpace,
       path.call(print, "arguments", 0),
       ", ",
       path.call(print, "arguments", 1),
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       parenSpace,
       // [prettierx merge from prettier@2.0.5 ...]
       ")",
@@ -4538,10 +4560,10 @@ function printArgumentsList(path, options, print) {
             ? simpleConcat
             : ifBreak(allArgsBrokenOut(lastArgAddedLine), simpleConcat),
 
-          // [prettierx] parenSpace option support (...)
+          // [prettierx] spaceInParens option support (...)
           shouldGroupFirst
             ? concat([
-                // [prettierx] parenSpace option support (...)
+                // [prettierx] spaceInParens option support (...)
                 "(",
                 parenSpace,
                 group(printedExpanded[0], { shouldBreak: true }),
@@ -4551,7 +4573,7 @@ function printArgumentsList(path, options, print) {
                 ")",
               ])
             : concat([
-                // [prettierx] parenSpace option support (...)
+                // [prettierx] spaceInParens option support (...)
                 "(",
                 parenSpace,
                 concat(printedArguments.slice(0, -1)),
@@ -4639,9 +4661,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     expandArg &&
     !(fun[paramsField] && fun[paramsField].some((n) => n.comments));
 
-  // [prettierx] parenSpace option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
-  const parenLine = options.parenSpacing ? line : softline;
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
+  const parenLine = options.spaceInParens ? line : softline;
 
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
@@ -4714,11 +4736,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //                         })
   if (shouldExpandParameters) {
     return group(
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       concat([
         removeLines(typeParams),
         "(",
-        // [prettierx] parenSpace option support (...)
+        // [prettierx] spaceInParens option support (...)
         parenSpace,
         concat(printed.map(removeLines)),
         parenSpace,
@@ -4753,11 +4775,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    // [prettierx] parenSpace option support (...)
+    // [prettierx] spaceInParens option support (...)
     return concat([
       typeParams,
       "(",
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       parenSpace,
       concat(printed),
       parenSpace,
@@ -4783,7 +4805,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
-      // [prettierx] parenSpace option support (...)
+      // [prettierx] spaceInParens option support (...)
       return concat(["(", parenSpace, concat(printed), parenSpace, ")"]);
     }
     return concat(printed);
@@ -4792,11 +4814,11 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const canHaveTrailingComma =
     !(lastParam && lastParam.type === "RestElement") && !fun.rest;
 
-  // [prettierx] parenSpace option support (...)
+  // [prettierx] spaceInParens option support (...)
   return concat([
     typeParams,
     "(",
-    // [prettierx] parenSpace option support (...)
+    // [prettierx] spaceInParens option support (...)
     indent(concat([parenLine, concat(printed)])),
     ifBreak(
       canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
@@ -5044,9 +5066,11 @@ function printTypeScriptModifiers(path, options, print) {
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
 
-  // [prettierx] for --paren-spacing option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
-  const parenLine = options.parenSpacing ? line : softline;
+  // [prettierx] typeAngleBracketSpacing option support (...)
+  const typeAngleBracketSpace = options.typeAngleBracketSpacing ? " " : "";
+  const typeAngleBracketLine = options.typeAngleBracketSpacing
+    ? line
+    : softline;
 
   if (!n[paramsKey]) {
     return "";
@@ -5107,28 +5131,28 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   if (shouldInline) {
-    // [prettierx] with --paren-spacing option support (...)
+    // [prettierx] typeAngleBracketSpacing option support (...)
     return concat([
       "<",
-      // [prettierx] with --paren-spacing option support (...)
-      parenSpace,
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketSpace,
       join(", ", path.map(print, paramsKey)),
-      parenSpace,
+      typeAngleBracketSpace,
       printDanglingCommentsForInline(n),
       ">",
     ]);
   }
 
   return group(
-    // [prettierx] with --paren-spacing option support (...)
+    // [prettierx] typeAngleBracketSpacing option support (...)
     concat([
       "<",
       indent(
         concat([
-          // [prettierx] with --paren-spacing option support (...)
-          parenLine,
+          // [prettierx] typeAngleBracketSpacing option support (...)
+          typeAngleBracketLine,
           // [prettierx] keep break after comma here,
-          // regardless of --paren-spacing option (...)
+          // regardless of typeAngleBracketSpacing option (...)
           join(concat([",", line]), path.map(print, paramsKey)),
         ])
       ),
@@ -5139,8 +5163,8 @@ function printTypeParameters(path, options, print, paramsKey) {
           ? ","
           : ""
       ),
-      // [prettierx] with --paren-spacing option support (...)
-      parenLine,
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketLine,
       ">",
     ])
   );
@@ -5268,26 +5292,36 @@ function printMemberLookup(path, options, print) {
   const n = path.getValue();
   const optional = printOptionalToken(path);
 
-  // [prettierx] parenSpace option support (...)
-  const parenSpace = options.parenSpacing ? " " : "";
-  const parenLine = options.parenSpacing ? line : softline;
+  // [prettierx] computedPropertySpacing option support
+  const computedPropertySpace = options.computedPropertySpacing ? " " : "";
+  const computedPropertyLine = options.computedPropertySpacing
+    ? line
+    : softline;
 
   if (!n.computed) {
     return concat([optional, ".", property]);
   }
 
   if (!n.property || isNumericLiteral(n.property)) {
-    return concat([optional, "[", parenSpace, property, parenSpace, "]"]);
+    // [prettierx] computedPropertySpacing option support
+    return concat([
+      optional,
+      "[",
+      computedPropertySpace,
+      property,
+      computedPropertySpace,
+      "]",
+    ]);
   }
 
-  // [prettierx] parenSpace option support (...)
+  // [prettierx] computedPropertySpacing option support
   return group(
     concat([
       optional,
       "[",
-      // [prettierx] parenSpace option support (...)
-      indent(concat([parenLine, property])),
-      parenLine,
+      // [prettierx] computedPropertySpacing option support
+      indent(concat([computedPropertyLine, property])),
+      computedPropertyLine,
       "]",
     ])
   );
@@ -6345,7 +6379,7 @@ function exprNeedsASIProtection(path, options) {
     node.type === "RegExpLiteral" ||
     (node.type === "Literal" && node.pattern) ||
     (node.type === "Literal" && node.regex) ||
-    // [prettierx] parenSpace option support (...)
+    // [prettierx] spaceInParens option support (...)
     // needsParens is false for binaryish expr inside memberexpr, but is parenthesized nevertheless
     (node.type === "MemberExpression" &&
       !node.computed &&

@@ -3,10 +3,14 @@
 exports[`binary.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -48,10 +52,14 @@ room = room.map( ( row, rowIndex ) =>
 exports[`func-call.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -80,10 +88,14 @@ fn(
 exports[`indent.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -413,10 +425,14 @@ a
 exports[`nested.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -620,10 +636,14 @@ a
 exports[`nested-in-condition.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -712,10 +732,14 @@ const value = (
 exports[`parenthesis.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -752,10 +776,14 @@ a =>
 exports[`test.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
+arrayBracketSpacing: true
 arrowParens: "avoid"
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================

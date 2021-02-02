@@ -2,9 +2,12 @@
 
 exports[`arrow.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -30,9 +33,12 @@ trailingComma: "none"
 
 exports[`call.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -68,9 +74,12 @@ new Error( formatErrorMessage\`
 
 exports[`comment.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -109,9 +118,12 @@ g
 
 exports[`faulty-locations.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -151,9 +163,12 @@ var x = {
 
 exports[`graphql.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -199,9 +214,12 @@ module.exports = Relay.createContainer(
 
 exports[`indent.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -254,9 +272,12 @@ line n + n
 
 exports[`inline.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
@@ -380,9 +401,12 @@ editTitle += \`\${ iconHTML( { class: "reply-to-glyph" } ) }\`;
 
 exports[`parenthesis.js 1`] = `
 ====================================options=====================================
-parenSpacing: true
+arrayBracketSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]
 printWidth: 80
+spaceInParens: true
+templateCurlySpacing: true
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================

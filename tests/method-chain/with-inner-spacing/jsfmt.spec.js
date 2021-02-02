@@ -8,5 +8,10 @@ run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
   // [prettierx] recommended setting with --paren-spacing
   arrowParens: "avoid",
   // [prettierx] test with --paren-spacing
-  parenSpacing: true,
+  spaceInParens: true,
+  arrayBracketSpacing: true,
+  computedPropertySpacing: true,
+  spaceUnaryOps: true,
+  templateCurlySpacing: true,
+  typeAngleBracketSpacing: true,
 });

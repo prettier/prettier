@@ -3,7 +3,7 @@
 exports[`o.js 1`] = `
 ====================================options=====================================
 alignObjectProperties: true
-parenSpacing: true
+computedPropertySpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
