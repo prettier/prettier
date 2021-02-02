@@ -204,13 +204,14 @@ function shouldExtraIndentForConditionalExpression(path) {
     parent.type === "MemberExpression" ||
     parent.type === "OptionalMemberExpression"
   ) {
-    const memberChainingRootNodeName = path.callParent((path) => {
-      let name = path.getName();
-      while (name === "object") {
-        name = path.callParent((path) => path.getName());
-      }
-      return name;
-    });
+    let memberChainingRootNodeName = parentName;
+    let count = 0;
+    while (memberChainingRootNodeName === "object") {
+      path.callParent((parentPath) => {
+        memberChainingRootNodeName = parentPath.getName();
+      }, count);
+      count++;
+    }
     if (rightSideNodeNamesSet.has(memberChainingRootNodeName)) {
       return true;
     }
