@@ -221,7 +221,7 @@ Break method chains with more than 3 method calls, like Prettier 1.x.
 
 ## Space before function parentheses
 
-Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
+Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
 
 | Default | CLI Override                    | API Override                       |
 | ------- | ------------------------------- | ---------------------------------- |
@@ -229,7 +229,7 @@ Put a space before function parenthesis in all declarations (similar to eslint o
 
 ## Generator star spacing
 
-Put spaces around the star (`*`) in generator functions (before and after - similar to eslint option). (Default is after only.)
+Put spaces around the star (`*`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
 
 | Default | CLI Override               | API Override                   |
 | ------- | -------------------------- | ------------------------------ |
@@ -237,7 +237,7 @@ Put spaces around the star (`*`) in generator functions (before and after - simi
 
 ## Yield star spacing
 
-Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to eslint option). (Default is after only.)
+Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
 
 | Default | CLI Override           | API Override               |
 | ------- | ---------------------- | -------------------------- |

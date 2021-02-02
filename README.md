@@ -1,11 +1,11 @@
-# prettierx - less opinionated code formatter fork of prettier
+# prettierX - a less opinionated fork of Prettier
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![npm](https://img.shields.io/npm/v/prettierx.svg)](https://www.npmjs.com/package/prettierx)
 
-Unofficial fork, intended to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
+An unofficial fork of the Prettier code formatter, intended to provide some additional options to help improve consistency with ["Standard JS"](https://standardjs.com/) ([`feross/standard`](https://github.com/standard/standard)) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
 
-## prettierx as a Prettier plugin
+## prettierX as a Prettier plugin
 
 [`prettier-plugin-x`](https://www.npmjs.com/package/prettier-plugin-x) - provides the additional formatting options in a prettier plugin
 
@@ -17,21 +17,19 @@ Unofficial fork, intended to provide some additional options to help improve con
 prettierx <options> <file(s)>
 ```
 
-## Additional prettierx options
+## Additional prettierX options
 
-| Option                                               | Default value | CLI Override                                         | API Override                                         | Description                                                                                                                                                                                         |
-| ---------------------------------------------------- | ------------- | ---------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Align object properties                              | `false`       | `--align-object-properties`                          | `alignObjectProperties: <bool>`                      | Align colons in multiline object literals (not applied with any of the JSON parsers).                                                                                                               |
-| Space before function parentheses                    | `false`       | `--space-before-function-paren`                      | `spaceBeforeFunctionParen: <bool>`                   | Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)               |
-| Spaces around the star (`*`) in generator functions  | `false`       | `--generator-star-spacing`                           | `generatorStarSpacing: <bool>`                       | Put spaces around the star (`*`) in generator functions (before and after - similar to eslint option). (Default is after only.)                                                                     |
-| Spaces around the star (`*`) in `yield*` expressions | `false`       | `--yield-star-spacing`                               | `yieldStarSpacing: <bool>`                           | Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to eslint option). (Default is after only.)                                                                    |
-| Indent chains                                        | `true`        | `--no-indent-chains`                                 | `indentChains: <bool>`                               | Put or disable indents at the start of chained calls.                                                                                                                                               |
-| Align ternary lines                                  | `true`        | `--no-align-ternary-lines`                           | `alignTernaryLines: <bool>`                          | Keep or disable default alignment of ternary expression lines, which may be in conflict with "Standard JS" formatting in certain nested ternary cases ... see [`docs/options.md`](docs/options.md). |
-| paren spacing                                        | `false`       | `--paren-spacing`                                    | `parenSpacing: <bool>`                               | Put spaces between parens, WordPress style (not recommended with default `arrowParens: "always"` setting). Status: experimental, with some known paren spacing formatting issues.                   |
-| break before else                                    | `false`       | `--break-before-else`                                | `breakBeforeElse: <bool>`                            | Always add a line break before else.                                                                                                                                                                |
-| Formatting of import statements                      | `auto`        | <code>--import-formatting <auto&#124;oneline></code> | <code>importFormatting: "<auto&#124;oneline>"</code> | Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.                                                                                         |
-| HTML void element tags                               | `false`       | `--html-void-tags`                                   | `htmlVoidTags: <bool>`                               | Format void HTML elements as void tags.                                                                                                                                                             |
-| break long method chains                             | `false`       | `--break-long-method-chains`                         | `breakLongMethodChains: <bool>`                      | Break method chains with more than 3 method calls, like Prettier 1.x.                                                                                                                               |
+- `--align-object-properties` (`alignObjectProperties: true`): Align colons in multiline object literals (not applied with any of the JSON parsers).
+- `--space-before-function-paren` (`spaceBeforeFunctionParen: true`): Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
+- `--generator-star-spacing` (`generatorStarSpacing: true`): Put spaces around the star (`*`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
+- `--yield-star-spacing` (`yieldStarSpacing: true`): Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
+- `--no-indent-chains` (`indentChains: false`): Disable indents at the start of chained calls.
+- `--no-align-ternary-lines` (`alignTernaryLines: false`): Disable default alignment of ternary expression lines, which may be in conflict with "Standard JS" formatting in certain nested ternary cases ... see [`docs/options.md`](docs/options.md).
+- `--paren-spacing` (`parenSpacing: true`): Put spaces between parens, WordPress style (not recommended with default `arrowParens: "always"` setting). Status: experimental, with some known paren spacing formatting issues.
+- `--break-before-else` (`breakBeforeElse: true`): Always add a line break before else.
+- <code>--import-formatting <auto&#124;oneline></code> (<code>importFormatting: "<auto&#124;oneline>"</code>): Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.
+- `--html-void-tags` (`htmlVoidTags: true`): Format void HTML elements as void tags.
+- `--break-long-method-chains` (`breakLongMethodChains: true`): Break method chains with more than 3 method calls, like Prettier 1.x.
 
 (See [`docs/options.md`](docs/options.md) for more information.)
 
@@ -56,7 +54,7 @@ Any known conflicts with ["Standard JS"](https://standardjs.com/) will be tracke
 ## recommended options
 
 - `--arrow-parens avoid` (`arrowParens: "avoid"`), especially in combination with `--paren-spacing` (`parenSpacing: true`).
-- `--break-long-method-chains`
+- `--break-long-method-chains` (`breakLongMethodChains: true`)
 
 <!-- - FUTURE TBD prettierx vs prettier (???):
 ## Prettier 2.0

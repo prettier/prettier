@@ -846,7 +846,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
-      \\"description\\": \\"Put spaces around the star (\`*\`) in generator functions (before and after - similar to eslint option). (Default is after only.)\\",
+      \\"description\\": \\"Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)\\",
       \\"name\\": \\"generatorStarSpacing\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
@@ -1116,7 +1116,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
-      \\"description\\": \\"Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)\\",
+      \\"description\\": \\"Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)\\",
       \\"name\\": \\"spaceBeforeFunctionParen\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
@@ -1171,7 +1171,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
-      \\"description\\": \\"Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to eslint option). (Default is after only.)\\",
+      \\"description\\": \\"Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)\\",
       \\"name\\": \\"yieldStarSpacing\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"

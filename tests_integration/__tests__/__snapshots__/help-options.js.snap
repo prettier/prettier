@@ -216,7 +216,7 @@ exports[`show detailed usage with --help generator-star-spacing (stderr) 1`] = `
 exports[`show detailed usage with --help generator-star-spacing (stdout) 1`] = `
 "--generator-star-spacing
 
-  Put spaces around the star (\`*\`) in generator functions (before and after - similar to eslint option). (Default is after only.)
+  Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
 
 Default: false
 "
@@ -660,7 +660,7 @@ exports[`show detailed usage with --help space-before-function-paren (stderr) 1`
 exports[`show detailed usage with --help space-before-function-paren (stdout) 1`] = `
 "--space-before-function-paren
 
-  Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
+  Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
 
 Default: false
 "
@@ -786,7 +786,7 @@ exports[`show detailed usage with --help yield-star-spacing (stderr) 1`] = `""`;
 exports[`show detailed usage with --help yield-star-spacing (stdout) 1`] = `
 "--yield-star-spacing
 
-  Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to eslint option). (Default is after only.)
+  Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
 
 Default: false
 "

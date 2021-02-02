@@ -90,21 +90,21 @@ module.exports = {
     type: "boolean",
     default: false,
     description:
-      "Put spaces around the star (`*`) in generator functions (before and after - similar to eslint option). (Default is after only.)",
+      "Put spaces around the star (`*`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)",
   },
   yieldStarSpacing: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description:
-      "Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to eslint option). (Default is after only.)",
+      "Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)",
   },
   spaceBeforeFunctionParen: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
     default: false,
     description:
-      "Put a space before function parenthesis in all declarations (similar to eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
+      "Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
   },
   breakBeforeElse: {
     category: CATEGORY_JAVASCRIPT,
