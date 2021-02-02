@@ -242,6 +242,16 @@ class Playground extends React.Component {
                           checked={editorState.showSecondFormat}
                           onChange={editorState.toggleSecondFormat}
                         />
+                        <Checkbox
+                          label="show output"
+                          checked={editorState.showOutput}
+                          onChange={editorState.toggleOutput}
+                        />
+                        <Checkbox
+                          label="show input"
+                          checked={editorState.showInput}
+                          onChange={editorState.toggleInput}
+                        />
                         {editorState.showDoc && debug.doc && (
                           <ClipboardButton
                             copy={() => this.getMarkdown({ doc: debug.doc })}
@@ -257,16 +267,18 @@ class Playground extends React.Component {
                       </div>
                     </Sidebar>
                     <div className="editors">
-                      <InputPanel
-                        mode={util.getCodemirrorMode(options.parser)}
-                        ruler={options.printWidth}
-                        value={content}
-                        codeSample={getCodeSample(options.parser)}
-                        overlayStart={options.rangeStart}
-                        overlayEnd={options.rangeEnd}
-                        onChange={this.setContent}
-                        onSelectionChange={this.setSelection}
-                      />
+                      {editorState.showInput ? (
+                        <InputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          ruler={options.printWidth}
+                          value={content}
+                          codeSample={getCodeSample(options.parser)}
+                          overlayStart={options.rangeStart}
+                          overlayEnd={options.rangeEnd}
+                          onChange={this.setContent}
+                          onSelectionChange={this.setSelection}
+                        />
+                      ) : null}
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
@@ -275,17 +287,18 @@ class Playground extends React.Component {
                       ) : null}
                       {editorState.showDoc ? (
                         <DebugPanel value={debug.doc || ""} />
-                      ) : (
-                        <OutputPanel
-                          mode={util.getCodemirrorMode(options.parser)}
-                          value={formatted}
-                          ruler={options.printWidth}
-                        />
-                      )}
+                      ) : null}
                       {showShowComments && editorState.showComments ? (
                         <DebugPanel
                           value={debug.comments || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
+                        />
+                      ) : null}
+                      {editorState.showOutput ? (
+                        <OutputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          value={formatted}
+                          ruler={options.printWidth}
                         />
                       ) : null}
                       {editorState.showSecondFormat ? (
