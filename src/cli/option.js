@@ -1,8 +1,8 @@
 "use strict";
 
-const dashify = require("dashify");
-
 const fromPairs = require("lodash/fromPairs");
+const dashify = require("dashify");
+const vnopts = require("vnopts");
 
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
@@ -139,8 +139,24 @@ function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
+const descriptor = {
+  key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
+  value: (value) => vnopts.apiDescriptor.value(value),
+  pair: ({ key, value }) =>
+    value === false
+      ? `--no-${key}`
+      : value === true
+      ? descriptor.key(key)
+      : value === ""
+      ? `${descriptor.key(key)} without an argument`
+      : `${descriptor.key(key)}=${value}`,
+};
 function normalizeCliOptions(options, optionInfos, opts) {
-  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
+  return normalizeOptions(options, optionInfos, {
+    ...opts,
+    isCLI: true,
+    descriptor,
+  });
 }
 
 module.exports = {
