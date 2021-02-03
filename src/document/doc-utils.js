@@ -8,6 +8,7 @@ const getDocParts = (doc) => {
     return doc;
   }
 
+  /* istanbul ignore next */
   if (doc.type !== "concat" && doc.type !== "fill") {
     throw new Error("Expect doc type to be `concat` or `fill`.");
   }
