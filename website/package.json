@@ -16,7 +16,7 @@
     "react-dom": "17.0.1"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.12.10",
+    "@babel/preset-react": "7.12.13",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.2.2",
     "concurrently": "5.3.0",
