@@ -58,9 +58,14 @@ function printCallArguments(path, options, print) {
   if (isReactHookCallWithDepsArray(args, /* isArrowBodyBlock */ false)) {
     return [
       "(",
-      path.call(print, "arguments", 0),
-      ", ",
-      path.call(print, "arguments", 1),
+      indent([
+        softline,
+        path.call(print, "arguments", 0),
+        ",",
+        line,
+        path.call(print, "arguments", 1),
+      ]),
+      softline,
       ")",
     ];
   }
