@@ -161,6 +161,15 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
+  let parentCount = 1;
+  let ancestor = path.getParentNode(parentCount);
+  while (ancestor.type === "MemberExpression") {
+    ancestor = path.getParentNode(parentCount++);
+  }
+  if (ancestor.type === "BinaryExpression") {
+    return false;
+  }
+
   const parent = path.getParentNode();
   const parentName = path.callParent((path) => path.getName());
 
