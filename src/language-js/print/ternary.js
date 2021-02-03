@@ -156,13 +156,18 @@ function printTernaryTest(path, options, print) {
 const rightSideNodeNamesSet = new Set(["right", "init", "argument"]);
 function shouldExtraIndentForConditionalExpression(path) {
   const node = path.getValue();
+  const parent = path.getParentNode();
+
+  if (!parent) {
+    return false;
+  }
 
   if (node.type !== "ConditionalExpression") {
     return false;
   }
 
   let parentCount = 1;
-  let ancestor = path.getParentNode(parentCount);
+  let ancestor = path.getParentNode();
   while (ancestor.type === "MemberExpression") {
     ancestor = path.getParentNode(parentCount++);
   }
@@ -170,7 +175,6 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  const parent = path.getParentNode();
   const parentName = path.callParent((path) => path.getName());
 
   /**
