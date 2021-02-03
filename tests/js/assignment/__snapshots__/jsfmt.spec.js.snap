@@ -66,6 +66,181 @@ const {
 ================================================================================
 `;
 
+exports[`issue-1419.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+someReallyLongThingStoredInAMapWithAReallyBigName[pageletID] =
+  _someVariableThatWeAreCheckingForFalsiness
+    ? Date.now() - _someVariableThatWeAreCheckingForFalsiness
+    : 0;
+
+=====================================output=====================================
+someReallyLongThingStoredInAMapWithAReallyBigName[pageletID] =
+  _someVariableThatWeAreCheckingForFalsiness
+    ? Date.now() - _someVariableThatWeAreCheckingForFalsiness
+    : 0;
+
+================================================================================
+`;
+
+exports[`issue-1966.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const aVeryLongNameThatGoesOnAndOn = this.someOtherObject.someOtherNestedObject.someLongFunctionName();
+
+this.someObject.someOtherNestedObject = this.someOtherObject.whyNotNestAnotherOne.someLongFunctionName();
+
+this.isaverylongmethodexpression.withmultiplelevels = this.isanotherverylongexpression.thatisalsoassigned = 0;
+
+=====================================output=====================================
+const aVeryLongNameThatGoesOnAndOn =
+  this.someOtherObject.someOtherNestedObject.someLongFunctionName();
+
+this.someObject.someOtherNestedObject =
+  this.someOtherObject.whyNotNestAnotherOne.someLongFunctionName();
+
+this.isaverylongmethodexpression.withmultiplelevels =
+  this.isanotherverylongexpression.thatisalsoassigned = 0;
+
+================================================================================
+`;
+
+exports[`issue-2184.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const areaPercentageDiff = (
+    topRankedZoneFit.areaPercentageRemaining
+  - previousZoneFitNow.areaPercentageRemaining
+).toFixed(2)
+
+=====================================output=====================================
+const areaPercentageDiff = (
+  topRankedZoneFit.areaPercentageRemaining -
+  previousZoneFitNow.areaPercentageRemaining
+).toFixed(2);
+
+================================================================================
+`;
+
+exports[`issue-2482-1.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes;
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  'a very long string for illustrative purposes'.length;
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes();
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes.length;
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes + 1;
+
+
+=====================================output=====================================
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes;
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  "a very long string for illustrative purposes".length;
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes();
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes.length;
+
+aParticularlyLongAndObnoxiousNameForIllustrativePurposes =
+  anotherVeryLongNameForIllustrativePurposes + 1;
+
+================================================================================
+`;
+
+exports[`issue-2540.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+manifestCache[templateId] = readFileSync(\`\${MANIFESTS_PATH}/\${templateId}.json\`, { encoding: 'utf-8' });
+
+=====================================output=====================================
+manifestCache[templateId] = readFileSync(
+  \`\${MANIFESTS_PATH}/\${templateId}.json\`,
+  { encoding: "utf-8" }
+);
+
+================================================================================
+`;
+
+exports[`issue-3819.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+this.dummy.type1.dummyPropertyFunction
+      = this.dummy.type2.dummyPropertyFunction
+      = this.dummy.type3.dummyPropertyFunction
+      = this.dummy.type4.dummyPropertyFunction
+      = this.dummy.type5.dummyPropertyFunction
+      = this.dummy.type6.dummyPropertyFunction
+      = this.dummy.type7.dummyPropertyFunction
+      = this.dummy.type8.dummyPropertyFunction
+      = () => {
+        return 'dummy';
+      };
+
+=====================================output=====================================
+this.dummy.type1.dummyPropertyFunction =
+  this.dummy.type2.dummyPropertyFunction =
+    this.dummy.type3.dummyPropertyFunction =
+      this.dummy.type4.dummyPropertyFunction =
+        this.dummy.type5.dummyPropertyFunction =
+          this.dummy.type6.dummyPropertyFunction =
+            this.dummy.type7.dummyPropertyFunction =
+              this.dummy.type8.dummyPropertyFunction = () => {
+                return "dummy";
+              };
+
+================================================================================
+`;
+
+exports[`issue-4094.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (something) {
+  const otherBrandsWithThisAdjacencyCount123 = Object.values(edge.to.edges).length
+}
+
+=====================================output=====================================
+if (something) {
+  const otherBrandsWithThisAdjacencyCount123 = Object.values(edge.to.edges)
+    .length;
+}
+
+================================================================================
+`;
+
 exports[`issue-10218.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
