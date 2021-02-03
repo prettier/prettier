@@ -4,9 +4,9 @@ exports[`classes.js [espree] format 1`] = `
 "Unexpected character '@' (1:1)
 > 1 | @deco class Foo {}
     | ^
-  2 | 
+  2 |
   3 | @deco export class Bar {}
-  4 | "
+  4 |"
 `;
 
 exports[`classes.js format 1`] = `
@@ -59,7 +59,7 @@ const bar =
 exports[`comments.js [espree] format 1`] = `
 "Unexpected character '@' (3:1)
   1 | var x = 100
-  2 | 
+  2 |
 > 3 | @Hello({
     | ^
   4 |   a: 'a', // Comment is in the wrong place
@@ -140,12 +140,12 @@ export class Bar {}
 
 exports[`methods.js [espree] format 1`] = `
 "Unexpected character '@' (3:3)
-  1 | 
+  1 |
   2 | class Yo {
 > 3 |   @foo(\\"hello\\")
     |   ^
   4 |   async plop() {}
-  5 | 
+  5 |
   6 |   @anotherDecoratorWithALongName(\\"and a very long string as a first argument\\")"
 `;
 
@@ -184,7 +184,7 @@ class Yo {
 exports[`mixed.js [espree] format 1`] = `
 "Unexpected character '@' (3:1)
   1 | // https://github.com/prettier/prettier/issues/6747
-  2 | 
+  2 |
 > 3 | @foo
     | ^
   4 | export default class MyComponent {
@@ -221,22 +221,22 @@ export default class MyComponent {
 exports[`mobx.js [espree] format 1`] = `
 "Unexpected character '@' (3:1)
   1 | import {observable} from \\"mobx\\";
-  2 | 
+  2 |
 > 3 | @observer class OrderLine {
     | ^
   4 |   @observable price:number = 0;
   5 |   @observable amount:number = 1;
-  6 | "
+  6 |"
 `;
 
 exports[`mobx.js [meriyah] format 1`] = `
 "[4:20]: Unexpected token: ':' (4:20)
-  2 | 
+  2 |
   3 | @observer class OrderLine {
 > 4 |   @observable price:number = 0;
     |                    ^
   5 |   @observable amount:number = 1;
-  6 | 
+  6 |
   7 |   constructor(price) {"
 `;
 
@@ -438,7 +438,7 @@ exports[`parens.js [espree] format 1`] = `
     |   ^
   3 |   x
   4 | }
-  5 | "
+  5 |"
 `;
 
 exports[`parens.js format 1`] = `
@@ -466,7 +466,7 @@ exports[`redux.js [espree] format 1`] = `
 > 1 | @connect(mapStateToProps, mapDispatchToProps)
     | ^
   2 | export class MyApp extends React.Component {}
-  3 | 
+  3 |
   4 | @connect(state => ({ todos: state.todos }))"
 `;
 
