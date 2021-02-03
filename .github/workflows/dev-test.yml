@@ -69,7 +69,6 @@ jobs:
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           fail_ci_if_error: true
-          verbose: true
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
@@ -82,4 +81,3 @@ jobs:
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           fail_ci_if_error: true
-          verbose: true
