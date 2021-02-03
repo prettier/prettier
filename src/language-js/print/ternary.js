@@ -156,20 +156,19 @@ function printTernaryTest(path, options, print) {
 const rightSideNodeNamesSet = new Set(["right", "init", "argument"]);
 function shouldExtraIndentForConditionalExpression(path) {
   const node = path.getValue();
-  const parent = path.getParentNode();
-
-  if (!parent) {
-    return false;
-  }
-
   if (node.type !== "ConditionalExpression") {
     return false;
   }
 
-  let parentCount = 1;
-  let ancestor = path.getParentNode();
+  const parent = path.getParentNode();
+  if (!parent) {
+    return false;
+  }
+
+  let ancestorCount = 1;
+  let ancestor = path.getParentNode(ancestorCount);
   while (ancestor.type === "MemberExpression") {
-    ancestor = path.getParentNode(parentCount++);
+    ancestor = path.getParentNode(ancestorCount++);
   }
   if (ancestor.type === "BinaryExpression") {
     return false;
@@ -217,18 +216,21 @@ function shouldExtraIndentForConditionalExpression(path) {
     parent.type === "MemberExpression" ||
     parent.type === "OptionalMemberExpression"
   ) {
-    let memberChainingRootNodeName = parentName;
-    let count = 0;
+    let ancestorName = parentName;
+    let ancestorType = path.getParentNode(1).type;
+    let ancestorCount = 0;
     while (
-      memberChainingRootNodeName === "object" ||
-      memberChainingRootNodeName === "callee"
+      ancestorName === "object" ||
+      ancestorName === "callee" ||
+      (ancestorType === "TSNonNullExpression" && ancestorName === "expression")
     ) {
       path.callParent((parentPath) => {
-        memberChainingRootNodeName = parentPath.getName();
-      }, count);
-      count++;
+        ancestorName = parentPath.getName();
+        ancestorType = parentPath.getParentNode().type;
+      }, ancestorCount);
+      ancestorCount++;
     }
-    if (rightSideNodeNamesSet.has(memberChainingRootNodeName)) {
+    if (rightSideNodeNamesSet.has(ancestorName)) {
       return true;
     }
   }
