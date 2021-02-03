@@ -13,3 +13,8 @@ Array [
   },
 ]
 `;
+
+exports[`Should use default level logger to log \`--loglevel\` error (stderr) 1`] = `
+"[error] Invalid --loglevel value. Expected \\"debug\\", \\"error\\", \\"log\\", \\"silent\\" or \\"warn\\", but received \\"a-unknown-log-level\\".
+"
+`;

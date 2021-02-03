@@ -29,6 +29,14 @@ describe("--write with --loglevel=silent doesn't log filenames", () => {
   });
 });
 
+describe("Should use default level logger to log `--loglevel` error", () => {
+  runPrettier("cli/loglevel", ["--loglevel", "a-unknown-log-level"]).test({
+    status: "non-zero",
+    write: [],
+    stdout: "",
+  });
+});
+
 function runPrettierWithLogLevel(logLevel, patterns) {
   const result = runPrettier("cli/loglevel", [
     "--loglevel",
