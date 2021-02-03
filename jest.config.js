@@ -54,6 +54,7 @@ module.exports = {
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
+  coverageProvider: "v8",
   coveragePathIgnorePatterns: [
     "<rootDir>/src/standalone.js",
     "<rootDir>/src/document/doc-debug.js",
