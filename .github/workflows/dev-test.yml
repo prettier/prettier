@@ -68,9 +68,8 @@ jobs:
         uses: codecov/codecov-action@v1.2.1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
           fail_ci_if_error: true
+          verbose: true
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
@@ -82,6 +81,5 @@ jobs:
         uses: codecov/codecov-action@v1.2.1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
           fail_ci_if_error: true
+          verbose: true
