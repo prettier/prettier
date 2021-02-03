@@ -28,6 +28,80 @@ computedDescriptionLines =
 ================================================================================
 `;
 
+exports[`chain.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let bifornCringerMoshedPerplexSawder=
+askTrovenaBeenaDependsRowans=
+glimseGlyphsHazardNoopsTieTie=
+averredBathersBoxroomBuggyNurl=
+anodyneCondosMalateOverateRetinol=
+annularCooeedSplicesWalksWayWay=
+kochabCooieGameOnOboleUnweave;
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans =
+  glimseGlyphsHazardNoopsTieTie =
+  x =
+  averredBathersBoxroomBuggyNurl =
+  anodyneCondosMal(sdsadsa,dasdas,asd(()=>sdf)).ateOverateRetinol =
+  annularCooeedSplicesWalksWayWay =
+    kochabCooieGameOnOboleUnweave;
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans =
+  glimseGlyphsHazardNoopsTieTie =
+  x =
+  averredBathersBoxroomBuggyNurl =
+  anodyneCondosMal(sdsadsa,dasdas,asd(()=>sdf)).ateOverateRetinol =
+  annularCooeedSplicesWalksWayWay =
+    kochabCooieGameOnOboleUnweave+kochabCooieGameOnOboleUnweave;
+
+a=b=c;
+
+=====================================output=====================================
+let bifornCringerMoshedPerplexSawder =
+  (askTrovenaBeenaDependsRowans =
+    glimseGlyphsHazardNoopsTieTie =
+    averredBathersBoxroomBuggyNurl =
+    anodyneCondosMalateOverateRetinol =
+    annularCooeedSplicesWalksWayWay =
+      kochabCooieGameOnOboleUnweave);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans =
+  glimseGlyphsHazardNoopsTieTie =
+  x =
+  averredBathersBoxroomBuggyNurl =
+  anodyneCondosMal(
+    sdsadsa,
+    dasdas,
+    asd(() => sdf)
+  ).ateOverateRetinol =
+  annularCooeedSplicesWalksWayWay =
+    kochabCooieGameOnOboleUnweave;
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans =
+  glimseGlyphsHazardNoopsTieTie =
+  x =
+  averredBathersBoxroomBuggyNurl =
+  anodyneCondosMal(
+    sdsadsa,
+    dasdas,
+    asd(() => sdf)
+  ).ateOverateRetinol =
+  annularCooeedSplicesWalksWayWay =
+    kochabCooieGameOnOboleUnweave + kochabCooieGameOnOboleUnweave;
+
+a = b = c;
+
+================================================================================
+`;
+
 exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -106,7 +180,8 @@ this.someObject.someOtherNestedObject =
   this.someOtherObject.whyNotNestAnotherOne.someLongFunctionName();
 
 this.isaverylongmethodexpression.withmultiplelevels =
-  this.isanotherverylongexpression.thatisalsoassigned = 0;
+  this.isanotherverylongexpression.thatisalsoassigned =
+    0;
 
 ================================================================================
 `;
@@ -210,14 +285,15 @@ this.dummy.type1.dummyPropertyFunction
 =====================================output=====================================
 this.dummy.type1.dummyPropertyFunction =
   this.dummy.type2.dummyPropertyFunction =
-    this.dummy.type3.dummyPropertyFunction =
-      this.dummy.type4.dummyPropertyFunction =
-        this.dummy.type5.dummyPropertyFunction =
-          this.dummy.type6.dummyPropertyFunction =
-            this.dummy.type7.dummyPropertyFunction =
-              this.dummy.type8.dummyPropertyFunction = () => {
-                return "dummy";
-              };
+  this.dummy.type3.dummyPropertyFunction =
+  this.dummy.type4.dummyPropertyFunction =
+  this.dummy.type5.dummyPropertyFunction =
+  this.dummy.type6.dummyPropertyFunction =
+  this.dummy.type7.dummyPropertyFunction =
+  this.dummy.type8.dummyPropertyFunction =
+    () => {
+      return "dummy";
+    };
 
 ================================================================================
 `;

@@ -87,13 +87,7 @@ function printTypeAlias(path, options, print) {
   const rightPropertyName =
     n.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
-    printAssignment(
-      parts,
-      " =",
-      n[rightPropertyName],
-      path.call(print, rightPropertyName),
-      options
-    ),
+    printAssignment(path, options, print, parts, " =", rightPropertyName),
     semi,
   ];
 }

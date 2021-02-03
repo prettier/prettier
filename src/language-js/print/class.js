@@ -204,10 +204,7 @@ function printClassProperty(path, options, print) {
     printTypeAnnotation(path, options, print)
   );
 
-  return [
-    printAssignment(parts, " =", n.value, path.call(print, "value"), options),
-    semi,
-  ];
+  return [printAssignment(path, options, print, parts, " =", "value"), semi];
 }
 
 function printDecorators(path, options, print) {
