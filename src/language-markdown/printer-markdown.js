@@ -22,7 +22,7 @@ const {
     indent,
     group,
   },
-  utils: { cleanDoc, getDocParts },
+  utils: { cleanDoc, getDocParts, isConcat },
   printer: { printDocToString },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
@@ -90,10 +90,10 @@ function genericPrint(path, options, print) {
       ];
     case "paragraph": {
       const printed = cleanDoc(printChildren(path, options, print));
-      if (typeof printed === "string") {
-        return printed;
+      if (isConcat(printed) || printed.type === "fill") {
+        return fill(getDocParts(printed));
       }
-      return fill(getDocParts(printed));
+      return printed;
     }
     case "sentence":
       return printChildren(path, options, print);
