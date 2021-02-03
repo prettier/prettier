@@ -3,7 +3,13 @@
 const { literalline, concat } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
-const getDocParts = (doc) => (Array.isArray(doc) ? doc : doc.parts);
+const getDocParts = (doc) => {
+  const parts = Array.isArray(doc) ? doc : doc.parts;
+  if (!Array.isArray(parts)) {
+    throw new Error("doc.parts is not an array.");
+  }
+  return parts;
+};
 
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
