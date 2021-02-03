@@ -54,7 +54,7 @@ function printCallArguments(path, options, print) {
     ];
   }
 
-  // useEffect(() => func(), [foo, bar, baz])
+  // useMemo(() => func(), [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args, /* isArrowBodyBlock */ false)) {
     return [
       "(",
@@ -303,7 +303,7 @@ function isReactHookCallWithDepsArray(args, isArrowBodyBlock) {
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
     getFunctionParameters(args[0]).length === 0 &&
-    (isArrowBodyBlock ? args[0].body.type === "BlockStatement" : true) &&
+    (!isArrowBodyBlock || args[0].body.type === "BlockStatement") &&
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
   );
