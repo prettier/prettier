@@ -12,15 +12,10 @@ const {
   shouldPrintComma,
   getFunctionParameters,
 } = require("../utils");
+const { createGroupIdMapper } = require("../../common/util");
 const { shouldHugType } = require("./type-annotation");
 
-const typeParametersGroupIds = new WeakMap();
-function getTypeParametersGroupId(node) {
-  if (!typeParametersGroupIds.has(node)) {
-    typeParametersGroupIds.set(node, Symbol("typeParameters"));
-  }
-  return typeParametersGroupIds.get(node);
-}
+const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
@@ -57,17 +52,24 @@ function printTypeParameters(path, options, print, paramsKey) {
     ];
   }
 
+  // Keep comma if the file extension is .tsx and
+  // has one type parameter that isn't extend with any types.
+  // Because, otherwise formatted result will be invalid as tsx.
+  const trailingComma =
+    getFunctionParameters(n).length === 1 &&
+    isTSXFile(options) &&
+    !n[paramsKey][0].constraint &&
+    path.getParentNode().type === "ArrowFunctionExpression"
+      ? ","
+      : shouldPrintComma(options, "all")
+      ? ifBreak(",")
+      : "";
+
   return group(
     [
       "<",
       indent([softline, join([",", line], path.map(print, paramsKey))]),
-      ifBreak(
-        options.parser !== "typescript" &&
-          options.parser !== "babel-ts" &&
-          shouldPrintComma(options, "all")
-          ? ","
-          : ""
-      ),
+      trailingComma,
       softline,
       ">",
     ],
@@ -118,8 +120,7 @@ function printTypeParameter(path, options, print) {
   parts.push(path.call(print, "name"));
 
   if (n.bound) {
-    parts.push(": ");
-    parts.push(path.call(print, "bound"));
+    parts.push(": ", path.call(print, "bound"));
   }
 
   if (n.constraint) {
@@ -128,19 +129,6 @@ function printTypeParameter(path, options, print) {
 
   if (n.default) {
     parts.push(" = ", path.call(print, "default"));
-  }
-
-  // Keep comma if the file extension is .tsx and
-  // has one type parameter that isn't extend with any types.
-  // Because, otherwise formatted result will be invalid as tsx.
-  const grandParent = path.getNode(2);
-  if (
-    getFunctionParameters(parent).length === 1 &&
-    isTSXFile(options) &&
-    !n.constraint &&
-    grandParent.type === "ArrowFunctionExpression"
-  ) {
-    parts.push(",");
   }
 
   return parts;

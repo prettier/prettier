@@ -10,5 +10,6 @@ module.exports = {
     "prefer-fast-path-each": require("./prefer-fast-path-each"),
     "prefer-is-non-empty-array": require("./prefer-is-non-empty-array"),
     "require-json-extensions": require("./require-json-extensions"),
+    "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break"),
   },
 };

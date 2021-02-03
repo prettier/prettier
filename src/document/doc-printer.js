@@ -45,7 +45,7 @@ function generateInd(ind, newPart, options) {
   const queue =
     newPart.type === "dedent"
       ? ind.queue.slice(0, -1)
-      : ind.queue.concat(newPart);
+      : [...ind.queue, newPart];
 
   let value = "";
   let length = 0;
@@ -130,7 +130,7 @@ function trim(out) {
   while (
     out.length > 0 &&
     typeof out[out.length - 1] === "string" &&
-    out[out.length - 1].match(/^[\t ]*$/)
+    /^[\t ]*$/.test(out[out.length - 1])
   ) {
     trimCount += out.pop().length;
   }
@@ -144,7 +144,7 @@ function trim(out) {
   return trimCount;
 }
 
-function fits(next, restCommands, width, options, mustBeFlat) {
+function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
   let restIdx = restCommands.length;
   const cmds = [next];
   // `out` is only used for width counting because `trim` requires to look
@@ -237,6 +237,14 @@ function fits(next, restCommands, width, options, mustBeFlat) {
               return true;
           }
           break;
+        case "line-suffix":
+          hasLineSuffix = true;
+          break;
+        case "line-suffix-boundary":
+          if (hasLineSuffix) {
+            return false;
+          }
+          break;
       }
     }
   }
@@ -306,8 +314,9 @@ function printDocToString(doc, options) {
 
               const next = [ind, MODE_FLAT, doc.contents];
               const rem = width - pos;
+              const hasLineSuffix = lineSuffix.length > 0;
 
-              if (!doc.break && fits(next, cmds, rem, options)) {
+              if (!doc.break && fits(next, cmds, rem, options, hasLineSuffix)) {
                 cmds.push(next);
               } else {
                 // Expanded states are a rare case where a document
@@ -335,7 +344,7 @@ function printDocToString(doc, options) {
                         const state = doc.expandedStates[i];
                         const cmd = [ind, MODE_FLAT, state];
 
-                        if (fits(cmd, cmds, rem, options)) {
+                        if (fits(cmd, cmds, rem, options, hasLineSuffix)) {
                           cmds.push(cmd);
 
                           break;
@@ -387,7 +396,14 @@ function printDocToString(doc, options) {
           const [content, whitespace] = parts;
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
-          const contentFits = fits(contentFlatCmd, [], rem, options, true);
+          const contentFits = fits(
+            contentFlatCmd,
+            [],
+            rem,
+            options,
+            lineSuffix.length > 0,
+            true
+          );
 
           if (parts.length === 1) {
             if (contentFits) {
@@ -403,11 +419,9 @@ function printDocToString(doc, options) {
 
           if (parts.length === 2) {
             if (contentFits) {
-              cmds.push(whitespaceFlatCmd);
-              cmds.push(contentFlatCmd);
+              cmds.push(whitespaceFlatCmd, contentFlatCmd);
             } else {
-              cmds.push(whitespaceBreakCmd);
-              cmds.push(contentBreakCmd);
+              cmds.push(whitespaceBreakCmd, contentBreakCmd);
             }
             break;
           }
@@ -432,21 +446,16 @@ function printDocToString(doc, options) {
             [],
             rem,
             options,
+            lineSuffix.length > 0,
             true
           );
 
           if (firstAndSecondContentFits) {
-            cmds.push(remainingCmd);
-            cmds.push(whitespaceFlatCmd);
-            cmds.push(contentFlatCmd);
+            cmds.push(remainingCmd, whitespaceFlatCmd, contentFlatCmd);
           } else if (contentFits) {
-            cmds.push(remainingCmd);
-            cmds.push(whitespaceBreakCmd);
-            cmds.push(contentFlatCmd);
+            cmds.push(remainingCmd, whitespaceBreakCmd, contentFlatCmd);
           } else {
-            cmds.push(remainingCmd);
-            cmds.push(whitespaceBreakCmd);
-            cmds.push(contentBreakCmd);
+            cmds.push(remainingCmd, whitespaceBreakCmd, contentBreakCmd);
           }
           break;
         }
@@ -497,8 +506,7 @@ function printDocToString(doc, options) {
 
             case MODE_BREAK:
               if (lineSuffix.length > 0) {
-                cmds.push([ind, mode, doc]);
-                cmds.push(...lineSuffix.reverse());
+                cmds.push([ind, mode, doc], ...lineSuffix.reverse());
                 lineSuffix = [];
                 break;
               }

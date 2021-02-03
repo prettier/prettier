@@ -495,7 +495,7 @@ function needsParens(path, options) {
       } else if (
         name === "key" &&
         (parent.type === "ClassProperty" ||
-          parent.type === "FieldDefinition") &&
+          parent.type === "PropertyDefinition") &&
         parent.computed
       ) {
         return false;
@@ -581,7 +581,7 @@ function needsParens(path, options) {
     case "ArrowFunctionExpression":
       switch (parent.type) {
         case "PipelineTopicExpression":
-          return !!(node.extra && node.extra.parenthesized);
+          return Boolean(node.extra && node.extra.parenthesized);
 
         case "BinaryExpression":
           return (
@@ -747,7 +747,7 @@ function isStatement(node) {
     node.type === "ClassDeclaration" ||
     node.type === "ClassMethod" ||
     node.type === "ClassProperty" ||
-    node.type === "FieldDefinition" ||
+    node.type === "PropertyDefinition" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "ContinueStatement" ||
     node.type === "DebuggerStatement" ||

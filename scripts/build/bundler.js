@@ -58,15 +58,6 @@ const entries = [
     find: "@glimmer/syntax",
     replacement: require.resolve("@glimmer/syntax"),
   },
-  // https://github.com/rollup/plugins/issues/670
-  {
-    find: "is-core-module",
-    replacement: require.resolve("is-core-module"),
-  },
-  {
-    find: "yaml/util",
-    replacement: require.resolve("yaml/util"),
-  },
 ];
 
 function webpackNativeShims(config, modules) {

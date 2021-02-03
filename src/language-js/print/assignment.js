@@ -12,6 +12,10 @@ const {
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 
+/**
+ * @typedef {import("../types/estree").Node} Node
+ */
+
 function printAssignment(
   leftNode,
   printedLeft,
@@ -63,28 +67,50 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
     return indent([line, printedRight]);
   }
 
-  const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    (rightNode.type === "ConditionalExpression" &&
-      isBinaryish(rightNode.test) &&
-      !shouldInlineLogicalExpression(rightNode.test)) ||
-    rightNode.type === "StringLiteralTypeAnnotation" ||
-    (rightNode.type === "ClassExpression" &&
-      isNonEmptyArray(rightNode.decorators)) ||
-    ((leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
-      // do not put values on a separate line from the key in json
-      options.parser !== "json" &&
-      options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression";
-
-  if (canBreak) {
+  if (canBreakAssignmentRight(leftNode, rightNode, options)) {
     return group(indent([line, printedRight]));
   }
 
   return [" ", printedRight];
+}
+
+function canBreakAssignmentRight(leftNode, rightNode, options) {
+  // do not put values on a separate line from the key in json
+  if (options.parser === "json5" || options.parser === "json") {
+    return false;
+  }
+
+  if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
+    return true;
+  }
+
+  switch (rightNode.type) {
+    case "StringLiteralTypeAnnotation":
+    case "SequenceExpression":
+      return true;
+    case "ConditionalExpression": {
+      const { test } = rightNode;
+      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+    }
+    case "ClassExpression":
+      return isNonEmptyArray(rightNode.decorators);
+  }
+
+  if (
+    leftNode.type === "Identifier" ||
+    isStringLiteral(leftNode) ||
+    leftNode.type === "MemberExpression"
+  ) {
+    let node = rightNode;
+    while (node.type === "UnaryExpression") {
+      node = node.argument;
+    }
+    if (isStringLiteral(node) || isMemberExpressionChain(node)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 module.exports = {

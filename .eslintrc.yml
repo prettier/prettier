@@ -27,6 +27,7 @@ rules:
     - devDependencies: ["tests*/**", "scripts/**"]
   import/order: error
   no-else-return: error
+  no-implicit-coercion: error
   no-inner-declarations: error
   no-unneeded-ternary: error
   no-useless-return: error
@@ -69,9 +70,13 @@ rules:
   unicorn/better-regex: error
   unicorn/explicit-length-check: error
   unicorn/new-for-builtins: error
+  unicorn/no-array-for-each: error
+  unicorn/no-array-push-push: error
   unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
   unicorn/prefer-number-properties: error
+  unicorn/prefer-regexp-test: error
+  unicorn/prefer-spread: error
   unicorn/prefer-string-slice: error
 overrides:
   - files:
@@ -113,6 +118,7 @@ overrides:
       prettier-internal-rules/no-doc-builder-concat: error
       prettier-internal-rules/prefer-fast-path-each: error
       prettier-internal-rules/prefer-is-non-empty-array: error
+      prettier-internal-rules/no-empty-flat-contents-for-if-break: error
   - files: src/document/*.js
     rules:
       prettier-internal-rules/no-doc-builder-concat: off

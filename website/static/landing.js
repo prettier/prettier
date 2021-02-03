@@ -23,7 +23,7 @@ window.addEventListener("load", () => {
   logoWrapper.addEventListener("dragstart", handleLogoDrag);
 
   lastDash.addEventListener("animationend", (event) => {
-    if (event.animationName.match(/roll/)) {
+    if (/roll/.test(event.animationName)) {
       logo.classList.remove("rolling");
     }
   });

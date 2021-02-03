@@ -209,8 +209,7 @@ function printTypescript(path, options, print) {
       );
 
       if (n.typeAnnotation) {
-        parts.push(": ");
-        parts.push(path.call(print, "typeAnnotation"));
+        parts.push(": ", path.call(print, "typeAnnotation"));
       }
 
       // This isn't valid semantically, but it's in the AST so we can print it.
@@ -349,7 +348,7 @@ function printTypescript(path, options, print) {
             n.optional ? getTypeScriptMappedTypeModifier(n.optional, "?") : "",
             n.typeAnnotation ? ": " : "",
             path.call(print, "typeAnnotation"),
-            ifBreak(semi, ""),
+            ifBreak(semi),
           ]),
           printDanglingComments(path, options, /* sameIndent */ true),
           options.bracketSpacing ? line : softline,

@@ -41,31 +41,26 @@ printWidth: 80
 '></div>
 
 =====================================output=====================================
-<div title="
+<div
+  title="
 
   a title with random
 
 
-  newlines"></div>
+  newlines"
+></div>
 
-<div TITLE="
-
-  a title with random
-
-
-  newlines"></div>
-
-<div title="
+<div
+  TITLE="
 
   a title with random
 
 
-  newlines
-  and {{mustaches}}
+  newlines"
+></div>
 
-"></div>
-
-<div TITLE="
+<div
+  title="
 
   a title with random
 
@@ -73,7 +68,20 @@ printWidth: 80
   newlines
   and {{mustaches}}
 
-"></div>
+"
+></div>
+
+<div
+  TITLE="
+
+  a title with random
+
+
+  newlines
+  and {{mustaches}}
+
+"
+></div>
 ================================================================================
 `;
 
@@ -108,38 +116,38 @@ weirdly formatted
 
 {{this.classes}}">String</p>
 
+<Foo class="
+"/>
+
 =====================================output=====================================
 <div class="class and other"></div>
 <div class="class and other"></div>
 <div CLASs="class and other"></div>
-<p class="a list of
-
-
-weirdly formatted
-
-
-classes">
+<p class="a list of weirdly formatted classes">
   String
 </p>
-<p
-  class="a list of
-
-
-weirdly formatted
-
-  {{this.classes}}"
->
+<p class="a list of weirdly formatted {{this.classes}}">
   String
 </p>
-<p
-  CLASS="a list of
-
-
-weirdly formatted
-
-  {{this.classes}}"
->
+<p CLASS="a list of weirdly formatted {{this.classes}}">
   String
 </p>
+
+<Foo class="" />
+================================================================================
+`;
+
+exports[`quotes.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div title="'' {{ foo }}"></div>
+<div title='"" {{ bar }}'></div>
+
+=====================================output=====================================
+<div title="'' {{foo}}"></div>
+<div title='"" {{bar}}'></div>
 ================================================================================
 `;

@@ -195,7 +195,7 @@ function printJsxElementInternal(path, options, print) {
   // Tweak how we format children if outputting this element over multiple lines.
   // Also detect whether we will force this element to output over multiple lines.
   const multilineChildren = [];
-  children.forEach((child, i) => {
+  for (const [i, child] of children.entries()) {
     // There are a number of situations where we need to ensure we display
     // whitespace as `{" "}` when outputting this element over multiple lines.
     if (child === jsxWhitespace) {
@@ -203,19 +203,19 @@ function printJsxElementInternal(path, options, print) {
         if (children.length === 2) {
           // Solitary whitespace
           multilineChildren.push(rawJsxWhitespace);
-          return;
+          continue;
         }
         // Leading whitespace
         multilineChildren.push([rawJsxWhitespace, hardline]);
-        return;
+        continue;
       } else if (i === children.length - 1) {
         // Trailing whitespace
         multilineChildren.push(rawJsxWhitespace);
-        return;
+        continue;
       } else if (children[i - 1] === "" && children[i - 2] === hardline) {
         // Whitespace after line break
         multilineChildren.push(rawJsxWhitespace);
-        return;
+        continue;
       }
     }
 
@@ -224,7 +224,7 @@ function printJsxElementInternal(path, options, print) {
     if (willBreak(child)) {
       forcedBreak = true;
     }
-  });
+  }
 
   // If there is text we use `fill` to fit as much onto each line as possible.
   // When there is no text (just tags and expressions) we use `group`
@@ -315,13 +315,13 @@ function printJsxChildren(
           return;
         }
 
-        words.forEach((word, i) => {
+        for (const [i, word] of words.entries()) {
           if (i % 2 === 1) {
             parts.push(line);
           } else {
             parts.push(word);
           }
-        });
+        }
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
@@ -352,12 +352,10 @@ function printJsxChildren(
         // Keep (up to one) blank line between tags/expressions/text.
         // Note: We don't keep blank lines between text elements.
         if (text.match(/\n/g).length > 1) {
-          parts.push("");
-          parts.push(hardline);
+          parts.push("", hardline);
         }
       } else {
-        parts.push("");
-        parts.push(jsxWhitespace);
+        parts.push("", jsxWhitespace);
       }
     } else {
       const printedChild = print(childPath);
@@ -715,7 +713,7 @@ function printJsx(path, options, print) {
     case "JSXAttribute":
       return printJsxAttribute(path, options, print);
     case "JSXIdentifier":
-      return "" + n.name;
+      return String(n.name);
     case "JSXNamespacedName":
       return join(":", [
         path.call(print, "namespace"),

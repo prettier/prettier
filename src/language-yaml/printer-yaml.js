@@ -241,7 +241,7 @@ function printNode(node, parentNode, path, options, print) {
       ];
     }
     case "directive":
-      return ["%", join(" ", [node.name].concat(node.parameters))];
+      return ["%", join(" ", [node.name, ...node.parameters])];
     case "comment":
       return ["#", node.value];
     case "alias":

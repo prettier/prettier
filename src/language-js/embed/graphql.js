@@ -82,25 +82,24 @@ function printGraphqlComments(lines) {
   const parts = [];
   let seenComment = false;
 
-  lines
-    .map((textLine) => textLine.trim())
-    .forEach((textLine, i, array) => {
-      // Lines are either whitespace only, or a comment (with potential whitespace
-      // around it). Drop whitespace-only lines.
-      if (textLine === "") {
-        return;
-      }
+  const array = lines.map((textLine) => textLine.trim());
+  for (const [i, textLine] of array.entries()) {
+    // Lines are either whitespace only, or a comment (with potential whitespace
+    // around it). Drop whitespace-only lines.
+    if (textLine === "") {
+      continue;
+    }
 
-      if (array[i - 1] === "" && seenComment) {
-        // If a non-first comment is preceded by a blank (whitespace only) line,
-        // add in a blank line.
-        parts.push([hardline, textLine]);
-      } else {
-        parts.push(textLine);
-      }
+    if (array[i - 1] === "" && seenComment) {
+      // If a non-first comment is preceded by a blank (whitespace only) line,
+      // add in a blank line.
+      parts.push([hardline, textLine]);
+    } else {
+      parts.push(textLine);
+    }
 
-      seenComment = true;
-    });
+    seenComment = true;
+  }
 
   // If `lines` was whitespace only, return `null`.
   return parts.length === 0 ? null : join(hardline, parts);

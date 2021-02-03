@@ -4,7 +4,12 @@ const { printDanglingComments } = require("../../main/comments");
 const {
   builders: { line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
-const { getLast, hasNewlineInRange, hasNewline } = require("../../common/util");
+const {
+  getLast,
+  hasNewlineInRange,
+  hasNewline,
+  isNonEmptyArray,
+} = require("../../common/util");
 const {
   shouldPrintComma,
   hasComment,
@@ -17,6 +22,7 @@ const { locStart, locEnd } = require("../loc");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { shouldHugFunctionParameters } = require("./function-parameters");
 const { shouldHugType } = require("./type-annotation");
+const { printHardlineAfterHeritage } = require("./class");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -91,7 +97,7 @@ function printObject(path, options, print) {
   // interleaved in the source code. So we need to reorder them before
   // printing them.
   const propsAndLoc = [];
-  fields.forEach((field) => {
+  for (const field of fields) {
     path.each((childPath) => {
       const node = childPath.getValue();
       propsAndLoc.push({
@@ -100,14 +106,14 @@ function printObject(path, options, print) {
         loc: locStart(node),
       });
     }, field);
-  });
+  }
 
   /** @type {Doc[]} */
   let separatorParts = [];
   const props = propsAndLoc
     .sort((a, b) => a.loc - b.loc)
     .map((prop) => {
-      const result = separatorParts.concat(group(prop.printed));
+      const result = [...separatorParts, group(prop.printed)];
       separatorParts = [separator, line];
       if (
         (prop.node.type === "TSPropertySignature" ||
@@ -141,9 +147,9 @@ function printObject(path, options, print) {
         "...",
       ];
     } else {
-      printed = "...";
+      printed = ["..."];
     }
-    props.push(separatorParts.concat(printed));
+    props.push([...separatorParts, ...printed]);
   }
 
   const lastElem = getLast(n[propertiesField]);
@@ -175,6 +181,9 @@ function printObject(path, options, print) {
     ]);
   } else {
     content = [
+      isFlowInterfaceLikeBody && isNonEmptyArray(n.properties)
+        ? printHardlineAfterHeritage(parent)
+        : "",
       leftBrace,
       indent([options.bracketSpacing ? line : softline, ...props]),
       ifBreak(

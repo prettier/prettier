@@ -87,7 +87,7 @@ function hasNode(node, fn) {
   const result = fn(node);
   return typeof result === "boolean"
     ? result
-    : Object.keys(node).some((key) => hasNode(node[key], fn));
+    : Object.values(node).some((value) => hasNode(value, fn));
 }
 
 /**
@@ -244,6 +244,14 @@ function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
     (node.type === "Literal" && typeof node.value === "number")
+  );
+}
+
+function isSignedNumericLiteral(node) {
+  return (
+    node.type === "UnaryExpression" &&
+    (node.operator === "+" || node.operator === "-") &&
+    isNumericLiteral(node.argument)
   );
 }
 
@@ -834,17 +842,15 @@ function isFunctionCompositionArgs(args) {
   }
   let count = 0;
   for (const arg of args) {
-    if (arg) {
-      if (isFunctionOrArrowExpression(arg)) {
-        count += 1;
-        if (count > 1) {
+    if (isFunctionOrArrowExpression(arg)) {
+      count += 1;
+      if (count > 1) {
+        return true;
+      }
+    } else if (isCallOrOptionalCallExpression(arg)) {
+      for (const childArg of arg.arguments) {
+        if (isFunctionOrArrowExpression(childArg)) {
           return true;
-        }
-      } else if (isCallOrOptionalCallExpression(arg)) {
-        for (const childArg of arg.arguments) {
-          if (isFunctionOrArrowExpression(childArg)) {
-            return true;
-          }
         }
       }
     }
@@ -907,6 +913,7 @@ function isSimpleCallArgument(node, depth) {
     node.type === "ThisExpression" ||
     node.type === "Super" ||
     node.type === "PrivateName" ||
+    node.type === "PrivateIdentifier" ||
     node.type === "ArgumentPlaceholder" ||
     node.type === "Import"
   ) {
@@ -1120,7 +1127,7 @@ function shouldFlatten(parentOp, nodeOp) {
 }
 
 const PRECEDENCE = {};
-[
+for (const [i, tier] of [
   ["|>"],
   ["??"],
   ["||"],
@@ -1134,11 +1141,11 @@ const PRECEDENCE = {};
   ["+", "-"],
   ["*", "/", "%"],
   ["**"],
-].forEach((tier, i) => {
-  tier.forEach((op) => {
+].entries()) {
+  for (const op of tier) {
     PRECEDENCE[op] = i;
-  });
-});
+  }
+}
 
 function getPrecedence(op) {
   return PRECEDENCE[op];
@@ -1153,7 +1160,7 @@ function getLeftMost(node) {
 
 function isBitwiseOperator(operator) {
   return (
-    !!bitshiftOperators[operator] ||
+    Boolean(bitshiftOperators[operator]) ||
     operator === "|" ||
     operator === "^" ||
     operator === "&"
@@ -1251,27 +1258,24 @@ function hasIgnoreComment(path) {
 }
 
 const CommentCheckFlags = {
-  /** @type {number} Check comment is a leading comment */
+  /** Check comment is a leading comment */
   Leading: 1 << 1,
-  /** @type {number} Check comment is a trailing comment */
+  /** Check comment is a trailing comment */
   Trailing: 1 << 2,
-  /** @type {number} Check comment is a dangling comment */
+  /** Check comment is a dangling comment */
   Dangling: 1 << 3,
-  /** @type {number} Check comment is a block comment */
+  /** Check comment is a block comment */
   Block: 1 << 4,
-  /** @type {number} Check comment is a line comment */
+  /** Check comment is a line comment */
   Line: 1 << 5,
-  /** @type {number} Check comment is a `prettier-ignore` comment */
+  /** Check comment is a `prettier-ignore` comment */
   PrettierIgnore: 1 << 6,
-  /** @type {number} Check comment is the first attched comment */
+  /** Check comment is the first attached comment */
   First: 1 << 7,
-  /** @type {number} Check comment is the last attched comment */
+  /** Check comment is the last attached comment */
   Last: 1 << 8,
 };
 
-/**
- * @returns {function}
- */
 const getCommentTestFunction = (flags, fn) => {
   if (typeof flags === "function") {
     fn = flags;
@@ -1305,11 +1309,7 @@ function hasComment(node, flags, fn) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);
-  return test
-    ? node.comments.some((comment, index, comments) =>
-        test(comment, index, comments)
-      )
-    : true;
+  return test ? node.comments.some(test) : true;
 }
 
 /**
@@ -1323,11 +1323,7 @@ function getComments(node, flags, fn) {
     return [];
   }
   const test = getCommentTestFunction(flags, fn);
-  return test
-    ? node.comments.filter((comment, index, comments) =>
-        test(comment, index, comments)
-      )
-    : node.comments;
+  return test ? node.comments.filter(test) : node.comments;
 }
 
 /**
@@ -1374,6 +1370,7 @@ module.exports = {
   isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
+  isSignedNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleType,

@@ -459,7 +459,7 @@ function handleMethodNameComments({
     precedingNode.type === "Decorator" &&
     (enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ClassProperty" ||
-      enclosingNode.type === "FieldDefinition" ||
+      enclosingNode.type === "PropertyDefinition" ||
       enclosingNode.type === "TSAbstractClassProperty" ||
       enclosingNode.type === "TSAbstractMethodDefinition" ||
       enclosingNode.type === "TSDeclareMethod" ||

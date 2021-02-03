@@ -30,7 +30,7 @@ const colorAdjusterFunctions = new Set([
 ]);
 
 function getAncestorCounter(path, typeOrTypes) {
-  const types = [].concat(typeOrTypes);
+  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
 
   let counter = -1;
   let ancestorNode;
@@ -96,7 +96,7 @@ function isSCSS(parser, text) {
 }
 
 function isSCSSVariable(node) {
-  return !!(node && node.type === "word" && node.value.startsWith("$"));
+  return Boolean(node && node.type === "word" && node.value.startsWith("$"));
 }
 
 function isWideKeywords(value) {
@@ -149,7 +149,9 @@ function insideICSSRuleNode(path) {
 }
 
 function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
-  const atRuleNames = [].concat(atRuleNameOrAtRuleNames);
+  const atRuleNames = Array.isArray(atRuleNameOrAtRuleNames)
+    ? atRuleNameOrAtRuleNames
+    : [atRuleNameOrAtRuleNames];
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
   return (
@@ -401,7 +403,22 @@ function isWordNode(node) {
 }
 
 function isColonNode(node) {
-  return node.type === "value-colon";
+  return node && node.type === "value-colon";
+}
+
+function isKeyInValuePairNode(node, parentNode) {
+  if (!isKeyValuePairNode(parentNode)) {
+    return false;
+  }
+
+  const { groups } = parentNode;
+  const index = groups.indexOf(node);
+
+  if (index === -1) {
+    return false;
+  }
+
+  return isColonNode(groups[index + 1]);
 }
 
 function isMediaAndSupportsKeywords(node) {
@@ -503,6 +520,7 @@ module.exports = {
   isPostcssSimpleVarNode,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,
+  isKeyInValuePairNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
   isHashNode,

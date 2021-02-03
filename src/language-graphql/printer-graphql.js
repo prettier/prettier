@@ -35,7 +35,7 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(n)] !== "{";
-      const hasName = !!n.name;
+      const hasName = Boolean(n.name);
       return [
         hasOperation ? n.operation : "",
         hasOperation && hasName ? [" ", path.call(print, "name")] : "",
@@ -581,8 +581,7 @@ function printInterfaces(path, options, print) {
       const hasComment = textBetween.includes("#");
       const separator = textBetween.replace(/#.*/g, "").trim();
 
-      parts.push(separator === "," ? "," : " &");
-      parts.push(hasComment ? line : " ");
+      parts.push(separator === "," ? "," : " &", hasComment ? line : " ");
     }
   }
 

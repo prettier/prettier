@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray, createGroupIdMapper } = require("../../common/util");
 const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
@@ -67,20 +67,23 @@ function printClass(path, options, print) {
     extendsParts.push(printList(path, options, print, "extends"));
   }
 
-  extendsParts.push(printList(path, options, print, "mixins"));
-  extendsParts.push(printList(path, options, print, "implements"));
+  extendsParts.push(
+    printList(path, options, print, "mixins"),
+    printList(path, options, print, "implements")
+  );
 
   if (groupMode) {
     const printedExtends = extendsParts;
+    let printedPartsGroup;
     if (shouldIndentOnlyHeritageClauses(n)) {
-      parts.push(
-        group(
-          partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-        )
-      );
+      printedPartsGroup = [
+        ...partsGroup,
+        ifBreak(indent(printedExtends), printedExtends),
+      ];
     } else {
-      parts.push(group(indent(partsGroup.concat(printedExtends))));
+      printedPartsGroup = indent([...partsGroup, printedExtends]);
     }
+    parts.push(group(printedPartsGroup, { id: getHeritageGroupId(n) }));
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
@@ -90,10 +93,16 @@ function printClass(path, options, print) {
   return parts;
 }
 
+const getHeritageGroupId = createGroupIdMapper("heritageGroup");
+
+function printHardlineAfterHeritage(node) {
+  return ifBreak(hardline, "", { groupId: getHeritageGroupId(node) });
+}
+
 function hasMultipleHeritage(node) {
   return (
-    ["superClass", "extends", "mixins", "implements"].filter(
-      (key) => !!node[key]
+    ["superClass", "extends", "mixins", "implements"].filter((key) =>
+      Boolean(node[key])
     ).length > 1
   );
 }
@@ -222,4 +231,5 @@ module.exports = {
   printClass,
   printClassMethod,
   printClassProperty,
+  printHardlineAfterHeritage,
 };
