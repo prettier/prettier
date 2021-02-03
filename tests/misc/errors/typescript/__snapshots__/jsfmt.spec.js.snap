@@ -4,23 +4,23 @@ exports[`default-escaped.ts [typescript] format 1`] = `
 "Declaration or statement expected. (1:1)
 > 1 | export asyn\\\\u{63} from \\"async\\";
     | ^
-  2 | "
+  2 |"
 `;
 
 exports[`dynamic-import.ts [typescript] format 1`] = `
 "Dynamic import must have one specifier as an argument. (1:8)
 > 1 | import('./prettier.mjs', {})
     |        ^
-  2 | "
+  2 |"
 `;
 
 exports[`invalid-jsx-1.ts [typescript] format 1`] = `
 "Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (3:45)
   1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
-  2 | 
+  2 |
 > 3 | let directions = <div>Navigate to: Menu Bar > Tools > Options</div>
     |                                             ^
-  4 | "
+  4 |"
 `;
 
 exports[`issue-8773.ts [typescript] format 1`] = `"Comment \\"comment\\" was not printed. Please report this error!"`;
@@ -29,14 +29,14 @@ exports[`module-attributes-dynamic.ts [typescript] format 1`] = `
 "Dynamic import must have one specifier as an argument. (1:8)
 > 1 | import(\\"foo.json\\", { with: { type: \\"json\\" } })
     |        ^
-  2 | "
+  2 |"
 `;
 
 exports[`module-attributes-static.ts [typescript] format 1`] = `
 "';' expected. (1:28)
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";
     |                            ^
-  2 | "
+  2 |"
 `;
 
 exports[`newline-before-arrow.ts [typescript] format 1`] = `
@@ -44,7 +44,7 @@ exports[`newline-before-arrow.ts [typescript] format 1`] = `
 > 1 | async x
     |       ^
   2 | => x
-  3 | "
+  3 |"
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
