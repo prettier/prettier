@@ -215,7 +215,10 @@ function shouldExtraIndentForConditionalExpression(path) {
   ) {
     let memberChainingRootNodeName = parentName;
     let count = 0;
-    while (memberChainingRootNodeName === "object") {
+    while (
+      memberChainingRootNodeName === "object" ||
+      memberChainingRootNodeName === "callee"
+    ) {
       path.callParent((parentPath) => {
         memberChainingRootNodeName = parentPath.getName();
       }, count);
