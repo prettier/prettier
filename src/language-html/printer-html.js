@@ -15,7 +15,7 @@ const {
     literalline,
     softline,
   },
-  utils: { mapDoc, cleanDoc, getDocParts },
+  utils: { mapDoc, cleanDoc, getDocParts, isConcat },
 } = require("../document");
 const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
@@ -367,7 +367,11 @@ function genericPrint(path, options, print) {
         ...getTextValueParts(node),
         printClosingTagSuffix(node, options),
       ]);
-      return typeof printed === "string" ? printed : fill(getDocParts(printed));
+      if (isConcat(printed) || printed.type === "fill") {
+        return fill(getDocParts(printed));
+      }
+      /* istanbul ignore next */
+      return printed;
     }
     case "docType":
       return [
