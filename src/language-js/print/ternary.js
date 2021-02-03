@@ -160,8 +160,8 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  const parent = path.getParentNode();
-  if (!parent) {
+  const parentName = path.callParent((path) => path.getName());
+  if (!parentName) {
     return false;
   }
 
@@ -174,7 +174,7 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  const parentName = path.callParent((path) => path.getName());
+  const parent = path.getParentNode();
 
   /**
    * foo = (
