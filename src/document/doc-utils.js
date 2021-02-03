@@ -4,11 +4,15 @@ const { literalline, concat } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {
-  const parts = Array.isArray(doc) ? doc : doc.parts;
-  if (!Array.isArray(parts)) {
-    throw new Error("doc.parts is not an array.");
+  if (Array.isArray(doc)) {
+    return doc;
   }
-  return parts;
+
+  if (doc.type !== "concat" && doc.type !== "fill") {
+    throw new Error("Expect doc type to be `concat` or `fill`.");
+  }
+
+  return doc.parts;
 };
 
 // Using a unique object to compare by reference.
