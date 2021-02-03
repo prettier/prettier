@@ -8,7 +8,7 @@ on:
 jobs:
   mark-duplicate:
     runs-on: ubuntu-latest
-    if: ${{ !github.event.issue.pull_request && startsWith(github.event.comment.body, "Duplicate of ") }}
+    if: ${{ !github.event.issue.pull_request && startsWith(github.event.comment.body, 'Duplicate of ') }}
     steps:
       - uses: actions-cool/issues-helper@v2.1.1
         with:
