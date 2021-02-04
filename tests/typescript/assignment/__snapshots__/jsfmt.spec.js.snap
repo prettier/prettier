@@ -69,3 +69,45 @@ export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
 
 ================================================================================
 `;
+
+exports[`issue-5370.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const durabilityMetricsSelectable: Immutable.OrderedSet<
+  SomeReportingMetric,
+> = myExperienceSelectable.concat(otherDurabilityMetricsSelectable);
+
+=====================================output=====================================
+const durabilityMetricsSelectable: Immutable.OrderedSet<SomeReportingMetric> =
+  myExperienceSelectable.concat(otherDurabilityMetricsSelectable);
+
+================================================================================
+`;
+
+exports[`issue-6783.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const enviromentProdValues: EnvironmentValues = assign<EnvironmentValues>(
+  {
+    apiURL: '/api',
+  },
+  enviromentBaseValues
+);
+
+=====================================output=====================================
+export const enviromentProdValues: EnvironmentValues =
+  assign<EnvironmentValues>(
+    {
+      apiURL: "/api",
+    },
+    enviromentBaseValues
+  );
+
+================================================================================
+`;

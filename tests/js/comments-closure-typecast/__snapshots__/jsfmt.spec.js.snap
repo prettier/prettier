@@ -338,6 +338,67 @@ const test = /** @type (function (*): ?|undefined) */ (foo);
 ================================================================================
 `;
 
+exports[`issue-8045.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+}
+
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+      (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (/** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz));
+}
+
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+      (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (/** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz));
+}
+
+=====================================output=====================================
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+}
+
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+  (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (
+    /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz)
+  );
+}
+
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+  (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (
+    /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz)
+  );
+}
+
+================================================================================
+`;
+
 exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
