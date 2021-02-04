@@ -54,22 +54,6 @@ function printCallArguments(path, options, print) {
     ];
   }
 
-  // useMemo(() => func(), [foo, bar, baz])
-  if (isReactHookCallWithDepsArray(args, /* isArrowBodyBlock */ false)) {
-    return [
-      "(",
-      indent([
-        softline,
-        path.call(print, "arguments", 0),
-        ",",
-        line,
-        path.call(print, "arguments", 1),
-      ]),
-      softline,
-      ")",
-    ];
-  }
-
   // func(
   //   ({
   //     a,
@@ -276,7 +260,9 @@ function shouldGroupLastArg(args) {
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
-    (!penultimateArg || penultimateArg.type !== lastArg.type)
+    (!penultimateArg || penultimateArg.type !== lastArg.type) &&
+    // useMemo(() => func(), [foo, bar, baz])
+    !isReactHookCallWithDepsArray(args, /* isArrowBodyBlock */ false)
   );
 }
 
