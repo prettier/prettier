@@ -8,42 +8,42 @@ exports[`html-like-comments.js [babel] format 1`] = `
     | ^
   4 | 'hello world'
   5 | )
-  6 | "
+  6 |"
 `;
 
 exports[`import-assertions-for-export-without-from.js [babel] format 1`] = `
 "Unexpected token, expected \\";\\" (1:16)
 > 1 | export { foo } assert { type: \\"json\\" };
     |                ^
-  2 | "
+  2 |"
 `;
 
 exports[`import-assertions-with-parens.js [babel] format 1`] = `
 "Unexpected token (1:19)
 > 1 | import \\"x\\" assert ({type: 'json'});
     |                   ^
-  2 | "
+  2 |"
 `;
 
 exports[`module-attributes.js [babel] format 1`] = `
 "Unexpected token, expected \\";\\" (1:28)
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";
     |                            ^
-  2 | "
+  2 |"
 `;
 
 exports[`no-for-in-init-concise-binary-in.js [babel] format 1`] = `
 "Unexpected token, expected \\")\\" (3:18)
   1 | // https://github.com/babel/babel/pull/11931
-  2 | 
+  2 |
 > 3 | for (() => x in y;;);
     |                  ^
-  4 | "
+  4 |"
 `;
 
 exports[`partial-template-strings.js [babel] format 1`] = `
 "Unexpected token (6:42)
-  4 | 
+  4 |
   5 | const Diagnostics = {
 > 6 |   unexpected_token: \`Unexpected token: \${?}\`,
     |                                          ^
@@ -90,7 +90,7 @@ exports[`snippet: #5 [babel] format 1`] = `
 
 exports[`snippet: #6 [babel] format 1`] = `
 "Unexpected token (5:12)
-  3 | 
+  3 |
   4 |   static isC(obj) {
 > 5 |     return try obj.#brand;
     |            ^
@@ -137,8 +137,8 @@ exports[`snippet: #12 [babel] format 1`] = `
 exports[`static-import-source-should-not-has-extra-token.js [babel] format 1`] = `
 "Unexpected token (4:16)
   2 | // be parenthesized, that accidentally break #8016
-  3 | 
+  3 |
 > 4 | import {} from (('a'));
     |                ^
-  5 | "
+  5 |"
 `;
