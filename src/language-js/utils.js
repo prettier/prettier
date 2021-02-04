@@ -1333,12 +1333,36 @@ function getComments(node, flags, fn) {
 const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
+function isChainElement(node) {
+  return (
+    node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression" ||
+    node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "TSNonNullExpression"
+  );
+}
+
+function getChainRoot(path) {
+  let memberChainRoot;
+  let count = 0;
+  for (;;) {
+    const chainElement = path.getParentNode(count++);
+    if (!isChainElement(chainElement)) {
+      break;
+    }
+    memberChainRoot = chainElement;
+  }
+  return memberChainRoot;
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,
   iterateCallArgumentsPath,
   hasRestParameter,
+  getChainRoot,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -1353,6 +1377,7 @@ module.exports = {
   identity,
   isBinaryish,
   isBlockComment,
+  isChainElement,
   isLineComment,
   isPrettierIgnoreComment,
   isCallOrOptionalCallExpression,

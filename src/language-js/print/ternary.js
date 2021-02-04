@@ -2,7 +2,13 @@
 
 const flat = require("lodash/flatten");
 const { hasNewlineInRange } = require("../../common/util");
-const { isJsxNode, isBlockComment, getComments } = require("../utils");
+const {
+  isJsxNode,
+  isBlockComment,
+  getComments,
+  isChainElement,
+  getChainRoot,
+} = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
   builders: {
@@ -153,16 +159,6 @@ function printTernaryTest(path, options, print) {
   return printed;
 }
 
-function isChainElement(node) {
-  return (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "TSNonNullExpression"
-  );
-}
-
 const ancestorNameMap = new Map([
   ["AssignmentExpression", "right"],
   ["VariableDeclarator", "init"],
@@ -250,16 +246,8 @@ function shouldExtraIndentForConditionalExpression(path) {
     parent.type === "MemberExpression" ||
     parent.type === "OptionalMemberExpression"
   ) {
-    let memberChainRoot;
-    let count = 0;
-    for (;;) {
-      const memberChainElement = path.getParentNode(count++);
-      if (!isChainElement(memberChainElement)) {
-        break;
-      }
-      memberChainRoot = memberChainElement;
-    }
-    if (checkAncestor(memberChainRoot)) {
+    const chainRoot = getChainRoot(path);
+    if (checkAncestor(chainRoot)) {
       return true;
     }
   }
