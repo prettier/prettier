@@ -87,6 +87,34 @@ function foo24() {
     : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
 }
 
+foo25 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0

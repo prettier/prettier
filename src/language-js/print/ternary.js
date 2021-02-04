@@ -167,7 +167,11 @@ function shouldExtraIndentForConditionalExpression(path) {
 
   let ancestorCount = 1;
   let ancestor = path.getParentNode(ancestorCount);
-  while (ancestor.type === "MemberExpression") {
+  while (
+    ancestor.type === "MemberExpression" ||
+    ancestor.type === "OptionalMemberExpression" ||
+    ancestor.type === "TSNonNullExpression"
+  ) {
     ancestor = path.getParentNode(ancestorCount++);
   }
   if (ancestor.type === "BinaryExpression") {
@@ -198,7 +202,8 @@ function shouldExtraIndentForConditionalExpression(path) {
    * )(arguments);
    */
   if (
-    parent.type === "CallExpression" &&
+    (parent.type === "CallExpression" ||
+      parent.type === "OptionalCallExpression") &&
     rightSideNodeNamesSet.has(parentName) &&
     path.getName() === "callee"
   ) {
