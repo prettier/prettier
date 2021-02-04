@@ -169,6 +169,7 @@ const ancestorNameMap = new Map([
   ["ReturnStatement", "argument"],
   ["ThrowStatement", "argument"],
   ["UnaryExpression", "argument"],
+  ["YieldExpression", "argument"],
 ]);
 function shouldExtraIndentForConditionalExpression(path) {
   const node = path.getValue();

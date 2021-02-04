@@ -115,6 +115,21 @@ function foo30() {
     : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
 }
 
+function* foo31() {
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo.Fooooooooooo];
+}
+
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0
