@@ -204,22 +204,6 @@ function shouldExtraIndentForConditionalExpression(path) {
   }
 
   /**
-   * foo = (
-   *   condition
-   *     ? first
-   *     : second
-   * )(arguments);
-   */
-  if (
-    (parent.type === "CallExpression" ||
-      parent.type === "OptionalCallExpression") &&
-    checkAncestor(parent) &&
-    path.getName() === "callee"
-  ) {
-    return true;
-  }
-
-  /**
    * foo = new (
    *   condition
    *     ? first
@@ -234,6 +218,24 @@ function shouldExtraIndentForConditionalExpression(path) {
     return true;
   }
 
+  const chainRoot = path.getParentNode(ancestorCount - 1);
+
+  /**
+   * foo = (
+   *   condition
+   *     ? first
+   *     : second
+   * )(arguments);
+   */
+  if (
+    (parent.type === "CallExpression" ||
+      parent.type === "OptionalCallExpression") &&
+    checkAncestor(chainRoot) &&
+    path.getName() === "callee"
+  ) {
+    return true;
+  }
+
   /**
    * foo = (
    *   condition
@@ -242,13 +244,11 @@ function shouldExtraIndentForConditionalExpression(path) {
    * ).member.chaining;
    */
   if (
-    parent.type === "MemberExpression" ||
-    parent.type === "OptionalMemberExpression"
+    (parent.type === "MemberExpression" ||
+      parent.type === "OptionalMemberExpression") &&
+    checkAncestor(chainRoot)
   ) {
-    const chainRoot = path.getParentNode(ancestorCount - 1);
-    if (checkAncestor(chainRoot)) {
-      return true;
-    }
+    return true;
   }
 
   return false;
