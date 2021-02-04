@@ -88,7 +88,7 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "ConditionalExpression" &&
       parentParent.type !== "ReturnStatement" &&
       parentParent.type !== "ThrowStatement" &&
-      !isCallExpression(parentParent) ||
+      !isCallExpression(parentParent)) ||
     parent.type === "TemplateLiteral";
 
   const shouldIndentIfInlining =
