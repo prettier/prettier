@@ -571,6 +571,12 @@ function isCallExpression(node) {
   );
 }
 
+function isMemberExpression(node) {
+  return (
+    node.type === "MemberExpression" || node.type === "OptionalMemberExpression"
+  );
+}
+
 /**
  *
  * @param {any} node
@@ -1350,6 +1356,7 @@ module.exports = {
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,
+  isMemberExpression,
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
