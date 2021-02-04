@@ -182,9 +182,6 @@ function shouldExtraIndentForConditionalExpression(path) {
   while (isChainElement(ancestor)) {
     ancestor = path.getParentNode(++ancestorCount);
   }
-  if (ancestor.type === "BinaryExpression") {
-    return false;
-  }
   const checkAncestor = (node) => {
     const name = ancestorNameMap.get(ancestor.type);
     return ancestor[name] === node;
