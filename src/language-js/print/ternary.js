@@ -7,7 +7,6 @@ const {
   isBlockComment,
   getComments,
   isChainElement,
-  getChainRoot,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
@@ -181,7 +180,7 @@ function shouldExtraIndentForConditionalExpression(path) {
   let ancestorCount = 1;
   let ancestor = path.getParentNode(ancestorCount);
   while (isChainElement(ancestor)) {
-    ancestor = path.getParentNode(ancestorCount++);
+    ancestor = path.getParentNode(++ancestorCount);
   }
   if (ancestor.type === "BinaryExpression") {
     return false;
@@ -246,7 +245,7 @@ function shouldExtraIndentForConditionalExpression(path) {
     parent.type === "MemberExpression" ||
     parent.type === "OptionalMemberExpression"
   ) {
-    const chainRoot = getChainRoot(path);
+    const chainRoot = path.getParentNode(ancestorCount - 1);
     if (checkAncestor(chainRoot)) {
       return true;
     }

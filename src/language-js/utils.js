@@ -1343,26 +1343,12 @@ function isChainElement(node) {
   );
 }
 
-function getChainRoot(path) {
-  let memberChainRoot;
-  let count = 0;
-  for (;;) {
-    const chainElement = path.getParentNode(count++);
-    if (!isChainElement(chainElement)) {
-      break;
-    }
-    memberChainRoot = chainElement;
-  }
-  return memberChainRoot;
-}
-
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,
   iterateCallArgumentsPath,
   hasRestParameter,
-  getChainRoot,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
