@@ -307,7 +307,7 @@ function isTemplateLiteral(node) {
  * Note: `inject` is used in AngularJS 1.x, `async` in Angular 2+
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
- * @param {Node} node
+ * @param {CallExpression} node
  * @returns {boolean}
  */
 function isAngularTestWrapper(node) {
@@ -352,9 +352,11 @@ function isMemberExpressionChain(node) {
   if (!isMemberExpression(node)) {
     return false;
   }
+  // @ts-ignore
   if (node.object.type === "Identifier") {
     return true;
   }
+  // @ts-ignore
   return isMemberExpressionChain(node.object);
 }
 
@@ -493,7 +495,7 @@ function isSimpleType(node) {
 const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
 
 /**
- * @param {CallExpression} node
+ * @param {{callee: MemberExpression | OptionalMemberExpression}} node
  * @returns {boolean}
  */
 function isSkipOrOnlyBlock(node) {
@@ -556,7 +558,7 @@ function isTestCall(n, parent) {
 }
 
 /**
- * @param {CallExpression | OptionalCallExpression} node
+ * @param {Node} node
  * @returns {boolean}
  */
 function isCallExpression(node) {
