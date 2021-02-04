@@ -567,13 +567,20 @@ function isTestCall(n, parent) {
  */
 function isCallExpression(node) {
   return (
-    node.type === "CallExpression" || node.type === "OptionalCallExpression"
+    node &&
+    (node.type === "CallExpression" || node.type === "OptionalCallExpression")
   );
 }
 
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isMemberExpression(node) {
   return (
-    node.type === "MemberExpression" || node.type === "OptionalMemberExpression"
+    node &&
+    (node.type === "MemberExpression" ||
+      node.type === "OptionalMemberExpression")
   );
 }
 
