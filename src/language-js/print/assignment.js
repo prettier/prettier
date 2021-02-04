@@ -30,13 +30,16 @@ function printAssignment(
   const isNested = path.getParentNode().type === "AssignmentExpression";
 
   switch (chooseLayout(leftDoc, rightDoc, rightNode, isNested, options)) {
+    // First break after operator, then break left-hand side
     default:
     case "break-after-operator":
       return group([group(leftDoc), operator, group(indent([line, rightDoc]))]);
 
+    // First break right-hand side, then left-hand side
     case "never-break-after-operator":
       return group([group(leftDoc), operator, " ", rightDoc]);
 
+    // First break right-hand side, then after operator
     case "fluid": {
       const groupId = Symbol("assignment");
       return group([
@@ -46,6 +49,8 @@ function printAssignment(
       ]);
     }
 
+    // Parts of assignment chains aren't wrapped in groups.
+    // Once one of them breaks, the chain breaks too.
     case "chain":
       return [group(leftDoc), operator, line, rightDoc];
 
