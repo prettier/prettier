@@ -643,7 +643,6 @@ function handleCallExpressionComments({
   enclosingNode,
 }) {
   if (
-    enclosingNode &&
     isCallExpression(enclosingNode) &&
     precedingNode &&
     enclosingNode.callee === precedingNode &&
@@ -956,8 +955,7 @@ function willPrintOwnComments(path /*, options */) {
     ((node &&
       (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
-        (parent &&
-          isCallExpression(parent) &&
+        (isCallExpression(parent) &&
           (hasFlowAnnotationComment(node.leadingComments) ||
             hasFlowAnnotationComment(node.trailingComments))))) ||
       (parent &&
