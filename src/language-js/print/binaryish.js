@@ -3,7 +3,16 @@
 const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
-  builders: { join, line, softline, group, indent, align, ifBreak },
+  builders: {
+    join,
+    line,
+    softline,
+    group,
+    indent,
+    align,
+    ifBreak,
+    indentIfBreak,
+  },
   utils: { cleanDoc, getDocParts },
 } = require("../../document");
 const {
@@ -160,7 +169,7 @@ function printBinaryishExpression(path, options, print) {
   }
 
   const jsxPart = getLast(parts);
-  return group([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })]);
+  return group([chain, indentIfBreak(jsxPart, { groupId })]);
 }
 
 // For binary expressions to be consistent, we need to group

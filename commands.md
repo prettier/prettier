@@ -254,6 +254,23 @@ declare const trim: Doc;
 
 Trim all the indentation on the current line. This can be used for preprocessor directives. Should be placed after a line break.
 
+### `indentIfBreak`
+
+_Added in v2.3.0_
+
+```ts
+declare function indentIfBreak(
+  doc: Doc,
+  opts: { groupId: symbol; negate?: boolean }
+): Doc;
+```
+
+An optimized version of `ifBreak(indent(doc), doc, { groupId })`.
+
+With `negate: true`, corresponds to `ifBreak(doc, indent(doc), { groupId })`
+
+It doesn't make sense to apply `indentIfBreak` to the current group because "indent if the current group is broken" is the normal behavior of `indent`. That's why `groupId` is required.
+
 ### `hardlineWithoutBreakParent` and `literallineWithoutBreakParent`
 
 _Added in v2.3.0_

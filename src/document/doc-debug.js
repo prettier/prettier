@@ -121,6 +121,23 @@ function printDocToDebug(doc) {
       );
     }
 
+    if (doc.type === "indent-if-break") {
+      const optionsParts = [];
+
+      if (doc.negate) {
+        optionsParts.push("negate: true");
+      }
+
+      if (doc.groupId) {
+        optionsParts.push(`groupId: ${printGroupId(doc.groupId)}`);
+      }
+
+      const options =
+        optionsParts.length > 0 ? `, { ${optionsParts.join(", ")} }` : "";
+
+      return `indentIfBreak(${printDoc(doc.contents)}${options})`;
+    }
+
     if (doc.type === "group") {
       const optionsParts = [];
 
