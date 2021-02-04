@@ -55,7 +55,7 @@ exports[`module-string-names-import.js [espree] format 1`] = `
     |          ^
   2 | import { \\"foo\\" as bar, \\"default\\" as qux } from \\"module-a\\";
   3 | import { \\"學而時習之，不亦說乎？\\" as quotation } from \\"Confucius\\";
-  4 | "
+  4 |"
 `;
 
 exports[`module-string-names-import.js [meriyah] format 1`] = `
@@ -64,7 +64,7 @@ exports[`module-string-names-import.js [meriyah] format 1`] = `
     |                  ^
   2 | import { \\"foo\\" as bar, \\"default\\" as qux } from \\"module-a\\";
   3 | import { \\"學而時習之，不亦說乎？\\" as quotation } from \\"Confucius\\";
-  4 | "
+  4 |"
 `;
 
 exports[`module-string-names-import.js format 1`] = `
