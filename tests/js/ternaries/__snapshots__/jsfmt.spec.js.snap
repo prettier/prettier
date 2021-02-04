@@ -1826,6 +1826,14 @@ bifornCringerMoshedPerplexSawder = (
     .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
     .annularCooeedSplicesWalksWayWay();
 
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
 =====================================output=====================================
 foo7 = (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -2088,6 +2096,18 @@ bifornCringerMoshedPerplexSawder = (
     .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
     .annularCooeedSplicesWalksWayWay();
 
+foo = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)()()();
+
 ================================================================================
 `;
 
@@ -2310,6 +2330,14 @@ bifornCringerMoshedPerplexSawder = (
     .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
     .annularCooeedSplicesWalksWayWay();
 
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
 =====================================output=====================================
 foo7 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -2571,6 +2599,18 @@ bifornCringerMoshedPerplexSawder = (
 ).annularCooeedSplicesWalksWayWay
 	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
 	.annularCooeedSplicesWalksWayWay();
+
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)()()();
 
 ================================================================================
 `;
@@ -2793,6 +2833,14 @@ bifornCringerMoshedPerplexSawder = (
     .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
     .annularCooeedSplicesWalksWayWay();
 
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
 =====================================output=====================================
 foo7 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -3055,6 +3103,18 @@ bifornCringerMoshedPerplexSawder = (
 	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
 	.annularCooeedSplicesWalksWayWay();
 
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)()()();
+
 ================================================================================
 `;
 
@@ -3274,6 +3334,14 @@ bifornCringerMoshedPerplexSawder = (
   ).annularCooeedSplicesWalksWayWay
     .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
     .annularCooeedSplicesWalksWayWay();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
 
 =====================================output=====================================
 foo7 = (
@@ -3536,6 +3604,18 @@ bifornCringerMoshedPerplexSawder = (
 ).annularCooeedSplicesWalksWayWay
   .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
   .annularCooeedSplicesWalksWayWay();
+
+foo = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)()()();
 
 ================================================================================
 `;

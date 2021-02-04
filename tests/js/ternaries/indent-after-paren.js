@@ -208,3 +208,11 @@ bifornCringerMoshedPerplexSawder = (
   ).annularCooeedSplicesWalksWayWay
     .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
     .annularCooeedSplicesWalksWayWay();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
