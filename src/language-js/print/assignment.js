@@ -156,8 +156,7 @@ function shouldNeverBreakAfterOperator(rightNode) {
     isNumericLiteral(rightNode) ||
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
-    rightNode.type === "ClassExpression" ||
-    rightNode.type === "ParenthesizedExpression"
+    rightNode.type === "ClassExpression"
   );
 }
 
