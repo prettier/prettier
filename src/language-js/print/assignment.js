@@ -3,7 +3,6 @@
 const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { line, group, indent, ifBreak },
-  utils: { canBreak },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -29,7 +28,7 @@ function printAssignment(
   const rightDoc = path.call(print, rightPropertyName);
   const isNested = path.getParentNode().type === "AssignmentExpression";
 
-  switch (chooseLayout(leftDoc, rightDoc, rightNode, isNested, options)) {
+  switch (chooseLayout(rightNode, isNested, options)) {
     // First break after operator, then break left-hand side
     default:
     case "break-after-operator":
@@ -82,7 +81,7 @@ function printVariableDeclarator(path, options, print) {
   );
 }
 
-function chooseLayout(leftDoc, rightDoc, rightNode, isNested, options) {
+function chooseLayout(rightNode, isNested, options) {
   if (rightNode.type === "AssignmentExpression") {
     if (isNested) {
       return "chain";
@@ -112,11 +111,7 @@ function chooseLayout(leftDoc, rightDoc, rightNode, isNested, options) {
     return "never-break-after-operator";
   }
 
-  if (canBreak(leftDoc) || canBreak(rightDoc)) {
-    return "fluid";
-  }
-
-  return "break-after-operator";
+  return "fluid";
 }
 
 function shouldBreakAfterOperator(rightNode) {
