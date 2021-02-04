@@ -132,8 +132,14 @@ function shouldBreakAfterOperator(rightNode) {
   }
 
   let node = rightNode;
-  while (node.type === "UnaryExpression") {
-    node = node.argument;
+  for (;;) {
+    if (node.type === "UnaryExpression") {
+      node = node.argument;
+    } else if (node.type === "TSNonNullExpression") {
+      node = node.expression;
+    } else {
+      break;
+    }
   }
   if (isStringLiteral(node) || isMemberExpressionChain(node)) {
     return true;

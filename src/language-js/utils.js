@@ -349,18 +349,18 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
  * @returns {boolean}
  */
 function isMemberExpressionChain(node) {
-  if (node.type === "TSNonNullExpression") {
-    return true;
-  }
   if (!isMemberExpression(node)) {
     return false;
   }
   // @ts-ignore
-  if (node.object.type === "Identifier") {
+  let { object } = node;
+  if (object.type === "TSNonNullExpression") {
+    object = object.expression;
+  }
+  if (object.type === "Identifier" || object.type === "ThisExpression") {
     return true;
   }
-  // @ts-ignore
-  return isMemberExpressionChain(node.object);
+  return isMemberExpressionChain(object);
 }
 
 function isGetterOrSetter(node) {
