@@ -14,51 +14,44 @@ const {
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 
-/**
- * @typedef {import("../types/estree").Node} Node
- */
-
 function printAssignment(
   path,
   options,
   print,
-  printedLeft,
+  leftDoc,
   operator,
   rightPropertyName
 ) {
-  const node = path.getValue();
-  const rightNode = node[rightPropertyName];
-
+  const rightNode = path.getValue()[rightPropertyName];
   if (!rightNode) {
-    return printedLeft;
+    return leftDoc;
   }
+  const rightDoc = path.call(print, rightPropertyName);
+  const isNested = path.getParentNode().type === "AssignmentExpression";
 
-  const printedRight = path.call(print, rightPropertyName);
-  const isNestedAssignment =
-    path.getParentNode().type === "AssignmentExpression";
+  switch (chooseLayout(leftDoc, rightDoc, rightNode, isNested, options)) {
+    default:
+    case "break-after-operator":
+      return group([group(leftDoc), operator, group(indent([line, rightDoc]))]);
 
-  const { doc: printed, separateLineBreak } = printAssignmentRight(
-    printedLeft,
-    printedRight,
-    rightNode,
-    isNestedAssignment,
-    options
-  );
+    case "never-break-after-operator":
+      return group([group(leftDoc), operator, " ", rightDoc]);
 
-  let result;
+    case "fluid": {
+      const groupId = Symbol("assignment");
+      return group([
+        group([group(leftDoc), operator]),
+        group(indent(line), { id: groupId }),
+        ifBreak(indent(rightDoc), rightDoc, { groupId }),
+      ]);
+    }
 
-  if (separateLineBreak) {
-    const groupId = Symbol("assignment");
-    result = [
-      group([group(printedLeft), operator]),
-      group(indent(line), { id: groupId }),
-      ifBreak(indent(printed), printed, { groupId }),
-    ];
-  } else {
-    result = [group(printedLeft), operator, printed];
+    case "chain":
+      return [group(leftDoc), operator, line, rightDoc];
+
+    case "end-of-chain":
+      return [group(leftDoc), operator, indent([line, rightDoc])];
   }
-
-  return isNestedAssignment ? result : group(result);
 }
 
 function printAssignmentExpression(path, options, print) {
@@ -84,49 +77,44 @@ function printVariableDeclarator(path, options, print) {
   );
 }
 
-function printAssignmentRight(
-  printedLeft,
-  printedRight,
-  rightNode,
-  isNestedAssignment,
-  options
-) {
+function chooseLayout(leftDoc, rightDoc, rightNode, isNested, options) {
   if (rightNode.type === "AssignmentExpression") {
-    if (isNestedAssignment) {
-      return { doc: [line, printedRight] };
+    if (isNested) {
+      return "chain";
     }
     if (rightNode.right.type === "AssignmentExpression") {
-      return { doc: group(indent([line, printedRight])) };
+      return "break-after-operator";
     }
-  } else if (isNestedAssignment) {
-    return { doc: indent([line, printedRight]) };
+    // `const a = b = c;` falls through here, but `const a = b = c = d;` doesn't.
+  } else if (isNested) {
+    return "end-of-chain";
   }
 
-  if (shouldBreakAfterOperator(rightNode, options)) {
-    return { doc: group(indent([line, printedRight])) };
-  }
-
-  if (shouldNeverBreakAfterOperator(rightNode, options)) {
-    return { doc: [" ", printedRight] };
-  }
-
-  if (canBreak(printedLeft) || canBreak(printedRight)) {
-    return { separateLineBreak: true, doc: printedRight };
-  }
-
-  return { doc: group(indent([line, printedRight])) };
-}
-
-function shouldBreakAfterOperator(rightNode, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    return true;
+    return "break-after-operator";
   }
 
   // do not put values on a separate line from the key in json
   if (options.parser === "json5" || options.parser === "json") {
-    return false;
+    return "never-break-after-operator";
   }
 
+  if (shouldBreakAfterOperator(rightNode)) {
+    return "break-after-operator";
+  }
+
+  if (shouldNeverBreakAfterOperator(rightNode)) {
+    return "never-break-after-operator";
+  }
+
+  if (canBreak(leftDoc) || canBreak(rightDoc)) {
+    return "fluid";
+  }
+
+  return "break-after-operator";
+}
+
+function shouldBreakAfterOperator(rightNode) {
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
     return true;
   }
@@ -154,7 +142,7 @@ function shouldBreakAfterOperator(rightNode, options) {
   return false;
 }
 
-function shouldNeverBreakAfterOperator(rightNode, options) {
+function shouldNeverBreakAfterOperator(rightNode) {
   return (
     rightNode.type === "TemplateLiteral" ||
     rightNode.type === "TaggedTemplateExpression" ||
@@ -163,9 +151,7 @@ function shouldNeverBreakAfterOperator(rightNode, options) {
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
     rightNode.type === "ClassExpression" ||
-    rightNode.type === "ParenthesizedExpression" ||
-    options.parser === "json5" ||
-    options.parser === "json"
+    rightNode.type === "ParenthesizedExpression"
   );
 }
 
