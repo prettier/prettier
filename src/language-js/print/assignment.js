@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { line, group, indent, ifBreak },
+  builders: { line, group, indent, indentIfBreak },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -44,7 +44,7 @@ function printAssignment(
       return group([
         group([group(leftDoc), operator]),
         group(indent(line), { id: groupId }),
-        ifBreak(indent(rightDoc), rightDoc, { groupId }),
+        indentIfBreak(rightDoc, { groupId }),
       ]);
     }
 
