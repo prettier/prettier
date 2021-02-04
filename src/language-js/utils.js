@@ -102,8 +102,7 @@ function hasNakedLeftSide(node) {
     node.type === "NGPipeExpression" ||
     node.type === "ConditionalExpression" ||
     isCallExpression(node) ||
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
+    isMemberExpression(node) ||
     node.type === "SequenceExpression" ||
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
@@ -350,10 +349,7 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
  * @returns {boolean}
  */
 function isMemberExpressionChain(node) {
-  if (
-    node.type !== "MemberExpression" &&
-    node.type !== "OptionalMemberExpression"
-  ) {
+  if (!isMemberExpression(node)) {
     return false;
   }
   if (node.object.type === "Identifier") {
@@ -421,8 +417,7 @@ function isBinaryish(node) {
  */
 function isMemberish(node) {
   return (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
+    isMemberExpression(node) ||
     (node.type === "BindExpression" && Boolean(node.object))
   );
 }
@@ -503,8 +498,7 @@ const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
  */
 function isSkipOrOnlyBlock(node) {
   return (
-    (node.callee.type === "MemberExpression" ||
-      node.callee.type === "OptionalMemberExpression") &&
+    isMemberExpression(node.callee) &&
     node.callee.object.type === "Identifier" &&
     node.callee.property.type === "Identifier" &&
     unitTestRe.test(node.callee.object.name) &&
@@ -612,15 +606,9 @@ function isSimpleTemplateLiteral(node) {
     }
 
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
-    if (
-      expr.type === "MemberExpression" ||
-      expr.type === "OptionalMemberExpression"
-    ) {
+    if (isMemberExpression(expr)) {
       let head = expr;
-      while (
-        head.type === "MemberExpression" ||
-        head.type === "OptionalMemberExpression"
-      ) {
+      while (isMemberExpression(head)) {
         if (
           head.property.type !== "Identifier" &&
           head.property.type !== "Literal" &&
@@ -956,10 +944,7 @@ function isSimpleCallArgument(node, depth) {
     );
   }
 
-  if (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression"
-  ) {
+  if (isMemberExpression(node)) {
     return (
       isSimpleCallArgument(node.object, depth) &&
       isSimpleCallArgument(node.property, depth)

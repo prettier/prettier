@@ -11,6 +11,7 @@ const {
 const pathNeedsParens = require("../needs-parens");
 const {
   isCallExpression,
+  isMemberExpression,
   isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
   isMemberish,
@@ -111,8 +112,7 @@ function printMemberChain(path, options, print) {
         printed: printComments(
           path,
           () =>
-            node.type === "OptionalMemberExpression" ||
-            node.type === "MemberExpression"
+            isMemberExpression(node)
               ? printMemberLookup(path, options, print)
               : printBindExpressionCallee(path, options, print),
           options
@@ -180,8 +180,7 @@ function printMemberChain(path, options, print) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
       isCallExpression(printedNodes[i].node) ||
-      ((printedNodes[i].node.type === "MemberExpression" ||
-        printedNodes[i].node.type === "OptionalMemberExpression") &&
+      (isMemberExpression(printedNodes[i].node) &&
         printedNodes[i].node.computed &&
         isNumericLiteral(printedNodes[i].node.property))
     ) {
@@ -288,8 +287,7 @@ function printMemberChain(path, options, print) {
 
     const lastNode = getLast(groups[0]).node;
     return (
-      (lastNode.type === "MemberExpression" ||
-        lastNode.type === "OptionalMemberExpression") &&
+      isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
       (isFactory(lastNode.property.name) || hasComputed)
     );

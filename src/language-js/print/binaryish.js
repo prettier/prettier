@@ -14,6 +14,7 @@ const {
   hasComment,
   CommentCheckFlags,
   isCallExpression,
+  isMemberExpression,
 } = require("../utils");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -63,9 +64,7 @@ function printBinaryishExpression(path, options, print) {
   if (
     (isCallExpression(parent) && parent.callee === n) ||
     parent.type === "UnaryExpression" ||
-    ((parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression") &&
-      !parent.computed)
+    (isMemberExpression(parent) && !parent.computed)
   ) {
     return group([indent([softline, ...parts]), softline]);
   }

@@ -11,6 +11,7 @@ const {
   shouldFlatten,
   getPrecedence,
   isCallExpression,
+  isMemberExpression,
 } = require("./utils");
 
 function needsParens(path, options) {
@@ -676,9 +677,7 @@ function needsParens(path, options) {
         (name === "callee" &&
           (parent.type === "BindExpression" ||
             parent.type === "NewExpression")) ||
-        (name === "object" &&
-          (parent.type === "MemberExpression" ||
-            parent.type === "OptionalMemberExpression"))
+        (name === "object" && isMemberExpression(parent))
       );
     case "NGPipeExpression":
       if (
