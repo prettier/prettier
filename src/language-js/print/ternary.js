@@ -225,6 +225,21 @@ function shouldExtraIndentForConditionalExpression(path) {
   }
 
   /**
+   * foo = new (
+   *   condition
+   *     ? first
+   *     : second
+   * )(arguments);
+   */
+  if (
+    parent.type === "NewExpression" &&
+    checkAncestor(parent) &&
+    path.getName() === "callee"
+  ) {
+    return true;
+  }
+
+  /**
    * foo = (
    *   condition
    *     ? first

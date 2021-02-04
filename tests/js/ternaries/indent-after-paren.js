@@ -130,6 +130,37 @@ function* foo31() {
     : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo.Fooooooooooo];
 }
 
+const foo32 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+  return new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+  throw new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+  void new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
   ((glimseGlyphsHazardNoopsTieTie === 0
