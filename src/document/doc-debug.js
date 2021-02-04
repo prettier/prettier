@@ -137,7 +137,7 @@ function printDocToDebug(doc) {
 
       if (doc.expandedStates) {
         return `conditionalGroup([${doc.expandedStates
-          .map(printDoc)
+          .map((part) => printDoc(part))
           .join(",")}]${options})`;
       }
 
@@ -168,7 +168,8 @@ function printDocToDebug(doc) {
       return printedSymbols[id];
     }
 
-    const prefix = id.description || "symbol";
+    // TODO: use Symbol.prototype.description instead of slice once Node 10 is dropped
+    const prefix = String(id).slice(7, -1) || "symbol";
     for (let counter = 0; ; counter++) {
       const key = prefix + (counter > 0 ? ` #${counter}` : "");
       if (!usedKeysForSymbols.has(key)) {
