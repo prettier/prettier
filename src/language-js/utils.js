@@ -101,8 +101,7 @@ function hasNakedLeftSide(node) {
     node.type === "LogicalExpression" ||
     node.type === "NGPipeExpression" ||
     node.type === "ConditionalExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
+    isCallExpression(node) ||
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression" ||
     node.type === "SequenceExpression" ||
@@ -314,8 +313,7 @@ function isTemplateLiteral(node) {
  */
 function isAngularTestWrapper(node) {
   return (
-    (node.type === "CallExpression" ||
-      node.type === "OptionalCallExpression") &&
+    isCallExpression(node) &&
     node.callee.type === "Identifier" &&
     (node.callee.name === "async" ||
       node.callee.name === "inject" ||
@@ -938,11 +936,7 @@ function isSimpleCallArgument(node, depth) {
     return isChildSimple(node.source);
   }
 
-  if (
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "NewExpression"
-  ) {
+  if (isCallExpression(node) || node.type === "NewExpression") {
     return (
       isSimpleCallArgument(node.callee, depth) &&
       node.arguments.every(isChildSimple)

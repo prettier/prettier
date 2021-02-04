@@ -20,6 +20,7 @@ const {
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
+  isCallExpression,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -521,8 +522,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
-      ((enclosingNode.type === "CallExpression" ||
-        enclosingNode.type === "OptionalCallExpression" ||
+      ((isCallExpression(enclosingNode) ||
         enclosingNode.type === "NewExpression") &&
         enclosingNode.arguments.length === 0))
   ) {
@@ -645,8 +645,7 @@ function handleCallExpressionComments({
 }) {
   if (
     enclosingNode &&
-    (enclosingNode.type === "CallExpression" ||
-      enclosingNode.type === "OptionalCallExpression") &&
+    isCallExpression(enclosingNode) &&
     precedingNode &&
     enclosingNode.callee === precedingNode &&
     enclosingNode.arguments.length > 0
@@ -959,8 +958,7 @@ function willPrintOwnComments(path /*, options */) {
       (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
         (parent &&
-          (parent.type === "CallExpression" ||
-            parent.type === "OptionalCallExpression") &&
+          isCallExpression(parent) &&
           (hasFlowAnnotationComment(node.leadingComments) ||
             hasFlowAnnotationComment(node.trailingComments))))) ||
       (parent &&

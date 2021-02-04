@@ -10,6 +10,7 @@ const {
   startsWithNoLookaheadToken,
   shouldFlatten,
   getPrecedence,
+  isCallExpression,
 } = require("./utils");
 
 function needsParens(path, options) {
@@ -687,9 +688,7 @@ function needsParens(path, options) {
           // Preserve parens for compatibility with AngularJS expressions
           !(node.extra && node.extra.parenthesized)) ||
         parent.type === "ArrayExpression" ||
-        ((parent.type === "CallExpression" ||
-          parent.type === "OptionalCallExpression") &&
-          parent.arguments[name] === node) ||
+        (isCallExpression(parent) && parent.arguments[name] === node) ||
         (name === "right" && parent.type === "NGPipeExpression") ||
         (name === "property" && parent.type === "MemberExpression") ||
         parent.type === "AssignmentExpression"
@@ -709,7 +708,6 @@ function needsParens(path, options) {
           parent.type !== "AssignmentExpression" &&
           parent.type !== "AssignmentPattern" &&
           parent.type !== "BinaryExpression" &&
-          parent.type !== "CallExpression" &&
           parent.type !== "NewExpression" &&
           parent.type !== "ConditionalExpression" &&
           parent.type !== "ExpressionStatement" &&
@@ -720,7 +718,7 @@ function needsParens(path, options) {
           parent.type !== "JSXFragment" &&
           parent.type !== "LogicalExpression" &&
           parent.type !== "ObjectProperty" &&
-          parent.type !== "OptionalCallExpression" &&
+          !isCallExpression(parent) &&
           parent.type !== "Property" &&
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&

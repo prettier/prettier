@@ -505,8 +505,7 @@ function printJsxExpressionContainer(path, options, print) {
       (n.expression.type === "ArrayExpression" ||
         n.expression.type === "ObjectExpression" ||
         n.expression.type === "ArrowFunctionExpression" ||
-        n.expression.type === "CallExpression" ||
-        n.expression.type === "OptionalCallExpression" ||
+        isCallExpression(n.expression) ||
         n.expression.type === "FunctionExpression" ||
         n.expression.type === "TemplateLiteral" ||
         n.expression.type === "TaggedTemplateExpression" ||
