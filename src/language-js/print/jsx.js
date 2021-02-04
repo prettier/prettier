@@ -22,7 +22,7 @@ const {
   isJsxNode,
   rawText,
   isLiteral,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
   isStringLiteral,
   isBinaryish,
   hasComment,
@@ -451,7 +451,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   const shouldBreak = path.match(
     undefined,
     (node) => node.type === "ArrowFunctionExpression",
-    isCallOrOptionalCallExpression,
+    isCallExpression,
     (node) => node.type === "JSXExpressionContainer"
   );
 

@@ -567,7 +567,7 @@ function isTestCall(n, parent) {
  * @param {CallExpression | OptionalCallExpression} node
  * @returns {boolean}
  */
-function isCallOrOptionalCallExpression(node) {
+function isCallExpression(node) {
   return (
     node.type === "CallExpression" || node.type === "OptionalCallExpression"
   );
@@ -847,7 +847,7 @@ function isFunctionCompositionArgs(args) {
       if (count > 1) {
         return true;
       }
-    } else if (isCallOrOptionalCallExpression(arg)) {
+    } else if (isCallExpression(arg)) {
       for (const childArg of arg.arguments) {
         if (isFunctionOrArrowExpression(childArg)) {
           return true;
@@ -872,8 +872,8 @@ function isLongCurriedCallExpression(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   return (
-    isCallOrOptionalCallExpression(node) &&
-    isCallOrOptionalCallExpression(parent) &&
+    isCallExpression(node) &&
+    isCallExpression(parent) &&
     parent.callee === node &&
     node.arguments.length > parent.arguments.length &&
     parent.arguments.length > 0
@@ -1355,7 +1355,7 @@ module.exports = {
   isBlockComment,
   isLineComment,
   isPrettierIgnoreComment,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
