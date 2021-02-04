@@ -251,6 +251,17 @@ function shouldExtraIndentForConditionalExpression(path) {
     return true;
   }
 
+  /**
+   * foo = (
+   *   condition
+   *     ? first
+   *     : second
+   * )!;
+   */
+  if (parent.type === "TSNonNullExpression" && checkAncestor(chainRoot)) {
+    return true;
+  }
+
   return false;
 }
 

@@ -40,3 +40,11 @@ bifornCringerMoshedPerplexSawder =
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol
   ).Foo!.foo;
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)!;
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)!!!!!;

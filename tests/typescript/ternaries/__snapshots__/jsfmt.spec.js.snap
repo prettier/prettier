@@ -49,6 +49,14 @@ bifornCringerMoshedPerplexSawder =
     : anodyneCondosMalateOverateRetinol
   ).Foo!.foo;
 
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)!;
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)!!!!!;
+
 =====================================output=====================================
 foo = (
   callNode.parent?.type === AST_NODE_TYPES.ChainExpression
@@ -98,6 +106,18 @@ bifornCringerMoshedPerplexSawder =
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol
   ).Foo!.foo;
+
+foo = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)!;
+
+foo = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)!!!!!;
 
 ================================================================================
 `;
