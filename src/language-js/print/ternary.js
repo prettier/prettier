@@ -153,7 +153,7 @@ function printTernaryTest(path, options, print) {
   return printed;
 }
 
-function isMemberChainElement(node) {
+function isChainElement(node) {
   return (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression" ||
@@ -184,7 +184,7 @@ function shouldExtraIndentForConditionalExpression(path) {
 
   let ancestorCount = 1;
   let ancestor = path.getParentNode(ancestorCount);
-  while (isMemberChainElement(ancestor)) {
+  while (isChainElement(ancestor)) {
     ancestor = path.getParentNode(ancestorCount++);
   }
   if (ancestor.type === "BinaryExpression") {
@@ -237,9 +237,9 @@ function shouldExtraIndentForConditionalExpression(path) {
   ) {
     let memberChainRoot;
     let count = 0;
-    while (true) {
+    for (;;) {
       const memberChainElement = path.getParentNode(count++);
-      if (!isMemberChainElement(memberChainElement)) {
+      if (!isChainElement(memberChainElement)) {
         break;
       }
       memberChainRoot = memberChainElement;
