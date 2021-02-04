@@ -153,7 +153,23 @@ function printTernaryTest(path, options, print) {
   return printed;
 }
 
-const rightSideNodeNamesSet = new Set(["right", "init", "argument"]);
+function isMemberChainElement(node) {
+  return (
+    node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression" ||
+    node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "TSNonNullExpression"
+  );
+}
+
+const ancestorNameMap = new Map([
+  ["AssignmentExpression", "right"],
+  ["VariableDeclarator", "init"],
+  ["ReturnStatement", "argument"],
+  ["ThrowStatement", "argument"],
+  ["UnaryExpression", "argument"],
+]);
 function shouldExtraIndentForConditionalExpression(path) {
   const node = path.getValue();
   if (node.type !== "ConditionalExpression") {
@@ -167,16 +183,16 @@ function shouldExtraIndentForConditionalExpression(path) {
 
   let ancestorCount = 1;
   let ancestor = path.getParentNode(ancestorCount);
-  while (
-    ancestor.type === "MemberExpression" ||
-    ancestor.type === "OptionalMemberExpression" ||
-    ancestor.type === "TSNonNullExpression"
-  ) {
+  while (isMemberChainElement(ancestor)) {
     ancestor = path.getParentNode(ancestorCount++);
   }
   if (ancestor.type === "BinaryExpression") {
     return false;
   }
+  const checkAncestor = (node) => {
+    const name = ancestorNameMap.get(ancestor.type);
+    return ancestor[name] === node;
+  };
 
   const parent = path.getParentNode();
 
@@ -187,10 +203,7 @@ function shouldExtraIndentForConditionalExpression(path) {
    *     : second
    * ) as SomeType;
    */
-  if (
-    parent.type === "TSAsExpression" &&
-    rightSideNodeNamesSet.has(parentName)
-  ) {
+  if (parent.type === "TSAsExpression" && checkAncestor(parent)) {
     return true;
   }
 
@@ -204,7 +217,7 @@ function shouldExtraIndentForConditionalExpression(path) {
   if (
     (parent.type === "CallExpression" ||
       parent.type === "OptionalCallExpression") &&
-    rightSideNodeNamesSet.has(parentName) &&
+    checkAncestor(parent) &&
     path.getName() === "callee"
   ) {
     return true;
@@ -221,21 +234,16 @@ function shouldExtraIndentForConditionalExpression(path) {
     parent.type === "MemberExpression" ||
     parent.type === "OptionalMemberExpression"
   ) {
-    let ancestorName = parentName;
-    let ancestorType = path.getParentNode(1).type;
-    let ancestorCount = 0;
-    while (
-      ancestorName === "object" ||
-      ancestorName === "callee" ||
-      (ancestorType === "TSNonNullExpression" && ancestorName === "expression")
-    ) {
-      path.callParent((parentPath) => {
-        ancestorName = parentPath.getName();
-        ancestorType = parentPath.getParentNode().type;
-      }, ancestorCount);
-      ancestorCount++;
+    let memberChainRoot;
+    let count = 0;
+    while (true) {
+      const memberChainElement = path.getParentNode(count++);
+      if (!isMemberChainElement(memberChainElement)) {
+        break;
+      }
+      memberChainRoot = memberChainElement;
     }
-    if (rightSideNodeNamesSet.has(ancestorName)) {
+    if (checkAncestor(memberChainRoot)) {
       return true;
     }
   }
