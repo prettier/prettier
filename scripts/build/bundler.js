@@ -7,7 +7,7 @@ const webpack = require("webpack");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
-const rollupNodePolyfills = require("rollup-plugin-node-polyfills");
+const rollupPluginPolyfillNode = require("rollup-plugin-polyfill-node");
 const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
@@ -199,12 +199,12 @@ function getRollupConfig(bundle) {
       requireReturnsDefault: "preferred",
     }),
     externals(bundle.externals),
-    bundle.target === "universal" &&
-      rollupNodePolyfills({
-        sourceMap: false,
-        include: "**/*.js",
-        exclude: ["standalone.js"],
-      }),
+    bundle.target === "universal" && rollupPluginPolyfillNode(),
+    // rollupNodePolyfills({
+    //   sourceMap: false,
+    //   include: "**/*.js",
+    //   exclude: ["standalone.js"],
+    // }),
     babel(babelConfig),
     bundle.minify !== false &&
       bundle.target === "universal" &&
