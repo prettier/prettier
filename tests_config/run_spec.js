@@ -303,6 +303,7 @@ function runTest({
   }
 
   const isUnstableTest = isUnstable(filename, formatOptions);
+  let secondFormatResult;
   if (
     (formatResult.changed || isUnstableTest) &&
     // No range and cursor
@@ -310,10 +311,8 @@ function runTest({
   ) {
     test(`[${parser}] second format`, () => {
       const { eolVisualizedOutput: firstOutput, output } = formatResult;
-      const { eolVisualizedOutput: secondOutput } = format(
-        output,
-        formatOptions
-      );
+      secondFormatResult = format(output, formatOptions);
+      const { eolVisualizedOutput: secondOutput } = secondFormatResult;
       if (isUnstableTest) {
         // To keep eye on failed tests, this assert never supposed to pass,
         // if it fails, just remove the file from `unstableTests`
@@ -327,10 +326,10 @@ function runTest({
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
-      const { input, output } = formatResult;
-      const originalAst = parse(input, formatOptions);
-      const formattedAst = parse(output, formatOptions);
-      expect(formattedAst).toEqual(originalAst);
+      const formattedAst = secondFormatResult
+        ? secondFormatResult.cleanAst
+        : parse(formatResult.output, formatOptions);
+      expect(formattedAst).toEqual(formatResult.cleanAst);
     });
   }
 
@@ -431,10 +430,8 @@ function format(originalText, originalOptions) {
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
 
-  const { formatted: output, cursorOffset } = prettier.formatWithCursor(
-    input,
-    options
-  );
+  const result = prettier.formatWithCursor(input, options);
+  const { formatted: output, cursorOffset } = result;
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
 
@@ -448,6 +445,9 @@ function format(originalText, originalOptions) {
     output,
     outputWithCursor,
     eolVisualizedOutput,
+    get cleanAst() {
+      return result.cleanAst;
+    },
   };
 }
 
