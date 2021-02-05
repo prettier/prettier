@@ -7,6 +7,7 @@ const {
   isBlockComment,
   getComments,
   isChainElement,
+  isCallExpression,
   isMemberExpression,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
@@ -201,6 +202,8 @@ function shouldExtraIndentForConditionalExpression(path) {
     return true;
   }
 
+  const name = path.getName();
+
   /**
    * foo = new (
    *   condition
@@ -211,52 +214,19 @@ function shouldExtraIndentForConditionalExpression(path) {
   if (
     parent.type === "NewExpression" &&
     checkAncestor(parent) &&
-    path.getName() === "callee"
+    name === "callee"
   ) {
     return true;
   }
 
   const chainRoot = path.getParentNode(ancestorCount - 1);
-
-  /**
-   * foo = (
-   *   condition
-   *     ? first
-   *     : second
-   * )(arguments);
-   */
   if (
-    (parent.type === "CallExpression" ||
-      parent.type === "OptionalCallExpression") &&
+    isChainElement(parent) &&
     checkAncestor(chainRoot) &&
-    path.getName() === "callee"
+    ((isCallExpression(parent) && name === "callee") ||
+      (isMemberExpression(parent) && name === "object") ||
+      (parent.type === "TSNonNullExpression" && name === "expression"))
   ) {
-    return true;
-  }
-
-  /**
-   * foo = (
-   *   condition
-   *     ? first
-   *     : second
-   * ).member.chaining;
-   */
-  if (
-    (parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression") &&
-    checkAncestor(chainRoot)
-  ) {
-    return true;
-  }
-
-  /**
-   * foo = (
-   *   condition
-   *     ? first
-   *     : second
-   * )!;
-   */
-  if (parent.type === "TSNonNullExpression" && checkAncestor(chainRoot)) {
     return true;
   }
 
