@@ -45,7 +45,7 @@ const parsers = [
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
       "process.versions.node": "'999.999.999'",
-      // `rollup-plugin-polyfill-node` don't have a polyfill for these modules
+      // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
     },
