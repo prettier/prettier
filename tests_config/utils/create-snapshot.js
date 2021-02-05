@@ -38,45 +38,36 @@ function createSnapshot(
   formatResult,
   { parsers, formatOptions, CURSOR_PLACEHOLDER }
 ) {
+  let {
+    inputWithCursor: input,
+    outputWithCursor: output,
+    options: { rangeStart, rangeEnd, cursorOffset, printWidth },
+  } = formatResult;
+
   const hasEndOfLine = "endOfLine" in formatOptions;
-  let codeForSnapshot = formatResult.inputWithCursor;
   let codeOffset = 0;
-  let resultForSnapshot = formatResult.outputWithCursor;
-  const {
-    rangeStart,
-    rangeEnd,
-    cursorOffset,
-    printWidth,
-  } = formatResult.options;
 
   if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
-    let rangeStartWithCursor = rangeStart;
-    let rangeEndWithCursor = rangeEnd;
     if (typeof cursorOffset === "number") {
       if (
         typeof rangeStartWithCursor === "number" &&
-        rangeStartWithCursor > cursorOffset
+        rangeStart > cursorOffset
       ) {
-        rangeStartWithCursor += CURSOR_PLACEHOLDER.length;
+        rangeStart += CURSOR_PLACEHOLDER.length;
       }
-      if (
-        typeof rangeEndWithCursor === "number" &&
-        rangeEndWithCursor > cursorOffset
-      ) {
-        rangeEndWithCursor += CURSOR_PLACEHOLDER.length;
+
+      if (typeof rangeEndWithCursor === "number" && rangeEnd > cursorOffset) {
+        rangeEnd += CURSOR_PLACEHOLDER.length;
       }
     }
 
-    codeForSnapshot = visualizeRange(codeForSnapshot, {
-      rangeStart: rangeStartWithCursor,
-      rangeEnd: rangeEndWithCursor,
-    });
-    codeOffset = codeForSnapshot.match(/^>?\s+1 \|/)[0].length + 1;
+    input = visualizeRange(input, { rangeStart, rangeEnd });
+    codeOffset = input.match(/^>?\s+1 \|/)[0].length + 1;
   }
 
   if (hasEndOfLine) {
-    codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
-    resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
+    input = visualizeEndOfLine(input);
+    output = visualizeEndOfLine(output);
   }
 
   const separatorWidth = 80;
@@ -95,9 +86,9 @@ function createSnapshot(
       printOptions({ ...formatResult.options, parsers }),
       ...printWidthIndicator,
       printSeparator(separatorWidth, "input"),
-      codeForSnapshot,
+      input,
       printSeparator(separatorWidth, "output"),
-      resultForSnapshot,
+      output,
       printSeparator(separatorWidth),
     ].join("\n")
   );
