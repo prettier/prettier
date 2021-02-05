@@ -130,7 +130,8 @@ function getRollupConfig(bundle) {
         // ignore `MIXED_EXPORTS` warn
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
-          warning.importer.startsWith("node_modules"))
+          (warning.importer.startsWith("node_modules") ||
+            warning.importer.startsWith("polyfill-node:")))
       ) {
         return;
       }
