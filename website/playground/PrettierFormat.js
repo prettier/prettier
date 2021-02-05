@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 export default class PrettierFormat extends React.Component {
   constructor() {
@@ -11,7 +11,14 @@ export default class PrettierFormat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    for (const key of ["code", "options", "debugAst", "debugDoc", "reformat"]) {
+    for (const key of [
+      "code",
+      "options",
+      "debugAst",
+      "debugDoc",
+      "debugComments",
+      "reformat",
+    ]) {
       if (prevProps[key] !== this.props[key]) {
         this.format();
         break;
@@ -26,12 +33,13 @@ export default class PrettierFormat extends React.Component {
       options,
       debugAst: ast,
       debugDoc: doc,
-      reformat
+      debugComments: comments,
+      reformat,
     } = this.props;
 
     worker
-      .format(code, options, { ast, doc, reformat })
-      .then(result => this.setState(result));
+      .format(code, options, { ast, doc, comments, reformat })
+      .then((result) => this.setState(result));
   }
 
   render() {

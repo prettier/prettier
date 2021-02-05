@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constKeyword.ts 1`] = `
+exports[`constKeyword.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -12,7 +12,7 @@ const enum E { A, B, C }
 const enum E {
   A,
   B,
-  C
+  C,
 }
 
 ================================================================================

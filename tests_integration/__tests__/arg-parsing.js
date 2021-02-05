@@ -1,15 +1,16 @@
 "use strict";
 
 const runPrettier = require("../runPrettier");
+expect.addSnapshotSerializer(require("../path-serializer"));
 
 describe("boolean flags do not swallow the next argument", () => {
   runPrettier("cli/arg-parsing", [
     "--end-of-line",
     "lf",
     "--single-quote",
-    "file.js"
+    "file.js",
   ]).test({
-    status: 0
+    status: 0,
   });
 });
 
@@ -18,9 +19,9 @@ describe("negated options work", () => {
     "--end-of-line",
     "lf",
     "--no-semi",
-    "file.js"
+    "file.js",
   ]).test({
-    status: 0
+    status: 0,
   });
 });
 
@@ -29,9 +30,9 @@ describe("unknown options are warned", () => {
     "--end-of-line",
     "lf",
     "file.js",
-    "--unknown"
+    "--unknown",
   ]).test({
-    status: 0
+    status: 0,
   });
 });
 
@@ -40,31 +41,16 @@ describe("unknown negated options are warned", () => {
     "--end-of-line",
     "lf",
     "file.js",
-    "--no-unknown"
+    "--no-unknown",
   ]).test({
-    status: 0
+    status: 0,
   });
 });
 
-describe("deprecated options are warned", () => {
-  runPrettier("cli/arg-parsing", [
-    "--end-of-line",
-    "lf",
-    "file.js",
-    "--flow-parser"
-  ]).test({
-    status: 0
-  });
-});
-
-describe("deprecated option values are warned", () => {
-  runPrettier("cli/arg-parsing", [
-    "--end-of-line",
-    "lf",
-    "file.js",
-    "--trailing-comma"
-  ]).test({
-    status: 0
+describe("unknown options not suggestion `_`", () => {
+  runPrettier("cli/arg-parsing", ["file.js", "-a"]).test({
+    status: 0,
+    write: [],
   });
 });
 
@@ -75,6 +61,30 @@ describe("allow overriding flags", () => {
     { input: "function a() { b }" }
   ).test({
     stdout: "function a() {\n   b;\n}\n",
-    status: 0
+    status: 0,
+  });
+});
+
+describe("number file/dir", () => {
+  const patterns = ["1", "2.2", "3", "4.44"];
+  for (const pattern of patterns) {
+    runPrettier("cli/arg-parsing/number", [
+      "--parser=babel",
+      "--list-different",
+      pattern,
+    ]).test({
+      stderr: "",
+      status: 1,
+      write: [],
+    });
+  }
+  runPrettier("cli/arg-parsing/number", [
+    "--parser=babel",
+    "--list-different",
+    ...patterns,
+  ]).test({
+    stderr: "",
+    status: 1,
+    write: [],
   });
 });

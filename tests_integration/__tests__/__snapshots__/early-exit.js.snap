@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`node version error (stderr) 1`] = `
+"prettier requires at least version 10.13.0 of Node, please upgrade
+"
+`;
+
+exports[`node version error (stdout) 1`] = `""`;
+
+exports[`node version error (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help l (alias) (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
@@ -44,7 +53,7 @@ exports[`show detailed usage with plugin options (manual resolution) (write) 1`]
 exports[`show usage with --help (stderr) 1`] = `""`;
 
 exports[`show usage with --help (stdout) 1`] = `
-"Usage: prettier [options] [file/glob ...]
+"Usage: prettier [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
 Stdin is read if it is piped to Prettier and no files are given.
@@ -54,17 +63,20 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
-                           Defaults to avoid.
+                           Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
-  --end-of-line <auto|lf|crlf|cr>
-                           Which end of line characters to apply.
+  --embedded-language-formatting <auto|off>
+                           Control how Prettier formats quoted code embedded in the file.
                            Defaults to auto.
+  --end-of-line <lf|crlf|cr|auto>
+                           Which end of line characters to apply.
+                           Defaults to lf.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -72,7 +84,7 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -87,10 +99,13 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <none|es5|all>
+  --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
-                           Defaults to none.
+                           Defaults to es5.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
+  --vue-indent-script-and-style
+                           Indent script and style tags in Vue files.
                            Defaults to false.
 
 Config options:
@@ -131,11 +146,14 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --no-error-on-unmatched-pattern
+                           Prevent errors when pattern is unmatched.
   --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
                            * ignored (boolean) - true if file path is filtered by --ignore-path
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>
@@ -144,7 +162,6 @@ Other options:
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
-  --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
@@ -165,7 +182,7 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
 
   Which parser to use.
 
@@ -174,7 +191,10 @@ Valid options:
   flow             Flow
   babel            JavaScript
   babel-flow       Flow
+  babel-ts         TypeScript
   typescript       TypeScript
+  espree           JavaScript
+  meriyah          JavaScript
   css              CSS
   less             Less
   scss             SCSS
@@ -197,7 +217,7 @@ exports[`show warning with --help not-found (typo) (write) 1`] = `Array []`;
 exports[`throw error and show usage with something unexpected (stderr) 1`] = `""`;
 
 exports[`throw error and show usage with something unexpected (stdout) 1`] = `
-"Usage: prettier [options] [file/glob ...]
+"Usage: prettier [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
 Stdin is read if it is piped to Prettier and no files are given.
@@ -207,17 +227,20 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
-                           Defaults to avoid.
+                           Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
-  --end-of-line <auto|lf|crlf|cr>
-                           Which end of line characters to apply.
+  --embedded-language-formatting <auto|off>
+                           Control how Prettier formats quoted code embedded in the file.
                            Defaults to auto.
+  --end-of-line <lf|crlf|cr|auto>
+                           Which end of line characters to apply.
+                           Defaults to lf.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -225,7 +248,7 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -240,10 +263,13 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <none|es5|all>
+  --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
-                           Defaults to none.
+                           Defaults to es5.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
+  --vue-indent-script-and-style
+                           Indent script and style tags in Vue files.
                            Defaults to false.
 
 Config options:
@@ -284,11 +310,14 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --no-error-on-unmatched-pattern
+                           Prevent errors when pattern is unmatched.
   --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
                            * ignored (boolean) - true if file path is filtered by --ignore-path
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>
@@ -297,7 +326,6 @@ Other options:
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
-  --stdin                  Force reading input from stdin.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.

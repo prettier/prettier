@@ -1,52 +1,57 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const includeShebang = require("../common/parser-include-shebang");
-const hasPragma = require("./pragma").hasPragma;
-const locFns = require("./loc");
-const postprocess = require("./postprocess");
+const tryCombinations = require("../utils/try-combinations");
+const postprocess = require("./parse-postprocess");
+const createParser = require("./parser/create-parser");
+
+/** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
+const parseOptions = {
+  // `jest@<=26.4.2` rely on `loc`
+  // https://github.com/facebook/jest/issues/10444
+  loc: true,
+  range: true,
+  comment: true,
+  useJSXTextNode: true,
+  jsx: true,
+  tokens: true,
+  loggerFn: false,
+  project: [],
+};
+
+function createParseError(error) {
+  const { message, lineNumber, column } = error;
+
+  /* istanbul ignore next */
+  if (typeof lineNumber !== "number") {
+    return error;
+  }
+
+  return createError(message, {
+    start: { line: lineNumber, column: column + 1 },
+  });
+}
 
 function parse(text, parsers, opts) {
   const jsx = isProbablyJsx(text);
-  let ast;
-  try {
+
+  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
+  const { result, error: firstError } = tryCombinations(
     // Try passing with our best guess first.
-    ast = tryParseTypeScript(text, jsx);
-  } catch (firstError) {
-    try {
-      // But if we get it wrong, try the opposite.
-      ast = tryParseTypeScript(text, !jsx);
-    } catch (secondError) {
-      // suppose our guess is correct
-      const e = firstError;
+    () => parseWithNodeMaps(text, { ...parseOptions, jsx }),
+    // But if we get it wrong, try the opposite.
+    () => parseWithNodeMaps(text, { ...parseOptions, jsx: !jsx })
+  );
 
-      if (typeof e.lineNumber === "undefined") {
-        throw e;
-      }
-
-      throw createError(e.message, {
-        start: { line: e.lineNumber, column: e.column + 1 }
-      });
-    }
+  if (!result) {
+    // Suppose our guess is correct, throw the first error
+    throw createParseError(firstError);
   }
 
-  delete ast.tokens;
-  includeShebang(text, ast);
-  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
-}
-
-function tryParseTypeScript(text, jsx) {
-  const parser = require("@typescript-eslint/typescript-estree");
-  return parser.parse(text, {
-    loc: true,
-    range: true,
-    tokens: true,
-    comment: true,
-    useJSXTextNode: true,
-    jsx,
-    // Override logger function with noop,
-    // to avoid unsupported version errors being logged
-    loggerFn: () => {}
+  return postprocess(result.ast, {
+    ...opts,
+    originalText: text,
+    tsParseResult: result,
   });
 }
 
@@ -58,17 +63,15 @@ function isProbablyJsx(text) {
     [
       "(^[^\"'`]*</)", // Contains "</" when probably not in a string
       "|",
-      "(^[^/]{2}.*/>)" // Contains "/>" on line not starting with "//"
+      "(^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
     "m"
   ).test(text);
 }
 
-const parser = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
-
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    typescript: parser
-  }
+    typescript: createParser(parse),
+  },
 };

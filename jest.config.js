@@ -1,49 +1,73 @@
 "use strict";
 
-const ENABLE_TEST_RESULTS = !!process.env.ENABLE_TEST_RESULTS;
-const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
+const installPrettier = require("./scripts/install-prettier");
 
-const requiresPrettierInternals = [
-  "tests_integration/__tests__/util-shared.js",
-  "tests_integration/__tests__/help-options.js"
-];
+const isProduction = process.env.NODE_ENV === "production";
+const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
+if (isProduction || process.env.INSTALL_PACKAGE) {
+  process.env.PRETTIER_DIR = installPrettier();
+}
+const { TEST_STANDALONE } = process.env;
 
-const semver = require("semver");
-const isOldNode = semver.parse(process.version).major <= 4;
+const testPathIgnorePatterns = [];
+let transform;
+if (TEST_STANDALONE) {
+  testPathIgnorePatterns.push("<rootDir>/tests_integration/");
+}
+if (isProduction) {
+  // `esm` bundles need transform
+  transform = {
+    "(?:\\.mjs|codeSamples\\.js)$": [
+      "babel-jest",
+      {
+        presets: [
+          [
+            "@babel/env",
+            {
+              targets: { node: "current" },
+              exclude: [
+                "transform-async-to-generator",
+                "transform-classes",
+                "proposal-async-generator-functions",
+                "transform-regenerator",
+              ],
+            },
+          ],
+        ],
+      },
+    ],
+  };
+} else {
+  // Only test bundles for production
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests_integration/__tests__/bundle.js"
+  );
+}
 
 module.exports = {
-  setupFiles: ["<rootDir>/tests_config/run_spec.js"],
+  setupFiles: ["<rootDir>/tests_config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
-    "jest-snapshot-serializer-ansi"
+    "jest-snapshot-serializer-ansi",
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"].concat(
-    isOldNode ? requiresPrettierInternals : []
-  ),
+  testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
-  collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
+  collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [
-    "<rootDir>/standalone.js",
-    "<rootDir>/src/doc/doc-debug.js",
-    "<rootDir>/src/main/massage-ast.js"
+    "<rootDir>/src/standalone.js",
+    "<rootDir>/src/document/doc-debug.js",
   ],
-  coverageReporters: ["text", "html", "cobertura"],
+  coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
-    // `graceful-fs` does `require('fs')`.
-    // Ref: https://github.com/facebook/jest/issues/2179#issuecomment-355231418
-    // If this is removed, see also scripts/build/build.js.
-    "graceful-fs": "<rootDir>/tests_config/fs.js",
-
-    "prettier/local": "<rootDir>/tests_config/require_prettier.js",
-    "prettier/standalone": "<rootDir>/tests_config/require_standalone.js"
+    "prettier-local": "<rootDir>/tests_config/require_prettier.js",
+    "prettier-standalone": "<rootDir>/tests_config/require_standalone.js",
   },
+  modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website/static/lib"],
   testEnvironment: "node",
-  transform: {},
+  transform,
   watchPlugins: [
     "jest-watch-typeahead/filename",
-    "jest-watch-typeahead/testname"
+    "jest-watch-typeahead/testname",
   ],
-  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : [])
 };

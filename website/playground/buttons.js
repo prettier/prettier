@@ -1,13 +1,9 @@
-import React from "react";
+import * as React from "react";
 import ClipboardJS from "clipboard";
 
 export const Button = React.forwardRef((props, ref) => (
   <button type="button" className="btn" ref={ref} {...props} />
 ));
-
-export function LinkButton(props) {
-  return <a className="btn" {...props} />;
-}
 
 export class ClipboardButton extends React.Component {
   constructor() {
@@ -22,7 +18,7 @@ export class ClipboardButton extends React.Component {
       text: () => {
         const { copy } = this.props;
         return typeof copy === "function" ? copy() : copy;
-      }
+      },
     });
     this.clipboard.on("success", () => this.showTooltip("Copied!"));
     this.clipboard.on("error", () => this.showTooltip("Press ctrl+c to copy"));
@@ -41,16 +37,13 @@ export class ClipboardButton extends React.Component {
   }
 
   render() {
-    const rest = Object.assign({}, this.props);
-    delete rest.children;
-    delete rest.copy;
+    const { children, copy, ...rest } = this.props;
+    const { showTooltip, tooltipText } = this.state;
 
     return (
       <Button ref={this.ref} {...rest}>
-        {this.state.showTooltip ? (
-          <span className="tooltip">{this.state.tooltipText}</span>
-        ) : null}
-        {this.props.children}
+        {showTooltip ? <span className="tooltip">{tooltipText}</span> : null}
+        {children}
       </Button>
     );
   }

@@ -1,7 +1,8 @@
-export default function(parser) {
+export default function (parser) {
   switch (parser) {
     case "babel":
-    case "babylon": // backward compatibility
+    case "espree":
+    case "meriyah":
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",
@@ -23,9 +24,10 @@ export default function(parser) {
         "",
         "    </div>;",
         "",
-        "}"
+        "}",
       ].join("\n");
     case "flow":
+    case "babel-flow":
       return [
         "declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>",
         "  (query: GQLDocument, config?: Config<Props, QueryConfigOptions<Variables>>):",
@@ -34,9 +36,10 @@ export default function(parser) {
         "    mutate: Function|void",
         "  }>>",
         "",
-        'declare type FetchPolicy = "cache-first" | "cache-and-network" | "network-only" | "cache-only"'
+        'declare type FetchPolicy = "cache-first" | "cache-and-network" | "network-only" | "cache-only"',
       ].join("\n");
     case "typescript":
+    case "babel-ts":
       return [
         "interface MyInterface {",
         "  foo(): string,",
@@ -56,7 +59,7 @@ export default function(parser) {
         "  }",
         "}",
         "",
-        "type RequestType = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'OPTIONS' | 'CONNECT' | 'DELETE' | 'TRACE'"
+        "type RequestType = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'OPTIONS' | 'CONNECT' | 'DELETE' | 'TRACE'",
       ].join("\n");
     case "css":
       // Excerpted from the Bootstrap source, which is licensed under the MIT license:
@@ -71,7 +74,7 @@ export default function(parser) {
         "    padding-left: .75rem;",
         "  ",
         "  }",
-        "}"
+        "}",
       ].join("\n");
     case "scss":
       // Excerpted from the Bootstrap source, which is licensed under the MIT license:
@@ -94,7 +97,7 @@ export default function(parser) {
         "    color: color-yiq($value);",
         "    background-color: #{$value};",
         "  }",
-        "}"
+        "}",
       ].join("\n");
     case "less":
       // Copied from http://lesscss.org/features/#detached-rulesets-feature
@@ -108,7 +111,7 @@ export default function(parser) {
         "  };",
         "@media (orientation:portrait) {",
         "    @my-ruleset();",
-        "}"
+        "}",
       ].join("\n");
     case "json":
     case "json5":
@@ -128,7 +131,7 @@ export default function(parser) {
         '    {"type": "office",',
         '      "trailing": "commas by accident"},',
         "  ],",
-        "}"
+        "}",
       ].join("\n");
     case "graphql":
       return [
@@ -140,7 +143,7 @@ export default function(parser) {
         "        price",
         "    }",
         "  }",
-        "}"
+        "}",
       ].join("\n");
     case "markdown":
       return [
@@ -168,7 +171,7 @@ export default function(parser) {
         "  [another one]:  http://example.com 'Example title'",
         "",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "Curabitur consectetur maximus risus, sed maximus tellus tincidunt et."
+        "Curabitur consectetur maximus risus, sed maximus tellus tincidunt et.",
       ].join("\n");
     case "mdx":
       // modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx/test/fixtures/blog-post.md
@@ -194,7 +197,7 @@ export default function(parser) {
         "<Foo bg='red'>",
         "      <Bar    >hi    </Bar>",
         "       {  hello       }",
-        "       {     /* another commment */}",
+        "       {     /* another comment */}",
         "</Foo>",
         "",
         "```",
@@ -214,7 +217,7 @@ export default function(parser) {
         "|   Col1  | Col2    |",
         "",
         "export   default     ({children   }) => < div>{    children}</div>",
-        ""
+        "",
       ].join("\n");
     case "vue":
       return [
@@ -229,7 +232,7 @@ export default function(parser) {
         "",
         "<style>",
         ".and { css: too !important }",
-        "</style>"
+        "</style>",
       ].join("\n");
     case "yaml":
       // modified from http://yaml.org/start.html
@@ -272,7 +275,7 @@ export default function(parser) {
         "    Late afternoon is best.",
         "    Backup contact is Nancy",
         "    Billsmer @ 338-4338.",
-        ""
+        "",
       ].join("\n");
     case "glimmer":
       // modified from http://handlebarsjs.com/
@@ -281,7 +284,7 @@ export default function(parser) {
         "  <h1>{{  title    }}</h1>",
         '  <div   class="body">',
         "            {{   body         }}",
-        "</div> </div>"
+        "</div> </div>",
       ].join("\n");
     case "html":
     case "angular":
@@ -302,7 +305,7 @@ export default function(parser) {
         "    </SCRIPT>",
         '    <SCRIPT src="https://www.google-analytics.com/analytics.js" ASYNC DEFER></SCRIPT>',
         "  </body>",
-        "</HTML>"
+        "</HTML>",
       ].join("\n");
     default:
       return "";

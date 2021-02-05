@@ -1,6 +1,6 @@
 html body {
-  font-family: "Apple SD Gothic Neo", "AppleSDGothicNeo", -apple-system,
-    BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   overflow-x: hidden;
 }
@@ -14,6 +14,19 @@ em {
 .inner .projectIntro a:hover,
 .inner .projectIntro a:focus {
   text-decoration: underline;
+}
+
+.tidelift {
+  background: #f6914d url(/images/tidelift-small.png) 10px center no-repeat;
+  background-size: 24px;
+  color: #000000;
+  position: absolute;
+  margin-top: -15px;
+  right: 0;
+  font-size: 13px;
+  border-radius: 13px 0 0px 13px;
+  padding: 7px 15px 5px 45px;
+  z-index: 9999 !important;
 }
 
 /* Note: CSS on body bg-color for index page is set inside landing.js, not here */
@@ -87,6 +100,7 @@ em {
 
 .homeContainer {
   background: #1a2b34;
+  padding-top: 30px;
 }
 
 .mainContainer.landingContainer {
@@ -136,7 +150,7 @@ em {
 .mainContainer .tldrSection ul li {
   list-style: none;
   list-style-position: inside;
-  line-height: 1.0;
+  line-height: 1;
 }
 
 .mainContainer .tldrSection ul li a {
@@ -363,7 +377,10 @@ em {
 .usersSection a:hover {
   color: white !important;
 }
-
+.usersSection .alignCenter {
+  display: flex;
+  align-items: center;
+}
 .usersSection p {
   font-size: 1em;
   margin: 4px;
@@ -375,7 +392,7 @@ em {
 }
 
 .usersSection .user {
-  height: 100px;
+  max-height: 100px;
   width: 200px;
   flex-grow: 1;
   padding: 1em;
@@ -387,7 +404,7 @@ em {
 
 @media only screen and (max-width: 736px) {
   .usersSection .user {
-    height: 50px !important;
+    max-height: 50px !important;
     width: 100px !important;
   }
 }
@@ -410,10 +427,6 @@ em {
 
 .growOnHover:hover {
   transform: scale(1.2);
-}
-
-.footerSection {
-  background: #1a2b34 !important;
 }
 
 .mainContainer .wrapper .post h2 {
@@ -500,6 +513,10 @@ a {
   margin-top: 10px;
 }
 
+.mainContainer .wrapper .post h5 {
+  font-size: 1.125em;
+}
+
 .hljs {
   padding: 16px;
   overflow: auto;
@@ -555,4 +572,19 @@ a {
 .hljs-selector-pseudo,
 .hljs-comment {
   color: #cda144;
+}
+
+.showcaseSection .logos img {
+  max-height: 64px;
+}
+
+/* DOCUSAURUS_CODE_TABS */
+.tabs {
+  border-top: none;
+}
+.nav-tabs {
+  border-bottom: none;
+}
+.tabs .nav-tabs > div {
+  padding: 4px 12px;
 }

@@ -1,13 +1,13 @@
 "use strict";
 
-const pkg = require("../package.json");
 const chalk = require("chalk");
+const pkg = require("../package.json");
 
 validateDependencyObject(pkg.dependencies);
 validateDependencyObject(pkg.devDependencies);
 
 function validateDependencyObject(object) {
-  Object.keys(object).forEach(key => {
+  for (const key of Object.keys(object)) {
     if (object[key][0] === "^" || object[key][0] === "~") {
       console.error(
         chalk.red("error"),
@@ -15,5 +15,5 @@ function validateDependencyObject(object) {
       );
       process.exitCode = 1;
     }
-  });
+  }
 }

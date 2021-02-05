@@ -4,23 +4,49 @@ title: CLI
 original_id: cli
 ---
 
-Run Prettier through the CLI with this script. Run it without any arguments to see the [options](options.md).
-
-To format a file in-place, use `--write`. You may want to consider committing your code before doing that, just in case.
+Use the `prettier` command to run Prettier from the command line.
 
 ```bash
-prettier [opts] [filename ...]
+prettier [options] [file/dir/glob ...]
 ```
+
+> To run your locally installed version of Prettier, prefix the command with `npx` or `yarn` (if you use Yarn), i.e. `npx prettier --help`, or `yarn prettier --help`.
+
+To format a file in-place, use `--write`. (Note: This overwrites your files!)
 
 In practice, this may look something like:
 
 ```bash
-prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
+prettier --write .
 ```
 
-Don't forget the quotes around the globs! The quotes make sure that Prettier expands the globs rather than your shell, for cross-platform usage. The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer) is used.
+This command formats all files supported by Prettier in the current directory and its subdirectories.
 
-Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+It’s recommended to always make sure that `prettier --write .` only formats what you want in your project. Use a [.prettierignore](ignore.md) file to ignore things that should not be formatted.
+
+A more complicated example:
+
+```bash
+prettier --single-quote --trailing-comma all --write docs package.json "{app,__{tests,mocks}__}/**/*.js"
+```
+
+> Don’t forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
+
+> It’s better to use a [configuration file](configuration.md) for formatting options like `--single-quote` and `--trailing-comma` instead of passing them as CLI flags. This way the Prettier CLI, [editor integrations](editors.md), and other tooling can all know what options you use.
+
+## File patterns
+
+Given a list of paths/patterns, the Prettier CLI first treats every entry in it as a literal path.
+
+- If the path points to an existing file, Prettier CLI proceeds with that file and doesn’t resolve the path as a glob pattern.
+
+- If the path points to an existing directory, Prettier CLI recursively finds supported files in that directory. This resolution process is based on file extensions and well-known file names that Prettier and its [plugins](plugins.md) associate with supported languages.
+
+- Otherwise, the entry is resolved as a glob pattern using the [glob syntax from the `fast-glob` module](https://github.com/mrmlnc/fast-glob#pattern-syntax).
+
+Prettier CLI will ignore files located in `node_modules` directory. To opt out from this behavior use `--with-node-modules` flag.
+
+To escape special characters in globs, one of the two escaping syntaxes can be used: `prettier "\[my-dir]/*.js"` or `prettier "[[]my-dir]/*.js"`. Both match all JS files in a directory named `[my-dir]`, however the latter syntax is preferable as the former doesn’t work on Windows, where backslashes are treated as path separators.
 
 ## `--check`
 
@@ -33,18 +59,18 @@ prettier --check "src/**/*.js"
 
 Console output if all files are formatted:
 
-```
+```console
 Checking formatting...
 All matched files use Prettier code style!
 ```
 
 Console output if some of the files require re-formatting:
 
-```
+```console
 Checking formatting...
-src/fileA.js
-src/fileB.js
-Code style issues found in the above file(s). Forgot to run Prettier?
+[warn] src/fileA.js
+[warn] src/fileB.js
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
 ```
 
 The command will return exit code 1 in the second case, which is helpful inside the CI pipelines.
@@ -52,7 +78,15 @@ Human-friendly status messages help project contributors react on possible probl
 To minimise the number of times `prettier --check` finds unformatted files, you may be interested in configuring a [pre-commit hook](precommit.md) in your repo.
 Applying this practice will minimise the number of times the CI fails because of code formatting problems.
 
-If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#list-different) flag instead of `--check`.
+If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#--list-different) flag instead of `--check`.
+
+### Exit codes
+
+| Code | Information                         |
+| ---- | ----------------------------------- |
+| 0    | Everything formatted properly       |
+| 1    | Something wasn’t formatted properly |
+| 2    | Something’s wrong with Prettier     |
 
 ## `--debug-check`
 
@@ -60,7 +94,7 @@ If you're worried that Prettier will change the correctness of your code, add `-
 
 ## `--find-config-path` and `--config`
 
-If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost when prettier attempts to look up a [configuration file](configuration.md). In order to skip this, you may ask prettier to find the config file once, and re-use it later on.
+If you are repeatedly formatting individual files with `prettier`, you will incur a small performance cost when Prettier attempts to look up a [configuration file](configuration.md). In order to skip this, you may ask Prettier to find the config file once, and re-use it later on.
 
 ```bash
 prettier --find-config-path ./my/file.js
@@ -73,17 +107,17 @@ This will provide you with a path to the configuration file, which you can pass 
 prettier --config ./my/.prettierrc --write ./my/file.js
 ```
 
-You can also use `--config` if your configuration file lives somewhere where prettier cannot find it, such as a `config/` directory.
+You can also use `--config` if your configuration file lives somewhere where Prettier cannot find it, such as a `config/` directory.
 
-If you don't have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
+If you don’t have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
 
 ## `--ignore-path`
 
-Path to a file containing patterns that describe files to ignore. By default, prettier looks for `./.prettierignore`.
+Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.prettierignore`.
 
 ## `--require-pragma`
 
-Require a special comment, called a pragma, to be present in the file's first docblock comment in order for prettier to format it.
+Require a special comment, called a pragma, to be present in the file’s first docblock comment in order for Prettier to format it.
 
 ```js
 /**
@@ -105,7 +139,7 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 prettier --single-quote --list-different "src/**/*.js"
 ```
 
-You can also use [`--check`](cli.md#check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
+You can also use [`--check`](cli.md#--check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
 
 ## `--no-config`
 
@@ -131,7 +165,7 @@ This option adds support to editor integrations where users define their default
 
 ## `--no-editorconfig`
 
-Don't take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
+Don’t take .editorconfig into account when parsing configuration. See the [`prettier.resolveConfig` docs](api.md) for details.
 
 ## `--with-node-modules`
 
@@ -139,7 +173,7 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 
 ## `--write`
 
-This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow.
+This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow. You can also use `-w` alias.
 
 ## `--loglevel`
 
@@ -165,9 +199,17 @@ _abc.css_
 
 _shell_
 
-```bash
+```console
 $ cat abc.css | prettier --stdin-filepath abc.css
 .name {
   display: none;
 }
+```
+
+## `--ignore-unknown`
+
+With `--ignore-unknown` (or `-u`), prettier will ignore unknown files matched by patterns.
+
+```console
+$ prettier "**/*" --write --ignore-unknown
 ```

@@ -8,23 +8,20 @@
  */
 
 const React = require("react");
-const CompLibrary = require("../../core/CompLibrary");
-const Container = CompLibrary.Container;
+const { Container } = require("../../core/CompLibrary");
 
 const CWD = process.cwd();
 
 const versions = require(`${CWD}/versions.json`);
 
 const rootPackageJson = require(`${CWD}/../package.json`);
-const masterVersion = rootPackageJson.version;
-const isMasterDevVersion = masterVersion.endsWith("-dev");
-const devVersion = isMasterDevVersion ? masterVersion : null;
-const latestVersion = isMasterDevVersion
+const defaultBranchVersion = rootPackageJson.version;
+const isDefaultBranchDevVersion = defaultBranchVersion.endsWith("-dev");
+const devVersion = isDefaultBranchDevVersion ? defaultBranchVersion : null;
+const latestVersion = isDefaultBranchDevVersion
   ? rootPackageJson.devDependencies.prettier
-  : masterVersion;
-
-const latestDocsVersion = versions[0];
-const pastDocsVersions = versions.slice(1);
+  : defaultBranchVersion;
+const [latestDocsVersion, ...pastDocsVersions] = versions;
 
 function Versions(props) {
   const { config: siteConfig } = props;
@@ -63,10 +60,10 @@ function Versions(props) {
                   <a href={`${siteConfig.baseUrl}docs/en/next/index.html`}>
                     next
                   </a>{" "}
-                  (master)
+                  (main)
                 </td>
               </tr>
-              {pastDocsVersions.length !== 0 &&
+              {pastDocsVersions.length > 0 &&
                 pastDocsVersions.map((pastDocsVersion, index) => {
                   const pastMajorVersion = pastDocsVersion.replace(/^v/, "");
                   return (
@@ -80,9 +77,7 @@ function Versions(props) {
                       </td>
                       <td>
                         <a
-                          href={`${
-                            siteConfig.baseUrl
-                          }docs/en/${pastDocsVersion}/index.html`}
+                          href={`${siteConfig.baseUrl}docs/en/${pastDocsVersion}/index.html`}
                         >
                           {pastDocsVersion}
                         </a>
