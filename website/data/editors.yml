@@ -9,10 +9,15 @@
   content: |
     [`prettier-js`](https://github.com/prettier/prettier-emacs)
     [`prettier.el`](https://github.com/jscheid/prettier.el)
+    [`Apheleia`](https://github.com/raxod502/apheleia)
 - image: /images/editors/editor_espresso.svg
   name: Espresso
   content: |
     [`espresso-prettier`](https://github.com/eablokker/espresso-prettier)
+- image: /images/editors/editor_nova.svg
+  name: Nova
+  content: |
+    [`Prettier`](https://extensions.panic.com/extensions/alexanderweiss/alexanderweiss.prettier)
 - image: /images/editors/editor_sublime.svg
   name: Sublime Text
   content: |

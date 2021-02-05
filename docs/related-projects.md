@@ -28,8 +28,10 @@ title: Related Projects
 
 ## Misc
 
+- [parallel-prettier](https://github.com/microsoft/parallel-prettier) is an alternative CLI that formats files in parallel to speed up large projects
 - [prettier_d](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay
 - [pretty-quick](https://github.com/azz/pretty-quick) formats changed files with Prettier
 - [rollup-plugin-prettier](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup
 - [jest-runner-prettier](https://github.com/keplersj/jest-runner-prettier) is Prettier as a Jest runner
 - [prettier-chrome](https://github.com/u3u/prettier-chrome) is an extension that runs Prettier in the browser
+- [spotless](https://github.com/diffplug/spotless) lets you run prettier from [gradle](https://github.com/diffplug/spotless/tree/main/plugin-gradle#prettier) or [maven](https://github.com/diffplug/spotless/tree/main/plugin-maven#prettier).

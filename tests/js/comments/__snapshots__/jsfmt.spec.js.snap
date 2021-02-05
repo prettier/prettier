@@ -1076,6 +1076,71 @@ render?.(
 ================================================================================
 `;
 
+exports[`class.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// #8718
+class C {
+    ma() {} /* D */ /* E */
+    mb() {}
+}
+
+class D {
+    ma() {} /* D */ /* E */ /* F */
+    mb() {}
+}
+
+=====================================output=====================================
+// #8718
+class C {
+  ma() {} /* D */ /* E */
+  mb() {}
+}
+
+class D {
+  ma() {} /* D */ /* E */ /* F */
+  mb() {}
+}
+
+================================================================================
+`;
+
+exports[`class.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #8718
+class C {
+    ma() {} /* D */ /* E */
+    mb() {}
+}
+
+class D {
+    ma() {} /* D */ /* E */ /* F */
+    mb() {}
+}
+
+=====================================output=====================================
+// #8718
+class C {
+  ma() {} /* D */ /* E */
+  mb() {}
+}
+
+class D {
+  ma() {} /* D */ /* E */ /* F */
+  mb() {}
+}
+
+================================================================================
+`;
+
 exports[`dangling.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -1093,8 +1158,6 @@ function d() {
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
-Thing?.(/* dangling */);
-declare class Foo extends Qux<string> {/* dangling */}
 export /* dangling */{};
 
 =====================================output=====================================
@@ -1112,11 +1175,7 @@ function d() {
 }
 new Thing(/* dangling */)
 Thing(/* dangling */)
-Thing?.(/* dangling */)
-declare class Foo extends Qux<string> {
-  /* dangling */
-}
-export /* dangling */{}
+export /* dangling */ {}
 
 ================================================================================
 `;
@@ -1137,8 +1196,6 @@ function d() {
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
-Thing?.(/* dangling */);
-declare class Foo extends Qux<string> {/* dangling */}
 export /* dangling */{};
 
 =====================================output=====================================
@@ -1156,11 +1213,7 @@ function d() {
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
-Thing?.(/* dangling */);
-declare class Foo extends Qux<string> {
-  /* dangling */
-}
-export /* dangling */{};
+export /* dangling */ {};
 
 ================================================================================
 `;
@@ -1423,9 +1476,9 @@ export {
 
 =====================================output=====================================
 export //comment
-{}
+ {}
 
-export /* comment */{}
+export /* comment */ {}
 
 const foo = ""
 export {
@@ -1479,9 +1532,9 @@ export {
 
 =====================================output=====================================
 export //comment
-{};
+ {};
 
-export /* comment */{};
+export /* comment */ {};
 
 const foo = "";
 export {
@@ -2099,6 +2152,282 @@ if (14) {
 ================================================================================
 `;
 
+exports[`issue-3532.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+import React from 'react';
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float *//*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({
+  aspectRatio,
+  children,
+  ...props
+}) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${props => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+);
+
+export default AspectRatioBox;
+
+=====================================output=====================================
+import React from "react"
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float */ /*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({ aspectRatio, children, ...props }) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${(props) => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+)
+
+export default AspectRatioBox
+
+================================================================================
+`;
+
+exports[`issue-3532.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import React from 'react';
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float *//*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({
+  aspectRatio,
+  children,
+  ...props
+}) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${props => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+);
+
+export default AspectRatioBox;
+
+=====================================output=====================================
+import React from "react";
+
+/*
+import styled from 'react-emotion';
+
+const AspectRatioBox = styled.div\`
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: \${props => 100 / props.aspectRatio}%;
+  }
+
+  &::after {
+    /* To clear float */ /*
+    content: '';
+    display: table;
+    clear: both;
+  }
+\`;
+*/
+
+const AspectRatioBox = ({ aspectRatio, children, ...props }) => (
+  <div
+    className={\`height: 0;
+  overflow: hidden;
+  padding-top: \${(props) => 100 / props.aspectRatio}%;
+  background: white;
+  position: relative;\`}
+  >
+    <div>{children}</div>
+  </div>
+);
+
+export default AspectRatioBox;
+
+================================================================================
+`;
+
+exports[`issue-7724.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+=====================================output=====================================
+const foo = "Bar"
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ */ /**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value)
+  } else {
+    return new Value(type)
+  }
+}
+
+================================================================================
+`;
+
+exports[`issue-7724.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ *//**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+=====================================output=====================================
+const foo = "Bar";
+
+/**
+ * @template T
+ * @param {Type} type
+ * @param {T} value
+ * @return {Value}
+ */ /**
+ * @param {Type} type
+ * @return {Value}
+ */
+function value(type, value) {
+  if (arguments.length === 2) {
+    return new ConcreteValue(type, value);
+  } else {
+    return new Value(type);
+  }
+}
+
+================================================================================
+`;
+
 exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -2108,12 +2437,6 @@ semi: false
 =====================================input======================================
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
-
-function f(
-  someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType,
-  // Trailing comment should stay after
-) {}
 
 // Comments should either stay at the end of the line or always before, but
 // not one before and one after.
@@ -2187,12 +2510,6 @@ foo({}
 =====================================output=====================================
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b)
-
-function f(
-  someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType
-  // Trailing comment should stay after
-) {}
 
 // Comments should either stay at the end of the line or always before, but
 // not one before and one after.
@@ -2272,12 +2589,6 @@ printWidth: 80
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
-function f(
-  someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType,
-  // Trailing comment should stay after
-) {}
-
 // Comments should either stay at the end of the line or always before, but
 // not one before and one after.
 throw new ProcessSystemError({
@@ -2350,12 +2661,6 @@ foo({}
 =====================================output=====================================
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
-
-function f(
-  someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType
-  // Trailing comment should stay after
-) {}
 
 // Comments should either stay at the end of the line or always before, but
 // not one before and one after.
@@ -3043,59 +3348,6 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-type f1 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => number;
-
-f2 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-): number => {};
-
-f3 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => {};
-
-f4 = function(
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) {};
-
-class X {
-  f(
-    currentRequest: {a: number},
-    // TODO this is a very very very very long comment that makes it go > 80 columns
-  ) {}
-}
-
-function f5(
-  a: number
-// some comment here
-): number {
-  return a + 1;
-}
-
-var x = {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {
-  }
-}
-
-class X2 {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ['unknown']
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {
-  }
-}
 
 class Foo {
   a(lol /*string*/) {}
@@ -3139,58 +3391,6 @@ class Foo {
 }
 
 =====================================output=====================================
-type f1 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => number
-
-f2 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-): number => {}
-
-f3 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => {}
-
-f4 = function (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) {}
-
-class X {
-  f(
-    currentRequest: { a: number }
-    // TODO this is a very very very very long comment that makes it go > 80 columns
-  ) {}
-}
-
-function f5(
-  a: number
-  // some comment here
-): number {
-  return a + 1
-}
-
-var x = {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {},
-}
-
-class X2 {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {}
-}
-
 class Foo {
   a(lol /*string*/) {}
 
@@ -3235,59 +3435,6 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type f1 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => number;
-
-f2 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-): number => {};
-
-f3 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => {};
-
-f4 = function(
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) {};
-
-class X {
-  f(
-    currentRequest: {a: number},
-    // TODO this is a very very very very long comment that makes it go > 80 columns
-  ) {}
-}
-
-function f5(
-  a: number
-// some comment here
-): number {
-  return a + 1;
-}
-
-var x = {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {
-  }
-}
-
-class X2 {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ['unknown']
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {
-  }
-}
 
 class Foo {
   a(lol /*string*/) {}
@@ -3331,58 +3478,6 @@ class Foo {
 }
 
 =====================================output=====================================
-type f1 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => number;
-
-f2 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-): number => {};
-
-f3 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => {};
-
-f4 = function (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) {};
-
-class X {
-  f(
-    currentRequest: { a: number }
-    // TODO this is a very very very very long comment that makes it go > 80 columns
-  ) {}
-}
-
-function f5(
-  a: number
-  // some comment here
-): number {
-  return a + 1;
-}
-
-var x = {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {},
-};
-
-class X2 {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {}
-}
-
 class Foo {
   a(lol /*string*/) {}
 
@@ -3417,6 +3512,525 @@ class Foo {
     lol4 /*string*/
   ) {} /* string*/
 }
+
+================================================================================
+`;
+
+exports[`multi-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// #8323
+
+import { MapViewProps } from 'react-native-maps'; /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from 'typescript';
+
+x; /*
+1 */ /* 2 */
+
+y
+
+x; /*1*//*2*/
+y;
+
+=====================================output=====================================
+// #8323
+
+import { MapViewProps } from "react-native-maps" /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from "typescript"
+
+x /*
+1 */ /* 2 */
+
+y
+
+x /*1*/ /*2*/
+y
+
+================================================================================
+`;
+
+exports[`multi-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #8323
+
+import { MapViewProps } from 'react-native-maps'; /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from 'typescript';
+
+x; /*
+1 */ /* 2 */
+
+y
+
+x; /*1*//*2*/
+y;
+
+=====================================output=====================================
+// #8323
+
+import { MapViewProps } from "react-native-maps"; /*
+comment 14
+*/ /* comment1
+10
+*/ /*/ comment 13 */
+/*
+ comment 9
+ ****/
+import * as ts from "typescript";
+
+x; /*
+1 */ /* 2 */
+
+y;
+
+x; /*1*/ /*2*/
+y;
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+/*========= All on same line =========*/
+a;
+/*1*//*2*//*3*/
+b;
+
+a;/*1*//*2*//*3*/
+b;
+
+a;
+/*1*//*2*//*3*/b;
+
+a;
+/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/b;
+
+/*========= First two on same line =========*/
+a;
+/*1*//*2*/
+/*3*/
+b;
+
+a;/*1*//*2*/
+/*3*/
+b;
+
+a;
+/*1*//*2*/
+/*3*/b;
+
+a;
+/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/b;
+
+/*========= Last two on same line =========*/
+a;
+/*1*/
+/*2*//*3*/
+b;
+
+a;/*1*/
+/*2*//*3*/
+b;
+
+a;
+/*1*/
+/*2*//*3*/b;
+
+a;
+/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/b;
+
+=====================================output=====================================
+/*========= All on same line =========*/
+a
+/*1*/ /*2*/ /*3*/
+b
+
+a /*1*/ /*2*/ /*3*/
+b
+
+a
+/*1*/ /*2*/ /*3*/ b
+
+a
+/*
+1*/ /*2*/ /*3
+ */
+b
+
+a /*
+1*/ /*2*/
+/*3
+ */
+b
+
+a
+/*
+1*/ /*2*/ /*3
+ */ b
+
+/*========= First two on same line =========*/
+a
+/*1*/ /*2*/
+/*3*/
+b
+
+a /*1*/ /*2*/
+/*3*/
+b
+
+a
+/*1*/ /*2*/
+/*3*/ b
+
+a
+/*
+1*/ /*2*/
+/*3
+ */
+b
+
+a /*
+1*/ /*2*/
+/*3
+ */
+b
+
+a /*
+1*/ /*2*/
+/*3
+ */ b
+
+/*========= Last two on same line =========*/
+a
+/*1*/
+/*2*/ /*3*/
+b
+
+a /*1*/
+/*2*/ /*3*/
+b
+
+a
+/*1*/
+/*2*/ /*3*/ b
+
+a
+/*
+1*/
+/*2*/ /*3
+ */
+b
+
+a /*
+1*/
+/*2*/ /*3
+ */
+b
+
+a /*
+1*/
+/*2*/ /*3
+ */ b
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*========= All on same line =========*/
+a;
+/*1*//*2*//*3*/
+b;
+
+a;/*1*//*2*//*3*/
+b;
+
+a;
+/*1*//*2*//*3*/b;
+
+a;
+/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/
+b;
+
+a;/*
+1*//*2*//*3
+*/b;
+
+/*========= First two on same line =========*/
+a;
+/*1*//*2*/
+/*3*/
+b;
+
+a;/*1*//*2*/
+/*3*/
+b;
+
+a;
+/*1*//*2*/
+/*3*/b;
+
+a;
+/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/
+b;
+
+a;/*
+1*//*2*/
+/*3
+*/b;
+
+/*========= Last two on same line =========*/
+a;
+/*1*/
+/*2*//*3*/
+b;
+
+a;/*1*/
+/*2*//*3*/
+b;
+
+a;
+/*1*/
+/*2*//*3*/b;
+
+a;
+/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/
+b;
+
+a;/*
+1*/
+/*2*//*3
+*/b;
+
+=====================================output=====================================
+/*========= All on same line =========*/
+a;
+/*1*/ /*2*/ /*3*/
+b;
+
+a; /*1*/ /*2*/ /*3*/
+b;
+
+a;
+/*1*/ /*2*/ /*3*/ b;
+
+a;
+/*
+1*/ /*2*/ /*3
+ */
+b;
+
+a; /*
+1*/ /*2*/
+/*3
+ */
+b;
+
+a;
+/*
+1*/ /*2*/ /*3
+ */ b;
+
+/*========= First two on same line =========*/
+a;
+/*1*/ /*2*/
+/*3*/
+b;
+
+a; /*1*/ /*2*/
+/*3*/
+b;
+
+a;
+/*1*/ /*2*/
+/*3*/ b;
+
+a;
+/*
+1*/ /*2*/
+/*3
+ */
+b;
+
+a; /*
+1*/ /*2*/
+/*3
+ */
+b;
+
+a; /*
+1*/ /*2*/
+/*3
+ */ b;
+
+/*========= Last two on same line =========*/
+a;
+/*1*/
+/*2*/ /*3*/
+b;
+
+a; /*1*/
+/*2*/ /*3*/
+b;
+
+a;
+/*1*/
+/*2*/ /*3*/ b;
+
+a;
+/*
+1*/
+/*2*/ /*3
+ */
+b;
+
+a; /*
+1*/
+/*2*/ /*3
+ */
+b;
+
+a; /*
+1*/
+/*2*/ /*3
+ */ b;
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line-2.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+/* 1 */ /* 2 */ /* 3 */ a;
+a; /* 4 */ /* 5 */ /* 6 */
+
+=====================================output=====================================
+/* 1 */ /* 2 */ /* 3 */ a
+a /* 4 */ /* 5 */ /* 6 */
+
+================================================================================
+`;
+
+exports[`multi-comments-on-same-line-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* 1 */ /* 2 */ /* 3 */ a;
+a; /* 4 */ /* 5 */ /* 6 */
+
+=====================================output=====================================
+/* 1 */ /* 2 */ /* 3 */ a;
+a; /* 4 */ /* 5 */ /* 6 */
 
 ================================================================================
 `;
@@ -5177,6 +5791,9 @@ while(true) {} // comment
 
 while(true) /* comment */ ++x; 
 
+while(1) // Comment
+  foo();
+
 =====================================output=====================================
 while (
   true
@@ -5201,6 +5818,10 @@ while (
 while (true) {} // comment
 
 while (true) /* comment */ ++x
+
+while (1)
+  // Comment
+  foo()
 
 ================================================================================
 `;
@@ -5232,6 +5853,9 @@ while(true) {} // comment
 
 while(true) /* comment */ ++x; 
 
+while(1) // Comment
+  foo();
+
 =====================================output=====================================
 while (
   true
@@ -5256,6 +5880,10 @@ while (
 while (true) {} // comment
 
 while (true) /* comment */ ++x;
+
+while (1)
+  // Comment
+  foo();
 
 ================================================================================
 `;

@@ -1,48 +1,46 @@
 "use strict";
 
-const { concat, hardline, indent, join } = require("../document").builders;
-const preprocess = require("./preprocess");
+const {
+  builders: { hardline, indent, join },
+} = require("../document");
+const preprocess = require("./print-preprocess");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "JsonRoot":
-      return concat([path.call(print, "node"), hardline]);
+      return [path.call(print, "node"), hardline];
     case "ArrayExpression":
       return node.elements.length === 0
         ? "[]"
-        : concat([
+        : [
             "[",
-            indent(
-              concat([
-                hardline,
-                join(concat([",", hardline]), path.map(print, "elements")),
-              ])
-            ),
+            indent([
+              hardline,
+              join([",", hardline], path.map(print, "elements")),
+            ]),
             hardline,
             "]",
-          ]);
+          ];
     case "ObjectExpression":
       return node.properties.length === 0
         ? "{}"
-        : concat([
+        : [
             "{",
-            indent(
-              concat([
-                hardline,
-                join(concat([",", hardline]), path.map(print, "properties")),
-              ])
-            ),
+            indent([
+              hardline,
+              join([",", hardline], path.map(print, "properties")),
+            ]),
             hardline,
             "}",
-          ]);
+          ];
     case "ObjectProperty":
-      return concat([path.call(print, "key"), ": ", path.call(print, "value")]);
+      return [path.call(print, "key"), ": ", path.call(print, "value")];
     case "UnaryExpression":
-      return concat([
+      return [
         node.operator === "+" ? "" : node.operator,
         path.call(print, "argument"),
-      ]);
+      ];
     case "NullLiteral":
       return "null";
     case "BooleanLiteral":
@@ -58,21 +56,27 @@ function genericPrint(path, options, print) {
   }
 }
 
-function clean(node, newNode /*, parent*/) {
-  delete newNode.start;
-  delete newNode.end;
-  delete newNode.extra;
-  delete newNode.loc;
-  delete newNode.comments;
-  delete newNode.errors;
+const ignoredProperties = new Set([
+  "start",
+  "end",
+  "extra",
+  "loc",
+  "comments",
+  "errors",
+  "range",
+]);
 
-  if (node.type === "Identifier") {
+function clean(node, newNode /*, parent*/) {
+  const { type } = node;
+  if (type === "Identifier") {
     return { type: "StringLiteral", value: node.name };
   }
-  if (node.type === "UnaryExpression" && node.operator === "+") {
+  if (type === "UnaryExpression" && node.operator === "+") {
     return newNode.argument;
   }
 }
+
+clean.ignoredProperties = ignoredProperties;
 
 module.exports = {
   preprocess,

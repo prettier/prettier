@@ -63,7 +63,7 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
@@ -84,7 +84,7 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -146,11 +146,14 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --no-error-on-unmatched-pattern
+                           Prevent errors when pattern is unmatched.
   --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
                            * ignored (boolean) - true if file path is filtered by --ignore-path
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>
@@ -179,7 +182,7 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
 
   Which parser to use.
 
@@ -190,6 +193,8 @@ Valid options:
   babel-flow       Flow
   babel-ts         TypeScript
   typescript       TypeScript
+  espree           JavaScript
+  meriyah          JavaScript
   css              CSS
   less             Less
   scss             SCSS
@@ -222,7 +227,7 @@ Output options:
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
-  --write                  Edit files in-place. (Beware!)
+  -w, --write              Edit files in-place. (Beware!)
 
 Format options:
 
@@ -243,7 +248,7 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -305,11 +310,14 @@ Editor options:
 Other options:
 
   --no-color               Do not colorize error messages.
+  --no-error-on-unmatched-pattern
+                           Prevent errors when pattern is unmatched.
   --file-info <path>       Extract the following info (as JSON) for a given file path. Reported fields:
                            * ignored (boolean) - true if file path is filtered by --ignore-path
                            * inferredParser (string | null) - name of parser inferred from file path
   -h, --help <flag>        Show CLI usage, or details about the given flag.
                            Example: --help write
+  -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
   --loglevel <silent|error|warn|log|debug>

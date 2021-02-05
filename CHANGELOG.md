@@ -1,3 +1,259 @@
+# 2.2.1
+
+[diff](https://github.com/prettier/prettier/compare/2.2.0...2.2.1)
+
+#### Fix formatting for AssignmentExpression with ClassExpression ([#9741](https://github.com/prettier/prettier/pull/9741) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```js
+// Input
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
+
+// Prettier 2.2.0
+module.exports = class A extends (
+  B
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+// Prettier 2.2.1
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
+```
+
+# 2.2.0
+
+[diff](https://github.com/prettier/prettier/compare/2.1.2...2.2.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2020/11/20/2.2.0.html)
+
+# 2.1.2
+
+[diff](https://github.com/prettier/prettier/compare/2.1.1...2.1.2)
+
+#### Fix formatting for directives in fields ([#9116](https://github.com/prettier/prettier/pull/9116) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```graphql
+# Input
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String! @deprecated @isAuthenticated
+  versions: Versions!
+}
+
+
+# Prettier stable
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String!
+  @deprecated
+  @isAuthenticated
+  versions: Versions!
+}
+
+# Prettier master
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String!
+    @deprecated
+    @isAuthenticated
+  versions: Versions!
+}
+
+```
+
+#### Fix line breaks for CSS in JS ([#9136](https://github.com/prettier/prettier/pull/9136) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```js
+// Input
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: ${(props) => (props.isComplete ? '1' : '0')};
+  }
+`;
+styled.div`
+  ${props => getSize(props.$size.xs)}
+  ${props => getSize(props.$size.sm, 'sm')}
+  ${props => getSize(props.$size.md, 'md')}
+`;
+
+// Prettier stable
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: ${(props) =>
+    props.isComplete ? "1" : "0"};
+  }
+`;
+styled.div`
+  ${(props) => getSize(props.$size.xs)}
+  ${(props) => getSize(props.$size.sm, "sm")}
+  ${(props) =>
+    getSize(props.$size.md, "md")}
+`;
+
+// Prettier master
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+        z-index: ${(props) => (props.isComplete ? "1" : "0")};
+  }
+`;
+styled.div`
+  ${(props) => getSize(props.$size.xs)}
+  ${(props) => getSize(props.$size.sm, "sm")}
+  ${(props) => getSize(props.$size.md, "md")}
+`;
+
+```
+
+#### Fix comment printing in mapping and sequence ([#9143](https://github.com/prettier/prettier/pull/9143), [#9169](https://github.com/prettier/prettier/pull/9169) by [@sosukesuzuki](https://github.com/sosukesuzuki), [@fisker](https://github.com/fisker), fix in `yaml-unist-parser` by [@ikatyang](https://github.com/ikatyang))
+
+<!-- prettier-ignore -->
+```yaml
+# Input
+- a
+  # Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+  # Should print one empty line before
+- another
+
+# Prettier stable
+- a
+# Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+
+  # Should print one empty line before
+- another
+
+# Prettier master
+- a
+  # Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+  # Should print one empty line before
+- another
+```
+
+# 2.1.1
+
+[diff](https://github.com/prettier/prettier/compare/2.1.0...2.1.1)
+
+#### Fix format on html with frontMatter ([#9043](https://github.com/prettier/prettier/pull/9043) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+---
+layout: foo
+---
+
+Test <a
+href="https://prettier.io">abc</a>.
+
+<!-- Prettier stable -->
+TypeError: Cannot read property 'end' of undefined
+  ...
+
+<!-- Prettier master -->
+---
+layout: foo
+---
+
+Test <a href="https://prettier.io">abc</a>.
+```
+
+#### Fix broken format for `...infer T` ([#9044](https://github.com/prettier/prettier/pull/9044) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```typescript
+// Input
+type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
+
+// Prettier stable
+type Tail<T extends any[]> = T extends [infer U, ...(infer R)] ? R : never;
+
+// Prettier master
+type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
+```
+
+#### Fix format on `style[lang="sass"]` ([#9051](https://github.com/prettier/prettier/pull/9051) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+<!-- Input -->
+<style lang="sass">
+.hero
+  @include background-centered
+</style>
+
+<!-- Prettier stable -->
+<style lang="sass">
+.hero @include background-centered;
+</style>
+
+<!-- Prettier master -->
+<style lang="sass">
+  .hero
+    @include background-centered
+</style>
+```
+
+#### Fix self-closing blocks and blocks with `src` attribute format ([#9052](https://github.com/prettier/prettier/pull/9052), [#9055](https://github.com/prettier/prettier/pull/9055) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<custom lang="markdown" src="./foo.md"></custom>
+<custom lang="markdown" src="./foo.md" />
+<custom lang="markdown" />
+
+<!-- Prettier stable -->
+<custom lang="markdown" src="./foo.md">
+
+</custom>
+<custom lang="markdown" src="./foo.md"
+
+/>
+<custom lang="markdown"
+
+/>
+
+<!-- Prettier master -->
+<custom lang="markdown" src="./foo.md"></custom>
+<custom lang="markdown" src="./foo.md" />
+<custom lang="markdown" />
+```
+
+# 2.1.0
+
+[diff](https://github.com/prettier/prettier/compare/2.0.5...2.1.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2020/08/24/2.1.0.html)
+
 # 2.0.5
 
 [diff](https://github.com/prettier/prettier/compare/2.0.4...2.0.5)

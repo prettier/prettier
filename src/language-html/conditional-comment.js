@@ -1,5 +1,9 @@
 "use strict";
 
+const {
+  ParseSourceSpan,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
+
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
 // <!--[if ... ]> ... <![endif]-->
@@ -32,7 +36,6 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
   const contentEndSpan = contentStartSpan.moveBy(data.length);
-  const ParseSourceSpan = node.sourceSpan.constructor;
   const [complete, children] = (() => {
     try {
       return [true, parseHtml(data, contentStartSpan).children];

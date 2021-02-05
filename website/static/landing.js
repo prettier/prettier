@@ -1,7 +1,5 @@
 "use strict";
 
-/* eslint-env browser */
-
 if (location.hash.slice(1).startsWith(encodeURIComponent("{"))) {
   location.pathname = "/playground/";
 }
@@ -25,7 +23,7 @@ window.addEventListener("load", () => {
   logoWrapper.addEventListener("dragstart", handleLogoDrag);
 
   lastDash.addEventListener("animationend", (event) => {
-    if (event.animationName.match(/roll/)) {
+    if (/roll/.test(event.animationName)) {
       logo.classList.remove("rolling");
     }
   });

@@ -57,17 +57,6 @@ function a() {
     'Once this is done, commit anything to the repository to restart ' +
       'Travis and it should work :)'
   );
-
-  // Incorrectly indented on purpose
-      function f</* prettier-ignore */ T    :    B>(
-        a : Array  <   number   > // prettier-ignore
-      ) {
-
-        call(
-          f(         1          )
-          // prettier-ignore
-        )
-      }
 }
 
 const response = {
@@ -128,16 +117,6 @@ function a() {
     'Once this is done, commit anything to the repository to restart ' +
       'Travis and it should work :)'
   );
-
-  // Incorrectly indented on purpose
-  function f</* prettier-ignore */ T    :    B>(
-    a : Array  <   number   > // prettier-ignore
-  ) {
-    call(
-      f(         1          )
-      // prettier-ignore
-    );
-  }
 }
 
 const response = {
@@ -145,6 +124,56 @@ const response = {
   '_text': 'Turn on the lights',
   intent: "lights",
 };
+
+================================================================================
+`;
+
+exports[`ignore-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #8736
+
+function HelloWorld() {
+  return (
+    <div
+      {...{} /*
+      // @ts-ignore */ /* prettier-ignore */}
+      invalidProp="HelloWorld"
+    >
+      test
+    </div>
+  );
+}
+
+a = <div {.../* prettier-ignore */b}/>
+a = <div {...b/* prettier-ignore */}/>
+a = <div {.../* prettier-ignore */{}}/>
+a = <div {...{/* prettier-ignore */}}/>
+a = <div {...{}/* prettier-ignore */}/>
+
+=====================================output=====================================
+// #8736
+
+function HelloWorld() {
+  return (
+    <div
+      {...{} /*
+      // @ts-ignore */ /* prettier-ignore */}
+      invalidProp="HelloWorld"
+    >
+      test
+    </div>
+  );
+}
+
+a = <div {.../* prettier-ignore */ b} />;
+a = <div {...b /* prettier-ignore */} />;
+a = <div {.../* prettier-ignore */ {}} />;
+a = <div {...{/* prettier-ignore */}} />;
+a = <div {...{} /* prettier-ignore */} />;
 
 ================================================================================
 `;

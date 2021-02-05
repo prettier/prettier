@@ -2,9 +2,11 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
+const { outdent } = require("outdent");
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
+const BLOG_POST_INTRO_TEMPLATE_FILE = "BLOG_POST_INTRO_TEMPLATE.md";
 const BLOG_POST_INTRO_FILE = "blog-post-intro.md";
 const CHANGELOG_CATEGORIES = [
   "angular",
@@ -37,6 +39,7 @@ for (const file of files) {
   if (
     file !== TEMPLATE_FILE &&
     file !== BLOG_POST_INTRO_FILE &&
+    file !== BLOG_POST_INTRO_TEMPLATE_FILE &&
     !CHANGELOG_CATEGORIES.includes(file)
   ) {
     showErrorMessage(`Please remove "${file}" from "${CHANGELOG_DIR}".`);
@@ -44,7 +47,7 @@ for (const file of files) {
 }
 for (const file of [
   TEMPLATE_FILE,
-  BLOG_POST_INTRO_FILE,
+  BLOG_POST_INTRO_TEMPLATE_FILE,
   ...CHANGELOG_CATEGORIES,
 ]) {
   if (!files.includes(file)) {
@@ -52,8 +55,8 @@ for (const file of [
   }
 }
 
-const authorRegex = /by \[@(.*?)]\(https:\/\/github\.com\/\1\)/;
-const titleRegex = /^#{4} (.*?)\(\[#\d{4,}]/;
+const authorRegex = /by @[\w-]+|by \[@([\w-]+)]\(https:\/\/github\.com\/\1\)/;
+const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}])/;
 
 const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
@@ -61,6 +64,7 @@ const template = fs.readFileSync(
 );
 const [templateComment] = template.match(/<!--[\S\s]*?-->/);
 const [templateAuthorLink] = template.match(authorRegex);
+const checkedFiles = new Map();
 
 for (const category of CHANGELOG_CATEGORIES) {
   const files = fs.readdirSync(path.join(CHANGELOG_ROOT, category));
@@ -75,21 +79,31 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^pr-(\d{4,})\.md$/);
+    const match = prFile.match(/^(\d{4,})\.md$/);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
       showErrorMessage(
-        `[${displayPath}]: Filename is not in form of "pr-{PR_NUMBER}.md".`
+        `[${displayPath}]: Filename is not in form of "{PR_NUMBER}.md".`
       );
       continue;
     }
     const [, prNumber] = match;
+    const prLink = `#${prNumber}`;
+    if (checkedFiles.has(prNumber)) {
+      showErrorMessage(
+        outdent`
+          Duplicate files for ${prLink} found.
+            - ${checkedFiles.get(prNumber)}
+            - ${displayPath}
+        `
+      );
+    }
+    checkedFiles.set(prNumber, displayPath);
     const content = fs.readFileSync(
       path.join(CHANGELOG_DIR, category, prFile),
       "utf8"
     );
-    const prLink = `[#${prNumber}](https://github.com/prettier/prettier/pull/${prNumber})`;
 
     if (!content.includes(prLink)) {
       showErrorMessage(`[${displayPath}]: PR link "${prLink}" is missing.`);
@@ -108,7 +122,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
     }
     if (!content.startsWith("#### ")) {
-      showErrorMessage(`[${displayPath}]: Please use h4("####") for title.`);
+      showErrorMessage(`[${displayPath}]: Please use h4 ("####") for title.`);
     }
     const titleMatch = content.match(titleRegex);
     if (!titleMatch) {
@@ -125,15 +139,15 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
     }
 
-    if (title.startsWith(" ")) {
-      showErrorMessage(
-        `[${displayPath}]: Don't add extra space(s) at beginning of title.`
-      );
-    }
-
     if (!title.endsWith(" ") || title.length - title.trimEnd().length !== 1) {
       showErrorMessage(
         `[${displayPath}]: Please put one space between title and PR link.`
+      );
+    }
+
+    if (/prettier master/i.test(content)) {
+      showErrorMessage(
+        `[${displayPath}]: Please use "main" instead of "master".`
       );
     }
   }

@@ -27,35 +27,6 @@ this._pipe.write(`
     a
   `;
 
-(): {
-  someLong: boolean,
-  t: boolean
-} => `
-  a
-`;
-
-(): {
-  someLong: boolean,
-  t: boolean
-} =>
-  `
-    a
-  `;
-
-(
-  someLong: boolean,
-  t: boolean
-) => `
-    a
-  `;
-
-(
-  someLong: boolean,
-  t: boolean
-) =>
-  `
-    a
-  `;
 
 // https://github.com/prettier/prettier/issues/5529
 editTitle += `${iconHTML({ class: "reply-to-glyph" })}`;

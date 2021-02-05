@@ -1,3 +1,5 @@
 run_spec(__dirname, ["typescript"], {
-  disableBabelTS: ["abstractProperties.ts", "abstractPropertiesWithBreaks.ts"],
+  errors: {
+    "babel-ts": ["abstractProperties.ts", "abstractPropertiesWithBreaks.ts"],
+  },
 });

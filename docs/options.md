@@ -89,6 +89,13 @@ Valid options:
 | ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
 
+Note that Prettier never unquotes numeric property names in Angular expressions, TypeScript, and Flow because the distinction between string and numeric keys is significant in these languages. See: [Angular][quote-props-angular], [TypeScript][quote-props-typescript], [Flow][quote-props-flow]. Also Prettier doesn’t unquote numeric properties for Vue (see the [issue][quote-props-vue] about that).
+
+[quote-props-angular]: https://codesandbox.io/s/hungry-morse-foj87?file=/src/app/app.component.html
+[quote-props-typescript]: https://www.typescriptlang.org/play?#code/DYUwLgBAhhC8EG8IEYBcKA0EBM7sQF8AoUSAIzkQgHJlr1ktrt6dCiiATEAY2CgBOICKWhR0AaxABPAPYAzCGGkAHEAugBuLr35CR4CGTKSZG5Wo1ltRKDHjHtQA
+[quote-props-flow]: https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g
+[quote-props-vue]: https://github.com/prettier/prettier/issues/10127
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.
@@ -107,7 +114,7 @@ Valid options:
 
 - `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
 - `"none"` - No trailing commas.
-- `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+- `"all"` - Trailing commas wherever possible (including [trailing commas in function parameter lists and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). This requires node 8 or a modern browser that supports ES2017 or transform with [babel](https://babeljs.io/docs/en/index).
 
 | Default | CLI Override                                           | API Override                                           |
 | ------- | ------------------------------------------------------ | ------------------------------------------------------ |
@@ -206,11 +213,13 @@ Both the `babel` and `flow` parsers support the same set of JavaScript features 
 
 Valid options:
 
-- `"babel"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser)) _Named `"babylon"` until v1.16.0_
+- `"babel"` (via [@babel/parser](https://github.com/babel/babel/tree/main/packages/babel-parser)) _Named `"babylon"` until v1.16.0_
 - `"babel-flow"` (same as `"babel"` but enables Flow parsing explicitly to avoid ambiguity) _First available in v1.16.0_
 - `"babel-ts"` (similar to `"typescript"` but uses Babel and its TypeScript plugin) _First available in v2.0.0_
 - `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
+- `"espree"` (via [espree](https://github.com/eslint/espree)) _First available in v2.2.0_
+- `"meriyah"` (via [meriyah](https://github.com/meriyah/meriyah)) _First available in v2.2.0_
 - `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
 - `"scss"` (same parsers as `"css"`, prefers postcss-scss) _First available in v1.7.1_
 - `"less"` (same parsers as `"css"`, prefers postcss-less) _First available in v1.7.1_
@@ -218,8 +227,8 @@ Valid options:
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
 - `"graphql"` (via [graphql/language](https://github.com/graphql/graphql-js/tree/master/src/language)) _First available in v1.5.0_
-- `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse)) _First available in v1.8.0_
-- `"mdx"` (via [remark-parse](https://github.com/wooorm/remark/tree/master/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx)) _First available in v1.15.0_
+- `"markdown"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse)) _First available in v1.8.0_
+- `"mdx"` (via [remark-parse](https://github.com/wooorm/remark/tree/main/packages/remark-parse) and [@mdx-js/mdx](https://github.com/mdx-js/mdx/tree/master/packages/mdx)) _First available in v1.15.0_
 - `"html"` (via [angular-html-parser](https://github.com/ikatyang/angular-html-parser/tree/master/packages/angular-html-parser)) _First available in 1.15.0_
 - `"vue"` (same parser as `"html"`, but also formats vue-specific syntax) _First available in 1.10.0_
 - `"angular"` (same parser as `"html"`, but also formats angular-specific syntax via [angular-estree-parser](https://github.com/ikatyang/angular-estree-parser)) _First available in 1.15.0_
@@ -306,17 +315,17 @@ Valid options:
 
 ## HTML Whitespace Sensitivity
 
-_First available in v1.15.0_
+_First available in v1.15.0. First available for Handlebars in 2.3.0_
 
-Specify the global whitespace sensitivity for HTML files, see [whitespace-sensitive formatting] for more info.
+Specify the global whitespace sensitivity for HTML, Vue, Angular, and Handlebars. See [whitespace-sensitive formatting] for more info.
 
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 
 Valid options:
 
-- `"css"` - Respect the default value of CSS `display` property.
-- `"strict"` - Whitespaces are considered sensitive.
-- `"ignore"` - Whitespaces are considered insensitive.
+- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `ignore`.
+- `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
+- `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 
 | Default | CLI Override                                                             | API Override                                                            |
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |

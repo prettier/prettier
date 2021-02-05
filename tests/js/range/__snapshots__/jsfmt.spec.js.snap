@@ -1,19 +1,129 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`array.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 16
+rangeStart: 8
+     |                                                                                | printWidth
+=====================================input======================================
+  1 | a = [
+  2 | ,
+> 3 | ,,,,
+    | ^^^^
+> 4 |
+    | ^
+> 5 | ,
+    | ^
+> 6 |
+    | ^
+  7 | ,
+  8 | a,
+  9 | ]
+=====================================output=====================================
+a = [, , , , , , , a];
+================================================================================
+`;
+
+exports[`boundary.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 26
+rangeStart: 13
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | foo = 1.0000;bar = 1.0000;baz=1.0000;
+    |              ^^^^^^^^^^^^^
+  2 | // The range will be 13~26
+  3 | // \`foo\` ends at 13, should not format
+  4 | // \`bar\` ends at 26, should format
+  5 |
+=====================================output=====================================
+foo = 1.0000;bar = 1.0;baz=1.0000;
+// The range will be 13~26
+// \`foo\` ends at 13, should not format
+// \`bar\` ends at 26, should format
+
+================================================================================
+`;
+
+exports[`boundary-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 45
+rangeStart: 28
+      |                                                                                | printWidth
+=====================================input======================================
+   1 | function a(
+   2 | ){
+   3 | a (
+   4 | );
+   5 | b (
+>  6 | );                 c (
+     |   ^^^^^^^^^^^^^^^^^
+   7 | ); d(
+   8 | );
+   9 |
+  10 | }
+  11 |
+=====================================output=====================================
+function a(
+){
+  a();
+  b();
+  c();
+  d();
+}
+
+================================================================================
+`;
+
+exports[`boundary-3.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 30
+rangeStart: 13
+     |                                                                                | printWidth
+=====================================input======================================
+  1 | a (
+  2 | );
+  3 | b (
+> 4 | );                 c (
+    |   ^^^^^^^^^^^^^^^^^
+  5 | ); d(
+  6 | );
+  7 |
+=====================================output=====================================
+a (
+);
+b (
+);                 c (
+); d(
+);
+
+================================================================================
+`;
+
 exports[`class-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 26
+rangeStart: 10
      |                                                                                | printWidth
 =====================================input======================================
-  1 | 
-  2 | 
+  1 |
+  2 |
 > 3 | class    a {
     |         ^^^^
 > 4 |   b(   ) {}
     | ^^^^^^^^^^^
   5 | }
-  6 | 
+  6 |
   7 | let    x
 =====================================output=====================================
 
@@ -30,6 +140,8 @@ exports[`different-levels.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 48
+rangeStart: 19
      |                                                                                | printWidth
 =====================================input======================================
   1 | call(1,2,3)
@@ -40,7 +152,7 @@ printWidth: 80
 > 4 |   call(1,2,3)
     | ^^^^^^^^^
   5 | }
-  6 | 
+  6 |
 =====================================output=====================================
 call(1,2,3)
 call(1, 2, 3);
@@ -55,12 +167,14 @@ exports[`directive.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 1
+rangeStart: 0
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | 'aaa';
     | ^
   2 | 'bbb';
-  3 | 
+  3 |
 =====================================output=====================================
 "aaa";
 'bbb';
@@ -72,11 +186,13 @@ exports[`function-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 43
+rangeStart: 16
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | function ugly ( {a=1,     b     =   2     }      ) {}
     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  2 | 
+  2 |
 =====================================output=====================================
 function ugly({ a = 1, b = 2 }) {}
 
@@ -87,6 +203,8 @@ exports[`ignore-indentation.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 225
+rangeStart: 222
      |                                                                                | printWidth
 =====================================input======================================
   1 | function ugly ( {a=1,     b     =   2     }      ) {
@@ -98,7 +216,7 @@ printWidth: 80
   6 |     }
   7 |   }
   8 | }
-  9 | 
+  9 |
 =====================================output=====================================
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
@@ -116,6 +234,8 @@ exports[`issue-3789-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 31
+rangeStart: 17
       |                                                                                | printWidth
 =====================================input======================================
    1 | export class F {
@@ -123,12 +243,12 @@ printWidth: 80
      | ^^^^^^^^^^^^^^
    3 |     return 1;
    4 |   }
-   5 | 
+   5 |
    6 |   dontTouchThis(){
    7 |     return 2    ;
    8 |   }
    9 | }
-  10 | 
+  10 |
 =====================================output=====================================
 export class F {
   reformatThis() {
@@ -147,6 +267,8 @@ exports[`issue-3789-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 18
+rangeStart: 17
       |                                                                                | printWidth
 =====================================input======================================
    1 | export class F {
@@ -154,12 +276,12 @@ printWidth: 80
      | ^
    3 |     return 1;
    4 |   }
-   5 | 
+   5 |
    6 |   dontTouchThis(){
    7 |     return 2    ;
    8 |   }
    9 | }
-  10 | 
+  10 |
 =====================================output=====================================
 export class F {
   reformatThis() {
@@ -178,6 +300,8 @@ exports[`issue-4206-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 30
+rangeStart: 16
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | export default class Foo{
@@ -185,7 +309,7 @@ printWidth: 80
 > 2 | /**/
     | ^^^^
   3 | }
-  4 | 
+  4 |
 =====================================output=====================================
 export default class Foo {
   /**/
@@ -198,13 +322,15 @@ exports[`issue-4206-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 30
+rangeStart: 16
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | export default function Foo(){
     |                 ^^^^^^^^^^^^^^
   2 | /**/
   3 | }
-  4 | 
+  4 |
 =====================================output=====================================
 export default function Foo() {
   /**/
@@ -217,6 +343,8 @@ exports[`issue-4206-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 28
+rangeStart: 16
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | /* */ function Foo(){
@@ -225,7 +353,7 @@ printWidth: 80
     | ^^^^
 > 3 | }
     | ^
-  4 | 
+  4 |
 =====================================output=====================================
 /* */ function Foo() {
   /**/
@@ -238,6 +366,8 @@ exports[`issue-4206-4.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 23
+rangeStart: 17
      |                                                                                | printWidth
 =====================================input======================================
   1 | /* */ class Foo{
@@ -245,7 +375,7 @@ printWidth: 80
     | ^^^^
 > 3 | }
     | ^
-  4 | 
+  4 |
 =====================================output=====================================
 /* */ class Foo {
   /**/
@@ -258,6 +388,8 @@ exports[`issue-7082.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 42
+rangeStart: 29
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | export const Button = styled.button\`
@@ -265,7 +397,7 @@ printWidth: 80
 > 2 | color: blue;
     | ^^^^^
   3 | \`;
-  4 | 
+  4 |
 =====================================output=====================================
 export const Button = styled.button\`
   color: blue;
@@ -278,6 +410,8 @@ exports[`large-dict.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 155
+rangeStart: 80
      |                                                                                | printWidth
 =====================================input======================================
   1 | function ugly() {
@@ -291,7 +425,7 @@ printWidth: 80
     | ^^^^^^^^^^^^^^^^^^^
   7 |   };
   8 | }
-  9 | 
+  9 |
 =====================================output=====================================
 function ugly() {
   const dictWithSeveralEntries = {
@@ -309,19 +443,21 @@ exports[`module-export1.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 56
+rangeStart: 45
       |                                                                                | printWidth
 =====================================input======================================
    1 | import  def , {named}  from    'x'
-   2 | 
+   2 |
 >  3 | export *  from   'd'
      |          ^^^^^^^^^^^
-   4 | 
+   4 |
    5 | export    const  x
    6 |   =  42
-   7 | 
+   7 |
    8 | export   default    42
-   9 | 
-  10 | 
+   9 |
+  10 |
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -340,21 +476,23 @@ exports[`module-export2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 79
+rangeStart: 57
       |                                                                                | printWidth
 =====================================input======================================
    1 | import  def , {named}  from    'x'
-   2 | 
+   2 |
    3 | export *  from   'd'
->  4 | 
+>  4 |
      | ^
 >  5 | export    const  x
      | ^^^^^^^^^^^^^^^^^^
 >  6 |   =  42
      | ^^
-   7 | 
+   7 |
    8 | export   default    42
-   9 | 
-  10 | 
+   9 |
+  10 |
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -372,19 +510,21 @@ exports[`module-export3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 108
+rangeStart: 104
       |                                                                                | printWidth
 =====================================input======================================
    1 | import  def , {named}  from    'x'
-   2 | 
+   2 |
    3 | export *  from   'd'
-   4 | 
+   4 |
    5 | export    const  x
    6 |   =  42
-   7 | 
+   7 |
 >  8 | export   default    42
      |                   ^^^^
-   9 | 
-  10 | 
+   9 |
+  10 |
 =====================================output=====================================
 import  def , {named}  from    'x'
 
@@ -403,19 +543,21 @@ exports[`module-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 22
+rangeStart: 7
       |                                                                                | printWidth
 =====================================input======================================
 >  1 | import  def , {named}  from    'x'
      |        ^^^^^^^^^^^^^^^
-   2 | 
+   2 |
    3 | export *  from   'd'
-   4 | 
+   4 |
    5 | export    const  x
    6 |   =  42
-   7 | 
+   7 |
    8 | export   default    42
-   9 | 
-  10 | 
+   9 |
+  10 |
 =====================================output=====================================
 import def, { named } from "x";
 
@@ -434,29 +576,31 @@ exports[`multiple-statements.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 49
+rangeStart: 30
       |                                                                                | printWidth
 =====================================input======================================
    1 | call(
    2 |   1, 2,3
    3 | );
-   4 | 
+   4 |
    5 | call(
 >  6 |   1, 2,3
      |      ^^^
 >  7 | );
      | ^^
->  8 | 
+>  8 |
      | ^^
 >  9 | call(
      | ^^
 > 10 |   1, 2,3
      | ^^^^^
   11 | );
-  12 | 
+  12 |
   13 | call(
   14 |   1, 2,3
   15 | );
-  16 | 
+  16 |
 =====================================output=====================================
 call(
   1, 2,3
@@ -477,12 +621,14 @@ exports[`multiple-statements2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 56
+rangeStart: 18
       |                                                                                | printWidth
 =====================================input======================================
    1 | call(
    2 |   1, 2,3
    3 | );
->  4 | 
+>  4 |
      | ^
 >  5 | call(
      | ^^^^^
@@ -490,7 +636,7 @@ printWidth: 80
      | ^^^^^
 >  7 | );
      | ^^^^^
->  8 | 
+>  8 |
      | ^^^^^
 >  9 | call(
      | ^^^^^
@@ -498,12 +644,12 @@ printWidth: 80
      | ^^^^^
 > 11 | );
      | ^^^^^
-> 12 | 
+> 12 |
      | ^
   13 | call(
   14 |   1, 2,3
   15 | );
-  16 | 
+  16 |
 =====================================output=====================================
 call(
   1, 2,3
@@ -524,6 +670,8 @@ exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 37
+rangeStart: 0
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | try {
@@ -536,7 +684,7 @@ printWidth: 80
     | ^^^
   5 | }
   6 | catch (err) {}
-  7 | 
+  7 |
 =====================================output=====================================
 try {
   if (condition) {
@@ -551,6 +699,8 @@ exports[`nested-print-width.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 110
+rangeStart: 28
      |                                                                                | printWidth
 =====================================input======================================
   1 | function f() {
@@ -561,7 +711,7 @@ printWidth: 80
 > 4 |   }
     | ^^
   5 | }
-  6 | 
+  6 |
 =====================================output=====================================
 function f() {
   if (true) {
@@ -576,6 +726,8 @@ exports[`nested2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 37
+rangeStart: 9
      |                                                                                | printWidth
 =====================================input======================================
   1 | try {
@@ -587,7 +739,7 @@ printWidth: 80
     | ^^^
   5 | }
   6 | catch (err) {}
-  7 | 
+  7 |
 =====================================output=====================================
 try {
   if (condition) {
@@ -603,6 +755,8 @@ exports[`nested3.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 37
+rangeStart: 9
      |                                                                                | printWidth
 =====================================input======================================
   1 | try {
@@ -614,7 +768,7 @@ printWidth: 80
     | ^^^
   5 | }
   6 | catch (err) {}
-  7 | 
+  7 |
 =====================================output=====================================
 try {
 1;if (condition) {
@@ -630,11 +784,13 @@ exports[`object-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 14
+rangeStart: 11
      |                                                                                | printWidth
 =====================================input======================================
 > 1 | const y = {a:1, b:2}
     |            ^^^
-  2 | 
+  2 |
 =====================================output=====================================
 const y = { a: 1, b: 2 };
 
@@ -645,9 +801,11 @@ exports[`object-expression2.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 104
+rangeStart: 53
       |                                                                                | printWidth
 =====================================input======================================
-   1 | 
+   1 |
    2 | const y =       [
    3 |     {
    4 |                 a: 1,
@@ -662,7 +820,7 @@ printWidth: 80
 >  9 |     },
      | ^^^^^^
   10 | ]
-  11 | 
+  11 |
 =====================================output=====================================
 
 const y = [
@@ -682,6 +840,8 @@ exports[`range.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 227
+rangeStart: 224
      |                                                                                | printWidth
 =====================================input======================================
   1 | function ugly ( {a=1,     b     =   2     }      ) {
@@ -693,7 +853,7 @@ printWidth: 80
   6 |     }
   7 |   }
   8 | }
-  9 | 
+  9 |
 =====================================output=====================================
 function ugly ( {a=1,     b     =   2     }      ) {
   function ugly ( {a=1,     b     =   2     }      ) {
@@ -711,14 +871,16 @@ exports[`range-end.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 50
+rangeStart: 32
      |                                                                                | printWidth
 =====================================input======================================
   1 | // Unchanged
   2 | call(
   3 |   1, 2,3
   4 | );
-  5 | 
-> 6 | 
+  5 |
+> 6 |
     | ^
 > 7 | call(
     | ^^^^^
@@ -741,6 +903,8 @@ exports[`range-start.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 18
+rangeStart: 0
       |                                                                                | printWidth
 =====================================input======================================
 >  1 | call(
@@ -749,14 +913,14 @@ printWidth: 80
      | ^^^^^^^^
 >  3 | );
      | ^^^^^^^^
->  4 | 
+>  4 |
      | ^
-   5 | 
+   5 |
    6 | // Unchanged
    7 | call(
    8 |   1, 2,3
    9 | );
-  10 | 
+  10 |
 =====================================output=====================================
 call(1, 2, 3);
 
@@ -769,16 +933,56 @@ call(
 ================================================================================
 `;
 
+exports[`reversed-range.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 13
+rangeStart: 26
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | foo = 1.0000;bar = 1.0000;baz=1.0000;
+    |              ^^^^^^^^^^^^^ [Reversed range]
+  2 | // The range will be 26~13, should not format anything
+  3 |
+=====================================output=====================================
+foo = 1.0000;bar = 1.0000;baz=1.0000;
+// The range will be 26~13, should not format anything
+
+================================================================================
+`;
+
+exports[`start-equals-end.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+rangeEnd: 13
+rangeStart: 13
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | foo = 1.0000;bar = 1.0000;baz=1.0000;
+    |              ^
+  2 | // The range will be 13~13, should not format anything
+  3 |
+=====================================output=====================================
+foo = 1.0000;bar = 1.0000;baz=1.0000;
+// The range will be 13~13, should not format anything
+
+================================================================================
+`;
+
 exports[`try-catch.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 8
+rangeStart: 7
      |                                                                                | printWidth
 =====================================input======================================
   1 | try {}
 > 2 | catch (err) {}
     | ^
-  3 | 
+  3 |
 =====================================output=====================================
 try {
 } catch (err) {}
@@ -790,11 +994,13 @@ exports[`whitespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+rangeEnd: 1
+rangeStart: 0
      |                                                                                | printWidth
 =====================================input======================================
 > 1 |  
     | ^
-  2 | 
+  2 |
 =====================================output=====================================
  
 

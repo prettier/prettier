@@ -65,7 +65,7 @@ const create = () => {
   );
 }
 
-const create = () => {
+const create2 = () => {
   const result = doSomething();
   return (
     shouldReturn && result.ok && result || {

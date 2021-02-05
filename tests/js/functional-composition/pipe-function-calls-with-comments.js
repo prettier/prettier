@@ -21,7 +21,7 @@
     )
   )()
     .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
+    .catch((err) => {
       logger.error(
         pipe(
           // add a descriptive comment here

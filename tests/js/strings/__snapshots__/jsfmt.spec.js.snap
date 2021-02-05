@@ -1,5 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11852
+
+"\\8","\\9";
+() => {
+  "use strict";
+  "\\8", "\\9";
+}
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11852
+
+"8", "9";
+() => {
+  "use strict";
+  "8", "9";
+};
+
+================================================================================
+`;
+
+exports[`non-octal-eight-and-nine.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11852
+
+"\\8","\\9";
+() => {
+  "use strict";
+  "\\8", "\\9";
+}
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11852
+
+"8", "9";
+() => {
+  "use strict";
+  "8", "9";
+};
+
+================================================================================
+`;
+
 exports[`strings.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]

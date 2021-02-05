@@ -3,6 +3,7 @@
 const path = require("path");
 const fs = require("fs");
 const runPrettier = require("../runPrettier");
+const { projectRoot } = require("../env");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
@@ -56,6 +57,34 @@ describe("Negative patterns", () => {
 
 testPatterns("Exclude yarn.lock when expanding directories", ["."], {
   stdout: expect.not.stringContaining("yarn.lock"),
+});
+
+const uppercaseRocksPlugin = path.join(
+  projectRoot,
+  "tests_config/prettier-plugins/prettier-plugin-uppercase-rocks"
+);
+describe("plugins `.`", () => {
+  runPrettier("cli/dirs/plugins", [
+    ".",
+    "-l",
+    "--plugin",
+    uppercaseRocksPlugin,
+  ]).test({
+    write: [],
+    stderr: "",
+    status: 1,
+  });
+});
+describe("plugins `*`", () => {
+  runPrettier("cli/dirs/plugins", [
+    "*",
+    "-l",
+    "--plugin",
+    uppercaseRocksPlugin,
+  ]).test({
+    write: [],
+    status: 1,
+  });
 });
 
 if (path.sep === "/") {

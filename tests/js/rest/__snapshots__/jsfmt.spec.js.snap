@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`trailing-commas.js - {"trailingComma":"all"} [espree] format 1`] = `
+"Unexpected token class (1:9)
+> 1 | declare class C {
+    |         ^
+  2 |   f(
+  3 |     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+  4 |     ...args"
+`;
+
+exports[`trailing-commas.js - {"trailingComma":"all"} [meriyah] format 1`] = `
+"[1:13]: Unexpected token: 'class' (1:13)
+> 1 | declare class C {
+    |             ^
+  2 |   f(
+  3 |     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+  4 |     ...args"
+`;
+
 exports[`trailing-commas.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]

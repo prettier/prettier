@@ -5,7 +5,7 @@ margin-left:5px;
 }
 `
 
-const Header = styled.div`
+const Header2 = styled.div`
   ${something()}
   & > ${Child}${Child2}:not(:first-child) {
 margin-left:5px;

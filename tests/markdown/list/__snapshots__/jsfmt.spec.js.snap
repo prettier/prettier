@@ -590,6 +590,325 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`codeblock.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+1. ol01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+2. ol02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+=====================================output=====================================
+1. ol01
+
+   \`\`\`js
+   const a = 1;
+
+   const b = 2;
+   \`\`\`
+
+2. ol02
+
+   \`\`\`js
+   const a = 1;
+
+   const b = 2;
+   \`\`\`
+
+- ul01
+
+  \`\`\`js
+  const a = 1;
+
+  const b = 2;
+  \`\`\`
+
+- ul02
+
+  \`\`\`js
+  const a = 1;
+
+  const b = 2;
+  \`\`\`
+
+================================================================================
+`;
+
+exports[`codeblock.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+1. ol01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+2. ol02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+=====================================output=====================================
+1. ol01
+
+    \`\`\`js
+    const a = 1;
+
+    const b = 2;
+    \`\`\`
+
+2. ol02
+
+    \`\`\`js
+    const a = 1;
+
+    const b = 2;
+    \`\`\`
+
+-   ul01
+
+    \`\`\`js
+    const a = 1;
+
+    const b = 2;
+    \`\`\`
+
+-   ul02
+
+    \`\`\`js
+    const a = 1;
+
+    const b = 2;
+    \`\`\`
+
+================================================================================
+`;
+
+exports[`codeblock.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+1. ol01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+2. ol02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+=====================================output=====================================
+1. ol01
+
+      \`\`\`js
+      const a = 1;
+
+      const b = 2;
+      \`\`\`
+
+2. ol02
+
+      \`\`\`js
+      const a = 1;
+
+      const b = 2;
+      \`\`\`
+
+- ul01
+
+     \`\`\`js
+     const a = 1;
+
+     const b = 2;
+     \`\`\`
+
+- ul02
+
+     \`\`\`js
+     const a = 1;
+
+     const b = 2;
+     \`\`\`
+
+================================================================================
+`;
+
+exports[`codeblock.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+1. ol01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+2. ol02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul01
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+- ul02
+
+    \`\`\`js
+    const a = 1;
+
+
+    const b = 2;
+    \`\`\`
+
+=====================================output=====================================
+1. ol01
+
+   \`\`\`js
+   const a = 1;
+
+   const b = 2;
+   \`\`\`
+
+2. ol02
+
+   \`\`\`js
+   const a = 1;
+
+   const b = 2;
+   \`\`\`
+
+- ul01
+
+  \`\`\`js
+  const a = 1;
+
+  const b = 2;
+  \`\`\`
+
+- ul02
+
+  \`\`\`js
+  const a = 1;
+
+  const b = 2;
+  \`\`\`
+
+================================================================================
+`;
+
 exports[`combined-lists.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -2464,6 +2783,181 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`nested-tab.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
+exports[`nested-tab.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+-   Top level list item 1
+-   Top level list item 2
+    -   Nested List item 1
+    -   Nested List item 2
+        -   Sub-Nested List item 1
+        -   Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+-   Top level list item 1
+-   Top level list item 2
+    -   Nested List item 1
+    -   Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
+exports[`nested-tab.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+- Top level list item 1
+- Top level list item 2
+     - Nested List item 1
+     - Nested List item 2
+          - Sub-Nested List item 1
+          - Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+- Top level list item 1
+- Top level list item 2
+     - Nested List item 1
+     - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
+exports[`nested-tab.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+# List with 1 tab indentation and \`-\`
+- Top level list item 1
+- Top level list item 2
+	- Nested List item 1
+	- Nested List item 2
+		- Sub-Nested List item 1
+		- Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+* Top level list item 1
+* Top level list item 2
+	* Nested List item 1
+	* Nested List item 2
+    	* Sub-Nested List item 1
+    	* Sub-Nested List item 2
+
+=====================================output=====================================
+# List with 1 tab indentation and \`-\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
+
+# List with 1 tab indentation and \`*\`
+
+- Top level list item 1
+- Top level list item 2
+  - Nested List item 1
+  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+
+================================================================================
+`;
+
 exports[`ordered.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -3604,6 +4098,245 @@ proseWrap: "always"
 
 999. abc
 1000. def
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+ 	\`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+- Text
+
+  [title](link)
+
+- Text
+
+  - foo
+  - foo
+  - bar
+
+- Text
+
+  # foo
+
+- Text
+
+  \`\`\`
+  foo
+  \`\`\`
+
+- Text
+
+  \`foo\`
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+ 	\`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+-   Text
+
+    [title](link)
+
+-   Text
+
+    -   foo
+    -   foo
+    -   bar
+
+-   Text
+
+    # foo
+
+-   Text
+
+    \`\`\`
+    foo
+    \`\`\`
+
+-   Text
+
+    \`foo\`
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+ 	\`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+- Text
+
+     [title](link)
+
+- Text
+
+     - foo
+     - foo
+     - bar
+
+- Text
+
+     # foo
+
+- Text
+
+     \`\`\`
+     foo
+     \`\`\`
+
+- Text
+
+     \`foo\`
+
+================================================================================
+`;
+
+exports[`tab.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+* Text
+
+ 	[title](link)
+
+* Text
+
+ 	- foo
+ 	- foo
+ 	- bar
+
+* Text
+
+ 	# foo
+
+* Text
+
+ 	\`\`\`
+ 	foo
+ 	\`\`\`
+
+* Text
+
+ 	\`foo\`
+
+=====================================output=====================================
+- Text
+
+  [title](link)
+
+- Text
+
+  - foo
+  - foo
+  - bar
+
+- Text
+
+  # foo
+
+- Text
+
+  \`\`\`
+  foo
+  \`\`\`
+
+- Text
+
+  \`foo\`
 
 ================================================================================
 `;

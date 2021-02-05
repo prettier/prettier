@@ -3,17 +3,11 @@
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
-const support = require("../main/support");
+const { getSupportInfo } = require("../main/support");
 
-// eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
 
-function getPenultimate(arr) {
-  if (arr.length > 1) {
-    return arr[arr.length - 2];
-  }
-  return null;
-}
+const getPenultimate = (arr) => arr[arr.length - 2];
 
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
@@ -29,6 +23,7 @@ function skip(chars) {
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
+    /* istanbul ignore next */
     if (index === false) {
       return false;
     }
@@ -82,6 +77,7 @@ const skipEverythingButNewLine = skip(/[^\n\r]/);
  * @returns {number | false}
  */
 function skipInlineComment(text, index) {
+  /* istanbul ignore next */
   if (index === false) {
     return false;
   }
@@ -102,6 +98,7 @@ function skipInlineComment(text, index) {
  * @returns {number | false}
  */
 function skipTrailingComment(text, index) {
+  /* istanbul ignore next */
   if (index === false) {
     return false;
   }
@@ -129,6 +126,8 @@ function skipNewline(text, index, opts) {
 
   const atIndex = text.charAt(index);
   if (backwards) {
+    // We already replace `\r\n` with `\n` before parsing
+    /* istanbul ignore next */
     if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
       return index - 2;
     }
@@ -141,6 +140,8 @@ function skipNewline(text, index, opts) {
       return index - 1;
     }
   } else {
+    // We already replace `\r\n` with `\n` before parsing
+    /* istanbul ignore next */
     if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
     }
@@ -163,8 +164,7 @@ function skipNewline(text, index, opts) {
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasNewline(text, index, opts) {
-  opts = opts || {};
+function hasNewline(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   const idx2 = skipNewline(text, idx, opts);
   return idx !== idx2;
@@ -283,40 +283,17 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   );
 }
 
+// Not using, but it's public utils
+/* istanbul ignore next */
 /**
  * @param {string} text
  * @param {number} index
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasSpaces(text, index, opts) {
-  opts = opts || {};
+function hasSpaces(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
-}
-
-/**
- * @param {{range?: [number, number], start?: number}} node
- * @param {number} index
- */
-function setLocStart(node, index) {
-  if (node.range) {
-    node.range[0] = index;
-  } else {
-    node.start = index;
-  }
-}
-
-/**
- * @param {{range?: [number, number], end?: number}} node
- * @param {number} index
- */
-function setLocEnd(node, index) {
-  if (node.range) {
-    node.range[1] = index;
-  } else {
-    node.end = index;
-  }
 }
 
 /**
@@ -325,9 +302,7 @@ function setLocEnd(node, index) {
  * @param {number=} startIndex
  * @returns {number}
  */
-function getAlignmentSize(value, tabWidth, startIndex) {
-  startIndex = startIndex || 0;
-
+function getAlignmentSize(value, tabWidth, startIndex = 0) {
   let size = 0;
   for (let i = startIndex; i < value.length; ++i) {
     if (value[i] === "\t") {
@@ -578,38 +553,11 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-function hasIgnoreComment(path) {
-  const node = path.getValue();
-  return hasNodeIgnoreComment(node);
-}
-
-function hasNodeIgnoreComment(node) {
-  return (
-    node &&
-    ((node.comments &&
-      node.comments.length > 0 &&
-      node.comments.some(
-        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
-      )) ||
-      node.prettierIgnore)
-  );
-}
-
-function isNodeIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
-
-  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
-  // We already "print" it via the raw text, we don't need to re-print it as a
-  // comment
-  if (node.type === "JSXText") {
-    comment.printed = true;
-  }
+  comment.nodeDescription = describeNodeForDebugging(node);
 }
 
 function addLeadingComment(node, comment) {
@@ -633,26 +581,10 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function isWithinParentArrayProperty(path, propertyName) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-
-  if (parent == null) {
-    return false;
-  }
-
-  if (!Array.isArray(parent[propertyName])) {
-    return false;
-  }
-
-  const key = path.getName();
-  return parent[propertyName][key] === node;
-}
-
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
-    if (parts.length !== 0) {
+    if (parts.length > 0) {
       parts.push(replacement);
     }
     parts.push(part);
@@ -660,20 +592,18 @@ function replaceEndOfLineWith(text, replacement) {
   return parts;
 }
 
-function getParserName(lang, options) {
-  const supportInfo = support.getSupportInfo({ plugins: options.plugins });
-  const language = supportInfo.languages.find(
-    (language) =>
-      language.name.toLowerCase() === lang ||
-      (language.aliases && language.aliases.includes(lang)) ||
-      (language.extensions &&
-        language.extensions.find((ext) => ext === `.${lang}`))
-  );
-  if (language) {
-    return language.parsers[0];
-  }
-
-  return null;
+function inferParserByLanguage(language, options) {
+  const { languages } = getSupportInfo({ plugins: options.plugins });
+  const matched =
+    languages.find(({ name }) => name.toLowerCase() === language) ||
+    languages.find(
+      ({ aliases }) => Array.isArray(aliases) && aliases.includes(language)
+    ) ||
+    languages.find(
+      ({ extensions }) =>
+        Array.isArray(extensions) && extensions.includes(`.${language}`)
+    );
+  return matched && matched.parsers[0];
 }
 
 function isFrontMatterNode(node) {
@@ -691,12 +621,47 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+function isNonEmptyArray(object) {
+  return Array.isArray(object) && object.length > 0;
+}
+
+/**
+ * @param {string} description
+ * @returns {(node: any) => symbol}
+ */
+function createGroupIdMapper(description) {
+  const groupIds = new WeakMap();
+  return function (node) {
+    if (!groupIds.has(node)) {
+      groupIds.set(node, Symbol(description));
+    }
+    return groupIds.get(node);
+  };
+}
+
+function describeNodeForDebugging(node) {
+  const nodeType = node.type || node.kind || "(unknown type)";
+  let nodeName = String(
+    node.name ||
+      (node.id && (typeof node.id === "object" ? node.id.name : node.id)) ||
+      (node.key && (typeof node.key === "object" ? node.key.name : node.key)) ||
+      (node.value &&
+        (typeof node.value === "object" ? "" : String(node.value))) ||
+      node.operator ||
+      ""
+  );
+  if (nodeName.length > 20) {
+    nodeName = nodeName.slice(0, 19) + "…";
+  }
+  return nodeType + (nodeName ? " " + nodeName : "");
+}
+
 module.exports = {
+  inferParserByLanguage,
   replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getParserName,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -716,21 +681,17 @@ module.exports = {
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
-  setLocStart,
-  setLocEnd,
   getAlignmentSize,
   getIndentSize,
   getPreferredQuote,
   printString,
   printNumber,
-  hasIgnoreComment,
-  hasNodeIgnoreComment,
-  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isWithinParentArrayProperty,
   isFrontMatterNode,
   getShebang,
+  isNonEmptyArray,
+  createGroupIdMapper,
 };

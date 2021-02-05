@@ -6,6 +6,7 @@ const mem = require("mem");
 const thirdParty = require("../common/third-party");
 
 const loadToml = require("../utils/load-toml");
+const loadJson5 = require("../utils/load-json5");
 const resolve = require("../common/resolve");
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 
@@ -39,12 +40,16 @@ const getExplorerMemoized = mem(
         ".prettierrc.json",
         ".prettierrc.yaml",
         ".prettierrc.yml",
+        ".prettierrc.json5",
         ".prettierrc.js",
+        ".prettierrc.cjs",
         "prettier.config.js",
+        "prettier.config.cjs",
         ".prettierrc.toml",
       ],
       loaders: {
         ".toml": loadToml,
+        ".json5": loadJson5,
       },
     });
 
@@ -63,9 +68,9 @@ function getExplorer(opts) {
 function _resolveConfig(filePath, opts, sync) {
   opts = { useCache: true, ...opts };
   const loadOpts = {
-    cache: !!opts.useCache,
-    sync: !!sync,
-    editorconfig: !!opts.editorconfig,
+    cache: Boolean(opts.useCache),
+    sync: Boolean(sync),
+    editorconfig: Boolean(opts.editorconfig),
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
@@ -80,7 +85,7 @@ function _resolveConfig(filePath, opts, sync) {
       ...mergeOverrides(result, filePath),
     };
 
-    ["plugins", "pluginSearchDirs"].forEach((optionName) => {
+    for (const optionName of ["plugins", "pluginSearchDirs"]) {
       if (Array.isArray(merged[optionName])) {
         merged[optionName] = merged[optionName].map((value) =>
           typeof value === "string" && value.startsWith(".") // relative path
@@ -88,12 +93,14 @@ function _resolveConfig(filePath, opts, sync) {
             : value
         );
       }
-    });
+    }
 
     if (!result && !editorConfigured) {
       return null;
     }
 
+    // We are not using this option
+    delete merged.insertFinalNewline;
     return merged;
   };
 
@@ -147,9 +154,11 @@ function mergeOverrides(configResult, filePath) {
 }
 
 // Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
-function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
-  const patternList = [].concat(patterns);
-  const excludedPatternList = [].concat(excludedPatterns || []);
+function pathMatchesGlobs(filePath, patterns, excludedPatterns = []) {
+  const patternList = Array.isArray(patterns) ? patterns : [patterns];
+  const excludedPatternList = Array.isArray(excludedPatterns)
+    ? excludedPatterns
+    : [excludedPatterns];
   const opts = { matchBase: true, dot: true };
 
   return (

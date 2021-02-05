@@ -1,16 +1,17 @@
-function formatMarkdown(
+function formatMarkdown({
   input,
   output,
   output2,
+  doc,
   version,
   url,
   options,
   cliOptions,
-  full
-) {
+  full,
+}) {
   const syntax = getMarkdownSyntax(options);
   const optionsString = formatCLIOptions(cliOptions);
-  const isIdempotent = output2 === "" || output === output2;
+  const isIdempotent = !output2 || output === output2;
 
   return [
     `**Prettier ${version}**`,
@@ -19,17 +20,16 @@ function formatMarkdown(
     "",
     "**Input:**",
     codeBlock(input, syntax),
-    "",
-    "**Output:**",
-    codeBlock(output, syntax),
+    ...(doc ? ["", "**Doc:**", codeBlock(doc, "js")] : []),
+    ...(output === undefined
+      ? []
+      : ["", "**Output:**", codeBlock(output, syntax)]),
+    ...(isIdempotent
+      ? []
+      : ["", "**Second Output:**", codeBlock(output2, syntax)]),
+    ...(full ? ["", "**Expected behavior:**", ""] : []),
   ]
-    .concat(
-      isIdempotent ? [] : ["", "**Second Output:**", codeBlock(output2, syntax)]
-    )
-    .concat(full ? ["", "**Expected behavior:**", ""] : [])
-    .filter((part) => {
-      return part != null;
-    })
+    .filter((part) => part != null)
     .join("\n");
 }
 
@@ -38,6 +38,8 @@ function getMarkdownSyntax(options) {
     case "babel":
     case "babel-flow":
     case "flow":
+    case "espree":
+    case "meriyah":
       return "jsx";
     case "babel-ts":
     case "typescript":

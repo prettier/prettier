@@ -1,5 +1,6 @@
 "use strict";
 
+const assert = require("assert");
 const comments = require("./comments");
 
 function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
@@ -43,8 +44,24 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   };
 }
 
-function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
-  if (offset < options.locStart(node) || offset > options.locEnd(node)) {
+function findNodeAtOffset(
+  node,
+  offset,
+  options,
+  predicate,
+  parentNodes = [],
+  type
+) {
+  const { locStart, locEnd } = options;
+  const start = locStart(node);
+  const end = locEnd(node);
+
+  if (
+    offset > end ||
+    offset < start ||
+    (type === "rangeEnd" && offset === start) ||
+    (type === "rangeStart" && offset === end)
+  ) {
     return;
   }
 
@@ -54,7 +71,8 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes = []) {
       offset,
       options,
       predicate,
-      [node, ...parentNodes]
+      [node, ...parentNodes],
+      type
     );
     if (childResult) {
       return childResult;
@@ -109,6 +127,7 @@ const graphqlSourceElements = new Set([
   "ScalarTypeDefinition",
 ]);
 function isSourceElement(opts, node) {
+  /* istanbul ignore next */
   if (node == null) {
     return false;
   }
@@ -118,6 +137,8 @@ function isSourceElement(opts, node) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
+    case "espree":
+    case "meriyah":
       return isJsSourceElement(node.type);
     case "json":
       return jsonSourceElements.has(node.type);
@@ -130,37 +151,41 @@ function isSourceElement(opts, node) {
 }
 
 function calculateRange(text, opts, ast) {
+  let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
+  assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
-  const rangeStringOrig = text.slice(opts.rangeStart, opts.rangeEnd);
-  const startNonWhitespace = Math.max(
-    opts.rangeStart + rangeStringOrig.search(/\S/),
-    opts.rangeStart
-  );
-  let endNonWhitespace;
-  for (
-    endNonWhitespace = opts.rangeEnd;
-    endNonWhitespace > opts.rangeStart;
-    --endNonWhitespace
-  ) {
-    if (/\S/.test(text[endNonWhitespace - 1])) {
-      break;
+  const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);
+  const isAllWhitespace = firstNonWhitespaceCharacterIndex === -1;
+  if (!isAllWhitespace) {
+    start += firstNonWhitespaceCharacterIndex;
+    for (; end > start; --end) {
+      if (/\S/.test(text[end - 1])) {
+        break;
+      }
     }
   }
 
   const startNodeAndParents = findNodeAtOffset(
     ast,
-    startNonWhitespace,
+    start,
     opts,
-    (node) => isSourceElement(opts, node)
+    (node) => isSourceElement(opts, node),
+    [],
+    "rangeStart"
   );
-  const endNodeAndParents = findNodeAtOffset(
-    ast,
-    endNonWhitespace,
-    opts,
-    (node) => isSourceElement(opts, node)
-  );
-
+  const endNodeAndParents =
+    // No need find Node at `end`, it will be the same as `startNodeAndParents`
+    isAllWhitespace
+      ? startNodeAndParents
+      : findNodeAtOffset(
+          ast,
+          end,
+          opts,
+          (node) => isSourceElement(opts, node),
+          [],
+          "rangeEnd"
+        );
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
       rangeStart: 0,
@@ -175,8 +200,8 @@ function calculateRange(text, opts, ast) {
   );
 
   return {
-    rangeStart: Math.min(opts.locStart(startNode), opts.locStart(endNode)),
-    rangeEnd: Math.max(opts.locEnd(startNode), opts.locEnd(endNode)),
+    rangeStart: Math.min(locStart(startNode), locStart(endNode)),
+    rangeEnd: Math.max(locEnd(startNode), locEnd(endNode)),
   };
 }
 

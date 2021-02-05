@@ -48,9 +48,7 @@ printWidth: 80
 =====================================output=====================================
 <mjml>
   <mj-head>
-    <mj-title>
-      The green fix eats mango.
-    </mj-title>
+    <mj-title> The green fix eats mango. </mj-title>
     <mj-breakpoint width="600px" />
     <mj-preview>Do you like cheese? We do!</mj-preview>
     <mj-attributes>

@@ -54,3 +54,18 @@ describe("external options from config file should work", () => {
     write: [],
   });
 });
+
+describe("Non exists plugin", () => {
+  runPrettier(
+    "plugins/options-string",
+    ["--plugin=--invalid--", "--stdin-filepath", "example.foo"],
+    { input: "hello-world" }
+  ).test({
+    stdout: "",
+    stderr: expect.stringMatching(
+      /Cannot (?:resolve|find) module '--invalid--' from/
+    ),
+    status: 1,
+    write: [],
+  });
+});

@@ -282,7 +282,7 @@ printWidth: 80
     )
   )()
     .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
+    .catch((err) => {
       logger.error(
         pipe(
           O.fromNullable(err.stack),
@@ -315,7 +315,7 @@ printWidth: 80
     TE.chain(flow(publishServiceEvent(analytics), TE.mapLeft(nackFromError)))
   )()
     .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
+    .catch((err) => {
       logger.error(
         pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message)))
       );
@@ -359,7 +359,7 @@ printWidth: 80
     )
   )()
     .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
+    .catch((err) => {
       logger.error(
         pipe(
           // add a descriptive comment here
@@ -410,7 +410,7 @@ printWidth: 80
     )
   )()
     .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
+    .catch((err) => {
       logger.error(
         pipe(
           // add a descriptive comment here

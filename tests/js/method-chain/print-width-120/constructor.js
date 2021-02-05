@@ -5,7 +5,7 @@ const writer = new BufferStackItem(
     .toBuffer(),
 );
 
-const writer = new BufferStackItem(
+const writer2 = new BufferStackItem(
   new Extra.BinaryWriter()
     .writeUInt8(StackItemType.ByteArray)
     .writeVarBytesLE(Buffer.alloc(10, 1))

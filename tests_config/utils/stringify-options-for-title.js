@@ -2,9 +2,9 @@
 
 function stringifyOptions(options) {
   const string = JSON.stringify(options || {}, (key, value) =>
-    key === "disableBabelTS" || key === "plugins"
+    key === "plugins" || key === "errors"
       ? undefined
-      : value === Infinity
+      : value === Number.POSITIVE_INFINITY
       ? "Infinity"
       : value
   );

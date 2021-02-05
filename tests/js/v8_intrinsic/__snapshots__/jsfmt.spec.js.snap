@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`intrinsic_call.js [espree] format 1`] = `
+"Unexpected token % (2:13)
+  1 | function doSmth()     {
+> 2 |             %DebugPrint
+    |             ^
+  3 |         (
+  4 |                 foo )
+  5 |   }"
+`;
+
+exports[`intrinsic_call.js [meriyah] format 1`] = `
+"[2:13]: Unexpected token: '%' (2:13)
+  1 | function doSmth()     {
+> 2 |             %DebugPrint
+    |             ^
+  3 |         (
+  4 |                 foo )
+  5 |   }"
+`;
+
 exports[`intrinsic_call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

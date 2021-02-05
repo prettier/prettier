@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ignored file (stderr) 1`] = `""`;
+
+exports[`Ignored file (stdout) 1`] = `""`;
+
+exports[`Ignored file (write) 1`] = `Array []`;
+
+exports[`None exist file (stderr) 1`] = `
+"[error] No files matching the pattern were found: \\"non-exist-file\\".
+"
+`;
+
+exports[`None exist file (stdout) 1`] = `""`;
+
+exports[`None exist file (write) 1`] = `Array []`;
+
+exports[`Not matching pattern (stderr) 1`] = `
+"[error] No files matching the pattern were found: \\"*.non-exist-pattern\\".
+"
+`;
+
+exports[`Not matching pattern (stdout) 1`] = `""`;
+
+exports[`Not matching pattern (write) 1`] = `Array []`;
+
+exports[`ignore-unknown alias (stdout) 1`] = `
+"javascript.js
+"
+`;
+
+exports[`ignore-unknown check (stderr) 1`] = `
+"[warn] javascript.js
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
+"
+`;
+
+exports[`ignore-unknown check (stdout) 1`] = `
+"Checking formatting...
+"
+`;
+
+exports[`ignore-unknown check (write) 1`] = `Array []`;
+
+exports[`ignore-unknown dir (stdout) 1`] = `
+"javascript.js
+"
+`;
+
+exports[`ignore-unknown pattern (stdout) 1`] = `
+"javascript.js
+override.as-js-file
+"
+`;
+
+exports[`ignore-unknown write (stdout) 1`] = `
+"javascript.js
+"
+`;
+
+exports[`ignore-unknown write (write) 1`] = `
+Array [
+  Object {
+    "content": "const foo = \\"bar\\";
+",
+    "filename": "javascript.js",
+  },
+]
+`;

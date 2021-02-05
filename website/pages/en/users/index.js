@@ -7,13 +7,11 @@ const siteConfig = require(process.cwd() + "/siteConfig.js");
 
 class Users extends React.Component {
   render() {
-    const showcase = siteConfig.users.map((user, i) => {
-      return (
-        <a key={i} href={user.infoLink}>
-          <img src={user.image} title={user.caption} />
-        </a>
-      );
-    });
+    const showcase = siteConfig.users.map((user, i) => (
+      <a key={i} href={user.infoLink}>
+        <img src={user.image} title={user.caption} />
+      </a>
+    ));
 
     return (
       <div>
@@ -34,15 +32,6 @@ class Users extends React.Component {
                 </p>
               </div>
               <div className="logos">{showcase}</div>
-              <div className="prose">
-                <p>Are you using this project?</p>
-              </div>
-              <a
-                href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
-                className="button"
-              >
-                Add your company
-              </a>
             </div>
           </Container>
         </div>

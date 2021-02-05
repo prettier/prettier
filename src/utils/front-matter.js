@@ -1,41 +1,69 @@
 "use strict";
 
-const escape = require("escape-string-regexp");
+const {
+  builders: { hardline, markAsRoot },
+} = require("../document");
 
-const DELIMITER_MAP = {
-  "---": "yaml",
-  "+++": "toml",
-};
+const frontMatterRegex = new RegExp(
+  "^(?<startDelimiter>-{3}|\\+{3})" +
+    // trailing spaces after delimiters are allowed
+    "(?<language>[^\\n]*)" +
+    "\\n(?:|(?<value>[\\S\\s]*?)\\n)" +
+    // In some markdown processors such as pandoc,
+    // "..." can be used as the end delimiter for YAML front-matter.
+    // Adding `\.{3}` make the regex matches `+++\n...`, but we'll exclude it later
+    "(?<endDelimiter>\\k<startDelimiter>|\\.{3})" +
+    "[^\\S\\n]*(?:\\n|$)"
+);
 
 function parse(text) {
-  const delimiterRegex = Object.keys(DELIMITER_MAP).map(escape).join("|");
-
-  const match = text.match(
-    // trailing spaces after delimiters are allowed
-    new RegExp(
-      `^(${delimiterRegex})([^\\n]*)\\n(?:([\\s\\S]*?)\\n)?\\1[^\\n\\S]*(\\n|$)`
-    )
-  );
-
-  if (match === null) {
-    return { frontMatter: null, content: text };
+  const match = text.match(frontMatterRegex);
+  if (!match) {
+    return { content: text };
   }
 
-  const [raw, delimiter, language, value] = match;
-  let lang = DELIMITER_MAP[delimiter];
-  if (lang !== "toml" && language && language.trim()) {
-    lang = language.trim();
+  const { startDelimiter, language, value = "", endDelimiter } = match.groups;
+
+  let lang = language.trim() || "yaml";
+  if (startDelimiter === "+++") {
+    lang = "toml";
   }
+
+  // Only allow yaml to parse with a different end delimiter
+  if (lang !== "yaml" && startDelimiter !== endDelimiter) {
+    return { content: text };
+  }
+
+  const [raw] = match;
+  const frontMatter = {
+    type: "front-matter",
+    lang,
+    value,
+    startDelimiter,
+    endDelimiter,
+    raw: raw.replace(/\n$/, ""),
+  };
 
   return {
-    frontMatter: {
-      type: "front-matter",
-      lang,
-      value,
-      raw: raw.replace(/\n$/, ""),
-    },
+    frontMatter,
     content: raw.replace(/[^\n]/g, " ") + text.slice(raw.length),
   };
 }
 
-module.exports = parse;
+function print(node, textToDoc) {
+  if (node.lang === "yaml") {
+    const value = node.value.trim();
+    const doc = value
+      ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
+      : "";
+    return markAsRoot([
+      node.startDelimiter,
+      hardline,
+      doc,
+      doc ? hardline : "",
+      node.endDelimiter,
+    ]);
+  }
+}
+
+module.exports = { parse, print };

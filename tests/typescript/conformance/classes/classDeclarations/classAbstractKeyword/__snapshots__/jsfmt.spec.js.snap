@@ -633,6 +633,17 @@ abstract class A {
 ================================================================================
 `;
 
+exports[`classAbstractMixedWithModifiers.ts [babel-ts] format 1`] = `
+"Unexpected token (8:21)
+   6 |     private abstract foo_d();
+   7 |     
+>  8 |     abstract public foo_bb();
+     |                     ^
+   9 |     abstract protected foo_cc();
+  10 |     abstract private foo_dd();
+  11 |     "
+`;
+
 exports[`classAbstractMixedWithModifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

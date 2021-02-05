@@ -1,89 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`element-node.hbs - {"singleQuote":true} format 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-<div class="attribute" {{modifier}} {{! comment}}>
-  Hello
-</div>
-
-<div>
-  Hello
-</div>
-
-<div>
-  hi
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping.
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping more.
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping more and more.
-</div>
-
-<div>
-  {{#block}}
-    {{hello}}
-  {{/block}}
-</div>
-
-<div>
-  {{hello}}
-</div>
-
-<div></div>
-<img />
-
-=====================================output=====================================
-<div class='attribute' {{modifier}} {{! comment}}>
-  Hello
-</div>
-
-<div>
-  Hello
-</div>
-
-<div>
-  hi
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping.
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping more.
-</div>
-
-<div>
-  A long enough string to trigger a line break that would prevent wrapping more and more.
-</div>
-
-<div>
-  {{#block}}
-    {{hello}}
-  {{/block}}
-</div>
-
-<div>
-  {{hello}}
-</div>
-
-<div></div>
-<img />
-================================================================================
-`;
-
 exports[`element-node.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -127,6 +43,8 @@ printWidth: 80
 <div></div>
 <img />
 
+<MyComponent @prop={{true}} @prop2={{true}} @prop3={{true}} @prop4={{true}} as |thing|></MyComponent>
+
 =====================================output=====================================
 <div class="attribute" {{modifier}} {{! comment}}>
   Hello
@@ -164,5 +82,13 @@ printWidth: 80
 
 <div></div>
 <img />
+
+<MyComponent
+  @prop={{true}}
+  @prop2={{true}}
+  @prop3={{true}}
+  @prop4={{true}}
+  as |thing|
+/>
 ================================================================================
 `;

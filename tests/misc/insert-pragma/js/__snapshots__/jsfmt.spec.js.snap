@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty.js - {"insertPragma":true} format 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+=====================================output=====================================
+/** @format */
+
+================================================================================
+`;
+
 exports[`module-with-late-docblock.js - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
@@ -135,6 +149,39 @@ function foo(bar) {
 function foo(bar) {
   return bar + 3 + 4;
 }
+
+================================================================================
+`;
+
+exports[`shebang-only-with-pragma.js - {"insertPragma":true} format 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#!/usr/bin/env node
+/** @format */
+
+=====================================output=====================================
+#!/usr/bin/env node
+/** @format */
+
+================================================================================
+`;
+
+exports[`shebang-only-without-pragma.js - {"insertPragma":true} format 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#!/usr/bin/env node
+
+=====================================output=====================================
+#!/usr/bin/env node
+/** @format */
 
 ================================================================================
 `;

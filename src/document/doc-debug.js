@@ -1,22 +1,22 @@
 "use strict";
 
-function flattenDoc(doc) {
-  if (doc.type === "concat") {
-    const res = [];
+const { isConcat, getDocParts } = require("./doc-utils");
 
-    for (let i = 0; i < doc.parts.length; ++i) {
-      const doc2 = doc.parts[i];
-      if (typeof doc2 !== "string" && doc2.type === "concat") {
-        res.push(...flattenDoc(doc2).parts);
+function flattenDoc(doc) {
+  if (isConcat(doc)) {
+    const res = [];
+    for (const part of getDocParts(doc)) {
+      if (isConcat(part)) {
+        res.push(...flattenDoc(part).parts);
       } else {
-        const flattened = flattenDoc(doc2);
+        const flattened = flattenDoc(part);
         if (flattened !== "") {
           res.push(flattened);
         }
       }
     }
 
-    return { ...doc, parts: res };
+    return { type: "concat", parts: res };
   } else if (doc.type === "if-break") {
     return {
       ...doc,
@@ -33,100 +33,168 @@ function flattenDoc(doc) {
         ? doc.expandedStates.map(flattenDoc)
         : doc.expandedStates,
     };
+  } else if (doc.type === "fill") {
+    return { type: "fill", parts: doc.parts.map(flattenDoc) };
   } else if (doc.contents) {
     return { ...doc, contents: flattenDoc(doc.contents) };
   }
   return doc;
 }
 
-function printDoc(doc) {
-  if (typeof doc === "string") {
-    return JSON.stringify(doc);
-  }
+function printDocToDebug(doc) {
+  /** @type Record<symbol, string> */
+  const printedSymbols = Object.create(null);
+  /** @type Set<string> */
+  const usedKeysForSymbols = new Set();
+  return printDoc(flattenDoc(doc));
 
-  if (doc.type === "line") {
-    if (doc.literal) {
-      return "literalline";
+  function printDoc(doc, index, parentParts) {
+    if (typeof doc === "string") {
+      return JSON.stringify(doc);
     }
-    if (doc.hard) {
-      return "hardline";
+
+    if (isConcat(doc)) {
+      const printed = getDocParts(doc).map(printDoc).filter(Boolean);
+      return printed.length === 1 ? printed[0] : `[${printed.join(", ")}]`;
     }
-    if (doc.soft) {
-      return "softline";
+
+    if (doc.type === "line") {
+      const withBreakParent =
+        Array.isArray(parentParts) &&
+        parentParts[index + 1] &&
+        parentParts[index + 1].type === "break-parent";
+      if (doc.literal) {
+        return withBreakParent
+          ? "literalline"
+          : "literallineWithoutBreakParent";
+      }
+      if (doc.hard) {
+        return withBreakParent ? "hardline" : "hardlineWithoutBreakParent";
+      }
+      if (doc.soft) {
+        return "softline";
+      }
+      return "line";
     }
-    return "line";
-  }
 
-  if (doc.type === "break-parent") {
-    return "breakParent";
-  }
+    if (doc.type === "break-parent") {
+      const afterHardline =
+        Array.isArray(parentParts) &&
+        parentParts[index - 1] &&
+        parentParts[index - 1].type === "line" &&
+        parentParts[index - 1].hard;
+      return afterHardline ? undefined : "breakParent";
+    }
 
-  if (doc.type === "trim") {
-    return "trim";
-  }
+    if (doc.type === "trim") {
+      return "trim";
+    }
 
-  if (doc.type === "concat") {
-    return "[" + doc.parts.map(printDoc).join(", ") + "]";
-  }
+    if (doc.type === "indent") {
+      return "indent(" + printDoc(doc.contents) + ")";
+    }
 
-  if (doc.type === "indent") {
-    return "indent(" + printDoc(doc.contents) + ")";
-  }
+    if (doc.type === "align") {
+      return doc.n === Number.NEGATIVE_INFINITY
+        ? "dedentToRoot(" + printDoc(doc.contents) + ")"
+        : doc.n < 0
+        ? "dedent(" + printDoc(doc.contents) + ")"
+        : doc.n.type === "root"
+        ? "markAsRoot(" + printDoc(doc.contents) + ")"
+        : "align(" +
+          JSON.stringify(doc.n) +
+          ", " +
+          printDoc(doc.contents) +
+          ")";
+    }
 
-  if (doc.type === "align") {
-    return doc.n === -Infinity
-      ? "dedentToRoot(" + printDoc(doc.contents) + ")"
-      : doc.n < 0
-      ? "dedent(" + printDoc(doc.contents) + ")"
-      : doc.n.type === "root"
-      ? "markAsRoot(" + printDoc(doc.contents) + ")"
-      : "align(" + JSON.stringify(doc.n) + ", " + printDoc(doc.contents) + ")";
-  }
-
-  if (doc.type === "if-break") {
-    return (
-      "ifBreak(" +
-      printDoc(doc.breakContents) +
-      (doc.flatContents ? ", " + printDoc(doc.flatContents) : "") +
-      ")"
-    );
-  }
-
-  if (doc.type === "group") {
-    if (doc.expandedStates) {
+    if (doc.type === "if-break") {
       return (
-        "conditionalGroup(" +
-        "[" +
-        doc.expandedStates.map(printDoc).join(",") +
-        "])"
+        "ifBreak(" +
+        printDoc(doc.breakContents) +
+        (doc.flatContents ? ", " + printDoc(doc.flatContents) : "") +
+        (doc.groupId
+          ? (!doc.flatContents ? ', ""' : "") +
+            `, { groupId: ${printGroupId(doc.groupId)} }`
+          : "") +
+        ")"
       );
     }
 
-    return (
-      (doc.break ? "wrappedGroup" : "group") +
-      "(" +
-      printDoc(doc.contents) +
-      ")"
-    );
+    if (doc.type === "indent-if-break") {
+      const optionsParts = [];
+
+      if (doc.negate) {
+        optionsParts.push("negate: true");
+      }
+
+      if (doc.groupId) {
+        optionsParts.push(`groupId: ${printGroupId(doc.groupId)}`);
+      }
+
+      const options =
+        optionsParts.length > 0 ? `, { ${optionsParts.join(", ")} }` : "";
+
+      return `indentIfBreak(${printDoc(doc.contents)}${options})`;
+    }
+
+    if (doc.type === "group") {
+      const optionsParts = [];
+
+      if (doc.break && doc.break !== "propagated") {
+        optionsParts.push("break: true");
+      }
+
+      if (doc.id) {
+        optionsParts.push(`id: ${printGroupId(doc.id)}`);
+      }
+
+      const options =
+        optionsParts.length > 0 ? `, { ${optionsParts.join(", ")} }` : "";
+
+      if (doc.expandedStates) {
+        return `conditionalGroup([${doc.expandedStates
+          .map((part) => printDoc(part))
+          .join(",")}]${options})`;
+      }
+
+      return `group(${printDoc(doc.contents)}${options})`;
+    }
+
+    if (doc.type === "fill") {
+      return `fill([${doc.parts.map((part) => printDoc(part)).join(", ")}])`;
+    }
+
+    if (doc.type === "line-suffix") {
+      return "lineSuffix(" + printDoc(doc.contents) + ")";
+    }
+
+    if (doc.type === "line-suffix-boundary") {
+      return "lineSuffixBoundary";
+    }
+
+    throw new Error("Unknown doc type " + doc.type);
   }
 
-  if (doc.type === "fill") {
-    return "fill" + "(" + doc.parts.map(printDoc).join(", ") + ")";
-  }
+  function printGroupId(id) {
+    if (typeof id !== "symbol") {
+      return JSON.stringify(String(id));
+    }
 
-  if (doc.type === "line-suffix") {
-    return "lineSuffix(" + printDoc(doc.contents) + ")";
-  }
+    if (id in printedSymbols) {
+      return printedSymbols[id];
+    }
 
-  if (doc.type === "line-suffix-boundary") {
-    return "lineSuffixBoundary";
+    // TODO: use Symbol.prototype.description instead of slice once Node 10 is dropped
+    const prefix = String(id).slice(7, -1) || "symbol";
+    for (let counter = 0; ; counter++) {
+      const key = prefix + (counter > 0 ? ` #${counter}` : "");
+      if (!usedKeysForSymbols.has(key)) {
+        usedKeysForSymbols.add(key);
+        return (printedSymbols[id] = `Symbol.for(${JSON.stringify(key)})`);
+      }
+    }
   }
-
-  throw new Error("Unknown doc type " + doc.type);
 }
 
-module.exports = {
-  printDocToDebug(doc) {
-    return printDoc(flattenDoc(doc));
-  },
-};
+module.exports = { printDocToDebug };

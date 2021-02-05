@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\";\\" (1:10)
+> 1 | abstract interface I {
+    |          ^
+  2 |
+  3 | }
+  4 |"
+`;
+
+exports[`abstract.ts - {"semi":false} [babel-ts] format 1`] = `
+"Unexpected token, expected \\";\\" (1:10)
+> 1 | abstract interface I {
+    |          ^
+  2 |
+  3 | }
+  4 |"
+`;
+
 exports[`abstract.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -105,6 +123,12 @@ interface ReallyReallyLongName3<
 extends BaseInterface // 3
 {}
 
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}
 
 =====================================output=====================================
 interface ReallyReallyLongName<
@@ -131,6 +155,13 @@ interface ReallyReallyLongName3<
   extends BaseInterface {
   // 3
 }
+
+interface Foo<
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  > // comments
+  extends Foo {}
 
 ================================================================================
 `;
@@ -165,6 +196,12 @@ interface ReallyReallyLongName3<
 extends BaseInterface // 3
 {}
 
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}
 
 =====================================output=====================================
 interface ReallyReallyLongName<
@@ -191,6 +228,70 @@ interface ReallyReallyLongName3<
   extends BaseInterface {
   // 3
 }
+
+interface Foo<
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  > // comments
+  extends Foo {}
+
+================================================================================
+`;
+
+exports[`generic.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+=====================================output=====================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+================================================================================
+`;
+
+exports[`generic.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+=====================================output=====================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
 
 ================================================================================
 `;
@@ -231,6 +332,84 @@ interface T<T> {
   new<T>(): T<T>;
 }
 
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
+}
+
 =====================================output=====================================
 interface Interface {
   // prettier-ignore
@@ -259,6 +438,84 @@ interface T<T> {
   // prettier-ignore
   new<T>(): T<T>;
   new <T>(): T<T>
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
 }
 
 ================================================================================
@@ -299,6 +556,84 @@ interface T<T> {
   new<T>(): T<T>;
 }
 
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
+}
+
 =====================================output=====================================
 interface Interface {
   // prettier-ignore
@@ -327,6 +662,84 @@ interface T<T> {
   // prettier-ignore
   new<T>(): T<T>;
   new <T>(): T<T>;
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
 }
 
 ================================================================================
@@ -444,6 +857,51 @@ export interface ThirdVeryLongAndBoringInterfaceName
     B_AVeryLongAndBoringInterfaceName,
     C_AVeryLongAndBoringInterfaceName {
   c: string;
+}
+
+================================================================================
+`;
+
+exports[`pattern-parameters.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
+=====================================output=====================================
+interface B {
+  foo([]?): void
+  bar({}, []?): any
+  baz(a: string, b: number, []?): void
+}
+
+================================================================================
+`;
+
+exports[`pattern-parameters.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
+=====================================output=====================================
+interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
 }
 
 ================================================================================

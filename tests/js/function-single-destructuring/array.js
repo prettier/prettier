@@ -2,19 +2,15 @@ function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest])
   return rest;
 }
 
-function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest] = DEFAULT_FIVE_RESULTS) {
+function excludeFirstFiveResults2([first, second, third, fourth, fifth, ...rest] = DEFAULT_FIVE_RESULTS) {
   return rest;
 }
 
-function excludeFirstFiveResults([firstResult, secondResult, thirdResult, fourthResult, fifthResult, ...rest] = [1, 2, 3, 4, 5]) {
+function excludeFirstFiveResults3([firstResult, secondResult, thirdResult, fourthResult, fifthResult, ...rest] = [1, 2, 3, 4, 5]) {
   return rest;
 }
 
-function excludeFirstFiveResults([first, second, third, fourth, fifth, ...rest]: Result[]) {
-  return rest;
-}
-
-const excludeFirstFiveResults = ([first, second, third, fourth, fifth, ...rest]) => {
+const excludeFirstFiveResults5 = ([first, second, third, fourth, fifth, ...rest]) => {
   return rest;
 }
 

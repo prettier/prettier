@@ -12,7 +12,7 @@ function f() {
   )
 }
 
-function f() {
+function f2() {
   const appEntities = getAppEntities(loadObject).map(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled() && {
       id: entity.id
@@ -34,7 +34,7 @@ function f() {
   );
 }
 
-function f() {
+function f2() {
   const appEntities = getAppEntities(loadObject).map(
     (entity) =>
       entity &&
@@ -432,11 +432,11 @@ printWidth: 80
 =====================================input======================================
 const user = renderedUser || <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
 
-const user = renderedUser || shouldRenderUser && <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
+const user2 = renderedUser || shouldRenderUser && <div><User name={this.state.user.name} age={this.state.user.age} /></div>;
 
 const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 
-const avatar = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
+const avatar2 = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
 
 =====================================output=====================================
 const user = renderedUser || (
@@ -445,7 +445,7 @@ const user = renderedUser || (
   </div>
 );
 
-const user =
+const user2 =
   renderedUser ||
   (shouldRenderUser && (
     <div>
@@ -455,7 +455,7 @@ const user =
 
 const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 
-const avatar = (hasAvatar || showPlaceholder) && (
+const avatar2 = (hasAvatar || showPlaceholder) && (
   <Gravatar user={author} size={size} />
 );
 
@@ -535,7 +535,7 @@ const create = () => {
   );
 }
 
-const create = () => {
+const create2 = () => {
   const result = doSomething();
   return (
     shouldReturn && result.ok && result || {
@@ -630,7 +630,7 @@ const create = () => {
   );
 };
 
-const create = () => {
+const create2 = () => {
   const result = doSomething();
   return (
     (shouldReturn && result.ok && result) || {
@@ -740,6 +740,27 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`like-regexp.js [espree] format 1`] = `
+"Unterminated regular expression (1:19)
+> 1 | 0 ? a : { b : 1 }/2;
+    |                   ^
+  2 |"
+`;
+
+exports[`like-regexp.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+0 ? a : { b : 1 }/2;
+
+=====================================output=====================================
+0 ? a : { b: 1 } / 2;
+
+================================================================================
+`;
+
 exports[`math.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -806,13 +827,13 @@ function foo() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right;
 }
 
-function foo() {
+function foo2() {
   return this.hasPlugin("dynamicImports") && this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
 }
 
-function foo() {
+function foo3() {
   return this.calculate().compute().first.numberOfThings > this.calculate().compute().last.numberOfThings
     ? true
     : false;
@@ -826,14 +847,14 @@ function foo() {
   );
 }
 
-function foo() {
+function foo2() {
   return this.hasPlugin("dynamicImports") &&
     this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
 }
 
-function foo() {
+function foo3() {
   return this.calculate().compute().first.numberOfThings >
     this.calculate().compute().last.numberOfThings
     ? true
@@ -900,19 +921,19 @@ printWidth: 80
 // break them all at the same time.
 
 const x = longVariable + longVariable + longVariable;
-const x = longVariable + longVariable + longVariable + longVariable - longVariable + longVariable;
-const x = longVariable + longVariable * longVariable + longVariable - longVariable + longVariable;
-const x = longVariable + longVariable * longVariable * longVariable / longVariable + longVariable;
+const x1 = longVariable + longVariable + longVariable + longVariable - longVariable + longVariable;
+const x2 = longVariable + longVariable * longVariable + longVariable - longVariable + longVariable;
+const x3 = longVariable + longVariable * longVariable * longVariable / longVariable + longVariable;
 
-const x = longVariable && longVariable && longVariable && longVariable && longVariable && longVariable;
-const x = longVariable && longVariable || longVariable && longVariable || longVariable && longVariable;
-const x = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || {};
-const x = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || [];
-const x = call(firstItemWithAVeryLongNameThatKeepsGoing, firstItemWithAVeryLongNameThatKeepsGoing) || [];
+const x4 = longVariable && longVariable && longVariable && longVariable && longVariable && longVariable;
+const x5 = longVariable && longVariable || longVariable && longVariable || longVariable && longVariable;
+const x6 = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || {};
+const x7 = firstItemWithAVeryLongNameThatKeepsGoing || firstItemWithAVeryLongNameThatKeepsGoing || [];
+const x8 = call(firstItemWithAVeryLongNameThatKeepsGoing, firstItemWithAVeryLongNameThatKeepsGoing) || [];
 
-const x = longVariable * longint && longVariable >> 0 && longVariable + longVariable;
+const x9 = longVariable * longint && longVariable >> 0 && longVariable + longVariable;
 
-const x = longVariable > longint && longVariable === 0 + longVariable * longVariable;
+const x10 = longVariable > longint && longVariable === 0 + longVariable * longVariable;
 
 foo(obj.property * new Class() && obj instanceof Class && longVariable ? number + 5 : false);
 
@@ -921,53 +942,53 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 // break them all at the same time.
 
 const x = longVariable + longVariable + longVariable;
-const x =
+const x1 =
   longVariable +
   longVariable +
   longVariable +
   longVariable -
   longVariable +
   longVariable;
-const x =
+const x2 =
   longVariable +
   longVariable * longVariable +
   longVariable -
   longVariable +
   longVariable;
-const x =
+const x3 =
   longVariable +
   (longVariable * longVariable * longVariable) / longVariable +
   longVariable;
 
-const x =
+const x4 =
   longVariable &&
   longVariable &&
   longVariable &&
   longVariable &&
   longVariable &&
   longVariable;
-const x =
+const x5 =
   (longVariable && longVariable) ||
   (longVariable && longVariable) ||
   (longVariable && longVariable);
-const x =
+const x6 =
   firstItemWithAVeryLongNameThatKeepsGoing ||
   firstItemWithAVeryLongNameThatKeepsGoing ||
   {};
-const x =
+const x7 =
   firstItemWithAVeryLongNameThatKeepsGoing ||
   firstItemWithAVeryLongNameThatKeepsGoing ||
   [];
-const x =
+const x8 =
   call(
     firstItemWithAVeryLongNameThatKeepsGoing,
     firstItemWithAVeryLongNameThatKeepsGoing
   ) || [];
 
-const x =
+const x9 =
   longVariable * longint && longVariable >> 0 && longVariable + longVariable;
 
-const x =
+const x10 =
   longVariable > longint && longVariable === 0 + longVariable * longVariable;
 
 foo(

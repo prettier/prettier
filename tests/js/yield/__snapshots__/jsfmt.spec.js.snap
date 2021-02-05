@@ -79,21 +79,37 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 function* f() {
-  yield <div>generator</div>
   yield (<div>generator</div>)
-  yield <div><p>generator</p></div>
   yield (<div><p>generator</p></div>)
 }
 
 =====================================output=====================================
 function* f() {
   yield <div>generator</div>;
-  yield <div>generator</div>;
   yield (
     <div>
       <p>generator</p>
     </div>
   );
+}
+
+================================================================================
+`;
+
+exports[`jsx-without-parenthesis.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function* f() {
+  yield <div>generator</div>
+  yield <div><p>generator</p></div>
+}
+
+=====================================output=====================================
+function* f() {
+  yield <div>generator</div>;
   yield (
     <div>
       <p>generator</p>

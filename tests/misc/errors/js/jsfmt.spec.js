@@ -39,6 +39,11 @@ run_spec(
       // Don't support `syntaxType: "bar"`
       "[| 1 |]",
       // "{| a: 1 |}", // babel didn't throw on this
+
+      // Invalid decimal
+      "0b101011101m;",
+      "0x16432m;",
+      "0o16432m;",
     ],
   },
   ["babel"]

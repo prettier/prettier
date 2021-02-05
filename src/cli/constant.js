@@ -132,6 +132,9 @@ const options = {
   "debug-print-doc": {
     type: "boolean",
   },
+  "debug-print-comments": {
+    type: "boolean",
+  },
   "debug-repeat": {
     // Repeat the formatting a few times and measure the average duration.
     type: "int",
@@ -144,6 +147,10 @@ const options = {
     oppositeDescription:
       "Don't take .editorconfig into account when parsing configuration.",
     default: true,
+  },
+  "error-on-unmatched-pattern": {
+    type: "boolean",
+    oppositeDescription: "Prevent errors when pattern is unmatched.",
   },
   "find-config-path": {
     type: "path",
@@ -174,6 +181,11 @@ const options = {
     default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore.",
   },
+  "ignore-unknown": {
+    type: "boolean",
+    alias: "u",
+    description: "Ignore unknown files.",
+  },
   "list-different": {
     type: "boolean",
     category: coreOptions.CATEGORY_OUTPUT,
@@ -203,6 +215,7 @@ const options = {
   },
   write: {
     type: "boolean",
+    alias: "w",
     category: coreOptions.CATEGORY_OUTPUT,
     description: "Edit files in-place. (Beware!)",
   },

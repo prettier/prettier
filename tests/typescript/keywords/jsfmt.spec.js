@@ -1,1 +1,3 @@
-run_spec(__dirname, ["typescript"], { disableBabelTS: true });
+run_spec(__dirname, ["typescript"], {
+  errors: { "babel-ts": ["keywords.ts"] },
+});
