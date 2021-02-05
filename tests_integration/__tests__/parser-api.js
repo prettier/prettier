@@ -43,7 +43,7 @@ test("allows add empty `trailingComments` array", () => {
       return ast;
     },
   });
-  expect(output).toEqual("foo /* comment */();\n");
+  expect(output).toEqual("foo(/* comment */);\n");
 });
 
 describe("allows passing a string to resolve a parser", () => {
