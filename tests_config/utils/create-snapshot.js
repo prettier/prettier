@@ -35,6 +35,19 @@ function printOptions(options) {
     .join("\n");
 }
 
+function printWidthIndicator(printWidth, offset) {
+  if (!Number.isFinite(printWidth) || printWidth < 1) {
+    return "";
+  }
+
+  let before = "";
+  if (offset) {
+    before = " ".repeat(offset - 1) + "|";
+  }
+
+  return `${before}${" ".repeat(printWidth)}| printWidth`;
+}
+
 function createSnapshot(
   formatResult,
   { parsers, formatOptions, CURSOR_PLACEHOLDER }
@@ -66,20 +79,13 @@ function createSnapshot(
     output = visualizeEndOfLine(output);
   }
 
-  const printWidthIndicator =
-    printWidth > 0 && Number.isFinite(printWidth)
-      ? [
-          (codeOffset ? " ".repeat(codeOffset - 1) + "|" : "") +
-            " ".repeat(printWidth) +
-            "| printWidth",
-        ]
-      : [];
+  const widthIndicator = printWidthIndicator(printWidth, codeOffset);
 
   return raw(
     [
       printSeparator("options"),
       printOptions({ ...options, parsers }),
-      ...printWidthIndicator,
+      ...(widthIndicator ? [widthIndicator] : []),
       printSeparator("input"),
       input,
       printSeparator("output"),
