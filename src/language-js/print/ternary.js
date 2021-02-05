@@ -174,13 +174,11 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  const parentName = path.callParent((path) => path.getName());
-  if (!parentName) {
-    return false;
-  }
-
   let ancestorCount = 1;
   let ancestor = path.getParentNode(ancestorCount);
+  if (!ancestor) {
+    return false;
+  }
   while (isChainElement(ancestor)) {
     ancestor = path.getParentNode(++ancestorCount);
   }
