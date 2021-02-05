@@ -121,6 +121,23 @@ function printDocToDebug(doc) {
       );
     }
 
+    if (doc.type === "indent-if-break") {
+      const optionsParts = [];
+
+      if (doc.negate) {
+        optionsParts.push("negate: true");
+      }
+
+      if (doc.groupId) {
+        optionsParts.push(`groupId: ${printGroupId(doc.groupId)}`);
+      }
+
+      const options =
+        optionsParts.length > 0 ? `, { ${optionsParts.join(", ")} }` : "";
+
+      return `indentIfBreak(${printDoc(doc.contents)}${options})`;
+    }
+
     if (doc.type === "group") {
       const optionsParts = [];
 
@@ -137,7 +154,7 @@ function printDocToDebug(doc) {
 
       if (doc.expandedStates) {
         return `conditionalGroup([${doc.expandedStates
-          .map(printDoc)
+          .map((part) => printDoc(part))
           .join(",")}]${options})`;
       }
 
@@ -168,7 +185,8 @@ function printDocToDebug(doc) {
       return printedSymbols[id];
     }
 
-    const prefix = id.description || "symbol";
+    // TODO: use Symbol.prototype.description instead of slice once Node 10 is dropped
+    const prefix = String(id).slice(7, -1) || "symbol";
     for (let counter = 0; ; counter++) {
       const key = prefix + (counter > 0 ? ` #${counter}` : "");
       if (!usedKeysForSymbols.has(key)) {

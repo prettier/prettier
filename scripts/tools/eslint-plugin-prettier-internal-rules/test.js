@@ -155,6 +155,35 @@ test("prefer-fast-path-each", {
   ],
 });
 
+test("prefer-indent-if-break", {
+  valid: [
+    "ifBreak(indent(doc))",
+    "notIfBreak(indent(doc), doc, options)",
+    "ifBreak(indent(doc), doc, )",
+    "ifBreak(...a, ...b, ...c)",
+    "ifBreak(notIndent(doc), doc, options)",
+    "ifBreak(indent(doc), notSameDoc, options)",
+    "ifBreak(indent(...a), a, options)",
+    "ifBreak(indent(a, b), a, options)",
+  ],
+  invalid: [
+    {
+      code: "ifBreak(indent(doc), doc, options)",
+      output: "indentIfBreak( doc, options)",
+      errors: [
+        {
+          message: "Prefer `indentIfBreak(…)` over `ifBreak(indent(…), …)`.",
+        },
+      ],
+    },
+    {
+      code: "ifBreak((indent(doc)), (doc), options)",
+      output: "indentIfBreak( (doc), options)",
+      errors: 1,
+    },
+  ],
+});
+
 test("prefer-is-non-empty-array", {
   valid: [
     // `isNonEmptyArray` self is ignored

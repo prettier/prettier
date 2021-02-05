@@ -73,15 +73,11 @@ function printClass(path, options, print) {
   );
 
   if (groupMode) {
-    const printedExtends = extendsParts;
     let printedPartsGroup;
     if (shouldIndentOnlyHeritageClauses(n)) {
-      printedPartsGroup = [
-        ...partsGroup,
-        ifBreak(indent(printedExtends), printedExtends),
-      ];
+      printedPartsGroup = [...partsGroup, indent(extendsParts)];
     } else {
-      printedPartsGroup = indent([...partsGroup, printedExtends]);
+      printedPartsGroup = indent([...partsGroup, extendsParts]);
     }
     parts.push(group(printedPartsGroup, { id: getHeritageGroupId(n) }));
   } else {

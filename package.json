@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "@angular/compiler": "11.1.1",
-    "@babel/code-frame": "7.12.11",
+    "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.12.11",
     "@glimmer/syntax": "0.74.2",
     "@iarna/toml": "2.2.5",
@@ -85,7 +85,7 @@
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
-    "@babel/core": "7.12.10",
+    "@babel/core": "7.12.13",
     "@babel/preset-env": "7.12.13",
     "@babel/types": "7.12.13",
     "@glimmer/reference": "0.74.2",
@@ -131,7 +131,7 @@
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.0",
     "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.20.0"
+    "webpack": "5.20.1"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",

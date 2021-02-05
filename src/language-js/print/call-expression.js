@@ -7,7 +7,7 @@ const pathNeedsParens = require("../needs-parens");
 const {
   getCallArguments,
   hasFlowAnnotationComment,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
   isMemberish,
   isTemplateOnItsOwnLine,
   isTestCall,
@@ -95,7 +95,7 @@ function printCallExpression(path, options, print) {
 
   // We group here when the callee is itself a call expression.
   // See `isLongCurriedCallExpression` for more info.
-  if (isDynamicImport || isCallOrOptionalCallExpression(n.callee)) {
+  if (isDynamicImport || isCallExpression(n.callee)) {
     return group(contents);
   }
 

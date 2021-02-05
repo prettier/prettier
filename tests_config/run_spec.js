@@ -280,7 +280,7 @@ function runTest({
         rangeStart: rangeStartWithCursor,
         rangeEnd: rangeEndWithCursor,
       });
-      codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
+      codeOffset = codeForSnapshot.match(/^>?\s+1 \|/)[0].length + 1;
     }
 
     if (hasEndOfLine) {
