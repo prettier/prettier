@@ -221,11 +221,10 @@ function shouldExtraIndentForConditionalExpression(path) {
 
   const chainRoot = path.getParentNode(ancestorCount - 1);
   if (
-    isChainElement(parent) &&
     checkAncestor(chainRoot) &&
-    ((isCallExpression(parent) && name === "callee") ||
-      (isMemberExpression(parent) && name === "object") ||
-      (parent.type === "TSNonNullExpression" && name === "expression"))
+    ((name === "callee" && isCallExpression(parent)) ||
+      (name === "object" && isMemberExpression(parent)) ||
+      (name === "expression" && parent.type === "TSNonNullExpression"))
   ) {
     return true;
   }
