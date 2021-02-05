@@ -48,14 +48,10 @@ function createSnapshot(
   let codeOffset = 0;
   if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
     if (typeof cursorOffset === "number") {
-      if (
-        typeof rangeStartWithCursor === "number" &&
-        rangeStart > cursorOffset
-      ) {
+      if (typeof rangeStart === "number" && rangeStart > cursorOffset) {
         rangeStart += CURSOR_PLACEHOLDER.length;
       }
-
-      if (typeof rangeEndWithCursor === "number" && rangeEnd > cursorOffset) {
+      if (typeof rangeEnd === "number" && rangeEnd > cursorOffset) {
         rangeEnd += CURSOR_PLACEHOLDER.length;
       }
     }
