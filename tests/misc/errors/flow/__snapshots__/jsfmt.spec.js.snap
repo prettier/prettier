@@ -2,9 +2,9 @@
 
 exports[`async-arrow-invalid.js [flow] format 1`] = `
 "Unexpected token ILLEGAL (4:1)
-  2 | 
+  2 |
   3 | <T> async () => {}
-> 4 | 
+> 4 |
     | ^"
 `;
 
@@ -12,14 +12,14 @@ exports[`default-escaped.js [flow] format 1`] = `
 "Unexpected identifier, expected the token \`{\` (1:8)
 > 1 | export asyn\\\\u{63} from \\"async\\";
     |        ^^^^^^^^^^
-  2 | "
+  2 |"
 `;
 
 exports[`dynamic-import.js [flow] format 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:24)
 > 1 | import('./prettier.mjs', {})
     |                        ^
-  2 | "
+  2 |"
 `;
 
 exports[`function-async.js [flow] format 1`] = `
@@ -33,14 +33,14 @@ exports[`module-attributes-dynamic.js [flow] format 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:18)
 > 1 | import(\\"foo.json\\", { with: { type: \\"json\\" } })
     |                  ^
-  2 | "
+  2 |"
 `;
 
 exports[`module-attributes-static.js [flow] format 1`] = `
 "Unexpected token \`with\`, expected the token \`;\` (1:28)
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";
     |                            ^^^^
-  2 | "
+  2 |"
 `;
 
 exports[`newline-before-arrow.js [flow] format 1`] = `
@@ -48,14 +48,14 @@ exports[`newline-before-arrow.js [flow] format 1`] = `
   1 | async x
 > 2 | => x
     | ^^
-  3 | "
+  3 |"
 `;
 
 exports[`number.js [flow] format 1`] = `
 "Unexpected token ILLEGAL (3:5)
   1 | // https://github.com/babel/babel/pull/11854
-  2 | 
+  2 |
 > 3 | a = 09e1_1;
     |     ^^^^
-  4 | "
+  4 |"
 `;

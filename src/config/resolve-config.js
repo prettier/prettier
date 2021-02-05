@@ -68,9 +68,9 @@ function getExplorer(opts) {
 function _resolveConfig(filePath, opts, sync) {
   opts = { useCache: true, ...opts };
   const loadOpts = {
-    cache: !!opts.useCache,
-    sync: !!sync,
-    editorconfig: !!opts.editorconfig,
+    cache: Boolean(opts.useCache),
+    sync: Boolean(sync),
+    editorconfig: Boolean(opts.editorconfig),
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);

@@ -12,18 +12,18 @@ rangeStart: 73
    2 |   <p>Templates are formatted as well...
    3 |     </p>
    4 | </template>
-   5 | 
+   5 |
 >  6 | <script>
      | ^^^^^^^^
 >  7 | let Prettier        = format => { your.js('though') }
      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 >  8 | </script>
      | ^^^^^^^^^
-   9 | 
+   9 |
   10 | <style>
   11 | .and { css: too !important }
   12 | </style>
-  13 | 
+  13 |
 =====================================output=====================================
 <template>
   <p>Templates are formatted as well...</p>

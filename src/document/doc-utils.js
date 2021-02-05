@@ -3,7 +3,18 @@
 const { literalline, concat } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
-const getDocParts = (doc) => (Array.isArray(doc) ? doc : doc.parts);
+const getDocParts = (doc) => {
+  if (Array.isArray(doc)) {
+    return doc;
+  }
+
+  /* istanbul ignore next */
+  if (doc.type !== "concat" && doc.type !== "fill") {
+    throw new Error("Expect doc type to be `concat` or `fill`.");
+  }
+
+  return doc.parts;
+};
 
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
@@ -131,8 +142,10 @@ function breakParentGroup(groupStack) {
     const parentGroup = groupStack[groupStack.length - 1];
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
-    if (!parentGroup.expandedStates) {
-      parentGroup.break = true;
+    if (!parentGroup.expandedStates && !parentGroup.break) {
+      // An alternative truthy value allows to distinguish propagated group breaks
+      // and not to print them as `group(..., { break: true })` in `--debug-print-doc`.
+      parentGroup.break = "propagated";
     }
   }
   return null;

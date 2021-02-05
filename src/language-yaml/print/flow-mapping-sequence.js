@@ -29,7 +29,7 @@ function printFlowMapping(path, print, options) {
     alignWithSpaces(options.tabWidth, [
       bracketSpacing,
       printChildren(path, print, options),
-      options.trailingComma === "none" ? "" : ifBreak(",", ""),
+      options.trailingComma === "none" ? "" : ifBreak(","),
       hasEndComments(node)
         ? [hardline, join(hardline, path.map(print, "endComments"))]
         : "",

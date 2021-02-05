@@ -134,20 +134,21 @@ class Playground extends React.Component {
     });
   }
 
-  getMarkdown(formatted, reformatted, full) {
+  getMarkdown({ formatted, reformatted, full, doc }) {
     const { content, options } = this.state;
     const { availableOptions, version } = this.props;
 
-    return formatMarkdown(
-      content,
-      formatted,
-      reformatted || "",
+    return formatMarkdown({
+      input: content,
+      output: formatted,
+      output2: reformatted,
+      doc,
       version,
-      window.location.href,
+      url: window.location.href,
       options,
-      util.buildCliArgs(availableOptions, options),
-      full
-    );
+      cliOptions: util.buildCliArgs(availableOptions, options),
+      full,
+    });
   }
 
   render() {
@@ -172,11 +173,11 @@ class Playground extends React.Component {
             reformat={editorState.showSecondFormat}
           >
             {({ formatted, debug }) => {
-              const fullReport = this.getMarkdown(
+              const fullReport = this.getMarkdown({
                 formatted,
-                debug.reformatted,
-                true
-              );
+                reformatted: debug.reformatted,
+                full: true,
+              });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
               return (
@@ -220,6 +221,11 @@ class Playground extends React.Component {
                       </SidebarCategory>
                       <SidebarCategory title="Debug">
                         <Checkbox
+                          label="show input"
+                          checked={editorState.showInput}
+                          onChange={editorState.toggleInput}
+                        />
+                        <Checkbox
                           label="show AST"
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
@@ -237,10 +243,22 @@ class Playground extends React.Component {
                           />
                         )}
                         <Checkbox
+                          label="show output"
+                          checked={editorState.showOutput}
+                          onChange={editorState.toggleOutput}
+                        />
+                        <Checkbox
                           label="show second format"
                           checked={editorState.showSecondFormat}
                           onChange={editorState.toggleSecondFormat}
                         />
+                        {editorState.showDoc && debug.doc && (
+                          <ClipboardButton
+                            copy={() => this.getMarkdown({ doc: debug.doc })}
+                          >
+                            Copy doc
+                          </ClipboardButton>
+                        )}
                       </SidebarCategory>
                       <div className="sub-options">
                         <Button onClick={this.resetOptions}>
@@ -249,16 +267,18 @@ class Playground extends React.Component {
                       </div>
                     </Sidebar>
                     <div className="editors">
-                      <InputPanel
-                        mode={util.getCodemirrorMode(options.parser)}
-                        ruler={options.printWidth}
-                        value={content}
-                        codeSample={getCodeSample(options.parser)}
-                        overlayStart={options.rangeStart}
-                        overlayEnd={options.rangeEnd}
-                        onChange={this.setContent}
-                        onSelectionChange={this.setSelection}
-                      />
+                      {editorState.showInput ? (
+                        <InputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          ruler={options.printWidth}
+                          value={content}
+                          codeSample={getCodeSample(options.parser)}
+                          overlayStart={options.rangeStart}
+                          overlayEnd={options.rangeEnd}
+                          onChange={this.setContent}
+                          onSelectionChange={this.setSelection}
+                        />
+                      ) : null}
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
@@ -274,11 +294,13 @@ class Playground extends React.Component {
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      <OutputPanel
-                        mode={util.getCodemirrorMode(options.parser)}
-                        value={formatted}
-                        ruler={options.printWidth}
-                      />
+                      {editorState.showOutput ? (
+                        <OutputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          value={formatted}
+                          ruler={options.printWidth}
+                        />
+                      ) : null}
                       {editorState.showSecondFormat ? (
                         <OutputPanel
                           mode={util.getCodemirrorMode(options.parser)}
@@ -315,7 +337,10 @@ class Playground extends React.Component {
                       </ClipboardButton>
                       <ClipboardButton
                         copy={() =>
-                          this.getMarkdown(formatted, debug.reformatted)
+                          this.getMarkdown({
+                            formatted,
+                            reformatted: debug.reformatted,
+                          })
                         }
                       >
                         Copy markdown

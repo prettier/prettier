@@ -37,12 +37,12 @@ function textToDoc(
       ...parentOptions,
       ...partialNextOptions,
       parentParser: parentOptions.parser,
-      embeddedInHtml: !!(
+      embeddedInHtml: Boolean(
         parentOptions.embeddedInHtml ||
-        parentOptions.parser === "html" ||
-        parentOptions.parser === "vue" ||
-        parentOptions.parser === "angular" ||
-        parentOptions.parser === "lwc"
+          parentOptions.parser === "html" ||
+          parentOptions.parser === "vue" ||
+          parentOptions.parser === "angular" ||
+          parentOptions.parser === "lwc"
       ),
       originalText: text,
     },

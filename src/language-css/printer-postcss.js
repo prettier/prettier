@@ -186,7 +186,7 @@ function genericPrint(path, options, print) {
             options.originalText[locEnd(node) - 1] !== ";"
           ? ""
           : options.__isHTMLStyleAttribute && isLastNode(path, node)
-          ? ifBreak(";", "")
+          ? ifBreak(";")
           : ";",
       ];
     }

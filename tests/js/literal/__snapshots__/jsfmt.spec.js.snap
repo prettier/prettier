@@ -4,21 +4,21 @@ exports[`invalid-exponent.js [espree] format 1`] = `
 "Invalid number (1:1)
 > 1 | 12.3e
     | ^
-  2 | "
+  2 |"
 `;
 
 exports[`invalid-exponent.js [meriyah] format 1`] = `
 "[1:5]: Non-number found after exponent indicator (1:5)
 > 1 | 12.3e
     |     ^
-  2 | "
+  2 |"
 `;
 
 exports[`invalid-exponent.js [typescript] format 1`] = `
 "Digit expected. (1:6)
 > 1 | 12.3e
     |      ^
-  2 | "
+  2 |"
 `;
 
 exports[`invalid-exponent.js format 1`] = `
@@ -42,7 +42,7 @@ exports[`number.js [espree] format 1`] = `
     |                 ^
   3 |   return (100).toString();
   4 | }
-  5 | "
+  5 |"
 `;
 
 exports[`number.js [meriyah] format 1`] = `
@@ -52,7 +52,7 @@ exports[`number.js [meriyah] format 1`] = `
     |                 ^
   3 |   return (100).toString();
   4 | }
-  5 | "
+  5 |"
 `;
 
 exports[`number.js format 1`] = `

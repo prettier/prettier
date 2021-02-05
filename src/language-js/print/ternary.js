@@ -7,6 +7,7 @@ const {
   isBlockComment,
   getComments,
   isChainElement,
+  isMemberExpression,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
@@ -330,10 +331,10 @@ function printTernary(path, options, print) {
     // parens when using ?: within JSX, because the parens are analogous to
     // curly braces in an if statement.
     const wrap = (doc) => [
-      ifBreak("(", ""),
+      ifBreak("("),
       indent([softline, doc]),
       softline,
-      ifBreak(")", ""),
+      ifBreak(")"),
     ];
 
     // The only things we don't wrap are:
@@ -413,8 +414,7 @@ function printTernary(path, options, print) {
   // ).call()
   const breakClosingParen =
     !jsxMode &&
-    (parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression" ||
+    (isMemberExpression(parent) ||
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 

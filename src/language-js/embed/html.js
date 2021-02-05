@@ -67,7 +67,7 @@ function format(path, print, textToDoc, options, { parser }) {
         continue;
       }
 
-      const placeholderIndex = +component;
+      const placeholderIndex = Number(component);
       parts.push(expressionDocs[placeholderIndex]);
     }
 
