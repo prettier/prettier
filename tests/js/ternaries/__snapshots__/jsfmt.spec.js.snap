@@ -1834,6 +1834,13 @@ foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
   : baaaaaaaaaaaaaaaaaaaaaz)()()();
 
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
 =====================================output=====================================
 foo7 = (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -2108,6 +2115,13 @@ foo = (
         : baaaaaaaaaaaaaaaaaaaaaz
 )()()();
 
+foo =
+    foo.bar.baz[
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ];
+
 ================================================================================
 `;
 
@@ -2338,6 +2352,13 @@ foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
   : baaaaaaaaaaaaaaaaaaaaaz)()()();
 
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
 =====================================output=====================================
 foo7 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -2611,6 +2632,13 @@ foo = (
 		? baaaaaaaaaaaaaaaaaaaaar
 		: baaaaaaaaaaaaaaaaaaaaaz
 )()()();
+
+foo =
+	foo.bar.baz[
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	];
 
 ================================================================================
 `;
@@ -2841,6 +2869,13 @@ foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
   : baaaaaaaaaaaaaaaaaaaaaz)()()();
 
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
 =====================================output=====================================
 foo7 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -3115,6 +3150,13 @@ foo = (
 		: baaaaaaaaaaaaaaaaaaaaaz
 )()()();
 
+foo =
+	foo.bar.baz[
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	];
+
 ================================================================================
 `;
 
@@ -3342,6 +3384,13 @@ foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
 foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
   : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
 
 =====================================output=====================================
 foo7 = (
@@ -3616,6 +3665,13 @@ foo = (
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
 )()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
 
 ================================================================================
 `;

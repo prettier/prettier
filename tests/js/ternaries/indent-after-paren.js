@@ -216,3 +216,10 @@ foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
 foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
   ? baaaaaaaaaaaaaaaaaaaaar
   : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
