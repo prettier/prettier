@@ -13,3 +13,6 @@ indent_size = 2
 
 [lib/indent_size=tab.js]
 indent_size = tab
+
+[tab_width=unset.js]
+tab_width = unset

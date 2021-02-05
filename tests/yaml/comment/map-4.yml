@@ -1,0 +1,28 @@
+before:
+
+  # before.comment
+after:
+  # after.comment
+
+before-after:
+
+  # before-after.comment
+
+none:
+  # none.comment
+before(2 line):
+
+
+  # before.comment
+after(2 line):
+  # after.comment
+
+
+before-after(2 line):
+
+
+  # before-after.comment
+
+
+none(2):
+  # none.comment

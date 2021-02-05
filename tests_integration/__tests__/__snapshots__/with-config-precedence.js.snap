@@ -54,8 +54,8 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 \\"use strict\\";
 
 module.exports = {
-        endOfLine: \\"lf\\",
-        tabWidth: 8
+        endOfLine: \\"auto\\",
+        tabWidth: 8,
 };
 "
 `;
@@ -71,8 +71,8 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 \\"use strict\\";
 
 module.exports = {
-        endOfLine: \\"lf\\",
-        tabWidth: 8
+        endOfLine: \\"auto\\",
+        tabWidth: 8,
 };
 "
 `;
@@ -103,6 +103,12 @@ function f() {
   )
 }
 console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(
@@ -120,8 +126,8 @@ function js() {
 
 module.exports = {
         endOfLine:
-                \\"lf\\",
-        tabWidth: 8
+                \\"auto\\",
+        tabWidth: 8,
 };
 function noConfigJs() {
   console.log(
@@ -192,6 +198,12 @@ function f() {
   )
 }
 console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(
@@ -209,8 +221,8 @@ function js() {
 
 module.exports = {
         endOfLine:
-                \\"lf\\",
-        tabWidth: 8
+                \\"auto\\",
+        tabWidth: 8,
 };
 function noConfigJs() {
   console.log(

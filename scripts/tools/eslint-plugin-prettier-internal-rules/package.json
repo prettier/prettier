@@ -1,0 +1,13 @@
+{
+  "name": "eslint-plugin-prettier-internal-rules",
+  "version": "1.0.3",
+  "description": "Prettier internal eslint rules",
+  "private": true,
+  "author": "fisker",
+  "main": "./index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test.js",
+    "test-coverage": "npx nyc node test.js"
+  }
+}

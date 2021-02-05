@@ -1,18 +1,20 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const tryCombinations = require("../utils/try-combinations");
 const { hasPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 
 function parseComments(ast) {
   const comments = [];
-  const startToken = ast.loc.startToken;
-  let next = startToken.next;
+  const { startToken } = ast.loc;
+  let { next } = startToken;
   while (next.kind !== "<EOF>") {
     if (next.kind === "Comment") {
       Object.assign(next, {
         // The Comment token's column starts _after_ the `#`,
         // but we need to make sure the node captures the `#`
-        column: next.column - 1
+        column: next.column - 1,
       });
       comments.push(next);
     }
@@ -35,35 +37,41 @@ function removeTokens(node) {
   return node;
 }
 
-function fallbackParser(parse, source) {
-  try {
-    return parse(source, { allowLegacySDLImplementsInterfaces: false });
-  } catch (_) {
-    return parse(source, { allowLegacySDLImplementsInterfaces: true });
+const parseOptions = {
+  allowLegacySDLImplementsInterfaces: false,
+  experimentalFragmentVariables: true,
+};
+
+function createParseError(error) {
+  const { GraphQLError } = require("graphql/error");
+  if (error instanceof GraphQLError) {
+    const {
+      message,
+      locations: [start],
+    } = error;
+    return createError(message, { start });
   }
+
+  /* istanbul ignore next */
+  return error;
 }
 
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
-  const parser = require("graphql/language");
-  try {
-    const ast = fallbackParser(parser.parse, text);
-    ast.comments = parseComments(ast);
-    removeTokens(ast);
-    return ast;
-  } catch (error) {
-    const GraphQLError = require("graphql/error").GraphQLError;
-    if (error instanceof GraphQLError) {
-      throw createError(error.message, {
-        start: {
-          line: error.locations[0].line,
-          column: error.locations[0].column
-        }
-      });
-    } else {
-      throw error;
-    }
+  const { parse } = require("graphql/language");
+  const { result: ast, error } = tryCombinations(
+    () => parse(text, { ...parseOptions }),
+    () =>
+      parse(text, { ...parseOptions, allowLegacySDLImplementsInterfaces: true })
+  );
+
+  if (!ast) {
+    throw createParseError(error);
   }
+
+  ast.comments = parseComments(ast);
+  removeTokens(ast);
+  return ast;
 }
 
 module.exports = {
@@ -72,18 +80,8 @@ module.exports = {
       parse,
       astFormat: "graphql",
       hasPragma,
-      locStart(node) {
-        if (typeof node.start === "number") {
-          return node.start;
-        }
-        return node.loc && node.loc.start;
-      },
-      locEnd(node) {
-        if (typeof node.end === "number") {
-          return node.end;
-        }
-        return node.loc && node.loc.end;
-      }
-    }
-  }
+      locStart,
+      locEnd,
+    },
+  },
 };

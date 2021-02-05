@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function() {
+module.exports = function () {
   return {
     name: "evaluate",
 
@@ -13,16 +13,16 @@ module.exports = function() {
         require(id.replace(/^\0commonjs-proxy:/, "")),
         (_, v) => {
           if (typeof v === "function") {
-            throw new Error(`Cannot evaluate functions.`);
+            throw new Error("Cannot evaluate functions.");
           }
           return v;
         }
       );
 
       return {
-        code: `const json = ${json}; export default json;`,
-        map: { mappings: "" }
+        code: `var json = ${json}; export default json;`,
+        map: { mappings: "" },
       };
-    }
+    },
   };
 };

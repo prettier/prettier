@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`callWithSpreadES6.ts - typescript-verify 1`] = `
+exports[`callWithSpreadES6.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @target: ES6
 
 interface X {
@@ -52,7 +57,8 @@ class D extends C {
         super.foo(1, 2, ...a);
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @target: ES6
 
 interface X {
@@ -103,4 +109,5 @@ class D extends C {
   }
 }
 
+================================================================================
 `;

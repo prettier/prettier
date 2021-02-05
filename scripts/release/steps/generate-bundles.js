@@ -3,12 +3,12 @@
 const chalk = require("chalk");
 const { runYarn, logPromise, readJson } = require("../utils");
 
-module.exports = async function({ version }) {
+module.exports = async function ({ version }) {
   await logPromise("Generating bundles", runYarn(["build", "--purge-cache"]));
 
   const builtPkg = await readJson("dist/package.json");
   if (builtPkg.version !== version) {
-    throw Error(
+    throw new Error(
       `Expected ${version} in dist/package.json but found ${builtPkg.version}`
     );
   }

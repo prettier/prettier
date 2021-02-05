@@ -2,6 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
+const { locStart, locEnd } = require("./loc");
 
 function parse(text) {
   try {
@@ -17,10 +18,12 @@ function parse(text) {
 
     return root;
   } catch (error) {
-    // istanbul ignore next
-    throw error && error.position
-      ? createError(error.message, error.position)
-      : error;
+    if (error && error.position) {
+      throw createError(error.message, error.position);
+    }
+
+    /* istanbul ignore next */
+    throw error;
   }
 }
 
@@ -28,16 +31,12 @@ const parser = {
   astFormat: "yaml",
   parse,
   hasPragma,
-  locStart: node => node.position.start.offset,
-  locEnd: node => node.position.end.offset,
-
-  // workaround for https://github.com/eemeli/yaml/issues/20
-  preprocess: text =>
-    text.indexOf("\r") === -1 ? text : text.replace(/\r\n?/g, "\n")
+  locStart,
+  locEnd,
 };
 
 module.exports = {
   parsers: {
-    yaml: parser
-  }
+    yaml: parser,
+  },
 };

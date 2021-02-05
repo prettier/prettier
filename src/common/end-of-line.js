@@ -19,7 +19,31 @@ function convertEndOfLineToChars(value) {
   }
 }
 
+function countEndOfLineChars(text, eol) {
+  let regex;
+
+  /* istanbul ignore else */
+  if (eol === "\n") {
+    regex = /\n/g;
+  } else if (eol === "\r") {
+    regex = /\r/g;
+  } else if (eol === "\r\n") {
+    regex = /\r\n/g;
+  } else {
+    throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
+  }
+
+  const endOfLines = text.match(regex);
+  return endOfLines ? endOfLines.length : 0;
+}
+
+function normalizeEndOfLine(text) {
+  return text.replace(/\r\n?/g, "\n");
+}
+
 module.exports = {
   guessEndOfLine,
-  convertEndOfLineToChars
+  convertEndOfLineToChars,
+  countEndOfLineChars,
+  normalizeEndOfLine,
 };

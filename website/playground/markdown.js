@@ -1,16 +1,17 @@
-function formatMarkdown(
+function formatMarkdown({
   input,
   output,
   output2,
+  doc,
   version,
   url,
   options,
   cliOptions,
-  full
-) {
+  full,
+}) {
   const syntax = getMarkdownSyntax(options);
   const optionsString = formatCLIOptions(cliOptions);
-  const isIdempotent = output2 === "" || output === output2;
+  const isIdempotent = !output2 || output === output2;
 
   return [
     `**Prettier ${version}**`,
@@ -19,25 +20,28 @@ function formatMarkdown(
     "",
     "**Input:**",
     codeBlock(input, syntax),
-    "",
-    "**Output:**",
-    codeBlock(output, syntax)
+    ...(doc ? ["", "**Doc:**", codeBlock(doc, "js")] : []),
+    ...(output === undefined
+      ? []
+      : ["", "**Output:**", codeBlock(output, syntax)]),
+    ...(isIdempotent
+      ? []
+      : ["", "**Second Output:**", codeBlock(output2, syntax)]),
+    ...(full ? ["", "**Expected behavior:**", ""] : []),
   ]
-    .concat(
-      isIdempotent ? [] : ["", "**Second Output:**", codeBlock(output2, syntax)]
-    )
-    .concat(full ? ["", "**Expected behavior:**", ""] : [])
-    .filter(part => {
-      return part != null;
-    })
+    .filter((part) => part != null)
     .join("\n");
 }
 
 function getMarkdownSyntax(options) {
   switch (options.parser) {
-    case "babylon":
+    case "babel":
+    case "babel-flow":
     case "flow":
+    case "espree":
+    case "meriyah":
       return "jsx";
+    case "babel-ts":
     case "typescript":
       return "tsx";
     case "json":
@@ -46,6 +50,7 @@ function getMarkdownSyntax(options) {
     case "glimmer":
       return "hbs";
     case "angular":
+    case "lwc":
       return "html";
     default:
       return options.parser;
@@ -54,22 +59,17 @@ function getMarkdownSyntax(options) {
 
 function formatCLIOptions(cliOptions) {
   return cliOptions
-    .map(option => {
-      const name = option[0];
-      const value = option[1];
-      return value === true ? name : `${name} ${value}`;
-    })
+    .map(([name, value]) => (value === true ? name : `${name} ${value}`))
     .join("\n");
 }
 
 function codeBlock(content, syntax) {
   const backtickSequences = content.match(/`+/g) || [];
-  const longestBacktickSequenceLength = Math.max.apply(
-    null,
-    backtickSequences.map(backticks => backticks.length)
+  const longestBacktickSequenceLength = Math.max(
+    ...backtickSequences.map(({ length }) => length)
   );
   const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
-  const fence = Array(fenceLength + 1).join("`");
+  const fence = "`".repeat(fenceLength);
   return [fence + (syntax || ""), content, fence].join("\n");
 }
 

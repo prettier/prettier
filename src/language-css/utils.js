@@ -1,8 +1,7 @@
 "use strict";
 
-const htmlTagNames = require("html-tag-names");
-
-const colorAdjusterFunctions = [
+const { isNonEmptyArray } = require("../common/util");
+const colorAdjusterFunctions = new Set([
   "red",
   "green",
   "blue",
@@ -27,17 +26,17 @@ const colorAdjusterFunctions = [
   "hsl",
   "hsla",
   "hwb",
-  "hwba"
-];
+  "hwba",
+]);
 
 function getAncestorCounter(path, typeOrTypes) {
-  const types = [].concat(typeOrTypes);
+  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
 
   let counter = -1;
   let ancestorNode;
 
   while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
+    if (types.includes(ancestorNode.type)) {
       return counter;
     }
   }
@@ -60,18 +59,49 @@ function getPropOfDeclNode(path) {
   );
 }
 
+function hasSCSSInterpolation(groupList) {
+  if (isNonEmptyArray(groupList)) {
+    for (let i = groupList.length - 1; i > 0; i--) {
+      // If we find `#{`, return true.
+      if (
+        groupList[i].type === "word" &&
+        groupList[i].value === "{" &&
+        groupList[i - 1].type === "word" &&
+        groupList[i - 1].value.endsWith("#")
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function hasStringOrFunction(groupList) {
+  if (isNonEmptyArray(groupList)) {
+    for (let i = 0; i < groupList.length; i++) {
+      if (groupList[i].type === "string" || groupList[i].type === "func") {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function isSCSS(parser, text) {
   const hasExplicitParserChoice = parser === "less" || parser === "scss";
-  const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
+  const IS_POSSIBLY_SCSS = /(\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
   return hasExplicitParserChoice
     ? parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
 }
 
+function isSCSSVariable(node) {
+  return Boolean(node && node.type === "word" && node.value.startsWith("$"));
+}
+
 function isWideKeywords(value) {
-  return (
-    ["initial", "inherit", "unset", "revert"].indexOf(value.toLowerCase()) !==
-    -1
+  return ["initial", "inherit", "unset", "revert"].includes(
+    value.toLowerCase()
   );
 }
 
@@ -81,7 +111,7 @@ function isKeyframeAtRuleKeywords(path, value) {
     atRuleAncestorNode &&
     atRuleAncestorNode.name &&
     atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
-    ["from", "to"].indexOf(value.toLowerCase()) !== -1
+    ["from", "to"].includes(value.toLowerCase())
   );
 }
 
@@ -119,12 +149,14 @@ function insideICSSRuleNode(path) {
 }
 
 function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
-  const atRuleNames = [].concat(atRuleNameOrAtRuleNames);
+  const atRuleNames = Array.isArray(atRuleNameOrAtRuleNames)
+    ? atRuleNameOrAtRuleNames
+    : [atRuleNameOrAtRuleNames];
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
   return (
     atRuleAncestorNode &&
-    atRuleNames.indexOf(atRuleAncestorNode.name.toLowerCase()) !== -1
+    atRuleNames.includes(atRuleAncestorNode.name.toLowerCase())
   );
 }
 
@@ -146,21 +178,20 @@ function isURLFunctionNode(node) {
 
 function isLastNode(path, node) {
   const parentNode = path.getParentNode();
+
+  /* istanbul ignore next */
   if (!parentNode) {
     return false;
   }
-  const nodes = parentNode.nodes;
+  const { nodes } = parentNode;
   return nodes && nodes.indexOf(node) === nodes.length - 1;
-}
-
-function isHTMLTag(value) {
-  return htmlTagNames.indexOf(value.toLowerCase()) !== -1;
 }
 
 function isDetachedRulesetDeclarationNode(node) {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
+  /* istanbul ignore next */
   if (!node.selector) {
     return false;
   }
@@ -174,14 +205,13 @@ function isDetachedRulesetDeclarationNode(node) {
 function isForKeywordNode(node) {
   return (
     node.type === "value-word" &&
-    ["from", "through", "end"].indexOf(node.value) !== -1
+    ["from", "through", "end"].includes(node.value)
   );
 }
 
 function isIfElseKeywordNode(node) {
   return (
-    node.type === "value-word" &&
-    ["and", "or", "not"].indexOf(node.value) !== -1
+    node.type === "value-word" && ["and", "or", "not"].includes(node.value)
   );
 }
 
@@ -220,24 +250,24 @@ function isMathOperatorNode(node) {
 }
 
 function isEqualityOperatorNode(node) {
-  return node.type === "value-word" && ["==", "!="].indexOf(node.value) !== -1;
+  return node.type === "value-word" && ["==", "!="].includes(node.value);
 }
 
 function isRelationalOperatorNode(node) {
   return (
-    node.type === "value-word" &&
-    ["<", ">", "<=", ">="].indexOf(node.value) !== -1
+    node.type === "value-word" && ["<", ">", "<=", ">="].includes(node.value)
   );
 }
 
 function isSCSSControlDirectiveNode(node) {
   return (
     node.type === "css-atrule" &&
-    ["if", "else", "for", "each", "while"].indexOf(node.name) !== -1
+    ["if", "else", "for", "each", "while"].includes(node.name)
   );
 }
 
 function isSCSSNestedPropertyNode(node) {
+  /* istanbul ignore next */
   if (!node.selector) {
     return false;
   }
@@ -369,17 +399,30 @@ function isRightCurlyBraceNode(node) {
 }
 
 function isWordNode(node) {
-  return ["value-word", "value-atword"].indexOf(node.type) !== -1;
+  return ["value-word", "value-atword"].includes(node.type);
 }
 
 function isColonNode(node) {
-  return node.type === "value-colon";
+  return node && node.type === "value-colon";
+}
+
+function isKeyInValuePairNode(node, parentNode) {
+  if (!isKeyValuePairNode(parentNode)) {
+    return false;
+  }
+
+  const { groups } = parentNode;
+  const index = groups.indexOf(node);
+
+  if (index === -1) {
+    return false;
+  }
+
+  return isColonNode(groups[index + 1]);
 }
 
 function isMediaAndSupportsKeywords(node) {
-  return (
-    node.value && ["not", "and", "or"].indexOf(node.value.toLowerCase()) !== -1
-  );
+  return node.value && ["not", "and", "or"].includes(node.value.toLowerCase());
 }
 
 function isColorAdjusterFuncNode(node) {
@@ -387,23 +430,72 @@ function isColorAdjusterFuncNode(node) {
     return false;
   }
 
-  return colorAdjusterFunctions.indexOf(node.value.toLowerCase()) !== -1;
+  return colorAdjusterFunctions.has(node.value.toLowerCase());
+}
+
+// TODO: only check `less` when we don't use `less` to parse `css`
+function isLessParser(options) {
+  return options.parser === "css" || options.parser === "less";
+}
+
+function lastLineHasInlineComment(text) {
+  return /\/\//.test(text.split(/[\n\r]/).pop());
+}
+
+function stringifyNode(node) {
+  if (node.groups) {
+    const open = node.open && node.open.value ? node.open.value : "";
+    const groups = node.groups.reduce(
+      (previousValue, currentValue, index) =>
+        previousValue +
+        stringifyNode(currentValue) +
+        (node.groups[0].type === "comma_group" &&
+        index !== node.groups.length - 1
+          ? ","
+          : ""),
+      ""
+    );
+    const close = node.close && node.close.value ? node.close.value : "";
+
+    return open + groups + close;
+  }
+
+  const before = node.raws && node.raws.before ? node.raws.before : "";
+  const quote = node.raws && node.raws.quote ? node.raws.quote : "";
+  const atword = node.type === "atword" ? "@" : "";
+  const value = node.value ? node.value : "";
+  const unit = node.unit ? node.unit : "";
+  const group = node.group ? stringifyNode(node.group) : "";
+  const after = node.raws && node.raws.after ? node.raws.after : "";
+
+  return before + quote + atword + value + quote + unit + group + after;
+}
+
+function isAtWordPlaceholderNode(node) {
+  return (
+    node &&
+    node.type === "value-atword" &&
+    node.value.startsWith("prettier-placeholder-")
+  );
 }
 
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,
+  hasSCSSInterpolation,
+  hasStringOrFunction,
   maybeToLowerCase,
   insideValueFunctionNode,
   insideICSSRuleNode,
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
-  isHTMLTag,
   isWideKeywords,
   isSCSS,
+  isSCSSVariable,
   isLastNode,
+  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -428,6 +520,7 @@ module.exports = {
   isPostcssSimpleVarNode,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,
+  isKeyInValuePairNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
   isHashNode,
@@ -436,5 +529,8 @@ module.exports = {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode
+  isColorAdjusterFuncNode,
+  lastLineHasInlineComment,
+  stringifyNode,
+  isAtWordPlaceholderNode,
 };

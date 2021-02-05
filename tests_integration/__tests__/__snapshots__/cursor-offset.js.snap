@@ -12,7 +12,7 @@ exports[`cursorOffset should not be affected by full-width character (stdout) 1`
   \\"中文\\",
   \\"中文\\",
   \\"中文\\",
-  \\"中文\\"
+  \\"中文\\",
 ];
 "
 `;

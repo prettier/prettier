@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`callSignature.ts - typescript-verify 1`] = `
+exports[`callSignature.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface I {
     ();
     (): void;
@@ -9,7 +14,8 @@ interface I {
 }
 
 Promise.all<void>([]);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface I {
   ();
   (): void;
@@ -19,4 +25,5 @@ interface I {
 
 Promise.all<void>([]);
 
+================================================================================
 `;

@@ -1,8 +1,8 @@
 "use strict";
 
 const {
-  builders: { concat, group }
-} = require("../doc");
+  builders: { group },
+} = require("../document");
 
 /**
  *     v-for="... in ..."
@@ -12,24 +12,28 @@ const {
  */
 function printVueFor(value, textToDoc) {
   const { left, operator, right } = parseVueFor(value);
-  return concat([
+  return [
     group(
       textToDoc(`function _(${left}) {}`, {
-        parser: "babylon",
-        __isVueForBindingLeft: true
+        parser: "babel",
+        __isVueForBindingLeft: true,
       })
     ),
     " ",
     operator,
     " ",
-    textToDoc(right, { parser: "__js_expression" })
-  ]);
+    textToDoc(
+      right,
+      { parser: "__js_expression" },
+      { stripTrailingHardline: true }
+    ),
+  ];
 }
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueFor(value) {
   const forAliasRE = /([^]*?)\s+(in|of)\s+([^]*)/;
-  const forIteratorRE = /,([^,}\]]*)(?:,([^,}\]]*))?$/;
+  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
   const stripParensRE = /^\(|\)$/g;
 
   const inMatch = value.match(forAliasRE);
@@ -55,18 +59,36 @@ function parseVueFor(value) {
       .filter(Boolean)
       .join(",")}`,
     operator: inMatch[2],
-    right: res.for
+    right: res.for,
   };
 }
 
-function printVueSlotScope(value, textToDoc) {
-  return textToDoc(`function _(${value}) {}`, {
-    parser: "babylon",
-    __isVueSlotScope: true
-  });
+function printVueBindings(value, textToDoc) {
+  return textToDoc(
+    `function _(${value}) {}`,
+    {
+      parser: "babel",
+      __isVueBindings: true,
+    },
+    { stripTrailingHardline: true }
+  );
+}
+
+function isVueEventBindingExpression(eventBindingValue) {
+  // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
+  // arrow function or anonymous function
+  const fnExpRE = /^([\w$]+|\([^)]*?\))\s*=>|^function\s*\(/;
+  // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
+  const simplePathRE = /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
+
+  // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
+  const value = eventBindingValue.trim();
+
+  return fnExpRE.test(value) || simplePathRE.test(value);
 }
 
 module.exports = {
+  isVueEventBindingExpression,
   printVueFor,
-  printVueSlotScope
+  printVueBindings,
 };

@@ -6,17 +6,17 @@ describe("doesn't crash when --debug-check is passed", () => {
   runPrettier("cli/with-shebang", ["issue1890.js", "--debug-check"]).test({
     stdout: "issue1890.js\n",
     stderr: "",
-    status: 0
+    status: 0,
   });
 });
 
 describe("checks stdin with --debug-check", () => {
-  runPrettier("cli/with-shebang", ["--debug-check", "--parser", "babylon"], {
-    input: "0"
+  runPrettier("cli/with-shebang", ["--debug-check", "--parser", "babel"], {
+    input: "0",
   }).test({
     stdout: "(stdin)\n",
     stderr: "",
-    status: 0
+    status: 0,
   });
 });
 
@@ -27,9 +27,19 @@ describe("show diff for 2+ error files with --debug-check", () => {
     "*.debug-check",
     "--debug-check",
     "--plugin",
-    "./plugin-for-testing-debug-check"
+    "./plugin-for-testing-debug-check",
   ]).test({
-    status: "non-zero"
+    status: "non-zero",
+  });
+});
+
+describe("should not exit non-zero for already prettified code with --debug-check + --check", () => {
+  runPrettier("cli/debug-check", [
+    "issue-4599.js",
+    "--debug-check",
+    "--check",
+  ]).test({
+    status: 0,
   });
 });
 
@@ -37,8 +47,8 @@ describe("should not exit non-zero for already prettified code with --debug-chec
   runPrettier("cli/debug-check", [
     "issue-4599.js",
     "--debug-check",
-    "--list-different"
+    "--list-different",
   ]).test({
-    status: 0
+    status: 0,
   });
 });

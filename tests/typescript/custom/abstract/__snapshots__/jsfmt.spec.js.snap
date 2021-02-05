@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstractNewlineHandling.ts - typescript-verify 1`] = `
+exports[`abstractNewlineHandling.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var
 abstract
 class X {}
@@ -16,7 +21,8 @@ class Y {}
 let
 abstract
 export class Y {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var abstract;
 class X {}
 
@@ -29,9 +35,25 @@ class Y {}
 let abstract;
 export class Y {}
 
+================================================================================
 `;
 
-exports[`abstractProperties.ts - typescript-verify 1`] = `
+exports[`abstractProperties.ts [babel-ts] format 1`] = `
+"Unexpected token (2:22)
+  1 | abstract class Foo {
+> 2 |     abstract private a: 1;
+    |                      ^
+  3 |     private abstract b: 2;
+  4 |     static abstract c: 3;
+  5 |"
+`;
+
+exports[`abstractProperties.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class Foo {
     abstract private a: 1;
     private abstract b: 2;
@@ -45,7 +67,8 @@ abstract class Foo {
     private abstract ['h'] = 5;
     static abstract ['i'] = 6;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abstract class Foo {
   private abstract a: 1;
   private abstract b: 2;
@@ -60,9 +83,25 @@ abstract class Foo {
   static abstract ["i"] = 6;
 }
 
+================================================================================
 `;
 
-exports[`abstractPropertiesWithBreaks.ts - typescript-verify 1`] = `
+exports[`abstractPropertiesWithBreaks.ts [babel-ts] format 1`] = `
+"Unexpected token (2:22)
+  1 | abstract class Foo {
+> 2 |     abstract private foobar =
+    |                      ^
+  3 |       // comment to break
+  4 |       1 +
+  5 |       // another comment to break"
+`;
+
+exports[`abstractPropertiesWithBreaks.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class Foo {
     abstract private foobar =
       // comment to break
@@ -70,7 +109,8 @@ abstract class Foo {
       // another comment to break
       2;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abstract class Foo {
   private abstract foobar =
     // comment to break
@@ -79,4 +119,5 @@ abstract class Foo {
     2;
 }
 
+================================================================================
 `;

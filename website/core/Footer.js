@@ -3,7 +3,7 @@
 const React = require("react");
 const PropTypes = require("prop-types");
 
-const GithubButton = props => (
+const GithubButton = (props) => (
   <a
     className="github-button"
     href={props.config.githubUrl}
@@ -16,7 +16,7 @@ const GithubButton = props => (
 );
 
 GithubButton.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
 };
 
 class Footer extends React.Component {
@@ -44,6 +44,10 @@ class Footer extends React.Component {
             <h5>Docs</h5>
             <a href={this.url("/index.html")}>About</a>
             <a href={this.url("/install.html")}>Usage</a>
+            <br />
+            <a href="https://www.netlify.com">
+              <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" />
+            </a>
           </div>
           <div>
             <h5>Community</h5>
@@ -86,7 +90,7 @@ class Footer extends React.Component {
 
 Footer.propTypes = {
   language: PropTypes.string,
-  config: PropTypes.object
+  config: PropTypes.object,
 };
 
 module.exports = Footer;

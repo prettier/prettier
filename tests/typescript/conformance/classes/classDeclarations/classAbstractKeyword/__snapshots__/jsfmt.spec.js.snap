@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classAbstractAccessor.ts - typescript-verify 1`] = `
+exports[`classAbstractAccessor.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 abstract class A {
    abstract get a();
@@ -8,7 +13,8 @@ abstract class A {
    abstract set b(x: string);
    abstract set bb(x: string) {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abstract class A {
   abstract get a();
   abstract get aa() {
@@ -18,14 +24,21 @@ abstract class A {
   abstract set bb(x: string) {}
 }
 
+================================================================================
 `;
 
-exports[`classAbstractAsIdentifier.ts - typescript-verify 1`] = `
+exports[`classAbstractAsIdentifier.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class abstract {
     foo() { return 1; }
 }
 
-new abstract;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new abstract;
+=====================================output=====================================
 class abstract {
   foo() {
     return 1;
@@ -34,15 +47,22 @@ class abstract {
 
 new abstract();
 
+================================================================================
 `;
 
-exports[`classAbstractAssignabilityConstructorFunction.ts - typescript-verify 1`] = `
+exports[`classAbstractAssignabilityConstructorFunction.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A { }
 
 var AAA: new() => A;
 
 AAA = A;
-AAA = "asdf";~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AAA = "asdf";
+=====================================output=====================================
 abstract class A {}
 
 var AAA: new () => A;
@@ -50,9 +70,15 @@ var AAA: new () => A;
 AAA = A;
 AAA = "asdf";
 
+================================================================================
 `;
 
-exports[`classAbstractClinterfaceAssignability.ts - typescript-verify 1`] = `
+exports[`classAbstractClinterfaceAssignability.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 var I: IConstructor;
 
@@ -65,7 +91,8 @@ var AA: typeof A;
 AA = I;
 
 var AAA: typeof I;
-AAA = A;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AAA = A;
+=====================================output=====================================
 var I: IConstructor;
 
 abstract class A {
@@ -79,9 +106,15 @@ AA = I;
 var AAA: typeof I;
 AAA = A;
 
+================================================================================
 `;
 
-exports[`classAbstractConstructorAssignability.ts - typescript-verify 1`] = `
+exports[`classAbstractConstructorAssignability.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class A {}
 
@@ -95,7 +128,8 @@ var CC : typeof C = B;
 
 new AA;
 new BB;
-new CC;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new CC;
+=====================================output=====================================
 class A {}
 
 abstract class B extends A {}
@@ -110,9 +144,15 @@ new AA();
 new BB();
 new CC();
 
+================================================================================
 `;
 
-exports[`classAbstractCrashedOnce.ts - typescript-verify 1`] = `
+exports[`classAbstractCrashedOnce.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class foo {
     protected abstract test();
 }
@@ -121,7 +161,8 @@ class bar extends foo {
     test() {
     }
 }
-var x = new bar();~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var x = new bar();
+=====================================output=====================================
 abstract class foo {
   protected abstract test();
 }
@@ -131,9 +172,15 @@ class bar extends foo {
 }
 var x = new bar();
 
+================================================================================
 `;
 
-exports[`classAbstractExtends.ts - typescript-verify 1`] = `
+exports[`classAbstractExtends.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class A {
     foo() {}
@@ -149,7 +196,8 @@ abstract class D extends B {}
 
 class E extends B {
     bar() {}
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class A {
   foo() {}
 }
@@ -166,9 +214,15 @@ class E extends B {
   bar() {}
 }
 
+================================================================================
 `;
 
-exports[`classAbstractFactoryFunction.ts - typescript-verify 1`] = `
+exports[`classAbstractFactoryFunction.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class A {}
 abstract class B extends A {}
@@ -185,7 +239,8 @@ NewA(A);
 NewA(B);
 
 NewB(A);
-NewB(B);~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+NewB(B);
+=====================================output=====================================
 class A {}
 abstract class B extends A {}
 
@@ -203,9 +258,15 @@ NewA(B);
 NewB(A);
 NewB(B);
 
+================================================================================
 `;
 
-exports[`classAbstractGeneric.ts - typescript-verify 1`] = `
+exports[`classAbstractGeneric.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A<T> {
     t: T;
 
@@ -230,7 +291,8 @@ class F<T> extends A {
 class G<T> extends A {
     foo() { return this.t; }
     bar(t: T) { }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 abstract class A<T> {
   t: T;
 
@@ -261,9 +323,15 @@ class G<T> extends A {
   bar(t: T) {}
 }
 
+================================================================================
 `;
 
-exports[`classAbstractImportInstantiation.ts - typescript-verify 1`] = `
+exports[`classAbstractImportInstantiation.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 export abstract class A {}
 
@@ -271,32 +339,46 @@ new A;
 
 
 new myA;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export abstract class A {}
 
 new A();
 
 new myA();
 
+================================================================================
 `;
 
-exports[`classAbstractInAModule.ts - typescript-verify 1`] = `
+exports[`classAbstractInAModule.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 export abstract class A {}
 export class B extends A {}
 
 
 new M.A;
-new M.B;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new M.B;
+=====================================output=====================================
 export abstract class A {}
 export class B extends A {}
 
 new M.A();
 new M.B();
 
+================================================================================
 `;
 
-exports[`classAbstractInheritance.ts - typescript-verify 1`] = `
+exports[`classAbstractInheritance.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A {}
 
 abstract class B extends A {}
@@ -317,7 +399,8 @@ abstract class EE extends BB {}
 
 class FF extends CC {}
 
-abstract class GG extends CC {}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+abstract class GG extends CC {}
+=====================================output=====================================
 abstract class A {}
 
 abstract class B extends A {}
@@ -340,9 +423,15 @@ class FF extends CC {}
 
 abstract class GG extends CC {}
 
+================================================================================
 `;
 
-exports[`classAbstractInstantiations1.ts - typescript-verify 1`] = `
+exports[`classAbstractInstantiations1.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 abstract class A {}
 
@@ -362,7 +451,8 @@ var c : C;
 a = new B;
 b = new B;
 c = new B;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 abstract class A {}
 
 class B extends A {}
@@ -382,9 +472,15 @@ a = new B();
 b = new B();
 c = new B();
 
+================================================================================
 `;
 
-exports[`classAbstractInstantiations2.ts - typescript-verify 1`] = `
+exports[`classAbstractInstantiations2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
 }
 
@@ -434,7 +530,8 @@ abstract class G {
 
 class H {
     abstract baz() : number;
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class A {}
 
 abstract class B {
@@ -491,16 +588,23 @@ class H {
   abstract baz(): number;
 }
 
+================================================================================
 `;
 
-exports[`classAbstractMethodInNonAbstractClass.ts - typescript-verify 1`] = `
+exports[`classAbstractMethodInNonAbstractClass.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
     abstract foo();
 }
 
 class B {
     abstract foo() {}
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class A {
   abstract foo();
 }
@@ -509,19 +613,43 @@ class B {
   abstract foo() {}
 }
 
+================================================================================
 `;
 
-exports[`classAbstractMethodWithImplementation.ts - typescript-verify 1`] = `
+exports[`classAbstractMethodWithImplementation.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A {
     abstract foo() {}
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 abstract class A {
   abstract foo() {}
 }
 
+================================================================================
 `;
 
-exports[`classAbstractMixedWithModifiers.ts - typescript-verify 1`] = `
+exports[`classAbstractMixedWithModifiers.ts [babel-ts] format 1`] = `
+"Unexpected token (8:21)
+   6 |     private abstract foo_d();
+   7 |     
+>  8 |     abstract public foo_bb();
+     |                     ^
+   9 |     abstract protected foo_cc();
+  10 |     abstract private foo_dd();
+  11 |     "
+`;
+
+exports[`classAbstractMixedWithModifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A {
     abstract foo_a();
     
@@ -536,7 +664,8 @@ abstract class A {
     abstract static foo_d();
     
     static abstract foo_e();
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 abstract class A {
   abstract foo_a();
 
@@ -553,9 +682,15 @@ abstract class A {
   static abstract foo_e();
 }
 
+================================================================================
 `;
 
-exports[`classAbstractOverloads.ts - typescript-verify 1`] = `
+exports[`classAbstractOverloads.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A {
     abstract foo();
     abstract foo() : number;
@@ -579,7 +714,8 @@ abstract class B {
     x : number;
     abstract foo();
     abstract foo();
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 abstract class A {
   abstract foo();
   abstract foo(): number;
@@ -605,9 +741,15 @@ abstract class B {
   abstract foo();
 }
 
+================================================================================
 `;
 
-exports[`classAbstractOverrideWithAbstract.ts - typescript-verify 1`] = `
+exports[`classAbstractOverrideWithAbstract.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
     foo() {}
 }
@@ -630,7 +772,8 @@ class CC extends BB {}
 
 class DD extends BB {
     foo() {}
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class A {
   foo() {}
 }
@@ -655,9 +798,15 @@ class DD extends BB {
   foo() {}
 }
 
+================================================================================
 `;
 
-exports[`classAbstractProperties.ts - typescript-verify 1`] = `
+exports[`classAbstractProperties.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A {
     abstract x : number;
     public abstract y : number;
@@ -670,7 +819,8 @@ abstract class A {
     public abstract foo_y() : number;
     protected abstract foo_z() : number;
     private abstract foo_w() : number;
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 abstract class A {
   abstract x: number;
   public abstract y: number;
@@ -685,9 +835,15 @@ abstract class A {
   private abstract foo_w(): number;
 }
 
+================================================================================
 `;
 
-exports[`classAbstractSingleLineDecl.ts - typescript-verify 1`] = `
+exports[`classAbstractSingleLineDecl.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A {}
 
 abstract
@@ -699,7 +855,8 @@ class C {}
 
 new A;
 new B;
-new C;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+new C;
+=====================================output=====================================
 abstract class A {}
 
 abstract;
@@ -713,9 +870,15 @@ new A();
 new B();
 new C();
 
+================================================================================
 `;
 
-exports[`classAbstractSuperCalls.ts - typescript-verify 1`] = `
+exports[`classAbstractSuperCalls.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class A {
     foo() { return 1; }
@@ -741,7 +904,8 @@ class AA {
 abstract class BB extends AA {
     abstract foo();
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A {
   foo() {
     return 1;
@@ -783,9 +947,15 @@ abstract class BB extends AA {
   abstract foo();
 }
 
+================================================================================
 `;
 
-exports[`classAbstractUsingAbstractMethod1.ts - typescript-verify 1`] = `
+exports[`classAbstractUsingAbstractMethod1.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 abstract class A {
     abstract foo() : number;
 }
@@ -802,7 +972,8 @@ var a = new B;
 a.foo();
 
 a = new C;
-a.foo();~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a.foo();
+=====================================output=====================================
 abstract class A {
   abstract foo(): number;
 }
@@ -823,9 +994,15 @@ a.foo();
 a = new C();
 a.foo();
 
+================================================================================
 `;
 
-exports[`classAbstractUsingAbstractMethods2.ts - typescript-verify 1`] = `
+exports[`classAbstractUsingAbstractMethods2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
     abstract foo();
 }
@@ -852,7 +1029,8 @@ abstract class CC extends AA {}
 
 class DD extends AA {
     foo() {}
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class A {
   abstract foo();
 }
@@ -881,9 +1059,17 @@ class DD extends AA {
   foo() {}
 }
 
+================================================================================
 `;
 
-exports[`classAbstractWithInterface.ts - typescript-verify 1`] = `
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`classAbstractWithInterface.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
+=====================================output=====================================
+
+================================================================================
 `;

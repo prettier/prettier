@@ -1,36 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`global.ts - typescript-verify 1`] = `
+exports[`global.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare global {
     interface Event {
 	    persist: Function
   	}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare global {
   interface Event {
     persist: Function;
   }
 }
 
+================================================================================
 `;
 
-exports[`moduleNamespace.ts - typescript-verify 1`] = `
+exports[`moduleNamespace.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module "f" {}
 
 namespace f {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-declare module "f" {
 
-}
+=====================================output=====================================
+declare module "f" {}
 
-namespace f {
+namespace f {}
 
-}
-
+================================================================================
 `;
 
-exports[`nestedNamespace.ts - typescript-verify 1`] = `
+exports[`nestedNamespace.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 namespace X {
     export namespace Y {
 
@@ -40,13 +55,13 @@ namespace X {
 namespace X.Y {
 
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 namespace X {
-  export namespace Y {  }
+  export namespace Y {}
 }
 
-namespace X.Y {
+namespace X.Y {}
 
-}
-
+================================================================================
 `;

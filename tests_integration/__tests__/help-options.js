@@ -1,35 +1,34 @@
 "use strict";
 
-const prettier = require("prettier/local");
+const prettier = require("prettier-local");
 const runPrettier = require("../runPrettier");
 const constant = require("../../src/cli/constant");
-const util = require("../../src/cli/util");
+const core = require("../../src/cli/core");
 const arrayify = require("../../src/utils/arrayify");
 
-arrayify(
-  Object.assign(
-    {},
-    util.createDetailedOptionMap(
-      prettier.getSupportInfo(null, {
+for (const option of arrayify(
+  {
+    ...core.createDetailedOptionMap(
+      prettier.getSupportInfo({
         showDeprecated: true,
         showUnreleased: true,
-        showInternal: true
+        showInternal: true,
       }).options
     ),
-    util.normalizeDetailedOptionMap(constant.options)
-  ),
+    ...core.normalizeDetailedOptionMap(constant.options),
+  },
   "name"
-).forEach(option => {
+)) {
   const optionNames = [
     option.description ? option.name : null,
-    option.oppositeDescription ? `no-${option.name}` : null
+    option.oppositeDescription ? `no-${option.name}` : null,
   ].filter(Boolean);
 
-  optionNames.forEach(optionName => {
+  for (const optionName of optionNames) {
     describe(`show detailed usage with --help ${optionName}`, () => {
       runPrettier("cli", ["--help", optionName]).test({
-        status: 0
+        status: 0,
       });
     });
-  });
-});
+  }
+}

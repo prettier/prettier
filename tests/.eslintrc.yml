@@ -1,6 +1,0 @@
-env:
-  jest: true
-rules:
-  strict: off
-globals:
-  run_spec: false

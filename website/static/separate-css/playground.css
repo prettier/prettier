@@ -1,3 +1,8 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 html {
   background-color: #fafafa;
   color: #6a6a6a;
@@ -139,6 +144,7 @@ header h1 {
   right: 0;
   bottom: 0;
   line-height: 1.6;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 }
 
 .bottom-bar {
@@ -267,7 +273,7 @@ input[type="number"] {
 
 .tooltip {
   position: absolute;
-  z-index: 1;
+  z-index: 6;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);

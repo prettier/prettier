@@ -1,54 +1,53 @@
 - name: JavaScript
-  showName: false
+  showName: true
   image: /images/languages/tools_js.svg
   variants:
-  - "[`ES2017`](https://github.com/tc39/proposals/blob/master/finished-proposals.md)"
-  - "[`JSX`](https://facebook.github.io/jsx/)"
-  - "[`Flow`](https://flow.org/)"
-  - "[`TypeScript`](https://www.typescriptlang.org/)"
-  - "[`JSON`](http://json.org/)"
+    - "[JSX](https://facebook.github.io/jsx/)"
+    - "[Flow](https://flow.org)"
+    - "[TypeScript](https://www.typescriptlang.org)"
+    - "[JSON](https://json.org)"
 - name: HTML
-  showName: false
+  showName: true
   image: /images/languages/tools_html.svg
   variants:
-  - "`HTML5`"
-  - "[`Vue`](https://vuejs.org/)"
-  - "[`Angular`](https://angular.io/)"
+    - "[Vue](https://vuejs.org)"
+    - "[Angular](https://angular.io)"
 - name: CSS
-  showName: false
+  showName: true
   image: /images/languages/tools_css.svg
   variants:
-  - "`CSS3+`"
-  - "[`Less`](http://lesscss.org/)"
-  - "[`SCSS`](http://sass-lang.com)"
-  - "[`styled-components`](http://styled-components.com) 💅"
-  - "[`styled-jsx`](http://npmjs.com/styled-jsx)"
+    - "[Less](http://lesscss.org)"
+    - "[SCSS](https://sass-lang.com)"
+    - "[`styled-components`](https://styled-components.com) 💅"
+    - "[`styled-jsx`](https://npmjs.com/styled-jsx)"
 - name: GraphQL
-  showName: false
+  nameLink: https://graphql.org
+  showName: true
   image: /images/languages/tools_gql.svg
   variants:
-  - "[`GraphQL`](http://graphql.org/)"
-  - "[`GraphQL Schemas`](http://graphql.org/learn/schema/)"
+    - "[GraphQL Schemas](https://graphql.org/learn/schema/)"
 - name: Markdown
-  showName: false
+  showName: true
   image: /images/languages/tools_md.svg
   variants:
-  - "[`CommonMark`](http://commonmark.org/)"
-  - "[`GitHub Flavored Markdown`](https://github.github.com/gfm/)"
-  - "[`MDX`](https://mdxjs.com/)"
+    - "[CommonMark](https://commonmark.org)"
+    - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
+    - "[MDX](https://mdxjs.com)"
 - name: YAML
-  showName: false
+  nameLink: https://yaml.org
+  showName: true
   image: /images/languages/tools_yaml.svg
-  variants:
-  - "[`YAML`](http://yaml.org/)"
-- name: Work in Progress
+  variants: []
+- name: Community Plugins
   showName: true
   image: /images/languages/tools_wip.svg
   variants:
-  - "[`Elm`](https://github.com/gicentre/prettier-plugin-elm) (via [`elm-format`](https://github.com/avh4/elm-format))"
-  - "[`Java`](https://github.com/thorbenvh8/prettier-java)"
-  - "[`PHP`](https://github.com/prettier/plugin-php)"
-  - "[`PostgreSQL`](https://github.com/benjie/prettier-plugin-pg-sql/)"
-  - "[`Python`](https://github.com/prettier/plugin-python)"
-  - "[`Ruby`](https://github.com/iamsolankiamit/prettier-ruby)"
-  - "[`Swift`](https://github.com/prettier/plugin-swift)"
+    - "[Apex](https://github.com/dangmai/prettier-plugin-apex)"
+    - "[Elm](https://github.com/gicentre/prettier-plugin-elm) (via [`elm-format`](https://github.com/avh4/elm-format))"
+    - "[Java](https://github.com/jhipster/prettier-java)"
+    - "[PHP](https://github.com/prettier/plugin-php)"
+    - "[PostgreSQL](https://github.com/benjie/prettier-plugin-pg-sql/)"
+    - "[Ruby](https://github.com/prettier/plugin-ruby)"
+    - "[Swift](https://github.com/prettier/plugin-swift)"
+    - "[TOML](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml)"
+    - "[XML](https://github.com/prettier/plugin-xml)"

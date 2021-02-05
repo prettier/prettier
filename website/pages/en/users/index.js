@@ -1,21 +1,17 @@
 "use strict";
 
 const React = require("react");
-
-const CompLibrary = require("../../../core/CompLibrary.js");
-const Container = CompLibrary.Container;
+const { Container } = require("../../../core/CompLibrary.js");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
 
 class Users extends React.Component {
   render() {
-    const showcase = siteConfig.users.map((user, i) => {
-      return (
-        <a key={i} href={user.infoLink}>
-          <img src={user.image} title={user.caption} />
-        </a>
-      );
-    });
+    const showcase = siteConfig.users.map((user, i) => (
+      <a key={i} href={user.infoLink}>
+        <img src={user.image} title={user.caption} />
+      </a>
+    ));
 
     return (
       <div>
@@ -36,17 +32,6 @@ class Users extends React.Component {
                 </p>
               </div>
               <div className="logos">{showcase}</div>
-              <div className="prose">
-                <p>Are you using this project?</p>
-              </div>
-              <a
-                href={`${
-                  siteConfig.githubUrl
-                }/edit/master/website/data/users.yml`}
-                className="button"
-              >
-                Add your company
-              </a>
             </div>
           </Container>
         </div>
@@ -56,7 +41,9 @@ class Users extends React.Component {
 }
 
 Users.defaultProps = {
-  language: "en"
+  language: "en",
 };
+
+Users.title = "Who's using Prettier?";
 
 module.exports = Users;
