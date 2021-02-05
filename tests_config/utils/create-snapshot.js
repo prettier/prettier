@@ -42,8 +42,9 @@ function createSnapshot(
   let {
     inputWithCursor: input,
     outputWithCursor: output,
-    options: { rangeStart, rangeEnd, cursorOffset, printWidth },
+    options,
   } = formatResult;
+  let { rangeStart, rangeEnd, cursorOffset, printWidth } = options;
 
   let codeOffset = 0;
   if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
@@ -77,7 +78,7 @@ function createSnapshot(
   return raw(
     [
       printSeparator("options"),
-      printOptions({ ...formatResult.options, parsers }),
+      printOptions({ ...options, parsers }),
       ...printWidthIndicator,
       printSeparator("input"),
       input,
