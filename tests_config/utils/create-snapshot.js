@@ -4,8 +4,6 @@ const raw = require("jest-snapshot-serializer-raw").wrap;
 const visualizeRange = require("./visualize-range");
 const visualizeEndOfLine = require("./visualize-end-of-line");
 
-const CURSOR_PLACEHOLDER = "<|>";
-
 function printSeparator(width, description = "") {
   const leftLength = Math.floor((width - description.length) / 2);
   const rightLength = width - leftLength - description.length;
@@ -35,7 +33,10 @@ function printOptions(options) {
     .join("\n");
 }
 
-function createSnapshot(formatResult, { parsers, formatOptions }) {
+function createSnapshot(
+  formatResult,
+  { parsers, formatOptions, CURSOR_PLACEHOLDER }
+) {
   // All parsers have the same result, only snapshot the result from main parser
   // TODO: move this part to `createSnapshot`
   const hasEndOfLine = "endOfLine" in formatOptions;

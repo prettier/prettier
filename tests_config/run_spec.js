@@ -250,7 +250,11 @@ function runTest({
     }
 
     expect(
-      createSnapshot(formatResult, { parsers, formatOptions })
+      createSnapshot(formatResult, {
+        parsers,
+        formatOptions,
+        CURSOR_PLACEHOLDER,
+      })
     ).toMatchSnapshot();
   });
 
