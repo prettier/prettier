@@ -13,7 +13,7 @@ export function read() {
 
   try {
     return JSON.parse(decode(hash));
-  } catch (_) {
+  } catch {
     return {};
   }
 }
