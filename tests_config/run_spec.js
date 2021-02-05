@@ -326,10 +326,13 @@ function runTest({
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
-      const formattedAst = secondFormatResult
-        ? secondFormatResult.cleanAst
-        : parse(formatResult.output, formatOptions);
-      expect(formattedAst).toEqual(formatResult.cleanAst);
+      const originalAst =
+        formatResult.cleanAst || parse(formatResult.input, formatOptions);
+      const formattedAst =
+        secondFormatResult && secondFormatResult.cleanAst
+          ? secondFormatResult.cleanAst
+          : parse(formatResult.output, formatOptions);
+      expect(formattedAst).toEqual(originalAst);
     });
   }
 
