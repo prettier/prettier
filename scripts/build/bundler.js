@@ -183,6 +183,7 @@ function getRollupConfig(bundle) {
     evaluate(),
     json(),
     rollupPluginAlias(alias),
+    bundle.target === "universal" && rollupPluginPolyfillNode(),
     nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
@@ -197,7 +198,6 @@ function getRollupConfig(bundle) {
       requireReturnsDefault: "preferred",
     }),
     externals(bundle.externals),
-    bundle.target === "universal" && rollupPluginPolyfillNode(),
     babel(babelConfig),
     bundle.minify !== false &&
       bundle.target === "universal" &&
