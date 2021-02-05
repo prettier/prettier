@@ -23,6 +23,7 @@ function printOptions(options) {
     plugins,
     filepath,
     errors,
+    parser,
 
     ...snapshotOptions
   } = options;
