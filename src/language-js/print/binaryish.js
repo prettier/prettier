@@ -13,7 +13,7 @@ const {
     ifBreak,
     indentIfBreak,
   },
-  utils: { cleanDoc, getDocParts },
+  utils: { cleanDoc, getDocParts, isConcat },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -276,11 +276,11 @@ function printBinaryishExpressions(
     // only for the left and right parts
     if (isNested && hasComment(node)) {
       const printed = cleanDoc(printComments(path, () => parts, options));
-      /* istanbul ignore if */
-      if (printed.type === "string") {
-        parts = [printed];
-      } else {
+      /* istanbul ignore else */
+      if (isConcat(printed) || printed.type === "fill") {
         parts = getDocParts(printed);
+      } else {
+        parts = [printed];
       }
     }
   } else {
