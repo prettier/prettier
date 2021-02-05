@@ -15,6 +15,32 @@ export const listAuthorizedSitesForDefaultHandler: ListAuthorizedSitesForHandler
 ================================================================================
 `;
 
+exports[`issue-2482.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export function countriesReceived(countries: Array<Country>): CountryActionType {
+  return {
+    type: ActionTypes.COUNTRIES_RECEIVED,
+    countries: countries,
+  };
+}
+
+=====================================output=====================================
+export function countriesReceived(
+  countries: Array<Country>
+): CountryActionType {
+  return {
+    type: ActionTypes.COUNTRIES_RECEIVED,
+    countries: countries,
+  };
+}
+
+================================================================================
+`;
+
 exports[`issue-2485.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -108,6 +134,48 @@ export const enviromentProdValues: EnvironmentValues =
     },
     enviromentBaseValues
   );
+
+================================================================================
+`;
+
+exports[`issue-8619.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+    {
+        {
+            const myLongVariableName: MyLongTypeName | null = myLongFunctionCallHere();
+        }
+    }
+}
+
+=====================================output=====================================
+{
+  {
+    {
+      const myLongVariableName: MyLongTypeName | null =
+        myLongFunctionCallHere();
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`issue-9172.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> = somefunc();
+
+=====================================output=====================================
+const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> =
+  somefunc();
 
 ================================================================================
 `;

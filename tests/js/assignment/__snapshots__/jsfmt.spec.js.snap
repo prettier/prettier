@@ -369,6 +369,72 @@ const { qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw } = qbhtcuzxwedz(
 ================================================================================
 `;
 
+exports[`issue-6922.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const { data, status } = await request.delete(
+    \`/account/\${accountId}/documents/\${type}/\${documentNumber}\`,
+    { validateStatus: () => true }
+  );
+  return { data, status };
+}
+
+const data1 = request.delete(
+  '----------------------------------------------',
+  { validateStatus: () => true }
+);
+
+const data2 = request.delete(
+  '----------------------------------------------x',
+  { validateStatus: () => true }
+);
+
+const data3 = request.delete(
+  '----------------------------------------------xx',
+  { validateStatus: () => true }
+);
+
+const data4 = request.delete(
+  '----------------------------------------------xxx',
+  { validateStatus: () => true }
+);
+
+=====================================output=====================================
+async function f() {
+  const { data, status } =
+    await request.delete(
+      \`/account/\${accountId}/documents/\${type}/\${documentNumber}\`,
+      { validateStatus: () => true }
+    );
+  return { data, status };
+}
+
+const data1 = request.delete("----------------------------------------------", {
+  validateStatus: () => true,
+});
+
+const data2 = request.delete(
+  "----------------------------------------------x",
+  { validateStatus: () => true }
+);
+
+const data3 = request.delete(
+  "----------------------------------------------xx",
+  { validateStatus: () => true }
+);
+
+const data4 =
+  request.delete("----------------------------------------------xxx", {
+    validateStatus: () => true,
+  });
+
+================================================================================
+`;
+
 exports[`issue-7091.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -430,6 +496,27 @@ something.veeeeeery.looooooooooooooooooooooooooong =
 // does not work if it ends with a function call
 something.veeeeeery.looooooooooooooooooooooooooong =
   some.other.rather.long.chain.functionCall();
+
+================================================================================
+`;
+
+exports[`issue-8218.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const pendingIndicators = shield.alarmGeneratorConfiguration.getPendingVersionColumnValues;
+
+const pendingIndicatorz =
+  shield.alarmGeneratorConfiguration.getPendingVersionColumnValues();
+
+=====================================output=====================================
+const pendingIndicators =
+  shield.alarmGeneratorConfiguration.getPendingVersionColumnValues;
+
+const pendingIndicatorz =
+  shield.alarmGeneratorConfiguration.getPendingVersionColumnValues();
 
 ================================================================================
 `;
