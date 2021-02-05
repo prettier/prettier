@@ -4,9 +4,10 @@ const raw = require("jest-snapshot-serializer-raw").wrap;
 const visualizeRange = require("./visualize-range");
 const visualizeEndOfLine = require("./visualize-end-of-line");
 
-function printSeparator(width, description = "") {
-  const leftLength = Math.floor((width - description.length) / 2);
-  const rightLength = width - leftLength - description.length;
+const SEPARATOR_WIDTH = 80;
+function printSeparator(description = "") {
+  const leftLength = Math.floor((SEPARATOR_WIDTH - description.length) / 2);
+  const rightLength = SEPARATOR_WIDTH - leftLength - description.length;
   return "=".repeat(leftLength) + description + "=".repeat(rightLength);
 }
 
@@ -44,9 +45,7 @@ function createSnapshot(
     options: { rangeStart, rangeEnd, cursorOffset, printWidth },
   } = formatResult;
 
-  const hasEndOfLine = "endOfLine" in formatOptions;
   let codeOffset = 0;
-
   if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
     if (typeof cursorOffset === "number") {
       if (
@@ -65,12 +64,11 @@ function createSnapshot(
     codeOffset = input.match(/^>?\s+1 \|/)[0].length + 1;
   }
 
-  if (hasEndOfLine) {
+  if ("endOfLine" in formatOptions) {
     input = visualizeEndOfLine(input);
     output = visualizeEndOfLine(output);
   }
 
-  const separatorWidth = 80;
   const printWidthIndicator =
     printWidth > 0 && Number.isFinite(printWidth)
       ? [
@@ -82,14 +80,14 @@ function createSnapshot(
 
   return raw(
     [
-      printSeparator(separatorWidth, "options"),
+      printSeparator("options"),
       printOptions({ ...formatResult.options, parsers }),
       ...printWidthIndicator,
-      printSeparator(separatorWidth, "input"),
+      printSeparator("input"),
       input,
-      printSeparator(separatorWidth, "output"),
+      printSeparator("output"),
       output,
-      printSeparator(separatorWidth),
+      printSeparator(),
     ].join("\n")
   );
 }
