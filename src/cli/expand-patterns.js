@@ -69,7 +69,17 @@ function* expandPatternsInternal(context) {
   for (const pattern of context.filePatterns) {
     const absolutePath = path.resolve(cwd, pattern);
 
-    if (containsIgnoredPathSegment(absolutePath, cwd, silentlyIgnoredDirs)) {
+    if (
+      containsIgnoredPathSegment(
+        absolutePath,
+        cwd,
+        new Set(
+          Object.keys(silentlyIgnoredDirs).filter(
+            (key) => silentlyIgnoredDirs[key]
+          )
+        )
+      )
+    ) {
       continue;
     }
 
@@ -157,17 +167,13 @@ const errorMessages = {
 /**
  * @param {string} absolutePath
  * @param {string} cwd
- * @param {Record<string, boolean>} ignoredDirectories
+ * @param {Set<string>} ignoredDirectories
  */
 function containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories) {
   return path
     .relative(cwd, absolutePath)
     .split(path.sep)
-    .some(
-      (dir) =>
-        Object.prototype.hasOwnProperty.call(ignoredDirectories, dir) &&
-        ignoredDirectories[dir]
-    );
+    .some((dir) => ignoredDirectories.has(dir));
 }
 
 /**
