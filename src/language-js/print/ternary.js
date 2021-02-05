@@ -190,41 +190,21 @@ function shouldExtraIndentForConditionalExpression(path) {
   };
 
   const parent = path.getParentNode();
-
-  /**
-   * foo = (
-   *   condition
-   *     ? first
-   *     : second
-   * ) as SomeType;
-   */
-  if (parent.type === "TSAsExpression" && checkAncestor(parent)) {
-    return true;
-  }
-
   const name = path.getName();
 
-  /**
-   * foo = new (
-   *   condition
-   *     ? first
-   *     : second
-   * )(arguments);
-   */
   if (
-    parent.type === "NewExpression" &&
-    checkAncestor(parent) &&
-    name === "callee"
+    ((name === "callee" && parent.type === "NewExpression") ||
+      (name === "expression" && parent.type === "TSAsExpression")) &&
+    checkAncestor(parent)
   ) {
     return true;
   }
 
-  const chainRoot = path.getParentNode(ancestorCount - 1);
   if (
-    checkAncestor(chainRoot) &&
     ((name === "callee" && isCallExpression(parent)) ||
       (name === "object" && isMemberExpression(parent)) ||
-      (name === "expression" && parent.type === "TSNonNullExpression"))
+      (name === "expression" && parent.type === "TSNonNullExpression")) &&
+    checkAncestor(path.getParentNode(ancestorCount - 1))
   ) {
     return true;
   }
