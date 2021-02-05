@@ -37,8 +37,6 @@ function createSnapshot(
   formatResult,
   { parsers, formatOptions, CURSOR_PLACEHOLDER }
 ) {
-  // All parsers have the same result, only snapshot the result from main parser
-  // TODO: move this part to `createSnapshot`
   const hasEndOfLine = "endOfLine" in formatOptions;
   let codeForSnapshot = formatResult.inputWithCursor;
   let codeOffset = 0;

@@ -249,6 +249,7 @@ function runTest({
       return;
     }
 
+    // All parsers have the same result, only snapshot the result from main parser
     expect(
       createSnapshot(formatResult, {
         parsers,
