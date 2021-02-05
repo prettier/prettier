@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`don't skip file paths containing reserved words like \`constructor\` (stderr) 1`] = `""`;
+
+exports[`don't skip file paths containing reserved words like \`constructor\` (stdout) 1`] = `
+"constructor/should-be-formatted.js
+"
+`;
+
+exports[`don't skip file paths containing reserved words like \`constructor\` (write) 1`] = `Array []`;

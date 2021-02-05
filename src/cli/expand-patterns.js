@@ -163,7 +163,11 @@ function containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories) {
   return path
     .relative(cwd, absolutePath)
     .split(path.sep)
-    .some((dir) => ignoredDirectories[dir]);
+    .some(
+      (dir) =>
+        Object.prototype.hasOwnProperty.call(ignoredDirectories, dir) &&
+        ignoredDirectories[dir]
+    );
 }
 
 /**
