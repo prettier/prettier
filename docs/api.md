@@ -149,7 +149,7 @@ prettier.format("lodash ( )", {
     ast.program.body[0].expression.callee.name = "_";
     return ast;
   },
-  astFormat: "babel",
+  astFormat: "estree",
 });
 // -> "_();\n"
 ```
