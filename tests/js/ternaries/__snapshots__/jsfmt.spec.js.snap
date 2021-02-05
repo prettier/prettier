@@ -1841,6 +1841,15 @@ foo =
       : baaaaaaaaaaaaaaaaaaaaaz
   ];
 
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
 =====================================output=====================================
 foo7 = (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -2122,6 +2131,15 @@ foo =
             : baaaaaaaaaaaaaaaaaaaaaz
     ];
 
+const decorated = (arg, ignoreRequestError) => {
+    return (
+        typeof arg === "string" ||
+        (arg && arg.valueOf && typeof arg.valueOf() === "string")
+            ? $delegate(arg, ignoreRequestError)
+            : handleAsyncOperations(arg, ignoreRequestError)
+    ).foo();
+};
+
 ================================================================================
 `;
 
@@ -2359,6 +2377,15 @@ foo =
       : baaaaaaaaaaaaaaaaaaaaaz
   ];
 
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
 =====================================output=====================================
 foo7 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -2639,6 +2666,15 @@ foo =
 			? baaaaaaaaaaaaaaaaaaaaar
 			: baaaaaaaaaaaaaaaaaaaaaz
 	];
+
+const decorated = (arg, ignoreRequestError) => {
+	return (
+		typeof arg === "string" ||
+		(arg && arg.valueOf && typeof arg.valueOf() === "string")
+			? $delegate(arg, ignoreRequestError)
+			: handleAsyncOperations(arg, ignoreRequestError)
+	).foo();
+};
 
 ================================================================================
 `;
@@ -2876,6 +2912,15 @@ foo =
       : baaaaaaaaaaaaaaaaaaaaaz
   ];
 
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
 =====================================output=====================================
 foo7 = (
 	coooooooooooooooooooooooooooooooooooooooooooooooooooond
@@ -3157,6 +3202,15 @@ foo =
 			: baaaaaaaaaaaaaaaaaaaaaz
 	];
 
+const decorated = (arg, ignoreRequestError) => {
+	return (
+		typeof arg === "string" ||
+		(arg && arg.valueOf && typeof arg.valueOf() === "string")
+			? $delegate(arg, ignoreRequestError)
+			: handleAsyncOperations(arg, ignoreRequestError)
+	).foo();
+};
+
 ================================================================================
 `;
 
@@ -3391,6 +3445,15 @@ foo =
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
   ];
+
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
 
 =====================================output=====================================
 foo7 = (
@@ -3672,6 +3735,15 @@ foo =
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
   ];
+
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
 
 ================================================================================
 `;
