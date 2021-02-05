@@ -183,8 +183,8 @@ function getRollupConfig(bundle) {
     evaluate(),
     json(),
     rollupPluginAlias(alias),
-    bundle.target === "universal" &&
-      nativeShims(path.resolve(__dirname, "shims")),
+    // bundle.target === "universal" &&
+    //   nativeShims(path.resolve(__dirname, "shims")),
     nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
