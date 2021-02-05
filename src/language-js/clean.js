@@ -16,6 +16,7 @@ const ignoredProperties = new Set([
   "flags",
   "errors",
   "tokens",
+  "prettierIgnore",
 ]);
 
 const removeTemplateElementsValue = (node) => {
