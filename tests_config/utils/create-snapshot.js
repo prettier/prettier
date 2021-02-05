@@ -3,7 +3,6 @@
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const visualizeRange = require("./visualize-range");
 const visualizeEndOfLine = require("./visualize-end-of-line");
-const composeOptionsForSnapshot = require("./compose-options-for-snapshot");
 
 const CURSOR_PLACEHOLDER = "<|>";
 
@@ -22,16 +21,21 @@ function stringify(value) {
 }
 
 function printOptions(options) {
-  const keys = Object.keys(options).sort();
-  return keys.map((key) => `${key}: ${stringify(options[key])}`).join("\n");
+  const {
+    plugins,
+    filepath,
+    errors,
+
+    ...snapshotOptions
+  } = options;
+
+  const keys = Object.keys(snapshotOptions).sort();
+  return keys
+    .map((key) => `${key}: ${stringify(snapshotOptions[key])}`)
+    .join("\n");
 }
 
 function createSnapshot(formatResult, { parsers, formatOptions }) {
-  const optionsForSnapshot = composeOptionsForSnapshot(
-    formatResult.options,
-    parsers
-  );
-
   // All parsers have the same result, only snapshot the result from main parser
   // TODO: move this part to `createSnapshot`
   const hasEndOfLine = "endOfLine" in formatOptions;
@@ -88,7 +92,7 @@ function createSnapshot(formatResult, { parsers, formatOptions }) {
   return raw(
     [
       printSeparator(separatorWidth, "options"),
-      printOptions(optionsForSnapshot),
+      printOptions({ ...formatResult.options, parsers }),
       ...printWidthIndicator,
       printSeparator(separatorWidth, "input"),
       codeForSnapshot,
