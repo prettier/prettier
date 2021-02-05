@@ -219,7 +219,14 @@ function formatRange(originalText, opts) {
     formatted = formatted.replace(/\n/g, eol);
   }
 
-  return { formatted, cursorOffset, comments: rangeResult.comments };
+  return {
+    formatted,
+    cursorOffset,
+    comments: rangeResult.comments,
+    get cleanAst() {
+      return formatResult.cleanAst;
+    },
+  };
 }
 
 function ensureIndexInText(text, index, defaultValue) {
