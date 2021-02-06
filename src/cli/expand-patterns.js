@@ -46,7 +46,7 @@ function* expandPatterns(context) {
  */
 function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
-  let silentlyIgnoredDirs = [".git", ".svn", ".hg"];
+  const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
   if (context.argv["with-node-modules"] === true) {
     silentlyIgnoredDirs.push("node_modules");
   }
@@ -54,7 +54,6 @@ function* expandPatternsInternal(context) {
     dot: true,
     ignore: silentlyIgnoredDirs.map(([dir]) => "**/" + dir),
   };
-  silentlyIgnoredDirs = new Set(silentlyIgnoredDirs);
 
   let supportedFilesGlob;
   const cwd = process.cwd();
@@ -153,13 +152,13 @@ const errorMessages = {
 /**
  * @param {string} absolutePath
  * @param {string} cwd
- * @param {Set<string>} ignoredDirectories
+ * @param {string[]} ignoredDirectories
  */
 function containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories) {
   return path
     .relative(cwd, absolutePath)
     .split(path.sep)
-    .some((dir) => ignoredDirectories.has(dir));
+    .some((dir) => ignoredDirectories.includes(dir));
 }
 
 /**
