@@ -52,7 +52,7 @@ function* expandPatternsInternal(context) {
   }
   const globOptions = {
     dot: true,
-    ignore: silentlyIgnoredDirs.map(([dir]) => "**/" + dir),
+    ignore: silentlyIgnoredDirs.map((dir) => "**/" + dir),
   };
 
   let supportedFilesGlob;
