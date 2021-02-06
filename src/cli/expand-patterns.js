@@ -47,7 +47,7 @@ function* expandPatterns(context) {
 function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
   const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
-  if (context.argv["with-node-modules"] === true) {
+  if (context.argv["with-node-modules"] !== true) {
     silentlyIgnoredDirs.push("node_modules");
   }
   const globOptions = {
