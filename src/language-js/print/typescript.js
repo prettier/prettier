@@ -348,7 +348,7 @@ function printTypescript(path, options, print) {
             n.optional ? getTypeScriptMappedTypeModifier(n.optional, "?") : "",
             n.typeAnnotation ? ": " : "",
             path.call(print, "typeAnnotation"),
-            ifBreak(semi, ""),
+            ifBreak(semi),
           ]),
           printDanglingComments(path, options, /* sameIndent */ true),
           options.bracketSpacing ? line : softline,

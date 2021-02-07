@@ -11,13 +11,14 @@ const {
     group,
     hardline,
     ifBreak,
+    indentIfBreak,
     indent,
     join,
     line,
     literalline,
     softline,
   },
-  utils: { mapDoc, cleanDoc, getDocParts },
+  utils: { mapDoc, cleanDoc, getDocParts, isConcat },
 } = require("../document");
 const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
 const { print: printFrontMatter } = require("../utils/front-matter");
@@ -230,13 +231,13 @@ function genericPrint(path, options, print) {
     case "element":
     case "ieConditionalComment": {
       if (shouldPreserveContent(node, options)) {
-        return [].concat(
+        return [
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          replaceEndOfLineWith(getNodeContent(node, options), literalline),
-          printClosingTag(node, options),
-          printClosingTagSuffix(node, options)
-        );
+          ...replaceEndOfLineWith(getNodeContent(node, options), literalline),
+          ...printClosingTag(node, options),
+          printClosingTagSuffix(node, options),
+        ];
       }
       /**
        * do not break:
@@ -277,9 +278,7 @@ function genericPrint(path, options, print) {
                 forceBreakContent(node) ? breakParent : "",
                 ((childrenDoc) =>
                   shouldHugContent
-                    ? ifBreak(indent(childrenDoc), childrenDoc, {
-                        groupId: attrGroupId,
-                      })
+                    ? indentIfBreak(childrenDoc, { groupId: attrGroupId })
                     : (isScriptLikeTag(node) ||
                         isVueCustomBlock(node, options)) &&
                       node.parent.type === "root" &&
@@ -369,7 +368,11 @@ function genericPrint(path, options, print) {
         ...getTextValueParts(node),
         printClosingTagSuffix(node, options),
       ]);
-      return typeof printed === "string" ? printed : fill(getDocParts(printed));
+      if (isConcat(printed) || printed.type === "fill") {
+        return fill(getDocParts(printed));
+      }
+      /* istanbul ignore next */
+      return printed;
     }
     case "docType":
       return [
@@ -507,25 +510,25 @@ function printChildren(path, options, print) {
       }
     }
 
-    return [].concat(
-      prevParts,
+    return [
+      ...prevParts,
       group([
         ...leadingParts,
         group([printChild(childPath), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),
-      nextParts
-    );
+      ...nextParts,
+    ];
   }, "children");
 
   function printChild(childPath) {
     const child = childPath.getValue();
 
     if (hasPrettierIgnore(child)) {
-      return [].concat(
+      return [
         printOpeningTagPrefix(child, options),
-        replaceEndOfLineWith(
+        ...replaceEndOfLineWith(
           options.originalText.slice(
             locStart(child) +
               (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
@@ -538,8 +541,8 @@ function printChildren(path, options, print) {
           ),
           literalline
         ),
-        printClosingTagSuffix(child, options)
-      );
+        printClosingTagSuffix(child, options),
+      ];
     }
 
     return print(childPath);
@@ -1131,7 +1134,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];
-      value.split(interpolationRegex).forEach((part, index) => {
+      for (const [index, part] of value.split(interpolationRegex).entries()) {
         if (index % 2 === 0) {
           parts.push(replaceEndOfLineWith(part, literalline));
         } else {
@@ -1154,7 +1157,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
             parts.push("{{", replaceEndOfLineWith(part, literalline), "}}");
           }
         }
-      });
+      }
       return group(parts);
     }
   }

@@ -11,7 +11,14 @@ export default class PrettierFormat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    for (const key of ["code", "options", "debugAst", "debugDoc", "reformat"]) {
+    for (const key of [
+      "code",
+      "options",
+      "debugAst",
+      "debugDoc",
+      "debugComments",
+      "reformat",
+    ]) {
       if (prevProps[key] !== this.props[key]) {
         this.format();
         break;
@@ -26,11 +33,12 @@ export default class PrettierFormat extends React.Component {
       options,
       debugAst: ast,
       debugDoc: doc,
+      debugComments: comments,
       reformat,
     } = this.props;
 
     worker
-      .format(code, options, { ast, doc, reformat })
+      .format(code, options, { ast, doc, comments, reformat })
       .then((result) => this.setState(result));
   }
 

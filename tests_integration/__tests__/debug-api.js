@@ -1,12 +1,12 @@
 "use strict";
 
 const {
-  parse,
-  formatAST,
-  formatDoc,
-  printToDoc,
-  printDocToString,
-} = require("prettier-local").__debug;
+  __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
+  doc: {
+    builders,
+    utils: { cleanDoc },
+  },
+} = require("prettier-local");
 const { outdent } = require("outdent");
 
 const code = outdent`
@@ -44,5 +44,47 @@ describe("API", () => {
   const { formatted: stringFromDoc } = printDocToString(doc, options);
   test("prettier.printDocToString", () => {
     expect(stringFromDoc).toBe(formatted);
+  });
+
+  const doc2 = new Function(
+    `{ ${Object.keys(builders)} }`,
+    `return ${formatResultFromDoc}`
+  )(builders);
+  const { formatted: stringFromDoc2 } = printDocToString(doc2, options);
+  const formatResultFromDoc2 = formatDoc(doc2, options);
+  test("output of prettier.formatDoc can be reused as code", () => {
+    expect(stringFromDoc2).toBe(formatted);
+    expect(formatResultFromDoc2).toBe(formatResultFromDoc);
+  });
+
+  test("prettier.formatDoc prints things as expected", () => {
+    const {
+      indent,
+      hardline,
+      literalline,
+      fill,
+      indentIfBreak,
+      group,
+      line,
+    } = builders;
+
+    expect(formatDoc([indent(hardline), indent(literalline)])).toBe(
+      "[indent(hardline), indent(literalline)]"
+    );
+
+    expect(formatDoc(fill(["foo", hardline, "bar", literalline, "baz"]))).toBe(
+      'fill(["foo", hardline, "bar", literalline, "baz"])'
+    );
+
+    expect(
+      formatDoc(
+        // The argument of fill must not be passed to cleanDoc because it's not a doc
+        fill(cleanDoc(["foo", literalline, "bar"])) // invalid fill
+      )
+    ).toBe('fill(["foo", literallineWithoutBreakParent, breakParent, "bar"])');
+
+    expect(
+      formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" }))
+    ).toBe('indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })');
   });
 });

@@ -50,16 +50,16 @@ function getSortedChildNodes(node, options, resultArray) {
     (printer.getCommentChildNodes &&
       printer.getCommentChildNodes(node, options)) ||
     (typeof node === "object" &&
-      Object.keys(node)
+      Object.entries(node)
         .filter(
-          (n) =>
+          ([n]) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
             n !== "followingNode" &&
             n !== "tokens" &&
             n !== "comments"
         )
-        .map((n) => node[n]));
+        .map(([, value]) => value));
 
   if (!childNodes) {
     return;
@@ -70,9 +70,9 @@ function getSortedChildNodes(node, options, resultArray) {
     childNodesCache.set(node, resultArray);
   }
 
-  childNodes.forEach((childNode) => {
+  for (const childNode of childNodes) {
     getSortedChildNodes(childNode, options, resultArray);
-  });
+  }
 
   return resultArray;
 }
@@ -185,7 +185,7 @@ function attach(comments, ast, text, options) {
     isLastComment: comments.length - 1 === index,
   }));
 
-  decoratedComments.forEach((context, index) => {
+  for (const [index, context] of decoratedComments.entries()) {
     const {
       comment,
       precedingNode,
@@ -205,11 +205,11 @@ function attach(comments, ast, text, options) {
     ) {
       if (locStart(comment) - locStart(ast) <= 0) {
         addLeadingComment(ast, comment);
-        return;
+        continue;
       }
       if (locEnd(comment) - locEnd(ast) >= 0) {
         addTrailingComment(ast, comment);
-        return;
+        continue;
       }
     }
 
@@ -224,6 +224,7 @@ function attach(comments, ast, text, options) {
     }
 
     if (isOwnLineComment(text, options, decoratedComments, index)) {
+      comment.placement = "ownLine";
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -241,6 +242,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
+      comment.placement = "endOfLine";
       if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
@@ -257,6 +259,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else {
+      comment.placement = "remaining";
       if (handleRemainingComment(...args)) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -285,19 +288,19 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     }
-  });
+  }
 
   breakTies(tiesToBreak, text, options);
 
   if (!avoidAstMutation) {
-    comments.forEach((comment) => {
+    for (const comment of comments) {
       // These node references were useful for breaking ties, but we
       // don't need them anymore, and they create cycles in the AST that
       // may lead to infinite recursion if we don't delete them here.
       delete comment.precedingNode;
       delete comment.enclosingNode;
       delete comment.followingNode;
-    });
+    }
   }
 }
 
@@ -400,13 +403,13 @@ function breakTies(tiesToBreak, text, options) {
     }
   }
 
-  tiesToBreak.forEach(({ comment }, i) => {
+  for (const [i, { comment }] of tiesToBreak.entries()) {
     if (i < indexOfFirstLeadingComment) {
       addTrailingComment(precedingNode, comment);
     } else {
       addLeadingComment(followingNode, comment);
     }
-  });
+  }
 
   for (const node of [precedingNode, followingNode]) {
     if (node.comments && node.comments.length > 1) {
@@ -581,11 +584,10 @@ function printComments(path, print, options, needsSemi) {
     }
   }, "comments");
 
-  return prependCursorPlaceholder(
-    path,
-    options,
-    leadingParts.concat(trailingParts)
-  );
+  return prependCursorPlaceholder(path, options, [
+    ...leadingParts,
+    ...trailingParts,
+  ]);
 }
 
 function ensureAllCommentsPrinted(astComments) {
@@ -593,7 +595,7 @@ function ensureAllCommentsPrinted(astComments) {
     return;
   }
 
-  astComments.forEach((comment) => {
+  for (const comment of astComments) {
     if (!comment.printed) {
       throw new Error(
         'Comment "' +
@@ -602,7 +604,7 @@ function ensureAllCommentsPrinted(astComments) {
       );
     }
     delete comment.printed;
-  });
+  }
 }
 
 module.exports = {

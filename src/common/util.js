@@ -164,8 +164,7 @@ function skipNewline(text, index, opts) {
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasNewline(text, index, opts) {
-  opts = opts || {};
+function hasNewline(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   const idx2 = skipNewline(text, idx, opts);
   return idx !== idx2;
@@ -292,8 +291,7 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasSpaces(text, index, opts) {
-  opts = opts || {};
+function hasSpaces(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
@@ -304,9 +302,7 @@ function hasSpaces(text, index, opts) {
  * @param {number=} startIndex
  * @returns {number}
  */
-function getAlignmentSize(value, tabWidth, startIndex) {
-  startIndex = startIndex || 0;
-
+function getAlignmentSize(value, tabWidth, startIndex = 0) {
   let size = 0;
   for (let i = startIndex; i < value.length; ++i) {
     if (value[i] === "\t") {
@@ -561,6 +557,7 @@ function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
+  comment.nodeDescription = describeNodeForDebugging(node);
 }
 
 function addLeadingComment(node, comment) {
@@ -640,6 +637,23 @@ function createGroupIdMapper(description) {
     }
     return groupIds.get(node);
   };
+}
+
+function describeNodeForDebugging(node) {
+  const nodeType = node.type || node.kind || "(unknown type)";
+  let nodeName = String(
+    node.name ||
+      (node.id && (typeof node.id === "object" ? node.id.name : node.id)) ||
+      (node.key && (typeof node.key === "object" ? node.key.name : node.key)) ||
+      (node.value &&
+        (typeof node.value === "object" ? "" : String(node.value))) ||
+      node.operator ||
+      ""
+  );
+  if (nodeName.length > 20) {
+    nodeName = nodeName.slice(0, 19) + "…";
+  }
+  return nodeType + (nodeName ? " " + nodeName : "");
 }
 
 module.exports = {

@@ -20,6 +20,7 @@ const {
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
   hasComment,
+  isMemberExpression,
 } = require("../utils");
 
 function printTemplateLiteral(path, print, options) {
@@ -85,8 +86,7 @@ function printTemplateLiteral(path, print, options) {
         // in the middle of a MemberExpression
         if (
           hasComment(expression) ||
-          expression.type === "MemberExpression" ||
-          expression.type === "OptionalMemberExpression" ||
+          isMemberExpression(expression) ||
           expression.type === "ConditionalExpression" ||
           expression.type === "SequenceExpression" ||
           expression.type === "TSAsExpression" ||
@@ -164,12 +164,12 @@ function printJestEachTemplateLiteral(path, options, print) {
       ...tableBody.filter((row) => row.cells.length > 0),
     ];
     for (const { cells } of table.filter((row) => !row.hasLineBreak)) {
-      cells.forEach((cell, index) => {
+      for (const [index, cell] of cells.entries()) {
         maxColumnWidths[index] = Math.max(
           maxColumnWidths[index],
           getStringWidth(cell)
         );
-      });
+      }
     }
 
     parts.push(

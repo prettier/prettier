@@ -14,6 +14,7 @@ const {
   getCallArguments,
   iterateCallArgumentsPath,
   isNextLineEmpty,
+  isCallExpression,
 } = require("../utils");
 
 const {
@@ -159,12 +160,14 @@ function printCallArguments(path, options, print) {
             hasEmptyLineFollowingFirstArg ? hardline : line,
             hasEmptyLineFollowingFirstArg ? hardline : "",
           ],
-        ].concat(printedArguments.slice(1));
+          ...printedArguments.slice(1),
+        ];
       }
       if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = printedArguments
-          .slice(0, -1)
-          .concat(argPath.call((p) => print(p, { expandLastArg: true })));
+        printedExpanded = [
+          ...printedArguments.slice(0, -1),
+          argPath.call((p) => print(p, { expandLastArg: true })),
+        ];
       }
     });
 
@@ -249,8 +252,7 @@ function couldGroupArg(arg) {
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
-        arg.body.type === "CallExpression" ||
-        arg.body.type === "OptionalCallExpression" ||
+        isCallExpression(arg.body) ||
         arg.body.type === "ConditionalExpression" ||
         isJsxNode(arg.body)))
   );

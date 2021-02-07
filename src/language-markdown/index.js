@@ -9,7 +9,7 @@ const languages = [
     since: "1.8.0",
     parsers: ["markdown"],
     vscodeLanguageIds: ["markdown"],
-    filenames: data.filenames.concat(["README"]),
+    filenames: [...data.filenames, "README"],
     extensions: data.extensions.filter((extension) => extension !== ".mdx"),
   })),
   createLanguage(require("linguist-languages/data/Markdown.json"), () => ({

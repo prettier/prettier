@@ -87,7 +87,7 @@ function hasNode(node, fn) {
   const result = fn(node);
   return typeof result === "boolean"
     ? result
-    : Object.keys(node).some((key) => hasNode(node[key], fn));
+    : Object.values(node).some((value) => hasNode(value, fn));
 }
 
 /**
@@ -101,10 +101,8 @@ function hasNakedLeftSide(node) {
     node.type === "LogicalExpression" ||
     node.type === "NGPipeExpression" ||
     node.type === "ConditionalExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
+    isCallExpression(node) ||
+    isMemberExpression(node) ||
     node.type === "SequenceExpression" ||
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
@@ -247,6 +245,14 @@ function isNumericLiteral(node) {
   );
 }
 
+function isSignedNumericLiteral(node) {
+  return (
+    node.type === "UnaryExpression" &&
+    (node.operator === "+" || node.operator === "-") &&
+    isNumericLiteral(node.argument)
+  );
+}
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -301,13 +307,12 @@ function isTemplateLiteral(node) {
  * Note: `inject` is used in AngularJS 1.x, `async` in Angular 2+
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
- * @param {Node} node
+ * @param {CallExpression} node
  * @returns {boolean}
  */
 function isAngularTestWrapper(node) {
   return (
-    (node.type === "CallExpression" ||
-      node.type === "OptionalCallExpression") &&
+    isCallExpression(node) &&
     node.callee.type === "Identifier" &&
     (node.callee.name === "async" ||
       node.callee.name === "inject" ||
@@ -344,15 +349,14 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
  * @returns {boolean}
  */
 function isMemberExpressionChain(node) {
-  if (
-    node.type !== "MemberExpression" &&
-    node.type !== "OptionalMemberExpression"
-  ) {
+  if (!isMemberExpression(node)) {
     return false;
   }
+  // @ts-ignore
   if (node.object.type === "Identifier") {
     return true;
   }
+  // @ts-ignore
   return isMemberExpressionChain(node.object);
 }
 
@@ -415,8 +419,7 @@ function isBinaryish(node) {
  */
 function isMemberish(node) {
   return (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
+    isMemberExpression(node) ||
     (node.type === "BindExpression" && Boolean(node.object))
   );
 }
@@ -492,13 +495,12 @@ function isSimpleType(node) {
 const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
 
 /**
- * @param {CallExpression} node
+ * @param {{callee: MemberExpression | OptionalMemberExpression}} node
  * @returns {boolean}
  */
 function isSkipOrOnlyBlock(node) {
   return (
-    (node.callee.type === "MemberExpression" ||
-      node.callee.type === "OptionalMemberExpression") &&
+    isMemberExpression(node.callee) &&
     node.callee.object.type === "Identifier" &&
     node.callee.property.type === "Identifier" &&
     unitTestRe.test(node.callee.object.name) &&
@@ -556,12 +558,25 @@ function isTestCall(n, parent) {
 }
 
 /**
- * @param {CallExpression | OptionalCallExpression} node
+ * @param {Node} node
  * @returns {boolean}
  */
-function isCallOrOptionalCallExpression(node) {
+function isCallExpression(node) {
   return (
-    node.type === "CallExpression" || node.type === "OptionalCallExpression"
+    node &&
+    (node.type === "CallExpression" || node.type === "OptionalCallExpression")
+  );
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isMemberExpression(node) {
+  return (
+    node &&
+    (node.type === "MemberExpression" ||
+      node.type === "OptionalMemberExpression")
   );
 }
 
@@ -593,15 +608,9 @@ function isSimpleTemplateLiteral(node) {
     }
 
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
-    if (
-      expr.type === "MemberExpression" ||
-      expr.type === "OptionalMemberExpression"
-    ) {
+    if (isMemberExpression(expr)) {
       let head = expr;
-      while (
-        head.type === "MemberExpression" ||
-        head.type === "OptionalMemberExpression"
-      ) {
+      while (isMemberExpression(head)) {
         if (
           head.property.type !== "Identifier" &&
           head.property.type !== "Literal" &&
@@ -839,7 +848,7 @@ function isFunctionCompositionArgs(args) {
       if (count > 1) {
         return true;
       }
-    } else if (isCallOrOptionalCallExpression(arg)) {
+    } else if (isCallExpression(arg)) {
       for (const childArg of arg.arguments) {
         if (isFunctionOrArrowExpression(childArg)) {
           return true;
@@ -864,8 +873,8 @@ function isLongCurriedCallExpression(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   return (
-    isCallOrOptionalCallExpression(node) &&
-    isCallOrOptionalCallExpression(parent) &&
+    isCallExpression(node) &&
+    isCallExpression(parent) &&
     parent.callee === node &&
     node.arguments.length > parent.arguments.length &&
     parent.arguments.length > 0
@@ -930,21 +939,14 @@ function isSimpleCallArgument(node, depth) {
     return isChildSimple(node.source);
   }
 
-  if (
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "NewExpression"
-  ) {
+  if (isCallExpression(node) || node.type === "NewExpression") {
     return (
       isSimpleCallArgument(node.callee, depth) &&
       node.arguments.every(isChildSimple)
     );
   }
 
-  if (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression"
-  ) {
+  if (isMemberExpression(node)) {
     return (
       isSimpleCallArgument(node.object, depth) &&
       isSimpleCallArgument(node.property, depth)
@@ -1119,7 +1121,7 @@ function shouldFlatten(parentOp, nodeOp) {
 }
 
 const PRECEDENCE = {};
-[
+for (const [i, tier] of [
   ["|>"],
   ["??"],
   ["||"],
@@ -1133,11 +1135,11 @@ const PRECEDENCE = {};
   ["+", "-"],
   ["*", "/", "%"],
   ["**"],
-].forEach((tier, i) => {
-  tier.forEach((op) => {
+].entries()) {
+  for (const op of tier) {
     PRECEDENCE[op] = i;
-  });
-});
+  }
+}
 
 function getPrecedence(op) {
   return PRECEDENCE[op];
@@ -1152,7 +1154,7 @@ function getLeftMost(node) {
 
 function isBitwiseOperator(operator) {
   return (
-    !!bitshiftOperators[operator] ||
+    Boolean(bitshiftOperators[operator]) ||
     operator === "|" ||
     operator === "^" ||
     operator === "&"
@@ -1250,27 +1252,24 @@ function hasIgnoreComment(path) {
 }
 
 const CommentCheckFlags = {
-  /** @type {number} Check comment is a leading comment */
+  /** Check comment is a leading comment */
   Leading: 1 << 1,
-  /** @type {number} Check comment is a trailing comment */
+  /** Check comment is a trailing comment */
   Trailing: 1 << 2,
-  /** @type {number} Check comment is a dangling comment */
+  /** Check comment is a dangling comment */
   Dangling: 1 << 3,
-  /** @type {number} Check comment is a block comment */
+  /** Check comment is a block comment */
   Block: 1 << 4,
-  /** @type {number} Check comment is a line comment */
+  /** Check comment is a line comment */
   Line: 1 << 5,
-  /** @type {number} Check comment is a `prettier-ignore` comment */
+  /** Check comment is a `prettier-ignore` comment */
   PrettierIgnore: 1 << 6,
-  /** @type {number} Check comment is the first attched comment */
+  /** Check comment is the first attached comment */
   First: 1 << 7,
-  /** @type {number} Check comment is the last attched comment */
+  /** Check comment is the last attached comment */
   Last: 1 << 8,
 };
 
-/**
- * @returns {function}
- */
 const getCommentTestFunction = (flags, fn) => {
   if (typeof flags === "function") {
     fn = flags;
@@ -1304,11 +1303,7 @@ function hasComment(node, flags, fn) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);
-  return test
-    ? node.comments.some((comment, index, comments) =>
-        test(comment, index, comments)
-      )
-    : true;
+  return test ? node.comments.some(test) : true;
 }
 
 /**
@@ -1322,11 +1317,7 @@ function getComments(node, flags, fn) {
     return [];
   }
   const test = getCommentTestFunction(flags, fn);
-  return test
-    ? node.comments.filter((comment, index, comments) =>
-        test(comment, index, comments)
-      )
-    : node.comments;
+  return test ? node.comments.filter(test) : node.comments;
 }
 
 /**
@@ -1358,7 +1349,8 @@ module.exports = {
   isBlockComment,
   isLineComment,
   isPrettierIgnoreComment,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
+  isMemberExpression,
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
@@ -1373,6 +1365,7 @@ module.exports = {
   isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
+  isSignedNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleType,

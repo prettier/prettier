@@ -3,11 +3,11 @@ name: Internal_ESLint_Rules_Test
 on:
   push:
     paths:
-      - "scripts/tools/eslint-plugin-prettier-internal-rules"
+      - "scripts/tools/eslint-plugin-prettier-internal-rules/**"
       - ".github/workflows/eslint-rules.yml"
   pull_request:
     paths:
-      - "scripts/tools/eslint-plugin-prettier-internal-rules"
+      - "scripts/tools/eslint-plugin-prettier-internal-rules/**"
       - ".github/workflows/eslint-rules.yml"
 
 jobs:

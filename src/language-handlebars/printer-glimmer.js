@@ -1,11 +1,22 @@
 "use strict";
 
 const {
-  builders: { dedent, group, hardline, ifBreak, indent, join, line, softline },
+  builders: {
+    dedent,
+    fill,
+    group,
+    hardline,
+    ifBreak,
+    indent,
+    join,
+    line,
+    softline,
+  },
   utils: { getDocParts },
 } = require("../document");
-const { isNonEmptyArray } = require("../common/util");
+const { isNonEmptyArray, replaceEndOfLineWith } = require("../common/util");
 
+const { literalline } = require("../document/doc-builders");
 const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {
@@ -152,23 +163,34 @@ function print(path, options, print) {
       if (isEmptyText && locStart(n.value) === locEnd(n.value)) {
         return n.name;
       }
-      const value = path.call(print, "value");
-      const quotedValue = isText
-        ? printStringLiteral(
-            typeof value === "string" ? value : getDocParts(value).join(),
-            options
-          )
-        : value;
-      return [n.name, "=", quotedValue];
+
+      // Let's assume quotes inside the content of text nodes are already
+      // properly escaped with entities, otherwise the parse wouldn't have parsed them.
+      const quote = isText
+        ? chooseEnclosingQuote(options, n.value.chars).quote
+        : n.value.type === "ConcatStatement"
+        ? chooseEnclosingQuote(
+            options,
+            n.value.parts
+              .filter((part) => part.type === "TextNode")
+              .map((part) => part.chars)
+              .join("")
+          ).quote
+        : "";
+
+      const valueDoc = path.call(print, "value");
+
+      return [
+        n.name,
+        "=",
+        quote,
+        n.name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
+        quote,
+      ];
     }
 
     case "ConcatStatement": {
-      const quote = options.singleQuote ? "'" : '"';
-      return [
-        quote,
-        ...path.map((partPath) => print(partPath), "parts"),
-        quote,
-      ];
+      return path.map(print, "parts");
     }
 
     case "Hash": {
@@ -178,18 +200,57 @@ function print(path, options, print) {
       return [n.key, "=", path.call(print, "value")];
     }
     case "TextNode": {
-      const inAttrNode = path.stack.includes("attributes");
+      /* if `{{my-component}}` (or any text containing "{{")
+       * makes it to the TextNode, it means it was escaped,
+       * so let's print it escaped, ie.; `\{{my-component}}` */
+      let text = n.chars.replace(/{{/g, "\\{{");
 
-      if (options.htmlWhitespaceSensitivity === "strict" && !inAttrNode) {
+      const attrName = getCurrentAttributeName(path);
+
+      if (attrName) {
+        // TODO: format style and srcset attributes
+        if (attrName === "class") {
+          const formattedClasses = text.trim().split(/\s+/).join(" ");
+
+          let leadingSpace = false;
+          let trailingSpace = false;
+
+          if (isParentOfSomeType(path, ["ConcatStatement"])) {
+            if (
+              isPreviousNodeOfSomeType(path, ["MustacheStatement"]) &&
+              /^\s/.test(text)
+            ) {
+              leadingSpace = true;
+            }
+            if (
+              isNextNodeOfSomeType(path, ["MustacheStatement"]) &&
+              /\s$/.test(text) &&
+              formattedClasses !== ""
+            ) {
+              trailingSpace = true;
+            }
+          }
+
+          return [
+            leadingSpace ? line : "",
+            formattedClasses,
+            trailingSpace ? line : "",
+          ];
+        }
+
+        return replaceEndOfLineWith(text, literalline);
+      }
+
+      if (options.htmlWhitespaceSensitivity === "strict") {
         // https://infra.spec.whatwg.org/#ascii-whitespace
         const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
         const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
 
-        if (whitespacesOnlyRE.test(n.chars)) {
+        if (whitespacesOnlyRE.test(text)) {
           let breaks = [line];
 
-          const newlines = countNewLines(n.chars);
+          const newlines = countNewLines(text);
           if (newlines) {
             breaks = generateHardlines(newlines, 2);
           }
@@ -201,10 +262,8 @@ function print(path, options, print) {
           return breaks;
         }
 
-        const [lead] = n.chars.match(leadingWhitespacesRE);
-        const [tail] = n.chars.match(trailingWhitespacesRE);
-
-        let text = n.chars;
+        const [lead] = text.match(leadingWhitespacesRE);
+        const [tail] = text.match(trailingWhitespacesRE);
 
         let leadBreaks = [];
         if (lead) {
@@ -234,17 +293,17 @@ function print(path, options, print) {
           text = text.replace(trailingWhitespacesRE, "");
         }
 
-        return [...leadBreaks, text, ...trailBreaks];
+        return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
       }
 
       const maxLineBreaksToPreserve = 2;
       const isFirstElement = !getPreviousNode(path);
       const isLastElement = !getNextNode(path);
-      const isWhitespaceOnly = !/\S/.test(n.chars);
-      const lineBreaksCount = countNewLines(n.chars);
+      const isWhitespaceOnly = !/\S/.test(text);
+      const lineBreaksCount = countNewLines(text);
 
-      let leadingLineBreaksCount = countLeadingNewLines(n.chars);
-      let trailingLineBreaksCount = countTrailingNewLines(n.chars);
+      let leadingLineBreaksCount = countLeadingNewLines(text);
+      let trailingLineBreaksCount = countTrailingNewLines(text);
 
       if (
         (isFirstElement || isLastElement) &&
@@ -268,34 +327,6 @@ function print(path, options, print) {
         if (isPreviousNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
           leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
         }
-      }
-
-      if (inAttrNode) {
-        // TODO: format style and srcset attributes
-        if (!isInAttributeOfName(path, "class")) {
-          return n.chars;
-        }
-
-        let leadingSpace = "";
-        let trailingSpace = "";
-
-        if (isParentOfSomeType(path, ["ConcatStatement"])) {
-          if (isPreviousNodeOfSomeType(path, ["MustacheStatement"])) {
-            leadingSpace = " ";
-          }
-          if (isNextNodeOfSomeType(path, ["MustacheStatement"])) {
-            trailingSpace = " ";
-          }
-        }
-
-        return [
-          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-          n.chars.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
-          ...generateHardlines(
-            trailingLineBreaksCount,
-            maxLineBreaksToPreserve
-          ),
-        ];
       }
 
       let leadingSpace = "";
@@ -325,18 +356,13 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
-      let text = n.chars;
-      /* if `{{my-component}}` (or any text starting with a mustache)
-       * makes it to the TextNode,
-       * it means it was escaped,
-       * so let's print it escaped, ie.; `\{{my-component}}` */
-      if (text.startsWith("{{") && text.includes("}}")) {
-        text = "\\" + text;
-      }
+      text = text
+        .replace(/^[\t\n\f\r ]+/g, leadingSpace)
+        .replace(/[\t\n\f\r ]+$/, trailingSpace);
 
       return [
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-        text.replace(/^\s+/g, leadingSpace).replace(/\s+$/, trailingSpace),
+        fill(getTextValueParts(text)),
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ];
     }
@@ -395,26 +421,14 @@ function print(path, options, print) {
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  const attributesLike = [];
-  if (isNonEmptyArray(node.attributes)) {
-    const attributes = join(line, path.map(print, "attributes"));
-    attributesLike.push(line, attributes);
-  }
-
-  if (isNonEmptyArray(node.modifiers)) {
-    const modifiers = join(line, path.map(print, "modifiers"));
-    attributesLike.push(line, modifiers);
-  }
-
-  if (isNonEmptyArray(node.comments)) {
-    const comments = join(line, path.map(print, "comments"));
-    attributesLike.push(line, comments);
-  }
-
-  if (isNonEmptyArray(node.blockParams)) {
-    const blockParams = printBlockParams(node);
-    attributesLike.push(line, blockParams);
-  }
+  const attributesLike = ["attributes", "modifiers", "comments", "blockParams"]
+    .filter((property) => isNonEmptyArray(node[property]))
+    .map((property) => [
+      line,
+      property === "blockParams"
+        ? printBlockParams(node)
+        : join(line, path.map(print, property)),
+    ]);
 
   return [
     "<",
@@ -629,13 +643,21 @@ function printInverse(path, print, options) {
 
 /* TextNode print helpers */
 
-function isInAttributeOfName(path, type) {
-  return (
-    (isParentOfSomeType(path, ["AttrNode"]) &&
-      path.getParentNode().name.toLowerCase() === type) ||
-    (isParentOfSomeType(path, ["ConcatStatement"]) &&
-      path.getParentNode(1).name.toLowerCase() === type)
-  );
+function getTextValueParts(value) {
+  return getDocParts(join(line, splitByHtmlWhitespace(value)));
+}
+
+function splitByHtmlWhitespace(string) {
+  return string.split(/[\t\n\f\r ]+/);
+}
+
+function getCurrentAttributeName(path) {
+  for (let depth = 0; depth < 2; depth++) {
+    const parentNode = path.getParentNode(depth);
+    if (parentNode && parentNode.type === "AttrNode") {
+      return parentNode.name.toLowerCase();
+    }
+  }
 }
 
 function countNewLines(string) {
@@ -674,6 +696,11 @@ function generateHardlines(number = 0, max = 0) {
  * @param {object} options - the prettier options object
  */
 function printStringLiteral(stringLiteral, options) {
+  const { quote, regex } = chooseEnclosingQuote(options, stringLiteral);
+  return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
+}
+
+function chooseEnclosingQuote(options, stringLiteral) {
   const double = { quote: '"', regex: /"/g };
   const single = { quote: "'", regex: /'/g };
 
@@ -697,13 +724,7 @@ function printStringLiteral(stringLiteral, options) {
     shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
   }
 
-  const enclosingQuote = shouldUseAlternateQuote ? alternate : preferred;
-  const escapedStringLiteral = stringLiteral.replace(
-    enclosingQuote.regex,
-    `\\${enclosingQuote.quote}`
-  );
-
-  return [enclosingQuote.quote, escapedStringLiteral, enclosingQuote.quote];
+  return shouldUseAlternateQuote ? alternate : preferred;
 }
 
 /* SubExpression print helpers */

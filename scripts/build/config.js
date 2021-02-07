@@ -168,7 +168,7 @@ function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = coreBundles.concat(parsers).map((bundle) => ({
+module.exports = [...coreBundles, ...parsers].map((bundle) => ({
   ...bundle,
   output: getFileOutput(bundle),
 }));

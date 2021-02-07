@@ -46,8 +46,8 @@ function arrayToMap(array) {
 
 function mapObject(object, fn) {
   const newObject = Object.create(null);
-  for (const key of Object.keys(object)) {
-    newObject[key] = fn(object[key], key);
+  for (const [key, value] of Object.entries(object)) {
+    newObject[key] = fn(value, key);
   }
   return newObject;
 }

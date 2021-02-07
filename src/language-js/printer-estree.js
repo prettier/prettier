@@ -41,6 +41,8 @@ const {
   rawText,
   shouldPrintComma,
   hasIgnoreComment,
+  isCallExpression,
+  isMemberExpression,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -193,7 +195,7 @@ function genericPrint(path, options, printPath, args) {
   }
 
   if (decorators.length > 0) {
-    return group(decorators.concat(parts));
+    return group([...decorators, ...parts]);
   }
   return parts;
 }
@@ -367,12 +369,8 @@ function printPathNoParens(path, options, print, args) {
       }
       const parent = path.getParentNode();
       if (
-        ((parent.type === "CallExpression" ||
-          parent.type === "OptionalCallExpression") &&
-          parent.callee === n) ||
-        ((parent.type === "MemberExpression" ||
-          parent.type === "OptionalMemberExpression") &&
-          parent.object === n)
+        (isCallExpression(parent) && parent.callee === n) ||
+        (isMemberExpression(parent) && parent.object === n)
       ) {
         return group([indent([softline, ...parts]), softline]);
       }
@@ -490,7 +488,7 @@ function printPathNoParens(path, options, print, args) {
         return printNumber(n.raw);
       }
       if (typeof n.value !== "string") {
-        return "" + n.value;
+        return String(n.value);
       }
       return nodeStr(n, options);
     case "Directive":
@@ -873,7 +871,7 @@ function printPathNoParens(path, options, print, args) {
     case "ArrayTypeAnnotation":
       return [path.call(print, "elementType"), "[]"];
     case "BooleanLiteralTypeAnnotation":
-      return "" + n.value;
+      return String(n.value);
 
     case "EnumDeclaration":
       return ["enum ", path.call(print, "id"), " ", path.call(print, "body")];

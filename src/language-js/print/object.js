@@ -97,7 +97,7 @@ function printObject(path, options, print) {
   // interleaved in the source code. So we need to reorder them before
   // printing them.
   const propsAndLoc = [];
-  fields.forEach((field) => {
+  for (const field of fields) {
     path.each((childPath) => {
       const node = childPath.getValue();
       propsAndLoc.push({
@@ -106,14 +106,14 @@ function printObject(path, options, print) {
         loc: locStart(node),
       });
     }, field);
-  });
+  }
 
   /** @type {Doc[]} */
   let separatorParts = [];
   const props = propsAndLoc
     .sort((a, b) => a.loc - b.loc)
     .map((prop) => {
-      const result = separatorParts.concat(group(prop.printed));
+      const result = [...separatorParts, group(prop.printed)];
       separatorParts = [separator, line];
       if (
         (prop.node.type === "TSPropertySignature" ||
@@ -147,9 +147,9 @@ function printObject(path, options, print) {
         "...",
       ];
     } else {
-      printed = "...";
+      printed = ["..."];
     }
-    props.push(separatorParts.concat(printed));
+    props.push([...separatorParts, ...printed]);
   }
 
   const lastElem = getLast(n[propertiesField]);
