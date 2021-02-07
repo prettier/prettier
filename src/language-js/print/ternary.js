@@ -178,7 +178,12 @@ function shouldExtraIndentForConditionalExpression(path) {
   let ancestorCount = 0;
   do {
     ancestor = path.getParentNode(++ancestorCount);
-    if (ancestor == null) {
+    if (
+      ancestor == null ||
+      (isCallExpression(ancestor) &&
+        path.callParent((path) => path.getName(), ancestorCount - 1) !==
+          "callee")
+    ) {
       return false;
     }
   } while (isChainElement(ancestor));
