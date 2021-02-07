@@ -69,12 +69,12 @@ function parse(text, opts) {
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
   // the parsers getters when actually calling the parser `parse` function.
-  const parsersForCustomParserApi = Object.entries(parsers).reduce(
-    (object, [parserName, parser]) =>
+  const parsersForCustomParserApi = Object.keys(parsers).reduce(
+    (object, parserName) =>
       Object.defineProperty(object, parserName, {
         enumerable: true,
         get() {
-          return parser.parse;
+          return parsers[parserName].parse;
         },
       }),
     {}
