@@ -23,10 +23,9 @@ class Node {
       this[key] = cloneAndUpdateNodes(nodes, this);
       if (key === "attrs") {
         setNonEnumerableProperties(this, {
-          attrMap: this[key].reduce((reduced, attr) => {
-            reduced[attr.fullName] = attr.value;
-            return reduced;
-          }, Object.create(null)),
+          attrMap: fromPairs(
+            this[key].map((attr) => [attr.fullName, attr.value])
+          ),
         });
       }
     }
