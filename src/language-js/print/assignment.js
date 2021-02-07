@@ -29,7 +29,7 @@ function printAssignment(
   const isNested = path.getParentNode().type === "AssignmentExpression";
 
   switch (chooseLayout(rightNode, isNested, options)) {
-    // First break after operator, then break left-hand side
+    // First break after operator, then the sides are broken independently on their own lines
     default:
     case "break-after-operator":
       return group([group(leftDoc), operator, group(indent([line, rightDoc]))]);
