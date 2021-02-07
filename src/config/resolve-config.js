@@ -99,8 +99,6 @@ function _resolveConfig(filePath, opts, sync) {
       return null;
     }
 
-    // We are not using this option
-    delete merged.insertFinalNewline;
     return merged;
   };
 
