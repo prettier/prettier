@@ -42,20 +42,14 @@ class Context {
     const {
       plugin: plugins,
       "plugin-search-dir": pluginSearchDirs,
-    } = parseArgvWithoutPlugins(
-      rawArguments,
-      ["plugin", "plugin-search-dir"],
-      logger
-    );
+    } = parseArgvWithoutPlugins(rawArguments, logger, [
+      "plugin",
+      "plugin-search-dir",
+    ]);
 
     this.pushContextPlugins(plugins, pluginSearchDirs);
 
-    const argv = parseArgv(
-      rawArguments,
-      this.detailedOptions,
-      undefined,
-      logger
-    );
+    const argv = parseArgv(rawArguments, this.detailedOptions, logger);
     this.argv = argv;
     this.filePatterns = argv._.map((file) => String(file));
   }
@@ -116,7 +110,7 @@ function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-function parseArgv(rawArguments, detailedOptions, keys, logger) {
+function parseArgv(rawArguments, detailedOptions, logger, keys) {
   const minimistOptions = createMinimistOptions(detailedOptions);
   let argv = minimist(rawArguments, minimistOptions);
 
@@ -131,12 +125,12 @@ function parseArgv(rawArguments, detailedOptions, keys, logger) {
 }
 
 const detailedOptionsWithoutPlugins = getContextOptions().detailedOptions;
-function parseArgvWithoutPlugins(rawArguments, keys, logger) {
+function parseArgvWithoutPlugins(rawArguments, logger, keys) {
   return parseArgv(
     rawArguments,
     detailedOptionsWithoutPlugins,
-    typeof keys === "string" ? [keys] : keys,
-    logger
+    logger,
+    typeof keys === "string" ? [keys] : keys
   );
 }
 
