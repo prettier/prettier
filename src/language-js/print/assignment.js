@@ -42,7 +42,8 @@ function printAssignment(
     case "fluid": {
       const groupId = Symbol("assignment");
       return group([
-        group([group(leftDoc), operator]),
+        group(leftDoc),
+        operator,
         group(indent(line), { id: groupId }),
         indentIfBreak(rightDoc, { groupId }),
       ]);
