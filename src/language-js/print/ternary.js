@@ -6,6 +6,8 @@ const {
   isJsxNode,
   isBlockComment,
   getComments,
+  isChainElement,
+  isCallExpression,
   isMemberExpression,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
@@ -156,6 +158,56 @@ function printTernaryTest(path, options, print) {
     return align(2, printed);
   }
   return printed;
+}
+
+const ancestorNameMap = new Map([
+  ["AssignmentExpression", "right"],
+  ["VariableDeclarator", "init"],
+  ["ReturnStatement", "argument"],
+  ["ThrowStatement", "argument"],
+  ["UnaryExpression", "argument"],
+  ["YieldExpression", "argument"],
+]);
+function shouldExtraIndentForConditionalExpression(path) {
+  const node = path.getValue();
+  if (node.type !== "ConditionalExpression") {
+    return false;
+  }
+
+  let ancestorCount = 1;
+  let ancestor = path.getParentNode(ancestorCount);
+  if (!ancestor) {
+    return false;
+  }
+  while (isChainElement(ancestor)) {
+    ancestor = path.getParentNode(++ancestorCount);
+  }
+  const checkAncestor = (node) => {
+    const name = ancestorNameMap.get(ancestor.type);
+    return ancestor[name] === node;
+  };
+
+  const parent = path.getParentNode();
+  const name = path.getName();
+
+  if (
+    ((name === "callee" && parent.type === "NewExpression") ||
+      (name === "expression" && parent.type === "TSAsExpression")) &&
+    checkAncestor(parent)
+  ) {
+    return true;
+  }
+
+  if (
+    ((name === "callee" && isCallExpression(parent)) ||
+      (name === "object" && isMemberExpression(parent)) ||
+      (name === "expression" && parent.type === "TSNonNullExpression")) &&
+    checkAncestor(path.getParentNode(ancestorCount - 1))
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -313,13 +365,19 @@ function printTernary(path, options, print) {
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
+  const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
+
   const result = maybeGroup([
     printTernaryTest(path, options, print),
     forceNoIndent ? parts : indent(parts),
-    isConditionalExpression && breakClosingParen ? softline : "",
+    isConditionalExpression && breakClosingParen && !shouldExtraIndent
+      ? softline
+      : "",
   ]);
 
-  return isParentTest ? group([indent([softline, result]), softline]) : result;
+  return isParentTest || shouldExtraIndent
+    ? group([indent([softline, result]), softline])
+    : result;
 }
 
 module.exports = { printTernary };
