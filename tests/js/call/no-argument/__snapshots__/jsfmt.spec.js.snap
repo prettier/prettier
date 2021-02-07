@@ -5,7 +5,7 @@ exports[`import.js [espree] format 1`] = `
 > 1 | import(/* comment */)
     |                     ^
   2 | new import(/* comment */)
-  3 | "
+  3 |"
 `;
 
 exports[`import.js [flow] format 1`] = `
@@ -13,7 +13,7 @@ exports[`import.js [flow] format 1`] = `
 > 1 | import(/* comment */)
     |                     ^
   2 | new import(/* comment */)
-  3 | "
+  3 |"
 `;
 
 exports[`import.js [meriyah] format 1`] = `
@@ -21,7 +21,7 @@ exports[`import.js [meriyah] format 1`] = `
 > 1 | import(/* comment */)
     |                     ^
   2 | new import(/* comment */)
-  3 | "
+  3 |"
 `;
 
 exports[`import.js [typescript] format 1`] = `
@@ -29,7 +29,7 @@ exports[`import.js [typescript] format 1`] = `
   1 | import(/* comment */)
 > 2 | new import(/* comment */)
     |     ^
-  3 | "
+  3 |"
 `;
 
 exports[`import.js format 1`] = `

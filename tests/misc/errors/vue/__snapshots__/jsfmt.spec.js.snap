@@ -3,7 +3,7 @@
 exports[`unclosed_tag.vue [vue] format 1`] = `
 "Unexpected character \\"EOF\\" (2:1)
   1 | <div
-> 2 | 
+> 2 |
     | ^"
 `;
 
@@ -13,7 +13,7 @@ exports[`unclosed_tag_in_template.vue [vue] format 1`] = `
   3 |     </
 > 4 | </template>
     |  ^
-  5 | "
+  5 |"
 `;
 
 exports[`upper-case.html [vue] format 1`] = `

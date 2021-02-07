@@ -7,7 +7,7 @@ exports[`pipeline_own_line.js [espree] format 1`] = `
 > 4 | 	|> x
     | 	 ^
   5 | }
-  6 | 
+  6 |
   7 | bifornCringerMoshedPerplexSawder("
 `;
 
@@ -18,7 +18,7 @@ exports[`pipeline_own_line.js [meriyah] format 1`] = `
 > 4 | 	|> x
     | 	 ^
   5 | }
-  6 | 
+  6 |
   7 | bifornCringerMoshedPerplexSawder("
 `;
 

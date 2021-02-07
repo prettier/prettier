@@ -173,6 +173,21 @@ function ifBreak(breakContents, flatContents, opts = {}) {
 }
 
 /**
+ * Optimized version of `ifBreak(indent(doc), doc, { groupId: ... })`
+ * @param {Doc} contents
+ * @param {{ groupId: symbol, negate?: boolean }} opts
+ * @returns Doc
+ */
+function indentIfBreak(contents, opts) {
+  return {
+    type: "indent-if-break",
+    contents,
+    groupId: opts.groupId,
+    negate: opts.negate,
+  };
+}
+
+/**
  * @param {Doc} contents
  * @returns Doc
  */
@@ -258,6 +273,7 @@ module.exports = {
   ifBreak,
   trim,
   indent,
+  indentIfBreak,
   align,
   addAlignmentToDoc,
   markAsRoot,

@@ -41,6 +41,8 @@ const {
   rawText,
   shouldPrintComma,
   hasIgnoreComment,
+  isCallExpression,
+  isMemberExpression,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -367,12 +369,8 @@ function printPathNoParens(path, options, print, args) {
       }
       const parent = path.getParentNode();
       if (
-        ((parent.type === "CallExpression" ||
-          parent.type === "OptionalCallExpression") &&
-          parent.callee === n) ||
-        ((parent.type === "MemberExpression" ||
-          parent.type === "OptionalMemberExpression") &&
-          parent.object === n)
+        (isCallExpression(parent) && parent.callee === n) ||
+        (isMemberExpression(parent) && parent.object === n)
       ) {
         return group([indent([softline, ...parts]), softline]);
       }
