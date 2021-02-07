@@ -4,6 +4,7 @@ const fromPairs = require("lodash/fromPairs");
 const last = require("lodash/last");
 
 const { isNonEmptyArray } = require("../common/util");
+
 const NODES_KEYS = {
   attrs: true,
   children: true,
