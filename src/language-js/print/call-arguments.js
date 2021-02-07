@@ -14,6 +14,7 @@ const {
   getCallArguments,
   iterateCallArgumentsPath,
   isNextLineEmpty,
+  isCallExpression,
 } = require("../utils");
 
 const {
@@ -251,8 +252,7 @@ function couldGroupArg(arg) {
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
-        arg.body.type === "CallExpression" ||
-        arg.body.type === "OptionalCallExpression" ||
+        isCallExpression(arg.body) ||
         arg.body.type === "ConditionalExpression" ||
         isJsxNode(arg.body)))
   );

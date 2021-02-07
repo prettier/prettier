@@ -126,9 +126,8 @@ sometimes{{nogaps}}areimportant<Hello></Hello>
 
 =====================================output=====================================
 <p>
-  Hi {{firstName}} {{
-    lastName
-  }} , welcome!
+  Hi {{firstName}} {{lastName}} ,
+  welcome!
 </p>
 {{#component propA}}
   for {{propB}} do {{propC}} f
@@ -152,25 +151,31 @@ sometimes{{nogaps}}areimportant<Hello></Hello>
 hey
 
 <button>
-  Click here! Click here! Click here! Click here! Click here! Click here!
+  Click here! Click here! Click here!
+  Click here! Click here! Click here!
 </button>
 <button>
-  Click here! Click here! Click here! Click here! Click here! Click here!
+  Click here! Click here! Click here!
+  Click here! Click here! Click here!
 </button>
 <div>
   <button>
-    Click here! Click here! Click here! Click here! Click here! Click here!
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
   </button>
   <button>
-    Click here! Click here! Click here! Click here! Click here! Click here!
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
   </button>
 </div>
 <div>
   <button>
-    Click here! Click here! Click here! Click here! Click here! Click here!
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
   </button>
   <button>
-    Click here! Click here! Click here! Click here! Click here! Click here!
+    Click here! Click here! Click here!
+    Click here! Click here! Click here!
   </button>
 </div>
 <video src="brave.webm"></video>
@@ -178,10 +183,8 @@ hey
 <SomeComponent />
 {{name}}
 
-Some sentence with {{dynamic
-}} expressions.
-
-sometimes{{nogaps
+Some sentence with {{dynamic}}
+expressions. sometimes{{nogaps
 }}areimportant
 <Hello />
 
@@ -459,21 +462,27 @@ sometimes{{nogaps}}areimportant<Hello></Hello>
 
 hey
 
-<button
->Click here! Click here! Click here! Click here! Click here! Click here!</button>
+<button>Click here! Click here! Click
+  here! Click here! Click here! Click
+  here!</button>
 <button>
-  Click here! Click here! Click here! Click here! Click here! Click here!
+  Click here! Click here! Click here!
+  Click here! Click here! Click here!
 </button>
 <div>
-  <button
-  >Click here! Click here! Click here! Click here! Click here! Click here!</button><button
-  >Click here! Click here! Click here! Click here! Click here! Click here!</button>
+  <button>Click here! Click here! Click
+    here! Click here! Click here! Click
+    here!</button><button>Click here!
+    Click here! Click here! Click here!
+    Click here! Click here!</button>
 </div>
 <div>
-  <button
-  >Click here! Click here! Click here! Click here! Click here! Click here!</button>
-  <button
-  >Click here! Click here! Click here! Click here! Click here! Click here!</button>
+  <button>Click here! Click here! Click
+    here! Click here! Click here! Click
+    here!</button>
+  <button>Click here! Click here! Click
+    here! Click here! Click here! Click
+    here!</button>
 </div>
 <video src="brave.webm"></video>
 
@@ -482,9 +491,7 @@ hey
 
 Some sentence with
 {{dynamic}}
-expressions.
-
-sometimes{{nogaps
+expressions. sometimes{{nogaps
 }}areimportant<Hello />
 
 {{name}}
@@ -632,7 +639,7 @@ printWidth: 40
 =====================================input======================================
 <div>                   </div>
 =====================================output=====================================
-<div>            </div>
+<div>     </div>
 ================================================================================
 `;
 
@@ -684,7 +691,7 @@ printWidth: 40
 =====================================input======================================
 <img/>                   <img/>
 =====================================output=====================================
-<img />            <img />
+<img />     <img />
 ================================================================================
 `;
 

@@ -4,21 +4,21 @@ exports[`invalid-const.js [espree] format 1`] = `
 "Unexpected token ; (1:10)
 > 1 | const foo;
     |          ^
-  2 | "
+  2 |"
 `;
 
 exports[`invalid-const.js [flow] format 1`] = `
 "Const must be initialized (1:7)
 > 1 | const foo;
     |       ^^^
-  2 | "
+  2 |"
 `;
 
 exports[`invalid-const.js [meriyah] format 1`] = `
 "[1:10]: Missing initializer in const declaration (1:10)
 > 1 | const foo;
     |          ^
-  2 | "
+  2 |"
 `;
 
 exports[`invalid-const.js format 1`] = `

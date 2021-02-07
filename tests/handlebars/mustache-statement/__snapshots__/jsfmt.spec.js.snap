@@ -496,11 +496,9 @@ another non-escaped mustache:
 
 =====================================output=====================================
 an escaped mustache:
-\\{{my-component}}
-a non-escaped mustache:
+\\{{my-component}} a non-escaped mustache:
 \\\\{{my-component}}
-another non-escaped mustache:
-\\\\\\{{my-component}}
+another non-escaped mustache: \\\\\\{{my-component}}
 ================================================================================
 `;
 
@@ -519,10 +517,8 @@ another non-escaped mustache:
 
 =====================================output=====================================
 an escaped mustache:
-\\{{my-component}}
-a non-escaped mustache:
+\\{{my-component}} a non-escaped mustache:
 \\\\{{my-component}}
-another non-escaped mustache:
-\\\\\\{{my-component}}
+another non-escaped mustache: \\\\\\{{my-component}}
 ================================================================================
 `;

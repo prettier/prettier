@@ -22,7 +22,7 @@ const {
   isJsxNode,
   rawText,
   isLiteral,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
   isStringLiteral,
   isBinaryish,
   hasComment,
@@ -451,7 +451,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   const shouldBreak = path.match(
     undefined,
     (node) => node.type === "ArrowFunctionExpression",
-    isCallOrOptionalCallExpression,
+    isCallExpression,
     (node) => node.type === "JSXExpressionContainer"
   );
 
@@ -505,8 +505,7 @@ function printJsxExpressionContainer(path, options, print) {
       (n.expression.type === "ArrayExpression" ||
         n.expression.type === "ObjectExpression" ||
         n.expression.type === "ArrowFunctionExpression" ||
-        n.expression.type === "CallExpression" ||
-        n.expression.type === "OptionalCallExpression" ||
+        isCallExpression(n.expression) ||
         n.expression.type === "FunctionExpression" ||
         n.expression.type === "TemplateLiteral" ||
         n.expression.type === "TaggedTemplateExpression" ||
@@ -713,7 +712,7 @@ function printJsx(path, options, print) {
     case "JSXAttribute":
       return printJsxAttribute(path, options, print);
     case "JSXIdentifier":
-      return "" + n.name;
+      return String(n.name);
     case "JSXNamespacedName":
       return join(":", [
         path.call(print, "namespace"),

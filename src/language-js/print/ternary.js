@@ -2,7 +2,12 @@
 
 const flat = require("lodash/flatten");
 const { hasNewlineInRange } = require("../../common/util");
-const { isJsxNode, isBlockComment, getComments } = require("../utils");
+const {
+  isJsxNode,
+  isBlockComment,
+  getComments,
+  isMemberExpression,
+} = require("../utils");
 const { locStart, locEnd } = require("../loc");
 const {
   builders: {
@@ -304,8 +309,7 @@ function printTernary(path, options, print) {
   // ).call()
   const breakClosingParen =
     !jsxMode &&
-    (parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression" ||
+    (isMemberExpression(parent) ||
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 

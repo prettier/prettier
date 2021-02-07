@@ -12,7 +12,7 @@ rangeStart: 15
 > 2 | export   =   f;
     |         ^^^
   3 | g(  )
-  4 | 
+  4 |
 =====================================output=====================================
 f ( );
 export = f;
@@ -45,7 +45,7 @@ rangeStart: 102
 >  9 |     }
      | ^^^^^
   10 | }
-  11 | 
+  11 |
 =====================================output=====================================
 class Foo {
     /** Does this key match a given MinimalKey extending object? */
@@ -73,7 +73,7 @@ rangeStart: 29
 > 2 |   private obj = { isTest: true }
     |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   3 | }
-  4 | 
+  4 |
 =====================================output=====================================
 export default class Test {
   private obj = { isTest: true };

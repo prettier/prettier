@@ -442,12 +442,12 @@ class E extends D {
 
 exports[`readonlyInConstructorParameters.ts [babel-ts] format 1`] = `
 "Unexpected token, expected \\",\\" (7:33)
-   5 | 
+   5 |
    6 | class E {
 >  7 |     constructor(readonly public x: number) {}
      |                                 ^
    8 | }
-   9 | 
+   9 |
   10 | class F {"
 `;
 

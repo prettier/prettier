@@ -95,7 +95,7 @@ function group(contents, opts = {}) {
     type: "group",
     id: opts.id,
     contents,
-    break: !!opts.shouldBreak,
+    break: Boolean(opts.shouldBreak),
     expandedStates: opts.expandedStates,
   };
 }
@@ -169,6 +169,21 @@ function ifBreak(breakContents, flatContents, opts = {}) {
     breakContents,
     flatContents,
     groupId: opts.groupId,
+  };
+}
+
+/**
+ * Optimized version of `ifBreak(indent(doc), doc, { groupId: ... })`
+ * @param {Doc} contents
+ * @param {{ groupId: symbol, negate?: boolean }} opts
+ * @returns Doc
+ */
+function indentIfBreak(contents, opts) {
+  return {
+    type: "indent-if-break",
+    contents,
+    groupId: opts.groupId,
+    negate: opts.negate,
   };
 }
 
@@ -261,6 +276,7 @@ module.exports = {
   ifBreak,
   trim,
   indent,
+  indentIfBreak,
   align,
   addAlignmentToDoc,
   markAsRoot,
