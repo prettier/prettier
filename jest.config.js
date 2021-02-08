@@ -10,8 +10,8 @@ const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 
 let PRETTIER_DIR = isProduction
-  ? PROJECT_ROOT
-  : path.join(PROJECT_ROOT, "dist");
+  ? path.join(PROJECT_ROOT, "dist")
+  : PROJECT_ROOT;
 if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
   PRETTIER_DIR = installPrettier(PRETTIER_DIR);
 }
