@@ -344,25 +344,6 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
   return parent.type === "Program" && parent.body.length === 1;
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isMemberExpressionChain(node) {
-  if (!isMemberExpression(node)) {
-    return false;
-  }
-  // @ts-ignore
-  let { object } = node;
-  if (object.type === "TSNonNullExpression") {
-    object = object.expression;
-  }
-  if (object.type === "Identifier" || object.type === "ThisExpression") {
-    return true;
-  }
-  return isMemberExpressionChain(object);
-}
-
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
@@ -1376,7 +1357,6 @@ module.exports = {
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,

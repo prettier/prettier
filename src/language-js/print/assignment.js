@@ -7,9 +7,12 @@ const {
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
-  isMemberExpressionChain,
   isStringLiteral,
   isNumericLiteral,
+  isCallExpression,
+  isMemberExpression,
+  getCallArguments,
+  isSimpleCallArgument,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 
@@ -142,7 +145,16 @@ function shouldBreakAfterOperator(rightNode) {
       break;
     }
   }
-  if (isStringLiteral(node) || isMemberExpressionChain(node)) {
+  if (
+    isStringLiteral(node) ||
+    isMemberExpressionChainWithSimpleCalls(node) ||
+    (isCallExpression(node) &&
+      getCallArguments(node).length < 2 &&
+      isCallExpression(node.callee) &&
+      getCallArguments(node.callee).length < 2 &&
+      (isMemberExpressionChainHead(node.callee.callee) ||
+        isMemberExpressionChainWithSimpleCalls(node.callee.callee)))
+  ) {
     return true;
   }
 
@@ -158,6 +170,37 @@ function shouldNeverBreakAfterOperator(rightNode) {
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
     rightNode.type === "ClassExpression"
+  );
+}
+
+function isMemberExpressionChainHead(node) {
+  return node.type === "Identifier" || node.type === "ThisExpression";
+}
+
+function isMemberExpressionChainWithSimpleCalls(node) {
+  if (!isMemberExpression(node)) {
+    return false;
+  }
+  let { object } = node;
+  for (;;) {
+    if (object.type === "TSNonNullExpression") {
+      object = object.expression;
+    } else if (isCallExpression(object)) {
+      const args = getCallArguments(object);
+      if (
+        args.length > 1 ||
+        (args.length === 1 && !isSimpleCallArgument(args[0], 1))
+      ) {
+        return false;
+      }
+      object = object.callee;
+    } else {
+      break;
+    }
+  }
+  return (
+    isMemberExpressionChainHead(object) ||
+    isMemberExpressionChainWithSimpleCalls(object)
   );
 }
 
