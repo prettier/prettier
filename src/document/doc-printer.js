@@ -258,6 +258,9 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
             return false;
           }
           break;
+        case "label":
+          cmds.push([ind, mode, doc.contents]);
+          break;
       }
     }
   }
@@ -552,6 +555,9 @@ function printDocToString(doc, options) {
               }
               break;
           }
+          break;
+        case "label":
+          cmds.push([ind, mode, doc.contents]);
           break;
         default:
       }

@@ -173,6 +173,10 @@ function printDocToDebug(doc) {
       return "lineSuffixBoundary";
     }
 
+    if (doc.type === "label") {
+      return `label(${JSON.stringify(doc.label)}, ${printDoc(doc.contents)})`;
+    }
+
     throw new Error("Unknown doc type " + doc.type);
   }
 
