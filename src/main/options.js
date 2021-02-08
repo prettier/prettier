@@ -68,19 +68,18 @@ function normalize(options, opts = {}) {
   const plugin = getPlugin(rawOptions);
   rawOptions.printer = plugin.printers[rawOptions.astFormat];
 
-  const pluginDefaults = supportOptions
-    .filter(
-      (optionInfo) =>
-        optionInfo.pluginDefaults &&
-        optionInfo.pluginDefaults[plugin.name] !== undefined
-    )
-    .reduce(
-      (reduced, optionInfo) =>
-        Object.assign(reduced, {
-          [optionInfo.name]: optionInfo.pluginDefaults[plugin.name],
-        }),
-      {}
-    );
+  const pluginDefaults = fromPairs(
+    supportOptions
+      .filter(
+        (optionInfo) =>
+          optionInfo.pluginDefaults &&
+          optionInfo.pluginDefaults[plugin.name] !== undefined
+      )
+      .map((optionInfo) => [
+        optionInfo.name,
+        optionInfo.pluginDefaults[plugin.name],
+      ])
+  );
 
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 

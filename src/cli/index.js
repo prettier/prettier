@@ -9,10 +9,19 @@ const prettier = require("../index");
 const core = require("./core");
 
 function run(rawArguments) {
-  const logLevel = core.parseArgvWithoutPlugins(rawArguments, "loglevel")
-    .loglevel;
-  const logger = core.createLogger(logLevel);
+  // Create a default level logger, so we can log errors during `logLevel` parsing
+  let logger = core.createLogger();
+
   try {
+    const logLevel = core.parseArgvWithoutPlugins(
+      rawArguments,
+      logger,
+      "loglevel"
+    ).loglevel;
+    if (logLevel !== logger.logLevel) {
+      logger = core.createLogger(logLevel);
+    }
+
     main(rawArguments, logger);
   } catch (error) {
     logger.error(error.message);

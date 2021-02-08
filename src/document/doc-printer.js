@@ -2,7 +2,7 @@
 
 const { getStringWidth } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
-const { concat, fill, cursor, indent } = require("./doc-builders");
+const { fill, cursor, indent } = require("./doc-builders");
 const { isConcat, getDocParts } = require("./doc-utils");
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
@@ -452,7 +452,7 @@ function printDocToString(doc, options) {
           const firstAndSecondContentFlatCmd = [
             ind,
             MODE_FLAT,
-            concat([content, whitespace, secondContent]),
+            [content, whitespace, secondContent],
           ];
           const firstAndSecondContentFits = fits(
             firstAndSecondContentFlatCmd,

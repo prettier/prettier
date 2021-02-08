@@ -1,5 +1,6 @@
 "use strict";
 
+const fromPairs = require("lodash/fromPairs");
 const semver = {
   compare: require("semver/functions/compare"),
   lt: require("semver/functions/lt"),
@@ -64,16 +65,15 @@ function getSupportInfo({
         }
       }
 
-      const pluginDefaults = plugins
-        .filter(
-          (plugin) =>
-            plugin.defaultOptions &&
-            plugin.defaultOptions[option.name] !== undefined
-        )
-        .reduce((reduced, plugin) => {
-          reduced[plugin.name] = plugin.defaultOptions[option.name];
-          return reduced;
-        }, {});
+      const pluginDefaults = fromPairs(
+        plugins
+          .filter(
+            (plugin) =>
+              plugin.defaultOptions &&
+              plugin.defaultOptions[option.name] !== undefined
+          )
+          .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]])
+      );
 
       return { ...option, pluginDefaults };
     });

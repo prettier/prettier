@@ -142,7 +142,7 @@ function printDocToDebug(doc) {
       const optionsParts = [];
 
       if (doc.break && doc.break !== "propagated") {
-        optionsParts.push("break: true");
+        optionsParts.push("shouldBreak: true");
       }
 
       if (doc.id) {

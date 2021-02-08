@@ -82,27 +82,17 @@ printWidth: 80
   <strong>
     Ember.js Guides
   </strong>
-  .
-  This documentation will take you from total beginner to Ember expert.
+  . This documentation will take you from total beginner to Ember expert.
 </p>
 
 {{! newlines text }}
 <div>
-  hi
-  there
-  how
-
-  are you
-
-
-  are you fine today?
+  hi there how are you are you fine today?
 </div>
 
 {{! newlines text spaced }}
 <div>
-  space above
-
-  space below
+  space above space below
 </div>
 
 {{! newlines elems spaced }}
@@ -123,9 +113,7 @@ printWidth: 80
     there
   </span>
 
-  how
-
-  are
+  how are
   <strong>
     you
   </strong>

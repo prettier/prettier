@@ -211,7 +211,9 @@ const literallineWithoutBreakParent = {
 
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
+// eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
 const hardline = concat([hardlineWithoutBreakParent, breakParent]);
+// eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
 const literalline = concat([literallineWithoutBreakParent, breakParent]);
 
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
@@ -232,6 +234,7 @@ function join(sep, arr) {
     res.push(arr[i]);
   }
 
+  // eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
   return concat(res);
 }
 

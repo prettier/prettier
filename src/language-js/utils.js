@@ -1327,6 +1327,16 @@ function getComments(node, flags, fn) {
 const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
+function isChainElement(node) {
+  return (
+    node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression" ||
+    node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "TSNonNullExpression"
+  );
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1347,6 +1357,7 @@ module.exports = {
   identity,
   isBinaryish,
   isBlockComment,
+  isChainElement,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,

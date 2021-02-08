@@ -78,10 +78,12 @@
     "resolve": "1.19.0",
     "semver": "7.3.4",
     "string-width": "4.2.0",
+    "strip-ansi": "6.0.0",
     "typescript": "4.1.3",
     "unicode-regex": "3.0.0",
     "unified": "9.2.0",
     "vnopts": "1.0.2",
+    "wcwidth": "1.0.1",
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
@@ -123,15 +125,14 @@
     "pretty-bytes": "5.5.0",
     "rimraf": "3.0.2",
     "rollup": "2.38.4",
-    "rollup-plugin-node-globals": "1.4.0",
+    "rollup-plugin-polyfill-node": "0.5.0",
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.4",
     "snapshot-diff": "0.8.1",
-    "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.0",
     "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.20.1"
+    "webpack": "5.20.2"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
@@ -149,7 +150,7 @@
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.js",
     "lint:prettier": "prettier . \"!test*\" --check",
-    "lint:dist": "eslint --no-eslintrc --no-ignore --env=es6,browser --parser-options=ecmaVersion:2018 \"dist/!(bin-prettier|index|third-party).js\"",
+    "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --env=es6,browser --parser-options=ecmaVersion:2018 \"dist/!(bin-prettier|index|third-party).js\"",
     "lint:spellcheck": "cspell \"**/*\" \".github/**/*\"",
     "lint:deps": "node ./scripts/check-deps.js",
     "fix": "run-s fix:eslint fix:prettier",
