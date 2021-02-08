@@ -198,6 +198,46 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`in-value.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.real-world-example {
+  background: radial-gradient(
+      circle at left 0% bottom $position,
+      transparent,
+      transparent $diameter,
+      #fbfbfb calc(#{$diameter} + 1px) // Add 1px for edge-smoothing.
+    );
+}
+
+.simplification { 
+  foo: (
+    calc() // not a comment anymore
+  );
+}
+
+=====================================output=====================================
+.real-world-example {
+  background: radial-gradient(
+    circle at left 0% bottom $position,
+    transparent,
+    transparent $diameter,
+    #fbfbfb calc(#{$diameter} + 1px) // Add 1px for edge-smoothing.
+  );
+}
+
+.simplification {
+  foo: (
+    calc() // not a comment anymore
+  );
+}
+
+================================================================================
+`;
+
 exports[`issue-8130.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -362,35 +402,6 @@ foo {
   /* prettier-ignore */
   thing:     foo;
   -ms-thing: foo;
-}
-
-================================================================================
-`;
-
-exports[`selectors.less format 1`] = `
-====================================options=====================================
-parsers: ["less"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-/* custom properties set & @apply rule */
-:root {
-    /* comments 192 */ --centered /* comments 193 */ : /* comments 194 */ {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    };
-}
-
-=====================================output=====================================
-/* custom properties set & @apply rule */
-:root {
-  /* comments 192 */
-  --centered /* comments 193 */ : /* comments 194 */ {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
 
 ================================================================================

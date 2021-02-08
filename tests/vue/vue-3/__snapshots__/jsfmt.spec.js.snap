@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`script-setup.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup></script>
+<script setup="     foo"></script>
+<script setup="     {row   }"></script>
+<script setup="{destructuring:{   a:{b}}}"></script>
+
+<!-- Not script -->
+<custom setup="     {row   }">Not A script</custom>
+<style setup="     {row   }"></style>
+
+<!-- Not root block -->
+<template>
+<script setup="     {row   }"></script>
+</template>
+
+<!-- Not attribute -->
+<script>
+<setup>{not:{a:attribute}}</setup>
+</script>
+
+=====================================output=====================================
+<script setup></script>
+<script setup="foo"></script>
+<script setup="{ row }"></script>
+<script
+  setup="{
+    destructuring: {
+      a: { b },
+    },
+  }"
+></script>
+
+<!-- Not script -->
+<custom setup="     {row   }">Not A script</custom>
+<style setup="     {row   }"></style>
+
+<!-- Not root block -->
+<template>
+  <script setup="     {row   }"></script>
+</template>
+
+<!-- Not attribute -->
+<script>
+<setup>{not:{a:attribute}}</setup>
+</script>
+
+================================================================================
+`;
+
+exports[`style-variables.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<style vars></style>
+<style vars="     foo"></style>
+<style vars="     {row   }"></style>
+<style vars="{destructuring:{   a:{b}}}"></style>
+
+<!-- Not style -->
+<custom vars="     {row   }">Not A style</custom>
+<script vars="     {row   }"></script>
+
+<!-- Not root block -->
+<template>
+<style vars="     {row   }"></style>
+</template> 
+
+<!-- Not attribute -->
+<style>
+<vars>{not:{a:attribute}}</vars>
+</style>
+
+=====================================output=====================================
+<style vars></style>
+<style vars="foo"></style>
+<style vars="{ row }"></style>
+<style
+  vars="{
+    destructuring: {
+      a: { b },
+    },
+  }"
+></style>
+
+<!-- Not style -->
+<custom vars="     {row   }">Not A style</custom>
+<script vars="     {row   }"></script>
+
+<!-- Not root block -->
+<template>
+  <style vars="     {row   }"></style>
+</template>
+
+<!-- Not attribute -->
+<style>
+<vars>{not:{a:attribute}}</vars>
+</style>
+
+================================================================================
+`;

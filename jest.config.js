@@ -3,7 +3,7 @@
 const installPrettier = require("./scripts/install-prettier");
 
 const isProduction = process.env.NODE_ENV === "production";
-const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
+const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 if (isProduction || process.env.INSTALL_PACKAGE) {
   process.env.PRETTIER_DIR = installPrettier();
 }
@@ -63,7 +63,7 @@ module.exports = {
     "prettier-local": "<rootDir>/tests_config/require_prettier.js",
     "prettier-standalone": "<rootDir>/tests_config/require_standalone.js",
   },
-  modulePathIgnorePatterns: ["<rootDir>/dist"],
+  modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website/static/lib"],
   testEnvironment: "node",
   transform,
   watchPlugins: [

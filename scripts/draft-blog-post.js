@@ -9,7 +9,14 @@ const semver = require("semver");
 
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
+const introTemplateFile = path.join(
+  changelogUnreleasedDir,
+  "BLOG_POST_INTRO_TEMPLATE.md"
+);
 const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
+if (!fs.existsSync(introFile)) {
+  fs.copyFileSync(introTemplateFile, introFile);
+}
 const previousVersion = require("prettier/package.json").version;
 const version = require("../package.json").version.replace(/-.+/, "");
 const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
@@ -57,8 +64,8 @@ for (const dir of dirs) {
   }
 
   category.entries = fs
-    .readdirSync(path.join(changelogUnreleasedDir, dir.name))
-    .filter((fileName) => /^pr-\d+\.md$/.test(fileName))
+    .readdirSync(dirPath)
+    .filter((fileName) => /^\d+\.md$/.test(fileName))
     .map((fileName) => {
       const [title, ...rest] = fs
         .readFileSync(path.join(dirPath, fileName), "utf8")
@@ -113,13 +120,15 @@ function printEntries({ title, filter }) {
 
   for (const { entries = [], title } of categories) {
     const filteredEntries = entries.filter(filter);
-    if (filteredEntries.length) {
-      result.push("### " + title);
-      result.push(...filteredEntries.map((entry) => entry.content));
+    if (filteredEntries.length > 0) {
+      result.push(
+        "### " + title,
+        ...filteredEntries.map((entry) => entry.content)
+      );
     }
   }
 
-  if (result.length) {
+  if (result.length > 0) {
     result.unshift("## " + title);
   }
 
@@ -133,5 +142,5 @@ function formatVersion(version) {
 function replaceVersions(data) {
   return data
     .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
-    .replace(/prettier master/gi, `Prettier ${formatVersion(version)}`);
+    .replace(/prettier main/gi, `Prettier ${formatVersion(version)}`);
 }

@@ -13,6 +13,7 @@ const languages = [
       parsers: [
         "babel",
         "espree",
+        "meriyah",
         "babel-flow",
         "babel-ts",
         "flow",
@@ -45,6 +46,7 @@ const languages = [
       "flow",
       "typescript",
       "espree",
+      "meriyah",
     ],
     vscodeLanguageIds: ["javascriptreact"],
   })),
@@ -70,7 +72,6 @@ const languages = [
     since: "1.5.0",
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
-    filenames: [...data.filenames, ".prettierrc"],
     extensions: data.extensions.filter((extension) => extension !== ".jsonl"),
   })),
   createLanguage(
@@ -150,6 +151,10 @@ const parsers = {
   // JS - espree
   get espree() {
     return require("./parser-espree").parsers.espree;
+  },
+  // JS - meriyah
+  get meriyah() {
+    return require("./parser-meriyah").parsers.meriyah;
   },
 };
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, group },
+  builders: { group },
 } = require("../document");
 
 /**
@@ -12,7 +12,7 @@ const {
  */
 function printVueFor(value, textToDoc) {
   const { left, operator, right } = parseVueFor(value);
-  return concat([
+  return [
     group(
       textToDoc(`function _(${left}) {}`, {
         parser: "babel",
@@ -27,7 +27,7 @@ function printVueFor(value, textToDoc) {
       { parser: "__js_expression" },
       { stripTrailingHardline: true }
     ),
-  ]);
+  ];
 }
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
@@ -63,12 +63,12 @@ function parseVueFor(value) {
   };
 }
 
-function printVueSlotScope(value, textToDoc) {
+function printVueBindings(value, textToDoc) {
   return textToDoc(
     `function _(${value}) {}`,
     {
       parser: "babel",
-      __isVueSlotScope: true,
+      __isVueBindings: true,
     },
     { stripTrailingHardline: true }
   );
@@ -90,5 +90,5 @@ function isVueEventBindingExpression(eventBindingValue) {
 module.exports = {
   isVueEventBindingExpression,
   printVueFor,
-  printVueSlotScope,
+  printVueBindings,
 };

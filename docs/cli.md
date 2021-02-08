@@ -212,3 +212,7 @@ With `--ignore-unknown` (or `-u`), prettier will ignore unknown files matched by
 ```console
 $ prettier "**/*" --write --ignore-unknown
 ```
+
+## `--no-error-on-unmatched-pattern`
+
+Prevent errors when pattern is unmatched.

@@ -11,7 +11,7 @@ async function update() {
   const dependentsCountNpm = Number(
     npmPage.match(/"dependentsCount":(\d+),/)[1]
   );
-  if (isNaN(dependentsCountNpm)) {
+  if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
       "Invalid data from https://www.npmjs.com/package/prettier"
     );
@@ -29,7 +29,7 @@ async function update() {
       )[1]
       .replace(/,/g, "")
   );
-  if (isNaN(dependentsCountNpm)) {
+  if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
       "Invalid data from https://github.com/prettier/prettier/network/dependents"
     );

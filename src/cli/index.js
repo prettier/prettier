@@ -6,79 +6,89 @@ require("please-upgrade-node")(require("../../package.json"));
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
-const util = require("./util");
+const core = require("./core");
 
-function run(args) {
-  const context = util.createContext(args);
+function run(rawArguments) {
+  // Create a default level logger, so we can log errors during `logLevel` parsing
+  let logger = core.createLogger();
 
   try {
-    util.initContext(context);
-
-    context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
-
-    if (context.argv.check && context.argv["list-different"]) {
-      context.logger.error("Cannot use --check and --list-different together.");
-      process.exit(1);
+    const logLevel = core.parseArgvWithoutPlugins(
+      rawArguments,
+      logger,
+      "loglevel"
+    ).loglevel;
+    if (logLevel !== logger.logLevel) {
+      logger = core.createLogger(logLevel);
     }
 
-    if (context.argv.write && context.argv["debug-check"]) {
-      context.logger.error("Cannot use --write and --debug-check together.");
-      process.exit(1);
-    }
-
-    if (context.argv["find-config-path"] && context.filePatterns.length) {
-      context.logger.error("Cannot use --find-config-path with multiple files");
-      process.exit(1);
-    }
-
-    if (context.argv["file-info"] && context.filePatterns.length) {
-      context.logger.error("Cannot use --file-info with multiple files");
-      process.exit(1);
-    }
-
-    if (context.argv.version) {
-      context.logger.log(prettier.version);
-      process.exit(0);
-    }
-
-    if (context.argv.help !== undefined) {
-      context.logger.log(
-        typeof context.argv.help === "string" && context.argv.help !== ""
-          ? util.createDetailedUsage(context, context.argv.help)
-          : util.createUsage(context)
-      );
-      process.exit(0);
-    }
-
-    if (context.argv["support-info"]) {
-      context.logger.log(
-        prettier.format(stringify(prettier.getSupportInfo()), {
-          parser: "json",
-        })
-      );
-      process.exit(0);
-    }
-
-    const hasFilePatterns = context.filePatterns.length !== 0;
-    const useStdin =
-      !hasFilePatterns &&
-      (!process.stdin.isTTY || context.args["stdin-filepath"]);
-
-    if (context.argv["find-config-path"]) {
-      util.logResolvedConfigPathOrDie(context);
-    } else if (context.argv["file-info"]) {
-      util.logFileInfoOrDie(context);
-    } else if (useStdin) {
-      util.formatStdin(context);
-    } else if (hasFilePatterns) {
-      util.formatFiles(context);
-    } else {
-      context.logger.log(util.createUsage(context));
-      process.exit(1);
-    }
+    main(rawArguments, logger);
   } catch (error) {
-    context.logger.error(error.message);
-    process.exit(1);
+    logger.error(error.message);
+    process.exitCode = 1;
+  }
+}
+
+function main(rawArguments, logger) {
+  const context = new core.Context({ rawArguments, logger });
+
+  logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
+
+  if (context.argv.check && context.argv["list-different"]) {
+    throw new Error("Cannot use --check and --list-different together.");
+  }
+
+  if (context.argv.write && context.argv["debug-check"]) {
+    throw new Error("Cannot use --write and --debug-check together.");
+  }
+
+  if (context.argv["find-config-path"] && context.filePatterns.length > 0) {
+    throw new Error("Cannot use --find-config-path with multiple files");
+  }
+
+  if (context.argv["file-info"] && context.filePatterns.length > 0) {
+    throw new Error("Cannot use --file-info with multiple files");
+  }
+
+  if (context.argv.version) {
+    logger.log(prettier.version);
+    return;
+  }
+
+  if (context.argv.help !== undefined) {
+    logger.log(
+      typeof context.argv.help === "string" && context.argv.help !== ""
+        ? core.createDetailedUsage(context, context.argv.help)
+        : core.createUsage(context)
+    );
+    return;
+  }
+
+  if (context.argv["support-info"]) {
+    logger.log(
+      prettier.format(stringify(prettier.getSupportInfo()), {
+        parser: "json",
+      })
+    );
+    return;
+  }
+
+  const hasFilePatterns = context.filePatterns.length > 0;
+  const useStdin =
+    !hasFilePatterns &&
+    (!process.stdin.isTTY || context.argv["stdin-filepath"]);
+
+  if (context.argv["find-config-path"]) {
+    core.logResolvedConfigPathOrDie(context);
+  } else if (context.argv["file-info"]) {
+    core.logFileInfoOrDie(context);
+  } else if (useStdin) {
+    core.formatStdin(context);
+  } else if (hasFilePatterns) {
+    core.formatFiles(context);
+  } else {
+    logger.log(core.createUsage(context));
+    process.exitCode = 1;
   }
 }
 

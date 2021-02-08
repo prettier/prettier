@@ -13,7 +13,9 @@ plugins:
 settings:
   import/internal-regex: ^linguist-languages/
 rules:
-  prettier-internal-rules/require-json-extensions: error
+  arrow-body-style:
+    - error
+    - as-needed
   curly: error
   dot-notation: error
   eqeqeq:
@@ -25,6 +27,7 @@ rules:
     - devDependencies: ["tests*/**", "scripts/**"]
   import/order: error
   no-else-return: error
+  no-implicit-coercion: error
   no-inner-declarations: error
   no-unneeded-ternary: error
   no-useless-return: error
@@ -52,6 +55,8 @@ rules:
   prefer-object-spread: error
   prefer-rest-params: error
   prefer-spread: error
+  prettier-internal-rules/jsx-identifier-case: error
+  prettier-internal-rules/require-json-extensions: error
   quotes:
     - error
     - double
@@ -63,9 +68,15 @@ rules:
     - never
     - exceptRange: true
   unicorn/better-regex: error
+  unicorn/explicit-length-check: error
   unicorn/new-for-builtins: error
+  unicorn/no-array-for-each: error
+  unicorn/no-array-push-push: error
   unicorn/no-useless-undefined: error
   unicorn/prefer-includes: error
+  unicorn/prefer-number-properties: error
+  unicorn/prefer-regexp-test: error
+  unicorn/prefer-spread: error
   unicorn/prefer-string-slice: error
 overrides:
   - files:
@@ -99,3 +110,30 @@ overrides:
         - error
         - patterns:
             - ".."
+  - files: src/language-js/needs-parens.js
+    rules:
+      prettier-internal-rules/better-parent-property-check-in-needs-parens: error
+  - files: src/**/*.js
+    rules:
+      prettier-internal-rules/no-doc-builder-concat: error
+      prettier-internal-rules/no-empty-flat-contents-for-if-break: error
+      prettier-internal-rules/prefer-fast-path-each: error
+      prettier-internal-rules/prefer-indent-if-break: error
+      prettier-internal-rules/prefer-is-non-empty-array: error
+  - files:
+      - src/language-*/**/*.js
+    rules:
+      prettier-internal-rules/directly-loc-start-end: error
+  - files:
+      - src/language-js/**/*.js
+    rules:
+      prettier-internal-rules/no-node-comments:
+        - error
+        - file: "src/language-js/utils.js"
+          functions:
+            - hasComment
+            - getComments
+        - "src/language-js/parse-postprocess.js"
+        - "src/language-js/parser-babel.js"
+        - "src/language-js/parser-meriyah.js"
+        - "src/language-js/pragma.js"

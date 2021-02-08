@@ -440,6 +440,17 @@ class E extends D {
 ================================================================================
 `;
 
+exports[`readonlyInConstructorParameters.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\",\\" (7:33)
+   5 |
+   6 | class E {
+>  7 |     constructor(readonly public x: number) {}
+     |                                 ^
+   8 | }
+   9 |
+  10 | class F {"
+`;
+
 exports[`readonlyInConstructorParameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -475,6 +486,15 @@ class F {
 new F(1).x;
 
 ================================================================================
+`;
+
+exports[`readonlyReadonly.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\",\\" (3:35)
+  1 | class C {
+  2 |     readonly readonly x: number;
+> 3 |     constructor(readonly readonly y: number) {}
+    |                                   ^
+  4 | }"
 `;
 
 exports[`readonlyReadonly.ts format 1`] = `

@@ -1,4 +1,6 @@
-const errors = { espree: ["classes.js"] };
+const errors = {
+  espree: ["classes.js"],
+};
 
 run_spec(__dirname, ["babel"], {
   quoteProps: "as-needed",

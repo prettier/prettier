@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inline-comment.less error test 1`] = `
+exports[`inline-comment.less [less] format 1`] = `
 "CssSyntaxError: Unknown word (5:4)
   3 | a{
   4 | 	prop
@@ -11,38 +11,20 @@ exports[`inline-comment.less error test 1`] = `
   8 | }"
 `;
 
-exports[`open-double-quote.less error test 1`] = `
+exports[`open-double-quote.less [less] format 1`] = `
 "CssSyntaxError: Unclosed string (2:17)
   1 | a {
 > 2 | background: url(\\"
     |                 ^
   3 | }
-  4 | "
+  4 |"
 `;
 
-exports[`open-sigle-quote.less error test 1`] = `
+exports[`open-sigle-quote.less [less] format 1`] = `
 "CssSyntaxError: Unclosed string (2:17)
   1 | a {
 > 2 | background: url('
     |                 ^
   3 | }
-  4 | "
-`;
-
-exports[`postcss-8-improment.less error test 1`] = `
-"CssSyntaxError: Missed semicolon (9:20)
-   7 | :root {
-   8 |   --empty: ;
->  9 |   --JSON: [1, \\"2\\", {\\"three\\": {\\"a\\":1}}, [4]];
-     |                    ^
-  10 |   --javascript: function(rule) { console.log(rule) };
-  11 | }
-  12 | "
-`;
-
-exports[`scss-syntax.scss error test 1`] = `
-"CssSyntaxError: Unknown word (1:15)
-> 1 | a {content: #{$foo}}
-    |               ^
-  2 | "
+  4 |"
 `;

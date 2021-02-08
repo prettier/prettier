@@ -3,7 +3,7 @@ name: Dev
 on:
   push:
     branches:
-      - master
+      - main
       - patch-release
   pull_request:
 
@@ -28,6 +28,8 @@ jobs:
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
+          - os: "ubuntu-latest"
+            node: "15"
         exclude:
           - os: "macos-latest"
             node: "12"
@@ -41,10 +43,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.3
+        uses: actions/checkout@v2.3.4
+        # `codecov/codecov-action` require depth to be at least `2`, see #10219
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node }}
 
@@ -60,11 +65,9 @@ jobs:
         run: yarn test --maxWorkers=2
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v1.0.14
+        uses: codecov/codecov-action@v1.2.1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
           fail_ci_if_error: true
 
       # #8073 test
@@ -74,9 +77,7 @@ jobs:
           PRETTIER_FALLBACK_RESOLVE: true
 
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v1.0.14
+        uses: codecov/codecov-action@v1.2.1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
           fail_ci_if_error: true

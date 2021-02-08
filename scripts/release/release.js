@@ -28,6 +28,11 @@ async function run() {
 
   if (semver.parse(previousVersion) === null) {
     throw new Error(`Unexpected previousVersion: ${previousVersion}`);
+  } else {
+    params.previousVersion = previousVersion;
+    params.previousVersionOnDefaultBranch = (
+      await readJson("package.json")
+    ).version;
   }
 
   params.previousVersion = previousVersion;

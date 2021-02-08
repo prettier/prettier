@@ -3,19 +3,17 @@
 const { isFrontMatterNode } = require("../common/util");
 const getLast = require("../utils/get-last");
 
-function clean(ast, newObj, parent) {
-  [
-    "raw", // front-matter
-    "raws",
-    "sourceIndex",
-    "source",
-    "before",
-    "after",
-    "trailingComma",
-  ].forEach((name) => {
-    delete newObj[name];
-  });
+const ignoredProperties = new Set([
+  "raw", // front-matter
+  "raws",
+  "sourceIndex",
+  "source",
+  "before",
+  "after",
+  "trailingComma",
+]);
 
+function clean(ast, newObj, parent) {
   if (isFrontMatterNode(ast) && ast.lang === "yaml") {
     delete newObj.value;
   }
@@ -23,7 +21,7 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "css-comment" &&
     parent.type === "css-root" &&
-    parent.nodes.length !== 0
+    parent.nodes.length > 0
   ) {
     // --insert-pragma
     // first non-front-matter comment
@@ -95,9 +93,6 @@ function clean(ast, newObj, parent) {
   if (ast.type === "value-number") {
     newObj.unit = newObj.unit.toLowerCase();
   }
-  if (ast.type === "value-unknown") {
-    newObj.value = newObj.value.replace(/;$/g, "");
-  }
 
   if (
     (ast.type === "media-feature" ||
@@ -149,7 +144,7 @@ function clean(ast, newObj, parent) {
       /([\d+.Ee-]+)([A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
-        return isNaN(num) ? match : num + unit.toLowerCase();
+        return Number.isNaN(num) ? match : num + unit.toLowerCase();
       }
     );
   }
@@ -172,6 +167,8 @@ function clean(ast, newObj, parent) {
     delete newObj.value;
   }
 }
+
+clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
   return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");

@@ -524,7 +524,11 @@ trailingComma: "all"
     "url": "http://www.JSON.org/",
     "comment": "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7
+    ],
     "compact": [1, 2, 3, 4, 5, 6, 7],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
     "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
@@ -650,7 +654,11 @@ trailingComma: "all"
     url: "http://www.JSON.org/",
     comment: "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7,
+    ],
     compact: [1, 2, 3, 4, 5, 6, 7],
     jsontext: '{"object with 1 member":["array with 1 element"]}',
     quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
@@ -775,7 +783,11 @@ printWidth: 80
     "url": "http://www.JSON.org/",
     "comment": "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7
+    ],
     "compact": [1, 2, 3, 4, 5, 6, 7],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
     "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
@@ -900,7 +912,11 @@ printWidth: 80
     url: "http://www.JSON.org/",
     comment: "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7,
+    ],
     compact: [1, 2, 3, 4, 5, 6, 7],
     jsontext: '{"object with 1 member":["array with 1 element"]}',
     quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
