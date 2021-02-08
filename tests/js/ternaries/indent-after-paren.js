@@ -260,3 +260,33 @@ fn?.(
     : anodyneCondosMalateOverateRetinol
   ).prop
 )
+
+bifornCringerMoshedPerplexSawder =
+  fn[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+  fn?.[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn?.[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
