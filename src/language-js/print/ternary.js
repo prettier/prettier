@@ -196,13 +196,13 @@ function shouldExtraIndentForConditionalExpression(path) {
       parent = path.getParentNode(ancestorCount + 1);
       child = node;
     } else {
-      // Do not add indent to direct `ConditionalExpression`
-      if (ancestorCount === 0) {
-        return false;
-      }
-
       parent = node;
     }
+  }
+
+  // Do not add indent to direct `ConditionalExpression`
+  if (child === node) {
+    return false;
   }
 
   return parent[ancestorNameMap.get(parent.type)] === child;
