@@ -245,13 +245,23 @@ function print(path, options, print) {
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
       const isWhitespaceOnly = whitespacesOnlyRE.test(text);
+      const isLastElement = !getNextNode(path);
 
       if (options.htmlWhitespaceSensitivity === "strict") {
         // https://infra.spec.whatwg.org/#ascii-whitespace
         const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
 
+        // let's remove the file's final newline
+        // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
+        const shouldTrimTrailingNewlines =
+          isLastElement && isParentOfSomeType(path, ["Template"]);
+
         if (isWhitespaceOnly) {
+          if (shouldTrimTrailingNewlines) {
+            return "";
+          }
+
           let breaks = [line];
 
           const newlines = countNewLines(text);
@@ -282,7 +292,7 @@ function print(path, options, print) {
         }
 
         let trailBreaks = [];
-        if (tail) {
+        if (tail && !shouldTrimTrailingNewlines) {
           trailBreaks = [line];
 
           const trailingNewlines = countNewLines(tail);
@@ -301,7 +311,6 @@ function print(path, options, print) {
       }
 
       const isFirstElement = !getPreviousNode(path);
-      const isLastElement = !getNextNode(path);
       const lineBreaksCount = countNewLines(text);
 
       let leadingLineBreaksCount = countLeadingNewLines(text);
