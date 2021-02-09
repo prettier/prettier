@@ -243,6 +243,9 @@ function print(path, options, print) {
         return replaceEndOfLineWith(text, literalline);
       }
 
+      const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
+      const isWhitespaceOnly = whitespacesOnlyRE.test(text);
+
       if (options.htmlWhitespaceSensitivity === "strict") {
         // https://infra.spec.whatwg.org/#ascii-whitespace
         const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
@@ -300,7 +303,6 @@ function print(path, options, print) {
 
       const isFirstElement = !getPreviousNode(path);
       const isLastElement = !getNextNode(path);
-      const isWhitespaceOnly = !/\S/.test(text);
       const lineBreaksCount = countNewLines(text);
 
       let leadingLineBreaksCount = countLeadingNewLines(text);
