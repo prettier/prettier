@@ -32,6 +32,8 @@ const {
   isWhitespaceNode,
 } = require("./utils");
 
+const NEWLINES_TO_PRESERVE_MAX = 2;
+
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
@@ -252,7 +254,7 @@ function print(path, options, print) {
 
           const newlines = countNewLines(text);
           if (newlines) {
-            breaks = generateHardlines(newlines, 2);
+            breaks = generateHardlines(newlines);
           }
 
           if (isLastNodeOfSiblings(path)) {
@@ -271,7 +273,7 @@ function print(path, options, print) {
 
           const leadingNewlines = countNewLines(lead);
           if (leadingNewlines) {
-            leadBreaks = generateHardlines(countNewLines(lead) || 1, 2);
+            leadBreaks = generateHardlines(countNewLines(lead) || 1);
           }
 
           text = text.replace(leadingWhitespacesRE, "");
@@ -283,7 +285,7 @@ function print(path, options, print) {
 
           const trailingNewlines = countNewLines(tail);
           if (trailingNewlines) {
-            trailBreaks = generateHardlines(trailingNewlines || 1, 2);
+            trailBreaks = generateHardlines(trailingNewlines || 1);
 
             if (isLastNodeOfSiblings(path)) {
               trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
@@ -296,7 +298,6 @@ function print(path, options, print) {
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
       }
 
-      const maxLineBreaksToPreserve = 2;
       const isFirstElement = !getPreviousNode(path);
       const isLastElement = !getNextNode(path);
       const isWhitespaceOnly = !/\S/.test(text);
@@ -316,7 +317,7 @@ function print(path, options, print) {
       if (isWhitespaceOnly && lineBreaksCount) {
         leadingLineBreaksCount = Math.min(
           lineBreaksCount,
-          maxLineBreaksToPreserve
+          NEWLINES_TO_PRESERVE_MAX
         );
         trailingLineBreaksCount = 0;
       } else {
@@ -361,9 +362,9 @@ function print(path, options, print) {
         .replace(/[\t\n\f\r ]+$/, trailingSpace);
 
       return [
-        ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+        ...generateHardlines(leadingLineBreaksCount),
         fill(getTextValueParts(text)),
-        ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
+        ...generateHardlines(trailingLineBreaksCount),
       ];
     }
     case "MustacheCommentStatement": {
@@ -680,8 +681,8 @@ function countTrailingNewLines(string) {
   return countNewLines(newLines);
 }
 
-function generateHardlines(number = 0, max = 0) {
-  return new Array(Math.min(number, max)).fill(hardline);
+function generateHardlines(number = 0) {
+  return new Array(Math.min(number, NEWLINES_TO_PRESERVE_MAX)).fill(hardline);
 }
 
 /* StringLiteral print helpers */
