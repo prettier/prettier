@@ -6,7 +6,6 @@ const {
   isJsxNode,
   isBlockComment,
   getComments,
-  isChainElement,
   isCallExpression,
   isMemberExpression,
 } = require("../utils");
@@ -174,49 +173,39 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  let ancestor;
-  let ancestorCount = 0;
-  const getAncestorName = () =>
-    path.callParent((path) => path.getName(), ancestorCount - 1);
-  do {
-    ancestor = path.getParentNode(++ancestorCount);
+  let parent;
+  let child = node;
+  for (let ancestorCount = 0; !parent; ancestorCount++) {
+    const node = path.getParentNode(ancestorCount);
+
     if (
-      ancestor == null ||
-      (isCallExpression(ancestor) && getAncestorName() !== "callee") ||
-      (isMemberExpression(ancestor) &&
-        ancestor.computed &&
-        getAncestorName() !== "object")
+      (isCallExpression(node) && node.callee === child) ||
+      (isMemberExpression(node) && node.object === child) ||
+      (node.type === "TSNonNullExpression" && node.expression === child)
     ) {
-      return false;
+      child = node;
+      continue;
     }
-  } while (isChainElement(ancestor));
 
-  const checkAncestor = (node) => {
-    const name = ancestorNameMap.get(ancestor.type);
-    return ancestor[name] === node;
-  };
+    // Reached chain root
 
-  const parent = path.getParentNode();
-  const name = path.getName();
+    if (
+      (node.type === "NewExpression" && node.callee === child) ||
+      (node.type === "TSAsExpression" && node.expression === child)
+    ) {
+      parent = path.getParentNode(ancestorCount + 1);
+      child = node;
+    } else {
+      // Do not add indent to direct `ConditionalExpression`
+      if (ancestorCount === 0) {
+        return false;
+      }
 
-  if (
-    ((name === "callee" && parent.type === "NewExpression") ||
-      (name === "expression" && parent.type === "TSAsExpression")) &&
-    checkAncestor(parent)
-  ) {
-    return true;
+      parent = node;
+    }
   }
 
-  if (
-    ((name === "callee" && isCallExpression(parent)) ||
-      (name === "object" && isMemberExpression(parent)) ||
-      (name === "expression" && parent.type === "TSNonNullExpression")) &&
-    checkAncestor(path.getParentNode(ancestorCount - 1))
-  ) {
-    return true;
-  }
-
-  return false;
+  return parent[ancestorNameMap.get(parent.type)] === child;
 }
 
 /**
