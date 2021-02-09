@@ -59,9 +59,6 @@ const {
 //     }
 //   }
 // }
-//
-// We want to traverse over that shape and convert it into a flat structure so
-// that we can find if there's a JSXElement somewhere inside.
 function conditionalExpressionChainContainsJsx(node) {
   // Given this code:
   //
@@ -89,23 +86,8 @@ function conditionalExpressionChainContainsJsx(node) {
   //   }
   // }
   //
-  // we should return this Array:
-  //
-  // [
-  //   Identifier(A),
-  //   Identifier(B),
-  //   Identifier(C),
-  //   Identifier(D),
-  //   Identifier(E),
-  //   Identifier(F),
-  //   Identifier(G),
-  //   Identifier(H),
-  //   Identifier(I)
-  // ];
-  //
-  // This loses the information about whether each node was the test,
-  // consequent, or alternate, but we don't care about that here- we are only
-  // flattening this structure to find if there's any JSXElements inside.
+  // We don't care about whether each node was the test, consequent, or alternate
+  // We are only checking if there's any JSXElements inside.
   const conditionalExpressions = [node];
   for (let index = 0; index < conditionalExpressions.length; index++) {
     const conditionalExpression = conditionalExpressions[index];
