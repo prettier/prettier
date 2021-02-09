@@ -250,9 +250,8 @@ function print(path, options, print) {
         // https://infra.spec.whatwg.org/#ascii-whitespace
         const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
-        const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
 
-        if (whitespacesOnlyRE.test(text)) {
+        if (isWhitespaceOnly) {
           let breaks = [line];
 
           const newlines = countNewLines(text);
