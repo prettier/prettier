@@ -19,6 +19,9 @@ Object {
     "HTML": Array [
       "html",
     ],
+    "Handlebars": Array [
+      "glimmer",
+    ],
     "JSON": Array [
       "json",
     ],
@@ -170,6 +173,7 @@ Object {
         "html",
         "angular",
         "lwc",
+        "glimmer",
       ],
       "default": undefined,
       "type": "choice",
@@ -579,6 +583,19 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"vscodeLanguageIds\\": [\\"scss\\"]
     },
     {
+      \\"aceMode\\": \\"handlebars\\",
+      \\"aliases\\": [\\"hbs\\", \\"htmlbars\\"],
+      \\"color\\": \\"#f7931e\\",
+      \\"extensions\\": [\\".handlebars\\", \\".hbs\\"],
+      \\"linguistLanguageId\\": 155,
+      \\"name\\": \\"Handlebars\\",
+      \\"parsers\\": [\\"glimmer\\"],
+      \\"since\\": \\"2.3.0\\",
+      \\"tmScope\\": \\"text.html.handlebars\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"handlebars\\"]
+    },
+    {
       \\"aceMode\\": \\"text\\",
       \\"color\\": \\"#e10098\\",
       \\"extensions\\": [\\".graphql\\", \\".gql\\", \\".graphqls\\"],
@@ -916,7 +933,8 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"description\\": \\"Lightning Web Components\\",
           \\"since\\": \\"1.17.0\\",
           \\"value\\": \\"lwc\\"
-        }
+        },
+        { \\"description\\": \\"Handlebars\\", \\"value\\": \\"glimmer\\" }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",
