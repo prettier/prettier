@@ -247,7 +247,7 @@ function print(path, options, print) {
       const isWhitespaceOnly = whitespacesOnlyRE.test(text);
       const isLastElement = !getNextNode(path);
 
-      if (options.htmlWhitespaceSensitivity === "strict") {
+      if (options.htmlWhitespaceSensitivity !== "ignore") {
         // https://infra.spec.whatwg.org/#ascii-whitespace
         const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;

@@ -37,14 +37,19 @@ printWidth: 80
 </ul>
 =====================================output=====================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
-{{@greeting}}, {{@name}}!
+{{@greeting}},
+{{@name}}!
 
-<div><UserGreeting
+<div>
+  <UserGreeting
     @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
-  /></div>
+  />
+</div>
 
-<Form as |f|><f.input @title="hello" />
-  <f.input>hello</f.input></Form>
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>hello</f.input>
+</Form>
 
 <this.label @title="hello" />
 
@@ -58,7 +63,8 @@ printWidth: 80
 
 <div ...attributes>Hello</div>
 
-<ul class="list-unstyled one-tab"></ul>
+<ul class="list-unstyled one-tab">
+</ul>
 ================================================================================
 `;
 
@@ -103,10 +109,14 @@ printWidth: 80
 </div>
 
 =====================================output=====================================
-<div class="entry"><h1>{{title}}</h1>
+<div class="entry">
+  <h1>{{title}}</h1>
   <h2>By {{author.name}}</h2>
 
-  <div class="body">{{body}}</div></div>
+  <div class="body">
+    {{body}}
+  </div>
+</div>
 ================================================================================
 `;
 

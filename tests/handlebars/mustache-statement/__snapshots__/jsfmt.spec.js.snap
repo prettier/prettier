@@ -101,12 +101,14 @@ singleQuote: true
 <div
   class='a long list of classes more than 80 chars with a complex mustache statement
     {{if (or this.a this.b) this.c this.d}}'
-></div>
+>
+</div>
 
 <div
   class='a multi line list of classes with a complex mustache statement
     {{if (or this.a this.b) this.c this.d}}'
-></div>
+>
+</div>
 
 <div
   class='a-first-class
@@ -117,7 +119,8 @@ singleQuote: true
     {{if this.optionFive 'optionFive'}}
     {{this.class}}'
   ...attributes
-></div>
+>
+</div>
 
 <div
   class='a-first-class
@@ -128,29 +131,36 @@ singleQuote: true
     {{if this.optionFive 'optionFive'}}
     {{this.class}}'
   ...attributes
-></div>
+>
+</div>
 
-<div>{{classic-component-with-many-properties
+<div>
+  {{classic-component-with-many-properties
     class='hello'
     param=this.someValue
     secondParam=this.someValue
     thirdParam=this.someValue
-  }}</div>
+  }}
+</div>
 
-<div>{{yield
+<div>
+  {{yield
     (hash
       title=(component title)
       header=(component header)
       language=(component language)
     )
-  }}</div>
+  }}
+</div>
 
-<div>{{a-helper
+<div>
+  {{a-helper
     'that takes some arguments'
     this.anotherOne
     'why not'
     @aLastOneLongEnoughToBreak
-  }}</div>
+  }}
+</div>
 ================================================================================
 `;
 
@@ -254,12 +264,14 @@ printWidth: 80
 <div
   class="a long list of classes more than 80 chars with a complex mustache statement
     {{if (or this.a this.b) this.c this.d}}"
-></div>
+>
+</div>
 
 <div
   class="a multi line list of classes with a complex mustache statement
     {{if (or this.a this.b) this.c this.d}}"
-></div>
+>
+</div>
 
 <div
   class="a-first-class
@@ -270,7 +282,8 @@ printWidth: 80
     {{if this.optionFive "optionFive"}}
     {{this.class}}"
   ...attributes
-></div>
+>
+</div>
 
 <div
   class="a-first-class
@@ -281,29 +294,36 @@ printWidth: 80
     {{if this.optionFive "optionFive"}}
     {{this.class}}"
   ...attributes
-></div>
+>
+</div>
 
-<div>{{classic-component-with-many-properties
+<div>
+  {{classic-component-with-many-properties
     class="hello"
     param=this.someValue
     secondParam=this.someValue
     thirdParam=this.someValue
-  }}</div>
+  }}
+</div>
 
-<div>{{yield
+<div>
+  {{yield
     (hash
       title=(component title)
       header=(component header)
       language=(component language)
     )
-  }}</div>
+  }}
+</div>
 
-<div>{{a-helper
+<div>
+  {{a-helper
     "that takes some arguments"
     this.anotherOne
     "why not"
     @aLastOneLongEnoughToBreak
-  }}</div>
+  }}
+</div>
 ================================================================================
 `;
 
@@ -331,7 +351,9 @@ singleQuote: true
 </div>
 
 =====================================output=====================================
-<div {{hello param hash=key}} {{goodbye param}}>Hello</div>
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
 
 <div
   {{hello
@@ -348,7 +370,9 @@ singleQuote: true
     param
     param
   }}
->Hello</div>
+>
+  Hello
+</div>
 
 <div
   {{hello
@@ -358,7 +382,9 @@ singleQuote: true
     hashPair=value
     hashPair=value
   }}
->Hello</div>
+>
+  Hello
+</div>
 
 <div
   {{hello
@@ -372,7 +398,9 @@ singleQuote: true
     hashPair=value
     hashPair=value
   }}
->Hello</div>
+>
+  Hello
+</div>
 ================================================================================
 `;
 
@@ -399,7 +427,9 @@ printWidth: 80
 </div>
 
 =====================================output=====================================
-<div {{hello param hash=key}} {{goodbye param}}>Hello</div>
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
 
 <div
   {{hello
@@ -416,7 +446,9 @@ printWidth: 80
     param
     param
   }}
->Hello</div>
+>
+  Hello
+</div>
 
 <div
   {{hello
@@ -426,7 +458,9 @@ printWidth: 80
     hashPair=value
     hashPair=value
   }}
->Hello</div>
+>
+  Hello
+</div>
 
 <div
   {{hello
@@ -440,7 +474,9 @@ printWidth: 80
     hashPair=value
     hashPair=value
   }}
->Hello</div>
+>
+  Hello
+</div>
 ================================================================================
 `;
 
