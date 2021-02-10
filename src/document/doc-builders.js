@@ -259,6 +259,10 @@ function addAlignmentToDoc(doc, size, tabWidth) {
   return aligned;
 }
 
+function label(label, contents) {
+  return { type: "label", label, contents };
+}
+
 module.exports = {
   concat,
   join,
@@ -284,4 +288,5 @@ module.exports = {
   dedent,
   hardlineWithoutBreakParent,
   literallineWithoutBreakParent,
+  label,
 };

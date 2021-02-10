@@ -227,8 +227,10 @@ function stripDocTrailingHardlineFromDoc(doc) {
   switch (doc.type) {
     case "align":
     case "indent":
+    case "indent-if-break":
     case "group":
-    case "line-suffix": {
+    case "line-suffix":
+    case "label": {
       const contents = stripDocTrailingHardlineFromDoc(doc.contents);
       return { ...doc, contents };
     }
@@ -270,6 +272,7 @@ function cleanDocFn(doc) {
       break;
     case "align":
     case "indent":
+    case "indent-if-break":
     case "line-suffix":
       if (!doc.contents) {
         return "";
