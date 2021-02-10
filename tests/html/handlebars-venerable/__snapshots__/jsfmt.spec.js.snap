@@ -19,14 +19,12 @@ singleQuote: true
 
 =====================================output=====================================
 <script id="entry-template" type="text/x-handlebars-template">
-
   <div class='entry'>
     <h1>{{title}}</h1>
     <div class='body'>{{body}}</div></div>
 </script>
 
 <script type="text/x-handlebars-template">
-
   {{component
     arg1='hey'
     arg2=(helper this.arg7 this.arg4)
@@ -56,14 +54,12 @@ printWidth: 80
 
 =====================================output=====================================
 <script id="entry-template" type="text/x-handlebars-template">
-
   <div class="entry">
     <h1>{{title}}</h1>
     <div class="body">{{body}}</div></div>
 </script>
 
 <script type="text/x-handlebars-template">
-
   {{component
     arg1="hey"
     arg2=(helper this.arg7 this.arg4)

@@ -245,6 +245,7 @@ function print(path, options, print) {
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
       const isWhitespaceOnly = whitespacesOnlyRE.test(text);
+      const isFirstElement = !getPreviousNode(path);
       const isLastElement = !getNextNode(path);
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
@@ -256,9 +257,11 @@ function print(path, options, print) {
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
           isLastElement && isParentOfSomeType(path, ["Template"]);
+        const shouldTrimLeadingNewlines =
+          isFirstElement && isParentOfSomeType(path, ["Template"]);
 
         if (isWhitespaceOnly) {
-          if (shouldTrimTrailingNewlines) {
+          if (shouldTrimLeadingNewlines || shouldTrimTrailingNewlines) {
             return "";
           }
 
@@ -312,7 +315,6 @@ function print(path, options, print) {
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
       }
 
-      const isFirstElement = !getPreviousNode(path);
       const lineBreaksCount = countNewLines(text);
 
       let leadingLineBreaksCount = countLeadingNewLines(text);
