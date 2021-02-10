@@ -1,54 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid-class.js [babel] format 1`] = `
-"A class name is required (1:7)
-> 1 | class switch() {}
-    |       ^
-  2 |"
-`;
-
-exports[`invalid-class.js [babel-flow] format 1`] = `
-"A class name is required (1:7)
-> 1 | class switch() {}
-    |       ^
-  2 |"
-`;
-
-exports[`invalid-class.js [babel-ts] format 1`] = `
-"A class name is required (1:7)
-> 1 | class switch() {}
-    |       ^
-  2 |"
-`;
-
-exports[`invalid-class.js [espree] format 1`] = `
-"Unexpected token switch (1:7)
-> 1 | class switch() {}
-    |       ^
-  2 |"
-`;
-
-exports[`invalid-class.js [flow] format 1`] = `
-"Unexpected token \`switch\` (1:7)
-> 1 | class switch() {}
-    |       ^^^^^^
-  2 |"
-`;
-
-exports[`invalid-class.js [meriyah] format 1`] = `
-"[1:12]: Unexpected strict mode reserved word (1:12)
-> 1 | class switch() {}
-    |            ^
-  2 |"
-`;
-
-exports[`invalid-class.js [typescript] format 1`] = `
-"'{' expected. (1:7)
-> 1 | class switch() {}
-    |       ^
-  2 |"
-`;
-
 exports[`snippet: #0 [babel] format 1`] = `
 "Unexpected token, expected \\"(\\" (1:5)
 > 1 | for each (a in b) {}
