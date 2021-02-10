@@ -285,7 +285,7 @@ function print(path, options, print) {
 
           const leadingNewlines = countNewLines(lead);
           if (leadingNewlines) {
-            leadBreaks = generateHardlines(countNewLines(lead) || 1);
+            leadBreaks = generateHardlines(leadingNewlines);
           }
 
           text = text.replace(leadingWhitespacesRE, "");
@@ -297,11 +297,11 @@ function print(path, options, print) {
 
           const trailingNewlines = countNewLines(tail);
           if (trailingNewlines) {
-            trailBreaks = generateHardlines(trailingNewlines || 1);
+            trailBreaks = generateHardlines(trailingNewlines);
+          }
 
-            if (isLastNodeOfSiblings(path)) {
-              trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
-            }
+          if (isLastNodeOfSiblings(path)) {
+            trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
           }
 
           text = text.replace(trailingWhitespacesRE, "");

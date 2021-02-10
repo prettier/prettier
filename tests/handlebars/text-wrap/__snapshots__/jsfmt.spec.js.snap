@@ -252,7 +252,7 @@ printWidth: 80
 {{! trailing whitespace }}
 <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
   Twelfth Thirteenth Fourteenth
-  </div>
+</div>
 
 {{! no leading or trailing whitespace }}
 <div>First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
