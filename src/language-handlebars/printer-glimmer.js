@@ -292,16 +292,18 @@ function print(path, options, print) {
         }
 
         let trailBreaks = [];
-        if (tail && !shouldTrimTrailingNewlines) {
-          trailBreaks = [line];
+        if (tail) {
+          if (!shouldTrimTrailingNewlines) {
+            trailBreaks = [line];
 
-          const trailingNewlines = countNewLines(tail);
-          if (trailingNewlines) {
-            trailBreaks = generateHardlines(trailingNewlines);
-          }
+            const trailingNewlines = countNewLines(tail);
+            if (trailingNewlines) {
+              trailBreaks = generateHardlines(trailingNewlines);
+            }
 
-          if (isLastNodeOfSiblings(path)) {
-            trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
+            if (isLastNodeOfSiblings(path)) {
+              trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
+            }
           }
 
           text = text.replace(trailingWhitespacesRE, "");
