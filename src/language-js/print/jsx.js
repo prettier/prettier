@@ -14,7 +14,7 @@ const {
     lineSuffixBoundary,
     join,
   },
-  utils: { willBreak, isLineNext, isEmpty },
+  utils: { willBreak, isLineNext },
 } = require("../../document");
 
 const { getLast, getPreferredQuote } = require("../../common/util");
@@ -177,7 +177,7 @@ function printJsxElementInternal(path, options, print) {
   // Trim trailing lines (or empty strings)
   while (
     children.length > 0 &&
-    (isLineNext(getLast(children)) || isEmpty(getLast(children)))
+    (!getLast(children) || isLineNext(getLast(children)))
   ) {
     children.pop();
   }
@@ -185,8 +185,8 @@ function printJsxElementInternal(path, options, print) {
   // Trim leading lines (or empty strings)
   while (
     children.length > 0 &&
-    (isLineNext(children[0]) || isEmpty(children[0])) &&
-    (isLineNext(children[1]) || isEmpty(children[1]))
+    (!children[0] || isLineNext(children[0])) &&
+    (!children[1] || isLineNext(children[1]))
   ) {
     children.shift();
     children.shift();
