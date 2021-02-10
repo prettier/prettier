@@ -187,7 +187,6 @@ function genericPrint(path, options, printPath, args) {
   parts.push(linesWithoutParens);
 
   if (needsParens) {
-    const node = path.getValue();
     if (hasFlowShorthandAnnotationComment(node)) {
       parts.push(" /*", node.trailingComments[0].value.trimStart(), "*/");
       node.trailingComments[0].printed = true;
