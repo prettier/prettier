@@ -24,12 +24,9 @@ const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./print-preprocess");
 const {
   getCallArguments,
-  getParentExportDeclaration,
   hasFlowShorthandAnnotationComment,
-  hasNewlineBetweenOrAfterDecorators,
   hasComment,
   CommentCheckFlags,
-  isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   isTheOnlyJsxElementInMarkdown,
@@ -94,6 +91,7 @@ const { printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
+const { printDecorators } = require("./print/decorators");
 
 function genericPrint(path, options, printPath, args) {
   const linesWithoutParens = printPathNoParens(path, options, printPath, args);
@@ -118,66 +116,9 @@ function genericPrint(path, options, printPath, args) {
     return linesWithoutParens;
   }
 
-  let needsParens = false;
-  const parentExportDecl = getParentExportDeclaration(path);
-  const decorators = [];
-  if (
-    isNonEmptyArray(node.decorators) &&
-    // If the parent node is an export declaration and the decorator
-    // was written before the export, the export will be responsible
-    // for printing the decorators.
-    !(
-      parentExportDecl &&
-      locStart(parentExportDecl, { ignoreDecorators: true }) >
-        locStart(node.decorators[0])
-    )
-  ) {
-    const shouldBreak =
-      type === "ClassExpression" ||
-      type === "ClassDeclaration" ||
-      hasNewlineBetweenOrAfterDecorators(node, options);
-
-    const separator = shouldBreak ? hardline : line;
-
-    path.each((decoratorPath) => {
-      let decorator = decoratorPath.getValue();
-      if (decorator.expression) {
-        decorator = decorator.expression;
-      } else {
-        decorator = decorator.callee;
-      }
-
-      decorators.push(printPath(decoratorPath), separator);
-    }, "decorators");
-
-    if (parentExportDecl) {
-      decorators.unshift(hardline);
-    }
-  } else if (
-    isExportDeclaration(node) &&
-    node.declaration &&
-    isNonEmptyArray(node.declaration.decorators) &&
-    // Only print decorators here if they were written before the export,
-    // otherwise they are printed by the node.declaration
-    locStart(node, { ignoreDecorators: true }) >
-      locStart(node.declaration.decorators[0])
-  ) {
-    // Export declarations are responsible for printing any decorators
-    // that logically apply to node.declaration.
-    path.each(
-      (decoratorPath) => {
-        const decorator = decoratorPath.getValue();
-        const prefix = decorator.type === "Decorator" ? "" : "@";
-        decorators.push(prefix, printPath(decoratorPath), hardline);
-      },
-      "declaration",
-      "decorators"
-    );
-  } else {
-    // Nodes with decorators can't have parentheses, so we can avoid
-    // computing pathNeedsParens() except in this case.
-    needsParens = pathNeedsParens(path, options);
-  }
+  const decorators = printDecorators(path, options, printPath);
+  // Nodes with decorators can't have parentheses
+  const needsParens = !decorators && pathNeedsParens(path, options);
 
   const parts = [linesWithoutParens];
   if (needsParens) {
@@ -192,9 +133,10 @@ function genericPrint(path, options, printPath, args) {
     parts.push(")");
   }
 
-  if (decorators.length > 0) {
+  if (isNonEmptyArray(decorators)) {
     return group([...decorators, ...parts]);
   }
+
   return parts;
 }
 
