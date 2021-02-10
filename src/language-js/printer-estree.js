@@ -179,14 +179,10 @@ function genericPrint(path, options, printPath, args) {
     needsParens = pathNeedsParens(path, options);
   }
 
-  const parts = [];
+  const parts = [linesWithoutParens];
   if (needsParens) {
     parts.unshift("(");
-  }
 
-  parts.push(linesWithoutParens);
-
-  if (needsParens) {
     if (hasFlowShorthandAnnotationComment(node)) {
       parts.push(" /*", node.trailingComments[0].value.trimStart(), "*/");
       node.trailingComments[0].printed = true;
