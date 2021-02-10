@@ -101,23 +101,27 @@ function genericPrint(path, options, printPath, args) {
     return "";
   }
 
-  let needsParens = false;
   const node = path.getValue();
+  const { type } = node;
+  // their decorators are handled themselves
+  if (
+    type === "ClassMethod" ||
+    type === "ClassPrivateMethod" ||
+    type === "ClassProperty" ||
+    type === "PropertyDefinition" ||
+    type === "TSAbstractClassProperty" ||
+    type === "ClassPrivateProperty" ||
+    type === "MethodDefinition" ||
+    type === "TSAbstractMethodDefinition" ||
+    type === "TSDeclareMethod"
+  ) {
+    return linesWithoutParens;
+  }
+
+  let needsParens = false;
   const parentExportDecl = getParentExportDeclaration(path);
   const decorators = [];
   if (
-    node.type === "ClassMethod" ||
-    node.type === "ClassPrivateMethod" ||
-    node.type === "ClassProperty" ||
-    node.type === "PropertyDefinition" ||
-    node.type === "TSAbstractClassProperty" ||
-    node.type === "ClassPrivateProperty" ||
-    node.type === "MethodDefinition" ||
-    node.type === "TSAbstractMethodDefinition" ||
-    node.type === "TSDeclareMethod"
-  ) {
-    // their decorators are handled themselves
-  } else if (
     isNonEmptyArray(node.decorators) &&
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
@@ -129,8 +133,8 @@ function genericPrint(path, options, printPath, args) {
     )
   ) {
     const shouldBreak =
-      node.type === "ClassExpression" ||
-      node.type === "ClassDeclaration" ||
+      type === "ClassExpression" ||
+      type === "ClassDeclaration" ||
       hasNewlineBetweenOrAfterDecorators(node, options);
 
     const separator = shouldBreak ? hardline : line;
