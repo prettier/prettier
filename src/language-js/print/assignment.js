@@ -1,8 +1,8 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray, getLast } = require("../../common/util");
 const {
-  builders: { line, group, indent, indentIfBreak },
+  builders: { line, group, conditionalGroup, indent, indentIfBreak, hardline },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -24,9 +24,14 @@ function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const rightDoc = path.call(print, rightPropertyName);
+  const rightDoc = extractLabeledDoc(
+    path.call(
+      (p) => print(p, { assignmentRightHandSide: true }),
+      rightPropertyName
+    )
+  );
 
-  switch (chooseLayout(path, options, rightPropertyName)) {
+  switch (chooseLayout(path, options, rightPropertyName, rightDoc)) {
     // First break after operator, then the sides are broken independently on their own lines
     case "break-after-operator":
       return group([group(leftDoc), operator, group(indent([line, rightDoc]))]);
@@ -43,6 +48,21 @@ function printAssignment(
         operator,
         group(indent(line), { id: groupId }),
         indentIfBreak(rightDoc, { groupId }),
+      ]);
+    }
+
+    // A hackish way to forcibly unfold a method chain if it doesn't fit after the operator.
+    // The structure of `rightDoc` is checked in `chooseLayout`. It doesn't have this structure
+    // if it has comments. That case is handled by passing `assignmentRightHandSide: true` to
+    // `printMemberChain`.
+    case "member-chain": {
+      return group([
+        group(leftDoc),
+        operator,
+        conditionalGroup([
+          group([" ", rightDoc]),
+          [indent([hardline, expandMemberChainDoc(rightDoc)])],
+        ]),
       ]);
     }
 
@@ -82,7 +102,7 @@ function printVariableDeclarator(path, options, print) {
   );
 }
 
-function chooseLayout(path, options, rightPropertyName) {
+function chooseLayout(path, options, rightPropertyName, rightDoc) {
   const rightNode = path.getValue()[rightPropertyName];
 
   if (!rightNode) {
@@ -117,6 +137,25 @@ function chooseLayout(path, options, rightPropertyName) {
   // do not put values on a separate line from the key in json
   if (options.parser === "json5" || options.parser === "json") {
     return "never-break-after-operator";
+  }
+
+  if (rightDoc.label === "member-chain") {
+    if (
+      Array.isArray(rightDoc.contents) &&
+      rightDoc.contents[1] &&
+      rightDoc.contents[1].expandedStates
+    ) {
+      let node = rightNode;
+      while (isMemberChainElement(node)) {
+        node = node.callee || node.object || node.expression;
+      }
+      if (node.type !== "ConditionalExpression") {
+        return "member-chain";
+      }
+    } else {
+      // The chain is already broken.
+      return "break-after-operator";
+    }
   }
 
   if (shouldBreakAfterOperator(rightNode)) {
@@ -222,6 +261,27 @@ function isSimpleCall(node) {
   return (
     args.length === 0 || (args.length === 1 && isSimpleCallArgument(args[0], 1))
   );
+}
+
+function isMemberChainElement(node) {
+  return (
+    node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression" ||
+    node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "TSNonNullExpression"
+  );
+}
+
+function extractLabeledDoc(doc) {
+  if (Array.isArray(doc) && doc.length === 1 && doc[0] && doc[0].label) {
+    return doc[0];
+  }
+  return doc;
+}
+
+function expandMemberChainDoc(doc) {
+  return getLast(doc.contents[1].expandedStates);
 }
 
 module.exports = {

@@ -54,7 +54,7 @@ const {
 // The way it is structured in the AST is via a nested sequence of
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
-function printMemberChain(path, options, print) {
+function printMemberChain(path, options, print, printArgs) {
   const parent = path.getParentNode();
   const isExpressionStatement =
     !parent || parent.type === "ExpressionStatement";
@@ -386,12 +386,13 @@ function printMemberChain(path, options, print) {
 
   // We don't want to print in one line if at least one of these conditions occurs:
   //  * the chain has comments,
-  //  * the chain is an expression statement and all the arguments are literal-like ("fluent configuration" pattern),
+  //  * the chain is the right-hand side of an assignment and has a leading comment
   //  * the chain is longer than 2 calls and has non-trivial arguments or more than 2 arguments in any call but the first one,
   //  * any group but the last one has a hard line,
   //  * the last call's arguments have a hard line and other calls have non-trivial arguments.
   if (
     nodeHasComment ||
+    (printArgs && printArgs.assignmentRightHandSide && hasComment(node)) ||
     (callExpressions.length > 2 &&
       callExpressions.some(
         (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))

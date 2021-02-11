@@ -357,10 +357,11 @@ measure() // Warm-up first
     SomethingLong();
   });
 
-const configModel = this.baseConfigurationService
-  .getCache()
-  .consolidated // global/default values (do NOT modify)
-  .merge(this.cachedWorkspaceConfig);
+const configModel =
+  this.baseConfigurationService
+    .getCache()
+    .consolidated // global/default values (do NOT modify)
+    .merge(this.cachedWorkspaceConfig);
 
 this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
   .then(
@@ -1390,10 +1391,11 @@ const svgJsFiles = fs
   .map(f => path.join(svgDir, f));
 
 =====================================output=====================================
-const svgJsFiles = fs
-  .readdirSync(svgDir)
-  .filter((f) => svgJsFileExtRegex.test(f))
-  .map((f) => path.join(svgDir, f));
+const svgJsFiles =
+  fs
+    .readdirSync(svgDir)
+    .filter((f) => svgJsFileExtRegex.test(f))
+    .map((f) => path.join(svgDir, f));
 
 ================================================================================
 `;
@@ -1433,15 +1435,17 @@ const component = find('.org-lclp-edit-copy-url-banner__link')[0]
   .indexOf(this.landingPageLink);
 
 =====================================output=====================================
-const version = someLongString
-  .split("jest version =")
-  .pop()
-  .split(EOL)[0]
-  .trim();
+const version =
+  someLongString
+    .split("jest version =")
+    .pop()
+    .split(EOL)[0]
+    .trim();
 
-const component = find(".org-lclp-edit-copy-url-banner__link")[0]
-  .getAttribute("href")
-  .indexOf(this.landingPageLink);
+const component =
+  find(".org-lclp-edit-copy-url-banner__link")[0]
+    .getAttribute("href")
+    .indexOf(this.landingPageLink);
 
 ================================================================================
 `;
@@ -1482,9 +1486,10 @@ const sel = this.connections
   .filter(x => x.selected);
 
 =====================================output=====================================
-const sel = this.connections
-  .concat(this.activities.concat(this.operators))
-  .filter((x) => x.selected);
+const sel =
+  this.connections
+    .concat(this.activities.concat(this.operators))
+    .filter((x) => x.selected);
 
 ================================================================================
 `;

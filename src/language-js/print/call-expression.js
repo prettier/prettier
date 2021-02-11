@@ -17,7 +17,7 @@ const printMemberChain = require("./member-chain");
 const printCallArguments = require("./call-arguments");
 const { printOptionalToken, printFunctionTypeParameters } = require("./misc");
 
-function printCallExpression(path, options, print) {
+function printCallExpression(path, options, print, printArgs) {
   const n = path.getValue();
   const isNew = n.type === "NewExpression";
   const isDynamicImport = n.type === "ImportExpression";
@@ -79,7 +79,7 @@ function printCallExpression(path, options, print) {
     isMemberish(n.callee) &&
     !path.call((path) => pathNeedsParens(path, options), "callee")
   ) {
-    return printMemberChain(path, options, print);
+    return printMemberChain(path, options, print, printArgs);
   }
 
   const contents = [

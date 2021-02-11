@@ -408,7 +408,7 @@ function printPathNoParens(path, options, print, args) {
     case "ImportExpression":
     case "OptionalCallExpression":
     case "CallExpression":
-      return printCallExpression(path, options, print);
+      return printCallExpression(path, options, print, args);
     case "ObjectTypeInternalSlot":
       return [
         n.static ? "static " : "",
