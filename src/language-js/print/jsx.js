@@ -32,8 +32,8 @@ const {
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
 
-const isLineOrHardlineOrSoftline = (doc) =>
-  doc === line || doc === hardline || doc === softline;
+const isEmptyStringOrAnyLine = (doc) =>
+  doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
  * @typedef {import("../../common/ast-path")} AstPath
@@ -178,18 +178,15 @@ function printJsxElementInternal(path, options, print) {
   }
 
   // Trim trailing lines (or empty strings)
-  while (
-    children.length > 0 &&
-    (!getLast(children) || isLineOrHardlineOrSoftline(getLast(children)))
-  ) {
+  while (children.length > 0 && isEmptyStringOrAnyLine(getLast(children))) {
     children.pop();
   }
 
   // Trim leading lines (or empty strings)
   while (
     children.length > 0 &&
-    (!children[0] || isLineOrHardlineOrSoftline(children[0])) &&
-    (!children[1] || isLineOrHardlineOrSoftline(children[1]))
+    isEmptyStringOrAnyLine(children[0]) &&
+    isEmptyStringOrAnyLine(children[1])
   ) {
     children.shift();
     children.shift();
