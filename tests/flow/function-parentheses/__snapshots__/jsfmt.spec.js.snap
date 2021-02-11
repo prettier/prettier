@@ -143,9 +143,10 @@ type T7 = ?(?(() => A));
 type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
-type Banana = {
-  eat: string => boolean,
-};
+type Banana =
+  {
+    eat: string => boolean,
+  };
 
 type Hex = { n: 0x01 };
 
@@ -280,9 +281,10 @@ type T7 = ?(?(() => A));
 type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
-type Banana = {
-  eat: (string) => boolean,
-};
+type Banana =
+  {
+    eat: (string) => boolean,
+  };
 
 type Hex = { n: 0x01 };
 
@@ -416,9 +418,10 @@ type T7 = ?(?(() => A));
 type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
-type Banana = {
-  eat: (string) => boolean,
-};
+type Banana =
+  {
+    eat: (string) => boolean,
+  };
 
 type Hex = { n: 0x01 };
 

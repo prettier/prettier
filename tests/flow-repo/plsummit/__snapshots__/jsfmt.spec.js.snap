@@ -147,9 +147,10 @@ var y: number = o2.bar();
 function C() {
   this.x = 0;
 }
-C.prototype.foo = function () {
-  return this.x;
-};
+C.prototype.foo =
+  function () {
+    return this.x;
+  };
 
 var c = new C();
 var x: string = c.foo();

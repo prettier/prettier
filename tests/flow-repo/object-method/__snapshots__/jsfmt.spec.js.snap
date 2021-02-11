@@ -67,9 +67,10 @@ module.exports = id(
 =====================================output=====================================
 const id = require("./id");
 
-export type ObjectType = {
-  +m: () => void,
-};
+export type ObjectType =
+  {
+    +m: () => void,
+  };
 
 function methodCaller(x: ObjectType) {
   x.m();
@@ -111,14 +112,16 @@ function f() {
   return this.p;
 }
 
-var a = {
-  p: 0,
-  f,
-};
+var a =
+  {
+    p: 0,
+    f,
+  };
 
-var b = {
-  f,
-};
+var b =
+  {
+    f,
+  };
 
 a.f(); // okey-dokie
 b.f(); // error, property \`p\` not found

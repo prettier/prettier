@@ -41,23 +41,27 @@ setFoo(
 );
 
 =====================================output=====================================
-const nestedFun = /* HTML */ \`
-  \${outerExpr(1)}
-  <script>
-    const tpl = html\\\`
-      <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
-    \\\`;
-  </script>
-\`;
+const nestedFun =
+  /* HTML */ \`
+    \${outerExpr(1)}
+    <script>
+      const tpl =
+        html\\\`
+          <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
+        \\\`;
+    </script>
+  \`;
 
-const nestedFun2 = /* HTML */ \`
-  \${outerExpr(1)}
-  <script>
-    const tpl = html\\\`
-      <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
-    \\\`;
-  </script>
-\`;
+const nestedFun2 =
+  /* HTML */ \`
+    \${outerExpr(1)}
+    <script>
+      const tpl =
+        html\\\`
+          <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
+        \\\`;
+    </script>
+  \`;
 
 setFoo(
   html\`
@@ -131,15 +135,17 @@ setFoo(
 );
 
 =====================================output=====================================
-const nestedFun = /* HTML */ \`\${outerExpr(1)}
-  <script>
-    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
-  </script>\`;
+const nestedFun =
+  /* HTML */ \`\${outerExpr(1)}
+    <script>
+      const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+    </script>\`;
 
-const nestedFun2 = /* HTML */ \`\${outerExpr(1)}
-  <script>
-    const tpl = html\\\` <div>\\\${innerExpr(1)} \${outerExpr(2)}</div> \\\`;
-  </script>\`;
+const nestedFun2 =
+  /* HTML */ \`\${outerExpr(1)}
+    <script>
+      const tpl = html\\\` <div>\\\${innerExpr(1)} \${outerExpr(2)}</div> \\\`;
+    </script>\`;
 
 setFoo(
   html\`<div>one</div>
@@ -309,12 +315,14 @@ class MyElement extends LitElement {
 
 customElements.define("my-element", MyElement);
 
-const someHtml1 = html\`
-  <div>hello \${world}</div>
-\`;
-const someHtml2 = /* HTML */ \`
-  <div>hello \${world}</div>
-\`;
+const someHtml1 =
+  html\`
+    <div>hello \${world}</div>
+  \`;
+const someHtml2 =
+  /* HTML */ \`
+    <div>hello \${world}</div>
+  \`;
 
 html\`\`;
 
@@ -351,33 +359,39 @@ function HelloWorld() {
   \`;
 }
 
-const trickyParens = html\`
-  <script>
-    f((\${expr}) / 2);
-  </script>
-\`;
-const nestedFun = /* HTML */ \`
-  \${outerExpr(1)}
-  <script>
-    const tpl = html\\\`
-      <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
-    \\\`;
-  </script>
-\`;
+const trickyParens =
+  html\`
+    <script>
+      f((\${expr}) / 2);
+    </script>
+  \`;
+const nestedFun =
+  /* HTML */ \`
+    \${outerExpr(1)}
+    <script>
+      const tpl =
+        html\\\`
+          <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
+        \\\`;
+    </script>
+  \`;
 
-const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
-  <script>
-    const html = /* HTML */ \\\`
-      <script><\\\\/script>
-    \\\`;
-  </script>
-\`;
+const closingScriptTagShouldBeEscapedProperly =
+  /* HTML */ \`
+    <script>
+      const html =
+        /* HTML */ \\\`
+          <script><\\\\/script>
+        \\\`;
+    </script>
+  \`;
 
-const closingScriptTag2 = /* HTML */ \`
-  <script>
-    const scriptTag = "<\\\\/script>";
-  </script>
-\`;
+const closingScriptTag2 =
+  /* HTML */ \`
+    <script>
+      const scriptTag = "<\\\\/script>";
+    </script>
+  \`;
 
 html\`
   <div
@@ -576,23 +590,27 @@ function HelloWorld() {
   \`;
 }
 
-const trickyParens = html\`<script>
-  f((\${expr}) / 2);
-</script>\`;
-const nestedFun = /* HTML */ \`\${outerExpr(1)}
-  <script>
-    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+const trickyParens =
+  html\`<script>
+    f((\${expr}) / 2);
   </script>\`;
+const nestedFun =
+  /* HTML */ \`\${outerExpr(1)}
+    <script>
+      const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+    </script>\`;
 
-const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
-  <script>
-    const html = /* HTML */ \\\`<script><\\\\/script>\\\`;
-  </script>
-\`;
+const closingScriptTagShouldBeEscapedProperly =
+  /* HTML */ \`
+    <script>
+      const html = /* HTML */ \\\`<script><\\\\/script>\\\`;
+    </script>
+  \`;
 
-const closingScriptTag2 = /* HTML */ \`<script>
-  const scriptTag = "<\\\\/script>";
-</script>\`;
+const closingScriptTag2 =
+  /* HTML */ \`<script>
+    const scriptTag = "<\\\\/script>";
+  </script>\`;
 
 html\`
   <div

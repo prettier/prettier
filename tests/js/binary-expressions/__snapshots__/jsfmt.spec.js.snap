@@ -25,25 +25,27 @@ function f2() {
 
 =====================================output=====================================
 function f() {
-  const appEntities = getAppEntities(loadObject).filter(
-    (entity) =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled()
-  );
+  const appEntities =
+    getAppEntities(loadObject).filter(
+      (entity) =>
+        entity &&
+        entity.isInstallAvailable() &&
+        !entity.isQueue() &&
+        entity.isDisabled()
+    );
 }
 
 function f2() {
-  const appEntities = getAppEntities(loadObject).map(
-    (entity) =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled() && {
-        id: entity.id,
-      }
-  );
+  const appEntities =
+    getAppEntities(loadObject).map(
+      (entity) =>
+        entity &&
+        entity.isInstallAvailable() &&
+        !entity.isQueue() &&
+        entity.isDisabled() && {
+          id: entity.id,
+        }
+    );
 }
 
 ((x) => x) + "";
@@ -289,12 +291,13 @@ a ||
   longLongLongLongLongLongLongLongLong ||
   longLongLongLongLongLongLongLongLong;
 
-var a = x(
-  abifornCringerMoshedPerplexSawder +
-    kochabCooieGameOnOboleUnweave + // f
-    glimseGlyphsHazardNoopsTieTie +
-    bifornCringerMoshedPerplexSawder
-);
+var a =
+  x(
+    abifornCringerMoshedPerplexSawder +
+      kochabCooieGameOnOboleUnweave + // f
+      glimseGlyphsHazardNoopsTieTie +
+      bifornCringerMoshedPerplexSawder
+  );
 
 foo[
   a +
@@ -439,11 +442,12 @@ const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 const avatar2 = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
 
 =====================================output=====================================
-const user = renderedUser || (
-  <div>
-    <User name={this.state.user.name} age={this.state.user.age} />
-  </div>
-);
+const user =
+  renderedUser || (
+    <div>
+      <User name={this.state.user.name} age={this.state.user.age} />
+    </div>
+  );
 
 const user2 =
   renderedUser ||
@@ -455,9 +459,8 @@ const user2 =
 
 const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 
-const avatar2 = (hasAvatar || showPlaceholder) && (
-  <Gravatar user={author} size={size} />
-);
+const avatar2 =
+  (hasAvatar || showPlaceholder) && <Gravatar user={author} size={size} />;
 
 ================================================================================
 `;
@@ -559,22 +562,24 @@ const obj = {
 }
 
 =====================================output=====================================
-prevState = prevState || {
-  catalogs: [],
-  loadState: LOADED,
-  opened: false,
-  searchQuery: "",
-  selectedCatalog: null,
-};
-
-prevState = prevState ||
-  defaultState || {
+prevState =
+  prevState || {
     catalogs: [],
     loadState: LOADED,
     opened: false,
     searchQuery: "",
     selectedCatalog: null,
   };
+
+prevState =
+  prevState ||
+    defaultState || {
+      catalogs: [],
+      loadState: LOADED,
+      opened: false,
+      searchQuery: "",
+      selectedCatalog: null,
+    };
 
 prevState =
   prevState ||
@@ -586,21 +591,23 @@ prevState =
     selectedCatalog: null,
   });
 
-prevState = prevState ||
-  (useDefault && defaultState) || {
-    catalogs: [],
-    loadState: LOADED,
-    opened: false,
-    searchQuery: "",
-    selectedCatalog: null,
-  };
+prevState =
+  prevState ||
+    (useDefault && defaultState) || {
+      catalogs: [],
+      loadState: LOADED,
+      opened: false,
+      searchQuery: "",
+      selectedCatalog: null,
+    };
 
-this.steps = steps || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module",
-  },
-];
+this.steps =
+  steps || [
+    {
+      name: "mock-module",
+      path: "/nux/mock-module",
+    },
+  ];
 
 this.steps =
   steps ||
@@ -611,47 +618,53 @@ this.steps =
     },
   ]);
 
-this.steps = (steps && checkStep) || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module",
-  },
-];
-
-const create = () => {
-  const result = doSomething();
-  return (
-    shouldReturn &&
-    result.ok && {
-      status: "ok",
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
-    }
-  );
-};
-
-const create2 = () => {
-  const result = doSomething();
-  return (
-    (shouldReturn && result.ok && result) || {
-      status: "ok",
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
-    }
-  );
-};
-
-const obj = {
-  state: shouldHaveState &&
-    stateIsOK && {
-      loadState: LOADED,
-      opened: false,
+this.steps =
+  (steps && checkStep) || [
+    {
+      name: "mock-module",
+      path: "/nux/mock-module",
     },
-  loadNext: (stateIsOK && hasNext) || {
-    skipNext: true,
-  },
-  loaded: true,
-};
+  ];
+
+const create =
+  () => {
+    const result = doSomething();
+    return (
+      shouldReturn &&
+      result.ok && {
+        status: "ok",
+        createdAt: result.createdAt,
+        updatedAt: result.updatedAt,
+      }
+    );
+  };
+
+const create2 =
+  () => {
+    const result = doSomething();
+    return (
+      (shouldReturn && result.ok && result) || {
+        status: "ok",
+        createdAt: result.createdAt,
+        updatedAt: result.updatedAt,
+      }
+    );
+  };
+
+const obj =
+  {
+    state:
+      shouldHaveState &&
+        stateIsOK && {
+          loadState: LOADED,
+          opened: false,
+        },
+    loadNext:
+      (stateIsOK && hasNext) || {
+        skipNext: true,
+      },
+    loaded: true,
+  };
 
 ================================================================================
 `;
@@ -1012,10 +1025,11 @@ const anyTestFailures = !(
 );
 
 =====================================output=====================================
-const anyTestFailures = !(
-  aggregatedResults.numFailedTests === 0 &&
-  aggregatedResults.numRuntimeErrorTestSuites === 0
-);
+const anyTestFailures =
+  !(
+    aggregatedResults.numFailedTests === 0 &&
+    aggregatedResults.numRuntimeErrorTestSuites === 0
+  );
 
 ================================================================================
 `;

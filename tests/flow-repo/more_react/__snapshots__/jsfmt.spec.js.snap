@@ -90,34 +90,39 @@ function foo(p: string, q: string): string {
   return p + q;
 }
 
-var App = React.createClass({
-  getDefaultProps: function (): { y: string } {
-    return { y: "" }; // infer props.y: string
-  },
+var App =
+  React.createClass({
+    getDefaultProps:
+      function (): { y: string } {
+        return { y: "" }; // infer props.y: string
+      },
 
-  getInitialState: function () {
-    return { z: 0 }; // infer state.z: number
-  },
+    getInitialState:
+      function () {
+        return { z: 0 }; // infer state.z: number
+      },
 
-  handler: function () {
-    this.setState({ z: 42 }); // ok
-  },
+    handler:
+      function () {
+        this.setState({ z: 42 }); // ok
+      },
 
-  render: function () {
-    var x = this.props.x;
-    var y = this.props.y;
-    var z = this.state.z;
+    render:
+      function () {
+        var x = this.props.x;
+        var y = this.props.y;
+        var z = this.state.z;
 
-    //this.state;
+        //this.state;
 
-    return (
-      <div>
-        {foo(x, y)}
-        {foo(z, x)} // error, since z: number
-      </div>
-    );
-  },
-});
+        return (
+          <div>
+            {foo(x, y)}
+            {foo(z, x)} // error, since z: number
+          </div>
+        );
+      },
+  });
 
 module.exports = App;
 
@@ -155,9 +160,10 @@ var React = require("react");
 /** This is a regression test for a bug where we forgot to mark the fields of
  * react classes as initialized, when the class was created with createClass().
  * This would manifest as complaining that metric requires an annotation */
-var App = React.createClass({
-  metrics: [1, 2, 3],
-});
+var App =
+  React.createClass({
+    metrics: [1, 2, 3],
+  });
 
 module.exports = App;
 
@@ -189,12 +195,13 @@ module.exports = app;
 var React = require("react");
 var App = require("App.react");
 
-var app = (
-  <App y={42}>
-    {" "}
-    // error, y: number but foo expects string in App.react Some text.
-  </App>
-);
+var app =
+  (
+    <App y={42}>
+      {" "}
+      // error, y: number but foo expects string in App.react Some text.
+    </App>
+  );
 
 module.exports = app;
 
@@ -294,17 +301,21 @@ var D = React.createClass({
 =====================================output=====================================
 var React = require("React");
 
-var C = React.createClass({
-  propTypes: {
-    title: React.PropTypes.string.isRequired,
-  },
-});
-var D = React.createClass({
-  propTypes: {
-    name: React.PropTypes.string.isRequired,
-    ...C.propTypes,
-  },
-});
+var C =
+  React.createClass({
+    propTypes:
+      {
+        title: React.PropTypes.string.isRequired,
+      },
+  });
+var D =
+  React.createClass({
+    propTypes:
+      {
+        name: React.PropTypes.string.isRequired,
+        ...C.propTypes,
+      },
+  });
 
 <D />; // errors: properties \`name\` and \`title\` not found
 

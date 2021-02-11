@@ -139,31 +139,35 @@ type B = (
 =====================================output=====================================
 // @flow
 
-type T = (
-  this: boolean,
-  a: number,
+type T =
+  (
+    this: boolean,
+    a: number,
 
-  b: number,
-) => boolean;
+    b: number,
+  ) => boolean;
 
-type T2 = (
-  _this: boolean,
-  a: number,
+type T2 =
+  (
+    _this: boolean,
+    a: number,
 
-  b: number,
-) => boolean;
+    b: number,
+  ) => boolean;
 
-type A = (
-  this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
+type A =
+  (
+    this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
 
-  b: number,
-) => boolean;
+    b: number,
+  ) => boolean;
 
-type B = (
-  _this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
+type B =
+  (
+    _this: SupperLongLongLongLongLongLongLongLongLongLongLongType,
 
-  b: number,
-) => boolean;
+    b: number,
+  ) => boolean;
 
 ================================================================================
 `;
@@ -228,19 +232,21 @@ type B = (
 =====================================output=====================================
 // @flow
 
-type A = (
-  this:
-    | SupperLongLongLongLongLongLongLongLongLongLongLongType
-    | FooBarBazLorem12345,
-  b: number,
-) => boolean;
+type A =
+  (
+    this:
+      | SupperLongLongLongLongLongLongLongLongLongLongLongType
+      | FooBarBazLorem12345,
+    b: number,
+  ) => boolean;
 
-type B = (
-  _this:
-    | SupperLongLongLongLongLongLongLongLongLongLongLongType
-    | FooBarBazLorem12345,
-  b: number,
-) => boolean;
+type B =
+  (
+    _this:
+      | SupperLongLongLongLongLongLongLongLongLongLongLongType
+      | FooBarBazLorem12345,
+    b: number,
+  ) => boolean;
 
 ================================================================================
 `;

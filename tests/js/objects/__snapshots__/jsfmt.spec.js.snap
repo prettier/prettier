@@ -17,13 +17,15 @@ const b = {
 
 =====================================output=====================================
 // #6235
-const a = {
-  "\\u2139": 'why "\\\\u2139" is converted to "i"?',
-};
+const a =
+  {
+    "\\u2139": 'why "\\\\u2139" is converted to "i"?',
+  };
 
-const b = {
-  "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
-};
+const b =
+  {
+    "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
+  };
 
 ================================================================================
 `;
@@ -127,21 +129,24 @@ a = () => ({}.x);
 ({} = 0);
 ({} = 0), 1;
 
-const a1 = {
-  someKey: (shortName, shortName),
-};
+const a1 =
+  {
+    someKey: (shortName, shortName),
+  };
 
-const a2 = {
-  someKey:
-    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName),
-};
+const a2 =
+  {
+    someKey:
+      (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName),
+  };
 
-const a3 = {
-  someKey:
-    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
-    longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
-    longLongLongLongLongLongLongLongLongLongLongLongLongLongName),
-};
+const a3 =
+  {
+    someKey:
+      (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+      longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+      longLongLongLongLongLongLongLongLongLongLongLongLongLongName),
+  };
 
 ================================================================================
 `;
@@ -364,20 +369,22 @@ const blablah =
   "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
   "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
 
-const k = {
-  blablah:
-    "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
-    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf",
-};
+const k =
+  {
+    blablah:
+      "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+      "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+      "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf",
+  };
 
 somethingThatsAReallyLongPropName =
   this.props.cardType === AwesomizerCardEnum.SEEFIRST;
 
-const o = {
-  somethingThatsAReallyLongPropName:
-    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
-};
+const o =
+  {
+    somethingThatsAReallyLongPropName:
+      this.props.cardType === AwesomizerCardEnum.SEEFIRST,
+  };
 
 ================================================================================
 `;

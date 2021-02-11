@@ -48,9 +48,10 @@ func(
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 
 =====================================output=====================================
-const testResults = results.testResults.map((testResult) =>
-  formatResult(testResult, formatter, reporter)
-);
+const testResults =
+  results.testResults.map((testResult) =>
+    formatResult(testResult, formatter, reporter)
+  );
 
 it("mocks regexp instances", () => {
   expect(() =>
@@ -78,13 +79,15 @@ expect(() =>
   asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" })
 ).not.toThrowError();
 
-const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
-  (response) => response.data
-);
+const a =
+  Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
+    (response) => response.data
+  );
 
-const b = Observable.fromPromise(axiosInstance.get(url)).map(
-  (response) => response.data
-);
+const b =
+  Observable.fromPromise(axiosInstance.get(url)).map(
+    (response) => response.data
+  );
 
 func(
   veryLoooooooooooooooooooooooongName,
@@ -149,9 +152,10 @@ func(
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 
 =====================================output=====================================
-const testResults = results.testResults.map((testResult) =>
-  formatResult(testResult, formatter, reporter),
-);
+const testResults =
+  results.testResults.map((testResult) =>
+    formatResult(testResult, formatter, reporter),
+  );
 
 it("mocks regexp instances", () => {
   expect(() =>
@@ -179,13 +183,15 @@ expect(() =>
   asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" }),
 ).not.toThrowError();
 
-const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
-  (response) => response.data,
-);
+const a =
+  Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
+    (response) => response.data,
+  );
 
-const b = Observable.fromPromise(axiosInstance.get(url)).map(
-  (response) => response.data,
-);
+const b =
+  Observable.fromPromise(axiosInstance.get(url)).map(
+    (response) => response.data,
+  );
 
 func(
   veryLoooooooooooooooooooooooongName,
@@ -249,9 +255,10 @@ func(
 promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
 
 =====================================output=====================================
-const testResults = results.testResults.map((testResult) =>
-  formatResult(testResult, formatter, reporter)
-);
+const testResults =
+  results.testResults.map((testResult) =>
+    formatResult(testResult, formatter, reporter)
+  );
 
 it("mocks regexp instances", () => {
   expect(() =>
@@ -279,13 +286,15 @@ expect(() =>
   asyncRequest({ type: "foo", url: "/test-endpoint-but-with-a-long-url" })
 ).not.toThrowError();
 
-const a = Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
-  (response) => response.data
-);
+const a =
+  Observable.fromPromise(axiosInstance.post("/carts/mine")).map(
+    (response) => response.data
+  );
 
-const b = Observable.fromPromise(axiosInstance.get(url)).map(
-  (response) => response.data
-);
+const b =
+  Observable.fromPromise(axiosInstance.get(url)).map(
+    (response) => response.data
+  );
 
 func(
   veryLoooooooooooooooooooooooongName,
@@ -335,10 +344,11 @@ const composition = (ViewComponent, ContainerComponent) =>
   };
 
 =====================================output=====================================
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
+const composition =
+  (ViewComponent, ContainerComponent) =>
+    class extends React.Component {
+      static propTypes = {};
+    };
 
 ================================================================================
 `;
@@ -366,10 +376,11 @@ const composition = (ViewComponent, ContainerComponent) =>
   };
 
 =====================================output=====================================
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
+const composition =
+  (ViewComponent, ContainerComponent) =>
+    class extends React.Component {
+      static propTypes = {};
+    };
 
 ================================================================================
 `;
@@ -386,10 +397,11 @@ const composition = (ViewComponent, ContainerComponent) =>
   };
 
 =====================================output=====================================
-const composition = (ViewComponent, ContainerComponent) =>
-  class extends React.Component {
-    static propTypes = {};
-  };
+const composition =
+  (ViewComponent, ContainerComponent) =>
+    class extends React.Component {
+      static propTypes = {};
+    };
 
 ================================================================================
 `;

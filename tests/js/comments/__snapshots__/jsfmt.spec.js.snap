@@ -103,12 +103,13 @@ const foo = {
 };
 
 =====================================output=====================================
-const foo = {
-  a: "a" /* comment for this line */,
+const foo =
+  {
+    a: "a" /* comment for this line */,
 
-  /* Section B */
-  b: "b",
-}
+    /* Section B */
+    b: "b",
+  }
 
 ================================================================================
 `;
@@ -127,12 +128,13 @@ const foo = {
 };
 
 =====================================output=====================================
-const foo = {
-  a: "a" /* comment for this line */,
+const foo =
+  {
+    a: "a" /* comment for this line */,
 
-  /* Section B */
-  b: "b",
-};
+    /* Section B */
+    b: "b",
+  };
 
 ================================================================================
 `;
@@ -1161,15 +1163,18 @@ Thing(/* dangling */);
 export /* dangling */{};
 
 =====================================output=====================================
-var a = {
-  /* dangling */
-}
-var b = {
-  // dangling
-}
-var b = [
-  /* dangling */
-]
+var a =
+  {
+    /* dangling */
+  }
+var b =
+  {
+    // dangling
+  }
+var b =
+  [
+    /* dangling */
+  ]
 function d() {
   /* dangling */
 }
@@ -1199,15 +1204,18 @@ Thing(/* dangling */);
 export /* dangling */{};
 
 =====================================output=====================================
-var a = {
-  /* dangling */
-};
-var b = {
-  // dangling
-};
-var b = [
-  /* dangling */
-];
+var a =
+  {
+    /* dangling */
+  };
+var b =
+  {
+    // dangling
+  };
+var b =
+  [
+    /* dangling */
+  ];
 function d() {
   /* dangling */
 }
@@ -1677,12 +1685,13 @@ function f5 /* f */(/* a */ a) {}
 function f6 /* f */(a /* a */) {}
 function f7 /* f */(/* a */ a) /* returns */ {}
 
-const obj = {
-  f1 /* f */() {},
-  f2(/* args */) {},
-  f3() /* returns */ {},
-  f4 /* f */(/* args */) /* returns */ {},
-}
+const obj =
+  {
+    f1 /* f */() {},
+    f2(/* args */) {},
+    f3() /* returns */ {},
+    f4 /* f */(/* args */) /* returns */ {},
+  }
 
 ;(function f /* f */() {})()
 ;(function f(/* args */) {})()
@@ -1811,12 +1820,13 @@ function f5 /* f */(/* a */ a) {}
 function f6 /* f */(a /* a */) {}
 function f7 /* f */(/* a */ a) /* returns */ {}
 
-const obj = {
-  f1 /* f */() {},
-  f2(/* args */) {},
-  f3() /* returns */ {},
-  f4 /* f */(/* args */) /* returns */ {},
-};
+const obj =
+  {
+    f1 /* f */() {},
+    f2(/* args */) {},
+    f3() /* returns */ {},
+    f4 /* f */(/* args */) /* returns */ {},
+  };
 
 (function f /* f */() {})();
 (function f(/* args */) {})();
@@ -2226,17 +2236,18 @@ const AspectRatioBox = styled.div\`
 \`;
 */
 
-const AspectRatioBox = ({ aspectRatio, children, ...props }) => (
-  <div
-    className={\`height: 0;
+const AspectRatioBox =
+  ({ aspectRatio, children, ...props }) => (
+    <div
+      className={\`height: 0;
   overflow: hidden;
   padding-top: \${(props) => 100 / props.aspectRatio}%;
   background: white;
   position: relative;\`}
-  >
-    <div>{children}</div>
-  </div>
-)
+    >
+      <div>{children}</div>
+    </div>
+  )
 
 export default AspectRatioBox
 
@@ -2316,17 +2327,18 @@ const AspectRatioBox = styled.div\`
 \`;
 */
 
-const AspectRatioBox = ({ aspectRatio, children, ...props }) => (
-  <div
-    className={\`height: 0;
+const AspectRatioBox =
+  ({ aspectRatio, children, ...props }) => (
+    <div
+      className={\`height: 0;
   overflow: hidden;
   padding-top: \${(props) => 100 / props.aspectRatio}%;
   background: white;
   position: relative;\`}
-  >
-    <div>{children}</div>
-  </div>
-);
+    >
+      <div>{children}</div>
+    </div>
+  );
 
 export default AspectRatioBox;
 
@@ -2519,23 +2531,25 @@ throw new ProcessSystemError({
 })
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) =>
-  combineEpics(...epics)(actions, store)
-    // Log errors and continue.
-    .catch((err, stream) => {
-      getLogger().error(err)
-      return stream
-    })
+const rootEpic =
+  (actions, store) =>
+    combineEpics(...epics)(actions, store)
+      // Log errors and continue.
+      .catch((err, stream) => {
+        getLogger().error(err)
+        return stream
+      })
 
 // optional trailing comma gets moved all the way to the beginning
-const regex = new RegExp(
-  "^\\\\s*" + // beginning of the line
-    "name\\\\s*=\\\\s*" + // name =
-    "['\\"]" + // opening quotation mark
-    escapeStringRegExp(target.name) + // target name
-    "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
-)
+const regex =
+  new RegExp(
+    "^\\\\s*" + // beginning of the line
+      "name\\\\s*=\\\\s*" + // name =
+      "['\\"]" + // opening quotation mark
+      escapeStringRegExp(target.name) + // target name
+      "['\\"]" + // closing quotation mark
+      ",?$" // optional trailing comma
+  )
 
 // The comment is moved and doesn't trigger the eslint rule anymore
 import path from "path" // eslint-disable-line nuclide-internal/prefer-nuclide-uri
@@ -2670,23 +2684,25 @@ throw new ProcessSystemError({
 });
 
 // Missing one level of indentation because of the comment
-const rootEpic = (actions, store) =>
-  combineEpics(...epics)(actions, store)
-    // Log errors and continue.
-    .catch((err, stream) => {
-      getLogger().error(err);
-      return stream;
-    });
+const rootEpic =
+  (actions, store) =>
+    combineEpics(...epics)(actions, store)
+      // Log errors and continue.
+      .catch((err, stream) => {
+        getLogger().error(err);
+        return stream;
+      });
 
 // optional trailing comma gets moved all the way to the beginning
-const regex = new RegExp(
-  "^\\\\s*" + // beginning of the line
-    "name\\\\s*=\\\\s*" + // name =
-    "['\\"]" + // opening quotation mark
-    escapeStringRegExp(target.name) + // target name
-    "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
-);
+const regex =
+  new RegExp(
+    "^\\\\s*" + // beginning of the line
+      "name\\\\s*=\\\\s*" + // name =
+      "['\\"]" + // opening quotation mark
+      escapeStringRegExp(target.name) + // target name
+      "['\\"]" + // closing quotation mark
+      ",?$" // optional trailing comma
+  );
 
 // The comment is moved and doesn't trigger the eslint rule anymore
 import path from "path"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
@@ -2766,11 +2782,12 @@ function HelloWorld() {
 }
 =====================================output=====================================
 /** @type {any} */
-const x = (
-  <div>
-    <div />
-  </div>
-)
+const x =
+  (
+    <div>
+      <div />
+    </div>
+  )
 
 /**
  * @type {object}
@@ -2829,11 +2846,12 @@ function HelloWorld() {
 }
 =====================================output=====================================
 /** @type {any} */
-const x = (
-  <div>
-    <div />
-  </div>
-);
+const x =
+  (
+    <div>
+      <div />
+    </div>
+  );
 
 /**
  * @type {object}
@@ -4824,9 +4842,10 @@ semi: false
 var a = { /* comment */      
 b };
 =====================================output=====================================
-var a = {
-  /* comment */ b,
-}
+var a =
+  {
+    /* comment */ b,
+  }
 
 ================================================================================
 `;
@@ -4840,9 +4859,10 @@ printWidth: 80
 var a = { /* comment */      
 b };
 =====================================output=====================================
-var a = {
-  /* comment */ b,
-};
+var a =
+  {
+    /* comment */ b,
+  };
 
 ================================================================================
 `;
@@ -4857,9 +4877,10 @@ semi: false
 var a = { /* comment */
 b };
 =====================================output=====================================
-var a = {
-  /* comment */ b,
-}
+var a =
+  {
+    /* comment */ b,
+  }
 
 ================================================================================
 `;
@@ -4873,9 +4894,10 @@ printWidth: 80
 var a = { /* comment */
 b };
 =====================================output=====================================
-var a = {
-  /* comment */ b,
-};
+var a =
+  {
+    /* comment */ b,
+  };
 
 ================================================================================
 `;
@@ -5291,12 +5313,14 @@ const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
 */
 
 =====================================output=====================================
-const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
-  CLOSED: Object.freeze({ kind: "CLOSED" }),
-  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
-  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
-  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
-})
+const CONNECTION_STATUS =
+  (exports.CONNECTION_STATUS =
+    {
+      CLOSED: Object.freeze({ kind: "CLOSED" }),
+      CONNECTED: Object.freeze({ kind: "CONNECTED" }),
+      CONNECTING: Object.freeze({ kind: "CONNECTING" }),
+      NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
+    })
 
 /* A comment */
 /**
@@ -5352,12 +5376,14 @@ const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
 */
 
 =====================================output=====================================
-const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
-  CLOSED: Object.freeze({ kind: "CLOSED" }),
-  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
-  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
-  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
-});
+const CONNECTION_STATUS =
+  (exports.CONNECTION_STATUS =
+    {
+      CLOSED: Object.freeze({ kind: "CLOSED" }),
+      CONNECTED: Object.freeze({ kind: "CONNECTED" }),
+      CONNECTING: Object.freeze({ kind: "CONNECTING" }),
+      NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
+    });
 
 /* A comment */
 /**
@@ -5549,15 +5575,17 @@ let obj2 =
     key: "val",
   }
 
-let obj3 = {
-  // Comment
-  key: "val",
-}
+let obj3 =
+  {
+    // Comment
+    key: "val",
+  }
 
-let obj4 = {
-  // Comment
-  key: "val",
-}
+let obj4 =
+  {
+    // Comment
+    key: "val",
+  }
 
 let obj5 =
   // Comment
@@ -5567,15 +5595,17 @@ let obj6 =
   // Comment
   ["val"]
 
-let obj7 = [
-  // Comment
-  "val",
-]
+let obj7 =
+  [
+    // Comment
+    "val",
+  ]
 
-let obj8 = [
-  // Comment
-  "val",
-]
+let obj8 =
+  [
+    // Comment
+    "val",
+  ]
 
 let obj9 =
   // Comment
@@ -5699,15 +5729,17 @@ let obj2 =
     key: "val",
   };
 
-let obj3 = {
-  // Comment
-  key: "val",
-};
+let obj3 =
+  {
+    // Comment
+    key: "val",
+  };
 
-let obj4 = {
-  // Comment
-  key: "val",
-};
+let obj4 =
+  {
+    // Comment
+    key: "val",
+  };
 
 let obj5 =
   // Comment
@@ -5717,15 +5749,17 @@ let obj6 =
   // Comment
   ["val"];
 
-let obj7 = [
-  // Comment
-  "val",
-];
+let obj7 =
+  [
+    // Comment
+    "val",
+  ];
 
-let obj8 = [
-  // Comment
-  "val",
-];
+let obj8 =
+  [
+    // Comment
+    "val",
+  ];
 
 let obj9 =
   // Comment

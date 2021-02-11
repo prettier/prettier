@@ -110,10 +110,11 @@ function fun3() {
   </>
 </div>;
 
-foo = (
-  // comment
-  <></>
-);
+foo =
+  (
+    // comment
+    <></>
+  );
 
 </* open fragment */>
   <Component />
@@ -141,9 +142,10 @@ test ? <></> : x;
 <a>
   <></>
 </a>;
-const obj = {
-  foo: <></>,
-};
+const obj =
+  {
+    foo: <></>,
+  };
 const fragmentVar = <></>;
 function fun3() {
   return <></>;

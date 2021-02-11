@@ -38,9 +38,10 @@ var z = class C4 {
 =====================================output=====================================
 var x = class C {};
 
-var y = {
-  foo: class C2 {},
-};
+var y =
+  {
+    foo: class C2 {},
+  };
 
 var z = class C4 {};
 
@@ -357,15 +358,16 @@ class Derived extends Base {
   }
 }
 
-const Printable = <T extends Constructor<Base>>(
-  superClass: T
-): Constructor<Printable> & { message: string } & T =>
-  class extends superClass {
-    static message = "hello";
-    print() {
-      const output = this.x + "," + this.y;
-    }
-  };
+const Printable =
+  <T extends Constructor<Base>>(
+    superClass: T
+  ): Constructor<Printable> & { message: string } & T =>
+    class extends superClass {
+      static message = "hello";
+      print() {
+        const output = this.x + "," + this.y;
+      }
+    };
 
 function Tagged<T extends Constructor<{}>>(
   superClass: T
@@ -494,13 +496,14 @@ class Derived extends Base {
   }
 }
 
-const Printable = <T extends Constructor<Base>>(superClass: T) =>
-  class extends superClass {
-    static message = "hello";
-    print() {
-      const output = this.x + "," + this.y;
-    }
-  };
+const Printable =
+  <T extends Constructor<Base>>(superClass: T) =>
+    class extends superClass {
+      static message = "hello";
+      print() {
+        const output = this.x + "," + this.y;
+      }
+    };
 
 function Tagged<T extends Constructor<{}>>(superClass: T) {
   class C extends superClass {
@@ -542,11 +545,12 @@ class Thing3 extends Thing2 {
 
 // Repro from #13805
 
-const Timestamped = <CT extends Constructor<object>>(Base: CT) => {
-  return class extends Base {
-    timestamp = new Date();
+const Timestamped =
+  <CT extends Constructor<object>>(Base: CT) => {
+    return class extends Base {
+      timestamp = new Date();
+    };
   };
-};
 
 ================================================================================
 `;

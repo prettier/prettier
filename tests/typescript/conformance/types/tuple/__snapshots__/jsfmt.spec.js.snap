@@ -290,11 +290,12 @@ var foo: () => [any] = function bar() {
 
 =====================================output=====================================
 //@noImplicitAny: true
-var foo: () => [any] = function bar() {
-  let intermediate = bar();
-  intermediate = [""];
-  return [undefined];
-};
+var foo: () => [any] =
+  function bar() {
+    let intermediate = bar();
+    intermediate = [""];
+    return [undefined];
+  };
 
 ================================================================================
 `;
@@ -387,10 +388,11 @@ var foo = function bar() {
 
 =====================================output=====================================
 //@noImplicitAny: true
-var foo = function bar() {
-  let intermediate: [string];
-  return (intermediate = [undefined]);
-};
+var foo =
+  function bar() {
+    let intermediate: [string];
+    return (intermediate = [undefined]);
+  };
 
 ================================================================================
 `;

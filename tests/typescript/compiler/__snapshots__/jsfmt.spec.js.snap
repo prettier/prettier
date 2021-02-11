@@ -167,16 +167,19 @@ declare class Point {
   constructor(x: number, y: number);
 }
 
-var p_cast = <Point>{
-  x: 0,
-  y: 0,
-  add: function (dx, dy) {
-    return new Point(this.x + dx, this.y + dy);
-  },
-  mult: function (p) {
-    return p;
-  },
-};
+var p_cast =
+  <Point>{
+    x: 0,
+    y: 0,
+    add:
+      function (dx, dy) {
+        return new Point(this.x + dx, this.y + dy);
+      },
+    mult:
+      function (p) {
+        return p;
+      },
+  };
 
 ================================================================================
 `;
@@ -280,8 +283,9 @@ var r23 = dot(id)(id);
 =====================================output=====================================
 // dot f g x = f(g(x))
 var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
-dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): ((r: U) => S) => (x) =>
-  f(g(x));
+dot =
+  <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): ((r: U) => S) => (x) =>
+    f(g(x));
 var id: <T>(x: T) => T;
 var r23 = dot(id)(id);
 
@@ -565,9 +569,10 @@ namespace global {}
 
 function foo(global: number) {}
 
-let obj = {
-  global: "123",
-};
+let obj =
+  {
+    global: "123",
+  };
 
 ================================================================================
 `;
@@ -627,13 +632,14 @@ const shouldFail: { important: boolean } = output.x.children;
 =====================================output=====================================
 // Repro from #13351
 
-type Meta<T, A> = {
-  [P in keyof T]: {
-    value: T[P];
-    also: A;
-    readonly children: Meta<T[P], A>;
+type Meta<T, A> =
+  {
+    [P in keyof T]: {
+      value: T[P];
+      also: A;
+      readonly children: Meta<T[P], A>;
+    };
   };
-};
 
 interface Input {
   x: string;

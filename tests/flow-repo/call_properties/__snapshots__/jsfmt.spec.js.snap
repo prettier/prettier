@@ -101,39 +101,46 @@ var z : Object = function (x: number): string { return "hi"; };
 
 =====================================output=====================================
 // You should be able to use a function as an object with a call property
-var a: { (x: number): string } = function (x: number): string {
-  return "hi";
-};
+var a: { (x: number): string } =
+  function (x: number): string {
+    return "hi";
+  };
 
 // ...and it should notice when the return type is wrong
-var b: { (x: number): number } = function (x: number): string {
-  return "hi";
-};
+var b: { (x: number): number } =
+  function (x: number): string {
+    return "hi";
+  };
 
 // ...or if the param type is wrong
-var c: { (x: string): string } = function (x: number): string {
-  return "hi";
-};
+var c: { (x: string): string } =
+  function (x: number): string {
+    return "hi";
+  };
 
 // ...or if the arity is wrong
-var d: { (): string } = function (x: number): string {
-  return "hi";
-};
+var d: { (): string } =
+  function (x: number): string {
+    return "hi";
+  };
 
 // ...but subtyping rules still apply
 var e: { (x: any): void } = function () {}; // arity
-var f: { (): mixed } = function (): string {
-  return "hi";
-}; // return type
+var f: { (): mixed } =
+  function (): string {
+    return "hi";
+  }; // return type
 var g: { (x: string): void } = function (x: mixed) {}; // param type
 
 // A function can be an object
-var y: {} = function (x: number): string {
-  return "hi";
-};
-var z: Object = function (x: number): string {
-  return "hi";
-};
+var y: {} =
+  function (x: number): string {
+    return "hi";
+  };
+var z: Object =
+  function (x: number): string {
+    return "hi";
+  };
 
 ================================================================================
 `;
@@ -254,14 +261,16 @@ function a(f: { (): string, (x: number): string }): string {
 }
 
 // It should be fine when a function satisfies them all
-var b: { (): string, (x: number): string } = function (x?: number): string {
-  return "hi";
-};
+var b: { (): string, (x: number): string } =
+  function (x?: number): string {
+    return "hi";
+  };
 
 // ...but should notice when a function doesn't satisfy them all
-var c: { (): string, (x: number): string } = function (x: number): string {
-  return "hi";
-};
+var c: { (): string, (x: number): string } =
+  function (x: number): string {
+    return "hi";
+  };
 
 // Only one call property needs to match the function
 function d(x: { (): string, (x: number): string }): () => string {
@@ -353,9 +362,10 @@ var d: { (): string } = (x) => "hi";
 // ...but subtyping rules still apply
 var e: { (x: any): void } = () => {}; // arity
 var f: { (): mixed } = () => "hi"; // return type
-var g: { (x: Date): void } = (x) => {
-  x * 2;
-}; // param type (date < number)
+var g: { (x: Date): void } =
+  (x) => {
+    x * 2;
+  }; // param type (date < number)
 
 // A function can be an object
 var y: {} = (x) => "hi";

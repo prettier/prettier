@@ -64,25 +64,26 @@ a.forEach((x) => (y = x));
 var alittle: Array<?number> = [0, 1, 2, 3, null];
 var abig: Array<?number> = [0, 1, 2, 3, 4, 5, 6, 8, null];
 
-var abig2: Array<{ x: number, y: number }> = [
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0 },
-  { x: 0, y: 0, a: true },
-  { x: 0, y: 0, b: "hey" },
-  { x: 0, y: 0, c: 1 },
-  { x: 0, y: 0, c: "hey" },
-];
+var abig2: Array<{ x: number, y: number }> =
+  [
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0 },
+    { x: 0, y: 0, a: true },
+    { x: 0, y: 0, b: "hey" },
+    { x: 0, y: 0, c: 1 },
+    { x: 0, y: 0, c: "hey" },
+  ];
 
 module.exports = "arrays";
 

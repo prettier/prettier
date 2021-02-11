@@ -81,24 +81,25 @@ class C {
 
 // Objects
 
-const o = {
-  foo(): number {
-    return 0;
-  },
-  foo(): string {
-    return "hello";
-  }, // last wins
-  x: 42,
-  x: "hello", // last wins
-  bar(): number {
-    return 0;
-  },
-  bar: "hello", // last wins
-  qux: 42,
-  qux(): string {
-    return "hello";
-  }, // last wins
-};
+const o =
+  {
+    foo(): number {
+      return 0;
+    },
+    foo(): string {
+      return "hello";
+    }, // last wins
+    x: 42,
+    x: "hello", // last wins
+    bar(): number {
+      return 0;
+    },
+    bar: "hello", // last wins
+    qux: 42,
+    qux(): string {
+      return "hello";
+    }, // last wins
+  };
 
 // check
 

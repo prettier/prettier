@@ -34,8 +34,8 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
 =====================================output=====================================
 type IAmIncredibleLongParameterType = {};<CR>
 const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<CR>
-export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CR>
-  (_0: IAmIncredibleLongParameterType) => {<CR>
+export const IAmIncredibleLongFunctionName =<CR>
+  IAmAnotherFunctionName((_0: IAmIncredibleLongParameterType) => {<CR>
     setTimeout(() => {<CR>
       /*<CR>
           Multiline comment<CR>
@@ -53,8 +53,7 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CR>
          Multiline string\`<CR>
       );<CR>
     });<CR>
-  }<CR>
-);<CR>
+  });<CR>
 
 ================================================================================
 `;
@@ -93,8 +92,8 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
 =====================================output=====================================
 type IAmIncredibleLongParameterType = {};<CRLF>
 const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<CRLF>
-export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CRLF>
-  (_0: IAmIncredibleLongParameterType) => {<CRLF>
+export const IAmIncredibleLongFunctionName =<CRLF>
+  IAmAnotherFunctionName((_0: IAmIncredibleLongParameterType) => {<CRLF>
     setTimeout(() => {<CRLF>
       /*<CRLF>
           Multiline comment<CRLF>
@@ -112,8 +111,7 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CRLF>
          Multiline string\`<CRLF>
       );<CRLF>
     });<CRLF>
-  }<CRLF>
-);<CRLF>
+  });<CRLF>
 
 ================================================================================
 `;
@@ -152,8 +150,8 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
 =====================================output=====================================
 type IAmIncredibleLongParameterType = {};<LF>
 const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
-export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
-  (_0: IAmIncredibleLongParameterType) => {<LF>
+export const IAmIncredibleLongFunctionName =<LF>
+  IAmAnotherFunctionName((_0: IAmIncredibleLongParameterType) => {<LF>
     setTimeout(() => {<LF>
       /*<LF>
           Multiline comment<LF>
@@ -171,8 +169,7 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
          Multiline string\`<LF>
       );<LF>
     });<LF>
-  }<LF>
-);<LF>
+  });<LF>
 
 ================================================================================
 `;

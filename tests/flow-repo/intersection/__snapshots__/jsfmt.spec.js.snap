@@ -99,12 +99,13 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
  * @flow
  */
 
-type DuplexStreamOptions = ReadableStreamOptions &
-  WritableStreamOptions & {
-    allowHalfOpen?: boolean,
-    readableObjectMode?: boolean,
-    writableObjectMode?: boolean,
-  };
+type DuplexStreamOptions =
+  ReadableStreamOptions &
+    WritableStreamOptions & {
+      allowHalfOpen?: boolean,
+      readableObjectMode?: boolean,
+      writableObjectMode?: boolean,
+    };
 
 function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
   return (

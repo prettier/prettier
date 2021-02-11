@@ -22,10 +22,11 @@ module.exports = {
  * @flow
  */
 
-module.exports = {
-  numberValueA: 1,
-  stringValueA: "someString",
-};
+module.exports =
+  {
+    numberValueA: 1,
+    stringValueA: "someString",
+  };
 
 ================================================================================
 `;
@@ -52,10 +53,11 @@ module.exports = {
  * @flow
  */
 
-module.exports = {
-  numberValueB: 1,
-  stringValueB: "someString",
-};
+module.exports =
+  {
+    numberValueB: 1,
+    stringValueB: "someString",
+  };
 
 ================================================================================
 `;

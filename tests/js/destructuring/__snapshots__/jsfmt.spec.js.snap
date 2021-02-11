@@ -63,21 +63,24 @@ const {
 
 const {
   name: { first, last },
-  organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode },
-  },
+  organisation:
+    {
+      address: { street: orgStreetAddress, postcode: orgPostcode },
+    },
 } = user;
 
 function f({ data: { name } }) {}
 
-const UserComponent = function ({
-  name: { first, last },
-  organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode },
-  },
-}) {
-  return;
-};
+const UserComponent =
+  function ({
+    name: { first, last },
+    organisation:
+      {
+        address: { street: orgStreetAddress, postcode: orgPostcode },
+      },
+  }) {
+    return;
+  };
 
 const {
   a,
@@ -95,18 +98,20 @@ try {
 try {
   // code
 } catch ({
-  data: {
-    message: { errors },
-  },
+  data:
+    {
+      message: { errors },
+    },
 }) {
   // code
 }
 
-const obj = {
-  func(id, { blog: { title } }) {
-    return id + title;
-  },
-};
+const obj =
+  {
+    func(id, { blog: { title } }) {
+      return id + title;
+    },
+  };
 
 class A {
   func(id, { blog: { title } }) {

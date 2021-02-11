@@ -364,12 +364,13 @@ printWidth: 80
       setInterval(this.fetchComments.bind(this), this.props.pollInterval);
     }
     render() {
-      let handleCommentSubmit = (comment: { author: string; text: string }) => {
-        console.warn("comment submitted!", comment);
-        const updated = this.state.data.slice(0);
-        updated.push(comment);
-        this.setState({ data: updated });
-      };
+      let handleCommentSubmit =
+        (comment: { author: string; text: string }) => {
+          console.warn("comment submitted!", comment);
+          const updated = this.state.data.slice(0);
+          updated.push(comment);
+          this.setState({ data: updated });
+        };
       return (
         <div className="commentBox">
           <h1>Comments</h1>

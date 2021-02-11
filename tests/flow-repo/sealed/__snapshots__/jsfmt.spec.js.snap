@@ -22,12 +22,14 @@ module.exports = Bar;
 function Bar(x: number) {
   this.x = x;
 }
-Bar.prototype.getX = function () {
-  return this.x;
-};
-Bar.prototype.getY = function (): string {
-  return this.y;
-};
+Bar.prototype.getX =
+  function () {
+    return this.x;
+  };
+Bar.prototype.getY =
+  function (): string {
+    return this.y;
+  };
 
 module.exports = Bar;
 
@@ -60,18 +62,21 @@ function Foo() {}
 var o = new Foo();
 var x: number = o.x;
 
-Foo.prototype.m = function () {
-  return this.x;
-};
+Foo.prototype.m =
+  function () {
+    return this.x;
+  };
 
 var y: number = o.m();
 o.x = "...";
 
-Foo.prototype = {
-  m: function () {
-    return false;
-  },
-};
+Foo.prototype =
+  {
+    m:
+      function () {
+        return false;
+      },
+  };
 
 var export_o: { x: any } = o; // awkward type cast
 

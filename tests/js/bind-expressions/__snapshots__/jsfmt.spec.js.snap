@@ -53,10 +53,11 @@ const doBothThings = async () => {
 };
 
 =====================================output=====================================
-const doBothThings = async () => {
-  const request = doAsyncThing()
-  return (await request)::doSyncThing()
-}
+const doBothThings =
+  async () => {
+    const request = doAsyncThing()
+    return (await request)::doSyncThing()
+  }
 
 ================================================================================
 `;
@@ -73,10 +74,11 @@ const doBothThings = async () => {
 };
 
 =====================================output=====================================
-const doBothThings = async () => {
-  const request = doAsyncThing();
-  return (await request)::doSyncThing();
-};
+const doBothThings =
+  async () => {
+    const request = doAsyncThing();
+    return (await request)::doSyncThing();
+  };
 
 ================================================================================
 `;

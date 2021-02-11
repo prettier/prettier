@@ -29,13 +29,15 @@ const f3 = function* () {
 });
   
 =====================================output=====================================
-const f1 = function* () {
-  yield 0;
-};
+const f1 =
+  function* () {
+    yield 0;
+  };
 
-const f2 = function* () {
-  yield 0;
-};
+const f2 =
+  function* () {
+    yield 0;
+  };
 
 const f3 = function* () {};
 
@@ -77,19 +79,20 @@ const f = async function * (source, block, opts) {
 =====================================output=====================================
 // https://github.com/meriyah/meriyah/commit/f21882c312284572ac6d7e7630c4a677d6caed92
 
-const f = async function* (source, block, opts) {
-  for await (const entry of source) {
-    yield async function () {
-      const cid = await persist(entry.content.serialize(), block, opts);
-      return {
-        cid,
-        path: entry.path,
-        unixfs: UnixFS.unmarshal(entry.content.Data),
-        node: entry.content,
+const f =
+  async function* (source, block, opts) {
+    for await (const entry of source) {
+      yield async function () {
+        const cid = await persist(entry.content.serialize(), block, opts);
+        return {
+          cid,
+          path: entry.path,
+          unixfs: UnixFS.unmarshal(entry.content.Data),
+          node: entry.content,
+        };
       };
-    };
-  }
-};
+    }
+  };
 
 ================================================================================
 `;

@@ -117,9 +117,10 @@ module.exports = Object.freeze({
  * @flow
  */
 
-module.exports = Object.freeze({
-  numberValue1: 1,
-});
+module.exports =
+  Object.freeze({
+    numberValue1: 1,
+  });
 
 ================================================================================
 `;
@@ -149,13 +150,14 @@ module.exports = {
  * @flow
  */
 
-module.exports = {
-  numberValue1: 1,
-  numberValue2: 2,
-  numberValue3: 3,
-  numberValue4: 4,
-  numberValue5: 5,
-};
+module.exports =
+  {
+    numberValue1: 1,
+    numberValue2: 2,
+    numberValue3: 3,
+    numberValue4: 4,
+    numberValue5: 5,
+  };
 
 ================================================================================
 `;
@@ -857,9 +859,10 @@ module.exports = {
  * @flow
  */
 
-module.exports = {
-  numberValue: 42,
-};
+module.exports =
+  {
+    numberValue: 42,
+  };
 
 ================================================================================
 `;
@@ -1480,8 +1483,8 @@ var numberValue6 = require("ES6_ExportFrom_Intermediary2").numberValue1;
 var ap1: number = numberValue6;
 var ap2: string = numberValue6; // Error: number ~> string
 
-var numberValue2_renamed2 = require("ES6_ExportFrom_Intermediary2")
-  .numberValue2_renamed2;
+var numberValue2_renamed2 =
+  require("ES6_ExportFrom_Intermediary2").numberValue2_renamed2;
 var aq1: number = numberValue2_renamed2;
 var aq2: string = numberValue2_renamed2; // Error: number ~> string
 

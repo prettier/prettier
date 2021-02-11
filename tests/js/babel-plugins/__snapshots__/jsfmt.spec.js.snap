@@ -342,15 +342,17 @@ class Bork {
 class Bork {
   //Property initializer syntax
   instanceProperty = "bork";
-  boundFunction = () => {
-    return this.instanceProperty;
-  };
+  boundFunction =
+    () => {
+      return this.instanceProperty;
+    };
 
   //Static class properties
   static staticProperty = "babelIsCool";
-  static staticFunction = function () {
-    return Bork.staticProperty;
-  };
+  static staticFunction =
+    function () {
+      return Bork.staticProperty;
+    };
 }
 
 let myBork = new Bork();
@@ -631,13 +633,14 @@ let a = x > 10 ? 'big' : 'small';
 =====================================output=====================================
 // https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
 
-let a = do {
-  if (x > 10) {
-    ("big");
-  } else {
-    ("small");
-  }
-};
+let a =
+  do {
+    if (x > 10) {
+      ("big");
+    } else {
+      ("small");
+    }
+  };
 // is equivalent to:
 let a = x > 10 ? "big" : "small";
 
@@ -1004,12 +1007,13 @@ var profile = <div>
 =====================================output=====================================
 // https://babeljs.io/docs/en/babel-plugin-syntax-jsx
 
-var profile = (
-  <div>
-    <img src="avatar.png" className="profile" />
-    <h3>{[user.firstName, user.lastName].join(" ")}</h3>
-  </div>
-);
+var profile =
+  (
+    <div>
+      <img src="avatar.png" className="profile" />
+      <h3>{[user.firstName, user.lastName].join(" ")}</h3>
+    </div>
+  );
 
 ================================================================================
 `;
@@ -1354,13 +1358,16 @@ const ret = delete obj?.foo?.bar?.baz; // true
 =====================================output=====================================
 // https://babeljs.io/docs/en/babel-plugin-proposal-optional-chaining
 
-const obj = {
-  foo: {
-    bar: {
-      baz: 42,
-    },
-  },
-};
+const obj =
+  {
+    foo:
+      {
+        bar:
+          {
+            baz: 42,
+          },
+      },
+  };
 
 const baz = obj?.foo?.bar?.baz; // 42
 
@@ -1373,15 +1380,18 @@ obj?.foo.bar?.baz; // Only access \`foo\` if \`obj\` exists, and \`baz\` if
 // Example usage with bracket notation:
 obj?.["foo"]?.bar?.baz; // 42
 
-const obj2 = {
-  foo: {
-    bar: {
-      baz() {
-        return 42;
+const obj2 =
+  {
+    foo:
+      {
+        bar:
+          {
+            baz() {
+              return 42;
+            },
+          },
       },
-    },
-  },
-};
+  };
 
 const baz2 = obj?.foo?.bar?.baz(); // 42
 
@@ -1398,13 +1408,16 @@ test?.(); // 42
 
 exists?.(); // undefined
 
-const obj3 = {
-  foo: {
-    bar: {
-      baz: class {},
-    },
-  },
-};
+const obj3 =
+  {
+    foo:
+      {
+        bar:
+          {
+            baz: class {},
+          },
+      },
+  };
 
 const baz3 = new (obj?.foo?.bar?.baz)(); // baz instance
 
@@ -1419,11 +1432,13 @@ new Test(); // test instance
 
 new exists(); // undefined
 
-const obj = {
-  foo: {
-    bar: {},
-  },
-};
+const obj =
+  {
+    foo:
+      {
+        bar: {},
+      },
+  };
 
 const ret = delete obj?.foo?.bar?.baz; // true
 
@@ -1944,11 +1959,12 @@ const record1 = #{
 const record2 = #{...record1, b: 5};
 
 =====================================output=====================================
-const record1 = #{
-  a: 1,
-  b: 2,
-  c: 3,
-};
+const record1 =
+  #{
+    a: 1,
+    b: 2,
+    c: 3,
+  };
 
 const record2 = #{ ...record1, b: 5 };
 

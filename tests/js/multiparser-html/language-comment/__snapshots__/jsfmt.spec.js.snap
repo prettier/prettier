@@ -11,7 +11,8 @@ const html /* HTML */ = \`<DIV>
 </DIV>\`;
 
 =====================================output=====================================
-const html /* HTML */ = \`<DIV>
+const html /* HTML */ =
+  \`<DIV>
 
 </DIV>\`;
 

@@ -399,9 +399,10 @@ rangeStart: 29
   3 | \`;
   4 |
 =====================================output=====================================
-export const Button = styled.button\`
-  color: blue;
-\`;
+export const Button =
+  styled.button\`
+    color: blue;
+  \`;
 
 ================================================================================
 `;
@@ -428,12 +429,13 @@ rangeStart: 80
   9 |
 =====================================output=====================================
 function ugly() {
-  const dictWithSeveralEntries = {
-    key: "value",
-    anotherKey: "another value",
-    firstNumber: 1,
-    secondNumber: 2,
-  };
+  const dictWithSeveralEntries =
+    {
+      key: "value",
+      anotherKey: "another value",
+      firstNumber: 1,
+      secondNumber: 2,
+    };
 }
 
 ================================================================================
@@ -823,15 +825,16 @@ rangeStart: 53
   11 |
 =====================================output=====================================
 
-const y = [
-  {
-    a: 1,
-  },
-  {
-    a: 1,
-    b: 2,
-  },
-];
+const y =
+  [
+    {
+      a: 1,
+    },
+    {
+      a: 1,
+      b: 2,
+    },
+  ];
 
 ================================================================================
 `;

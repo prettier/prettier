@@ -33,17 +33,18 @@ declare var b: B<any>;
 
 class A {}
 
-type B<T> = A & {
-  +a: () => B<T>,
-  +b: () => B<T>,
-  +c: () => B<T>,
-  +d: () => B<T>,
-  +e: () => B<T>,
-  +f: () => B<T>,
-  +g: () => B<T>,
-  +h: () => B<T>,
-  +i: () => B<T>,
-};
+type B<T> =
+  A & {
+    +a: () => B<T>,
+    +b: () => B<T>,
+    +c: () => B<T>,
+    +d: () => B<T>,
+    +e: () => B<T>,
+    +f: () => B<T>,
+    +g: () => B<T>,
+    +h: () => B<T>,
+    +i: () => B<T>,
+  };
 
 declare var b: B<any>;
 
@@ -85,17 +86,18 @@ declare var b: B<any>;
 
 class A {}
 
-type B<T> = A & {
-  +a: (x: B<T>) => void,
-  +b: (x: B<T>) => void,
-  +c: (x: B<T>) => void,
-  +d: (x: B<T>) => void,
-  +e: (x: B<T>) => void,
-  +f: (x: B<T>) => void,
-  +g: (x: B<T>) => void,
-  +h: (x: B<T>) => void,
-  +i: (x: B<T>) => void,
-};
+type B<T> =
+  A & {
+    +a: (x: B<T>) => void,
+    +b: (x: B<T>) => void,
+    +c: (x: B<T>) => void,
+    +d: (x: B<T>) => void,
+    +e: (x: B<T>) => void,
+    +f: (x: B<T>) => void,
+    +g: (x: B<T>) => void,
+    +h: (x: B<T>) => void,
+    +i: (x: B<T>) => void,
+  };
 
 declare var b: B<any>;
 

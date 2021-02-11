@@ -464,27 +464,32 @@ const bLong = {
 };
 
 =====================================output=====================================
-const a = {
-  b: true,
-  c: {
-    c1: "hello",
-  },
-  d: false,
-};
+const a =
+  {
+    b: true,
+    c:
+      {
+        c1: "hello",
+      },
+    d: false,
+  };
 
-const aLong = {
-  bHasALongName: "a-long-value",
-  cHasALongName: {
-    c1: "a-really-long-value",
-    c2: "a-really-really-long-value",
-  },
-  dHasALongName: "a-long-value-too",
-};
+const aLong =
+  {
+    bHasALongName: "a-long-value",
+    cHasALongName:
+      {
+        c1: "a-really-long-value",
+        c2: "a-really-really-long-value",
+      },
+    dHasALongName: "a-long-value-too",
+  };
 
-const bLong = {
-  dHasALongName: "a-long-value-too",
-  eHasABooleanExpression: a === a,
-};
+const bLong =
+  {
+    dHasALongName: "a-long-value-too",
+    eHasABooleanExpression: a === a,
+  };
 
 ================================================================================
 `;
@@ -519,27 +524,32 @@ const bLong = {
 };
 
 =====================================output=====================================
-const a = {
-  b: true,
-  c: {
-    c1: "hello"
-  },
-  d: false
-};
+const a =
+  {
+    b: true,
+    c:
+      {
+        c1: "hello"
+      },
+    d: false
+  };
 
-const aLong = {
-  bHasALongName: "a-long-value",
-  cHasALongName: {
-    c1: "a-really-long-value",
-    c2: "a-really-really-long-value"
-  },
-  dHasALongName: "a-long-value-too"
-};
+const aLong =
+  {
+    bHasALongName: "a-long-value",
+    cHasALongName:
+      {
+        c1: "a-really-long-value",
+        c2: "a-really-really-long-value"
+      },
+    dHasALongName: "a-long-value-too"
+  };
 
-const bLong = {
-  dHasALongName: "a-long-value-too",
-  eHasABooleanExpression: a === a
-};
+const bLong =
+  {
+    dHasALongName: "a-long-value-too",
+    eHasABooleanExpression: a === a
+  };
 
 ================================================================================
 `;
@@ -573,27 +583,32 @@ const bLong = {
 };
 
 =====================================output=====================================
-const a = {
-  b: true,
-  c: {
-    c1: "hello",
-  },
-  d: false,
-};
+const a =
+  {
+    b: true,
+    c:
+      {
+        c1: "hello",
+      },
+    d: false,
+  };
 
-const aLong = {
-  bHasALongName: "a-long-value",
-  cHasALongName: {
-    c1: "a-really-long-value",
-    c2: "a-really-really-long-value",
-  },
-  dHasALongName: "a-long-value-too",
-};
+const aLong =
+  {
+    bHasALongName: "a-long-value",
+    cHasALongName:
+      {
+        c1: "a-really-long-value",
+        c2: "a-really-really-long-value",
+      },
+    dHasALongName: "a-long-value-too",
+  };
 
-const bLong = {
-  dHasALongName: "a-long-value-too",
-  eHasABooleanExpression: a === a,
-};
+const bLong =
+  {
+    dHasALongName: "a-long-value-too",
+    eHasABooleanExpression: a === a,
+  };
 
 ================================================================================
 `;
@@ -650,27 +665,30 @@ this.getAttribute(function(s) /*string*/ {
 });
 
 =====================================output=====================================
-let example = [
-  "FOO",
-  "BAR",
-  // Comment
-];
+let example =
+  [
+    "FOO",
+    "BAR",
+    // Comment
+  ];
 
 foo(
   {},
   // Comment
 );
 
-o = {
-  state,
-  // Comment
-};
+o =
+  {
+    state,
+    // Comment
+  };
 
-o = {
-  state,
+o =
+  {
+    state,
 
-  // Comment
-};
+    // Comment
+  };
 
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
@@ -749,27 +767,30 @@ this.getAttribute(function(s) /*string*/ {
 });
 
 =====================================output=====================================
-let example = [
-  "FOO",
-  "BAR"
-  // Comment
-];
+let example =
+  [
+    "FOO",
+    "BAR"
+    // Comment
+  ];
 
 foo(
   {}
   // Comment
 );
 
-o = {
-  state
-  // Comment
-};
+o =
+  {
+    state
+    // Comment
+  };
 
-o = {
-  state
+o =
+  {
+    state
 
-  // Comment
-};
+    // Comment
+  };
 
 function supersupersupersuperLongF(
   supersupersupersuperLongA,
@@ -847,27 +868,30 @@ this.getAttribute(function(s) /*string*/ {
 });
 
 =====================================output=====================================
-let example = [
-  "FOO",
-  "BAR",
-  // Comment
-];
+let example =
+  [
+    "FOO",
+    "BAR",
+    // Comment
+  ];
 
 foo(
   {}
   // Comment
 );
 
-o = {
-  state,
-  // Comment
-};
+o =
+  {
+    state,
+    // Comment
+  };
 
-o = {
-  state,
+o =
+  {
+    state,
 
-  // Comment
-};
+    // Comment
+  };
 
 function supersupersupersuperLongF(
   supersupersupersuperLongA,

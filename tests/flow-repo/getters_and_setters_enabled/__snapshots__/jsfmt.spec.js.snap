@@ -335,52 +335,53 @@ class A {}
 class B extends A {}
 class C extends A {}
 
-var obj = {
-  get goodGetterNoAnnotation() {
-    return 4;
-  },
-  get goodGetterWithAnnotation(): number {
-    return 4;
-  },
+var obj =
+  {
+    get goodGetterNoAnnotation() {
+      return 4;
+    },
+    get goodGetterWithAnnotation(): number {
+      return 4;
+    },
 
-  set goodSetterNoAnnotation(x) {
-    z = x;
-  },
-  set goodSetterWithAnnotation(x: number) {
-    z = x;
-  },
+    set goodSetterNoAnnotation(x) {
+      z = x;
+    },
+    set goodSetterWithAnnotation(x: number) {
+      z = x;
+    },
 
-  get propWithMatchingGetterAndSetter(): number {
-    return 4;
-  },
-  set propWithMatchingGetterAndSetter(x: number) {},
+    get propWithMatchingGetterAndSetter(): number {
+      return 4;
+    },
+    set propWithMatchingGetterAndSetter(x: number) {},
 
-  // The getter and setter need not have the same type
-  get propWithSubtypingGetterAndSetter(): ?number {
-    return 4;
-  }, // OK
-  set propWithSubtypingGetterAndSetter(x: number) {},
+    // The getter and setter need not have the same type
+    get propWithSubtypingGetterAndSetter(): ?number {
+      return 4;
+    }, // OK
+    set propWithSubtypingGetterAndSetter(x: number) {},
 
-  set propWithSubtypingGetterAndSetterReordered(x: number) {}, // OK
-  get propWithSubtypingGetterAndSetterReordered(): ?number {
-    return 4;
-  },
+    set propWithSubtypingGetterAndSetterReordered(x: number) {}, // OK
+    get propWithSubtypingGetterAndSetterReordered(): ?number {
+      return 4;
+    },
 
-  get exampleOfOrderOfGetterAndSetter(): A {
-    return new A();
-  },
-  set exampleOfOrderOfGetterAndSetter(x: B) {},
+    get exampleOfOrderOfGetterAndSetter(): A {
+      return new A();
+    },
+    set exampleOfOrderOfGetterAndSetter(x: B) {},
 
-  set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
-  get exampleOfOrderOfGetterAndSetterReordered(): A {
-    return new A();
-  },
+    set exampleOfOrderOfGetterAndSetterReordered(x: B) {},
+    get exampleOfOrderOfGetterAndSetterReordered(): A {
+      return new A();
+    },
 
-  set [z](x: string) {},
-  get [z](): string {
-    return string;
-  },
-};
+    set [z](x: string) {},
+    get [z](): string {
+      return string;
+    },
+  };
 
 // Test getting properties with getters
 var testGetterNoError1: number = obj.goodGetterNoAnnotation;
@@ -481,26 +482,27 @@ class A {}
 class B extends A {}
 class C extends A {}
 
-type T = {
-  get goodGetterWithAnnotation(): number,
-  set goodSetterWithAnnotation(x: number): void,
+type T =
+  {
+    get goodGetterWithAnnotation(): number,
+    set goodSetterWithAnnotation(x: number): void,
 
-  get propWithMatchingGetterAndSetter(): number,
-  set propWithMatchingGetterAndSetter(x: number): void,
+    get propWithMatchingGetterAndSetter(): number,
+    set propWithMatchingGetterAndSetter(x: number): void,
 
-  // The getter and setter need not have the same type
-  get propWithSubtypingGetterAndSetter(): ?number, // OK
-  set propWithSubtypingGetterAndSetter(x: number): void,
+    // The getter and setter need not have the same type
+    get propWithSubtypingGetterAndSetter(): ?number, // OK
+    set propWithSubtypingGetterAndSetter(x: number): void,
 
-  set propWithSubtypingGetterAndSetterReordered(x: number): void, // OK
-  get propWithSubtypingGetterAndSetterReordered(): ?number,
+    set propWithSubtypingGetterAndSetterReordered(x: number): void, // OK
+    get propWithSubtypingGetterAndSetterReordered(): ?number,
 
-  get exampleOfOrderOfGetterAndSetter(): A,
-  set exampleOfOrderOfGetterAndSetter(x: B): void,
+    get exampleOfOrderOfGetterAndSetter(): A,
+    set exampleOfOrderOfGetterAndSetter(x: B): void,
 
-  set exampleOfOrderOfGetterAndSetterReordered(x: B): void,
-  get exampleOfOrderOfGetterAndSetterReordered(): A,
-};
+    set exampleOfOrderOfGetterAndSetterReordered(x: B): void,
+    get exampleOfOrderOfGetterAndSetterReordered(): A,
+  };
 
 function test(obj: T) {
   // Test getting properties with getters
@@ -561,17 +563,19 @@ const Example = React.createClass({
 
 import React from "react";
 
-const Example = React.createClass({
-  propTypes: {
-    get a() {
-      return React.PropTypes.number.isRequired;
-    },
-    set b(x: number) {
-      this.c = x;
-    },
-    c: React.PropTypes.string,
-  },
-});
+const Example =
+  React.createClass({
+    propTypes:
+      {
+        get a() {
+          return React.PropTypes.number.isRequired;
+        },
+        set b(x: number) {
+          this.c = x;
+        },
+        c: React.PropTypes.string,
+      },
+  });
 
 <Example />; // error: property \`a\` not found
 <Example a={0} />; // ok

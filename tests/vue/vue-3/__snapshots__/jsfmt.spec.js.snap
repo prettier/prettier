@@ -31,9 +31,10 @@ printWidth: 80
 <script setup="{ row }"></script>
 <script
   setup="{
-    destructuring: {
-      a: { b },
-    },
+    destructuring:
+      {
+        a: { b },
+      },
   }"
 ></script>
 
@@ -85,9 +86,10 @@ printWidth: 80
 <style vars="{ row }"></style>
 <style
   vars="{
-    destructuring: {
-      a: { b },
-    },
+    destructuring:
+      {
+        a: { b },
+      },
   }"
 ></style>
 

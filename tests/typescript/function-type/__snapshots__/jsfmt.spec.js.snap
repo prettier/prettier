@@ -9,14 +9,16 @@ printWidth: 80
 type X = (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
 type Y = new (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
 =====================================output=====================================
-type X = (options: {
-  a: string;
-  b: AbstractCompositeThingamabobberFactoryProvider;
-}) => {};
-type Y = new (options: {
-  a: string;
-  b: AbstractCompositeThingamabobberFactoryProvider;
-}) => {};
+type X =
+  (options: {
+    a: string;
+    b: AbstractCompositeThingamabobberFactoryProvider;
+  }) => {};
+type Y =
+  new (options: {
+    a: string;
+    b: AbstractCompositeThingamabobberFactoryProvider;
+  }) => {};
 
 ================================================================================
 `;

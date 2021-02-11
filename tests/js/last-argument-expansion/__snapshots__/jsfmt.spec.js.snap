@@ -80,15 +80,19 @@ true
 
 =====================================output=====================================
 ({
-  processors: [
-    require("autoprefixer", {
-      browsers: ["> 1%", "last 2 versions", "ie >= 11", "Firefox ESR"],
-    }),
-    require("postcss-url")({
-      url: (url) =>
-        url.startsWith("/") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`,
-    }),
-  ],
+  processors:
+    [
+      require("autoprefixer", {
+        browsers: ["> 1%", "last 2 versions", "ie >= 11", "Firefox ESR"],
+      }),
+      require("postcss-url")({
+        url:
+          (url) =>
+            url.startsWith("/") || /^[a-z]+:/.test(url)
+              ? url
+              : \`/static/\${url}\`,
+      }),
+    ],
 });
 
 true ? (
@@ -179,35 +183,38 @@ a(
   SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
   [
     {
-      SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong: 1,
+      SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong:
+        1,
     },
   ]
 );
 
-exports.examples = [
-  {
-    render: withGraphQLQuery(
-      "node(1234567890){image{uri}}",
-      function (container, data) {
-        return (
-          <div>
-            <InlineBlock>
-              <img
-                src={data[1234567890].image.uri}
-                style={{
-                  position: "absolute",
-                  top: "0",
-                  left: "0",
-                  zIndex: "-1",
-                }}
-              />
-            </InlineBlock>
-          </div>
-        );
-      }
-    ),
-  },
-];
+exports.examples =
+  [
+    {
+      render:
+        withGraphQLQuery(
+          "node(1234567890){image{uri}}",
+          function (container, data) {
+            return (
+              <div>
+                <InlineBlock>
+                  <img
+                    src={data[1234567890].image.uri}
+                    style={{
+                      position: "absolute",
+                      top: "0",
+                      left: "0",
+                      zIndex: "-1",
+                    }}
+                  />
+                </InlineBlock>
+              </div>
+            );
+          }
+        ),
+    },
+  ];
 
 someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally.a(
   [
@@ -395,11 +402,12 @@ const els = items.map(item => (
 ));
 
 =====================================output=====================================
-const els = items.map((item) => (
-  <div className="whatever">
-    <span>{children}</span>
-  </div>
-));
+const els =
+  items.map((item) => (
+    <div className="whatever">
+      <span>{children}</span>
+    </div>
+  ));
 
 ================================================================================
 `;
@@ -431,25 +439,28 @@ export const log = y => {
 };
 
 =====================================output=====================================
-const formatData = pipe(
-  zip,
-  map(([ref, data]) => ({
-    nodeId: ref.nodeId.toString(),
-    ...attributeFromDataValue(ref.attributeId, data),
-  })),
-  groupBy(prop("nodeId")),
-  map(mergeAll),
-  values
-);
+const formatData =
+  pipe(
+    zip,
+    map(([ref, data]) => ({
+      nodeId: ref.nodeId.toString(),
+      ...attributeFromDataValue(ref.attributeId, data),
+    })),
+    groupBy(prop("nodeId")),
+    map(mergeAll),
+    values
+  );
 
-export const setProp = (y) => ({
-  ...y,
-  a: "very, very, very long very, very long text",
-});
+export const setProp =
+  (y) => ({
+    ...y,
+    a: "very, very, very long very, very long text",
+  });
 
-export const log = (y) => {
-  console.log("very, very, very long very, very long text");
-};
+export const log =
+  (y) => {
+    console.log("very, very, very long very, very long text");
+  };
 
 ================================================================================
 `;
@@ -583,18 +594,19 @@ foo(
   ) => {}
 );
 
-const contentTypes = function (tile, singleSelection) {
-  return compute(function contentTypesContentTypes(
-    tile,
-    searchString = "",
-    filteredContentTypes = [],
-    contentTypesArray = [],
-    selectedGroup,
-    singleSelection
-  ) {
-    selectedGroup = (tile.state && tile.state.group) || selectedGroup;
-  });
-};
+const contentTypes =
+  function (tile, singleSelection) {
+    return compute(function contentTypesContentTypes(
+      tile,
+      searchString = "",
+      filteredContentTypes = [],
+      contentTypesArray = [],
+      selectedGroup,
+      singleSelection
+    ) {
+      selectedGroup = (tile.state && tile.state.group) || selectedGroup;
+    });
+  };
 
 ================================================================================
 `;

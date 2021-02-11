@@ -47,11 +47,12 @@ function isActive(ad: {
 }
 isActive({ state: "PAUSE" });
 
-var MyStates = {
-  PAUSED: "PAUSED",
-  ACTIVE: "ACTIVE",
-  DELETED: "DELETED",
-};
+var MyStates =
+  {
+    PAUSED: "PAUSED",
+    ACTIVE: "ACTIVE",
+    DELETED: "DELETED",
+  };
 function isActive2(ad: { state: $Keys<typeof MyStates> }): boolean {
   return ad.state === MyStates.ACTIVE;
 }

@@ -17,10 +17,11 @@ a(
 );
 
 =====================================output=====================================
-btnActions[1] = () => (
-  <button> test </button>
-  // :testC
-);
+btnActions[1] =
+  () => (
+    <button> test </button>
+    // :testC
+  );
 
 a(
   // ::

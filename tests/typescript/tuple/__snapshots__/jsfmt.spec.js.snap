@@ -17,14 +17,15 @@ type ValidateArgs = [
 ];
 
 =====================================output=====================================
-type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
-];
+type ValidateArgs =
+  [
+    {
+      [key: string]: any;
+    },
+    string,
+    string,
+    ...string[]
+  ];
 
 ================================================================================
 `;
@@ -46,14 +47,15 @@ type ValidateArgs = [
 ];
 
 =====================================output=====================================
-type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
-];
+type ValidateArgs =
+  [
+    {
+      [key: string]: any;
+    },
+    string,
+    string,
+    ...string[]
+  ];
 
 ================================================================================
 `;
@@ -74,14 +76,15 @@ type ValidateArgs = [
 ];
 
 =====================================output=====================================
-type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
-];
+type ValidateArgs =
+  [
+    {
+      [key: string]: any;
+    },
+    string,
+    string,
+    ...string[]
+  ];
 
 ================================================================================
 `;
@@ -226,14 +229,15 @@ export type SCMRawResource = [
 ];
 
 =====================================output=====================================
-export type SCMRawResource = [
-  number /*handle*/,
-  string /*resourceUri*/,
-  modes.Command /*command*/,
-  string[] /*icons: light, dark*/,
-  boolean /*strike through*/,
-  boolean /*faded*/,
-];
+export type SCMRawResource =
+  [
+    number /*handle*/,
+    string /*resourceUri*/,
+    modes.Command /*command*/,
+    string[] /*icons: light, dark*/,
+    boolean /*strike through*/,
+    boolean /*faded*/,
+  ];
 
 ================================================================================
 `;
@@ -256,14 +260,15 @@ export type SCMRawResource = [
 ];
 
 =====================================output=====================================
-export type SCMRawResource = [
-  number /*handle*/,
-  string /*resourceUri*/,
-  modes.Command /*command*/,
-  string[] /*icons: light, dark*/,
-  boolean /*strike through*/,
-  boolean /*faded*/
-];
+export type SCMRawResource =
+  [
+    number /*handle*/,
+    string /*resourceUri*/,
+    modes.Command /*command*/,
+    string[] /*icons: light, dark*/,
+    boolean /*strike through*/,
+    boolean /*faded*/
+  ];
 
 ================================================================================
 `;
@@ -285,14 +290,15 @@ export type SCMRawResource = [
 ];
 
 =====================================output=====================================
-export type SCMRawResource = [
-  number /*handle*/,
-  string /*resourceUri*/,
-  modes.Command /*command*/,
-  string[] /*icons: light, dark*/,
-  boolean /*strike through*/,
-  boolean /*faded*/
-];
+export type SCMRawResource =
+  [
+    number /*handle*/,
+    string /*resourceUri*/,
+    modes.Command /*command*/,
+    string[] /*icons: light, dark*/,
+    boolean /*strike through*/,
+    boolean /*faded*/
+  ];
 
 ================================================================================
 `;

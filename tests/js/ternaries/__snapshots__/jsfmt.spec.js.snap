@@ -28,16 +28,17 @@ const funnelSnapshotCard =
         <ReportMetricsFunnelSnapshotCard metrics={metrics} />
     ) : null;
 
-room = room.map((row, rowIndex) =>
-    row.map((col, colIndex) =>
-        rowIndex === 0 ||
-        colIndex === 0 ||
-        rowIndex === height ||
-        colIndex === width
-            ? 1
-            : 0
-    )
-);
+room =
+    room.map((row, rowIndex) =>
+        row.map((col, colIndex) =>
+            rowIndex === 0 ||
+            colIndex === 0 ||
+            rowIndex === height ||
+            colIndex === width
+                ? 1
+                : 0
+        )
+    );
 
 ================================================================================
 `;
@@ -71,16 +72,17 @@ const funnelSnapshotCard =
 		<ReportMetricsFunnelSnapshotCard metrics={metrics} />
 	) : null;
 
-room = room.map((row, rowIndex) =>
-	row.map((col, colIndex) =>
-		rowIndex === 0 ||
-		colIndex === 0 ||
-		rowIndex === height ||
-		colIndex === width
-			? 1
-			: 0
-	)
-);
+room =
+	room.map((row, rowIndex) =>
+		row.map((col, colIndex) =>
+			rowIndex === 0 ||
+			colIndex === 0 ||
+			rowIndex === height ||
+			colIndex === width
+				? 1
+				: 0
+		)
+	);
 
 ================================================================================
 `;
@@ -113,16 +115,17 @@ const funnelSnapshotCard =
 		<ReportMetricsFunnelSnapshotCard metrics={metrics} />
 	) : null;
 
-room = room.map((row, rowIndex) =>
-	row.map((col, colIndex) =>
-		rowIndex === 0 ||
-		colIndex === 0 ||
-		rowIndex === height ||
-		colIndex === width
-			? 1
-			: 0
-	)
-);
+room =
+	room.map((row, rowIndex) =>
+		row.map((col, colIndex) =>
+			rowIndex === 0 ||
+			colIndex === 0 ||
+			rowIndex === height ||
+			colIndex === width
+				? 1
+				: 0
+		)
+	);
 
 ================================================================================
 `;
@@ -154,16 +157,17 @@ const funnelSnapshotCard =
     <ReportMetricsFunnelSnapshotCard metrics={metrics} />
   ) : null;
 
-room = room.map((row, rowIndex) =>
-  row.map((col, colIndex) =>
-    rowIndex === 0 ||
-    colIndex === 0 ||
-    rowIndex === height ||
-    colIndex === width
-      ? 1
-      : 0
-  )
-);
+room =
+  room.map((row, rowIndex) =>
+    row.map((col, colIndex) =>
+      rowIndex === 0 ||
+      colIndex === 0 ||
+      rowIndex === height ||
+      colIndex === width
+        ? 1
+        : 0
+    )
+  );
 
 ================================================================================
 `;
@@ -481,133 +485,139 @@ a
           a: 0,
       }
     : {
-          a: {
-              a: 0,
-          }
-              ? {
-                    a: 0,
-                }
-              : {
-                    y: {
+          a:
+              {
+                  a: 0,
+              }
+                  ? {
                         a: 0,
                     }
-                        ? {
-                              a: 0,
-                          }
-                        : {
-                              a: 0,
-                          },
-                },
+                  : {
+                        y:
+                            {
+                                a: 0,
+                            }
+                                ? {
+                                      a: 0,
+                                  }
+                                : {
+                                      a: 0,
+                                  },
+                    },
       };
 
 a
     ? {
-          a: function () {
-              return a
-                  ? {
-                        a: [
-                            a
-                                ? {
-                                      a: 0,
-                                      b: [a ? [0, 1] : []],
-                                  }
-                                : [
-                                      [
-                                          0,
-                                          {
+          a:
+              function () {
+                  return a
+                      ? {
+                            a:
+                                [
+                                    a
+                                        ? {
                                               a: 0,
-                                          },
-                                          a ? 0 : 1,
-                                      ],
-                                      function () {
-                                          return a
-                                              ? {
-                                                    a: 0,
-                                                }
-                                              : [
-                                                    {
-                                                        a: 0,
-                                                    },
-                                                    {},
-                                                ];
-                                      },
-                                  ],
-                        ],
-                    }
-                  : [
-                        a
-                            ? function () {
-                                  a
-                                      ? a(
-                                            a
-                                                ? {
-                                                      a: a({
-                                                          a: 0,
-                                                      }),
-                                                  }
-                                                : [
-                                                      0,
-                                                      a(),
-                                                      a(
-                                                          a(),
-                                                          {
-                                                              a: 0,
-                                                          },
-                                                          a
-                                                              ? a()
-                                                              : a({
-                                                                    a: 0,
-                                                                })
-                                                      ),
-                                                      a()
-                                                          ? {
-                                                                a: a(),
-                                                                b: [],
-                                                            }
-                                                          : {},
-                                                  ]
-                                        )
-                                      : a(
-                                            a()
-                                                ? {
+                                              b: [a ? [0, 1] : []],
+                                          }
+                                        : [
+                                              [
+                                                  0,
+                                                  {
                                                       a: 0,
-                                                  }
-                                                : (function (a) {
-                                                      return a()
-                                                          ? [
-                                                                {
-                                                                    a: 0,
-                                                                    b: a(),
-                                                                },
-                                                            ]
-                                                          : a([
-                                                                a
-                                                                    ? {
-                                                                          a: 0,
-                                                                      }
-                                                                    : {},
-                                                                {
-                                                                    a: 0,
-                                                                },
-                                                            ]);
-                                                  })(
-                                                      a
-                                                          ? function (a) {
-                                                                return function () {
-                                                                    return 0;
-                                                                };
-                                                            }
-                                                          : function (a) {
-                                                                return function () {
-                                                                    return 1;
-                                                                };
-                                                            }
-                                                  )
-                                        );
-                              }
-                            : function () {},
-                    ];
-          },
+                                                  },
+                                                  a ? 0 : 1,
+                                              ],
+                                              function () {
+                                                  return a
+                                                      ? {
+                                                            a: 0,
+                                                        }
+                                                      : [
+                                                            {
+                                                                a: 0,
+                                                            },
+                                                            {},
+                                                        ];
+                                              },
+                                          ],
+                                ],
+                        }
+                      : [
+                            a
+                                ? function () {
+                                      a
+                                          ? a(
+                                                a
+                                                    ? {
+                                                          a:
+                                                              a({
+                                                                  a: 0,
+                                                              }),
+                                                      }
+                                                    : [
+                                                          0,
+                                                          a(),
+                                                          a(
+                                                              a(),
+                                                              {
+                                                                  a: 0,
+                                                              },
+                                                              a
+                                                                  ? a()
+                                                                  : a({
+                                                                        a: 0,
+                                                                    })
+                                                          ),
+                                                          a()
+                                                              ? {
+                                                                    a: a(),
+                                                                    b: [],
+                                                                }
+                                                              : {},
+                                                      ]
+                                            )
+                                          : a(
+                                                a()
+                                                    ? {
+                                                          a: 0,
+                                                      }
+                                                    : (function (a) {
+                                                          return a()
+                                                              ? [
+                                                                    {
+                                                                        a: 0,
+                                                                        b: a(),
+                                                                    },
+                                                                ]
+                                                              : a([
+                                                                    a
+                                                                        ? {
+                                                                              a:
+                                                                                  0,
+                                                                          }
+                                                                        : {},
+                                                                    {
+                                                                        a: 0,
+                                                                    },
+                                                                ]);
+                                                      })(
+                                                          a
+                                                              ? function (a) {
+                                                                    return function () {
+                                                                        return 0;
+                                                                    };
+                                                                }
+                                                              : function (a) {
+                                                                    return function () {
+                                                                        return 1;
+                                                                    };
+                                                                }
+                                                      )
+                                            );
+                                  }
+                                : function () {},
+                        ];
+              },
       }
     : a;
 
@@ -812,137 +822,153 @@ a
 			a: 0,
 	  }
 	: {
-			a: {
-				a: 0,
-			}
-				? {
-						a: 0,
-				  }
-				: {
-						y: {
+			a:
+				{
+					a: 0,
+				}
+					? {
 							a: 0,
-						}
-							? {
+					  }
+					: {
+							y:
+								{
 									a: 0,
-							  }
-							: {
-									a: 0,
-							  },
-				  },
+								}
+									? {
+											a: 0,
+									  }
+									: {
+											a: 0,
+									  },
+					  },
 	  };
 
 a
 	? {
-			a: function () {
-				return a
-					? {
-							a: [
-								a
-									? {
-											a: 0,
-											b: [a ? [0, 1] : []],
-									  }
-									: [
-											[
-												0,
-												{
-													a: 0,
-												},
-												a ? 0 : 1,
-											],
-											function () {
-												return a
-													? {
-															a: 0,
-													  }
-													: [
-															{
-																a: 0,
-															},
-															{},
-													  ];
-											},
-									  ],
-							],
-					  }
-					: [
-							a
-								? function () {
+			a:
+				function () {
+					return a
+						? {
+								a:
+									[
 										a
-											? a(
-													a
-														? {
-																a: a({
+											? {
+													a: 0,
+													b: [a ? [0, 1] : []],
+											  }
+											: [
+													[
+														0,
+														{
+															a: 0,
+														},
+														a ? 0 : 1,
+													],
+													function () {
+														return a
+															? {
 																	a: 0,
-																}),
-														  }
-														: [
-																0,
-																a(),
-																a(
-																	a(),
+															  }
+															: [
 																	{
 																		a: 0,
 																	},
+																	{},
+															  ];
+													},
+											  ],
+									],
+						  }
+						: [
+								a
+									? function () {
+											a
+												? a(
+														a
+															? {
+																	a:
+																		a({
+																			a:
+																				0,
+																		}),
+															  }
+															: [
+																	0,
+																	a(),
+																	a(
+																		a(),
+																		{
+																			a:
+																				0,
+																		},
+																		a
+																			? a()
+																			: a(
+																					{
+																						a:
+																							0,
+																					}
+																			  )
+																	),
+																	a()
+																		? {
+																				a:
+																					a(),
+																				b:
+																					[],
+																		  }
+																		: {},
+															  ]
+												  )
+												: a(
+														a()
+															? {
+																	a: 0,
+															  }
+															: (function (a) {
+																	return a()
+																		? [
+																				{
+																					a:
+																						0,
+																					b:
+																						a(),
+																				},
+																		  ]
+																		: a([
+																				a
+																					? {
+																							a:
+																								0,
+																					  }
+																					: {},
+																				{
+																					a:
+																						0,
+																				},
+																		  ]);
+															  })(
 																	a
-																		? a()
-																		: a({
-																				a: 0,
-																		  })
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: [],
-																	  }
-																	: {},
-														  ]
-											  )
-											: a(
-													a()
-														? {
-																a: 0,
-														  }
-														: (function (a) {
-																return a()
-																	? [
-																			{
-																				a: 0,
-																				b: a(),
-																			},
-																	  ]
-																	: a([
-																			a
-																				? {
-																						a: 0,
-																				  }
-																				: {},
-																			{
-																				a: 0,
-																			},
-																	  ]);
-														  })(
-																a
-																	? function (
-																			a
-																	  ) {
-																			return function () {
-																				return 0;
-																			};
-																	  }
-																	: function (
-																			a
-																	  ) {
-																			return function () {
-																				return 1;
-																			};
-																	  }
-														  )
-											  );
-								  }
-								: function () {},
-					  ];
-			},
+																		? function (
+																				a
+																		  ) {
+																				return function () {
+																					return 0;
+																				};
+																		  }
+																		: function (
+																				a
+																		  ) {
+																				return function () {
+																					return 1;
+																				};
+																		  }
+															  )
+												  );
+									  }
+									: function () {},
+						  ];
+				},
 	  }
 	: a;
 
@@ -1146,133 +1172,138 @@ a
 			a: 0,
 	  }
 	: {
-			a: {
-				a: 0,
-			}
-				? {
-						a: 0,
-				  }
-				: {
-						y: {
+			a:
+				{
+					a: 0,
+				}
+					? {
 							a: 0,
-						}
-							? {
+					  }
+					: {
+							y:
+								{
 									a: 0,
-							  }
-							: {
-									a: 0,
-							  },
-				  },
+								}
+									? {
+											a: 0,
+									  }
+									: {
+											a: 0,
+									  },
+					  },
 	  };
 
 a
 	? {
-			a: function () {
-				return a
-					? {
-							a: [
-								a
-									? {
-											a: 0,
-											b: [a ? [0, 1] : []],
-									  }
-									: [
-											[
-												0,
-												{
-													a: 0,
-												},
-												a ? 0 : 1,
-											],
-											function () {
-												return a
-													? {
-															a: 0,
-													  }
-													: [
-															{
-																a: 0,
-															},
-															{},
-													  ];
-											},
-									  ],
-							],
-					  }
-					: [
-							a
-								? function () {
+			a:
+				function () {
+					return a
+						? {
+								a:
+									[
 										a
-											? a(
-													a
-														? {
-																a: a({
+											? {
+													a: 0,
+													b: [a ? [0, 1] : []],
+											  }
+											: [
+													[
+														0,
+														{
+															a: 0,
+														},
+														a ? 0 : 1,
+													],
+													function () {
+														return a
+															? {
 																	a: 0,
-																}),
-														  }
-														: [
-																0,
-																a(),
-																a(
-																	a(),
+															  }
+															: [
 																	{
 																		a: 0,
 																	},
+																	{},
+															  ];
+													},
+											  ],
+									],
+						  }
+						: [
+								a
+									? function () {
+											a
+												? a(
+														a
+															? {
+																	a:
+																		a({
+																			a: 0,
+																		}),
+															  }
+															: [
+																	0,
+																	a(),
+																	a(
+																		a(),
+																		{
+																			a: 0,
+																		},
+																		a
+																			? a()
+																			: a({
+																					a: 0,
+																			  })
+																	),
+																	a()
+																		? {
+																				a: a(),
+																				b: [],
+																		  }
+																		: {},
+															  ]
+												  )
+												: a(
+														a()
+															? {
+																	a: 0,
+															  }
+															: (function (a) {
+																	return a()
+																		? [
+																				{
+																					a: 0,
+																					b: a(),
+																				},
+																		  ]
+																		: a([
+																				a
+																					? {
+																							a: 0,
+																					  }
+																					: {},
+																				{
+																					a: 0,
+																				},
+																		  ]);
+															  })(
 																	a
-																		? a()
-																		: a({
-																				a: 0,
-																		  })
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: [],
-																	  }
-																	: {},
-														  ]
-											  )
-											: a(
-													a()
-														? {
-																a: 0,
-														  }
-														: (function (a) {
-																return a()
-																	? [
-																			{
-																				a: 0,
-																				b: a(),
-																			},
-																	  ]
-																	: a([
-																			a
-																				? {
-																						a: 0,
-																				  }
-																				: {},
-																			{
-																				a: 0,
-																			},
-																	  ]);
-														  })(
-																a
-																	? function (a) {
-																			return function () {
-																				return 0;
-																			};
-																	  }
-																	: function (a) {
-																			return function () {
-																				return 1;
-																			};
-																	  }
-														  )
-											  );
-								  }
-								: function () {},
-					  ];
-			},
+																		? function (a) {
+																				return function () {
+																					return 0;
+																				};
+																		  }
+																		: function (a) {
+																				return function () {
+																					return 1;
+																				};
+																		  }
+															  )
+												  );
+									  }
+									: function () {},
+						  ];
+				},
 	  }
 	: a;
 
@@ -1475,133 +1506,138 @@ a
       a: 0,
     }
   : {
-      a: {
-        a: 0,
-      }
-        ? {
-            a: 0,
-          }
-        : {
-            y: {
+      a:
+        {
+          a: 0,
+        }
+          ? {
               a: 0,
             }
-              ? {
+          : {
+              y:
+                {
                   a: 0,
                 }
-              : {
-                  a: 0,
-                },
-          },
+                  ? {
+                      a: 0,
+                    }
+                  : {
+                      a: 0,
+                    },
+            },
     };
 
 a
   ? {
-      a: function () {
-        return a
-          ? {
-              a: [
-                a
-                  ? {
-                      a: 0,
-                      b: [a ? [0, 1] : []],
-                    }
-                  : [
-                      [
-                        0,
-                        {
-                          a: 0,
-                        },
-                        a ? 0 : 1,
-                      ],
-                      function () {
-                        return a
-                          ? {
-                              a: 0,
-                            }
-                          : [
-                              {
-                                a: 0,
-                              },
-                              {},
-                            ];
-                      },
-                    ],
-              ],
-            }
-          : [
-              a
-                ? function () {
+      a:
+        function () {
+          return a
+            ? {
+                a:
+                  [
                     a
-                      ? a(
-                          a
-                            ? {
-                                a: a({
+                      ? {
+                          a: 0,
+                          b: [a ? [0, 1] : []],
+                        }
+                      : [
+                          [
+                            0,
+                            {
+                              a: 0,
+                            },
+                            a ? 0 : 1,
+                          ],
+                          function () {
+                            return a
+                              ? {
                                   a: 0,
-                                }),
-                              }
-                            : [
-                                0,
-                                a(),
-                                a(
-                                  a(),
+                                }
+                              : [
                                   {
                                     a: 0,
                                   },
+                                  {},
+                                ];
+                          },
+                        ],
+                  ],
+              }
+            : [
+                a
+                  ? function () {
+                      a
+                        ? a(
+                            a
+                              ? {
+                                  a:
+                                    a({
+                                      a: 0,
+                                    }),
+                                }
+                              : [
+                                  0,
+                                  a(),
+                                  a(
+                                    a(),
+                                    {
+                                      a: 0,
+                                    },
+                                    a
+                                      ? a()
+                                      : a({
+                                          a: 0,
+                                        })
+                                  ),
+                                  a()
+                                    ? {
+                                        a: a(),
+                                        b: [],
+                                      }
+                                    : {},
+                                ]
+                          )
+                        : a(
+                            a()
+                              ? {
+                                  a: 0,
+                                }
+                              : (function (a) {
+                                  return a()
+                                    ? [
+                                        {
+                                          a: 0,
+                                          b: a(),
+                                        },
+                                      ]
+                                    : a([
+                                        a
+                                          ? {
+                                              a: 0,
+                                            }
+                                          : {},
+                                        {
+                                          a: 0,
+                                        },
+                                      ]);
+                                })(
                                   a
-                                    ? a()
-                                    : a({
-                                        a: 0,
-                                      })
-                                ),
-                                a()
-                                  ? {
-                                      a: a(),
-                                      b: [],
-                                    }
-                                  : {},
-                              ]
-                        )
-                      : a(
-                          a()
-                            ? {
-                                a: 0,
-                              }
-                            : (function (a) {
-                                return a()
-                                  ? [
-                                      {
-                                        a: 0,
-                                        b: a(),
-                                      },
-                                    ]
-                                  : a([
-                                      a
-                                        ? {
-                                            a: 0,
-                                          }
-                                        : {},
-                                      {
-                                        a: 0,
-                                      },
-                                    ]);
-                              })(
-                                a
-                                  ? function (a) {
-                                      return function () {
-                                        return 0;
-                                      };
-                                    }
-                                  : function (a) {
-                                      return function () {
-                                        return 1;
-                                      };
-                                    }
-                              )
-                        );
-                  }
-                : function () {},
-            ];
-      },
+                                    ? function (a) {
+                                        return function () {
+                                          return 0;
+                                        };
+                                      }
+                                    : function (a) {
+                                        return function () {
+                                          return 1;
+                                        };
+                                      }
+                                )
+                          );
+                    }
+                  : function () {},
+              ];
+        },
     }
   : a;
 
@@ -1851,19 +1887,21 @@ const decorated = (arg, ignoreRequestError) => {
 };
 
 =====================================output=====================================
-foo7 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+foo7 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )[Fooooooooooo];
 
 foo8 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo9 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+const foo9 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )[Fooooooooooo];
 
 function foo10() {
     return (
@@ -1889,19 +1927,21 @@ function foo12() {
     )[Fooooooooooo];
 }
 
-foo13 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+foo13 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo15 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+const foo15 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
     return (
@@ -1927,19 +1967,21 @@ function foo18() {
     ).Fooooooooooo.Fooooooooooo;
 }
 
-foo19 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo19 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
 
 foo20 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo21 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo21 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
 
 function foo22() {
     return (
@@ -1965,19 +2007,21 @@ function foo24() {
     )(Fooooooooooo.Fooooooooooo);
 }
 
-foo25 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+foo25 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )?.(Fooooooooooo.Fooooooooooo);
 
 foo26 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo27 = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+const foo27 =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )?.(Fooooooooooo.Fooooooooooo);
 
 function foo28() {
     return (
@@ -2026,11 +2070,12 @@ function* foo31() {
     )[Fooooooooooo.Fooooooooooo];
 }
 
-const foo32 = new (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo32 =
+    new (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
 
 function foo33() {
     return new (
@@ -2056,11 +2101,12 @@ function foo35() {
     )(Fooooooooooo.Fooooooooooo);
 }
 
-foo36 = new (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo36 =
+    new (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
     askTrovenaBeenaDependsRowans +
@@ -2103,26 +2149,29 @@ bifornCringerMoshedPerplexSawder =
         ? averredBathersBoxroomBuggyNurl
         : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
 
-bifornCringerMoshedPerplexSawder = (
-    glimseGlyphsHazardNoopsTieTie === 0 &&
-    kochabCooieGameOnOboleUnweave === Math.PI
-        ? averredBathersBoxroomBuggyNurl
-        : anodyneCondosMalateOverateRetinol
-).annularCooeedSplicesWalksWayWay
-    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
-    .annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder =
+    (
+        glimseGlyphsHazardNoopsTieTie === 0 &&
+        kochabCooieGameOnOboleUnweave === Math.PI
+            ? averredBathersBoxroomBuggyNurl
+            : anodyneCondosMalateOverateRetinol
+    ).annularCooeedSplicesWalksWayWay
+        .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+        .annularCooeedSplicesWalksWayWay();
 
-foo = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)?.()?.()?.();
+foo =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )?.()?.()?.();
 
-foo = (
-    coooooooooooooooooooooooooooooooooooooooooooooooooooond
-        ? baaaaaaaaaaaaaaaaaaaaar
-        : baaaaaaaaaaaaaaaaaaaaaz
-)()()();
+foo =
+    (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )()()();
 
 foo =
     foo.bar.baz[
@@ -2131,14 +2180,15 @@ foo =
             : baaaaaaaaaaaaaaaaaaaaaz
     ];
 
-const decorated = (arg, ignoreRequestError) => {
-    return (
-        typeof arg === "string" ||
-        (arg && arg.valueOf && typeof arg.valueOf() === "string")
-            ? $delegate(arg, ignoreRequestError)
-            : handleAsyncOperations(arg, ignoreRequestError)
-    ).foo();
-};
+const decorated =
+    (arg, ignoreRequestError) => {
+        return (
+            typeof arg === "string" ||
+            (arg && arg.valueOf && typeof arg.valueOf() === "string")
+                ? $delegate(arg, ignoreRequestError)
+                : handleAsyncOperations(arg, ignoreRequestError)
+        ).foo();
+    };
 
 ================================================================================
 `;
@@ -2387,19 +2437,21 @@ const decorated = (arg, ignoreRequestError) => {
 };
 
 =====================================output=====================================
-foo7 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+foo7 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
 
 foo8 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo9 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+const foo9 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
 
 function foo10() {
 	return (
@@ -2425,19 +2477,21 @@ function foo12() {
 	)[Fooooooooooo];
 }
 
-foo13 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+foo13 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo15 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+const foo15 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
 	return (
@@ -2463,19 +2517,21 @@ function foo18() {
 	).Fooooooooooo.Fooooooooooo;
 }
 
-foo19 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo19 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 foo20 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo21 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo21 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 function foo22() {
 	return (
@@ -2501,19 +2557,21 @@ function foo24() {
 	)(Fooooooooooo.Fooooooooooo);
 }
 
-foo25 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+foo25 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
 
 foo26 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo27 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+const foo27 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
 
 function foo28() {
 	return (
@@ -2562,11 +2620,12 @@ function* foo31() {
 	)[Fooooooooooo.Fooooooooooo];
 }
 
-const foo32 = new (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo32 =
+	new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 function foo33() {
 	return new (
@@ -2592,11 +2651,12 @@ function foo35() {
 	)(Fooooooooooo.Fooooooooooo);
 }
 
-foo36 = new (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo36 =
+	new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
 	askTrovenaBeenaDependsRowans +
@@ -2639,26 +2699,29 @@ bifornCringerMoshedPerplexSawder =
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
 
-bifornCringerMoshedPerplexSawder = (
-	glimseGlyphsHazardNoopsTieTie === 0 &&
-	kochabCooieGameOnOboleUnweave === Math.PI
-		? averredBathersBoxroomBuggyNurl
-		: anodyneCondosMalateOverateRetinol
-).annularCooeedSplicesWalksWayWay
-	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
-	.annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder =
+	(
+		glimseGlyphsHazardNoopsTieTie === 0 &&
+		kochabCooieGameOnOboleUnweave === Math.PI
+			? averredBathersBoxroomBuggyNurl
+			: anodyneCondosMalateOverateRetinol
+	).annularCooeedSplicesWalksWayWay
+		.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+		.annularCooeedSplicesWalksWayWay();
 
-foo = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)?.()?.()?.();
+foo =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.()?.()?.();
 
-foo = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)()()();
+foo =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)()()();
 
 foo =
 	foo.bar.baz[
@@ -2667,14 +2730,15 @@ foo =
 			: baaaaaaaaaaaaaaaaaaaaaz
 	];
 
-const decorated = (arg, ignoreRequestError) => {
-	return (
-		typeof arg === "string" ||
-		(arg && arg.valueOf && typeof arg.valueOf() === "string")
-			? $delegate(arg, ignoreRequestError)
-			: handleAsyncOperations(arg, ignoreRequestError)
-	).foo();
-};
+const decorated =
+	(arg, ignoreRequestError) => {
+		return (
+			typeof arg === "string" ||
+			(arg && arg.valueOf && typeof arg.valueOf() === "string")
+				? $delegate(arg, ignoreRequestError)
+				: handleAsyncOperations(arg, ignoreRequestError)
+		).foo();
+	};
 
 ================================================================================
 `;
@@ -2922,19 +2986,21 @@ const decorated = (arg, ignoreRequestError) => {
 };
 
 =====================================output=====================================
-foo7 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+foo7 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
 
 foo8 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo9 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+const foo9 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
 
 function foo10() {
 	return (
@@ -2960,19 +3026,21 @@ function foo12() {
 	)[Fooooooooooo];
 }
 
-foo13 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+foo13 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo15 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+const foo15 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
 	return (
@@ -2998,19 +3066,21 @@ function foo18() {
 	).Fooooooooooo.Fooooooooooo;
 }
 
-foo19 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo19 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 foo20 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo21 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo21 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 function foo22() {
 	return (
@@ -3036,19 +3106,21 @@ function foo24() {
 	)(Fooooooooooo.Fooooooooooo);
 }
 
-foo25 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+foo25 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
 
 foo26 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo27 = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+const foo27 =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
 
 function foo28() {
 	return (
@@ -3097,11 +3169,12 @@ function* foo31() {
 	)[Fooooooooooo.Fooooooooooo];
 }
 
-const foo32 = new (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo32 =
+	new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 function foo33() {
 	return new (
@@ -3127,11 +3200,12 @@ function foo35() {
 	)(Fooooooooooo.Fooooooooooo);
 }
 
-foo36 = new (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo36 =
+	new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
 	askTrovenaBeenaDependsRowans +
@@ -3174,26 +3248,29 @@ bifornCringerMoshedPerplexSawder =
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
 
-bifornCringerMoshedPerplexSawder = (
-	glimseGlyphsHazardNoopsTieTie === 0 &&
-	kochabCooieGameOnOboleUnweave === Math.PI
-		? averredBathersBoxroomBuggyNurl
-		: anodyneCondosMalateOverateRetinol
-).annularCooeedSplicesWalksWayWay
-	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
-	.annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder =
+	(
+		glimseGlyphsHazardNoopsTieTie === 0 &&
+		kochabCooieGameOnOboleUnweave === Math.PI
+			? averredBathersBoxroomBuggyNurl
+			: anodyneCondosMalateOverateRetinol
+	).annularCooeedSplicesWalksWayWay
+		.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+		.annularCooeedSplicesWalksWayWay();
 
-foo = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)?.()?.()?.();
+foo =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.()?.()?.();
 
-foo = (
-	coooooooooooooooooooooooooooooooooooooooooooooooooooond
-		? baaaaaaaaaaaaaaaaaaaaar
-		: baaaaaaaaaaaaaaaaaaaaaz
-)()()();
+foo =
+	(
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)()()();
 
 foo =
 	foo.bar.baz[
@@ -3202,14 +3279,15 @@ foo =
 			: baaaaaaaaaaaaaaaaaaaaaz
 	];
 
-const decorated = (arg, ignoreRequestError) => {
-	return (
-		typeof arg === "string" ||
-		(arg && arg.valueOf && typeof arg.valueOf() === "string")
-			? $delegate(arg, ignoreRequestError)
-			: handleAsyncOperations(arg, ignoreRequestError)
-	).foo();
-};
+const decorated =
+	(arg, ignoreRequestError) => {
+		return (
+			typeof arg === "string" ||
+			(arg && arg.valueOf && typeof arg.valueOf() === "string")
+				? $delegate(arg, ignoreRequestError)
+				: handleAsyncOperations(arg, ignoreRequestError)
+		).foo();
+	};
 
 ================================================================================
 `;
@@ -3456,19 +3534,21 @@ const decorated = (arg, ignoreRequestError) => {
 };
 
 =====================================output=====================================
-foo7 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+foo7 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )[Fooooooooooo];
 
 foo8 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo9 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)[Fooooooooooo];
+const foo9 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )[Fooooooooooo];
 
 function foo10() {
   return (
@@ -3494,19 +3574,21 @@ function foo12() {
   )[Fooooooooooo];
 }
 
-foo13 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+foo13 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
 
 foo14 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo15 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-).Fooooooooooo.Fooooooooooo;
+const foo15 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
 
 function foo16() {
   return (
@@ -3532,19 +3614,21 @@ function foo18() {
   ).Fooooooooooo.Fooooooooooo;
 }
 
-foo19 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo19 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
 
 foo20 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo21 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo21 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
 
 function foo22() {
   return (
@@ -3570,19 +3654,21 @@ function foo24() {
   )(Fooooooooooo.Fooooooooooo);
 }
 
-foo25 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+foo25 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )?.(Fooooooooooo.Fooooooooooo);
 
 foo26 = (condition ? firstValue : secondValue)[SomeType];
 
-const foo27 = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)?.(Fooooooooooo.Fooooooooooo);
+const foo27 =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )?.(Fooooooooooo.Fooooooooooo);
 
 function foo28() {
   return (
@@ -3631,11 +3717,12 @@ function* foo31() {
   )[Fooooooooooo.Fooooooooooo];
 }
 
-const foo32 = new (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+const foo32 =
+  new (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
 
 function foo33() {
   return new (
@@ -3661,11 +3748,12 @@ function foo35() {
   )(Fooooooooooo.Fooooooooooo);
 }
 
-foo36 = new (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)(Fooooooooooo.Fooooooooooo);
+foo36 =
+  new (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
@@ -3708,26 +3796,29 @@ bifornCringerMoshedPerplexSawder =
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
 
-bifornCringerMoshedPerplexSawder = (
-  glimseGlyphsHazardNoopsTieTie === 0 &&
-  kochabCooieGameOnOboleUnweave === Math.PI
-    ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol
-).annularCooeedSplicesWalksWayWay
-  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
-  .annularCooeedSplicesWalksWayWay();
+bifornCringerMoshedPerplexSawder =
+  (
+    glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+  ).annularCooeedSplicesWalksWayWay
+    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+    .annularCooeedSplicesWalksWayWay();
 
-foo = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)?.()?.()?.();
+foo =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )?.()?.()?.();
 
-foo = (
-  coooooooooooooooooooooooooooooooooooooooooooooooooooond
-    ? baaaaaaaaaaaaaaaaaaaaar
-    : baaaaaaaaaaaaaaaaaaaaaz
-)()()();
+foo =
+  (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )()()();
 
 foo =
   foo.bar.baz[
@@ -3736,14 +3827,15 @@ foo =
       : baaaaaaaaaaaaaaaaaaaaaz
   ];
 
-const decorated = (arg, ignoreRequestError) => {
-  return (
-    typeof arg === "string" ||
-    (arg && arg.valueOf && typeof arg.valueOf() === "string")
-      ? $delegate(arg, ignoreRequestError)
-      : handleAsyncOperations(arg, ignoreRequestError)
-  ).foo();
-};
+const decorated =
+  (arg, ignoreRequestError) => {
+    return (
+      typeof arg === "string" ||
+      (arg && arg.valueOf && typeof arg.valueOf() === "string")
+        ? $delegate(arg, ignoreRequestError)
+        : handleAsyncOperations(arg, ignoreRequestError)
+    ).foo();
+  };
 
 ================================================================================
 `;
@@ -3857,33 +3949,29 @@ let icecream =
         ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
         : (p) => \`here's your \${p} \${what}\`;
 
-const value = condition1
-    ? value1
-    : condition2
-    ? value2
-    : condition3
-    ? value3
-    : value4;
+const value =
+    condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4;
 
-const StorybookLoader = ({ match }) =>
-    match.params.storyId === "button" ? (
-        <ButtonStorybook />
-    ) : match.params.storyId === "color" ? (
-        <ColorBook />
-    ) : match.params.storyId === "typography" ? (
-        <TypographyBook />
-    ) : match.params.storyId === "loading" ? (
-        <LoaderStorybook />
-    ) : match.params.storyId === "deal-list" ? (
-        <DealListStory />
-    ) : (
-        <Message>
-            <Title>{"Missing story book"}</Title>
-            <Content>
-                <BackButton />
-            </Content>
-        </Message>
-    );
+const StorybookLoader =
+    ({ match }) =>
+        match.params.storyId === "button" ? (
+            <ButtonStorybook />
+        ) : match.params.storyId === "color" ? (
+            <ColorBook />
+        ) : match.params.storyId === "typography" ? (
+            <TypographyBook />
+        ) : match.params.storyId === "loading" ? (
+            <LoaderStorybook />
+        ) : match.params.storyId === "deal-list" ? (
+            <DealListStory />
+        ) : (
+            <Message>
+                <Title>{"Missing story book"}</Title>
+                <Content>
+                    <BackButton />
+                </Content>
+            </Message>
+        );
 
 const message =
     i % 3 === 0 && i % 5 === 0
@@ -3916,30 +4004,31 @@ const paymentMessage2 =
         ? 4 //'Expiry must be sometime in the past.'
         : 5; // 'There was an issue with the payment.  Please contact support.'
 
-const foo = (
-    <div
-        className={
-            "match-achievement-medal-type type" +
-            (medals[0].record
-                ? "-record"
+const foo =
+    (
+        <div
+            className={
+                "match-achievement-medal-type type" +
+                (medals[0].record
+                    ? "-record"
+                    : medals[0].unique
+                    ? "-unique"
+                    : medals[0].type)
+            }
+        >
+            {medals[0].record
+                ? i18n("Record")
                 : medals[0].unique
-                ? "-unique"
-                : medals[0].type)
-        }
-    >
-        {medals[0].record
-            ? i18n("Record")
-            : medals[0].unique
-            ? i18n("Unique")
-            : medals[0].type === 0
-            ? i18n("Silver")
-            : medals[0].type === 1
-            ? i18n("Gold")
-            : medals[0].type === 2
-            ? i18n("Platinum")
-            : i18n("Theme")}
-    </div>
-);
+                ? i18n("Unique")
+                : medals[0].type === 0
+                ? i18n("Silver")
+                : medals[0].type === 1
+                ? i18n("Gold")
+                : medals[0].type === 2
+                ? i18n("Platinum")
+                : i18n("Theme")}
+        </div>
+    );
 
 a
     ? literalline
@@ -4062,33 +4151,29 @@ let icecream =
 		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
 		: (p) => \`here's your \${p} \${what}\`;
 
-const value = condition1
-	? value1
-	: condition2
-	? value2
-	: condition3
-	? value3
-	: value4;
+const value =
+	condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4;
 
-const StorybookLoader = ({ match }) =>
-	match.params.storyId === "button" ? (
-		<ButtonStorybook />
-	) : match.params.storyId === "color" ? (
-		<ColorBook />
-	) : match.params.storyId === "typography" ? (
-		<TypographyBook />
-	) : match.params.storyId === "loading" ? (
-		<LoaderStorybook />
-	) : match.params.storyId === "deal-list" ? (
-		<DealListStory />
-	) : (
-		<Message>
-			<Title>{"Missing story book"}</Title>
-			<Content>
-				<BackButton />
-			</Content>
-		</Message>
-	);
+const StorybookLoader =
+	({ match }) =>
+		match.params.storyId === "button" ? (
+			<ButtonStorybook />
+		) : match.params.storyId === "color" ? (
+			<ColorBook />
+		) : match.params.storyId === "typography" ? (
+			<TypographyBook />
+		) : match.params.storyId === "loading" ? (
+			<LoaderStorybook />
+		) : match.params.storyId === "deal-list" ? (
+			<DealListStory />
+		) : (
+			<Message>
+				<Title>{"Missing story book"}</Title>
+				<Content>
+					<BackButton />
+				</Content>
+			</Message>
+		);
 
 const message =
 	i % 3 === 0 && i % 5 === 0
@@ -4121,30 +4206,31 @@ const paymentMessage2 =
 		? 4 //'Expiry must be sometime in the past.'
 		: 5; // 'There was an issue with the payment.  Please contact support.'
 
-const foo = (
-	<div
-		className={
-			"match-achievement-medal-type type" +
-			(medals[0].record
-				? "-record"
+const foo =
+	(
+		<div
+			className={
+				"match-achievement-medal-type type" +
+				(medals[0].record
+					? "-record"
+					: medals[0].unique
+					? "-unique"
+					: medals[0].type)
+			}
+		>
+			{medals[0].record
+				? i18n("Record")
 				: medals[0].unique
-				? "-unique"
-				: medals[0].type)
-		}
-	>
-		{medals[0].record
-			? i18n("Record")
-			: medals[0].unique
-			? i18n("Unique")
-			: medals[0].type === 0
-			? i18n("Silver")
-			: medals[0].type === 1
-			? i18n("Gold")
-			: medals[0].type === 2
-			? i18n("Platinum")
-			: i18n("Theme")}
-	</div>
-);
+				? i18n("Unique")
+				: medals[0].type === 0
+				? i18n("Silver")
+				: medals[0].type === 1
+				? i18n("Gold")
+				: medals[0].type === 2
+				? i18n("Platinum")
+				: i18n("Theme")}
+		</div>
+	);
 
 a
 	? literalline
@@ -4266,33 +4352,29 @@ let icecream =
 		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
 		: (p) => \`here's your \${p} \${what}\`;
 
-const value = condition1
-	? value1
-	: condition2
-	? value2
-	: condition3
-	? value3
-	: value4;
+const value =
+	condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4;
 
-const StorybookLoader = ({ match }) =>
-	match.params.storyId === "button" ? (
-		<ButtonStorybook />
-	) : match.params.storyId === "color" ? (
-		<ColorBook />
-	) : match.params.storyId === "typography" ? (
-		<TypographyBook />
-	) : match.params.storyId === "loading" ? (
-		<LoaderStorybook />
-	) : match.params.storyId === "deal-list" ? (
-		<DealListStory />
-	) : (
-		<Message>
-			<Title>{"Missing story book"}</Title>
-			<Content>
-				<BackButton />
-			</Content>
-		</Message>
-	);
+const StorybookLoader =
+	({ match }) =>
+		match.params.storyId === "button" ? (
+			<ButtonStorybook />
+		) : match.params.storyId === "color" ? (
+			<ColorBook />
+		) : match.params.storyId === "typography" ? (
+			<TypographyBook />
+		) : match.params.storyId === "loading" ? (
+			<LoaderStorybook />
+		) : match.params.storyId === "deal-list" ? (
+			<DealListStory />
+		) : (
+			<Message>
+				<Title>{"Missing story book"}</Title>
+				<Content>
+					<BackButton />
+				</Content>
+			</Message>
+		);
 
 const message =
 	i % 3 === 0 && i % 5 === 0
@@ -4325,30 +4407,31 @@ const paymentMessage2 =
 		? 4 //'Expiry must be sometime in the past.'
 		: 5; // 'There was an issue with the payment.  Please contact support.'
 
-const foo = (
-	<div
-		className={
-			"match-achievement-medal-type type" +
-			(medals[0].record
-				? "-record"
+const foo =
+	(
+		<div
+			className={
+				"match-achievement-medal-type type" +
+				(medals[0].record
+					? "-record"
+					: medals[0].unique
+					? "-unique"
+					: medals[0].type)
+			}
+		>
+			{medals[0].record
+				? i18n("Record")
 				: medals[0].unique
-				? "-unique"
-				: medals[0].type)
-		}
-	>
-		{medals[0].record
-			? i18n("Record")
-			: medals[0].unique
-			? i18n("Unique")
-			: medals[0].type === 0
-			? i18n("Silver")
-			: medals[0].type === 1
-			? i18n("Gold")
-			: medals[0].type === 2
-			? i18n("Platinum")
-			: i18n("Theme")}
-	</div>
-);
+				? i18n("Unique")
+				: medals[0].type === 0
+				? i18n("Silver")
+				: medals[0].type === 1
+				? i18n("Gold")
+				: medals[0].type === 2
+				? i18n("Platinum")
+				: i18n("Theme")}
+		</div>
+	);
 
 a
 	? literalline
@@ -4469,33 +4552,29 @@ let icecream =
     ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
     : (p) => \`here's your \${p} \${what}\`;
 
-const value = condition1
-  ? value1
-  : condition2
-  ? value2
-  : condition3
-  ? value3
-  : value4;
+const value =
+  condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4;
 
-const StorybookLoader = ({ match }) =>
-  match.params.storyId === "button" ? (
-    <ButtonStorybook />
-  ) : match.params.storyId === "color" ? (
-    <ColorBook />
-  ) : match.params.storyId === "typography" ? (
-    <TypographyBook />
-  ) : match.params.storyId === "loading" ? (
-    <LoaderStorybook />
-  ) : match.params.storyId === "deal-list" ? (
-    <DealListStory />
-  ) : (
-    <Message>
-      <Title>{"Missing story book"}</Title>
-      <Content>
-        <BackButton />
-      </Content>
-    </Message>
-  );
+const StorybookLoader =
+  ({ match }) =>
+    match.params.storyId === "button" ? (
+      <ButtonStorybook />
+    ) : match.params.storyId === "color" ? (
+      <ColorBook />
+    ) : match.params.storyId === "typography" ? (
+      <TypographyBook />
+    ) : match.params.storyId === "loading" ? (
+      <LoaderStorybook />
+    ) : match.params.storyId === "deal-list" ? (
+      <DealListStory />
+    ) : (
+      <Message>
+        <Title>{"Missing story book"}</Title>
+        <Content>
+          <BackButton />
+        </Content>
+      </Message>
+    );
 
 const message =
   i % 3 === 0 && i % 5 === 0
@@ -4528,30 +4607,31 @@ const paymentMessage2 =
     ? 4 //'Expiry must be sometime in the past.'
     : 5; // 'There was an issue with the payment.  Please contact support.'
 
-const foo = (
-  <div
-    className={
-      "match-achievement-medal-type type" +
-      (medals[0].record
-        ? "-record"
+const foo =
+  (
+    <div
+      className={
+        "match-achievement-medal-type type" +
+        (medals[0].record
+          ? "-record"
+          : medals[0].unique
+          ? "-unique"
+          : medals[0].type)
+      }
+    >
+      {medals[0].record
+        ? i18n("Record")
         : medals[0].unique
-        ? "-unique"
-        : medals[0].type)
-    }
-  >
-    {medals[0].record
-      ? i18n("Record")
-      : medals[0].unique
-      ? i18n("Unique")
-      : medals[0].type === 0
-      ? i18n("Silver")
-      : medals[0].type === 1
-      ? i18n("Gold")
-      : medals[0].type === 2
-      ? i18n("Platinum")
-      : i18n("Theme")}
-  </div>
-);
+        ? i18n("Unique")
+        : medals[0].type === 0
+        ? i18n("Silver")
+        : medals[0].type === 1
+        ? i18n("Gold")
+        : medals[0].type === 2
+        ? i18n("Platinum")
+        : i18n("Theme")}
+    </div>
+  );
 
 a
   ? literalline
@@ -4609,25 +4689,27 @@ const value = (bifornCringerMoshedPerplexSawder
 );
 
 =====================================output=====================================
-$var = (
-    $number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-        ? kochabCooieGameOnOboleUnweave
-        : annularCooeedSplicesWalksWayWay
-)
-    ? anodyneCondosMalateOverateRetinol
-    : averredBathersBoxroomBuggyNurl;
+$var =
+    (
+        $number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+            ? kochabCooieGameOnOboleUnweave
+            : annularCooeedSplicesWalksWayWay
+    )
+        ? anodyneCondosMalateOverateRetinol
+        : averredBathersBoxroomBuggyNurl;
 
-const value = (
-    bifornCringerMoshedPerplexSawder
-        ? askTrovenaBeenaDependsRowans
-        : glimseGlyphsHazardNoopsTieTie
-)
-    ? true
+const value =
+    (
+        bifornCringerMoshedPerplexSawder
+            ? askTrovenaBeenaDependsRowans
+            : glimseGlyphsHazardNoopsTieTie
+    )
         ? true
-        : false
-    : true
-    ? true
-    : false;
+            ? true
+            : false
+        : true
+        ? true
+        : false;
 
 (
     bifornCringerMoshedPerplexSawder
@@ -4699,25 +4781,27 @@ const value = (bifornCringerMoshedPerplexSawder
 );
 
 =====================================output=====================================
-$var = (
-	$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-		? kochabCooieGameOnOboleUnweave
-		: annularCooeedSplicesWalksWayWay
-)
-	? anodyneCondosMalateOverateRetinol
-	: averredBathersBoxroomBuggyNurl;
+$var =
+	(
+		$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+			? kochabCooieGameOnOboleUnweave
+			: annularCooeedSplicesWalksWayWay
+	)
+		? anodyneCondosMalateOverateRetinol
+		: averredBathersBoxroomBuggyNurl;
 
-const value = (
-	bifornCringerMoshedPerplexSawder
-		? askTrovenaBeenaDependsRowans
-		: glimseGlyphsHazardNoopsTieTie
-)
-	? true
+const value =
+	(
+		bifornCringerMoshedPerplexSawder
+			? askTrovenaBeenaDependsRowans
+			: glimseGlyphsHazardNoopsTieTie
+	)
 		? true
-		: false
-	: true
-	? true
-	: false;
+			? true
+			: false
+		: true
+		? true
+		: false;
 
 (
 	bifornCringerMoshedPerplexSawder
@@ -4788,25 +4872,27 @@ const value = (bifornCringerMoshedPerplexSawder
 );
 
 =====================================output=====================================
-$var = (
-	$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-		? kochabCooieGameOnOboleUnweave
-		: annularCooeedSplicesWalksWayWay
-)
-	? anodyneCondosMalateOverateRetinol
-	: averredBathersBoxroomBuggyNurl;
+$var =
+	(
+		$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+			? kochabCooieGameOnOboleUnweave
+			: annularCooeedSplicesWalksWayWay
+	)
+		? anodyneCondosMalateOverateRetinol
+		: averredBathersBoxroomBuggyNurl;
 
-const value = (
-	bifornCringerMoshedPerplexSawder
-		? askTrovenaBeenaDependsRowans
-		: glimseGlyphsHazardNoopsTieTie
-)
-	? true
+const value =
+	(
+		bifornCringerMoshedPerplexSawder
+			? askTrovenaBeenaDependsRowans
+			: glimseGlyphsHazardNoopsTieTie
+	)
 		? true
-		: false
-	: true
-	? true
-	: false;
+			? true
+			: false
+		: true
+		? true
+		: false;
 
 (
 	bifornCringerMoshedPerplexSawder
@@ -4876,25 +4962,27 @@ const value = (bifornCringerMoshedPerplexSawder
 );
 
 =====================================output=====================================
-$var = (
-  $number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-    ? kochabCooieGameOnOboleUnweave
-    : annularCooeedSplicesWalksWayWay
-)
-  ? anodyneCondosMalateOverateRetinol
-  : averredBathersBoxroomBuggyNurl;
+$var =
+  (
+    $number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+      ? kochabCooieGameOnOboleUnweave
+      : annularCooeedSplicesWalksWayWay
+  )
+    ? anodyneCondosMalateOverateRetinol
+    : averredBathersBoxroomBuggyNurl;
 
-const value = (
-  bifornCringerMoshedPerplexSawder
-    ? askTrovenaBeenaDependsRowans
-    : glimseGlyphsHazardNoopsTieTie
-)
-  ? true
+const value =
+  (
+    bifornCringerMoshedPerplexSawder
+      ? askTrovenaBeenaDependsRowans
+      : glimseGlyphsHazardNoopsTieTie
+  )
     ? true
-    : false
-  : true
-  ? true
-  : false;
+      ? true
+      : false
+    : true
+    ? true
+    : false;
 
 (
   bifornCringerMoshedPerplexSawder
@@ -5090,40 +5178,45 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-    ? { some: "long", object: "with", lots: "of", stuff }
-    : shortThing;
+const obj1 =
+    conditionIsTruthy
+        ? { some: "long", object: "with", lots: "of", stuff }
+        : shortThing;
 
-const obj2 = conditionIsTruthy
-    ? shortThing
-    : { some: "long", object: "with", lots: "of", stuff };
+const obj2 =
+    conditionIsTruthy
+        ? shortThing
+        : { some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-    ? {
-          some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-          object: "with",
-          lots: "of",
-          stuff,
-      }
-    : shortThing;
+const obj3 =
+    conditionIsTruthy
+        ? {
+              some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+              object: "with",
+              lots: "of",
+              stuff,
+          }
+        : shortThing;
 
-const obj4 = conditionIsTruthy
-    ? shortThing
-    : {
-          some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-          object: "with",
-          lots: "of",
-          stuff,
-      };
+const obj4 =
+    conditionIsTruthy
+        ? shortThing
+        : {
+              some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+              object: "with",
+              lots: "of",
+              stuff,
+          };
 
-const obj5 = conditionIsTruthy
-    ? { some: "long", object: "with", lots: "of", stuff }
-    : {
-          some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-          object: "with",
-          lots: "of",
-          stuff,
-      };
+const obj5 =
+    conditionIsTruthy
+        ? { some: "long", object: "with", lots: "of", stuff }
+        : {
+              some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+              object: "with",
+              lots: "of",
+              stuff,
+          };
 
 ================================================================================
 `;
@@ -5151,40 +5244,45 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: shortThing;
+const obj1 =
+	conditionIsTruthy
+		? { some: "long", object: "with", lots: "of", stuff }
+		: shortThing;
 
-const obj2 = conditionIsTruthy
-	? shortThing
-	: { some: "long", object: "with", lots: "of", stuff };
+const obj2 =
+	conditionIsTruthy
+		? shortThing
+		: { some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-	? {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  }
-	: shortThing;
+const obj3 =
+	conditionIsTruthy
+		? {
+				some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+				object: "with",
+				lots: "of",
+				stuff,
+		  }
+		: shortThing;
 
-const obj4 = conditionIsTruthy
-	? shortThing
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  };
+const obj4 =
+	conditionIsTruthy
+		? shortThing
+		: {
+				some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+				object: "with",
+				lots: "of",
+				stuff,
+		  };
 
-const obj5 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  };
+const obj5 =
+	conditionIsTruthy
+		? { some: "long", object: "with", lots: "of", stuff }
+		: {
+				some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+				object: "with",
+				lots: "of",
+				stuff,
+		  };
 
 ================================================================================
 `;
@@ -5211,40 +5309,45 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: shortThing;
+const obj1 =
+	conditionIsTruthy
+		? { some: "long", object: "with", lots: "of", stuff }
+		: shortThing;
 
-const obj2 = conditionIsTruthy
-	? shortThing
-	: { some: "long", object: "with", lots: "of", stuff };
+const obj2 =
+	conditionIsTruthy
+		? shortThing
+		: { some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-	? {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  }
-	: shortThing;
+const obj3 =
+	conditionIsTruthy
+		? {
+				some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+				object: "with",
+				lots: "of",
+				stuff,
+		  }
+		: shortThing;
 
-const obj4 = conditionIsTruthy
-	? shortThing
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  };
+const obj4 =
+	conditionIsTruthy
+		? shortThing
+		: {
+				some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+				object: "with",
+				lots: "of",
+				stuff,
+		  };
 
-const obj5 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  };
+const obj5 =
+	conditionIsTruthy
+		? { some: "long", object: "with", lots: "of", stuff }
+		: {
+				some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+				object: "with",
+				lots: "of",
+				stuff,
+		  };
 
 ================================================================================
 `;
@@ -5270,40 +5373,45 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 =====================================output=====================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
-const obj1 = conditionIsTruthy
-  ? { some: "long", object: "with", lots: "of", stuff }
-  : shortThing;
+const obj1 =
+  conditionIsTruthy
+    ? { some: "long", object: "with", lots: "of", stuff }
+    : shortThing;
 
-const obj2 = conditionIsTruthy
-  ? shortThing
-  : { some: "long", object: "with", lots: "of", stuff };
+const obj2 =
+  conditionIsTruthy
+    ? shortThing
+    : { some: "long", object: "with", lots: "of", stuff };
 
-const obj3 = conditionIsTruthy
-  ? {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff,
-    }
-  : shortThing;
+const obj3 =
+  conditionIsTruthy
+    ? {
+        some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+        object: "with",
+        lots: "of",
+        stuff,
+      }
+    : shortThing;
 
-const obj4 = conditionIsTruthy
-  ? shortThing
-  : {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff,
-    };
+const obj4 =
+  conditionIsTruthy
+    ? shortThing
+    : {
+        some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+        object: "with",
+        lots: "of",
+        stuff,
+      };
 
-const obj5 = conditionIsTruthy
-  ? { some: "long", object: "with", lots: "of", stuff }
-  : {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff,
-    };
+const obj5 =
+  conditionIsTruthy
+    ? { some: "long", object: "with", lots: "of", stuff }
+    : {
+        some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+        object: "with",
+        lots: "of",
+        stuff,
+      };
 
 ================================================================================
 `;

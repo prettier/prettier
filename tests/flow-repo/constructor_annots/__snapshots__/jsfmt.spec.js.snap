@@ -34,11 +34,12 @@ function Foo() {
   this.x = 0; // constructs objects with property x
 }
 Foo.y = 0; // has static property y
-Foo.prototype = {
-  m() {
-    return 0;
-  },
-};
+Foo.prototype =
+  {
+    m() {
+      return 0;
+    },
+  };
 
 // exporting Foo directly doesn't work
 // Foo's instance and static props are not picked up

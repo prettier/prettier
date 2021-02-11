@@ -55,52 +55,60 @@ foo = {
 }
 
 =====================================output=====================================
-foo = {
-  // prettier-ignore
-  bar:            1,
-};
+foo =
+  {
+    // prettier-ignore
+    bar:            1,
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1,
+  };
 
 /* comments */
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1, // comment
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1, // comment
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1 /* comment */,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1 /* comment */,
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            /* comment */          1,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            /* comment */          1,
+  };
 
 /* SpreadElement */
-foo = {
-  _: "",
-  // prettier-ignore
-  ...bar,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    ...bar,
+  };
 
 // Nested
-foo = {
-  baz: {
+foo =
+  {
+    baz:
+      {
+        // prettier-ignore
+        foo: [1, 2,    3],
+      },
     // prettier-ignore
-    foo: [1, 2,    3],
-  },
-  // prettier-ignore
-  bar:            1,
-};
+    bar:            1,
+  };
 
 ================================================================================
 `;
@@ -160,52 +168,60 @@ foo = {
 }
 
 =====================================output=====================================
-foo = {
-  // prettier-ignore
-  bar:            1
-};
+foo =
+  {
+    // prettier-ignore
+    bar:            1
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1
+  };
 
 /* comments */
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1 // comment
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1 // comment
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1 /* comment */
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1 /* comment */
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            /* comment */          1
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            /* comment */          1
+  };
 
 /* SpreadElement */
-foo = {
-  _: "",
-  // prettier-ignore
-  ...bar
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    ...bar
+  };
 
 // Nested
-foo = {
-  baz: {
+foo =
+  {
+    baz:
+      {
+        // prettier-ignore
+        foo: [1, 2,    3]
+      },
     // prettier-ignore
-    foo: [1, 2,    3]
-  },
-  // prettier-ignore
-  bar:            1
-};
+    bar:            1
+  };
 
 ================================================================================
 `;
@@ -264,52 +280,60 @@ foo = {
 }
 
 =====================================output=====================================
-foo = {
-  // prettier-ignore
-  bar:            1,
-};
+foo =
+  {
+    // prettier-ignore
+    bar:            1,
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1,
+  };
 
 /* comments */
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1, // comment
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1, // comment
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            1 /* comment */,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            1 /* comment */,
+  };
 
-foo = {
-  _: "",
-  // prettier-ignore
-  bar:            /* comment */          1,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    bar:            /* comment */          1,
+  };
 
 /* SpreadElement */
-foo = {
-  _: "",
-  // prettier-ignore
-  ...bar,
-};
+foo =
+  {
+    _: "",
+    // prettier-ignore
+    ...bar,
+  };
 
 // Nested
-foo = {
-  baz: {
+foo =
+  {
+    baz:
+      {
+        // prettier-ignore
+        foo: [1, 2,    3],
+      },
     // prettier-ignore
-    foo: [1, 2,    3],
-  },
-  // prettier-ignore
-  bar:            1,
-};
+    bar:            1,
+  };
 
 ================================================================================
 `;
@@ -376,13 +400,14 @@ export default {
 
 =====================================output=====================================
 // #5678
-const refreshTokenPayload = {
-  type: "refreshToken",
-  sub: this._id,
-  role: this.role,
-  // prettier-ignore
-  exp: now + (60 * 60 * 24 * 90), // (90 days)
-};
+const refreshTokenPayload =
+  {
+    type: "refreshToken",
+    sub: this._id,
+    role: this.role,
+    // prettier-ignore
+    exp: now + (60 * 60 * 24 * 90), // (90 days)
+  };
 
 export default {
   // prettier-ignore
@@ -493,13 +518,14 @@ export default {
 
 =====================================output=====================================
 // #5678
-const refreshTokenPayload = {
-  type: "refreshToken",
-  sub: this._id,
-  role: this.role,
-  // prettier-ignore
-  exp: now + (60 * 60 * 24 * 90) // (90 days)
-};
+const refreshTokenPayload =
+  {
+    type: "refreshToken",
+    sub: this._id,
+    role: this.role,
+    // prettier-ignore
+    exp: now + (60 * 60 * 24 * 90) // (90 days)
+  };
 
 export default {
   // prettier-ignore
@@ -609,13 +635,14 @@ export default {
 
 =====================================output=====================================
 // #5678
-const refreshTokenPayload = {
-  type: "refreshToken",
-  sub: this._id,
-  role: this.role,
-  // prettier-ignore
-  exp: now + (60 * 60 * 24 * 90), // (90 days)
-};
+const refreshTokenPayload =
+  {
+    type: "refreshToken",
+    sub: this._id,
+    role: this.role,
+    // prettier-ignore
+    exp: now + (60 * 60 * 24 * 90), // (90 days)
+  };
 
 export default {
   // prettier-ignore

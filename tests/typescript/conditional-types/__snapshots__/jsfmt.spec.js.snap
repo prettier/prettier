@@ -79,75 +79,82 @@ type T = test extends B ? test extends B /* c
 c */? foo : bar : bar;
 
 =====================================output=====================================
-type A = B extends T
-  ? // comment
-    foo
-  : bar;
+type A =
+  B extends T
+    ? // comment
+      foo
+    : bar;
 
-type A = B extends test /* comment
+type A =
+  B extends test /* comment
   comment
       comment
 */
-  ? foo
-  : bar;
+    ? foo
+    : bar;
 
-type T = test extends B
-  ? /* comment
+type T =
+  test extends B
+    ? /* comment
           comment
     comment
           comment
   */
-    foo
-  : bar;
+      foo
+    : bar;
 
-type T = test extends B
-  ? /* comment
+type T =
+  test extends B
+    ? /* comment
        comment
        comment
        comment
     */
-    foo
-  : test extends B
-  ? /* comment
+      foo
+    : test extends B
+    ? /* comment
   comment
     comment */
-    foo
-  : bar;
+      foo
+    : bar;
 
 type T = test extends B ? /* comment */ foo : bar;
 
-type T = test extends B
-  ? foo
-  : /* comment
-         comment
-     comment
-           comment
-    */
-    bar;
-
-type T = test extends B
-  ? foo
-  : /* comment
-         comment
-     comment
-           comment
-    */
+type T =
   test extends B
-  ? foo
-  : /* comment
+    ? foo
+    : /* comment
+         comment
+     comment
+           comment
+    */
+      bar;
+
+type T =
+  test extends B
+    ? foo
+    : /* comment
+         comment
+     comment
+           comment
+    */
+    test extends B
+    ? foo
+    : /* comment
   comment
     comment
    */
-    bar;
+      bar;
 
 type T = test extends B ? foo : /* comment */ bar;
 
-type T = test extends B
-  ? test extends B /* c
+type T =
+  test extends B
+    ? test extends B /* c
 c */
-    ? foo
-    : bar
-  : bar;
+      ? foo
+      : bar
+    : bar;
 
 ================================================================================
 `;
@@ -196,33 +203,35 @@ type U1b = new () => (X) extends T ? U : V;
 type U2 = (new () => X) extends T ? U : V;
 
 =====================================output=====================================
-export type DeepReadonly<T> = T extends any[]
-  ? DeepReadonlyArray<T[number]>
-  : T extends object
-  ? DeepReadonlyObject<T>
-  : T;
+export type DeepReadonly<T> =
+  T extends any[]
+    ? DeepReadonlyArray<T[number]>
+    : T extends object
+    ? DeepReadonlyObject<T>
+    : T;
 
-type NonFunctionPropertyNames<T> = {
-  [K in keyof T]: T[K] extends Function ? never : K;
-}[keyof T];
+type NonFunctionPropertyNames<T> =
+  { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
 
 interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
 
-type DeepReadonlyObject<T> = {
-  readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>;
-};
+type DeepReadonlyObject<T> =
+  {
+    readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>;
+  };
 
-type TypeName<T> = T extends string
-  ? "string"
-  : T extends number
-  ? "number"
-  : T extends boolean
-  ? "boolean"
-  : T extends undefined
-  ? "undefined"
-  : T extends Function
-  ? "function"
-  : "object";
+type TypeName<T> =
+  T extends string
+    ? "string"
+    : T extends number
+    ? "number"
+    : T extends boolean
+    ? "boolean"
+    : T extends undefined
+    ? "undefined"
+    : T extends Function
+    ? "function"
+    : "object";
 
 type Type01 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
 type Type02 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
@@ -261,19 +270,17 @@ type Unpacked<T> =
   T;
 
 =====================================output=====================================
-type TestReturnType<T extends (...args: any[]) => any> = T extends (
-  ...args: any[]
-) => infer R
-  ? R
-  : any;
+type TestReturnType<T extends (...args: any[]) => any> =
+  T extends (...args: any[]) => infer R ? R : any;
 
-type Unpacked<T> = T extends (infer U)[]
-  ? U
-  : T extends (...args: any[]) => infer U
-  ? U
-  : T extends Promise<infer U>
-  ? U
-  : T;
+type Unpacked<T> =
+  T extends (infer U)[]
+    ? U
+    : T extends (...args: any[]) => infer U
+    ? U
+    : T extends Promise<infer U>
+    ? U
+    : T;
 
 ================================================================================
 `;
@@ -303,33 +310,36 @@ type Foo3 =
     : CompositeZamazingoResolver;
 
 =====================================output=====================================
-type Foo = (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
-    : CompositeGobbledygookProvider
-) extends DoubleGobbledygookProvider
-  ? UniqueDalgametreService
-  : CompositeZamazingoResolver;
+type Foo =
+  (
+    ThingamabobberFactory extends AbstractThingamabobberFactory
+      ? GobbledygookProvider
+      : CompositeGobbledygookProvider
+  ) extends DoubleGobbledygookProvider
+    ? UniqueDalgametreService
+    : CompositeZamazingoResolver;
 
-type Foo2 = DoubleGobbledygookProvider extends (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
-    : CompositeGobbledygookProvider
-)
-  ? UniqueDalgametreService
-  : CompositeZamazingoResolver;
+type Foo2 =
+  DoubleGobbledygookProvider extends (
+    ThingamabobberFactory extends AbstractThingamabobberFactory
+      ? GobbledygookProvider
+      : CompositeGobbledygookProvider
+  )
+    ? UniqueDalgametreService
+    : CompositeZamazingoResolver;
 
-type Foo3 = (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
-    : CompositeGobbledygookProvider
-) extends (
-  DoubleGobbledygookProvider extends MockGobbledygookProvider
-    ? MockThingamabobberFactory
-    : ThingamabobberFactory
-)
-  ? UniqueDalgametreService
-  : CompositeZamazingoResolver;
+type Foo3 =
+  (
+    ThingamabobberFactory extends AbstractThingamabobberFactory
+      ? GobbledygookProvider
+      : CompositeGobbledygookProvider
+  ) extends (
+    DoubleGobbledygookProvider extends MockGobbledygookProvider
+      ? MockThingamabobberFactory
+      : ThingamabobberFactory
+  )
+    ? UniqueDalgametreService
+    : CompositeZamazingoResolver;
 
 ================================================================================
 `;

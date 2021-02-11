@@ -84,14 +84,13 @@ const style2 =/**
 
 =====================================output=====================================
 // test to make sure comments are attached correctly
-let inlineComment = /* some comment */ someReallyLongFunctionCall(
-  withLots,
-  ofArguments
-);
+let inlineComment =
+  /* some comment */ someReallyLongFunctionCall(withLots, ofArguments);
 
-let object = {
-  key: /* some comment */ someReallyLongFunctionCall(withLots, ofArguments),
-};
+let object =
+  {
+    key: /* some comment */ someReallyLongFunctionCall(withLots, ofArguments),
+  };
 
 // preserve parens only for type casts
 let assignment = /** @type {string} */ (getValue());
@@ -119,13 +118,15 @@ test(/** @type {number} */ (num) + 1);
 test(/** @type {!Array} */ (arrOrString).length + 1);
 test(/** @type {!Array} */ (arrOrString).length + 1);
 
-const data = functionCall(
-  arg1,
-  arg2,
-  /** @type {{height: number, width: number}} */ (arg3)
-);
+const data =
+  functionCall(
+    arg1,
+    arg2,
+    /** @type {{height: number, width: number}} */ (arg3)
+  );
 
-const style = /** @type {{
+const style =
+  /** @type {{
   width: number,
   height: number,
   marginTop: number,
@@ -133,18 +134,19 @@ const style = /** @type {{
   marginRight: number,
   marginBottom: number,
 }} */ ({
-  width,
-  height,
-  ...margins,
-});
+    width,
+    height,
+    ...margins,
+  });
 
-const style2 = /**
- * @type {{
- *   width: number,
- * }}
- */ ({
-  width,
-});
+const style2 =
+  /**
+   * @type {{
+   *   width: number,
+   * }}
+   */ ({
+    width,
+  });
 
 ================================================================================
 `;
@@ -279,13 +281,15 @@ const helpers = /** @type {Helpers} */ ((
 =====================================output=====================================
 const helpers1 = /** @type {Helpers} */ (((helpers = {}) => helpers)());
 
-const helpers2 = /** @type {Helpers} */ ((function () {
-  return something;
-})());
+const helpers2 =
+  /** @type {Helpers} */ ((function () {
+    return something;
+  })());
 
 // TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
-const helpers = /** @type {Helpers} */ (/** @param {Partial<Helpers>} helpers */
-((helpers = {}) => helpers)());
+const helpers =
+  /** @type {Helpers} */ (/** @param {Partial<Helpers>} helpers */
+  ((helpers = {}) => helpers)());
 
 ================================================================================
 `;
@@ -323,11 +327,12 @@ const test =
   /** @type (function (*): ?|undefined) */
   (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
 
-const test = /** @type (function (*): ?|undefined) */ (goog.partial(
-  NewThing.onTemplateChange,
-  rationaleField,
-  typeField
-));
+const test =
+  /** @type (function (*): ?|undefined) */ (goog.partial(
+    NewThing.onTemplateChange,
+    rationaleField,
+    typeField
+  ));
 
 const model = /** @type {?{getIndex: Function}} */ (model);
 
@@ -370,12 +375,13 @@ const BarImpl = /** @type {BarConstructor} */ (
 =====================================output=====================================
 foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar);
 
-const BarImpl = /** @type {BarConstructor} */ (
-  /** @type {unknown} */
-  (function Bar() {
-    throw new Error("Internal error: Illegal constructor");
-  })
-);
+const BarImpl =
+  /** @type {BarConstructor} */ (
+    /** @type {unknown} */
+    (function Bar() {
+      throw new Error("Internal error: Illegal constructor");
+    })
+  );
 
 ================================================================================
 `;
@@ -419,9 +425,10 @@ z((x) => {
 });
 
 /** @type {number} */
-let q = z((x) => {
-  return 1;
-});
+let q =
+  z((x) => {
+    return 1;
+  });
 
 const w1 = /** @typefoo Foo */ value;
 
@@ -447,18 +454,20 @@ const objectWithComment2 = /** @type MyType */ (  /* comment */  {
 );
 
 =====================================output=====================================
-const objectWithComment = /** @type MyType */ (
-  /* comment */
-  {
-    foo: bar,
-  }
-);
+const objectWithComment =
+  /** @type MyType */ (
+    /* comment */
+    {
+      foo: bar,
+    }
+  );
 
-const objectWithComment2 = /** @type MyType */ (
-  /* comment */ {
-    foo: bar,
-  }
-);
+const objectWithComment2 =
+  /** @type MyType */ (
+    /* comment */ {
+      foo: bar,
+    }
+  );
 
 ================================================================================
 `;

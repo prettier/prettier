@@ -145,12 +145,13 @@ var w : Foo = z;
 =====================================output=====================================
 /* @flow */
 
-type Foo = {
-  a: string, // exists in TestClass
-  b: string, // doesn't exist
-  c?: ?string, // exists in TestClass, optional
-  d?: number, // doesn't exist
-};
+type Foo =
+  {
+    a: string, // exists in TestClass
+    b: string, // doesn't exist
+    c?: ?string, // exists in TestClass, optional
+    d?: number, // doesn't exist
+  };
 
 class TestClass {
   a: string;
@@ -220,12 +221,13 @@ var alias1: Alias = new _Alias(); // error: bad pun
 var alias2: Alias = _Alias.factory(); // error: bad pun
 
 =====================================output=====================================
-var Bar = class Foo {
-  static factory(): Foo {
-    // OK: Foo is a type in this scope
-    return new Foo(); // OK: Foo is a runtime binding in this scope
-  }
-};
+var Bar =
+  class Foo {
+    static factory(): Foo {
+      // OK: Foo is a type in this scope
+      return new Foo(); // OK: Foo is a runtime binding in this scope
+    }
+  };
 
 var bar1: Bar = new Bar(); // OK
 var bar2: Bar = Bar.factory(); // OK
@@ -244,11 +246,12 @@ var Anon = class {};
 var anon: Anon = new Anon();
 
 class Alias {}
-var _Alias = class Alias {
-  static factory(): Alias {
-    return new Alias();
-  }
-};
+var _Alias =
+  class Alias {
+    static factory(): Alias {
+      return new Alias();
+    }
+  };
 var alias1: Alias = new _Alias(); // error: bad pun
 var alias2: Alias = _Alias.factory(); // error: bad pun
 

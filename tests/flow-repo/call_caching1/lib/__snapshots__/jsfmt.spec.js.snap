@@ -42,8 +42,7 @@ declare class Array<T> {
 }
 
 type IteratorResult<Yield, Return> =
-  | { done: true, value?: Return }
-  | { done: false, value: Yield };
+  { done: true, value?: Return } | { done: false, value: Yield };
 
 interface $Iterator<+Yield, +Return, -Next> {
   @@iterator(): $Iterator<Yield, Return, Next>;

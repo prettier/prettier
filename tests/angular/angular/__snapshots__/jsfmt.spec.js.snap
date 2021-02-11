@@ -532,7 +532,8 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+      true
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
@@ -803,7 +804,8 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+      true
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
@@ -1028,10 +1030,12 @@ printWidth: 1
     1
   ]"
   [target]="{
-    a: 1
+    a:
+      1
   }"
   [target]="{
-    a: 1
+    a:
+      1
   }"
   [target]="{
     trailingComma:
@@ -1102,18 +1106,22 @@ printWidth: 1
       .a
   "
   on-target="
-    a = 1
+    a =
+      1
   "
   (target)="
-    a = 1
+    a =
+      1
   "
   (target)="
-    a.b = 1
+    a.b =
+      1
   "
   (target)="
     a[
       b
-    ] = 1
+    ] =
+      1
   "
   (target)="
     (a) // hello
@@ -1143,7 +1151,8 @@ printWidth: 1
       b()
   "
   (event)="
-    foo = $event
+    foo =
+      $event
   "
   (event)="
     (foo ==
@@ -1276,7 +1285,8 @@ printWidth: 1
       3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+      true
   }"
   [error]="
     'We couldn\\\\\\'t find anything with that name.'
@@ -1673,7 +1683,8 @@ trailingComma: "none"
     listRow.NextScheduledSendStatus == 3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+      true
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
@@ -1943,7 +1954,8 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 3
   "
   [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+      true
   }"
   [error]="'We couldn\\\\\\'t find anything with that name.'"
   *ngIf="form.controls.details?.controls.amount?.errors.min"
@@ -3325,14 +3337,16 @@ printWidth: 1
 <div>
   {{
     {
-      a: 1
+      a:
+        1
     }
   }}
 </div>
 <div>
   {{
     {
-      a: 1
+      a:
+        1
     }
   }}
 </div>
@@ -3557,16 +3571,18 @@ printWidth: 1
 <p>
   {{
     {
-      a: !{}
+      a:
+        !{}
     }
   }}
 </p>
 <p>
   {{
     {
-      a: a
-        ? b
-        : {}
+      a:
+        a
+          ? b
+          : {}
     }
   }}
 </p>
@@ -8343,7 +8359,8 @@ can be found in the LICENSE file at http://angular.io/license
   ></app-hero-detail>
   <div
     [ngClass]="{
-      special: isSpecial
+      special:
+        isSpecial
     }"
   ></div>
 </div>
@@ -8363,7 +8380,8 @@ can be found in the LICENSE file at http://angular.io/license
 ></app-hero-detail>
 <div
   (myClick)="
-    clicked = $event
+    clicked =
+      $event
   "
   clickable
 >
@@ -8982,7 +9000,8 @@ can be found in the LICENSE file at http://angular.io/license
   <!-- \`myClick\` is an event on the custom \`ClickDirective\` -->
   <div
     (myClick)="
-      clickMessage = $event
+      clickMessage =
+        $event
     "
     clickable
   >
@@ -9136,7 +9155,8 @@ can be found in the LICENSE file at http://angular.io/license
       fontSizePx
     "
     (sizeChange)="
-      fontSizePx = $event
+      fontSizePx =
+        $event
     "
   ></app-sizer>
 </div>
@@ -9198,7 +9218,8 @@ bindon-ngModel
     currentHero.name
   "
   (ngModelChange)="
-    currentHero.name = $event
+    currentHero.name =
+      $event
   "
 />
 (ngModelChange)="...name=$event"
@@ -9274,7 +9295,8 @@ bindon-ngModel
       !isUnchanged
     "
     (change)="
-      isUnchanged = !isUnchanged
+      isUnchanged =
+        !isUnchanged
     "
 /></label>
 |
@@ -9354,9 +9376,12 @@ bindon-ngModel
 </div>
 <div
   [ngClass]="{
-    bad: false,
-    curly: true,
-    special: true
+    bad:
+      false,
+    curly:
+      true,
+    special:
+      true
   }"
 >
   Curly
@@ -10203,7 +10228,8 @@ bindon-ngModel
 
 <div
   (myClick)="
-    clickMessage2 = $event
+    clickMessage2 =
+      $event
   "
   clickable
 >

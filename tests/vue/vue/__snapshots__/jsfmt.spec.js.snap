@@ -180,12 +180,13 @@ semi: false
     v-for="(
       {
         firstValue,
-        secondValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp,
-        },
+        secondValue:
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
       },
       objectKey,
       index
@@ -207,12 +208,13 @@ semi: false
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp,
-        },
+        fifthValue:
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
         sixthValue,
         seventhValue,
       },
@@ -225,26 +227,29 @@ semi: false
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp,
-        },
-        sixthValue: {
-          firstValue,
-          secondValue,
-          thirdValue,
-          fourthValue,
-          fifthValue: {
+        fifthValue:
+          {
             longLongProp,
             longLongProp,
             anotherLongLongProp,
             yetAnotherLongLongProp,
           },
-          sixthValue,
-          seventhValue,
-        },
+        sixthValue:
+          {
+            firstValue,
+            secondValue,
+            thirdValue,
+            fourthValue,
+            fifthValue:
+              {
+                longLongProp,
+                longLongProp,
+                anotherLongLongProp,
+                yetAnotherLongLongProp,
+              },
+            sixthValue,
+            seventhValue,
+          },
         seventhValue,
       },
       objectKey,
@@ -256,17 +261,18 @@ semi: false
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp = {
+        fifthValue:
+          {
             longLongProp,
             longLongProp,
-            anotherLongLongProp,
+            anotherLongLongProp = {
+              longLongProp,
+              longLongProp,
+              anotherLongLongProp,
+              yetAnotherLongLongProp,
+            },
             yetAnotherLongLongProp,
           },
-          yetAnotherLongLongProp,
-        },
         sixthValue,
         seventhValue,
       },
@@ -302,33 +308,38 @@ semi: false
     slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     #default="foo"
     #default="{ row }"
     #default="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     v-slot="foo"
     v-slot="{ row }"
     v-slot="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     v-slot:name="foo"
     v-slot:name="{ row }"
     v-slot:name="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+        true,
     }"
     :class="
       (() => {
@@ -356,9 +367,10 @@ semi: false
     @click="a['b'];"
     @click="a[null]"
     #default="{
-      foo: {
-        bar: { baz },
-      },
+      foo:
+        {
+          bar: { baz },
+        },
     }"
   ></div>
 </template>
@@ -546,12 +558,13 @@ trailingComma: "none"
     v-for="(
       {
         firstValue,
-        secondValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp
-        }
+        secondValue:
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp
+          }
       },
       objectKey,
       index
@@ -573,12 +586,13 @@ trailingComma: "none"
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp
-        },
+        fifthValue:
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp
+          },
         sixthValue,
         seventhValue
       },
@@ -591,26 +605,29 @@ trailingComma: "none"
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp
-        },
-        sixthValue: {
-          firstValue,
-          secondValue,
-          thirdValue,
-          fourthValue,
-          fifthValue: {
+        fifthValue:
+          {
             longLongProp,
             longLongProp,
             anotherLongLongProp,
             yetAnotherLongLongProp
           },
-          sixthValue,
-          seventhValue
-        },
+        sixthValue:
+          {
+            firstValue,
+            secondValue,
+            thirdValue,
+            fourthValue,
+            fifthValue:
+              {
+                longLongProp,
+                longLongProp,
+                anotherLongLongProp,
+                yetAnotherLongLongProp
+              },
+            sixthValue,
+            seventhValue
+          },
         seventhValue
       },
       objectKey,
@@ -622,17 +639,18 @@ trailingComma: "none"
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp = {
+        fifthValue:
+          {
             longLongProp,
             longLongProp,
-            anotherLongLongProp,
+            anotherLongLongProp = {
+              longLongProp,
+              longLongProp,
+              anotherLongLongProp,
+              yetAnotherLongLongProp
+            },
             yetAnotherLongLongProp
           },
-          yetAnotherLongLongProp
-        },
         sixthValue,
         seventhValue
       },
@@ -668,33 +686,38 @@ trailingComma: "none"
     slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
-      destructuring: {
-        a: { b }
-      }
+      destructuring:
+        {
+          a: { b }
+        }
     }"
     #default="foo"
     #default="{ row }"
     #default="{
-      destructuring: {
-        a: { b }
-      }
+      destructuring:
+        {
+          a: { b }
+        }
     }"
     v-slot="foo"
     v-slot="{ row }"
     v-slot="{
-      destructuring: {
-        a: { b }
-      }
+      destructuring:
+        {
+          a: { b }
+        }
     }"
     v-slot:name="foo"
     v-slot:name="{ row }"
     v-slot:name="{
-      destructuring: {
-        a: { b }
-      }
+      destructuring:
+        {
+          a: { b }
+        }
     }"
     :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+        true
     }"
     :class="
       (() => {
@@ -722,9 +745,10 @@ trailingComma: "none"
     @click="a['b'];"
     @click="a[null]"
     #default="{
-      foo: {
-        bar: { baz }
-      }
+      foo:
+        {
+          bar: { baz }
+        }
     }"
   ></div>
 </template>
@@ -911,12 +935,13 @@ printWidth: 80
     v-for="(
       {
         firstValue,
-        secondValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp,
-        },
+        secondValue:
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
       },
       objectKey,
       index
@@ -938,12 +963,13 @@ printWidth: 80
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp,
-        },
+        fifthValue:
+          {
+            longLongProp,
+            longLongProp,
+            anotherLongLongProp,
+            yetAnotherLongLongProp,
+          },
         sixthValue,
         seventhValue,
       },
@@ -956,26 +982,29 @@ printWidth: 80
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp,
-          yetAnotherLongLongProp,
-        },
-        sixthValue: {
-          firstValue,
-          secondValue,
-          thirdValue,
-          fourthValue,
-          fifthValue: {
+        fifthValue:
+          {
             longLongProp,
             longLongProp,
             anotherLongLongProp,
             yetAnotherLongLongProp,
           },
-          sixthValue,
-          seventhValue,
-        },
+        sixthValue:
+          {
+            firstValue,
+            secondValue,
+            thirdValue,
+            fourthValue,
+            fifthValue:
+              {
+                longLongProp,
+                longLongProp,
+                anotherLongLongProp,
+                yetAnotherLongLongProp,
+              },
+            sixthValue,
+            seventhValue,
+          },
         seventhValue,
       },
       objectKey,
@@ -987,17 +1016,18 @@ printWidth: 80
         secondValue,
         thirdValue,
         fourthValue,
-        fifthValue: {
-          longLongProp,
-          longLongProp,
-          anotherLongLongProp = {
+        fifthValue:
+          {
             longLongProp,
             longLongProp,
-            anotherLongLongProp,
+            anotherLongLongProp = {
+              longLongProp,
+              longLongProp,
+              anotherLongLongProp,
+              yetAnotherLongLongProp,
+            },
             yetAnotherLongLongProp,
           },
-          yetAnotherLongLongProp,
-        },
         sixthValue,
         seventhValue,
       },
@@ -1033,33 +1063,38 @@ printWidth: 80
     slot-scope="foo"
     slot-scope="{ row }"
     slot-scope="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     #default="foo"
     #default="{ row }"
     #default="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     v-slot="foo"
     v-slot="{ row }"
     v-slot="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     v-slot:name="foo"
     v-slot:name="{ row }"
     v-slot:name="{
-      destructuring: {
-        a: { b },
-      },
+      destructuring:
+        {
+          a: { b },
+        },
     }"
     :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong:
+        true,
     }"
     :class="
       (() => {
@@ -1087,9 +1122,10 @@ printWidth: 80
     @click="a['b'];"
     @click="a[null]"
     #default="{
-      foo: {
-        bar: { baz },
-      },
+      foo:
+        {
+          bar: { baz },
+        },
     }"
   ></div>
 </template>
@@ -1187,52 +1223,56 @@ const Store = gl.issueBoards.BoardsStore
 
 export default {
   name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String,
-  },
+  components:
+    {
+      "issue-card-inner": gl.issueBoards.IssueCardInner,
+    },
+  props:
+    {
+      list: Object,
+      issue: Object,
+      issueLinkBase: String,
+      disabled: Boolean,
+      index: Number,
+      rootPath: String,
+    },
   data() {
     return {
       showDetail: false,
       detailIssue: Store.detail,
     }
   },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      )
+  computed:
+    {
+      issueDetailVisible() {
+        return (
+          this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+        )
+      },
     },
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true
-    },
-    mouseMove() {
-      this.showDetail = false
-    },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return
-
-      if (this.showDetail) {
+  methods:
+    {
+      mouseDown() {
+        this.showDetail = true
+      },
+      mouseMove() {
         this.showDetail = false
+      },
+      showIssue(e) {
+        if (e.target.classList.contains("js-no-trigger")) return
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue")
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue)
-          Store.detail.list = this.list
+        if (this.showDetail) {
+          this.showDetail = false
+
+          if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+            eventHub.$emit("clearDetailIssue")
+          } else {
+            eventHub.$emit("newDetailIssue", this.issue)
+            Store.detail.list = this.list
+          }
         }
-      }
+      },
     },
-  },
 }
 </script>
 
@@ -1353,52 +1393,56 @@ const Store = gl.issueBoards.BoardsStore;
 
 export default {
   name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String
-  },
+  components:
+    {
+      "issue-card-inner": gl.issueBoards.IssueCardInner
+    },
+  props:
+    {
+      list: Object,
+      issue: Object,
+      issueLinkBase: String,
+      disabled: Boolean,
+      index: Number,
+      rootPath: String
+    },
   data() {
     return {
       showDetail: false,
       detailIssue: Store.detail
     };
   },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      );
-    }
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true;
+  computed:
+    {
+      issueDetailVisible() {
+        return (
+          this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+        );
+      }
     },
-    mouseMove() {
-      this.showDetail = false;
-    },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
-
-      if (this.showDetail) {
+  methods:
+    {
+      mouseDown() {
+        this.showDetail = true;
+      },
+      mouseMove() {
         this.showDetail = false;
+      },
+      showIssue(e) {
+        if (e.target.classList.contains("js-no-trigger")) return;
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue);
-          Store.detail.list = this.list;
+        if (this.showDetail) {
+          this.showDetail = false;
+
+          if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+            eventHub.$emit("clearDetailIssue");
+          } else {
+            eventHub.$emit("newDetailIssue", this.issue);
+            Store.detail.list = this.list;
+          }
         }
       }
     }
-  }
 };
 </script>
 
@@ -1518,52 +1562,56 @@ const Store = gl.issueBoards.BoardsStore;
 
 export default {
   name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String,
-  },
+  components:
+    {
+      "issue-card-inner": gl.issueBoards.IssueCardInner,
+    },
+  props:
+    {
+      list: Object,
+      issue: Object,
+      issueLinkBase: String,
+      disabled: Boolean,
+      index: Number,
+      rootPath: String,
+    },
   data() {
     return {
       showDetail: false,
       detailIssue: Store.detail,
     };
   },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      );
+  computed:
+    {
+      issueDetailVisible() {
+        return (
+          this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+        );
+      },
     },
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true;
-    },
-    mouseMove() {
-      this.showDetail = false;
-    },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
-
-      if (this.showDetail) {
+  methods:
+    {
+      mouseDown() {
+        this.showDetail = true;
+      },
+      mouseMove() {
         this.showDetail = false;
+      },
+      showIssue(e) {
+        if (e.target.classList.contains("js-no-trigger")) return;
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue);
-          Store.detail.list = this.list;
+        if (this.showDetail) {
+          this.showDetail = false;
+
+          if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+            eventHub.$emit("clearDetailIssue");
+          } else {
+            eventHub.$emit("newDetailIssue", this.issue);
+            Store.detail.list = this.list;
+          }
         }
-      }
+      },
     },
-  },
 };
 </script>
 

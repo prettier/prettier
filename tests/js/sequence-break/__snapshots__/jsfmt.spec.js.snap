@@ -21,11 +21,12 @@ for (aLongIdentifierName = 0, aLongIdentifierName = 0, aLongIdentifierName = 0, 
   (a = b ? c : function() { return 0; });
 
 =====================================output=====================================
-const f = (argument1, argument2, argument3) => (
-  doSomethingWithArgument(argument1),
-  doSomethingWithArgument(argument2),
-  argument1
-);
+const f =
+  (argument1, argument2, argument3) => (
+    doSomethingWithArgument(argument1),
+    doSomethingWithArgument(argument2),
+    argument1
+  );
 (function () {
   return (
     aLongIdentifierName,
@@ -54,31 +55,36 @@ for (
   test;
   update
 ) {}
-(a = b
-  ? c
-  : function () {
-      return 0;
-    }),
-  (a = b
+(a =
+  b
     ? c
     : function () {
         return 0;
       }),
-  (a = b
-    ? c
-    : function () {
-        return 0;
-      }),
-  (a = b
-    ? c
-    : function () {
-        return 0;
-      }),
-  (a = b
-    ? c
-    : function () {
-        return 0;
-      });
+  (a =
+    b
+      ? c
+      : function () {
+          return 0;
+        }),
+  (a =
+    b
+      ? c
+      : function () {
+          return 0;
+        }),
+  (a =
+    b
+      ? c
+      : function () {
+          return 0;
+        }),
+  (a =
+    b
+      ? c
+      : function () {
+          return 0;
+        });
 
 ================================================================================
 `;

@@ -24,23 +24,24 @@ const Icon = styled.div\`
 \`
 
 =====================================output=====================================
-const Icon = styled.div\`
-  flex: none;
-  transition: fill 0.25s;
-  width: 48px;
-  height: 48px;
+const Icon =
+  styled.div\`
+    flex: none;
+    transition: fill 0.25s;
+    width: 48px;
+    height: 48px;
 
-  \${Link}:hover {
-    fill: rebeccapurple;
-  }
+    \${Link}:hover {
+      fill: rebeccapurple;
+    }
 
-  \${Link} :hover {
-    fill: yellow;
-  }
+    \${Link} :hover {
+      fill: yellow;
+    }
 
-  \${media.smallDown}::before {
-  }
-\`;
+    \${media.smallDown}::before {
+    }
+  \`;
 
 ================================================================================
 `;
@@ -76,29 +77,32 @@ const Icon3 = styled.div\`
 \`;
 
 =====================================output=====================================
-const Icon = styled.div\`
-  height: 48px;
+const Icon =
+  styled.div\`
+    height: 48px;
 
-  \${Link}:nth-child(2) {
-    fill: rebeccapurple;
-  }
-\`;
+    \${Link}:nth-child(2) {
+      fill: rebeccapurple;
+    }
+  \`;
 
-const Icon2 = styled.div\`
-  height: 48px;
+const Icon2 =
+  styled.div\`
+    height: 48px;
 
-  \${Link}:empty:before {
-    fill: rebeccapurple;
-  }
-\`;
+    \${Link}:empty:before {
+      fill: rebeccapurple;
+    }
+  \`;
 
-const Icon3 = styled.div\`
-  height: 48px;
+const Icon3 =
+  styled.div\`
+    height: 48px;
 
-  \${Link}:not(:first-child) {
-    fill: rebeccapurple;
-  }
-\`;
+    \${Link}:not(:first-child) {
+      fill: rebeccapurple;
+    }
+  \`;
 
 ================================================================================
 `;
@@ -126,9 +130,10 @@ export const ButtonWrapper2 = styled.button\`
 \`;
 
 =====================================output=====================================
-export const ButtonWrapper = styled.button\`
-  \${base}
-  \${hover}
+export const ButtonWrapper =
+  styled.button\`
+    \${base}
+    \${hover}
   \${opaque}
   \${block}
   \${active}
@@ -136,11 +141,12 @@ export const ButtonWrapper = styled.button\`
   \${outline}
   \${dashed}
   \${spacing}
-\`;
+  \`;
 
-export const ButtonWrapper2 = styled.button\`
-  \${base} \${hover} \${opaque} \${block} \${active} \${disabled} \${outline} \${dashed} \${spacing}
-\`;
+export const ButtonWrapper2 =
+  styled.button\`
+    \${base} \${hover} \${opaque} \${block} \${active} \${disabled} \${outline} \${dashed} \${spacing}
+  \`;
 
 ================================================================================
 `;
@@ -170,23 +176,26 @@ button.\${foo}.\${bar} {
 \`;
 
 =====================================output=====================================
-export const foo = css\`
-  &.foo .\${bar}::before,&.foo[value="hello"] .\${bar}::before {
-    position: absolute;
-  }
-\`;
+export const foo =
+  css\`
+    &.foo .\${bar}::before,&.foo[value="hello"] .\${bar}::before {
+      position: absolute;
+    }
+  \`;
 
-export const foo2 = css\`
-  a.\${bar}:focus,a.\${bar}:hover {
-    color: red;
-  }
-\`;
+export const foo2 =
+  css\`
+    a.\${bar}:focus,a.\${bar}:hover {
+      color: red;
+    }
+  \`;
 
-export const global = css\`
-  button.\${foo}.\${bar} {
-    color: #fff;
-  }
-\`;
+export const global =
+  css\`
+    button.\${foo}.\${bar} {
+      color: #fff;
+    }
+  \`;
 
 ================================================================================
 `;
@@ -216,24 +225,25 @@ const StyledH1 = styled.div\`
 \`;
 
 =====================================output=====================================
-const StyledH1 = styled.div\`
-  font-size: 2.5em;
-  font-weight: \${(props) => (props.strong ? 500 : 100)};
-  font-family: \${constants.text.displayFont.fontFamily};
-  letter-spacing: \${(props) => (props.light ? "0.04em" : 0)};
-  color: \${(props) => props.textColor};
-  \${(props) =>
-    props.center
-      ? \` display: flex;
+const StyledH1 =
+  styled.div\`
+    font-size: 2.5em;
+    font-weight: \${(props) => (props.strong ? 500 : 100)};
+    font-family: \${constants.text.displayFont.fontFamily};
+    letter-spacing: \${(props) => (props.light ? "0.04em" : 0)};
+    color: \${(props) => props.textColor};
+    \${(props) =>
+      props.center
+        ? \` display: flex;
                 align-items: center;
                 justify-content: center;
                 text-align: center;\`
-      : ""}
-  @media (max-width: \${(props) =>
-    props.noBreakPoint ? "0" : constants.layout.breakpoint.break1}px) {
-    font-size: 2em;
-  }
-\`;
+        : ""}
+    @media (max-width: \${(props) =>
+      props.noBreakPoint ? "0" : constants.layout.breakpoint.break1}px) {
+      font-size: 2em;
+    }
+  \`;
 
 ================================================================================
 `;
@@ -281,42 +291,44 @@ const Steps2 = styled.div\`
 \`;
 
 =====================================output=====================================
-const Steps = styled.div\`
-  @media (min-width: 1px) {
-    \${Step}:nth-child(odd) {
+const Steps =
+  styled.div\`
+    @media (min-width: 1px) {
+      \${Step}:nth-child(odd) {
+      }
     }
-  }
-\`;
+  \`;
 
-const Steps2 = styled.div\`
-  @media (min-width: \${breakpoints.lg}) {
-    \${Step} {
-      margin-bottom: 90px;
-    }
+const Steps2 =
+  styled.div\`
+    @media (min-width: \${breakpoints.lg}) {
+      \${Step} {
+        margin-bottom: 90px;
+      }
 
-    \${Step}:nth-child(odd) {
-      \${StepItemDescription} {
-        grid-row: 1;
-        grid-column: 3 / span 3;
+      \${Step}:nth-child(odd) {
+        \${StepItemDescription} {
+          grid-row: 1;
+          grid-column: 3 / span 3;
+        }
+        \${Image} {
+          grid-row: 1;
+          grid-column: 7 / span 6;
+        }
       }
-      \${Image} {
-        grid-row: 1;
-        grid-column: 7 / span 6;
-      }
-    }
 
-    \${Step}:nth-child(even) {
-      \${Image} {
-        grid-row: 1;
-        grid-column: 3 / span 6;
-      }
-      \${StepItemDescription} {
-        grid-row: 1;
-        grid-column: 10 / span 3;
+      \${Step}:nth-child(even) {
+        \${Image} {
+          grid-row: 1;
+          grid-column: 3 / span 6;
+        }
+        \${StepItemDescription} {
+          grid-row: 1;
+          grid-column: 10 / span 3;
+        }
       }
     }
-  }
-\`;
+  \`;
 
 ================================================================================
 `;
@@ -344,21 +356,22 @@ export const Group = styled.div\`
 \`
 
 =====================================output=====================================
-export const Group = styled.div\`
-  margin: 0;
-
-  .input {
+export const Group =
+  styled.div\`
     margin: 0;
-  }
 
-  \${StyledInput}:not(:first-child) {
-    margin: 0;
-  }
+    .input {
+      margin: 0;
+    }
 
-  & > :not(.\${inputWrap}):not(\${Button}) {
-    display: flex;
-  }
-\`;
+    \${StyledInput}:not(:first-child) {
+      margin: 0;
+    }
+
+    & > :not(.\${inputWrap}):not(\${Button}) {
+      display: flex;
+    }
+  \`;
 
 ================================================================================
 `;
@@ -384,19 +397,22 @@ const style3 = css\`
 \`;
 
 =====================================output=====================================
-const style1 = css\`
-  width: \${size + 10}\${sizeUnit};
-  border: \${size / 10} \${sizeUnit} solid \${color};
-\`;
+const style1 =
+  css\`
+    width: \${size + 10}\${sizeUnit};
+    border: \${size / 10} \${sizeUnit} solid \${color};
+  \`;
 
-const style2 = css\`
-  width: \${size + 10}\${sizeUnit};
-  border: \${size / 10} \${sizeUnit} solid \${color};
-\`;
+const style2 =
+  css\`
+    width: \${size + 10}\${sizeUnit};
+    border: \${size / 10} \${sizeUnit} solid \${color};
+  \`;
 
-const style3 = css\`
-  foo: \${foo}\${bar} \${baz};
-\`;
+const style3 =
+  css\`
+    foo: \${foo}\${bar} \${baz};
+  \`;
 
 ================================================================================
 `;
@@ -674,21 +690,24 @@ const ListItem1 = styled.li\`\`;
 
 const ListItem2 = styled.li\`\`;
 
-const Dropdown = styled.div\`
-  position: relative;
-\`;
+const Dropdown =
+  styled.div\`
+    position: relative;
+  \`;
 
-const Button = styled.button\`
-  color: palevioletred;
+const Button =
+  styled.button\`
+    color: palevioletred;
 
-  font-size: 1em;
-\`;
+    font-size: 1em;
+  \`;
 
-const TomatoButton = Button.extend\`
-  color: tomato;
+const TomatoButton =
+  Button.extend\`
+    color: tomato;
 
-  border-color: tomato;
-\`;
+    border-color: tomato;
+  \`;
 
 Button.extend.attr({})\`
   border-color: black;
@@ -811,116 +830,128 @@ styled.a\`
   }
 \`;
 
-const StyledComponent1 = styled.div\`
-  \${anInterpolation}
-  /* a comment */
+const StyledComponent1 =
+  styled.div\`
+    \${anInterpolation}
+    /* a comment */
 
   .aRule {
-    color: red;
-  }
-\`;
+      color: red;
+    }
+  \`;
 
-const StyledComponent2 = styled.div\`
-  \${anInterpolation}
+const StyledComponent2 =
+  styled.div\`
+    \${anInterpolation}
 
-  /* a comment */
+    /* a comment */
 
   .aRule {
+      color: red;
+    }
+  \`;
+
+const Direction =
+  styled.span\`
+    \${({ up }) => up && \`color: \${color.positive};\`}
+    \${({ down }) => down && \`color: \${color.negative};\`}
+  \`;
+
+const Direction2 =
+  styled.span\`
+    \${({ up }) => up && \`color: \${color.positive}\`};
+    \${({ down }) => down && \`color: \${color.negative}\`};
+  \`;
+
+const mixin =
+  css\`
+    color: \${(props) => props.color};
+    \${(props) => props.otherProperty}: \${(props) => props.otherValue};
+  \`;
+
+const foo =
+  styled.div\`
+    display: flex;
+    \${(props) => props.useMixin && mixin}
+  \`;
+
+const Single1 =
+  styled.div\`
     color: red;
-  }
-\`;
+  \`;
 
-const Direction = styled.span\`
-  \${({ up }) => up && \`color: \${color.positive};\`}
-  \${({ down }) => down && \`color: \${color.negative};\`}
-\`;
+const Single2 =
+  styled.div\`
+    color: red;
+  \`;
 
-const Direction2 = styled.span\`
-  \${({ up }) => up && \`color: \${color.positive}\`};
-  \${({ down }) => down && \`color: \${color.negative}\`};
-\`;
+const Dropdown2 =
+  styled.div\`
+    /* A comment to avoid the prettier issue: https://github.com/prettier/prettier/issues/2291 */
+    position: relative;
+  \`;
 
-const mixin = css\`
-  color: \${(props) => props.color};
-  \${(props) => props.otherProperty}: \${(props) => props.otherValue};
-\`;
-
-const foo = styled.div\`
-  display: flex;
-  \${(props) => props.useMixin && mixin}
-\`;
-
-const Single1 = styled.div\`
-  color: red;
-\`;
-
-const Single2 = styled.div\`
-  color: red;
-\`;
-
-const Dropdown2 = styled.div\`
-  /* A comment to avoid the prettier issue: https://github.com/prettier/prettier/issues/2291 */
-  position: relative;
-\`;
-
-const bar = styled.div\`
-  border-radius: 50%;
-  border: 5px solid rgba(var(--green-rgb), 0);
-  display: inline-block;
-  height: 40px;
-  width: 40px;
-
-  \${(props) =>
-    (props.complete || props.inProgress) &&
-    css\`
-      border-color: rgba(var(--green-rgb), 0.15);
-    \`}
-
-  div {
-    background-color: var(--purpleTT);
+const bar =
+  styled.div\`
     border-radius: 50%;
-    border: 4px solid rgba(var(--purple-rgb), 0.2);
-    color: var(--purpleTT);
-    display: inline-flex;
-
-    \${(props) =>
-      props.complete &&
-      css\`
-        background-color: var(--green);
-        border-width: 7px;
-      \`}
+    border: 5px solid rgba(var(--green-rgb), 0);
+    display: inline-block;
+    height: 40px;
+    width: 40px;
 
     \${(props) =>
       (props.complete || props.inProgress) &&
       css\`
-        border-color: var(--green);
+        border-color: rgba(var(--green-rgb), 0.15);
       \`}
-  }
-\`;
 
-const A = styled.a\`
-  display: inline-block;
-  color: #fff;
-  \${(props) =>
-    props.a &&
-    css\`
-      display: none;
-    \`}
-  height: 30px;
-\`;
+    div {
+      background-color: var(--purpleTT);
+      border-radius: 50%;
+      border: 4px solid rgba(var(--purple-rgb), 0.2);
+      color: var(--purpleTT);
+      display: inline-flex;
 
-const Foo = styled.p\`
-  max-width: 980px;
-  \${mediaBreakpointOnlyXs\`
+      \${(props) =>
+        props.complete &&
+        css\`
+          background-color: var(--green);
+          border-width: 7px;
+        \`}
+
+      \${(props) =>
+        (props.complete || props.inProgress) &&
+        css\`
+          border-color: var(--green);
+        \`}
+    }
+  \`;
+
+const A =
+  styled.a\`
+    display: inline-block;
+    color: #fff;
+    \${(props) =>
+      props.a &&
+      css\`
+        display: none;
+      \`}
+    height: 30px;
+  \`;
+
+const Foo =
+  styled.p\`
+    max-width: 980px;
+    \${mediaBreakpointOnlyXs\`
     && {
       font-size: 0.8rem;
     }
   \`}
 
-  &.bottom {
-    margin-top: 3rem;
-  }
-\`;
+    &.bottom {
+      margin-top: 3rem;
+    }
+  \`;
 
 styled(A)\`
   // prettier-ignore
@@ -929,11 +960,12 @@ styled(A)\`
   }
 \`;
 
-const StyledDiv = styled.div\`
-  \${(props) => getSize(props.$size.xs)}
-  \${(props) => getSize(props.$size.sm, "sm")}
+const StyledDiv =
+  styled.div\`
+    \${(props) => getSize(props.$size.xs)}
+    \${(props) => getSize(props.$size.sm, "sm")}
   \${(props) => getSize(props.$size.md, "md")}
-\`;
+  \`;
 
 ================================================================================
 `;
@@ -967,19 +999,21 @@ font-family: "\${a}", "\${b}";
 \`
 
 =====================================output=====================================
-const Header = styled.div\`
-  \${something()}
-  & > \${Child}:not(:first-child) {
-    margin-left: 5px;
-  }
-\`;
+const Header =
+  styled.div\`
+    \${something()}
+    & > \${Child}:not(:first-child) {
+      margin-left: 5px;
+    }
+  \`;
 
-const Header2 = styled.div\`
-  \${something()}
-  & > \${Child}\${Child2}:not(:first-child) {
-    margin-left: 5px;
-  }
-\`;
+const Header2 =
+  styled.div\`
+    \${something()}
+    & > \${Child}\${Child2}:not(:first-child) {
+      margin-left: 5px;
+    }
+  \`;
 
 styled.div\`
   \${foo}-idle {
@@ -1049,32 +1083,37 @@ export const StyledComponent = styled.div\`
 \`
 
 =====================================output=====================================
-const Something = styled.div\`
-  background: var(--\${one}); /* ... */
-  border: 1px solid var(--\${two}); /* ... */
-\`;
+const Something =
+  styled.div\`
+    background: var(--\${one}); /* ... */
+    border: 1px solid var(--\${two}); /* ... */
+  \`;
 
-const StyledPurchaseCard = styled(Card)\`
-  min-width: 200px;
-  background-color: var(--\${(props) => props.color});
-  color: #fff;
-\`;
+const StyledPurchaseCard =
+  styled(Card)\`
+    min-width: 200px;
+    background-color: var(--\${(props) => props.color});
+    color: #fff;
+  \`;
 
-const v1 = css\`
-  prop: var(--global--color--\${props.variant});
-\`;
+const v1 =
+  css\`
+    prop: var(--global--color--\${props.variant});
+  \`;
 
-const v2 = css\`
-  background-color: var(--global--color--\${props.variant});
+const v2 =
+  css\`
+    background-color: var(--global--color--\${props.variant});
 
-  &:hover {
-    background-color: var(--global--color--\${props.variant}__one);
-  }
-\`;
+    &:hover {
+      background-color: var(--global--color--\${props.variant}__one);
+    }
+  \`;
 
-export const StyledComponent = styled.div\`
-  grid-area: area-\${(props) => props.propName};
-\`;
+export const StyledComponent =
+  styled.div\`
+    grid-area: area-\${(props) => props.propName};
+  \`;
 
 ================================================================================
 `;

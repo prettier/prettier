@@ -215,9 +215,10 @@ var {
   p = true, // error: boolean ~> string
 }: {
   p: string,
-} = {
-  p: 0, // error: number ~> string
-};
+} =
+  {
+    p: 0, // error: number ~> string
+  };
 (p: void); // error: string ~> void
 
 function obj_prop_err({ x: { y } } = null) {} // error: property \`x\` cannot be accessed on null
@@ -529,14 +530,16 @@ var { x: o } = o;
 
 let foo = (i: number) => [i];
 
-const bar = (i: number) => {
-  [i] = foo(i);
-  return [i];
-};
+const bar =
+  (i: number) => {
+    [i] = foo(i);
+    return [i];
+  };
 
-foo = (i: number) => {
-  return bar(i);
-};
+foo =
+  (i: number) => {
+    return bar(i);
+  };
 
 // Also make sure that the following doesn't loop
 
@@ -619,9 +622,10 @@ function bar() {
 =====================================output=====================================
 // @flow
 
-var { x } = {
-  x: { foo: "foo" },
-};
+var { x } =
+  {
+    x: { foo: "foo" },
+  };
 
 function bar() {
   x.bar;

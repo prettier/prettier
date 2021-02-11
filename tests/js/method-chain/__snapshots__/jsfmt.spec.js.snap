@@ -20,10 +20,8 @@ function a() {
 function a() {
   function b() {
     queryThenMutateDOM(() => {
-      title = SomeThing.call(
-        root,
-        "someLongStringThatPushesThisTextReallyFar"
-      )[0];
+      title =
+        SomeThing.call(root, "someLongStringThatPushesThisTextReallyFar")[0];
     });
   }
 }
@@ -95,62 +93,66 @@ export default (store) => {
 
 it("should group messages with same created time", () => {
   expect(groupMessages(messages).toJS()).toEqual({
-    "11/01/2017 13:36": [
-      {
-        message: "test",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "11/01/2017 13:36",
-      },
-      {
-        message: "test",
-        messageType: "Email",
-        status: "Unknown",
-        created: "11/01/2017 13:36",
-      },
-    ],
-    "09/01/2017 17:25": [
-      {
-        message: "te",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "09/01/2017 17:25",
-      },
-      {
-        message: "te",
-        messageType: "Email",
-        status: "Unknown",
-        created: "09/01/2017 17:25",
-      },
-    ],
-    "11/01/2017 13:33": [
-      {
-        message: "test",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "11/01/2017 13:33",
-      },
-      {
-        message: "test",
-        messageType: "Email",
-        status: "Unknown",
-        created: "11/01/2017 13:33",
-      },
-    ],
-    "11/01/2017 13:37": [
-      {
-        message: "test",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "11/01/2017 13:37",
-      },
-      {
-        message: "test",
-        messageType: "Email",
-        status: "Unknown",
-        created: "11/01/2017 13:37",
-      },
-    ],
+    "11/01/2017 13:36":
+      [
+        {
+          message: "test",
+          messageType: "SMS",
+          status: "Unknown",
+          created: "11/01/2017 13:36",
+        },
+        {
+          message: "test",
+          messageType: "Email",
+          status: "Unknown",
+          created: "11/01/2017 13:36",
+        },
+      ],
+    "09/01/2017 17:25":
+      [
+        {
+          message: "te",
+          messageType: "SMS",
+          status: "Unknown",
+          created: "09/01/2017 17:25",
+        },
+        {
+          message: "te",
+          messageType: "Email",
+          status: "Unknown",
+          created: "09/01/2017 17:25",
+        },
+      ],
+    "11/01/2017 13:33":
+      [
+        {
+          message: "test",
+          messageType: "SMS",
+          status: "Unknown",
+          created: "11/01/2017 13:33",
+        },
+        {
+          message: "test",
+          messageType: "Email",
+          status: "Unknown",
+          created: "11/01/2017 13:33",
+        },
+      ],
+    "11/01/2017 13:37":
+      [
+        {
+          message: "test",
+          messageType: "SMS",
+          status: "Unknown",
+          created: "11/01/2017 13:37",
+        },
+        {
+          message: "test",
+          messageType: "Email",
+          status: "Unknown",
+          created: "11/01/2017 13:37",
+        },
+      ],
   });
 });
 
@@ -198,14 +200,8 @@ expect(
     .style.paddingRight
 ).toBe("1000px");
 
-const {
-  course,
-  conflicts = [],
-  index,
-  scheduleId,
-  studentId,
-  something,
-} = a.this.props;
+const { course, conflicts = [], index, scheduleId, studentId, something } =
+  a.this.props;
 
 const {
   course2,
@@ -347,10 +343,11 @@ measure() // Warm-up first
     SomethingLong();
   });
 
-const configModel = this.baseConfigurationService
-  .getCache()
-  .consolidated // global/default values (do NOT modify)
-  .merge(this.cachedWorkspaceConfig);
+const configModel =
+  this.baseConfigurationService
+    .getCache()
+    .consolidated // global/default values (do NOT modify)
+    .merge(this.cachedWorkspaceConfig);
 
 this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
   .then(
@@ -362,10 +359,11 @@ this.doWriteConfiguration(target, value, options) // queue up writes to prevent 
     }
   );
 
-ret = __DEV__
-  ? // $FlowFixMe: this type differs according to the env
-    vm.runInContext(source, ctx)
-  : a;
+ret =
+  __DEV__
+    ? // $FlowFixMe: this type differs according to the env
+      vm.runInContext(source, ctx)
+    : a;
 
 angular
   .module("AngularAppModule")
@@ -640,11 +638,12 @@ export default function theFunction(action$, store) {
     Observable.webSocket({
       url: THE_URL,
       more: stuff(),
-      evenMore: stuff({
-        value1: true,
-        value2: false,
-        value3: false,
-      }),
+      evenMore:
+        stuff({
+          value1: true,
+          value2: false,
+          value3: false,
+        }),
     })
       .filter((data) => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
@@ -745,11 +744,12 @@ Object.keys(
   // ...
 });
 
-this.layoutPartsToHide = this.utils.hashset(
-  _.flatMap(this.visibilityHandlers, (fn) => fn())
-    .concat(this.record.resolved_legacy_visrules)
-    .filter(Boolean)
-);
+this.layoutPartsToHide =
+  this.utils.hashset(
+    _.flatMap(this.visibilityHandlers, (fn) => fn())
+      .concat(this.record.resolved_legacy_visrules)
+      .filter(Boolean)
+  );
 
 var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
 
@@ -801,10 +801,11 @@ expect(cells.at(3).render().text()).toBe('link text3')
 expect(cells.at(4).render().text()).toBe('link text4')
 
 =====================================output=====================================
-const palindrome = (str) => {
-  const s = str.toLowerCase().replace(/[\\W_]/g, "");
-  return s === s.split("").reverse().join("");
-};
+const palindrome =
+  (str) => {
+    const s = str.toLowerCase().replace(/[\\W_]/g, "");
+    return s === s.split("").reverse().join("");
+  };
 
 const apiCurrencies = api().currencies().all();
 
@@ -993,11 +994,12 @@ somePromise
   .catch((err) => handleError(err));
 
 // you can still force multi-line chaining with a comment:
-const sha256_2 = (data) =>
-  crypto // breakme
-    .createHash("sha256")
-    .update(data)
-    .digest("hex");
+const sha256_2 =
+  (data) =>
+    crypto // breakme
+      .createHash("sha256")
+      .update(data)
+      .digest("hex");
 
 // examples from https://github.com/prettier/prettier/pull/4765
 
@@ -1136,10 +1138,11 @@ xyz
   .b()
   .c(a(a(b(c(d().p).p).p).p));
 
-var l = base
-  .replace(/^\\w*:\\/\\//, "")
-  .replace(/\\/$/, "")
-  .split("/").length;
+var l =
+  base
+    .replace(/^\\w*:\\/\\//, "")
+    .replace(/\\/$/, "")
+    .split("/").length;
 
 ================================================================================
 `;
@@ -1169,9 +1172,10 @@ const someLongVariableName = (idx(
   TicketRecord.createFromSomeLongString()).filter(obj => !!obj);
 
 =====================================output=====================================
-const someLongVariableName = (
-  idx(this.props, (props) => props.someLongPropertyName) || []
-).map((edge) => edge.node);
+const someLongVariableName =
+  (idx(this.props, (props) => props.someLongPropertyName) || []).map(
+    (edge) => edge.node
+  );
 
 (veryLongVeryLongVeryLong || e).map((tickets) =>
   TicketRecord.createFromSomeLongString()
@@ -1353,17 +1357,19 @@ const Profile2 = view.with({ name }).as((props) => (
 ))
 
 =====================================output=====================================
-const Profile = view.with({ name: (state) => state.name }).as((props) => (
-  <div>
-    <h1>Hello, {props.name}</h1>
-  </div>
-));
+const Profile =
+  view.with({ name: (state) => state.name }).as((props) => (
+    <div>
+      <h1>Hello, {props.name}</h1>
+    </div>
+  ));
 
-const Profile2 = view.with({ name }).as((props) => (
-  <div>
-    <h1>Hello, {props.name}</h1>
-  </div>
-));
+const Profile2 =
+  view.with({ name }).as((props) => (
+    <div>
+      <h1>Hello, {props.name}</h1>
+    </div>
+  ));
 
 ================================================================================
 `;
@@ -1380,10 +1386,11 @@ const svgJsFiles = fs
   .map(f => path.join(svgDir, f));
 
 =====================================output=====================================
-const svgJsFiles = fs
-  .readdirSync(svgDir)
-  .filter((f) => svgJsFileExtRegex.test(f))
-  .map((f) => path.join(svgDir, f));
+const svgJsFiles =
+  fs
+    .readdirSync(svgDir)
+    .filter((f) => svgJsFileExtRegex.test(f))
+    .map((f) => path.join(svgDir, f));
 
 ================================================================================
 `;
@@ -1423,15 +1430,13 @@ const component = find('.org-lclp-edit-copy-url-banner__link')[0]
   .indexOf(this.landingPageLink);
 
 =====================================output=====================================
-const version = someLongString
-  .split("jest version =")
-  .pop()
-  .split(EOL)[0]
-  .trim();
+const version =
+  someLongString.split("jest version =").pop().split(EOL)[0].trim();
 
-const component = find(".org-lclp-edit-copy-url-banner__link")[0]
-  .getAttribute("href")
-  .indexOf(this.landingPageLink);
+const component =
+  find(".org-lclp-edit-copy-url-banner__link")[0]
+    .getAttribute("href")
+    .indexOf(this.landingPageLink);
 
 ================================================================================
 `;
@@ -1472,9 +1477,10 @@ const sel = this.connections
   .filter(x => x.selected);
 
 =====================================output=====================================
-const sel = this.connections
-  .concat(this.activities.concat(this.operators))
-  .filter((x) => x.selected);
+const sel =
+  this.connections
+    .concat(this.activities.concat(this.operators))
+    .filter((x) => x.selected);
 
 ================================================================================
 `;

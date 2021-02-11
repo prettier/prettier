@@ -230,31 +230,33 @@ class D {
 class Outer {
   #outer: number;
   constructor() {
-    var Inner = class A {
-      #inner: Outer;
-      constructor() {
-        this.#inner = new Outer();
-        var x = new Outer();
-        x.#outer = 0; // Both inner and outer should be visible here!
-        x.#inner = new Outer(); // Error, #inner is not a private field of Outer
-      }
-    };
+    var Inner =
+      class A {
+        #inner: Outer;
+        constructor() {
+          this.#inner = new Outer();
+          var x = new Outer();
+          x.#outer = 0; // Both inner and outer should be visible here!
+          x.#inner = new Outer(); // Error, #inner is not a private field of Outer
+        }
+      };
   }
 }
 
 class Clash {
   #p: number;
   constructor() {
-    var Inner = class A {
-      #p: string;
-      constructor() {
-        (this.#p: number); // Error, #p is a string not a number
-        this.#p = "test";
-        this.#p = 3; // Error, #p is a string not a number
-        var x = new Clash();
-        (x.#p: string); // Error, here #p is a number not a string
-      }
-    };
+    var Inner =
+      class A {
+        #p: string;
+        constructor() {
+          (this.#p: number); // Error, #p is a string not a number
+          this.#p = "test";
+          this.#p = 3; // Error, #p is a string not a number
+          var x = new Clash();
+          (x.#p: string); // Error, here #p is a number not a string
+        }
+      };
   }
 }
 

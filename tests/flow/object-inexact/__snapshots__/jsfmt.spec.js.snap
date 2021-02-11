@@ -71,66 +71,76 @@ type Foo = {
 =====================================output=====================================
 // @flow
 
-type Foo = {
-  // comment
-  ...
-};
+type Foo =
+  {
+    // comment
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    ...
+  };
 
 type Foo = { /* comment */ ... };
 
-type Foo = {
-  /* comment */
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    ...
+  };
 
-type Foo = {
-  // comment0
-  // comment1
-  ...
-};
+type Foo =
+  {
+    // comment0
+    // comment1
+    ...
+  };
 
-type Foo = {
-  /* comment0 */
-  /* comment1 */
-  ...
-};
+type Foo =
+  {
+    /* comment0 */
+    /* comment1 */
+    ...
+  };
 
-type Foo = {
-  // comment
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    // comment
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  // comment0
-  // comment1
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    // comment0
+    // comment1
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  [string]: string,
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    [string]: string,
+    ...
+  };
 
-type Foo = {
-  /* comment0 */
-  /* comment1 */
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    /* comment0 */
+    /* comment1 */
+    foo: string,
+    ...
+  };
 
 ================================================================================
 `;
@@ -206,66 +216,76 @@ type Foo = {
 =====================================output=====================================
 // @flow
 
-type Foo = {
-  // comment
-  ...
-};
+type Foo =
+  {
+    // comment
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    ...
+  };
 
 type Foo = { /* comment */ ... };
 
-type Foo = {
-  /* comment */
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    ...
+  };
 
-type Foo = {
-  // comment0
-  // comment1
-  ...
-};
+type Foo =
+  {
+    // comment0
+    // comment1
+    ...
+  };
 
-type Foo = {
-  /* comment0 */
-  /* comment1 */
-  ...
-};
+type Foo =
+  {
+    /* comment0 */
+    /* comment1 */
+    ...
+  };
 
-type Foo = {
-  // comment
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    // comment
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  // comment0
-  // comment1
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    // comment0
+    // comment1
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  [string]: string,
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    [string]: string,
+    ...
+  };
 
-type Foo = {
-  /* comment0 */
-  /* comment1 */
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    /* comment0 */
+    /* comment1 */
+    foo: string,
+    ...
+  };
 
 ================================================================================
 `;
@@ -341,66 +361,76 @@ type Foo = {
 =====================================output=====================================
 // @flow
 
-type Foo = {
-  // comment
-  ...
-};
+type Foo =
+  {
+    // comment
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    ...
+  };
 
 type Foo = { /* comment */ ... };
 
-type Foo = {
-  /* comment */
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    ...
+  };
 
-type Foo = {
-  // comment0
-  // comment1
-  ...
-};
+type Foo =
+  {
+    // comment0
+    // comment1
+    ...
+  };
 
-type Foo = {
-  /* comment0 */
-  /* comment1 */
-  ...
-};
+type Foo =
+  {
+    /* comment0 */
+    /* comment1 */
+    ...
+  };
 
-type Foo = {
-  // comment
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    // comment
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  // comment0
-  // comment1
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    // comment0
+    // comment1
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    foo: string,
+    ...
+  };
 
-type Foo = {
-  /* comment */
-  [string]: string,
-  ...
-};
+type Foo =
+  {
+    /* comment */
+    [string]: string,
+    ...
+  };
 
-type Foo = {
-  /* comment0 */
-  /* comment1 */
-  foo: string,
-  ...
-};
+type Foo =
+  {
+    /* comment0 */
+    /* comment1 */
+    foo: string,
+    ...
+  };
 
 ================================================================================
 `;
@@ -437,44 +467,48 @@ type X = {
 
 =====================================output=====================================
 //@flow
-type T = {
-  a: number,
-  ...
-};
+type T =
+  {
+    a: number,
+    ...
+  };
 
-type I = {
-  [string]: number,
-  ...
-};
+type I =
+  {
+    [string]: number,
+    ...
+  };
 
-type U = {
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  e: number,
-  f: number,
-  g: number,
-  ...
-};
-
-type V = {
-  x: { ... },
-  y: {
-    x: { ... },
+type U =
+  {
     a: number,
     b: number,
     c: number,
     d: number,
     e: number,
     f: number,
+    g: number,
     ...
-  },
-  z: { ... },
-  foo: number,
-  bar: { foo: number, ... },
-  ...
-};
+  };
+
+type V =
+  {
+    x: { ... },
+    y: {
+      x: { ... },
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number,
+      ...
+    },
+    z: { ... },
+    foo: number,
+    bar: { foo: number, ... },
+    ...
+  };
 
 function test(x: {
   foo: number,
@@ -550,44 +584,48 @@ type X = {
 
 =====================================output=====================================
 //@flow
-type T = {
-  a: number,
-  ...
-};
+type T =
+  {
+    a: number,
+    ...
+  };
 
-type I = {
-  [string]: number,
-  ...
-};
+type I =
+  {
+    [string]: number,
+    ...
+  };
 
-type U = {
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  e: number,
-  f: number,
-  g: number,
-  ...
-};
-
-type V = {
-  x: { ... },
-  y: {
-    x: { ... },
+type U =
+  {
     a: number,
     b: number,
     c: number,
     d: number,
     e: number,
     f: number,
+    g: number,
     ...
-  },
-  z: { ... },
-  foo: number,
-  bar: { foo: number, ... },
-  ...
-};
+  };
+
+type V =
+  {
+    x: { ... },
+    y: {
+      x: { ... },
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number,
+      ...
+    },
+    z: { ... },
+    foo: number,
+    bar: { foo: number, ... },
+    ...
+  };
 
 function test(x: {
   foo: number,
@@ -663,44 +701,48 @@ type X = {
 
 =====================================output=====================================
 //@flow
-type T = {
-  a: number,
-  ...
-};
+type T =
+  {
+    a: number,
+    ...
+  };
 
-type I = {
-  [string]: number,
-  ...
-};
+type I =
+  {
+    [string]: number,
+    ...
+  };
 
-type U = {
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  e: number,
-  f: number,
-  g: number,
-  ...
-};
-
-type V = {
-  x: { ... },
-  y: {
-    x: { ... },
+type U =
+  {
     a: number,
     b: number,
     c: number,
     d: number,
     e: number,
     f: number,
+    g: number,
     ...
-  },
-  z: { ... },
-  foo: number,
-  bar: { foo: number, ... },
-  ...
-};
+  };
+
+type V =
+  {
+    x: { ... },
+    y: {
+      x: { ... },
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number,
+      ...
+    },
+    z: { ... },
+    foo: number,
+    bar: { foo: number, ... },
+    ...
+  };
 
 function test(x: {
   foo: number,

@@ -506,23 +506,26 @@ function subtype_dict_values_invariant(x: { [k: string]: B }) {
 }
 
 function subtype_dict_values_fresh_exception() {
-  let a: { [k: string]: A } = {
-    a: new A(), // ok, A == A
-    b: new B(), // ok, B <: A
-    c: new C(), // ok, C <: A
-  };
+  let a: { [k: string]: A } =
+    {
+      a: new A(), // ok, A == A
+      b: new B(), // ok, B <: A
+      c: new C(), // ok, C <: A
+    };
 
-  let b: { [k: string]: B } = {
-    a: new A(), // error, A not <: B
-    b: new B(), // ok, B == B
-    c: new C(), // ok, C <: A
-  };
+  let b: { [k: string]: B } =
+    {
+      a: new A(), // error, A not <: B
+      b: new B(), // ok, B == B
+      c: new C(), // ok, C <: A
+    };
 
-  let c: { [k: string]: C } = {
-    a: new A(), // error, A not <: C
-    b: new B(), // error, A not <: C
-    c: new C(), // ok, C == C
-  };
+  let c: { [k: string]: C } =
+    {
+      a: new A(), // error, A not <: C
+      b: new B(), // error, A not <: C
+      c: new C(), // ok, C == C
+    };
 }
 
 // Actually, unsound_string_conversion_alias_declared_prop behavior makes an
@@ -887,11 +890,12 @@ module.exports = o;
 type Params = { count: number, [name: string]: string };
 type QueryFunction = (params: Params) => string;
 
-var o: { foo: QueryFunction } = {
-  foo(params) {
-    return params.count; // error, number ~/~ string
-  },
-};
+var o: { foo: QueryFunction } =
+  {
+    foo(params) {
+      return params.count; // error, number ~/~ string
+    },
+  };
 
 module.exports = o;
 
@@ -913,9 +917,10 @@ o.foo = function (params) {
 =====================================output=====================================
 var o = require("./test");
 
-o.foo = function (params) {
-  return params.count; // error, number ~/~ string
-};
+o.foo =
+  function (params) {
+    return params.count; // error, number ~/~ string
+  };
 
 ================================================================================
 `;

@@ -86,10 +86,11 @@ const {
 
 // Nested
 const {
-  baz: {
-    // prettier-ignore
-    foo2 = [1, 2,    3],
-  },
+  baz:
+    {
+      // prettier-ignore
+      foo2 = [1, 2,    3],
+    },
   // prettier-ignore
   bar7 =            1,
 } = foo;
@@ -183,10 +184,11 @@ const {
 
 // Nested
 const {
-  baz: {
-    // prettier-ignore
-    foo2 = [1, 2,    3]
-  },
+  baz:
+    {
+      // prettier-ignore
+      foo2 = [1, 2,    3]
+    },
   // prettier-ignore
   bar7 =            1
 } = foo;
@@ -279,10 +281,11 @@ const {
 
 // Nested
 const {
-  baz: {
-    // prettier-ignore
-    foo2 = [1, 2,    3],
-  },
+  baz:
+    {
+      // prettier-ignore
+      foo2 = [1, 2,    3],
+    },
   // prettier-ignore
   bar7 =            1,
 } = foo;

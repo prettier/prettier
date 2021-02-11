@@ -35,17 +35,19 @@ class AssertsFoo {
   }
 }
 =====================================output=====================================
-const assertString = (x: any): asserts x => {
-  console.assert(typeof x === "string");
-};
+const assertString =
+  (x: any): asserts x => {
+    console.assert(typeof x === "string");
+  };
 
 function assertsString(x: any): asserts x {
   console.assert(typeof x === "string");
 }
 
-const assertStringWithGuard = (x: any): asserts x is string => {
-  console.assert(typeof x === "string");
-};
+const assertStringWithGuard =
+  (x: any): asserts x is string => {
+    console.assert(typeof x === "string");
+  };
 
 function assertsStringWithGuard(x: any): asserts x is string {
   console.assert(typeof x === "string");
@@ -59,9 +61,10 @@ class AssertsFoo {
   isBar(): asserts this {
     return;
   }
-  isBaz = (): asserts this => {
-    return;
-  };
+  isBaz =
+    (): asserts this => {
+      return;
+    };
 }
 
 ================================================================================

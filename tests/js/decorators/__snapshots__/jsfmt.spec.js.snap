@@ -117,14 +117,15 @@ class X {}
 
 @NgModule({
   // Imports.
-  imports: [
-    // Angular modules.
-    BrowserModule,
+  imports:
+    [
+      // Angular modules.
+      BrowserModule,
 
-    // App modules.
-    CoreModule,
-    SharedModule,
-  ],
+      // App modules.
+      CoreModule,
+      SharedModule,
+    ],
 })
 export class AppModule {}
 
@@ -324,11 +325,11 @@ class OrderLine {
     return this.price * this.amount;
   }
 
-  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
-    this.count--;
+  @action handleDecrease =
+    (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
 
-  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
-    doSomething();
+  @action handleSomething =
+    (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
 }
 
 ================================================================================
@@ -409,24 +410,26 @@ const foo = {
 };
 
 =====================================output=====================================
-const dog = {
-  @readonly
-  @nonenumerable
-  @doubledValue
-  legs: 4,
+const dog =
+  {
+    @readonly
+    @nonenumerable
+    @doubledValue
+    legs: 4,
 
-  @readonly
-  @nonenumerable
-  @doubledValue
-  eyes: 2,
-};
+    @readonly
+    @nonenumerable
+    @doubledValue
+    eyes: 2,
+  };
 
-const foo = {
-  @multipleDecorators
-  @inline
-  @theyWontAllFitInOneline
-  aVeryLongPropName: "A very long string as value",
-};
+const foo =
+  {
+    @multipleDecorators
+    @inline
+    @theyWontAllFitInOneline
+    aVeryLongPropName: "A very long string as value",
+  };
 
 ================================================================================
 `;

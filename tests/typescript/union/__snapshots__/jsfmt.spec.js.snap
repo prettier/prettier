@@ -78,9 +78,10 @@ type UploadState2<E, EM, D> =
   // Uploading to aws3 and CreatePostMutation succeeded
   | D;
 
-type window = Window & {
-  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
-};
+type window =
+  Window & {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
+  };
 
 type T1 = (number | string)["toString"];
 type T2 = (number | string)["toString"];
@@ -342,20 +343,24 @@ type Ctor = (new () => X) | Y;
 
 =====================================output=====================================
 export type A =
-  | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
+
+    | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
 
 export type B =
-  | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
+
+    | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
 
 export type C =
-  | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
+
+    | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
 
 export type D =
-  | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
+
+    | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    | bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb;
 
 export type Multi = (string | number)[];
 
@@ -371,18 +376,17 @@ interface Interface {
   j: Partial<X | Y>;
 }
 
-type State = {
-  sharedProperty: any;
-} & (
-  | { discriminant: "FOO"; foo: any }
-  | { discriminant: "BAR"; bar: any }
-  | { discriminant: "BAZ"; baz: any }
-);
+type State =
+  {
+    sharedProperty: any;
+  } & (
+    | { discriminant: "FOO"; foo: any }
+    | { discriminant: "BAR"; bar: any }
+    | { discriminant: "BAZ"; baz: any }
+  );
 
-const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
-  | string
-  | undefined
-)[];
+const foo1 =
+  [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (string | undefined)[];
 
 const foo2: (
   | AAAAAAAAAAAAAAAAAAAAAA
@@ -471,14 +475,15 @@ type GetChatsSagaEffects =
 
 =====================================output=====================================
 type GetChatsSagaEffects =
-  | CallEffect
-  | PutEffect<
-      | GetUsersRequestedAction
-      | GetChatsSucceededAction
-      | GetChatsFailedAction
-      | GetChatsStartedAction
-    >
-  | SelectEffect;
+
+    | CallEffect
+    | PutEffect<
+        | GetUsersRequestedAction
+        | GetChatsSucceededAction
+        | GetChatsFailedAction
+        | GetChatsStartedAction
+      >
+    | SelectEffect;
 
 ================================================================================
 `;
@@ -555,98 +560,106 @@ type F = [
 ]
 
 =====================================output=====================================
-type A = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
-];
+type A =
+  [
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ];
 
-type B = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
-];
+type B =
+  [
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ];
 
-type B1 = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
-];
+type B1 =
+  [
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ];
 
-type C = [
-  | [
+type C =
+  [
+    | [
+        | AAAAAAAAAAAAAAAAAAAAAA
+        | BBBBBBBBBBBBBBBBBBBBBB
+        | CCCCCCCCCCCCCCCCCCCCCC
+        | DDDDDDDDDDDDDDDDDDDDDD
+      ]
+    | [
+        | AAAAAAAAAAAAAAAAAAAAAA
+        | BBBBBBBBBBBBBBBBBBBBBB
+        | CCCCCCCCCCCCCCCCCCCCCC
+        | DDDDDDDDDDDDDDDDDDDDDD
+      ]
+  ];
+
+type D =
+  [
+    (
       | AAAAAAAAAAAAAAAAAAAAAA
       | BBBBBBBBBBBBBBBBBBBBBB
       | CCCCCCCCCCCCCCCCCCCCCC
       | DDDDDDDDDDDDDDDDDDDDDD
-    ]
-  | [
+    ),
+    (
       | AAAAAAAAAAAAAAAAAAAAAA
       | BBBBBBBBBBBBBBBBBBBBBB
       | CCCCCCCCCCCCCCCCCCCCCC
       | DDDDDDDDDDDDDDDDDDDDDD
-    ]
-];
+    )
+  ];
 
-type D = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  )
-];
+type D1 =
+  [
+    (
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ),
+    (
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    )
+  ];
 
-type D1 = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  )
-];
-
-type D2 = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  )
-];
+type D2 =
+  [
+    (
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ),
+    (
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    )
+  ];
 
 type E = [AA | BB, AA | BB];
 
-type F = [
-  (
-    | AAAAAAAAAAAAAAAAAAAAAA
-    | BBBBBBBBBBBBBBBBBBBBBB
-    | CCCCCCCCCCCCCCCCCCCCCC
-    | DDDDDDDDDDDDDDDDDDDDDD
-  ),
-  AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB
-];
+type F =
+  [
+    (
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ),
+    AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB
+  ];
 
 ================================================================================
 `;

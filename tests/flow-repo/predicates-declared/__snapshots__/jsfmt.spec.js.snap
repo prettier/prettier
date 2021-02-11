@@ -283,14 +283,16 @@ function f(_this: { m: ?Meeting }): string {
 // Sanity check:
 // - preserving \`havoc\` semantics
 
-type Meeting = {
-  organizer: ?Invitee,
-  es: Array<Invitee>,
-};
+type Meeting =
+  {
+    organizer: ?Invitee,
+    es: Array<Invitee>,
+  };
 
-type Invitee = {
-  fbid: number,
-};
+type Invitee =
+  {
+    fbid: number,
+  };
 
 function f(_this: { m: ?Meeting }): string {
   if (!_this.m) {

@@ -302,73 +302,80 @@ Object.entries({
 }
 
 =====================================output=====================================
-const a = {
-  a: "a",
-};
+const a =
+  {
+    a: "a",
+  };
 
-const b = {
-  b: "b",
-};
+const b =
+  {
+    b: "b",
+  };
 
-const b2 = {
-  // Escapes should stay as escapes and not be unquoted.
-  "\\u0062": "b",
-  "\\u0031": "1",
-};
+const b2 =
+  {
+    // Escapes should stay as escapes and not be unquoted.
+    "\\u0062": "b",
+    "\\u0031": "1",
+  };
 
-const c = {
-  c1: "c1",
-  c2: "c2",
-};
+const c =
+  {
+    c1: "c1",
+    c2: "c2",
+  };
 
-const d = {
-  d1: "d1",
-  "d-2": "d2",
-};
+const d =
+  {
+    d1: "d1",
+    "d-2": "d2",
+  };
 
 // None of these should become quoted, regardless of the quoteProps value.
-const e = {
-  NaN: null,
-  1: null,
-  1.5: null,
-  0.1: null,
-  1: null,
-  1.0: null,
-  999999999999999999999: null,
-  0.99999999999999999: null,
-  1e2: null,
-  1e3: null,
-  1e100: null,
-  0b10: null,
-  0o10: null,
-  0xf: null,
-  // Commented out because Flow does not parse BigInt as object keys.
-  // 2n: null,
-};
+const e =
+  {
+    NaN: null,
+    1: null,
+    1.5: null,
+    0.1: null,
+    1: null,
+    1.0: null,
+    999999999999999999999: null,
+    0.99999999999999999: null,
+    1e2: null,
+    1e3: null,
+    1e100: null,
+    0b10: null,
+    0o10: null,
+    0xf: null,
+    // Commented out because Flow does not parse BigInt as object keys.
+    // 2n: null,
+  };
 
-const f = {
-  // This should be unquoted for quoteProps=as-needed.
-  NaN: null,
-  // Flow does parses number keys, but errors on them during type checking so
-  // don’t unquote them:
-  "1": null,
-  "1.5": null,
-  // These should never be unquoted. \`1e+100\` technically could (it’s the only
-  // one where \`String(Number(key)) === key\`), but we came to the conclusion
-  // that it is unexpected.
-  ".1": null,
-  "1.": null,
-  "1.0": null,
-  "999999999999999999999": null,
-  "0.99999999999999999": null,
-  "1E2": null,
-  "1e+3": null,
-  "1e+100": null,
-  "0b10": null,
-  "0o10": null,
-  "0xf": null,
-  "2n": null,
-};
+const f =
+  {
+    // This should be unquoted for quoteProps=as-needed.
+    NaN: null,
+    // Flow does parses number keys, but errors on them during type checking so
+    // don’t unquote them:
+    "1": null,
+    "1.5": null,
+    // These should never be unquoted. \`1e+100\` technically could (it’s the only
+    // one where \`String(Number(key)) === key\`), but we came to the conclusion
+    // that it is unexpected.
+    ".1": null,
+    "1.": null,
+    "1.0": null,
+    "999999999999999999999": null,
+    "0.99999999999999999": null,
+    "1E2": null,
+    "1e+3": null,
+    "1e+100": null,
+    "0b10": null,
+    "0o10": null,
+    "0xf": null,
+    "2n": null,
+  };
 
 Object.entries({
   // To force quotes for quoteProps=consistent.
@@ -524,73 +531,80 @@ Object.entries({
 }
 
 =====================================output=====================================
-const a = {
-  a: 'a',
-};
+const a =
+  {
+    a: 'a',
+  };
 
-const b = {
-  b: 'b',
-};
+const b =
+  {
+    b: 'b',
+  };
 
-const b2 = {
-  // Escapes should stay as escapes and not be unquoted.
-  '\\u0062': 'b',
-  '\\u0031': '1',
-};
+const b2 =
+  {
+    // Escapes should stay as escapes and not be unquoted.
+    '\\u0062': 'b',
+    '\\u0031': '1',
+  };
 
-const c = {
-  c1: 'c1',
-  c2: 'c2',
-};
+const c =
+  {
+    c1: 'c1',
+    c2: 'c2',
+  };
 
-const d = {
-  'd1': 'd1',
-  'd-2': 'd2',
-};
+const d =
+  {
+    'd1': 'd1',
+    'd-2': 'd2',
+  };
 
 // None of these should become quoted, regardless of the quoteProps value.
-const e = {
-  NaN: null,
-  1: null,
-  1.5: null,
-  0.1: null,
-  1: null,
-  1.0: null,
-  999999999999999999999: null,
-  0.99999999999999999: null,
-  1e2: null,
-  1e3: null,
-  1e100: null,
-  0b10: null,
-  0o10: null,
-  0xf: null,
-  // Commented out because Flow does not parse BigInt as object keys.
-  // 2n: null,
-};
+const e =
+  {
+    NaN: null,
+    1: null,
+    1.5: null,
+    0.1: null,
+    1: null,
+    1.0: null,
+    999999999999999999999: null,
+    0.99999999999999999: null,
+    1e2: null,
+    1e3: null,
+    1e100: null,
+    0b10: null,
+    0o10: null,
+    0xf: null,
+    // Commented out because Flow does not parse BigInt as object keys.
+    // 2n: null,
+  };
 
-const f = {
-  // This should be unquoted for quoteProps=as-needed.
-  'NaN': null,
-  // Flow does parses number keys, but errors on them during type checking so
-  // don’t unquote them:
-  '1': null,
-  '1.5': null,
-  // These should never be unquoted. \`1e+100\` technically could (it’s the only
-  // one where \`String(Number(key)) === key\`), but we came to the conclusion
-  // that it is unexpected.
-  '.1': null,
-  '1.': null,
-  '1.0': null,
-  '999999999999999999999': null,
-  '0.99999999999999999': null,
-  '1E2': null,
-  '1e+3': null,
-  '1e+100': null,
-  '0b10': null,
-  '0o10': null,
-  '0xf': null,
-  '2n': null,
-};
+const f =
+  {
+    // This should be unquoted for quoteProps=as-needed.
+    'NaN': null,
+    // Flow does parses number keys, but errors on them during type checking so
+    // don’t unquote them:
+    '1': null,
+    '1.5': null,
+    // These should never be unquoted. \`1e+100\` technically could (it’s the only
+    // one where \`String(Number(key)) === key\`), but we came to the conclusion
+    // that it is unexpected.
+    '.1': null,
+    '1.': null,
+    '1.0': null,
+    '999999999999999999999': null,
+    '0.99999999999999999': null,
+    '1E2': null,
+    '1e+3': null,
+    '1e+100': null,
+    '0b10': null,
+    '0o10': null,
+    '0xf': null,
+    '2n': null,
+  };
 
 Object.entries({
   // To force quotes for quoteProps=consistent.
@@ -745,73 +759,80 @@ Object.entries({
 }
 
 =====================================output=====================================
-const a = {
-  a: "a",
-};
+const a =
+  {
+    a: "a",
+  };
 
-const b = {
-  b: "b",
-};
+const b =
+  {
+    b: "b",
+  };
 
-const b2 = {
-  // Escapes should stay as escapes and not be unquoted.
-  "\\u0062": "b",
-  "\\u0031": "1",
-};
+const b2 =
+  {
+    // Escapes should stay as escapes and not be unquoted.
+    "\\u0062": "b",
+    "\\u0031": "1",
+  };
 
-const c = {
-  c1: "c1",
-  c2: "c2",
-};
+const c =
+  {
+    c1: "c1",
+    c2: "c2",
+  };
 
-const d = {
-  "d1": "d1",
-  "d-2": "d2",
-};
+const d =
+  {
+    "d1": "d1",
+    "d-2": "d2",
+  };
 
 // None of these should become quoted, regardless of the quoteProps value.
-const e = {
-  NaN: null,
-  1: null,
-  1.5: null,
-  0.1: null,
-  1: null,
-  1.0: null,
-  999999999999999999999: null,
-  0.99999999999999999: null,
-  1e2: null,
-  1e3: null,
-  1e100: null,
-  0b10: null,
-  0o10: null,
-  0xf: null,
-  // Commented out because Flow does not parse BigInt as object keys.
-  // 2n: null,
-};
+const e =
+  {
+    NaN: null,
+    1: null,
+    1.5: null,
+    0.1: null,
+    1: null,
+    1.0: null,
+    999999999999999999999: null,
+    0.99999999999999999: null,
+    1e2: null,
+    1e3: null,
+    1e100: null,
+    0b10: null,
+    0o10: null,
+    0xf: null,
+    // Commented out because Flow does not parse BigInt as object keys.
+    // 2n: null,
+  };
 
-const f = {
-  // This should be unquoted for quoteProps=as-needed.
-  "NaN": null,
-  // Flow does parses number keys, but errors on them during type checking so
-  // don’t unquote them:
-  "1": null,
-  "1.5": null,
-  // These should never be unquoted. \`1e+100\` technically could (it’s the only
-  // one where \`String(Number(key)) === key\`), but we came to the conclusion
-  // that it is unexpected.
-  ".1": null,
-  "1.": null,
-  "1.0": null,
-  "999999999999999999999": null,
-  "0.99999999999999999": null,
-  "1E2": null,
-  "1e+3": null,
-  "1e+100": null,
-  "0b10": null,
-  "0o10": null,
-  "0xf": null,
-  "2n": null,
-};
+const f =
+  {
+    // This should be unquoted for quoteProps=as-needed.
+    "NaN": null,
+    // Flow does parses number keys, but errors on them during type checking so
+    // don’t unquote them:
+    "1": null,
+    "1.5": null,
+    // These should never be unquoted. \`1e+100\` technically could (it’s the only
+    // one where \`String(Number(key)) === key\`), but we came to the conclusion
+    // that it is unexpected.
+    ".1": null,
+    "1.": null,
+    "1.0": null,
+    "999999999999999999999": null,
+    "0.99999999999999999": null,
+    "1E2": null,
+    "1e+3": null,
+    "1e+100": null,
+    "0b10": null,
+    "0o10": null,
+    "0xf": null,
+    "2n": null,
+  };
 
 Object.entries({
   // To force quotes for quoteProps=consistent.
@@ -966,73 +987,80 @@ Object.entries({
 }
 
 =====================================output=====================================
-const a = {
-  a: "a",
-};
+const a =
+  {
+    a: "a",
+  };
 
-const b = {
-  "b": "b",
-};
+const b =
+  {
+    "b": "b",
+  };
 
-const b2 = {
-  // Escapes should stay as escapes and not be unquoted.
-  "\\u0062": "b",
-  "\\u0031": "1",
-};
+const b2 =
+  {
+    // Escapes should stay as escapes and not be unquoted.
+    "\\u0062": "b",
+    "\\u0031": "1",
+  };
 
-const c = {
-  c1: "c1",
-  "c2": "c2",
-};
+const c =
+  {
+    c1: "c1",
+    "c2": "c2",
+  };
 
-const d = {
-  d1: "d1",
-  "d-2": "d2",
-};
+const d =
+  {
+    d1: "d1",
+    "d-2": "d2",
+  };
 
 // None of these should become quoted, regardless of the quoteProps value.
-const e = {
-  NaN: null,
-  1: null,
-  1.5: null,
-  0.1: null,
-  1: null,
-  1.0: null,
-  999999999999999999999: null,
-  0.99999999999999999: null,
-  1e2: null,
-  1e3: null,
-  1e100: null,
-  0b10: null,
-  0o10: null,
-  0xf: null,
-  // Commented out because Flow does not parse BigInt as object keys.
-  // 2n: null,
-};
+const e =
+  {
+    NaN: null,
+    1: null,
+    1.5: null,
+    0.1: null,
+    1: null,
+    1.0: null,
+    999999999999999999999: null,
+    0.99999999999999999: null,
+    1e2: null,
+    1e3: null,
+    1e100: null,
+    0b10: null,
+    0o10: null,
+    0xf: null,
+    // Commented out because Flow does not parse BigInt as object keys.
+    // 2n: null,
+  };
 
-const f = {
-  // This should be unquoted for quoteProps=as-needed.
-  "NaN": null,
-  // Flow does parses number keys, but errors on them during type checking so
-  // don’t unquote them:
-  "1": null,
-  "1.5": null,
-  // These should never be unquoted. \`1e+100\` technically could (it’s the only
-  // one where \`String(Number(key)) === key\`), but we came to the conclusion
-  // that it is unexpected.
-  ".1": null,
-  "1.": null,
-  "1.0": null,
-  "999999999999999999999": null,
-  "0.99999999999999999": null,
-  "1E2": null,
-  "1e+3": null,
-  "1e+100": null,
-  "0b10": null,
-  "0o10": null,
-  "0xf": null,
-  "2n": null,
-};
+const f =
+  {
+    // This should be unquoted for quoteProps=as-needed.
+    "NaN": null,
+    // Flow does parses number keys, but errors on them during type checking so
+    // don’t unquote them:
+    "1": null,
+    "1.5": null,
+    // These should never be unquoted. \`1e+100\` technically could (it’s the only
+    // one where \`String(Number(key)) === key\`), but we came to the conclusion
+    // that it is unexpected.
+    ".1": null,
+    "1.": null,
+    "1.0": null,
+    "999999999999999999999": null,
+    "0.99999999999999999": null,
+    "1E2": null,
+    "1e+3": null,
+    "1e+100": null,
+    "0b10": null,
+    "0o10": null,
+    "0xf": null,
+    "2n": null,
+  };
 
 Object.entries({
   // To force quotes for quoteProps=consistent.
@@ -1092,10 +1120,11 @@ class Foo {
 }
 
 =====================================output=====================================
-const obj = {
-  foo: "",
-  [foo.bar]: "",
-};
+const obj =
+  {
+    foo: "",
+    [foo.bar]: "",
+  };
 
 class Foo {
   foo() {}
@@ -1124,10 +1153,11 @@ class Foo {
 }
 
 =====================================output=====================================
-const obj = {
-  foo: '',
-  [foo.bar]: '',
-};
+const obj =
+  {
+    foo: '',
+    [foo.bar]: '',
+  };
 
 class Foo {
   foo() {}
@@ -1155,10 +1185,11 @@ class Foo {
 }
 
 =====================================output=====================================
-const obj = {
-  foo: "",
-  [foo.bar]: "",
-};
+const obj =
+  {
+    foo: "",
+    [foo.bar]: "",
+  };
 
 class Foo {
   foo() {}
@@ -1186,10 +1217,11 @@ class Foo {
 }
 
 =====================================output=====================================
-const obj = {
-  foo: "",
-  [foo.bar]: "",
-};
+const obj =
+  {
+    foo: "",
+    [foo.bar]: "",
+  };
 
 class Foo {
   foo() {}
@@ -1222,20 +1254,23 @@ obj = {
 };
 
 =====================================output=====================================
-obj = {
-  foo: "",
-  1: "",
-};
+obj =
+  {
+    foo: "",
+    1: "",
+  };
 
-obj = {
-  bar: "",
-  1: "",
-};
+obj =
+  {
+    bar: "",
+    1: "",
+  };
 
-obj = {
-  "foo-bar": "",
-  1: "",
-};
+obj =
+  {
+    "foo-bar": "",
+    1: "",
+  };
 
 ================================================================================
 `;
@@ -1264,20 +1299,23 @@ obj = {
 };
 
 =====================================output=====================================
-obj = {
-  foo: '',
-  1: '',
-};
+obj =
+  {
+    foo: '',
+    1: '',
+  };
 
-obj = {
-  bar: '',
-  1: '',
-};
+obj =
+  {
+    bar: '',
+    1: '',
+  };
 
-obj = {
-  'foo-bar': '',
-  '1': '',
-};
+obj =
+  {
+    'foo-bar': '',
+    '1': '',
+  };
 
 ================================================================================
 `;
@@ -1305,20 +1343,23 @@ obj = {
 };
 
 =====================================output=====================================
-obj = {
-  foo: "",
-  1: "",
-};
+obj =
+  {
+    foo: "",
+    1: "",
+  };
 
-obj = {
-  bar: "",
-  1: "",
-};
+obj =
+  {
+    bar: "",
+    1: "",
+  };
 
-obj = {
-  "foo-bar": "",
-  "1": "",
-};
+obj =
+  {
+    "foo-bar": "",
+    "1": "",
+  };
 
 ================================================================================
 `;
@@ -1346,20 +1387,23 @@ obj = {
 };
 
 =====================================output=====================================
-obj = {
-  foo: "",
-  1: "",
-};
+obj =
+  {
+    foo: "",
+    1: "",
+  };
 
-obj = {
-  "bar": "",
-  1: "",
-};
+obj =
+  {
+    "bar": "",
+    1: "",
+  };
 
-obj = {
-  "foo-bar": "",
-  1: "",
-};
+obj =
+  {
+    "foo-bar": "",
+    1: "",
+  };
 
 ================================================================================
 `;

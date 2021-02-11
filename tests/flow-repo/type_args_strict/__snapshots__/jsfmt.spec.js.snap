@@ -116,9 +116,10 @@ var c2: MyClass2 = new MyClass2(0, ""); // error, missing argument list (1-2)
 
 // arity error in type annotation using polymorphic type alias
 
-type MyObject<T> = {
-  x: T,
-};
+type MyObject<T> =
+  {
+    x: T,
+  };
 
 var o: MyObject = { x: 0 }; // error, missing argument list
 

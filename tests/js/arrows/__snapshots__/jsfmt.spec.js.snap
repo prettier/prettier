@@ -75,9 +75,10 @@ a = (b) => c;
 f((a) => ({})) + 1;
 ((a) => ({})) || 0;
 a = (b) => c;
-a = (b) => {
-  return c;
-};
+a =
+  (b) => {
+    return c;
+  };
 
 ================================================================================
 `;
@@ -157,9 +158,10 @@ x => (y += z);
 f(a => ({})) + 1;
 (a => ({})) || 0;
 a = b => c;
-a = b => {
-  return c;
-};
+a =
+  b => {
+    return c;
+  };
 
 ================================================================================
 `;
@@ -610,13 +612,14 @@ Seq(typeDef.interface.groups).forEach((group) =>
   )
 );
 
-const promiseFromCallback = (fn) =>
-  new Promise((resolve, reject) =>
-    fn((err, result) => {
-      if (err) return reject(err);
-      return resolve(result);
-    })
-  );
+const promiseFromCallback =
+  (fn) =>
+    new Promise((resolve, reject) =>
+      fn((err, result) => {
+        if (err) return reject(err);
+        return resolve(result);
+      })
+    );
 
 runtimeAgent.getProperties(
   objectId,
@@ -634,9 +637,8 @@ function render() {
       <Image
         onProgress={(e) =>
           this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
+            progress:
+              Math.round((100 * e.nativeEvent.loaded) / e.nativeEvent.total),
           })
         }
       />
@@ -650,9 +652,8 @@ function render() {
       <Image
         onProgress={(e) =>
           this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
+            progress:
+              Math.round((100 * e.nativeEvent.loaded) / e.nativeEvent.total),
           })
         }
       />
@@ -666,9 +667,8 @@ function render() {
       <Image
         onProgress={(e) =>
           this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
+            progress:
+              Math.round((100 * e.nativeEvent.loaded) / e.nativeEvent.total),
           })
         }
       />
@@ -725,88 +725,103 @@ foo(({ a, b }) => a);
 
 foo(
   ({
-    a: {
-      a,
+    a:
+      {
+        a,
 
-      b,
-    },
-  }) => {}
-);
-
-foo(
-  ({
-    a: {
-      b: {
-        c,
-
-        d,
+        b,
       },
-    },
   }) => {}
 );
 
 foo(
   ({
-    a: {
-      b: {
-        c: {
-          d,
+    a:
+      {
+        b:
+          {
+            c,
 
-          e,
-        },
+            d,
+          },
       },
-    },
   }) => {}
 );
 
 foo(
   ({
-    a: {
-      a,
+    a:
+      {
+        b:
+          {
+            c:
+              {
+                d,
 
-      b,
-    },
+                e,
+              },
+          },
+      },
+  }) => {}
+);
+
+foo(
+  ({
+    a:
+      {
+        a,
+
+        b,
+      },
   }) => a
 );
 
 foo(
   ({
-    a: {
-      b: {
-        c,
+    a:
+      {
+        b:
+          {
+            c,
 
-        d,
+            d,
+          },
       },
-    },
   }) => a
 );
 
 foo(
   ({
-    a: {
-      b: {
-        c: {
-          d,
+    a:
+      {
+        b:
+          {
+            c:
+              {
+                d,
 
-          e,
-        },
+                e,
+              },
+          },
       },
-    },
   }) => a
 );
 
 foo(
   ([
     {
-      a: {
-        b: {
-          c: {
-            d,
+      a:
+        {
+          b:
+            {
+              c:
+                {
+                  d,
 
-            e,
-          },
+                  e,
+                },
+            },
         },
-      },
     },
   ]) => {}
 );
@@ -814,15 +829,18 @@ foo(
 foo(
   ([
     ...{
-      a: {
-        b: {
-          c: {
-            d,
+      a:
+        {
+          b:
+            {
+              c:
+                {
+                  d,
 
-            e,
-          },
+                  e,
+                },
+            },
         },
-      },
     }
   ]) => {}
 );
@@ -830,28 +848,32 @@ foo(
 foo(
   (
     n = {
-      a: {
-        b: {
-          c: {
-            d,
+      a:
+        {
+          b:
+            {
+              c:
+                {
+                  d,
 
-            e,
-          },
+                  e,
+                },
+            },
         },
-      },
     }
   ) => {}
 );
 
 foo(
   ({
-    x: [
-      {
-        a,
+    x:
+      [
+        {
+          a,
 
-        b,
-      },
-    ],
+          b,
+        },
+      ],
   }) => {}
 );
 
@@ -886,14 +908,16 @@ foo(
         [
           {
             a,
-            b: {
-              c,
-              d: {
-                e,
+            b:
+              {
+                c,
+                d:
+                  {
+                    e,
 
-                f,
+                    f,
+                  },
               },
-            },
           },
         ],
       ],
@@ -1407,13 +1431,14 @@ Seq(typeDef.interface.groups).forEach(group =>
   )
 );
 
-const promiseFromCallback = fn =>
-  new Promise((resolve, reject) =>
-    fn((err, result) => {
-      if (err) return reject(err);
-      return resolve(result);
-    })
-  );
+const promiseFromCallback =
+  fn =>
+    new Promise((resolve, reject) =>
+      fn((err, result) => {
+        if (err) return reject(err);
+        return resolve(result);
+      })
+    );
 
 runtimeAgent.getProperties(
   objectId,
@@ -1431,9 +1456,8 @@ function render() {
       <Image
         onProgress={e =>
           this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
+            progress:
+              Math.round((100 * e.nativeEvent.loaded) / e.nativeEvent.total),
           })
         }
       />
@@ -1447,9 +1471,8 @@ function render() {
       <Image
         onProgress={e =>
           this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
+            progress:
+              Math.round((100 * e.nativeEvent.loaded) / e.nativeEvent.total),
           })
         }
       />
@@ -1463,9 +1486,8 @@ function render() {
       <Image
         onProgress={e =>
           this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
+            progress:
+              Math.round((100 * e.nativeEvent.loaded) / e.nativeEvent.total),
           })
         }
       />
@@ -1522,88 +1544,103 @@ foo(({ a, b }) => a);
 
 foo(
   ({
-    a: {
-      a,
+    a:
+      {
+        a,
 
-      b,
-    },
-  }) => {}
-);
-
-foo(
-  ({
-    a: {
-      b: {
-        c,
-
-        d,
+        b,
       },
-    },
   }) => {}
 );
 
 foo(
   ({
-    a: {
-      b: {
-        c: {
-          d,
+    a:
+      {
+        b:
+          {
+            c,
 
-          e,
-        },
+            d,
+          },
       },
-    },
   }) => {}
 );
 
 foo(
   ({
-    a: {
-      a,
+    a:
+      {
+        b:
+          {
+            c:
+              {
+                d,
 
-      b,
-    },
+                e,
+              },
+          },
+      },
+  }) => {}
+);
+
+foo(
+  ({
+    a:
+      {
+        a,
+
+        b,
+      },
   }) => a
 );
 
 foo(
   ({
-    a: {
-      b: {
-        c,
+    a:
+      {
+        b:
+          {
+            c,
 
-        d,
+            d,
+          },
       },
-    },
   }) => a
 );
 
 foo(
   ({
-    a: {
-      b: {
-        c: {
-          d,
+    a:
+      {
+        b:
+          {
+            c:
+              {
+                d,
 
-          e,
-        },
+                e,
+              },
+          },
       },
-    },
   }) => a
 );
 
 foo(
   ([
     {
-      a: {
-        b: {
-          c: {
-            d,
+      a:
+        {
+          b:
+            {
+              c:
+                {
+                  d,
 
-            e,
-          },
+                  e,
+                },
+            },
         },
-      },
     },
   ]) => {}
 );
@@ -1611,15 +1648,18 @@ foo(
 foo(
   ([
     ...{
-      a: {
-        b: {
-          c: {
-            d,
+      a:
+        {
+          b:
+            {
+              c:
+                {
+                  d,
 
-            e,
-          },
+                  e,
+                },
+            },
         },
-      },
     }
   ]) => {}
 );
@@ -1627,28 +1667,32 @@ foo(
 foo(
   (
     n = {
-      a: {
-        b: {
-          c: {
-            d,
+      a:
+        {
+          b:
+            {
+              c:
+                {
+                  d,
 
-            e,
-          },
+                  e,
+                },
+            },
         },
-      },
     }
   ) => {}
 );
 
 foo(
   ({
-    x: [
-      {
-        a,
+    x:
+      [
+        {
+          a,
 
-        b,
-      },
-    ],
+          b,
+        },
+      ],
   }) => {}
 );
 
@@ -1683,14 +1727,16 @@ foo(
         [
           {
             a,
-            b: {
-              c,
-              d: {
-                e,
+            b:
+              {
+                c,
+                d:
+                  {
+                    e,
 
-                f,
+                    f,
+                  },
               },
-            },
           },
         ],
       ],
@@ -1833,23 +1879,24 @@ export const bem = block =>
  * @param {String} block - the BEM Block you'd like to select.
  * @returns {Function}
  */
-export const bem = (block) =>
-  /**
-   * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
-   * @returns {Function}
-   */
-  (element) =>
+export const bem =
+  (block) =>
     /**
-     * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
-     * @returns {String}
+     * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
+     * @returns {Function}
      */
-    (modifier) =>
-      [
-        ".",
-        css(block),
-        element ? \`__\${css(element)}\` : "",
-        modifier ? \`--\${css(modifier)}\` : "",
-      ].join("");
+    (element) =>
+      /**
+       * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
+       * @returns {String}
+       */
+      (modifier) =>
+        [
+          ".",
+          css(block),
+          element ? \`__\${css(element)}\` : "",
+          modifier ? \`--\${css(modifier)}\` : "",
+        ].join("");
 
 <FlatList
   renderItem={(
@@ -1906,23 +1953,24 @@ export const bem = block =>
  * @param {String} block - the BEM Block you'd like to select.
  * @returns {Function}
  */
-export const bem = block =>
-  /**
-   * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
-   * @returns {Function}
-   */
-  element =>
+export const bem =
+  block =>
     /**
-     * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
-     * @returns {String}
+     * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
+     * @returns {Function}
      */
-    modifier =>
-      [
-        ".",
-        css(block),
-        element ? \`__\${css(element)}\` : "",
-        modifier ? \`--\${css(modifier)}\` : "",
-      ].join("");
+    element =>
+      /**
+       * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
+       * @returns {String}
+       */
+      modifier =>
+        [
+          ".",
+          css(block),
+          element ? \`__\${css(element)}\` : "",
+          modifier ? \`--\${css(modifier)}\` : "",
+        ].join("");
 
 <FlatList
   renderItem={(
@@ -1960,23 +2008,27 @@ const middleware = options => (req, res, next) => {
 };
 
 =====================================output=====================================
-const fn = (b) => (c) => (d) => {
-  return 3;
-};
+const fn =
+  (b) => (c) => (d) => {
+    return 3;
+  };
 
-const foo = (a, b) => (c) => (d) => {
-  return 3;
-};
+const foo =
+  (a, b) => (c) => (d) => {
+    return 3;
+  };
 
 const bar = (a) => (b) => (c) => a + b + c;
 
-const mw = (store) => (next) => (action) => {
-  return next(action);
-};
+const mw =
+  (store) => (next) => (action) => {
+    return next(action);
+  };
 
-const middleware = (options) => (req, res, next) => {
-  // ...
-};
+const middleware =
+  (options) => (req, res, next) => {
+    // ...
+  };
 
 ================================================================================
 `;
@@ -2007,23 +2059,27 @@ const middleware = options => (req, res, next) => {
 };
 
 =====================================output=====================================
-const fn = b => c => d => {
-  return 3;
-};
+const fn =
+  b => c => d => {
+    return 3;
+  };
 
-const foo = (a, b) => c => d => {
-  return 3;
-};
+const foo =
+  (a, b) => c => d => {
+    return 3;
+  };
 
 const bar = a => b => c => a + b + c;
 
-const mw = store => next => action => {
-  return next(action);
-};
+const mw =
+  store => next => action => {
+    return next(action);
+  };
 
-const middleware = options => (req, res, next) => {
-  // ...
-};
+const middleware =
+  options => (req, res, next) => {
+    // ...
+  };
 
 ================================================================================
 `;
@@ -2076,14 +2132,15 @@ const foo = () => {
 };
 
 =====================================output=====================================
-const foo = () => {
-  expect(arg1, arg2, arg3).toEqual({
-    message: "test",
-    messageType: "SMS",
-    status: "Unknown",
-    created: "11/01/2017 13:36",
-  });
-};
+const foo =
+  () => {
+    expect(arg1, arg2, arg3).toEqual({
+      message: "test",
+      messageType: "SMS",
+      status: "Unknown",
+      created: "11/01/2017 13:36",
+    });
+  };
 
 ================================================================================
 `;
@@ -2100,14 +2157,15 @@ const foo = () => {
 };
 
 =====================================output=====================================
-const foo = () => {
-  expect(arg1, arg2, arg3).toEqual({
-    message: "test",
-    messageType: "SMS",
-    status: "Unknown",
-    created: "11/01/2017 13:36",
-  });
-};
+const foo =
+  () => {
+    expect(arg1, arg2, arg3).toEqual({
+      message: "test",
+      messageType: "SMS",
+      status: "Unknown",
+      created: "11/01/2017 13:36",
+    });
+  };
 
 ================================================================================
 `;

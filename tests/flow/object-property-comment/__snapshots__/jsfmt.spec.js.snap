@@ -25,24 +25,27 @@ o = {
 };
 
 =====================================output=====================================
-o = {
-  name:
+o =
+  {
+    name:
+      // Comment A
+      // Comment B
+      (({ id: type }: any): CreativeConcept),
+  };
+
+o =
+  {
     // Comment A
-    // Comment B
-    (({ id: type }: any): CreativeConcept),
-};
+    name:
+      // Comment B
+      (({ id: type }: any): CreativeConcept),
+  };
 
-o = {
-  // Comment A
-  name:
-    // Comment B
-    (({ id: type }: any): CreativeConcept),
-};
-
-o = {
-  // Comment B // Comment A
-  name: (({ id: type }: any): CreativeConcept),
-};
+o =
+  {
+    // Comment B // Comment A
+    name: (({ id: type }: any): CreativeConcept),
+  };
 
 ================================================================================
 `;

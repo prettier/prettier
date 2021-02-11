@@ -25,8 +25,9 @@ function area(shape: Shape): number {
 /* @flow */
 
 type Shape =
-  | { type: "rectangle", width: number, height: number }
-  | { type: "circle", radius: number };
+
+    | { type: "rectangle", width: number, height: number }
+    | { type: "circle", radius: number };
 
 function area(shape: Shape): number {
   if (shape.type === "square") {

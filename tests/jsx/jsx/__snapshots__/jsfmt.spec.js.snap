@@ -40,26 +40,28 @@ const TodoList = ({ todos }) => (
 </div>
 
 =====================================output=====================================
-const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
-);
+const UsersList =
+  ({ users }) => (
+    <section>
+      <h2>Users list</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </section>
+  );
 
-const TodoList = ({ todos }) => (
-  <div className="TodoList">
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
-);
+const TodoList =
+  ({ todos }) => (
+    <div className="TodoList">
+      <ul>
+        {_.map(todos, (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        ))}
+      </ul>
+    </div>
+  );
 
 <div className="search-filter-chips">
   {scopes
@@ -118,26 +120,28 @@ const TodoList = ({ todos }) => (
 </div>
 
 =====================================output=====================================
-const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
-);
+const UsersList =
+  ({ users }) => (
+    <section>
+      <h2>Users list</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </section>
+  );
 
-const TodoList = ({ todos }) => (
-  <div className='TodoList'>
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
-);
+const TodoList =
+  ({ todos }) => (
+    <div className='TodoList'>
+      <ul>
+        {_.map(todos, (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        ))}
+      </ul>
+    </div>
+  );
 
 <div className='search-filter-chips'>
   {scopes
@@ -196,26 +200,28 @@ const TodoList = ({ todos }) => (
 </div>
 
 =====================================output=====================================
-const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
-);
+const UsersList =
+  ({ users }) => (
+    <section>
+      <h2>Users list</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </section>
+  );
 
-const TodoList = ({ todos }) => (
-  <div className="TodoList">
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
-);
+const TodoList =
+  ({ todos }) => (
+    <div className="TodoList">
+      <ul>
+        {_.map(todos, (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        ))}
+      </ul>
+    </div>
+  );
 
 <div className="search-filter-chips">
   {scopes
@@ -274,26 +280,28 @@ const TodoList = ({ todos }) => (
 </div>
 
 =====================================output=====================================
-const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
-);
+const UsersList =
+  ({ users }) => (
+    <section>
+      <h2>Users list</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </section>
+  );
 
-const TodoList = ({ todos }) => (
-  <div className='TodoList'>
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
-);
+const TodoList =
+  ({ todos }) => (
+    <div className='TodoList'>
+      <ul>
+        {_.map(todos, (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        ))}
+      </ul>
+    </div>
+  );
 
 <div className='search-filter-chips'>
   {scopes
@@ -2980,10 +2988,11 @@ const aDiv = (
 );
 
 =====================================output=====================================
-const aDiv = (
-  /* $FlowFixMe */
-  <div className="foo">Foo bar</div>
-);
+const aDiv =
+  (
+    /* $FlowFixMe */
+    <div className="foo">Foo bar</div>
+  );
 
 ================================================================================
 `;
@@ -3004,10 +3013,11 @@ const aDiv = (
 );
 
 =====================================output=====================================
-const aDiv = (
-  /* $FlowFixMe */
-  <div className='foo'>Foo bar</div>
-);
+const aDiv =
+  (
+    /* $FlowFixMe */
+    <div className='foo'>Foo bar</div>
+  );
 
 ================================================================================
 `;
@@ -3028,10 +3038,11 @@ const aDiv = (
 );
 
 =====================================output=====================================
-const aDiv = (
-  /* $FlowFixMe */
-  <div className="foo">Foo bar</div>
-);
+const aDiv =
+  (
+    /* $FlowFixMe */
+    <div className="foo">Foo bar</div>
+  );
 
 ================================================================================
 `;
@@ -3052,10 +3063,11 @@ const aDiv = (
 );
 
 =====================================output=====================================
-const aDiv = (
-  /* $FlowFixMe */
-  <div className='foo'>Foo bar</div>
-);
+const aDiv =
+  (
+    /* $FlowFixMe */
+    <div className='foo'>Foo bar</div>
+  );
 
 ================================================================================
 `;
@@ -3803,19 +3815,21 @@ const tabs = [
 ];
 
 =====================================output=====================================
-const tabs = [
-  {
-    title: "General Info",
-    content: (
-      <GeneralForm
-        long-attribute="i-need-long-value-here"
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
-];
+const tabs =
+  [
+    {
+      title: "General Info",
+      content:
+        (
+          <GeneralForm
+            long-attribute="i-need-long-value-here"
+            onSave={onSave}
+            onCancel={onCancel}
+            countries={countries}
+          />
+        ),
+    },
+  ];
 
 ================================================================================
 `;
@@ -3843,19 +3857,21 @@ const tabs = [
 ];
 
 =====================================output=====================================
-const tabs = [
-  {
-    title: "General Info",
-    content: (
-      <GeneralForm
-        long-attribute='i-need-long-value-here'
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
-];
+const tabs =
+  [
+    {
+      title: "General Info",
+      content:
+        (
+          <GeneralForm
+            long-attribute='i-need-long-value-here'
+            onSave={onSave}
+            onCancel={onCancel}
+            countries={countries}
+          />
+        ),
+    },
+  ];
 
 ================================================================================
 `;
@@ -3883,19 +3899,21 @@ const tabs = [
 ];
 
 =====================================output=====================================
-const tabs = [
-  {
-    title: 'General Info',
-    content: (
-      <GeneralForm
-        long-attribute="i-need-long-value-here"
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
-];
+const tabs =
+  [
+    {
+      title: 'General Info',
+      content:
+        (
+          <GeneralForm
+            long-attribute="i-need-long-value-here"
+            onSave={onSave}
+            onCancel={onCancel}
+            countries={countries}
+          />
+        ),
+    },
+  ];
 
 ================================================================================
 `;
@@ -3923,19 +3941,21 @@ const tabs = [
 ];
 
 =====================================output=====================================
-const tabs = [
-  {
-    title: 'General Info',
-    content: (
-      <GeneralForm
-        long-attribute='i-need-long-value-here'
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
-];
+const tabs =
+  [
+    {
+      title: 'General Info',
+      content:
+        (
+          <GeneralForm
+            long-attribute='i-need-long-value-here'
+            onSave={onSave}
+            onCancel={onCancel}
+            countries={countries}
+          />
+        ),
+    },
+  ];
 
 ================================================================================
 `;
@@ -4145,16 +4165,17 @@ new Foo(<Component/>);
 new Foo((<Component/>))
 
 =====================================output=====================================
-a = [
-  <path
-    key="0"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
-  <path
-    key="1"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
-];
+a =
+  [
+    <path
+      key="0"
+      d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+    />,
+    <path
+      key="1"
+      d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+    />,
+  ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
 
@@ -4197,16 +4218,17 @@ new Foo(<Component/>);
 new Foo((<Component/>))
 
 =====================================output=====================================
-a = [
-  <path
-    key='0'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
-  <path
-    key='1'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
-];
+a =
+  [
+    <path
+      key='0'
+      d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+    />,
+    <path
+      key='1'
+      d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+    />,
+  ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
 
@@ -4249,16 +4271,17 @@ new Foo(<Component/>);
 new Foo((<Component/>))
 
 =====================================output=====================================
-a = [
-  <path
-    key="0"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
-  <path
-    key="1"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
-];
+a =
+  [
+    <path
+      key="0"
+      d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+    />,
+    <path
+      key="1"
+      d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+    />,
+  ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
 
@@ -4301,16 +4324,17 @@ new Foo(<Component/>);
 new Foo((<Component/>))
 
 =====================================output=====================================
-a = [
-  <path
-    key='0'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
-  <path
-    key='1'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
-];
+a =
+  [
+    <path
+      key='0'
+      d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+    />,
+    <path
+      key='1'
+      d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+    />,
+  ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
 
@@ -4749,35 +4773,40 @@ class BreakingClass extends React.component {
 =====================================output=====================================
 const NonBreakingArrowExpression = () => <div />;
 
-const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
-);
-
-const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
-};
-
-const BreakingArrowExpressionWBody = () => {
-  return (
+const BreakingArrowExpression =
+  () => (
     <div>
       <div>bla bla bla</div>
     </div>
   );
-};
 
-const NonBreakingFunction = function () {
-  return <div />;
-};
+const NonBreakingArrowExpressionWBody =
+  () => {
+    return <div />;
+  };
 
-const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
-};
+const BreakingArrowExpressionWBody =
+  () => {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
+
+const NonBreakingFunction =
+  function () {
+    return <div />;
+  };
+
+const BreakingFunction =
+  function () {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
 
 class NonBreakingClass extends React.component {
   render() {
@@ -4863,35 +4892,40 @@ class BreakingClass extends React.component {
 =====================================output=====================================
 const NonBreakingArrowExpression = () => <div />;
 
-const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
-);
-
-const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
-};
-
-const BreakingArrowExpressionWBody = () => {
-  return (
+const BreakingArrowExpression =
+  () => (
     <div>
       <div>bla bla bla</div>
     </div>
   );
-};
 
-const NonBreakingFunction = function () {
-  return <div />;
-};
+const NonBreakingArrowExpressionWBody =
+  () => {
+    return <div />;
+  };
 
-const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
-};
+const BreakingArrowExpressionWBody =
+  () => {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
+
+const NonBreakingFunction =
+  function () {
+    return <div />;
+  };
+
+const BreakingFunction =
+  function () {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
 
 class NonBreakingClass extends React.component {
   render() {
@@ -4977,35 +5011,40 @@ class BreakingClass extends React.component {
 =====================================output=====================================
 const NonBreakingArrowExpression = () => <div />;
 
-const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
-);
-
-const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
-};
-
-const BreakingArrowExpressionWBody = () => {
-  return (
+const BreakingArrowExpression =
+  () => (
     <div>
       <div>bla bla bla</div>
     </div>
   );
-};
 
-const NonBreakingFunction = function () {
-  return <div />;
-};
+const NonBreakingArrowExpressionWBody =
+  () => {
+    return <div />;
+  };
 
-const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
-};
+const BreakingArrowExpressionWBody =
+  () => {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
+
+const NonBreakingFunction =
+  function () {
+    return <div />;
+  };
+
+const BreakingFunction =
+  function () {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
 
 class NonBreakingClass extends React.component {
   render() {
@@ -5091,35 +5130,40 @@ class BreakingClass extends React.component {
 =====================================output=====================================
 const NonBreakingArrowExpression = () => <div />;
 
-const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
-);
-
-const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
-};
-
-const BreakingArrowExpressionWBody = () => {
-  return (
+const BreakingArrowExpression =
+  () => (
     <div>
       <div>bla bla bla</div>
     </div>
   );
-};
 
-const NonBreakingFunction = function () {
-  return <div />;
-};
+const NonBreakingArrowExpressionWBody =
+  () => {
+    return <div />;
+  };
 
-const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
-};
+const BreakingArrowExpressionWBody =
+  () => {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
+
+const NonBreakingFunction =
+  function () {
+    return <div />;
+  };
+
+const BreakingFunction =
+  function () {
+    return (
+      <div>
+        <div>bla bla bla</div>
+      </div>
+    );
+  };
 
 class NonBreakingClass extends React.component {
   render() {
@@ -5241,13 +5285,14 @@ const Labels = {
 };
 
 =====================================output=====================================
-const Labels = {
-  label1: <fbt>Label 1</fbt>,
+const Labels =
+  {
+    label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+    label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
-};
+    label3: <fbt>Label 3</fbt>,
+  };
 
 ================================================================================
 `;
@@ -5281,13 +5326,14 @@ const Labels = {
 };
 
 =====================================output=====================================
-const Labels = {
-  label1: <fbt>Label 1</fbt>,
+const Labels =
+  {
+    label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+    label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
-};
+    label3: <fbt>Label 3</fbt>,
+  };
 
 ================================================================================
 `;
@@ -5321,13 +5367,14 @@ const Labels = {
 };
 
 =====================================output=====================================
-const Labels = {
-  label1: <fbt>Label 1</fbt>,
+const Labels =
+  {
+    label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+    label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
-};
+    label3: <fbt>Label 3</fbt>,
+  };
 
 ================================================================================
 `;
@@ -5361,13 +5408,14 @@ const Labels = {
 };
 
 =====================================output=====================================
-const Labels = {
-  label1: <fbt>Label 1</fbt>,
+const Labels =
+  {
+    label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+    label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
-};
+    label3: <fbt>Label 3</fbt>,
+  };
 
 ================================================================================
 `;

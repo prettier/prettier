@@ -127,13 +127,14 @@ class E {
 }
 
 // note: above classdefs are sufficiently annotated to export
-module.exports = {
-  A: A,
-  B: B,
-  C: C,
-  D: D,
-  E: E,
-};
+module.exports =
+  {
+    A: A,
+    B: B,
+    C: C,
+    D: D,
+    E: E,
+  };
 
 ================================================================================
 `;

@@ -1379,12 +1379,14 @@ and add this config to your \`package.json\`:
 
 \`\`\`json
 {
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,json,css}": ["prettier --write", "git add"]
-  }
+  "scripts":
+    {
+      "precommit": "lint-staged"
+    },
+  "lint-staged":
+    {
+      "*.{js,json,css}": ["prettier --write", "git add"]
+    }
 }
 \`\`\`
 
@@ -1793,14 +1795,16 @@ JSON:
 \`\`\`json
 {
   "semi": false,
-  "overrides": [
-    {
-      "files": "*.test.js",
-      "options": {
-        "semi": true
+  "overrides":
+    [
+      {
+        "files": "*.test.js",
+        "options":
+          {
+            "semi": true
+          }
       }
-    }
-  ]
+    ]
 }
 \`\`\`
 
@@ -1822,12 +1826,13 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
 
 \`\`\`json
 {
-  "overrides": [
-    {
-      "files": ".prettierrc",
-      "options": { "parser": "json" }
-    }
-  ]
+  "overrides":
+    [
+      {
+        "files": ".prettierrc",
+        "options": { "parser": "json" }
+      }
+    ]
 }
 \`\`\`
 
@@ -3358,12 +3363,14 @@ and add this config to your \`package.json\`:
 
 \`\`\`json
 {
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,json,css}": ["prettier --write", "git add"]
-  }
+  "scripts":
+    {
+      "precommit": "lint-staged"
+    },
+  "lint-staged":
+    {
+      "*.{js,json,css}": ["prettier --write", "git add"]
+    }
 }
 \`\`\`
 
@@ -3772,14 +3779,16 @@ JSON:
 \`\`\`json
 {
   "semi": false,
-  "overrides": [
-    {
-      "files": "*.test.js",
-      "options": {
-        "semi": true
+  "overrides":
+    [
+      {
+        "files": "*.test.js",
+        "options":
+          {
+            "semi": true
+          }
       }
-    }
-  ]
+    ]
 }
 \`\`\`
 
@@ -3801,12 +3810,13 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
 
 \`\`\`json
 {
-  "overrides": [
-    {
-      "files": ".prettierrc",
-      "options": { "parser": "json" }
-    }
-  ]
+  "overrides":
+    [
+      {
+        "files": ".prettierrc",
+        "options": { "parser": "json" }
+      }
+    ]
 }
 \`\`\`
 

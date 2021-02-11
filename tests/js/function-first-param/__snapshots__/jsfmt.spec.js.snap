@@ -36,11 +36,13 @@ db.collection('indexOptionDefault').createIndex({ a: 1 }, {
 beep.boop().baz(
   "foo",
   {
-    some: {
-      thing: {
-        nested: true,
+    some:
+      {
+        thing:
+          {
+            nested: true,
+          },
       },
-    },
   },
   { another: { thing: true } },
   () => {}

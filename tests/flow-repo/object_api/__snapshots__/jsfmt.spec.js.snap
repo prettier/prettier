@@ -84,14 +84,16 @@ module.exports = export_;
 =====================================output=====================================
 /* @flow */
 
-var export_ = Object.assign(
-  {},
-  {
-    foo: function (param) {
-      return param;
-    },
-  }
-);
+var export_ =
+  Object.assign(
+    {},
+    {
+      foo:
+        function (param) {
+          return param;
+        },
+    }
+  );
 
 var decl_export_: { foo: any, bar: any } = Object.assign({}, export_);
 
@@ -175,12 +177,13 @@ let tests = [
 class Foo {}
 class Bar extends Foo {}
 
-let tests = [
-  function () {
-    const x = new Bar();
-    (Object.getPrototypeOf(x): Foo);
-  },
-];
+let tests =
+  [
+    function () {
+      const x = new Bar();
+      (Object.getPrototypeOf(x): Foo);
+    },
+  ];
 
 ================================================================================
 `;
@@ -278,11 +281,12 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-let tests = [
-  function () {
-    Object.doesNotExist();
-  },
-];
+let tests =
+  [
+    function () {
+      Object.doesNotExist();
+    },
+  ];
 
 ================================================================================
 `;
@@ -470,12 +474,14 @@ class Foo {}
 
 var a = { foo: "bar" };
 var b = { foo: "bar", ...{} };
-var c = {
-  foo: "bar",
-  toString: function (): number {
-    return 123;
-  },
-};
+var c =
+  {
+    foo: "bar",
+    toString:
+      function (): number {
+        return 123;
+      },
+  };
 var d: { [key: string]: string } = { foo: "bar" };
 var x = new Date();
 var y = new Foo();
@@ -494,12 +500,14 @@ var aToString2 = a.toString;
 takesAString(aToString2());
 
 // set
-b.toString = function (): string {
-  return "foo";
-};
-c.toString = function (): number {
-  return 123;
-};
+b.toString =
+  function (): string {
+    return "foo";
+  };
+c.toString =
+  function (): number {
+    return 123;
+  };
 
 // override
 var cToString: () => number = c.toString;
@@ -534,9 +542,10 @@ var aHasOwnProperty2 = a.hasOwnProperty;
 takesABool(aHasOwnProperty2("bar"));
 
 // set
-b.hasOwnProperty = function () {
-  return false;
-};
+b.hasOwnProperty =
+  function () {
+    return false;
+  };
 
 // ... on a built-in instance
 var xHasOwnProperty: number = x.hasOwnProperty; // error
@@ -560,9 +569,10 @@ var aPropertyIsEnumerable2 = a.propertyIsEnumerable;
 takesABool(aPropertyIsEnumerable2("bar"));
 
 // set
-b.propertyIsEnumerable = function () {
-  return false;
-};
+b.propertyIsEnumerable =
+  function () {
+    return false;
+  };
 
 // ... on a built-in instance
 var xPropertyIsEnumerable: number = x.propertyIsEnumerable; // error
@@ -586,9 +596,10 @@ var aValueOf2 = a.valueOf;
 takesAnObject(aValueOf2());
 
 // set
-b.valueOf = function () {
-  return {};
-};
+b.valueOf =
+  function () {
+    return {};
+  };
 
 // ... on a built-in instance
 var xValueOf: number = x.valueOf; // error
@@ -616,9 +627,10 @@ var aToLocaleString2 = a.toLocaleString;
 takesAString(aToLocaleString2());
 
 // set
-b.toLocaleString = function () {
-  return "derp";
-};
+b.toLocaleString =
+  function () {
+    return "derp";
+  };
 
 // ... on a built-in instance
 var xToLocaleString: number = x.toLocaleString; // error

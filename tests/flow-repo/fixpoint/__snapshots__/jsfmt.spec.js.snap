@@ -51,12 +51,13 @@ function mul(x: number, y: number) {
 }
 
 function fix(fold) {
-  var delta = function (delta) {
-    return fold(function (x) {
-      var eta = delta(delta);
-      return eta(x);
-    });
-  };
+  var delta =
+    function (delta) {
+      return fold(function (x) {
+        var eta = delta(delta);
+        return eta(x);
+      });
+    };
   return delta(delta);
 }
 

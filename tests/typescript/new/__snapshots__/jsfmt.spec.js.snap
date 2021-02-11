@@ -97,18 +97,19 @@ interface BarConstructor {
   ): Foo;
 }
 
-type BazConstructor = {
-  new (
-    a: number,
-    b: number,
-    c: number,
-    d: number,
-    e: number,
-    f: number,
-    g: number,
-    h: number
-  ): Foo;
-};
+type BazConstructor =
+  {
+    new (
+      a: number,
+      b: number,
+      c: number,
+      d: number,
+      e: number,
+      f: number,
+      g: number,
+      h: number
+    ): Foo;
+  };
 
 interface ConstructorBigGenerics {
   // comment

@@ -18,10 +18,11 @@ function f(x) {
 (f: F);
 
 =====================================output=====================================
-type F = {
-  (x: string): number,
-  p?: string,
-};
+type F =
+  {
+    (x: string): number,
+    p?: string,
+  };
 
 function f(x) {
   return x.length;
@@ -75,9 +76,10 @@ declare var icall: ICall;
 icall(0); // error, number ~> string
 icall.call(null, 0); // error, number ~> string
 
-type Callable = {
-  (x: string): void,
-};
+type Callable =
+  {
+    (x: string): void,
+  };
 
 declare var callable: Callable;
 callable(0); // error, number ~> string

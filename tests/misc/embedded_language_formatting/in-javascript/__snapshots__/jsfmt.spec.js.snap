@@ -81,12 +81,13 @@ html\`<a></a>\`;
 
 @Component({
   template: \`<a></a>\`,
-  styles: [
-    \`
-      a {
-      }
-    \`,
-  ],
+  styles:
+    [
+      \`
+        a {
+        }
+      \`,
+    ],
 })
 class TestComponent {}
 

@@ -15,13 +15,15 @@ type ReadonlyPartial<T> = {
 };  // Add readonly and ?
 
 =====================================output=====================================
-type MutableRequired<T> = {
-  -readonly [P in keyof T]-?: T[P];
-}; // Remove readonly and ?
+type MutableRequired<T> =
+  {
+    -readonly [P in keyof T]-?: T[P];
+  }; // Remove readonly and ?
 
-type ReadonlyPartial<T> = {
-  +readonly [P in keyof T]+?: T[P];
-}; // Add readonly and ?
+type ReadonlyPartial<T> =
+  {
+    +readonly [P in keyof T]+?: T[P];
+  }; // Add readonly and ?
 
 ================================================================================
 `;

@@ -152,9 +152,10 @@ async function foo() {
 // that is probably not important to support.
 class C {}
 
-var P: Promise<Class<C>> = new Promise(function (resolve, reject) {
-  resolve(C);
-});
+var P: Promise<Class<C>> =
+  new Promise(function (resolve, reject) {
+    resolve(C);
+  });
 
 async function foo() {
   class Bar extends (await P) {}
@@ -545,32 +546,38 @@ class C {
   }
 }
 
-var e = async function () {
-  await 1;
-};
-var et = async function <T>(a: T) {
-  await 1;
-};
-
-var n = new (async function () {
-  await 1;
-})();
-
-var o = {
-  async m() {
+var e =
+  async function () {
     await 1;
-  },
-};
-var ot = {
-  async m<T>(a: T) {
+  };
+var et =
+  async function <T>(a: T) {
     await 1;
-  },
-};
-var oz = {
-  async async(async) {
-    await async;
-  },
-};
+  };
+
+var n =
+  new (async function () {
+    await 1;
+  })();
+
+var o =
+  {
+    async m() {
+      await 1;
+    },
+  };
+var ot =
+  {
+    async m<T>(a: T) {
+      await 1;
+    },
+  };
+var oz =
+  {
+    async async(async) {
+      await async;
+    },
+  };
 
 var x = { await: 5 };
 console.log(x.await);

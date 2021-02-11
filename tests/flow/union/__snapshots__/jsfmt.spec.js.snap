@@ -11,13 +11,14 @@ const myValue = (callcallcallcallcallcall(87689769876876897698768768976987687689
                  one | two| thre | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj );
 
 =====================================output=====================================
-const myValue = (callcallcallcallcallcall(
-  87689769876876897698768768976987687689769876
-): // Comment
-| one
-  | two
-  | thre
-  | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
+const myValue =
+  (callcallcallcallcallcall(
+    87689769876876897698768768976987687689769876
+  ): // Comment
+  | one
+    | two
+    | thre
+    | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
 
 ================================================================================
 `;
@@ -123,34 +124,37 @@ type C = [
 ]
 
 =====================================output=====================================
-type A = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
-];
+type A =
+  [
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ];
 
-type B = [
-  | AAAAAAAAAAAAAAAAAAAAAA
-  | BBBBBBBBBBBBBBBBBBBBBB
-  | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
-];
+type B =
+  [
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ];
 
-type C = [
-  | [
-      | AAAAAAAAAAAAAAAAAAAAAA
-      | BBBBBBBBBBBBBBBBBBBBBB
-      | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD
-    ]
-  | [
-      | AAAAAAAAAAAAAAAAAAAAAA
-      | BBBBBBBBBBBBBBBBBBBBBB
-      | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD
-    ]
-];
+type C =
+  [
+    | [
+        | AAAAAAAAAAAAAAAAAAAAAA
+        | BBBBBBBBBBBBBBBBBBBBBB
+        | CCCCCCCCCCCCCCCCCCCCCC
+        | DDDDDDDDDDDDDDDDDDDDDD
+      ]
+    | [
+        | AAAAAAAAAAAAAAAAAAAAAA
+        | BBBBBBBBBBBBBBBBBBBBBB
+        | CCCCCCCCCCCCCCCCCCCCCC
+        | DDDDDDDDDDDDDDDDDDDDDD
+      ]
+  ];
 
 ================================================================================
 `;

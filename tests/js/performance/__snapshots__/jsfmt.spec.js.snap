@@ -162,27 +162,29 @@ tap.test("RecordImport.advance", (t) => {
 
 =====================================output=====================================
 tap.test("RecordImport.advance", (t) => {
-  const checkStates = (batches, states) => {
-    t.equal(batches.length, states.length);
-    for (const batch of batches) {
-      t.equal(batch.state, states.shift());
-      t.ok(batch.getCurState().name(i18n));
-    }
-  };
+  const checkStates =
+    (batches, states) => {
+      t.equal(batches.length, states.length);
+      for (const batch of batches) {
+        t.equal(batch.state, states.shift());
+        t.ok(batch.getCurState().name(i18n));
+      }
+    };
 
   const batch = init.getRecordBatch();
   const dataFile = path.resolve(process.cwd(), "testData", "default.json");
 
-  const getBatches = (callback) => {
-    RecordImport.find({}, "", {}, (err, batches) => {
-      callback(
-        null,
-        batches.filter(
-          (batch) => batch.state !== "error" && batch.state !== "completed"
-        )
-      );
-    });
-  };
+  const getBatches =
+    (callback) => {
+      RecordImport.find({}, "", {}, (err, batches) => {
+        callback(
+          null,
+          batches.filter(
+            (batch) => batch.state !== "error" && batch.state !== "completed"
+          )
+        );
+      });
+    };
 
   mockFS((callback) => {
     batch.setResults([fs.createReadStream(dataFile)], (err) => {

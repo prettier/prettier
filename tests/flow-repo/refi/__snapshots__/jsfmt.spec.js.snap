@@ -77,37 +77,38 @@ var tests =
 
 var x: ?string = "xxx";
 
-var tests = [
-  function () {
-    var y: string = x; // not ok
-  },
+var tests =
+  [
+    function () {
+      var y: string = x; // not ok
+    },
 
-  function () {
-    if (x != null) {
+    function () {
+      if (x != null) {
+        var y: string = x; // ok
+      }
+    },
+
+    function () {
+      if (x == null) {
+      } else {
+        var y: string = x; // ok
+      }
+    },
+
+    function () {
+      if (x == null) return;
       var y: string = x; // ok
-    }
-  },
+    },
 
-  function () {
-    if (x == null) {
-    } else {
-      var y: string = x; // ok
-    }
-  },
+    function () {
+      if (!(x != null)) {
+      } else {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    if (x == null) return;
-    var y: string = x; // ok
-  },
-
-  function () {
-    if (!(x != null)) {
-    } else {
-      var y: string = x; // ok
-    }
-  },
-
-  /* TODO we actually allow this currently; fix
+    /* TODO we actually allow this currently; fix
   // requires further remedial work in Env
   function() {
     if (x != null) {
@@ -116,27 +117,27 @@ var tests = [
     }
   },
   */
-  function () {
-    if (x != null) {
-    }
-    var y: string = x; // not ok
-  },
-
-  function () {
-    if (x != null) {
-    } else {
+    function () {
+      if (x != null) {
+      }
       var y: string = x; // not ok
-    }
-  },
+    },
 
-  function () {
-    var y: string = x != null ? x : ""; // ok
-  },
+    function () {
+      if (x != null) {
+      } else {
+        var y: string = x; // not ok
+      }
+    },
 
-  function () {
-    var y: string = x || ""; // ok
-  },
-];
+    function () {
+      var y: string = x != null ? x : ""; // ok
+    },
+
+    function () {
+      var y: string = x || ""; // ok
+    },
+  ];
 
 ================================================================================
 `;
@@ -386,247 +387,248 @@ var tests =
 ];
 
 =====================================output=====================================
-var tests = [
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    var y: string = x.p; // not ok
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p != null) {
-      var y: string = x.p; // ok
-    }
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p == null) {
-    } else {
-      var y: string = x.p; // ok
-    }
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p == null) return;
-    var y: string = x.p; // ok
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (!(x.p != null)) {
-    } else {
-      var y: string = x.p; // ok
-    }
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p != null) {
-      alert("");
+var tests =
+  [
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
       var y: string = x.p; // not ok
-    }
-  },
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p != null) {
-      x.p = null;
-      var y: string = x.p; // not ok
-    }
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p != null) {
-    }
-    var y: string = x.p; // not ok
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p != null) {
-    } else {
-      var y: string = x.p; // not ok
-    }
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    var y: string = x.p != null ? x.p : ""; // ok
-  },
-
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    var y: string = x.p || ""; // ok
-  },
-
-  function () {
-    var x: { p: string | string[] } = { p: ["xxx"] };
-    if (Array.isArray(x.p)) {
-      var y: string[] = x.p; // ok
-    } else {
-      var z: string = x.p; // ok
-    }
-  },
-
-  function () {
-    var x: { y: ?string } = { y: null };
-    if (!x.y) {
-      x.y = "foo";
-    }
-    (x.y: string);
-  },
-
-  function () {
-    var x: { y: ?string } = { y: null };
-    if (x.y) {
-    } else {
-      x.y = "foo";
-    }
-    (x.y: string);
-  },
-
-  function () {
-    var x: { y: ?string } = { y: null };
-    if (!x.y) {
-      x.y = 123; // error
-    }
-    (x.y: string); // error, this got widened to a number
-  },
-
-  function () {
-    var x: { y: ?string } = { y: null };
-    if (x.y) {
-      x.y = "foo";
-    } else {
-      x.y = "bar";
-    }
-    (x.y: string);
-  },
-
-  function () {
-    var x: { y: string | number | boolean } = { y: false };
-    if (typeof x.y == "number") {
-      x.y = "foo";
-    }
-    (x.y: string); // error, could also be boolean
-  },
-
-  function () {
-    var x: { y: string | number | boolean } = { y: false };
-    if (typeof x.y == "number") {
-      x.y = "foo";
-    } else if (typeof x.y == "boolean") {
-      x.y = "bar";
-    }
-    (x.y: boolean); // error, string
-  },
-
-  function () {
-    var x: { y: ?string } = { y: null };
-    if (!x.y) {
-      x.y = "foo";
-    }
-    if (x.y) {
-      x.y = null;
-    }
-    (x.y: string); // error
-  },
-
-  function () {
-    var x: { y: string | number | boolean } = { y: false };
-    if (typeof x.y == "number") {
-      x.y = "foo";
-    }
-    // now x.y can is string | boolean
-    if (typeof x.y == "string") {
-      x.y = false;
-    }
-    // now x.y is only boolean
-    (x.y: string); // error
-  },
-
-  function () {
-    var x: { y: string | number | boolean } = { y: false };
-    if (typeof x.y == "number") {
-      x.y = "foo";
-    }
-    // now x.y can is string | boolean
-    if (typeof x.y == "string") {
-      x.y = 123;
-    }
-    // now x.y is number | boolean
-    (x.y: string); // error
-  },
-
-  function () {
-    var x: { y: ?string } = { y: null };
-    var z: string = "foo";
-    if (x.y) {
-      x.y = z;
-    } else {
-      x.y = z;
-    }
-    (x.y: string);
-  },
-
-  function (x: string) {
-    if (x === "a") {
-    }
-    (x: "b"); // error (but only once, string !~> 'b'; 'a' is irrelevant)
-  },
-
-  function (x: mixed) {
-    if (typeof x.bar === "string") {
-    } // error, so \`x.bar\` refinement is empty
-    (x: string & number);
-  },
-
-  // --- nested conditionals ---
-  // after a branch, the current scope may have changed. this causes the
-  // subsequent assignment to refine the new scope. these tests make sure that
-  // the scope that gets merged after the if statement is the correct
-  // post-condition scope, not the one that was saved at the beginning of the
-  // if statement.
-
-  function () {
-    let x: { foo: ?string } = { foo: null };
-    if (!x.foo) {
-      if (false) {
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p != null) {
+        var y: string = x.p; // ok
       }
-      x.foo = "foo";
-    }
-    (x.foo: string);
-  },
+    },
 
-  function () {
-    let x: { foo: ?string } = { foo: null };
-    if (!x.foo) {
-      while (false) {}
-      x.foo = "foo";
-    }
-    (x.foo: string);
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p == null) {
+      } else {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    let x: { foo: ?string } = { foo: null };
-    if (!x.foo) {
-      for (var i = 0; i < 0; i++) {}
-      x.foo = "foo";
-    }
-    (x.foo: string);
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p == null) return;
+      var y: string = x.p; // ok
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p != null) {
-      var { p } = x; // TODO: annot checked against type of x
-      (p: string); // ok
-    }
-  },
-];
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (!(x.p != null)) {
+      } else {
+        var y: string = x.p; // ok
+      }
+    },
+
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p != null) {
+        alert("");
+        var y: string = x.p; // not ok
+      }
+    },
+
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p != null) {
+        x.p = null;
+        var y: string = x.p; // not ok
+      }
+    },
+
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p != null) {
+      }
+      var y: string = x.p; // not ok
+    },
+
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p != null) {
+      } else {
+        var y: string = x.p; // not ok
+      }
+    },
+
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      var y: string = x.p != null ? x.p : ""; // ok
+    },
+
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      var y: string = x.p || ""; // ok
+    },
+
+    function () {
+      var x: { p: string | string[] } = { p: ["xxx"] };
+      if (Array.isArray(x.p)) {
+        var y: string[] = x.p; // ok
+      } else {
+        var z: string = x.p; // ok
+      }
+    },
+
+    function () {
+      var x: { y: ?string } = { y: null };
+      if (!x.y) {
+        x.y = "foo";
+      }
+      (x.y: string);
+    },
+
+    function () {
+      var x: { y: ?string } = { y: null };
+      if (x.y) {
+      } else {
+        x.y = "foo";
+      }
+      (x.y: string);
+    },
+
+    function () {
+      var x: { y: ?string } = { y: null };
+      if (!x.y) {
+        x.y = 123; // error
+      }
+      (x.y: string); // error, this got widened to a number
+    },
+
+    function () {
+      var x: { y: ?string } = { y: null };
+      if (x.y) {
+        x.y = "foo";
+      } else {
+        x.y = "bar";
+      }
+      (x.y: string);
+    },
+
+    function () {
+      var x: { y: string | number | boolean } = { y: false };
+      if (typeof x.y == "number") {
+        x.y = "foo";
+      }
+      (x.y: string); // error, could also be boolean
+    },
+
+    function () {
+      var x: { y: string | number | boolean } = { y: false };
+      if (typeof x.y == "number") {
+        x.y = "foo";
+      } else if (typeof x.y == "boolean") {
+        x.y = "bar";
+      }
+      (x.y: boolean); // error, string
+    },
+
+    function () {
+      var x: { y: ?string } = { y: null };
+      if (!x.y) {
+        x.y = "foo";
+      }
+      if (x.y) {
+        x.y = null;
+      }
+      (x.y: string); // error
+    },
+
+    function () {
+      var x: { y: string | number | boolean } = { y: false };
+      if (typeof x.y == "number") {
+        x.y = "foo";
+      }
+      // now x.y can is string | boolean
+      if (typeof x.y == "string") {
+        x.y = false;
+      }
+      // now x.y is only boolean
+      (x.y: string); // error
+    },
+
+    function () {
+      var x: { y: string | number | boolean } = { y: false };
+      if (typeof x.y == "number") {
+        x.y = "foo";
+      }
+      // now x.y can is string | boolean
+      if (typeof x.y == "string") {
+        x.y = 123;
+      }
+      // now x.y is number | boolean
+      (x.y: string); // error
+    },
+
+    function () {
+      var x: { y: ?string } = { y: null };
+      var z: string = "foo";
+      if (x.y) {
+        x.y = z;
+      } else {
+        x.y = z;
+      }
+      (x.y: string);
+    },
+
+    function (x: string) {
+      if (x === "a") {
+      }
+      (x: "b"); // error (but only once, string !~> 'b'; 'a' is irrelevant)
+    },
+
+    function (x: mixed) {
+      if (typeof x.bar === "string") {
+      } // error, so \`x.bar\` refinement is empty
+      (x: string & number);
+    },
+
+    // --- nested conditionals ---
+    // after a branch, the current scope may have changed. this causes the
+    // subsequent assignment to refine the new scope. these tests make sure that
+    // the scope that gets merged after the if statement is the correct
+    // post-condition scope, not the one that was saved at the beginning of the
+    // if statement.
+
+    function () {
+      let x: { foo: ?string } = { foo: null };
+      if (!x.foo) {
+        if (false) {
+        }
+        x.foo = "foo";
+      }
+      (x.foo: string);
+    },
+
+    function () {
+      let x: { foo: ?string } = { foo: null };
+      if (!x.foo) {
+        while (false) {}
+        x.foo = "foo";
+      }
+      (x.foo: string);
+    },
+
+    function () {
+      let x: { foo: ?string } = { foo: null };
+      if (!x.foo) {
+        for (var i = 0; i < 0; i++) {}
+        x.foo = "foo";
+      }
+      (x.foo: string);
+    },
+
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p != null) {
+        var { p } = x; // TODO: annot checked against type of x
+        (p: string); // ok
+      }
+    },
+  ];
 
 ================================================================================
 `;
@@ -807,91 +809,92 @@ var paths =
 ];
 
 =====================================output=====================================
-var paths = [
-  function () {
-    var x: ?string = "xxx";
-    var y: string = x; // not ok
-  },
-
-  function () {
-    var x: ?string = "xxx";
-    if (x != null) {
-      var y: string = x; // ok
-    }
-  },
-
-  function () {
-    var x: ?string = "xxx";
-    if (x == null) {
-    } else {
-      var y: string = x; // ok
-    }
-  },
-
-  function () {
-    var x: ?string = "xxx";
-    if (x == null) return;
-    var y: string = x; // ok
-  },
-
-  function () {
-    var x: ?string = "xxx";
-    if (!(x != null)) {
-    } else {
-      var y: string = x; // ok
-    }
-  },
-
-  function () {
-    var x: ?string = "xxx";
-    if (x != null) {
-      alert("");
-      var y: string = x; // ok
-    }
-  },
-
-  function () {
-    var x: ?string = "xxx";
-    if (x != null) {
-    }
-    var y: string = x; // not ok
-  },
-
-  function () {
-    var x: ?string = "xxx";
-    if (x != null) {
-    } else {
+var paths =
+  [
+    function () {
+      var x: ?string = "xxx";
       var y: string = x; // not ok
-    }
-  },
+    },
 
-  function () {
-    var x: ?string = "xxx";
-    var y: string = x != null ? x : ""; // ok
-  },
+    function () {
+      var x: ?string = "xxx";
+      if (x != null) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: ?string = "xxx";
-    var y: string = x || ""; // ok
-  },
+    function () {
+      var x: ?string = "xxx";
+      if (x == null) {
+      } else {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: string | string[] = ["xxx"];
-    if (Array.isArray(x)) {
-      var y: string[] = x; // ok
-    } else {
-      var z: string = x; // ok
-    }
-  },
+    function () {
+      var x: ?string = "xxx";
+      if (x == null) return;
+      var y: string = x; // ok
+    },
 
-  function () {
-    var x: ?string = null;
-    if (!x) {
-      x = "xxx";
-    }
-    var y: string = x;
-  },
-];
+    function () {
+      var x: ?string = "xxx";
+      if (!(x != null)) {
+      } else {
+        var y: string = x; // ok
+      }
+    },
+
+    function () {
+      var x: ?string = "xxx";
+      if (x != null) {
+        alert("");
+        var y: string = x; // ok
+      }
+    },
+
+    function () {
+      var x: ?string = "xxx";
+      if (x != null) {
+      }
+      var y: string = x; // not ok
+    },
+
+    function () {
+      var x: ?string = "xxx";
+      if (x != null) {
+      } else {
+        var y: string = x; // not ok
+      }
+    },
+
+    function () {
+      var x: ?string = "xxx";
+      var y: string = x != null ? x : ""; // ok
+    },
+
+    function () {
+      var x: ?string = "xxx";
+      var y: string = x || ""; // ok
+    },
+
+    function () {
+      var x: string | string[] = ["xxx"];
+      if (Array.isArray(x)) {
+        var y: string[] = x; // ok
+      } else {
+        var z: string = x; // ok
+      }
+    },
+
+    function () {
+      var x: ?string = null;
+      if (!x) {
+        x = "xxx";
+      }
+      var y: string = x;
+    },
+  ];
 
 ================================================================================
 `;
@@ -1058,108 +1061,109 @@ class D extends C {
 }
 
 =====================================output=====================================
-var null_tests = [
-  // expr != null
-  function () {
-    var x: ?string = "xxx";
-    if (x != null) {
-      var y: string = x; // ok
-    }
-  },
+var null_tests =
+  [
+    // expr != null
+    function () {
+      var x: ?string = "xxx";
+      if (x != null) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: ?string = "xxx";
-    if (null != x) {
-      var y: string = x; // ok
-    }
-  },
+    function () {
+      var x: ?string = "xxx";
+      if (null != x) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p != null) {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p != null) {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q != null) {
-      var y: string = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q != null) {
+        var y: string = x.p.q; // ok
+      }
+    },
 
-  // expr == null
-  function () {
-    var x: ?string = "xxx";
-    if (x == null) {
-    } else {
-      var y: string = x; // ok
-    }
-  },
+    // expr == null
+    function () {
+      var x: ?string = "xxx";
+      if (x == null) {
+      } else {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p == null) {
-    } else {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p == null) {
+      } else {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q == null) {
-    } else {
-      var y: string = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q == null) {
+      } else {
+        var y: string = x.p.q; // ok
+      }
+    },
 
-  // expr !== null
-  function () {
-    var x: ?string = "xxx";
-    if (x !== null) {
-      var y: string | void = x; // ok
-    }
-  },
+    // expr !== null
+    function () {
+      var x: ?string = "xxx";
+      if (x !== null) {
+        var y: string | void = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p !== null) {
-      var y: string | void = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p !== null) {
+        var y: string | void = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q !== null) {
-      var y: string | void = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q !== null) {
+        var y: string | void = x.p.q; // ok
+      }
+    },
 
-  // expr === null
-  function () {
-    var x: ?string = "xxx";
-    if (x === null) {
-    } else {
-      var y: string | void = x; // ok
-    }
-  },
+    // expr === null
+    function () {
+      var x: ?string = "xxx";
+      if (x === null) {
+      } else {
+        var y: string | void = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p === null) {
-    } else {
-      var y: string | void = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p === null) {
+      } else {
+        var y: string | void = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q === null) {
-    } else {
-      var y: string | void = x.p.q; // ok
-    }
-  },
-];
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q === null) {
+      } else {
+        var y: string | void = x.p.q; // ok
+      }
+    },
+  ];
 
 // this.p op null
 class C {
@@ -1486,108 +1490,109 @@ class A {
 }
 
 =====================================output=====================================
-var null_tests = [
-  // typeof expr == typename
-  function () {
-    var x: ?string = "xxx";
-    if (typeof x == "string") {
-      var y: string = x; // ok
-    }
-  },
+var null_tests =
+  [
+    // typeof expr == typename
+    function () {
+      var x: ?string = "xxx";
+      if (typeof x == "string") {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: ?string = "xxx";
-    if ("string" == typeof x) {
-      var y: string = x; // ok
-    }
-  },
+    function () {
+      var x: ?string = "xxx";
+      if ("string" == typeof x) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (typeof x.p == "string") {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (typeof x.p == "string") {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (typeof x.p.q == "string") {
-      var y: string = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (typeof x.p.q == "string") {
+        var y: string = x.p.q; // ok
+      }
+    },
 
-  // typeof expr != typename
-  function () {
-    var x: ?string = "xxx";
-    if (typeof x != "string") {
-    } else {
-      var y: string = x; // ok
-    }
-  },
+    // typeof expr != typename
+    function () {
+      var x: ?string = "xxx";
+      if (typeof x != "string") {
+      } else {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (typeof x.p != "string") {
-    } else {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (typeof x.p != "string") {
+      } else {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (typeof x.p.q != "string") {
-    } else {
-      var y: string = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (typeof x.p.q != "string") {
+      } else {
+        var y: string = x.p.q; // ok
+      }
+    },
 
-  // typeof expr === typename
-  function () {
-    var x: ?string = "xxx";
-    if (typeof x === "string") {
-      var y: string = x; // ok
-    }
-  },
+    // typeof expr === typename
+    function () {
+      var x: ?string = "xxx";
+      if (typeof x === "string") {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (typeof x.p === "string") {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (typeof x.p === "string") {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (typeof x.p.q === "string") {
-      var y: string = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (typeof x.p.q === "string") {
+        var y: string = x.p.q; // ok
+      }
+    },
 
-  // typeof expr !== typename
-  function () {
-    var x: ?string = "xxx";
-    if (typeof x !== "string") {
-    } else {
-      var y: string = x; // ok
-    }
-  },
+    // typeof expr !== typename
+    function () {
+      var x: ?string = "xxx";
+      if (typeof x !== "string") {
+      } else {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (typeof x.p !== "string") {
-    } else {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (typeof x.p !== "string") {
+      } else {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (typeof x.p.q !== "string") {
-    } else {
-      var y: string = x.p.q; // ok
-    }
-  },
-];
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (typeof x.p.q !== "string") {
+      } else {
+        var y: string = x.p.q; // ok
+      }
+    },
+  ];
 
 // typeof this.p op typename
 class A {
@@ -1699,63 +1704,64 @@ class A {
 }
 
 =====================================output=====================================
-var undef_tests = [
-  // NOTE: not (yet?) supporting non-strict eq test for undefined
+var undef_tests =
+  [
+    // NOTE: not (yet?) supporting non-strict eq test for undefined
 
-  // expr !== undefined
-  function () {
-    var x: ?string = "xxx";
-    if (x !== undefined && x !== null) {
-      var y: string = x; // ok
-    }
-  },
+    // expr !== undefined
+    function () {
+      var x: ?string = "xxx";
+      if (x !== undefined && x !== null) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: ?string = "xxx";
-    if (undefined !== x && x !== null) {
-      var y: string = x; // ok
-    }
-  },
+    function () {
+      var x: ?string = "xxx";
+      if (undefined !== x && x !== null) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p !== undefined && x.p !== null) {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p !== undefined && x.p !== null) {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q !== undefined && x.p.q !== null) {
-      var y: string = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q !== undefined && x.p.q !== null) {
+        var y: string = x.p.q; // ok
+      }
+    },
 
-  // expr === undefined
-  function () {
-    var x: ?string = "xxx";
-    if (x === undefined || x === null) {
-    } else {
-      var y: string = x; // ok
-    }
-  },
+    // expr === undefined
+    function () {
+      var x: ?string = "xxx";
+      if (x === undefined || x === null) {
+      } else {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p === undefined || x.p === null) {
-    } else {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p === undefined || x.p === null) {
+      } else {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q === undefined || x.p.q === null) {
-    } else {
-      var y: string = x.p.q; // ok
-    }
-  },
-];
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q === undefined || x.p.q === null) {
+      } else {
+        var y: string = x.p.q; // ok
+      }
+    },
+  ];
 
 // this.p op undefined
 class A {
@@ -1857,63 +1863,64 @@ class A {
 }
 
 =====================================output=====================================
-var void_tests = [
-  // NOTE: not (yet?) supporting non-strict eq test for undefined
+var void_tests =
+  [
+    // NOTE: not (yet?) supporting non-strict eq test for undefined
 
-  // expr !== void(...)
-  function () {
-    var x: ?string = "xxx";
-    if (x !== void 0 && x !== null) {
-      var y: string = x; // ok
-    }
-  },
+    // expr !== void(...)
+    function () {
+      var x: ?string = "xxx";
+      if (x !== void 0 && x !== null) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: ?string = "xxx";
-    if (void 0 !== x && x !== null) {
-      var y: string = x; // ok
-    }
-  },
+    function () {
+      var x: ?string = "xxx";
+      if (void 0 !== x && x !== null) {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p !== void 0 && x.p !== null) {
-      var y: string | void = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p !== void 0 && x.p !== null) {
+        var y: string | void = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q !== void 0 && x.p.q !== null) {
-      var y: string = x.p.q; // ok
-    }
-  },
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q !== void 0 && x.p.q !== null) {
+        var y: string = x.p.q; // ok
+      }
+    },
 
-  // expr === void(...)
-  function () {
-    var x: ?string = "xxx";
-    if (x === void 0 || x === null) {
-    } else {
-      var y: string = x; // ok
-    }
-  },
+    // expr === void(...)
+    function () {
+      var x: ?string = "xxx";
+      if (x === void 0 || x === null) {
+      } else {
+        var y: string = x; // ok
+      }
+    },
 
-  function () {
-    var x: { p: ?string } = { p: "xxx" };
-    if (x.p === void 0 || x.p === null) {
-    } else {
-      var y: string = x.p; // ok
-    }
-  },
+    function () {
+      var x: { p: ?string } = { p: "xxx" };
+      if (x.p === void 0 || x.p === null) {
+      } else {
+        var y: string = x.p; // ok
+      }
+    },
 
-  function () {
-    var x: { p: { q: ?string } } = { p: { q: "xxx" } };
-    if (x.p.q === void 0 || x.p.q === null) {
-    } else {
-      var y: string = x.p.q; // ok
-    }
-  },
-];
+    function () {
+      var x: { p: { q: ?string } } = { p: { q: "xxx" } };
+      if (x.p.q === void 0 || x.p.q === null) {
+      } else {
+        var y: string = x.p.q; // ok
+      }
+    },
+  ];
 
 // this.p op void(...)
 class A {

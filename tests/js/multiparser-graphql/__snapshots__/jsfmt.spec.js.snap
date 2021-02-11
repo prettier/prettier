@@ -17,15 +17,16 @@ const query = /* GraphQL */\`
 \`;
 
 =====================================output=====================================
-const query = /* GraphQL */ \`
-  {
-    user(id: 5) {
-      firstName
+const query =
+  /* GraphQL */ \`
+    {
+      user(id: 5) {
+        firstName
 
-      lastName
+        lastName
+      }
     }
-  }
-\`;
+  \`;
 
 ================================================================================
 `;
@@ -189,17 +190,18 @@ graphql(
   \`
 );
 
-const veryLongVariableNameToMakeTheLineBreak = graphql(
-  schema,
-  \`
-    query allPartsByManufacturerName($name: String!) {
-      allParts(filter: { manufacturer: { name: $name } }) {
-        ...PartAll
+const veryLongVariableNameToMakeTheLineBreak =
+  graphql(
+    schema,
+    \`
+      query allPartsByManufacturerName($name: String!) {
+        allParts(filter: { manufacturer: { name: $name } }) {
+          ...PartAll
+        }
       }
-    }
-    \${fragments.all}
-  \`
-);
+      \${fragments.all}
+    \`
+  );
 
 ================================================================================
 `;
@@ -402,15 +404,16 @@ fragment another on User { name
 =====================================output=====================================
 import gql from "graphql-tag";
 
-const query = gql\`
-  {
-    user(id: 5) {
-      firstName
+const query =
+  gql\`
+    {
+      user(id: 5) {
+        firstName
 
-      lastName
+        lastName
+      }
     }
-  }
-\`;
+  \`;
 
 // With interpolations:
 

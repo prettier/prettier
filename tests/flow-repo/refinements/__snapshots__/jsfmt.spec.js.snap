@@ -49,10 +49,11 @@ function foo(x: ?number) {
   }
 }
 
-type Bar = {
-  parent: ?Bar,
-  doStuff: () => void,
-};
+type Bar =
+  {
+    parent: ?Bar,
+    doStuff: () => void,
+  };
 
 function bar0(x: Bar) {
   while ((x = x.parent)) {
@@ -97,15 +98,17 @@ type Node2 = {
 export type ASTNode = Node1 | Node2;
 
 =====================================output=====================================
-type Node1 = {
-  kind: "Node1",
-  prop1?: string,
-};
+type Node1 =
+  {
+    kind: "Node1",
+    prop1?: string,
+  };
 
-type Node2 = {
-  kind: "Node2",
-  prop2?: string,
-};
+type Node2 =
+  {
+    kind: "Node2",
+    prop2?: string,
+  };
 
 export type ASTNode = Node1 | Node2;
 
@@ -197,21 +200,22 @@ function baz(x: ?boolean) {
   }
 }
 
-let tests = [
-  function (x: { done: true, result: string } | { done: false }) {
-    if (x.done === true) {
-      return x.result;
-    }
-    return x.result; // error
-  },
+let tests =
+  [
+    function (x: { done: true, result: string } | { done: false }) {
+      if (x.done === true) {
+        return x.result;
+      }
+      return x.result; // error
+    },
 
-  function (x: { done: true, result: string } | { done: false }) {
-    if (true === x.done) {
-      return x.result;
-    }
-    return x.result; // error
-  },
-];
+    function (x: { done: true, result: string } | { done: false }) {
+      if (true === x.done) {
+        return x.result;
+      }
+      return x.result; // error
+    },
+  ];
 
 ================================================================================
 `;
@@ -245,9 +249,10 @@ function testLiteralProperty(a: A) {
 =====================================output=====================================
 // @flow
 
-type A = {
-  b_c: ?string,
-};
+type A =
+  {
+    b_c: ?string,
+  };
 
 function stuff(str: string) {}
 
@@ -339,43 +344,44 @@ function getTypeASTName(typeAST: Type): string {
   return getTypeASTName(typeAST.type); // error, BadType not a subtype of Type
 }
 
-let tests = [
-  function (x: { done: true, result: string } | { done: false }) {
-    if (x.done) {
-      return x.result;
-    }
-    return x.result; // error
-  },
-
-  function (x: { done: true, result: string } | { foo: string }) {
-    if (x.done) {
-      return x.result; // error, consider { foo: "herp", done: "derp" }
-    }
-    return x.result; // error
-  },
-
-  function () {
-    type T = { foo: Object, bar: string } | { baz: string, quux: string };
-
-    function testAlwaysTruthyProp(t: T) {
-      if (t.foo) {
-        (t.bar: string); // error, consider { baz: "x", quux: "y", foo: "boom" }
-      } else {
-        (t.quux: string); // ok. since foo is an object (always truthy), the
-        // else case completely rules out the first branch of
-        // the union.
+let tests =
+  [
+    function (x: { done: true, result: string } | { done: false }) {
+      if (x.done) {
+        return x.result;
       }
-    }
+      return x.result; // error
+    },
 
-    function testSometimesTruthyProp(t: T) {
-      if (t.bar) {
-        (t.foo: Object); // error, consider { baz: "x", quux: "y", bar: "boom" }
-      } else {
-        (t.quux: string); // error, consider { foo: {}, bar: "" }
+    function (x: { done: true, result: string } | { foo: string }) {
+      if (x.done) {
+        return x.result; // error, consider { foo: "herp", done: "derp" }
       }
-    }
-  },
-];
+      return x.result; // error
+    },
+
+    function () {
+      type T = { foo: Object, bar: string } | { baz: string, quux: string };
+
+      function testAlwaysTruthyProp(t: T) {
+        if (t.foo) {
+          (t.bar: string); // error, consider { baz: "x", quux: "y", foo: "boom" }
+        } else {
+          (t.quux: string); // ok. since foo is an object (always truthy), the
+          // else case completely rules out the first branch of
+          // the union.
+        }
+      }
+
+      function testSometimesTruthyProp(t: T) {
+        if (t.bar) {
+          (t.foo: Object); // error, consider { baz: "x", quux: "y", bar: "boom" }
+        } else {
+          (t.quux: string); // error, consider { foo: {}, bar: "" }
+        }
+      }
+    },
+  ];
 
 ================================================================================
 `;
@@ -432,33 +438,34 @@ let tests = [
 =====================================output=====================================
 /* @flow */
 
-let tests = [
-  function (x: string, y: number) {
-    if (x == y) {
-    } // error, string & number are not comparable (unsafe casting)
-    if (x === y) {
-    } // no error, to match \`let z = (x === y)\` which is allowed
-  },
+let tests =
+  [
+    function (x: string, y: number) {
+      if (x == y) {
+      } // error, string & number are not comparable (unsafe casting)
+      if (x === y) {
+      } // no error, to match \`let z = (x === y)\` which is allowed
+    },
 
-  function (x: string) {
-    if (x == undefined) {
-    } // ok
-    if (x == void 0) {
-    } // ok
-  },
+    function (x: string) {
+      if (x == undefined) {
+      } // ok
+      if (x == void 0) {
+      } // ok
+    },
 
-  function (x: string) {
-    if (x == null) {
-    } // ok
-  },
+    function (x: string) {
+      if (x == null) {
+      } // ok
+    },
 
-  function (x: { y: "foo" } | { y: "bar" }) {
-    if (x.y == 123) {
-    } // error
-    if (x.y === 123) {
-    } // ok
-  },
-];
+    function (x: { y: "foo" } | { y: "bar" }) {
+      if (x.y == 123) {
+      } // error
+      if (x.y === 123) {
+      } // ok
+    },
+  ];
 
 ================================================================================
 `;
@@ -527,16 +534,17 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-let tests = [
-  function (x: { y?: string }, z: () => string) {
-    if (x.y) {
-      // make sure we visit the AST in the correct order. if we visit z() before
-      // x.y, then the function call will invalidate the refinement of x.y
-      // incorrectly.
-      x.y.indexOf(z()); // no error
-    }
-  },
-];
+let tests =
+  [
+    function (x: { y?: string }, z: () => string) {
+      if (x.y) {
+        // make sure we visit the AST in the correct order. if we visit z() before
+        // x.y, then the function call will invalidate the refinement of x.y
+        // incorrectly.
+        x.y.indexOf(z()); // no error
+      }
+    },
+  ];
 
 ================================================================================
 `;
@@ -926,9 +934,10 @@ function foo8(o: { p: mixed }) {
   }
 }
 
-type Foo9Expected = {
-  foo: string,
-};
+type Foo9Expected =
+  {
+    foo: string,
+  };
 
 function foo9() {
   const actual = {};
@@ -1295,32 +1304,33 @@ function baz(x: ?number) {
 
 class TestClass {}
 
-let tests = [
-  function () {
-    var y = true;
-    while (y) {
-      y = !y;
-    }
-  },
-  function (x: Function) {
-    (!x: false); // ok, functions are always truthy
-  },
-  function (x: Object) {
-    (!x: false); // ok, objects are always truthy
-  },
-  function (x: string) {
-    (!x: false); // error, strings are not always truthy
-  },
-  function (x: number) {
-    (!x: false); // error, numbers are not always truthy
-  },
-  function (x: boolean) {
-    (!x: false); // error, bools are not always truthy
-  },
-  function (x: TestClass) {
-    (!x: false); // ok, classes are always truthy
-  },
-];
+let tests =
+  [
+    function () {
+      var y = true;
+      while (y) {
+        y = !y;
+      }
+    },
+    function (x: Function) {
+      (!x: false); // ok, functions are always truthy
+    },
+    function (x: Object) {
+      (!x: false); // ok, objects are always truthy
+    },
+    function (x: string) {
+      (!x: false); // error, strings are not always truthy
+    },
+    function (x: number) {
+      (!x: false); // error, numbers are not always truthy
+    },
+    function (x: boolean) {
+      (!x: false); // error, bools are not always truthy
+    },
+    function (x: TestClass) {
+      (!x: false); // ok, classes are always truthy
+    },
+  ];
 
 ================================================================================
 `;
@@ -1490,123 +1500,124 @@ let tests = [
 
 type Mode = 0 | 1 | 2;
 
-let tests = [
-  function (x: number) {
-    if (x === 0) {
-      (x: void); // error
-    }
-    (x: 0); // error
-  },
-
-  function (x: number) {
-    if (x !== 0) {
+let tests =
+  [
+    function (x: number) {
+      if (x === 0) {
+        (x: void); // error
+      }
       (x: 0); // error
-    }
-    (x: void); // error
-  },
+    },
 
-  function (x: 1): 0 {
-    if (x === 0) {
-      return x; // unreachable, no error
-    }
-    return 0;
-  },
-
-  function (x: 0): number {
-    if (x === 1) {
-      return x;
-    }
-    return x;
-  },
-
-  function (x: 0) {
-    if (x !== 1) {
-      (x: 0);
-    }
-    (x: 0);
-  },
-
-  function (x: 0): number {
-    if (x === 0) {
-      return x;
-    }
-    return x;
-  },
-
-  function (x: 0 | 1) {
-    if (x === 0) {
-      (x: 0);
+    function (x: number) {
+      if (x !== 0) {
+        (x: 0); // error
+      }
       (x: void); // error
-    }
-    if (x === 1) {
-      (x: 1);
-      (x: void); // error
-    }
-  },
+    },
 
-  function (x: { foo: number }): 0 {
-    if (x.foo === 0) {
-      return x.foo;
-    }
-    return x.foo; // error
-  },
+    function (x: 1): 0 {
+      if (x === 0) {
+        return x; // unreachable, no error
+      }
+      return 0;
+    },
 
-  function (x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
-    if (x.kind === 0) {
-      return x.foo;
-    } else {
-      return x.bar;
-    }
-  },
+    function (x: 0): number {
+      if (x === 1) {
+        return x;
+      }
+      return x;
+    },
 
-  function (num: number, obj: { foo: number }) {
-    if (num === obj.bar) {
-      // ok, typos allowed in conditionals
-    }
-  },
+    function (x: 0) {
+      if (x !== 1) {
+        (x: 0);
+      }
+      (x: 0);
+    },
 
-  function (num: number, obj: { [key: string]: number }) {
-    if (num === obj.bar) {
-      // ok
-    }
-  },
+    function (x: 0): number {
+      if (x === 0) {
+        return x;
+      }
+      return x;
+    },
 
-  function (n: number): Mode {
-    if (n !== 0 && n !== 1 && n !== 2) {
-      throw new Error("Wrong number passed");
-    }
-    return n;
-  },
+    function (x: 0 | 1) {
+      if (x === 0) {
+        (x: 0);
+        (x: void); // error
+      }
+      if (x === 1) {
+        (x: 1);
+        (x: void); // error
+      }
+    },
 
-  function (s: number): ?Mode {
-    if (s === 0) {
-      return s;
-    } else if (s === 3) {
-      return s; // error
-    }
-  },
+    function (x: { foo: number }): 0 {
+      if (x.foo === 0) {
+        return x.foo;
+      }
+      return x.foo; // error
+    },
 
-  function (mode: Mode) {
-    switch (mode) {
-      case 0:
-        (mode: 0);
-        break;
+    function (x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
+      if (x.kind === 0) {
+        return x.foo;
+      } else {
+        return x.bar;
+      }
+    },
 
-      case 1:
-      case 2:
-        (mode: 1 | 2);
-        break;
-    }
-  },
+    function (num: number, obj: { foo: number }) {
+      if (num === obj.bar) {
+        // ok, typos allowed in conditionals
+      }
+    },
 
-  function (x: number): 0 {
-    if (x) {
-      return x; // error
-    } else {
-      return x; // no error, inferred to be 0
-    }
-  },
-];
+    function (num: number, obj: { [key: string]: number }) {
+      if (num === obj.bar) {
+        // ok
+      }
+    },
+
+    function (n: number): Mode {
+      if (n !== 0 && n !== 1 && n !== 2) {
+        throw new Error("Wrong number passed");
+      }
+      return n;
+    },
+
+    function (s: number): ?Mode {
+      if (s === 0) {
+        return s;
+      } else if (s === 3) {
+        return s; // error
+      }
+    },
+
+    function (mode: Mode) {
+      switch (mode) {
+        case 0:
+          (mode: 0);
+          break;
+
+        case 1:
+        case 2:
+          (mode: 1 | 2);
+          break;
+      }
+    },
+
+    function (x: number): 0 {
+      if (x) {
+        return x; // error
+      } else {
+        return x; // no error, inferred to be 0
+      }
+    },
+  ];
 
 ================================================================================
 `;
@@ -2105,137 +2116,138 @@ let tests = [
 
 type Mode = "a" | "b" | "c";
 
-let tests = [
-  function (x: string) {
-    if (x === "foo") {
-      (x: void); // error
-    }
-    (x: "foo"); // error
-  },
-
-  function (x: string) {
-    if (x !== "foo") {
+let tests =
+  [
+    function (x: string) {
+      if (x === "foo") {
+        (x: void); // error
+      }
       (x: "foo"); // error
-    }
-    (x: void); // error
-  },
+    },
 
-  function (x: "bar"): "foo" {
-    if (x === "foo") {
-      return x; // unreachable, no error
-    }
-    return "foo";
-  },
-
-  function (x: "foo"): string {
-    if (x === "bar") {
-      return x;
-    }
-    return x;
-  },
-
-  function (x: "foo") {
-    if (x !== "bar") {
-      (x: "foo");
-    }
-    (x: "foo");
-  },
-
-  function (x: "foo"): string {
-    if (x === "foo") {
-      return x;
-    }
-    return x;
-  },
-
-  function (x: "foo" | "bar") {
-    if (x === "foo") {
-      (x: "foo");
+    function (x: string) {
+      if (x !== "foo") {
+        (x: "foo"); // error
+      }
       (x: void); // error
-    }
-    if (x === "bar") {
-      (x: "bar");
-      (x: void); // error
-    }
-  },
+    },
 
-  function (x: { foo: string }): "foo" {
-    if (x.foo === "foo") {
-      return x.foo;
-    }
-    return x.foo; // error
-  },
+    function (x: "bar"): "foo" {
+      if (x === "foo") {
+        return x; // unreachable, no error
+      }
+      return "foo";
+    },
 
-  function (
-    x: { kind: "foo", foo: string } | { kind: "bar", bar: string }
-  ): string {
-    if (x.kind === "foo") {
-      return x.foo;
-    } else {
-      return x.bar;
-    }
-  },
-
-  function (str: string, obj: { foo: string }) {
-    if (str === obj.bar) {
-      // ok, typos allowed in conditionals
-    }
-  },
-
-  function (str: string, obj: { [key: string]: string }) {
-    if (str === obj.bar) {
-      // ok
-    }
-  },
-
-  function (str: string): Mode {
-    var ch = str[0];
-    if (ch !== "a" && ch !== "b" && ch !== "c") {
-      throw new Error("Wrong string passed");
-    }
-    return ch;
-  },
-
-  function (s: string): ?Mode {
-    if (s === "a") {
-      return s;
-    } else if (s === "d") {
-      return s; // error
-    }
-  },
-
-  function (mode: Mode) {
-    switch (mode) {
-      case "a":
-        (mode: "a");
-        break;
-
-      case "b":
-      case "c":
-        (mode: "b" | "c");
-        break;
-    }
-  },
-
-  function (x: string): "" {
-    if (x) {
-      return x; // error
-    } else {
-      return x; // no error, inferred to be ""
-    }
-  },
-
-  // Simple template literals are ok
-  function (x: string): "foo" {
-    if (x === \`foo\`) {
+    function (x: "foo"): string {
+      if (x === "bar") {
+        return x;
+      }
       return x;
-    }
-    if (\`foo\` === x) {
+    },
+
+    function (x: "foo") {
+      if (x !== "bar") {
+        (x: "foo");
+      }
+      (x: "foo");
+    },
+
+    function (x: "foo"): string {
+      if (x === "foo") {
+        return x;
+      }
       return x;
-    }
-    return "foo";
-  },
-];
+    },
+
+    function (x: "foo" | "bar") {
+      if (x === "foo") {
+        (x: "foo");
+        (x: void); // error
+      }
+      if (x === "bar") {
+        (x: "bar");
+        (x: void); // error
+      }
+    },
+
+    function (x: { foo: string }): "foo" {
+      if (x.foo === "foo") {
+        return x.foo;
+      }
+      return x.foo; // error
+    },
+
+    function (
+      x: { kind: "foo", foo: string } | { kind: "bar", bar: string }
+    ): string {
+      if (x.kind === "foo") {
+        return x.foo;
+      } else {
+        return x.bar;
+      }
+    },
+
+    function (str: string, obj: { foo: string }) {
+      if (str === obj.bar) {
+        // ok, typos allowed in conditionals
+      }
+    },
+
+    function (str: string, obj: { [key: string]: string }) {
+      if (str === obj.bar) {
+        // ok
+      }
+    },
+
+    function (str: string): Mode {
+      var ch = str[0];
+      if (ch !== "a" && ch !== "b" && ch !== "c") {
+        throw new Error("Wrong string passed");
+      }
+      return ch;
+    },
+
+    function (s: string): ?Mode {
+      if (s === "a") {
+        return s;
+      } else if (s === "d") {
+        return s; // error
+      }
+    },
+
+    function (mode: Mode) {
+      switch (mode) {
+        case "a":
+          (mode: "a");
+          break;
+
+        case "b":
+        case "c":
+          (mode: "b" | "c");
+          break;
+      }
+    },
+
+    function (x: string): "" {
+      if (x) {
+        return x; // error
+      } else {
+        return x; // no error, inferred to be ""
+      }
+    },
+
+    // Simple template literals are ok
+    function (x: string): "foo" {
+      if (x === \`foo\`) {
+        return x;
+      }
+      if (\`foo\` === x) {
+        return x;
+      }
+      return "foo";
+    },
+  ];
 
 ================================================================================
 `;
@@ -2793,213 +2805,214 @@ function nationality(x: Citizen | NonCitizen) {
   else return x.nationality;
 }
 
-let tests = [
-  // non-existent props
-  function test7(x: A) {
-    if (x.kindTypo === 1) {
-      // typos are allowed to be tested
-      (x.kindTypo: string); // typos can't be used, though
-    }
-  },
+let tests =
+  [
+    // non-existent props
+    function test7(x: A) {
+      if (x.kindTypo === 1) {
+        // typos are allowed to be tested
+        (x.kindTypo: string); // typos can't be used, though
+      }
+    },
 
-  // nested objects
-  function test8(x: { foo: { bar: 1 } }) {
-    if (x.foo.bar === 1) {
-    }
-    if (x.fooTypo.bar === 1) {
-    } // error, fooTypo doesn't exist
-  },
+    // nested objects
+    function test8(x: { foo: { bar: 1 } }) {
+      if (x.foo.bar === 1) {
+      }
+      if (x.fooTypo.bar === 1) {
+      } // error, fooTypo doesn't exist
+    },
 
-  // invalid RHS
-  function (x: A) {
-    if (x.kind === null.toString()) {
-    } // error, method on null
-    if ({ kind: 1 }.kind === null.toString()) {
-    } // error, method on null
-  },
+    // invalid RHS
+    function (x: A) {
+      if (x.kind === null.toString()) {
+      } // error, method on null
+      if ({ kind: 1 }.kind === null.toString()) {
+      } // error, method on null
+    },
 
-  // non-objects on LHS
-  function (
-    x: Array<string>,
-    y: string,
-    z: number,
-    q: boolean,
-    r: Object,
-    s: Function,
-    t: () => void
-  ) {
-    if (x.length === 0) {
-    }
-    if (x.legnth === 0) {
-      // typos are allowed to be tested
-      (x.legnth: number); // inside the block, it's a number
-      (x.legnth: string); // error: number literal 0 !~> string
-    }
-    if (y.length === 0) {
-    }
-    if (y.legnth === 0) {
-      // typos are allowed to be tested
-      (y.legnth: number); // inside the block, it's a number
-      (y.legnth: string); // error: number literal 0 !~> string
-    }
-    if (z.toString === 0) {
-    }
-    if (z.toStirng === 0) {
-      // typos are allowed to be tested
-      (z.toStirng: number); // inside the block, it's a number
-      (z.toStirng: string); // error: number literal 0 !~> string
-    }
-    if (q.valueOf === 0) {
-    }
-    if (q.valeuOf === 0) {
-      // typos are allowed to be tested
-      (q.valeuOf: number); // inside the block, it's a number
-      (q.valeuOf: string); // error: number literal 0 !~> string
-    }
-    if (r.toStirng === 0) {
-      // typos are allowed to be tested
-      (r.toStirng: empty); // props on AnyObjT are \`any\`
-    }
-    if (s.call === 0) {
-    }
-    if (s.calll === 0) {
-      // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are \`any\` :/
-    }
-    if (t.call === 0) {
-    }
-    if (t.calll === 0) {
-      // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are \`any\` :/
-    }
-  },
+    // non-objects on LHS
+    function (
+      x: Array<string>,
+      y: string,
+      z: number,
+      q: boolean,
+      r: Object,
+      s: Function,
+      t: () => void
+    ) {
+      if (x.length === 0) {
+      }
+      if (x.legnth === 0) {
+        // typos are allowed to be tested
+        (x.legnth: number); // inside the block, it's a number
+        (x.legnth: string); // error: number literal 0 !~> string
+      }
+      if (y.length === 0) {
+      }
+      if (y.legnth === 0) {
+        // typos are allowed to be tested
+        (y.legnth: number); // inside the block, it's a number
+        (y.legnth: string); // error: number literal 0 !~> string
+      }
+      if (z.toString === 0) {
+      }
+      if (z.toStirng === 0) {
+        // typos are allowed to be tested
+        (z.toStirng: number); // inside the block, it's a number
+        (z.toStirng: string); // error: number literal 0 !~> string
+      }
+      if (q.valueOf === 0) {
+      }
+      if (q.valeuOf === 0) {
+        // typos are allowed to be tested
+        (q.valeuOf: number); // inside the block, it's a number
+        (q.valeuOf: string); // error: number literal 0 !~> string
+      }
+      if (r.toStirng === 0) {
+        // typos are allowed to be tested
+        (r.toStirng: empty); // props on AnyObjT are \`any\`
+      }
+      if (s.call === 0) {
+      }
+      if (s.calll === 0) {
+        // typos are allowed to be tested
+        (t.calll: empty); // ok, props on functions are \`any\` :/
+      }
+      if (t.call === 0) {
+      }
+      if (t.calll === 0) {
+        // typos are allowed to be tested
+        (t.calll: empty); // ok, props on functions are \`any\` :/
+      }
+    },
 
-  // sentinel props become the RHS
-  function (x: { str: string, num: number, bool: boolean }) {
-    if (x.str === "str") {
-      (x.str: "not str"); // error: 'str' !~> 'not str'
-    }
-    if (x.num === 123) {
-      (x.num: 456); // error: 123 !~> 456
-    }
-    if (x.bool === true) {
-      (x.bool: false); // error: true !~> false
-    }
-    // even if it doesn't exist...
-    if (x.badStr === "bad") {
-      (x.badStr: empty); // error: 'bad' !~> empty
-    }
-    if (x.badNum === 123) {
-      (x.badNum: empty); // error: 123 !~> empty
-    }
-    if (x.badBool === true) {
-      (x.badBool: empty); // error: true !~> empty
-    }
-  },
+    // sentinel props become the RHS
+    function (x: { str: string, num: number, bool: boolean }) {
+      if (x.str === "str") {
+        (x.str: "not str"); // error: 'str' !~> 'not str'
+      }
+      if (x.num === 123) {
+        (x.num: 456); // error: 123 !~> 456
+      }
+      if (x.bool === true) {
+        (x.bool: false); // error: true !~> false
+      }
+      // even if it doesn't exist...
+      if (x.badStr === "bad") {
+        (x.badStr: empty); // error: 'bad' !~> empty
+      }
+      if (x.badNum === 123) {
+        (x.badNum: empty); // error: 123 !~> empty
+      }
+      if (x.badBool === true) {
+        (x.badBool: empty); // error: true !~> empty
+      }
+    },
 
-  // type mismatch
-  function (x: { foo: 123, y: string } | { foo: "foo", z: string }) {
-    if (x.foo === 123) {
-      (x.y: string);
-      x.z; // error
-    } else {
-      (x.z: string);
-      x.y; // error
-    }
-    if (x.foo === "foo") {
-      (x.z: string);
-      x.y; // error
-    } else {
-      (x.y: string);
-      x.z; // error
-    }
-  },
+    // type mismatch
+    function (x: { foo: 123, y: string } | { foo: "foo", z: string }) {
+      if (x.foo === 123) {
+        (x.y: string);
+        x.z; // error
+      } else {
+        (x.z: string);
+        x.y; // error
+      }
+      if (x.foo === "foo") {
+        (x.z: string);
+        x.y; // error
+      } else {
+        (x.y: string);
+        x.z; // error
+      }
+    },
 
-  // type mismatch, but one is not a literal
-  function (x: { foo: number, y: string } | { foo: "foo", z: string }) {
-    if (x.foo === 123) {
-      (x.y: string); // ok, because 123 !== 'foo'
-      x.z; // error
-    } else {
-      x.y; // error: x.foo could be a string
-      x.z; // error: could still be either case (if foo was a different number)
-    }
+    // type mismatch, but one is not a literal
+    function (x: { foo: number, y: string } | { foo: "foo", z: string }) {
+      if (x.foo === 123) {
+        (x.y: string); // ok, because 123 !== 'foo'
+        x.z; // error
+      } else {
+        x.y; // error: x.foo could be a string
+        x.z; // error: could still be either case (if foo was a different number)
+      }
 
-    if (x.foo === "foo") {
-      (x.z: string);
-      x.y; // error
-    } else {
-      (x.y: string);
-      x.z; // error
-    }
-  },
+      if (x.foo === "foo") {
+        (x.z: string);
+        x.y; // error
+      } else {
+        (x.y: string);
+        x.z; // error
+      }
+    },
 
-  // type mismatch, neither is a literal
-  function (x: { foo: number, y: string } | { foo: string, z: string }) {
-    if (x.foo === 123) {
-      (x.y: string); // ok, because 123 !== string
-      x.z; // error
-    } else {
-      x.y; // error: x.foo could be a string
-      x.z; // error: could still be either case (if foo was a different number)
-    }
+    // type mismatch, neither is a literal
+    function (x: { foo: number, y: string } | { foo: string, z: string }) {
+      if (x.foo === 123) {
+        (x.y: string); // ok, because 123 !== string
+        x.z; // error
+      } else {
+        x.y; // error: x.foo could be a string
+        x.z; // error: could still be either case (if foo was a different number)
+      }
 
-    if (x.foo === "foo") {
-      (x.z: string);
-      x.y; // error
-    } else {
-      x.y; // error: x.foo could be a different string
-      x.z; // error: x.foo could be a number
-    }
-  },
+      if (x.foo === "foo") {
+        (x.z: string);
+        x.y; // error
+      } else {
+        x.y; // error: x.foo could be a different string
+        x.z; // error: x.foo could be a number
+      }
+    },
 
-  // type mismatch, neither is a literal, test is not a literal either
-  function (
-    x: { foo: number, y: string } | { foo: string, z: string },
-    num: number
-  ) {
-    if (x.foo === num) {
-      x.y; // error: flow isn't smart enough to figure this out yet
-      x.z; // error
-    }
-  },
+    // type mismatch, neither is a literal, test is not a literal either
+    function (
+      x: { foo: number, y: string } | { foo: string, z: string },
+      num: number
+    ) {
+      if (x.foo === num) {
+        x.y; // error: flow isn't smart enough to figure this out yet
+        x.z; // error
+      }
+    },
 
-  // null
-  function (x: { foo: null, y: string } | { foo: "foo", z: string }) {
-    if (x.foo === null) {
-      (x.y: string);
-      x.z; // error
-    } else {
-      (x.z: string);
-      x.y; // error
-    }
-    if (x.foo === "foo") {
-      (x.z: string);
-      x.y; // error
-    } else {
-      (x.y: string);
-      x.z; // error
-    }
-  },
+    // null
+    function (x: { foo: null, y: string } | { foo: "foo", z: string }) {
+      if (x.foo === null) {
+        (x.y: string);
+        x.z; // error
+      } else {
+        (x.z: string);
+        x.y; // error
+      }
+      if (x.foo === "foo") {
+        (x.z: string);
+        x.y; // error
+      } else {
+        (x.y: string);
+        x.z; // error
+      }
+    },
 
-  // void
-  function (x: { foo: void, y: string } | { foo: "foo", z: string }) {
-    if (x.foo === undefined) {
-      (x.y: string);
-      x.z; // error
-    } else {
-      (x.z: string);
-      x.y; // error
-    }
-    if (x.foo === "foo") {
-      (x.z: string);
-      x.y; // error
-    } else {
-      (x.y: string);
-      x.z; // error
-    }
-  },
-];
+    // void
+    function (x: { foo: void, y: string } | { foo: "foo", z: string }) {
+      if (x.foo === undefined) {
+        (x.y: string);
+        x.z; // error
+      } else {
+        (x.z: string);
+        x.y; // error
+      }
+      if (x.foo === "foo") {
+        (x.z: string);
+        x.y; // error
+      } else {
+        (x.y: string);
+        x.z; // error
+      }
+    },
+  ];
 
 ================================================================================
 `;
@@ -3039,15 +3052,17 @@ function handleStatus(status: Success | Error) {
 
 import { SUCCESS, ERROR } from "./constants";
 
-type Success = {
-  type: typeof SUCCESS,
-  message: string,
-};
+type Success =
+  {
+    type: typeof SUCCESS,
+    message: string,
+  };
 
-type Error = {
-  type: typeof ERROR,
-  error: string,
-};
+type Error =
+  {
+    type: typeof ERROR,
+    error: string,
+  };
 
 function handleStatus(status: Success | Error) {
   switch (status.type) {

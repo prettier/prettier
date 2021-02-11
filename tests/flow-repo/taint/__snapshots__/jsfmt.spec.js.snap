@@ -109,29 +109,30 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-let tests = [
-  // setting a property
-  function (x: $Tainted<string>, y: string) {
-    let obj: Object = {};
-    obj.foo = x; // error, taint ~> any
-    obj[y] = x; // error, taint ~> any
-  },
+let tests =
+  [
+    // setting a property
+    function (x: $Tainted<string>, y: string) {
+      let obj: Object = {};
+      obj.foo = x; // error, taint ~> any
+      obj[y] = x; // error, taint ~> any
+    },
 
-  // getting a property
-  function () {
-    let obj: Object = { foo: "foo" };
-    (obj.foo: $Tainted<string>); // ok
-  },
+    // getting a property
+    function () {
+      let obj: Object = { foo: "foo" };
+      (obj.foo: $Tainted<string>); // ok
+    },
 
-  // calling a method
-  function (x: $Tainted<string>) {
-    let obj: Object = {};
-    obj.foo(x); // error, taint ~> any
+    // calling a method
+    function (x: $Tainted<string>) {
+      let obj: Object = {};
+      obj.foo(x); // error, taint ~> any
 
-    let foo = obj.foo;
-    foo(x); // error, taint ~> any
-  },
-];
+      let foo = obj.foo;
+      foo(x); // error, taint ~> any
+    },
+  ];
 
 ================================================================================
 `;
@@ -270,18 +271,19 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-let tests = [
-  // flows any to each param
-  function (x: any, y: $Tainted<string>) {
-    x(y); // error, taint ~> any
-  },
+let tests =
+  [
+    // flows any to each param
+    function (x: any, y: $Tainted<string>) {
+      x(y); // error, taint ~> any
+    },
 
-  // calling \`any\` returns \`any\`
-  function (x: any, y: $Tainted<string>) {
-    let z = x();
-    z(y);
-  },
-];
+    // calling \`any\` returns \`any\`
+    function (x: any, y: $Tainted<string>) {
+      let z = x();
+      z(y);
+    },
+  ];
 
 ================================================================================
 `;

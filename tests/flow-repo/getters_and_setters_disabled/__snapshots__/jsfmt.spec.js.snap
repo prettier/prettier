@@ -43,25 +43,27 @@ class Bar {
  * @flow
  */
 
-var f = {
-  get a() {
-    return 4;
-  },
-  set b(x: number) {
-    this.c = x;
-  },
-  c: 10,
-  get ["d"]() {
-    return "foo";
-  },
-  set ["d"](x: number) {},
-};
+var f =
+  {
+    get a() {
+      return 4;
+    },
+    set b(x: number) {
+      this.c = x;
+    },
+    c: 10,
+    get ["d"]() {
+      return "foo";
+    },
+    set ["d"](x: number) {},
+  };
 
-type T = {
-  get a(): number,
-  set b(x: number): void,
-  c: 10,
-};
+type T =
+  {
+    get a(): number,
+    set b(x: number): void,
+    c: 10,
+  };
 
 declare class Foo {
   get a(): number;

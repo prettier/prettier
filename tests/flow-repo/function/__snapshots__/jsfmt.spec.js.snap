@@ -150,31 +150,32 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-let tests = [
-  function (x: (a: string, b: string) => void) {
-    let y = x.bind(x, "foo");
-    y("bar"); // ok
-    y(123); // error, number !~> string
-  },
+let tests =
+  [
+    function (x: (a: string, b: string) => void) {
+      let y = x.bind(x, "foo");
+      y("bar"); // ok
+      y(123); // error, number !~> string
+    },
 
-  // callable objects
-  function (x: { (a: string, b: string): void }) {
-    let y = x.bind(x, "foo");
-    y("bar"); // ok
-    y(123); // error, number !~> string
-  },
+    // callable objects
+    function (x: { (a: string, b: string): void }) {
+      let y = x.bind(x, "foo");
+      y("bar"); // ok
+      y(123); // error, number !~> string
+    },
 
-  // non-callable objects
-  function (x: { a: string }) {
-    x.bind(x, "foo"); // error
-  },
+    // non-callable objects
+    function (x: { a: string }) {
+      x.bind(x, "foo"); // error
+    },
 
-  // callable objects with overridden \`bind\` method
-  function (x: { (a: string, b: string): void, bind(a: string): void }) {
-    (x.bind("foo"): void); // ok
-    (x.bind(123): void); // error, number !~> string
-  },
-];
+    // callable objects with overridden \`bind\` method
+    function (x: { (a: string, b: string): void, bind(a: string): void }) {
+      (x.bind("foo"): void); // ok
+      (x.bind(123): void); // error, number !~> string
+    },
+  ];
 
 ================================================================================
 `;
@@ -360,9 +361,10 @@ var e = (d.bind(1): Function)();
 // can only be called with 3 arguments.
 var a: Function = (a, b, c) => 123;
 
-var b: Function = function (a: number, b: number): number {
-  return a + b;
-};
+var b: Function =
+  function (a: number, b: number): number {
+    return a + b;
+  };
 
 class C {}
 
@@ -386,33 +388,34 @@ function bad(x: Function, y: Object): void {
   var c: Function = y; // Object is not a Function
 }
 
-let tests = [
-  function (y: () => void, z: Function) {
-    function x() {}
-    (x.length: void); // error, it's a number
-    (y.length: void); // error, it's a number
-    (z.length: void); // error, it's a number
+let tests =
+  [
+    function (y: () => void, z: Function) {
+      function x() {}
+      (x.length: void); // error, it's a number
+      (y.length: void); // error, it's a number
+      (z.length: void); // error, it's a number
 
-    (x.name: void); // error, it's a string
-    (y.name: void); // error, it's a string
-    (z.name: void); // error, it's a string
-  },
+      (x.name: void); // error, it's a string
+      (y.name: void); // error, it's a string
+      (z.name: void); // error, it's a string
+    },
 
-  function (y: () => void, z: Function) {
-    function x() {}
-    x.length = "foo"; // error, it's a number
-    y.length = "foo"; // error, it's a number
-    z.length = "foo"; // error, it's a number
+    function (y: () => void, z: Function) {
+      function x() {}
+      x.length = "foo"; // error, it's a number
+      y.length = "foo"; // error, it's a number
+      z.length = "foo"; // error, it's a number
 
-    x.name = 123; // error, it's a string
-    y.name = 123; // error, it's a string
-    z.name = 123; // error, it's a string
+      x.name = 123; // error, it's a string
+      y.name = 123; // error, it's a string
+      z.name = 123; // error, it's a string
 
-    // Non-(Function.prototype) properties on a \`Function\` type should be \`any\`
-    (z.foo: number);
-    (z.foo: string);
-  },
-];
+      // Non-(Function.prototype) properties on a \`Function\` type should be \`any\`
+      (z.foo: number);
+      (z.foo: string);
+    },
+  ];
 
 // \`Function\` types can be bound (resulting in a \`Function\` type)
 var d: Function = () => 1;

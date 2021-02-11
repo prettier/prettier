@@ -585,10 +585,11 @@ helloWorld
 
   .filter((obj) => !!obj);
 
-const sel = this.connections
+const sel =
+  this.connections
 
-  .concat(this.activities.concat(this.operators))
-  .filter((x) => x.selected);
+    .concat(this.activities.concat(this.operators))
+    .filter((x) => x.selected);
 
 ================================================================================
 `;

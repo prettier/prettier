@@ -11,9 +11,10 @@ a = {
 }
 
 =====================================output=====================================
-a = {
-  [(this.resource = resource)]: 1,
-};
+a =
+  {
+    [(this.resource = resource)]: 1,
+  };
 
 ================================================================================
 `;
@@ -33,9 +34,10 @@ map(([resource]) => ({
 }))
 
 =====================================output=====================================
-a = {
-  resource: (this.resource = resource),
-};
+a =
+  {
+    resource: (this.resource = resource),
+  };
 
 map(([resource]) => ({
   resource: (this.resource = resource),
