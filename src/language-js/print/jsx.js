@@ -32,6 +32,9 @@ const {
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
 
+const isLineOrHardlineOrSoftline = (doc) =>
+  doc === line || doc === hardline || doc === softline;
+
 /**
  * @typedef {import("../../common/ast-path")} AstPath
  * @typedef {import("../types/estree").Node} Node
@@ -177,7 +180,7 @@ function printJsxElementInternal(path, options, print) {
   // Trim trailing lines (or empty strings)
   while (
     children.length > 0 &&
-    (!getLast(children) || isLineNext(getLast(children)))
+    (!getLast(children) || isLineOrHardlineOrSoftline(getLast(children)))
   ) {
     children.pop();
   }
@@ -185,8 +188,8 @@ function printJsxElementInternal(path, options, print) {
   // Trim leading lines (or empty strings)
   while (
     children.length > 0 &&
-    (!children[0] || isLineNext(children[0])) &&
-    (!children[1] || isLineNext(children[1]))
+    (!children[0] || isLineOrHardlineOrSoftline(children[0])) &&
+    (!children[1] || isLineOrHardlineOrSoftline(children[1]))
   ) {
     children.shift();
     children.shift();
