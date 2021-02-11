@@ -104,19 +104,6 @@ function findInDoc(doc, fn, defaultValue) {
   return result;
 }
 
-function isLineNextFn(doc) {
-  if (typeof doc === "string") {
-    return false;
-  }
-  if (doc.type === "line") {
-    return true;
-  }
-}
-
-function isLineNext(doc) {
-  return findInDoc(doc, isLineNextFn, false);
-}
-
 function willBreakFn(doc) {
   if (doc.type === "group" && doc.break) {
     return true;
@@ -379,7 +366,6 @@ module.exports = {
   isConcat,
   getDocParts,
   willBreak,
-  isLineNext,
   traverseDoc,
   findInDoc,
   mapDoc,
