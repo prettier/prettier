@@ -24,16 +24,10 @@ function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const rightNode = path.getValue()[rightPropertyName];
-  if (!rightNode) {
-    return leftDoc;
-  }
   const rightDoc = path.call(print, rightPropertyName);
-  const isNested = path.getParentNode().type === "AssignmentExpression";
 
-  switch (chooseLayout(rightNode, isNested, options)) {
+  switch (chooseLayout(path, options, rightPropertyName)) {
     // First break after operator, then the sides are broken independently on their own lines
-    default:
     case "break-after-operator":
       return group([group(leftDoc), operator, group(indent([line, rightDoc]))]);
 
@@ -57,8 +51,11 @@ function printAssignment(
     case "chain":
       return [group(leftDoc), operator, line, rightDoc];
 
-    case "end-of-chain":
+    case "chain-tail":
       return [group(leftDoc), operator, indent([line, rightDoc])];
+
+    case "only-left":
+      return leftDoc;
   }
 }
 
@@ -85,17 +82,27 @@ function printVariableDeclarator(path, options, print) {
   );
 }
 
-function chooseLayout(rightNode, isNested, options) {
-  const hasAssignmentOnTheRight = rightNode.type === "AssignmentExpression";
-  if (isNested) {
-    return hasAssignmentOnTheRight ? "chain" : "end-of-chain";
+function chooseLayout(path, options, rightPropertyName) {
+  const rightNode = path.getValue()[rightPropertyName];
+
+  if (!rightNode) {
+    return "only-left";
   }
-  // `const a = b = c;` falls through here, but `const a = b = c = d;` doesn't.
-  //            ^--------------- rightNode ----------------^
-  if (
-    hasAssignmentOnTheRight &&
-    rightNode.right.type === "AssignmentExpression"
-  ) {
+
+  // Assignment chains with only 2 segments are NOT formatted as chains.
+  //   1) a = b = c; (expression statements)
+  //   2) var/let/const a = b = c;
+
+  const isTail = !isAssignment(rightNode);
+  const shouldUseChainFormatting = path.match(
+    isAssignment,
+    (node) => isAssignment(node) || node.type === "VariableDeclarator",
+    (node) => !isTail || node.type !== "ExpressionStatement"
+  );
+  if (shouldUseChainFormatting) {
+    return isTail ? "chain-tail" : "chain";
+  }
+  if (!isTail && isAssignment(rightNode.right)) {
     return "break-after-operator";
   }
 
@@ -172,6 +179,10 @@ function shouldNeverBreakAfterOperator(rightNode) {
       rightNode.callee.name === "require") ||
     rightNode.type === "ClassExpression"
   );
+}
+
+function isAssignment(node) {
+  return node.type === "AssignmentExpression";
 }
 
 function isMemberExpressionChainHead(node) {

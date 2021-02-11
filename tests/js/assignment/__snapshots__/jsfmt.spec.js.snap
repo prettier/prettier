@@ -65,11 +65,11 @@ a=b=c;
 =====================================output=====================================
 let bifornCringerMoshedPerplexSawder =
   (askTrovenaBeenaDependsRowans =
-    glimseGlyphsHazardNoopsTieTie =
-    averredBathersBoxroomBuggyNurl =
-    anodyneCondosMalateOverateRetinol =
-    annularCooeedSplicesWalksWayWay =
-      kochabCooieGameOnOboleUnweave);
+  glimseGlyphsHazardNoopsTieTie =
+  averredBathersBoxroomBuggyNurl =
+  anodyneCondosMalateOverateRetinol =
+  annularCooeedSplicesWalksWayWay =
+    kochabCooieGameOnOboleUnweave);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans =
@@ -98,6 +98,28 @@ bifornCringerMoshedPerplexSawder =
     kochabCooieGameOnOboleUnweave + kochabCooieGameOnOboleUnweave;
 
 a = b = c;
+
+================================================================================
+`;
+
+exports[`chain-two-segments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+tt.parenR.updateContext = tt.braceR.updateContext = function () {
+  if (this.state.context.length === 1) {
+    return;
+  }
+}
+
+=====================================output=====================================
+tt.parenR.updateContext = tt.braceR.updateContext = function () {
+  if (this.state.context.length === 1) {
+    return;
+  }
+};
 
 ================================================================================
 `;
@@ -180,8 +202,7 @@ this.someObject.someOtherNestedObject =
   this.someOtherObject.whyNotNestAnotherOne.someLongFunctionName();
 
 this.isaverylongmethodexpression.withmultiplelevels =
-  this.isanotherverylongexpression.thatisalsoassigned =
-    0;
+  this.isanotherverylongexpression.thatisalsoassigned = 0;
 
 ================================================================================
 `;
