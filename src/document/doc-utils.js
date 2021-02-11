@@ -104,10 +104,6 @@ function findInDoc(doc, fn, defaultValue) {
   return result;
 }
 
-function isEmpty(n) {
-  return typeof n === "string" && n.length === 0;
-}
-
 function isLineNextFn(doc) {
   if (typeof doc === "string") {
     return false;
@@ -382,7 +378,6 @@ function replaceNewlinesWithLiterallines(doc) {
 module.exports = {
   isConcat,
   getDocParts,
-  isEmpty,
   willBreak,
   isLineNext,
   traverseDoc,
