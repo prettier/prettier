@@ -184,7 +184,7 @@ function printJsxElementInternal(path, options, print) {
 
   // Trim leading lines (or empty strings)
   while (
-    children.length > 0 &&
+    children.length > 1 &&
     isEmptyStringOrAnyLine(children[0]) &&
     isEmptyStringOrAnyLine(children[1])
   ) {
