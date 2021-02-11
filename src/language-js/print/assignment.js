@@ -67,50 +67,7 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
     return indent([line, printedRight]);
   }
 
-  if (canBreakAssignmentRight(leftNode, rightNode, options)) {
-    return group(indent([line, printedRight]));
-  }
-
-  return [" ", printedRight];
-}
-
-function canBreakAssignmentRight(leftNode, rightNode, options) {
-  // do not put values on a separate line from the key in json
-  if (options.parser === "json5" || options.parser === "json") {
-    return false;
-  }
-
-  if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
-    return true;
-  }
-
-  switch (rightNode.type) {
-    case "StringLiteralTypeAnnotation":
-    case "SequenceExpression":
-      return true;
-    case "ConditionalExpression": {
-      const { test } = rightNode;
-      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
-    }
-    case "ClassExpression":
-      return isNonEmptyArray(rightNode.decorators);
-  }
-
-  if (
-    leftNode.type === "Identifier" ||
-    isStringLiteral(leftNode) ||
-    leftNode.type === "MemberExpression"
-  ) {
-    let node = rightNode;
-    while (node.type === "UnaryExpression") {
-      node = node.argument;
-    }
-    if (isStringLiteral(node) || isMemberExpressionChain(node)) {
-      return true;
-    }
-  }
-
-  return false;
+  return group(indent([line, printedRight]));
 }
 
 module.exports = {
