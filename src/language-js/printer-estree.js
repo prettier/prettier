@@ -281,7 +281,10 @@ function printPathNoParens(path, options, print, args) {
       ];
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
-      const shouldHug = !hasComment(n.expression);
+      const shouldHug =
+        !hasComment(n.expression) &&
+        (n.expression.type === "ObjectExpression" ||
+          n.expression.type === "ArrayExpression");
       if (shouldHug) {
         return ["(", path.call(print, "expression"), ")"];
       }
