@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`constructor.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\",\\" (2:22)
+  1 | class foo {
+> 2 |   constructor(static a: number) {}
+    |                      ^
+  3 | }
+  4 |
+  5 | class foo {"
+`;
+
 exports[`constructor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -21,6 +31,10 @@ class A {
     }
 }
 
+class B {
+  constructor<>() {}
+}
+
 =====================================output=====================================
 class foo {
   constructor(static a: number) {}
@@ -37,6 +51,10 @@ class A {
   }
 }
 
+class B {
+  constructor<>() {}
+}
+
 ================================================================================
 `;
 
@@ -50,6 +68,38 @@ class F<__T> {}
 
 =====================================output=====================================
 class F<__T> {}
+
+================================================================================
+`;
+
+exports[`empty-method-body.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #9324
+
+class foo1 {
+  bar() /* bat */;
+}
+
+// #9367
+class Test {
+  foo (/* 2 */) /* 3 */;
+}
+
+=====================================output=====================================
+// #9324
+
+class foo1 {
+  bar /* bat */();
+}
+
+// #9367
+class Test {
+  foo /* 3 */(/* 2 */);
+}
 
 ================================================================================
 `;
@@ -209,6 +259,15 @@ class ImplementsInterfaceClassWithComments1<
 ================================================================================
 `;
 
+exports[`generics.ts [babel-ts] format 1`] = `
+"A class name is required (1:6)
+> 1 | class<T> implements Map<T> {}
+    |      ^
+  2 |
+  3 | interface AudioBufferList {
+  4 | 	mBuffers: interop.Reference<any /*AudioBuffer*/>;"
+`;
+
 exports[`generics.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -229,6 +288,17 @@ interface AudioBufferList {
 }
 
 ================================================================================
+`;
+
+exports[`methods.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\";\\" (6:10)
+  4 |
+  5 | interface Iterable<T> {
+> 6 |   export [Symbol.iterator](): Iterator<T>;
+    |          ^
+  7 | }
+  8 |
+  9 | export class Check {"
 `;
 
 exports[`methods.ts format 1`] = `

@@ -39,9 +39,7 @@ printWidth: 80
 =====================================input======================================
 const bar = tag<number>\`but where will prettier wrap such a long tagged template literal? \${foo.bar.baz} long long long long long long long long long long long long long long\`;
 =====================================output=====================================
-const bar = tag<
-  number
->\`but where will prettier wrap such a long tagged template literal? \${foo.bar.baz} long long long long long long long long long long long long long long\`;
+const bar = tag<number>\`but where will prettier wrap such a long tagged template literal? \${foo.bar.baz} long long long long long long long long long long long long long long\`;
 
 ================================================================================
 `;

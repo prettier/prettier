@@ -1,1 +1,1 @@
-import foo from "foo.json" with foo: "json";
+import foo from "foo.json" with type: "json";

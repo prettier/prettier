@@ -98,24 +98,20 @@ singleQuote: false
 <a href="/{{url}}/{{url}}"></a>
 
 <button
-  class="padding width-{{locales.length}} {{
-    if (has locale) "uk-button-primary"
-  }}"
+  class="padding width-{{locales.length}}
+    {{if (has locale) "uk-button-primary"}}"
 ></button>
 <button
-  class="padding width-{{locales.length}} {{
-    if (has locale) "uk-button-primary"
-  }}"
+  class="padding width-{{locales.length}}
+    {{if (has locale) "uk-button-primary"}}"
 ></button>
 <button
-  class="padding width-{{locales.length}} {{
-    if (has locale) "uk-button-primary"
-  }}"
+  class="padding width-{{locales.length}}
+    {{if (has locale) "uk-button-primary"}}"
 ></button>
 <button
-  class="padding width-{{locales.length}} {{
-    if (has locale) "uk-button-primary"
-  }}"
+  class="padding width-{{locales.length}}
+    {{if (has locale) "uk-button-primary"}}"
 ></button>
 ================================================================================
 `;
@@ -150,24 +146,20 @@ singleQuote: true
 <a href='/{{url}}/{{url}}'></a>
 
 <button
-  class='padding width-{{locales.length}} {{
-    if (has locale) 'uk-button-primary'
-  }}'
+  class='padding width-{{locales.length}}
+    {{if (has locale) 'uk-button-primary'}}'
 ></button>
 <button
-  class='padding width-{{locales.length}} {{
-    if (has locale) 'uk-button-primary'
-  }}'
+  class='padding width-{{locales.length}}
+    {{if (has locale) 'uk-button-primary'}}'
 ></button>
 <button
-  class='padding width-{{locales.length}} {{
-    if (has locale) 'uk-button-primary'
-  }}'
+  class='padding width-{{locales.length}}
+    {{if (has locale) 'uk-button-primary'}}'
 ></button>
 <button
-  class='padding width-{{locales.length}} {{
-    if (has locale) 'uk-button-primary'
-  }}'
+  class='padding width-{{locales.length}}
+    {{if (has locale) 'uk-button-primary'}}'
 ></button>
 ================================================================================
 `;

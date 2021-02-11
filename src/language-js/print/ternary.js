@@ -1,13 +1,18 @@
 "use strict";
 
 const flat = require("lodash/flatten");
-
-const { isJSXNode } = require("../utils");
 const { hasNewlineInRange } = require("../../common/util");
-const handleComments = require("../comments");
+const {
+  isJsxNode,
+  isBlockComment,
+  getComments,
+  isChainElement,
+  isCallExpression,
+  isMemberExpression,
+} = require("../utils");
+const { locStart, locEnd } = require("../loc");
 const {
   builders: {
-    concat,
     line,
     softline,
     group,
@@ -21,18 +26,9 @@ const {
 
 /**
  * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../../common/ast-path")} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)
- *
- * @typedef {Object} OperatorOptions
- * @property {() => Array<string | Doc>} beforeParts - Parts to print before the `?`.
- * @property {(breakClosingParen: boolean) => Array<string | Doc>} afterParts - Parts to print after the conditional expression.
- * @property {boolean} shouldCheckJsx - Whether to check for and print in JSX mode.
- * @property {string} conditionalNodeType - The type of the conditional expression node, ie "ConditionalExpression" or "TSConditionalType".
- * @property {string} consequentNodePropertyName - The property at which the consequent node can be found on the main node, eg "consequent".
- * @property {string} alternateNodePropertyName - The property at which the alternate node can be found on the main node, eg "alternate".
- * @property {string[]} testNodePropertyNames - The properties at which the test nodes can be found on the main node, eg "test".
  */
 
 // If we have nested conditional expressions, we want to print them in JSX mode
@@ -126,24 +122,117 @@ function getConditionalChainContents(node) {
   return nonConditionalExpressions;
 }
 
-function conditionalExpressionChainContainsJSX(node) {
-  return getConditionalChainContents(node).some(isJSXNode);
+function conditionalExpressionChainContainsJsx(node) {
+  return getConditionalChainContents(node).some(isJsxNode);
+}
+
+function printTernaryTest(path, options, print) {
+  const node = path.getValue();
+  const isConditionalExpression = node.type === "ConditionalExpression";
+  const alternateNodePropertyName = isConditionalExpression
+    ? "alternate"
+    : "falseType";
+
+  const parent = path.getParentNode();
+
+  const printed = isConditionalExpression
+    ? path.call(print, "test")
+    : [
+        path.call(print, "checkType"),
+        " ",
+        "extends",
+        " ",
+        path.call(print, "extendsType"),
+      ];
+  /**
+   *     a
+   *       ? b
+   *       : multiline
+   *         test
+   *         node
+   *       ^^ align(2)
+   *       ? d
+   *       : e
+   */
+  if (parent.type === node.type && parent[alternateNodePropertyName] === node) {
+    return align(2, printed);
+  }
+  return printed;
+}
+
+const ancestorNameMap = new Map([
+  ["AssignmentExpression", "right"],
+  ["VariableDeclarator", "init"],
+  ["ReturnStatement", "argument"],
+  ["ThrowStatement", "argument"],
+  ["UnaryExpression", "argument"],
+  ["YieldExpression", "argument"],
+]);
+function shouldExtraIndentForConditionalExpression(path) {
+  const node = path.getValue();
+  if (node.type !== "ConditionalExpression") {
+    return false;
+  }
+
+  let ancestorCount = 1;
+  let ancestor = path.getParentNode(ancestorCount);
+  if (!ancestor) {
+    return false;
+  }
+  while (isChainElement(ancestor)) {
+    ancestor = path.getParentNode(++ancestorCount);
+  }
+  const checkAncestor = (node) => {
+    const name = ancestorNameMap.get(ancestor.type);
+    return ancestor[name] === node;
+  };
+
+  const parent = path.getParentNode();
+  const name = path.getName();
+
+  if (
+    ((name === "callee" && parent.type === "NewExpression") ||
+      (name === "expression" && parent.type === "TSAsExpression")) &&
+    checkAncestor(parent)
+  ) {
+    return true;
+  }
+
+  if (
+    ((name === "callee" && isCallExpression(parent)) ||
+      (name === "object" && isMemberExpression(parent)) ||
+      (name === "expression" && parent.type === "TSNonNullExpression")) &&
+    checkAncestor(path.getParentNode(ancestorCount - 1))
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
  * The following is the shared logic for
  * ternary operators, namely ConditionalExpression
  * and TSConditionalType
- * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
+ * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
- * @param {OperatorOptions} operatorOptions
  * @returns {Doc}
  */
-function printTernaryOperator(path, options, print, operatorOptions) {
+function printTernary(path, options, print) {
   const node = path.getValue();
-  const consequentNode = node[operatorOptions.consequentNodePropertyName];
-  const alternateNode = node[operatorOptions.alternateNodePropertyName];
+  const isConditionalExpression = node.type === "ConditionalExpression";
+  const consequentNodePropertyName = isConditionalExpression
+    ? "consequent"
+    : "trueType";
+  const alternateNodePropertyName = isConditionalExpression
+    ? "alternate"
+    : "falseType";
+  const testNodePropertyNames = isConditionalExpression
+    ? ["test"]
+    : ["checkType", "extendsType"];
+  const consequentNode = node[consequentNodePropertyName];
+  const alternateNode = node[alternateNodePropertyName];
   const parts = [];
 
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
@@ -151,10 +240,9 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   let jsxMode = false;
   const parent = path.getParentNode();
   const isParentTest =
-    parent.type === operatorOptions.conditionalNodeType &&
-    operatorOptions.testNodePropertyNames.some((prop) => parent[prop] === node);
-  let forceNoIndent =
-    parent.type === operatorOptions.conditionalNodeType && !isParentTest;
+    parent.type === node.type &&
+    testNodePropertyNames.some((prop) => parent[prop] === node);
+  let forceNoIndent = parent.type === node.type && !isParentTest;
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
@@ -168,8 +256,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     i++;
   } while (
     currentParent &&
-    currentParent.type === operatorOptions.conditionalNodeType &&
-    operatorOptions.testNodePropertyNames.every(
+    currentParent.type === node.type &&
+    testNodePropertyNames.every(
       (prop) => currentParent[prop] !== previousParent
     )
   );
@@ -177,11 +265,11 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const lastConditionalParent = previousParent;
 
   if (
-    operatorOptions.shouldCheckJsx &&
-    (isJSXNode(node[operatorOptions.testNodePropertyNames[0]]) ||
-      isJSXNode(consequentNode) ||
-      isJSXNode(alternateNode) ||
-      conditionalExpressionChainContainsJSX(lastConditionalParent))
+    isConditionalExpression &&
+    (isJsxNode(node[testNodePropertyNames[0]]) ||
+      isJsxNode(consequentNode) ||
+      isJsxNode(alternateNode) ||
+      conditionalExpressionChainContainsJsx(lastConditionalParent))
   ) {
     jsxMode = true;
     forceNoIndent = true;
@@ -189,13 +277,12 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     // Even though they don't need parens, we wrap (almost) everything in
     // parens when using ?: within JSX, because the parens are analogous to
     // curly braces in an if statement.
-    const wrap = (doc) =>
-      concat([
-        ifBreak("(", ""),
-        indent(concat([softline, doc])),
-        softline,
-        ifBreak(")", ""),
-      ]);
+    const wrap = (doc) => [
+      ifBreak("("),
+      indent([softline, doc]),
+      softline,
+      ifBreak(")"),
+    ];
 
     // The only things we don't wrap are:
     // * Nested conditional expressions in alternates
@@ -209,35 +296,30 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     parts.push(
       " ? ",
       isNil(consequentNode)
-        ? path.call(print, operatorOptions.consequentNodePropertyName)
-        : wrap(path.call(print, operatorOptions.consequentNodePropertyName)),
+        ? path.call(print, consequentNodePropertyName)
+        : wrap(path.call(print, consequentNodePropertyName)),
       " : ",
-      alternateNode.type === operatorOptions.conditionalNodeType ||
-        isNil(alternateNode)
-        ? path.call(print, operatorOptions.alternateNodePropertyName)
-        : wrap(path.call(print, operatorOptions.alternateNodePropertyName))
+      alternateNode.type === node.type || isNil(alternateNode)
+        ? path.call(print, alternateNodePropertyName)
+        : wrap(path.call(print, alternateNodePropertyName))
     );
   } else {
     // normal mode
-    const part = concat([
+    const part = [
       line,
       "? ",
-      consequentNode.type === operatorOptions.conditionalNodeType
-        ? ifBreak("", "(")
-        : "",
-      align(2, path.call(print, operatorOptions.consequentNodePropertyName)),
-      consequentNode.type === operatorOptions.conditionalNodeType
-        ? ifBreak("", ")")
-        : "",
+      consequentNode.type === node.type ? ifBreak("", "(") : "",
+      align(2, path.call(print, consequentNodePropertyName)),
+      consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
-      alternateNode.type === operatorOptions.conditionalNodeType
-        ? path.call(print, operatorOptions.alternateNodePropertyName)
-        : align(2, path.call(print, operatorOptions.alternateNodePropertyName)),
-    ]);
+      alternateNode.type === node.type
+        ? path.call(print, alternateNodePropertyName)
+        : align(2, path.call(print, alternateNodePropertyName)),
+    ];
     parts.push(
-      parent.type !== operatorOptions.conditionalNodeType ||
-        parent[operatorOptions.alternateNodePropertyName] === node ||
+      parent.type !== node.type ||
+        parent[alternateNodePropertyName] === node ||
         isParentTest
         ? part
         : options.useTabs
@@ -250,26 +332,26 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
   const comments = flat([
-    ...operatorOptions.testNodePropertyNames.map(
-      (propertyName) => node[propertyName].comments
+    ...testNodePropertyNames.map((propertyName) =>
+      getComments(node[propertyName])
     ),
-    consequentNode.comments,
-    alternateNode.comments,
-  ]).filter(Boolean);
+    getComments(consequentNode),
+    getComments(alternateNode),
+  ]);
   const shouldBreak = comments.some(
     (comment) =>
-      handleComments.isBlockComment(comment) &&
+      isBlockComment(comment) &&
       hasNewlineInRange(
         options.originalText,
-        options.locStart(comment),
-        options.locEnd(comment)
+        locStart(comment),
+        locEnd(comment)
       )
   );
   const maybeGroup = (doc) =>
     parent === firstNonConditionalParent
       ? group(doc, { shouldBreak })
       : shouldBreak
-      ? concat([doc, breakParent])
+      ? [doc, breakParent]
       : doc;
 
   // Break the closing paren to keep the chain right after it:
@@ -279,38 +361,23 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // ).call()
   const breakClosingParen =
     !jsxMode &&
-    (parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression" ||
+    (isMemberExpression(parent) ||
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
-  const result = maybeGroup(
-    concat(
-      [].concat(
-        ((testDoc) =>
-          /**
-           *     a
-           *       ? b
-           *       : multiline
-           *         test
-           *         node
-           *       ^^ align(2)
-           *       ? d
-           *       : e
-           */
-          parent.type === operatorOptions.conditionalNodeType &&
-          parent[operatorOptions.alternateNodePropertyName] === node
-            ? align(2, testDoc)
-            : testDoc)(concat(operatorOptions.beforeParts())),
-        forceNoIndent ? concat(parts) : indent(concat(parts)),
-        operatorOptions.afterParts(breakClosingParen)
-      )
-    )
-  );
+  const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
 
-  return isParentTest
-    ? group(concat([indent(concat([softline, result])), softline]))
+  const result = maybeGroup([
+    printTernaryTest(path, options, print),
+    forceNoIndent ? parts : indent(parts),
+    isConditionalExpression && breakClosingParen && !shouldExtraIndent
+      ? softline
+      : "",
+  ]);
+
+  return isParentTest || shouldExtraIndent
+    ? group([indent([softline, result]), softline])
     : result;
 }
 
-module.exports = printTernaryOperator;
+module.exports = { printTernary };

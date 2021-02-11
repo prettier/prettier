@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`class.js [espree] format 1`] = `
+"Unexpected token ; (12:6)
+  10 |
+  11 | class C1 {
+> 12 |   get; // The semicolon *is* necessary
+     |      ^
+  13 |   x(){}
+  14 | }
+  15 | class C2 {"
+`;
+
+exports[`class.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token ; (12:6)
+  10 |
+  11 | class C1 {
+> 12 |   get; // The semicolon *is* necessary
+     |      ^
+  13 |   x(){}
+  14 | }
+  15 | class C2 {"
+`;
+
 exports[`class.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -36,7 +58,7 @@ class C4 {
 
 
 
-class A {
+class A1 {
   a = 0;
   [b](){}
 
@@ -74,7 +96,7 @@ class A {
   b = 1;
 }
 
-class A {
+class A2 {
   a = 0;
   [b](){}
 
@@ -154,7 +176,7 @@ class C4 {
   x() {}
 }
 
-class A {
+class A1 {
   a = 0;
   [b]() {}
 
@@ -192,7 +214,7 @@ class A {
   b = 1
 }
 
-class A {
+class A2 {
   a = 0;
   [b]() {}
 
@@ -282,7 +304,7 @@ class C4 {
 
 
 
-class A {
+class A1 {
   a = 0;
   [b](){}
 
@@ -320,7 +342,7 @@ class A {
   b = 1;
 }
 
-class A {
+class A2 {
   a = 0;
   [b](){}
 
@@ -400,7 +422,7 @@ class C4 {
   x() {}
 }
 
-class A {
+class A1 {
   a = 0;
   [b]() {}
 
@@ -438,7 +460,7 @@ class A {
   b = 1;
 }
 
-class A {
+class A2 {
   a = 0;
   [b]() {}
 

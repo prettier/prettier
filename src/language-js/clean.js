@@ -1,29 +1,38 @@
 "use strict";
 
-function clean(ast, newObj, parent) {
-  [
-    "range",
-    "raw",
-    "comments",
-    "leadingComments",
-    "trailingComments",
-    "innerComments",
-    "extra",
-    "start",
-    "end",
-    "loc",
-    "flags",
-    "errors",
-    "tokens",
-  ].forEach((name) => {
-    delete newObj[name];
-  });
+const { isBlockComment } = require("./utils");
 
+const ignoredProperties = new Set([
+  "range",
+  "raw",
+  "comments",
+  "leadingComments",
+  "trailingComments",
+  "innerComments",
+  "extra",
+  "start",
+  "end",
+  "loc",
+  "flags",
+  "errors",
+  "tokens",
+]);
+
+const removeTemplateElementsValue = (node) => {
+  for (const templateElement of node.quasis) {
+    delete templateElement.value;
+  }
+};
+
+function clean(ast, newObj, parent) {
   if (ast.type === "Program") {
     delete newObj.sourceType;
   }
 
-  if (ast.type === "BigIntLiteral") {
+  if (
+    ast.type === "BigIntLiteral" ||
+    ast.type === "BigIntLiteralTypeAnnotation"
+  ) {
     if (newObj.value) {
       newObj.value = newObj.value.toLowerCase();
     }
@@ -65,6 +74,7 @@ function clean(ast, newObj, parent) {
       ast.type === "MethodDefinition" ||
       ast.type === "ClassProperty" ||
       ast.type === "ClassMethod" ||
+      ast.type === "PropertyDefinition" ||
       ast.type === "TSDeclareMethod" ||
       ast.type === "TSPropertySignature" ||
       ast.type === "ObjectTypeProperty") &&
@@ -90,20 +100,14 @@ function clean(ast, newObj, parent) {
     ast.openingElement.name.name === "style" &&
     ast.openingElement.attributes.some((attr) => attr.name.name === "jsx")
   ) {
-    const templateLiterals = newObj.children
-      .filter(
-        (child) =>
-          child.type === "JSXExpressionContainer" &&
-          child.expression.type === "TemplateLiteral"
-      )
-      .map((container) => container.expression);
-
-    const quasis = templateLiterals.reduce(
-      (quasis, templateLiteral) => quasis.concat(templateLiteral.quasis),
-      []
-    );
-
-    quasis.forEach((q) => delete q.value);
+    for (const { type, expression } of newObj.children) {
+      if (
+        type === "JSXExpressionContainer" &&
+        expression.type === "TemplateLiteral"
+      ) {
+        removeTemplateElementsValue(expression);
+      }
+    }
   }
 
   // CSS template literals in css prop
@@ -113,7 +117,7 @@ function clean(ast, newObj, parent) {
     ast.value.type === "JSXExpressionContainer" &&
     ast.value.expression.type === "TemplateLiteral"
   ) {
-    newObj.value.expression.quasis.forEach((q) => delete q.value);
+    removeTemplateElementsValue(newObj.value.expression);
   }
 
   // We change quotes
@@ -135,26 +139,23 @@ function clean(ast, newObj, parent) {
     expression.arguments.length === 1
   ) {
     const astProps = ast.expression.arguments[0].properties;
-    newObj.expression.arguments[0].properties.forEach((prop, index) => {
-      let templateLiteral = null;
-
+    for (const [
+      index,
+      prop,
+    ] of newObj.expression.arguments[0].properties.entries()) {
       switch (astProps[index].key.name) {
         case "styles":
           if (prop.value.type === "ArrayExpression") {
-            templateLiteral = prop.value.elements[0];
+            removeTemplateElementsValue(prop.value.elements[0]);
           }
           break;
         case "template":
           if (prop.value.type === "TemplateLiteral") {
-            templateLiteral = prop.value;
+            removeTemplateElementsValue(prop.value);
           }
           break;
       }
-
-      if (templateLiteral) {
-        templateLiteral.quasis.forEach((q) => delete q.value);
-      }
-    });
+    }
   }
 
   // styled-components, graphql, markdown
@@ -170,7 +171,7 @@ function clean(ast, newObj, parent) {
           ast.tag.name === "html")) ||
       ast.tag.type === "CallExpression")
   ) {
-    newObj.quasi.quasis.forEach((quasi) => delete quasi.value);
+    removeTemplateElementsValue(newObj.quasi);
   }
   if (ast.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
@@ -182,32 +183,33 @@ function clean(ast, newObj, parent) {
       ast.leadingComments &&
       ast.leadingComments.some(
         (comment) =>
-          comment.type === "CommentBlock" &&
+          isBlockComment(comment) &&
           ["GraphQL", "HTML"].some(
             (languageName) => comment.value === ` ${languageName} `
           )
       );
     if (
       hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql")
+      (parent.type === "CallExpression" && parent.callee.name === "graphql") ||
+      // TODO: check parser
+      // `flow` and `typescript` don't have `leadingComments`
+      !ast.leadingComments
     ) {
-      newObj.quasis.forEach((quasi) => delete quasi.value);
-    }
-
-    // TODO: check parser
-    // `flow` and `typescript` don't have `leadingComments`
-    if (!ast.leadingComments) {
-      newObj.quasis.forEach((quasi) => {
-        if (quasi.value) {
-          delete quasi.value.cooked;
-        }
-      });
+      removeTemplateElementsValue(newObj);
     }
   }
 
   if (ast.type === "InterpreterDirective") {
     newObj.value = newObj.value.trimEnd();
   }
+
+  // TODO: Remove this when fixing #9760
+  if (ast.type === "ClassMethod") {
+    delete newObj.declare;
+    delete newObj.readonly;
+  }
 }
+
+clean.ignoredProperties = ignoredProperties;
 
 module.exports = clean;

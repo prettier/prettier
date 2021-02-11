@@ -27,7 +27,7 @@ class C4 {
 
 
 
-class A {
+class A1 {
   a = 0;
   [b](){}
 
@@ -65,7 +65,7 @@ class A {
   b = 1;
 }
 
-class A {
+class A2 {
   a = 0;
   [b](){}
 

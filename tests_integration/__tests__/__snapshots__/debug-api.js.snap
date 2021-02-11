@@ -10,7 +10,5 @@ exports[`API prettier.formatDoc 1`] = `
     \\";\\",
   ]),
   hardline,
-  breakParent,
-];
-"
+]"
 `;

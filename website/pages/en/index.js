@@ -45,32 +45,30 @@ function Tidelift() {
   );
 }
 
-const HomeSplash = (props) => {
-  return (
-    <div className="homeContainer">
-      <Tidelift />
-      <div className="homeSplashFade">
-        <div className="wrapper homeWrapper">
-          <div className="animatedLogoWrapper">
-            <AnimatedLogo version="wide" />
-          </div>
-          <div className="inner">
-            <div className="section promoSection">
-              <div className="promoRow">
-                <div className="pluginRowBlock">
-                  <Button href="/playground/">Try It Online</Button>&nbsp;
-                  <Button href={"/docs/" + props.language + "/install.html"}>
-                    Install Prettier
-                  </Button>
-                </div>
+const HomeSplash = (props) => (
+  <div className="homeContainer">
+    <Tidelift />
+    <div className="homeSplashFade">
+      <div className="wrapper homeWrapper">
+        <div className="animatedLogoWrapper">
+          <AnimatedLogo version="wide" />
+        </div>
+        <div className="inner">
+          <div className="section promoSection">
+            <div className="promoRow">
+              <div className="pluginRowBlock">
+                <Button href="/playground/">Try It Online</Button>&nbsp;
+                <Button href={"/docs/" + props.language + "/install.html"}>
+                  Install Prettier
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 HomeSplash.propTypes = {
   language: PropTypes.string,
@@ -231,7 +229,7 @@ const EditorSupportSection = () => (
     <div style={{ float: "right" }}>
       <span>Got more? </span>
       <a
-        href={`${siteConfig.githubUrl}/edit/master/website/data/editors.yml`}
+        href={`${siteConfig.githubUrl}/edit/main/website/data/editors.yml`}
         className="button"
       >
         Send a PR
@@ -242,16 +240,12 @@ const EditorSupportSection = () => (
 
 const UsersSection = ({ language }) => {
   const showcase = siteConfig.users
-    .filter((user) => {
-      return user.pinned;
-    })
-    .map((user, i) => {
-      return (
-        <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
-          <img className="user" src={user.greyImage} title={user.caption} />
-        </a>
-      );
-    });
+    .filter((user) => user.pinned)
+    .map((user, i) => (
+      <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
+        <img className="user" src={user.greyImage} title={user.caption} />
+      </a>
+    ));
 
   return (
     <div className="usersSection productShowcaseSection">
@@ -297,7 +291,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">2 million</strong>{" "}
+                <strong data-placeholder="dependent-github">2.3 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">

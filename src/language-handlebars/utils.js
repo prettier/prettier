@@ -2,6 +2,27 @@
 
 const htmlVoidElements = require("html-void-elements");
 
+function isLastNodeOfSiblings(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode(0);
+
+  if (
+    isParentOfSomeType(path, ["ElementNode"]) &&
+    parentNode.children[parentNode.children.length - 1] === node
+  ) {
+    return true;
+  }
+
+  if (
+    isParentOfSomeType(path, ["Block"]) &&
+    parentNode.body[parentNode.body.length - 1] === node
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 function isUppercase(string) {
   return string.toUpperCase() === string;
 }
@@ -18,8 +39,7 @@ const voidTags = new Set(htmlVoidElements);
 function isVoid(node) {
   return (
     (isGlimmerComponent(node) &&
-      (node.children === 0 ||
-        node.children.every((n) => isWhitespaceNode(n)))) ||
+      node.children.every((n) => isWhitespaceNode(n))) ||
     voidTags.has(node.tag)
   );
 }
@@ -84,6 +104,7 @@ module.exports = {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
+  isLastNodeOfSiblings,
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,

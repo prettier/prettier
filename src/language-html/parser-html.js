@@ -7,7 +7,7 @@ const {
 } = require("angular-html-parser/lib/compiler/src/parse_util");
 const { parse: parseFrontMatter } = require("../utils/front-matter");
 const createError = require("../common/parser-create-error");
-const { getParserName } = require("../common/util");
+const { inferParserByLanguage } = require("../common/util");
 const {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -16,6 +16,7 @@ const {
 const { hasPragma } = require("./pragma");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
+const { locStart, locEnd } = require("./loc");
 
 function ngHtmlParser(
   input,
@@ -73,7 +74,10 @@ function ngHtmlParser(
       }
       const langAttr = node.attrs.find((attr) => attr.name === "lang");
       const langValue = langAttr && langAttr.value;
-      return langValue == null || getParserName(langValue, options) === "html";
+      return (
+        langValue == null ||
+        inferParserByLanguage(langValue, options) === "html"
+      );
     };
     if (rootNodes.some(shouldParseAsHTML)) {
       let secondParseResult;
@@ -132,10 +136,15 @@ function ngHtmlParser(
     errors = htmlParseResult.errors;
   }
 
-  if (errors.length !== 0) {
-    const { msg, span } = errors[0];
-    const { line, col } = span.start;
-    throw createError(msg, { start: { line: line + 1, column: col + 1 } });
+  if (errors.length > 0) {
+    const {
+      msg,
+      span: { start, end },
+    } = errors[0];
+    throw createError(msg, {
+      start: { line: start.line + 1, column: start.col + 1 },
+      end: { line: end.line + 1, column: end.col + 1 },
+    });
   }
 
   const addType = (node) => {
@@ -175,7 +184,7 @@ function ngHtmlParser(
   const restoreNameAndValue = (node) => {
     if (node instanceof Element) {
       restoreName(node);
-      node.attrs.forEach((attr) => {
+      for (const attr of node.attrs) {
         restoreName(attr);
         if (!attr.valueSpan) {
           attr.value = null;
@@ -185,7 +194,7 @@ function ngHtmlParser(
             attr.value = attr.value.slice(1, -1);
           }
         }
-      });
+      }
     } else if (node instanceof Comment) {
       node.value = node.sourceSpan
         .toString()
@@ -216,7 +225,7 @@ function ngHtmlParser(
       if (normalizeAttributeName) {
         const CURRENT_HTML_ELEMENT_ATTRIBUTES =
           HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-        node.attrs.forEach((attr) => {
+        for (const attr of node.attrs) {
           if (!attr.namespace) {
             attr.name = lowerCaseIfFn(
               attr.name,
@@ -226,7 +235,7 @@ function ngHtmlParser(
                   lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
             );
           }
-        });
+        }
       }
     }
   };
@@ -337,14 +346,6 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 
     return node;
   });
-}
-
-function locStart(node) {
-  return node.sourceSpan.start.offset;
-}
-
-function locEnd(node) {
-  return node.sourceSpan.end.offset;
 }
 
 function createParser({

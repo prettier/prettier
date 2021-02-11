@@ -99,41 +99,37 @@ singleQuote: true
 />
 
 <div
-  class='a long list of classes more than 80 chars with a complex mustache statement {{
-    if (or this.a this.b) this.c this.d
-  }}'
+  class='a long list of classes more than 80 chars with a complex mustache statement
+    {{if (or this.a this.b) this.c this.d}}'
 >
 </div>
 
 <div
   class='a multi line list of classes with a complex mustache statement
-  {{if (or this.a this.b) this.c this.d}}'
+    {{if (or this.a this.b) this.c this.d}}'
 >
 </div>
 
 <div
-  class='a-first-class {{if this.optionOne 'optionOne'}} {{
-    if this.optionTwo 'optionTwo'
-  }} {{if this.optionThree 'optionThree'}} {{
-    if this.optionFour 'optionFour'
-  }} {{if this.optionFive 'optionFive'}} {{this.class}}'
+  class='a-first-class
+    {{if this.optionOne 'optionOne'}}
+    {{if this.optionTwo 'optionTwo'}}
+    {{if this.optionThree 'optionThree'}}
+    {{if this.optionFour 'optionFour'}}
+    {{if this.optionFive 'optionFive'}}
+    {{this.class}}'
   ...attributes
 >
 </div>
 
 <div
   class='a-first-class
-  {{if this.optionOne 'optionOne'}}
-
-   {{if this.optionTwo 'optionTwo'}}
-
-   {{if this.optionThree 'optionThree'}}
-
-   {{if this.optionFour 'optionFour'}}
-
-   {{if this.optionFive 'optionFive'}}
-
-   {{this.class}}'
+    {{if this.optionOne 'optionOne'}}
+    {{if this.optionTwo 'optionTwo'}}
+    {{if this.optionThree 'optionThree'}}
+    {{if this.optionFour 'optionFour'}}
+    {{if this.optionFive 'optionFive'}}
+    {{this.class}}'
   ...attributes
 >
 </div>
@@ -266,41 +262,37 @@ printWidth: 80
 />
 
 <div
-  class="a long list of classes more than 80 chars with a complex mustache statement {{
-    if (or this.a this.b) this.c this.d
-  }}"
+  class="a long list of classes more than 80 chars with a complex mustache statement
+    {{if (or this.a this.b) this.c this.d}}"
 >
 </div>
 
 <div
   class="a multi line list of classes with a complex mustache statement
-  {{if (or this.a this.b) this.c this.d}}"
+    {{if (or this.a this.b) this.c this.d}}"
 >
 </div>
 
 <div
-  class="a-first-class {{if this.optionOne "optionOne"}} {{
-    if this.optionTwo "optionTwo"
-  }} {{if this.optionThree "optionThree"}} {{
-    if this.optionFour "optionFour"
-  }} {{if this.optionFive "optionFive"}} {{this.class}}"
+  class="a-first-class
+    {{if this.optionOne "optionOne"}}
+    {{if this.optionTwo "optionTwo"}}
+    {{if this.optionThree "optionThree"}}
+    {{if this.optionFour "optionFour"}}
+    {{if this.optionFive "optionFive"}}
+    {{this.class}}"
   ...attributes
 >
 </div>
 
 <div
   class="a-first-class
-  {{if this.optionOne "optionOne"}}
-
-   {{if this.optionTwo "optionTwo"}}
-
-   {{if this.optionThree "optionThree"}}
-
-   {{if this.optionFour "optionFour"}}
-
-   {{if this.optionFive "optionFive"}}
-
-   {{this.class}}"
+    {{if this.optionOne "optionOne"}}
+    {{if this.optionTwo "optionTwo"}}
+    {{if this.optionThree "optionThree"}}
+    {{if this.optionFour "optionFour"}}
+    {{if this.optionFive "optionFive"}}
+    {{this.class}}"
   ...attributes
 >
 </div>
@@ -504,11 +496,9 @@ another non-escaped mustache:
 
 =====================================output=====================================
 an escaped mustache:
-\\{{my-component}}
-a non-escaped mustache:
+\\{{my-component}} a non-escaped mustache:
 \\\\{{my-component}}
-another non-escaped mustache:
-\\\\\\{{my-component}}
+another non-escaped mustache: \\\\\\{{my-component}}
 ================================================================================
 `;
 
@@ -527,10 +517,8 @@ another non-escaped mustache:
 
 =====================================output=====================================
 an escaped mustache:
-\\{{my-component}}
-a non-escaped mustache:
+\\{{my-component}} a non-escaped mustache:
 \\\\{{my-component}}
-another non-escaped mustache:
-\\\\\\{{my-component}}
+another non-escaped mustache: \\\\\\{{my-component}}
 ================================================================================
 `;

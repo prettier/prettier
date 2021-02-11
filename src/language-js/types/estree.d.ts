@@ -1,12 +1,12 @@
 import * as ESTree from "estree";
 import * as Babel from "@babel/types";
 import { TSESTree } from "@typescript-eslint/types";
+import { ESTree as Meriyah } from "meriyah";
 import * as NGTree from "angular-estree-parser/lib/types";
 
 type AdditionalFields = {
   extra?: {
     parenthesized?: boolean;
-    parenStart?: number;
     raw?: string;
   };
   comments?: Comment[];
@@ -14,7 +14,12 @@ type AdditionalFields = {
   leadingComments?: ReadonlyArray<Comment> | Comment[];
 };
 
-export type Comment = (ESTree.Comment | Babel.Comment | TSESTree.Comment) & {
+export type Comment = (
+  | ESTree.Comment
+  | Babel.Comment
+  | TSESTree.Comment
+  | Meriyah.Comment
+) & {
   printed?: boolean;
   trailing?: boolean;
   leading?: boolean;
@@ -37,10 +42,7 @@ export type CallExpression = (
 ) &
   AdditionalFields;
 
-export type OptionalCallExpression = (
-  | Babel.OptionalCallExpression
-  | TSESTree.OptionalCallExpression
-) &
+export type OptionalCallExpression = Babel.OptionalCallExpression &
   AdditionalFields;
 
 export type MemberExpression = (
@@ -50,10 +52,7 @@ export type MemberExpression = (
 ) &
   AdditionalFields;
 
-export type OptionalMemberExpression = (
-  | Babel.OptionalMemberExpression
-  | TSESTree.OptionalMemberExpression
-) &
+export type OptionalMemberExpression = Babel.OptionalMemberExpression &
   AdditionalFields;
 
 export type Expression = (

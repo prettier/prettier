@@ -27,9 +27,7 @@ function getParsers(options) {
   return parsers;
 }
 
-function resolveParser(opts, parsers) {
-  parsers = parsers || getParsers(opts);
-
+function resolveParser(opts, parsers = getParsers(opts)) {
   if (typeof opts.parser === "function") {
     // Custom parser API always works with JavaScript.
     return {
@@ -97,10 +95,8 @@ function parse(text, opts) {
     const { loc } = error;
 
     if (loc) {
-      const codeFrame = require("@babel/code-frame");
-      error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
-        highlightCode: true,
-      });
+      const { codeFrameColumns } = require("@babel/code-frame");
+      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
       error.message += "\n" + error.codeFrame;
       throw error;
     }
