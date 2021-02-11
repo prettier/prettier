@@ -14,7 +14,7 @@ const {
     lineSuffixBoundary,
     join,
   },
-  utils: { willBreak, isLineNext },
+  utils: { willBreak },
 } = require("../../document");
 
 const { getLast, getPreferredQuote } = require("../../common/util");
