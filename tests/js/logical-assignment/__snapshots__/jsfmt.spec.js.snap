@@ -8,9 +8,9 @@ exports[`invalid.js [espree] format 1`] = `
 `;
 
 exports[`invalid.js [meriyah] format 1`] = `
-"[1:19]: Unexpected token: '=' (1:19)
+"[1:51]: Invalid left-hand side in assignment (1:51)
 > 1 | c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
-    |                   ^
+    |                                                   ^
   2 |"
 `;
 
@@ -26,15 +26,6 @@ c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
 c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
 
 ================================================================================
-`;
-
-exports[`logical-assignment.js [meriyah] format 1`] = `
-"[1:5]: Unexpected token: '=' (1:5)
-> 1 | a ||= b;
-    |     ^
-  2 |
-  3 | a &&= \\"foo\\";
-  4 | b ||= \\"foo\\";"
 `;
 
 exports[`logical-assignment.js format 1`] = `

@@ -1,6 +1,6 @@
 "use strict";
 
-const { literalline, concat } = require("./doc-builders");
+const { literalline } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {
@@ -227,8 +227,10 @@ function stripDocTrailingHardlineFromDoc(doc) {
   switch (doc.type) {
     case "align":
     case "indent":
+    case "indent-if-break":
     case "group":
-    case "line-suffix": {
+    case "line-suffix":
+    case "label": {
       const contents = stripDocTrailingHardlineFromDoc(doc.contents);
       return { ...doc, contents };
     }
@@ -270,6 +272,7 @@ function cleanDocFn(doc) {
       break;
     case "align":
     case "indent":
+    case "indent-if-break":
     case "line-suffix":
       if (!doc.contents) {
         return "";
@@ -371,11 +374,7 @@ function normalizeDoc(doc) {
 function replaceNewlinesWithLiterallines(doc) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? concat(
-          currentDoc
-            .split(/(\n)/g)
-            .map((v, i) => (i % 2 === 0 ? v : literalline))
-        )
+      ? currentDoc.split(/(\n)/g).map((v, i) => (i % 2 === 0 ? v : literalline))
       : currentDoc
   );
 }

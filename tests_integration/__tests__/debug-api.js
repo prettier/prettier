@@ -66,6 +66,7 @@ describe("API", () => {
       indentIfBreak,
       group,
       line,
+      label,
     } = builders;
 
     expect(formatDoc([indent(hardline), indent(literalline)])).toBe(
@@ -86,5 +87,9 @@ describe("API", () => {
     expect(
       formatDoc(indentIfBreak(group(["1", line, "2"]), { groupId: "Q" }))
     ).toBe('indentIfBreak(group(["1", line, "2"]), { groupId: "Q" })');
+
+    expect(formatDoc(label("foo", group(["1", line, "2"])))).toBe(
+      'label("foo", group(["1", line, "2"]))'
+    );
   });
 });
