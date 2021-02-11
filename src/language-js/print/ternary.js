@@ -6,7 +6,6 @@ const {
   isJsxNode,
   isBlockComment,
   getComments,
-  isChainElement,
   isCallExpression,
   isMemberExpression,
 } = require("../utils");
@@ -174,40 +173,39 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  let ancestorCount = 1;
-  let ancestor = path.getParentNode(ancestorCount);
-  if (!ancestor) {
+  let parent;
+  let child = node;
+  for (let ancestorCount = 0; !parent; ancestorCount++) {
+    const node = path.getParentNode(ancestorCount);
+
+    if (
+      (isCallExpression(node) && node.callee === child) ||
+      (isMemberExpression(node) && node.object === child) ||
+      (node.type === "TSNonNullExpression" && node.expression === child)
+    ) {
+      child = node;
+      continue;
+    }
+
+    // Reached chain root
+
+    if (
+      (node.type === "NewExpression" && node.callee === child) ||
+      (node.type === "TSAsExpression" && node.expression === child)
+    ) {
+      parent = path.getParentNode(ancestorCount + 1);
+      child = node;
+    } else {
+      parent = node;
+    }
+  }
+
+  // Do not add indent to direct `ConditionalExpression`
+  if (child === node) {
     return false;
   }
-  while (isChainElement(ancestor)) {
-    ancestor = path.getParentNode(++ancestorCount);
-  }
-  const checkAncestor = (node) => {
-    const name = ancestorNameMap.get(ancestor.type);
-    return ancestor[name] === node;
-  };
 
-  const parent = path.getParentNode();
-  const name = path.getName();
-
-  if (
-    ((name === "callee" && parent.type === "NewExpression") ||
-      (name === "expression" && parent.type === "TSAsExpression")) &&
-    checkAncestor(parent)
-  ) {
-    return true;
-  }
-
-  if (
-    ((name === "callee" && isCallExpression(parent)) ||
-      (name === "object" && isMemberExpression(parent)) ||
-      (name === "expression" && parent.type === "TSNonNullExpression")) &&
-    checkAncestor(path.getParentNode(ancestorCount - 1))
-  ) {
-    return true;
-  }
-
-  return false;
+  return parent[ancestorNameMap.get(parent.type)] === child;
 }
 
 /**
