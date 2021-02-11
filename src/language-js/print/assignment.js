@@ -86,16 +86,17 @@ function printVariableDeclarator(path, options, print) {
 }
 
 function chooseLayout(rightNode, isNested, options) {
-  if (rightNode.type === "AssignmentExpression") {
-    if (isNested) {
-      return "chain";
-    }
-    if (rightNode.right.type === "AssignmentExpression") {
-      return "break-after-operator";
-    }
-    // `const a = b = c;` falls through here, but `const a = b = c = d;` doesn't.
-  } else if (isNested) {
-    return "end-of-chain";
+  const hasAssignmentOnTheRight = rightNode.type === "AssignmentExpression";
+  if (isNested) {
+    return hasAssignmentOnTheRight ? "chain" : "end-of-chain";
+  }
+  // `const a = b = c;` falls through here, but `const a = b = c = d;` doesn't.
+  //            ^--------------- rightNode ----------------^
+  if (
+    hasAssignmentOnTheRight &&
+    rightNode.right.type === "AssignmentExpression"
+  ) {
+    return "break-after-operator";
   }
 
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
