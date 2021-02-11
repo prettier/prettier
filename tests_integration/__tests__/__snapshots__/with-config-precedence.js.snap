@@ -53,10 +53,11 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 }
 \\"use strict\\";
 
-module.exports = {
-        endOfLine: \\"auto\\",
-        tabWidth: 8,
-};
+module.exports =
+        {
+                endOfLine: \\"auto\\",
+                tabWidth: 8,
+        };
 "
 `;
 
@@ -70,10 +71,11 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 }
 \\"use strict\\";
 
-module.exports = {
-        endOfLine: \\"auto\\",
-        tabWidth: 8,
-};
+module.exports =
+        {
+                endOfLine: \\"auto\\",
+                tabWidth: 8,
+        };
 "
 `;
 
@@ -124,11 +126,13 @@ function js() {
 }
 \\"use strict\\";
 
-module.exports = {
-        endOfLine:
-                \\"auto\\",
-        tabWidth: 8,
-};
+module.exports =
+        {
+                endOfLine:
+                        \\"auto\\",
+                tabWidth:
+                        8,
+        };
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"
@@ -219,11 +223,13 @@ function js() {
 }
 \\"use strict\\";
 
-module.exports = {
-        endOfLine:
-                \\"auto\\",
-        tabWidth: 8,
-};
+module.exports =
+        {
+                endOfLine:
+                        \\"auto\\",
+                tabWidth:
+                        8,
+        };
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"

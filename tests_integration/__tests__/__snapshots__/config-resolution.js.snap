@@ -45,11 +45,13 @@ function js() {
 }
 \\"use strict\\";
 
-module.exports = {
-        endOfLine:
-                \\"auto\\",
-        tabWidth: 8,
-};
+module.exports =
+        {
+                endOfLine:
+                        \\"auto\\",
+                tabWidth:
+                        8,
+        };
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"
@@ -149,10 +151,11 @@ function js() {
 }
 \\"use strict\\";
 
-module.exports = {
-        endOfLine: \\"auto\\",
-        tabWidth: 8,
-};
+module.exports =
+        {
+                endOfLine: \\"auto\\",
+                tabWidth: 8,
+        };
 function noConfigJs() {
   console.log(\\"no-config/file.js should have no semicolons\\")
 }

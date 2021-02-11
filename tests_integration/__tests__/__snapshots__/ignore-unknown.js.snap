@@ -25,12 +25,14 @@ exports[`Not matching pattern (stdout) 1`] = `""`;
 exports[`Not matching pattern (write) 1`] = `Array []`;
 
 exports[`ignore-unknown alias (stdout) 1`] = `
-"javascript.js
+".prettierrc
+javascript.js
 "
 `;
 
 exports[`ignore-unknown check (stderr) 1`] = `
-"[warn] javascript.js
+"[warn] .prettierrc
+[warn] javascript.js
 [warn] Code style issues found in the above file(s). Forgot to run Prettier?
 "
 `;
@@ -43,23 +45,42 @@ exports[`ignore-unknown check (stdout) 1`] = `
 exports[`ignore-unknown check (write) 1`] = `Array []`;
 
 exports[`ignore-unknown dir (stdout) 1`] = `
-"javascript.js
+".prettierrc
+javascript.js
 "
 `;
 
 exports[`ignore-unknown pattern (stdout) 1`] = `
-"javascript.js
+".prettierrc
+javascript.js
 override.as-js-file
 "
 `;
 
 exports[`ignore-unknown write (stdout) 1`] = `
-"javascript.js
+".prettierrc
+javascript.js
 "
 `;
 
 exports[`ignore-unknown write (write) 1`] = `
 Array [
+  Object {
+    "content": "{
+  \\"overrides\\":
+    [
+      {
+        \\"files\\": \\"*.as-js-file\\",
+        \\"options\\":
+          {
+            \\"parser\\": \\"babel\\"
+          }
+      }
+    ]
+}
+",
+    "filename": ".prettierrc",
+  },
   Object {
     "content": "const foo = \\"bar\\";
 ",
