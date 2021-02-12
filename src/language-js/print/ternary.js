@@ -58,10 +58,7 @@ const {
 //     }
 //   }
 // }
-//
-// We want to traverse over that shape and convert it into a flat structure so
-// that we can find if there's a JSXElement somewhere inside.
-function getConditionalChainContents(node) {
+function conditionalExpressionChainContainsJsx(node) {
   // Given this code:
   //
   // // Using a ConditionalExpression as the consequent is uncommon, but should
@@ -88,41 +85,25 @@ function getConditionalChainContents(node) {
   //   }
   // }
   //
-  // we should return this Array:
-  //
-  // [
-  //   Identifier(A),
-  //   Identifier(B),
-  //   Identifier(C),
-  //   Identifier(D),
-  //   Identifier(E),
-  //   Identifier(F),
-  //   Identifier(G),
-  //   Identifier(H),
-  //   Identifier(I)
-  // ];
-  //
-  // This loses the information about whether each node was the test,
-  // consequent, or alternate, but we don't care about that here- we are only
-  // flattening this structure to find if there's any JSXElements inside.
-  const nonConditionalExpressions = [];
+  // We don't care about whether each node was the test, consequent, or alternate
+  // We are only checking if there's any JSXElements inside.
+  const conditionalExpressions = [node];
+  for (let index = 0; index < conditionalExpressions.length; index++) {
+    const conditionalExpression = conditionalExpressions[index];
+    for (const property of ["test", "consequent", "alternate"]) {
+      const node = conditionalExpression[property];
 
-  function recurse(node) {
-    if (node.type === "ConditionalExpression") {
-      recurse(node.test);
-      recurse(node.consequent);
-      recurse(node.alternate);
-    } else {
-      nonConditionalExpressions.push(node);
+      if (isJsxNode(node)) {
+        return true;
+      }
+
+      if (node.type === "ConditionalExpression") {
+        conditionalExpressions.push(node);
+      }
     }
   }
-  recurse(node);
 
-  return nonConditionalExpressions;
-}
-
-function conditionalExpressionChainContainsJsx(node) {
-  return getConditionalChainContents(node).some(isJsxNode);
+  return false;
 }
 
 function printTernaryTest(path, options, print) {
