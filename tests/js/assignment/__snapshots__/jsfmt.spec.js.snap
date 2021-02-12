@@ -28,6 +28,37 @@ computedDescriptionLines =
 ================================================================================
 `;
 
+exports[`call-with-template.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const result = template(\`
+  if (SOME_VAR === "") {}
+\`)({
+  SOME_VAR: value,
+});
+
+const output =
+ template(\`function f() %%A%%\`)({
+   A: t.blockStatement([]),
+ });
+
+=====================================output=====================================
+const result = template(\`
+  if (SOME_VAR === "") {}
+\`)({
+  SOME_VAR: value,
+});
+
+const output = template(\`function f() %%A%%\`)({
+  A: t.blockStatement([]),
+});
+
+================================================================================
+`;
+
 exports[`chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

@@ -160,10 +160,8 @@ function shouldBreakAfterOperator(rightNode) {
   if (
     isStringLiteral(node) ||
     isMemberExpressionChainWithSimpleCalls(node) ||
-    (isCallExpression(node) &&
-      getCallArguments(node).length < 2 &&
-      isCallExpression(node.callee) &&
-      getCallArguments(node.callee).length < 2 &&
+    (isSimpleCall(node) &&
+      isSimpleCall(node.callee) &&
       (isMemberExpressionChainHead(node.callee.callee) ||
         isMemberExpressionChainWithSimpleCalls(node.callee.callee)))
   ) {
@@ -202,11 +200,7 @@ function isMemberExpressionChainWithSimpleCalls(node) {
     if (object.type === "TSNonNullExpression") {
       object = object.expression;
     } else if (isCallExpression(object)) {
-      const args = getCallArguments(object);
-      if (
-        args.length > 1 ||
-        (args.length === 1 && !isSimpleCallArgument(args[0], 1))
-      ) {
+      if (!isSimpleCall(object)) {
         return false;
       }
       object = object.callee;
@@ -217,6 +211,16 @@ function isMemberExpressionChainWithSimpleCalls(node) {
   return (
     isMemberExpressionChainHead(object) ||
     isMemberExpressionChainWithSimpleCalls(object)
+  );
+}
+
+function isSimpleCall(node) {
+  if (!isCallExpression(node)) {
+    return false;
+  }
+  const args = getCallArguments(node);
+  return (
+    args.length === 0 || (args.length === 1 && isSimpleCallArgument(args[0], 1))
   );
 }
 

@@ -906,7 +906,10 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return (
+      node.quasis.every((element) => !element.value.raw.includes("\n")) &&
+      node.expressions.every(isChildSimple)
+    );
   }
 
   if (node.type === "ObjectExpression") {
