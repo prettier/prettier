@@ -1,6 +1,6 @@
 "use strict";
 
-const { getLast } = require("../common/util");
+const { getLast, isNonEmptyArray } = require("../common/util");
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -98,7 +98,7 @@ function isLastDescendantNode(path) {
 }
 
 function getLastDescendantNode(node) {
-  return "children" in node && node.children.length !== 0
+  return isNonEmptyArray(node.children)
     ? getLastDescendantNode(getLast(node.children))
     : node;
 }
@@ -124,7 +124,7 @@ function hasPrettierIgnore(path) {
 }
 
 function isEmptyNode(node) {
-  return (!node.children || node.children.length === 0) && !hasComments(node);
+  return !isNonEmptyArray(node.children) && !hasComments(node);
 }
 
 function hasComments(node) {
@@ -138,11 +138,11 @@ function hasComments(node) {
 }
 
 function hasLeadingComments(node) {
-  return node && node.leadingComments && node.leadingComments.length !== 0;
+  return node && isNonEmptyArray(node.leadingComments);
 }
 
 function hasMiddleComments(node) {
-  return node && node.middleComments && node.middleComments.length !== 0;
+  return node && isNonEmptyArray(node.middleComments);
 }
 
 function hasIndicatorComment(node) {
@@ -154,7 +154,7 @@ function hasTrailingComment(node) {
 }
 
 function hasEndComments(node) {
-  return node && node.endComments && node.endComments.length !== 0;
+  return node && isNonEmptyArray(node.endComments);
 }
 
 /**
@@ -218,8 +218,8 @@ function getFlowScalarLineContents(nodeType, content, options) {
     .reduce(
       (reduced, lineContentWords, index) =>
         index !== 0 &&
-        rawLineContents[index - 1].length !== 0 &&
-        lineContentWords.length !== 0 &&
+        rawLineContents[index - 1].length > 0 &&
+        lineContentWords.length > 0 &&
         !(
           // trailing backslash in quoteDouble should be preserved
           (
@@ -227,8 +227,11 @@ function getFlowScalarLineContents(nodeType, content, options) {
             getLast(getLast(reduced)).endsWith("\\")
           )
         )
-          ? reduced.concat([reduced.pop().concat(lineContentWords)])
-          : reduced.concat([lineContentWords]),
+          ? [
+              ...reduced.slice(0, -1),
+              [...getLast(reduced), ...lineContentWords],
+            ]
+          : [...reduced, lineContentWords],
       []
     )
     .map((lineContentWords) =>
@@ -252,7 +255,7 @@ function getBlockValueLineContents(
 
   const leadingSpaceCount =
     node.indent === null
-      ? ((match) => (match ? match[1].length : Infinity))(
+      ? ((match) => (match ? match[1].length : Number.POSITIVE_INFINITY))(
           content.match(/^( *)\S/m)
         )
       : node.indent - 1 + parentIndent;
@@ -277,21 +280,24 @@ function getBlockValueLineContents(
       .reduce(
         (reduced, lineContentWords, index) =>
           index !== 0 &&
-          rawLineContents[index - 1].length !== 0 &&
-          lineContentWords.length !== 0 &&
+          rawLineContents[index - 1].length > 0 &&
+          lineContentWords.length > 0 &&
           !/^\s/.test(lineContentWords[0]) &&
           !/^\s|\s$/.test(getLast(reduced))
-            ? reduced.concat([reduced.pop().concat(lineContentWords)])
-            : reduced.concat([lineContentWords]),
+            ? [
+                ...reduced.slice(0, -1),
+                [...getLast(reduced), ...lineContentWords],
+              ]
+            : [...reduced, lineContentWords],
         []
       )
       .map((lineContentWords) =>
         lineContentWords.reduce(
           (reduced, word) =>
             // disallow trailing spaces
-            reduced.length !== 0 && /\s$/.test(getLast(reduced))
-              ? reduced.concat(reduced.pop() + " " + word)
-              : reduced.concat(word),
+            reduced.length > 0 && /\s$/.test(getLast(reduced))
+              ? [...reduced.slice(0, -1), getLast(reduced) + " " + word]
+              : [...reduced, word],
           []
         )
       )
@@ -327,11 +333,31 @@ function getBlockValueLineContents(
   }
 }
 
+function isInlineNode(node) {
+  /* istanbul ignore next */
+  if (!node) {
+    return true;
+  }
+
+  switch (node.type) {
+    case "plain":
+    case "quoteDouble":
+    case "quoteSingle":
+    case "alias":
+    case "flowMapping":
+    case "flowSequence":
+      return true;
+    default:
+      return false;
+  }
+}
+
 module.exports = {
   getLast,
   getAncestorCount,
   isNode,
   isEmptyNode,
+  isInlineNode,
   mapNode,
   defineShortcut,
   isNextLineEmpty,

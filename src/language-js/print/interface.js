@@ -1,20 +1,17 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, join, line, group, indent, ifBreak },
+  builders: { join, line, group, indent, ifBreak },
 } = require("../../document");
-const {
-  hasTrailingComment,
-  hasTrailingLineComment,
-  identity,
-} = require("../utils");
+const { hasComment, identity, CommentCheckFlags } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printTypeScriptModifiers } = require("./misc");
 
 function printInterface(path, options, print) {
   const n = path.getValue();
   const parts = [];
-  if (n.type === "DeclareInterface" || n.declare) {
+  if (n.declare) {
     parts.push("declare ");
   }
 
@@ -39,9 +36,13 @@ function printInterface(path, options, print) {
   }
 
   const shouldIndentOnlyHeritageClauses =
-    n.typeParameters && !hasTrailingLineComment(n.typeParameters);
+    n.typeParameters &&
+    !hasComment(
+      n.typeParameters,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line
+    );
 
-  if (n.extends && n.extends.length !== 0) {
+  if (isNonEmptyArray(n.extends)) {
     extendsParts.push(
       shouldIndentOnlyHeritageClauses
         ? ifBreak(" ", line, {
@@ -50,26 +51,19 @@ function printInterface(path, options, print) {
         : line,
       "extends ",
       (n.extends.length === 1 ? identity : indent)(
-        join(concat([",", line]), path.map(print, "extends"))
+        join([",", line], path.map(print, "extends"))
       )
     );
   }
 
   if (
-    (n.id && hasTrailingComment(n.id)) ||
-    (n.extends && n.extends.length !== 0)
+    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
+    isNonEmptyArray(n.extends)
   ) {
-    const printedExtends = concat(extendsParts);
     if (shouldIndentOnlyHeritageClauses) {
-      parts.push(
-        group(
-          concat(
-            partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-          )
-        )
-      );
+      parts.push(group([...partsGroup, indent(extendsParts)]));
     } else {
-      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+      parts.push(group(indent([...partsGroup, ...extendsParts])));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);
@@ -77,7 +71,7 @@ function printInterface(path, options, print) {
 
   parts.push(" ", path.call(print, "body"));
 
-  return group(concat(parts));
+  return group(parts);
 }
 
 module.exports = { printInterface };

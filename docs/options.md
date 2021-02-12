@@ -89,6 +89,13 @@ Valid options:
 | ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
 
+Note that Prettier never unquotes numeric property names in Angular expressions, TypeScript, and Flow because the distinction between string and numeric keys is significant in these languages. See: [Angular][quote-props-angular], [TypeScript][quote-props-typescript], [Flow][quote-props-flow]. Also Prettier doesn’t unquote numeric properties for Vue (see the [issue][quote-props-vue] about that).
+
+[quote-props-angular]: https://codesandbox.io/s/hungry-morse-foj87?file=/src/app/app.component.html
+[quote-props-typescript]: https://www.typescriptlang.org/play?#code/DYUwLgBAhhC8EG8IEYBcKA0EBM7sQF8AoUSAIzkQgHJlr1ktrt6dCiiATEAY2CgBOICKWhR0AaxABPAPYAzCGGkAHEAugBuLr35CR4CGTKSZG5Wo1ltRKDHjHtQA
+[quote-props-flow]: https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g
+[quote-props-vue]: https://github.com/prettier/prettier/issues/10127
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.
@@ -107,7 +114,7 @@ Valid options:
 
 - `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
 - `"none"` - No trailing commas.
-- `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+- `"all"` - Trailing commas wherever possible (including [trailing commas in function parameter lists and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). This requires node 8 or a modern browser that supports ES2017 or transform with [babel](https://babeljs.io/docs/en/index).
 
 | Default | CLI Override                                           | API Override                                           |
 | ------- | ------------------------------------------------------ | ------------------------------------------------------ |
@@ -308,17 +315,17 @@ Valid options:
 
 ## HTML Whitespace Sensitivity
 
-_First available in v1.15.0_
+_First available in v1.15.0. First available for Handlebars in 2.3.0_
 
-Specify the global whitespace sensitivity for HTML files, see [whitespace-sensitive formatting] for more info.
+Specify the global whitespace sensitivity for HTML, Vue, Angular, and Handlebars. See [whitespace-sensitive formatting] for more info.
 
 [whitespace-sensitive formatting]: https://prettier.io/blog/2018/11/07/1.15.0.html#whitespace-sensitive-formatting
 
 Valid options:
 
-- `"css"` - Respect the default value of CSS `display` property.
-- `"strict"` - Whitespaces are considered sensitive.
-- `"ignore"` - Whitespaces are considered insensitive.
+- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `strict`.
+- `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
+- `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 
 | Default | CLI Override                                                             | API Override                                                            |
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |

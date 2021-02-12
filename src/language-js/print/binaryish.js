@@ -3,15 +3,27 @@
 const { printComments } = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
-  builders: { concat, join, line, softline, group, indent, align, ifBreak },
-  utils: { normalizeParts },
+  builders: {
+    join,
+    line,
+    softline,
+    group,
+    indent,
+    align,
+    ifBreak,
+    indentIfBreak,
+  },
+  utils: { cleanDoc, getDocParts, isConcat },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
-  hasTrailingLineComment,
   isBinaryish,
-  isJSXNode,
+  isJsxNode,
   shouldFlatten,
+  hasComment,
+  CommentCheckFlags,
+  isCallExpression,
+  isMemberExpression,
 } = require("../utils");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -47,7 +59,7 @@ function printBinaryishExpression(path, options, print) {
   //     this.lookahead().type === tt.parenLeft
   //   ) {
   if (isInsideParenthesis) {
-    return concat(parts);
+    return parts;
   }
 
   // Break between the parens in
@@ -59,15 +71,11 @@ function printBinaryishExpression(path, options, print) {
   //     c
   //   ).call()
   if (
-    ((parent.type === "CallExpression" ||
-      parent.type === "OptionalCallExpression") &&
-      parent.callee === n) ||
+    (isCallExpression(parent) && parent.callee === n) ||
     parent.type === "UnaryExpression" ||
-    ((parent.type === "MemberExpression" ||
-      parent.type === "OptionalMemberExpression") &&
-      !parent.computed)
+    (isMemberExpression(parent) && !parent.computed)
   ) {
-    return group(concat([indent(concat([softline, concat(parts)])), softline]));
+    return group([indent([softline, ...parts]), softline]);
   }
 
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
@@ -88,15 +96,14 @@ function printBinaryishExpression(path, options, print) {
     (parent.type === "ConditionalExpression" &&
       parentParent.type !== "ReturnStatement" &&
       parentParent.type !== "ThrowStatement" &&
-      parentParent.type !== "CallExpression" &&
-      parentParent.type !== "OptionalCallExpression") ||
+      !isCallExpression(parentParent)) ||
     parent.type === "TemplateLiteral";
 
   const shouldIndentIfInlining =
     parent.type === "AssignmentExpression" ||
     parent.type === "VariableDeclarator" ||
     parent.type === "ClassProperty" ||
-    parent.type === "FieldDefinition" ||
+    parent.type === "PropertyDefinition" ||
     parent.type === "TSAbstractClassProperty" ||
     parent.type === "ClassPrivateProperty" ||
     parent.type === "ObjectProperty" ||
@@ -110,7 +117,7 @@ function printBinaryishExpression(path, options, print) {
     (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
     (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
   ) {
-    return group(concat(parts));
+    return group(parts);
   }
 
   if (parts.length === 0) {
@@ -126,10 +133,11 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJSX = isJSXNode(n.right);
+  const hasJsx = isJsxNode(n.right);
 
   const firstGroupIndex = parts.findIndex(
-    (part) => typeof part !== "string" && part.type === "group"
+    (part) =>
+      typeof part !== "string" && !Array.isArray(part) && part.type === "group"
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
@@ -138,27 +146,27 @@ function printBinaryishExpression(path, options, print) {
     firstGroupIndex === -1 ? 1 : firstGroupIndex + 1
   );
 
-  const rest = concat(parts.slice(headParts.length, hasJSX ? -1 : undefined));
+  const rest = parts.slice(headParts.length, hasJsx ? -1 : undefined);
 
   const groupId = Symbol("logicalChain-" + ++uid);
 
   const chain = group(
-    concat([
+    [
       // Don't include the initial expression in the indentation
       // level. The first item is guaranteed to be the first
       // left-most expression.
       ...headParts,
       indent(rest),
-    ]),
+    ],
     { id: groupId }
   );
 
-  if (!hasJSX) {
+  if (!hasJsx) {
     return chain;
   }
 
   const jsxPart = getLast(parts);
-  return group(concat([chain, ifBreak(indent(jsxPart), jsxPart, { groupId })]));
+  return group([chain, indentIfBreak(jsxPart, { groupId })]);
 }
 
 // For binary expressions to be consistent, we need to group
@@ -194,8 +202,9 @@ function printBinaryishExpressions(
     // which is unique in that it is right-associative.)
     if (shouldFlatten(node.operator, node.left.operator)) {
       // Flatten them out by recursively calling this function.
-      parts = parts.concat(
-        path.call(
+      parts = [
+        ...parts,
+        ...path.call(
           (left) =>
             printBinaryishExpressions(
               left,
@@ -205,8 +214,8 @@ function printBinaryishExpressions(
               isInsideParenthesis
             ),
           "left"
-        )
-      );
+        ),
+      ];
     } else {
       parts.push(group(path.call(print, "left")));
     }
@@ -220,37 +229,36 @@ function printBinaryishExpressions(
 
     const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
-      node.type === "NGPipeExpression" && node.arguments.length !== 0
+      node.type === "NGPipeExpression" && node.arguments.length > 0
         ? group(
-            indent(
-              concat([
-                softline,
-                ": ",
-                join(
-                  concat([softline, ":", ifBreak(" ")]),
-                  path
-                    .map(print, "arguments")
-                    .map((arg) => align(2, group(arg)))
-                ),
-              ])
-            )
+            indent([
+              softline,
+              ": ",
+              join(
+                [softline, ":", ifBreak(" ")],
+                path.map(print, "arguments").map((arg) => align(2, group(arg)))
+              ),
+            ])
           )
         : "";
 
     const right = shouldInline
-      ? concat([operator, " ", path.call(print, "right"), rightSuffix])
-      : concat([
+      ? [operator, " ", path.call(print, "right"), rightSuffix]
+      : [
           lineBeforeOperator ? line : "",
           operator,
           lineBeforeOperator ? " " : line,
           path.call(print, "right"),
           rightSuffix,
-        ]);
+        ];
 
     // If there's only a single binary expression, we want to create a group
     // in order to avoid having a small right part like -1 be on its own line.
     const parent = path.getParentNode();
-    const shouldBreak = hasTrailingLineComment(node.left);
+    const shouldBreak = hasComment(
+      node.left,
+      CommentCheckFlags.Trailing | CommentCheckFlags.Line
+    );
     const shouldGroup =
       shouldBreak ||
       (!(isInsideParenthesis && node.type === "LogicalExpression") &&
@@ -266,10 +274,14 @@ function printBinaryishExpressions(
     // The root comments are already printed, but we need to manually print
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
-    if (isNested && node.comments) {
-      parts = normalizeParts(
-        printComments(path, () => concat(parts), options).parts
-      );
+    if (isNested && hasComment(node)) {
+      const printed = cleanDoc(printComments(path, () => parts, options));
+      /* istanbul ignore else */
+      if (isConcat(printed) || printed.type === "fill") {
+        parts = getDocParts(printed);
+      } else {
+        parts = [printed];
+      }
     }
   } else {
     // Our stopping case. Simply print the node normally.
@@ -286,19 +298,16 @@ function shouldInlineLogicalExpression(node) {
 
   if (
     node.right.type === "ObjectExpression" &&
-    node.right.properties.length !== 0
+    node.right.properties.length > 0
   ) {
     return true;
   }
 
-  if (
-    node.right.type === "ArrayExpression" &&
-    node.right.elements.length !== 0
-  ) {
+  if (node.right.type === "ArrayExpression" && node.right.elements.length > 0) {
     return true;
   }
 
-  if (isJSXNode(node.right)) {
+  if (isJsxNode(node.right)) {
     return true;
   }
 

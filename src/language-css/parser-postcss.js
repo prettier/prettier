@@ -73,7 +73,7 @@ function parseValueNode(valueNode, options) {
       for (let i = 0; i < groups.length; i++) {
         const group = groups[i];
         if (group.type === "comma_group") {
-          groupList = groupList.concat(group.groups);
+          groupList = [...groupList, ...group.groups];
         } else {
           groupList.push(group);
         }
@@ -105,7 +105,7 @@ function parseValueNode(valueNode, options) {
       };
       commaGroupStack.push(commaGroup);
     } else if (node.type === "paren" && node.value === ")") {
-      if (commaGroup.groups.length) {
+      if (commaGroup.groups.length > 0) {
         parenGroup.groups.push(commaGroup);
       }
       parenGroup.close = node;

@@ -55,7 +55,7 @@ describe("resolves toml configuration file with --find-config-path file", () => 
   });
 });
 
-describe("prints nothing when no file found with --find-config-path", () => {
+describe("prints error message when no file found with --find-config-path", () => {
   runPrettier("cli/config/", [
     "--end-of-line",
     "lf",
@@ -79,11 +79,10 @@ describe("CLI overrides take precedence", () => {
   });
 });
 
-test("API resolveConfig with no args", () => {
-  return prettier.resolveConfig().then((result) => {
+test("API resolveConfig with no args", () =>
+  prettier.resolveConfig().then((result) => {
     expect(result).toEqual({});
-  });
-});
+  }));
 
 test("API resolveConfig.sync with no args", () => {
   expect(prettier.resolveConfig.sync()).toEqual({});

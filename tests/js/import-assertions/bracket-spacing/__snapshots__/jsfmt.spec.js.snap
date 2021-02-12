@@ -4,14 +4,14 @@ exports[`dynamic-import.js - {"bracketSpacing":false} [espree] format 1`] = `
 "Unexpected token , (1:20)
 > 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
     |                    ^
-  2 | "
+  2 |"
 `;
 
 exports[`dynamic-import.js - {"bracketSpacing":false} [meriyah] format 1`] = `
 "[1:20]: Expected ')' (1:20)
 > 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
     |                    ^
-  2 | "
+  2 |"
 `;
 
 exports[`dynamic-import.js - {"bracketSpacing":false} format 1`] = `
@@ -59,14 +59,14 @@ exports[`re-export.js - {"bracketSpacing":false} [espree] format 1`] = `
 "Unexpected token assert (1:33)
 > 1 | export { foo2 } from \\"foo.json\\" assert { type: \\"json\\" };
     |                                 ^
-  2 | "
+  2 |"
 `;
 
 exports[`re-export.js - {"bracketSpacing":false} [meriyah] format 1`] = `
 "[1:38]: Unexpected token: 'identifier' (1:38)
 > 1 | export { foo2 } from \\"foo.json\\" assert { type: \\"json\\" };
     |                                      ^
-  2 | "
+  2 |"
 `;
 
 exports[`re-export.js - {"bracketSpacing":false} format 1`] = `
@@ -88,14 +88,14 @@ exports[`static-import.js - {"bracketSpacing":false} [espree] format 1`] = `
 "Unexpected token assert (1:31)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
     |                               ^
-  2 | "
+  2 |"
 `;
 
 exports[`static-import.js - {"bracketSpacing":false} [meriyah] format 1`] = `
 "[1:36]: Unexpected token: 'identifier' (1:36)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
     |                                    ^
-  2 | "
+  2 |"
 `;
 
 exports[`static-import.js - {"bracketSpacing":false} format 1`] = `

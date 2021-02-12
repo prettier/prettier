@@ -2,18 +2,16 @@
 
 const path = require("path");
 const fs = require("fs");
-const execa = require("execa");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
-const nodeGlobals = require("rollup-plugin-node-globals");
+const rollupPluginPolyfillNode = require("rollup-plugin-polyfill-node");
 const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
 const { babel } = require("@rollup/plugin-babel");
-const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
@@ -53,6 +51,11 @@ const entries = [
     replacement: path.resolve(
       `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
     ),
+  },
+  // Avoid rollup `SOURCEMAP_ERROR` and `THIS_IS_UNDEFINED` error
+  {
+    find: "@glimmer/syntax",
+    replacement: require.resolve("@glimmer/syntax"),
   },
 ];
 
@@ -126,7 +129,8 @@ function getRollupConfig(bundle) {
         // ignore `MIXED_EXPORTS` warn
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
-          warning.importer.startsWith("node_modules"))
+          (warning.importer.startsWith("node_modules") ||
+            warning.importer.startsWith("polyfill-node:")))
       ) {
         return;
       }
@@ -179,8 +183,6 @@ function getRollupConfig(bundle) {
     evaluate(),
     json(),
     rollupPluginAlias(alias),
-    bundle.target === "universal" &&
-      nativeShims(path.resolve(__dirname, "shims")),
     nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
@@ -195,7 +197,7 @@ function getRollupConfig(bundle) {
       requireReturnsDefault: "preferred",
     }),
     externals(bundle.externals),
-    bundle.target === "universal" && nodeGlobals(),
+    bundle.target === "universal" && rollupPluginPolyfillNode(),
     babel(babelConfig),
     bundle.minify !== false &&
       bundle.target === "universal" &&
@@ -322,29 +324,6 @@ function runWebpack(config) {
   });
 }
 
-async function checkCache(cache, inputOptions, outputOption) {
-  const useCache = await cache.checkBundle(
-    outputOption.file,
-    inputOptions,
-    outputOption
-  );
-
-  if (useCache) {
-    try {
-      await execa("cp", [
-        path.join(cache.cacheDir, outputOption.file.replace("dist", "files")),
-        outputOption.file,
-      ]);
-      return true;
-    } catch (err) {
-      console.log(err);
-      // Proceed to build
-    }
-  }
-
-  return false;
-}
-
 module.exports = async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle, options);
@@ -353,12 +332,16 @@ module.exports = async function createBundle(bundle, cache, options) {
     return { skipped: true };
   }
 
-  const checkCacheResults = await Promise.all(
-    outputOptions.map((outputOption) =>
-      checkCache(cache, inputOptions, outputOption)
-    )
-  );
-  if (checkCacheResults.every((r) => r === true)) {
+  if (
+    !options["purge-cache"] &&
+    (
+      await Promise.all(
+        outputOptions.map((outputOption) =>
+          cache.isCached(inputOptions, outputOption)
+        )
+      )
+    ).every((cached) => cached)
+  ) {
     return { cached: true };
   }
 

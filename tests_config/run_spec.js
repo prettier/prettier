@@ -8,9 +8,7 @@ const prettier = !TEST_STANDALONE
   ? require("prettier-local")
   : require("prettier-standalone");
 const checkParsers = require("./utils/check-parsers");
-const visualizeRange = require("./utils/visualize-range");
 const createSnapshot = require("./utils/create-snapshot");
-const composeOptionsForSnapshot = require("./utils/compose-options-for-snapshot");
 const visualizeEndOfLine = require("./utils/visualize-end-of-line");
 const consistentEndOfLine = require("./utils/consistent-end-of-line");
 const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
@@ -144,7 +142,7 @@ function runSpec(fixtures, parsers, options) {
 
   // Make sure tests are in correct location
   if (process.env.CHECK_TEST_PARSERS) {
-    if (!Array.isArray(parsers) || !parsers.length) {
+    if (!Array.isArray(parsers) || parsers.length === 0) {
       throw new Error(`No parsers were specified for ${dirname}`);
     }
     checkParsers({ dirname, files }, parsers);
@@ -252,49 +250,12 @@ function runTest({
     }
 
     // All parsers have the same result, only snapshot the result from main parser
-    // TODO: move this part to `createSnapshot`
-    const hasEndOfLine = "endOfLine" in formatOptions;
-    let codeForSnapshot = formatResult.inputWithCursor;
-    let codeOffset = 0;
-    let resultForSnapshot = formatResult.outputWithCursor;
-    const { rangeStart, rangeEnd, cursorOffset } = formatResult.options;
-
-    if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
-      let rangeStartWithCursor = rangeStart;
-      let rangeEndWithCursor = rangeEnd;
-      if (typeof cursorOffset === "number") {
-        if (
-          typeof rangeStartWithCursor === "number" &&
-          rangeStartWithCursor > cursorOffset
-        ) {
-          rangeStartWithCursor += CURSOR_PLACEHOLDER.length;
-        }
-        if (
-          typeof rangeEndWithCursor === "number" &&
-          rangeEndWithCursor > cursorOffset
-        ) {
-          rangeEndWithCursor += CURSOR_PLACEHOLDER.length;
-        }
-      }
-      codeForSnapshot = visualizeRange(codeForSnapshot, {
-        rangeStart: rangeStartWithCursor,
-        rangeEnd: rangeEndWithCursor,
-      });
-      codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
-    }
-
-    if (hasEndOfLine) {
-      codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
-      resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
-    }
-
     expect(
-      createSnapshot(
-        codeForSnapshot,
-        resultForSnapshot,
-        composeOptionsForSnapshot(formatResult.options, parsers),
-        { codeOffset }
-      )
+      createSnapshot(formatResult, {
+        parsers,
+        formatOptions,
+        CURSOR_PLACEHOLDER,
+      })
     ).toMatchSnapshot();
   });
 
@@ -334,7 +295,7 @@ function runTest({
     });
   }
 
-  if (!code.includes("\r") && !formatOptions.requirePragma) {
+  if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
         const output = format(code.replace(/\n/g, eol), formatOptions)
@@ -359,6 +320,25 @@ function runTest({
       expect(output).toEqual(expected);
     });
   }
+}
+
+function shouldSkipEolTest(code, options) {
+  if (code.includes("\r")) {
+    return true;
+  }
+  const { requirePragma, rangeStart, rangeEnd } = options;
+  if (requirePragma) {
+    return true;
+  }
+
+  if (
+    typeof rangeStart === "number" &&
+    typeof rangeEnd === "number" &&
+    rangeStart >= rangeEnd
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function parse(source, options) {

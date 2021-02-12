@@ -12,6 +12,6 @@ exports[`block-scalar-with-spaces-only.yml [yaml] format 1`] = `
     | ^
 > 5 |  # comment
     | ^
-> 6 | 
+> 6 |
     | ^"
 `;

@@ -164,8 +164,7 @@ function skipNewline(text, index, opts) {
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasNewline(text, index, opts) {
-  opts = opts || {};
+function hasNewline(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   const idx2 = skipNewline(text, idx, opts);
   return idx !== idx2;
@@ -292,8 +291,7 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
-function hasSpaces(text, index, opts) {
-  opts = opts || {};
+function hasSpaces(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
@@ -304,9 +302,7 @@ function hasSpaces(text, index, opts) {
  * @param {number=} startIndex
  * @returns {number}
  */
-function getAlignmentSize(value, tabWidth, startIndex) {
-  startIndex = startIndex || 0;
-
+function getAlignmentSize(value, tabWidth, startIndex = 0) {
   let size = 0;
   for (let i = startIndex; i < value.length; ++i) {
     if (value[i] === "\t") {
@@ -557,22 +553,11 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-function isNodeIgnoreComment(comment) {
-  return comment.value.trim() === "prettier-ignore";
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;
-
-  // For some reason, TypeScript parses `// x` inside of JSXText as a comment
-  // We already "print" it via the raw text, we don't need to re-print it as a
-  // comment
-  /* istanbul ignore next */
-  if (node.type === "JSXText") {
-    comment.printed = true;
-  }
+  comment.nodeDescription = describeNodeForDebugging(node);
 }
 
 function addLeadingComment(node, comment) {
@@ -599,7 +584,7 @@ function addTrailingComment(node, comment) {
 function replaceEndOfLineWith(text, replacement) {
   const parts = [];
   for (const part of text.split("\n")) {
-    if (parts.length !== 0) {
+    if (parts.length > 0) {
       parts.push(replacement);
     }
     parts.push(part);
@@ -636,6 +621,41 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+function isNonEmptyArray(object) {
+  return Array.isArray(object) && object.length > 0;
+}
+
+/**
+ * @param {string} description
+ * @returns {(node: any) => symbol}
+ */
+function createGroupIdMapper(description) {
+  const groupIds = new WeakMap();
+  return function (node) {
+    if (!groupIds.has(node)) {
+      groupIds.set(node, Symbol(description));
+    }
+    return groupIds.get(node);
+  };
+}
+
+function describeNodeForDebugging(node) {
+  const nodeType = node.type || node.kind || "(unknown type)";
+  let nodeName = String(
+    node.name ||
+      (node.id && (typeof node.id === "object" ? node.id.name : node.id)) ||
+      (node.key && (typeof node.key === "object" ? node.key.name : node.key)) ||
+      (node.value &&
+        (typeof node.value === "object" ? "" : String(node.value))) ||
+      node.operator ||
+      ""
+  );
+  if (nodeName.length > 20) {
+    nodeName = nodeName.slice(0, 19) + "…";
+  }
+  return nodeType + (nodeName ? " " + nodeName : "");
+}
+
 module.exports = {
   inferParserByLanguage,
   replaceEndOfLineWith,
@@ -666,11 +686,12 @@ module.exports = {
   getPreferredQuote,
   printString,
   printNumber,
-  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
   getShebang,
+  isNonEmptyArray,
+  createGroupIdMapper,
 };

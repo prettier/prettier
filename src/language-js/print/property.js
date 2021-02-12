@@ -3,15 +3,13 @@
 const { printComments } = require("../../main/comments");
 const { printString, printNumber } = require("../../common/util");
 const {
-  builders: { concat },
-} = require("../../document");
-const {
   isNumericLiteral,
   isSimpleNumber,
   isStringLiteral,
   isStringPropSafeToUnquote,
   rawText,
 } = require("../utils");
+const { printAssignment } = require("./assignment");
 
 const needsQuoteProps = new WeakMap();
 
@@ -19,18 +17,15 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    return concat(["[", path.call(print, "key"), "]"]);
+    return ["[", path.call(print, "key"), "]"];
   }
 
   const parent = path.getParentNode();
   const { key } = node;
 
-  if (
-    node.type === "ClassPrivateProperty" &&
-    // flow has `Identifier` key, and babel has `PrivateName` key
-    key.type === "Identifier"
-  ) {
-    return concat(["#", path.call(print, "key")]);
+  // flow has `Identifier` key, other parsers use `PrivateIdentifier` (ESTree) or `PrivateName`
+  if (node.type === "ClassPrivateProperty" && key.type === "Identifier") {
+    return ["#", path.call(print, "key")];
   }
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
@@ -97,4 +92,20 @@ function printPropertyKey(path, options, print) {
   return path.call(print, "key");
 }
 
-module.exports = { printPropertyKey };
+function printProperty(path, options, print) {
+  const n = path.getValue();
+  if (n.shorthand) {
+    return path.call(print, "value");
+  }
+
+  return printAssignment(
+    n.key,
+    printPropertyKey(path, options, print),
+    ":",
+    n.value,
+    path.call(print, "value"),
+    options
+  );
+}
+
+module.exports = { printProperty, printPropertyKey };

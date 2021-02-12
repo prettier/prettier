@@ -10,22 +10,25 @@ const {
   addTrailingComment,
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
+  isNonEmptyArray,
 } = require("../common/util");
 const {
   isBlockComment,
   getFunctionParameters,
   isPrettierIgnoreComment,
-  isJSXNode,
+  isJsxNode,
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
+  isCallExpression,
+  isMemberExpression,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
 /**
  * @typedef {import("./types/estree").Node} Node
  * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("../common/fast-path")} FastPath
+ * @typedef {import("../common/ast-path")} AstPath
  *
  * @typedef {Object} CommentContext
  * @property {Comment} comment
@@ -314,9 +317,7 @@ function handleMemberExpressionComments({
   followingNode,
 }) {
   if (
-    enclosingNode &&
-    (enclosingNode.type === "MemberExpression" ||
-      enclosingNode.type === "OptionalMemberExpression") &&
+    isMemberExpression(enclosingNode) &&
     followingNode &&
     followingNode.type === "Identifier"
   ) {
@@ -386,8 +387,7 @@ function handleClassComments({
       enclosingNode.type === "TSInterfaceDeclaration")
   ) {
     if (
-      enclosingNode.decorators &&
-      enclosingNode.decorators.length > 0 &&
+      isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
       addTrailingComment(
@@ -459,7 +459,7 @@ function handleMethodNameComments({
     precedingNode.type === "Decorator" &&
     (enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ClassProperty" ||
-      enclosingNode.type === "FieldDefinition" ||
+      enclosingNode.type === "PropertyDefinition" ||
       enclosingNode.type === "TSAbstractClassProperty" ||
       enclosingNode.type === "TSAbstractMethodDefinition" ||
       enclosingNode.type === "TSDeclareMethod" ||
@@ -521,8 +521,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
-      ((enclosingNode.type === "CallExpression" ||
-        enclosingNode.type === "OptionalCallExpression" ||
+      ((isCallExpression(enclosingNode) ||
         enclosingNode.type === "NewExpression") &&
         enclosingNode.arguments.length === 0))
   ) {
@@ -531,7 +530,8 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
   }
   if (
     enclosingNode &&
-    enclosingNode.type === "MethodDefinition" &&
+    (enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
     getFunctionParameters(enclosingNode.value).length === 0
   ) {
     addDanglingComment(enclosingNode.value, comment);
@@ -581,7 +581,7 @@ function handleLastFunctionArgComments({
   ) {
     const functionParamRightParenIndex = (() => {
       const parameters = getFunctionParameters(enclosingNode);
-      if (parameters.length !== 0) {
+      if (parameters.length > 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
           locEnd(getLast(parameters))
@@ -643,9 +643,7 @@ function handleCallExpressionComments({
   enclosingNode,
 }) {
   if (
-    enclosingNode &&
-    (enclosingNode.type === "CallExpression" ||
-      enclosingNode.type === "OptionalCallExpression") &&
+    isCallExpression(enclosingNode) &&
     precedingNode &&
     enclosingNode.callee === precedingNode &&
     enclosingNode.arguments.length > 0
@@ -866,21 +864,6 @@ function handleTSMappedTypeComments({
 
 /**
  * @param {Node} node
- * @param {(comment: Comment) => boolean} fn
- * @returns boolean
- */
-function hasLeadingComment(node, fn = () => true) {
-  if (node.leadingComments) {
-    return node.leadingComments.some(fn);
-  }
-  if (node.comments) {
-    return node.comments.some((comment) => comment.leading && fn(comment));
-  }
-  return false;
-}
-
-/**
- * @param {Node} node
  * @returns {boolean}
  */
 function isRealFunctionLikeNode(node) {
@@ -938,7 +921,7 @@ function getCommentChildNodes(node, options) {
     node.value.type === "FunctionExpression" &&
     getFunctionParameters(node.value).length === 0 &&
     !node.value.returnType &&
-    (!node.value.typeParameters || node.value.typeParameters.length === 0) &&
+    !isNonEmptyArray(node.value.typeParameters) &&
     node.value.body
   ) {
     return [...(node.decorators || []), node.key, node.value.body];
@@ -961,7 +944,7 @@ function isTypeCastComment(comment) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function willPrintOwnComments(path /*, options */) {
@@ -970,11 +953,9 @@ function willPrintOwnComments(path /*, options */) {
 
   return (
     ((node &&
-      (isJSXNode(node) ||
+      (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
-        (parent &&
-          (parent.type === "CallExpression" ||
-            parent.type === "OptionalCallExpression") &&
+        (isCallExpression(parent) &&
           (hasFlowAnnotationComment(node.leadingComments) ||
             hasFlowAnnotationComment(node.trailingComments))))) ||
       (parent &&
@@ -995,7 +976,6 @@ module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
-  hasLeadingComment,
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,

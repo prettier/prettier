@@ -433,7 +433,7 @@ exports[`errorOnInitializerInInterfaceProperty.ts [babel-ts] format 1`] = `
 > 2 |     bar: number = 5;
     |                 ^
   3 | }
-  4 | "
+  4 |"
 `;
 
 exports[`errorOnInitializerInInterfaceProperty.ts format 1`] = `

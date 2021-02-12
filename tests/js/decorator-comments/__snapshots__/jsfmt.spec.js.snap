@@ -17,7 +17,7 @@ exports[`comments.js [meriyah] format 1`] = `
 > 4 |     static property: Array<string>;
     |                    ^
   5 | }
-  6 | "
+  6 |"
 `;
 
 exports[`comments.js format 1`] = `

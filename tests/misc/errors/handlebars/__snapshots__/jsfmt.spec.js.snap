@@ -8,11 +8,11 @@ Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SE
   1 | <A >
 > 2 | x, {{@name}
     |           ^
-  3 | "
+  3 |"
 `;
 
 exports[`invalid-2.hbs [glimmer] format 1`] = `
-"Syntax Error: Unclosed element \`@name\`: 
+"Unclosed element \`@name\`: 
 
 |
 |  <{@name>
@@ -20,20 +20,40 @@ exports[`invalid-2.hbs [glimmer] format 1`] = `
 
 (error occurred in 'an unknown module' @ line 3 : column 0) (3:0)
   1 | <a>
-  2 | 
+  2 |
 > 3 | <{@name>
     | ^^^^^^^^
-  4 | "
+  4 |"
 `;
 
 exports[`invalid-3.hbs [glimmer] format 1`] = `
 "Parse error on line 3:
 <a>{{}}
 -----^
-Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (3:3)
   1 | <a>
-  2 | 
+  2 |
 > 3 | {{}}
     |   ^
-  4 | "
+  4 |"
+`;
+
+exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~}}
+---^
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~}}
+    |    ^
+  2 |"
+`;
+
+exports[`tilde-comments-2.hbs [glimmer] format 1`] = `
+"Parse error on line 1:
+{{~~}}
+---^
+Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE' (1:4)
+> 1 | {{~~}}
+    |    ^
+  2 |"
 `;

@@ -122,7 +122,7 @@ describe("crashes when one of --plugin-search-dir does not exist", () => {
     "--plugin-search-dir=.",
   ]).test({
     stdout: "",
-    stderr: "non-existing-dir does not exist or is not a directory",
+    stderr: "[error] non-existing-dir does not exist or is not a directory\n",
     status: 1,
     write: [],
   });

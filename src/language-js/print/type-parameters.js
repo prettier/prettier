@@ -2,25 +2,20 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, join, line, hardline, softline, group, indent, ifBreak },
+  builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
 const {
-  hasDanglingComments,
   isTestCall,
-  isBlockComment,
+  hasComment,
+  CommentCheckFlags,
   isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
 } = require("../utils");
+const { createGroupIdMapper } = require("../../common/util");
 const { shouldHugType } = require("./type-annotation");
 
-const typeParametersGroupIds = new WeakMap();
-function getTypeParametersGroupId(node) {
-  if (!typeParametersGroupIds.has(node)) {
-    typeParametersGroupIds.set(node, Symbol("typeParameters"));
-  }
-  return typeParametersGroupIds.get(node);
-}
+const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
   const n = path.getValue();
@@ -49,45 +44,45 @@ function printTypeParameters(path, options, print, paramsKey) {
         n[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
-    return concat([
+    return [
       "<",
       join(", ", path.map(print, paramsKey)),
       printDanglingCommentsForInline(path, options),
       ">",
-    ]);
+    ];
   }
 
+  // Keep comma if the file extension is .tsx and
+  // has one type parameter that isn't extend with any types.
+  // Because, otherwise formatted result will be invalid as tsx.
+  const trailingComma =
+    getFunctionParameters(n).length === 1 &&
+    isTSXFile(options) &&
+    !n[paramsKey][0].constraint &&
+    path.getParentNode().type === "ArrowFunctionExpression"
+      ? ","
+      : shouldPrintComma(options, "all")
+      ? ifBreak(",")
+      : "";
+
   return group(
-    concat([
+    [
       "<",
-      indent(
-        concat([
-          softline,
-          join(concat([",", line]), path.map(print, paramsKey)),
-        ])
-      ),
-      ifBreak(
-        options.parser !== "typescript" &&
-          options.parser !== "babel-ts" &&
-          shouldPrintComma(options, "all")
-          ? ","
-          : ""
-      ),
+      indent([softline, join([",", line], path.map(print, paramsKey))]),
+      trailingComma,
       softline,
       ">",
-    ]),
+    ],
     { id: getTypeParametersGroupId(n) }
   );
 }
 
 function printDanglingCommentsForInline(path, options) {
   const n = path.getValue();
-  if (!hasDanglingComments(n)) {
+  if (!hasComment(n, CommentCheckFlags.Dangling)) {
     return "";
   }
-  const hasOnlyBlockComments = n.comments.every((comment) =>
-    isBlockComment(comment)
-  );
+  const hasOnlyBlockComments = !hasComment(n, CommentCheckFlags.Line);
   const printed = printDanglingComments(
     path,
     options,
@@ -96,7 +91,7 @@ function printDanglingCommentsForInline(path, options) {
   if (hasOnlyBlockComments) {
     return printed;
   }
-  return concat([printed, hardline]);
+  return [printed, hardline];
 }
 
 function printTypeParameter(path, options, print) {
@@ -111,13 +106,11 @@ function printTypeParameter(path, options, print) {
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent((path) => {
-          return path.call(print, "nameType");
-        })
+        path.callParent((path) => path.call(print, "nameType"))
       );
     }
     parts.push("]");
-    return concat(parts);
+    return parts;
   }
 
   if (n.variance) {
@@ -127,8 +120,7 @@ function printTypeParameter(path, options, print) {
   parts.push(path.call(print, "name"));
 
   if (n.bound) {
-    parts.push(": ");
-    parts.push(path.call(print, "bound"));
+    parts.push(": ", path.call(print, "bound"));
   }
 
   if (n.constraint) {
@@ -139,20 +131,7 @@ function printTypeParameter(path, options, print) {
     parts.push(" = ", path.call(print, "default"));
   }
 
-  // Keep comma if the file extension is .tsx and
-  // has one type parameter that isn't extend with any types.
-  // Because, otherwise formatted result will be invalid as tsx.
-  const grandParent = path.getNode(2);
-  if (
-    getFunctionParameters(parent).length === 1 &&
-    isTSXFile(options) &&
-    !n.constraint &&
-    grandParent.type === "ArrowFunctionExpression"
-  ) {
-    parts.push(",");
-  }
-
-  return concat(parts);
+  return parts;
 }
 
 module.exports = {

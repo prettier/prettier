@@ -1,7 +1,8 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, line, group, indent },
+  builders: { line, group, indent },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -10,6 +11,10 @@ const {
   isStringLiteral,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
+
+/**
+ * @typedef {import("../types/estree").Node} Node
+ */
 
 function printAssignment(
   leftNode,
@@ -30,7 +35,7 @@ function printAssignment(
     options
   );
 
-  return group(concat([printedLeft, operator, printed]));
+  return group([printedLeft, operator, printed]);
 }
 
 function printAssignmentExpression(path, options, print) {
@@ -38,7 +43,7 @@ function printAssignmentExpression(path, options, print) {
   return printAssignment(
     n.left,
     path.call(print, "left"),
-    concat([" ", n.operator]),
+    [" ", n.operator],
     n.right,
     path.call(print, "right"),
     options
@@ -59,32 +64,53 @@ function printVariableDeclarator(path, options, print) {
 
 function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
-    return indent(concat([line, printedRight]));
+    return indent([line, printedRight]);
   }
 
-  const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
-    (rightNode.type === "ConditionalExpression" &&
-      isBinaryish(rightNode.test) &&
-      !shouldInlineLogicalExpression(rightNode.test)) ||
-    rightNode.type === "StringLiteralTypeAnnotation" ||
-    (rightNode.type === "ClassExpression" &&
-      rightNode.decorators &&
-      rightNode.decorators.length) ||
-    ((leftNode.type === "Identifier" ||
-      isStringLiteral(leftNode) ||
-      leftNode.type === "MemberExpression") &&
-      (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
-      // do not put values on a separate line from the key in json
-      options.parser !== "json" &&
-      options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression";
-
-  if (canBreak) {
-    return group(indent(concat([line, printedRight])));
+  if (canBreakAssignmentRight(leftNode, rightNode, options)) {
+    return group(indent([line, printedRight]));
   }
 
-  return concat([" ", printedRight]);
+  return [" ", printedRight];
+}
+
+function canBreakAssignmentRight(leftNode, rightNode, options) {
+  // do not put values on a separate line from the key in json
+  if (options.parser === "json5" || options.parser === "json") {
+    return false;
+  }
+
+  if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
+    return true;
+  }
+
+  switch (rightNode.type) {
+    case "StringLiteralTypeAnnotation":
+    case "SequenceExpression":
+      return true;
+    case "ConditionalExpression": {
+      const { test } = rightNode;
+      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+    }
+    case "ClassExpression":
+      return isNonEmptyArray(rightNode.decorators);
+  }
+
+  if (
+    leftNode.type === "Identifier" ||
+    isStringLiteral(leftNode) ||
+    leftNode.type === "MemberExpression"
+  ) {
+    let node = rightNode;
+    while (node.type === "UnaryExpression") {
+      node = node.argument;
+    }
+    if (isStringLiteral(node) || isMemberExpressionChain(node)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 module.exports = {

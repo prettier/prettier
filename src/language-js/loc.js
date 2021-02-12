@@ -1,5 +1,7 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../common/util");
+
 /**
  * @typedef {import("./types/estree").Node} Node
  */
@@ -12,7 +14,7 @@ function locStart(node, opts) {
     const decorators =
       (node.declaration && node.declaration.decorators) || node.decorators;
 
-    if (decorators && decorators.length > 0) {
+    if (isNonEmptyArray(decorators)) {
       return locStart(decorators[0]);
     }
   }
@@ -23,21 +25,6 @@ function locStart(node, opts) {
 function locEnd(node) {
   const end = node.range ? node.range[1] : node.end;
   return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
-}
-
-/**
- * @param {Node} startNode
- * @param {Node | number} endNodeOrLength
- * @returns {number[]}
- */
-function composeLoc(startNode, endNodeOrLength = startNode) {
-  const start = locStart(startNode);
-  const end =
-    typeof endNodeOrLength === "number"
-      ? start + endNodeOrLength
-      : locEnd(endNodeOrLength);
-
-  return [start, end];
 }
 
 /**
@@ -70,7 +57,6 @@ function hasSameLoc(nodeA, nodeB) {
 module.exports = {
   locStart,
   locEnd,
-  composeLoc,
   hasSameLocStart,
   hasSameLoc,
 };

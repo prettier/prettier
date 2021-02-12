@@ -2,25 +2,27 @@
 
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak, hardline },
+  builders: { line, softline, group, indent, ifBreak, hardline },
 } = require("../../document");
 const {
   getLast,
-  isNextLineEmpty,
   hasNewlineInRange,
   hasNewline,
+  isNonEmptyArray,
 } = require("../../common/util");
 const {
-  hasDanglingComments,
   shouldPrintComma,
-  hasNodeIgnoreComment,
-  isBlockComment,
+  hasComment,
+  getComments,
+  CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
-const { printOptionalToken } = require("./misc");
+const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { shouldHugFunctionParameters } = require("./function-parameters");
-const { printTypeAnnotation, shouldHugType } = require("./type-annotation");
+const { shouldHugType } = require("./type-annotation");
+const { printHardlineAfterHeritage } = require("./class");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -95,7 +97,7 @@ function printObject(path, options, print) {
   // interleaved in the source code. So we need to reorder them before
   // printing them.
   const propsAndLoc = [];
-  fields.forEach((field) => {
+  for (const field of fields) {
     path.each((childPath) => {
       const node = childPath.getValue();
       propsAndLoc.push({
@@ -104,23 +106,24 @@ function printObject(path, options, print) {
         loc: locStart(node),
       });
     }, field);
-  });
+  }
 
+  /** @type {Doc[]} */
   let separatorParts = [];
   const props = propsAndLoc
     .sort((a, b) => a.loc - b.loc)
     .map((prop) => {
-      const result = concat(separatorParts.concat(group(prop.printed)));
+      const result = [...separatorParts, group(prop.printed)];
       separatorParts = [separator, line];
       if (
         (prop.node.type === "TSPropertySignature" ||
           prop.node.type === "TSMethodSignature" ||
           prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasNodeIgnoreComment(prop.node)
+        hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
       ) {
         separatorParts.shift();
       }
-      if (isNextLineEmpty(options.originalText, prop.node, locEnd)) {
+      if (isNextLineEmpty(prop.node, options)) {
         separatorParts.push(hardline);
       }
       return result;
@@ -128,30 +131,25 @@ function printObject(path, options, print) {
 
   if (n.inexact) {
     let printed;
-    if (hasDanglingComments(n)) {
-      const hasLineComments = !n.comments.every((comment) =>
-        isBlockComment(comment)
-      );
+    if (hasComment(n, CommentCheckFlags.Dangling)) {
+      const hasLineComments = hasComment(n, CommentCheckFlags.Line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
         /* sameIndent */ true
       );
-      printed = concat([
+      printed = [
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(
-          options.originalText,
-          locEnd(n.comments[n.comments.length - 1])
-        )
+        hasNewline(options.originalText, locEnd(getLast(getComments(n))))
           ? hardline
           : line,
         "...",
-      ]);
+      ];
     } else {
-      printed = "...";
+      printed = ["..."];
     }
-    props.push(concat(separatorParts.concat(printed)));
+    props.push([...separatorParts, ...printed]);
   }
 
   const lastElem = getLast(n[propertiesField]);
@@ -164,43 +162,41 @@ function printObject(path, options, print) {
         lastElem.type === "TSCallSignatureDeclaration" ||
         lastElem.type === "TSMethodSignature" ||
         lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasNodeIgnoreComment(lastElem))
+      hasComment(lastElem, CommentCheckFlags.PrettierIgnore))
   );
 
   let content;
   if (props.length === 0) {
-    if (!hasDanglingComments(n)) {
-      return concat([
-        leftBrace,
-        rightBrace,
-        printTypeAnnotation(path, options, print),
-      ]);
+    if (!hasComment(n, CommentCheckFlags.Dangling)) {
+      return [leftBrace, rightBrace, printTypeAnnotation(path, options, print)];
     }
 
-    content = group(
-      concat([
-        leftBrace,
-        printDanglingComments(path, options),
-        softline,
-        rightBrace,
-        printOptionalToken(path),
-        printTypeAnnotation(path, options, print),
-      ])
-    );
-  } else {
-    content = concat([
+    content = group([
       leftBrace,
-      indent(concat([options.bracketSpacing ? line : softline, concat(props)])),
+      printDanglingComments(path, options),
+      softline,
+      rightBrace,
+      printOptionalToken(path),
+      printTypeAnnotation(path, options, print),
+    ]);
+  } else {
+    content = [
+      isFlowInterfaceLikeBody && isNonEmptyArray(n.properties)
+        ? printHardlineAfterHeritage(parent)
+        : "",
+      leftBrace,
+      indent([options.bracketSpacing ? line : softline, ...props]),
       ifBreak(
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
           : ""
       ),
-      concat([options.bracketSpacing ? line : softline, rightBrace]),
+      options.bracketSpacing ? line : softline,
+      rightBrace,
       printOptionalToken(path),
       printTypeAnnotation(path, options, print),
-    ]);
+    ];
   }
 
   // If we inline the object as first argument of the parent, we don't want

@@ -6,7 +6,7 @@ exports[`constructor.ts [babel-ts] format 1`] = `
 > 2 |   constructor(static a: number) {}
     |                      ^
   3 | }
-  4 | 
+  4 |
   5 | class foo {"
 `;
 
@@ -68,6 +68,38 @@ class F<__T> {}
 
 =====================================output=====================================
 class F<__T> {}
+
+================================================================================
+`;
+
+exports[`empty-method-body.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #9324
+
+class foo1 {
+  bar() /* bat */;
+}
+
+// #9367
+class Test {
+  foo (/* 2 */) /* 3 */;
+}
+
+=====================================output=====================================
+// #9324
+
+class foo1 {
+  bar /* bat */();
+}
+
+// #9367
+class Test {
+  foo /* 3 */(/* 2 */);
+}
 
 ================================================================================
 `;
@@ -231,7 +263,7 @@ exports[`generics.ts [babel-ts] format 1`] = `
 "A class name is required (1:6)
 > 1 | class<T> implements Map<T> {}
     |      ^
-  2 | 
+  2 |
   3 | interface AudioBufferList {
   4 | 	mBuffers: interop.Reference<any /*AudioBuffer*/>;"
 `;
@@ -260,12 +292,12 @@ interface AudioBufferList {
 
 exports[`methods.ts [babel-ts] format 1`] = `
 "Unexpected token, expected \\";\\" (6:10)
-  4 | 
+  4 |
   5 | interface Iterable<T> {
 > 6 |   export [Symbol.iterator](): Iterator<T>;
     |          ^
   7 | }
-  8 | 
+  8 |
   9 | export class Check {"
 `;
 

@@ -1,14 +1,10 @@
 "use strict";
 
-/** @type {import("assert")} */
-const assert = require("assert");
+const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { concat, group, indent, join, line, hardline },
+  builders: { indent, join, line },
 } = require("../../document");
-const {
-  hasNewlineBetweenOrAfterDecorators,
-  getParentExportDeclaration,
-} = require("../utils");
+const { isFlowAnnotationComment } = require("../utils");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -40,40 +36,42 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
+function printTypeAnnotation(path, options, print) {
+  const node = path.getValue();
+  if (!node.typeAnnotation) {
+    return "";
+  }
+
+  const parentNode = path.getParentNode();
+  const isDefinite =
+    node.definite ||
+    (parentNode &&
+      parentNode.type === "VariableDeclarator" &&
+      parentNode.definite);
+
+  const isFunctionDeclarationIdentifier =
+    parentNode.type === "DeclareFunction" && parentNode.id === node;
+
+  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
+    return [" /*: ", path.call(print, "typeAnnotation"), " */"];
+  }
+
+  return [
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
+    path.call(print, "typeAnnotation"),
+  ];
+}
+
 function printBindExpressionCallee(path, options, print) {
-  return concat(["::", path.call(print, "callee")]);
+  return ["::", path.call(print, "callee")];
 }
 
 function printTypeScriptModifiers(path, options, print) {
   const n = path.getValue();
-  if (!n.modifiers || !n.modifiers.length) {
+  if (!isNonEmptyArray(n.modifiers)) {
     return "";
   }
-  return concat([join(" ", path.map(print, "modifiers")), " "]);
-}
-
-function printDecorators(path, options, print) {
-  const node = path.getValue();
-  return group(
-    concat([
-      join(line, path.map(print, "decorators")),
-      hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-    ])
-  );
-}
-
-function printFlowDeclaration(path, printed) {
-  const parentExportDecl = getParentExportDeclaration(path);
-
-  if (parentExportDecl) {
-    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
-    return printed;
-  }
-
-  // If the parent node has type DeclareExportDeclaration, then it
-  // will be responsible for printing the "declare" token. Otherwise
-  // it needs to be printed with this non-exported declaration node.
-  return concat(["declare ", printed]);
+  return [join(" ", path.map(print, "modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -82,10 +80,10 @@ function adjustClause(node, clause, forceSpace) {
   }
 
   if (node.type === "BlockStatement" || forceSpace) {
-    return concat([" ", clause]);
+    return [" ", clause];
   }
 
-  return indent(concat([line, clause]));
+  return indent([line, clause]);
 }
 
 module.exports = {
@@ -93,7 +91,6 @@ module.exports = {
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printDecorators,
-  printFlowDeclaration,
+  printTypeAnnotation,
   adjustClause,
 };
