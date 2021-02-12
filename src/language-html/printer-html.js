@@ -78,7 +78,7 @@ function embed(path, print, textToDoc, options) {
         if (!isEmpty) {
           doc = textToDoc(
             htmlTrimPreserveIndentation(content),
-            { parser, embeddedInHtml: true },
+            { parser, __embeddedInHtml: true },
             { stripTrailingHardline: true }
           );
           isEmpty = doc === "";
@@ -104,7 +104,7 @@ function embed(path, print, textToDoc, options) {
             parser === "markdown"
               ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
               : node.value;
-          const textToDocOptions = { parser, embeddedInHtml: true };
+          const textToDocOptions = { parser, __embeddedInHtml: true };
           if (options.parser === "html" && parser === "babel") {
             let sourceType = "script";
             const { attrMap } = node.parent;
@@ -130,7 +130,7 @@ function embed(path, print, textToDoc, options) {
       } else if (node.parent.type === "interpolation") {
         const textToDocOptions = {
           __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-          embeddedInHtml: true,
+          __embeddedInHtml: true,
         };
         if (options.parser === "angular") {
           textToDocOptions.parser = "__ng_interpolation";
@@ -193,7 +193,7 @@ function embed(path, print, textToDoc, options) {
           // strictly prefer single quote to avoid unnecessary html entity escape
           textToDoc(
             code,
-            { __isInHtmlAttribute: true, embeddedInHtml: true, ...opts },
+            { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
             { stripTrailingHardline: true }
           ),
         options
@@ -995,7 +995,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const textToDoc = (code, opts) =>
     originalTextToDoc(
       code,
-      { __onHtmlBindingRoot, embeddedInHtml: true, ...opts },
+      { __onHtmlBindingRoot, __embeddedInHtml: true, ...opts },
       { stripTrailingHardline: true }
     );
 

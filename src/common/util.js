@@ -421,7 +421,7 @@ function printString(raw, options, isDirectiveLiteral) {
       options.parser === "css" ||
       options.parser === "less" ||
       options.parser === "scss" ||
-      options.embeddedInHtml
+      options.__embeddedInHtml
     )
   );
 }
