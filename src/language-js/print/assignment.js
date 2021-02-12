@@ -89,7 +89,7 @@ function chooseLayout(path, options, rightPropertyName) {
     return "only-left";
   }
 
-  // Assignment chains with only 2 segments are NOT formatted as chains.
+  // Short assignment chains (only 2 segments) are NOT formatted as chains.
   //   1) a = b = c; (expression statements)
   //   2) var/let/const a = b = c;
 
@@ -97,16 +97,20 @@ function chooseLayout(path, options, rightPropertyName) {
   const shouldUseChainFormatting = path.match(
     isAssignment,
     (node) => isAssignment(node) || node.type === "VariableDeclarator",
-    (node) => !isTail || node.type !== "ExpressionStatement"
+    (node) =>
+      !isTail ||
+      (node.type !== "ExpressionStatement" &&
+        node.type !== "VariableDeclaration")
   );
   if (shouldUseChainFormatting) {
     return isTail ? "chain-tail" : "chain";
   }
-  if (!isTail && isAssignment(rightNode.right)) {
-    return "break-after-operator";
-  }
+  const isHeadOfLongChain = !isTail && isAssignment(rightNode.right);
 
-  if (hasLeadingOwnLineComment(options.originalText, rightNode)) {
+  if (
+    isHeadOfLongChain ||
+    hasLeadingOwnLineComment(options.originalText, rightNode)
+  ) {
     return "break-after-operator";
   }
 
