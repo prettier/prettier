@@ -31,6 +31,22 @@ function a() {
 ================================================================================
 `;
 
+exports[`bracket_0-1.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const thingamabobMetaAlias =
+path.scope.getProgramParent().path.get("body")[0].node;
+
+=====================================output=====================================
+const thingamabobMetaAlias =
+  path.scope.getProgramParent().path.get("body")[0].node;
+
+================================================================================
+`;
+
 exports[`break-last-call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
