@@ -54,7 +54,7 @@ function hasFlowShorthandAnnotationComment(node) {
   return (
     node.extra &&
     node.extra.parenthesized &&
-    node.trailingComments &&
+    isNonEmptyArray(node.trailingComments) &&
     isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
