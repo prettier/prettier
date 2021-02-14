@@ -1,7 +1,6 @@
 "use strict";
 
 const fs = require("fs");
-const readline = require("readline");
 const path = require("path");
 
 const chalk = require("chalk");
@@ -22,13 +21,15 @@ function diff(a, b) {
   });
 }
 
-function handleError(context, filename, error) {
+function handleError(context, filename, error, printedFilename) {
   if (error instanceof errors.UndefinedParserError) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* istanbul ignore next */
-    if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+    if (
+      (context.argv.write || context.argv["ignore-unknown"]) &&
+      printedFilename
+    ) {
+      printedFilename.clear();
     }
     if (context.argv["ignore-unknown"]) {
       return;
@@ -308,8 +309,12 @@ function formatFiles(context) {
       filepath: filename,
     };
 
+    let printedFilename;
     if (isTTY()) {
-      context.logger.log(filename, { newline: false });
+      printedFilename = context.logger.log(filename, {
+        newline: false,
+        clearable: true,
+      });
     }
 
     let input;
@@ -347,16 +352,15 @@ function formatFiles(context) {
       result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
-      handleError(context, filename, error);
+      handleError(context, filename, error, printedFilename);
       continue;
     }
 
     const isDifferent = output !== input;
 
-    if (isTTY()) {
+    if (printedFilename) {
       // Remove previously printed filename to log it with duration.
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+      printedFilename.clear();
     }
 
     if (context.argv.write) {

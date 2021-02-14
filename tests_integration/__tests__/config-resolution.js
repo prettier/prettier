@@ -55,7 +55,7 @@ describe("resolves toml configuration file with --find-config-path file", () => 
   });
 });
 
-describe("prints nothing when no file found with --find-config-path", () => {
+describe("prints error message when no file found with --find-config-path", () => {
   runPrettier("cli/config/", [
     "--end-of-line",
     "lf",

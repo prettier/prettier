@@ -64,14 +64,10 @@ function parseVueFor(value) {
 }
 
 function printVueBindings(value, textToDoc) {
-  return textToDoc(
-    `function _(${value}) {}`,
-    {
-      parser: "babel",
-      __isVueBindings: true,
-    },
-    { stripTrailingHardline: true }
-  );
+  return textToDoc(`function _(${value}) {}`, {
+    parser: "babel",
+    __isVueBindings: true,
+  });
 }
 
 function isVueEventBindingExpression(eventBindingValue) {

@@ -8,21 +8,21 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index");
 
 const { format, formatStdin, formatFiles } = require("./format");
-const Context = require("./context");
+const { Context, parseArgvWithoutPlugins } = require("./context");
 const {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
 } = require("./option-map");
 const { createDetailedUsage, createUsage } = require("./usage");
+const { createLogger } = require("./logger");
 
 function logResolvedConfigPathOrDie(context) {
-  const configFile = prettier.resolveConfigFile.sync(
-    context.argv["find-config-path"]
-  );
+  const file = context.argv["find-config-path"];
+  const configFile = prettier.resolveConfigFile.sync(file);
   if (configFile) {
     context.logger.log(path.relative(process.cwd(), configFile));
   } else {
-    process.exit(1);
+    throw new Error(`Can not find configure file for "${file}"`);
   }
 }
 
@@ -54,4 +54,6 @@ module.exports = {
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
   normalizeDetailedOptionMap,
+  parseArgvWithoutPlugins,
+  createLogger,
 };

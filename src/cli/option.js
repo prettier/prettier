@@ -47,7 +47,7 @@ function parseArgsToOptions(context, overrideDefaults) {
   );
   return getOptions(
     optionsNormalizer.normalizeCliOptions(
-      minimist(context.args, {
+      minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),

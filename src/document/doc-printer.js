@@ -2,7 +2,7 @@
 
 const { getStringWidth } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
-const { concat, fill, cursor } = require("./doc-builders");
+const { fill, cursor, indent } = require("./doc-builders");
 const { isConcat, getDocParts } = require("./doc-utils");
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
@@ -203,16 +203,29 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
           }
 
           break;
-        case "if-break": {
+        case "if-break":
+        case "indent-if-break": {
           const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
           if (groupMode === MODE_BREAK) {
-            if (doc.breakContents) {
-              cmds.push([ind, mode, doc.breakContents]);
+            const breakContents =
+              doc.type === "if-break"
+                ? doc.breakContents
+                : doc.negate
+                ? doc.contents
+                : indent(doc.contents);
+            if (breakContents) {
+              cmds.push([ind, mode, breakContents]);
             }
           }
           if (groupMode === MODE_FLAT) {
-            if (doc.flatContents) {
-              cmds.push([ind, mode, doc.flatContents]);
+            const flatContents =
+              doc.type === "if-break"
+                ? doc.flatContents
+                : doc.negate
+                ? indent(doc.contents)
+                : doc.contents;
+            if (flatContents) {
+              cmds.push([ind, mode, flatContents]);
             }
           }
 
@@ -244,6 +257,9 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
           if (hasLineSuffix) {
             return false;
           }
+          break;
+        case "label":
+          cmds.push([ind, mode, doc.contents]);
           break;
       }
     }
@@ -439,7 +455,7 @@ function printDocToString(doc, options) {
           const firstAndSecondContentFlatCmd = [
             ind,
             MODE_FLAT,
-            concat([content, whitespace, secondContent]),
+            [content, whitespace, secondContent],
           ];
           const firstAndSecondContentFits = fits(
             firstAndSecondContentFlatCmd,
@@ -459,16 +475,29 @@ function printDocToString(doc, options) {
           }
           break;
         }
-        case "if-break": {
+        case "if-break":
+        case "indent-if-break": {
           const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
           if (groupMode === MODE_BREAK) {
-            if (doc.breakContents) {
-              cmds.push([ind, mode, doc.breakContents]);
+            const breakContents =
+              doc.type === "if-break"
+                ? doc.breakContents
+                : doc.negate
+                ? doc.contents
+                : indent(doc.contents);
+            if (breakContents) {
+              cmds.push([ind, mode, breakContents]);
             }
           }
           if (groupMode === MODE_FLAT) {
-            if (doc.flatContents) {
-              cmds.push([ind, mode, doc.flatContents]);
+            const flatContents =
+              doc.type === "if-break"
+                ? doc.flatContents
+                : doc.negate
+                ? indent(doc.contents)
+                : doc.contents;
+            if (flatContents) {
+              cmds.push([ind, mode, flatContents]);
             }
           }
 
@@ -526,6 +555,9 @@ function printDocToString(doc, options) {
               }
               break;
           }
+          break;
+        case "label":
+          cmds.push([ind, mode, doc.contents]);
           break;
         default:
       }

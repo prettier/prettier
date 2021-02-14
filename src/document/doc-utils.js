@@ -1,9 +1,20 @@
 "use strict";
 
-const { literalline, concat } = require("./doc-builders");
+const { literalline } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
-const getDocParts = (doc) => (Array.isArray(doc) ? doc : doc.parts);
+const getDocParts = (doc) => {
+  if (Array.isArray(doc)) {
+    return doc;
+  }
+
+  /* istanbul ignore next */
+  if (doc.type !== "concat" && doc.type !== "fill") {
+    throw new Error("Expect doc type to be `concat` or `fill`.");
+  }
+
+  return doc.parts;
+};
 
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
@@ -91,23 +102,6 @@ function findInDoc(doc, fn, defaultValue) {
   }
   traverseDoc(doc, findInDocOnEnterFn);
   return result;
-}
-
-function isEmpty(n) {
-  return typeof n === "string" && n.length === 0;
-}
-
-function isLineNextFn(doc) {
-  if (typeof doc === "string") {
-    return false;
-  }
-  if (doc.type === "line") {
-    return true;
-  }
-}
-
-function isLineNext(doc) {
-  return findInDoc(doc, isLineNextFn, false);
 }
 
 function willBreakFn(doc) {
@@ -216,8 +210,10 @@ function stripDocTrailingHardlineFromDoc(doc) {
   switch (doc.type) {
     case "align":
     case "indent":
+    case "indent-if-break":
     case "group":
-    case "line-suffix": {
+    case "line-suffix":
+    case "label": {
       const contents = stripDocTrailingHardlineFromDoc(doc.contents);
       return { ...doc, contents };
     }
@@ -259,6 +255,7 @@ function cleanDocFn(doc) {
       break;
     case "align":
     case "indent":
+    case "indent-if-break":
     case "line-suffix":
       if (!doc.contents) {
         return "";
@@ -360,11 +357,7 @@ function normalizeDoc(doc) {
 function replaceNewlinesWithLiterallines(doc) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? concat(
-          currentDoc
-            .split(/(\n)/g)
-            .map((v, i) => (i % 2 === 0 ? v : literalline))
-        )
+      ? currentDoc.split(/(\n)/g).map((v, i) => (i % 2 === 0 ? v : literalline))
       : currentDoc
   );
 }
@@ -372,9 +365,7 @@ function replaceNewlinesWithLiterallines(doc) {
 module.exports = {
   isConcat,
   getDocParts,
-  isEmpty,
   willBreak,
-  isLineNext,
   traverseDoc,
   findInDoc,
   mapDoc,

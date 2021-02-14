@@ -221,6 +221,11 @@ class Playground extends React.Component {
                       </SidebarCategory>
                       <SidebarCategory title="Debug">
                         <Checkbox
+                          label="show input"
+                          checked={editorState.showInput}
+                          onChange={editorState.toggleInput}
+                        />
+                        <Checkbox
                           label="show AST"
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
@@ -237,6 +242,11 @@ class Playground extends React.Component {
                             onChange={editorState.toggleComments}
                           />
                         )}
+                        <Checkbox
+                          label="show output"
+                          checked={editorState.showOutput}
+                          onChange={editorState.toggleOutput}
+                        />
                         <Checkbox
                           label="show second format"
                           checked={editorState.showSecondFormat}
@@ -257,16 +267,18 @@ class Playground extends React.Component {
                       </div>
                     </Sidebar>
                     <div className="editors">
-                      <InputPanel
-                        mode={util.getCodemirrorMode(options.parser)}
-                        ruler={options.printWidth}
-                        value={content}
-                        codeSample={getCodeSample(options.parser)}
-                        overlayStart={options.rangeStart}
-                        overlayEnd={options.rangeEnd}
-                        onChange={this.setContent}
-                        onSelectionChange={this.setSelection}
-                      />
+                      {editorState.showInput ? (
+                        <InputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          ruler={options.printWidth}
+                          value={content}
+                          codeSample={getCodeSample(options.parser)}
+                          overlayStart={options.rangeStart}
+                          overlayEnd={options.rangeEnd}
+                          onChange={this.setContent}
+                          onSelectionChange={this.setSelection}
+                        />
+                      ) : null}
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
@@ -282,11 +294,13 @@ class Playground extends React.Component {
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
-                      <OutputPanel
-                        mode={util.getCodemirrorMode(options.parser)}
-                        value={formatted}
-                        ruler={options.printWidth}
-                      />
+                      {editorState.showOutput ? (
+                        <OutputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          value={formatted}
+                          ruler={options.printWidth}
+                        />
+                      ) : null}
                       {editorState.showSecondFormat ? (
                         <OutputPanel
                           mode={util.getCodemirrorMode(options.parser)}

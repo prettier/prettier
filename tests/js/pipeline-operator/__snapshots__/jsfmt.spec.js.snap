@@ -163,18 +163,18 @@ exports[`minimal_pipeline_operator.js [espree] format 1`] = `
 "Unexpected token > (1:4)
 > 1 | a |> b |> c;
     |    ^
-  2 | 
+  2 |
   3 | a |> (b |> c);
-  4 | "
+  4 |"
 `;
 
 exports[`minimal_pipeline_operator.js [meriyah] format 1`] = `
 "[1:4]: Unexpected token: '>' (1:4)
 > 1 | a |> b |> c;
     |    ^
-  2 | 
+  2 |
   3 | a |> (b |> c);
-  4 | "
+  4 |"
 `;
 
 exports[`minimal_pipeline_operator.js format 1`] = `
@@ -292,7 +292,7 @@ exports[`smart_pipeline_operator.js [espree] format 1`] = `
 "Unexpected token > (1:4)
 > 1 | a |> await # |> # * 3;
     |    ^
-  2 | 
+  2 |
   3 | foo
   4 |   |> await #"
 `;
@@ -301,7 +301,7 @@ exports[`smart_pipeline_operator.js [meriyah] format 1`] = `
 "[1:4]: Unexpected token: '>' (1:4)
 > 1 | a |> await # |> # * 3;
     |    ^
-  2 | 
+  2 |
   3 | foo
   4 |   |> await #"
 `;

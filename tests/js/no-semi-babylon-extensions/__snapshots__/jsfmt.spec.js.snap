@@ -5,7 +5,7 @@ exports[`no-semi.js [espree] format 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 | 
+  3 |
   4 | class A {
   5 |   a = b;"
 `;
@@ -15,7 +15,7 @@ exports[`no-semi.js [meriyah] format 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 | 
+  3 |
   4 | class A {
   5 |   a = b;"
 `;
@@ -25,7 +25,7 @@ exports[`no-semi.js - {"semi":false} [espree] format 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 | 
+  3 |
   4 | class A {
   5 |   a = b;"
 `;
@@ -35,7 +35,7 @@ exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
   1 | a
 > 2 | ;::b.c
     |  ^
-  3 | 
+  3 |
   4 | class A {
   5 |   a = b;"
 `;

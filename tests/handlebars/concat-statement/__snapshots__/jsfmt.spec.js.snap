@@ -135,16 +135,12 @@ singleQuote: true
   class='a very long list of classes that exceeds
     {{eighty}}
     chars with emtpy spaces'
->
-  hey
-</div>
+>hey</div>
 <a
   href='a-very-long-href-from-a-third-party-marketing-platform{{
     id
   }}longer-than-eighty-chars'
->
-  Link
-</a>
+>Link</a>
 <button
   class='uk-padding-remove uk-button uk-button-default uk-button-small uk-width-1-{{
       intl.locales.length
@@ -175,16 +171,12 @@ printWidth: 80
   class="a very long list of classes that exceeds
     {{eighty}}
     chars with emtpy spaces"
->
-  hey
-</div>
+>hey</div>
 <a
   href="a-very-long-href-from-a-third-party-marketing-platform{{
     id
   }}longer-than-eighty-chars"
->
-  Link
-</a>
+>Link</a>
 <button
   class="uk-padding-remove uk-button uk-button-default uk-button-small uk-width-1-{{
       intl.locales.length
