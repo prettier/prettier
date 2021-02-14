@@ -710,7 +710,9 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
       addLeadingComment(ast, comment);
     }
     return true;
-  } else if (
+  }
+
+  if (
     enclosingNode &&
     enclosingNode.type === "Program" &&
     enclosingNode.body.length === 0 &&
@@ -724,6 +726,7 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
     }
     return true;
   }
+
   return false;
 }
 
