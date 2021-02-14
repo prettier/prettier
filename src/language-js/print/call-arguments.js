@@ -45,7 +45,7 @@ function printCallArguments(path, options, print) {
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
-  if (isReactHookCallWithDepsArray(args, /* isArrowBodyBlock */ true)) {
+  if (isReactHookCallWithDepsArray(args)) {
     return [
       "(",
       path.call(print, "arguments", 0),
@@ -262,7 +262,9 @@ function shouldGroupLastArg(args) {
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type) &&
     // useMemo(() => func(), [foo, bar, baz])
-    !isReactHookCallWithDepsArray(args, /* isArrowBodyBlock */ false)
+    (args.length !== 2 ||
+      args[0].type !== "ArrowFunctionExpression" ||
+      args[1].type !== "ArrayExpression")
   );
 }
 
@@ -284,12 +286,12 @@ function shouldGroupFirstArg(args) {
   );
 }
 
-function isReactHookCallWithDepsArray(args, isArrowBodyBlock) {
+function isReactHookCallWithDepsArray(args) {
   return (
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
     getFunctionParameters(args[0]).length === 0 &&
-    (!isArrowBodyBlock || args[0].body.type === "BlockStatement") &&
+    args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
   );

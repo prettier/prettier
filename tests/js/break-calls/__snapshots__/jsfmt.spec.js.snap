@@ -313,3 +313,33 @@ function Comp5() {
 
 ================================================================================
 `;
+
+exports[`reduce.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const [ first1 ] = array.reduce(
+  () => [accumulator, element, accumulator, element],
+  [fullName]
+);
+
+const [ first2 ] = array.reduce(
+  (accumulator, element, ) => [accumulator, element],
+  [fullName]
+);
+
+=====================================output=====================================
+const [first1] = array.reduce(
+  () => [accumulator, element, accumulator, element],
+  [fullName]
+);
+
+const [first2] = array.reduce(
+  (accumulator, element) => [accumulator, element],
+  [fullName]
+);
+
+================================================================================
+`;
