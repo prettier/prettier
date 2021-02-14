@@ -179,9 +179,11 @@ function removeLinesFn(doc) {
   if (doc.type === "line" && !doc.hard) {
     return doc.soft ? "" : " ";
   }
+
   if (doc.type === "if-break") {
     return doc.flatContents || "";
   }
+
   return doc;
 }
 

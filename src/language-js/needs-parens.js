@@ -546,6 +546,7 @@ function needsParens(path, options) {
       if (parent.type === "NGChainedExpression") {
         return false;
       }
+
       return true;
     }
     case "ConditionalExpression":
