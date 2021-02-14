@@ -19,7 +19,7 @@ const {
   utils: { mapDoc, cleanDoc, getDocParts, isConcat },
 } = require("../document");
 const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
-const { print: printFrontMatter } = require("../utils/front-matter");
+const printFrontMatter = require("../utils/front-matter/print");
 const clean = require("./clean");
 const {
   htmlTrimPreserveIndentation,
