@@ -323,7 +323,7 @@ Specify the global whitespace sensitivity for HTML, Vue, Angular, and Handlebars
 
 Valid options:
 
-- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `ignore`.
+- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `strict`.
 - `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
 - `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 

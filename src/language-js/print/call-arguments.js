@@ -45,14 +45,7 @@ function printCallArguments(path, options, print) {
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
-  if (
-    args.length === 2 &&
-    args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
-    args[0].body.type === "BlockStatement" &&
-    args[1].type === "ArrayExpression" &&
-    !args.some((arg) => hasComment(arg))
-  ) {
+  if (isReactHookCallWithDepsArray(args)) {
     return [
       "(",
       path.call(print, "arguments", 0),
@@ -267,7 +260,11 @@ function shouldGroupLastArg(args) {
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
-    (!penultimateArg || penultimateArg.type !== lastArg.type)
+    (!penultimateArg || penultimateArg.type !== lastArg.type) &&
+    // useMemo(() => func(), [foo, bar, baz])
+    (args.length !== 2 ||
+      args[0].type !== "ArrowFunctionExpression" ||
+      args[1].type !== "ArrayExpression")
   );
 }
 
@@ -286,6 +283,17 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
     !couldGroupArg(secondArg)
+  );
+}
+
+function isReactHookCallWithDepsArray(args) {
+  return (
+    args.length === 2 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    getFunctionParameters(args[0]).length === 0 &&
+    args[0].body.type === "BlockStatement" &&
+    args[1].type === "ArrayExpression" &&
+    !args.some((arg) => hasComment(arg))
   );
 }
 

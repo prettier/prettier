@@ -73,14 +73,20 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 function mapDoc(doc, cb) {
   if (Array.isArray(doc)) {
     return cb(doc.map((part) => mapDoc(part, cb)));
-  } else if (doc.type === "concat" || doc.type === "fill") {
+  }
+
+  if (doc.type === "concat" || doc.type === "fill") {
     const parts = doc.parts.map((part) => mapDoc(part, cb));
     return cb({ ...doc, parts });
-  } else if (doc.type === "if-break") {
+  }
+
+  if (doc.type === "if-break") {
     const breakContents = doc.breakContents && mapDoc(doc.breakContents, cb);
     const flatContents = doc.flatContents && mapDoc(doc.flatContents, cb);
     return cb({ ...doc, breakContents, flatContents });
-  } else if (doc.contents) {
+  }
+
+  if (doc.contents) {
     const contents = mapDoc(doc.contents, cb);
     return cb({ ...doc, contents });
   }
@@ -102,23 +108,6 @@ function findInDoc(doc, fn, defaultValue) {
   }
   traverseDoc(doc, findInDocOnEnterFn);
   return result;
-}
-
-function isEmpty(n) {
-  return typeof n === "string" && n.length === 0;
-}
-
-function isLineNextFn(doc) {
-  if (typeof doc === "string") {
-    return false;
-  }
-  if (doc.type === "line") {
-    return true;
-  }
-}
-
-function isLineNext(doc) {
-  return findInDoc(doc, isLineNextFn, false);
 }
 
 function willBreakFn(doc) {
@@ -189,9 +178,12 @@ function removeLinesFn(doc) {
   // of breaking existing assumptions otherwise.
   if (doc.type === "line" && !doc.hard) {
     return doc.soft ? "" : " ";
-  } else if (doc.type === "if-break") {
+  }
+
+  if (doc.type === "if-break") {
     return doc.flatContents || "";
   }
+
   return doc;
 }
 
@@ -382,9 +374,7 @@ function replaceNewlinesWithLiterallines(doc) {
 module.exports = {
   isConcat,
   getDocParts,
-  isEmpty,
   willBreak,
-  isLineNext,
   traverseDoc,
   findInDoc,
   mapDoc,

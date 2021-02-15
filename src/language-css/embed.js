@@ -2,7 +2,7 @@
 const {
   builders: { hardline },
 } = require("../document");
-const { print: printFrontMatter } = require("../utils/front-matter");
+const printFrontMatter = require("../utils/front-matter/print");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
