@@ -89,6 +89,10 @@ In the above commands:
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
 
+## Regression testing
+
+We have a cool tool for regression testing that runs on GitHub Actions. Have a look: https://github.com/prettier/prettier-regression-testing
+
 ## Deeper testing
 
 You can run `FULL_TEST=1 jest` for a more robust test run, which includes the following additional checks:
