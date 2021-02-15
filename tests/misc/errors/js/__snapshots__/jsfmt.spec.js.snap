@@ -25,6 +25,14 @@ exports[`import-assertions-with-parens.js [babel] format 1`] = `
   2 |"
 `;
 
+exports[`invalid-escape-in-identifier.js [babel] format 1`] = `
+"Invalid Unicode escape (1:7)
+> 1 | const \\\\u{20} = 1
+    |       ^
+  2 | const \\\\u{3000} = 1
+  3 |"
+`;
+
 exports[`module-attributes.js [babel] format 1`] = `
 "Unexpected token, expected \\";\\" (1:28)
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";

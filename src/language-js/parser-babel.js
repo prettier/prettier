@@ -167,6 +167,8 @@ const messagesShouldThrow = new Set([
   // Rethrow on omitted call arguments: foo("a", , "b");
   // ErrorMessages.UnexpectedToken
   "Unexpected token ','",
+  // ErrorMessages.EscapedCharNotAnIdentifier
+  "Invalid Unicode escape",
 ]);
 
 function shouldRethrowRecoveredError(error) {
