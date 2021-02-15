@@ -238,9 +238,13 @@ function couldGroupArg(arg) {
       // app.get("/", (req, res): void => {
       //   res.send("Hello World!");
       // });
-      (!arg.returnType ||
-        !arg.returnType.typeAnnotation ||
-        arg.returnType.typeAnnotation.type !== "TSTypeReference") &&
+      !(
+        arg.returnType &&
+        arg.returnType.typeAnnotation &&
+        arg.returnType.typeAnnotation.type === "TSTypeReference" &&
+        // https://github.com/prettier/prettier/issues/7542
+        (arg.body.type !== "BlockStatement" || arg.body.body.length === 0)
+      ) &&
       (arg.body.type === "BlockStatement" ||
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
