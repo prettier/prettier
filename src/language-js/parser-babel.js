@@ -169,10 +169,12 @@ const messagesShouldThrow = new Set([
   "Unexpected token ','",
   // ErrorMessages.EscapedCharNotAnIdentifier
   "Invalid Unicode escape",
+  "Expecting Unicode escape sequence \\uXXXX",
 ]);
 
 function shouldRethrowRecoveredError(error) {
   const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
+  console.info(message);
   // Only works for literal message
   return messagesShouldThrow.has(message);
 }
