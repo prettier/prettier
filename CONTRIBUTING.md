@@ -29,13 +29,15 @@ Signature:
 
 ```ts
 function run_spec(
-  fixtures: {
-    dirname: string;
-    snippets?: Array<
-      | string
-      | { code: string; name?: string; filename?: string; output?: string }
-    >;
-  },
+  fixtures:
+    | string
+    | {
+        dirname: string;
+        snippets?: Array<
+          | string
+          | { code: string; name?: string; filename?: string; output?: string }
+        >;
+      },
   parsers: string[],
   options?: PrettierOptions & {
     errors: true | { [parserName: string]: true | string[] };
