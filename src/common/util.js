@@ -393,7 +393,10 @@ function printString(raw, options, isDirectiveLiteral) {
 
   /** @type {Quote} */
   const enclosingQuote =
-    options.parser === "json"
+    options.parser === "json" ||
+    (options.parser === "json5" &&
+      options.quoteProps === "preserve" &&
+      !options.singleQuote)
       ? '"'
       : options.__isInHtmlAttribute
       ? "'"
