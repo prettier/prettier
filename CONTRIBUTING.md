@@ -47,17 +47,6 @@ The implementation of `run_spec` can be found in `tests_config/run_spec.js`.
 
 `tests/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.js ../flow/tests/`.
 
-## Deeper testing
-
-You can run `FULL_TEST=1 jest` for a more robust test run, which includes the following additional checks:
-
-- **compare AST** - re-parses the output and makes sure the new AST is equivalent to the original one.
-- **second format** - formats the output again and checks that the second output is the same as the first.
-- **EOL '\r\n'** and **EOL '\r'** - check that replacing line endings with `\r\n` or `\r` in the input doesn't affect the output.
-- **BOM** - checks that adding BOM (`U+FEFF`) to the input affects the output in only one way: the BOM is preserved.
-
-Usually there is no need to run these extra checks locally, since they're run on the CI anyway.
-
 ## Debugging
 
 To debug Prettier locally, you can either debug it in Node (recommended) or the browser.
@@ -99,3 +88,14 @@ In the above commands:
 - `> /dev/null` ensures the formatted output is discarded.
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
+
+## Deeper testing
+
+You can run `FULL_TEST=1 jest` for a more robust test run, which includes the following additional checks:
+
+- **compare AST** - re-parses the output and makes sure the new AST is equivalent to the original one.
+- **second format** - formats the output again and checks that the second output is the same as the first.
+- **EOL '\r\n'** and **EOL '\r'** - check that replacing line endings with `\r\n` or `\r` in the input doesn't affect the output.
+- **BOM** - checks that adding BOM (`U+FEFF`) to the input affects the output in only one way: the BOM is preserved.
+
+Usually there is no need to run these extra checks locally, since they're run on the CI anyway.
