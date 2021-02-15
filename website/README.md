@@ -34,8 +34,6 @@ Pages can be added to the site by putting `.js` files with React components in `
 
 Images and other static assets are placed inside the `static` directory: `static/img/your-image.png` is mapped to `http://prettier.io/img/your-image.png`. Any `.css` files in `static/` are concatenated to the standard styles provided by Docusaurus and used site-wide.
 
-Please run <code>yarn svgo _path/to/image.svg_</code> before committing a new SVG to the repository.
-
 ## Playground
 
 The Playground is not integrated with the Docusaurus infrastructure. Its UI (`website/playground/`) is built separately with webpack configured to put the resulting bundle in Docusaurus’s `static` directory. The `yarn start` command (in `website/`) concurrently starts both Docusaurus’s local server and webpack in the watch mode for the Playground.
