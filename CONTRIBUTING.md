@@ -11,6 +11,42 @@ yarn test
 
 The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
+Each test directory in `tests` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests by calling the `run_spec` global function one or more times. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
+
+```js
+run_spec(__dirname, ["babel", "flow", "typescript"]);`
+```
+
+This verifies that for each file in that directory the output for each listed parser is the same. You can also pass options as the third argument, like this:
+
+```js
+run_spec(__dirname, ["babel"], { trailingComma: "es5" });
+```
+
+Signature:
+
+```ts
+function run_spec(
+  fixtures: { dirname: string; snippets?: string[] } | string,
+  parsers: string[],
+  options?: PrettierOptions & {
+    errors: true | { [parserName: string]: true | string[] };
+  }
+): void;
+```
+
+Parameters:
+
+- `fixtures`: Must be set to `__dirname` or to an object of the shape `{ dirname: __dirname, ... }`. The object may have the `snippets` field to specify extra input entries as a string array in addition to the files in the current directory. For each input entry (a file or a snippet) `run_spec` configures and runs a number of tests. The main check is that for a given input the output should match the snapshot. [Additional checks](#deeper-testing) are controlled by options and environment variables.
+- `parsers`: A list of parser names. The tests verify that the parsers in this list produce the same output. If the list includes `typescript`, then `babel-ts` is included implicitly. If the list includes `babel`, and the current directory is inside `tests/js`, then `espree` and `meriyah` are included implicitly.
+- `options`: In addition to Prettier's formatting option, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`entries: true`) or some combinations of input entries and parsers.
+
+The implementation of `run_spec` can be found in `tests_config/run_spec.js`.
+
+`tests/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.js ../flow/tests/`.
+
+## Deeper testing
+
 You can run `FULL_TEST=1 jest` for a more robust test run, which includes the following additional checks:
 
 - **compare AST** - re-parses the output and makes sure the new AST is equivalent to the original one.
@@ -19,20 +55,6 @@ You can run `FULL_TEST=1 jest` for a more robust test run, which includes the fo
 - **BOM** - checks that adding BOM (`U+FEFF`) to the input affects the output in only one way: the BOM is preserved.
 
 Usually there is no need to run these extra checks locally, since they're run on the CI anyway.
-
-Each test folder has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the folder is used for tests. For JavaScript formatting tests, it generally looks like this:
-
-```js
-run_spec(__dirname, ["babel", "flow", "typescript"]);`
-```
-
-This will verify that the output for each listed parser is the same. You can also pass options as the third argument, like this:
-
-```js
-run_spec(__dirname, ["babel"], { trailingComma: "es5" });
-```
-
-`tests/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.js ../flow/tests/`.
 
 ## Debugging
 
@@ -45,7 +67,7 @@ To debug Prettier locally, you can either debug it in Node (recommended) or the 
 
 Run `yarn fix` to lint and format all files.
 
-After opening a PR, describe your changes in a file in the `changelog_unreleased` folder following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR.
+After opening a PR, describe your changes in a file in the `changelog_unreleased` directory following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR.
 
 Take a look at [`commands.md`](commands.md) and, if you know Haskell, check out [Wadler's paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to understand how Prettier works.
 
