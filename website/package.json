@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "clipboard": "2.0.6",
-    "codemirror-graphql": "0.15.2",
+    "codemirror-graphql": "1.0.0",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
     "react": "17.0.1",
