@@ -169,6 +169,7 @@ const messagesShouldThrow = new Set([
   "Unexpected token ','",
   // ErrorMessages.EscapedCharNotAnIdentifier
   "Invalid Unicode escape",
+  // ErrorMessages.MissingUnicodeEscape
   "Expecting Unicode escape sequence \\uXXXX",
 ]);
 
