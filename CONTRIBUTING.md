@@ -11,13 +11,15 @@ yarn test
 
 The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
-Each test directory in `tests` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests by calling the `run_spec` global function one or more times. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
+Each test directory in `tests` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `run_spec` global function. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
 
 ```js
 run_spec(__dirname, ["babel", "flow", "typescript"]);`
 ```
 
-This verifies that for each file in that directory the output for each listed parser is the same. You can also pass options as the third argument, like this:
+This verifies that for each file in the directory, the output matches the snapshot and is the same for each listed parser.
+
+You can also pass options as the third argument:
 
 ```js
 run_spec(__dirname, ["babel"], { trailingComma: "es5" });
