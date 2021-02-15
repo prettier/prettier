@@ -238,13 +238,11 @@ function couldGroupArg(arg) {
       // app.get("/", (req, res): void => {
       //   res.send("Hello World!");
       // });
-      !(
-        arg.returnType &&
-        arg.returnType.typeAnnotation &&
-        arg.returnType.typeAnnotation.type === "TSTypeReference" &&
+      (!arg.returnType ||
+        !arg.returnType.typeAnnotation ||
+        arg.returnType.typeAnnotation.type !== "TSTypeReference" ||
         // https://github.com/prettier/prettier/issues/7542
-        (arg.body.type !== "BlockStatement" || arg.body.body.length === 0)
-      ) &&
+        isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
@@ -298,6 +296,14 @@ function isReactHookCallWithDepsArray(args) {
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
+  );
+}
+
+function isNonEmptyBlockStatement(node) {
+  return (
+    node.type === "BlockStatement" &&
+    (node.body.some((node) => node.type !== "EmptyStatement") ||
+      hasComment(node, CommentCheckFlags.Dangling))
   );
 }
 

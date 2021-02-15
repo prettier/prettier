@@ -9,3 +9,11 @@ export const Bar = forwardRef((props: BarProps, ref: Ref<HTMLElement>): JSX.Elem
 users.map((user: User): User => {
   return user;
 })
+
+users.map((user: User): User => {
+  ; // comment
+})
+
+users.map((user: User): User => {
+  // comment
+})
