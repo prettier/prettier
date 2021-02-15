@@ -70,6 +70,8 @@ Take a look at [`commands.md`](commands.md) and, if you know Haskell, check out 
 
 If you want to know more about Prettier's GitHub labels, see the [Issue Labels](https://github.com/prettier/prettier/wiki/Issue-Labels) page on the Wiki.
 
+# Advanced topics
+
 ## Performance
 
 If you're contributing a performance improvement, the following Prettier CLI options can help:
