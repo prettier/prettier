@@ -64,7 +64,7 @@ To debug Prettier locally, you can either debug it in Node (recommended) or the 
 
 ## Other
 
-Run `yarn fix` to lint and format all files.
+The project uses ESLint for linting and Prettier for formatting. If your editor isn't set up to work with them, you can lint and format all files from the command line using `yarn fix`.
 
 After opening a PR, describe your changes in a file in the `changelog_unreleased` directory following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR.
 
