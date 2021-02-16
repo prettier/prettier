@@ -3095,15 +3095,16 @@ eslint-plugin-react@7.22.0:
     resolve "^1.18.1"
     string.prototype.matchall "^4.0.2"
 
-eslint-plugin-unicorn@28.0.0:
-  version "28.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-28.0.0.tgz#41bbc9a62119a9d19466942f9ad059c57d54532f"
-  integrity sha512-+VTwBbHsJk/jACDxeWhtLfLxru+9cV+jt/mX7a/WjHa/5xrS0S4ZFYJSg4z54s0waeAAO9D+CPB39Pch40qABg==
+eslint-plugin-unicorn@28.0.1:
+  version "28.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-28.0.1.tgz#a412c2f5ef707444e0147e2994b10ab35f4d812d"
+  integrity sha512-VuohWRKJuVhuClqZcq+DREAFNDEUDqU7E95SY6Ql3BmH8je5yVqZ6AE7dHQWEa6mDm3aUmo/eT3fXg1jCk17ZA==
   dependencies:
     ci-info "^2.0.0"
     clean-regexp "^1.0.0"
     eslint-template-visitor "^2.2.2"
     eslint-utils "^2.1.0"
+    eslint-visitor-keys "^2.0.0"
     import-modules "^2.1.0"
     lodash "^4.17.20"
     pluralize "^8.0.0"
