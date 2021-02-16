@@ -36,7 +36,7 @@ const docExplorerPlugin = {
       parse: (text) =>
         new Function(
           `{ ${Object.keys(prettier.doc.builders)} }`,
-          `const result = ${text || "''"}; return result;`
+          `const result = (${text || "''"}\n); return result;`
         )(prettier.doc.builders),
       astFormat: "doc-explorer",
     },
