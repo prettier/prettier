@@ -25,8 +25,6 @@ function printMemberExpression(path, options, print) {
     (firstNonMemberParent &&
       (firstNonMemberParent.type === "NewExpression" ||
         firstNonMemberParent.type === "BindExpression" ||
-        (firstNonMemberParent.type === "VariableDeclarator" &&
-          firstNonMemberParent.id.type !== "Identifier") ||
         (firstNonMemberParent.type === "AssignmentExpression" &&
           firstNonMemberParent.left.type !== "Identifier"))) ||
     n.computed ||
