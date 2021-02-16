@@ -14,7 +14,7 @@ The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-
 Each test directory in `tests` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `run_spec` global function. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
 
 ```js
-run_spec(__dirname, ["babel", "flow", "typescript"]);`
+run_spec(__dirname, ["babel", "flow", "typescript"]);
 ```
 
 This verifies that for each file in the directory, the output matches the snapshot and is the same for each listed parser.
