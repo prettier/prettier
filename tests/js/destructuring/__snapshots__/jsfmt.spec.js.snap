@@ -2,7 +2,7 @@
 
 exports[`destructuring.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -57,9 +57,7 @@ const [one, two = null, three = null] = arr;
 a = ([s = 1]) => 1;
 const { children, ...props } = this.props;
 
-const {
-  user: { firstName, lastName },
-} = this.props;
+const { user: { firstName, lastName } } = this.props;
 
 const {
   name: { first, last },
@@ -79,12 +77,7 @@ const UserComponent = function ({
   return;
 };
 
-const {
-  a,
-  b,
-  c,
-  d: { e },
-} = someObject;
+const { a, b, c, d: { e } } = someObject;
 
 try {
   // code
@@ -94,11 +87,7 @@ try {
 
 try {
   // code
-} catch ({
-  data: {
-    message: { errors },
-  },
-}) {
+} catch ({ data: { message: { errors } } }) {
   // code
 }
 
@@ -112,6 +101,341 @@ class A {
   func(id, { blog: { title } }) {
     return id + title;
   }
+}
+
+================================================================================
+`;
+
+exports[`sibling-arrow-function-object-members.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// small enough for one line:
+const f1 = ({ first, second : { third } }) => combine(second, third);
+
+// these arguments should be destructured on multiple lines:
+const f2 = ({ a: { data1 }, b: { data2, data3 } }) => f(data1, data2, data3);
+
+// in arrow function arguments nested inside a function call,
+// small enough for one line:
+registerReducer(({a: { b, c } }) => combine(b, c))
+
+// in arrow function arguments nested inside a function call,
+// should be split into multiple lines:
+registerReducer(({a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
+
+// in second arrow function argument nested inside a function call,
+// XXX TODO should be split into multiple lines:
+registerReducer((event, {a: { b, c }, d: {e, f } }) => combine(b, c, e, f))
+
+=====================================output=====================================
+// small enough for one line:
+const f1 = ({ first, second: { third } }) => combine(second, third);
+
+// these arguments should be destructured on multiple lines:
+const f2 = ({
+  a: { data1 },
+  b: { data2, data3 },
+}) => f(data1, data2, data3);
+
+// in arrow function arguments nested inside a function call,
+// small enough for one line:
+registerReducer(({ a: { b, c } }) => combine(b, c));
+
+// in arrow function arguments nested inside a function call,
+// should be split into multiple lines:
+registerReducer(({
+  a: { b, c },
+  d: { e, f },
+}) => combine(b, c, e, f));
+
+// in second arrow function argument nested inside a function call,
+// XXX TODO should be split into multiple lines:
+registerReducer((event, { a: { b, c }, d: { e, f } }) => combine(b, c, e, f));
+
+================================================================================
+`;
+
+exports[`sibling-catch-object-members.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// these catch arguments should be destructured on multiple lines:
+try {
+  // code
+} catch ({ first: { info1, info2 }, second: { info3, info4 } }) {
+  // code
+}
+
+=====================================output=====================================
+// these catch arguments should be destructured on multiple lines:
+try {
+  // code
+} catch ({
+  first: { info1, info2 },
+  second: { info3, info4 },
+}) {
+  // code
+}
+
+================================================================================
+`;
+
+exports[`sibling-const-object-members.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// these siblings should be destructured on multiple lines:
+const { a: { innerMember }, b: { anotherInnerMember } } = something;
+
+// these siblings are small enough for one line:
+const { a: { innerMember2 }, littleSibling } = something;
+
+// small enough for one line:
+const {
+  tinySibling1,
+  tinySibling2,
+  tinySibling3
+} = something;
+
+// respect blank line within destructured const object:
+const {
+  tinySibling4,
+
+  tinySibling5,
+  tinySibling6
+} = something;
+
+// small enough for one line:
+const { a: { innerData } = {} } = thing;
+
+// small enough for one line:
+const { firstMember = {}, secondMember = {} } = thing;
+
+// these destructured objects should be split into multiple lines:
+const { a: { innerData1, innerData2 } = {}, b: { innerData3 } = {} } = thing;
+
+// these destructured objects should be split into multiple lines:
+const { a: [innerData4] = [], b: [innerData5] = [] } = thing;
+
+// these destructured objects should be split into multiple lines:
+const { a: { innerData6 } = {}, b: [innerData7] = [] } = thing;
+
+// small enough for one line:
+const { a: [innerData8], anotherMember = {} } = thing;
+
+// XXX TODO [KNOWN REGRESSION] should be split into multiple lines
+// due to the deep member:
+const { a: { b: { deepMember } } } = abc
+
+=====================================output=====================================
+// these siblings should be destructured on multiple lines:
+const {
+  a: { innerMember },
+  b: { anotherInnerMember },
+} = something;
+
+// these siblings are small enough for one line:
+const { a: { innerMember2 }, littleSibling } = something;
+
+// small enough for one line:
+const { tinySibling1, tinySibling2, tinySibling3 } = something;
+
+// respect blank line within destructured const object:
+const {
+  tinySibling4,
+
+  tinySibling5,
+  tinySibling6,
+} = something;
+
+// small enough for one line:
+const { a: { innerData } = {} } = thing;
+
+// small enough for one line:
+const { firstMember = {}, secondMember = {} } = thing;
+
+// these destructured objects should be split into multiple lines:
+const {
+  a: { innerData1, innerData2 } = {},
+  b: { innerData3 } = {},
+} = thing;
+
+// these destructured objects should be split into multiple lines:
+const {
+  a: [innerData4] = [],
+  b: [innerData5] = [],
+} = thing;
+
+// these destructured objects should be split into multiple lines:
+const {
+  a: { innerData6 } = {},
+  b: [innerData7] = [],
+} = thing;
+
+// small enough for one line:
+const { a: [innerData8], anotherMember = {} } = thing;
+
+// XXX TODO [KNOWN REGRESSION] should be split into multiple lines
+// due to the deep member:
+const { a: { b: { deepMember } } } = abc;
+
+================================================================================
+`;
+
+exports[`sibling-function-object-array-members.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// small enough for one line:
+function f1({ first: [inner1, inner2], second }) {}
+
+// these arguments should be destructured on multiple lines:
+function f2({ first: [inner1, inner2], second: [inner3, inner4] }) {}
+
+// these arguments should be destructured on multiple lines:
+function f3({ first: [inner1, inner2], second: { inner3, inner4 } }) {}
+
+=====================================output=====================================
+// small enough for one line:
+function f1({ first: [inner1, inner2], second }) {}
+
+// these arguments should be destructured on multiple lines:
+function f2({
+  first: [inner1, inner2],
+  second: [inner3, inner4],
+}) {}
+
+// these arguments should be destructured on multiple lines:
+function f3({
+  first: [inner1, inner2],
+  second: { inner3, inner4 },
+}) {}
+
+================================================================================
+`;
+
+exports[`sibling-function-object-members.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// small enough for one line:
+function f1({ first: { inner1, inner2 }, second }) {}
+
+// these arguments should be destructured on multiple lines:
+function f2({ first: { inner1, inner2 }, second: { inner3, inner4 } }) {}
+
+// small enough for one line:
+function f3({ first: { inner1, inner2 }, second } = {}) {}
+
+// these arguments should be destructured on multiple lines:
+function f4({ a: { inner1, inner2 }, b: { inner3, inner4 } } = {}) {}
+
+const obj = {
+  // these arguments should be destructured on multiple lines:
+  func({ a: { info1, info2 }, b: { info3, info4 } }) {}
+};
+
+class A {
+  // these arguments should be destructured on multiple lines:
+  func({ a: { info1, info2 }, b: { info3, info4 } }) {}
+}
+
+=====================================output=====================================
+// small enough for one line:
+function f1({ first: { inner1, inner2 }, second }) {}
+
+// these arguments should be destructured on multiple lines:
+function f2({
+  first: { inner1, inner2 },
+  second: { inner3, inner4 },
+}) {}
+
+// small enough for one line:
+function f3({ first: { inner1, inner2 }, second } = {}) {}
+
+// these arguments should be destructured on multiple lines:
+function f4({
+  a: { inner1, inner2 },
+  b: { inner3, inner4 },
+} = {}) {}
+
+const obj = {
+  // these arguments should be destructured on multiple lines:
+  func({
+    a: { info1, info2 },
+    b: { info3, info4 },
+  }) {},
+};
+
+class A {
+  // these arguments should be destructured on multiple lines:
+  func({
+    a: { info1, info2 },
+    b: { info3, info4 },
+  }) {}
+}
+
+================================================================================
+`;
+
+exports[`sibling-private-function-object-members.js [espree] format 1`] = `
+"Unexpected character '#' (3:3)
+  1 | class A {
+  2 |   // small enough for one line:
+> 3 |   #f1({ a, b }) {}
+    |   ^
+  4 | 
+  5 |   // these arguments should be destructured on multiple lines:
+  6 |   #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}"
+`;
+
+exports[`sibling-private-function-object-members.js [flow] format 1`] = `
+"Classes may not have private methods. (3:3)
+  1 | class A {
+  2 |   // small enough for one line:
+> 3 |   #f1({ a, b }) {}
+    |   ^^^^^^^^^^^^^^^^
+  4 | 
+  5 |   // these arguments should be destructured on multiple lines:
+  6 |   #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}"
+`;
+
+exports[`sibling-private-function-object-members.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  // small enough for one line:
+  #f1({ a, b }) {}
+
+  // these arguments should be destructured on multiple lines:
+  #f2({ a: { info1, info2 }, b: { info3, info4 } }) {}
+}
+
+
+=====================================output=====================================
+class A {
+  // small enough for one line:
+  #f1({ a, b }) {}
+
+  // these arguments should be destructured on multiple lines:
+  #f2({
+    a: { info1, info2 },
+    b: { info3, info4 },
+  }) {}
 }
 
 ================================================================================

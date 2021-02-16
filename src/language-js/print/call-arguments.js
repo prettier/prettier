@@ -31,6 +31,8 @@ const {
   utils: { willBreak },
 } = require("../../document");
 
+const { shouldBreakForObjectPattern } = require("./object");
+
 function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
@@ -42,6 +44,25 @@ function printCallArguments(path, options, print) {
       printDanglingComments(path, options, /* sameIndent */ true),
       ")",
     ];
+  }
+
+  // Very simple solution to split a case like this into multiple lines:
+  //
+  // registerReducer(({
+  //   a: { b, c },
+  //   d: { e, f },
+  // }) => combine(b, c, e, f));
+  //
+  // Fails to handle a case with more arguments, like this:
+  //
+  // registerReducer((event, { a: { b, c }, d: { e, f } }) => combine(b, c, e, f))
+  if (
+    args.length === 1 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    args[0].params.length > 0 &&
+    shouldBreakForObjectPattern(args[0].params[0])
+  ) {
+    return ["(", path.call(print, "arguments", 0), ")"];
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])

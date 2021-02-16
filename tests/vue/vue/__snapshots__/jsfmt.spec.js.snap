@@ -301,32 +301,16 @@ semi: false
     "
     slot-scope="foo"
     slot-scope="{ row }"
-    slot-scope="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    slot-scope="{ destructuring: { a: { b } } }"
     #default="foo"
     #default="{ row }"
-    #default="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    #default="{ destructuring: { a: { b } } }"
     v-slot="foo"
     v-slot="{ row }"
-    v-slot="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    v-slot="{ destructuring: { a: { b } } }"
     v-slot:name="foo"
     v-slot:name="{ row }"
-    v-slot:name="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    v-slot:name="{ destructuring: { a: { b } } }"
     :class="{
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
     }"
@@ -355,11 +339,7 @@ semi: false
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
-    #default="{
-      foo: {
-        bar: { baz },
-      },
-    }"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 
@@ -667,32 +647,16 @@ trailingComma: "none"
     "
     slot-scope="foo"
     slot-scope="{ row }"
-    slot-scope="{
-      destructuring: {
-        a: { b }
-      }
-    }"
+    slot-scope="{ destructuring: { a: { b } } }"
     #default="foo"
     #default="{ row }"
-    #default="{
-      destructuring: {
-        a: { b }
-      }
-    }"
+    #default="{ destructuring: { a: { b } } }"
     v-slot="foo"
     v-slot="{ row }"
-    v-slot="{
-      destructuring: {
-        a: { b }
-      }
-    }"
+    v-slot="{ destructuring: { a: { b } } }"
     v-slot:name="foo"
     v-slot:name="{ row }"
-    v-slot:name="{
-      destructuring: {
-        a: { b }
-      }
-    }"
+    v-slot:name="{ destructuring: { a: { b } } }"
     :class="{
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
     }"
@@ -721,11 +685,7 @@ trailingComma: "none"
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
-    #default="{
-      foo: {
-        bar: { baz }
-      }
-    }"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 
@@ -1032,32 +992,16 @@ printWidth: 80
     "
     slot-scope="foo"
     slot-scope="{ row }"
-    slot-scope="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    slot-scope="{ destructuring: { a: { b } } }"
     #default="foo"
     #default="{ row }"
-    #default="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    #default="{ destructuring: { a: { b } } }"
     v-slot="foo"
     v-slot="{ row }"
-    v-slot="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    v-slot="{ destructuring: { a: { b } } }"
     v-slot:name="foo"
     v-slot:name="{ row }"
-    v-slot:name="{
-      destructuring: {
-        a: { b },
-      },
-    }"
+    v-slot:name="{ destructuring: { a: { b } } }"
     :class="{
       longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
     }"
@@ -1086,11 +1030,7 @@ printWidth: 80
     @click="a[1];"
     @click="a['b'];"
     @click="a[null]"
-    #default="{
-      foo: {
-        bar: { baz },
-      },
-    }"
+    #default="{ foo: { bar: { baz } } }"
   ></div>
 </template>
 

@@ -26,6 +26,21 @@ const { printHardlineAfterHeritage } = require("./class");
 
 /** @typedef {import("../../document").Doc} Doc */
 
+function shouldBreakForObjectPattern(n) {
+  return (
+    n.type === "ObjectPattern" &&
+    n.properties.filter(
+      ({ value }) =>
+        value &&
+        (value.type === "ObjectPattern" ||
+          value.type === "ArrayPattern" ||
+          (value.type === "AssignmentPattern" &&
+            (value.left.type === "ArrayPattern" ||
+              value.left.type === "ObjectPattern")))
+    ).length > 1
+  );
+}
+
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const n = path.getValue();
@@ -52,6 +67,7 @@ function printObject(path, options, print) {
     .sort((a, b) => locStart(a) - locStart(b))[0];
 
   const parent = path.getParentNode(0);
+
   const isFlowInterfaceLikeBody =
     isTypeAnnotation &&
     parent &&
@@ -59,24 +75,11 @@ function printObject(path, options, print) {
       parent.type === "DeclareInterface" ||
       parent.type === "DeclareClass") &&
     path.getName() === "body";
+
   const shouldBreak =
     n.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
-    (n.type === "ObjectPattern" &&
-      parent.type !== "FunctionDeclaration" &&
-      parent.type !== "FunctionExpression" &&
-      parent.type !== "ArrowFunctionExpression" &&
-      parent.type !== "ObjectMethod" &&
-      parent.type !== "ClassMethod" &&
-      parent.type !== "ClassPrivateMethod" &&
-      parent.type !== "AssignmentPattern" &&
-      parent.type !== "CatchClause" &&
-      n.properties.some(
-        (property) =>
-          property.value &&
-          (property.value.type === "ObjectPattern" ||
-            property.value.type === "ArrayPattern")
-      )) ||
+    shouldBreakForObjectPattern(n) ||
     (n.type !== "ObjectPattern" &&
       firstProperty &&
       hasNewlineInRange(
@@ -199,11 +202,15 @@ function printObject(path, options, print) {
     ];
   }
 
+  const isTSTypeLiteral = !isTypeAnnotation && n.type === "TSTypeLiteral";
+
+  // Only needed in case of a type annotation or shouldBreak is false:
   // If we inline the object as first argument of the parent, we don't want
   // to create another group so that the object breaks before the return
   // type
   if (
-    path.match(
+    (isTypeAnnotation || isTSTypeLiteral || !shouldBreak) &&
+    (path.match(
       (node) => node.type === "ObjectPattern" && !node.decorators,
       (node, name, number) =>
         shouldHugFunctionParameters(node) &&
@@ -213,18 +220,18 @@ function printObject(path, options, print) {
           name === "rest") &&
         number === 0
     ) ||
-    path.match(
-      shouldHugType,
-      (node, name) => name === "typeAnnotation",
-      (node, name) => name === "typeAnnotation",
-      (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
-        (name === "params" ||
-          name === "parameters" ||
-          name === "this" ||
-          name === "rest") &&
-        number === 0
-    )
+      path.match(
+        shouldHugType,
+        (node, name) => name === "typeAnnotation",
+        (node, name) => name === "typeAnnotation",
+        (node, name, number) =>
+          shouldHugFunctionParameters(node) &&
+          (name === "params" ||
+            name === "parameters" ||
+            name === "this" ||
+            name === "rest") &&
+          number === 0
+      ))
   ) {
     return content;
   }
@@ -232,4 +239,4 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-module.exports = { printObject };
+module.exports = { shouldBreakForObjectPattern, printObject };
