@@ -135,7 +135,7 @@ function handleMessage(message) {
           prettier.__debug.printToDoc(message.code, options),
           { plugins }
         );
-      } catch (e) {
+      } catch {
         response.debug.doc = "";
       }
     }
@@ -168,6 +168,19 @@ function formatCode(text, options) {
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return { formatted: e.stack || String(e), error: true };
+    return { formatted: stringifyError(e), error: true };
   }
+}
+
+function stringifyError(e) {
+  const stringified = String(e);
+  if (typeof e.stack !== "string") {
+    return stringified;
+  }
+  if (e.stack.includes(stringified)) {
+    // Chrome
+    return e.stack;
+  }
+  // Firefox
+  return stringified + "\n" + e.stack;
 }

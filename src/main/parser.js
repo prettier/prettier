@@ -102,7 +102,7 @@ function parse(text, opts) {
     }
 
     /* istanbul ignore next */
-    throw error.stack;
+    throw error;
   }
 }
 
