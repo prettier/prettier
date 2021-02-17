@@ -14,7 +14,7 @@ const {
     lineSuffixBoundary,
     join,
   },
-  utils: { willBreak, isLineNext, isEmpty },
+  utils: { willBreak },
 } = require("../../document");
 
 const { getLast, getPreferredQuote } = require("../../common/util");
@@ -22,7 +22,7 @@ const {
   isJsxNode,
   rawText,
   isLiteral,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
   isStringLiteral,
   isBinaryish,
   hasComment,
@@ -32,8 +32,11 @@ const {
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
 
+const isEmptyStringOrAnyLine = (doc) =>
+  doc === "" || doc === line || doc === hardline || doc === softline;
+
 /**
- * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../../common/ast-path")} AstPath
  * @typedef {import("../types/estree").Node} Node
  * @typedef {import("../types/estree").JSXElement} JSXElement
  */
@@ -175,18 +178,15 @@ function printJsxElementInternal(path, options, print) {
   }
 
   // Trim trailing lines (or empty strings)
-  while (
-    children.length > 0 &&
-    (isLineNext(getLast(children)) || isEmpty(getLast(children)))
-  ) {
+  while (children.length > 0 && isEmptyStringOrAnyLine(getLast(children))) {
     children.pop();
   }
 
   // Trim leading lines (or empty strings)
   while (
-    children.length > 0 &&
-    (isLineNext(children[0]) || isEmpty(children[0])) &&
-    (isLineNext(children[1]) || isEmpty(children[1]))
+    children.length > 1 &&
+    isEmptyStringOrAnyLine(children[0]) &&
+    isEmptyStringOrAnyLine(children[1])
   ) {
     children.shift();
     children.shift();
@@ -451,7 +451,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   const shouldBreak = path.match(
     undefined,
     (node) => node.type === "ArrowFunctionExpression",
-    isCallOrOptionalCallExpression,
+    isCallExpression,
     (node) => node.type === "JSXExpressionContainer"
   );
 
@@ -505,8 +505,7 @@ function printJsxExpressionContainer(path, options, print) {
       (n.expression.type === "ArrayExpression" ||
         n.expression.type === "ObjectExpression" ||
         n.expression.type === "ArrowFunctionExpression" ||
-        n.expression.type === "CallExpression" ||
-        n.expression.type === "OptionalCallExpression" ||
+        isCallExpression(n.expression) ||
         n.expression.type === "FunctionExpression" ||
         n.expression.type === "TemplateLiteral" ||
         n.expression.type === "TaggedTemplateExpression" ||
@@ -813,7 +812,7 @@ function isJsxWhitespaceExpression(node) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function hasJsxIgnoreComment(path) {

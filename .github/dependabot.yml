@@ -3,15 +3,20 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
-    open-pull-requests-limit: 20
+      interval: weekly
+      day: sunday
+      time: "01:00"
 
   - package-ecosystem: "npm"
     directory: "/website"
     schedule:
-      interval: "daily"
+      interval: weekly
+      day: sunday
+      time: "01:00"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: weekly
+      day: sunday
+      time: "01:00"

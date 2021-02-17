@@ -283,6 +283,27 @@ const UsersSection = ({ language }) => {
         >
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
+              href="https://2020.stateofjs.com/en-US/other-tools/utilities"
+              className="growOnHover"
+            >
+              <img
+                src="/images/state_of_js_grey.svg"
+                style={{ height: "100px" }}
+              />
+            </a>
+            <div style={{ marginLeft: ".7em", width: "260px" }}>
+              <p>
+                Regularly used by more than <strong>70%</strong> of respondents
+                to State of JS 2020
+              </p>
+              <Button href="https://2020.stateofjs.com/en-US/other-tools/utilities">
+                Go to Survey Results
+              </Button>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", marginTop: "22px" }}>
+            <a
               href="https://github.com/prettier/prettier"
               className="growOnHover"
             >

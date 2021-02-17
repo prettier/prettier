@@ -2,18 +2,16 @@
 
 const path = require("path");
 const isProduction = process.env.NODE_ENV === "production";
-const prettierRootDir = isProduction
-  ? process.env.PRETTIER_DIR
-  : path.join(__dirname, "..");
-const { bin } = require(path.join(prettierRootDir, "package.json"));
+const { PRETTIER_DIR } = process.env;
+const { bin } = require(path.join(PRETTIER_DIR, "package.json"));
 const prettierCli = path.join(
-  prettierRootDir,
+  PRETTIER_DIR,
   typeof bin === "object" ? bin.prettier : bin
 );
 
 const thirdParty = isProduction
-  ? path.join(prettierRootDir, "./third-party")
-  : path.join(prettierRootDir, "./src/common/third-party");
+  ? path.join(PRETTIER_DIR, "./third-party")
+  : path.join(PRETTIER_DIR, "./src/common/third-party");
 
 const projectRoot = path.join(__dirname, "..");
 

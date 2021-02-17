@@ -96,6 +96,8 @@ Note that Prettier never unquotes numeric property names in Angular expressions,
 [quote-props-flow]: https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g
 [quote-props-vue]: https://github.com/prettier/prettier/issues/10127
 
+If this option is set to `preserve`, `singleQuote` to `false` (default value), and `parser` to `json5`, double quotes are always used for strings. This effectively allows using the `json5` parser for “JSON with comments and trailing commas”.
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.
@@ -323,7 +325,7 @@ Specify the global whitespace sensitivity for HTML, Vue, Angular, and Handlebars
 
 Valid options:
 
-- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `ignore`.
+- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `strict`.
 - `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
 - `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 

@@ -45,7 +45,7 @@ exports[`abstractProperties.ts [babel-ts] format 1`] = `
     |                      ^
   3 |     private abstract b: 2;
   4 |     static abstract c: 3;
-  5 | "
+  5 |"
 `;
 
 exports[`abstractProperties.ts format 1`] = `

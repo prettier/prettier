@@ -45,11 +45,12 @@ function js() {
 }
 \\"use strict\\";
 
-module.exports = {
-        endOfLine:
-                \\"auto\\",
-        tabWidth: 8,
-};
+module.exports =
+        {
+                endOfLine:
+                        \\"auto\\",
+                tabWidth: 8,
+        };
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"
@@ -106,9 +107,12 @@ exports[`accepts configuration from --config (stdout) 1`] = `
 
 exports[`accepts configuration from --config (write) 1`] = `Array []`;
 
-exports[`prints nothing when no file found with --find-config-path (stderr) 1`] = `""`;
+exports[`prints error message when no file found with --find-config-path (stderr) 1`] = `
+"[error] Can not find configure file for \\"..\\"
+"
+`;
 
-exports[`prints nothing when no file found with --find-config-path (write) 1`] = `Array []`;
+exports[`prints error message when no file found with --find-config-path (write) 1`] = `Array []`;
 
 exports[`resolves configuration file with --find-config-path file (stderr) 1`] = `""`;
 

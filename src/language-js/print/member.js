@@ -3,7 +3,7 @@
 const {
   builders: { softline, group, indent },
 } = require("../../document");
-const { isNumericLiteral } = require("../utils");
+const { isNumericLiteral, isMemberExpression } = require("../utils");
 const { printOptionalToken } = require("./misc");
 
 function printMemberExpression(path, options, print) {
@@ -17,8 +17,7 @@ function printMemberExpression(path, options, print) {
     i++;
   } while (
     firstNonMemberParent &&
-    (firstNonMemberParent.type === "MemberExpression" ||
-      firstNonMemberParent.type === "OptionalMemberExpression" ||
+    (isMemberExpression(firstNonMemberParent) ||
       firstNonMemberParent.type === "TSNonNullExpression")
   );
 
@@ -26,15 +25,12 @@ function printMemberExpression(path, options, print) {
     (firstNonMemberParent &&
       (firstNonMemberParent.type === "NewExpression" ||
         firstNonMemberParent.type === "BindExpression" ||
-        (firstNonMemberParent.type === "VariableDeclarator" &&
-          firstNonMemberParent.id.type !== "Identifier") ||
         (firstNonMemberParent.type === "AssignmentExpression" &&
           firstNonMemberParent.left.type !== "Identifier"))) ||
     n.computed ||
     (n.object.type === "Identifier" &&
       n.property.type === "Identifier" &&
-      parent.type !== "MemberExpression" &&
-      parent.type !== "OptionalMemberExpression");
+      !isMemberExpression(parent));
 
   return [
     path.call(print, "object"),

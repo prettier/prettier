@@ -6,7 +6,7 @@ exports[`classes.js - {"quoteProps":"as-needed"} [espree] format 1`] = `
 > 2 |   a = \\"a\\"
     |     ^
   3 | };
-  4 | 
+  4 |
   5 | class B {"
 `;
 
@@ -63,7 +63,7 @@ exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} [espree] fo
 > 2 |   a = \\"a\\"
     |     ^
   3 | };
-  4 | 
+  4 |
   5 | class B {"
 `;
 
@@ -121,7 +121,7 @@ exports[`classes.js - {"quoteProps":"consistent"} [espree] format 1`] = `
 > 2 |   a = \\"a\\"
     |     ^
   3 | };
-  4 | 
+  4 |
   5 | class B {"
 `;
 
@@ -178,7 +178,7 @@ exports[`classes.js - {"quoteProps":"preserve"} [espree] format 1`] = `
 > 2 |   a = \\"a\\"
     |     ^
   3 | };
-  4 | 
+  4 |
   5 | class B {"
 `;
 

@@ -14,7 +14,7 @@ const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { printPropertyKey } = require("./property");
-const { printAssignmentRight } = require("./assignment");
+const { printAssignment } = require("./assignment");
 
 function printClass(path, options, print) {
   const n = path.getValue();
@@ -73,15 +73,11 @@ function printClass(path, options, print) {
   );
 
   if (groupMode) {
-    const printedExtends = extendsParts;
     let printedPartsGroup;
     if (shouldIndentOnlyHeritageClauses(n)) {
-      printedPartsGroup = [
-        ...partsGroup,
-        ifBreak(indent(printedExtends), printedExtends),
-      ];
+      printedPartsGroup = [...partsGroup, indent(extendsParts)];
     } else {
-      printedPartsGroup = indent([...partsGroup, printedExtends]);
+      printedPartsGroup = indent([...partsGroup, extendsParts]);
     }
     parts.push(group(printedPartsGroup, { id: getHeritageGroupId(n) }));
   } else {
@@ -207,16 +203,8 @@ function printClassProperty(path, options, print) {
     printOptionalToken(path),
     printTypeAnnotation(path, options, print)
   );
-  if (n.value) {
-    parts.push(
-      " =",
-      printAssignmentRight(n.key, n.value, path.call(print, "value"), options)
-    );
-  }
 
-  parts.push(semi);
-
-  return group(parts);
+  return [printAssignment(path, options, print, parts, " =", "value"), semi];
 }
 
 function printDecorators(path, options, print) {

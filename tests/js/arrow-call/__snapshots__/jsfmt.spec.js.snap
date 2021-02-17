@@ -309,7 +309,7 @@ exports[`class-property.js [espree] format 1`] = `
 > 3 |     static propTypes = {};
     |                      ^
   4 |   };
-  5 | "
+  5 |"
 `;
 
 exports[`class-property.js - {"arrowParens":"always"} [espree] format 1`] = `
@@ -319,7 +319,7 @@ exports[`class-property.js - {"arrowParens":"always"} [espree] format 1`] = `
 > 3 |     static propTypes = {};
     |                      ^
   4 |   };
-  5 | "
+  5 |"
 `;
 
 exports[`class-property.js - {"arrowParens":"always"} format 1`] = `
@@ -350,7 +350,7 @@ exports[`class-property.js - {"trailingComma":"all"} [espree] format 1`] = `
 > 3 |     static propTypes = {};
     |                      ^
   4 |   };
-  5 | "
+  5 |"
 `;
 
 exports[`class-property.js - {"trailingComma":"all"} format 1`] = `

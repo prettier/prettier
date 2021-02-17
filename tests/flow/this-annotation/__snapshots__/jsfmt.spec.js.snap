@@ -57,12 +57,12 @@ function baz(this: number, ...a) {}
 exports[`function_type.js - {"trailingComma":"all"} [babel-flow] format 1`] = `
 "Unexpected token, expected \\")\\" (3:16)
   1 | // @flow
-  2 | 
+  2 |
 > 3 | type T = (this : number, a : string, b : number) => void
     |                ^
-  4 | 
+  4 |
   5 | type U = (this : number, ...c : any) => void
-  6 | "
+  6 |"
 `;
 
 exports[`function_type.js - {"trailingComma":"all"} format 1`] = `
@@ -95,11 +95,11 @@ type V = (this: number) => void;
 exports[`line_break.js - {"trailingComma":"all"} [babel-flow] format 1`] = `
 "Unexpected token, expected \\")\\" (3:15)
   1 | // @flow
-  2 | 
+  2 |
 > 3 | type T = (this: boolean,
     |               ^
   4 |           a: number,
-  5 | 
+  5 |
   6 |           b: number,"
 `;
 
@@ -197,13 +197,13 @@ class A {
 
 exports[`union_type.js - {"trailingComma":"all"} [babel-flow] format 1`] = `
 "Unexpected token, expected \\")\\" (4:7)
-  2 | 
+  2 |
   3 | type A = (
 > 4 |   this: | SupperLongLongLongLongLongLongLongLongLongLongLongType | FooBarBazLorem12345,
     |       ^
   5 |   b: number,
   6 | ) => boolean;
-  7 | "
+  7 |"
 `;
 
 exports[`union_type.js - {"trailingComma":"all"} format 1`] = `

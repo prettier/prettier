@@ -67,7 +67,8 @@ printWidth: 80
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping more and more.
+  A long enough string to trigger a line break that would prevent wrapping more
+  and more.
 </div>
 
 <div>

@@ -25,7 +25,7 @@ const { locStart, locEnd, hasSameLocStart } = require("./loc");
  * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
  * @typedef {import("./types/estree").Literal} Literal
  *
- * @typedef {import("../common/fast-path")} FastPath
+ * @typedef {import("../common/ast-path")} AstPath
  */
 
 // We match any whitespace except line terminators because
@@ -54,7 +54,7 @@ function hasFlowShorthandAnnotationComment(node) {
   return (
     node.extra &&
     node.extra.parenthesized &&
-    node.trailingComments &&
+    isNonEmptyArray(node.trailingComments) &&
     isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
@@ -101,10 +101,8 @@ function hasNakedLeftSide(node) {
     node.type === "LogicalExpression" ||
     node.type === "NGPipeExpression" ||
     node.type === "ConditionalExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
+    isCallExpression(node) ||
+    isMemberExpression(node) ||
     node.type === "SequenceExpression" ||
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
@@ -203,7 +201,7 @@ function isExportDeclaration(node) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {Node | null}
  */
 function getParentExportDeclaration(path) {
@@ -309,13 +307,12 @@ function isTemplateLiteral(node) {
  * Note: `inject` is used in AngularJS 1.x, `async` in Angular 2+
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
- * @param {Node} node
+ * @param {CallExpression} node
  * @returns {boolean}
  */
 function isAngularTestWrapper(node) {
   return (
-    (node.type === "CallExpression" ||
-      node.type === "OptionalCallExpression") &&
+    isCallExpression(node) &&
     node.callee.type === "Identifier" &&
     (node.callee.name === "async" ||
       node.callee.name === "inject" ||
@@ -345,23 +342,6 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
   const parent = path.getParentNode();
 
   return parent.type === "Program" && parent.body.length === 1;
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isMemberExpressionChain(node) {
-  if (
-    node.type !== "MemberExpression" &&
-    node.type !== "OptionalMemberExpression"
-  ) {
-    return false;
-  }
-  if (node.object.type === "Identifier") {
-    return true;
-  }
-  return isMemberExpressionChain(node.object);
 }
 
 function isGetterOrSetter(node) {
@@ -423,8 +403,7 @@ function isBinaryish(node) {
  */
 function isMemberish(node) {
   return (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
+    isMemberExpression(node) ||
     (node.type === "BindExpression" && Boolean(node.object))
   );
 }
@@ -500,13 +479,12 @@ function isSimpleType(node) {
 const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
 
 /**
- * @param {CallExpression} node
+ * @param {{callee: MemberExpression | OptionalMemberExpression}} node
  * @returns {boolean}
  */
 function isSkipOrOnlyBlock(node) {
   return (
-    (node.callee.type === "MemberExpression" ||
-      node.callee.type === "OptionalMemberExpression") &&
+    isMemberExpression(node.callee) &&
     node.callee.object.type === "Identifier" &&
     node.callee.property.type === "Identifier" &&
     unitTestRe.test(node.callee.object.name) &&
@@ -564,12 +542,25 @@ function isTestCall(n, parent) {
 }
 
 /**
- * @param {CallExpression | OptionalCallExpression} node
+ * @param {Node} node
  * @returns {boolean}
  */
-function isCallOrOptionalCallExpression(node) {
+function isCallExpression(node) {
   return (
-    node.type === "CallExpression" || node.type === "OptionalCallExpression"
+    node &&
+    (node.type === "CallExpression" || node.type === "OptionalCallExpression")
+  );
+}
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+function isMemberExpression(node) {
+  return (
+    node &&
+    (node.type === "MemberExpression" ||
+      node.type === "OptionalMemberExpression")
   );
 }
 
@@ -601,15 +592,9 @@ function isSimpleTemplateLiteral(node) {
     }
 
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
-    if (
-      expr.type === "MemberExpression" ||
-      expr.type === "OptionalMemberExpression"
-    ) {
+    if (isMemberExpression(expr)) {
       let head = expr;
-      while (
-        head.type === "MemberExpression" ||
-        head.type === "OptionalMemberExpression"
-      ) {
+      while (isMemberExpression(head)) {
         if (
           head.property.type !== "Identifier" &&
           head.property.type !== "Literal" &&
@@ -643,9 +628,12 @@ function isSimpleTemplateLiteral(node) {
 function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
   if (tokenNode === "+") {
     return "+" + keyword;
-  } else if (tokenNode === "-") {
+  }
+
+  if (tokenNode === "-") {
     return "-" + keyword;
   }
+
   return keyword;
 }
 
@@ -847,7 +835,7 @@ function isFunctionCompositionArgs(args) {
       if (count > 1) {
         return true;
       }
-    } else if (isCallOrOptionalCallExpression(arg)) {
+    } else if (isCallExpression(arg)) {
       for (const childArg of arg.arguments) {
         if (isFunctionOrArrowExpression(childArg)) {
           return true;
@@ -865,15 +853,15 @@ function isFunctionCompositionArgs(args) {
 // In the above call expression, the second call is the parent node and the
 // first call is the current node.
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   return (
-    isCallOrOptionalCallExpression(node) &&
-    isCallOrOptionalCallExpression(parent) &&
+    isCallExpression(node) &&
+    isCallExpression(parent) &&
     parent.callee === node &&
     node.arguments.length > parent.arguments.length &&
     parent.arguments.length > 0
@@ -921,7 +909,10 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return (
+      node.quasis.every((element) => !element.value.raw.includes("\n")) &&
+      node.expressions.every(isChildSimple)
+    );
   }
 
   if (node.type === "ObjectExpression") {
@@ -945,10 +936,7 @@ function isSimpleCallArgument(node, depth) {
     );
   }
 
-  if (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression"
-  ) {
+  if (isMemberExpression(node)) {
     return (
       isSimpleCallArgument(node.object, depth) &&
       isSimpleCallArgument(node.property, depth)
@@ -1331,7 +1319,7 @@ const isNextLineEmpty = (node, { originalText }) =>
 
 function isCallLikeExpression(node) {
   return (
-    isCallOrOptionalCallExpression(node) ||
+    isCallExpression(node) ||
     node.type === "NewExpression" ||
     node.type === "ImportExpression"
   );
@@ -1369,7 +1357,8 @@ module.exports = {
   isCurriedArrowFunctionExpression,
   isLineComment,
   isPrettierIgnoreComment,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
+  isMemberExpression,
   isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
@@ -1381,7 +1370,6 @@ module.exports = {
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,
