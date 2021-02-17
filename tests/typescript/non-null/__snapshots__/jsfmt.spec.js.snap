@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`braces.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const myFunction2 = (key: string): number =>
+  ({
+    a: 42,
+    b: 42,
+  }[key]!)
+
+const myFunction3 = key => ({}!.a);
+
+const f = ((a) => {log(a)})!;
+
+if (a) ({ a, ...b }.a())!.c();
+
+(function() {})!()
+
+class a extends ({}!) {}
+
+=====================================output=====================================
+const myFunction2 = (key: string): number =>
+  ({
+    a: 42,
+    b: 42,
+  }[key]!);
+
+const myFunction3 = (key) => ({}!.a);
+
+const f = ((a) => {
+  log(a);
+})!;
+
+if (a) ({ a, ...b }.a()!.c());
+
+(function () {}!());
+
+class a extends ({}!) {}
+
+================================================================================
+`;
+
 exports[`member-chain.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
