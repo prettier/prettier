@@ -2959,6 +2959,48 @@ const middleware =
 ================================================================================
 `;
 
+exports[`currying-2.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a =
+  (x) => (y) => (z) =>
+    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+
+=====================================output=====================================
+const a =
+  (x) =>
+  (y) =>
+  (z) =>
+    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+
+================================================================================
+`;
+
+exports[`currying-2.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a =
+  (x) => (y) => (z) =>
+    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+
+=====================================output=====================================
+const a =
+  x =>
+  y =>
+  z =>
+    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+
+================================================================================
+`;
+
 exports[`issue-1389-curry.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
@@ -3075,6 +3117,40 @@ const makeSomeFunction2 =
   ) =>
   (a, b, c) =>
     services.logger(a, b, c);
+
+================================================================================
+`;
+
+exports[`issue-4166-curry.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const myCurriedFn = arg1 =>
+  arg2 =>
+    arg3 => arg1 + arg2 + arg3;
+
+=====================================output=====================================
+const myCurriedFn = (arg1) => (arg2) => (arg3) => arg1 + arg2 + arg3;
+
+================================================================================
+`;
+
+exports[`issue-4166-curry.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const myCurriedFn = arg1 =>
+  arg2 =>
+    arg3 => arg1 + arg2 + arg3;
+
+=====================================output=====================================
+const myCurriedFn = arg1 => arg2 => arg3 => arg1 + arg2 + arg3;
 
 ================================================================================
 `;
