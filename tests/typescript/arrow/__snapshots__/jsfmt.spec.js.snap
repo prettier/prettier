@@ -145,3 +145,102 @@ const fn2 = () => {
 
 ================================================================================
 `;
+
+exports[`issue-6107-curry.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const getIconEngagementTypeFrom = (engagementTypes: Array<EngagementType>) =>
+  iconEngagementType => engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something
+  ) =>
+  iconEngagementType =>
+  engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something,
+    thirArg: SomethingElse
+  ) =>
+  iconEngagementType =>
+  engagementTypes.includes(iconEngagementType);
+
+=====================================output=====================================
+const getIconEngagementTypeFrom =
+  (engagementTypes: Array<EngagementType>) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType)
+
+const getIconEngagementTypeFrom2 =
+  (engagementTypes: Array<EngagementType>, secondArg: Something) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType)
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something,
+    thirArg: SomethingElse
+  ) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType)
+
+================================================================================
+`;
+
+exports[`issue-6107-curry.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const getIconEngagementTypeFrom = (engagementTypes: Array<EngagementType>) =>
+  iconEngagementType => engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something
+  ) =>
+  iconEngagementType =>
+  engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something,
+    thirArg: SomethingElse
+  ) =>
+  iconEngagementType =>
+  engagementTypes.includes(iconEngagementType);
+
+=====================================output=====================================
+const getIconEngagementTypeFrom =
+  (engagementTypes: Array<EngagementType>) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (engagementTypes: Array<EngagementType>, secondArg: Something) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something,
+    thirArg: SomethingElse
+  ) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType);
+
+================================================================================
+`;
