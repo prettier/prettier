@@ -10,18 +10,27 @@ async function bump({ version }) {
 
   // Update github issue templates
   processFile(".github/ISSUE_TEMPLATE/formatting.md", (content) =>
-    content.replace(/^(\*\*Prettier ).*?(\*\*)$/m, `$1${version}$2`)
+    content.replace(
+      /^(?<before>\*\*Prettier ).*?(?<after>\*\*)$/m,
+      `$<before>${version}$<after>`
+    )
   );
   processFile(".github/ISSUE_TEMPLATE/integration.md", (content) =>
-    content.replace(/^(- Prettier Version: ).*?$/m, `$1${version}`)
+    content.replace(
+      /^(?<before>- Prettier Version: ).*?$/m,
+      `$<before>${version}`
+    )
   );
   processFile("docs/install.md", (content) =>
-    content.replace(/^(npx prettier@)\S+/m, `$1${version}`)
+    content.replace(/^(?<before>npx prettier@)\S+/m, `$<before>${version}`)
   );
 
   // Update unpkg link in docs
   processFile("docs/browser.md", (content) =>
-    content.replace(/(\/\/unpkg\.com\/prettier@).*?\//g, `$1${version}/`)
+    content.replace(
+      /(?<before>\/\/unpkg\.com\/prettier@).*?\//g,
+      `$<before>${version}/`
+    )
   );
 
   await execa("yarn", ["update-stable-docs"], {

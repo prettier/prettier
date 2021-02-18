@@ -105,13 +105,16 @@ fs.writeFileSync(
 
 function processTitle(title) {
   return title
-    .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
+    .replace(/\[(?:BREAKING|HIGHLIGHT)]/g, "")
     .replace(/\s+/g, " ")
     .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
-    .replace(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
     .replace(
-      /(?<![[`])#(\d{4,})/g,
-      "[#$1](https://github.com/prettier/prettier/pull/$1)"
+      /(?<![[`])@(?<author>[\w-]+)/g,
+      "[@$<author>](https://github.com/$<author>)"
+    )
+    .replace(
+      /(?<![[`])#(?<prNumber>\d{4,})/g,
+      "[#$<prNumber>](https://github.com/prettier/prettier/pull/$<prNumber>)"
     );
 }
 

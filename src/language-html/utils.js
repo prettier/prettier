@@ -25,9 +25,9 @@ const htmlTrimPreserveIndentation = (string) =>
 const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
 const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
-  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
-  );
+  const { leadingWhitespace, text, trailingWhitespace } = string.match(
+    /^(?<leadingWhitespace>[\t\n\f\r ]*)(?<text>[\S\s]*?)(?<trailingWhitespace>[\t\n\f\r ]*)$/
+  ).groups;
   return {
     leadingWhitespace,
     trailingWhitespace,
@@ -115,17 +115,19 @@ function isPrettierIgnore(node) {
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
-  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
+  const match = value
+    .trim()
+    .match(/^prettier-ignore-attribute(?:\s+(?<attributes>[^]+))?$/);
 
   if (!match) {
     return false;
   }
 
-  if (!match[1]) {
+  if (!match.groups.attributes) {
     return true;
   }
 
-  return match[1].split(/\s+/);
+  return match.groups.attributes.split(/\s+/);
 }
 
 /** there's no opening/closing tag or it's considered not breakable */
@@ -498,9 +500,9 @@ function hasParent(node, fn) {
 function getNodeCssStyleDisplay(node, options) {
   if (node.prev && node.prev.type === "comment") {
     // <!-- display: block -->
-    const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
+    const match = node.prev.value.match(/^\s*display:\s*(?<value>[a-z]+)\s*$/);
     if (match) {
-      return match[1];
+      return match.groups.value;
     }
   }
 

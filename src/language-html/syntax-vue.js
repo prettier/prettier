@@ -32,8 +32,8 @@ function printVueFor(value, textToDoc) {
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueFor(value) {
-  const forAliasRE = /([^]*?)\s+(in|of)\s+([^]*)/;
-  const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
+  const forAliasRE = /(?<left>[^]*?)\s+(?<operator>in|of)\s+(?<right>[^]*)/;
+  const forIteratorRE = /,(?<iterator1>[^,\]}]*)(?:,(?<iterator2>[^,\]}]*))?$/;
   const stripParensRE = /^\(|\)$/g;
 
   const inMatch = value.match(forAliasRE);
@@ -41,14 +41,15 @@ function parseVueFor(value) {
     return;
   }
   const res = {};
-  res.for = inMatch[3].trim();
-  const alias = inMatch[1].trim().replace(stripParensRE, "");
+  res.for = inMatch.groups.right.trim();
+  const alias = inMatch.groups.left.trim().replace(stripParensRE, "");
+
   const iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
     res.alias = alias.replace(forIteratorRE, "");
-    res.iterator1 = iteratorMatch[1].trim();
-    if (iteratorMatch[2]) {
-      res.iterator2 = iteratorMatch[2].trim();
+    res.iterator1 = iteratorMatch.groups.iterator1.trim();
+    if (iteratorMatch.groups.iterator2) {
+      res.iterator2 = iteratorMatch.groups.iterator2.trim();
     }
   } else {
     res.alias = alias;
@@ -58,7 +59,7 @@ function parseVueFor(value) {
     left: `${[res.alias, res.iterator1, res.iterator2]
       .filter(Boolean)
       .join(",")}`,
-    operator: inMatch[2],
+    operator: inMatch.groups.operator,
     right: res.for,
   };
 }
@@ -73,7 +74,7 @@ function printVueBindings(value, textToDoc) {
 function isVueEventBindingExpression(eventBindingValue) {
   // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
   // arrow function or anonymous function
-  const fnExpRE = /^([\w$]+|\([^)]*?\))\s*=>|^function\s*\(/;
+  const fnExpRE = /^(?:[\w$]+|\([^)]*?\))\s*=>|^function\s*\(/;
   // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
   const simplePathRE = /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
 

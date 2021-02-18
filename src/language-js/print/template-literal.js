@@ -219,7 +219,10 @@ function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
     if (typeof currentDoc === "string") {
       return raw
-        ? currentDoc.replace(/(\\*)`/g, "$1$1\\`")
+        ? currentDoc.replace(
+            /(?<character>\\*)`/g,
+            "$<character>$<character>\\`"
+          )
         : uncookTemplateElementValue(currentDoc);
     }
 
@@ -228,7 +231,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+  return cookedValue.replace(/(?<character>[\\`]|\${)/g, "\\$?<character>");
 }
 
 module.exports = {

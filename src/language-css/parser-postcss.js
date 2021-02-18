@@ -282,8 +282,8 @@ function parseMediaQuery(params) {
   return addTypePrefix(addMissingType(result), "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /\s*?!default.*$/;
+const GLOBAL_SCSS_DIRECTIVE = /\s*?!global.*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -514,7 +514,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(without|with)\s*:[\S\s]+\)$/.test(params)) {
+        if (/^\(?:\s*(?:without|with)\s*:[\S\s]+\)$/.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
@@ -550,9 +550,9 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
+        params = params.replace(/(?<params>\$\S+?)\s+?\.{3}/, "$<params>...");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+        params = params.replace(/^(?!if)(?<params>\S+)\s+\(/, "$<params>(");
 
         node.value = parseValue(params, options);
         delete node.params;

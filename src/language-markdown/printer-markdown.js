@@ -129,7 +129,7 @@ function genericPrint(path, options, print) {
           ))
       ) {
         // backslash is parsed as part of autolinks, so we need to remove it
-        escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
+        escapedValue = escapedValue.replace(/^(?:\\?[*_])+/, (prefix) =>
           prefix.replace(/\\/g, "")
         );
       }
@@ -143,7 +143,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
+        nextNode && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
@@ -763,9 +763,9 @@ function isPrettierIgnore(node) {
     return false;
   }
   const match = node.value.match(
-    /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/
+    /^<!--\s*prettier-ignore(?:-(?<range>start|end))?\s*-->$/
   );
-  return match === null ? false : match[1] ? match[1] : "next";
+  return match === null ? false : match.groups.range || "next";
 }
 
 function shouldPrePrintHardline(node, data) {
@@ -866,7 +866,7 @@ function printTitle(title, options, printSpace) {
   }
 
   // title is escaped after `remark-parse` v7
-  title = title.replace(/\\(["')])/g, "$1");
+  title = title.replace(/\\(?<character>["')])/g, "$<character>");
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes

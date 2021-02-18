@@ -55,8 +55,8 @@ for (const file of [
   }
 }
 
-const authorRegex = /by @[\w-]+|by \[@([\w-]+)]\(https:\/\/github\.com\/\1\)/;
-const titleRegex = /^#{4} (.*?)\((#\d{4,}|\[#\d{4,}])/;
+const authorRegex = /by @[\w-]+|by \[@(?<author>[\w-]+)]\(?:https:\/\/github\.com\/\k<author>\)/;
+const titleRegex = /^#{4} (?<title>.*?)\((?:#\d{4,}|\[#\d{4,}])/;
 
 const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
@@ -79,7 +79,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^(\d{4,})\.md$/);
+    const match = prFile.match(/^(?<prNumber>\d{4,})\.md$/);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
@@ -88,7 +88,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
       continue;
     }
-    const [, prNumber] = match;
+    const { prNumber } = match.groups;
     const prLink = `#${prNumber}`;
     if (checkedFiles.has(prNumber)) {
       showErrorMessage(
@@ -129,7 +129,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       showErrorMessage(`[${displayPath}]: Something wrong in title.`);
       continue;
     }
-    const [, title] = titleMatch;
+    const { title } = titleMatch.groups;
     const categoryInTitle = title.split(":").shift().trim();
     if (
       [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())

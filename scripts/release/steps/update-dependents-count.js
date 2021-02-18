@@ -13,7 +13,7 @@ async function update() {
     )
   );
   const dependentsCountNpm = Number(
-    npmPage.match(/"dependentsCount":(\d+),/)[1]
+    npmPage.match(/"dependentsCount":(?<count>\d+),/).groups.count
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
@@ -31,9 +31,9 @@ async function update() {
     githubPage
       .replace(/\n/g, "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
-      )[1]
-      .replace(/,/g, "")
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*(?<data>[\d,]+?)\s*Repositories\s*<\/a>/
+      )
+      .groups.data.replace(/,/g, "")
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
@@ -44,12 +44,12 @@ async function update() {
   processFile("website/pages/en/index.js", (content) =>
     content
       .replace(
-        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
-        `$1${formatNumber(dependentsCountNpm)}$3`
+        /(?<openingTag><strong data-placeholder="dependent-npm">).*?(?<closingTag><\/strong>)/,
+        `$<openingTag>${formatNumber(dependentsCountNpm)}$<closingTag>`
       )
       .replace(
-        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
-        `$1${formatNumber(dependentsCountGithub)}$3`
+        /(?<openingTag><strong data-placeholder="dependent-github">).*?(?<closingTag><\/strong>)/,
+        `$<openingTag>${formatNumber(dependentsCountGithub)}$<closingTag>`
       )
   );
 

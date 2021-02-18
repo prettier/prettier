@@ -24,9 +24,9 @@ module.exports = function () {
         return;
       }
       const source = fs.readFileSync(id, "utf-8");
-      const match = source.match(/^\s*(#!.*)/);
+      const match = source.match(/^\s*(?<banner>#!.*)/);
       if (match) {
-        banner = match[1];
+        banner = match.groups.banner;
         return (
           source.slice(0, match.index) +
           source.slice(match.index + banner.length)

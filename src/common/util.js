@@ -439,7 +439,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
-  const regex = /\\([\S\s])|(["'])/g;
+  const regex = /\\(?<escaped>[\S\s])|(?<quote>["'])/g;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
@@ -478,13 +478,16 @@ function printNumber(rawNumber) {
     rawNumber
       .toLowerCase()
       // Remove unnecessary plus and zeroes from scientific notation.
-      .replace(/^([+-]?[\d.]+e)(?:\+|(-))?0*(\d)/, "$1$2$3")
+      .replace(
+        /^(?<before>[+-]?[\d.]+e)(?:\+|(?<minus>-))?0*(?<power>\d)/,
+        "$<before>$<minus>$<power>"
+      )
       // Remove unnecessary scientific notation (1e0).
-      .replace(/^([+-]?[\d.]+)e[+-]?0+$/, "$1")
+      .replace(/^(?<base>[+-]?[\d.]+)e[+-]?0+$/, "$<base>")
       // Make sure numbers always start with a digit.
-      .replace(/^([+-])?\./, "$10.")
+      .replace(/^(?<sign>[+-])?\./, "$<sign>0.")
       // Remove extraneous trailing decimal zeroes.
-      .replace(/(\.\d+?)0+(?=e|$)/, "$1")
+      .replace(/(?<decimal>\.\d+?)0+(?=e|$)/, "$<decimal>")
       // Remove trailing dot.
       .replace(/\.(?=e|$)/, "")
   );

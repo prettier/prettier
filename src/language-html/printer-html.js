@@ -1149,7 +1149,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       );
     }
 
-    const interpolationRegex = /{{([\S\s]+?)}}/g;
+    const interpolationRegex = /{{(?<interpolation>[\S\s]+?)}}/g;
     const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];

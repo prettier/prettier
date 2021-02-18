@@ -138,15 +138,17 @@ function getInterpreter(filepath) {
     const firstLine = liner.next().toString("utf8");
 
     // #!/bin/env node, #!/usr/bin/env node
-    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
+    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(?<interpreter>\S+)/);
     if (m1) {
-      return m1[1];
+      return m1.groups.interpreter;
     }
 
     // #!/bin/node, #!/usr/bin/node, #!/usr/local/bin/node
-    const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/);
+    const m2 = firstLine.match(
+      /^#!\/(?:usr\/(?:local\/)?)?bin\/(?<interpreter>\S+)/
+    );
     if (m2) {
-      return m2[1];
+      return m2.groups.interpreter;
     }
     return "";
   } catch (err) {

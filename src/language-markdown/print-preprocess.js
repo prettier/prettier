@@ -4,7 +4,7 @@ const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
 
 // 0x0 ~ 0x10ffff
 // eslint-disable-next-line no-control-regex
-const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
+const isSingleCharRegex = /^(?:[\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
 
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
@@ -134,7 +134,7 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type === "code") {
       // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-      const isIndented = /^\n?( {4,}|\t)/.test(
+      const isIndented = /^\n?(?: {4,}|\t)/.test(
         options.originalText.slice(
           node.position.start.offset,
           node.position.end.offset

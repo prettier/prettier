@@ -37,7 +37,7 @@ function clean(ast, newObj, parent) {
       delete newObj.text;
 
       // standalone pragma
-      if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+      if (/^\*\s*@(?:format|prettier)\s*$/.test(ast.text)) {
         return null;
       }
     }
@@ -141,7 +141,7 @@ function clean(ast, newObj, parent) {
     newObj.value
   ) {
     newObj.value = newObj.value.replace(
-      /([\d+.Ee-]+)([A-Za-z]*)/g,
+      /(?<numStr>[\d+.Ee-]+)(?<unit>[A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
         return Number.isNaN(num) ? match : num + unit.toLowerCase();
@@ -171,7 +171,9 @@ function clean(ast, newObj, parent) {
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");
+  return value
+    .replace(/'/g, '"')
+    .replace(/\\(?<character>[^\dA-Fa-f])/g, "$<character>");
 }
 
 module.exports = clean;
