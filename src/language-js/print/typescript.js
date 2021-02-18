@@ -18,6 +18,8 @@ const {
   isLiteral,
   getTypeScriptMappedTypeModifier,
   shouldPrintComma,
+  isCallExpression,
+  isMemberExpression,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -160,12 +162,21 @@ function printTypescript(path, options, print) {
       return "undefined";
     case "TSUnknownKeyword":
       return "unknown";
-    case "TSAsExpression":
-      return [
+    case "TSAsExpression": {
+      parts.push(
         path.call(print, "expression"),
         " as ",
-        path.call(print, "typeAnnotation"),
-      ];
+        path.call(print, "typeAnnotation")
+      );
+      const parent = path.getParentNode();
+      if (
+        (isCallExpression(parent) && parent.callee === n) ||
+        (isMemberExpression(parent) && parent.object === n)
+      ) {
+        return group([indent([softline, ...parts]), softline]);
+      }
+      return parts;
+    }
     case "TSArrayType":
       return [path.call(print, "elementType"), "[]"];
     case "TSPropertySignature": {
