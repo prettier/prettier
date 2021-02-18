@@ -175,7 +175,7 @@ const messagesShouldThrow = new Set([
 
 function shouldRethrowRecoveredError(error) {
   const { message } = error.message.match(
-    /(?<message>.*?)\s*\(?:\d+:\d+\)/
+    /(?<message>.*?)\s*\(\d+:\d+\)/
   ).groups;
   // Only works for literal message
   return messagesShouldThrow.has(message);
