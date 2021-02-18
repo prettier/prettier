@@ -3,8 +3,8 @@
 const { isNonEmptyArray } = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
+  utils: { cleanDoc },
 } = require("../../document");
-const { cleanDoc } = require("../../document/doc-utils");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
