@@ -17,7 +17,9 @@ updates:
   - package-ecosystem: "npm"
     directory: "/scripts/release"
     schedule:
-      interval: "daily"
+      interval: weekly
+      day: sunday
+      time: "01:00"
 
   - package-ecosystem: "github-actions"
     directory: "/"
