@@ -14,7 +14,7 @@ const {
     lineSuffixBoundary,
     join,
   },
-  utils: { willBreak, isLineNext, isEmpty },
+  utils: { willBreak },
 } = require("../../document");
 
 const { getLast, getPreferredQuote } = require("../../common/util");
@@ -32,8 +32,11 @@ const {
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
 
+const isEmptyStringOrAnyLine = (doc) =>
+  doc === "" || doc === line || doc === hardline || doc === softline;
+
 /**
- * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../../common/ast-path")} AstPath
  * @typedef {import("../types/estree").Node} Node
  * @typedef {import("../types/estree").JSXElement} JSXElement
  */
@@ -175,18 +178,15 @@ function printJsxElementInternal(path, options, print) {
   }
 
   // Trim trailing lines (or empty strings)
-  while (
-    children.length > 0 &&
-    (isLineNext(getLast(children)) || isEmpty(getLast(children)))
-  ) {
+  while (children.length > 0 && isEmptyStringOrAnyLine(getLast(children))) {
     children.pop();
   }
 
   // Trim leading lines (or empty strings)
   while (
-    children.length > 0 &&
-    (isLineNext(children[0]) || isEmpty(children[0])) &&
-    (isLineNext(children[1]) || isEmpty(children[1]))
+    children.length > 1 &&
+    isEmptyStringOrAnyLine(children[0]) &&
+    isEmptyStringOrAnyLine(children[1])
   ) {
     children.shift();
     children.shift();
@@ -812,7 +812,7 @@ function isJsxWhitespaceExpression(node) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function hasJsxIgnoreComment(path) {

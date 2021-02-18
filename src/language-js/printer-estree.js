@@ -15,7 +15,6 @@ const {
 } = require("../common/util");
 const {
   builders: { join, line, hardline, softline, literalline, group, indent },
-  utils: { isEmpty },
 } = require("../document");
 const embed = require("./embed");
 const clean = require("./clean");
@@ -97,14 +96,13 @@ const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
 
 function genericPrint(path, options, printPath, args) {
-  const node = path.getValue();
-  let needsParens = false;
   const linesWithoutParens = printPathNoParens(path, options, printPath, args);
-
-  if (!node || isEmpty(linesWithoutParens)) {
-    return linesWithoutParens;
+  if (!linesWithoutParens) {
+    return "";
   }
 
+  let needsParens = false;
+  const node = path.getValue();
   const parentExportDecl = getParentExportDeclaration(path);
   const decorators = [];
   if (
@@ -281,7 +279,10 @@ function printPathNoParens(path, options, print, args) {
       ];
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
-      const shouldHug = !hasComment(n.expression);
+      const shouldHug =
+        !hasComment(n.expression) &&
+        (n.expression.type === "ObjectExpression" ||
+          n.expression.type === "ArrayExpression");
       if (shouldHug) {
         return ["(", path.call(print, "expression"), ")"];
       }
@@ -340,15 +341,16 @@ function printPathNoParens(path, options, print, args) {
         printTypeAnnotation(path, options, print),
       ];
     case "FunctionDeclaration":
-    case "FunctionExpression":
-      return printFunctionDeclaration(
-        path,
-        print,
-        options,
-        args &&
-          args.expandLastArg &&
-          getCallArguments(path.getParentNode()).length > 1
-      );
+    case "FunctionExpression": {
+      let expandArg = false;
+      if (args && args.expandLastArg) {
+        const parent = path.getParentNode();
+        if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
+          expandArg = true;
+        }
+      }
+      return printFunctionDeclaration(path, print, options, expandArg);
+    }
     case "ArrowFunctionExpression":
       return printArrowFunctionExpression(path, options, print, args);
     case "YieldExpression":

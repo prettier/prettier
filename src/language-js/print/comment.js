@@ -3,6 +3,7 @@
 const { hasNewline } = require("../../common/util");
 const {
   builders: { join, hardline },
+  utils: { replaceNewlinesWithLiterallines },
 } = require("../../document");
 
 const { isLineComment, isBlockComment } = require("../utils");
@@ -38,7 +39,11 @@ function printComment(commentPath, options) {
     const commentEnd = locEnd(comment);
     const isInsideFlowComment =
       options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
-    return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
+    return [
+      "/*",
+      replaceNewlinesWithLiterallines(comment.value),
+      isInsideFlowComment ? "*-/" : "*/",
+    ];
   }
 
   /* istanbul ignore next */

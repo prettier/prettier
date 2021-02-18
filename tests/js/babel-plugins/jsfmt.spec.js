@@ -36,7 +36,6 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "flow.js",
       "function-bind.js",
       "function-sent.js",
-      "logical-assignment-operators.js",
       "module-attributes-dynamic.js",
       "module-attributes-static.js",
       "partial-application.js",

@@ -26,7 +26,9 @@ rules:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]
   import/order: error
-  no-else-return: error
+  no-else-return:
+    - error
+    - allowElseIf: false
   no-implicit-coercion: error
   no-inner-declarations: error
   no-unneeded-ternary: error
@@ -117,7 +119,7 @@ overrides:
     rules:
       prettier-internal-rules/no-doc-builder-concat: error
       prettier-internal-rules/no-empty-flat-contents-for-if-break: error
-      prettier-internal-rules/prefer-fast-path-each: error
+      prettier-internal-rules/prefer-ast-path-each: error
       prettier-internal-rules/prefer-indent-if-break: error
       prettier-internal-rules/prefer-is-non-empty-array: error
   - files:
