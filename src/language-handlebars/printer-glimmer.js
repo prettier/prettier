@@ -684,18 +684,14 @@ function countNewLines(string) {
 function countLeadingNewLines(string) {
   /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
-  const { newLines = "" } = (
-    string.match(/^(?<newLines>[^\S\n\r]*[\n\r])+/g) || { groups: {} }
-  ).groups;
+  const newLines = (string.match(/^(?:[^\S\n\r]*[\n\r])+/g) || [])[0] || "";
   return countNewLines(newLines);
 }
 
 function countTrailingNewLines(string) {
   /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
-  const { newLines = "" } = (
-    string.match(/(?<newLines>[\n\r][^\S\n\r]*)+$/g) || { groups: {} }
-  ).groups;
+  const newLines = (string.match(/(?:[\n\r][^\S\n\r]*)+$/g) || [])[0] || "";
   return countNewLines(newLines);
 }
 
