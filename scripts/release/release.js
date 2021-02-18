@@ -32,9 +32,6 @@ async function run() {
     ).version;
   }
 
-  params.previousVersion = previousVersion;
-  params.previousVersionOnMaster = (await readJson("package.json")).version;
-
   const steps = [
     require("./steps/validate-new-version"),
     require("./steps/check-git-status"),
