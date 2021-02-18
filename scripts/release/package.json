@@ -2,11 +2,11 @@
   "private": true,
   "dependencies": {
     "chalk": "4.1.0",
-    "execa": "4.0.3",
+    "execa": "5.0.0",
     "minimist": "1.2.5",
     "node-fetch": "2.6.1",
-    "outdent": "0.7.1",
-    "semver": "7.3.2",
+    "outdent": "0.8.0",
+    "semver": "7.3.4",
     "string-width": "4.2.0"
   }
 }
