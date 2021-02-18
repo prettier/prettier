@@ -231,7 +231,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replace(/(?<character>[\\`]|\${)/g, "\\$?<character>");
+  return cookedValue.replace(/(?<character>[\\`]|\${)/g, "\\$<character>");
 }
 
 module.exports = {
