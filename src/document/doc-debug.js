@@ -23,9 +23,13 @@ function flattenDoc(doc) {
     return {
       ...doc,
       breakContents:
-        doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
+        doc.breakContents !== null && typeof doc.breakContents !== "undefined"
+          ? flattenDoc(doc.breakContents)
+          : null,
       flatContents:
-        doc.flatContents != null ? flattenDoc(doc.flatContents) : null,
+        doc.flatContents !== null && typeof doc.flatContents !== "undefined"
+          ? flattenDoc(doc.flatContents)
+          : null,
     };
   }
 

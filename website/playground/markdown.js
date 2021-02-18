@@ -29,7 +29,7 @@ function formatMarkdown({
       : ["", "**Second Output:**", codeBlock(output2, syntax)]),
     ...(full ? ["", "**Expected behavior:**", ""] : []),
   ]
-    .filter((part) => part != null)
+    .filter((part) => part !== null)
     .join("\n");
 }
 

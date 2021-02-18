@@ -1011,7 +1011,7 @@ function printPathNoParens(path, options, print, args) {
       assert.strictEqual(typeof n.value, "number");
     // fall through
     case "BigIntLiteralTypeAnnotation":
-      if (n.extra != null) {
+      if (n.extra) {
         return printNumber(n.extra.raw);
       }
       return printNumber(n.raw);
