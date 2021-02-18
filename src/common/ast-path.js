@@ -148,6 +148,10 @@ class AstPath {
   }
 
   /**
+   * Traverses the current node and its parents (heading toward the tree root)
+   * until it finds a node that matches the provided predicate function. Will
+   * return the current node or the matching ancestor. If no such node exists,
+   * it returns undefined.
    * Inspired by https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
    * @param {(node: any, name: string | null, number: number | null) => boolean} predicate
    */
@@ -157,12 +161,7 @@ class AstPath {
     let name = null;
     let node = this.stack[stackPointer--];
 
-    for (;;) {
-      /* istanbul ignore next */
-      if (node === undefined) {
-        return;
-      }
-
+    while (node) {
       // skip index/array
       let number = null;
       if (typeof name === "number") {
