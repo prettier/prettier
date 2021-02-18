@@ -146,6 +146,39 @@ class AstPath {
 
     return true;
   }
+
+  /**
+   * Inspired by https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+   * @param {(node: any, name: string | null, number: number | null) => boolean} predicate
+   */
+  closest(predicate) {
+    let stackPointer = this.stack.length - 1;
+
+    let name = null;
+    let node = this.stack[stackPointer--];
+
+    for (;;) {
+      /* istanbul ignore next */
+      if (node === undefined) {
+        return;
+      }
+
+      // skip index/array
+      let number = null;
+      if (typeof name === "number") {
+        number = name;
+        name = this.stack[stackPointer--];
+        node = this.stack[stackPointer--];
+      }
+
+      if (predicate(node, name, number)) {
+        return node;
+      }
+
+      name = this.stack[stackPointer--];
+      node = this.stack[stackPointer--];
+    }
+  }
 }
 
 module.exports = AstPath;
