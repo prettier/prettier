@@ -220,8 +220,8 @@ function escapeTemplateCharacters(doc, raw) {
     if (typeof currentDoc === "string") {
       return raw
         ? currentDoc.replace(
-            /(?<character>\\*)`/g,
-            "$<character>$<character>\\`"
+            /(?<backslashes>\\*)`/g,
+            "$<backslashes>$<backslashes>\\`"
           )
         : uncookTemplateElementValue(currentDoc);
     }
