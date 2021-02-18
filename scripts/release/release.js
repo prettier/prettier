@@ -2,17 +2,14 @@
 
 "use strict";
 
-const chalk = require("chalk");
-const minimist = require("minimist");
-const semver = require("semver");
-const { string: outdentString } = require("outdent");
-const { runGit, runYarn, readJson } = require("./utils");
+const { exec } = require("child_process");
 
 async function run() {
-  // Fetch git tags to get the previous version number (i.e. the latest tag)
-  await runGit(["fetch", "--tags"], { cwd: __dirname });
-  // Install script's dependencies before any require
-  await runYarn(["install"], { cwd: __dirname });
+  const chalk = require("chalk");
+  const minimist = require("minimist");
+  const semver = require("semver");
+  const { string: outdentString } = require("outdent");
+  const { runGit, readJson } = require("./utils");
 
   const params = minimist(process.argv.slice(2), {
     string: ["version"],
@@ -53,14 +50,30 @@ async function run() {
     require("./steps/post-publish-steps"),
   ];
 
-  for (const step of steps) {
-    await step(params);
+  try {
+    for (const step of steps) {
+      await step(params);
+    }
+  } catch (error) {
+    const message = outdentString(error.message.trim());
+    const stack = error.stack.replace(message, "");
+    console.error(`${chalk.red("error")} ${message}\n${stack}`);
+    process.exit(1);
   }
 }
 
-run().catch((error) => {
-  const message = outdentString(error.message.trim());
-  const stack = error.stack.replace(message, "");
-  console.error(`${chalk.red("error")} ${message}\n${stack}`);
-  process.exit(1);
-});
+exec(
+  [
+    "git fetch --tags", // Fetch git tags to get the previous version number (i.e. the latest tag)
+    "yarn install", // Install script's dependencies before any require
+  ].join(" && "),
+  { cwd: __dirname },
+  (error) => {
+    if (error) {
+      console.error(error);
+      process.exit(1);
+    } else {
+      run();
+    }
+  }
+);
