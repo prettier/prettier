@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray, getStringWidth } = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
   utils: { cleanDoc },
@@ -237,8 +237,9 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
   if (node.type !== "ObjectProperty" && node.type !== "Property") {
     return false;
   }
-  // TODO: a more lightweight version of cleanDoc is needed that would stop once it's
-  // detected that the doc can't be normalized into a string.
+  // TODO: for performance, it might make sense to use a more lightweight
+  // version of cleanDoc, such that it would stop once it detects that
+  // the doc can't be reduced to a string.
   keyDoc = cleanDoc(keyDoc);
   const MIN_OVERLAP_FOR_BREAK = 3;
   //   ↓↓ - insufficient overlap for a line break
@@ -248,7 +249,7 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
   //   longValue2
   return (
     typeof keyDoc === "string" &&
-    keyDoc.length < options.tabWidth + MIN_OVERLAP_FOR_BREAK
+    getStringWidth(keyDoc) < options.tabWidth + MIN_OVERLAP_FOR_BREAK
   );
 }
 
