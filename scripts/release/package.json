@@ -8,6 +8,5 @@
     "outdent": "0.7.1",
     "semver": "7.3.2",
     "string-width": "4.2.0"
-  },
-  "version": "3.0.0"
+  }
 }
