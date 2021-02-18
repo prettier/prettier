@@ -50,4 +50,4 @@ toolbox.router.default = toolbox.networkFirst;
 
 // For scripts, stylesheets and images, we can use the "fastest" strategy
 // This means you need to reload twice to get new changes
-toolbox.router.get(/\.(js|css|png|svg)$/, toolbox.fastest);
+toolbox.router.get(/\.(?:js|css|png|svg)$/, toolbox.fastest);

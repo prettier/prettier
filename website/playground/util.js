@@ -1,7 +1,7 @@
 export function fixPrettierVersion(version) {
-  const match = version.match(/^\d+\.\d+\.\d+-pr.(\d+)$/);
+  const match = version.match(/^\d+\.\d+\.\d+-pr.(?<prNumber>\d+)$/);
   if (match) {
-    return `pr-${match[1]}`;
+    return `pr-${match.groups.prNumber}`;
   }
   return version;
 }
@@ -53,9 +53,9 @@ export function getCodemirrorMode(parser) {
 }
 
 const astAutoFold = {
-  estree: /^\s*"(loc|start|end)":/,
-  postcss: /^\s*"(source|input|raws|file)":/,
-  html: /^\s*"(sourceSpan|valueSpan|nameSpan|startSourceSpan|endSourceSpan|tagDefinition)":/,
+  estree: /^\s*"(?:loc|start|end)":/,
+  postcss: /^\s*"(?:source|input|raws|file)":/,
+  html: /^\s*"(?:sourceSpan|valueSpan|nameSpan|startSourceSpan|endSourceSpan|tagDefinition)":/,
   mdast: /^\s*"position":/,
   yaml: /^\s*"position":/,
   glimmer: /^\s*"loc":/,
