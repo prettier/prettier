@@ -20,10 +20,11 @@ function fitTerminal(input) {
   return input;
 }
 
-async function logPromise(name, promise) {
-  if (typeof promise === "function") {
-    promise = promise();
-  }
+async function logPromise(name, promiseOrAsyncFunction) {
+  const promise =
+    typeof promiseOrAsyncFunction === "function"
+      ? promiseOrAsyncFunction()
+      : promiseOrAsyncFunction;
 
   process.stdout.write(fitTerminal(name));
 
