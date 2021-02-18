@@ -54,6 +54,7 @@ rules:
         array: false
         object: false
     - enforceForRenamedProperties: false
+  prefer-named-capture-group: error
   prefer-object-spread: error
   prefer-rest-params: error
   prefer-spread: error
