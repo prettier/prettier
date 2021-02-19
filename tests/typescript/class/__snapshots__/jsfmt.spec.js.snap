@@ -291,11 +291,11 @@ interface AudioBufferList {
 `;
 
 exports[`methods.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (6:10)
+"Missing semicolon (6:9)
   4 |
   5 | interface Iterable<T> {
 > 6 |   export [Symbol.iterator](): Iterator<T>;
-    |          ^
+    |         ^
   7 | }
   8 |
   9 | export class Check {"

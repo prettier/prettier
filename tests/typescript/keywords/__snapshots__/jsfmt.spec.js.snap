@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`keywords.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (4:12)
-  2 |
-  3 | module Y3 {
-> 4 |     public module Module {
-    |            ^
-  5 |         class A { s: string }
-  6 |     }
-  7 |"
+"Unexpected token, expected \\"{\\" (9:12)
+   7 |
+   8 |     // Apparently this parses :P
+>  9 |     export private public protected static readonly abstract async enum X { }
+     |            ^
+  10 |
+  11 |     interface x {
+  12 |         export private static readonly [x: any]: any;"
 `;
 
 exports[`keywords.ts format 1`] = `
