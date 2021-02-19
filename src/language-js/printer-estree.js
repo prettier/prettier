@@ -378,11 +378,11 @@ function printPathNoParens(path, options, print, args) {
               (node.type === "AwaitExpression" && node !== n) ||
               node.type === "BlockStatement"
           );
-          const lineBreak =
-            parentAwaitOrBlock && parentAwaitOrBlock.type === "AwaitExpression"
-              ? hardline
-              : softline;
-          return group([indent([lineBreak, ...parts]), lineBreak]);
+          const shouldGroup =
+            !parentAwaitOrBlock ||
+            parentAwaitOrBlock.type !== "AwaitExpression";
+          parts = [indent([softline, ...parts]), softline];
+          return shouldGroup ? group(parts) : parts;
         }
       }
       return parts;
