@@ -1,9 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`snippet: #0 [json] format 1`] = `
+"Expecting Unicode escape sequence \\\\uXXXX (1:10)
+> 1 | packages\\\\the-hub\\\\cypress\\\\fixtures\\\\gridConfiguration.json
+    |          ^"
+`;
+
 exports[`snippet: #0 [json-stringify] format 1`] = `
 "ObjectProperty with shorthand=true is not allowed in JSON. (1:2)
 > 1 | {foo}
     |  ^"
+`;
+
+exports[`snippet: #1 [json] format 1`] = `
+"BinaryExpression is not allowed in JSON. (1:1)
+> 1 | 1+2
+    | ^"
 `;
 
 exports[`snippet: #1 [json-stringify] format 1`] = `

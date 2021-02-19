@@ -179,15 +179,30 @@ function shouldRethrowRecoveredError(error) {
   return messagesShouldThrow.has(message);
 }
 
-function parseJson(text, parsers, opts) {
-  const ast = parseExpression(text, parsers, opts);
+function createJsonParser(options) {
+  const { allowComments } = { allowComments: true, ...options };
 
-  for (const comment of ast.comments) {
-    assertJsonNode(comment);
-  }
-  assertJsonNode(ast);
+  return function parse(text, parsers, opts) {
+    let ast;
+    try {
+      ast = require("@babel/parser").parseExpression(text, {
+        tokens: true,
+        ranges: true,
+      });
+    } catch (error) {
+      throw createParseError(error);
+    }
 
-  return ast;
+    if (!allowComments) {
+      for (const comment of ast.comments) {
+        assertJsonNode(comment);
+      }
+    }
+
+    assertJsonNode(ast);
+
+    return ast;
+  };
 }
 
 function assertJsonNode(node, parent) {
@@ -255,6 +270,7 @@ function assertJsonNode(node, parent) {
 
 const babel = createParser(parse);
 const babelExpression = createParser(parseExpression);
+const parseJson = createJsonParser();
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
@@ -262,15 +278,15 @@ module.exports = {
     babel,
     "babel-flow": createParser(parseFlow),
     "babel-ts": createParser(parseTypeScript),
-    json: {
-      ...babelExpression,
+    json: createParser({
+      parse: parseJson,
       hasPragma() {
         return true;
       },
-    },
-    json5: babelExpression,
+    }),
+    json5: createParser(parseJson),
     "json-stringify": createParser({
-      parse: parseJson,
+      parse: createJsonParser({ allowComments: false }),
       astFormat: "estree-json",
     }),
     /** @internal */
