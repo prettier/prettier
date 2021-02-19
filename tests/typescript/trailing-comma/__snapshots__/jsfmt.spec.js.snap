@@ -195,7 +195,7 @@ const {
 ================================================================================
 `;
 
-exports[`type-parameters.ts - {"trailingComma":"all"} format 1`] = `
+exports[`type-arguments.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -213,6 +213,10 @@ var bar: Bar<
   HHHHHHH
 >;
 
+const baz = new Array<
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+>();
+
 =====================================output=====================================
 var bar: Bar<
   AAAAAAA,
@@ -222,13 +226,16 @@ var bar: Bar<
   EEEEEEE,
   FFFFFFF,
   GGGGGGG,
-  HHHHHHH,
+  HHHHHHH
 >;
+
+const baz =
+  new Array<FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo>();
 
 ================================================================================
 `;
 
-exports[`type-parameters.ts - {"trailingComma":"es5"} format 1`] = `
+exports[`type-arguments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -246,6 +253,10 @@ var bar: Bar<
   HHHHHHH
 >;
 
+const baz = new Array<
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+>();
+
 =====================================output=====================================
 var bar: Bar<
   AAAAAAA,
@@ -258,10 +269,13 @@ var bar: Bar<
   HHHHHHH
 >;
 
+const baz =
+  new Array<FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo>();
+
 ================================================================================
 `;
 
-exports[`type-parameters.ts - {"trailingComma":"none"} format 1`] = `
+exports[`type-arguments.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -279,6 +293,10 @@ var bar: Bar<
   HHHHHHH
 >;
 
+const baz = new Array<
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+>();
+
 =====================================output=====================================
 var bar: Bar<
   AAAAAAA,
@@ -290,6 +308,126 @@ var bar: Bar<
   GGGGGGG,
   HHHHHHH
 >;
+
+const baz =
+  new Array<FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo>();
+
+================================================================================
+`;
+
+exports[`type-parameters-vs-arguments.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+class FooClass<
+	A,
+	B,
+	C,
+> {
+	a: A;
+	b: B;
+	c: C;
+}
+
+const instance = new FooClass<
+	boolean,
+	number,
+	string, // [ts] Trailing comma not allowed.
+	>();
+
+=====================================output=====================================
+class FooClass<A, B, C> {
+  a: A;
+  b: B;
+  c: C;
+}
+
+const instance = new FooClass<
+  boolean,
+  number,
+  string // [ts] Trailing comma not allowed.
+>();
+
+================================================================================
+`;
+
+exports[`type-parameters-vs-arguments.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class FooClass<
+	A,
+	B,
+	C,
+> {
+	a: A;
+	b: B;
+	c: C;
+}
+
+const instance = new FooClass<
+	boolean,
+	number,
+	string, // [ts] Trailing comma not allowed.
+	>();
+
+=====================================output=====================================
+class FooClass<A, B, C> {
+  a: A;
+  b: B;
+  c: C;
+}
+
+const instance = new FooClass<
+  boolean,
+  number,
+  string // [ts] Trailing comma not allowed.
+>();
+
+================================================================================
+`;
+
+exports[`type-parameters-vs-arguments.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+class FooClass<
+	A,
+	B,
+	C,
+> {
+	a: A;
+	b: B;
+	c: C;
+}
+
+const instance = new FooClass<
+	boolean,
+	number,
+	string, // [ts] Trailing comma not allowed.
+	>();
+
+=====================================output=====================================
+class FooClass<A, B, C> {
+  a: A;
+  b: B;
+  c: C;
+}
+
+const instance = new FooClass<
+  boolean,
+  number,
+  string // [ts] Trailing comma not allowed.
+>();
 
 ================================================================================
 `;
