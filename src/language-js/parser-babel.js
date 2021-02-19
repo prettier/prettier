@@ -153,6 +153,7 @@ const parseTypeScript = createParse(
   ["typescript"]
 );
 const parseExpression = createParse("parseExpression", ["jsx"]);
+const parseJson = createJsonParse();
 
 const messagesShouldThrow = new Set([
   // TSErrors.UnexpectedTypeAnnotation
@@ -179,7 +180,7 @@ function shouldRethrowRecoveredError(error) {
   return messagesShouldThrow.has(message);
 }
 
-function createJsonParser(options) {
+function createJsonParse(options) {
   const { allowComments } = { allowComments: true, ...options };
 
   return function parse(text, parsers, opts) {
@@ -270,7 +271,6 @@ function assertJsonNode(node, parent) {
 
 const babel = createParser(parse);
 const babelExpression = createParser(parseExpression);
-const parseJson = createJsonParser();
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
@@ -286,7 +286,7 @@ module.exports = {
     }),
     json5: createParser(parseJson),
     "json-stringify": createParser({
-      parse: createJsonParser({ allowComments: false }),
+      parse: createJsonParse({ allowComments: false }),
       astFormat: "estree-json",
     }),
     /** @internal */
