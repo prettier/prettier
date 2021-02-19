@@ -8,6 +8,8 @@ run_spec(
       '{"foo": false || "bar"}',
       '{"foo": undefined}',
       '{"foo": () => {}}',
+      '/* comment */{"foo": 1}',
+      '// comment\n{"foo": 1}',
     ],
   },
   ["json-stringify"]

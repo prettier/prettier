@@ -47,3 +47,16 @@ exports[`snippet: #5 [json-stringify] format 1`] = `
 > 1 | {\\"foo\\": () => {}}
     |         ^"
 `;
+
+exports[`snippet: #6 [json-stringify] format 1`] = `
+"CommentBlock is not allowed in JSON. (1:1)
+> 1 | /* comment */{\\"foo\\": 1}
+    | ^"
+`;
+
+exports[`snippet: #7 [json-stringify] format 1`] = `
+"CommentLine is not allowed in JSON. (1:1)
+> 1 | // comment
+    | ^
+  2 | {\\"foo\\": 1}"
+`;
