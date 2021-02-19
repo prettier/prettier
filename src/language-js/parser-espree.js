@@ -1,5 +1,5 @@
 "use strict";
-const { getShebang } = require("../common/util");
+const parseHashbang = require("../utils/hashbang");
 const createError = require("../common/parser-create-error");
 const tryCombinations = require("../utils/try-combinations");
 const postprocess = require("./parse-postprocess");
@@ -33,10 +33,11 @@ function parse(originalText, parsers, options) {
   const { parse, latestEcmaVersion } = require("espree");
   parseOptions.ecmaVersion = latestEcmaVersion;
 
-  // Replace shebang with space
-  const shebang = getShebang(originalText);
-  const text = shebang
-    ? " ".repeat(shebang.length) + originalText.slice(shebang.length)
+  const hashbang = parseHashbang(originalText);
+
+  // Replace hashbang with space
+  const text = hashbang
+    ? " ".repeat(hashbang.range[1]) + originalText.slice(hashbang.range[1])
     : originalText;
 
   const { result: ast, error: moduleParseError } = tryCombinations(
@@ -47,6 +48,10 @@ function parse(originalText, parsers, options) {
   if (!ast) {
     // throw the error for `module` parsing
     throw createParseError(moduleParseError);
+  }
+
+  if (hashbang) {
+    ast.comments.unshift(hashbang);
   }
 
   return postprocess(ast, { ...options, originalText });

@@ -5,8 +5,8 @@ const createError = require("../common/parser-create-error");
 const tryCombinations = require("../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
-  getShebang,
 } = require("../common/util");
+const parseHashbang = require("../utils/hashbang");
 const postprocess = require("./parse-postprocess");
 const createParser = require("./parser/create-parser");
 
@@ -57,9 +57,9 @@ function isFlowFile(text, options) {
     return true;
   }
 
-  const shebang = getShebang(text);
-  if (shebang) {
-    text = text.slice(shebang.length);
+  const hashbang = parseHashbang(text);
+  if (hashbang) {
+    text = text.slice(hashbang.range[1]);
   }
 
   const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(

@@ -1,19 +1,19 @@
 "use strict";
 
 const { parseWithComments, strip, extract, print } = require("jest-docblock");
-const { getShebang } = require("../common/util");
+const parseHashbang = require("../utils/hashbang");
 const { normalizeEndOfLine } = require("../common/end-of-line");
 
 function parseDocBlock(text) {
-  const shebang = getShebang(text);
-  if (shebang) {
-    text = text.slice(shebang.length + 1);
+  const hashbang = parseHashbang(text);
+  if (hashbang) {
+    text = text.slice(hashbang.range[1] + 1);
   }
 
   const docBlock = extract(text);
   const { pragmas, comments } = parseWithComments(docBlock);
 
-  return { shebang, text, pragmas, comments };
+  return { hashbang, text, pragmas, comments };
 }
 
 function hasPragma(text) {
@@ -22,7 +22,7 @@ function hasPragma(text) {
 }
 
 function insertPragma(originalText) {
-  const { shebang, text, pragmas, comments } = parseDocBlock(originalText);
+  const { hashbang, text, pragmas, comments } = parseDocBlock(originalText);
   const strippedText = strip(text);
 
   const docBlock = print({
@@ -34,7 +34,7 @@ function insertPragma(originalText) {
   });
 
   return (
-    (shebang ? `${shebang}\n` : "") +
+    (hashbang ? `#!${hashbang.value}\n` : "") +
     // normalise newlines (mitigate use of os.EOL by jest-docblock)
     normalizeEndOfLine(docBlock) +
     (strippedText.startsWith("\n") ? "\n" : "\n\n") +

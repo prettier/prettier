@@ -137,5 +137,6 @@ overrides:
             - getComments
         - "src/language-js/parse-postprocess.js"
         - "src/language-js/parser-babel.js"
+        - "src/language-js/parser-espree.js"
         - "src/language-js/parser-meriyah.js"
         - "src/language-js/pragma.js"

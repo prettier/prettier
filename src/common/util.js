@@ -613,17 +613,6 @@ function isFrontMatterNode(node) {
   return node && node.type === "front-matter";
 }
 
-function getShebang(text) {
-  if (!text.startsWith("#!")) {
-    return "";
-  }
-  const index = text.indexOf("\n");
-  if (index === -1) {
-    return text;
-  }
-  return text.slice(0, index);
-}
-
 function isNonEmptyArray(object) {
   return Array.isArray(object) && object.length > 0;
 }
@@ -694,7 +683,6 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
-  getShebang,
   isNonEmptyArray,
   createGroupIdMapper,
 };
