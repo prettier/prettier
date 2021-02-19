@@ -214,7 +214,8 @@ var bar: Bar<
 >;
 
 const baz = new Array<
-  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  BarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
 >();
 
 =====================================output=====================================
@@ -229,8 +230,10 @@ var bar: Bar<
   HHHHHHH
 >;
 
-const baz =
-  new Array<FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo>();
+const baz = new Array<
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  BarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
+>();
 
 ================================================================================
 `;
@@ -254,7 +257,8 @@ var bar: Bar<
 >;
 
 const baz = new Array<
-  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  BarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
 >();
 
 =====================================output=====================================
@@ -269,8 +273,10 @@ var bar: Bar<
   HHHHHHH
 >;
 
-const baz =
-  new Array<FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo>();
+const baz = new Array<
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  BarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
+>();
 
 ================================================================================
 `;
@@ -294,7 +300,8 @@ var bar: Bar<
 >;
 
 const baz = new Array<
-  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  BarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
 >();
 
 =====================================output=====================================
@@ -309,8 +316,10 @@ var bar: Bar<
   HHHHHHH
 >;
 
-const baz =
-  new Array<FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo>();
+const baz = new Array<
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  BarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
+>();
 
 ================================================================================
 `;

@@ -10,5 +10,6 @@ var bar: Bar<
 >;
 
 const baz = new Array<
-  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo,
+  BarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
 >();
