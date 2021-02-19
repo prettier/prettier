@@ -184,7 +184,7 @@ function createJsonParse(options) {
   // @ts-ignore
   const { allowComments } = { allowComments: true, ...options };
 
-  return function parse(text, parsers, opts) {
+  return function parse(text /*, parsers, options*/) {
     let ast;
     try {
       ast = require("@babel/parser").parseExpression(text, {
