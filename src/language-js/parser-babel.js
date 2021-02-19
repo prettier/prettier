@@ -181,6 +181,7 @@ function shouldRethrowRecoveredError(error) {
 }
 
 function createJsonParse(options) {
+  // @ts-ignore
   const { allowComments } = { allowComments: true, ...options };
 
   return function parse(text, parsers, opts) {
@@ -195,6 +196,7 @@ function createJsonParse(options) {
     }
 
     if (!allowComments) {
+      // @ts-ignore
       for (const comment of ast.comments) {
         assertJsonNode(comment);
       }
