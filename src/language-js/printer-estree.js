@@ -94,8 +94,8 @@ const { printComment } = require("./print/comment");
 const { printDecorators } = require("./print/decorators");
 
 function genericPrint(path, options, print, args) {
-  const linesWithoutParens = printPathNoParens(path, options, print, args);
-  if (!linesWithoutParens) {
+  const printed = printPathNoParens(path, options, print, args);
+  if (!printed) {
     return "";
   }
 
@@ -113,14 +113,14 @@ function genericPrint(path, options, print, args) {
     type === "TSAbstractMethodDefinition" ||
     type === "TSDeclareMethod"
   ) {
-    return linesWithoutParens;
+    return printed;
   }
 
   const decorators = printDecorators(path, options, print);
   // Nodes with decorators can't have parentheses
   const needsParens = !decorators && pathNeedsParens(path, options);
 
-  const parts = [linesWithoutParens];
+  const parts = [printed];
   if (needsParens) {
     parts.unshift("(");
 
@@ -137,7 +137,7 @@ function genericPrint(path, options, print, args) {
     return group([...decorators, ...parts]);
   }
 
-  return parts.length === 1 ? linesWithoutParens : parts;
+  return parts.length === 1 ? printed : parts;
 }
 
 function printPathNoParens(path, options, print, args) {
