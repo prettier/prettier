@@ -1014,17 +1014,6 @@ var profile = (
 ================================================================================
 `;
 
-exports[`logical-assignment-operators.js [meriyah] format 1`] = `
-"[3:5]: Unexpected token: '=' (3:5)
-  1 | // https://babeljs.io/docs/en/babel-plugin-proposal-logical-assignment-operators
-  2 |
-> 3 | a ||= b;
-    |     ^
-  4 | obj.a.b ||= c;
-  5 |
-  6 | a &&= b;"
-`;
-
 exports[`logical-assignment-operators.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

@@ -14,7 +14,7 @@ const {
   isObjectTypePropertyAFunction,
   shouldPrintComma,
 } = require("../utils");
-const { printAssignmentRight } = require("./assignment");
+const { printAssignment } = require("./assignment");
 const { printFunctionParameters } = require("./function-parameters");
 const { printArrayItems } = require("./array");
 
@@ -79,24 +79,17 @@ function printTypeAlias(path, options, print) {
   if (n.declare) {
     parts.push("declare ");
   }
-
-  const printed = printAssignmentRight(
-    n.id,
-    n.right,
-    path.call(print, "right"),
-    options
-  );
-
   parts.push(
     "type ",
     path.call(print, "id"),
-    path.call(print, "typeParameters"),
-    " =",
-    printed,
-    semi
+    path.call(print, "typeParameters")
   );
-
-  return group(parts);
+  const rightPropertyName =
+    n.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
+  return [
+    printAssignment(path, options, print, parts, " =", rightPropertyName),
+    semi,
+  ];
 }
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`

@@ -14,7 +14,7 @@ const {
     lineSuffixBoundary,
     join,
   },
-  utils: { willBreak, isLineNext },
+  utils: { willBreak },
 } = require("../../document");
 
 const { getLast, getPreferredQuote } = require("../../common/util");
@@ -31,6 +31,9 @@ const {
 } = require("../utils");
 const pathNeedsParens = require("../needs-parens");
 const { willPrintOwnComments } = require("../comments");
+
+const isEmptyStringOrAnyLine = (doc) =>
+  doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
  * @typedef {import("../../common/ast-path")} AstPath
@@ -175,18 +178,15 @@ function printJsxElementInternal(path, options, print) {
   }
 
   // Trim trailing lines (or empty strings)
-  while (
-    children.length > 0 &&
-    (!getLast(children) || isLineNext(getLast(children)))
-  ) {
+  while (children.length > 0 && isEmptyStringOrAnyLine(getLast(children))) {
     children.pop();
   }
 
   // Trim leading lines (or empty strings)
   while (
-    children.length > 0 &&
-    (!children[0] || isLineNext(children[0])) &&
-    (!children[1] || isLineNext(children[1]))
+    children.length > 1 &&
+    isEmptyStringOrAnyLine(children[0]) &&
+    isEmptyStringOrAnyLine(children[1])
   ) {
     children.shift();
     children.shift();

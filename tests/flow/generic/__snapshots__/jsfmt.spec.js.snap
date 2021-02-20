@@ -243,7 +243,8 @@ trailingComma: "all"
 const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
 
 =====================================output=====================================
-const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+const longVariableName: Array<number> =
+  this.foo.bar.baz.collider.body.vertices.reduce();
 
 ================================================================================
 `;
@@ -257,7 +258,8 @@ printWidth: 80
 const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
 
 =====================================output=====================================
-const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+const longVariableName: Array<number> =
+  this.foo.bar.baz.collider.body.vertices.reduce();
 
 ================================================================================
 `;

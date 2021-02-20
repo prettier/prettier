@@ -54,7 +54,7 @@ function hasFlowShorthandAnnotationComment(node) {
   return (
     node.extra &&
     node.extra.parenthesized &&
-    node.trailingComments &&
+    isNonEmptyArray(node.trailingComments) &&
     isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
@@ -344,22 +344,6 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
   return parent.type === "Program" && parent.body.length === 1;
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isMemberExpressionChain(node) {
-  if (!isMemberExpression(node)) {
-    return false;
-  }
-  // @ts-ignore
-  if (node.object.type === "Identifier") {
-    return true;
-  }
-  // @ts-ignore
-  return isMemberExpressionChain(node.object);
-}
-
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
@@ -644,9 +628,12 @@ function isSimpleTemplateLiteral(node) {
 function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
   if (tokenNode === "+") {
     return "+" + keyword;
-  } else if (tokenNode === "-") {
+  }
+
+  if (tokenNode === "-") {
     return "-" + keyword;
   }
+
   return keyword;
 }
 
@@ -922,7 +909,10 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return (
+      node.quasis.every((element) => !element.value.raw.includes("\n")) &&
+      node.expressions.every(isChildSimple)
+    );
   }
 
   if (node.type === "ObjectExpression") {
@@ -1052,6 +1042,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
         forbidFunctionClassAndDoExpr
       );
     case "TSAsExpression":
+    case "TSNonNullExpression":
       return startsWithNoLookaheadToken(
         node.expression,
         forbidFunctionClassAndDoExpr
@@ -1327,16 +1318,6 @@ function getComments(node, flags, fn) {
 const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
-function isChainElement(node) {
-  return (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "TSNonNullExpression"
-  );
-}
-
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1357,7 +1338,6 @@ module.exports = {
   identity,
   isBinaryish,
   isBlockComment,
-  isChainElement,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,
@@ -1373,7 +1353,6 @@ module.exports = {
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,

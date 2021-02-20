@@ -4,29 +4,75 @@ To get up and running, install the dependencies and run the tests:
 
 ```bash
 yarn
-yarn lint:eslint
 yarn test
 ```
 
-Here's what you need to know about the tests:
+## Tests
 
-- The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html).
-- You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
-- You can run `FULL_TEST=1 jest` for a more robust test run.
-  - "compare AST" That re-parses the output, and compares the new AST with the original one and makes sure they are semantically equivalent.
-  - "second format" That formats the output again, and checks that the second output is the same as the first.
-  - "EOL "\r\n"" That replace end of line with `\r\n`, and checks that the output is the same as the first.
-  - "EOL "\r"" That replace end of line with `\r`, and checks that the output is the same as the first.
-  - "BOM" That add BOM(`U+FEFF`) to text, and checks that the output is the same as the first, and keeps the BOM.
-- Each test folder has a `jsfmt.spec.js` that runs the tests. For JavaScript files, generally you can just put `run_spec(__dirname, ["babel", "flow", "typescript"]);` there. This will verify that the output using each parser is the same. You can also pass options as the third argument, like this: `run_spec(__dirname, ["babel"], { trailingComma: "es5" });`
-- `tests/flow-repo/` contains the Flow test suite, and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.js ../flow/tests/`.
-- If you would like to debug prettier locally, you can either debug it in Node or the browser. The easiest way to debug it in Node, is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `./bin/prettier.js <your_test_file>`. The easiest way to debug it in the browser is to build Prettier's website locally (see `website/README.md`).
+The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
-Run `yarn lint:eslint --fix` to automatically format files.
+Each test directory in `tests` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `run_spec` global function. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
 
-If you can, take look at [commands.md](commands.md) and check out [Wadler's paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to understand how Prettier works.
+```js
+run_spec(__dirname, ["babel", "flow", "typescript"]);
+```
+
+This verifies that for each file in the directory, the output matches the snapshot and is the same for each listed parser.
+
+You can also pass options as the third argument:
+
+```js
+run_spec(__dirname, ["babel"], { trailingComma: "es5" });
+```
+
+Signature:
+
+```ts
+function run_spec(
+  fixtures:
+    | string
+    | {
+        dirname: string;
+        snippets?: Array<
+          | string
+          | { code: string; name?: string; filename?: string; output?: string }
+        >;
+      },
+  parsers: string[],
+  options?: PrettierOptions & {
+    errors: true | { [parserName: string]: true | string[] };
+  }
+): void;
+```
+
+Parameters:
+
+- **`fixtures`**: Must be set to `__dirname` or to an object of the shape `{ dirname: __dirname, ... }`. The object may have the `snippets` property to specify an array of extra input entries in addition to the files in the current directory. For each input entry (a file or a snippet), `run_spec` configures and runs a number of tests. The main check is that for a given input the output should match the snapshot (for snippets, the expected output can also be specified directly). [Additional checks](#deeper-testing) are controlled by options and environment variables.
+- **`parsers`**: A list of parser names. The tests verify that the parsers in this list produce the same output. If the list includes `typescript`, then `babel-ts` is included implicitly. If the list includes `babel`, and the current directory is inside `tests/js`, then `espree` and `meriyah` are included implicitly.
+- **`options`**: In addition to Prettier's formatting option, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`errors: true`) or some combinations of input entries and parsers.
+
+The implementation of `run_spec` can be found in [`tests_config/run_spec.js`](tests_config/run_spec.js).
+
+`tests/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.js ../flow/tests/`.
+
+## Debugging
+
+To debug Prettier locally, you can either debug it in Node (recommended) or the browser.
+
+- The easiest way to debug it in Node is to create a local test file with some example code you want formatted and either run it in an editor like VS Code or run it directly via `./bin/prettier.js <your_test_file>`.
+- The easiest way to debug it in the browser is to build Prettier's website locally (see [`website/README.md`](website/README.md)).
+
+## Other
+
+The project uses ESLint for linting and Prettier for formatting. If your editor isn't set up to work with them, you can lint and format all files from the command line using `yarn fix`.
+
+After opening a PR, describe your changes in a file in the `changelog_unreleased` directory following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR.
+
+Take a look at [`commands.md`](commands.md) and, if you know Haskell, check out [Wadler's paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to understand how Prettier works.
 
 If you want to know more about Prettier's GitHub labels, see the [Issue Labels](https://github.com/prettier/prettier/wiki/Issue-Labels) page on the Wiki.
+
+# Advanced topics
 
 ## Performance
 
@@ -52,3 +98,18 @@ In the above commands:
 - `> /dev/null` ensures the formatted output is discarded.
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
+
+## Regression testing
+
+We have a cool tool for regression testing that runs on GitHub Actions. Have a look: https://github.com/prettier/prettier-regression-testing
+
+## Deeper testing
+
+You can run `FULL_TEST=1 jest` for a more robust test run, which includes the following additional checks:
+
+- **compare AST** - re-parses the output and makes sure the new AST is equivalent to the original one.
+- **second format** - formats the output again and checks that the second output is the same as the first.
+- **EOL '\r\n'** and **EOL '\r'** - check that replacing line endings with `\r\n` or `\r` in the input doesn't affect the output.
+- **BOM** - checks that adding BOM (`U+FEFF`) to the input affects the output in only one way: the BOM is preserved.
+
+Usually there is no need to run these extra checks locally, since they're run on the CI anyway.

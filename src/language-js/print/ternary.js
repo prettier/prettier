@@ -6,7 +6,6 @@ const {
   isJsxNode,
   isBlockComment,
   getComments,
-  isChainElement,
   isCallExpression,
   isMemberExpression,
 } = require("../utils");
@@ -59,10 +58,7 @@ const {
 //     }
 //   }
 // }
-//
-// We want to traverse over that shape and convert it into a flat structure so
-// that we can find if there's a JSXElement somewhere inside.
-function getConditionalChainContents(node) {
+function conditionalExpressionChainContainsJsx(node) {
   // Given this code:
   //
   // // Using a ConditionalExpression as the consequent is uncommon, but should
@@ -89,41 +85,25 @@ function getConditionalChainContents(node) {
   //   }
   // }
   //
-  // we should return this Array:
-  //
-  // [
-  //   Identifier(A),
-  //   Identifier(B),
-  //   Identifier(C),
-  //   Identifier(D),
-  //   Identifier(E),
-  //   Identifier(F),
-  //   Identifier(G),
-  //   Identifier(H),
-  //   Identifier(I)
-  // ];
-  //
-  // This loses the information about whether each node was the test,
-  // consequent, or alternate, but we don't care about that here- we are only
-  // flattening this structure to find if there's any JSXElements inside.
-  const nonConditionalExpressions = [];
+  // We don't care about whether each node was the test, consequent, or alternate
+  // We are only checking if there's any JSXElements inside.
+  const conditionalExpressions = [node];
+  for (let index = 0; index < conditionalExpressions.length; index++) {
+    const conditionalExpression = conditionalExpressions[index];
+    for (const property of ["test", "consequent", "alternate"]) {
+      const node = conditionalExpression[property];
 
-  function recurse(node) {
-    if (node.type === "ConditionalExpression") {
-      recurse(node.test);
-      recurse(node.consequent);
-      recurse(node.alternate);
-    } else {
-      nonConditionalExpressions.push(node);
+      if (isJsxNode(node)) {
+        return true;
+      }
+
+      if (node.type === "ConditionalExpression") {
+        conditionalExpressions.push(node);
+      }
     }
   }
-  recurse(node);
 
-  return nonConditionalExpressions;
-}
-
-function conditionalExpressionChainContainsJsx(node) {
-  return getConditionalChainContents(node).some(isJsxNode);
+  return false;
 }
 
 function printTernaryTest(path, options, print) {
@@ -174,40 +154,39 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  let ancestorCount = 1;
-  let ancestor = path.getParentNode(ancestorCount);
-  if (!ancestor) {
+  let parent;
+  let child = node;
+  for (let ancestorCount = 0; !parent; ancestorCount++) {
+    const node = path.getParentNode(ancestorCount);
+
+    if (
+      (isCallExpression(node) && node.callee === child) ||
+      (isMemberExpression(node) && node.object === child) ||
+      (node.type === "TSNonNullExpression" && node.expression === child)
+    ) {
+      child = node;
+      continue;
+    }
+
+    // Reached chain root
+
+    if (
+      (node.type === "NewExpression" && node.callee === child) ||
+      (node.type === "TSAsExpression" && node.expression === child)
+    ) {
+      parent = path.getParentNode(ancestorCount + 1);
+      child = node;
+    } else {
+      parent = node;
+    }
+  }
+
+  // Do not add indent to direct `ConditionalExpression`
+  if (child === node) {
     return false;
   }
-  while (isChainElement(ancestor)) {
-    ancestor = path.getParentNode(++ancestorCount);
-  }
-  const checkAncestor = (node) => {
-    const name = ancestorNameMap.get(ancestor.type);
-    return ancestor[name] === node;
-  };
 
-  const parent = path.getParentNode();
-  const name = path.getName();
-
-  if (
-    ((name === "callee" && parent.type === "NewExpression") ||
-      (name === "expression" && parent.type === "TSAsExpression")) &&
-    checkAncestor(parent)
-  ) {
-    return true;
-  }
-
-  if (
-    ((name === "callee" && isCallExpression(parent)) ||
-      (name === "object" && isMemberExpression(parent)) ||
-      (name === "expression" && parent.type === "TSNonNullExpression")) &&
-    checkAncestor(path.getParentNode(ancestorCount - 1))
-  ) {
-    return true;
-  }
-
-  return false;
+  return parent[ancestorNameMap.get(parent.type)] === child;
 }
 
 /**

@@ -87,7 +87,8 @@ function needsParens(path, options) {
           node.type === "TaggedTemplateExpression" ||
           node.type === "UnaryExpression" ||
           node.type === "UpdateExpression" ||
-          node.type === "YieldExpression")
+          node.type === "YieldExpression" ||
+          node.type === "TSNonNullExpression")
       ) {
         return true;
       }
@@ -494,32 +495,46 @@ function needsParens(path, options) {
 
       if (name === "body" && parent.type === "ArrowFunctionExpression") {
         return true;
-      } else if (
+      }
+
+      if (
         name === "key" &&
         (parent.type === "ClassProperty" ||
           parent.type === "PropertyDefinition") &&
         parent.computed
       ) {
         return false;
-      } else if (
+      }
+
+      if (
         (name === "init" || name === "update") &&
         parent.type === "ForStatement"
       ) {
         return false;
-      } else if (parent.type === "ExpressionStatement") {
+      }
+
+      if (parent.type === "ExpressionStatement") {
         return node.left.type === "ObjectPattern";
-      } else if (name === "key" && parent.type === "TSPropertySignature") {
+      }
+
+      if (name === "key" && parent.type === "TSPropertySignature") {
         return false;
-      } else if (parent.type === "AssignmentExpression") {
+      }
+
+      if (parent.type === "AssignmentExpression") {
         return false;
-      } else if (
+      }
+
+      if (
         parent.type === "SequenceExpression" &&
         grandParent &&
         grandParent.type === "ForStatement" &&
         (grandParent.init === parent || grandParent.update === parent)
       ) {
         return false;
-      } else if (
+      }
+
+      if (
         name === "value" &&
         parent.type === "Property" &&
         grandParent &&
@@ -527,9 +542,12 @@ function needsParens(path, options) {
         grandParent.properties.includes(parent)
       ) {
         return false;
-      } else if (parent.type === "NGChainedExpression") {
+      }
+
+      if (parent.type === "NGChainedExpression") {
         return false;
       }
+
       return true;
     }
     case "ConditionalExpression":
@@ -599,6 +617,7 @@ function needsParens(path, options) {
           return name === "object";
 
         case "TSAsExpression":
+        case "TSNonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
