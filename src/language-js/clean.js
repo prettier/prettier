@@ -88,11 +88,6 @@ function clean(ast, newObj, parent) {
     delete newObj.key;
   }
 
-  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
-    newObj.type = "MemberExpression";
-    delete newObj.optional;
-  }
-
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
