@@ -235,12 +235,7 @@ function printPathNoParens(path, options, print, args) {
       // Print @babel/parser's InterpreterDirective here so that
       // leading comments on the `Program` node get printed after the hashbang.
       if (n.program && n.program.interpreter) {
-        parts.push(
-          path.call(
-            (programPath) => programPath.call(print, "interpreter"),
-            "program"
-          )
-        );
+        parts.push(path.call(print, "program", "interpreter"));
       }
 
       parts.push(path.call(print, "program"));
