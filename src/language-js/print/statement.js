@@ -105,10 +105,6 @@ function statementNeedsASIProtection(path, options) {
 }
 
 function expressionNeedsASIProtection(path, options) {
-  if (pathNeedsParens(path, options)) {
-    return true;
-  }
-
   const node = path.getValue();
   switch (node.type) {
     case "ParenthesizedExpression":
@@ -149,6 +145,10 @@ function expressionNeedsASIProtection(path, options) {
         return true;
       }
     }
+  }
+
+  if (pathNeedsParens(path, options)) {
+    return true;
   }
 
   if (!hasNakedLeftSide(node)) {
