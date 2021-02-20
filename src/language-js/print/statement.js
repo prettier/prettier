@@ -54,20 +54,15 @@ function printStatementSequence(path, options, print, property) {
       parts.push(printed);
     }
 
-    if (!options.semi && isClassBody) {
-      if (classPropMayCauseASIProblems(node)) {
-        parts.push(";");
-      } else if (
-        node.type === "ClassProperty" ||
-        node.type === "PropertyDefinition" ||
-        node.type === "ClassPrivateProperty"
-      ) {
-        // `ClassBody` don't allow `EmptyStatement`,
-        // so we can use `statements` to get next node
-        if (classChildNeedsASIProtection(statements[index + 1])) {
-          parts.push(";");
-        }
-      }
+    if (
+      !options.semi &&
+      isClassBody &&
+      isClassProperty(node) &&
+      // `ClassBody` don't allow `EmptyStatement`,
+      // so we can use `statements` to get next node
+      shouldPrintSemicolonAfterClassProperty(node, statements[index + 1])
+    ) {
+      parts.push(";");
     }
 
     if (node !== lastStatement) {
@@ -169,16 +164,15 @@ function printSwitchCaseConsequent(path, options, print) {
   return printStatementSequence(path, options, print, "consequent");
 }
 
+const isClassProperty = ({ type }) =>
+  type === "ClassProperty" ||
+  type === "PropertyDefinition" ||
+  type === "ClassPrivateProperty";
 /**
  * @returns {boolean}
  */
-function classPropMayCauseASIProblems(node) {
-  if (node.type !== "ClassProperty" && node.type !== "PropertyDefinition") {
-    return false;
-  }
-
+function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   const name = node.key && node.key.name;
-
   // this isn't actually possible yet with most parsers available today
   // so isn't properly tested yet.
   if (
@@ -189,50 +183,49 @@ function classPropMayCauseASIProblems(node) {
     return true;
   }
 
-  return false;
-}
-
-/**
- * @returns {boolean}
- */
-function classChildNeedsASIProtection(node) {
-  if (!node) {
+  if (!nextNode) {
     return false;
   }
 
   if (
-    node.static ||
-    node.accessibility // TypeScript
+    nextNode.static ||
+    nextNode.accessibility // TypeScript
   ) {
     return false;
   }
 
-  if (!node.computed) {
-    const name = node.key && node.key.name;
+  if (!nextNode.computed) {
+    const name = nextNode.key && nextNode.key.name;
     if (name === "in" || name === "instanceof") {
       return true;
     }
   }
-  switch (node.type) {
+
+  switch (nextNode.type) {
     case "ClassProperty":
     case "PropertyDefinition":
     case "TSAbstractClassProperty":
-      return node.computed;
+      return nextNode.computed;
     case "MethodDefinition": // Flow
     case "TSAbstractMethodDefinition": // TypeScript
     case "ClassMethod":
     case "ClassPrivateMethod": {
       // Babel
-      const isAsync = node.value ? node.value.async : node.async;
-      const isGenerator = node.value ? node.value.generator : node.generator;
-      if (isAsync || node.kind === "get" || node.kind === "set") {
+      const isAsync = nextNode.value ? nextNode.value.async : nextNode.async;
+      if (isAsync || nextNode.kind === "get" || nextNode.kind === "set") {
         return false;
       }
-      if (node.computed || isGenerator) {
+
+      const isGenerator = nextNode.value
+        ? nextNode.value.generator
+        : nextNode.generator;
+      if (nextNode.computed || isGenerator) {
         return true;
       }
+
       return false;
     }
+
     case "TSIndexSignature":
       return true;
   }
