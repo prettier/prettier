@@ -34,7 +34,7 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/flat-ast-path-call.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/flat-ast-path-call.js",
     },
     messages: {
       [MESSAGE_ID]: "Do not use nested `AstPath#{{method}}(…)`.",
