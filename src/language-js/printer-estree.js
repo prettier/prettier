@@ -137,7 +137,7 @@ function genericPrint(path, options, printPath, args) {
     return group([...decorators, ...parts]);
   }
 
-  return parts;
+  return parts.length === 1 ? linesWithoutParens : parts;
 }
 
 function printPathNoParens(path, options, print, args) {
