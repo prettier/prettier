@@ -101,7 +101,7 @@ function genericPrint(path, options, print, args) {
 
   const node = path.getValue();
   const { type } = node;
-  // their decorators are handled themselves
+  // Their decorators are handled themselves, and they can't have parentheses
   if (
     type === "ClassMethod" ||
     type === "ClassPrivateMethod" ||
@@ -117,11 +117,11 @@ function genericPrint(path, options, print, args) {
   }
 
   const printedDecorators = printDecorators(path, options, print);
+  // Nodes with decorators can't have parentheses
   if (printedDecorators) {
     return group([...printedDecorators, printed]);
   }
 
-  // Nodes with decorators can't have parentheses
   const needsParens = pathNeedsParens(path, options);
 
   if (!needsParens) {
