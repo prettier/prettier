@@ -93,8 +93,8 @@ const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
 const { printDecorators } = require("./print/decorators");
 
-function genericPrint(path, options, printPath, args) {
-  const linesWithoutParens = printPathNoParens(path, options, printPath, args);
+function genericPrint(path, options, print, args) {
+  const linesWithoutParens = printPathNoParens(path, options, print, args);
   if (!linesWithoutParens) {
     return "";
   }
@@ -116,7 +116,7 @@ function genericPrint(path, options, printPath, args) {
     return linesWithoutParens;
   }
 
-  const decorators = printDecorators(path, options, printPath);
+  const decorators = printDecorators(path, options, print);
   // Nodes with decorators can't have parentheses
   const needsParens = !decorators && pathNeedsParens(path, options);
 
