@@ -130,7 +130,7 @@ function expressionNeedsASIProtection(path, options) {
       break;
     }
     case "Literal": {
-      if (node.pattern || node.regex) {
+      if (node.regex) {
         return true;
       }
       break;
