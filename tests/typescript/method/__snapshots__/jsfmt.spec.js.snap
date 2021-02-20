@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`issue-10352-consistency.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export interface Store {
+  getRecord(collectionName: string, documentPath: string): TaskEither<Error, Option<GenericRecord>>;
+}
+
+export default class StoreImpl extends Service implements Store {
+  getRecord(collectionName: string, documentPath: string): TaskEither<Error, Option<GenericRecord>> {
+    // Do some stuff.
+  }
+}
+
+=====================================output=====================================
+export interface Store {
+  getRecord(
+    collectionName: string,
+    documentPath: string
+  ): TaskEither<Error, Option<GenericRecord>>;
+}
+
+export default class StoreImpl extends Service implements Store {
+  getRecord(
+    collectionName: string,
+    documentPath: string
+  ): TaskEither<Error, Option<GenericRecord>> {
+    // Do some stuff.
+  }
+}
+
+================================================================================
+`;
+
 exports[`method-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -39,6 +75,40 @@ type Bar = {
 };
 type Bar = {
   get(key: "bar"): { bar: "bar" };
+};
+
+================================================================================
+`;
+
+exports[`method-signature-with-wrapped-return-type.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type ReleaseToolConfig = {
+  get(key: "changelog"): {
+    get(key: "repo"): string;
+    get(key: "labels"): Map<string, string>;
+  };
+};
+
+type ReleaseToolConfig2 = {
+  get(key: "changelog"): \`
+  \`
+};
+
+=====================================output=====================================
+type ReleaseToolConfig = {
+  get(key: "changelog"): {
+    get(key: "repo"): string;
+    get(key: "labels"): Map<string, string>;
+  };
+};
+
+type ReleaseToolConfig2 = {
+  get(key: "changelog"): \`
+  \`;
 };
 
 ================================================================================

@@ -35,7 +35,11 @@ const {
   printTypeParameters,
 } = require("./type-parameters");
 const { printPropertyKey } = require("./property");
-const { printFunctionDeclaration, printMethodInternal } = require("./function");
+const {
+  printFunctionDeclaration,
+  printMethodInternal,
+  shouldGroupMethodParameters,
+} = require("./function");
 const { printInterface } = require("./interface");
 const { printBlock } = require("./block");
 const {
@@ -347,37 +351,46 @@ function printTypescript(path, options, print) {
         { shouldBreak }
       );
     }
-    case "TSMethodSignature":
+    case "TSMethodSignature": {
       parts.push(
-        group([
-          n.accessibility ? [n.accessibility, " "] : "",
-          n.export ? "export " : "",
-          n.static ? "static " : "",
-          n.readonly ? "readonly " : "",
-          n.computed ? "[" : "",
-          path.call(print, "key"),
-          n.computed ? "]" : "",
-          printOptionalToken(path),
-          printFunctionParameters(
-            path,
-            print,
-            options,
-            /* expandArg */ false,
-            /* printTypeParams */ true
-          ),
-        ])
+        n.accessibility ? [n.accessibility, " "] : "",
+        n.export ? "export " : "",
+        n.static ? "static " : "",
+        n.readonly ? "readonly " : "",
+        n.computed ? "[" : "",
+        path.call(print, "key"),
+        n.computed ? "]" : "",
+        printOptionalToken(path)
       );
 
-      if (n.returnType || n.typeAnnotation) {
-        parts.push(
-          group([
-            ": ",
-            path.call(print, "returnType"),
-            path.call(print, "typeAnnotation"),
-          ])
-        );
+      const parametersDoc = printFunctionParameters(
+        path,
+        print,
+        options,
+        /* expandArg */ false,
+        /* printTypeParams */ true
+      );
+
+      const returnTypePropertyName = n.typeAnnotation
+        ? "typeAnnotation"
+        : "returnType";
+      const returnTypeNode = n[returnTypePropertyName];
+      const returnTypeDoc = returnTypeNode
+        ? path.call(print, returnTypePropertyName)
+        : "";
+      const shouldGroupParameters = shouldGroupMethodParameters(
+        returnTypeNode,
+        returnTypeDoc
+      );
+
+      parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
+
+      if (returnTypeNode) {
+        parts.push(": ", group(returnTypeDoc));
       }
+
       return group(parts);
+    }
     case "TSNamespaceExportDeclaration":
       parts.push("export as namespace ", path.call(print, "id"));
 

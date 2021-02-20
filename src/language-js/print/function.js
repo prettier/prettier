@@ -8,6 +8,7 @@ const {
 } = require("../../common/util");
 const {
   builders: { line, softline, group, indent, ifBreak, hardline },
+  utils: { willBreak },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -23,6 +24,7 @@ const {
   hasComment,
   getComments,
   CommentCheckFlags,
+  isObjectType,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionParameters } = require("./function-parameters");
@@ -110,15 +112,22 @@ function printMethod(path, options, print) {
 }
 
 function printMethodInternal(path, options, print) {
+  const node = path.getNode();
+  const parametersDoc = printFunctionParameters(path, print, options);
+  const returnTypeDoc = printReturnType(path, print, options);
+  const shouldGroupParameters = shouldGroupMethodParameters(
+    node.returnType,
+    returnTypeDoc
+  );
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group([
-      printFunctionParameters(path, print, options),
-      printReturnType(path, print, options),
+      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      returnTypeDoc,
     ]),
   ];
 
-  if (path.getNode().body) {
+  if (node.body) {
     parts.push(" ", path.call(print, "body"));
   } else {
     parts.push(options.semi ? ";" : "");
@@ -292,6 +301,16 @@ function printReturnType(path, print, options) {
   return parts;
 }
 
+function shouldGroupMethodParameters(returnTypeNode, returnTypeDoc) {
+  if (returnTypeNode && returnTypeNode.typeAnnotation) {
+    returnTypeNode = returnTypeNode.typeAnnotation;
+  }
+  if (!returnTypeNode) {
+    return false;
+  }
+  return isObjectType(returnTypeNode) || willBreak(returnTypeDoc);
+}
+
 // `ReturnStatement` and `ThrowStatement`
 function printReturnAndThrowArgument(path, options, print) {
   const node = path.getValue();
@@ -361,4 +380,5 @@ module.exports = {
   printThrowStatement,
   printMethodInternal,
   shouldPrintParamsWithoutParens,
+  shouldGroupMethodParameters,
 };
