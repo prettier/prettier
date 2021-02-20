@@ -7,12 +7,7 @@ const assert = require("assert");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const { printDanglingComments } = require("../main/comments");
-const {
-  hasNewline,
-  printString,
-  printNumber,
-  isNonEmptyArray,
-} = require("../common/util");
+const { hasNewline, printString, printNumber } = require("../common/util");
 const {
   builders: { join, line, hardline, softline, literalline, group, indent },
 } = require("../document");
