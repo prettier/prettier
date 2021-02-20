@@ -154,7 +154,7 @@ class AstPath {
    * @param {(node: any, name: string, number: number | null) => boolean} predicate
    * @internal Unstable API. Don't use in plugins for now.
    */
-  findClosestAncestor(predicate) {
+  findAncestor(predicate) {
     let stackPointer = this.stack.length - 1;
 
     let name = null;

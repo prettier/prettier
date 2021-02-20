@@ -374,7 +374,7 @@ function printPathNoParens(path, options, print, args) {
           (isMemberExpression(parent) && parent.object === n)
         ) {
           parts = [indent([softline, ...parts]), softline];
-          const parentAwaitOrBlock = path.findClosestAncestor(
+          const parentAwaitOrBlock = path.findAncestor(
             (node) =>
               node.type === "AwaitExpression" || node.type === "BlockStatement"
           );
