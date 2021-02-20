@@ -180,9 +180,8 @@ function shouldRethrowRecoveredError(error) {
   return messagesShouldThrow.has(message);
 }
 
-function createJsonParse(options) {
-  // @ts-ignore
-  const { allowComments } = { allowComments: true, ...options };
+function createJsonParse(options = {}) {
+  const { allowComments = true } = options;
 
   return function parse(text /*, parsers, options*/) {
     let ast;
