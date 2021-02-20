@@ -105,29 +105,50 @@ function statementNeedsASIProtection(path, options) {
 }
 
 function expressionNeedsASIProtection(path, options) {
-  const node = path.getValue();
-
-  const maybeASIProblem =
-    pathNeedsParens(path, options) ||
-    node.type === "ParenthesizedExpression" ||
-    node.type === "TypeCastExpression" ||
-    (node.type === "ArrowFunctionExpression" &&
-      !shouldPrintParamsWithoutParens(path, options)) ||
-    node.type === "ArrayExpression" ||
-    node.type === "ArrayPattern" ||
-    (node.type === "UnaryExpression" &&
-      node.prefix &&
-      (node.operator === "+" || node.operator === "-")) ||
-    node.type === "TemplateLiteral" ||
-    node.type === "TemplateElement" ||
-    isJsxNode(node) ||
-    (node.type === "BindExpression" && !node.object) ||
-    node.type === "RegExpLiteral" ||
-    (node.type === "Literal" && node.pattern) ||
-    (node.type === "Literal" && node.regex);
-
-  if (maybeASIProblem) {
+  if (pathNeedsParens(path, options)) {
     return true;
+  }
+
+  const node = path.getValue();
+  switch (node.type) {
+    case "ParenthesizedExpression":
+    case "TypeCastExpression":
+    case "ArrayExpression":
+    case "ArrayPattern":
+    case "TemplateLiteral":
+    case "TemplateElement":
+    case "RegExpLiteral":
+      return true;
+    case "ArrowFunctionExpression": {
+      if (!shouldPrintParamsWithoutParens(path, options)) {
+        return true;
+      }
+      break;
+    }
+    case "UnaryExpression": {
+      const { prefix, operator } = node;
+      if (prefix && (operator === "+" || operator === "-")) {
+        return true;
+      }
+      break;
+    }
+    case "BindExpression": {
+      if (!node.object) {
+        return true;
+      }
+      break;
+    }
+    case "Literal": {
+      if (node.pattern || node.regex) {
+        return true;
+      }
+      break;
+    }
+    default: {
+      if (isJsxNode(node)) {
+        return true;
+      }
+    }
   }
 
   if (!hasNakedLeftSide(node)) {
