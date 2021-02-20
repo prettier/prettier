@@ -368,13 +368,23 @@ function printPathNoParens(path, options, print, args) {
       parts.push("await");
       if (n.argument) {
         parts.push(" ", path.call(print, "argument"));
-      }
-      const parent = path.getParentNode();
-      if (
-        (isCallExpression(parent) && parent.callee === n) ||
-        (isMemberExpression(parent) && parent.object === n)
-      ) {
-        return group([indent([softline, ...parts]), softline]);
+        const parent = path.getParentNode();
+        if (
+          (isCallExpression(parent) && parent.callee === n) ||
+          (isMemberExpression(parent) && parent.object === n)
+        ) {
+          parts = [indent([softline, ...parts]), softline];
+          const parentAwaitOrBlock = path.findAncestor(
+            (node) =>
+              node.type === "AwaitExpression" || node.type === "BlockStatement"
+          );
+          if (
+            !parentAwaitOrBlock ||
+            parentAwaitOrBlock.type !== "AwaitExpression"
+          ) {
+            return group(parts);
+          }
+        }
       }
       return parts;
     }
