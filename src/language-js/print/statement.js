@@ -197,7 +197,7 @@ function classPropMayCauseASIProblems(node) {
  */
 function classChildNeedsASIProtection(node) {
   if (!node) {
-    return;
+    return false;
   }
 
   if (
