@@ -148,14 +148,13 @@ class AstPath {
   }
 
   /**
-   * Traverses the current node and its parents (heading toward the tree root)
+   * Traverses the ancestors of the current node heading toward the tree root
    * until it finds a node that matches the provided predicate function. Will
-   * return the current node or the matching ancestor. If no such node exists,
-   * it returns undefined.
-   * Inspired by https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-   * @param {(node: any, name: string | null, number: number | null) => boolean} predicate
+   * return the first matching ancestor. If no such node exists, returns undefined.
+   * @param {(node: any, name: string, number: number | null) => boolean} predicate
+   * @internal Unstable API. Don't use in plugins for now.
    */
-  closest(predicate) {
+  findClosestAncestor(predicate) {
     let stackPointer = this.stack.length - 1;
 
     let name = null;
@@ -170,7 +169,7 @@ class AstPath {
         node = this.stack[stackPointer--];
       }
 
-      if (predicate(node, name, number)) {
+      if (name !== null && predicate(node, name, number)) {
         return node;
       }
 

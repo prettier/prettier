@@ -373,16 +373,17 @@ function printPathNoParens(path, options, print, args) {
           (isCallExpression(parent) && parent.callee === n) ||
           (isMemberExpression(parent) && parent.object === n)
         ) {
-          const parentAwaitOrBlock = path.closest(
-            (node) =>
-              (node.type === "AwaitExpression" && node !== n) ||
-              node.type === "BlockStatement"
-          );
-          const shouldGroup =
-            !parentAwaitOrBlock ||
-            parentAwaitOrBlock.type !== "AwaitExpression";
           parts = [indent([softline, ...parts]), softline];
-          return shouldGroup ? group(parts) : parts;
+          const parentAwaitOrBlock = path.findClosestAncestor(
+            (node) =>
+              node.type === "AwaitExpression" || node.type === "BlockStatement"
+          );
+          if (
+            !parentAwaitOrBlock ||
+            parentAwaitOrBlock.type !== "AwaitExpression"
+          ) {
+            return group(parts);
+          }
         }
       }
       return parts;
