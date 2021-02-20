@@ -116,28 +116,29 @@ function genericPrint(path, options, print, args) {
     return printed;
   }
 
-  const decorators = printDecorators(path, options, print);
+  const printedDecorators = printDecorators(path, options, print);
+  if (printedDecorators) {
+    return group([...printedDecorators, printed]);
+  }
+
   // Nodes with decorators can't have parentheses
-  const needsParens = !decorators && pathNeedsParens(path, options);
+  const needsParens = pathNeedsParens(path, options);
 
-  const parts = [printed];
-  if (needsParens) {
-    parts.unshift("(");
-
-    if (hasFlowShorthandAnnotationComment(node)) {
-      const [comment] = node.trailingComments;
-      parts.push(" /*", comment.value.trimStart(), "*/");
-      comment.printed = true;
-    }
-
-    parts.push(")");
+  if (!needsParens) {
+    return printed;
   }
 
-  if (isNonEmptyArray(decorators)) {
-    return group([...decorators, ...parts]);
+  const parts = ["(", printed];
+
+  if (hasFlowShorthandAnnotationComment(node)) {
+    const [comment] = node.trailingComments;
+    parts.push(" /*", comment.value.trimStart(), "*/");
+    comment.printed = true;
   }
 
-  return parts.length === 1 ? printed : parts;
+  parts.push(")");
+
+  return parts;
 }
 
 function printPathNoParens(path, options, print, args) {
