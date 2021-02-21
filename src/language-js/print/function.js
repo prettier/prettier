@@ -8,7 +8,6 @@ const {
 } = require("../../common/util");
 const {
   builders: { line, softline, group, indent, ifBreak, hardline },
-  utils: { willBreak },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -24,10 +23,12 @@ const {
   hasComment,
   getComments,
   CommentCheckFlags,
-  isObjectType,
 } = require("../utils");
 const { locEnd } = require("../loc");
-const { printFunctionParameters } = require("./function-parameters");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters");
 const { printPropertyKey } = require("./property");
 const { printFunctionTypeParameters } = require("./misc");
 
@@ -55,11 +56,23 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     parts.push(path.call(print, "id"));
   }
 
+  const parametersDoc = printFunctionParameters(
+    path,
+    print,
+    options,
+    expandArg
+  );
+  const returnTypeDoc = printReturnType(path, print, options);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    n.returnType,
+    returnTypeDoc
+  );
+
   parts.push(
     printFunctionTypeParameters(path, options, print),
     group([
-      printFunctionParameters(path, print, options, expandArg),
-      printReturnType(path, print, options),
+      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      returnTypeDoc,
     ]),
     n.body ? " " : "",
     path.call(print, "body")
@@ -115,7 +128,7 @@ function printMethodInternal(path, options, print) {
   const node = path.getNode();
   const parametersDoc = printFunctionParameters(path, print, options);
   const returnTypeDoc = printReturnType(path, print, options);
-  const shouldGroupParameters = shouldGroupMethodParameters(
+  const shouldGroupParameters = shouldGroupFunctionParameters(
     node.returnType,
     returnTypeDoc
   );
@@ -301,16 +314,6 @@ function printReturnType(path, print, options) {
   return parts;
 }
 
-function shouldGroupMethodParameters(returnTypeNode, returnTypeDoc) {
-  if (returnTypeNode && returnTypeNode.typeAnnotation) {
-    returnTypeNode = returnTypeNode.typeAnnotation;
-  }
-  if (!returnTypeNode) {
-    return false;
-  }
-  return isObjectType(returnTypeNode) || willBreak(returnTypeDoc);
-}
-
 // `ReturnStatement` and `ThrowStatement`
 function printReturnAndThrowArgument(path, options, print) {
   const node = path.getValue();
@@ -380,5 +383,4 @@ module.exports = {
   printThrowStatement,
   printMethodInternal,
   shouldPrintParamsWithoutParens,
-  shouldGroupMethodParameters,
 };

@@ -25,7 +25,10 @@ const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc");
 const { printTernary } = require("./ternary");
-const { printFunctionParameters } = require("./function-parameters");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters");
 const { printTemplateLiteral } = require("./template-literal");
 const { printArrayItems } = require("./array");
 const { printObject } = require("./object");
@@ -35,11 +38,7 @@ const {
   printTypeParameters,
 } = require("./type-parameters");
 const { printPropertyKey } = require("./property");
-const {
-  printFunctionDeclaration,
-  printMethodInternal,
-  shouldGroupMethodParameters,
-} = require("./function");
+const { printFunctionDeclaration, printMethodInternal } = require("./function");
 const { printInterface } = require("./interface");
 const { printBlock } = require("./block");
 const {
@@ -378,7 +377,7 @@ function printTypescript(path, options, print) {
       const returnTypeDoc = returnTypeNode
         ? path.call(print, returnTypePropertyName)
         : "";
-      const shouldGroupParameters = shouldGroupMethodParameters(
+      const shouldGroupParameters = shouldGroupFunctionParameters(
         returnTypeNode,
         returnTypeDoc
       );

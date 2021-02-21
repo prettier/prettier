@@ -4,7 +4,7 @@ const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
 const { printDanglingComments } = require("../../main/comments");
 const {
   builders: { line, hardline, softline, group, indent, ifBreak },
-  utils: { removeLines },
+  utils: { removeLines, willBreak },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -189,4 +189,18 @@ function shouldHugFunctionParameters(node) {
   );
 }
 
-module.exports = { printFunctionParameters, shouldHugFunctionParameters };
+function shouldGroupFunctionParameters(returnTypeNode, returnTypeDoc) {
+  if (returnTypeNode && returnTypeNode.typeAnnotation) {
+    returnTypeNode = returnTypeNode.typeAnnotation;
+  }
+  if (!returnTypeNode) {
+    return false;
+  }
+  return isObjectType(returnTypeNode) || willBreak(returnTypeDoc);
+}
+
+module.exports = {
+  printFunctionParameters,
+  shouldHugFunctionParameters,
+  shouldGroupFunctionParameters,
+};
