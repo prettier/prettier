@@ -7,6 +7,40 @@ exports[`export-declare.ts [babel-ts] format 1`] = `
   2 |"
 `;
 
+exports[`multiline-declaration-abstract-class.ts [babel-ts] format 1`] = `
+"Missing semicolon (1:8)
+> 1 | declare abstract
+    |        ^
+  2 | class A {}
+  3 |"
+`;
+
+exports[`multiline-declaration-interface.ts [babel-ts] format 1`] = `
+"Missing semicolon (1:8)
+> 1 | declare interface
+    |        ^
+  2 | I
+  3 | {}
+  4 |"
+`;
+
+exports[`multiline-declaration-module.ts [babel-ts] format 1`] = `
+"Missing semicolon (1:8)
+> 1 | declare module
+    |        ^
+  2 | 'bar'
+  3 | {}
+  4 |"
+`;
+
+exports[`multiline-declaration-type.ts [babel-ts] format 1`] = `
+"Missing semicolon (1:8)
+> 1 | declare type
+    |        ^
+  2 | T = number
+  3 |"
+`;
+
 exports[`type-annotation-expr-statement.ts [babel-ts] format 1`] = `
 "Did not expect a type annotation here. (1:3)
 > 1 | (a: T);
