@@ -109,6 +109,15 @@ function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof AstPath);
 
   const node = path.getValue();
+
+  if (!node) {
+    return "";
+  }
+
+  if (typeof node === "string") {
+    return node;
+  }
+
   const { printer } = options;
 
   // Escape hatch
