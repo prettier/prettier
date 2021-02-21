@@ -7,7 +7,7 @@ const createParser = require("./parser/create-parser");
 // https://github.com/facebook/flow/tree/master/packages/flow-parser#options
 const parseOptions = {
   // `all_comments` (boolean, default `true`) - include a list of all comments from the whole program
-  all_comments: true,
+  // all_comments: true,
   // `comments` (boolean, default `true`) - attach comments to AST nodes (`leadingComments` and `trailingComments`)
   comments: false,
   // `enums` (boolean, default `false`) - enable parsing of Flow enums
