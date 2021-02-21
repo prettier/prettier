@@ -1,5 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`await.js [espree] format 1`] = `
+"Unexpected token { (3:20)
+  1 | var C;
+  2 |
+> 3 | C = class { static { function f() { await } } };
+    |                    ^
+  4 |
+  5 | C = class { static { function f(await) {} } };
+  6 |"
+`;
+
+exports[`await.js [meriyah] format 1`] = `
+"[3:20]: Unexpected token: '{' (3:20)
+  1 | var C;
+  2 |
+> 3 | C = class { static { function f() { await } } };
+    |                    ^
+  4 |
+  5 | C = class { static { function f(await) {} } };
+  6 |"
+`;
+
+exports[`await.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var C;
+
+C = class { static { function f() { await } } };
+
+C = class { static { function f(await) {} } };
+
+C = class { static { function f(x = await) {} } };
+
+C = class { static { function f({ [await]: x }) {} } };
+
+
+=====================================output=====================================
+var C;
+
+C = class {
+  static {
+    function f() {
+      await;
+    }
+  }
+};
+
+C = class {
+  static {
+    function f(await) {}
+  }
+};
+
+C = class {
+  static {
+    function f(x = await) {}
+  }
+};
+
+C = class {
+  static {
+    function f({ [await]: x }) {}
+  }
+};
+
+================================================================================
+`;
+
 exports[`class-static-block.js [espree] format 1`] = `
 "Unexpected character '#' (2:10)
   1 | class C {
