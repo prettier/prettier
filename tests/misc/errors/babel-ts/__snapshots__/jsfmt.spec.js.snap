@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`export-declare.ts [babel-ts] format 1`] = `
+"'export declare' must be followed by an ambient declaration. (1:16)
+> 1 | export declare foo;
+    |                ^
+  2 |"
+`;
+
 exports[`type-annotation-expr-statement.ts [babel-ts] format 1`] = `
 "Did not expect a type annotation here. (1:3)
 > 1 | (a: T);
