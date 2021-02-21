@@ -11,12 +11,11 @@ const {
     join,
     line,
     softline,
+    literalline,
   },
   utils: { getDocParts },
 } = require("../document");
 const { isNonEmptyArray, replaceEndOfLineWith } = require("../common/util");
-
-const { literalline } = require("../document/doc-builders");
 const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {
