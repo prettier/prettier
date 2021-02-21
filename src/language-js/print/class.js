@@ -55,7 +55,7 @@ function printClass(path, options, print) {
       path.call(print, "superTypeParameters"),
     ];
     const printedWithComments = path.call(
-      (superClass) => printComments(superClass, () => printed, options),
+      (superClass) => printComments(superClass, printed, options),
       "superClass"
     );
     if (groupMode) {

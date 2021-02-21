@@ -48,30 +48,24 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       return cache.get(node);
     }
 
+    let doc = callPluginPrintFunction(path, options, printGenerically, args);
+
     // We let JSXElement print its comments itself because it adds () around
     // UnionTypeAnnotation has to align the child without the comments
-    let res;
     if (
-      printer.willPrintOwnComments &&
-      printer.willPrintOwnComments(path, options)
+      !printer.willPrintOwnComments ||
+      !printer.willPrintOwnComments(path, options)
     ) {
-      res = callPluginPrintFunction(path, options, printGenerically, args);
-    } else {
       // printComments will call the plugin print function and check for
       // comments to print
-      res = printComments(
-        path,
-        (p) => callPluginPrintFunction(p, options, printGenerically, args),
-        options,
-        args && args.needsSemi
-      );
+      doc = printComments(path, doc, options, args && args.needsSemi);
     }
 
     if (shouldCache) {
-      cache.set(node, res);
+      cache.set(node, doc);
     }
 
-    return res;
+    return doc;
   }
 
   let doc = printGenerically(new AstPath(ast));
