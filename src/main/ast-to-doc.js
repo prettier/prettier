@@ -2,13 +2,12 @@
 
 const assert = require("assert");
 const AstPath = require("../common/ast-path");
-const doc = require("../document");
+const {
+  builders: { hardline, addAlignmentToDoc },
+  utils: { propagateBreaks },
+} = require("../document");
 const { printComments } = require("./comments");
 const multiparser = require("./multiparser");
-
-const docBuilders = doc.builders;
-const { hardline, addAlignmentToDoc } = docBuilders;
-const docUtils = doc.utils;
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -80,7 +79,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     // It should be removed in index.js format()
     doc = addAlignmentToDoc([hardline, doc], alignmentSize, options.tabWidth);
   }
-  docUtils.propagateBreaks(doc);
+  propagateBreaks(doc);
 
   return doc;
 }
