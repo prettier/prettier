@@ -5,7 +5,6 @@ env:
 extends:
   - eslint:recommended
   - prettier
-  - prettier/unicorn
 plugins:
   - import
   - unicorn
