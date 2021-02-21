@@ -125,25 +125,23 @@ function callPluginPrintFunction(path, options, printPath, args) {
     return printPrettierIgnoredNode(node, options);
   }
 
-  if (node) {
-    try {
-      // Potentially switch to a different parser
-      const sub = multiparser.printSubtree(
-        path,
-        printPath,
-        options,
-        printAstToDoc
-      );
-      if (sub) {
-        return sub;
-      }
-    } catch (error) {
-      /* istanbul ignore if */
-      if (process.env.PRETTIER_DEBUG) {
-        throw error;
-      }
-      // Continue with current parser
+  try {
+    // Potentially switch to a different parser
+    const sub = multiparser.printSubtree(
+      path,
+      printPath,
+      options,
+      printAstToDoc
+    );
+    if (sub) {
+      return sub;
     }
+  } catch (error) {
+    /* istanbul ignore if */
+    if (process.env.PRETTIER_DEBUG) {
+      throw error;
+    }
+    // Continue with current parser
   }
 
   return printer.print(path, options, printPath, args);
