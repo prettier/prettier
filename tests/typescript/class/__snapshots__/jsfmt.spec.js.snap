@@ -106,6 +106,32 @@ class F<__T> {}
 ================================================================================
 `;
 
+exports[`duplicates-access-modifier.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  public public a;
+  private public b;
+  protected private c;
+  public protected d;
+  public protected private e;
+}
+
+=====================================output=====================================
+class Foo {
+  public a;
+  private b;
+  protected c;
+  public d;
+  public e;
+}
+
+================================================================================
+`;
+
 exports[`empty-method-body.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
