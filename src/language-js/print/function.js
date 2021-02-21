@@ -63,10 +63,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     expandArg
   );
   const returnTypeDoc = printReturnType(path, print, options);
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    n.returnType,
-    returnTypeDoc
-  );
+  const shouldGroupParameters = shouldGroupFunctionParameters(n, returnTypeDoc);
 
   parts.push(
     printFunctionTypeParameters(path, options, print),
@@ -129,7 +126,7 @@ function printMethodInternal(path, options, print) {
   const parametersDoc = printFunctionParameters(path, print, options);
   const returnTypeDoc = printReturnType(path, print, options);
   const shouldGroupParameters = shouldGroupFunctionParameters(
-    node.returnType,
+    node,
     returnTypeDoc
   );
   const parts = [

@@ -189,14 +189,24 @@ function shouldHugFunctionParameters(node) {
   );
 }
 
-function shouldGroupFunctionParameters(returnTypeNode, returnTypeDoc) {
-  if (returnTypeNode && returnTypeNode.typeAnnotation) {
-    returnTypeNode = returnTypeNode.typeAnnotation;
-  }
-  if (!returnTypeNode) {
+// When parameters are grouped, the return type annotation breaks first.
+function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
+  let returnTypeNode;
+  if (functionNode.returnType) {
+    returnTypeNode = functionNode.returnType;
+    if (returnTypeNode.typeAnnotation) {
+      returnTypeNode = returnTypeNode.typeAnnotation;
+    }
+  } else if (functionNode.typeAnnotation) {
+    returnTypeNode = functionNode.typeAnnotation;
+  } else {
     return false;
   }
-  return isObjectType(returnTypeNode) || willBreak(returnTypeDoc);
+
+  return (
+    getFunctionParameters(functionNode).length === 1 &&
+    (isObjectType(returnTypeNode) || willBreak(returnTypeDoc))
+  );
 }
 
 module.exports = {

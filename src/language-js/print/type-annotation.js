@@ -267,10 +267,7 @@ function printFunctionType(path, options, print) {
         ]
       : "";
 
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    n.returnType || n.typeAnnotation,
-    returnTypeDoc
-  );
+  const shouldGroupParameters = shouldGroupFunctionParameters(n, returnTypeDoc);
 
   parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 

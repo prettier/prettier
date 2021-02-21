@@ -370,15 +370,15 @@ function printTypescript(path, options, print) {
         /* printTypeParams */ true
       );
 
-      const returnTypePropertyName = n.typeAnnotation
-        ? "typeAnnotation"
-        : "returnType";
+      const returnTypePropertyName = n.returnType
+        ? "returnType"
+        : "typeAnnotation";
       const returnTypeNode = n[returnTypePropertyName];
       const returnTypeDoc = returnTypeNode
         ? path.call(print, returnTypePropertyName)
         : "";
       const shouldGroupParameters = shouldGroupFunctionParameters(
-        returnTypeNode,
+        n,
         returnTypeDoc
       );
 

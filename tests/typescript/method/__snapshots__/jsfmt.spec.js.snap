@@ -16,6 +16,13 @@ export default class StoreImpl extends Service implements Store {
   }
 }
 
+export function loadPlugin(
+  name: string,
+  dirname: string,
+): { filepath: string, value: mixed } {
+  // ...
+}
+
 =====================================output=====================================
 export interface Store {
   getRecord(
@@ -31,6 +38,13 @@ export default class StoreImpl extends Service implements Store {
   ): TaskEither<Error, Option<GenericRecord>> {
     // Do some stuff.
   }
+}
+
+export function loadPlugin(
+  name: string,
+  dirname: string
+): { filepath: string; value: mixed } {
+  // ...
 }
 
 ================================================================================

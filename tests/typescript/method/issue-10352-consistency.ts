@@ -7,3 +7,10 @@ export default class StoreImpl extends Service implements Store {
     // Do some stuff.
   }
 }
+
+export function loadPlugin(
+  name: string,
+  dirname: string,
+): { filepath: string, value: mixed } {
+  // ...
+}
