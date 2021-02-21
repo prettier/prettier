@@ -22,10 +22,8 @@ function flattenDoc(doc) {
   if (doc.type === "if-break") {
     return {
       ...doc,
-      breakContents:
-        doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
-      flatContents:
-        doc.flatContents != null ? flattenDoc(doc.flatContents) : null,
+      breakContents: doc.breakContents ? flattenDoc(doc.breakContents) : null,
+      flatContents: doc.flatContents ? flattenDoc(doc.flatContents) : null,
     };
   }
 

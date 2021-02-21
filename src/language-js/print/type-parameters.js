@@ -30,7 +30,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const grandparent = path.getNode(2);
-  const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
+  const isParameterInTestCall = grandparent && isTestCall(grandparent);
 
   const shouldInline =
     isParameterInTestCall ||

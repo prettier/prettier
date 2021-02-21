@@ -853,11 +853,7 @@ function printUrl(url, dangerousCharOrChars = []) {
     : url;
 }
 
-function printTitle(title, options, printSpace) {
-  if (printSpace == null) {
-    printSpace = true;
-  }
-
+function printTitle(title, options, printSpace = true) {
   if (!title) {
     return "";
   }
