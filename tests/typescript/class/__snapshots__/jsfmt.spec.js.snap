@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract-method.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  abstract foo();
+}
+
+abstract class Bar {
+  method() {
+    return class {
+      abstract m();
+    }
+  }
+}
+
+=====================================output=====================================
+class Foo {
+  abstract foo();
+}
+
+abstract class Bar {
+  method() {
+    return class {
+      abstract m();
+    };
+  }
+}
+
+================================================================================
+`;
+
 exports[`constructor.ts [babel-ts] format 1`] = `
 "Unexpected token, expected \\",\\" (2:22)
   1 | class foo {
