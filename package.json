@@ -30,7 +30,7 @@
     "angular-html-parser": "1.7.1",
     "camelcase": "6.2.0",
     "chalk": "4.1.0",
-    "ci-info": "watson/ci-info#f43f6a1cefff47fb361c88cf4b943fdbcaafe540",
+    "ci-info": "3.1.1",
     "cjk-regex": "2.0.1",
     "cosmiconfig": "7.0.0",
     "dashify": "2.0.0",
