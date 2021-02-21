@@ -727,6 +727,67 @@ interface I {
 ================================================================================
 `;
 
+exports[`invalid-modifier.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  declare e();
+  abstract f();
+  readonly g();
+}
+
+=====================================output=====================================
+interface Foo {
+  private a()
+  public b()
+  protected c()
+  static d()
+  e()
+  f()
+  readonly g()
+}
+
+================================================================================
+`;
+
+exports[`invalid-modifier.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  declare e();
+  abstract f();
+  readonly g();
+}
+
+=====================================output=====================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  e();
+  f();
+  readonly g();
+}
+
+================================================================================
+`;
+
 exports[`long-extends.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
