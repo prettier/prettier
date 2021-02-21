@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "11.2.0",
+    "@angular/compiler": "11.2.1",
     "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.12.11",
     "@glimmer/syntax": "0.75.0",
@@ -90,7 +90,7 @@
     "@babel/core": "7.12.17",
     "@babel/preset-env": "7.12.16",
     "@babel/types": "7.12.13",
-    "@glimmer/reference": "0.75.0",
+    "@glimmer/reference": "0.77.1",
     "@rollup/plugin-alias": "3.1.2",
     "@rollup/plugin-babel": "5.3.0",
     "@rollup/plugin-commonjs": "16.0.0",
@@ -107,7 +107,7 @@
     "cross-env": "7.0.3",
     "cspell": "4.2.8",
     "eslint": "7.20.0",
-    "eslint-config-prettier": "7.2.0",
+    "eslint-config-prettier": "8.0.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jest": "24.1.3",
