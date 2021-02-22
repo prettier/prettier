@@ -162,6 +162,8 @@ function printTypescript(path, options, print) {
       return "undefined";
     case "TSUnknownKeyword":
       return "unknown";
+    case "TSIntrinsicKeyword":
+      return "intrinsic";
     case "TSAsExpression": {
       parts.push(
         path.call(print, "expression"),
