@@ -15,6 +15,7 @@ function printLiteral(path, options /*, print*/) {
     case "StringLiteral": // Babel 6 Literal split
       return printString(node.extra.raw, options);
     case "NullLiteral": // Babel 6 Literal split
+      return "null";
     case "BooleanLiteral": // Babel 6 Literal split
       return String(node.value);
     case "DecimalLiteral":
