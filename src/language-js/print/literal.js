@@ -9,7 +9,7 @@ function printLiteral(path, options /*, print*/) {
       return printRegex(node);
     case "BigIntLiteral":
       // babel: node.extra.raw, flow: node.bigint
-      return (node.bigint || node.extra.raw).toLowerCase();
+      return printBigInt(node.bigint || node.extra.raw);
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(node.extra.raw);
     case "StringLiteral": // Babel 6 Literal split
@@ -25,7 +25,7 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (node.bigint) {
-        return node.raw.toLowerCase();
+        return printBigInt(node.raw);
       }
 
       const { value } = node;
@@ -41,6 +41,10 @@ function printLiteral(path, options /*, print*/) {
       return String(value);
     }
   }
+}
+
+function printBigInt(raw) {
+  return raw.toLowerCase();
 }
 
 function printRegex({ pattern, flags }) {
