@@ -11,6 +11,7 @@ const {
   hasNewline,
   printString,
   printNumber,
+  getPreferredQuote,
   isNonEmptyArray,
 } = require("../common/util");
 const {
@@ -1104,7 +1105,26 @@ function printPathNoParens(path, options, print, args) {
 }
 
 function printDirective(node, options) {
-  return printString(rawText(node), options, true);
+  const raw = rawText(node);
+
+  const rawContent = raw.slice(1, -1);
+
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  const canChangeDirectiveQuotes =
+    !rawContent.includes('"') && !rawContent.includes("'");
+
+  if (!canChangeDirectiveQuotes) {
+    return raw;
+  }
+
+  const enclosingQuote = getPreferredQuote(raw, options.singleQuote ? "'" : '"');
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  return enclosingQuote + rawContent + enclosingQuote;
 }
 
 function canAttachComment(node) {
