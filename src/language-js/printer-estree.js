@@ -257,7 +257,7 @@ function printPathNoParens(path, options, print, args) {
     case "ExpressionStatement":
       // Detect Flow and TypeScript directives
       if (n.directive) {
-        return [nodeStr(n.expression, options, true), semi];
+        return [printDirective(n.expression, options), semi];
       }
 
       if (options.parser === "__vue_event_binding") {
@@ -480,7 +480,7 @@ function printPathNoParens(path, options, print, args) {
     case "Directive":
       return [path.call(print, "value"), semi]; // Babel 6
     case "DirectiveLiteral":
-      return nodeStr(n, options);
+      return printDirective(n, options);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -990,7 +990,7 @@ function printPathNoParens(path, options, print, args) {
     case "QualifiedTypeIdentifier":
       return [path.call(print, "qualification"), ".", path.call(print, "id")];
     case "StringLiteralTypeAnnotation":
-      return nodeStr(n, options);
+      return printString(rawText(n), options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
     // fall through
@@ -1103,11 +1103,23 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
+function printDirective(node, options) {
   const raw = rawText(node);
-  const isDirectiveLiteral =
-    isFlowOrTypeScriptDirectiveLiteral || node.type === "DirectiveLiteral";
-  return printString(raw, options, isDirectiveLiteral);
+  const rawContent = raw.slice(1, -1);
+
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  if (rawContent.includes('"') || rawContent.includes("'")) {
+    return raw;
+  }
+
+  const enclosingQuote = options.singleQuote ? "'" : '"';
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  return enclosingQuote + rawContent + enclosingQuote;
 }
 
 function canAttachComment(node) {
