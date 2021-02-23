@@ -146,6 +146,37 @@ class AstPath {
 
     return true;
   }
+
+  /**
+   * Traverses the ancestors of the current node heading toward the tree root
+   * until it finds a node that matches the provided predicate function. Will
+   * return the first matching ancestor. If no such node exists, returns undefined.
+   * @param {(node: any, name: string, number: number | null) => boolean} predicate
+   * @internal Unstable API. Don't use in plugins for now.
+   */
+  findAncestor(predicate) {
+    let stackPointer = this.stack.length - 1;
+
+    let name = null;
+    let node = this.stack[stackPointer--];
+
+    while (node) {
+      // skip index/array
+      let number = null;
+      if (typeof name === "number") {
+        number = name;
+        name = this.stack[stackPointer--];
+        node = this.stack[stackPointer--];
+      }
+
+      if (name !== null && predicate(node, name, number)) {
+        return node;
+      }
+
+      name = this.stack[stackPointer--];
+      node = this.stack[stackPointer--];
+    }
+  }
 }
 
 module.exports = AstPath;

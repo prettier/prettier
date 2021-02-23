@@ -94,6 +94,7 @@ const { printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
+const { printLiteral } = require("./print/literal");
 
 function genericPrint(path, options, printPath, args) {
   const linesWithoutParens = printPathNoParens(path, options, printPath, args);
@@ -211,6 +212,7 @@ function printPathNoParens(path, options, print, args) {
   }
 
   for (const printer of [
+    printLiteral,
     printHtmlBinding,
     printAngular,
     printJsx,
@@ -279,7 +281,10 @@ function printPathNoParens(path, options, print, args) {
       ];
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
-      const shouldHug = !hasComment(n.expression);
+      const shouldHug =
+        !hasComment(n.expression) &&
+        (n.expression.type === "ObjectExpression" ||
+          n.expression.type === "ArrayExpression");
       if (shouldHug) {
         return ["(", path.call(print, "expression"), ")"];
       }
@@ -365,13 +370,23 @@ function printPathNoParens(path, options, print, args) {
       parts.push("await");
       if (n.argument) {
         parts.push(" ", path.call(print, "argument"));
-      }
-      const parent = path.getParentNode();
-      if (
-        (isCallExpression(parent) && parent.callee === n) ||
-        (isMemberExpression(parent) && parent.object === n)
-      ) {
-        return group([indent([softline, ...parts]), softline]);
+        const parent = path.getParentNode();
+        if (
+          (isCallExpression(parent) && parent.callee === n) ||
+          (isMemberExpression(parent) && parent.object === n)
+        ) {
+          parts = [indent([softline, ...parts]), softline];
+          const parentAwaitOrBlock = path.findAncestor(
+            (node) =>
+              node.type === "AwaitExpression" || node.type === "BlockStatement"
+          );
+          if (
+            !parentAwaitOrBlock ||
+            parentAwaitOrBlock.type !== "AwaitExpression"
+          ) {
+            return group(parts);
+          }
+        }
       }
       return parts;
     }
@@ -462,34 +477,6 @@ function printPathNoParens(path, options, print, args) {
       return "this";
     case "Super":
       return "super";
-    case "NullLiteral": // Babel 6 Literal split
-      return "null";
-    case "RegExpLiteral": // Babel 6 Literal split
-      return printRegex(n);
-    case "NumericLiteral": // Babel 6 Literal split
-      return printNumber(n.extra.raw);
-    case "DecimalLiteral":
-      return printNumber(n.value) + "m";
-    case "BigIntLiteral":
-      // babel: n.extra.raw, flow: n.bigint
-      return (n.bigint || n.extra.raw).toLowerCase();
-    case "BooleanLiteral": // Babel 6 Literal split
-    case "StringLiteral": // Babel 6 Literal split
-    case "Literal":
-      if (n.regex) {
-        return printRegex(n.regex);
-      }
-      // typescript
-      if (n.bigint) {
-        return n.raw.toLowerCase();
-      }
-      if (typeof n.value === "number") {
-        return printNumber(n.raw);
-      }
-      if (typeof n.value !== "string") {
-        return String(n.value);
-      }
-      return nodeStr(n, options);
     case "Directive":
       return [path.call(print, "value"), semi]; // Babel 6
     case "DirectiveLiteral":
@@ -1008,7 +995,7 @@ function printPathNoParens(path, options, print, args) {
       assert.strictEqual(typeof n.value, "number");
     // fall through
     case "BigIntLiteralTypeAnnotation":
-      if (n.extra != null) {
+      if (n.extra) {
         return printNumber(n.extra.raw);
       }
       return printNumber(n.raw);
@@ -1121,11 +1108,6 @@ function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
   const isDirectiveLiteral =
     isFlowOrTypeScriptDirectiveLiteral || node.type === "DirectiveLiteral";
   return printString(raw, options, isDirectiveLiteral);
-}
-
-function printRegex(node) {
-  const flags = node.flags.split("").sort().join("");
-  return `/${node.pattern}/${flags}`;
 }
 
 function canAttachComment(node) {

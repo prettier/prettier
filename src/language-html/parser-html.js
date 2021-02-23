@@ -79,10 +79,7 @@ function ngHtmlParser(
       }
       const langAttr = node.attrs.find((attr) => attr.name === "lang");
       const langValue = langAttr && langAttr.value;
-      return (
-        langValue == null ||
-        inferParserByLanguage(langValue, options) === "html"
-      );
+      return !langValue || inferParserByLanguage(langValue, options) === "html";
     };
     if (rootNodes.some(shouldParseAsHTML)) {
       let secondParseResult;

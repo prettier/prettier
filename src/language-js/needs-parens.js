@@ -87,7 +87,8 @@ function needsParens(path, options) {
           node.type === "TaggedTemplateExpression" ||
           node.type === "UnaryExpression" ||
           node.type === "UpdateExpression" ||
-          node.type === "YieldExpression")
+          node.type === "YieldExpression" ||
+          node.type === "TSNonNullExpression")
       ) {
         return true;
       }
@@ -616,6 +617,7 @@ function needsParens(path, options) {
           return name === "object";
 
         case "TSAsExpression":
+        case "TSNonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
         case "UnaryExpression":

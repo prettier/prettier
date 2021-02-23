@@ -547,9 +547,8 @@ function prependCursorPlaceholder(path, options, printed) {
   return printed;
 }
 
-function printComments(path, print, options, needsSemi) {
+function printComments(path, printed, options, needsSemi) {
   const value = path.getValue();
-  const printed = print(path);
   const comments = value && value.comments;
 
   if (!isNonEmptyArray(comments)) {

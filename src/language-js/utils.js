@@ -344,22 +344,6 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
   return parent.type === "Program" && parent.body.length === 1;
 }
 
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isMemberExpressionChain(node) {
-  if (!isMemberExpression(node)) {
-    return false;
-  }
-  // @ts-ignore
-  if (node.object.type === "Identifier") {
-    return true;
-  }
-  // @ts-ignore
-  return isMemberExpressionChain(node.object);
-}
-
 function isGetterOrSetter(node) {
   return node.kind === "get" || node.kind === "set";
 }
@@ -925,7 +909,10 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return (
+      node.quasis.every((element) => !element.value.raw.includes("\n")) &&
+      node.expressions.every(isChildSimple)
+    );
   }
 
   if (node.type === "ObjectExpression") {
@@ -1055,6 +1042,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
         forbidFunctionClassAndDoExpr
       );
     case "TSAsExpression":
+    case "TSNonNullExpression":
       return startsWithNoLookaheadToken(
         node.expression,
         forbidFunctionClassAndDoExpr
@@ -1365,7 +1353,6 @@ module.exports = {
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,

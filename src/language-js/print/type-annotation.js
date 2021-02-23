@@ -14,8 +14,11 @@ const {
   isObjectTypePropertyAFunction,
   shouldPrintComma,
 } = require("../utils");
-const { printAssignmentRight } = require("./assignment");
-const { printFunctionParameters } = require("./function-parameters");
+const { printAssignment } = require("./assignment");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters");
 const { printArrayItems } = require("./array");
 
 function shouldHugType(node) {
@@ -79,24 +82,17 @@ function printTypeAlias(path, options, print) {
   if (n.declare) {
     parts.push("declare ");
   }
-
-  const printed = printAssignmentRight(
-    n.id,
-    n.right,
-    path.call(print, "right"),
-    options
-  );
-
   parts.push(
     "type ",
     path.call(print, "id"),
-    path.call(print, "typeParameters"),
-    " =",
-    printed,
-    semi
+    path.call(print, "typeParameters")
   );
-
-  return group(parts);
+  const rightPropertyName =
+    n.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
+  return [
+    printAssignment(path, options, print, parts, " =", rightPropertyName),
+    semi,
+  ];
 }
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
@@ -174,7 +170,7 @@ function printUnionType(path, options, print) {
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
-    return printComments(typePath, () => printedType, options);
+    return printComments(typePath, printedType, options);
   }, "types");
 
   if (shouldHug) {
@@ -251,26 +247,34 @@ function printFunctionType(path, options, print) {
     parts.push("(");
   }
 
-  parts.push(
-    printFunctionParameters(
-      path,
-      print,
-      options,
-      /* expandArg */ false,
-      /* printTypeParams */ true
-    )
+  const parametersDoc = printFunctionParameters(
+    path,
+    print,
+    options,
+    /* expandArg */ false,
+    /* printTypeParams */ true
   );
 
   // The returnType is not wrapped in a TypeAnnotation, so the colon
   // needs to be added separately.
-  if (n.returnType || n.predicate || n.typeAnnotation) {
-    parts.push(
-      isArrowFunctionTypeAnnotation ? " => " : ": ",
-      path.call(print, "returnType"),
-      path.call(print, "predicate"),
-      path.call(print, "typeAnnotation")
-    );
+  const returnTypeDoc =
+    n.returnType || n.predicate || n.typeAnnotation
+      ? [
+          isArrowFunctionTypeAnnotation ? " => " : ": ",
+          path.call(print, "returnType"),
+          path.call(print, "predicate"),
+          path.call(print, "typeAnnotation"),
+        ]
+      : "";
+
+  const shouldGroupParameters = shouldGroupFunctionParameters(n, returnTypeDoc);
+
+  parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
+
+  if (returnTypeDoc) {
+    parts.push(returnTypeDoc);
   }
+
   if (needsParens) {
     parts.push(")");
   }
