@@ -167,7 +167,7 @@ function printUnionType(path, options, print) {
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
-    return printComments(typePath, () => printedType, options);
+    return printComments(typePath, printedType, options);
   }, "types");
 
   if (shouldHug) {

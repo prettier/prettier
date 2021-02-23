@@ -102,7 +102,7 @@ function printMemberChain(path, options, print) {
         printed: [
           printComments(
             path,
-            () => [
+            [
               printOptionalToken(path),
               printFunctionTypeParameters(path, options, print),
               printCallArguments(path, options, print),
@@ -119,10 +119,9 @@ function printMemberChain(path, options, print) {
         needsParens: pathNeedsParens(path, options),
         printed: printComments(
           path,
-          () =>
-            isMemberExpression(node)
-              ? printMemberLookup(path, options, print)
-              : printBindExpressionCallee(path, options, print),
+          isMemberExpression(node)
+            ? printMemberLookup(path, options, print)
+            : printBindExpressionCallee(path, options, print),
           options
         ),
       });
@@ -130,7 +129,7 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
-        printed: printComments(path, () => "!", options),
+        printed: printComments(path, "!", options),
       });
       path.call((expression) => rec(expression), "expression");
     } else {
