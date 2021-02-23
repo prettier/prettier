@@ -82,10 +82,10 @@ function getOptionsOrDie(context, filePath) {
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
     return options;
   } catch (error) {
-    context.logger.error(
+    process.exitCode = 2;
+    throw new Error(
       `Invalid configuration file \`${filePath}\`: ` + error.message
     );
-    process.exit(2);
   }
 }
 
@@ -101,10 +101,10 @@ function applyConfigPrecedence(context, options) {
     }
   } catch (error) {
     /* istanbul ignore next */
-    context.logger.error(error.toString());
+    process.exitCode = 2;
 
     /* istanbul ignore next */
-    process.exit(2);
+    throw error;
   }
 }
 
