@@ -1106,15 +1106,11 @@ function printPathNoParens(path, options, print, args) {
 
 function printDirective(node, options) {
   const raw = rawText(node);
-
   const rawContent = raw.slice(1, -1);
 
   // Check for the alternate quote, to determine if we're allowed to swap
   // the quotes on a DirectiveLiteral.
-  const canChangeDirectiveQuotes =
-    !rawContent.includes('"') && !rawContent.includes("'");
-
-  if (!canChangeDirectiveQuotes) {
+  if (rawContent.includes('"') || rawContent.includes("'")) {
     return raw;
   }
 
