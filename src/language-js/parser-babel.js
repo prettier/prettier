@@ -153,6 +153,7 @@ const parseTypeScript = createParse(
   ["typescript"]
 );
 const parseExpression = createParse("parseExpression", ["jsx"]);
+const parseJson = createJsonParse();
 
 const messagesShouldThrow = new Set([
   // TSErrors.UnexpectedTypeAnnotation
@@ -179,15 +180,31 @@ function shouldRethrowRecoveredError(error) {
   return messagesShouldThrow.has(message);
 }
 
-function parseJson(text, parsers, opts) {
-  const ast = parseExpression(text, parsers, opts);
+function createJsonParse(options = {}) {
+  const { allowComments = true } = options;
 
-  for (const comment of ast.comments) {
-    assertJsonNode(comment);
-  }
-  assertJsonNode(ast);
+  return function parse(text /*, parsers, options*/) {
+    let ast;
+    try {
+      ast = require("@babel/parser").parseExpression(text, {
+        tokens: true,
+        ranges: true,
+      });
+    } catch (error) {
+      throw createParseError(error);
+    }
 
-  return ast;
+    if (!allowComments) {
+      // @ts-ignore
+      for (const comment of ast.comments) {
+        assertJsonNode(comment);
+      }
+    }
+
+    assertJsonNode(ast);
+
+    return ast;
+  };
 }
 
 function assertJsonNode(node, parent) {
@@ -262,15 +279,15 @@ module.exports = {
     babel,
     "babel-flow": createParser(parseFlow),
     "babel-ts": createParser(parseTypeScript),
-    json: {
-      ...babelExpression,
+    json: createParser({
+      parse: parseJson,
       hasPragma() {
         return true;
       },
-    },
-    json5: babelExpression,
+    }),
+    json5: createParser(parseJson),
     "json-stringify": createParser({
-      parse: parseJson,
+      parse: createJsonParse({ allowComments: false }),
       astFormat: "estree-json",
     }),
     /** @internal */
