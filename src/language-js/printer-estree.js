@@ -11,7 +11,6 @@ const {
   hasNewline,
   printString,
   printNumber,
-  getPreferredQuote,
   isNonEmptyArray,
 } = require("../common/util");
 const {
@@ -1114,10 +1113,7 @@ function printDirective(node, options) {
     return raw;
   }
 
-  const enclosingQuote = getPreferredQuote(
-    raw,
-    options.singleQuote ? "'" : '"'
-  );
+  const enclosingQuote = options.singleQuote ? "'" : '"';
 
   // Directives are exact code unit sequences, which means that you can't
   // change the escape sequences they use.
