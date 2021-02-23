@@ -15,7 +15,10 @@ const {
   shouldPrintComma,
 } = require("../utils");
 const { printAssignment } = require("./assignment");
-const { printFunctionParameters } = require("./function-parameters");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters");
 const { printArrayItems } = require("./array");
 
 function shouldHugType(node) {
@@ -244,26 +247,34 @@ function printFunctionType(path, options, print) {
     parts.push("(");
   }
 
-  parts.push(
-    printFunctionParameters(
-      path,
-      print,
-      options,
-      /* expandArg */ false,
-      /* printTypeParams */ true
-    )
+  const parametersDoc = printFunctionParameters(
+    path,
+    print,
+    options,
+    /* expandArg */ false,
+    /* printTypeParams */ true
   );
 
   // The returnType is not wrapped in a TypeAnnotation, so the colon
   // needs to be added separately.
-  if (n.returnType || n.predicate || n.typeAnnotation) {
-    parts.push(
-      isArrowFunctionTypeAnnotation ? " => " : ": ",
-      path.call(print, "returnType"),
-      path.call(print, "predicate"),
-      path.call(print, "typeAnnotation")
-    );
+  const returnTypeDoc =
+    n.returnType || n.predicate || n.typeAnnotation
+      ? [
+          isArrowFunctionTypeAnnotation ? " => " : ": ",
+          path.call(print, "returnType"),
+          path.call(print, "predicate"),
+          path.call(print, "typeAnnotation"),
+        ]
+      : "";
+
+  const shouldGroupParameters = shouldGroupFunctionParameters(n, returnTypeDoc);
+
+  parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
+
+  if (returnTypeDoc) {
+    parts.push(returnTypeDoc);
   }
+
   if (needsParens) {
     parts.push(")");
   }
