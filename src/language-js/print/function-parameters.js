@@ -189,8 +189,7 @@ function shouldHugFunctionParameters(node) {
   );
 }
 
-// When parameters are grouped, the return type annotation breaks first.
-function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
+function getReturnTypeNode(functionNode) {
   let returnTypeNode;
   if (functionNode.returnType) {
     returnTypeNode = functionNode.returnType;
@@ -199,8 +198,29 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
     }
   } else if (functionNode.typeAnnotation) {
     returnTypeNode = functionNode.typeAnnotation;
-  } else {
+  }
+  return returnTypeNode;
+}
+
+// When parameters are grouped, the return type annotation breaks first.
+function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
+  const returnTypeNode = getReturnTypeNode(functionNode);
+  if (!returnTypeNode) {
     return false;
+  }
+
+  const typeParameters =
+    functionNode.typeParameters && functionNode.typeParameters.params;
+  if (typeParameters) {
+    if (typeParameters.length > 1) {
+      return false;
+    }
+    if (typeParameters.length === 1) {
+      const typeParameter = typeParameters[0];
+      if (typeParameter.constraint || typeParameter.default) {
+        return false;
+      }
+    }
   }
 
   return (
