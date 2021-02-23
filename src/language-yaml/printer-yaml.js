@@ -5,7 +5,6 @@
 const {
   builders: {
     breakParent,
-
     fill,
     group,
     hardline,

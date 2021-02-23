@@ -5,7 +5,6 @@ env:
 extends:
   - eslint:recommended
   - prettier
-  - prettier/unicorn
 plugins:
   - import
   - unicorn
@@ -18,10 +17,7 @@ rules:
     - as-needed
   curly: error
   dot-notation: error
-  eqeqeq:
-    - error
-    - always
-    - null: ignore
+  eqeqeq: error
   import/no-extraneous-dependencies:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]

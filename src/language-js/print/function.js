@@ -27,7 +27,10 @@ const {
   isCurriedArrowFunctionExpression,
 } = require("../utils");
 const { locEnd } = require("../loc");
-const { printFunctionParameters } = require("./function-parameters");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters");
 const { printPropertyKey } = require("./property");
 const { printFunctionTypeParameters } = require("./misc");
 
@@ -55,11 +58,20 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     parts.push(path.call(print, "id"));
   }
 
+  const parametersDoc = printFunctionParameters(
+    path,
+    print,
+    options,
+    expandArg
+  );
+  const returnTypeDoc = printReturnType(path, print, options);
+  const shouldGroupParameters = shouldGroupFunctionParameters(n, returnTypeDoc);
+
   parts.push(
     printFunctionTypeParameters(path, options, print),
     group([
-      printFunctionParameters(path, print, options, expandArg),
-      printReturnType(path, print, options),
+      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      returnTypeDoc,
     ]),
     n.body ? " " : "",
     path.call(print, "body")
@@ -112,15 +124,22 @@ function printMethod(path, options, print) {
 }
 
 function printMethodInternal(path, options, print) {
+  const node = path.getNode();
+  const parametersDoc = printFunctionParameters(path, print, options);
+  const returnTypeDoc = printReturnType(path, print, options);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc
+  );
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group([
-      printFunctionParameters(path, print, options),
-      printReturnType(path, print, options),
+      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      returnTypeDoc,
     ]),
   ];
 
-  if (path.getNode().body) {
+  if (node.body) {
     parts.push(" ", path.call(print, "body"));
   } else {
     parts.push(options.semi ? ";" : "");

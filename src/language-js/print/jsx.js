@@ -667,7 +667,7 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
 function printJsxElement(path, options, print) {
   const elem = printComments(
     path,
-    () => printJsxElementInternal(path, options, print),
+    printJsxElementInternal(path, options, print),
     options
   );
   return maybeWrapJsxElementInParens(path, elem, options);
@@ -696,7 +696,7 @@ function printJsxSpreadAttribute(path, options, print) {
           return printed;
         }
         return [
-          indent([softline, printComments(p, () => printed, options)]),
+          indent([softline, printComments(p, printed, options)]),
           softline,
         ];
       },

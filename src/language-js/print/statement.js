@@ -59,7 +59,8 @@ function printStatementSequence(path, options, print, property) {
         parts.push(";");
       } else if (
         node.type === "ClassProperty" ||
-        node.type === "PropertyDefinition"
+        node.type === "PropertyDefinition" ||
+        node.type === "ClassPrivateProperty"
       ) {
         // `ClassBody` don't allow `EmptyStatement`,
         // so we can use `statements` to get next node

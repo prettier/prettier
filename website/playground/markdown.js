@@ -29,7 +29,7 @@ function formatMarkdown({
       : ["", "**Second Output:**", codeBlock(output2, syntax)]),
     ...(full ? ["", "**Expected behavior:**", ""] : []),
   ]
-    .filter((part) => part != null)
+    .filter((part) => part !== null)
     .join("\n");
 }
 
@@ -68,9 +68,12 @@ function codeBlock(content, syntax) {
   const longestBacktickSequenceLength = Math.max(
     ...backtickSequences.map(({ length }) => length)
   );
+  const prettierIgnoreComment = "<!-- prettier-ignore -->";
   const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
   const fence = "`".repeat(fenceLength);
-  return [fence + (syntax || ""), content, fence].join("\n");
+  return [prettierIgnoreComment, fence + (syntax || ""), content, fence].join(
+    "\n"
+  );
 }
 
 module.exports = formatMarkdown;

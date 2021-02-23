@@ -46,9 +46,7 @@ function parseCounter(line: string): number {
   return 0;
 }
 
-function parseGroup(
-  lines: Array<string>
-): {
+function parseGroup(lines: Array<string>): {
   counter: number,
   begin: number,
   end: number,
