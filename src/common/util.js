@@ -381,15 +381,10 @@ function getPreferredQuote(raw, preferredQuote) {
   return result;
 }
 
-function printString(raw, options, isDirectiveLiteral) {
+function printString(raw, options) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
-
-  // Check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
-  const canChangeDirectiveQuotes =
-    !rawContent.includes('"') && !rawContent.includes("'");
 
   /** @type {Quote} */
   const enclosingQuote =
@@ -401,17 +396,6 @@ function printString(raw, options, isDirectiveLiteral) {
       : options.__isInHtmlAttribute
       ? "'"
       : getPreferredQuote(raw, options.singleQuote ? "'" : '"');
-
-  // Directives are exact code unit sequences, which means that you can't
-  // change the escape sequences they use.
-  // See https://github.com/prettier/prettier/issues/1555
-  // and https://tc39.github.io/ecma262/#directive-prologue
-  if (isDirectiveLiteral) {
-    if (canChangeDirectiveQuotes) {
-      return enclosingQuote + rawContent + enclosingQuote;
-    }
-    return raw;
-  }
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
