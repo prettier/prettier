@@ -257,7 +257,7 @@ function printPathNoParens(path, options, print, args) {
     case "ExpressionStatement":
       // Detect Flow and TypeScript directives
       if (n.directive) {
-        return [nodeStr(n.expression, options, true), semi];
+        return [printDirective(n.expression, options), semi];
       }
 
       if (options.parser === "__vue_event_binding") {
@@ -480,7 +480,7 @@ function printPathNoParens(path, options, print, args) {
     case "Directive":
       return [path.call(print, "value"), semi]; // Babel 6
     case "DirectiveLiteral":
-      return nodeStr(n, options);
+      return printDirective(n, options);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -990,7 +990,7 @@ function printPathNoParens(path, options, print, args) {
     case "QualifiedTypeIdentifier":
       return [path.call(print, "qualification"), ".", path.call(print, "id")];
     case "StringLiteralTypeAnnotation":
-      return nodeStr(n, options);
+      return printString(rawText(n), options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
     // fall through
@@ -1103,11 +1103,8 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
-  const raw = rawText(node);
-  const isDirectiveLiteral =
-    isFlowOrTypeScriptDirectiveLiteral || node.type === "DirectiveLiteral";
-  return printString(raw, options, isDirectiveLiteral);
+function printDirective(node, options) {
+  return printString(rawText(node), options, true);
 }
 
 function canAttachComment(node) {
