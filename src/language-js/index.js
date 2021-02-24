@@ -21,7 +21,7 @@ const languages = [
       ],
       vscodeLanguageIds: ["javascript", "mongo"],
       extensions: [
-        ...data.extensions,
+        ...data.extensions.filter((extension) => extension !== ".jsx"),
         // WeiXin Script (Weixin Mini Programs)
         // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
         ".wxs",
@@ -37,7 +37,8 @@ const languages = [
     filenames: [],
     extensions: [".js.flow"],
   })),
-  createLanguage(require("linguist-languages/data/JSX.json"), () => ({
+  createLanguage(require("linguist-languages/data/JavaScript.json"), () => ({
+    name: "JSX",
     since: "0.0.0",
     parsers: [
       "babel",
@@ -49,6 +50,16 @@ const languages = [
       "meriyah",
     ],
     vscodeLanguageIds: ["javascriptreact"],
+    aliases: undefined,
+    filenames: undefined,
+    extensions: [".jsx"],
+    group: "JavaScript",
+    interpreters: undefined,
+    tmScope: "source.js.jsx",
+    aceMode: "javascript",
+    codemirrorMode: "jsx",
+    codemirrorMimeType: "text/jsx",
+    color: undefined,
   })),
   createLanguage(require("linguist-languages/data/TypeScript.json"), () => ({
     since: "1.4.0",

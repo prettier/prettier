@@ -18,12 +18,17 @@ const {
   isLiteral,
   getTypeScriptMappedTypeModifier,
   shouldPrintComma,
+  isCallExpression,
+  isMemberExpression,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc");
 const { printTernary } = require("./ternary");
-const { printFunctionParameters } = require("./function-parameters");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters");
 const { printTemplateLiteral } = require("./template-literal");
 const { printArrayItems } = require("./array");
 const { printObject } = require("./object");
@@ -160,12 +165,23 @@ function printTypescript(path, options, print) {
       return "undefined";
     case "TSUnknownKeyword":
       return "unknown";
-    case "TSAsExpression":
-      return [
+    case "TSIntrinsicKeyword":
+      return "intrinsic";
+    case "TSAsExpression": {
+      parts.push(
         path.call(print, "expression"),
         " as ",
-        path.call(print, "typeAnnotation"),
-      ];
+        path.call(print, "typeAnnotation")
+      );
+      const parent = path.getParentNode();
+      if (
+        (isCallExpression(parent) && parent.callee === n) ||
+        (isMemberExpression(parent) && parent.object === n)
+      ) {
+        return group([indent([softline, ...parts]), softline]);
+      }
+      return parts;
+    }
     case "TSArrayType":
       return [path.call(print, "elementType"), "[]"];
     case "TSPropertySignature": {
@@ -336,37 +352,46 @@ function printTypescript(path, options, print) {
         { shouldBreak }
       );
     }
-    case "TSMethodSignature":
+    case "TSMethodSignature": {
       parts.push(
-        group([
-          n.accessibility ? [n.accessibility, " "] : "",
-          n.export ? "export " : "",
-          n.static ? "static " : "",
-          n.readonly ? "readonly " : "",
-          n.computed ? "[" : "",
-          path.call(print, "key"),
-          n.computed ? "]" : "",
-          printOptionalToken(path),
-          printFunctionParameters(
-            path,
-            print,
-            options,
-            /* expandArg */ false,
-            /* printTypeParams */ true
-          ),
-        ])
+        n.accessibility ? [n.accessibility, " "] : "",
+        n.export ? "export " : "",
+        n.static ? "static " : "",
+        n.readonly ? "readonly " : "",
+        n.computed ? "[" : "",
+        path.call(print, "key"),
+        n.computed ? "]" : "",
+        printOptionalToken(path)
       );
 
-      if (n.returnType || n.typeAnnotation) {
-        parts.push(
-          group([
-            ": ",
-            path.call(print, "returnType"),
-            path.call(print, "typeAnnotation"),
-          ])
-        );
+      const parametersDoc = printFunctionParameters(
+        path,
+        print,
+        options,
+        /* expandArg */ false,
+        /* printTypeParams */ true
+      );
+
+      const returnTypePropertyName = n.returnType
+        ? "returnType"
+        : "typeAnnotation";
+      const returnTypeNode = n[returnTypePropertyName];
+      const returnTypeDoc = returnTypeNode
+        ? path.call(print, returnTypePropertyName)
+        : "";
+      const shouldGroupParameters = shouldGroupFunctionParameters(
+        n,
+        returnTypeDoc
+      );
+
+      parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
+
+      if (returnTypeNode) {
+        parts.push(": ", group(returnTypeDoc));
       }
+
       return group(parts);
+    }
     case "TSNamespaceExportDeclaration":
       parts.push("export as namespace ", path.call(print, "id"));
 
