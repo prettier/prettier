@@ -14,7 +14,6 @@ const {
 function printDecorators(path, options, print) {
   const node = path.getValue();
   const parentExportDecl = getParentExportDeclaration(path);
-  const parts = [];
   if (
     isNonEmptyArray(node.decorators) &&
     // If the parent node is an export declaration and the decorator
@@ -30,16 +29,15 @@ function printDecorators(path, options, print) {
       node.type === "ClassExpression" ||
       node.type === "ClassDeclaration" ||
       hasNewlineBetweenOrAfterDecorators(node, options);
-
     const separator = shouldBreak ? hardline : line;
+    const parts = [];
+    if (parentExportDecl) {
+      parts.push(hardline);
+    }
 
     path.each((decoratorPath) => {
       parts.push(print(decoratorPath, "expression"), separator);
     }, "decorators");
-
-    if (parentExportDecl) {
-      parts.unshift(hardline);
-    }
 
     return parts;
   }
@@ -53,6 +51,7 @@ function printDecorators(path, options, print) {
     locStart(node, { ignoreDecorators: true }) >
       locStart(node.declaration.decorators[0])
   ) {
+    const parts = [];
     // Export declarations are responsible for printing any decorators
     // that logically apply to node.declaration.
     path.each(
