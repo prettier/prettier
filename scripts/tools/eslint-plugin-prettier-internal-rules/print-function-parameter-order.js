@@ -1,7 +1,7 @@
 "use strict";
 
 const messageId = "print-function-parameter-order";
-const parameters = ["path", "options", "print"];
+const expectedParameters = ["path", "options", "print"];
 
 module.exports = {
   meta: {
@@ -19,34 +19,33 @@ module.exports = {
     const sourceCode = context.getSourceCode();
 
     return {
-      "FunctionDeclaration[id.name=/^print/]"(node) {
-        let shouldReport = false;
+      ":function[params.length>=3]"(node) {
+        const parameterNames = node.params.map((node) =>
+          node.type === "Identifier" ? node.name : ""
+        );
 
-        for (const [index, parameter] of node.params.entries()) {
-          const { type, name } = parameter;
-          if (type !== "Identifier") {
-            return;
-          }
-          const correctIndex = parameters.indexOf(name);
-          if (correctIndex === -1) {
-            return;
-          }
-
-          if (correctIndex !== index) {
-            shouldReport = true;
-          }
-
-          if (index === parameters.length - 1) {
-            break;
-          }
+        // `embed` function order is `path, print, textToDoc, options`
+        if (parameterNames.includes("textToDoc")) {
+          return;
         }
 
-        if (!shouldReport) {
+        // Only if all three parameters exists
+        if (expectedParameters.some((name) => !parameterNames.includes(name))) {
+          return;
+        }
+
+        // In correct order
+        if (
+          expectedParameters.every(
+            (name, index) => name === parameterNames[index]
+          )
+        ) {
           return;
         }
 
         const firstToken = sourceCode.getFirstToken(node);
         const tokenBeforeBody = sourceCode.getTokenBefore(node.body);
+        const functionName = node.id ? node.id.name : "print*";
         context.report({
           node,
           loc: {
@@ -54,7 +53,7 @@ module.exports = {
             end: tokenBeforeBody.loc.end,
           },
           messageId,
-          data: { functionName: node.id.name },
+          data: { functionName },
         });
       },
     };
