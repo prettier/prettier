@@ -34,14 +34,7 @@ function printDecorators(path, options, print) {
     const separator = shouldBreak ? hardline : line;
 
     path.each((decoratorPath) => {
-      let decorator = decoratorPath.getValue();
-      if (decorator.expression) {
-        decorator = decorator.expression;
-      } else {
-        decorator = decorator.callee;
-      }
-
-      parts.push(print(decoratorPath), separator);
+      parts.push(print(decoratorPath, "expression"), separator);
     }, "decorators");
 
     if (parentExportDecl) {
