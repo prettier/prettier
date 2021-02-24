@@ -234,6 +234,29 @@ test("require-json-extensions", {
   ],
 });
 
+test("print-function-parameter-order", {
+  valid: [
+    "function printFoo(path, options, print) {}",
+    "function printFoo(path, opts, print) {}",
+    "function printFoo(path, options, printPath) {}",
+    "function printFoo() {}",
+    "function notPrintFoo(path, print, options) {}",
+    "const printFoo = function (path, print, options) {}",
+    "const printFoo = function printFoo(path, print, options) {}",
+    "const printFoo = (path, print, options) => {}",
+  ],
+  invalid: [
+    "function printFoo(path, print, options) {}",
+    "function printFoo(path, print) {}",
+    "function printFoo(path, print, options, args) {}",
+    "function printFoo(options, print, path) {}",
+  ].map((code) => ({
+    code,
+    output: code,
+    errors: 1,
+  })),
+});
+
 test("no-empty-flat-contents-for-if-break", {
   valid: [
     "ifBreak('foo', 'bar')",
