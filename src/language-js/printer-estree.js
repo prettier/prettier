@@ -385,7 +385,7 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
-      return ["@", path.call(print, "expression"), path.call(print, "callee")];
+      return ["@", path.call(print, "expression")];
     case "ArrayExpression":
     case "ArrayPattern":
     case "TupleExpression":
