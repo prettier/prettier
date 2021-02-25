@@ -52,8 +52,6 @@ function printDecorators(path, options, print) {
       hardline,
     ];
   }
-
-  return "";
 }
 
 module.exports = { printDecorators };
