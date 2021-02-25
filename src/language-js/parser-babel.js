@@ -172,6 +172,8 @@ const messagesShouldThrow = new Set([
   "Invalid Unicode escape",
   // ErrorMessages.MissingUnicodeEscape
   "Expecting Unicode escape sequence \\uXXXX",
+  // ErrorMessages.MissingSemicolon
+  "Missing semicolon",
 ]);
 
 function shouldRethrowRecoveredError(error) {

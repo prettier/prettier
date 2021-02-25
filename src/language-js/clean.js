@@ -197,12 +197,6 @@ function clean(ast, newObj, parent) {
   if (ast.type === "InterpreterDirective") {
     newObj.value = newObj.value.trimEnd();
   }
-
-  // TODO: Remove this when fixing #9760
-  if (ast.type === "ClassMethod") {
-    delete newObj.declare;
-    delete newObj.readonly;
-  }
 }
 
 clean.ignoredProperties = ignoredProperties;
