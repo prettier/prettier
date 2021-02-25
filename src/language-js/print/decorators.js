@@ -10,7 +10,7 @@ const {
   builders: { line, hardline, join, breakParent, group },
 } = require("../../document");
 const { locStart, locEnd } = require("../loc");
-const { getParentExportDeclaration, isExportDeclaration } = require("../utils");
+const { getParentExportDeclaration } = require("../utils");
 
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
@@ -46,7 +46,9 @@ function printDecorators(path, options, print) {
   }
 
   if (
-    isExportDeclaration(node) &&
+    (node.type === "ExportDefaultDeclaration" ||
+      node.type === "DeclareExportDeclaration" ||
+      node.type === "ExportNamedDeclaration") &&
     node.declaration &&
     isNonEmptyArray(node.declaration.decorators) &&
     // Only print decorators here if they were written before the export,
