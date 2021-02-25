@@ -103,6 +103,11 @@ function runSpec(fixtures, parsers, options) {
     options = { errors: true, ...options };
   }
 
+  const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
+    dirname,
+    "misc/typescript-only"
+  );
+
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [undefined];
   }
@@ -151,7 +156,11 @@ function runSpec(fixtures, parsers, options) {
   const allParsers = [...parsers];
 
   if (!IS_ERROR_TESTS) {
-    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !IS_TYPESCRIPT_ONLY_TEST
+    ) {
       allParsers.push("babel-ts");
     }
 
