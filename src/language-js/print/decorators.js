@@ -29,17 +29,11 @@ function printDecorators(path, options, print) {
       node.type === "ClassExpression" ||
       node.type === "ClassDeclaration" ||
       hasNewlineBetweenOrAfterDecorators(node, options);
-    const separator = shouldBreak ? hardline : line;
-    const parts = [];
-    if (parentExportDecl) {
-      parts.push(hardline);
-    }
-
-    path.each((decoratorPath) => {
-      parts.push(print(decoratorPath, "expression"), separator);
-    }, "decorators");
-
-    return parts;
+    return [
+      parentExportDecl ? hardline : shouldBreak ? breakParent : "",
+      join(line, path.map(print, "decorators")),
+      line,
+    ];
   }
 
   if (
@@ -51,20 +45,12 @@ function printDecorators(path, options, print) {
     locStart(node, { ignoreDecorators: true }) >
       locStart(node.declaration.decorators[0])
   ) {
-    const parts = [];
     // Export declarations are responsible for printing any decorators
     // that logically apply to node.declaration.
-    path.each(
-      (decoratorPath) => {
-        const decorator = decoratorPath.getValue();
-        const prefix = decorator.type === "Decorator" ? "" : "@";
-        parts.push(prefix, print(decoratorPath), hardline);
-      },
-      "declaration",
-      "decorators"
-    );
-
-    return parts;
+    return [
+      join(hardline, path.map(print, "declaration", "decorators")),
+      hardline,
+    ];
   }
 
   return "";
