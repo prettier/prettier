@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { line, hardline, join, breakParent },
+  builders: { line, hardline, join, breakParent, group },
 } = require("../../document");
 const { locStart } = require("../loc");
 const {
@@ -10,6 +10,14 @@ const {
   hasNewlineBetweenOrAfterDecorators,
   isExportDeclaration,
 } = require("../utils");
+
+function printClassMemberDecorators(path, options, print) {
+  const node = path.getValue();
+  return group([
+    join(line, path.map(print, "decorators")),
+    hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
+  ]);
+}
 
 function printDecorators(path, options, print) {
   const node = path.getValue();
@@ -54,4 +62,4 @@ function printDecorators(path, options, print) {
   }
 }
 
-module.exports = { printDecorators };
+module.exports = { printDecorators, printClassMemberDecorators };
