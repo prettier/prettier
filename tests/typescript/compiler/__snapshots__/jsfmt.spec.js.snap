@@ -428,7 +428,7 @@ const;
 `;
 
 exports[`errorOnInitializerInInterfaceProperty.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (2:17)
+"Unexpected token (2:17)
   1 | interface Foo {
 > 2 |     bar: number = 5;
     |                 ^
@@ -645,14 +645,6 @@ declare const output: Meta<Input, boolean>;
 const shouldFail: { important: boolean } = output.x.children;
 
 ================================================================================
-`;
-
-exports[`modifiersOnInterfaceIndexSignature1.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (2:10)
-  1 | interface I {
-> 2 |   public [a: string]: number;
-    |          ^
-  3 | }"
 `;
 
 exports[`modifiersOnInterfaceIndexSignature1.ts format 1`] = `

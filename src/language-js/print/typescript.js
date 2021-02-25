@@ -358,6 +358,10 @@ function printTypescript(path, options, print) {
         n.export ? "export " : "",
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
+        // "abstract" and "declare" are supported by only "babel-ts"
+        // https://github.com/prettier/prettier/issues/9760
+        n.abstract ? "abstract " : "",
+        n.declare ? "declare " : "",
         n.computed ? "[" : "",
         path.call(print, "key"),
         n.computed ? "]" : "",

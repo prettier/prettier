@@ -12,9 +12,9 @@ exports[`html-like-comments.js [babel] format 1`] = `
 `;
 
 exports[`import-assertions-for-export-without-from.js [babel] format 1`] = `
-"Unexpected token, expected \\";\\" (1:16)
+"Missing semicolon (1:15)
 > 1 | export { foo } assert { type: \\"json\\" };
-    |                ^
+    |               ^
   2 |"
 `;
 
@@ -41,9 +41,9 @@ exports[`invalid-escape-in-identifier-2.js [babel] format 1`] = `
 `;
 
 exports[`module-attributes.js [babel] format 1`] = `
-"Unexpected token, expected \\";\\" (1:28)
+"Unexpected token, expected \\"(\\" (1:33)
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";
-    |                            ^
+    |                                 ^
   2 |"
 `;
 
