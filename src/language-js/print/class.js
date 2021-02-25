@@ -5,10 +5,7 @@ const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
-const {
-  hasComment,
-  CommentCheckFlags,
-} = require("../utils");
+const { hasComment, CommentCheckFlags } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
