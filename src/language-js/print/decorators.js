@@ -1,15 +1,16 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const {
+  isNonEmptyArray,
+  hasNewlineInRange,
+  hasNewline,
+  getLast,
+} = require("../../common/util");
 const {
   builders: { line, hardline, join, breakParent, group },
 } = require("../../document");
-const { locStart } = require("../loc");
-const {
-  getParentExportDeclaration,
-  hasNewlineBetweenOrAfterDecorators,
-  isExportDeclaration,
-} = require("../utils");
+const { locStart, locEnd } = require("../loc");
+const { getParentExportDeclaration, isExportDeclaration } = require("../utils");
 
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
@@ -60,6 +61,16 @@ function printDecorators(path, options, print) {
       hardline,
     ];
   }
+}
+
+function hasNewlineBetweenOrAfterDecorators(node, options) {
+  return (
+    hasNewlineInRange(
+      options.originalText,
+      locStart(node.decorators[0]),
+      locEnd(getLast(node.decorators))
+    ) || hasNewline(options.originalText, locEnd(getLast(node.decorators)))
+  );
 }
 
 module.exports = { printDecorators, printClassMemberDecorators };
