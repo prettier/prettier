@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const {
-  builders: { line, hardline },
+  builders: { line, hardline, join, breakParent },
 } = require("../../document");
 const { locStart } = require("../loc");
 const {
