@@ -17,7 +17,7 @@ const { shouldPrintParamsWithoutParens } = require("./function");
 
 /**
  * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../../common/ast-path")} AstPath
  */
 
 function printStatementSequence(path, options, print, property) {
@@ -59,7 +59,8 @@ function printStatementSequence(path, options, print, property) {
         parts.push(";");
       } else if (
         node.type === "ClassProperty" ||
-        node.type === "PropertyDefinition"
+        node.type === "PropertyDefinition" ||
+        node.type === "ClassPrivateProperty"
       ) {
         // `ClassBody` don't allow `EmptyStatement`,
         // so we can use `statements` to get next node

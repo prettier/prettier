@@ -17,15 +17,17 @@ function flattenDoc(doc) {
     }
 
     return { type: "concat", parts: res };
-  } else if (doc.type === "if-break") {
+  }
+
+  if (doc.type === "if-break") {
     return {
       ...doc,
-      breakContents:
-        doc.breakContents != null ? flattenDoc(doc.breakContents) : null,
-      flatContents:
-        doc.flatContents != null ? flattenDoc(doc.flatContents) : null,
+      breakContents: doc.breakContents ? flattenDoc(doc.breakContents) : null,
+      flatContents: doc.flatContents ? flattenDoc(doc.flatContents) : null,
     };
-  } else if (doc.type === "group") {
+  }
+
+  if (doc.type === "group") {
     return {
       ...doc,
       contents: flattenDoc(doc.contents),
@@ -33,11 +35,16 @@ function flattenDoc(doc) {
         ? doc.expandedStates.map(flattenDoc)
         : doc.expandedStates,
     };
-  } else if (doc.type === "fill") {
+  }
+
+  if (doc.type === "fill") {
     return { type: "fill", parts: doc.parts.map(flattenDoc) };
-  } else if (doc.contents) {
+  }
+
+  if (doc.contents) {
     return { ...doc, contents: flattenDoc(doc.contents) };
   }
+
   return doc;
 }
 
@@ -171,6 +178,10 @@ function printDocToDebug(doc) {
 
     if (doc.type === "line-suffix-boundary") {
       return "lineSuffixBoundary";
+    }
+
+    if (doc.type === "label") {
+      return `label(${JSON.stringify(doc.label)}, ${printDoc(doc.contents)})`;
     }
 
     throw new Error("Unknown doc type " + doc.type);

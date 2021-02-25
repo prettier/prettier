@@ -30,7 +30,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const grandparent = path.getNode(2);
-  const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
+  const isParameterInTestCall = grandparent && isTestCall(grandparent);
 
   const shouldInline =
     isParameterInTestCall ||
@@ -56,10 +56,12 @@ function printTypeParameters(path, options, print, paramsKey) {
   // has one type parameter that isn't extend with any types.
   // Because, otherwise formatted result will be invalid as tsx.
   const trailingComma =
-    getFunctionParameters(n).length === 1 &&
-    isTSXFile(options) &&
-    !n[paramsKey][0].constraint &&
-    path.getParentNode().type === "ArrowFunctionExpression"
+    n.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
+      ? ""
+      : getFunctionParameters(n).length === 1 &&
+        isTSXFile(options) &&
+        !n[paramsKey][0].constraint &&
+        path.getParentNode().type === "ArrowFunctionExpression"
       ? ","
       : shouldPrintComma(options, "all")
       ? ifBreak(",")

@@ -1,9 +1,5 @@
 "use strict";
 
-const {
-  builders: { hardline, markAsRoot },
-} = require("../document");
-
 const frontMatterRegex = new RegExp(
   "^(?<startDelimiter>-{3}|\\+{3})" +
     // trailing spaces after delimiters are allowed
@@ -50,20 +46,4 @@ function parse(text) {
   };
 }
 
-function print(node, textToDoc) {
-  if (node.lang === "yaml") {
-    const value = node.value.trim();
-    const doc = value
-      ? textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
-      : "";
-    return markAsRoot([
-      node.startDelimiter,
-      hardline,
-      doc,
-      doc ? hardline : "",
-      node.endDelimiter,
-    ]);
-  }
-}
-
-module.exports = { parse, print };
+module.exports = parse;

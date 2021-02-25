@@ -1143,7 +1143,8 @@ printWidth: 1
       b()
   "
   (event)="
-    foo = $event
+    foo =
+      $event
   "
   (event)="
     (foo ==
@@ -3557,16 +3558,18 @@ printWidth: 1
 <p>
   {{
     {
-      a: !{}
+      a:
+        !{}
     }
   }}
 </p>
 <p>
   {{
     {
-      a: a
-        ? b
-        : {}
+      a:
+        a
+          ? b
+          : {}
     }
   }}
 </p>
@@ -8343,7 +8346,8 @@ can be found in the LICENSE file at http://angular.io/license
   ></app-hero-detail>
   <div
     [ngClass]="{
-      special: isSpecial
+      special:
+        isSpecial
     }"
   ></div>
 </div>
@@ -8363,7 +8367,8 @@ can be found in the LICENSE file at http://angular.io/license
 ></app-hero-detail>
 <div
   (myClick)="
-    clicked = $event
+    clicked =
+      $event
   "
   clickable
 >
@@ -8982,7 +8987,8 @@ can be found in the LICENSE file at http://angular.io/license
   <!-- \`myClick\` is an event on the custom \`ClickDirective\` -->
   <div
     (myClick)="
-      clickMessage = $event
+      clickMessage =
+        $event
     "
     clickable
   >
@@ -9136,7 +9142,8 @@ can be found in the LICENSE file at http://angular.io/license
       fontSizePx
     "
     (sizeChange)="
-      fontSizePx = $event
+      fontSizePx =
+        $event
     "
   ></app-sizer>
 </div>
@@ -9198,7 +9205,8 @@ bindon-ngModel
     currentHero.name
   "
   (ngModelChange)="
-    currentHero.name = $event
+    currentHero.name =
+      $event
   "
 />
 (ngModelChange)="...name=$event"
@@ -9274,7 +9282,8 @@ bindon-ngModel
       !isUnchanged
     "
     (change)="
-      isUnchanged = !isUnchanged
+      isUnchanged =
+        !isUnchanged
     "
 /></label>
 |
@@ -10203,7 +10212,8 @@ bindon-ngModel
 
 <div
   (myClick)="
-    clickMessage2 = $event
+    clickMessage2 =
+      $event
   "
   clickable
 >

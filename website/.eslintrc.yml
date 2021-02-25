@@ -3,7 +3,6 @@ env:
   worker: true
 extends:
   - plugin:react/recommended
-  - prettier/react
 settings:
   react:
     version: "17"

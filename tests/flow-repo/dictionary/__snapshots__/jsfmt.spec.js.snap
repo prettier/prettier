@@ -56,9 +56,10 @@ function foo0(
   return x;
 }
 
-function foo2(x: {
+function foo2(x: { [key: string]: number }): {
   [key: string]: number,
-}): { [key: string]: number, +toString: () => string } {
+  +toString: () => string,
+} {
   // x's prototype has a toString method
   return x;
 }
@@ -468,9 +469,10 @@ function mix_with_declared_props(o: { [k: number]: X, p: Y }, x: X, y: Y) {
 }
 
 // Indeed, dict types are still Objects and have Object.prototype stuff
-function object_prototype(o: {
+function object_prototype(o: { [k: string]: number }): {
   [k: string]: number,
-}): { [k: string]: number, +toString: () => string } {
+  +toString: () => string,
+} {
   (o.toString(): boolean); // error: string ~> boolean
   return o; // ok
 }
@@ -776,9 +778,10 @@ function foo3(x: { [key: string]: number }): { foo: number } {
 }
 
 // error: foo can't exist in x
-function foo4(x: {
+function foo4(x: { [key: string]: number }): {
   [key: string]: number,
-}): { [key: string]: number, foo: string } {
+  foo: string,
+} {
   return x;
 }
 

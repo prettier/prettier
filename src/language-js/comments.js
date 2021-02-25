@@ -28,7 +28,7 @@ const { locStart, locEnd } = require("./loc");
 /**
  * @typedef {import("./types/estree").Node} Node
  * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("../common/fast-path")} FastPath
+ * @typedef {import("../common/ast-path")} AstPath
  *
  * @typedef {Object} CommentContext
  * @property {Comment} comment
@@ -710,7 +710,9 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
       addLeadingComment(ast, comment);
     }
     return true;
-  } else if (
+  }
+
+  if (
     enclosingNode &&
     enclosingNode.type === "Program" &&
     enclosingNode.body.length === 0 &&
@@ -724,6 +726,7 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
     }
     return true;
   }
+
   return false;
 }
 
@@ -944,7 +947,7 @@ function isTypeCastComment(comment) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function willPrintOwnComments(path /*, options */) {
