@@ -160,7 +160,7 @@ function printClassMethod(path, options, print) {
   if (n.accessibility) {
     parts.push(n.accessibility + " ");
   }
-  // "readonly" and "decalre" are supported by only "babel-ts"
+  // "readonly" and "declare" are supported by only "babel-ts"
   // https://github.com/prettier/prettier/issues/9760
   if (n.readonly) {
     parts.push("readonly ");
