@@ -50,3 +50,45 @@ await 0;
 
 ================================================================================
 `;
+
+exports[`invalid-modifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  declare e();
+  abstract f();
+  readonly g();
+}
+
+class Bar {
+  declare e() {};
+  abstract f() {};
+  readonly g() {};
+}
+
+=====================================output=====================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  e();
+  f();
+  readonly g();
+}
+
+class Bar {
+  e() {}
+  abstract f() {}
+  g() {}
+}
+
+================================================================================
+`;

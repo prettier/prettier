@@ -7,3 +7,9 @@ interface Foo {
   abstract f();
   readonly g();
 }
+
+class Bar {
+  declare e() {};
+  abstract f() {};
+  readonly g() {};
+}
