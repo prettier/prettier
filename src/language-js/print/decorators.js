@@ -41,28 +41,33 @@ function printDecoratorsBeforeExport(path, options, print) {
 
 function printDecorators(path, options, print) {
   const node = path.getValue();
+  const { decorators } = node;
+  if (!isNonEmptyArray(decorators)) {
+    return;
+  }
+
   const parentExportDecl = getParentExportDeclaration(path);
   if (
-    isNonEmptyArray(node.decorators) &&
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
-    !(
-      parentExportDecl &&
-      locStart(parentExportDecl, { ignoreDecorators: true }) >
-        locStart(node.decorators[0])
-    )
+    parentExportDecl &&
+    locStart(parentExportDecl, { ignoreDecorators: true }) >
+      locStart(decorators[0])
   ) {
-    const shouldBreak =
-      node.type === "ClassExpression" ||
-      node.type === "ClassDeclaration" ||
-      hasNewlineBetweenOrAfterDecorators(node, options);
-    return [
-      parentExportDecl ? hardline : shouldBreak ? breakParent : "",
-      join(line, path.map(print, "decorators")),
-      line,
-    ];
+    return;
   }
+
+  const shouldBreak =
+    node.type === "ClassExpression" ||
+    node.type === "ClassDeclaration" ||
+    hasNewlineBetweenOrAfterDecorators(node, options);
+
+  return [
+    parentExportDecl ? hardline : shouldBreak ? breakParent : "",
+    join(line, path.map(print, "decorators")),
+    line,
+  ];
 }
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {
