@@ -13,6 +13,7 @@ const {
   needsHardlineAfterDanglingComment,
 } = require("../utils");
 const { locStart, hasSameLoc } = require("../loc");
+const { printDecoratorsBeforeExport } = require("./decorators");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -45,7 +46,11 @@ function printImportDeclaration(path, options, print) {
 function printExportDeclaration(path, options, print) {
   const node = path.getValue();
   /** @type{Doc[]} */
-  const parts = [];
+  const parts = [
+    // Only print decorators here if they were written before the export,
+    // otherwise they are printed by the node.declaration
+    printDecoratorsBeforeExport(path, options, print),
+  ];
 
   const { type, exportKind, declaration } = node;
 

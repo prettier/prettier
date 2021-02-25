@@ -20,6 +20,25 @@ function printClassMemberDecorators(path, options, print) {
   ]);
 }
 
+function printDecoratorsBeforeExport(path, options, print) {
+  const node = path.getValue();
+  const decorators = node.declaration && node.declaration.decorators;
+
+  if (
+    isNonEmptyArray(decorators) &&
+    locStart(node, { ignoreDecorators: true }) > locStart(decorators[0])
+  ) {
+    // Export declarations are responsible for printing any decorators
+    // that logically apply to node.declaration.
+    return [
+      join(hardline, path.map(print, "declaration", "decorators")),
+      hardline,
+    ];
+  }
+
+  return "";
+}
+
 function printDecorators(path, options, print) {
   const node = path.getValue();
   const parentExportDecl = getParentExportDeclaration(path);
@@ -44,25 +63,6 @@ function printDecorators(path, options, print) {
       line,
     ];
   }
-
-  if (
-    (node.type === "ExportDefaultDeclaration" ||
-      node.type === "DeclareExportDeclaration" ||
-      node.type === "ExportNamedDeclaration") &&
-    node.declaration &&
-    isNonEmptyArray(node.declaration.decorators) &&
-    // Only print decorators here if they were written before the export,
-    // otherwise they are printed by the node.declaration
-    locStart(node, { ignoreDecorators: true }) >
-      locStart(node.declaration.decorators[0])
-  ) {
-    // Export declarations are responsible for printing any decorators
-    // that logically apply to node.declaration.
-    return [
-      join(hardline, path.map(print, "declaration", "decorators")),
-      hardline,
-    ];
-  }
 }
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {
@@ -75,4 +75,8 @@ function hasNewlineBetweenOrAfterDecorators(node, options) {
   );
 }
 
-module.exports = { printDecorators, printClassMemberDecorators };
+module.exports = {
+  printDecorators,
+  printClassMemberDecorators,
+  printDecoratorsBeforeExport,
+};
