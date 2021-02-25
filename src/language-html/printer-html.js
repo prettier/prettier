@@ -1172,7 +1172,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
                 "}}",
               ])
             );
-          } catch (e) {
+          } catch {
             parts.push("{{", replaceEndOfLineWith(part, literalline), "}}");
           }
         }

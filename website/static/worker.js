@@ -96,7 +96,7 @@ function handleMessage(message) {
       if (!errored) {
         try {
           ast = formatCode(ast, { parser: "json", plugins }).formatted;
-        } catch (e) {
+        } catch {
           ast = serializeAst(ast);
         }
       }
