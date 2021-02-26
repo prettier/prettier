@@ -38,7 +38,11 @@ function attachComments(text, ast, opts) {
 
 function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
-    return { formatted: "", cursorOffset: -1, comments: [] };
+    return formatResult({
+      formatted: "",
+      cursorOffset: -1,
+      options: opts,
+    });
   }
 
   const { ast, text } = parser.parse(originalText, opts);
@@ -99,11 +103,13 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
     }
 
     if (oldCursorNodeText === newCursorNodeText) {
-      return {
+      return formatResult({
         formatted: result.formatted,
         cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
+        ast,
         comments: astComments,
-      };
+        options: opts,
+      });
     }
 
     // diff old and new cursor node texts, with a special cursor
@@ -134,14 +140,22 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
       }
     }
 
-    return { formatted: result.formatted, cursorOffset, comments: astComments };
+    return formatResult({
+      formatted: result.formatted,
+      cursorOffset,
+      ast,
+      comments: astComments,
+      options: opts,
+    });
   }
 
-  return {
+  return formatResult({
     formatted: result.formatted,
     cursorOffset: -1,
+    ast,
     comments: astComments,
-  };
+    options: opts,
+  });
 }
 
 function formatRange(originalText, opts) {
@@ -205,7 +219,14 @@ function formatRange(originalText, opts) {
     formatted = formatted.replace(/\n/g, eol);
   }
 
-  return { formatted, cursorOffset, comments: rangeResult.comments };
+  return {
+    formatted,
+    cursorOffset,
+    comments: rangeResult.comments,
+    get cleanAst() {
+      return formatResult.cleanAst;
+    },
+  };
 }
 
 function ensureIndexInText(text, index, defaultValue) {
@@ -279,6 +300,33 @@ function hasPragma(text, options) {
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
+function formatResult({
+  formatted,
+  cursorOffset,
+  comments = [],
+  ast,
+  options,
+}) {
+  let cleanAst;
+
+  return {
+    formatted,
+    cursorOffset,
+    comments,
+    get cleanAst() {
+      if (!ast) {
+        return ast;
+      }
+
+      if (!cleanAst) {
+        cleanAst = massageAST(ast, options);
+      }
+
+      return cleanAst;
+    },
+  };
+}
+
 function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
@@ -289,11 +337,11 @@ function formatWithCursor(originalText, originalOptions) {
     (options.rangeStart >= options.rangeEnd && text !== "") ||
     (options.requirePragma && !hasPragma(text, options))
   ) {
-    return {
+    return formatResult({
       formatted: originalText,
       cursorOffset: originalOptions.cursorOffset,
-      comments: [],
-    };
+      options,
+    });
   }
 
   let result;
