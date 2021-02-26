@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/anonymous-function-no-parens-types/bad_01/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-no-parens-types/bad_01/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=>\`, expected the token \`;\` (1:28)
@@ -15,7 +15,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/anonymous-function-no-parens-types/bad_02/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-no-parens-types/bad_02/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=>\`, expected the token \`;\` (1:37)
@@ -30,7 +30,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_01/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_01/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=>\`, expected the token \`;\` (1:30)
@@ -45,7 +45,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_02/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_02/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=>\`, expected the token \`;\` (1:39)
@@ -60,7 +60,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_03/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_03/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=>\`, expected the token \`;\` (1:31)
@@ -75,7 +75,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-private-property/declare-field-initializer/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-private-property/declare-field-initializer/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare\`. (2:16)
@@ -94,7 +94,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-private-property/declare-method/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-private-property/declare-method/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare\` modifier can only appear on class fields. (2:3)
@@ -113,7 +113,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-before-decorators/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-before-decorators/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`@\`, expected an identifier (2:11)
@@ -132,7 +132,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-constructor/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-constructor/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare\` modifier can only appear on class fields. (2:3)
@@ -151,7 +151,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-field-initializer/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-field-initializer/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare\`. (2:15)
@@ -170,7 +170,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-field-named-static/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-field-named-static/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`}\`, expected an identifier (3:1)
@@ -189,7 +189,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-method/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-method/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare\` modifier can only appear on class fields. (2:3)
@@ -208,7 +208,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-properties/invalid-getter-setter/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/invalid-getter-setter/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`(\` (2:8)
@@ -227,7 +227,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/class-properties/static-declare-field/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/static-declare-field/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`(\` (2:18)
@@ -246,7 +246,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/classes/constructor-override-with-class-prop-plugin/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/classes/constructor-override-with-class-prop-plugin/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Classes may not have fields named \`constructor\`. (2:3)
@@ -265,7 +265,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/classes/mixins-error/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/classes/mixins-error/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`{\` (1:9)
@@ -280,7 +280,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/06-type-include-error/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/06-type-include-error/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input (4:1)
@@ -298,7 +298,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/07-type-include-error/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/07-type-include-error/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input (7:1)
@@ -319,7 +319,7 @@ type Foo = {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/08-type-flow-include-error/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/08-type-flow-include-error/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input (7:1)
@@ -340,7 +340,7 @@ type Foo = {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/09-type-flow-include-error/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/09-type-flow-include-error/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input (4:1)
@@ -358,7 +358,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/10-type-annotation-error/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/10-type-annotation-error/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input (3:1)
@@ -375,7 +375,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/11-nested-comments-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/11-nested-comments-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`*/\`. Did you mean \`*-/\`? (1:12)
@@ -390,7 +390,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/12-line-comment-nested-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/12-line-comment-nested-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input (2:1)
@@ -405,7 +405,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/comment/13-nested-flow-comments-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/13-nested-flow-comments-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`/*flow-include\` (1:6)
@@ -420,7 +420,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-class/implements-with-mixin-order/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-class/implements-with-mixin-order/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`{\` (1:30)
@@ -435,7 +435,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/export-type-star-from/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/export-type-star-from/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`*\`, expected an identifier (1:44)
@@ -448,7 +448,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-declare-export-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-declare-export-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export type\` is not supported. Use \`export type\` instead. (1:16)
@@ -463,7 +463,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-arrow/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-arrow/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`(\`, expected the token \`{\` (1:16)
@@ -478,7 +478,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-const/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-const/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export const\` is not supported. Use \`declare export var\` instead. (1:16)
@@ -493,7 +493,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-default-function/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-default-function/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`(\`, expected an identifier (1:33)
@@ -508,7 +508,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-default-var/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-default-var/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`;\` (1:28)
@@ -523,7 +523,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-interface/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-interface/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export interface\` is not supported. Use \`export interface\` instead. (1:16)
@@ -538,7 +538,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export let\` is not supported. Use \`declare export var\` instead. (1:16)
@@ -553,7 +553,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-module/7/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/7/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the identifier \`exports\` (1:35)
@@ -568,7 +568,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-module/8/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/8/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`declare\` (2:3)
@@ -587,7 +587,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-commonjs-module/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-commonjs-module/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Found both \`declare module.exports\` and \`declare export\` in the same module. Modules can only have 1 since they are either an ES module xor they are a CommonJS module. (1:87)
@@ -602,7 +602,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-es-module/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-es-module/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Found both \`declare module.exports\` and \`declare export\` in the same module. Modules can only have 1 since they are either an ES module xor they are a CommonJS module. (1:86)
@@ -617,7 +617,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-import/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-import/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Imports within a \`declare module\` body must always be \`import type\` or \`import typeof\`! (1:22)
@@ -632,7 +632,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-module-in-module/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-module-in-module/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`.\` (1:35)
@@ -647,7 +647,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-multiple-commonjs/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/invalid-multiple-commonjs/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Duplicate \`declare module.exports\` statement! (1:88)
@@ -662,7 +662,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-statements/class-multiple-extends-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-statements/class-multiple-extends-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`,\`, expected the token \`{\` (1:26)
@@ -677,7 +677,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-statements/invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-statements/invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:9)
@@ -692,7 +692,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/declare-statements/invalid-literal/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-statements/invalid-literal/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected number, expected the end of an expression statement (\`;\`) (1:9)
@@ -707,7 +707,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/boolean-member-not-initialized-explicit/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/boolean-member-not-initialized-explicit/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Boolean enum members need to be initialized. Use either \`A = true,\` or \`A = false,\` in enum \`E\`. (2:3)
@@ -726,7 +726,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/boolean-member-not-initialized-implicit/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/boolean-member-not-initialized-implicit/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Boolean enum members need to be initialized. Use either \`A = true,\` or \`A = false,\` in enum \`E\`. (2:3)
@@ -747,7 +747,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/duplicate-member-name/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/duplicate-member-name/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum member names need to be unique, but the name \`A\` has already been used before in enum \`E\`. (3:3)
@@ -768,7 +768,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/end-of-file/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/end-of-file/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input, expected an identifier (2:1)
@@ -783,7 +783,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/inconsistent-member-values-majority-defaulted/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/inconsistent-member-values-majority-defaulted/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has inconsistent member initializers. Either use no initializers, or consistently use literals (either booleans, numbers, or strings) for all member initializers. (1:6)
@@ -804,7 +804,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/inconsistent-member-values-mixed-initializers/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/inconsistent-member-values-mixed-initializers/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has inconsistent member initializers. Either use no initializers, or consistently use literals (either booleans, numbers, or strings) for all member initializers. (1:6)
@@ -824,7 +824,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-explicit-type-expression/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-explicit-type-expression/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Supplied enum type is not valid. Use one of \`boolean\`, \`number\`, \`string\`, or \`symbol\` in enum \`E\`. (1:11)
@@ -841,7 +841,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-explicit-type-identifier/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-explicit-type-identifier/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum type \`xxx\` is not valid. Use one of \`boolean\`, \`number\`, \`string\`, or \`symbol\` in enum \`E\`. (1:11)
@@ -858,7 +858,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-boolean-explicit-string/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-boolean-explicit-string/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`string\`, so the initializer of \`A\` needs to be a string literal. (2:7)
@@ -877,7 +877,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-boolean/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-boolean/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`boolean\`, so the initializer of \`A\` needs to be a boolean literal. (2:7)
@@ -896,7 +896,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-number/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-number/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`number\`, so the initializer of \`A\` needs to be a number literal. (2:7)
@@ -915,7 +915,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-string/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-string/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`string\`, so the initializer of \`A\` needs to be a string literal. (2:7)
@@ -934,7 +934,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-symbol/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-symbol/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Symbol enum members cannot be initialized. Use \`A,\` in enum \`E\`. (2:7)
@@ -953,7 +953,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-implicit/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-implicit/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The enum member initializer for \`A\` needs to be a literal (either a boolean, number, or string) in enum \`E\`. (2:7)
@@ -972,7 +972,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-literal-explicit-symbol/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-literal-explicit-symbol/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Symbol enum members cannot be initialized. Use \`A,\` in enum \`E\`. (2:7)
@@ -991,7 +991,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-number-explicit-boolean/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-number-explicit-boolean/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`boolean\`, so the initializer of \`A\` needs to be a boolean literal. (2:7)
@@ -1010,7 +1010,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-number-explicit-string/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-number-explicit-string/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`string\`, so the initializer of \`A\` needs to be a string literal. (2:7)
@@ -1029,7 +1029,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-parenthesized/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-parenthesized/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The enum member initializer for \`A\` needs to be a literal (either a boolean, number, or string) in enum \`E\`. (2:7)
@@ -1048,7 +1048,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-string-explicit-boolean/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-string-explicit-boolean/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`boolean\`, so the initializer of \`A\` needs to be a boolean literal. (2:7)
@@ -1067,7 +1067,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-string-explicit-number/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-string-explicit-number/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`number\`, so the initializer of \`A\` needs to be a number literal. (2:7)
@@ -1086,7 +1086,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-name/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-name/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum member names cannot start with lowercase 'a' through 'z'. Instead of using \`foo\`, consider using \`Foo\`, in enum \`E\`. (2:3)
@@ -1107,7 +1107,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/number-member-not-initialized-explicit/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/number-member-not-initialized-explicit/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Number enum members need to be initialized, e.g. \`A = 1,\` in enum \`E\`. (2:3)
@@ -1126,7 +1126,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/number-member-not-initialized-implicit/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/number-member-not-initialized-implicit/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Number enum members need to be initialized, e.g. \`A = 1,\` in enum \`E\`. (2:3)
@@ -1147,7 +1147,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/reserved-word-enum-name/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/reserved-word-enum-name/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`class\` (1:6)
@@ -1164,7 +1164,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/string-member-inconsistently-initialized-majority-defaulted/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/string-member-inconsistently-initialized-majority-defaulted/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: String enum members need to consistently either all use initializers, or use no initializers, in enum E. (2:3)
@@ -1186,7 +1186,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/string-member-inconsistently-initialized-majority-initialized/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/string-member-inconsistently-initialized-majority-initialized/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: String enum members need to consistently either all use initializers, or use no initializers, in enum E. (2:3)
@@ -1208,7 +1208,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/enum-declaration/unknown-members-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/unknown-members-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The \`...\` must come at the end of the enum body. Remove the trailing comma. (2:3)
@@ -1227,7 +1227,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax can only appear inside an object type (3:3)
@@ -1248,7 +1248,7 @@ declare class A {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax can only appear inside an object type (4:3)
@@ -1270,7 +1270,7 @@ declare class B {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax can only appear inside an object type (3:3)
@@ -1293,7 +1293,7 @@ declare class C {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects4/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects4/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax can only appear inside an object type (4:3)
@@ -1317,7 +1317,7 @@ declare class D {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects5/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects5/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax can only appear inside an object type (4:3)
@@ -1339,7 +1339,7 @@ interface F {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects6/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects6/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax can only appear inside an object type (3:3)
@@ -1362,7 +1362,7 @@ interface G {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects7/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_disallowed_in_non_objects7/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax can only appear inside an object type (4:3)
@@ -1386,7 +1386,7 @@ interface H {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_forbidden_in_exact/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_forbidden_in_exact/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax cannot appear inside an explicit exact object type (2:26)
@@ -1403,7 +1403,7 @@ type T = {| foo: number, ... |}
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_must_appear_last/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_must_appear_last/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax must come at the end of an object type (2:11)
@@ -1420,7 +1420,7 @@ type T = {..., foo: number};
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_object_invalid1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_object_invalid1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax must come at the end of an object type (2:22)
@@ -1437,7 +1437,7 @@ type T = {x: number, ..., y: number};
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_object_invalid2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_object_invalid2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax must come at the end of an object type (2:22)
@@ -1454,7 +1454,7 @@ type U = {x: number, ..., ...};
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_object_invalid3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/explicit-inexact-object/explicit_inexact_object_invalid3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Explicit inexact syntax must come at the end of an object type (2:22)
@@ -1471,7 +1471,7 @@ type V = {x: number, ..., ...X};
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-multiple-reserved-invalid-1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-multiple-reserved-invalid-1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:24)
@@ -1488,7 +1488,7 @@ interface I extends X, bool {}
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-multiple-reserved-invalid-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-multiple-reserved-invalid-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:24)
@@ -1505,7 +1505,7 @@ interface I extends X, bool.m {}
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-reserved-invalid-1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-reserved-invalid-1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:21)
@@ -1522,7 +1522,7 @@ interface I extends bool {}
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-reserved-invalid-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interface-types/extends-reserved-invalid-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:21)
@@ -1539,7 +1539,7 @@ interface I extends bool.m {}
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interfaces-as-identifier/class-declaration/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interfaces-as-identifier/class-declaration/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Use of future reserved word in strict mode (1:7)
@@ -1554,7 +1554,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interfaces-as-identifier/import-statement/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interfaces-as-identifier/import-statement/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Use of future reserved word in strict mode (1:8)
@@ -1569,7 +1569,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interfaces-module-and-script/id-reserved-type-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interfaces-module-and-script/id-reserved-type-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:11)
@@ -1584,7 +1584,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interfaces-module-and-script/implements-reserved-type-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interfaces-module-and-script/implements-reserved-type-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:22)
@@ -1599,7 +1599,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/interfaces-module-and-script/implements-reserved-type-invalid-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/interfaces-module-and-script/implements-reserved-type-invalid-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:27)
@@ -1614,7 +1614,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/internal-slot/interface-variance/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/internal-slot/interface-variance/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:15)
@@ -1629,7 +1629,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/internal-slot/object-variance/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/internal-slot/object-variance/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:12)
@@ -1644,7 +1644,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/iterator/07/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/iterator/07/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`@\`, expected an identifier (1:6)
@@ -1659,7 +1659,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/iterator/08/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/iterator/08/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`@\`, expected an identifier (1:6)
@@ -1674,7 +1674,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/iterator/11/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/iterator/11/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`@\`, expected an identifier (2:3)
@@ -1693,7 +1693,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/literal-types/invalid-number-negative/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/literal-types/invalid-number-negative/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`-\` (1:8)
@@ -1708,7 +1708,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/literal-types/invalid-number-positive/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/literal-types/invalid-number-positive/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`+\` (1:8)
@@ -1723,7 +1723,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/module-string-names/default-import/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/module-string-names/default-import/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected string, expected an identifier (1:9)
@@ -1738,7 +1738,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/module-string-names/import-local-is-string/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/module-string-names/import-local-is-string/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected string, expected an identifier (1:10)
@@ -1753,7 +1753,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/module-string-names/mixed/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/module-string-names/mixed/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected string, expected an identifier (1:10)
@@ -1770,7 +1770,7 @@ export * as \\"foo\\", { default as \\"quux\\" } from \\"module-b\\";
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/module-string-names/named-imports/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/module-string-names/named-imports/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected string, expected an identifier (1:9)
@@ -1785,7 +1785,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-getter-param-count/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-getter-param-count/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Getter should have zero parameters (2:7)
@@ -1804,7 +1804,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-getter-param-count-rest/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-getter-param-count-rest/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Getter should have zero parameters (2:7)
@@ -1823,7 +1823,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-setter-param-count/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-setter-param-count/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Setter should have exactly one parameter (2:7)
@@ -1842,7 +1842,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-setter-param-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/object-types/invalid-setter-param-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Setter should have exactly one parameter (2:7)
@@ -1861,7 +1861,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/declare_opaque/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/declare_opaque/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare opaque type\`. (1:24)
@@ -1876,7 +1876,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_export_t_and_st/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_export_t_and_st/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare opaque type\`. (1:37)
@@ -1891,7 +1891,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_export_t_no_st/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_export_t_no_st/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare opaque type\`. (1:32)
@@ -1906,7 +1906,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_t_and_st/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_t_and_st/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare opaque type\`. (1:30)
@@ -1921,7 +1921,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_t_no_st/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_t_no_st/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare opaque type\`. (1:25)
@@ -1936,7 +1936,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`, expected the token \`type\` (1:23)
@@ -1951,7 +1951,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`. Initializers are not allowed in a \`declare opaque type\`. (1:31)
@@ -1966,7 +1966,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`type\` (1:23)
@@ -1981,7 +1981,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`type\` (1:15)
@@ -1996,7 +1996,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)
@@ -2011,7 +2011,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)
@@ -2026,7 +2026,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`type\` (1:15)
@@ -2041,7 +2041,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the end of an expression statement (\`;\`) (1:8)
@@ -2056,7 +2056,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/reserved-type-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/reserved-type-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:13)
@@ -2071,7 +2071,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/optional-type/2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/optional-type/2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`)\` (1:14)
@@ -2086,7 +2086,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/optional-type/5/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/optional-type/5/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\` (1:66)
@@ -2101,7 +2101,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/optional-type/6/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/optional-type/6/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`?\`, expected the token \`,\` (1:14)
@@ -2116,7 +2116,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/predicates/4/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/predicates/4/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`;\` (1:19)
@@ -2131,7 +2131,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/predicates/5/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/predicates/5/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`%\` (1:18)
@@ -2150,7 +2150,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/proto-props/interface/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/interface/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`:\` (2:9)
@@ -2169,7 +2169,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/proto-props/object/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/object/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`:\` (1:18)
@@ -2184,7 +2184,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/proto-props/proto-static/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/proto-static/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`:\` (2:16)
@@ -2203,7 +2203,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/proto-props/static-proto/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/static-proto/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`:\` (2:16)
@@ -2222,7 +2222,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/arrow-in-ternary-with-param-type-and-return-type-like/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/arrow-in-ternary-with-param-type-and-return-type-like/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected end of input, expected the token \`:\` (3:1)
@@ -2239,7 +2239,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-58/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-58/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`;\`, expected the token \`:\` (2:17)
@@ -2300,7 +2300,7 @@ let icecream = what == \\"cone\\"
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-ambiguous/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-ambiguous/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`;\`, expected the token \`:\` (4:28)
@@ -2320,7 +2320,7 @@ a ? (b) : c => (d) : e => f;
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`;\`, expected the token \`:\` (2:24)
@@ -2335,7 +2335,7 @@ a ? (b) : (c => d) => e;",
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token ILLEGAL (2:37)
@@ -2350,7 +2350,7 @@ a ? <T>(b => c) : d => (e) : f => g;",
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=>\`, expected the token \`:\` (2:14)
@@ -2365,7 +2365,7 @@ a ? (b => c) => (e) : f => g;",
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-4/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-failing-4/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=>\`, expected the token \`:\` (2:20)
@@ -2380,7 +2380,7 @@ a ? async (b => c) => (d) : f => g;",
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-321-failing/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-321-failing/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the token \`,\` (1:28)
@@ -2395,7 +2395,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/regression/issue-2154/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-2154/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`)\` (1:3)
@@ -2410,7 +2410,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/default/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/default/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`, expected an identifier (1:32)
@@ -2425,7 +2425,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/object-method-type-this-not-first/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/object-method-type-this-not-first/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The \`this\` parameter must be the first function parameter. (2:21)
@@ -2444,7 +2444,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-arrow-function/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-arrow-function/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Arrow functions cannot have a \`this\` parameter; arrow functions automatically bind \`this\` when declared. (1:10)
@@ -2459,7 +2459,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-constructor/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-constructor/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Constructors cannot have a \`this\` parameter; constructors don't bind \`this\` like other functions. (2:15)
@@ -2478,7 +2478,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-getter/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-getter/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: A getter cannot have a \`this\` parameter. (2:7)
@@ -2497,7 +2497,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-getter-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-getter-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: A getter cannot have a \`this\` parameter. (2:7)
@@ -2516,7 +2516,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-no-annot/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-no-annot/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: A type annotation is required for the \`this\` parameter. (1:19)
@@ -2531,7 +2531,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-not-first/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-not-first/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The \`this\` parameter must be the first function parameter. (1:27)
@@ -2546,7 +2546,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-not-first-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-not-first-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The \`this\` parameter must be the first function parameter. (1:23)
@@ -2561,7 +2561,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-optional/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-optional/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: A type annotation is required for the \`this\` parameter. (1:18)
@@ -2576,7 +2576,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-optional-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-optional-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The \`this\` parameter cannot be optional. (1:15)
@@ -2591,7 +2591,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-setter/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-setter/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: A setter cannot have a \`this\` parameter. (2:7)
@@ -2610,7 +2610,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-setter-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-setter-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: A setter cannot have a \`this\` parameter. (2:7)
@@ -2629,7 +2629,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-string-literal-constructor/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-string-literal-constructor/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Constructors cannot have a \`this\` parameter; constructors don't bind \`this\` like other functions. (2:17)
@@ -2648,7 +2648,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/106/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/106/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`>\` (1:8)
@@ -2663,7 +2663,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/109/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/109/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`{\` (1:20)
@@ -2678,7 +2678,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/112/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/112/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:11)
@@ -2693,7 +2693,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/113/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/113/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:11)
@@ -2710,7 +2710,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/116/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/116/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:11)
@@ -2725,7 +2725,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/117/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/117/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:11)
@@ -2740,7 +2740,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/120/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/120/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:10)
@@ -2755,7 +2755,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/121/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/121/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:10)
@@ -2770,7 +2770,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/122/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/122/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`+\`, expected an identifier (1:3)
@@ -2785,7 +2785,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/123/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/123/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`-\`, expected an identifier (1:3)
@@ -2800,7 +2800,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/124/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/124/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:19)
@@ -2815,7 +2815,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/125/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/125/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected variance sigil (1:27)
@@ -2830,7 +2830,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/126/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/126/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`+\`, expected an identifier (1:4)
@@ -2845,7 +2845,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/131/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/131/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:6)
@@ -2860,7 +2860,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/132/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/132/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:10)
@@ -2875,7 +2875,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/133/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/133/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:12)
@@ -2894,7 +2894,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/134/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/134/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:14)
@@ -2909,7 +2909,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/137/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/137/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Spreading a type is only allowed inside an object type (2:2)
@@ -2928,7 +2928,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/139/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/139/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`...\`, expected an identifier (3:3)
@@ -2949,7 +2949,7 @@ type C = {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/invalid-line-terminator-arrow/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/invalid-line-terminator-arrow/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Illegal newline before arrow (2:1)
@@ -2964,7 +2964,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`, expected the token \`{\` (2:27)
@@ -2981,7 +2981,7 @@ const x: typeof interface = \\"hi\\";
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:22)
@@ -2998,7 +2998,7 @@ const x: typeof type.interface = \\"hi\\";
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:23)
@@ -3015,7 +3015,7 @@ const x: typeof stuff.number = \\"hi\\";
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-4/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-4/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:17)
@@ -3032,7 +3032,7 @@ const x: typeof static = \\"hi\\";
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-5/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-5/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\` (2:24)
@@ -3049,7 +3049,7 @@ const x: typeof typeof = \\"hi\\";
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-6/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-6/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:19)
@@ -3066,7 +3066,7 @@ const x: typeof d.i\\\\u{6e}terface = \\"hi\\";
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-annotations/with-default-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/with-default-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:21)
@@ -3079,7 +3079,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-exports/star-as-from/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-exports/star-as-from/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected identifier, expected the identifier \`from\` (1:15)
@@ -3094,7 +3094,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-generics/async-arrow-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-generics/async-arrow-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token ILLEGAL (2:1)
@@ -3109,7 +3109,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:13)
@@ -3124,7 +3124,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:15)
@@ -3139,7 +3139,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:15)
@@ -3154,7 +3154,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-4/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-4/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:20)
@@ -3169,7 +3169,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-as/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-as/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`debugger\` (1:18)
@@ -3184,7 +3184,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-namespace/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-namespace/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`*\` (1:13)
@@ -3199,7 +3199,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The \`type\` and \`typeof\` keywords on named imports can only be used on regular \`import\` statements. It cannot be used with \`import type\` or \`import typeof\` statements (1:16)
@@ -3214,7 +3214,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: The \`type\` and \`typeof\` keywords on named imports can only be used on regular \`import\` statements. It cannot be used with \`import type\` or \`import typeof\` statements (1:14)
@@ -3229,7 +3229,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand-3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand-3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:17)
@@ -3244,7 +3244,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand-4/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-shorthand-4/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (1:15)
@@ -3259,7 +3259,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/arrow_error_with_jsx/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/arrow_error_with_jsx/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token ILLEGAL (2:1)
@@ -3274,7 +3274,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/arrow_error_without_jsx/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/arrow_error_without_jsx/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token ILLEGAL (2:1)
@@ -3289,7 +3289,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-class-extends/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-class-extends/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`, expected the token \`,\` (1:21)
@@ -3304,7 +3304,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-declare-func/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-declare-func/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`{\`, expected the token \`:\` (1:36)
@@ -3319,7 +3319,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-var-type/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-var-type/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`=\`, expected the token \`,\` (1:16)
@@ -3334,7 +3334,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-missing/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-missing/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Type parameter declaration needs a default, since a preceding type parameter declaration has a default. (1:29)
@@ -3349,7 +3349,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/empty/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/empty/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`>\`, expected an identifier (2:10)
@@ -3366,7 +3366,7 @@ type Foo<> = number;
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/error-object-property-type-param/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/error-object-property-type-param/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`}\`, expected the token \`(\` (3:1)
@@ -3385,7 +3385,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/invalid-getter/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/invalid-getter/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`<\`, expected the token \`(\` (2:11)
@@ -3402,7 +3402,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/invalid-setter/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/invalid-setter/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`<\`, expected the token \`(\` (2:11)
@@ -3419,7 +3419,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/reserved-word-class-name-failure/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/reserved-word-class-name-failure/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`delete\` (1:15)
@@ -3434,7 +3434,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/star/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/star/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`*\`, expected an identifier (2:10)
@@ -3451,7 +3451,7 @@ type Foo<*> = number;
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typeapp-call/async-call/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typeapp-call/async-call/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`;\`, expected the token \`=>\` (2:11)
@@ -3468,7 +3468,7 @@ async<T>();
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typeapp-call/underscore_is_illegal_param_instantiation_otherwise/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typeapp-call/underscore_is_illegal_param_instantiation_otherwise/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:16)
@@ -3485,7 +3485,7 @@ var x: Generic<_> = 3;
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typeapp-call/underscore_is_illegal_type_name/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typeapp-call/underscore_is_illegal_type_name/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:6)
@@ -3502,7 +3502,7 @@ type _ = number;
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typeapp-call/underscore_is_illegal_type_param_name/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typeapp-call/underscore_is_illegal_type_param_name/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected reserved type (2:14)
@@ -3519,7 +3519,7 @@ type Generic<_> = _;
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-async-optional-calls/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-async-optional-calls/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:12)
@@ -3534,7 +3534,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-calls/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-calls/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:14)
@@ -3549,7 +3549,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-calls-with-one-arg/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-calls-with-one-arg/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:11)
@@ -3564,7 +3564,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-optional-calls/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-optional-calls/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:16)
@@ -3579,7 +3579,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-without-parens/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-without-parens/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`)\` (1:6)
@@ -3594,7 +3594,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-1/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-1/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:3)
@@ -3607,7 +3607,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-2/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-2/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:4)
@@ -3620,7 +3620,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-3/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-3/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:8)
@@ -3633,7 +3633,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-4/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-4/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:10)
@@ -3646,7 +3646,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-5/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fails-in-array-expression-5/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token \`:\`, expected the token \`,\` (1:14)
@@ -3659,7 +3659,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/generic-arrow-func-invalid/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/generic-arrow-func-invalid/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token ILLEGAL (2:1)
@@ -3674,7 +3674,7 @@ Object {
 }
 `;
 
-exports[`babel/packages/babel-parser/test/fixtures/flow/typecasts/generic-arrow-func-invalid-parenthesized/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/generic-arrow-func-invalid-parenthesized/input.js
 Options: {"parser":"flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token ILLEGAL (2:1)

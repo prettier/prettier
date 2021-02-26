@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`babel/packages/babel-parser/test/fixtures/typescript/class/optional-async-error/input.js
+exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/typescript/class/optional-async-error/input.js
 Options: {"parser":"typescript"} 1`] = `
 Object {
   "error": [SyntaxError: ';' expected. (3:12)
