@@ -17,7 +17,7 @@ if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
 }
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
-const testPathIgnorePatterns = [];
+const testPathIgnorePatterns = ["<rootDir>/tests-ast-compare/"];
 let transform;
 if (TEST_STANDALONE) {
   testPathIgnorePatterns.push("<rootDir>/tests_integration/");

@@ -11,3 +11,4 @@
 /website/static/playground.js
 /website/static/lib/
 /tests_integration/cli/
+/tests-ast-compare/fixtures/**

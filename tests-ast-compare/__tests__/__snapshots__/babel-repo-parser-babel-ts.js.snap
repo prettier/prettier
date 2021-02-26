@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel/packages/babel-parser/test/fixtures/typescript/class/optional-async-error/input.js
+Options: {"parser":"babel-ts"} 1`] = `
+Object {
+  "error": [SyntaxError: Unexpected token (3:10)
+  1 | class B { }
+  2 | class A extends B {
+> 3 |     async? method(val: string): Promise<void>;
+    |          ^
+  4 | }],
+  "input": "class B { }
+class A extends B {
+    async? method(val: string): Promise<void>;
+}",
+  "options": Object {
+    "parser": "babel-ts",
+  },
+}
+`;
