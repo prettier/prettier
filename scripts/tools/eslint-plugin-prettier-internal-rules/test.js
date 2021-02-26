@@ -73,6 +73,33 @@ test("directly-loc-start-end", {
   ],
 });
 
+test("flat-ast-path-call", {
+  valid: [
+    'path.call((childPath) => childPath.notCall(print, "b"), "a")',
+    'path.notCall((childPath) => childPath.call(print, "b"), "a")',
+    'path.call((childPath) => childPath.call(print, "b"))',
+    'path.call((childPath) => childPath.call(print), "a")',
+    'path.call((childPath) => notChildPath.call(print), "a")',
+    'path.call(functionReference, "a")',
+    // Only check `arrow function`
+    'path.call((childPath) => {return childPath.call(print, "b")}, "a")',
+    'path.call(function(childPath) {return childPath.call(print, "b")}, "a")',
+  ],
+  invalid: [
+    {
+      code: 'path.call((childPath) => childPath.call(print, "b"), "a")',
+      output: 'path.call(print, "a", "b")',
+      errors: [{ message: "Do not use nested `AstPath#call(…)`." }],
+    },
+    {
+      // Trailing comma
+      code: 'path.call((childPath) => childPath.call(print, "b"), "a",)',
+      output: 'path.call(print, "a", "b")',
+      errors: 1,
+    },
+  ],
+});
+
 test("jsx-identifier-case", {
   valid: [
     {
