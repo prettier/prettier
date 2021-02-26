@@ -1028,9 +1028,15 @@ function printPathNoParens(path, options, print, args) {
       parts.push("#");
       return parts;
     }
-
     case "ArgumentPlaceholder":
       return "?";
+    case "ModuleExpression":
+      return [
+        "module {",
+        indent([softline, path.call(print, "body")]),
+        softline,
+        "}",
+      ];
 
     default:
       /* istanbul ignore next */

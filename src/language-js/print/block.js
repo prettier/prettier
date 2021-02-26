@@ -94,7 +94,10 @@ function printBlockBody(path, options, print) {
   }
 
   if (node.type === "Program") {
-    parts.push(hardline);
+    const parent = path.getParentNode();
+    if (!parent || parent.type === "File") {
+      parts.push(hardline);
+    }
   }
 
   return parts;
