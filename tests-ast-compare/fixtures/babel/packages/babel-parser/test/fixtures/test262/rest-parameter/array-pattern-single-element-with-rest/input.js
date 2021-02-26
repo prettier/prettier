@@ -1,0 +1,1 @@
+function singleElementWithRest(...[...a]) {}

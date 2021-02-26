@@ -1,0 +1,1 @@
+function singleElementWithObject(...[{p: q}]) {}
