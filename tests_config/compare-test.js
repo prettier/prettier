@@ -6,29 +6,26 @@ const globby = require("globby");
 const { outdent } = require("outdent");
 const stripAnsi = require("strip-ansi");
 const prettier = require("..");
-const AST_COMPARE_TEST_FIXTURES = path.join(
-  __dirname,
-  "../tests-ast-compare/fixtures"
-);
+const COMPARE_TEST_FIXTURES = path.join(__dirname, "../tests-compare/fixtures");
 
-function runAstCompareTest(config) {
+function runCompareTest(config) {
   const { patterns, ignore = [], options } = config;
 
   const files = globby.sync(patterns, {
-    cwd: AST_COMPARE_TEST_FIXTURES,
+    cwd: COMPARE_TEST_FIXTURES,
     ignore,
   });
 
   for (const file of files) {
     const testTitle = outdent`
-      ${file}
+      tests-compare/fixtures/${file}
       Options: ${JSON.stringify(options)}
     `;
 
     test(testTitle, () => {
       const optionsWithFilePath = { filepath: file, ...options };
       const input = fs.readFileSync(
-        path.join(AST_COMPARE_TEST_FIXTURES, file),
+        path.join(COMPARE_TEST_FIXTURES, file),
         "utf8"
       );
 
@@ -60,4 +57,4 @@ function runAstCompareTest(config) {
   }
 }
 
-module.exports = { AST_COMPARE_TEST_FIXTURES, runAstCompareTest };
+module.exports = { COMPARE_TEST_FIXTURES, runCompareTest };

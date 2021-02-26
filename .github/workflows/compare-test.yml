@@ -1,4 +1,4 @@
-name: Ast Compare Test
+name: Compare Test
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: Ast Compare Test
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

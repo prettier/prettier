@@ -5,11 +5,11 @@ import rimraf from "rimraf";
 import execa from "execa";
 import tempy from "tempy";
 import copy from "cpy";
-import { AST_COMPARE_TEST_FIXTURES } from "../tests_config/ast-compare-test.js";
+import { COMPARE_TEST_FIXTURES } from "../tests_config/compare-test.js";
 
 const fixtures = [
   {
-    directory: path.join(AST_COMPARE_TEST_FIXTURES, "babel"),
+    directory: path.join(COMPARE_TEST_FIXTURES, "babel"),
     repository: "https://github.com/babel/babel",
     patterns: "packages/babel-parser/test/fixtures/**/*.js",
   },
