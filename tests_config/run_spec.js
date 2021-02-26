@@ -48,7 +48,7 @@ const unstableTests = new Map(
 );
 
 // This is temporary.
-// This will be removed once https://github.com/babel/babel/issues/12915 is fiexd
+// This will be removed once https://github.com/babel/babel/issues/12915 is fixed
 const unstableAstTests = new Map(
   [
     [
