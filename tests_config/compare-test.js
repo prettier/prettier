@@ -7,18 +7,20 @@ const { outdent } = require("outdent");
 const prettier = require("..");
 
 const PROJECT_ROOT = path.join(__dirname, "..");
-const FIXTURE_PACKAGE_DIRECTORY = path.dirname(
+const FIXTURES_PACKAGE_DIRECTORY = path.dirname(
   require.resolve("@prettier/core-test-fixtures/package.json")
 );
-const COMPARE_TEST_FIXTURES = path.join(FIXTURE_PACKAGE_DIRECTORY, "files");
+const FIXTURES_DIRECTORY = path.join(FIXTURES_PACKAGE_DIRECTORY, "files");
 
 function runCompareTest(config) {
-  const { patterns, ignore = [], options } = config;
+  const { patterns, ignore = [], options, skip = [] } = config;
+  const skipFiles = new Set(
+    skip.map((file) => path.join(FIXTURES_DIRECTORY, file))
+  );
 
   const files = globby.sync(patterns, {
-    cwd: COMPARE_TEST_FIXTURES,
+    cwd: FIXTURES_DIRECTORY,
     ignore,
-    absolute: true,
   });
 
   test("files", () => {
@@ -28,14 +30,15 @@ function runCompareTest(config) {
   });
 
   for (const file of files) {
-    const relativePath = path.relative(PROJECT_ROOT, file);
+    const absolutePath = path.join(FIXTURES_DIRECTORY, file);
+    const relativeToRoot = path.relative(PROJECT_ROOT, absolutePath);
     const testTitle = outdent`
-      ${relativePath}
+      ${relativeToRoot.replace(/\\/g, "/")}
       Options: ${JSON.stringify(options)}
     `;
 
-    const optionsWithFilePath = { filepath: file, ...options };
-    const input = fs.readFileSync(file, "utf8");
+    const optionsWithFilePath = { filepath: absolutePath, ...options };
+    const input = fs.readFileSync(absolutePath, "utf8");
 
     let ast;
     try {
@@ -48,7 +51,7 @@ function runCompareTest(config) {
       continue;
     }
 
-    test(testTitle, () => {
+    (skipFiles.has(absolutePath) ? test.skip : test)(testTitle, () => {
       const output = prettier.format(input, optionsWithFilePath);
 
       const formattedAst = prettier.__debug.parse(
@@ -64,4 +67,4 @@ function runCompareTest(config) {
   }
 }
 
-module.exports = { COMPARE_TEST_FIXTURES, runCompareTest };
+module.exports = { FIXTURES_DIRECTORY, runCompareTest };
