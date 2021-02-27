@@ -7,6 +7,7 @@ const { outdent } = require("outdent");
 const stripAnsi = require("strip-ansi");
 const prettier = require("..");
 
+const PROJECT_ROOT = path.join(__dirname, "..");
 const COMPARE_TEST_FIXTURES = path.join(
   path.dirname(require.resolve("@prettier/core-test-fixtures/package.json")),
   "files"
@@ -26,8 +27,12 @@ function runCompareTest(config) {
   });
 
   for (const file of files) {
+    const relativePath = path.relative(
+      PROJECT_ROOT,
+      path.join(COMPARE_TEST_FIXTURES, file)
+    );
     const testTitle = outdent`
-      tests-compare/fixtures/${file}
+      ${relativePath}
       Options: ${JSON.stringify(options)}
     `;
 

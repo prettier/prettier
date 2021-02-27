@@ -729,7 +729,7 @@ Array [
 ]
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-no-parens-types/bad_01/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\anonymous-function-no-parens-types\\bad_01\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:28)
@@ -744,7 +744,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-no-parens-types/bad_02/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\anonymous-function-no-parens-types\\bad_02\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:37)
@@ -759,7 +759,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_01/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\anonymous-function-types\\bad_01\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:30)
@@ -774,7 +774,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_02/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\anonymous-function-types\\bad_02\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:39)
@@ -789,7 +789,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/anonymous-function-types/bad_03/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\anonymous-function-types\\bad_03\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:31)
@@ -804,7 +804,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/declare-before-decorators/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\class-properties\\declare-before-decorators\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:11)
@@ -823,7 +823,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/invalid-getter-setter/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\class-properties\\invalid-getter-setter\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:8)
@@ -842,7 +842,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/class-properties/static-declare-field/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\class-properties\\static-declare-field\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:18)
@@ -861,7 +861,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/classes/mixins-error/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\classes\\mixins-error\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "{" (1:9)
@@ -876,7 +876,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/06-type-include-error/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\comment\\06-type-include-error\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated comment (2:3)
@@ -895,7 +895,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/07-type-include-error/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\comment\\07-type-include-error\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated comment (1:1)
@@ -917,7 +917,7 @@ type Foo = {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/08-type-flow-include-error/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\comment\\08-type-flow-include-error\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated comment (1:1)
@@ -939,7 +939,7 @@ type Foo = {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/09-type-flow-include-error/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\comment\\09-type-flow-include-error\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated comment (2:3)
@@ -958,7 +958,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/comment/10-type-annotation-error/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\comment\\10-type-annotation-error\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated comment (1:23)
@@ -975,7 +975,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-class/implements-with-mixin-order/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-class\\implements-with-mixin-order\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "{" (1:30)
@@ -990,7 +990,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-declare-export-type/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-export\\invalid-declare-export-type\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export type\` is not supported. Use \`export type\` instead (1:16)
@@ -1005,7 +1005,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-arrow/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-export\\invalid-export-arrow\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:16)
@@ -1020,7 +1020,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-const/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-export\\invalid-export-const\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export const\` is not supported. Use \`declare export var\` instead (1:16)
@@ -1035,7 +1035,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-default-function/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-export\\invalid-export-default-function\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:33)
@@ -1050,7 +1050,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-default-var/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-export\\invalid-export-default-var\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Missing semicolon (1:27)
@@ -1065,7 +1065,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-interface/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-export\\invalid-export-interface\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export interface\` is not supported. Use \`export interface\` instead (1:16)
@@ -1080,7 +1080,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-export/invalid-export-let/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-export\\invalid-export-let\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: \`declare export let\` is not supported. Use \`declare export var\` instead (1:16)
@@ -1095,7 +1095,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/7/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-module\\7\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:35)
@@ -1110,7 +1110,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-module/8/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-module\\8\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Only declares and type imports are allowed inside declare module (2:3)
@@ -1129,7 +1129,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-statements/class-multiple-extends-invalid/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-statements\\class-multiple-extends-invalid\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "{" (1:26)
@@ -1144,7 +1144,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-statements/invalid/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-statements\\invalid\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:9)
@@ -1159,7 +1159,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/declare-statements/invalid-literal/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\declare-statements\\invalid-literal\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Missing semicolon (1:8)
@@ -1174,7 +1174,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/end-of-file/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\end-of-file\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:1)
@@ -1189,7 +1189,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-explicit-type-expression/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\invalid-explicit-type-expression\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Supplied enum type is not valid. Use one of \`boolean\`, \`number\`, \`string\`, or \`symbol\` in enum \`E\`. (1:11)
@@ -1206,7 +1206,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-boolean/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\invalid-member-initializer-expression-explicit-boolean\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`boolean\`, so the initializer of \`A\` needs to be a boolean literal. (2:7)
@@ -1225,7 +1225,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-number/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\invalid-member-initializer-expression-explicit-number\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`number\`, so the initializer of \`A\` needs to be a number literal. (2:7)
@@ -1244,7 +1244,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-string/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\invalid-member-initializer-expression-explicit-string\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Enum \`E\` has type \`string\`, so the initializer of \`A\` needs to be a string literal. (2:7)
@@ -1263,7 +1263,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-explicit-symbol/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\invalid-member-initializer-expression-explicit-symbol\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Symbol enum members cannot be initialized. Use \`A,\` in enum \`E\`. (2:7)
@@ -1282,7 +1282,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-expression-implicit/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\invalid-member-initializer-expression-implicit\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: The enum member initializer for \`A\` needs to be a literal (2:7)
@@ -1301,7 +1301,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/invalid-member-initializer-parenthesized/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\invalid-member-initializer-parenthesized\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: The enum member initializer for \`A\` needs to be a literal (2:7)
@@ -1320,7 +1320,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/unknown-members/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\unknown-members\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (4:3)
@@ -1342,7 +1342,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/enum-declaration/unknown-members-invalid/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\enum-declaration\\unknown-members-invalid\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:3)
@@ -1361,7 +1361,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/internal-slot/interface-variance/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\internal-slot\\interface-variance\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:15)
@@ -1376,7 +1376,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/internal-slot/object-variance/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\internal-slot\\object-variance\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:12)
@@ -1391,7 +1391,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/literal-types/invalid-number-negative/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\literal-types\\invalid-number-negative\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "number" or "bigint" (1:9)
@@ -1406,7 +1406,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/literal-types/invalid-number-positive/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\literal-types\\invalid-number-positive\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:8)
@@ -1421,7 +1421,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/module-string-names/import-local-is-string/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\module-string-names\\import-local-is-string\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: A string literal cannot be used as an imported binding.
@@ -1437,7 +1437,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/declare_opaque/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\declare_opaque\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:24)
@@ -1452,7 +1452,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_export_t_and_st/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_declare_export_t_and_st\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:37)
@@ -1467,7 +1467,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_export_t_no_st/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_declare_export_t_no_st\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:32)
@@ -1482,7 +1482,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_t_and_st/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_declare_t_and_st\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:30)
@@ -1497,7 +1497,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_declare_t_no_st/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_declare_t_no_st\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:25)
@@ -1512,7 +1512,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl1/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_invalid_decl1\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:23)
@@ -1527,7 +1527,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl2/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_invalid_decl2\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:31)
@@ -1542,7 +1542,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid_decl3/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_invalid_decl3\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:23)
@@ -1557,7 +1557,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid1/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_invalid1\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:15)
@@ -1572,7 +1572,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_invalid2/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_invalid2\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:8)
@@ -1587,7 +1587,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid1/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_subtype_invalid1\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:8)
@@ -1602,7 +1602,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid2/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_subtype_invalid2\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:15)
@@ -1617,7 +1617,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/opaque-type-alias/opaque_subtype_invalid3/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\opaque-type-alias\\opaque_subtype_invalid3\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:8)
@@ -1632,7 +1632,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/optional-type/2/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\optional-type\\2\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:14)
@@ -1647,7 +1647,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/optional-type/5/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\optional-type\\5\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "," (1:66)
@@ -1662,7 +1662,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/interface/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\proto-props\\interface\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ":" (2:9)
@@ -1681,7 +1681,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/object/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\proto-props\\object\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ":" (1:18)
@@ -1696,7 +1696,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/proto-static/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\proto-props\\proto-static\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ":" (2:16)
@@ -1715,7 +1715,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/proto-props/static-proto/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\proto-props\\static-proto\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ":" (2:16)
@@ -1734,7 +1734,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-58-ambiguous/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\regression\\issue-58-ambiguous\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ":" (4:28)
@@ -1754,7 +1754,7 @@ a ? (b) : c => (d) : e => f;
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-321-failing/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\regression\\issue-321-failing\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "," (1:28)
@@ -1769,7 +1769,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/regression/issue-2154/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\regression\\issue-2154\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:3)
@@ -1784,7 +1784,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/function-type/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\this-annotation\\function-type\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ")" (1:16)
@@ -1807,7 +1807,7 @@ type Q = <T>(this : T) => void
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/this-annotation/this-optional-type/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\this-annotation\\this-optional-type\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ")" (1:15)
@@ -1822,7 +1822,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/106/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\106\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:8)
@@ -1837,7 +1837,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/109/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\109\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:20)
@@ -1852,7 +1852,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/112/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\112\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:11)
@@ -1867,7 +1867,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/113/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\113\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:11)
@@ -1884,7 +1884,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/116/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\116\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:11)
@@ -1899,7 +1899,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/117/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\117\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:11)
@@ -1914,7 +1914,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/120/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\120\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:10)
@@ -1929,7 +1929,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/121/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\121\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:10)
@@ -1944,7 +1944,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/122/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\122\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:3)
@@ -1959,7 +1959,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/123/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\123\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:3)
@@ -1974,7 +1974,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/124/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\124\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:19)
@@ -1989,7 +1989,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/125/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\125\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:27)
@@ -2004,7 +2004,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/126/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\126\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:4)
@@ -2019,7 +2019,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/invalid-line-terminator-arrow/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\invalid-line-terminator-arrow\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:2)
@@ -2034,7 +2034,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-1/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\typeof-reserved-invalid-1\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "{" (2:27)
@@ -2051,7 +2051,7 @@ const x: typeof interface = \\"hi\\";
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-annotations/typeof-reserved-invalid-5/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-annotations\\typeof-reserved-invalid-5\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:24)
@@ -2068,7 +2068,7 @@ const x: typeof typeof = \\"hi\\";
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-exports/star-as-from/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-exports\\star-as-from\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:15)
@@ -2083,7 +2083,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-generics/async-arrow-invalid/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-generics\\async-arrow-invalid\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Type parameters must come after the async keyword, e.g. instead of \`<T> async (1:1)
@@ -2098,7 +2098,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-imports/invalid-import-type-namespace/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-imports\\invalid-import-type-namespace\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:13)
@@ -2113,7 +2113,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/arrow_error_with_jsx/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\arrow_error_with_jsx\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated JSX contents (1:4)
@@ -2128,7 +2128,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/arrow_error_without_jsx/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\arrow_error_without_jsx\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated JSX contents (1:4)
@@ -2143,7 +2143,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-class-extends/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\default-invalid-class-extends\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "," (1:21)
@@ -2158,7 +2158,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-declare-func/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\default-invalid-declare-func\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected ":" (1:36)
@@ -2173,7 +2173,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/default-invalid-var-type/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\default-invalid-var-type\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "," (1:16)
@@ -2188,7 +2188,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/empty/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\empty\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:10)
@@ -2205,7 +2205,7 @@ type Foo<> = number;
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/error-object-property-type-param/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\error-object-property-type-param\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (3:1)
@@ -2224,7 +2224,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/invalid-getter/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\invalid-getter\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "(" (2:11)
@@ -2241,7 +2241,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/invalid-setter/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\invalid-setter\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token, expected "(" (2:11)
@@ -2258,7 +2258,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/type-parameter-declaration/star/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\type-parameter-declaration\\star\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (2:10)
@@ -2275,7 +2275,7 @@ type Foo<*> = number;
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/fail-in-async-optional-calls/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\typecasts\\fail-in-async-optional-calls\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (1:22)
@@ -2290,7 +2290,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/generic-arrow-func-invalid/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\typecasts\\generic-arrow-func-invalid\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated JSX contents (1:13)
@@ -2305,7 +2305,7 @@ Object {
 }
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/flow/typecasts/generic-arrow-func-invalid-parenthesized/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\flow\\typecasts\\generic-arrow-func-invalid-parenthesized\\input.js
 Options: {"parser":"babel-flow"} 1`] = `
 Object {
   "error": [SyntaxError: Unterminated JSX contents (1:13)

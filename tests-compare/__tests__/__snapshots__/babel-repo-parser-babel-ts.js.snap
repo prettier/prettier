@@ -12,7 +12,7 @@ Array [
 ]
 `;
 
-exports[`tests-compare/fixtures/babel/packages/babel-parser/test/fixtures/typescript/class/optional-async-error/input.js
+exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\typescript\\class\\optional-async-error\\input.js
 Options: {"parser":"babel-ts"} 1`] = `
 Object {
   "error": [SyntaxError: Unexpected token (3:10)
