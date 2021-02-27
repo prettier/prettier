@@ -296,10 +296,10 @@ function printTypescript(path, options, print) {
     case "TSConstructSignatureDeclaration":
     case "TSCallSignatureDeclaration":
     case "TSConstructorType": {
+      if (n.type === "TSConstructorType" && n.abstract) {
+        parts.push("abstract ");
+      }
       if (n.type !== "TSCallSignatureDeclaration") {
-        if (n.abstract) {
-          parts.push("abstract ");
-        }
         parts.push("new ");
       }
 
