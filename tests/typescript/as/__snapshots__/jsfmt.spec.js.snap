@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`as.ts [babel-ts] format 1`] = `
+"Unexpected token, expected \\"}\\" (36:54)
+  34 | const value2 = thisIsAnIdentifier as thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
+  35 | const value3 = thisIsAReallyLongIdentifier as (SomeInterface | SomeOtherInterface);
+> 36 | const value4 = thisIsAReallyLongIdentifier as { prop1: string, prop2: number, prop3: number }[];
+     |                                                      ^
+  37 | const value5 = thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [string, number];
+  38 |
+  39 | const iter1 = createIterator(this.controller, child, this.tag as SyncFunctionComponent);"
+`;
+
 exports[`as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -189,6 +200,17 @@ this.intervalID = (setInterval(() => {
 }, 30) as unknown) as number;
 
 ================================================================================
+`;
+
+exports[`assignment2.ts [babel-ts] format 1`] = `
+"Invalid parenthesized assignment pattern (5:1)
+  3 | ) => Mask;
+  4 |
+> 5 | (this.configuration as any) = (this.editor as any) = (this
+    | ^
+  6 |   .editorBody as any) = undefined;
+  7 |
+  8 | angular.module(\\"foo\\").directive(\\"formIsolator\\", () => {"
 `;
 
 exports[`assignment2.ts format 1`] = `
