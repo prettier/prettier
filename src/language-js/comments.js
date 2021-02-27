@@ -108,7 +108,6 @@ function handleRemainingComment(context) {
     handleTSMappedTypeComments,
     handleBreakAndContinueStatementComments,
     handleTSFunctionTrailingComments,
-    handleModuleBlocksComments,
   ].some((fn) => fn(context));
 }
 
@@ -861,19 +860,6 @@ function handleTSMappedTypeComments({
     return true;
   }
 
-  return false;
-}
-
-function handleModuleBlocksComments({ comment, enclosingNode, followingNode }) {
-  if (
-    followingNode &&
-    followingNode.type === "Program" &&
-    enclosingNode &&
-    enclosingNode.type === "ModuleExpression"
-  ) {
-    addDanglingComment(enclosingNode, comment);
-    return true;
-  }
   return false;
 }
 

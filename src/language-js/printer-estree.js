@@ -1031,17 +1031,10 @@ function printPathNoParens(path, options, print, args) {
     case "ArgumentPlaceholder":
       return "?";
     case "ModuleExpression": {
-      const isNonEmptyBody = isNonEmptyArray(n.body.body);
       parts.push("module {");
-      if (isNonEmptyBody) {
-        parts.push(indent([hardline, path.call(print, "body")]), hardline);
-      } else {
-        if (hasComment(n, CommentCheckFlags.Dangling)) {
-          parts.push(
-            printDanglingComments(path, options /** sameIndent */),
-            hardline
-          );
-        }
+      const printed = path.call(print, "body");
+      if (printed) {
+        parts.push(indent([hardline, printed]), hardline);
       }
       parts.push("}");
       return parts;
