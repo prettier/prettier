@@ -5,9 +5,3 @@ Object.defineProperty(global, "run_spec", {
     return require("./run_spec");
   },
 });
-
-Object.defineProperty(global, "runAstCompareTest", {
-  get() {
-    return require("./run-ast-compare-test");
-  },
-});
