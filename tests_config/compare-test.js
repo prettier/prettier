@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const globby = require("globby");
 const { outdent } = require("outdent");
-const stripAnsi = require("strip-ansi");
 const prettier = require("..");
 
 const PROJECT_ROOT = path.join(__dirname, "..");
@@ -19,6 +18,7 @@ function runCompareTest(config) {
   const files = globby.sync(patterns, {
     cwd: COMPARE_TEST_FIXTURES,
     ignore,
+    absolute: true,
   });
 
   test("files", () => {
@@ -28,37 +28,27 @@ function runCompareTest(config) {
   });
 
   for (const file of files) {
-    const relativePath = path.relative(
-      PROJECT_ROOT,
-      path.join(COMPARE_TEST_FIXTURES, file)
-    );
+    const relativePath = path.relative(PROJECT_ROOT, file);
     const testTitle = outdent`
       ${relativePath}
       Options: ${JSON.stringify(options)}
     `;
 
+    const optionsWithFilePath = { filepath: file, ...options };
+    const input = fs.readFileSync(file, "utf8");
+
+    let ast;
+    try {
+      ast = prettier.__debug.parse(
+        input,
+        optionsWithFilePath,
+        /* massage */ true
+      ).ast;
+    } catch {
+      continue;
+    }
+
     test(testTitle, () => {
-      const optionsWithFilePath = { filepath: file, ...options };
-      const input = fs.readFileSync(
-        path.join(COMPARE_TEST_FIXTURES, file),
-        "utf8"
-      );
-
-      let originalAst;
-      try {
-        originalAst = prettier.__debug.parse(
-          input,
-          optionsWithFilePath,
-          /* massage */ true
-        ).ast;
-      } catch (error) {
-        if (error.message) {
-          error.message = stripAnsi(error.message);
-        }
-        expect({ input, options, error }).toMatchSnapshot();
-        return;
-      }
-
       const output = prettier.format(input, optionsWithFilePath);
 
       const formattedAst = prettier.__debug.parse(
@@ -67,7 +57,9 @@ function runCompareTest(config) {
         /* massage */ true
       ).ast;
 
-      expect(formattedAst).toEqual(originalAst);
+      expect(formattedAst).toEqual(ast);
+
+      // TODO: Compare second output
     });
   }
 }
