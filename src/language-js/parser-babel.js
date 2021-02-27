@@ -174,6 +174,11 @@ const messagesShouldThrow = new Set([
   "Expecting Unicode escape sequence \\uXXXX",
   // ErrorMessages.MissingSemicolon
   "Missing semicolon",
+  // ErrorMessages.InvalidParenthesizedAssignment
+  "Invalid parenthesized assignment pattern",
+  // ErrorMessages.InvalidLhs
+  "Invalid left-hand side in assignment expression",
+  "Invalid left-hand side in parenthesized expression",
 ]);
 
 function shouldRethrowRecoveredError(error) {
