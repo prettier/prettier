@@ -13,7 +13,7 @@ const thirdParty = isProduction
   ? path.join(PRETTIER_DIR, "./third-party")
   : path.join(PRETTIER_DIR, "./src/common/third-party");
 
-const projectRoot = path.join(__dirname, "..");
+const projectRoot = path.join(__dirname, "../..");
 
 module.exports = {
   isProduction,

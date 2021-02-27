@@ -2,9 +2,9 @@
 
 const prettier = require("prettier-local");
 const runPrettier = require("../runPrettier");
-const constant = require("../../src/cli/constant");
-const core = require("../../src/cli/core");
-const arrayify = require("../../src/utils/arrayify");
+const constant = require("../../../src/cli/constant");
+const core = require("../../../src/cli/core");
+const arrayify = require("../../../src/utils/arrayify");
 
 for (const option of arrayify(
   {

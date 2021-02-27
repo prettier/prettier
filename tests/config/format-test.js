@@ -43,7 +43,7 @@ const unstableTests = new Map(
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
-    return [path.join(__dirname, "../tests/", file), isUnstable];
+    return [path.join(__dirname, "../format/", file), isUnstable];
   })
 );
 
@@ -53,7 +53,7 @@ const espreeDisabledTests = new Set(
   [
     // These tests only work for `babel`
     "comments-closure-typecast",
-  ].map((directory) => path.join(__dirname, "../tests/js", directory))
+  ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
 const meriyahDisabledTests = espreeDisabledTests;
 
@@ -94,7 +94,7 @@ const shouldThrowOnFormat = (filename, options) => {
 
 const isTestDirectory = (dirname, name) =>
   (dirname + path.sep).startsWith(
-    path.join(__dirname, "../tests", name) + path.sep
+    path.join(__dirname, "../format", name) + path.sep
   );
 
 function runSpec(fixtures, parsers, options) {

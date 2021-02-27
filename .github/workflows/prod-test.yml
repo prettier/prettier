@@ -144,7 +144,7 @@ jobs:
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true

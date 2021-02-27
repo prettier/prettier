@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`cosmiconfig Invalid json file 1`] = `
-"JSON Error in <cwd>/tests_integration/cli/config/invalid/broken-json/.prettierrc.json: 
+"JSON Error in <cwd>/tests/integration/cli/config/invalid/broken-json/.prettierrc.json: 
 
 > 1 | {a':}
     |  ^

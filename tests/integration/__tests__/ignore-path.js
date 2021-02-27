@@ -1,6 +1,14 @@
 "use strict";
 
+const fs = require("fs");
+const path = require("path");
 const runPrettier = require("../runPrettier");
+
+fs.writeFileSync(
+  // This file is in `.gitignore`, just copy from `regular-module.js`
+  path.join(__dirname, "../cli/ignore-path/other-regular-modules.js"),
+  fs.readFileSync(path.join(__dirname, "../cli/ignore-path/regular-module.js"))
+);
 
 describe("ignore path", () => {
   runPrettier("cli/ignore-path", [

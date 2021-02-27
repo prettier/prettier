@@ -20,7 +20,7 @@ process.env.PRETTIER_DIR = PRETTIER_DIR;
 const testPathIgnorePatterns = [];
 let transform = {};
 if (TEST_STANDALONE) {
-  testPathIgnorePatterns.push("<rootDir>/tests_integration/");
+  testPathIgnorePatterns.push("<rootDir>/tests/integration/");
 }
 if (isProduction) {
   // `esm` bundles need transform
@@ -48,12 +48,12 @@ if (isProduction) {
 } else {
   // Only test bundles for production
   testPathIgnorePatterns.push(
-    "<rootDir>/tests_integration/__tests__/bundle.js"
+    "<rootDir>/tests/integration/__tests__/bundle.js"
   );
 }
 
 module.exports = {
-  setupFiles: ["<rootDir>/tests_config/setup.js"],
+  setupFiles: ["<rootDir>/tests/config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
@@ -68,8 +68,8 @@ module.exports = {
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    "prettier-local": "<rootDir>/tests_config/require_prettier.js",
-    "prettier-standalone": "<rootDir>/tests_config/require_standalone.js",
+    "prettier-local": "<rootDir>/tests/config/require-prettier.js",
+    "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
   },
   modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website/static/lib"],
   testEnvironment: "node",

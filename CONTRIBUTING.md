@@ -51,7 +51,7 @@ Parameters:
 - **`parsers`**: A list of parser names. The tests verify that the parsers in this list produce the same output. If the list includes `typescript`, then `babel-ts` is included implicitly. If the list includes `babel`, and the current directory is inside `tests/js`, then `espree` and `meriyah` are included implicitly.
 - **`options`**: In addition to Prettier's formatting option, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`errors: true`) or some combinations of input entries and parsers.
 
-The implementation of `run_spec` can be found in [`tests_config/run_spec.js`](tests_config/run_spec.js).
+The implementation of `run_spec` can be found in [`tests/config/format-test.js`](tests/config/format-test.js).
 
 `tests/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.js ../flow/tests/`.
 

@@ -446,7 +446,7 @@ test("API getFileInfo with withNodeModules", async () => {
 
 describe("extracts file-info for a JS file with no extension but a standard shebang", () => {
   expect(
-    prettier.getFileInfo.sync("tests_integration/cli/shebang/node-shebang")
+    prettier.getFileInfo.sync("tests/integration/cli/shebang/node-shebang")
   ).toMatchObject({
     ignored: false,
     inferredParser: "babel",
@@ -455,7 +455,7 @@ describe("extracts file-info for a JS file with no extension but a standard sheb
 
 describe("extracts file-info for a JS file with no extension but an env-based shebang", () => {
   expect(
-    prettier.getFileInfo.sync("tests_integration/cli/shebang/env-node-shebang")
+    prettier.getFileInfo.sync("tests/integration/cli/shebang/env-node-shebang")
   ).toMatchObject({
     ignored: false,
     inferredParser: "babel",
@@ -464,7 +464,7 @@ describe("extracts file-info for a JS file with no extension but an env-based sh
 
 describe("returns null parser for unknown shebang", () => {
   expect(
-    prettier.getFileInfo.sync("tests_integration/cli/shebang/nonsense-shebang")
+    prettier.getFileInfo.sync("tests/integration/cli/shebang/nonsense-shebang")
   ).toMatchObject({
     ignored: false,
     inferredParser: null,

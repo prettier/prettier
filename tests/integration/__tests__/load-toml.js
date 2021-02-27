@@ -1,6 +1,6 @@
 "use strict";
 
-const loadToml = require("../../src/utils/load-toml");
+const loadToml = require("../../../src/utils/load-toml");
 
 describe("TOML", () => {
   const exampleFilePath = "example.toml";
