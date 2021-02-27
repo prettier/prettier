@@ -1033,8 +1033,8 @@ function printPathNoParens(path, options, print, args) {
     case "ModuleExpression":
       return [
         "module {",
-        indent([softline, path.call(print, "body")]),
-        softline,
+        indent([hardline, path.call(print, "body")]),
+        hardline,
         "}",
       ];
 

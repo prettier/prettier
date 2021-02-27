@@ -30,3 +30,7 @@ let m = module {
 };
 
 const m = module { export const foo = "foo" };
+
+let moduleBlock = module { export let y = 1; };
+
+foo(module { export let foo = "foo"; });
