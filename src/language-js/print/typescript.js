@@ -297,6 +297,9 @@ function printTypescript(path, options, print) {
     case "TSCallSignatureDeclaration":
     case "TSConstructorType": {
       if (n.type !== "TSCallSignatureDeclaration") {
+        if (n.abstract) {
+          parts.push("abstract ");
+        }
         parts.push("new ");
       }
 

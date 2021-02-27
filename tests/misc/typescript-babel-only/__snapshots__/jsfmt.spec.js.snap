@@ -62,6 +62,25 @@ class Bar {
 ================================================================================
 `;
 
+exports[`ts-4.2-abstract-constructor-type.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type T = abstract new () => void;
+type T = abstract    new () => void;
+type T = abstract
+  new () => void;
+
+=====================================output=====================================
+type T = abstract new () => void;
+type T = abstract new () => void;
+type T = abstract new () => void;
+
+================================================================================
+`;
+
 exports[`tuple-labeled-ts.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
