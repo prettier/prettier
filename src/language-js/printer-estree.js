@@ -1035,6 +1035,13 @@ function printPathNoParens(path, options, print, args) {
       parts.push("module {");
       if (isNonEmptyBody) {
         parts.push(indent([hardline, path.call(print, "body")]), hardline);
+      } else {
+        if (hasComment(n, CommentCheckFlags.Dangling)) {
+          parts.push(
+            printDanglingComments(path, options /** sameIndent */),
+            hardline
+          );
+        }
       }
       parts.push("}");
       return parts;

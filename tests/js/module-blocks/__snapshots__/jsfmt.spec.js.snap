@@ -61,6 +61,8 @@ let moduleBlock = module { export let y = 1; };
 
 foo(module { export let foo = "foo"; });
 
+let m = module { /* foo */ };
+
 =====================================output=====================================
 module {
   await 3;
@@ -112,6 +114,10 @@ foo(
     export let foo = "foo";
   }
 );
+
+let m = module {
+  /* foo */
+};
 
 ================================================================================
 `;
