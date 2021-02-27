@@ -1,17 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`files 1`] = `
-Array [
-  "babel/packages/babel-parser/test/fixtures/typescript/class/async-optional-method/input.js",
-  "babel/packages/babel-parser/test/fixtures/typescript/class/optional-async-error/input.js",
-  "babel/packages/babel-parser/test/fixtures/typescript/expect-plugin/export-interface/input.js",
-  "babel/packages/babel-parser/test/fixtures/typescript/expect-plugin/export-type/input.js",
-  "babel/packages/babel-parser/test/fixtures/typescript/expect-plugin/export-type-named/input.js",
-  "babel/packages/babel-parser/test/fixtures/typescript/scope/module-declaration-var/input.js",
-  "babel/packages/babel-parser/test/fixtures/typescript/scope/module-declaration-var-2/input.js",
-]
-`;
-
 exports[`node_modules\\@prettier\\core-test-fixtures\\files\\babel\\packages\\babel-parser\\test\\fixtures\\typescript\\class\\optional-async-error\\input.js
 Options: {"parser":"typescript"} 1`] = `
 Object {
