@@ -7,10 +7,10 @@ const { outdent } = require("outdent");
 const prettier = require("..");
 
 const PROJECT_ROOT = path.join(__dirname, "..");
-const COMPARE_TEST_FIXTURES = path.join(
-  path.dirname(require.resolve("@prettier/core-test-fixtures/package.json")),
-  "files"
+const FIXTURE_PACKAGE_DIRECTORY = path.dirname(
+  require.resolve("@prettier/core-test-fixtures/package.json")
 );
+const COMPARE_TEST_FIXTURES = path.join(FIXTURE_PACKAGE_DIRECTORY, "files");
 
 function runCompareTest(config) {
   const { patterns, ignore = [], options } = config;
