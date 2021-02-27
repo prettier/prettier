@@ -1030,13 +1030,15 @@ function printPathNoParens(path, options, print, args) {
     }
     case "ArgumentPlaceholder":
       return "?";
-    case "ModuleExpression":
-      return [
-        "module {",
-        indent([hardline, path.call(print, "body")]),
-        hardline,
-        "}",
-      ];
+    case "ModuleExpression": {
+      const isNonEmptyBody = isNonEmptyArray(n.body.body);
+      parts.push("module {");
+      if (isNonEmptyBody) {
+        parts.push(indent([hardline, path.call(print, "body")]), hardline);
+      }
+      parts.push("}");
+      return parts;
+    }
 
     default:
       /* istanbul ignore next */

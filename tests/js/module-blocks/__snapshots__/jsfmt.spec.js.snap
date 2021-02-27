@@ -85,9 +85,7 @@ module {
   export { foo };
 };
 
-const m = module {
-
-};
+const m = module {};
 
 const worker = new Worker(
   module {
