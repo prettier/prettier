@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module-blocks.js [espree] format 1`] = `
+"Unexpected token { (1:8)
+> 1 | module { await 3 };
+    |        ^
+  2 |
+  3 | class B {
+  4 |   #p() {"
+`;
+
+exports[`module-blocks.js [meriyah] format 1`] = `
+"[1:8]: Unexpected token: '{' (1:8)
+> 1 | module { await 3 };
+    |        ^
+  2 |
+  3 | class B {
+  4 |   #p() {"
+`;
+
+exports[`module-blocks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module { await 3 };
+
+class B {
+  #p() {
+    module {
+      class C { [this.#p]; }
+    };
+  }
+}
+
+const m = module {
+  export const foo = "foo";
+  export { foo };
+};
+
+module {
+  export { foo }
+};
+
+const m = module       {};
+
+const worker = new Worker(module {
+  export const foo = "foo";
+});
+
+let m = module {
+  module {
+    export let foo = "foo";
+  };
+};
+
+const m = module { export const foo = "foo" };
+
+=====================================output=====================================
+module {
+  await 3;
+};
+
+class B {
+  #p() {
+    module {
+      class C {
+        [this.#p];
+      }
+    };
+  }
+}
+
+const m = module {
+  export const foo = "foo";
+  export { foo };
+};
+
+module {
+  export { foo };
+};
+
+const m = module {};
+
+const worker = new Worker(module {export const foo = "foo";});
+
+let m = module {module {export let foo = "foo";};};
+
+const m = module {export const foo = "foo";};
+
+================================================================================
+`;
+
+exports[`non-module-blocks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const m = module
+{}
+
+=====================================output=====================================
+const m = module;
+{
+}
+
+================================================================================
+`;
