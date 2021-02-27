@@ -1,2 +1,0 @@
-interface I {};
-interface I {};

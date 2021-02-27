@@ -1,1 +1,0 @@
-arguments = 42

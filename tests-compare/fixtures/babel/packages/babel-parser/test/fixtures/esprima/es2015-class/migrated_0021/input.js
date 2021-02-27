@@ -1,1 +1,0 @@
-class A {static ["prototype"](){}}

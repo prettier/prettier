@@ -1,1 +1,0 @@
-class Array { concat(items:number | string) {}; }

@@ -1,3 +1,0 @@
-class MyClass {
-  /* :: prop: string;
-}

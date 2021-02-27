@@ -1,1 +1,0 @@
-x = { get method() 42 }

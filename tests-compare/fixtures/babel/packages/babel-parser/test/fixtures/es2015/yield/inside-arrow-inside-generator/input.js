@@ -1,4 +1,0 @@
-function* fn() {
-  () => yield;
-  () => { yield };
-}

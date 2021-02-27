@@ -1,2 +1,0 @@
-do that()
-;while (true)

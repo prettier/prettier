@@ -1,1 +1,0 @@
-"use strict"; function x({ b: { a } }, [{ b: { a } }]){}

@@ -1,1 +1,0 @@
-function fn(x = yield) {}

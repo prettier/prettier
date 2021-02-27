@@ -1,1 +1,0 @@
-switch (answer) { case 42: let t = 42; break; }

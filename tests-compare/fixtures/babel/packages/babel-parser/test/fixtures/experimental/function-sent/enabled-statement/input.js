@@ -1,3 +1,0 @@
-function* foo() {
-  function.sent;
-}

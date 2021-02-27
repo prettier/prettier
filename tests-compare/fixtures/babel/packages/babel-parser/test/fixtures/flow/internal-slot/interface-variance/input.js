@@ -1,1 +1,0 @@
-interface T { +[[foo]](): X }

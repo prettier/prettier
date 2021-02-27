@@ -1,4 +1,0 @@
-@abc
-class Foo {
-
-}

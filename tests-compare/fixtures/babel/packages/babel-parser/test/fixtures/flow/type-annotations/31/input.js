@@ -1,1 +1,0 @@
-var numVal:number = otherNumVal;

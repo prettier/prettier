@@ -1,1 +1,0 @@
-function t(...rest, b) { }

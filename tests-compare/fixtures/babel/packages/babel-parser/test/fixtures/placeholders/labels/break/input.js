@@ -1,3 +1,0 @@
-block: {
-  break %%LABEL%%;
-}

@@ -1,1 +1,0 @@
-function arguments() {'use strict'; }

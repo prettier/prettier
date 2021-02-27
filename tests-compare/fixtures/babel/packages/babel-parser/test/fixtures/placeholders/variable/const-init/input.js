@@ -1,1 +1,0 @@
-const %%LHS%% = %%RHS%%;

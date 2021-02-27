@@ -1,1 +1,0 @@
-var obj = { async: "test" };

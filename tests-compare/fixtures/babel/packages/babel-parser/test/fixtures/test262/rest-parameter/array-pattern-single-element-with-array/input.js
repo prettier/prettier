@@ -1,1 +1,0 @@
-function singleElementWithArray(...[[a]]) {}

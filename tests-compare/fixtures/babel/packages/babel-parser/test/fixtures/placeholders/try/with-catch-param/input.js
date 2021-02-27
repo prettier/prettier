@@ -1,1 +1,0 @@
-try {} catch (%%PARAM%%) %%CATCH%%

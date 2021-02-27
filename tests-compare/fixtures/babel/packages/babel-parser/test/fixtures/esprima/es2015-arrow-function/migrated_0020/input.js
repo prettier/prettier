@@ -1,1 +1,0 @@
-(sun) => earth

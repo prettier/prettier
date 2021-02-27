@@ -1,1 +1,0 @@
-x |> inc |> double

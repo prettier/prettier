@@ -1,1 +1,0 @@
-class Foo { @foo get bar() {} }

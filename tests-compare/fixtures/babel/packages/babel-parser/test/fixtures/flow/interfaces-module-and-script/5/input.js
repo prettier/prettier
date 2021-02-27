@@ -1,1 +1,0 @@
-interface Dictionary { [index: string]: string; length: number; }

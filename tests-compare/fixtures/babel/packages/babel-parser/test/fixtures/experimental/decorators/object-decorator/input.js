@@ -1,1 +1,0 @@
-@foo({ @bar foo: "bar" }) @bar class Foo {}

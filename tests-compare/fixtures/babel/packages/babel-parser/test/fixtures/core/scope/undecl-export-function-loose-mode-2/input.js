@@ -1,2 +1,0 @@
-export { a };
-function a() {}

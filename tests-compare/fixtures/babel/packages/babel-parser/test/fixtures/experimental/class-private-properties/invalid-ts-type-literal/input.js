@@ -1,3 +1,0 @@
-interface I {
-  #p: string
-}

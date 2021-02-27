@@ -1,2 +1,0 @@
-@foo
-export class A {}

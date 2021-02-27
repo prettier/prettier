@@ -1,1 +1,0 @@
-__proto__: test

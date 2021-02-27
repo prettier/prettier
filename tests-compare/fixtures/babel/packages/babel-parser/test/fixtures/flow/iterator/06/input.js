@@ -1,3 +1,0 @@
-class T {
-  @@iterator(){}
-}

@@ -1,1 +1,0 @@
-function* foo() { console.log(yield); }

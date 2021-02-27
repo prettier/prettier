@@ -1,2 +1,0 @@
-foo.interface;
-interface.foo;

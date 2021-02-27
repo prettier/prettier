@@ -1,1 +1,0 @@
-export A from 'test';

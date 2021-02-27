@@ -1,1 +1,0 @@
-var prop = foo.#priv;

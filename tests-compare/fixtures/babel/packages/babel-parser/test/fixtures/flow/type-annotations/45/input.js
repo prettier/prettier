@@ -1,1 +1,0 @@
-a = class Foo<T> { }

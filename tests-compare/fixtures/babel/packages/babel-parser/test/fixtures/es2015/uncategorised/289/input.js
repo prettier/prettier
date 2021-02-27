@@ -1,1 +1,0 @@
-({ t(eval) { "use strict"; } });

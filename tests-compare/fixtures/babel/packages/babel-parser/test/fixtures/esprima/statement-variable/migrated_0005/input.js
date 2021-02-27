@@ -1,1 +1,0 @@
-var implements, interface, package

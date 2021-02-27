@@ -1,2 +1,0 @@
-// Hello, world!
-42

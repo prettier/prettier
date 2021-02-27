@@ -1,1 +1,0 @@
-for (const x of list) process(x);

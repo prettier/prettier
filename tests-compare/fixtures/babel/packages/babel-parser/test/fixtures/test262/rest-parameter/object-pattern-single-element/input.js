@@ -1,1 +1,0 @@
-function singleElement(...{a: b}) {}

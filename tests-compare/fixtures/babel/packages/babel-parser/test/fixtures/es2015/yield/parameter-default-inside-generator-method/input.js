@@ -1,1 +1,0 @@
-({ *method(x = yield) {} })

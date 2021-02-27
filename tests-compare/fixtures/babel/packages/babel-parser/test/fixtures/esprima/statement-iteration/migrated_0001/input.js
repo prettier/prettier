@@ -1,1 +1,0 @@
-do keep(); while (true);

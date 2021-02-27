@@ -1,1 +1,0 @@
-function hello(a) { sayHi(); }

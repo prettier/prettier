@@ -1,1 +1,0 @@
-var {propName: localVar = defaultValue} = obj

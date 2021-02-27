@@ -1,2 +1,0 @@
-async
-function foo() {}

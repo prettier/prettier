@@ -1,1 +1,0 @@
-f = function(a, ...b) {}

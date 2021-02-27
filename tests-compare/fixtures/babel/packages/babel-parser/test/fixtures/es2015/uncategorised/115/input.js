@@ -1,1 +1,0 @@
-class A extends B {get foo() {}}

@@ -1,1 +1,0 @@
-var foo = async (foo: bar, bar: foo) => {}

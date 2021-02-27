@@ -1,1 +1,0 @@
-export @bar class Foo { }

@@ -1,4 +1,0 @@
-{
-  function encrypt() {}
-}
-export { encrypt }

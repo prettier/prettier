@@ -1,4 +1,0 @@
-{
-  var encrypt
-}
-export { encrypt }

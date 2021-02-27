@@ -1,1 +1,0 @@
-function foo(numVal: any, otherVal: mixed){}

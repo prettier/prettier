@@ -1,1 +1,0 @@
-funccall(a, b: string);

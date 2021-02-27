@@ -1,1 +1,0 @@
-type FBID = number;

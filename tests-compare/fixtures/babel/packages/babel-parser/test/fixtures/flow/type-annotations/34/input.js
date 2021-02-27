@@ -1,1 +1,0 @@
-var a: {numVal: number; [indexer: string]: number};

@@ -1,1 +1,0 @@
-class Cl extends %%SUPER%% {}

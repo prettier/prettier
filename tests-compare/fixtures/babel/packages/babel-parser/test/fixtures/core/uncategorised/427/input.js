@@ -1,1 +1,0 @@
-switch (c) { default: default: }

@@ -1,1 +1,0 @@
-export foo, { bar } from "bar";

@@ -1,3 +1,0 @@
-function A() {
-  new.target;
-}

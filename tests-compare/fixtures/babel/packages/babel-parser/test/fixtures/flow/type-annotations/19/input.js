@@ -1,1 +1,0 @@
-a=function<T,S>() {}

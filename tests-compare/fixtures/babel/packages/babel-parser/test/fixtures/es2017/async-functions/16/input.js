@@ -1,1 +1,0 @@
-class Foo { async bar(promise) { await promise } }

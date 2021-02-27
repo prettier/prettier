@@ -1,2 +1,0 @@
-let foo;
-export {foo};

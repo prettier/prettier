@@ -6,7 +6,11 @@ const globby = require("globby");
 const { outdent } = require("outdent");
 const stripAnsi = require("strip-ansi");
 const prettier = require("..");
-const COMPARE_TEST_FIXTURES = path.join(__dirname, "../tests-compare/fixtures");
+
+const COMPARE_TEST_FIXTURES = path.join(
+  path.dirname(require.resolve("@prettier/core-test-fixtures/package.json")),
+  "files"
+);
 
 function runCompareTest(config) {
   const { patterns, ignore = [], options } = config;
@@ -14,6 +18,11 @@ function runCompareTest(config) {
   const files = globby.sync(patterns, {
     cwd: COMPARE_TEST_FIXTURES,
     ignore,
+  });
+
+  test("files", () => {
+    expect(files.length > 0).toBe(true);
+    expect(files).toMatchSnapshot();
   });
 
   for (const file of files) {

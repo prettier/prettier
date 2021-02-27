@@ -1,1 +1,0 @@
-(function() { yield 3; })

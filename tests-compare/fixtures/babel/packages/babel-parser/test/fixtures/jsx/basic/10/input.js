@@ -1,1 +1,0 @@
-<a>{/* this is a comment */}</a>

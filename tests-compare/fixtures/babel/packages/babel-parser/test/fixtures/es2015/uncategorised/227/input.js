@@ -1,1 +1,0 @@
-function hello() {'use strict'; ({ i: 10, s(eval) { } }); }

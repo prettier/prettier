@@ -1,2 +1,0 @@
-//@flow
-new test<_>();

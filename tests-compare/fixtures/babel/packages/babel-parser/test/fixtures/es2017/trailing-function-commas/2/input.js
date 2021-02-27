@@ -1,1 +1,0 @@
-function log(n, op, val,) { }

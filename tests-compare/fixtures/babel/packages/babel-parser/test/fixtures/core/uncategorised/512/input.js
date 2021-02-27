@@ -1,1 +1,0 @@
-function static() { "use strict"; }

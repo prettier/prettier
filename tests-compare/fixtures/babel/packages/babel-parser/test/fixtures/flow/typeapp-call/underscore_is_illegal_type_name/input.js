@@ -1,2 +1,0 @@
-//@flow
-type _ = number;

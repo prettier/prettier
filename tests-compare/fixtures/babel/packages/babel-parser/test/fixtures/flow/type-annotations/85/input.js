@@ -1,1 +1,0 @@
-var a: Promise<bool>[]

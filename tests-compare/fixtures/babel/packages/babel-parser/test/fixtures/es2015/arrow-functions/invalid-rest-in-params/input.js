@@ -1,5 +1,0 @@
-(
-    first,
-    ...second,
-    third
-) => {};

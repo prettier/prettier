@@ -1,1 +1,0 @@
-declare export interface bar {}

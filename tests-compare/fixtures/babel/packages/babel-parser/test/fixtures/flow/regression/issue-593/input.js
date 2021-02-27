@@ -1,1 +1,0 @@
-const fail = (): X => <x />;

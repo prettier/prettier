@@ -1,1 +1,0 @@
-var [localVar = defaultValue] = obj

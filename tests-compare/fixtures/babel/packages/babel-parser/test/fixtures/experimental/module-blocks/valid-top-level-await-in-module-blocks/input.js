@@ -1,1 +1,0 @@
-module { await 3 };

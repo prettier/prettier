@@ -1,1 +1,0 @@
-function a() 1 // expression closure is not supported

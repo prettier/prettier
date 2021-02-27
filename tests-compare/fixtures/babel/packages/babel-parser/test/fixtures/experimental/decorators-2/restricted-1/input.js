@@ -1,2 +1,0 @@
-@foo().bar
-class Baz {}

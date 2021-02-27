@@ -1,1 +1,0 @@
-var a: { [a: number]: string; [b: number]: string; };

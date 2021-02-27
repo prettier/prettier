@@ -1,1 +1,0 @@
-opaque type switch = number;

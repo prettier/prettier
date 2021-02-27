@@ -1,1 +1,0 @@
-for(x of list) process(x);

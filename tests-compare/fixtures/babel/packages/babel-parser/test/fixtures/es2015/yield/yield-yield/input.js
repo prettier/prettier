@@ -1,1 +1,0 @@
-(function* () { yield yield 10 })

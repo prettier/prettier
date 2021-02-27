@@ -1,1 +1,0 @@
-opaque Ident: Type = SuperType;

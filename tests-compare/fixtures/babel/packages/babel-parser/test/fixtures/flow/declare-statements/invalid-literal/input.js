@@ -1,1 +1,0 @@
-declare 1;

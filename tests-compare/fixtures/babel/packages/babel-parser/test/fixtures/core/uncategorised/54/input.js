@@ -1,2 +1,0 @@
-// line comment
-42

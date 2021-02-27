@@ -1,3 +1,0 @@
-try {
-} catch ([foo, foo]) {
-}
