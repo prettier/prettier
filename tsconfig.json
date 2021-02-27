@@ -49,6 +49,7 @@
     "tests/",
     "tests_config/",
     "tests_integration/",
+    "tests-compare/",
     "website/"
   ]
 }
