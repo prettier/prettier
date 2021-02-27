@@ -68,12 +68,14 @@ parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// typescript-estree does not support abstract constructor type yet
 type T = abstract new () => void;
 type T = abstract    new () => void;
 type T = abstract
   new () => void;
 
 =====================================output=====================================
+// typescript-estree does not support abstract constructor type yet
 type T = abstract new () => void;
 type T = abstract new () => void;
 type T = abstract new () => void;
