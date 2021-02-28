@@ -137,3 +137,4 @@ overrides:
         - "src/language-js/parser-babel.js"
         - "src/language-js/parser-meriyah.js"
         - "src/language-js/pragma.js"
+        - "src/language-js/parser/json.js"
