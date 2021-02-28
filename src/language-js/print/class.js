@@ -5,16 +5,13 @@ const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
-const {
-  hasComment,
-  CommentCheckFlags,
-  hasNewlineBetweenOrAfterDecorators,
-} = require("../utils");
+const { hasComment, CommentCheckFlags } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { printPropertyKey } = require("./property");
 const { printAssignment } = require("./assignment");
+const { printClassMemberDecorators } = require("./decorators");
 
 function printClass(path, options, print) {
   const n = path.getValue();
@@ -155,11 +152,20 @@ function printClassMethod(path, options, print) {
   const parts = [];
 
   if (isNonEmptyArray(n.decorators)) {
-    parts.push(printDecorators(path, options, print));
+    parts.push(printClassMemberDecorators(path, options, print));
   }
   if (n.accessibility) {
     parts.push(n.accessibility + " ");
   }
+  // "readonly" and "declare" are supported by only "babel-ts"
+  // https://github.com/prettier/prettier/issues/9760
+  if (n.readonly) {
+    parts.push("readonly ");
+  }
+  if (n.declare) {
+    parts.push("declare ");
+  }
+
   if (n.static) {
     parts.push("static ");
   }
@@ -178,7 +184,7 @@ function printClassProperty(path, options, print) {
   const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(n.decorators)) {
-    parts.push(printDecorators(path, options, print));
+    parts.push(printClassMemberDecorators(path, options, print));
   }
   if (n.accessibility) {
     parts.push(n.accessibility + " ");
@@ -205,14 +211,6 @@ function printClassProperty(path, options, print) {
   );
 
   return [printAssignment(path, options, print, parts, " =", "value"), semi];
-}
-
-function printDecorators(path, options, print) {
-  const node = path.getValue();
-  return group([
-    join(line, path.map(print, "decorators")),
-    hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-  ]);
 }
 
 module.exports = {

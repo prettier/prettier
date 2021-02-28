@@ -296,6 +296,9 @@ function printTypescript(path, options, print) {
     case "TSConstructSignatureDeclaration":
     case "TSCallSignatureDeclaration":
     case "TSConstructorType": {
+      if (n.type === "TSConstructorType" && n.abstract) {
+        parts.push("abstract ");
+      }
       if (n.type !== "TSCallSignatureDeclaration") {
         parts.push("new ");
       }
@@ -358,6 +361,10 @@ function printTypescript(path, options, print) {
         n.export ? "export " : "",
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
+        // "abstract" and "declare" are supported by only "babel-ts"
+        // https://github.com/prettier/prettier/issues/9760
+        n.abstract ? "abstract " : "",
+        n.declare ? "declare " : "",
         n.computed ? "[" : "",
         path.call(print, "key"),
         n.computed ? "]" : "",

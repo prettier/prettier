@@ -4,7 +4,6 @@ const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const {
   getLast,
   hasNewline,
-  hasNewlineInRange,
   skipWhitespace,
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
@@ -635,16 +634,6 @@ function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
   }
 
   return keyword;
-}
-
-function hasNewlineBetweenOrAfterDecorators(node, options) {
-  return (
-    hasNewlineInRange(
-      options.originalText,
-      locStart(node.decorators[0]),
-      locEnd(getLast(node.decorators))
-    ) || hasNewline(options.originalText, locEnd(getLast(node.decorators)))
-  );
 }
 
 /**
@@ -1347,7 +1336,6 @@ module.exports = {
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
-  hasNewlineBetweenOrAfterDecorators,
   hasNode,
   hasIgnoreComment,
   hasNodeIgnoreComment,

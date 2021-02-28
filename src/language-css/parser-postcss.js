@@ -213,7 +213,7 @@ function parseValue(value, options) {
 
   try {
     result = valueParser(value, { loose: true }).parse();
-  } catch (e) {
+  } catch {
     return {
       type: "value-unknown",
       value,
@@ -247,7 +247,7 @@ function parseSelector(selector) {
     selectorParser((result_) => {
       result = result_;
     }).process(selector);
-  } catch (e) {
+  } catch {
     // Fail silently. It's better to print it as is than to try and parse it
     // Note: A common failure is for SCSS nested properties. `background:
     // none { color: red; }` is parsed as a NestedDeclaration by
@@ -270,7 +270,7 @@ function parseMediaQuery(params) {
 
   try {
     result = mediaParser(params);
-  } catch (e) {
+  } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
     return {

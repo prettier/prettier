@@ -127,7 +127,7 @@ async function cacheFiles(cache) {
         path.join(".cache", file.replace("dist", "files")),
       ]);
     }
-  } catch (err) {
+  } catch {
     // Don't fail the build
   }
 }
