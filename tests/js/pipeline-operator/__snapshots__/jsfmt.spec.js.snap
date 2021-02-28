@@ -396,7 +396,7 @@ const searchResults$ =
 v |> #.method() |> f;
 
 function* f() {
-  return x |> yield #;
+  return x |> (yield #);
 }
 
 ================================================================================

@@ -1084,11 +1084,8 @@ function printPathNoParens(path, options, print, args) {
       return path.call(print, "callee");
     case "PipelineTopicExpression":
       return path.call(print, "expression");
-    case "PipelinePrimaryTopicReference": {
-      parts.push("#");
-      return parts;
-    }
-
+    case "PipelinePrimaryTopicReference":
+      return "#";
     case "ArgumentPlaceholder":
       return "?";
 

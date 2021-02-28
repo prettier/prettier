@@ -350,7 +350,11 @@ function needsParens(path, options) {
         parent.type === "UnaryExpression" ||
         parent.type === "AwaitExpression" ||
         parent.type === "TSAsExpression" ||
-        parent.type === "TSNonNullExpression"
+        parent.type === "TSNonNullExpression" ||
+        (name === "expression" &&
+          parent.type === "PipelineTopicExpression" &&
+          node.argument &&
+          node.argument.type === "PipelinePrimaryTopicReference")
       ) {
         return true;
       }
