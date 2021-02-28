@@ -33,7 +33,6 @@ function run_spec(
     | string
     | {
         dirname: string;
-        name?: string;
         snippets?: Array<
           | string
           | { code: string; name?: string; filename?: string; output?: string }

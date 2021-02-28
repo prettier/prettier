@@ -117,9 +117,8 @@ const isTestDirectory = (dirname, name) =>
   );
 
 function runSpec(fixtures, parsers, options) {
-  let { name: prefix, dirname, snippets = [] } =
+  let { dirname, snippets = [] } =
     typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
-  prefix = prefix ? `${prefix} ` : prefix;
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
@@ -148,7 +147,7 @@ function runSpec(fixtures, parsers, options) {
     test = typeof test === "string" ? { code: test } : test;
     return {
       ...test,
-      name: `${prefix}snippet: ${test.name || `#${index}`}`,
+      name: `snippet: ${test.name || `#${index}`}`,
     };
   });
 

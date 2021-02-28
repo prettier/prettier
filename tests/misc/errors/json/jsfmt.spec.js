@@ -1,6 +1,5 @@
 run_spec(
   {
-    name: "json-stringify",
     dirname: __dirname,
     snippets: [
       "{foo}",
@@ -18,7 +17,6 @@ run_spec(
 
 run_spec(
   {
-    name: "json",
     dirname: __dirname,
     snippets: [
       "packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json",
