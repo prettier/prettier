@@ -647,11 +647,11 @@ function printPathNoParens(path, options, print, args) {
 
       return parts;
     case "LabeledStatement":
-      if (n.body.type === "EmptyStatement") {
-        return [path.call(print, "label"), ":;"];
-      }
-
-      return [path.call(print, "label"), ": ", path.call(print, "body")];
+      return [
+        path.call(print, "label"),
+        ":",
+        adjustClause(n.body, path.call(print, "body")),
+      ];
     case "TryStatement":
       return [
         "try ",
