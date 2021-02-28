@@ -550,11 +550,11 @@ printWidth: 80
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
   "numbers": [
-    "Infinity",
-    "NaN"
+    Infinity,
+    NaN
   ],
-  "Infinity": "NaN",
-  "NaN": "Infinity"
+  "Infinity": NaN,
+  "NaN": Infinity
 }
 
 ================================================================================
