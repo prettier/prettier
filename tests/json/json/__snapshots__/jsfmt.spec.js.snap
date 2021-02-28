@@ -432,13 +432,17 @@ trailingComma: "all"
   numbers: [
     Infinity,
     NaN,
-  ]
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
-  "numbers": [Infinity, NaN]
+  "numbers": [Infinity, NaN],
+  "Infinity": NaN,
+  "NaN": Infinity
 }
 
 ================================================================================
@@ -456,13 +460,17 @@ trailingComma: "all"
   numbers: [
     Infinity,
     NaN,
-  ]
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
   numbers: [Infinity, NaN],
+  Infinity: NaN,
+  NaN: Infinity,
 }
 
 ================================================================================
@@ -479,13 +487,17 @@ printWidth: 80
   numbers: [
     Infinity,
     NaN,
-  ]
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
-  "numbers": [Infinity, NaN]
+  "numbers": [Infinity, NaN],
+  "Infinity": NaN,
+  "NaN": Infinity
 }
 
 ================================================================================
@@ -502,13 +514,17 @@ printWidth: 80
   numbers: [
     Infinity,
     NaN,
-  ]
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
   numbers: [Infinity, NaN],
+  Infinity: NaN,
+  NaN: Infinity,
 }
 
 ================================================================================
@@ -525,7 +541,9 @@ printWidth: 80
   numbers: [
     Infinity,
     NaN,
-  ]
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
 }
 
 =====================================output=====================================
@@ -534,7 +552,9 @@ printWidth: 80
   "numbers": [
     "Infinity",
     "NaN"
-  ]
+  ],
+  "Infinity": "NaN",
+  "NaN": "Infinity"
 }
 
 ================================================================================

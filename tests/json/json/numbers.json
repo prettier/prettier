@@ -3,5 +3,7 @@
   numbers: [
     Infinity,
     NaN,
-  ]
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
 }
