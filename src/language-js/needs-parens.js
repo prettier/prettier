@@ -353,8 +353,7 @@ function needsParens(path, options) {
         parent.type === "TSNonNullExpression" ||
         (name === "expression" &&
           parent.type === "PipelineTopicExpression" &&
-          node.argument &&
-          node.argument.type === "PipelinePrimaryTopicReference")
+          node.argument)
       ) {
         return true;
       }

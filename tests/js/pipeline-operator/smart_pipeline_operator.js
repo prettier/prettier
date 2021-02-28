@@ -42,3 +42,11 @@ v |> #.method() |> f;
 function * f () {
   return x |> (yield #);
 }
+
+function * f () {
+  return x |> (yield y);
+}
+
+function * f () {
+  return x |> (yield);
+}
