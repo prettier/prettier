@@ -60,12 +60,11 @@ function printDecorators(path, options, print) {
 }
 
 function hasNewlineBetweenOrAfterDecorators(node, options) {
+  const start = locStart(node.decorators[0]);
+  const end = locEnd(getLast(node.decorators));
   return (
-    hasNewlineInRange(
-      options.originalText,
-      locStart(node.decorators[0]),
-      locEnd(getLast(node.decorators))
-    ) || hasNewline(options.originalText, locEnd(getLast(node.decorators)))
+    hasNewlineInRange(options.originalText, start, end) ||
+    hasNewline(options.originalText, end)
   );
 }
 
