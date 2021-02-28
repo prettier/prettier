@@ -353,6 +353,10 @@ const searchResults$ = fromEvent(document.querySelector('input'), 'input')
 
 v |> #.method() |> f;
 
+function * f () {
+  return x |> (yield #);
+}
+
 =====================================output=====================================
 a |> await # |> # * 3;
 
@@ -390,6 +394,10 @@ const searchResults$ =
   |> share;
 
 v |> #.method() |> f;
+
+function* f() {
+  return x |> yield #;
+}
 
 ================================================================================
 `;

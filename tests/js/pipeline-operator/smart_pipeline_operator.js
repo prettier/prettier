@@ -38,3 +38,7 @@ const searchResults$ = fromEvent(document.querySelector('input'), 'input')
   |> share;
 
 v |> #.method() |> f;
+
+function * f () {
+  return x |> (yield #);
+}
