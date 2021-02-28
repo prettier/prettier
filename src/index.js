@@ -84,5 +84,8 @@ module.exports = {
     formatDoc: withPlugins(core.formatDoc),
     printToDoc: withPlugins(core.printToDoc),
     printDocToString: withPlugins(core.printDocToString),
+
+    // For tests
+    internalDoc: require("./document"),
   },
 };
