@@ -431,18 +431,21 @@ trailingComma: "all"
   '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
   numbers: [
     Infinity,
+    -Infinity,
     NaN,
   ],
   Infinity: NaN,
   NaN: Infinity,
+  NaN: -Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
-  "numbers": [Infinity, NaN],
+  "numbers": [Infinity, -Infinity, NaN],
   "Infinity": NaN,
-  "NaN": Infinity
+  "NaN": Infinity,
+  "NaN": -Infinity
 }
 
 ================================================================================
@@ -459,18 +462,21 @@ trailingComma: "all"
   '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
   numbers: [
     Infinity,
+    -Infinity,
     NaN,
   ],
   Infinity: NaN,
   NaN: Infinity,
+  NaN: -Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
-  numbers: [Infinity, NaN],
+  numbers: [Infinity, -Infinity, NaN],
   Infinity: NaN,
   NaN: Infinity,
+  NaN: -Infinity,
 }
 
 ================================================================================
@@ -486,18 +492,21 @@ printWidth: 80
   '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
   numbers: [
     Infinity,
+    -Infinity,
     NaN,
   ],
   Infinity: NaN,
   NaN: Infinity,
+  NaN: -Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
-  "numbers": [Infinity, NaN],
+  "numbers": [Infinity, -Infinity, NaN],
   "Infinity": NaN,
-  "NaN": Infinity
+  "NaN": Infinity,
+  "NaN": -Infinity
 }
 
 ================================================================================
@@ -513,18 +522,21 @@ printWidth: 80
   '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
   numbers: [
     Infinity,
+    -Infinity,
     NaN,
   ],
   Infinity: NaN,
   NaN: Infinity,
+  NaN: -Infinity,
 }
 
 =====================================output=====================================
 {
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
-  numbers: [Infinity, NaN],
+  numbers: [Infinity, -Infinity, NaN],
   Infinity: NaN,
   NaN: Infinity,
+  NaN: -Infinity,
 }
 
 ================================================================================
@@ -540,10 +552,12 @@ printWidth: 80
   '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
   numbers: [
     Infinity,
+    -Infinity,
     NaN,
   ],
   Infinity: NaN,
   NaN: Infinity,
+  NaN: -Infinity,
 }
 
 =====================================output=====================================
@@ -551,10 +565,12 @@ printWidth: 80
   "//": "JSON5 allow \`Infinity\` and \`NaN\`",
   "numbers": [
     Infinity,
+    -Infinity,
     NaN
   ],
   "Infinity": NaN,
-  "NaN": Infinity
+  "NaN": Infinity,
+  "NaN": -Infinity
 }
 
 ================================================================================
