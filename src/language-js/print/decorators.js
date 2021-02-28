@@ -21,39 +21,24 @@ function printClassMemberDecorators(path, options, print) {
 }
 
 function printDecoratorsBeforeExport(path, options, print) {
-  const node = path.getValue();
-  const decorators = node.declaration && node.declaration.decorators;
-
-  if (
-    isNonEmptyArray(decorators) &&
-    locStart(node, { ignoreDecorators: true }) > locStart(decorators[0])
-  ) {
-    // Export declarations are responsible for printing any decorators
-    // that logically apply to node.declaration.
-    return [
-      join(hardline, path.map(print, "declaration", "decorators")),
-      hardline,
-    ];
-  }
-
-  return "";
+  // Export declarations are responsible for printing any decorators
+  // that logically apply to node.declaration.
+  return [
+    join(hardline, path.map(print, "declaration", "decorators")),
+    hardline,
+  ];
 }
 
 function printDecorators(path, options, print) {
   const node = path.getValue();
   const { decorators } = node;
-  if (!isNonEmptyArray(decorators)) {
-    return;
-  }
 
-  const parentExportDecl = getParentExportDeclaration(path);
   if (
+    !isNonEmptyArray(decorators) ||
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
-    parentExportDecl &&
-    locStart(parentExportDecl, { ignoreDecorators: true }) >
-      locStart(decorators[0])
+    hasDecoratorsBeforeExport(path.getParentNode())
   ) {
     return;
   }
@@ -64,7 +49,11 @@ function printDecorators(path, options, print) {
     hasNewlineBetweenOrAfterDecorators(node, options);
 
   return [
-    parentExportDecl ? hardline : shouldBreak ? breakParent : "",
+    getParentExportDeclaration(path)
+      ? hardline
+      : shouldBreak
+      ? breakParent
+      : "",
     join(line, path.map(print, "decorators")),
     line,
   ];
@@ -80,8 +69,26 @@ function hasNewlineBetweenOrAfterDecorators(node, options) {
   );
 }
 
+function hasDecoratorsBeforeExport(node) {
+  if (
+    node.type !== "ExportDefaultDeclaration" &&
+    node.type !== "ExportNamedDeclaration" &&
+    node.type !== "DeclareExportDeclaration"
+  ) {
+    return false;
+  }
+
+  const decorators = node.declaration && node.declaration.decorators;
+
+  return (
+    isNonEmptyArray(decorators) &&
+    locStart(node, { ignoreDecorators: true }) > locStart(decorators[0])
+  );
+}
+
 module.exports = {
   printDecorators,
   printClassMemberDecorators,
   printDecoratorsBeforeExport,
+  hasDecoratorsBeforeExport,
 };
