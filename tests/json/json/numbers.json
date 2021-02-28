@@ -1,0 +1,7 @@
+{
+  '//': 'JSON5 allow `Infinity` and `NaN`',
+  numbers: [
+    Infinity,
+    NaN,
+  ]
+}
