@@ -275,7 +275,7 @@ function printBinaryishExpressions(
     // the other ones since we don't call the normal print on BinaryExpression,
     // only for the left and right parts
     if (isNested && hasComment(node)) {
-      const printed = cleanDoc(printComments(path, () => parts, options));
+      const printed = cleanDoc(printComments(path, parts, options));
       /* istanbul ignore else */
       if (isConcat(printed) || printed.type === "fill") {
         parts = getDocParts(printed);

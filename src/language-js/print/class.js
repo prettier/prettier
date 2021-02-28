@@ -55,7 +55,7 @@ function printClass(path, options, print) {
       path.call(print, "superTypeParameters"),
     ];
     const printedWithComments = path.call(
-      (superClass) => printComments(superClass, () => printed, options),
+      (superClass) => printComments(superClass, printed, options),
       "superClass"
     );
     if (groupMode) {
@@ -160,6 +160,15 @@ function printClassMethod(path, options, print) {
   if (n.accessibility) {
     parts.push(n.accessibility + " ");
   }
+  // "readonly" and "declare" are supported by only "babel-ts"
+  // https://github.com/prettier/prettier/issues/9760
+  if (n.readonly) {
+    parts.push("readonly ");
+  }
+  if (n.declare) {
+    parts.push("declare ");
+  }
+
   if (n.static) {
     parts.push("static ");
   }

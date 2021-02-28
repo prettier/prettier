@@ -23,8 +23,7 @@ function locStart(node, opts) {
 }
 
 function locEnd(node) {
-  const end = node.range ? node.range[1] : node.end;
-  return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
+  return node.range ? node.range[1] : node.end;
 }
 
 /**

@@ -88,11 +88,6 @@ function clean(ast, newObj, parent) {
     delete newObj.key;
   }
 
-  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
-    newObj.type = "MemberExpression";
-    delete newObj.optional;
-  }
-
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
@@ -201,12 +196,6 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "InterpreterDirective") {
     newObj.value = newObj.value.trimEnd();
-  }
-
-  // TODO: Remove this when fixing #9760
-  if (ast.type === "ClassMethod") {
-    delete newObj.declare;
-    delete newObj.readonly;
   }
 }
 

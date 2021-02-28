@@ -1,7 +1,6 @@
 "use strict";
 
 const flatten = require("lodash/flatten");
-const createError = require("../common/parser-create-error");
 const tryCombinations = require("../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -9,6 +8,8 @@ const {
 } = require("../common/util");
 const postprocess = require("./parse-postprocess");
 const createParser = require("./parser/create-parser");
+const createBabelParseError = require("./parser/create-babel-parse-error");
+const jsonParsers = require("./parser/json");
 
 const parseOptions = {
   sourceType: "module",
@@ -87,19 +88,6 @@ function parseWithOptions(parseMethod, text, options) {
   return ast;
 }
 
-function createParseError(error) {
-  // babel error prints (l:c) with cols that are zero indexed
-  // so we need our custom error
-  const { message, loc } = error;
-
-  return createError(message.replace(/ \(.*\)/, ""), {
-    start: {
-      line: loc ? loc.line : 0,
-      column: loc ? loc.column + 1 : 0,
-    },
-  });
-}
-
 function createParse(parseMethod, ...pluginCombinations) {
   const commonPlugins = parseOptions.plugins;
   pluginCombinations =
@@ -135,7 +123,7 @@ function createParse(parseMethod, ...pluginCombinations) {
     );
 
     if (!ast) {
-      throw createParseError(error);
+      throw createBabelParseError(error);
     }
 
     return postprocess(ast, { ...opts, originalText: text });
@@ -171,86 +159,14 @@ const messagesShouldThrow = new Set([
   "Invalid Unicode escape",
   // ErrorMessages.MissingUnicodeEscape
   "Expecting Unicode escape sequence \\uXXXX",
+  // ErrorMessages.MissingSemicolon
+  "Missing semicolon",
 ]);
 
 function shouldRethrowRecoveredError(error) {
   const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
   // Only works for literal message
   return messagesShouldThrow.has(message);
-}
-
-function parseJson(text, parsers, opts) {
-  const ast = parseExpression(text, parsers, opts);
-
-  for (const comment of ast.comments) {
-    assertJsonNode(comment);
-  }
-  assertJsonNode(ast);
-
-  return ast;
-}
-
-function assertJsonNode(node, parent) {
-  switch (node.type) {
-    case "ArrayExpression":
-      for (const element of node.elements) {
-        assertJsonChildNode(element);
-      }
-      return;
-    case "ObjectExpression":
-      for (const property of node.properties) {
-        assertJsonChildNode(property);
-      }
-      return;
-    case "ObjectProperty":
-      if (node.computed) {
-        throw createJsonError("computed");
-      }
-
-      if (node.shorthand) {
-        throw createJsonError("shorthand");
-      }
-
-      assertJsonChildNode(node.key);
-      assertJsonChildNode(node.value);
-      return;
-    case "UnaryExpression":
-      switch (node.operator) {
-        case "+":
-        case "-":
-          return assertJsonChildNode(node.argument);
-        default:
-          throw createJsonError("operator");
-      }
-    case "Identifier":
-      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
-        return;
-      }
-      throw createJsonError();
-    case "NullLiteral":
-    case "BooleanLiteral":
-    case "NumericLiteral":
-    case "StringLiteral":
-      return;
-    default:
-      throw createJsonError();
-  }
-
-  function assertJsonChildNode(child) {
-    return assertJsonNode(child, node);
-  }
-
-  function createJsonError(attribute) {
-    const name = !attribute
-      ? node.type
-      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in JSON.`, {
-      start: {
-        line: node.loc.start.line,
-        column: node.loc.start.column + 1,
-      },
-    });
-  }
 }
 
 const babel = createParser(parse);
@@ -262,17 +178,7 @@ module.exports = {
     babel,
     "babel-flow": createParser(parseFlow),
     "babel-ts": createParser(parseTypeScript),
-    json: {
-      ...babelExpression,
-      hasPragma() {
-        return true;
-      },
-    },
-    json5: babelExpression,
-    "json-stringify": createParser({
-      parse: parseJson,
-      astFormat: "estree-json",
-    }),
+    ...jsonParsers,
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */

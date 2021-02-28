@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`await-with-parens.js [espree] format 1`] = `
+"Cannot use keyword 'await' outside an async function (1:25)
+> 1 | function foo(promise) { await (promise); }
+    |                         ^
+  2 |
+  3 | function a() {
+  4 |   return await (1)"
+`;
+
+exports[`await-with-parens.js [meriyah] format 1`] = `
+"[1:29]: 'Await' may not be used as an identifier in this context (1:29)
+> 1 | function foo(promise) { await (promise); }
+    |                             ^
+  2 |
+  3 | function a() {
+  4 |   return await (1)"
+`;
+
+exports[`await-with-parens.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function foo(promise) { await (promise); }
+
+function a() {
+  return await (1)
+}
+
+() => { await (x) };
+
+function foo() {
+  await
+  (foo);
+}
+
+export class C {
+  p = await (0);
+}
+
+await (0);
+
+=====================================output=====================================
+function foo(promise) {
+  await(promise);
+}
+
+function a() {
+  return await(1);
+}
+
+() => {
+  await(x);
+};
+
+function foo() {
+  await(foo);
+}
+
+export class C {
+  p = await 0;
+}
+
+await 0;
+
+================================================================================
+`;

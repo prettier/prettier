@@ -367,7 +367,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"jsx\\",
       \\"extensions\\": [\\".jsx\\"],
       \\"group\\": \\"JavaScript\\",
-      \\"linguistLanguageId\\": 178,
+      \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JSX\\",
       \\"parsers\\": [
         \\"babel\\",
@@ -455,6 +455,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".tern-config\\",
         \\".tern-project\\",
         \\".watchmanconfig\\",
+        \\"Pipfile.lock\\",
         \\"composer.lock\\",
         \\"mcmod.info\\"
       ],
@@ -604,6 +605,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".mkdn\\",
         \\".mkdown\\",
         \\".ronn\\",
+        \\".scd\\",
         \\".workbook\\"
       ],
       \\"filenames\\": [\\"contents.lr\\", \\"README\\"],

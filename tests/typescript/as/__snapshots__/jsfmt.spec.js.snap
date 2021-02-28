@@ -320,6 +320,33 @@ averredBathersBoxroomBuggyNurl(
 ================================================================================
 `;
 
+exports[`nested-await-and-as.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const getAccountCount = async () =>
+  (await
+    ((await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")) as TreeItem
+  ).getChildren()
+  ).length
+
+=====================================output=====================================
+const getAccountCount = async () =>
+  (
+    await (
+      (await (
+        await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+      ).findItem("My bookmarks")) as TreeItem
+    ).getChildren()
+  ).length;
+
+================================================================================
+`;
+
 exports[`return.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
