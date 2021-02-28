@@ -107,7 +107,7 @@
     "cross-env": "7.0.3",
     "cspell": "4.2.8",
     "eslint": "7.21.0",
-    "eslint-config-prettier": "8.0.0",
+    "eslint-config-prettier": "8.1.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jest": "24.1.5",
@@ -132,7 +132,7 @@
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.0",
     "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.23.0"
+    "webpack": "5.24.2"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
