@@ -85,7 +85,7 @@
     "resolve": "1.19.0",
     "semver": "7.3.4",
     "srcset": "3.0.0",
-    "string-width": "4.2.1",
+    "string-width": "4.2.2",
     "tslib": "1.14.1",
     "unicode-regex": "3.0.0",
     "unified": "9.2.1",
