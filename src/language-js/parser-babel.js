@@ -49,6 +49,10 @@ const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
+const appendPlugins = (plugins) => ({
+  ...parseOptions,
+  plugins: [...parseOptions.plugins, ...plugins],
+});
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
@@ -88,37 +92,35 @@ function parseWithOptions(parseMethod, text, options) {
   return ast;
 }
 
-function createParse(parseMethod, ...pluginCombinations) {
-  const commonPlugins = parseOptions.plugins;
-  pluginCombinations =
-    pluginCombinations.length > 0
-      ? pluginCombinations.map((plugins) => [...commonPlugins, ...plugins])
-      : [commonPlugins];
-
+function createParse(parseMethod, ...optionsCombinations) {
   return (text, parsers, opts = {}) => {
     if (opts.parser === "babel" && isFlowFile(text, opts)) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
 
-    let combinations = pluginCombinations;
+    let combinations = optionsCombinations;
+    if (opts.__babelSourceType === "script") {
+      combinations = combinations.map((options) => ({
+        ...options,
+        sourceType: "script",
+      }));
+    }
+
     if (text.includes("|>")) {
       combinations = flatten(
         pipelineOperatorPlugins.map((pipelineOperatorPlugin) =>
-          combinations.map((plugins) => [...plugins, pipelineOperatorPlugin])
+          combinations.map((options) => ({
+            ...options,
+            plugins: [...options.plugins, pipelineOperatorPlugin],
+          }))
         )
       );
     }
 
-    const sourceType =
-      opts.__babelSourceType === "script" ? "script" : "module";
     const { result: ast, error } = tryCombinations(
-      ...combinations.map((plugins) => () =>
-        parseWithOptions(parseMethod, text, {
-          ...parseOptions,
-          sourceType,
-          plugins,
-        })
+      ...combinations.map((options) => () =>
+        parseWithOptions(parseMethod, text, options)
       )
     );
 
@@ -130,17 +132,17 @@ function createParse(parseMethod, ...pluginCombinations) {
   };
 }
 
-const parse = createParse("parse", ["jsx", "flow"]);
-const parseFlow = createParse("parse", [
-  "jsx",
-  ["flow", { all: true, enums: true }],
-]);
+const parse = createParse("parse", appendPlugins(["jsx", "flow"]));
+const parseFlow = createParse(
+  "parse",
+  appendPlugins(["jsx", ["flow", { all: true, enums: true }]])
+);
 const parseTypeScript = createParse(
   "parse",
-  ["jsx", "typescript"],
-  ["typescript"]
+  appendPlugins(["jsx", "typescript"]),
+  appendPlugins(["typescript"])
 );
-const parseExpression = createParse("parseExpression", ["jsx"]);
+const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
 const messagesShouldThrow = new Set([
   // TSErrors.UnexpectedTypeAnnotation
