@@ -55,14 +55,17 @@ function assertJsonNode(node, parent) {
       assertJsonChildNode(node.key);
       assertJsonChildNode(node.value);
       return;
-    case "UnaryExpression":
-      switch (node.operator) {
-        case "+":
-        case "-":
-          return assertJsonChildNode(node.argument);
-        default:
-          throw createJsonError("operator");
+    case "UnaryExpression": {
+      if (node.operator !== "+" && node.operator !== "-") {
+        throw createJsonError("operator");
       }
+
+      if (node.argument.type !== "NumericLiteral") {
+        throw createJsonError("argument");
+      }
+
+      return;
+    }
     case "Identifier":
       if (parent && parent.type === "ObjectProperty" && parent.key === node) {
         return;
@@ -81,11 +84,18 @@ function assertJsonNode(node, parent) {
     return assertJsonNode(child, node);
   }
 
-  function createJsonError(attribute) {
-    const name = !attribute
-      ? node.type
-      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in JSON.`, {
+  function createJsonError(property) {
+    let description = node.type;
+    if (property) {
+      let value = node[property];
+
+      if (value && value.type) {
+        value = value.type;
+      }
+
+      description += ` with ${property}=${JSON.stringify(value)}`;
+    }
+    return createError(`${description} is not allowed in JSON.`, {
       start: {
         line: node.loc.start.line,
         column: node.loc.start.column + 1,
