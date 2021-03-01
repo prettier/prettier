@@ -12,3 +12,9 @@ exports[`snippet: #1 [json-stringify] format 1`] = `
     | ^^^^^^^^^^
   2 | {\\"foo\\": 1}"
 `;
+
+exports[`snippet: #2 [json-stringify] format 1`] = `
+"Comment is not allowed in JSON. (1:9)
+> 1 | {\\"foo\\": /* comment */ 1}
+    |         ^^^^^^^^^^^^^"
+`;
