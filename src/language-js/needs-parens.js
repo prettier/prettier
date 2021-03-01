@@ -167,7 +167,11 @@ function needsParens(path, options) {
       if (
         name === "expression" &&
         (node.type === "YieldExpression" ||
-          node.type === "AwaitExpression" ||
+          (node.type === "AwaitExpression" &&
+            !(
+              node.argument &&
+              node.argument.type === "PipelinePrimaryTopicReference"
+            )) ||
           node.type === "MemberExpression")
       ) {
         return true;

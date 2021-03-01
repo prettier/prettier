@@ -388,10 +388,10 @@ async function * f () {
 }
 
 =====================================output=====================================
-a |> (await #) |> # * 3;
+a |> await # |> # * 3;
 
 foo
-  |> (await #)
+  |> await #
   |> # || throw new Error(\`foo \${bar1}\`)
   |> bar2(#, ", ")
   |> bar3
@@ -430,7 +430,7 @@ async function* f() {
 }
 
 async function* f() {
-  return x |> (await #) |> (await y);
+  return x |> await # |> (await y);
 }
 
 async function* f() {
