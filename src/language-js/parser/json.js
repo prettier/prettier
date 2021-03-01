@@ -35,6 +35,15 @@ function assertJsonNode(node, parent) {
   switch (node.type) {
     case "ArrayExpression":
       for (const element of node.elements) {
+        if (element === null) {
+          throw createError("Sparse array is not allowed in JSON.", {
+            start: {
+              line: node.loc.start.line,
+              column: node.loc.start.column + 1,
+            },
+          });
+        }
+
         assertJsonChildNode(element);
       }
       return;
