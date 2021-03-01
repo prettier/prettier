@@ -46,6 +46,7 @@ if (isProduction) {
     ],
   };
 } else {
+  transform = {};
   // Only test bundles for production
   testPathIgnorePatterns.push(
     "<rootDir>/tests_integration/__tests__/bundle.js"
