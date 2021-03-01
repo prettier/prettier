@@ -51,11 +51,13 @@ function assertJsonNode(node) {
 
         assertJsonNode(element);
       }
+
       return;
     case "ObjectExpression":
       for (const property of node.properties) {
         assertJsonNode(property);
       }
+
       return;
     case "ObjectProperty":
       if (node.computed) {
@@ -77,13 +79,16 @@ function assertJsonNode(node) {
       if (node.operator !== "+" && node.operator !== "-") {
         throw createJsonError(node, `Operator '${node.operator}'`);
       }
+
       assertJsonNode(node.argument);
+
       return;
     case "Identifier":
       // JSON5 https://spec.json5.org/#numbers
       if (node.name !== "Infinity" && node.name !== "NaN") {
         throw createJsonError(node, `Identifier '${node.name}'`);
       }
+
       return;
     case "NullLiteral":
     case "BooleanLiteral":
