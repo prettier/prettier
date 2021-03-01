@@ -39,14 +39,36 @@ const searchResults$ = fromEvent(document.querySelector('input'), 'input')
 
 v |> #.method() |> f;
 
-function * f () {
-  return x |> (yield #);
+async function * f () {
+  return x
+    |> (yield #)
+    |> (yield y)
+    |> (yield)
+    |> yield;
 }
 
-function * f () {
-  return x |> (yield y);
+async function * f () {
+  return x
+    |> (await #)
+    |> (await y);
 }
 
-function * f () {
-  return x |> (yield);
+async function * f () {
+  return x
+    |> (y)
+    |> y;
+}
+
+async function * f () {
+  return x
+    |> (a.b)
+    |> a.b
+    |> (a?.b)
+    |> a?.b;
+}
+
+async function * f () {
+  return x
+    |> (a.b?.())
+    |> a.b?.();
 }

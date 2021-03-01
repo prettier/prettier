@@ -353,29 +353,51 @@ const searchResults$ = fromEvent(document.querySelector('input'), 'input')
 
 v |> #.method() |> f;
 
-function * f () {
-  return x |> (yield #);
+async function * f () {
+  return x
+    |> (yield #)
+    |> (yield y)
+    |> (yield)
+    |> yield;
 }
 
-function * f () {
-  return x |> (yield y);
+async function * f () {
+  return x
+    |> (await #)
+    |> (await y);
 }
 
-function * f () {
-  return x |> (yield);
+async function * f () {
+  return x
+    |> (y)
+    |> y;
+}
+
+async function * f () {
+  return x
+    |> (a.b)
+    |> a.b
+    |> (a?.b)
+    |> a?.b;
+}
+
+async function * f () {
+  return x
+    |> (a.b?.())
+    |> a.b?.();
 }
 
 =====================================output=====================================
-a |> await # |> # * 3;
+a |> (await #) |> # * 3;
 
 foo
-  |> await #
+  |> (await #)
   |> # || throw new Error(\`foo \${bar1}\`)
   |> bar2(#, ", ")
   |> bar3
   |> # + "!"
   |> new Bar.Foo(#)
-  |> await bar.bar(#)
+  |> (await bar.bar(#))
   |> console.log;
 
 const result = "hello" |> doubleSay |> capitalize(#, "foo") |> exclaim;
@@ -403,16 +425,24 @@ const searchResults$ =
 
 v |> #.method() |> f;
 
-function* f() {
-  return x |> (yield #);
+async function* f() {
+  return x |> (yield #) |> (yield y) |> (yield) |> yield;
 }
 
-function* f() {
-  return x |> (yield y);
+async function* f() {
+  return x |> (await #) |> (await y);
 }
 
-function* f() {
-  return x |> yield;
+async function* f() {
+  return x |> (y) |> y;
+}
+
+async function* f() {
+  return x |> (a.b) |> a.b |> a?.b |> a?.b;
+}
+
+async function* f() {
+  return x |> a.b?.() |> a.b?.();
 }
 
 ================================================================================
