@@ -96,15 +96,15 @@ function assertJsonNode(node, parent) {
   }
 
   function createJsonError(attribute) {
-    const name = !attribute
-      ? node.type
-      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in JSON.`, {
-      start: {
-        line: node.loc.start.line,
-        column: node.loc.start.column + 1,
-      },
-    });
+    const { type, loc } = node;
+    const name = attribute
+      ? `${type} with ${attribute}=${JSON.stringify(node[attribute])}`
+      : type;
+    const [start, end] = [loc.start, loc.end].map(({ line, column }) => ({
+      line,
+      column: column + 1,
+    }));
+    return createError(`${name} is not allowed in JSON.`, { start, end });
   }
 }
 
