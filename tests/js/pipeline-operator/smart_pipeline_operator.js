@@ -69,6 +69,16 @@ async function * f () {
 
 async function * f () {
   return x
+    |> (a.b(#))
+    |> a.b(#)
+    |> (a.b())
+    |> a.b();
+}
+
+async function * f () {
+  return x
+    |> (a.b?.(#))
+    |> a.b?.(#)
     |> (a.b?.())
     |> a.b?.();
 }
