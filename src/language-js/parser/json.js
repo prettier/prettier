@@ -21,6 +21,7 @@ function createJsonParse(options = {}) {
 
     // @ts-ignore
     if (!allowComments && isNonEmptyArray(ast.comments)) {
+      // @ts-ignore
       throw createJsonError(ast.comments[0], "Comment");
     }
 
