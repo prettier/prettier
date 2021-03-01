@@ -175,8 +175,7 @@ const getIconEngagementTypeFrom2 =
 
 =====================================output=====================================
 const getIconEngagementTypeFrom =
-  (engagementTypes: Array<EngagementType>) =>
-  (iconEngagementType) =>
+  (engagementTypes: Array<EngagementType>) => (iconEngagementType) =>
     engagementTypes.includes(iconEngagementType)
 
 const getIconEngagementTypeFrom2 =
@@ -224,8 +223,7 @@ const getIconEngagementTypeFrom2 =
 
 =====================================output=====================================
 const getIconEngagementTypeFrom =
-  (engagementTypes: Array<EngagementType>) =>
-  (iconEngagementType) =>
+  (engagementTypes: Array<EngagementType>) => (iconEngagementType) =>
     engagementTypes.includes(iconEngagementType);
 
 const getIconEngagementTypeFrom2 =

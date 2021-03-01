@@ -2,12 +2,21 @@
 
 /** @type {import("assert")} */
 const assert = require("assert");
-const { printDanglingComments } = require("../../main/comments");
+const { printDanglingComments, printComments } = require("../../main/comments");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const {
-  builders: { line, softline, group, indent, ifBreak, hardline },
+  builders: {
+    line,
+    softline,
+    group,
+    indent,
+    ifBreak,
+    hardline,
+    join,
+    indentIfBreak,
+  },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -24,7 +33,6 @@ const {
   getComments,
   CommentCheckFlags,
   isCallLikeExpression,
-  isCurriedArrowFunctionExpression,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const {
@@ -148,7 +156,7 @@ function printMethodInternal(path, options, print) {
   return parts;
 }
 
-function printArrowFunctionExpression(path, options, print, args) {
+function printArrowFunctionSignature(path, options, print, args) {
   const n = path.getValue();
   const parts = [];
 
@@ -192,50 +200,75 @@ function printArrowFunctionExpression(path, options, print, args) {
   if (dangling) {
     parts.push(" ", dangling);
   }
+  return parts;
+}
 
-  parts.push(" =>");
+function printArrowFunctionExpression(path, options, print, args) {
+  let n = path.getValue();
+  const chain = [];
+  let body;
+  let chainShouldBreak = false;
 
-  const body = path.call((bodyPath) => print(bodyPath, args), "body");
+  path.call(function rec(path) {
+    const doc = printArrowFunctionSignature(path, options, print, args);
+    chain.push(chain.length === 0 ? doc : printComments(path, doc, options));
 
-  // For curried arrow functions like:
-  //  const foo =
-  //    (argument1) =>
-  //    (argument2) =>
-  //    (argument3) =>
-  //    (argument4) =>
-  //    (argument5) =>
-  //    (argument6) =>
-  //      ({
-  //        foo: bar,
-  //        bar: foo,
-  //      });
-  const parent = path.getParentNode();
-  const isChildOfCurriedChaining = parent.type === "ArrowFunctionExpression";
-  if (isCurriedArrowFunctionExpression(n) || isChildOfCurriedChaining) {
-    const isCurriedChainingRoot = parent.type !== "ArrowFunctionExpression";
-    const isEndOfChaining = n.body.type !== "ArrowFunctionExpression";
-    const hasBlockBody = n.body.type === "BlockStatement";
-    const innerContent = [...parts, hasBlockBody ? " " : line, body];
-    const content =
-      isEndOfChaining && !hasBlockBody ? [indent(innerContent)] : innerContent;
-    if (isCurriedChainingRoot) {
-      const name = path.getName();
-      if (name === "init" || name === "right") {
-        return group(indent([softline, ...content]));
-      }
-      if (
-        isCallLikeExpression(parent) ||
-        parent.type === "ReturnStatement" ||
-        parent.type === "ThrowStatement"
-      ) {
-        if (name === "callee") {
-          return group([indent([softline, ...content]), softline]);
-        }
-        return group(indent(content));
-      }
+    chainShouldBreak =
+      chainShouldBreak ||
+      // Always break the chain if any segment has default parameters or type parameters.
+      n.returnType ||
+      n.typeParameters ||
+      getFunctionParameters(n).some((param) => param.type !== "Identifier");
+
+    if (n.body.type === "ArrowFunctionExpression") {
+      n = n.body;
+      path.call(rec, "body");
+    } else {
+      body = path.call((bodyPath) => print(bodyPath, args), "body");
     }
-    return content;
+  });
+
+  if (chain.length > 1) {
+    const name = path.getName();
+    const parent = path.getParentNode();
+
+    const hasBlockBody = n.body.type === "BlockStatement";
+    const shouldUseConditionalIndent =
+      (isCallLikeExpression(parent) && name !== "callee") ||
+      parent.type === "ReturnStatement" ||
+      parent.type === "ThrowStatement";
+
+    const groupId = Symbol("arrow-chain");
+    const doc = [
+      group(join([" =>", line], chain), {
+        shouldBreak: chainShouldBreak,
+        id: groupId,
+      }),
+      " =>",
+      hasBlockBody
+        ? [" ", body]
+        : shouldUseConditionalIndent
+        ? indentIfBreak([line, body], { groupId })
+        : indent([line, body]),
+    ];
+
+    if (name === "init" || name === "right") {
+      return group(indent([softline, doc]));
+    }
+
+    if (shouldUseConditionalIndent) {
+      return group(indent(doc));
+    }
+
+    if (name === "callee") {
+      return group([indent([softline, doc]), softline]);
+    }
+
+    return doc;
   }
+
+  const parts = chain;
+  parts.push(" =>");
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.

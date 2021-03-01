@@ -32,9 +32,18 @@ const bar = (): (() => void) => (): void => null;
 const baz = (): ((() => void)) => (): void => null;
 
 =====================================output=====================================
-const foo = (): (() => void) => (): void => null;
-const bar = (): (() => void) => (): void => null;
-const baz = (): (() => void) => (): void => null;
+const foo =
+  (): (() => void) =>
+  (): void =>
+    null;
+const bar =
+  (): (() => void) =>
+  (): void =>
+    null;
+const baz =
+  (): (() => void) =>
+  (): void =>
+    null;
 
 ================================================================================
 `;

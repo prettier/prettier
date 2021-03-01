@@ -2166,28 +2166,13 @@ const fn9 = (a) => (b) => ({ foo: bar, bar: baz, baz: foo });
 const fn10 = (a) => (b) => (c) => ({ foo: bar, bar: baz, baz: foo });
 const fn11 = (a) => (b) => (c) => (d) => ({ foo: bar, bar: baz, baz: foo });
 const fn12 =
-  (a) =>
-  (b) =>
-  (c) =>
-  (d) =>
-  (e) =>
+  (a) => (b) => (c) => (d) => (e) =>
     ({ foo: bar, bar: baz, baz: foo });
 const fn13 =
-  (a) =>
-  (b) =>
-  (c) =>
-  (d) =>
-  (e) =>
-  (g) =>
+  (a) => (b) => (c) => (d) => (e) => (g) =>
     ({ foo: bar, bar: baz, baz: foo });
 const fn14 =
-  (a) =>
-  (b) =>
-  (c) =>
-  (d) =>
-  (e) =>
-  (g) =>
-  (f) =>
+  (a) => (b) => (c) => (d) => (e) => (g) => (f) =>
     ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
@@ -2359,25 +2344,13 @@ const baaaz =
     });
 
 new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  (action) =>
-    (next) =>
-    (next) =>
-    (next) =>
-    (next) =>
-    (next) =>
-    (next) =>
-      dispatch(action)
+  (action) => (next) => (next) => (next) => (next) => (next) => (next) =>
+    dispatch(action)
 );
 
 foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  (action) =>
-    (next) =>
-    (next) =>
-    (next) =>
-    (next) =>
-    (next) =>
-    (next) =>
-      dispatch(action)
+  (action) => (next) => (next) => (next) => (next) => (next) => (next) =>
+    dispatch(action)
 );
 
 foo((action) => (action) => action);
@@ -2635,13 +2608,7 @@ const fn11 = a => b => c => d => ({ foo: bar, bar: baz, baz: foo });
 const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
 const fn13 = a => b => c => d => e => g => ({ foo: bar, bar: baz, baz: foo });
 const fn14 =
-  a =>
-  b =>
-  c =>
-  d =>
-  e =>
-  g =>
-  f =>
+  a => b => c => d => e => g => f =>
     ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
@@ -2870,31 +2837,24 @@ const middleware = options => (req, res, next) => {
 
 =====================================output=====================================
 const fn =
-  (b) =>
-  (c) =>
-  (d) => {
+  (b) => (c) => (d) => {
     return 3;
   };
 
 const foo =
-  (a, b) =>
-  (c) =>
-  (d) => {
+  (a, b) => (c) => (d) => {
     return 3;
   };
 
 const bar = (a) => (b) => (c) => a + b + c;
 
 const mw =
-  (store) =>
-  (next) =>
-  (action) => {
+  (store) => (next) => (action) => {
     return next(action);
   };
 
 const middleware =
-  (options) =>
-  (req, res, next) => {
+  (options) => (req, res, next) => {
     // ...
   };
 
@@ -2928,31 +2888,24 @@ const middleware = options => (req, res, next) => {
 
 =====================================output=====================================
 const fn =
-  b =>
-  c =>
-  d => {
+  b => c => d => {
     return 3;
   };
 
 const foo =
-  (a, b) =>
-  c =>
-  d => {
+  (a, b) => c => d => {
     return 3;
   };
 
 const bar = a => b => c => a + b + c;
 
 const mw =
-  store =>
-  next =>
-  action => {
+  store => next => action => {
     return next(action);
   };
 
 const middleware =
-  options =>
-  (req, res, next) => {
+  options => (req, res, next) => {
     // ...
   };
 
@@ -2972,9 +2925,7 @@ const a =
 
 =====================================output=====================================
 const a =
-  (x) =>
-  (y) =>
-  (z) =>
+  (x) => (y) => (z) =>
     x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 ================================================================================
@@ -2993,9 +2944,7 @@ const a =
 
 =====================================output=====================================
 const a =
-  x =>
-  y =>
-  z =>
+  x => y => z =>
     x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 ================================================================================
@@ -3039,8 +2988,7 @@ const foobar =
   };
 
 const foobaz =
-  (argumentOne, argumentTwo, argumentThree) =>
-  (restOfTheArguments123, j) => {
+  (argumentOne, argumentTwo, argumentThree) => (restOfTheArguments123, j) => {
     return "baz";
   };
 
@@ -3099,8 +3047,7 @@ const foobar =
   };
 
 const foobaz =
-  (argumentOne, argumentTwo, argumentThree) =>
-  (restOfTheArguments123, j) => {
+  (argumentOne, argumentTwo, argumentThree) => (restOfTheArguments123, j) => {
     return "baz";
   };
 
