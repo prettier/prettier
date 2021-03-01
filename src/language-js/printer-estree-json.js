@@ -48,8 +48,13 @@ function genericPrint(path, options, print) {
     case "StringLiteral":
     case "NumericLiteral":
       return JSON.stringify(node.value);
-    case "Identifier":
-      return JSON.stringify(node.name);
+    case "Identifier": {
+      const parent = path.getParentNode();
+      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
+        return JSON.stringify(node.name);
+      }
+      return node.name;
+    }
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(node.type));

@@ -420,6 +420,162 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`numbers.json - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+}
+
+=====================================output=====================================
+{
+  "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+  "numbers": [Infinity, -Infinity, NaN],
+  "Infinity": NaN,
+  "NaN": Infinity,
+  "NaN": -Infinity
+}
+
+================================================================================
+`;
+
+exports[`numbers.json - {"trailingComma":"all"} format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+}
+
+=====================================output=====================================
+{
+  "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+  numbers: [Infinity, -Infinity, NaN],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+}
+
+================================================================================
+`;
+
+exports[`numbers.json format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+}
+
+=====================================output=====================================
+{
+  "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+  "numbers": [Infinity, -Infinity, NaN],
+  "Infinity": NaN,
+  "NaN": Infinity,
+  "NaN": -Infinity
+}
+
+================================================================================
+`;
+
+exports[`numbers.json format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+}
+
+=====================================output=====================================
+{
+  "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+  numbers: [Infinity, -Infinity, NaN],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+}
+
+================================================================================
+`;
+
+exports[`numbers.json format 3`] = `
+====================================options=====================================
+parsers: ["json-stringify"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+}
+
+=====================================output=====================================
+{
+  "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+  "numbers": [
+    Infinity,
+    -Infinity,
+    NaN
+  ],
+  "Infinity": NaN,
+  "NaN": Infinity,
+  "NaN": -Infinity
+}
+
+================================================================================
+`;
+
 exports[`pass1.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]

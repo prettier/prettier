@@ -64,6 +64,11 @@ function assertJsonNode(node, parent) {
           throw createJsonError("operator");
       }
     case "Identifier":
+      // JSON5 https://spec.json5.org/#numbers
+      if (node.name === "Infinity" || node.name === "NaN") {
+        return;
+      }
+
       if (parent && parent.type === "ObjectProperty" && parent.key === node) {
         return;
       }
