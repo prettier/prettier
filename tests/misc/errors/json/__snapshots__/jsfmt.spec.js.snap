@@ -431,3 +431,81 @@ exports[`snippet: #23 [json5] format 1`] = `
 > 1 | {key: void foo()}
     |       ^^^^^^^^^^"
 `;
+
+exports[`snippet: #24 [json] format 1`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | {}"
+`;
+
+exports[`snippet: #24 [json-stringify] format 1`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | {}"
+`;
+
+exports[`snippet: #24 [json5] format 1`] = `
+"Unexpected token (1:1)
+> 1 | #!/usr/bin/env node
+    | ^
+  2 | {}"
+`;
+
+exports[`snippet: #25 [json] format 1`] = `
+"Unexpected token (2:1)
+  1 | \\"use strict\\"
+> 2 | {}
+    | ^"
+`;
+
+exports[`snippet: #25 [json-stringify] format 1`] = `
+"Unexpected token (2:1)
+  1 | \\"use strict\\"
+> 2 | {}
+    | ^"
+`;
+
+exports[`snippet: #25 [json5] format 1`] = `
+"Unexpected token (2:1)
+  1 | \\"use strict\\"
+> 2 | {}
+    | ^"
+`;
+
+exports[`snippet: #26 [json] format 1`] = `
+"Unexpected token (1:14)
+> 1 | /* comment */
+    |              ^"
+`;
+
+exports[`snippet: #26 [json-stringify] format 1`] = `
+"Unexpected token (1:14)
+> 1 | /* comment */
+    |              ^"
+`;
+
+exports[`snippet: #26 [json5] format 1`] = `
+"Unexpected token (1:14)
+> 1 | /* comment */
+    |              ^"
+`;
+
+exports[`snippet: #27 [json] format 1`] = `
+"Unexpected token (1:11)
+> 1 | // comment
+    |           ^"
+`;
+
+exports[`snippet: #27 [json-stringify] format 1`] = `
+"Unexpected token (1:11)
+> 1 | // comment
+    |           ^"
+`;
+
+exports[`snippet: #27 [json5] format 1`] = `
+"Unexpected token (1:11)
+> 1 | // comment
+    |           ^"
+`;

@@ -26,6 +26,10 @@ run_spec(
       "{[null]: 1}",
       "{key: +foo()}",
       "{key: void foo()}",
+      "#!/usr/bin/env node\n{}",
+      '"use strict"\n{}',
+      "/* comment */",
+      "// comment",
     ],
   },
   ["json", "json5", "json-stringify"]
