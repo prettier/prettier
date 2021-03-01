@@ -63,6 +63,7 @@ describe("API", () => {
       hardline,
       literalline,
       fill,
+      ifBreak,
       indentIfBreak,
       group,
       line,
@@ -90,6 +91,10 @@ describe("API", () => {
 
     expect(formatDoc(label("foo", group(["1", line, "2"])))).toBe(
       'label("foo", group(["1", line, "2"]))'
+    );
+
+    expect(formatDoc([ifBreak("a", "b"), ifBreak("a"), ifBreak("", "b")])).toBe(
+      '[ifBreak("a", "b"), ifBreak("a"), ifBreak("", "b")]'
     );
   });
 });

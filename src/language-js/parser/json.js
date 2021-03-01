@@ -35,6 +35,15 @@ function assertJsonNode(node, parent) {
   switch (node.type) {
     case "ArrayExpression":
       for (const element of node.elements) {
+        if (element === null) {
+          throw createError("Sparse array is not allowed in JSON.", {
+            start: {
+              line: node.loc.start.line,
+              column: node.loc.start.column + 1,
+            },
+          });
+        }
+
         assertJsonChildNode(element);
       }
       return;
@@ -64,6 +73,11 @@ function assertJsonNode(node, parent) {
           throw createJsonError("operator");
       }
     case "Identifier":
+      // JSON5 https://spec.json5.org/#numbers
+      if (node.name === "Infinity" || node.name === "NaN") {
+        return;
+      }
+
       if (parent && parent.type === "ObjectProperty" && parent.key === node) {
         return;
       }

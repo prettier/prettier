@@ -24,10 +24,22 @@ exports[`snippet: #1 [json-stringify] format 1`] = `
     |  ^^^^^^^^^^^^^"
 `;
 
+exports[`snippet: #2 [json] format 1`] = `
+"Sparse array is not allowed in JSON. (1:1)
+> 1 | [,]
+    | ^"
+`;
+
 exports[`snippet: #2 [json-stringify] format 1`] = `
 "UnaryExpression with operator=\\"~\\" is not allowed in JSON. (1:9)
 > 1 | {\\"foo\\": ~1}
     |         ^^"
+`;
+
+exports[`snippet: #3 [json] format 1`] = `
+"Sparse array is not allowed in JSON. (1:1)
+> 1 | [1,,2]
+    | ^"
 `;
 
 exports[`snippet: #3 [json-stringify] format 1`] = `

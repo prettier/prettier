@@ -21,6 +21,8 @@ run_spec(
     snippets: [
       "packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json",
       "1+2",
+      "[,]",
+      "[1,,2]",
     ],
   },
   ["json"]
