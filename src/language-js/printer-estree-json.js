@@ -1,6 +1,5 @@
 "use strict";
 
-const { getLast } = require("../common/util");
 const {
   builders: { hardline, indent, join },
 } = require("../document");
