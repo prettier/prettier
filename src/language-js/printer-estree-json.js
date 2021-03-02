@@ -78,6 +78,9 @@ const ignoredProperties = new Set([
   "extra",
   "loc",
   "comments",
+  "leadingComments",
+  "trailingComments",
+  "innerComments",
   "errors",
   "range",
 ]);
@@ -89,6 +92,14 @@ function clean(node, newNode /*, parent*/) {
   }
   if (type === "UnaryExpression" && node.operator === "+") {
     return newNode.argument;
+  }
+  // We print holes as `null`
+  if (type === "ArrayExpression") {
+    for (const [index, element] of node.elements) {
+      if (element === null) {
+        newNode.elements[index] = { type: "NullLiteral" };
+      }
+    }
   }
 }
 
