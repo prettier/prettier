@@ -17,14 +17,14 @@ function genericPrint(path, options, print) {
       }
 
       const printed = path.map(
-        (elementPath) => (path.getValue() === null ? "" : print(elementPath)),
+        (elementPath) =>
+          path.getValue() === null ? "null" : print(elementPath),
         "elements"
       );
-      const comma = getLast(node.elements) === null ? "," : "";
 
       return [
         "[",
-        indent([hardline, join([",", hardline], printed), comma]),
+        indent([hardline, join([",", hardline], printed)]),
         hardline,
         "]",
       ];
