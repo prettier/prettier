@@ -87,20 +87,26 @@ const ignoredProperties = new Set([
 
 function clean(node, newNode /*, parent*/) {
   const { type } = node;
+  // We print quoted key
   if (type === "ObjectProperty" && node.key.type === "Identifier") {
-    node.key = { type: "StringLiteral", value: node.key.name };
+    newNode.key = { type: "StringLiteral", value: node.key.name };
     return;
   }
   if (type === "UnaryExpression" && node.operator === "+") {
     return newNode.argument;
   }
-  // We print holes as `null`
+  // We print holes in array as `null`
   if (type === "ArrayExpression") {
-    for (const [index, element] of node.elements) {
+    for (const [index, element] of node.elements.entries()) {
       if (element === null) {
-        newNode.elements[index] = { type: "NullLiteral" };
+        newNode.elements.splice(index, 0, { type: "NullLiteral" })
       }
     }
+    return;
+  }
+  // We print `TemplateLiteral` as string
+  if (type === "TemplateLiteral") {
+    return { type: "StringLiteral", value: node.quasis[0].value.cooked };
   }
 }
 
