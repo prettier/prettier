@@ -87,8 +87,9 @@ const ignoredProperties = new Set([
 
 function clean(node, newNode /*, parent*/) {
   const { type } = node;
-  if (type === "Identifier") {
-    return { type: "StringLiteral", value: node.name };
+  if (type === "ObjectProperty" && node.key.type === "Identifier") {
+    node.key = { type: "StringLiteral", value: node.key.name };
+    return;
   }
   if (type === "UnaryExpression" && node.operator === "+") {
     return newNode.argument;
