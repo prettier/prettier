@@ -29,7 +29,7 @@ run_spec(
       "// comment",
       "`foo${1}bar`",
       // JSON6 allow this, but babel can't parse
-      "----123"
+      "----123",
     ],
   },
   ["json", "json5", "json-stringify"]
