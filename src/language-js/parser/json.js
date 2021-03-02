@@ -45,11 +45,9 @@ function assertJsonNode(node) {
   switch (node.type) {
     case "ArrayExpression":
       for (const element of node.elements) {
-        if (element === null) {
-          throw createJsonError(node, "Sparse array");
+        if (element !== null) {
+          assertJsonNode(element);
         }
-
-        assertJsonNode(element);
       }
 
       return;
@@ -84,9 +82,27 @@ function assertJsonNode(node) {
 
       return;
     case "Identifier":
-      // JSON5 https://spec.json5.org/#numbers
-      if (node.name !== "Infinity" && node.name !== "NaN") {
+      if (
+        // JSON5 https://spec.json5.org/#numbers
+        node.name !== "Infinity" &&
+        node.name !== "NaN" &&
+        // JSON6 https://github.com/d3x0r/JSON6
+        node.name !== "undefined"
+      ) {
         throw createJsonError(node, `Identifier '${node.name}'`);
+      }
+
+      return;
+    case "TemplateLiteral":
+      if (isNonEmptyArray(node.expressions)) {
+        throw createJsonError(
+          node.expressions[0],
+          "TemplateLiteral with expression"
+        );
+      }
+
+      for (const element of node.quasis) {
+        assertJsonNode(element);
       }
 
       return;
@@ -94,6 +110,7 @@ function assertJsonNode(node) {
     case "BooleanLiteral":
     case "NumericLiteral":
     case "StringLiteral":
+    case "TemplateElement":
       return;
     default:
       throw createJsonError(node, `'${node.type}'`);

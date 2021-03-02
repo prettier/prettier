@@ -1,5 +1,6 @@
 "use strict";
 
+const { getLast } = require("../common/util");
 const {
   builders: { hardline, indent, join },
 } = require("../document");
@@ -10,18 +11,24 @@ function genericPrint(path, options, print) {
   switch (node.type) {
     case "JsonRoot":
       return [path.call(print, "node"), hardline];
-    case "ArrayExpression":
-      return node.elements.length === 0
-        ? "[]"
-        : [
-            "[",
-            indent([
-              hardline,
-              join([",", hardline], path.map(print, "elements")),
-            ]),
-            hardline,
-            "]",
-          ];
+    case "ArrayExpression": {
+      if (node.elements.length === 0) {
+        return "[]";
+      }
+
+      const printed = path.map(
+        (elementPath) => (path.getValue() === null ? "" : print(elementPath)),
+        "elements"
+      );
+      const comma = getLast(node.elements) === null ? "," : "";
+
+      return [
+        "[",
+        indent([hardline, join([",", hardline], printed), comma]),
+        hardline,
+        "]",
+      ];
+    }
     case "ObjectExpression":
       return node.properties.length === 0
         ? "{}"
@@ -55,6 +62,10 @@ function genericPrint(path, options, print) {
       }
       return node.name;
     }
+    case "TemplateLiteral":
+      return path.map(print, "quasis");
+    case "TemplateElement":
+      return JSON.stringify(node.value.cooked);
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(node.type));
