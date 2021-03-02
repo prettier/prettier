@@ -541,7 +541,9 @@ trailingComma: "all"
 
 {'//': 'Numbers',
     "data": [
-      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
     ]
   },
 
@@ -577,7 +579,10 @@ trailingComma: "all"
 
   { "//": "String escapes ", "data": ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
 
-  { "//": "Numbers", "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef] },
+  {
+    "//": "Numbers",
+    "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN]
+  },
 
   { "//": "empty members", "data": [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] }
 ]
@@ -621,7 +626,9 @@ trailingComma: "all"
 
 {'//': 'Numbers',
     "data": [
-      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
     ]
   },
 
@@ -657,7 +664,10 @@ trailingComma: "all"
 
   { "//": "String escapes ", data: ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
 
-  { "//": "Numbers", data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef] },
+  {
+    "//": "Numbers",
+    data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN],
+  },
 
   { "//": "empty members", data: [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] },
 ]
@@ -700,7 +710,9 @@ printWidth: 80
 
 {'//': 'Numbers',
     "data": [
-      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
     ]
   },
 
@@ -736,7 +748,10 @@ printWidth: 80
 
   { "//": "String escapes ", "data": ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
 
-  { "//": "Numbers", "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef] },
+  {
+    "//": "Numbers",
+    "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN]
+  },
 
   { "//": "empty members", "data": [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] }
 ]
@@ -779,7 +794,9 @@ printWidth: 80
 
 {'//': 'Numbers',
     "data": [
-      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
     ]
   },
 
@@ -815,7 +832,10 @@ printWidth: 80
 
   { "//": "String escapes ", data: ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
 
-  { "//": "Numbers", data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef] },
+  {
+    "//": "Numbers",
+    data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN],
+  },
 
   { "//": "empty members", data: [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] },
 ]
@@ -858,7 +878,9 @@ printWidth: 80
 
 {'//': 'Numbers',
     "data": [
-      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
     ]
   },
 
@@ -914,7 +936,10 @@ printWidth: 80
       42,
       100000,
       123456,
-      3740122863
+      3740122863,
+      83,
+      -Infinity,
+      -NaN
     ]
   },
   {

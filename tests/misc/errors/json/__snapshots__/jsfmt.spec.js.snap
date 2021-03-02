@@ -457,19 +457,37 @@ exports[`snippet: #24 [json5] format 1`] = `
 `;
 
 exports[`snippet: #25 [json] format 1`] = `
-"TemplateLiteral with expression is not allowed in JSON. (1:7)
+"'TemplateLiteral' with expression is not allowed in JSON. (1:7)
 > 1 | \`foo\${1}bar\`
     |       ^"
 `;
 
 exports[`snippet: #25 [json-stringify] format 1`] = `
-"TemplateLiteral with expression is not allowed in JSON. (1:7)
+"'TemplateLiteral' with expression is not allowed in JSON. (1:7)
 > 1 | \`foo\${1}bar\`
     |       ^"
 `;
 
 exports[`snippet: #25 [json5] format 1`] = `
-"TemplateLiteral with expression is not allowed in JSON. (1:7)
+"'TemplateLiteral' with expression is not allowed in JSON. (1:7)
 > 1 | \`foo\${1}bar\`
     |       ^"
+`;
+
+exports[`snippet: #26 [json] format 1`] = `
+"Invalid left-hand side in prefix operation (1:5)
+> 1 | ----123
+    |     ^"
+`;
+
+exports[`snippet: #26 [json-stringify] format 1`] = `
+"Invalid left-hand side in prefix operation (1:5)
+> 1 | ----123
+    |     ^"
+`;
+
+exports[`snippet: #26 [json5] format 1`] = `
+"Invalid left-hand side in prefix operation (1:5)
+> 1 | ----123
+    |     ^"
 `;

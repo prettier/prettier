@@ -27,7 +27,9 @@
 
 {'//': 'Numbers',
     "data": [
-      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
     ]
   },
 
