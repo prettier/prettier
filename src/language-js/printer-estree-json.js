@@ -99,7 +99,7 @@ function clean(node, newNode /*, parent*/) {
   if (type === "ArrayExpression") {
     for (const [index, element] of node.elements.entries()) {
       if (element === null) {
-        newNode.elements.splice(index, 0, { type: "NullLiteral" })
+        newNode.elements.splice(index, 0, { type: "NullLiteral" });
       }
     }
     return;
