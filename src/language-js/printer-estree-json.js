@@ -63,7 +63,7 @@ function genericPrint(path, options, print) {
       return node.name;
     }
     case "TemplateLiteral":
-      return path.map(print, "quasis");
+      return path.map(print, "quasis")[0];
     case "TemplateElement":
       return JSON.stringify(node.value.cooked);
     default:

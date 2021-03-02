@@ -6,12 +6,9 @@ run_spec(
       '{["foo"]:"bar"}',
       '{"foo": ~1}',
       '{"foo": false || "bar"}',
-      '{"foo": undefined}',
       '{"foo": () => {}}',
       "packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json",
       "1+2",
-      "[,]",
-      "[1,,2]",
       "{Infinity}",
       "{[key]: 1}",
       "{[key()]: 1}",
@@ -30,6 +27,7 @@ run_spec(
       '"use strict"\n{}',
       "/* comment */",
       "// comment",
+      "`foo${1}bar`"
     ],
   },
   ["json", "json5", "json-stringify"]

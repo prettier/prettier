@@ -97,7 +97,7 @@ function assertJsonNode(node) {
       if (isNonEmptyArray(node.expressions)) {
         throw createJsonError(
           node.expressions[0],
-          "TemplateLiteral with expression"
+          "'TemplateLiteral' with expression"
         );
       }
 
