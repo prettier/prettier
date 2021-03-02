@@ -28,7 +28,6 @@ const unstableTests = new Map(
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
-    "js/comments-closure-typecast/iife.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     "html/multiparser/js/script-tag-escaping.html",
@@ -48,6 +47,27 @@ const unstableTests = new Map(
   })
 );
 
+// This is temporary.
+// This will be removed once https://github.com/babel/babel/issues/12915 is fixed
+const unstableAstTests = new Map(
+  [
+    [
+      "flow/function-parentheses/single.js",
+      (options) =>
+        options.parser.startsWith("babel") && options.arrowParens !== "avoid",
+    ],
+    [
+      "flow/function-parentheses/test.js",
+      (options) => options.parser.startsWith("babel"),
+    ],
+  ].map((fixture) => {
+    const [file, isUnstable = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
+    return [path.join(__dirname, "../tests/", file), isUnstable];
+  })
+);
+
 const espreeDisabledTests = new Set(
   [
     // These tests only work for `babel`
@@ -58,6 +78,16 @@ const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
+const isAstUnstable = (filename, options) => {
+  const testFunction = unstableAstTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -103,6 +133,11 @@ function runSpec(fixtures, parsers, options) {
   if (IS_ERROR_TESTS) {
     options = { errors: true, ...options };
   }
+
+  const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
+    dirname,
+    "misc/typescript-only"
+  );
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [undefined];
@@ -152,7 +187,11 @@ function runSpec(fixtures, parsers, options) {
   const allParsers = [...parsers];
 
   if (!IS_ERROR_TESTS) {
-    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !IS_TYPESCRIPT_ONLY_TEST
+    ) {
       allParsers.push("babel-ts");
     }
 
@@ -285,13 +324,18 @@ function runTest({
     });
   }
 
+  const isAstUnstableTest = isAstUnstable(filename, formatOptions);
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
       const { input, output } = formatResult;
       const originalAst = parse(input, formatOptions);
       const formattedAst = parse(output, formatOptions);
-      expect(formattedAst).toEqual(originalAst);
+      if (isAstUnstableTest) {
+        expect(formattedAst).not.toEqual(originalAst);
+      } else {
+        expect(formattedAst).toEqual(originalAst);
+      }
     });
   }
 

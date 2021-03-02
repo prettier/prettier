@@ -210,10 +210,7 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars
-<b>
-  {{doesWhat}}
-</b>
+Handlebars <b>{{doesWhat}}</b>
 </custom>
 
 ================================================================================
@@ -232,10 +229,7 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars
-<b>
-  {{doesWhat}}
-</b>
+Handlebars <b>{{doesWhat}}</b>
 </custom>
 
 ================================================================================
@@ -254,10 +248,7 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars
-<b>
-  {{doesWhat}}
-</b>
+Handlebars <b>{{doesWhat}}</b>
 </custom>
 
 ================================================================================
@@ -275,10 +266,7 @@ Handlebars <b>{{     doesWhat}}</b>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars
-<b>
-  {{doesWhat}}
-</b>
+Handlebars <b>{{doesWhat}}</b>
 </custom>
 
 ================================================================================

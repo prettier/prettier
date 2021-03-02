@@ -128,7 +128,7 @@ const graphqlSourceElements = new Set([
 ]);
 function isSourceElement(opts, node) {
   /* istanbul ignore next */
-  if (node == null) {
+  if (!node) {
     return false;
   }
   switch (opts.parser) {

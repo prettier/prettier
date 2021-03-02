@@ -64,10 +64,7 @@ function printPropertyKey(path, options, print) {
       ),
       options
     );
-    return path.call(
-      (keyPath) => printComments(keyPath, () => prop, options),
-      "key"
-    );
+    return path.call((keyPath) => printComments(keyPath, prop, options), "key");
   }
 
   if (
@@ -82,7 +79,7 @@ function printPropertyKey(path, options, print) {
       (keyPath) =>
         printComments(
           keyPath,
-          () => (/^\d/.test(key.value) ? printNumber(key.value) : key.value),
+          /^\d/.test(key.value) ? printNumber(key.value) : key.value,
           options
         ),
       "key"
@@ -99,12 +96,12 @@ function printProperty(path, options, print) {
   }
 
   return printAssignment(
-    n.key,
+    path,
+    options,
+    print,
     printPropertyKey(path, options, print),
     ":",
-    n.value,
-    path.call(print, "value"),
-    options
+    "value"
   );
 }
 

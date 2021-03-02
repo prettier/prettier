@@ -5,7 +5,7 @@ const {
   ParseLocation,
   ParseSourceFile,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
-const { parse: parseFrontMatter } = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter/parse");
 const createError = require("../common/parser-create-error");
 const { inferParserByLanguage } = require("../common/util");
 const {
@@ -74,10 +74,7 @@ function ngHtmlParser(
       }
       const langAttr = node.attrs.find((attr) => attr.name === "lang");
       const langValue = langAttr && langAttr.value;
-      return (
-        langValue == null ||
-        inferParserByLanguage(langValue, options) === "html"
-      );
+      return !langValue || inferParserByLanguage(langValue, options) === "html";
     };
     if (rootNodes.some(shouldParseAsHTML)) {
       let secondParseResult;

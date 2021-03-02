@@ -16,7 +16,7 @@ function getNodeStackIndexHelper(stack, count) {
   return -1;
 }
 
-class FastPath {
+class AstPath {
   constructor(value) {
     this.stack = [value];
   }
@@ -51,7 +51,7 @@ class FastPath {
 
   // Temporarily push properties named by string arguments given after the
   // callback function onto this.stack, then call the callback with a
-  // reference to this (modified) FastPath object. Note that the stack will
+  // reference to this (modified) AstPath object. Note that the stack will
   // be restored to its original state after the callback is finished, so it
   // is probably a mistake to retain a reference to the path.
   call(callback, ...names) {
@@ -76,7 +76,7 @@ class FastPath {
     return result;
   }
 
-  // Similar to FastPath.prototype.call, except that the value obtained by
+  // Similar to AstPath.prototype.call, except that the value obtained by
   // accessing this.getValue()[name1][name2]... should be array. The
   // callback will be called with a reference to this path object for each
   // element of the array.
@@ -99,7 +99,7 @@ class FastPath {
     stack.length = length;
   }
 
-  // Similar to FastPath.prototype.each, except that the results of the
+  // Similar to AstPath.prototype.each, except that the results of the
   // callback function invocations are stored in an array and returned at
   // the end of the iteration.
   map(callback, ...names) {
@@ -146,6 +146,37 @@ class FastPath {
 
     return true;
   }
+
+  /**
+   * Traverses the ancestors of the current node heading toward the tree root
+   * until it finds a node that matches the provided predicate function. Will
+   * return the first matching ancestor. If no such node exists, returns undefined.
+   * @param {(node: any, name: string, number: number | null) => boolean} predicate
+   * @internal Unstable API. Don't use in plugins for now.
+   */
+  findAncestor(predicate) {
+    let stackPointer = this.stack.length - 1;
+
+    let name = null;
+    let node = this.stack[stackPointer--];
+
+    while (node) {
+      // skip index/array
+      let number = null;
+      if (typeof name === "number") {
+        number = name;
+        name = this.stack[stackPointer--];
+        node = this.stack[stackPointer--];
+      }
+
+      if (name !== null && predicate(node, name, number)) {
+        return node;
+      }
+
+      name = this.stack[stackPointer--];
+      node = this.stack[stackPointer--];
+    }
+  }
 }
 
-module.exports = FastPath;
+module.exports = AstPath;

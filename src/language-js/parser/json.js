@@ -1,0 +1,119 @@
+"use strict";
+
+const { isNonEmptyArray } = require("../../common/util");
+const createError = require("../../common/parser-create-error");
+const createParser = require("./create-parser");
+const createBabelParseError = require("./create-babel-parse-error");
+
+function createJsonParse(options = {}) {
+  const { allowComments = true } = options;
+
+  return function parse(text /*, parsers, options*/) {
+    let ast;
+    try {
+      ast = require("@babel/parser").parseExpression(text, {
+        tokens: true,
+        ranges: true,
+      });
+    } catch (error) {
+      throw createBabelParseError(error);
+    }
+
+    // @ts-ignore
+    if (!allowComments && isNonEmptyArray(ast.comments)) {
+      // @ts-ignore
+      throw createJsonError(ast.comments[0], "Comment");
+    }
+
+    assertJsonNode(ast);
+
+    return ast;
+  };
+}
+
+function createJsonError(node, description) {
+  const [start, end] = [node.loc.start, node.loc.end].map(
+    ({ line, column }) => ({
+      line,
+      column: column + 1,
+    })
+  );
+  return createError(`${description} is not allowed in JSON.`, { start, end });
+}
+
+function assertJsonNode(node) {
+  switch (node.type) {
+    case "ArrayExpression":
+      for (const element of node.elements) {
+        if (element === null) {
+          throw createJsonError(node, "Sparse array");
+        }
+
+        assertJsonNode(element);
+      }
+
+      return;
+    case "ObjectExpression":
+      for (const property of node.properties) {
+        assertJsonNode(property);
+      }
+
+      return;
+    case "ObjectProperty":
+      if (node.computed) {
+        throw createJsonError(node.key, "Computed key");
+      }
+
+      if (node.shorthand) {
+        throw createJsonError(node.key, "Shorthand property");
+      }
+
+      if (node.key.type !== "Identifier") {
+        assertJsonNode(node.key);
+      }
+
+      assertJsonNode(node.value);
+
+      return;
+    case "UnaryExpression":
+      if (node.operator !== "+" && node.operator !== "-") {
+        throw createJsonError(node, `Operator '${node.operator}'`);
+      }
+
+      assertJsonNode(node.argument);
+
+      return;
+    case "Identifier":
+      // JSON5 https://spec.json5.org/#numbers
+      if (node.name !== "Infinity" && node.name !== "NaN") {
+        throw createJsonError(node, `Identifier '${node.name}'`);
+      }
+
+      return;
+    case "NullLiteral":
+    case "BooleanLiteral":
+    case "NumericLiteral":
+    case "StringLiteral":
+      return;
+    default:
+      throw createJsonError(node, `'${node.type}'`);
+  }
+}
+
+const parseJson = createJsonParse();
+
+const jsonParsers = {
+  json: createParser({
+    parse: parseJson,
+    hasPragma() {
+      return true;
+    },
+  }),
+  json5: createParser(parseJson),
+  "json-stringify": createParser({
+    parse: createJsonParse({ allowComments: false }),
+    astFormat: "estree-json",
+  }),
+};
+
+module.exports = jsonParsers;

@@ -24,7 +24,15 @@ const {
 const { locEnd } = require("../loc");
 
 const {
-  builders: { join, hardline, group, indent, conditionalGroup, breakParent },
+  builders: {
+    join,
+    hardline,
+    group,
+    indent,
+    conditionalGroup,
+    breakParent,
+    label,
+  },
   utils: { willBreak },
 } = require("../../document");
 const printCallArguments = require("./call-arguments");
@@ -94,7 +102,7 @@ function printMemberChain(path, options, print) {
         printed: [
           printComments(
             path,
-            () => [
+            [
               printOptionalToken(path),
               printFunctionTypeParameters(path, options, print),
               printCallArguments(path, options, print),
@@ -111,10 +119,9 @@ function printMemberChain(path, options, print) {
         needsParens: pathNeedsParens(path, options),
         printed: printComments(
           path,
-          () =>
-            isMemberExpression(node)
-              ? printMemberLookup(path, options, print)
-              : printBindExpressionCallee(path, options, print),
+          isMemberExpression(node)
+            ? printMemberLookup(path, options, print)
+            : printBindExpressionCallee(path, options, print),
           options
         ),
       });
@@ -122,7 +129,7 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
-        printed: printComments(path, () => "!", options),
+        printed: printComments(path, "!", options),
       });
       path.call((expression) => rec(expression), "expression");
     } else {
@@ -374,6 +381,8 @@ function printMemberChain(path, options, print) {
     );
   }
 
+  let result;
+
   // We don't want to print in one line if at least one of these conditions occurs:
   //  * the chain has comments,
   //  * the chain is an expression statement and all the arguments are literal-like ("fluent configuration" pattern),
@@ -389,16 +398,18 @@ function printMemberChain(path, options, print) {
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
   ) {
-    return group(expanded);
+    result = group(expanded);
+  } else {
+    result = [
+      // We only need to check `oneLine` because if `expanded` is chosen
+      // that means that the parent group has already been broken
+      // naturally
+      willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
+      conditionalGroup([oneLine, expanded]),
+    ];
   }
 
-  return [
-    // We only need to check `oneLine` because if `expanded` is chosen
-    // that means that the parent group has already been broken
-    // naturally
-    willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-    conditionalGroup([oneLine, expanded]),
-  ];
+  return label("member-chain", result);
 }
 
 module.exports = printMemberChain;
