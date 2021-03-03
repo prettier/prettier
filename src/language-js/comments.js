@@ -887,22 +887,6 @@ function isRealFunctionLikeNode(node) {
 }
 
 /**
- * @param {Node} enclosingNode
- * @returns {RegExp | void}
- */
-function getGapRegex(enclosingNode) {
-  if (
-    enclosingNode &&
-    enclosingNode.type !== "BinaryExpression" &&
-    enclosingNode.type !== "LogicalExpression"
-  ) {
-    // Support degenerate single-element unions and intersections.
-    // E.g.: `type A = /* 1 */ & B`
-    return /^[\s&(|]*$/;
-  }
-}
-
-/**
  * @param {any} node
  * @returns {Node[] | void}
  */
@@ -980,7 +964,6 @@ module.exports = {
   handleEndOfLineComment,
   handleRemainingComment,
   isTypeCastComment,
-  getGapRegex,
   getCommentChildNodes,
   willPrintOwnComments,
 };
