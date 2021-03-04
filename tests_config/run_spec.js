@@ -47,25 +47,7 @@ const unstableTests = new Map(
   })
 );
 
-const unstableAstTests = new Map(
-  [
-    [
-      "json/json/propertyKey.json",
-      (options) => options.parser === "json-stringify",
-    ],
-    [
-      "json/json/positive-number.json",
-      (options) => options.parser === "json-stringify",
-    ],
-    ["json/json/json5.json", (options) => options.parser === "json-stringify"],
-    ["json/json/array.json", (options) => options.parser === "json-stringify"],
-  ].map((fixture) => {
-    const [file, isUnstable = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../tests/", file), isUnstable];
-  })
-);
+const unstableAstTests = new Map();
 
 const espreeDisabledTests = new Set(
   [

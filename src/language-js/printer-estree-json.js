@@ -83,6 +83,7 @@ const ignoredProperties = new Set([
   "innerComments",
   "errors",
   "range",
+  "tokens",
 ]);
 
 function clean(node, newNode /*, parent*/) {
