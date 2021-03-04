@@ -47,19 +47,18 @@ const unstableTests = new Map(
   })
 );
 
-// This is temporary.
-// This will be removed once https://github.com/babel/babel/issues/12915 is fixed
 const unstableAstTests = new Map(
   [
     [
-      "flow/function-parentheses/single.js",
-      (options) =>
-        options.parser.startsWith("babel") && options.arrowParens !== "avoid",
+      "json/json/propertyKey.json",
+      (options) => options.parser === "json-stringify",
     ],
     [
-      "flow/function-parentheses/test.js",
-      (options) => options.parser.startsWith("babel"),
+      "json/json/positive-number.json",
+      (options) => options.parser === "json-stringify",
     ],
+    ["json/json/json5.json", (options) => options.parser === "json-stringify"],
+    ["json/json/array.json", (options) => options.parser === "json-stringify"],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
