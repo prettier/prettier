@@ -424,8 +424,10 @@ function needsParens(path, options) {
     case "TSUnionType":
     case "TSIntersectionType":
       if (
-        parent.type === "TSUnionType" ||
-        parent.type === "TSIntersectionType"
+        (parent.type === "TSUnionType" ||
+          parent.type === "TSIntersectionType") &&
+        parent.types.length > 1 &&
+        (!node.types || node.types.length > 1)
       ) {
         return true;
       }

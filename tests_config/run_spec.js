@@ -47,26 +47,7 @@ const unstableTests = new Map(
   })
 );
 
-// This is temporary.
-// This will be removed once https://github.com/babel/babel/issues/12915 is fixed
-const unstableAstTests = new Map(
-  [
-    [
-      "flow/function-parentheses/single.js",
-      (options) =>
-        options.parser.startsWith("babel") && options.arrowParens !== "avoid",
-    ],
-    [
-      "flow/function-parentheses/test.js",
-      (options) => options.parser.startsWith("babel"),
-    ],
-  ].map((fixture) => {
-    const [file, isUnstable = () => true] = Array.isArray(fixture)
-      ? fixture
-      : [fixture];
-    return [path.join(__dirname, "../tests/", file), isUnstable];
-  })
-);
+const unstableAstTests = new Map();
 
 const espreeDisabledTests = new Set(
   [

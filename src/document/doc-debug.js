@@ -3,6 +3,10 @@
 const { isConcat, getDocParts } = require("./doc-utils");
 
 function flattenDoc(doc) {
+  if (!doc) {
+    return "";
+  }
+
   if (isConcat(doc)) {
     const res = [];
     for (const part of getDocParts(doc)) {
@@ -22,8 +26,8 @@ function flattenDoc(doc) {
   if (doc.type === "if-break") {
     return {
       ...doc,
-      breakContents: doc.breakContents ? flattenDoc(doc.breakContents) : null,
-      flatContents: doc.flatContents ? flattenDoc(doc.flatContents) : null,
+      breakContents: flattenDoc(doc.breakContents),
+      flatContents: flattenDoc(doc.flatContents),
     };
   }
 
@@ -31,9 +35,7 @@ function flattenDoc(doc) {
     return {
       ...doc,
       contents: flattenDoc(doc.contents),
-      expandedStates: doc.expandedStates
-        ? doc.expandedStates.map(flattenDoc)
-        : doc.expandedStates,
+      expandedStates: doc.expandedStates && doc.expandedStates.map(flattenDoc),
     };
   }
 

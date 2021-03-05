@@ -6,22 +6,31 @@ run_spec(
       '{["foo"]:"bar"}',
       '{"foo": ~1}',
       '{"foo": false || "bar"}',
-      '{"foo": undefined}',
       '{"foo": () => {}}',
-      '/* comment */{"foo": 1}',
-      '// comment\n{"foo": 1}',
-    ],
-  },
-  ["json-stringify"]
-);
-
-run_spec(
-  {
-    dirname: __dirname,
-    snippets: [
       "packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json",
       "1+2",
+      "{Infinity}",
+      "{[key]: 1}",
+      "{[key()]: 1}",
+      "{['CallExpression']: 1}",
+      "{['StringLiteral']: 1}",
+      "{['string']: 1}",
+      "{[1]: 1}",
+      "{[Infinity]: 1}",
+      "{[-Infinity]: 1}",
+      "{[{key: 'value'}]: 1}",
+      "{[[]]: 1}",
+      "{[null]: 1}",
+      "{key: +foo()}",
+      "{key: void foo()}",
+      "#!/usr/bin/env node\n{}",
+      '"use strict"\n{}',
+      "/* comment */",
+      "// comment",
+      "`foo${1}bar`",
+      // JSON6 allow this, but babel can't parse
+      "----123",
     ],
   },
-  ["json"]
+  ["json", "json5", "json-stringify"]
 );
