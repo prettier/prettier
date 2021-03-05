@@ -129,15 +129,6 @@ function postprocess(ast, options) {
         node.typeAnnotation.range = [locStart(node), locEnd(node)];
         return node.typeAnnotation;
       }
-      case "TSUnionType":
-      case "TSIntersectionType":
-        if (node.types.length === 1) {
-          const [firstType] = node.types;
-          // override loc, so that comments are attached properly
-          firstType.range = [locStart(node), locEnd(node)];
-          return firstType;
-        }
-        break;
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {

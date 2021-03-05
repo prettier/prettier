@@ -1,5 +1,6 @@
 "use strict";
 
+const { isNonEmptyArray } = require("../../common/util");
 const createError = require("../../common/parser-create-error");
 const createParser = require("./create-parser");
 const createBabelParseError = require("./create-babel-parse-error");
@@ -18,11 +19,10 @@ function createJsonParse(options = {}) {
       throw createBabelParseError(error);
     }
 
-    if (!allowComments) {
+    // @ts-ignore
+    if (!allowComments && isNonEmptyArray(ast.comments)) {
       // @ts-ignore
-      for (const comment of ast.comments) {
-        assertJsonNode(comment);
-      }
+      throw createJsonError(ast.comments[0], "Comment");
     }
 
     assertJsonNode(ast);
@@ -31,66 +31,89 @@ function createJsonParse(options = {}) {
   };
 }
 
-function assertJsonNode(node, parent) {
+function createJsonError(node, description) {
+  const [start, end] = [node.loc.start, node.loc.end].map(
+    ({ line, column }) => ({
+      line,
+      column: column + 1,
+    })
+  );
+  return createError(`${description} is not allowed in JSON.`, { start, end });
+}
+
+function assertJsonNode(node) {
   switch (node.type) {
     case "ArrayExpression":
       for (const element of node.elements) {
-        assertJsonChildNode(element);
+        if (element !== null) {
+          assertJsonNode(element);
+        }
       }
+
       return;
     case "ObjectExpression":
       for (const property of node.properties) {
-        assertJsonChildNode(property);
+        assertJsonNode(property);
       }
+
       return;
     case "ObjectProperty":
       if (node.computed) {
-        throw createJsonError("computed");
+        throw createJsonError(node.key, "Computed key");
       }
 
       if (node.shorthand) {
-        throw createJsonError("shorthand");
+        throw createJsonError(node.key, "Shorthand property");
       }
 
-      assertJsonChildNode(node.key);
-      assertJsonChildNode(node.value);
+      if (node.key.type !== "Identifier") {
+        assertJsonNode(node.key);
+      }
+
+      assertJsonNode(node.value);
+
       return;
     case "UnaryExpression":
-      switch (node.operator) {
-        case "+":
-        case "-":
-          return assertJsonChildNode(node.argument);
-        default:
-          throw createJsonError("operator");
+      if (node.operator !== "+" && node.operator !== "-") {
+        throw createJsonError(node, `Operator '${node.operator}'`);
       }
+
+      assertJsonNode(node.argument);
+
+      return;
     case "Identifier":
-      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
-        return;
+      if (
+        // JSON5 https://spec.json5.org/#numbers
+        node.name !== "Infinity" &&
+        node.name !== "NaN" &&
+        // JSON6 https://github.com/d3x0r/JSON6
+        node.name !== "undefined"
+      ) {
+        throw createJsonError(node, `Identifier '${node.name}'`);
       }
-      throw createJsonError();
+
+      return;
+    case "TemplateLiteral":
+      if (isNonEmptyArray(node.expressions)) {
+        throw createJsonError(
+          node.expressions[0],
+          "'TemplateLiteral' with expression"
+        );
+      }
+
+      for (const element of node.quasis) {
+        assertJsonNode(element);
+      }
+
+      return;
     case "NullLiteral":
     case "BooleanLiteral":
     case "NumericLiteral":
     case "StringLiteral":
+    case "TemplateElement":
       return;
     default:
-      throw createJsonError();
-  }
-
-  function assertJsonChildNode(child) {
-    return assertJsonNode(child, node);
-  }
-
-  function createJsonError(attribute) {
-    const name = !attribute
-      ? node.type
-      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in JSON.`, {
-      start: {
-        line: node.loc.start.line,
-        column: node.loc.start.column + 1,
-      },
-    });
+      throw createJsonError(node, `'${node.type}'`);
   }
 }
 
