@@ -142,6 +142,7 @@ const parseTypeScript = createParse(
   appendPlugins(["jsx", "typescript"]),
   appendPlugins(["typescript"])
 );
+const parseEstree = createParse("parse", appendPlugins(["jsx", "flow", "estree"]));
 const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
 const messagesShouldThrow = new Set([
@@ -187,5 +188,7 @@ module.exports = {
     __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */
     __vue_event_binding: babel,
+    /** verify that we can print this AST */
+    __babel_estree: parseEstree
   },
 };
