@@ -95,7 +95,7 @@ function printBlockBody(path, options, print) {
 
   if (node.type === "Program") {
     const parent = path.getParentNode();
-    if (!parent || parent.type === "File") {
+    if (!parent || parent.type !== "ModuleExpression") {
       parts.push(hardline);
     }
   }
