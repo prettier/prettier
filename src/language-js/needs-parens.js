@@ -394,16 +394,6 @@ function needsParens(path, options) {
             return false;
           }
 
-          if (
-            name === "right" &&
-            node.type === "AwaitExpression" &&
-            parent.operator === "|>" &&
-            node.argument &&
-            node.argument.type === "PipelinePrimaryTopicReference"
-          ) {
-            return false;
-          }
-
           return true;
         }
 
