@@ -73,28 +73,26 @@ function assertJsonNode(node) {
       assertJsonNode(node.value);
 
       return;
-<<<<<<< HEAD
     case "UnaryExpression": {
-      if (node.operator !== "+" && node.operator !== "-") {
-        throw createJsonError("operator");
-      }
-
-      if (node.argument.type !== "NumericLiteral") {
-        throw createJsonError("argument");
-      }
-
-      return;
-    }
-=======
-    case "UnaryExpression":
-      if (node.operator !== "+" && node.operator !== "-") {
+      const {operator, argument} = node;
+      if (operator !== "+" && operator !== "-") {
         throw createJsonError(node, `Operator '${node.operator}'`);
       }
 
-      assertJsonNode(node.argument);
+      switch (argument.type) {
+        case "UnaryExpression":
+        case "NumericLiteral":
+          assertJsonNode(argument);
+          return;
+        case "Identifier":
+          if (argument.name === "Infinity" || argument.name === "NaN") {
+            return;
+          }
+        break;
+      }
 
-      return;
->>>>>>> main
+      throw createJsonError(argument, `Operator '${operator}' before '${argument.type}'`);
+    }
     case "Identifier":
       if (
         // JSON5 https://spec.json5.org/#numbers
@@ -127,34 +125,7 @@ function assertJsonNode(node) {
     case "TemplateElement":
       return;
     default:
-<<<<<<< HEAD
-      throw createJsonError();
-  }
-
-  function assertJsonChildNode(child) {
-    return assertJsonNode(child, node);
-  }
-
-  function createJsonError(property) {
-    let description = node.type;
-    if (property) {
-      let value = node[property];
-
-      if (value && value.type) {
-        value = value.type;
-      }
-
-      description += ` with ${property}=${JSON.stringify(value)}`;
-    }
-    return createError(`${description} is not allowed in JSON.`, {
-      start: {
-        line: node.loc.start.line,
-        column: node.loc.start.column + 1,
-      },
-    });
-=======
       throw createJsonError(node, `'${node.type}'`);
->>>>>>> main
   }
 }
 

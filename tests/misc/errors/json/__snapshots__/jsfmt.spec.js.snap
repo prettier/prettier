@@ -42,12 +42,6 @@ exports[`snippet: #2 [json] format 1`] = `
     |         ^^"
 `;
 
-exports[`snippet: #2 [json] format 1`] = `
-"UnaryExpression with argument=\\"UnaryExpression\\" is not allowed in JSON. (1:1)
-> 1 | +-1
-    | ^"
-`;
-
 exports[`snippet: #2 [json-stringify] format 1`] = `
 "Operator '~' is not allowed in JSON. (1:9)
 > 1 | {\\"foo\\": ~1}
@@ -66,12 +60,6 @@ exports[`snippet: #3 [json] format 1`] = `
     |         ^^^^^^^^^^^^^^"
 `;
 
-exports[`snippet: #3 [json] format 1`] = `
-"UnaryExpression with argument=\\"StringLiteral\\" is not allowed in JSON. (1:1)
-> 1 | +'string'
-    | ^"
-`;
-
 exports[`snippet: #3 [json-stringify] format 1`] = `
 "'LogicalExpression' is not allowed in JSON. (1:9)
 > 1 | {\\"foo\\": false || \\"bar\\"}
@@ -88,12 +76,6 @@ exports[`snippet: #4 [json] format 1`] = `
 "'ArrowFunctionExpression' is not allowed in JSON. (1:9)
 > 1 | {\\"foo\\": () => {}}
     |         ^^^^^^^^"
-`;
-
-exports[`snippet: #4 [json] format 1`] = `
-"UnaryExpression with argument=\\"ObjectExpression\\" is not allowed in JSON. (1:7)
-> 1 | {key: +{}}
-    |       ^"
 `;
 
 exports[`snippet: #4 [json-stringify] format 1`] = `
@@ -361,19 +343,19 @@ exports[`snippet: #18 [json5] format 1`] = `
 `;
 
 exports[`snippet: #19 [json] format 1`] = `
-"'CallExpression' is not allowed in JSON. (1:8)
+"Operator '+' before 'CallExpression' is not allowed in JSON. (1:8)
 > 1 | {key: +foo()}
     |        ^^^^^"
 `;
 
 exports[`snippet: #19 [json-stringify] format 1`] = `
-"'CallExpression' is not allowed in JSON. (1:8)
+"Operator '+' before 'CallExpression' is not allowed in JSON. (1:8)
 > 1 | {key: +foo()}
     |        ^^^^^"
 `;
 
 exports[`snippet: #19 [json5] format 1`] = `
-"'CallExpression' is not allowed in JSON. (1:8)
+"Operator '+' before 'CallExpression' is not allowed in JSON. (1:8)
 > 1 | {key: +foo()}
     |        ^^^^^"
 `;
@@ -493,18 +475,126 @@ exports[`snippet: #25 [json5] format 1`] = `
 `;
 
 exports[`snippet: #26 [json] format 1`] = `
-"Invalid left-hand side in prefix operation (1:5)
-> 1 | ----123
-    |     ^"
+"Operator '-' before 'UpdateExpression' is not allowed in JSON. (1:2)
+> 1 | -++Infinity
+    |  ^^^^^^^^^^"
 `;
 
 exports[`snippet: #26 [json-stringify] format 1`] = `
+"Operator '-' before 'UpdateExpression' is not allowed in JSON. (1:2)
+> 1 | -++Infinity
+    |  ^^^^^^^^^^"
+`;
+
+exports[`snippet: #26 [json5] format 1`] = `
+"Operator '-' before 'UpdateExpression' is not allowed in JSON. (1:2)
+> 1 | -++Infinity
+    |  ^^^^^^^^^^"
+`;
+
+exports[`snippet: #27 [json] format 1`] = `
+"Operator '-' before 'Identifier' is not allowed in JSON. (1:2)
+> 1 | -undefined
+    |  ^^^^^^^^^"
+`;
+
+exports[`snippet: #27 [json-stringify] format 1`] = `
+"Operator '-' before 'Identifier' is not allowed in JSON. (1:2)
+> 1 | -undefined
+    |  ^^^^^^^^^"
+`;
+
+exports[`snippet: #27 [json5] format 1`] = `
+"Operator '-' before 'Identifier' is not allowed in JSON. (1:2)
+> 1 | -undefined
+    |  ^^^^^^^^^"
+`;
+
+exports[`snippet: #28 [json] format 1`] = `
+"Operator '-' before 'NullLiteral' is not allowed in JSON. (1:2)
+> 1 | -null
+    |  ^^^^"
+`;
+
+exports[`snippet: #28 [json-stringify] format 1`] = `
+"Operator '-' before 'NullLiteral' is not allowed in JSON. (1:2)
+> 1 | -null
+    |  ^^^^"
+`;
+
+exports[`snippet: #28 [json5] format 1`] = `
+"Operator '-' before 'NullLiteral' is not allowed in JSON. (1:2)
+> 1 | -null
+    |  ^^^^"
+`;
+
+exports[`snippet: #29 [json] format 1`] = `
+"Operator '-' before 'BooleanLiteral' is not allowed in JSON. (1:2)
+> 1 | -false
+    |  ^^^^^"
+`;
+
+exports[`snippet: #29 [json-stringify] format 1`] = `
+"Operator '-' before 'BooleanLiteral' is not allowed in JSON. (1:2)
+> 1 | -false
+    |  ^^^^^"
+`;
+
+exports[`snippet: #29 [json5] format 1`] = `
+"Operator '-' before 'BooleanLiteral' is not allowed in JSON. (1:2)
+> 1 | -false
+    |  ^^^^^"
+`;
+
+exports[`snippet: #30 [json] format 1`] = `
+"Operator '+' before 'StringLiteral' is not allowed in JSON. (1:2)
+> 1 | +'string'
+    |  ^^^^^^^^"
+`;
+
+exports[`snippet: #30 [json-stringify] format 1`] = `
+"Operator '+' before 'StringLiteral' is not allowed in JSON. (1:2)
+> 1 | +'string'
+    |  ^^^^^^^^"
+`;
+
+exports[`snippet: #30 [json5] format 1`] = `
+"Operator '+' before 'StringLiteral' is not allowed in JSON. (1:2)
+> 1 | +'string'
+    |  ^^^^^^^^"
+`;
+
+exports[`snippet: #31 [json] format 1`] = `
+"Operator '+' before 'ObjectExpression' is not allowed in JSON. (1:8)
+> 1 | {key: +{}}
+    |        ^^"
+`;
+
+exports[`snippet: #31 [json-stringify] format 1`] = `
+"Operator '+' before 'ObjectExpression' is not allowed in JSON. (1:8)
+> 1 | {key: +{}}
+    |        ^^"
+`;
+
+exports[`snippet: #31 [json5] format 1`] = `
+"Operator '+' before 'ObjectExpression' is not allowed in JSON. (1:8)
+> 1 | {key: +{}}
+    |        ^^"
+`;
+
+exports[`snippet: #32 [json] format 1`] = `
 "Invalid left-hand side in prefix operation (1:5)
 > 1 | ----123
     |     ^"
 `;
 
-exports[`snippet: #26 [json5] format 1`] = `
+exports[`snippet: #32 [json-stringify] format 1`] = `
+"Invalid left-hand side in prefix operation (1:5)
+> 1 | ----123
+    |     ^"
+`;
+
+exports[`snippet: #32 [json5] format 1`] = `
 "Invalid left-hand side in prefix operation (1:5)
 > 1 | ----123
     |     ^"
