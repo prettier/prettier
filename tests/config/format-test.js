@@ -56,6 +56,15 @@ const espreeDisabledTests = new Set(
   ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
 const meriyahDisabledTests = espreeDisabledTests;
+const babelEstreeDisabledTest = new Set(
+  [
+    // import assertions is not supported in estree
+    "babel-plugins",
+    "import-assertions",
+    "dynamic-import",
+    "no-argument",
+  ].map((directory) => path.join(__dirname, "../format/js", directory))
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -185,6 +194,14 @@ function runSpec(fixtures, parsers, options) {
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
       }
+    }
+
+    if (
+      parsers.includes("babel") &&
+      !parsers.includes("__babel_estree") &&
+      !babelEstreeDisabledTest.has(dirname)
+    ) {
+      allParsers.push("__babel_estree");
     }
   }
 

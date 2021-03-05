@@ -733,7 +733,8 @@ function isStringPropSafeToUnquote(node, options) {
         String(Number(node.key.value)) === node.key.value &&
         (options.parser === "babel" ||
           options.parser === "espree" ||
-          options.parser === "meriyah")))
+          options.parser === "meriyah" ||
+          options.parser === "__babel_estree")))
   );
 }
 
