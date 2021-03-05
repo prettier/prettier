@@ -74,22 +74,23 @@ function assertJsonNode(node) {
 
       return;
     case "UnaryExpression": {
-      const {operator, argument} = node;
+      const { operator, argument } = node;
       if (operator !== "+" && operator !== "-") {
         throw createJsonError(node, `Operator '${node.operator}'`);
       }
 
-      switch (argument.type) {
-        case "NumericLiteral":
-          return;
-        case "Identifier":
-          if (argument.name === "Infinity" || argument.name === "NaN") {
-            return;
-          }
-        break;
+      if (
+        argument.type === "NumericLiteral" ||
+        (argument.type === "Identifier" &&
+          (argument.name === "Infinity" || argument.name === "NaN"))
+      ) {
+        return;
       }
 
-      throw createJsonError(argument, `Operator '${operator}' before '${argument.type}'`);
+      throw createJsonError(
+        argument,
+        `Operator '${operator}' before '${argument.type}'`
+      );
     }
     case "Identifier":
       if (
