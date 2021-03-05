@@ -80,9 +80,7 @@ function assertJsonNode(node) {
       }
 
       switch (argument.type) {
-        case "UnaryExpression":
         case "NumericLiteral":
-          assertJsonNode(argument);
           return;
         case "Identifier":
           if (argument.name === "Infinity" || argument.name === "NaN") {
