@@ -50,10 +50,6 @@ function needsParens(path, options) {
 
   // Identifiers never need parentheses.
   if (node.type === "Identifier") {
-    if (name === "expression" && parent.type === "PipelineTopicExpression") {
-      return true;
-    }
-
     // ...unless those identifiers are embed placeholders. They might be substituted by complex
     // expressions, so the parens around them should not be dropped. Example (JS-in-HTML-in-JS):
     //     let tpl = html`<script> f((${expr}) / 2); </script>`;
@@ -158,21 +154,6 @@ function needsParens(path, options) {
           node,
           /* forbidFunctionClassAndDoExpr */ false
         )
-      ) {
-        return true;
-      }
-      break;
-    }
-    case "PipelineTopicExpression": {
-      if (
-        name === "expression" &&
-        (node.type === "YieldExpression" ||
-          (node.type === "AwaitExpression" &&
-            !(
-              node.argument &&
-              node.argument.type === "PipelinePrimaryTopicReference"
-            )) ||
-          node.type === "MemberExpression")
       ) {
         return true;
       }
@@ -373,6 +354,25 @@ function needsParens(path, options) {
       ) {
         return true;
       }
+
+      if (
+        name === "right" &&
+        parent.type === "BinaryExpression" &&
+        parent.operator === "|>" &&
+        !node.argument
+      ) {
+        return true;
+      }
+
+      if (
+        name === "expression" &&
+        parent.type === "PipelineTopicExpression" &&
+        node.argument &&
+        node.argument.type === "PipelinePrimaryTopicReference"
+      ) {
+        return true;
+      }
+
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {

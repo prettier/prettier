@@ -163,6 +163,9 @@ const messagesShouldThrow = new Set([
   "Expecting Unicode escape sequence \\uXXXX",
   // ErrorMessages.MissingSemicolon
   "Missing semicolon",
+  // ErrorMessages.PipelineTopicUnused
+  // https://github.com/babel/babel/blob/ecfe20395b855279a4ef37ef91aac4ad0a5582aa/packages/babel-parser/src/parser/error-message.js#L138
+  "Pipeline is in topic style but does not use topic reference",
 ]);
 
 function shouldRethrowRecoveredError(error) {
