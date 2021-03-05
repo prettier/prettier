@@ -197,6 +197,14 @@ function clean(ast, newObj, parent) {
   if (ast.type === "InterpreterDirective") {
     newObj.value = newObj.value.trimEnd();
   }
+
+  // Prettier removes degenerate union and intersection types with only one member.
+  if (
+    (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
+    ast.types.length === 1
+  ) {
+    return newObj.types[0];
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
