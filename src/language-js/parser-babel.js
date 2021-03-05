@@ -166,6 +166,12 @@ const messagesShouldThrow = new Set([
   // ErrorMessages.PipelineTopicUnused
   // https://github.com/babel/babel/blob/ecfe20395b855279a4ef37ef91aac4ad0a5582aa/packages/babel-parser/src/parser/error-message.js#L138
   "Pipeline is in topic style but does not use topic reference",
+  // ErrorMessages.PipelineTopicUnused
+  // https://github.com/babel/babel/blob/ecfe20395b855279a4ef37ef91aac4ad0a5582aa/packages/babel-parser/src/parser/error-message.js#L140
+  "Topic reference was used in a lexical context without topic binding",
+  // ErrorMessages.PrimaryTopicRequiresSmartPipeline
+  // https://github.com/babel/babel/blob/ecfe20395b855279a4ef37ef91aac4ad0a5582aa/packages/babel-parser/src/parser/error-message.js#L142
+  "Primary Topic Reference found but pipelineOperator not passed 'smart' for 'proposal' option.",
 ]);
 
 function shouldRethrowRecoveredError(error) {

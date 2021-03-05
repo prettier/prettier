@@ -356,58 +356,47 @@ v |> #.method() |> f;
 async function * f () {
   return x
     |> (yield #)
-    |> (yield y)
-    |> (yield)
     |> yield;
 }
 
 async function * f () {
   return x
-    |> (await #)
-    |> (await y);
+    |> (await #);
 }
 
 async function * f () {
   return x
-    |> (y)
     |> y;
 }
 
 async function * f () {
   return x
-    |> (a.b)
-    |> a.b
-    |> (a?.b)
-    |> a?.b;
+    |> a.b;
 }
 
 async function * f () {
   return x
     |> (a.b(#))
-    |> a.b(#)
-    |> (a.b())
-    |> a.b();
+    |> a.b(#);
 }
 
 async function * f () {
   return x
     |> (a.b?.(#))
-    |> a.b?.(#)
-    |> (a.b?.())
-    |> a.b?.();
+    |> a.b?.(#);
 }
 
 =====================================output=====================================
-a |> (await #) |> # * 3;
+a |> await # |> # * 3;
 
 foo
-  |> (await #)
+  |> await #
   |> # || throw new Error(\`foo \${bar1}\`)
   |> bar2(#, ", ")
   |> bar3
   |> # + "!"
   |> new Bar.Foo(#)
-  |> (await bar.bar(#))
+  |> await bar.bar(#)
   |> console.log;
 
 const result = "hello" |> doubleSay |> capitalize(#, "foo") |> exclaim;
@@ -436,27 +425,27 @@ const searchResults$ =
 v |> #.method() |> f;
 
 async function* f() {
-  return x |> (yield #) |> (yield y) |> (yield) |> yield;
+  return x |> (yield #) |> yield;
 }
 
 async function* f() {
-  return x |> (await #) |> (await y);
+  return x |> await #;
 }
 
 async function* f() {
-  return x |> y |> y;
+  return x |> y;
 }
 
 async function* f() {
-  return x |> a.b |> a.b |> a?.b |> a?.b;
+  return x |> a.b;
 }
 
 async function* f() {
-  return x |> a.b(#) |> a.b(#) |> a.b() |> a.b();
+  return x |> a.b(#) |> a.b(#);
 }
 
 async function* f() {
-  return x |> a.b?.(#) |> a.b?.(#) |> a.b?.() |> a.b?.();
+  return x |> a.b?.(#) |> a.b?.(#);
 }
 
 ================================================================================

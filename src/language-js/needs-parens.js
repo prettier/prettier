@@ -356,19 +356,10 @@ function needsParens(path, options) {
       }
 
       if (
-        name === "right" &&
-        parent.type === "BinaryExpression" &&
-        parent.operator === "|>" &&
-        !node.argument
-      ) {
-        return true;
-      }
-
-      if (
         name === "expression" &&
-        parent.type === "PipelineTopicExpression" &&
         node.argument &&
-        node.argument.type === "PipelinePrimaryTopicReference"
+        node.argument.type === "PipelinePrimaryTopicReference" &&
+        parent.type === "PipelineTopicExpression"
       ) {
         return true;
       }
@@ -402,6 +393,17 @@ function needsParens(path, options) {
           if (!node.argument && parent.operator === "|>") {
             return false;
           }
+
+          if (
+            name === "right" &&
+            node.type === "AwaitExpression" &&
+            parent.operator === "|>" &&
+            node.argument &&
+            node.argument.type === "PipelinePrimaryTopicReference"
+          ) {
+            return false;
+          }
+
           return true;
         }
 

@@ -42,43 +42,32 @@ v |> #.method() |> f;
 async function * f () {
   return x
     |> (yield #)
-    |> (yield y)
-    |> (yield)
     |> yield;
 }
 
 async function * f () {
   return x
-    |> (await #)
-    |> (await y);
+    |> (await #);
 }
 
 async function * f () {
   return x
-    |> (y)
     |> y;
 }
 
 async function * f () {
   return x
-    |> (a.b)
-    |> a.b
-    |> (a?.b)
-    |> a?.b;
+    |> a.b;
 }
 
 async function * f () {
   return x
     |> (a.b(#))
-    |> a.b(#)
-    |> (a.b())
-    |> a.b();
+    |> a.b(#);
 }
 
 async function * f () {
   return x
     |> (a.b?.(#))
-    |> a.b?.(#)
-    |> (a.b?.())
-    |> a.b?.();
+    |> a.b?.(#);
 }
