@@ -215,8 +215,8 @@ function printArrowFunctionExpression(path, options, print, args) {
 
     chainShouldBreak =
       chainShouldBreak ||
-      // Always break the chain if any segment has default parameters or type parameters.
-      n.returnType ||
+      // Always break the chain if:
+      (n.returnType && getFunctionParameters(n).length > 0) ||
       n.typeParameters ||
       getFunctionParameters(n).some((param) => param.type !== "Identifier");
 
