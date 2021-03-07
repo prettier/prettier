@@ -3039,7 +3039,6 @@ eslint-plugin-jest@24.1.5:
 
 "eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules":
   version "0.0.0"
-  uid ""
 
 eslint-plugin-react@7.22.0:
   version "7.22.0"
@@ -4975,10 +4974,10 @@ merge2@^1.3.0:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-meriyah@4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/meriyah/-/meriyah-4.1.4.tgz#4f259ae4e5ae57cb5acc836ad426191a908aa678"
-  integrity sha512-e3fC4F/uSr7RV9pLP2pYBFHJxKtESzz2ypHKdCsVsTOTlrFunXeStgrfLri3Da4LBKDFKbe0LXXN/4IbynxMlw==
+meriyah@4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/meriyah/-/meriyah-4.1.5.tgz#0352d4ad2ef9c459413d8c9530129edc2569dd85"
+  integrity sha512-ptw5umwiQILhfIGKO99NIY3Y2/jhEyEPIwSFwKLBQdXnN/6606rQoHyF4WK+2WiUmvFbBbTVMo4Q+po30xVjtg==
 
 micromatch@^3.1.4:
   version "3.1.10"
