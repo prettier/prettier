@@ -27,6 +27,9 @@ rules:
     - allowElseIf: false
   no-implicit-coercion: error
   no-inner-declarations: error
+  no-restricted-syntax:
+    - error
+    - 'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]'
   no-unneeded-ternary: error
   no-useless-return: error
   no-unused-vars:
