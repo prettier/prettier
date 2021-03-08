@@ -133,7 +133,9 @@ function getRollupConfig(bundle) {
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
           (warning.importer.startsWith("node_modules") ||
-            warning.importer.startsWith("polyfill-node:")))
+            warning.importer.startsWith("\x00polyfill-node:"))) ||
+        warning.code === "SOURCEMAP_ERROR" ||
+        warning.code === "THIS_IS_UNDEFINED"
       ) {
         return;
       }
@@ -181,6 +183,7 @@ function getRollupConfig(bundle) {
     replace({
       values: replaceStrings,
       delimiters: ["", ""],
+      preventAssignment: true,
     }),
     executable(),
     evaluate(),
