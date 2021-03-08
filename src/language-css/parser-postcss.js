@@ -333,7 +333,7 @@ function parseNestedCSS(node, options) {
         let ast;
         try {
           ast = parse(fakeContent, [], { ...options });
-        } catch (_) {
+        } catch {
           // noop
         }
         if (

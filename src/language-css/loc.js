@@ -50,7 +50,9 @@ function calculateLocEnd(node, text) {
   if (node.source) {
     if (node.source.end) {
       return lineColumnToIndex(node.source.end, text);
-    } else if (isNonEmptyArray(node.nodes)) {
+    }
+
+    if (isNonEmptyArray(node.nodes)) {
       return calculateLocEnd(getLast(node.nodes), text);
     }
   }
