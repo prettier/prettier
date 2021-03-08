@@ -23,7 +23,12 @@ const globalObjects = Object.keys(sandbox).filter(
 if (globalObjects.length > 0) {
   throw new Error(
     `Global ${globalObjects
-      .map((property) => `"${property}"(${typeof sandbox[property]})`)
+      .map(
+        (property) =>
+          `"${property}"(${Object.prototype.toString
+            .call(sandbox[property])
+            .slice(8, -1)})`
+      )
       .join(", ")} should not be exposed.`
   );
 }
