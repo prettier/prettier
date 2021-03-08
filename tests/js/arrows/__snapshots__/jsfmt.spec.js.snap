@@ -164,6 +164,204 @@ a = b => {
 ================================================================================
 `;
 
+exports[`assignment-chain-with-arrow-chain.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
+  argumentOne,
+  argumentTwo,
+) => restOfTheArguments12345678 => {
+  return "baz";
+};
+
+bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
+  argumentOne,
+  argumentTwo,
+  argumentThree
+) => restOfTheArguments12345678 => {
+  return "baz";
+};
+
+bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
+  argumentOne,
+  argumentTwo,
+  argumentThree
+) => {
+  return "baz";
+};
+
+const bifornCringer1 =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo) => (restOfTheArguments12345678) => {
+      return "baz";
+    };
+
+const bifornCringer2 =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) =>
+    (restOfTheArguments12345678) => {
+      return "baz";
+    };
+
+const bifornCringer3 =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => {
+      return "baz";
+    };
+
+=====================================output=====================================
+bifornCringer =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo) => (restOfTheArguments12345678) => {
+      return "baz";
+    };
+
+bifornCringer =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) =>
+    (restOfTheArguments12345678) => {
+      return "baz";
+    };
+
+bifornCringer =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => {
+      return "baz";
+    };
+
+const bifornCringer1 =
+  (askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo) => (restOfTheArguments12345678) => {
+      return "baz";
+    });
+
+const bifornCringer2 =
+  (askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) =>
+    (restOfTheArguments12345678) => {
+      return "baz";
+    });
+
+const bifornCringer3 =
+  (askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => {
+      return "baz";
+    });
+
+================================================================================
+`;
+
+exports[`assignment-chain-with-arrow-chain.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
+  argumentOne,
+  argumentTwo,
+) => restOfTheArguments12345678 => {
+  return "baz";
+};
+
+bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
+  argumentOne,
+  argumentTwo,
+  argumentThree
+) => restOfTheArguments12345678 => {
+  return "baz";
+};
+
+bifornCringer = askTrovenaBeenaDepends = glimseGlyphs = (
+  argumentOne,
+  argumentTwo,
+  argumentThree
+) => {
+  return "baz";
+};
+
+const bifornCringer1 =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo) => (restOfTheArguments12345678) => {
+      return "baz";
+    };
+
+const bifornCringer2 =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) =>
+    (restOfTheArguments12345678) => {
+      return "baz";
+    };
+
+const bifornCringer3 =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => {
+      return "baz";
+    };
+
+=====================================output=====================================
+bifornCringer =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo) => restOfTheArguments12345678 => {
+      return "baz";
+    };
+
+bifornCringer =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => restOfTheArguments12345678 => {
+      return "baz";
+    };
+
+bifornCringer =
+  askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => {
+      return "baz";
+    };
+
+const bifornCringer1 =
+  (askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo) => restOfTheArguments12345678 => {
+      return "baz";
+    });
+
+const bifornCringer2 =
+  (askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => restOfTheArguments12345678 => {
+      return "baz";
+    });
+
+const bifornCringer3 =
+  (askTrovenaBeenaDepends =
+  glimseGlyphs =
+    (argumentOne, argumentTwo, argumentThree) => {
+      return "baz";
+    });
+
+================================================================================
+`;
+
 exports[`block_like.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"

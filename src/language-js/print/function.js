@@ -214,10 +214,13 @@ function printArrowChain(
   const name = path.getName();
   const parent = path.getParentNode();
   const isCallee = isCallLikeExpression(parent) && name === "callee";
-  const isAssignmentRhs = args && args.assignmentRightHandSide;
+  const isAssignmentRhs = Boolean(args && args.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
     tailNode.body.type !== "BlockStatement" &&
     tailNode.body.type !== "ObjectExpression";
+  const shouldBreakBeforeChain =
+    (isCallee && shouldPutBodyOnSeparateLine) ||
+    (args && args.assignmentLayout === "chain-tail-arrow-chain");
 
   const groupId = Symbol("arrow-chain");
 
@@ -227,7 +230,7 @@ function printArrowChain(
         isCallee || isAssignmentRhs ? softline : "",
         group(join([" =>", line], signatures), { shouldBreak }),
       ]),
-      { id: groupId, shouldBreak: isCallee && shouldPutBodyOnSeparateLine }
+      { id: groupId, shouldBreak: shouldBreakBeforeChain }
     ),
     " =>",
     indentIfBreak(
