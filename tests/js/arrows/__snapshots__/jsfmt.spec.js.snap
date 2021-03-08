@@ -2165,15 +2165,12 @@ const fn8 = (a) => ({ foo: bar, bar: baz, baz: foo });
 const fn9 = (a) => (b) => ({ foo: bar, bar: baz, baz: foo });
 const fn10 = (a) => (b) => (c) => ({ foo: bar, bar: baz, baz: foo });
 const fn11 = (a) => (b) => (c) => (d) => ({ foo: bar, bar: baz, baz: foo });
-const fn12 =
-  (a) => (b) => (c) => (d) => (e) =>
-    ({ foo: bar, bar: baz, baz: foo });
-const fn13 =
-  (a) => (b) => (c) => (d) => (e) => (g) =>
-    ({ foo: bar, bar: baz, baz: foo });
-const fn14 =
-  (a) => (b) => (c) => (d) => (e) => (g) => (f) =>
-    ({ foo: bar, bar: baz, baz: foo });
+const fn12 = (a) => (b) => (c) => (d) => (e) =>
+  ({ foo: bar, bar: baz, baz: foo });
+const fn13 = (a) => (b) => (c) => (d) => (e) => (g) =>
+  ({ foo: bar, bar: baz, baz: foo });
+const fn14 = (a) => (b) => (c) => (d) => (e) => (g) => (f) =>
+  ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
   (argument1) =>
@@ -2607,9 +2604,8 @@ const fn10 = a => b => c => ({ foo: bar, bar: baz, baz: foo });
 const fn11 = a => b => c => d => ({ foo: bar, bar: baz, baz: foo });
 const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
 const fn13 = a => b => c => d => e => g => ({ foo: bar, bar: baz, baz: foo });
-const fn14 =
-  a => b => c => d => e => g => f =>
-    ({ foo: bar, bar: baz, baz: foo });
+const fn14 = a => b => c => d => e => g => f =>
+  ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
   argument1 =>
@@ -2836,27 +2832,23 @@ const middleware = options => (req, res, next) => {
 };
 
 =====================================output=====================================
-const fn =
-  (b) => (c) => (d) => {
-    return 3;
-  };
+const fn = (b) => (c) => (d) => {
+  return 3;
+};
 
-const foo =
-  (a, b) => (c) => (d) => {
-    return 3;
-  };
+const foo = (a, b) => (c) => (d) => {
+  return 3;
+};
 
 const bar = (a) => (b) => (c) => a + b + c;
 
-const mw =
-  (store) => (next) => (action) => {
-    return next(action);
-  };
+const mw = (store) => (next) => (action) => {
+  return next(action);
+};
 
-const middleware =
-  (options) => (req, res, next) => {
-    // ...
-  };
+const middleware = (options) => (req, res, next) => {
+  // ...
+};
 
 ================================================================================
 `;
@@ -2887,27 +2879,23 @@ const middleware = options => (req, res, next) => {
 };
 
 =====================================output=====================================
-const fn =
-  b => c => d => {
-    return 3;
-  };
+const fn = b => c => d => {
+  return 3;
+};
 
-const foo =
-  (a, b) => c => d => {
-    return 3;
-  };
+const foo = (a, b) => c => d => {
+  return 3;
+};
 
 const bar = a => b => c => a + b + c;
 
-const mw =
-  store => next => action => {
-    return next(action);
-  };
+const mw = store => next => action => {
+  return next(action);
+};
 
-const middleware =
-  options => (req, res, next) => {
-    // ...
-  };
+const middleware = options => (req, res, next) => {
+  // ...
+};
 
 ================================================================================
 `;
@@ -2924,9 +2912,8 @@ const a =
     x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 =====================================output=====================================
-const a =
-  (x) => (y) => (z) =>
-    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+const a = (x) => (y) => (z) =>
+  x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 ================================================================================
 `;
@@ -2943,9 +2930,8 @@ const a =
     x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 =====================================output=====================================
-const a =
-  x => y => z =>
-    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+const a = x => y => z =>
+  x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 ================================================================================
 `;

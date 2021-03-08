@@ -14,7 +14,6 @@ const {
   getCallArguments,
   iterateCallArgumentsPath,
   isNextLineEmpty,
-  isCurriedArrowFunctionExpression,
   isCallExpression,
 } = require("../utils");
 
@@ -245,8 +244,6 @@ function couldGroupArg(arg) {
         // https://github.com/prettier/prettier/issues/7542
         isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
-        (arg.body.type === "ArrowFunctionExpression" &&
-          !isCurriedArrowFunctionExpression(arg)) ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         isCallExpression(arg.body) ||

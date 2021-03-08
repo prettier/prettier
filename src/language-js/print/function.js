@@ -12,6 +12,7 @@ const {
     softline,
     group,
     indent,
+    dedent,
     ifBreak,
     hardline,
     join,
@@ -203,15 +204,72 @@ function printArrowFunctionSignature(path, options, print, args) {
   return parts;
 }
 
+function printArrowChain(
+  path,
+  args,
+  signatures,
+  shouldBreak,
+  bodyDoc,
+  tailNode
+) {
+  const name = path.getName();
+  const parent = path.getParentNode();
+
+  const hasBlockBody = tailNode.body.type === "BlockStatement";
+
+  const isAssignmentRightHandSide = Boolean(
+    args && args.assignmentRightHandSide
+  );
+
+  const shouldUseConditionalIndent =
+    isAssignmentRightHandSide ||
+    (isCallLikeExpression(parent) && name !== "callee") ||
+    parent.type === "ReturnStatement" ||
+    parent.type === "ThrowStatement" ||
+    parent.type === "YieldExpression";
+
+  const groupId = Symbol("arrow-chain");
+
+  const doc = [
+    group(
+      [
+        isAssignmentRightHandSide ? softline : "",
+        group(join([" =>", line], signatures), { shouldBreak }),
+        " =>",
+      ],
+      { id: groupId }
+    ),
+    shouldUseConditionalIndent
+      ? hasBlockBody
+        ? dedentIfNoBreak([" ", bodyDoc], { groupId })
+        : indentIfBreak([line, bodyDoc], { groupId })
+      : hasBlockBody
+      ? [" ", bodyDoc]
+      : indent([line, bodyDoc]),
+  ];
+
+  if (shouldUseConditionalIndent) {
+    return group(indent(doc));
+  }
+
+  if (name === "callee") {
+    return group([indent([softline, doc]), softline]);
+  }
+
+  return doc;
+}
+
 function printArrowFunctionExpression(path, options, print, args) {
   let n = path.getValue();
-  const chain = [];
+  const signatures = [];
   let body;
   let chainShouldBreak = false;
 
   path.call(function rec(path) {
     const doc = printArrowFunctionSignature(path, options, print, args);
-    chain.push(chain.length === 0 ? doc : printComments(path, doc, options));
+    signatures.push(
+      signatures.length === 0 ? doc : printComments(path, doc, options)
+    );
 
     chainShouldBreak =
       chainShouldBreak ||
@@ -228,46 +286,11 @@ function printArrowFunctionExpression(path, options, print, args) {
     }
   });
 
-  if (chain.length > 1) {
-    const name = path.getName();
-    const parent = path.getParentNode();
-
-    const hasBlockBody = n.body.type === "BlockStatement";
-    const shouldUseConditionalIndent =
-      (isCallLikeExpression(parent) && name !== "callee") ||
-      parent.type === "ReturnStatement" ||
-      parent.type === "ThrowStatement";
-
-    const groupId = Symbol("arrow-chain");
-    const doc = [
-      group(join([" =>", line], chain), {
-        shouldBreak: chainShouldBreak,
-        id: groupId,
-      }),
-      " =>",
-      hasBlockBody
-        ? [" ", body]
-        : shouldUseConditionalIndent
-        ? indentIfBreak([line, body], { groupId })
-        : indent([line, body]),
-    ];
-
-    if (name === "init" || name === "right") {
-      return group(indent([softline, doc]));
-    }
-
-    if (shouldUseConditionalIndent) {
-      return group(indent(doc));
-    }
-
-    if (name === "callee") {
-      return group([indent([softline, doc]), softline]);
-    }
-
-    return doc;
+  if (signatures.length > 1) {
+    return printArrowChain(path, args, signatures, chainShouldBreak, body, n);
   }
 
-  const parts = chain;
+  const parts = signatures;
   parts.push(" =>");
 
   // We want to always keep these types of nodes on the same line
@@ -444,6 +467,10 @@ function printReturnStatement(path, options, print) {
 
 function printThrowStatement(path, options, print) {
   return ["throw", printReturnAndThrowArgument(path, options, print)];
+}
+
+function dedentIfNoBreak(doc, { groupId }) {
+  return ifBreak(doc, dedent(doc), { groupId });
 }
 
 module.exports = {
