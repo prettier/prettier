@@ -217,7 +217,7 @@ function printCallArguments(path, options, print) {
   });
 }
 
-function couldGroupArg(arg) {
+function couldGroupArg(arg, arrowChainRecursion = false) {
   return (
     (arg.type === "ObjectExpression" &&
       (arg.properties.length > 0 || hasComment(arg))) ||
@@ -244,11 +244,13 @@ function couldGroupArg(arg) {
         // https://github.com/prettier/prettier/issues/7542
         isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
-        arg.body.type === "ArrowFunctionExpression" ||
+        (arg.body.type === "ArrowFunctionExpression" &&
+          couldGroupArg(arg.body, true)) ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
-        isCallExpression(arg.body) ||
-        arg.body.type === "ConditionalExpression" ||
+        (!arrowChainRecursion &&
+          (isCallExpression(arg.body) ||
+            arg.body.type === "ConditionalExpression")) ||
         isJsxNode(arg.body)))
   );
 }

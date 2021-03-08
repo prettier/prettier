@@ -25,9 +25,14 @@ function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const rightDoc = path.call(print, rightPropertyName);
+  const layout = chooseLayout(path, options, leftDoc, rightPropertyName);
 
-  switch (chooseLayout(path, options, leftDoc, rightPropertyName)) {
+  const rightDoc = path.call(
+    (p) => print(p, { assignmentLayout: layout }),
+    rightPropertyName
+  );
+
+  switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines
     case "break-after-operator":
       return group([group(leftDoc), operator, group(indent([line, rightDoc]))]);
@@ -54,6 +59,9 @@ function printAssignment(
 
     case "chain-tail":
       return [group(leftDoc), operator, indent([line, rightDoc])];
+
+    case "chain-tail-arrow-chain":
+      return [group(leftDoc), operator, rightDoc];
 
     case "only-left":
       return leftDoc;
@@ -105,7 +113,12 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
         node.type !== "VariableDeclaration")
   );
   if (shouldUseChainFormatting) {
-    return isTail ? "chain-tail" : "chain";
+    return !isTail
+      ? "chain"
+      : rightNode.type === "ArrowFunctionExpression" &&
+        rightNode.body.type === "ArrowFunctionExpression"
+      ? "chain-tail-arrow-chain"
+      : "chain-tail";
   }
   const isHeadOfLongChain = !isTail && isAssignment(rightNode.right);
 
