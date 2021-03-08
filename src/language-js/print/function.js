@@ -8,12 +8,10 @@ const {
 } = require("../../common/util");
 const {
   builders: {
-    breakParent,
     line,
     softline,
     group,
     indent,
-    dedent,
     ifBreak,
     hardline,
     join,
@@ -224,20 +222,18 @@ function printArrowChain(
   const groupId = Symbol("arrow-chain");
 
   return group([
-    indent([
-      group(
-        [
-          isCallee || isAssignmentRhs ? softline : "",
-          isCallee && shouldPutBodyOnSeparateLine ? breakParent : "",
-          group(join([" =>", line], signatures), { shouldBreak }),
-          " =>",
-        ],
-        { id: groupId }
-      ),
-      shouldPutBodyOnSeparateLine
-        ? indentIfBreak([line, bodyDoc], { groupId })
-        : dedentIfNoBreak([" ", bodyDoc], { groupId }),
-    ]),
+    group(
+      indent([
+        isCallee || isAssignmentRhs ? softline : "",
+        group(join([" =>", line], signatures), { shouldBreak }),
+      ]),
+      { id: groupId, shouldBreak: isCallee && shouldPutBodyOnSeparateLine }
+    ),
+    " =>",
+    indentIfBreak(
+      shouldPutBodyOnSeparateLine ? indent([line, bodyDoc]) : [" ", bodyDoc],
+      { groupId }
+    ),
     isCallee ? ifBreak(softline, "", { groupId }) : "",
   ]);
 }
@@ -454,10 +450,6 @@ function printReturnStatement(path, options, print) {
 
 function printThrowStatement(path, options, print) {
   return ["throw", printReturnAndThrowArgument(path, options, print)];
-}
-
-function dedentIfNoBreak(doc, { groupId }) {
-  return ifBreak(doc, dedent(doc), { groupId });
 }
 
 module.exports = {
