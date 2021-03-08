@@ -146,26 +146,6 @@ const a3 = {
 ================================================================================
 `;
 
-exports[`getter-setter.js [espree] format 1`] = `
-"setter should have exactly one param (3:9)
-  1 | ({ set x(foo) {} });
-  2 | ({ get x() { return 1 } });
-> 3 | ({ set x() {} });
-    |         ^
-  4 | ({ get x(x) {} });
-  5 |"
-`;
-
-exports[`getter-setter.js [meriyah] format 1`] = `
-"[3:10]: Setter functions must have exactly one argument (3:10)
-  1 | ({ set x(foo) {} });
-  2 | ({ get x() { return 1 } });
-> 3 | ({ set x() {} });
-    |          ^
-  4 | ({ get x(x) {} });
-  5 |"
-`;
-
 exports[`getter-setter.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -174,8 +154,8 @@ printWidth: 80
 =====================================input======================================
 ({ set x(foo) {} });
 ({ get x() { return 1 } });
-({ set x() {} });
-({ get x(x) {} });
+({ set x(a) {} });
+({ get x() {} });
 
 =====================================output=====================================
 ({ set x(foo) {} });
@@ -184,99 +164,8 @@ printWidth: 80
     return 1;
   },
 });
-({ set x() {} });
-({ get x(x) {} });
-
-================================================================================
-`;
-
-exports[`invalid-accessor-generator.js [espree] format 1`] = `
-"Unexpected token * (5:9)
-  3 |
-  4 | ({
-> 5 |     get *iterator() { },
-    |         ^
-  6 |     set *iterator(iter) { },
-  7 |     get iterator2() { },
-  8 |     set iterator2(iter) { },"
-`;
-
-exports[`invalid-accessor-generator.js [meriyah] format 1`] = `
-"[5:9]: A getter cannot be a generator (5:9)
-  3 |
-  4 | ({
-> 5 |     get *iterator() { },
-    |         ^
-  6 |     set *iterator(iter) { },
-  7 |     get iterator2() { },
-  8 |     set iterator2(iter) { },"
-`;
-
-exports[`invalid-accessor-generator.js [typescript] format 1`] = `
-"Identifier expected. (5:9)
-  3 |
-  4 | ({
-> 5 |     get *iterator() { },
-    |         ^
-  6 |     set *iterator(iter) { },
-  7 |     get iterator2() { },
-  8 |     set iterator2(iter) { },"
-`;
-
-exports[`invalid-accessor-generator.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// Invalid, but recoverable
-// https://github.com/babel/babel/pull/11921/
-
-({
-    get *iterator() { },
-    set *iterator(iter) { },
-    get iterator2() { },
-    set iterator2(iter) { },
-});
-
-=====================================output=====================================
-// Invalid, but recoverable
-// https://github.com/babel/babel/pull/11921/
-
-({
-  get *iterator() {},
-  set *iterator(iter) {},
-  get iterator2() {},
-  set iterator2(iter) {},
-});
-
-================================================================================
-`;
-
-exports[`invalid-setter.js [espree] format 1`] = `
-"setter should have exactly one param (1:9)
-> 1 | ({ set x(){} });
-    |         ^
-  2 |"
-`;
-
-exports[`invalid-setter.js [meriyah] format 1`] = `
-"[1:10]: Setter functions must have exactly one argument (1:10)
-> 1 | ({ set x(){} });
-    |          ^
-  2 |"
-`;
-
-exports[`invalid-setter.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-({ set x(){} });
-
-=====================================output=====================================
-({ set x() {} });
+({ set x(a) {} });
+({ get x() {} });
 
 ================================================================================
 `;
