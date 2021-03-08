@@ -261,11 +261,14 @@ function printArrowFunctionExpression(path, options, print, args) {
       n.typeParameters ||
       getFunctionParameters(n).some((param) => param.type !== "Identifier");
 
-    if (n.body.type === "ArrowFunctionExpression") {
+    if (
+      n.body.type !== "ArrowFunctionExpression" ||
+      (args && args.expandLastArg)
+    ) {
+      body = path.call((bodyPath) => print(bodyPath, args), "body");
+    } else {
       n = n.body;
       path.call(rec, "body");
-    } else {
-      body = path.call((bodyPath) => print(bodyPath, args), "body");
     }
   });
 
@@ -285,6 +288,7 @@ function printArrowFunctionExpression(path, options, print, args) {
       n.body.type === "BlockStatement" ||
       isJsxNode(n.body) ||
       isTemplateOnItsOwnLine(n.body, options.originalText) ||
+      n.body.type === "ArrowFunctionExpression" ||
       n.body.type === "DoExpression")
   ) {
     return group([...parts, " ", body]);
