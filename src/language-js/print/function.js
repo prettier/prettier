@@ -8,6 +8,7 @@ const {
 } = require("../../common/util");
 const {
   builders: {
+    breakParent,
     line,
     softline,
     group,
@@ -214,49 +215,29 @@ function printArrowChain(
 ) {
   const name = path.getName();
   const parent = path.getParentNode();
-
+  const isCallee = isCallLikeExpression(parent) && name === "callee";
+  const isAssignmentRhs = args && args.assignmentRightHandSide;
   const hasBlockBody = tailNode.body.type === "BlockStatement";
-
-  const isAssignmentRightHandSide = Boolean(
-    args && args.assignmentRightHandSide
-  );
-
-  const shouldUseConditionalIndent =
-    isAssignmentRightHandSide ||
-    (isCallLikeExpression(parent) && name !== "callee") ||
-    parent.type === "ReturnStatement" ||
-    parent.type === "ThrowStatement" ||
-    parent.type === "YieldExpression";
 
   const groupId = Symbol("arrow-chain");
 
-  const doc = [
-    group(
-      [
-        isAssignmentRightHandSide ? softline : "",
-        group(join([" =>", line], signatures), { shouldBreak }),
-        " =>",
-      ],
-      { id: groupId }
-    ),
-    shouldUseConditionalIndent
-      ? hasBlockBody
+  return group([
+    indent([
+      group(
+        [
+          isCallee || isAssignmentRhs ? softline : "",
+          isCallee && !hasBlockBody ? breakParent : "",
+          group(join([" =>", line], signatures), { shouldBreak }),
+          " =>",
+        ],
+        { id: groupId }
+      ),
+      hasBlockBody
         ? dedentIfNoBreak([" ", bodyDoc], { groupId })
-        : indentIfBreak([line, bodyDoc], { groupId })
-      : hasBlockBody
-      ? [" ", bodyDoc]
-      : indent([line, bodyDoc]),
-  ];
-
-  if (shouldUseConditionalIndent) {
-    return group(indent(doc));
-  }
-
-  if (name === "callee") {
-    return group([indent([softline, doc]), softline]);
-  }
-
-  return doc;
+        : indentIfBreak([line, bodyDoc], { groupId }),
+    ]),
+    isCallee ? ifBreak(softline, "", { groupId }) : "",
+  ]);
 }
 
 function printArrowFunctionExpression(path, options, print, args) {

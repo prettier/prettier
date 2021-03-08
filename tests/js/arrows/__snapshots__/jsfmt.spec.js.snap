@@ -2936,6 +2936,164 @@ const a = x => y => z =>
 ================================================================================
 `;
 
+exports[`currying-3.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+((b) => (c) => (d) => {
+  return 3;
+})(x);
+
+function f(
+  a = (fooLorem) => (bazIpsum) => (barLorem) => {
+    return 3;
+  }
+) {}
+
+(
+  (fooLoremIpsumFactory) =>
+  (bazLoremIpsumFactory) =>
+  (barLoremIpsumServiceFactory) => {
+    return 3;
+  }
+)(x);
+
+(
+  (b) => (c) => (d) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x, fooLoremIpsumFactory, fooLoremIpsumFactory);
+
+(
+  (fooLorem) => (bazIpsum) => (barLorem) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(boo);
+
+(
+  (fooLoremIpsumFactory) =>
+  (bazLoremIpsumFactory) =>
+  (barLoremIpsumServiceFactory) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x);
+=====================================output=====================================
+((b) => (c) => (d) => {
+  return 3;
+})(x);
+
+function f(
+  a = (fooLorem) => (bazIpsum) => (barLorem) => {
+    return 3;
+  }
+) {}
+
+(
+  (fooLoremIpsumFactory) =>
+  (bazLoremIpsumFactory) =>
+  (barLoremIpsumServiceFactory) => {
+    return 3;
+  }
+)(x);
+
+(
+  (b) => (c) => (d) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x, fooLoremIpsumFactory, fooLoremIpsumFactory);
+
+(
+  (fooLorem) => (bazIpsum) => (barLorem) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(boo);
+
+(
+  (fooLoremIpsumFactory) =>
+  (bazLoremIpsumFactory) =>
+  (barLoremIpsumServiceFactory) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x);
+
+================================================================================
+`;
+
+exports[`currying-3.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+((b) => (c) => (d) => {
+  return 3;
+})(x);
+
+function f(
+  a = (fooLorem) => (bazIpsum) => (barLorem) => {
+    return 3;
+  }
+) {}
+
+(
+  (fooLoremIpsumFactory) =>
+  (bazLoremIpsumFactory) =>
+  (barLoremIpsumServiceFactory) => {
+    return 3;
+  }
+)(x);
+
+(
+  (b) => (c) => (d) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x, fooLoremIpsumFactory, fooLoremIpsumFactory);
+
+(
+  (fooLorem) => (bazIpsum) => (barLorem) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(boo);
+
+(
+  (fooLoremIpsumFactory) =>
+  (bazLoremIpsumFactory) =>
+  (barLoremIpsumServiceFactory) =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x);
+=====================================output=====================================
+(b => c => d => {
+  return 3;
+})(x);
+
+function f(
+  a = fooLorem => bazIpsum => barLorem => {
+    return 3;
+  }
+) {}
+
+(
+  fooLoremIpsumFactory =>
+  bazLoremIpsumFactory =>
+  barLoremIpsumServiceFactory => {
+    return 3;
+  }
+)(x);
+
+(
+  b => c => d =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x, fooLoremIpsumFactory, fooLoremIpsumFactory);
+
+(
+  fooLorem => bazIpsum => barLorem =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(boo);
+
+(
+  fooLoremIpsumFactory => bazLoremIpsumFactory => barLoremIpsumServiceFactory =>
+    b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
+)(x);
+
+================================================================================
+`;
+
 exports[`issue-1389-curry.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
