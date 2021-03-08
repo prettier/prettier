@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "11.2.3",
+    "@angular/compiler": "11.2.4",
     "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.13.9",
     "@glimmer/syntax": "0.77.1",
@@ -59,7 +59,7 @@
     "linguist-languages": "7.13.0",
     "lodash": "4.17.21",
     "mem": "8.0.0",
-    "meriyah": "4.1.4",
+    "meriyah": "4.1.5",
     "minimatch": "3.0.4",
     "minimist": "1.2.5",
     "n-readlines": "1.0.1",
@@ -79,7 +79,7 @@
     "semver": "7.3.4",
     "string-width": "4.2.2",
     "strip-ansi": "6.0.0",
-    "typescript": "4.2.2",
+    "typescript": "4.2.3",
     "unicode-regex": "3.0.0",
     "unified": "9.2.1",
     "vnopts": "1.0.2",
@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.8",
-    "@babel/preset-env": "7.13.8",
+    "@babel/preset-env": "7.13.9",
     "@babel/types": "7.13.0",
     "@glimmer/reference": "0.77.1",
     "@rollup/plugin-alias": "3.1.2",
@@ -109,7 +109,7 @@
     "eslint-config-prettier": "8.1.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jest": "24.1.5",
+    "eslint-plugin-jest": "24.1.8",
     "eslint-plugin-prettier-internal-rules": "link:scripts/tools/eslint-plugin-prettier-internal-rules",
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-unicorn": "28.0.2",
@@ -124,14 +124,14 @@
     "pretty-bytes": "5.6.0",
     "rimraf": "3.0.2",
     "rollup": "2.40.0",
-    "rollup-plugin-polyfill-node": "0.5.0",
+    "rollup-plugin-polyfill-node": "0.6.1",
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.4",
     "snapshot-diff": "0.8.1",
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.0",
     "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.24.2"
+    "webpack": "5.24.3"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
