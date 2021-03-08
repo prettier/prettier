@@ -217,7 +217,9 @@ function printArrowChain(
   const parent = path.getParentNode();
   const isCallee = isCallLikeExpression(parent) && name === "callee";
   const isAssignmentRhs = args && args.assignmentRightHandSide;
-  const hasBlockBody = tailNode.body.type === "BlockStatement";
+  const shouldPutBodyOnSeparateLine =
+    tailNode.body.type !== "BlockStatement" &&
+    tailNode.body.type !== "ObjectExpression";
 
   const groupId = Symbol("arrow-chain");
 
@@ -226,15 +228,15 @@ function printArrowChain(
       group(
         [
           isCallee || isAssignmentRhs ? softline : "",
-          isCallee && !hasBlockBody ? breakParent : "",
+          isCallee && shouldPutBodyOnSeparateLine ? breakParent : "",
           group(join([" =>", line], signatures), { shouldBreak }),
           " =>",
         ],
         { id: groupId }
       ),
-      hasBlockBody
-        ? dedentIfNoBreak([" ", bodyDoc], { groupId })
-        : indentIfBreak([line, bodyDoc], { groupId }),
+      shouldPutBodyOnSeparateLine
+        ? indentIfBreak([line, bodyDoc], { groupId })
+        : dedentIfNoBreak([" ", bodyDoc], { groupId }),
     ]),
     isCallee ? ifBreak(softline, "", { groupId }) : "",
   ]);
