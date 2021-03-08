@@ -8,7 +8,7 @@ const {
   builders: { hardline, markAsRoot },
   utils: { replaceNewlinesWithLiterallines },
 } = require("../document");
-const { print: printFrontMatter } = require("../utils/front-matter");
+const printFrontMatter = require("../utils/front-matter/print");
 const { getFencedCodeBlockValue } = require("./utils");
 
 function embed(path, print, textToDoc, options) {

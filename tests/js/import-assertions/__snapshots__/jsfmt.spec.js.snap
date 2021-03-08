@@ -4,14 +4,14 @@ exports[`dynamic-import.js [espree] format 1`] = `
 "Unexpected token , (1:20)
 > 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
     |                    ^
-  2 | "
+  2 |"
 `;
 
 exports[`dynamic-import.js [meriyah] format 1`] = `
 "[1:20]: Expected ')' (1:20)
 > 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
     |                    ^
-  2 | "
+  2 |"
 `;
 
 exports[`dynamic-import.js format 1`] = `
@@ -34,7 +34,7 @@ exports[`empty.js [espree] format 1`] = `
 > 2 | export * as bar from \\"bar.json\\" assert { }
     |                                 ^
   3 | export * as baz from \\"baz.json\\" assert { /* comment */ }
-  4 | 
+  4 |
   5 | import * as foo from \\"foo.json\\""
 `;
 
@@ -44,7 +44,7 @@ exports[`empty.js [meriyah] format 1`] = `
 > 2 | export * as bar from \\"bar.json\\" assert { }
     |                                      ^
   3 | export * as baz from \\"baz.json\\" assert { /* comment */ }
-  4 | 
+  4 |
   5 | import * as foo from \\"foo.json\\""
 `;
 
@@ -77,14 +77,14 @@ exports[`multi-types.js [espree] format 1`] = `
 "Unexpected token assert (1:31)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\", type: \\"bar\\" };
     |                               ^
-  2 | "
+  2 |"
 `;
 
 exports[`multi-types.js [meriyah] format 1`] = `
 "[1:36]: Unexpected token: 'identifier' (1:36)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\", type: \\"bar\\" };
     |                                    ^
-  2 | "
+  2 |"
 `;
 
 exports[`multi-types.js format 1`] = `
@@ -123,7 +123,7 @@ exports[`re-export.js [espree] format 1`] = `
     |                                 ^
   2 | export * from \\"foo.json\\" assert { type: \\"json\\" };
   3 | export * as foo3 from \\"foo.json\\" assert { type: \\"json\\" };
-  4 | "
+  4 |"
 `;
 
 exports[`re-export.js [meriyah] format 1`] = `
@@ -132,7 +132,7 @@ exports[`re-export.js [meriyah] format 1`] = `
     |                                      ^
   2 | export * from \\"foo.json\\" assert { type: \\"json\\" };
   3 | export * as foo3 from \\"foo.json\\" assert { type: \\"json\\" };
-  4 | "
+  4 |"
 `;
 
 exports[`re-export.js format 1`] = `
@@ -157,14 +157,14 @@ exports[`static-import.js [espree] format 1`] = `
 "Unexpected token assert (1:31)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
     |                               ^
-  2 | "
+  2 |"
 `;
 
 exports[`static-import.js [meriyah] format 1`] = `
 "[1:36]: Unexpected token: 'identifier' (1:36)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
     |                                    ^
-  2 | "
+  2 |"
 `;
 
 exports[`static-import.js format 1`] = `
@@ -185,14 +185,14 @@ exports[`without-from.js [espree] format 1`] = `
 "Unexpected token assert (1:14)
 > 1 | import \\"foo\\" assert { type: \\"json\\" }
     |              ^
-  2 | "
+  2 |"
 `;
 
 exports[`without-from.js [meriyah] format 1`] = `
 "[1:19]: Unexpected token: 'identifier' (1:19)
 > 1 | import \\"foo\\" assert { type: \\"json\\" }
     |                   ^
-  2 | "
+  2 |"
 `;
 
 exports[`without-from.js format 1`] = `

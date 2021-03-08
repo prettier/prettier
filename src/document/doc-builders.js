@@ -86,9 +86,7 @@ function align(n, contents) {
  * @param {object} [opts] - TBD ???
  * @returns Doc
  */
-function group(contents, opts) {
-  opts = opts || {};
-
+function group(contents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
@@ -97,7 +95,7 @@ function group(contents, opts) {
     type: "group",
     id: opts.id,
     contents,
-    break: !!opts.shouldBreak,
+    break: Boolean(opts.shouldBreak),
     expandedStates: opts.expandedStates,
   };
 }
@@ -156,9 +154,7 @@ function fill(parts) {
  * @param {object} [opts] - TBD ???
  * @returns Doc
  */
-function ifBreak(breakContents, flatContents, opts) {
-  opts = opts || {};
-
+function ifBreak(breakContents, flatContents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     if (breakContents) {
       assertDoc(breakContents);
@@ -177,6 +173,21 @@ function ifBreak(breakContents, flatContents, opts) {
 }
 
 /**
+ * Optimized version of `ifBreak(indent(doc), doc, { groupId: ... })`
+ * @param {Doc} contents
+ * @param {{ groupId: symbol, negate?: boolean }} opts
+ * @returns Doc
+ */
+function indentIfBreak(contents, opts) {
+  return {
+    type: "indent-if-break",
+    contents,
+    groupId: opts.groupId,
+    negate: opts.negate,
+  };
+}
+
+/**
  * @param {Doc} contents
  * @returns Doc
  */
@@ -190,13 +201,21 @@ function lineSuffix(contents) {
 const lineSuffixBoundary = { type: "line-suffix-boundary" };
 const breakParent = { type: "break-parent" };
 const trim = { type: "trim" };
+
+const hardlineWithoutBreakParent = { type: "line", hard: true };
+const literallineWithoutBreakParent = {
+  type: "line",
+  hard: true,
+  literal: true,
+};
+
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
-const hardline = concat([{ type: "line", hard: true }, breakParent]);
-const literalline = concat([
-  { type: "line", hard: true, literal: true },
-  breakParent,
-]);
+// eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
+const hardline = concat([hardlineWithoutBreakParent, breakParent]);
+// eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
+const literalline = concat([literallineWithoutBreakParent, breakParent]);
+
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
 /**
@@ -215,6 +234,7 @@ function join(sep, arr) {
     res.push(arr[i]);
   }
 
+  // eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
   return concat(res);
 }
 
@@ -239,6 +259,10 @@ function addAlignmentToDoc(doc, size, tabWidth) {
   return aligned;
 }
 
+function label(label, contents) {
+  return { type: "label", label, contents };
+}
+
 module.exports = {
   concat,
   join,
@@ -256,9 +280,13 @@ module.exports = {
   ifBreak,
   trim,
   indent,
+  indentIfBreak,
   align,
   addAlignmentToDoc,
   markAsRoot,
   dedentToRoot,
   dedent,
+  hardlineWithoutBreakParent,
+  literallineWithoutBreakParent,
+  label,
 };

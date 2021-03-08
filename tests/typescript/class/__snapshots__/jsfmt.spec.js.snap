@@ -1,12 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract-method.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  abstract foo();
+}
+
+abstract class Bar {
+  method() {
+    return class {
+      abstract m();
+    }
+  }
+}
+
+=====================================output=====================================
+class Foo {
+  abstract foo();
+}
+
+abstract class Bar {
+  method() {
+    return class {
+      abstract m();
+    };
+  }
+}
+
+================================================================================
+`;
+
 exports[`constructor.ts [babel-ts] format 1`] = `
 "Unexpected token, expected \\",\\" (2:22)
   1 | class foo {
 > 2 |   constructor(static a: number) {}
     |                      ^
   3 | }
-  4 | 
+  4 |
   5 | class foo {"
 `;
 
@@ -68,6 +102,32 @@ class F<__T> {}
 
 =====================================output=====================================
 class F<__T> {}
+
+================================================================================
+`;
+
+exports[`duplicates-access-modifier.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  public public a;
+  private public b;
+  protected private c;
+  public protected d;
+  public protected private e;
+}
+
+=====================================output=====================================
+class Foo {
+  public a;
+  private b;
+  protected c;
+  public d;
+  public e;
+}
 
 ================================================================================
 `;
@@ -263,7 +323,7 @@ exports[`generics.ts [babel-ts] format 1`] = `
 "A class name is required (1:6)
 > 1 | class<T> implements Map<T> {}
     |      ^
-  2 | 
+  2 |
   3 | interface AudioBufferList {
   4 | 	mBuffers: interop.Reference<any /*AudioBuffer*/>;"
 `;
@@ -291,13 +351,13 @@ interface AudioBufferList {
 `;
 
 exports[`methods.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (6:10)
-  4 | 
+"Missing semicolon (6:9)
+  4 |
   5 | interface Iterable<T> {
 > 6 |   export [Symbol.iterator](): Iterator<T>;
-    |          ^
+    |         ^
   7 | }
-  8 | 
+  8 |
   9 | export class Check {"
 `;
 

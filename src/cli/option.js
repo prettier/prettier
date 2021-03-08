@@ -20,13 +20,14 @@ function getOptions(argv, detailedOptions) {
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {
-  return Object.keys(object || {}).reduce((output, key) => {
-    const apiOption = apiDetailedOptionMap[key];
-    const cliKey = apiOption ? apiOption.name : key;
+  return fromPairs(
+    Object.entries(object || {}).map(([key, value]) => {
+      const apiOption = apiDetailedOptionMap[key];
+      const cliKey = apiOption ? apiOption.name : key;
 
-    output[dashify(cliKey)] = object[key];
-    return output;
-  }, {});
+      return [dashify(cliKey), value];
+    })
+  );
 }
 
 function createApiDetailedOptionMap(detailedOptions) {
@@ -46,7 +47,7 @@ function parseArgsToOptions(context, overrideDefaults) {
   );
   return getOptions(
     optionsNormalizer.normalizeCliOptions(
-      minimist(context.args, {
+      minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),

@@ -130,6 +130,23 @@ class Class5 {
   ) {}
 }
 
+class Class6 {
+  method(
+    @Decorator({}) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator(
+      {}) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator([]) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator(
+      []) { prop1 }: Type
+  ) {}
+}
+
 =====================================output=====================================
 export class TestTextFileService {
   constructor(@ILifecycleService lifecycleService) {}
@@ -184,6 +201,13 @@ class Class4 {
 
 class Class5 {
   method(@Decorator { prop1 }: Type) {}
+}
+
+class Class6 {
+  method(@Decorator({}) { prop1 }: Type) {}
+  method(@Decorator({}) { prop1 }: Type) {}
+  method(@Decorator([]) { prop1 }: Type) {}
+  method(@Decorator([]) { prop1 }: Type) {}
 }
 
 ================================================================================

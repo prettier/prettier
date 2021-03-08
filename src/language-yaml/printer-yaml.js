@@ -5,7 +5,6 @@
 const {
   builders: {
     breakParent,
-
     fill,
     group,
     hardline,
@@ -241,7 +240,7 @@ function printNode(node, parentNode, path, options, print) {
       ];
     }
     case "directive":
-      return ["%", join(" ", [node.name].concat(node.parameters))];
+      return ["%", join(" ", [node.name, ...node.parameters])];
     case "comment":
       return ["#", node.value];
     case "alias":
@@ -285,7 +284,9 @@ function printNode(node, parentNode, path, options, print) {
           printFlowScalarContent(node.type, raw, options),
           originalQuote,
         ];
-      } else if (raw.includes(doubleQuote)) {
+      }
+
+      if (raw.includes(doubleQuote)) {
         return [
           singleQuote,
           printFlowScalarContent(

@@ -9,16 +9,17 @@ const {
     group,
     hardline,
     ifBreak,
+    indentIfBreak,
     indent,
     join,
     line,
     literalline,
     softline,
   },
-  utils: { mapDoc, cleanDoc, getDocParts },
+  utils: { mapDoc, cleanDoc, getDocParts, isConcat },
 } = require("../document");
 const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
-const { print: printFrontMatter } = require("../utils/front-matter");
+const printFrontMatter = require("../utils/front-matter/print");
 const clean = require("./clean");
 const {
   htmlTrimPreserveIndentation,
@@ -77,7 +78,7 @@ function embed(path, print, textToDoc, options) {
         if (!isEmpty) {
           doc = textToDoc(
             htmlTrimPreserveIndentation(content),
-            { parser },
+            { parser, __embeddedInHtml: true },
             { stripTrailingHardline: true }
           );
           isEmpty = doc === "";
@@ -103,7 +104,7 @@ function embed(path, print, textToDoc, options) {
             parser === "markdown"
               ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
               : node.value;
-          const textToDocOptions = { parser };
+          const textToDocOptions = { parser, __embeddedInHtml: true };
           if (options.parser === "html" && parser === "babel") {
             let sourceType = "script";
             const { attrMap } = node.parent;
@@ -127,21 +128,24 @@ function embed(path, print, textToDoc, options) {
           ];
         }
       } else if (node.parent.type === "interpolation") {
+        const textToDocOptions = {
+          __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+          __embeddedInHtml: true,
+        };
+        if (options.parser === "angular") {
+          textToDocOptions.parser = "__ng_interpolation";
+          textToDocOptions.trailingComma = "none";
+        } else if (options.parser === "vue") {
+          textToDocOptions.parser = "__vue_expression";
+        } else {
+          textToDocOptions.parser = "__js_expression";
+        }
         return [
           indent([
             line,
-            textToDoc(
-              node.value,
-              {
-                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-                ...(options.parser === "angular"
-                  ? { parser: "__ng_interpolation", trailingComma: "none" }
-                  : options.parser === "vue"
-                  ? { parser: "__vue_expression" }
-                  : { parser: "__js_expression" }),
-              },
-              { stripTrailingHardline: true }
-            ),
+            textToDoc(node.value, textToDocOptions, {
+              stripTrailingHardline: true,
+            }),
           ]),
           node.parent.next &&
           needsToBorrowPrevClosingTagEndMarker(node.parent.next)
@@ -189,7 +193,7 @@ function embed(path, print, textToDoc, options) {
           // strictly prefer single quote to avoid unnecessary html entity escape
           textToDoc(
             code,
-            { __isInHtmlAttribute: true, ...opts },
+            { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
             { stripTrailingHardline: true }
           ),
         options
@@ -228,13 +232,13 @@ function genericPrint(path, options, print) {
     case "element":
     case "ieConditionalComment": {
       if (shouldPreserveContent(node, options)) {
-        return [].concat(
+        return [
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          replaceEndOfLineWith(getNodeContent(node, options), literalline),
-          printClosingTag(node, options),
-          printClosingTagSuffix(node, options)
-        );
+          ...replaceEndOfLineWith(getNodeContent(node, options), literalline),
+          ...printClosingTag(node, options),
+          printClosingTagSuffix(node, options),
+        ];
       }
       /**
        * do not break:
@@ -275,9 +279,7 @@ function genericPrint(path, options, print) {
                 forceBreakContent(node) ? breakParent : "",
                 ((childrenDoc) =>
                   shouldHugContent
-                    ? ifBreak(indent(childrenDoc), childrenDoc, {
-                        groupId: attrGroupId,
-                      })
+                    ? indentIfBreak(childrenDoc, { groupId: attrGroupId })
                     : (isScriptLikeTag(node) ||
                         isVueCustomBlock(node, options)) &&
                       node.parent.type === "root" &&
@@ -367,7 +369,11 @@ function genericPrint(path, options, print) {
         ...getTextValueParts(node),
         printClosingTagSuffix(node, options),
       ]);
-      return typeof printed === "string" ? printed : fill(getDocParts(printed));
+      if (isConcat(printed) || printed.type === "fill") {
+        return fill(getDocParts(printed));
+      }
+      /* istanbul ignore next */
+      return printed;
     }
     case "docType":
       return [
@@ -505,25 +511,25 @@ function printChildren(path, options, print) {
       }
     }
 
-    return [].concat(
-      prevParts,
+    return [
+      ...prevParts,
       group([
         ...leadingParts,
         group([printChild(childPath), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),
-      nextParts
-    );
+      ...nextParts,
+    ];
   }, "children");
 
   function printChild(childPath) {
     const child = childPath.getValue();
 
     if (hasPrettierIgnore(child)) {
-      return [].concat(
+      return [
         printOpeningTagPrefix(child, options),
-        replaceEndOfLineWith(
+        ...replaceEndOfLineWith(
           options.originalText.slice(
             locStart(child) +
               (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
@@ -536,8 +542,8 @@ function printChildren(path, options, print) {
           ),
           literalline
         ),
-        printClosingTagSuffix(child, options)
-      );
+        printClosingTagSuffix(child, options),
+      ];
     }
 
     return print(childPath);
@@ -989,7 +995,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const textToDoc = (code, opts) =>
     originalTextToDoc(
       code,
-      { __onHtmlBindingRoot, ...opts },
+      { __onHtmlBindingRoot, __embeddedInHtml: true, ...opts },
       { stripTrailingHardline: true }
     );
 
@@ -1166,7 +1172,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
                 "}}",
               ])
             );
-          } catch (e) {
+          } catch {
             parts.push("{{", replaceEndOfLineWith(part, literalline), "}}");
           }
         }

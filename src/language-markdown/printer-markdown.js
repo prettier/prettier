@@ -21,8 +21,9 @@ const {
     align,
     indent,
     group,
+    hardlineWithoutBreakParent,
   },
-  utils: { normalizeDoc, getDocParts },
+  utils: { normalizeDoc },
   printer: { printDocToString },
 } = require("../document");
 const { replaceEndOfLineWith } = require("../common/util");
@@ -504,8 +505,6 @@ function getNthListSiblingIndex(node, parentNode) {
 }
 
 function getNthSiblingIndex(node, parentNode, condition) {
-  condition = condition || (() => true);
-
   let index = -1;
 
   for (const childNode of parentNode.children) {
@@ -522,7 +521,7 @@ function getNthSiblingIndex(node, parentNode, condition) {
 }
 
 function getAncestorCounter(path, typeOrTypes) {
-  const types = [].concat(typeOrTypes);
+  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
 
   let counter = -1;
   let ancestorNode;
@@ -559,7 +558,6 @@ function printLine(path, value, options) {
 }
 
 function printTable(path, options, print) {
-  const hardlineWithoutBreakParent = getDocParts(hardline)[0];
   const node = path.getValue();
 
   const columnMaxWidths = [];
@@ -698,9 +696,7 @@ function printRoot(path, options, print) {
   });
 }
 
-function printChildren(path, options, print, events) {
-  events = events || {};
-
+function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
   const processor = events.processor || ((childPath) => childPath.call(print));
 
@@ -840,18 +836,24 @@ function shouldRemainTheSameContent(path) {
   );
 }
 
-function printUrl(url, dangerousCharOrChars) {
-  const dangerousChars = [" "].concat(dangerousCharOrChars || []);
+/**
+ * @param {string} url
+ * @param {string[] | string} [dangerousCharOrChars]
+ * @returns {string}
+ */
+function printUrl(url, dangerousCharOrChars = []) {
+  const dangerousChars = [
+    " ",
+    ...(Array.isArray(dangerousCharOrChars)
+      ? dangerousCharOrChars
+      : [dangerousCharOrChars]),
+  ];
   return new RegExp(dangerousChars.map((x) => `\\${x}`).join("|")).test(url)
     ? `<${url}>`
     : url;
 }
 
-function printTitle(title, options, printSpace) {
-  if (printSpace == null) {
-    printSpace = true;
-  }
-
+function printTitle(title, options, printSpace = true) {
   if (!title) {
     return "";
   }
@@ -886,7 +888,7 @@ function clamp(value, min, max) {
 }
 
 function hasPrettierIgnore(path) {
-  const index = +path.getName();
+  const index = Number(path.getName());
 
   if (index === 0) {
     return false;

@@ -10,7 +10,8 @@ const {
 } = require("../../common/util");
 const pathNeedsParens = require("../needs-parens");
 const {
-  isCallOrOptionalCallExpression,
+  isCallExpression,
+  isMemberExpression,
   isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
   isMemberish,
@@ -23,7 +24,15 @@ const {
 const { locEnd } = require("../loc");
 
 const {
-  builders: { join, hardline, group, indent, conditionalGroup, breakParent },
+  builders: {
+    join,
+    hardline,
+    group,
+    indent,
+    conditionalGroup,
+    breakParent,
+    label,
+  },
   utils: { willBreak },
 } = require("../../document");
 const printCallArguments = require("./call-arguments");
@@ -85,15 +94,15 @@ function printMemberChain(path, options, print) {
   function rec(path) {
     const node = path.getValue();
     if (
-      isCallOrOptionalCallExpression(node) &&
-      (isMemberish(node.callee) || isCallOrOptionalCallExpression(node.callee))
+      isCallExpression(node) &&
+      (isMemberish(node.callee) || isCallExpression(node.callee))
     ) {
       printedNodes.unshift({
         node,
         printed: [
           printComments(
             path,
-            () => [
+            [
               printOptionalToken(path),
               printFunctionTypeParameters(path, options, print),
               printCallArguments(path, options, print),
@@ -110,11 +119,9 @@ function printMemberChain(path, options, print) {
         needsParens: pathNeedsParens(path, options),
         printed: printComments(
           path,
-          () =>
-            node.type === "OptionalMemberExpression" ||
-            node.type === "MemberExpression"
-              ? printMemberLookup(path, options, print)
-              : printBindExpressionCallee(path, options, print),
+          isMemberExpression(node)
+            ? printMemberLookup(path, options, print)
+            : printBindExpressionCallee(path, options, print),
           options
         ),
       });
@@ -122,7 +129,7 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
-        printed: printComments(path, () => "!", options),
+        printed: printComments(path, "!", options),
       });
       path.call((expression) => rec(expression), "expression");
     } else {
@@ -179,9 +186,8 @@ function printMemberChain(path, options, print) {
   for (; i < printedNodes.length; ++i) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
-      isCallOrOptionalCallExpression(printedNodes[i].node) ||
-      ((printedNodes[i].node.type === "MemberExpression" ||
-        printedNodes[i].node.type === "OptionalMemberExpression") &&
+      isCallExpression(printedNodes[i].node) ||
+      (isMemberExpression(printedNodes[i].node) &&
         printedNodes[i].node.computed &&
         isNumericLiteral(printedNodes[i].node.property))
     ) {
@@ -190,7 +196,7 @@ function printMemberChain(path, options, print) {
       break;
     }
   }
-  if (!isCallOrOptionalCallExpression(printedNodes[0].node)) {
+  if (!isCallExpression(printedNodes[0].node)) {
     for (; i + 1 < printedNodes.length; ++i) {
       if (
         isMemberish(printedNodes[i].node) &&
@@ -228,7 +234,7 @@ function printMemberChain(path, options, print) {
     }
 
     if (
-      isCallOrOptionalCallExpression(printedNodes[i].node) ||
+      isCallExpression(printedNodes[i].node) ||
       printedNodes[i].node.type === "ImportExpression"
     ) {
       hasSeenCallExpression = true;
@@ -288,8 +294,7 @@ function printMemberChain(path, options, print) {
 
     const lastNode = getLast(groups[0]).node;
     return (
-      (lastNode.type === "MemberExpression" ||
-        lastNode.type === "OptionalMemberExpression") &&
+      isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
       (isFactory(lastNode.property.name) || hasComputed)
     );
@@ -350,7 +355,7 @@ function printMemberChain(path, options, print) {
   // empty line after
   const lastNodeBeforeIndent = getLast(groups[shouldMerge ? 1 : 0]).node;
   const shouldHaveEmptyLineBeforeIndent =
-    !isCallOrOptionalCallExpression(lastNodeBeforeIndent) &&
+    !isCallExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
   const expanded = [
@@ -362,19 +367,21 @@ function printMemberChain(path, options, print) {
 
   const callExpressions = printedNodes
     .map(({ node }) => node)
-    .filter(isCallOrOptionalCallExpression);
+    .filter(isCallExpression);
 
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
     const lastGroupNode = getLast(getLast(groups)).node;
     const lastGroupDoc = getLast(printedGroups);
     return (
-      isCallOrOptionalCallExpression(lastGroupNode) &&
+      isCallExpression(lastGroupNode) &&
       willBreak(lastGroupDoc) &&
       callExpressions
         .slice(0, -1)
         .some((n) => n.arguments.some(isFunctionOrArrowExpression))
     );
   }
+
+  let result;
 
   // We don't want to print in one line if at least one of these conditions occurs:
   //  * the chain has comments,
@@ -391,16 +398,18 @@ function printMemberChain(path, options, print) {
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
   ) {
-    return group(expanded);
+    result = group(expanded);
+  } else {
+    result = [
+      // We only need to check `oneLine` because if `expanded` is chosen
+      // that means that the parent group has already been broken
+      // naturally
+      willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
+      conditionalGroup([oneLine, expanded]),
+    ];
   }
 
-  return [
-    // We only need to check `oneLine` because if `expanded` is chosen
-    // that means that the parent group has already been broken
-    // naturally
-    willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-    conditionalGroup([oneLine, expanded]),
-  ];
+  return label("member-chain", result);
 }
 
 module.exports = printMemberChain;

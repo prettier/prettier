@@ -116,3 +116,18 @@ class A {
 
 ================================================================================
 `;
+
+exports[`issue-5988.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const { foo, bar: bazAndSomething, quxIsLong } = someBigFunctionName("foo")("bar");
+
+=====================================output=====================================
+const { foo, bar: bazAndSomething, quxIsLong } =
+  someBigFunctionName("foo")("bar");
+
+================================================================================
+`;

@@ -14,6 +14,7 @@ const {
   getCallArguments,
   iterateCallArgumentsPath,
   isNextLineEmpty,
+  isCallExpression,
 } = require("../utils");
 
 const {
@@ -44,14 +45,7 @@ function printCallArguments(path, options, print) {
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
-  if (
-    args.length === 2 &&
-    args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
-    args[0].body.type === "BlockStatement" &&
-    args[1].type === "ArrayExpression" &&
-    !args.some((arg) => hasComment(arg))
-  ) {
+  if (isReactHookCallWithDepsArray(args)) {
     return [
       "(",
       path.call(print, "arguments", 0),
@@ -159,12 +153,14 @@ function printCallArguments(path, options, print) {
             hasEmptyLineFollowingFirstArg ? hardline : line,
             hasEmptyLineFollowingFirstArg ? hardline : "",
           ],
-        ].concat(printedArguments.slice(1));
+          ...printedArguments.slice(1),
+        ];
       }
       if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = printedArguments
-          .slice(0, -1)
-          .concat(argPath.call((p) => print(p, { expandLastArg: true })));
+        printedExpanded = [
+          ...printedArguments.slice(0, -1),
+          argPath.call((p) => print(p, { expandLastArg: true })),
+        ];
       }
     });
 
@@ -244,13 +240,14 @@ function couldGroupArg(arg) {
       // });
       (!arg.returnType ||
         !arg.returnType.typeAnnotation ||
-        arg.returnType.typeAnnotation.type !== "TSTypeReference") &&
+        arg.returnType.typeAnnotation.type !== "TSTypeReference" ||
+        // https://github.com/prettier/prettier/issues/7542
+        isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
-        arg.body.type === "CallExpression" ||
-        arg.body.type === "OptionalCallExpression" ||
+        isCallExpression(arg.body) ||
         arg.body.type === "ConditionalExpression" ||
         isJsxNode(arg.body)))
   );
@@ -265,7 +262,11 @@ function shouldGroupLastArg(args) {
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
-    (!penultimateArg || penultimateArg.type !== lastArg.type)
+    (!penultimateArg || penultimateArg.type !== lastArg.type) &&
+    // useMemo(() => func(), [foo, bar, baz])
+    (args.length !== 2 ||
+      args[0].type !== "ArrowFunctionExpression" ||
+      args[1].type !== "ArrayExpression")
   );
 }
 
@@ -284,6 +285,25 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
     !couldGroupArg(secondArg)
+  );
+}
+
+function isReactHookCallWithDepsArray(args) {
+  return (
+    args.length === 2 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    getFunctionParameters(args[0]).length === 0 &&
+    args[0].body.type === "BlockStatement" &&
+    args[1].type === "ArrayExpression" &&
+    !args.some((arg) => hasComment(arg))
+  );
+}
+
+function isNonEmptyBlockStatement(node) {
+  return (
+    node.type === "BlockStatement" &&
+    (node.body.some((node) => node.type !== "EmptyStatement") ||
+      hasComment(node, CommentCheckFlags.Dangling))
   );
 }
 

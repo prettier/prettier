@@ -8,9 +8,7 @@ const prettier = !TEST_STANDALONE
   ? require("prettier-local")
   : require("prettier-standalone");
 const checkParsers = require("./utils/check-parsers");
-const visualizeRange = require("./utils/visualize-range");
 const createSnapshot = require("./utils/create-snapshot");
-const composeOptionsForSnapshot = require("./utils/compose-options-for-snapshot");
 const visualizeEndOfLine = require("./utils/visualize-end-of-line");
 const consistentEndOfLine = require("./utils/consistent-end-of-line");
 const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
@@ -30,7 +28,6 @@ const unstableTests = new Map(
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
-    "js/comments-closure-typecast/iife.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     "html/multiparser/js/script-tag-escaping.html",
@@ -50,6 +47,8 @@ const unstableTests = new Map(
   })
 );
 
+const unstableAstTests = new Map();
+
 const espreeDisabledTests = new Set(
   [
     // These tests only work for `babel`
@@ -60,6 +59,16 @@ const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
+const isAstUnstable = (filename, options) => {
+  const testFunction = unstableAstTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -105,6 +114,11 @@ function runSpec(fixtures, parsers, options) {
   if (IS_ERROR_TESTS) {
     options = { errors: true, ...options };
   }
+
+  const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
+    dirname,
+    "misc/typescript-only"
+  );
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [undefined];
@@ -154,7 +168,11 @@ function runSpec(fixtures, parsers, options) {
   const allParsers = [...parsers];
 
   if (!IS_ERROR_TESTS) {
-    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !IS_TYPESCRIPT_ONLY_TEST
+    ) {
       allParsers.push("babel-ts");
     }
 
@@ -252,49 +270,12 @@ function runTest({
     }
 
     // All parsers have the same result, only snapshot the result from main parser
-    // TODO: move this part to `createSnapshot`
-    const hasEndOfLine = "endOfLine" in formatOptions;
-    let codeForSnapshot = formatResult.inputWithCursor;
-    let codeOffset = 0;
-    let resultForSnapshot = formatResult.outputWithCursor;
-    const { rangeStart, rangeEnd, cursorOffset } = formatResult.options;
-
-    if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
-      let rangeStartWithCursor = rangeStart;
-      let rangeEndWithCursor = rangeEnd;
-      if (typeof cursorOffset === "number") {
-        if (
-          typeof rangeStartWithCursor === "number" &&
-          rangeStartWithCursor > cursorOffset
-        ) {
-          rangeStartWithCursor += CURSOR_PLACEHOLDER.length;
-        }
-        if (
-          typeof rangeEndWithCursor === "number" &&
-          rangeEndWithCursor > cursorOffset
-        ) {
-          rangeEndWithCursor += CURSOR_PLACEHOLDER.length;
-        }
-      }
-      codeForSnapshot = visualizeRange(codeForSnapshot, {
-        rangeStart: rangeStartWithCursor,
-        rangeEnd: rangeEndWithCursor,
-      });
-      codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
-    }
-
-    if (hasEndOfLine) {
-      codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
-      resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
-    }
-
     expect(
-      createSnapshot(
-        codeForSnapshot,
-        resultForSnapshot,
-        composeOptionsForSnapshot(formatResult.options, parsers),
-        { codeOffset }
-      )
+      createSnapshot(formatResult, {
+        parsers,
+        formatOptions,
+        CURSOR_PLACEHOLDER,
+      })
     ).toMatchSnapshot();
   });
 
@@ -324,13 +305,18 @@ function runTest({
     });
   }
 
+  const isAstUnstableTest = isAstUnstable(filename, formatOptions);
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
       const { input, output } = formatResult;
       const originalAst = parse(input, formatOptions);
       const formattedAst = parse(output, formatOptions);
-      expect(formattedAst).toEqual(originalAst);
+      if (isAstUnstableTest) {
+        expect(formattedAst).not.toEqual(originalAst);
+      } else {
+        expect(formattedAst).toEqual(originalAst);
+      }
     });
   }
 

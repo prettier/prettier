@@ -51,6 +51,70 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`await-keyword.js [espree] format 1`] = `
+"Cannot use keyword 'await' outside an async function (2:20)
+  1 | async function foo() {
+> 2 |   function bar(x = await 2) {}
+    |                    ^
+  3 | }
+  4 |
+  5 | async (x = await 2) => {};"
+`;
+
+exports[`await-keyword.js [flow] format 1`] = `
+"Unexpected number, expected the token \`,\` (2:26)
+  1 | async function foo() {
+> 2 |   function bar(x = await 2) {}
+    |                          ^
+  3 | }
+  4 |
+  5 | async (x = await 2) => {};"
+`;
+
+exports[`await-keyword.js [meriyah] format 1`] = `
+"[2:24]: 'Await' may not be used as an identifier in this context (2:24)
+  1 | async function foo() {
+> 2 |   function bar(x = await 2) {}
+    |                        ^
+  3 | }
+  4 |
+  5 | async (x = await 2) => {};"
+`;
+
+exports[`await-keyword.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function foo() {
+  function bar(x = await 2) {}
+}
+
+async (x = await 2) => {};
+
+async function foo() {
+  function bar(x = await (2)) {}
+}
+
+async (x = await (2)) => {};
+
+=====================================output=====================================
+async function foo() {
+  function bar(x = await 2) {}
+}
+
+async (x = await 2) => {};
+
+async function foo() {
+  function bar(x = await(2)) {}
+}
+
+async (x = await 2) => {};
+
+================================================================================
+`;
+
 exports[`await-parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -157,6 +221,33 @@ async function f() {
 ================================================================================
 `;
 
+exports[`nested.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const getAccountCount = async () =>
+  (await
+    (await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")
+  ).getChildren()
+  ).length
+
+=====================================output=====================================
+const getAccountCount = async () =>
+  (
+    await (
+      await (
+        await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+      ).findItem("My bookmarks")
+    ).getChildren()
+  ).length;
+
+================================================================================
+`;
+
 exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -174,6 +265,26 @@ async function* f() {
 
 async function f2() {
   await (() => {});
+}
+
+================================================================================
+`;
+
+exports[`simple-nested-await.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const a = await (await request()).json();
+  const b = await fs.writeFile(file, await (await request()).text());
+}
+
+=====================================output=====================================
+async function f() {
+  const a = await (await request()).json();
+  const b = await fs.writeFile(file, await (await request()).text());
 }
 
 ================================================================================

@@ -7,15 +7,9 @@ const assert = require("assert");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const { printDanglingComments } = require("../main/comments");
-const {
-  hasNewline,
-  printString,
-  printNumber,
-  isNonEmptyArray,
-} = require("../common/util");
+const { hasNewline, printString, printNumber } = require("../common/util");
 const {
   builders: { join, line, hardline, softline, literalline, group, indent },
-  utils: { isEmpty },
 } = require("../document");
 const embed = require("./embed");
 const clean = require("./clean");
@@ -25,12 +19,9 @@ const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./print-preprocess");
 const {
   getCallArguments,
-  getParentExportDeclaration,
   hasFlowShorthandAnnotationComment,
-  hasNewlineBetweenOrAfterDecorators,
   hasComment,
   CommentCheckFlags,
-  isExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   isTheOnlyJsxElementInMarkdown,
@@ -41,6 +32,8 @@ const {
   rawText,
   shouldPrintComma,
   hasIgnoreComment,
+  isCallExpression,
+  isMemberExpression,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -93,108 +86,54 @@ const { printSwitchCaseConsequent } = require("./print/statement");
 const { printMemberExpression } = require("./print/member");
 const { printBlock, printBlockBody } = require("./print/block");
 const { printComment } = require("./print/comment");
+const { printLiteral } = require("./print/literal");
+const { printDecorators } = require("./print/decorators");
 
-function genericPrint(path, options, printPath, args) {
+function genericPrint(path, options, print, args) {
+  const printed = printPathNoParens(path, options, print, args);
+  if (!printed) {
+    return "";
+  }
+
   const node = path.getValue();
-  let needsParens = false;
-  const linesWithoutParens = printPathNoParens(path, options, printPath, args);
-
-  if (!node || isEmpty(linesWithoutParens)) {
-    return linesWithoutParens;
-  }
-
-  const parentExportDecl = getParentExportDeclaration(path);
-  const decorators = [];
+  const { type } = node;
+  // Their decorators are handled themselves, and they can't have parentheses
   if (
-    node.type === "ClassMethod" ||
-    node.type === "ClassPrivateMethod" ||
-    node.type === "ClassProperty" ||
-    node.type === "PropertyDefinition" ||
-    node.type === "TSAbstractClassProperty" ||
-    node.type === "ClassPrivateProperty" ||
-    node.type === "MethodDefinition" ||
-    node.type === "TSAbstractMethodDefinition" ||
-    node.type === "TSDeclareMethod"
+    type === "ClassMethod" ||
+    type === "ClassPrivateMethod" ||
+    type === "ClassProperty" ||
+    type === "PropertyDefinition" ||
+    type === "TSAbstractClassProperty" ||
+    type === "ClassPrivateProperty" ||
+    type === "MethodDefinition" ||
+    type === "TSAbstractMethodDefinition" ||
+    type === "TSDeclareMethod"
   ) {
-    // their decorators are handled themselves
-  } else if (
-    isNonEmptyArray(node.decorators) &&
-    // If the parent node is an export declaration and the decorator
-    // was written before the export, the export will be responsible
-    // for printing the decorators.
-    !(
-      parentExportDecl &&
-      locStart(parentExportDecl, { ignoreDecorators: true }) >
-        locStart(node.decorators[0])
-    )
-  ) {
-    const shouldBreak =
-      node.type === "ClassExpression" ||
-      node.type === "ClassDeclaration" ||
-      hasNewlineBetweenOrAfterDecorators(node, options);
-
-    const separator = shouldBreak ? hardline : line;
-
-    path.each((decoratorPath) => {
-      let decorator = decoratorPath.getValue();
-      if (decorator.expression) {
-        decorator = decorator.expression;
-      } else {
-        decorator = decorator.callee;
-      }
-
-      decorators.push(printPath(decoratorPath), separator);
-    }, "decorators");
-
-    if (parentExportDecl) {
-      decorators.unshift(hardline);
-    }
-  } else if (
-    isExportDeclaration(node) &&
-    node.declaration &&
-    isNonEmptyArray(node.declaration.decorators) &&
-    // Only print decorators here if they were written before the export,
-    // otherwise they are printed by the node.declaration
-    locStart(node, { ignoreDecorators: true }) >
-      locStart(node.declaration.decorators[0])
-  ) {
-    // Export declarations are responsible for printing any decorators
-    // that logically apply to node.declaration.
-    path.each(
-      (decoratorPath) => {
-        const decorator = decoratorPath.getValue();
-        const prefix = decorator.type === "Decorator" ? "" : "@";
-        decorators.push(prefix, printPath(decoratorPath), hardline);
-      },
-      "declaration",
-      "decorators"
-    );
-  } else {
-    // Nodes with decorators can't have parentheses, so we can avoid
-    // computing pathNeedsParens() except in this case.
-    needsParens = pathNeedsParens(path, options);
+    return printed;
   }
 
-  const parts = [];
-  if (needsParens) {
-    parts.unshift("(");
+  const printedDecorators = printDecorators(path, options, print);
+  // Nodes with decorators can't have parentheses
+  if (printedDecorators) {
+    return group([...printedDecorators, printed]);
   }
 
-  parts.push(linesWithoutParens);
+  const needsParens = pathNeedsParens(path, options);
 
-  if (needsParens) {
-    const node = path.getValue();
-    if (hasFlowShorthandAnnotationComment(node)) {
-      parts.push(" /*", node.trailingComments[0].value.trimStart(), "*/");
-      node.trailingComments[0].printed = true;
-    }
-
-    parts.push(")");
+  if (!needsParens) {
+    return printed;
   }
 
-  if (decorators.length > 0) {
-    return group(decorators.concat(parts));
+  const parts = ["(", printed];
+
+  if (hasFlowShorthandAnnotationComment(node)) {
+    const [comment] = node.trailingComments;
+    parts.push(" /*", comment.value.trimStart(), "*/");
+    comment.printed = true;
   }
+
+  parts.push(")");
+
   return parts;
 }
 
@@ -211,6 +150,7 @@ function printPathNoParens(path, options, print, args) {
   }
 
   for (const printer of [
+    printLiteral,
     printHtmlBinding,
     printAngular,
     printJsx,
@@ -235,12 +175,7 @@ function printPathNoParens(path, options, print, args) {
       // Print @babel/parser's InterpreterDirective here so that
       // leading comments on the `Program` node get printed after the hashbang.
       if (n.program && n.program.interpreter) {
-        parts.push(
-          path.call(
-            (programPath) => programPath.call(print, "interpreter"),
-            "program"
-          )
-        );
+        parts.push(path.call(print, "program", "interpreter"));
       }
 
       parts.push(path.call(print, "program"));
@@ -255,7 +190,7 @@ function printPathNoParens(path, options, print, args) {
     case "ExpressionStatement":
       // Detect Flow and TypeScript directives
       if (n.directive) {
-        return [nodeStr(n.expression, options, true), semi];
+        return [printDirective(n.expression, options), semi];
       }
 
       if (options.parser === "__vue_event_binding") {
@@ -279,7 +214,10 @@ function printPathNoParens(path, options, print, args) {
       ];
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
-      const shouldHug = !hasComment(n.expression);
+      const shouldHug =
+        !hasComment(n.expression) &&
+        (n.expression.type === "ObjectExpression" ||
+          n.expression.type === "ArrayExpression");
       if (shouldHug) {
         return ["(", path.call(print, "expression"), ")"];
       }
@@ -338,15 +276,16 @@ function printPathNoParens(path, options, print, args) {
         printTypeAnnotation(path, options, print),
       ];
     case "FunctionDeclaration":
-    case "FunctionExpression":
-      return printFunctionDeclaration(
-        path,
-        print,
-        options,
-        args &&
-          args.expandLastArg &&
-          getCallArguments(path.getParentNode()).length > 1
-      );
+    case "FunctionExpression": {
+      let expandArg = false;
+      if (args && args.expandLastArg) {
+        const parent = path.getParentNode();
+        if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
+          expandArg = true;
+        }
+      }
+      return printFunctionDeclaration(path, print, options, expandArg);
+    }
     case "ArrowFunctionExpression":
       return printArrowFunctionExpression(path, options, print, args);
     case "YieldExpression":
@@ -364,17 +303,23 @@ function printPathNoParens(path, options, print, args) {
       parts.push("await");
       if (n.argument) {
         parts.push(" ", path.call(print, "argument"));
-      }
-      const parent = path.getParentNode();
-      if (
-        ((parent.type === "CallExpression" ||
-          parent.type === "OptionalCallExpression") &&
-          parent.callee === n) ||
-        ((parent.type === "MemberExpression" ||
-          parent.type === "OptionalMemberExpression") &&
-          parent.object === n)
-      ) {
-        return group([indent([softline, ...parts]), softline]);
+        const parent = path.getParentNode();
+        if (
+          (isCallExpression(parent) && parent.callee === n) ||
+          (isMemberExpression(parent) && parent.object === n)
+        ) {
+          parts = [indent([softline, ...parts]), softline];
+          const parentAwaitOrBlock = path.findAncestor(
+            (node) =>
+              node.type === "AwaitExpression" || node.type === "BlockStatement"
+          );
+          if (
+            !parentAwaitOrBlock ||
+            parentAwaitOrBlock.type !== "AwaitExpression"
+          ) {
+            return group(parts);
+          }
+        }
       }
       return parts;
     }
@@ -435,7 +380,7 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
-      return ["@", path.call(print, "expression"), path.call(print, "callee")];
+      return ["@", path.call(print, "expression")];
     case "ArrayExpression":
     case "ArrayPattern":
     case "TupleExpression":
@@ -465,38 +410,10 @@ function printPathNoParens(path, options, print, args) {
       return "this";
     case "Super":
       return "super";
-    case "NullLiteral": // Babel 6 Literal split
-      return "null";
-    case "RegExpLiteral": // Babel 6 Literal split
-      return printRegex(n);
-    case "NumericLiteral": // Babel 6 Literal split
-      return printNumber(n.extra.raw);
-    case "DecimalLiteral":
-      return printNumber(n.value) + "m";
-    case "BigIntLiteral":
-      // babel: n.extra.raw, flow: n.bigint
-      return (n.bigint || n.extra.raw).toLowerCase();
-    case "BooleanLiteral": // Babel 6 Literal split
-    case "StringLiteral": // Babel 6 Literal split
-    case "Literal":
-      if (n.regex) {
-        return printRegex(n.regex);
-      }
-      // typescript
-      if (n.bigint) {
-        return n.raw.toLowerCase();
-      }
-      if (typeof n.value === "number") {
-        return printNumber(n.raw);
-      }
-      if (typeof n.value !== "string") {
-        return "" + n.value;
-      }
-      return nodeStr(n, options);
     case "Directive":
       return [path.call(print, "value"), semi]; // Babel 6
     case "DirectiveLiteral":
-      return nodeStr(n, options);
+      return printDirective(n, options);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -873,7 +790,7 @@ function printPathNoParens(path, options, print, args) {
     case "ArrayTypeAnnotation":
       return [path.call(print, "elementType"), "[]"];
     case "BooleanLiteralTypeAnnotation":
-      return "" + n.value;
+      return String(n.value);
 
     case "EnumDeclaration":
       return ["enum ", path.call(print, "id"), " ", path.call(print, "body")];
@@ -1006,12 +923,12 @@ function printPathNoParens(path, options, print, args) {
     case "QualifiedTypeIdentifier":
       return [path.call(print, "qualification"), ".", path.call(print, "id")];
     case "StringLiteralTypeAnnotation":
-      return nodeStr(n, options);
+      return printString(rawText(n), options);
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof n.value, "number");
     // fall through
     case "BigIntLiteralTypeAnnotation":
-      if (n.extra != null) {
+      if (n.extra) {
         return printNumber(n.extra.raw);
       }
       return printNumber(n.raw);
@@ -1119,16 +1036,23 @@ function printPathNoParens(path, options, print, args) {
   }
 }
 
-function nodeStr(node, options, isFlowOrTypeScriptDirectiveLiteral) {
+function printDirective(node, options) {
   const raw = rawText(node);
-  const isDirectiveLiteral =
-    isFlowOrTypeScriptDirectiveLiteral || node.type === "DirectiveLiteral";
-  return printString(raw, options, isDirectiveLiteral);
-}
+  const rawContent = raw.slice(1, -1);
 
-function printRegex(node) {
-  const flags = node.flags.split("").sort().join("");
-  return `/${node.pattern}/${flags}`;
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  if (rawContent.includes('"') || rawContent.includes("'")) {
+    return raw;
+  }
+
+  const enclosingQuote = options.singleQuote ? "'" : '"';
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  return enclosingQuote + rawContent + enclosingQuote;
 }
 
 function canAttachComment(node) {
@@ -1164,6 +1088,5 @@ module.exports = {
     endOfLine: handleComments.handleEndOfLineComment,
     remaining: handleComments.handleRemainingComment,
   },
-  getGapRegex: handleComments.getGapRegex,
   getCommentChildNodes: handleComments.getCommentChildNodes,
 };

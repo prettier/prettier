@@ -17,7 +17,7 @@ exports[`open-double-quote.less [less] format 1`] = `
 > 2 | background: url(\\"
     |                 ^
   3 | }
-  4 | "
+  4 |"
 `;
 
 exports[`open-sigle-quote.less [less] format 1`] = `
@@ -26,7 +26,7 @@ exports[`open-sigle-quote.less [less] format 1`] = `
 > 2 | background: url('
     |                 ^
   3 | }
-  4 | "
+  4 |"
 `;
 
 exports[`scss-syntax.scss [less] format 1`] = `

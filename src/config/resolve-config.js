@@ -68,9 +68,9 @@ function getExplorer(opts) {
 function _resolveConfig(filePath, opts, sync) {
   opts = { useCache: true, ...opts };
   const loadOpts = {
-    cache: !!opts.useCache,
-    sync: !!sync,
-    editorconfig: !!opts.editorconfig,
+    cache: Boolean(opts.useCache),
+    sync: Boolean(sync),
+    editorconfig: Boolean(opts.editorconfig),
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
@@ -154,9 +154,11 @@ function mergeOverrides(configResult, filePath) {
 }
 
 // Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
-function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
-  const patternList = [].concat(patterns);
-  const excludedPatternList = [].concat(excludedPatterns || []);
+function pathMatchesGlobs(filePath, patterns, excludedPatterns = []) {
+  const patternList = Array.isArray(patterns) ? patterns : [patterns];
+  const excludedPatternList = Array.isArray(excludedPatterns)
+    ? excludedPatterns
+    : [excludedPatterns];
   const opts = { matchBase: true, dot: true };
 
   return (

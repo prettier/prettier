@@ -1,5 +1,138 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`array.json - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+[
+  [
+1,null],
+  [1,null,],
+  [null,],
+  [0,],
+  [false,],
+  ['',]
+]
+
+=====================================output=====================================
+[[1, null], [1, null], [null], [0], [false], [""]]
+
+================================================================================
+`;
+
+exports[`array.json - {"trailingComma":"all"} format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+[
+  [
+1,null],
+  [1,null,],
+  [null,],
+  [0,],
+  [false,],
+  ['',]
+]
+
+=====================================output=====================================
+[[1, null], [1, null], [null], [0], [false], [""]]
+
+================================================================================
+`;
+
+exports[`array.json format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  [
+1,null],
+  [1,null,],
+  [null,],
+  [0,],
+  [false,],
+  ['',]
+]
+
+=====================================output=====================================
+[[1, null], [1, null], [null], [0], [false], [""]]
+
+================================================================================
+`;
+
+exports[`array.json format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  [
+1,null],
+  [1,null,],
+  [null,],
+  [0,],
+  [false,],
+  ['',]
+]
+
+=====================================output=====================================
+[[1, null], [1, null], [null], [0], [false], [""]]
+
+================================================================================
+`;
+
+exports[`array.json format 3`] = `
+====================================options=====================================
+parsers: ["json-stringify"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  [
+1,null],
+  [1,null,],
+  [null,],
+  [0,],
+  [false,],
+  ['',]
+]
+
+=====================================output=====================================
+[
+  [
+    1,
+    null
+  ],
+  [
+    1,
+    null
+  ],
+  [
+    null
+  ],
+  [
+    0
+  ],
+  [
+    false
+  ],
+  [
+    ""
+  ]
+]
+
+================================================================================
+`;
+
 exports[`boolean.json - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
@@ -68,6 +201,774 @@ true
 
 =====================================output=====================================
 true
+
+================================================================================
+`;
+
+exports[`json5.json - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+[
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+},
+{
+  '//': 'JSON5 numbers',
+  hexadecimal: 0xdecaf,
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  positiveSign: +1,
+},
+{
+  '//': 'JSON5 strings',
+singleQuotes: 'I can use "double quotes" here',
+  lineBreaks: "Look, Mom! \\
+No \\\\n's!",
+}
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+    "numbers": [Infinity, -Infinity, NaN],
+    "Infinity": NaN,
+    "NaN": Infinity,
+    "NaN": -Infinity
+  },
+  {
+    "//": "JSON5 numbers",
+    "hexadecimal": 0xdecaf,
+    "leadingDecimalPoint": 0.8675309,
+    "andTrailing": 8675309,
+    "positiveSign": +1
+  },
+  {
+    "//": "JSON5 strings",
+    "singleQuotes": "I can use \\"double quotes\\" here",
+    "lineBreaks": "Look, Mom! \\
+No \\\\n's!"
+  }
+]
+
+================================================================================
+`;
+
+exports[`json5.json - {"trailingComma":"all"} format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+[
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+},
+{
+  '//': 'JSON5 numbers',
+  hexadecimal: 0xdecaf,
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  positiveSign: +1,
+},
+{
+  '//': 'JSON5 strings',
+singleQuotes: 'I can use "double quotes" here',
+  lineBreaks: "Look, Mom! \\
+No \\\\n's!",
+}
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+    numbers: [Infinity, -Infinity, NaN],
+    Infinity: NaN,
+    NaN: Infinity,
+    NaN: -Infinity,
+  },
+  {
+    "//": "JSON5 numbers",
+    hexadecimal: 0xdecaf,
+    leadingDecimalPoint: 0.8675309,
+    andTrailing: 8675309,
+    positiveSign: +1,
+  },
+  {
+    "//": "JSON5 strings",
+    singleQuotes: 'I can use "double quotes" here',
+    lineBreaks: "Look, Mom! \\
+No \\\\n's!",
+  },
+]
+
+================================================================================
+`;
+
+exports[`json5.json format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+},
+{
+  '//': 'JSON5 numbers',
+  hexadecimal: 0xdecaf,
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  positiveSign: +1,
+},
+{
+  '//': 'JSON5 strings',
+singleQuotes: 'I can use "double quotes" here',
+  lineBreaks: "Look, Mom! \\
+No \\\\n's!",
+}
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+    "numbers": [Infinity, -Infinity, NaN],
+    "Infinity": NaN,
+    "NaN": Infinity,
+    "NaN": -Infinity
+  },
+  {
+    "//": "JSON5 numbers",
+    "hexadecimal": 0xdecaf,
+    "leadingDecimalPoint": 0.8675309,
+    "andTrailing": 8675309,
+    "positiveSign": +1
+  },
+  {
+    "//": "JSON5 strings",
+    "singleQuotes": "I can use \\"double quotes\\" here",
+    "lineBreaks": "Look, Mom! \\
+No \\\\n's!"
+  }
+]
+
+================================================================================
+`;
+
+exports[`json5.json format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+},
+{
+  '//': 'JSON5 numbers',
+  hexadecimal: 0xdecaf,
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  positiveSign: +1,
+},
+{
+  '//': 'JSON5 strings',
+singleQuotes: 'I can use "double quotes" here',
+  lineBreaks: "Look, Mom! \\
+No \\\\n's!",
+}
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+    numbers: [Infinity, -Infinity, NaN],
+    Infinity: NaN,
+    NaN: Infinity,
+    NaN: -Infinity,
+  },
+  {
+    "//": "JSON5 numbers",
+    hexadecimal: 0xdecaf,
+    leadingDecimalPoint: 0.8675309,
+    andTrailing: 8675309,
+    positiveSign: +1,
+  },
+  {
+    "//": "JSON5 strings",
+    singleQuotes: 'I can use "double quotes" here',
+    lineBreaks: "Look, Mom! \\
+No \\\\n's!",
+  },
+]
+
+================================================================================
+`;
+
+exports[`json5.json format 3`] = `
+====================================options=====================================
+parsers: ["json-stringify"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+{
+  '//': 'JSON5 allow \`Infinity\` and \`NaN\`',
+  numbers: [
+    Infinity,
+    -Infinity,
+    NaN,
+  ],
+  Infinity: NaN,
+  NaN: Infinity,
+  NaN: -Infinity,
+},
+{
+  '//': 'JSON5 numbers',
+  hexadecimal: 0xdecaf,
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  positiveSign: +1,
+},
+{
+  '//': 'JSON5 strings',
+singleQuotes: 'I can use "double quotes" here',
+  lineBreaks: "Look, Mom! \\
+No \\\\n's!",
+}
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "JSON5 allow \`Infinity\` and \`NaN\`",
+    "numbers": [
+      Infinity,
+      -Infinity,
+      NaN
+    ],
+    "Infinity": NaN,
+    "NaN": Infinity,
+    "NaN": -Infinity
+  },
+  {
+    "//": "JSON5 numbers",
+    "hexadecimal": 912559,
+    "leadingDecimalPoint": 0.8675309,
+    "andTrailing": 8675309,
+    "positiveSign": 1
+  },
+  {
+    "//": "JSON5 strings",
+    "singleQuotes": "I can use \\"double quotes\\" here",
+    "lineBreaks": "Look, Mom! No \\\\n's!"
+  }
+]
+
+================================================================================
+`;
+
+exports[`json6.json - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+[
+{'//': 'Keyword \`undefined\`',
+    "data": [
+      {undefined: undefined},
+      undefined,
+      [undefined, ]
+    ]
+  },
+
+{'//': 'back-tick quoted strings',
+    "data": [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      {'as-object-value': \`foo\`}
+    ]
+  },
+
+{'//': 'String escapes ',
+    "data": [
+      '\\0', '\\xFF', '\\u00FF', \`\\u{1F409}\`
+    ]
+  },
+
+{'//': 'Numbers',
+    "data": [
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
+    ]
+  },
+
+{'//': 'empty members',
+    data: [
+      [,],
+      [1, , 2,,,,],
+      [1, , 2],
+      [1, , 2,]
+    ]
+  }
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "Keyword \`undefined\`",
+    "data": [{ "undefined": undefined }, undefined, [undefined]]
+  },
+
+  {
+    "//": "back-tick quoted strings",
+    "data": [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      { "as-object-value": \`foo\` }
+    ]
+  },
+
+  { "//": "String escapes ", "data": ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
+
+  {
+    "//": "Numbers",
+    "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN]
+  },
+
+  { "//": "empty members", "data": [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] }
+]
+
+================================================================================
+`;
+
+exports[`json6.json - {"trailingComma":"all"} format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+[
+{'//': 'Keyword \`undefined\`',
+    "data": [
+      {undefined: undefined},
+      undefined,
+      [undefined, ]
+    ]
+  },
+
+{'//': 'back-tick quoted strings',
+    "data": [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      {'as-object-value': \`foo\`}
+    ]
+  },
+
+{'//': 'String escapes ',
+    "data": [
+      '\\0', '\\xFF', '\\u00FF', \`\\u{1F409}\`
+    ]
+  },
+
+{'//': 'Numbers',
+    "data": [
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
+    ]
+  },
+
+{'//': 'empty members',
+    data: [
+      [,],
+      [1, , 2,,,,],
+      [1, , 2],
+      [1, , 2,]
+    ]
+  }
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "Keyword \`undefined\`",
+    data: [{ undefined: undefined }, undefined, [undefined]],
+  },
+
+  {
+    "//": "back-tick quoted strings",
+    data: [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      { "as-object-value": \`foo\` },
+    ],
+  },
+
+  { "//": "String escapes ", data: ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
+
+  {
+    "//": "Numbers",
+    data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN],
+  },
+
+  { "//": "empty members", data: [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] },
+]
+
+================================================================================
+`;
+
+exports[`json6.json format 1`] = `
+====================================options=====================================
+parsers: ["json"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+{'//': 'Keyword \`undefined\`',
+    "data": [
+      {undefined: undefined},
+      undefined,
+      [undefined, ]
+    ]
+  },
+
+{'//': 'back-tick quoted strings',
+    "data": [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      {'as-object-value': \`foo\`}
+    ]
+  },
+
+{'//': 'String escapes ',
+    "data": [
+      '\\0', '\\xFF', '\\u00FF', \`\\u{1F409}\`
+    ]
+  },
+
+{'//': 'Numbers',
+    "data": [
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
+    ]
+  },
+
+{'//': 'empty members',
+    data: [
+      [,],
+      [1, , 2,,,,],
+      [1, , 2],
+      [1, , 2,]
+    ]
+  }
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "Keyword \`undefined\`",
+    "data": [{ "undefined": undefined }, undefined, [undefined]]
+  },
+
+  {
+    "//": "back-tick quoted strings",
+    "data": [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      { "as-object-value": \`foo\` }
+    ]
+  },
+
+  { "//": "String escapes ", "data": ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
+
+  {
+    "//": "Numbers",
+    "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN]
+  },
+
+  { "//": "empty members", "data": [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] }
+]
+
+================================================================================
+`;
+
+exports[`json6.json format 2`] = `
+====================================options=====================================
+parsers: ["json5"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+{'//': 'Keyword \`undefined\`',
+    "data": [
+      {undefined: undefined},
+      undefined,
+      [undefined, ]
+    ]
+  },
+
+{'//': 'back-tick quoted strings',
+    "data": [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      {'as-object-value': \`foo\`}
+    ]
+  },
+
+{'//': 'String escapes ',
+    "data": [
+      '\\0', '\\xFF', '\\u00FF', \`\\u{1F409}\`
+    ]
+  },
+
+{'//': 'Numbers',
+    "data": [
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
+    ]
+  },
+
+{'//': 'empty members',
+    data: [
+      [,],
+      [1, , 2,,,,],
+      [1, , 2],
+      [1, , 2,]
+    ]
+  }
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "Keyword \`undefined\`",
+    data: [{ undefined: undefined }, undefined, [undefined]],
+  },
+
+  {
+    "//": "back-tick quoted strings",
+    data: [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      { "as-object-value": \`foo\` },
+    ],
+  },
+
+  { "//": "String escapes ", data: ["\\0", "\\xFF", "\\u00FF", \`\\u{1F409}\`] },
+
+  {
+    "//": "Numbers",
+    data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN],
+  },
+
+  { "//": "empty members", data: [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] },
+]
+
+================================================================================
+`;
+
+exports[`json6.json format 3`] = `
+====================================options=====================================
+parsers: ["json-stringify"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+{'//': 'Keyword \`undefined\`',
+    "data": [
+      {undefined: undefined},
+      undefined,
+      [undefined, ]
+    ]
+  },
+
+{'//': 'back-tick quoted strings',
+    "data": [
+      \`\`,
+      \`foo\`,
+      \`
+  multiple-line
+\`,
+      \`\\u{1F409}\\\`'"\\\${}\`,
+      {'as-object-value': \`foo\`}
+    ]
+  },
+
+{'//': 'String escapes ',
+    "data": [
+      '\\0', '\\xFF', '\\u00FF', \`\\u{1F409}\`
+    ]
+  },
+
+{'//': 'Numbers',
+    "data": [
+      0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
+      0123,
+      -Infinity, -NaN,
+    ]
+  },
+
+{'//': 'empty members',
+    data: [
+      [,],
+      [1, , 2,,,,],
+      [1, , 2],
+      [1, , 2,]
+    ]
+  }
+]
+
+=====================================output=====================================
+[
+  {
+    "//": "Keyword \`undefined\`",
+    "data": [
+      {
+        "undefined": undefined
+      },
+      undefined,
+      [
+        undefined
+      ]
+    ]
+  },
+  {
+    "//": "back-tick quoted strings",
+    "data": [
+      "",
+      "foo",
+      "\\n  multiple-line\\n",
+      "🐉\`'\\"\${}",
+      {
+        "as-object-value": "foo"
+      }
+    ]
+  },
+  {
+    "//": "String escapes ",
+    "data": [
+      "\\u0000",
+      "ÿ",
+      "ÿ",
+      "🐉"
+    ]
+  },
+  {
+    "//": "Numbers",
+    "data": [
+      83,
+      42,
+      100000,
+      123456,
+      3740122863,
+      83,
+      -Infinity,
+      -NaN
+    ]
+  },
+  {
+    "//": "empty members",
+    "data": [
+      [
+        null
+      ],
+      [
+        1,
+        null,
+        2,
+        null,
+        null,
+        null
+      ],
+      [
+        1,
+        null,
+        2
+      ],
+      [
+        1,
+        null,
+        2
+      ]
+    ]
+  }
+]
 
 ================================================================================
 `;
@@ -524,7 +1425,11 @@ trailingComma: "all"
     "url": "http://www.JSON.org/",
     "comment": "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7
+    ],
     "compact": [1, 2, 3, 4, 5, 6, 7],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
     "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
@@ -650,7 +1555,11 @@ trailingComma: "all"
     url: "http://www.JSON.org/",
     comment: "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7,
+    ],
     compact: [1, 2, 3, 4, 5, 6, 7],
     jsontext: '{"object with 1 member":["array with 1 element"]}',
     quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
@@ -775,7 +1684,11 @@ printWidth: 80
     "url": "http://www.JSON.org/",
     "comment": "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7
+    ],
     "compact": [1, 2, 3, 4, 5, 6, 7],
     "jsontext": "{\\"object with 1 member\\":[\\"array with 1 element\\"]}",
     "quotes": "&#34; \\u0022 %22 0x22 034 &#x22;",
@@ -900,7 +1813,11 @@ printWidth: 80
     url: "http://www.JSON.org/",
     comment: "// /* <!-- --",
     "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    " s p a c e d ": [
+      1, 2, 3,
+
+      4, 5, 6, 7,
+    ],
     compact: [1, 2, 3, 4, 5, 6, 7],
     jsontext: '{"object with 1 member":["array with 1 element"]}',
     quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",

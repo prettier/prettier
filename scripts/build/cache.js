@@ -48,7 +48,7 @@ class Cache {
       for (const files of Object.values(this.files)) {
         assert.ok(Array.isArray(files));
       }
-    } catch (err) {
+    } catch {
       this.checksums = {};
       this.files = {};
     }
@@ -97,7 +97,7 @@ class Cache {
   async save() {
     try {
       await fs.writeFile(this.manifest, JSON.stringify(this.updated, null, 2));
-    } catch (err) {
+    } catch {
       // Don't fail the build
     }
   }

@@ -29,6 +29,7 @@ original_id: related-projects
 
 ## Misc
 
+- [parallel-prettier](https://github.com/microsoft/parallel-prettier) is an alternative CLI that formats files in parallel to speed up large projects
 - [prettier_d](https://github.com/josephfrazier/prettier_d.js) runs Prettier as a server to avoid Node.js startup delay
 - [pretty-quick](https://github.com/azz/pretty-quick) formats changed files with Prettier
 - [rollup-plugin-prettier](https://github.com/mjeanroy/rollup-plugin-prettier) allows you to use Prettier with Rollup

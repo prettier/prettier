@@ -1,7 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const { parse: parseFrontMatter } = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter/parse");
 const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
@@ -71,7 +71,7 @@ function parseValueNode(valueNode, options) {
       for (let i = 0; i < groups.length; i++) {
         const group = groups[i];
         if (group.type === "comma_group") {
-          groupList = groupList.concat(group.groups);
+          groupList = [...groupList, ...group.groups];
         } else {
           groupList.push(group);
         }
@@ -212,7 +212,7 @@ function parseValue(value, options) {
 
   try {
     result = valueParser(value, { loose: true }).parse();
-  } catch (e) {
+  } catch {
     return {
       type: "value-unknown",
       value,
@@ -246,7 +246,7 @@ function parseSelector(selector) {
     selectorParser((result_) => {
       result = result_;
     }).process(selector);
-  } catch (e) {
+  } catch {
     // Fail silently. It's better to print it as is than to try and parse it
     // Note: A common failure is for SCSS nested properties. `background:
     // none { color: red; }` is parsed as a NestedDeclaration by
@@ -269,7 +269,7 @@ function parseMediaQuery(params) {
 
   try {
     result = mediaParser(params);
-  } catch (e) {
+  } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
     return {

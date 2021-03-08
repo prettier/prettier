@@ -18,6 +18,12 @@ const ignoredProperties = new Set([
   "tokens",
 ]);
 
+const removeTemplateElementsValue = (node) => {
+  for (const templateElement of node.quasis) {
+    delete templateElement.value;
+  }
+};
+
 function clean(ast, newObj, parent) {
   if (ast.type === "Program") {
     delete newObj.sourceType;
@@ -82,11 +88,6 @@ function clean(ast, newObj, parent) {
     delete newObj.key;
   }
 
-  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
-    newObj.type = "MemberExpression";
-    delete newObj.optional;
-  }
-
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
@@ -94,21 +95,13 @@ function clean(ast, newObj, parent) {
     ast.openingElement.name.name === "style" &&
     ast.openingElement.attributes.some((attr) => attr.name.name === "jsx")
   ) {
-    const templateLiterals = newObj.children
-      .filter(
-        (child) =>
-          child.type === "JSXExpressionContainer" &&
-          child.expression.type === "TemplateLiteral"
-      )
-      .map((container) => container.expression);
-
-    const quasis = templateLiterals.reduce(
-      (quasis, templateLiteral) => quasis.concat(templateLiteral.quasis),
-      []
-    );
-
-    for (const q of quasis) {
-      delete q.value;
+    for (const { type, expression } of newObj.children) {
+      if (
+        type === "JSXExpressionContainer" &&
+        expression.type === "TemplateLiteral"
+      ) {
+        removeTemplateElementsValue(expression);
+      }
     }
   }
 
@@ -119,9 +112,7 @@ function clean(ast, newObj, parent) {
     ast.value.type === "JSXExpressionContainer" &&
     ast.value.expression.type === "TemplateLiteral"
   ) {
-    for (const q of newObj.value.expression.quasis) {
-      delete q.value;
-    }
+    removeTemplateElementsValue(newObj.value.expression);
   }
 
   // We change quotes
@@ -147,25 +138,17 @@ function clean(ast, newObj, parent) {
       index,
       prop,
     ] of newObj.expression.arguments[0].properties.entries()) {
-      let templateLiteral = null;
-
       switch (astProps[index].key.name) {
         case "styles":
           if (prop.value.type === "ArrayExpression") {
-            templateLiteral = prop.value.elements[0];
+            removeTemplateElementsValue(prop.value.elements[0]);
           }
           break;
         case "template":
           if (prop.value.type === "TemplateLiteral") {
-            templateLiteral = prop.value;
+            removeTemplateElementsValue(prop.value);
           }
           break;
-      }
-
-      if (templateLiteral) {
-        for (const q of templateLiteral.quasis) {
-          delete q.value;
-        }
       }
     }
   }
@@ -183,9 +166,7 @@ function clean(ast, newObj, parent) {
           ast.tag.name === "html")) ||
       ast.tag.type === "CallExpression")
   ) {
-    for (const quasi of newObj.quasi.quasis) {
-      delete quasi.value;
-    }
+    removeTemplateElementsValue(newObj.quasi);
   }
   if (ast.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
@@ -204,21 +185,12 @@ function clean(ast, newObj, parent) {
       );
     if (
       hasLanguageComment ||
-      (parent.type === "CallExpression" && parent.callee.name === "graphql")
+      (parent.type === "CallExpression" && parent.callee.name === "graphql") ||
+      // TODO: check parser
+      // `flow` and `typescript` don't have `leadingComments`
+      !ast.leadingComments
     ) {
-      for (const quasi of newObj.quasis) {
-        delete quasi.value;
-      }
-    }
-
-    // TODO: check parser
-    // `flow` and `typescript` don't have `leadingComments`
-    if (!ast.leadingComments) {
-      for (const quasi of newObj.quasis) {
-        if (quasi.value) {
-          delete quasi.value.cooked;
-        }
-      }
+      removeTemplateElementsValue(newObj);
     }
   }
 
@@ -226,10 +198,12 @@ function clean(ast, newObj, parent) {
     newObj.value = newObj.value.trimEnd();
   }
 
-  // TODO: Remove this when fixing #9760
-  if (ast.type === "ClassMethod") {
-    delete newObj.declare;
-    delete newObj.readonly;
+  // Prettier removes degenerate union and intersection types with only one member.
+  if (
+    (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
+    ast.types.length === 1
+  ) {
+    return newObj.types[0];
   }
 }
 

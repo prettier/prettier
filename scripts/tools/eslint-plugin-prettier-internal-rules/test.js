@@ -73,6 +73,33 @@ test("directly-loc-start-end", {
   ],
 });
 
+test("flat-ast-path-call", {
+  valid: [
+    'path.call((childPath) => childPath.notCall(print, "b"), "a")',
+    'path.notCall((childPath) => childPath.call(print, "b"), "a")',
+    'path.call((childPath) => childPath.call(print, "b"))',
+    'path.call((childPath) => childPath.call(print), "a")',
+    'path.call((childPath) => notChildPath.call(print), "a")',
+    'path.call(functionReference, "a")',
+    // Only check `arrow function`
+    'path.call((childPath) => {return childPath.call(print, "b")}, "a")',
+    'path.call(function(childPath) {return childPath.call(print, "b")}, "a")',
+  ],
+  invalid: [
+    {
+      code: 'path.call((childPath) => childPath.call(print, "b"), "a")',
+      output: 'path.call(print, "a", "b")',
+      errors: [{ message: "Do not use nested `AstPath#call(…)`." }],
+    },
+    {
+      // Trailing comma
+      code: 'path.call((childPath) => childPath.call(print, "b"), "a",)',
+      output: 'path.call(print, "a", "b")',
+      errors: 1,
+    },
+  ],
+});
+
 test("jsx-identifier-case", {
   valid: [
     {
@@ -144,12 +171,41 @@ test("no-node-comments", {
   ],
 });
 
-test("prefer-fast-path-each", {
+test("prefer-ast-path-each", {
   valid: ["const foo = path.map()"],
   invalid: [
     {
       code: "path.map()",
       output: "path.each()",
+      errors: 1,
+    },
+  ],
+});
+
+test("prefer-indent-if-break", {
+  valid: [
+    "ifBreak(indent(doc))",
+    "notIfBreak(indent(doc), doc, options)",
+    "ifBreak(indent(doc), doc, )",
+    "ifBreak(...a, ...b, ...c)",
+    "ifBreak(notIndent(doc), doc, options)",
+    "ifBreak(indent(doc), notSameDoc, options)",
+    "ifBreak(indent(...a), a, options)",
+    "ifBreak(indent(a, b), a, options)",
+  ],
+  invalid: [
+    {
+      code: "ifBreak(indent(doc), doc, options)",
+      output: "indentIfBreak( doc, options)",
+      errors: [
+        {
+          message: "Prefer `indentIfBreak(…)` over `ifBreak(indent(…), …)`.",
+        },
+      ],
+    },
+    {
+      code: "ifBreak((indent(doc)), (doc), options)",
+      output: "indentIfBreak( (doc), options)",
       errors: 1,
     },
   ],
@@ -201,6 +257,49 @@ test("require-json-extensions", {
       filename: __filename,
       output: 'require("./package.json")',
       errors: [{ message: 'Missing file extension ".json" for "./package".' }],
+    },
+  ],
+});
+
+test("no-empty-flat-contents-for-if-break", {
+  valid: [
+    "ifBreak('foo', 'bar')",
+    "ifBreak(doc1, doc2)",
+    "ifBreak(',')",
+    "ifBreak(doc)",
+    "ifBreak('foo', '', { groupId })",
+    "ifBreak(...foo, { groupId })",
+  ],
+  invalid: [
+    {
+      code: "ifBreak('foo', '')",
+      output: "ifBreak('foo')",
+      errors: [
+        {
+          message:
+            "Please don't pass an empty string to second parameter of ifBreak.",
+        },
+      ],
+    },
+    {
+      code: "ifBreak('foo'    ,     ''   )",
+      output: "ifBreak('foo')",
+      errors: [
+        {
+          message:
+            "Please don't pass an empty string to second parameter of ifBreak.",
+        },
+      ],
+    },
+    {
+      code: "ifBreak(doc, '')",
+      output: "ifBreak(doc)",
+      errors: [
+        {
+          message:
+            "Please don't pass an empty string to second parameter of ifBreak.",
+        },
+      ],
     },
   ],
 });

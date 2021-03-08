@@ -44,6 +44,9 @@ const parsers = [
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
       "process.versions.node": "'999.999.999'",
+      // `rollup-plugin-polyfill-node` don't have polyfill for these modules
+      'require("perf_hooks")': "{}",
+      'require("inspector")': "{}",
     },
   },
   {
@@ -156,7 +159,7 @@ function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = coreBundles.concat(parsers).map((bundle) => ({
+module.exports = [...coreBundles, ...parsers].map((bundle) => ({
   ...bundle,
   output: getFileOutput(bundle),
 }));

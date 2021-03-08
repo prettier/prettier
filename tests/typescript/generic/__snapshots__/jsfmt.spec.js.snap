@@ -181,3 +181,43 @@ export default {
 
 ================================================================================
 `;
+
+exports[`ungrouped-parameters.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function filterTooltipWithFoo<F extends Field>(oldEncoding: Encoding<F>): {
+  customTooltipWithoutAggregatedField?:
+    | StringFieldDefWithCondition<F>
+    | StringValueDefWithCondition<F>
+    | StringFieldDef<F>[];
+  filteredEncoding: Encoding<F>;
+} {
+  const {tooltip, ...filteredEncoding} = oldEncoding;
+  if (!tooltip) {
+    return {filteredEncoding};
+  }
+  // ...
+}
+
+=====================================output=====================================
+function filterTooltipWithFoo<F extends Field>(
+  oldEncoding: Encoding<F>
+): {
+  customTooltipWithoutAggregatedField?:
+    | StringFieldDefWithCondition<F>
+    | StringValueDefWithCondition<F>
+    | StringFieldDef<F>[];
+  filteredEncoding: Encoding<F>;
+} {
+  const { tooltip, ...filteredEncoding } = oldEncoding;
+  if (!tooltip) {
+    return { filteredEncoding };
+  }
+  // ...
+}
+
+================================================================================
+`;

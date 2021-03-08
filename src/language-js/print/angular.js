@@ -6,18 +6,18 @@ const {
 const { hasNode, hasComment, getComments } = require("../utils");
 const { printBinaryishExpression } = require("./binaryish");
 
-/** @typedef {import("../../common/fast-path")} FastPath */
+/** @typedef {import("../../common/ast-path")} AstPath */
 
 function printAngular(path, options, print) {
   const n = path.getValue();
   switch (n.type) {
     case "NGRoot":
-      return [].concat(
+      return [
         path.call(print, "node"),
         !hasComment(n.node)
-          ? []
-          : [" //", getComments(n.node)[0].value.trimEnd()]
-      );
+          ? ""
+          : " //" + getComments(n.node)[0].value.trimEnd(),
+      ];
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
     case "NGChainedExpression":
@@ -99,7 +99,7 @@ function isNgForOf(node, index, parentNode) {
 
 /** identify if an angular expression seems to have side effects */
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function hasNgSideEffect(path) {

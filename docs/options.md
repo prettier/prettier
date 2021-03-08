@@ -89,6 +89,15 @@ Valid options:
 | ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
 
+Note that Prettier never unquotes numeric property names in Angular expressions, TypeScript, and Flow because the distinction between string and numeric keys is significant in these languages. See: [Angular][quote-props-angular], [TypeScript][quote-props-typescript], [Flow][quote-props-flow]. Also Prettier doesn’t unquote numeric properties for Vue (see the [issue][quote-props-vue] about that).
+
+[quote-props-angular]: https://codesandbox.io/s/hungry-morse-foj87?file=/src/app/app.component.html
+[quote-props-typescript]: https://www.typescriptlang.org/play?#code/DYUwLgBAhhC8EG8IEYBcKA0EBM7sQF8AoUSAIzkQgHJlr1ktrt6dCiiATEAY2CgBOICKWhR0AaxABPAPYAzCGGkAHEAugBuLr35CR4CGTKSZG5Wo1ltRKDHjHtQA
+[quote-props-flow]: https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g
+[quote-props-vue]: https://github.com/prettier/prettier/issues/10127
+
+If this option is set to `preserve`, `singleQuote` to `false` (default value), and `parser` to `json5`, double quotes are always used for strings. This effectively allows using the `json5` parser for “JSON with comments and trailing commas”.
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.
@@ -101,13 +110,13 @@ Use single quotes instead of double quotes in JSX.
 
 _Default value changed from `none` to `es5` in v2.0.0_
 
-Print trailing commas wherever possible when multi-line. (A single-line array, for example, never gets trailing commas.)
+Print trailing commas wherever possible in multi-line comma-separated syntactic structures. (A single-line array, for example, never gets trailing commas.)
 
 Valid options:
 
-- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
+- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). No trailing commas in type parameters in TypeScript.
 - `"none"` - No trailing commas.
-- `"all"` - Trailing commas wherever possible (including [trailing commas in function parameter lists and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). This requires node 8 or a modern browser that supports ES2017 or transform with [babel](https://babeljs.io/docs/en/index).
+- `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/en/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
 
 | Default | CLI Override                                           | API Override                                           |
 | ------- | ------------------------------------------------------ | ------------------------------------------------------ |
@@ -316,7 +325,7 @@ Specify the global whitespace sensitivity for HTML, Vue, Angular, and Handlebars
 
 Valid options:
 
-- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `ignore`.
+- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `strict`.
 - `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
 - `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 

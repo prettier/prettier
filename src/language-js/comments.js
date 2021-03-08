@@ -20,13 +20,15 @@ const {
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
+  isCallExpression,
+  isMemberExpression,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
 /**
  * @typedef {import("./types/estree").Node} Node
  * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("../common/fast-path")} FastPath
+ * @typedef {import("../common/ast-path")} AstPath
  *
  * @typedef {Object} CommentContext
  * @property {Comment} comment
@@ -315,9 +317,7 @@ function handleMemberExpressionComments({
   followingNode,
 }) {
   if (
-    enclosingNode &&
-    (enclosingNode.type === "MemberExpression" ||
-      enclosingNode.type === "OptionalMemberExpression") &&
+    isMemberExpression(enclosingNode) &&
     followingNode &&
     followingNode.type === "Identifier"
   ) {
@@ -521,8 +521,7 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
-      ((enclosingNode.type === "CallExpression" ||
-        enclosingNode.type === "OptionalCallExpression" ||
+      ((isCallExpression(enclosingNode) ||
         enclosingNode.type === "NewExpression") &&
         enclosingNode.arguments.length === 0))
   ) {
@@ -644,9 +643,7 @@ function handleCallExpressionComments({
   enclosingNode,
 }) {
   if (
-    enclosingNode &&
-    (enclosingNode.type === "CallExpression" ||
-      enclosingNode.type === "OptionalCallExpression") &&
+    isCallExpression(enclosingNode) &&
     precedingNode &&
     enclosingNode.callee === precedingNode &&
     enclosingNode.arguments.length > 0
@@ -713,7 +710,9 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
       addLeadingComment(ast, comment);
     }
     return true;
-  } else if (
+  }
+
+  if (
     enclosingNode &&
     enclosingNode.type === "Program" &&
     enclosingNode.body.length === 0 &&
@@ -727,6 +726,7 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
     }
     return true;
   }
+
   return false;
 }
 
@@ -887,22 +887,6 @@ function isRealFunctionLikeNode(node) {
 }
 
 /**
- * @param {Node} enclosingNode
- * @returns {RegExp | void}
- */
-function getGapRegex(enclosingNode) {
-  if (
-    enclosingNode &&
-    enclosingNode.type !== "BinaryExpression" &&
-    enclosingNode.type !== "LogicalExpression"
-  ) {
-    // Support degenerate single-element unions and intersections.
-    // E.g.: `type A = /* 1 */ & B`
-    return /^[\s&(|]*$/;
-  }
-}
-
-/**
  * @param {any} node
  * @returns {Node[] | void}
  */
@@ -947,7 +931,7 @@ function isTypeCastComment(comment) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function willPrintOwnComments(path /*, options */) {
@@ -958,9 +942,7 @@ function willPrintOwnComments(path /*, options */) {
     ((node &&
       (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
-        (parent &&
-          (parent.type === "CallExpression" ||
-            parent.type === "OptionalCallExpression") &&
+        (isCallExpression(parent) &&
           (hasFlowAnnotationComment(node.leadingComments) ||
             hasFlowAnnotationComment(node.trailingComments))))) ||
       (parent &&
@@ -982,7 +964,6 @@ module.exports = {
   handleEndOfLineComment,
   handleRemainingComment,
   isTypeCastComment,
-  getGapRegex,
   getCommentChildNodes,
   willPrintOwnComments,
 };

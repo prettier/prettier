@@ -1,11 +1,13 @@
 "use strict";
 
 const raw = require("jest-snapshot-serializer-raw").wrap;
+const visualizeRange = require("./visualize-range");
+const visualizeEndOfLine = require("./visualize-end-of-line");
 
-function printSeparator(width, description) {
-  description = description || "";
-  const leftLength = Math.floor((width - description.length) / 2);
-  const rightLength = width - leftLength - description.length;
+const SEPARATOR_WIDTH = 80;
+function printSeparator(description = "") {
+  const leftLength = Math.floor((SEPARATOR_WIDTH - description.length) / 2);
+  const rightLength = SEPARATOR_WIDTH - leftLength - description.length;
   return "=".repeat(leftLength) + description + "=".repeat(rightLength);
 }
 
@@ -16,32 +18,80 @@ function stringify(value) {
     ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
     : JSON.stringify(value);
 }
+
 function printOptions(options) {
-  const keys = Object.keys(options).sort();
-  return keys.map((key) => `${key}: ${stringify(options[key])}`).join("\n");
+  const {
+    plugins,
+    filepath,
+    errors,
+    parser,
+
+    ...snapshotOptions
+  } = options;
+
+  const keys = Object.keys(snapshotOptions).sort();
+  return keys
+    .map((key) => `${key}: ${stringify(snapshotOptions[key])}`)
+    .join("\n");
 }
 
-function createSnapshot(input, output, options, { codeOffset }) {
-  const separatorWidth = 80;
-  const printWidthIndicator =
-    options.printWidth > 0 && Number.isFinite(options.printWidth)
-      ? (codeOffset ? " ".repeat(codeOffset - 1) + "|" : "") +
-        " ".repeat(options.printWidth) +
-        "| printWidth"
-      : [];
+function printWidthIndicator(printWidth, offset) {
+  if (!Number.isFinite(printWidth) || printWidth < 1) {
+    return "";
+  }
+
+  let before = "";
+  if (offset) {
+    before = " ".repeat(offset - 1) + "|";
+  }
+
+  return `${before}${" ".repeat(printWidth)}| printWidth`;
+}
+
+function createSnapshot(
+  formatResult,
+  { parsers, formatOptions, CURSOR_PLACEHOLDER }
+) {
+  let {
+    inputWithCursor: input,
+    outputWithCursor: output,
+    options,
+  } = formatResult;
+  let { rangeStart, rangeEnd, cursorOffset, printWidth } = options;
+
+  let codeOffset = 0;
+  if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
+    if (typeof cursorOffset === "number") {
+      if (typeof rangeStart === "number" && rangeStart > cursorOffset) {
+        rangeStart += CURSOR_PLACEHOLDER.length;
+      }
+      if (typeof rangeEnd === "number" && rangeEnd > cursorOffset) {
+        rangeEnd += CURSOR_PLACEHOLDER.length;
+      }
+    }
+
+    input = visualizeRange(input, { rangeStart, rangeEnd });
+    codeOffset = input.match(/^>?\s+1 \|/)[0].length + 1;
+  }
+
+  if ("endOfLine" in formatOptions) {
+    input = visualizeEndOfLine(input);
+    output = visualizeEndOfLine(output);
+  }
+
+  const widthIndicator = printWidthIndicator(printWidth, codeOffset);
+
   return raw(
-    []
-      .concat(
-        printSeparator(separatorWidth, "options"),
-        printOptions(options),
-        printWidthIndicator,
-        printSeparator(separatorWidth, "input"),
-        input,
-        printSeparator(separatorWidth, "output"),
-        output,
-        printSeparator(separatorWidth)
-      )
-      .join("\n")
+    [
+      printSeparator("options"),
+      printOptions({ ...options, parsers }),
+      ...(widthIndicator ? [widthIndicator] : []),
+      printSeparator("input"),
+      input,
+      printSeparator("output"),
+      output,
+      printSeparator(),
+    ].join("\n")
   );
 }
 

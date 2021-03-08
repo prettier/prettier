@@ -2,7 +2,7 @@
 
 exports[`class.js [espree] format 1`] = `
 "Unexpected token ; (12:6)
-  10 | 
+  10 |
   11 | class C1 {
 > 12 |   get; // The semicolon *is* necessary
      |      ^
@@ -13,7 +13,7 @@ exports[`class.js [espree] format 1`] = `
 
 exports[`class.js - {"semi":false} [espree] format 1`] = `
 "Unexpected token ; (12:6)
-  10 | 
+  10 |
   11 | class C1 {
 > 12 |   get; // The semicolon *is* necessary
      |      ^
@@ -1004,6 +1004,67 @@ while (false) (function () {})();
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
   (b + c);
+
+================================================================================
+`;
+
+exports[`private-field.js [espree] format 1`] = `
+"Unexpected character '#' (2:3)
+  1 | class C {
+> 2 |   #field = 'value';
+    |   ^
+  3 |   [\\"method\\"]() {}
+  4 | }
+  5 |"
+`;
+
+exports[`private-field.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '#' (2:3)
+  1 | class C {
+> 2 |   #field = 'value';
+    |   ^
+  3 |   [\\"method\\"]() {}
+  4 | }
+  5 |"
+`;
+
+exports[`private-field.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  #field = 'value';
+  ["method"]() {}
+}
+
+=====================================output=====================================
+class C {
+  #field = "value";
+  ["method"]() {}
+}
+
+================================================================================
+`;
+
+exports[`private-field.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  #field = 'value';
+  ["method"]() {}
+}
+
+=====================================output=====================================
+class C {
+  #field = "value";
+  ["method"]() {}
+}
 
 ================================================================================
 `;

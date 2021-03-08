@@ -5,12 +5,11 @@ const { rollup } = require("rollup");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
-const nodeGlobals = require("rollup-plugin-node-globals");
+const rollupPluginPolyfillNode = require("rollup-plugin-polyfill-node");
 const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
 const { babel } = require("@rollup/plugin-babel");
-const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
@@ -118,10 +117,13 @@ function getBabelConfig(bundle) {
       },
     ],
   ];
-  config.plugins.push([
-    require.resolve("@babel/plugin-proposal-object-rest-spread"),
-    { loose: true, useBuiltIns: true },
-  ]);
+  config.plugins.push(
+    [
+      require.resolve("@babel/plugin-proposal-object-rest-spread"),
+      { loose: true, useBuiltIns: true },
+    ],
+    require.resolve("@babel/plugin-proposal-optional-catch-binding")
+  );
   return config;
 }
 
@@ -137,7 +139,8 @@ function getRollupConfig(bundle) {
         // ignore `MIXED_EXPORTS` warn
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
-          warning.importer.startsWith("node_modules"))
+          (warning.importer.startsWith("node_modules") ||
+            warning.importer.startsWith("polyfill-node:")))
       ) {
         return;
       }
@@ -190,8 +193,6 @@ function getRollupConfig(bundle) {
     evaluate(),
     json(),
     rollupPluginAlias(alias),
-    bundle.target === "universal" &&
-      nativeShims(path.resolve(__dirname, "shims")),
     nodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
@@ -206,7 +207,7 @@ function getRollupConfig(bundle) {
       requireReturnsDefault: "preferred",
     }),
     externals(bundle.externals),
-    bundle.target === "universal" && nodeGlobals(),
+    bundle.target === "universal" && rollupPluginPolyfillNode(),
     babel(babelConfig),
     bundle.minify !== false &&
       bundle.target === "universal" &&

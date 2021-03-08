@@ -1,7 +1,6 @@
 "use strict";
 
 const flatten = require("lodash/flatten");
-const createError = require("../common/parser-create-error");
 const tryCombinations = require("../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -9,6 +8,8 @@ const {
 } = require("../common/util");
 const postprocess = require("./parse-postprocess");
 const createParser = require("./parser/create-parser");
+const createBabelParseError = require("./parser/create-babel-parse-error");
+const jsonParsers = require("./parser/json");
 
 const parseOptions = {
   sourceType: "module",
@@ -48,6 +49,10 @@ const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
+const appendPlugins = (plugins) => ({
+  ...parseOptions,
+  plugins: [...parseOptions.plugins, ...plugins],
+});
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
@@ -87,72 +92,57 @@ function parseWithOptions(parseMethod, text, options) {
   return ast;
 }
 
-function createParseError(error) {
-  // babel error prints (l:c) with cols that are zero indexed
-  // so we need our custom error
-  const { message, loc } = error;
-
-  return createError(message.replace(/ \(.*\)/, ""), {
-    start: {
-      line: loc ? loc.line : 0,
-      column: loc ? loc.column + 1 : 0,
-    },
-  });
-}
-
-function createParse(parseMethod, ...pluginCombinations) {
-  const commonPlugins = parseOptions.plugins;
-  pluginCombinations =
-    pluginCombinations.length > 0
-      ? pluginCombinations.map((plugins) => [...commonPlugins, ...plugins])
-      : [commonPlugins];
-
+function createParse(parseMethod, ...optionsCombinations) {
   return (text, parsers, opts = {}) => {
     if (opts.parser === "babel" && isFlowFile(text, opts)) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
 
-    let combinations = pluginCombinations;
+    let combinations = optionsCombinations;
+    if (opts.__babelSourceType === "script") {
+      combinations = combinations.map((options) => ({
+        ...options,
+        sourceType: "script",
+      }));
+    }
+
     if (text.includes("|>")) {
       combinations = flatten(
         pipelineOperatorPlugins.map((pipelineOperatorPlugin) =>
-          combinations.map((plugins) => [...plugins, pipelineOperatorPlugin])
+          combinations.map((options) => ({
+            ...options,
+            plugins: [...options.plugins, pipelineOperatorPlugin],
+          }))
         )
       );
     }
 
-    const sourceType =
-      opts.__babelSourceType === "script" ? "script" : "module";
     const { result: ast, error } = tryCombinations(
-      ...combinations.map((plugins) => () =>
-        parseWithOptions(parseMethod, text, {
-          ...parseOptions,
-          sourceType,
-          plugins,
-        })
+      ...combinations.map((options) => () =>
+        parseWithOptions(parseMethod, text, options)
       )
     );
 
     if (!ast) {
-      throw createParseError(error);
+      throw createBabelParseError(error);
     }
 
     return postprocess(ast, { ...opts, originalText: text });
   };
 }
 
-const parse = createParse("parse", ["jsx", "flow"]);
-const parseFlow = createParse("parse", [
-  "jsx",
-  ["flow", { all: true, enums: true }],
-]);
+const parse = createParse("parse", appendPlugins(["jsx", "flow"]));
+const parseFlow = createParse(
+  "parse",
+  appendPlugins(["jsx", ["flow", { all: true, enums: true }]])
+);
 const parseTypeScript = createParse(
   "parse",
-  ["jsx", "typescript"],
-  ["typescript"]
+  appendPlugins(["jsx", "typescript"]),
+  appendPlugins(["typescript"])
 );
-const parseExpression = createParse("parseExpression", ["jsx"]);
+const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
 const messagesShouldThrow = new Set([
   // TSErrors.UnexpectedTypeAnnotation
@@ -167,86 +157,18 @@ const messagesShouldThrow = new Set([
   // Rethrow on omitted call arguments: foo("a", , "b");
   // ErrorMessages.UnexpectedToken
   "Unexpected token ','",
+  // ErrorMessages.EscapedCharNotAnIdentifier
+  "Invalid Unicode escape",
+  // ErrorMessages.MissingUnicodeEscape
+  "Expecting Unicode escape sequence \\uXXXX",
+  // ErrorMessages.MissingSemicolon
+  "Missing semicolon",
 ]);
 
 function shouldRethrowRecoveredError(error) {
   const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
   // Only works for literal message
   return messagesShouldThrow.has(message);
-}
-
-function parseJson(text, parsers, opts) {
-  const ast = parseExpression(text, parsers, opts);
-
-  for (const comment of ast.comments) {
-    assertJsonNode(comment);
-  }
-  assertJsonNode(ast);
-
-  return ast;
-}
-
-function assertJsonNode(node, parent) {
-  switch (node.type) {
-    case "ArrayExpression":
-      for (const element of node.elements) {
-        assertJsonChildNode(element);
-      }
-      return;
-    case "ObjectExpression":
-      for (const property of node.properties) {
-        assertJsonChildNode(property);
-      }
-      return;
-    case "ObjectProperty":
-      if (node.computed) {
-        throw createJsonError("computed");
-      }
-
-      if (node.shorthand) {
-        throw createJsonError("shorthand");
-      }
-
-      assertJsonChildNode(node.key);
-      assertJsonChildNode(node.value);
-      return;
-    case "UnaryExpression":
-      switch (node.operator) {
-        case "+":
-        case "-":
-          return assertJsonChildNode(node.argument);
-        default:
-          throw createJsonError("operator");
-      }
-    case "Identifier":
-      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
-        return;
-      }
-      throw createJsonError();
-    case "NullLiteral":
-    case "BooleanLiteral":
-    case "NumericLiteral":
-    case "StringLiteral":
-      return;
-    default:
-      throw createJsonError();
-  }
-
-  function assertJsonChildNode(child) {
-    return assertJsonNode(child, node);
-  }
-
-  function createJsonError(attribute) {
-    const name = !attribute
-      ? node.type
-      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in JSON.`, {
-      start: {
-        line: node.loc.start.line,
-        column: node.loc.start.column + 1,
-      },
-    });
-  }
 }
 
 const babel = createParser(parse);
@@ -258,17 +180,7 @@ module.exports = {
     babel,
     "babel-flow": createParser(parseFlow),
     "babel-ts": createParser(parseTypeScript),
-    json: {
-      ...babelExpression,
-      hasPragma() {
-        return true;
-      },
-    },
-    json5: babelExpression,
-    "json-stringify": createParser({
-      parse: parseJson,
-      astFormat: "estree-json",
-    }),
+    ...jsonParsers,
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */

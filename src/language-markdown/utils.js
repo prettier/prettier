@@ -28,11 +28,12 @@ const INLINE_NODE_TYPES = [
   "inlineMath",
 ];
 
-const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
+const INLINE_NODE_WRAPPER_TYPES = [
+  ...INLINE_NODE_TYPES,
   "tableCell",
   "paragraph",
   "heading",
-]);
+];
 
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
@@ -203,17 +204,15 @@ function getFencedCodeBlockValue(node, originalText) {
 
 function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
-    parentStack = parentStack || [];
-
     const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
       newNode.children = newNode.children.map((child, index) =>
-        preorder(child, index, [newNode].concat(parentStack))
+        preorder(child, index, [newNode, ...parentStack])
       );
     }
 
     return newNode;
-  })(ast, null, null);
+  })(ast, null, []);
 }
 
 function isAutolink(node) {

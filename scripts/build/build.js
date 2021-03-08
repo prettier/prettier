@@ -97,9 +97,7 @@ async function createBundle(bundleConfig, cache, options) {
         const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
         sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
       }
-      process.stdout.write(
-        fitTerminal(output, sizeTexts.join(", ").concat(" "))
-      );
+      process.stdout.write(fitTerminal(output, `${sizeTexts.join(", ")} `));
     }
 
     console.log(status.DONE);
@@ -129,7 +127,7 @@ async function cacheFiles(cache) {
         path.join(".cache", file.replace("dist", "files")),
       ]);
     }
-  } catch (err) {
+  } catch {
     // Don't fail the build
   }
 }

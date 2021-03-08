@@ -1,7 +1,6 @@
 "use strict";
 
 const fs = require("fs");
-const readline = require("readline");
 const path = require("path");
 
 const chalk = require("chalk");
@@ -22,13 +21,15 @@ function diff(a, b) {
   });
 }
 
-function handleError(context, filename, error) {
+function handleError(context, filename, error, printedFilename) {
   if (error instanceof errors.UndefinedParserError) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* istanbul ignore next */
-    if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+    if (
+      (context.argv.write || context.argv["ignore-unknown"]) &&
+      printedFilename
+    ) {
+      printedFilename.clear();
     }
     if (context.argv["ignore-unknown"]) {
       return;
@@ -113,7 +114,16 @@ function format(context, input, opt) {
 
   if (context.argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
-    return { formatted: prettier.__debug.formatDoc(doc) };
+    return { formatted: prettier.__debug.formatDoc(doc) + "\n" };
+  }
+
+  if (context.argv["debug-print-comments"]) {
+    return {
+      formatted: prettier.format(
+        JSON.stringify(prettier.formatWithCursor(input, opt).comments || []),
+        { parser: "json" }
+      ),
+    };
   }
 
   if (context.argv["debug-check"]) {
@@ -155,7 +165,7 @@ function format(context, input, opt) {
     let benchmark;
     try {
       benchmark = eval("require")("benchmark");
-    } catch (err) {
+    } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
       );
@@ -188,13 +198,12 @@ function format(context, input, opt) {
         repeat +
         " times."
     );
-    // should be using `performance.now()`, but only `Date` is cross-platform enough
-    const now = Date.now ? () => Date.now() : () => +new Date();
     let totalMs = 0;
     for (let i = 0; i < repeat; ++i) {
-      const startMs = now();
+      // should be using `performance.now()`, but only `Date` is cross-platform enough
+      const startMs = Date.now();
       prettier.formatWithCursor(input, opt);
-      totalMs += now() - startMs;
+      totalMs += Date.now() - startMs;
     }
     const averageMs = totalMs / repeat;
     const results = {
@@ -300,8 +309,12 @@ function formatFiles(context) {
       filepath: filename,
     };
 
+    let printedFilename;
     if (isTTY()) {
-      context.logger.log(filename, { newline: false });
+      printedFilename = context.logger.log(filename, {
+        newline: false,
+        clearable: true,
+      });
     }
 
     let input;
@@ -339,16 +352,15 @@ function formatFiles(context) {
       result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
-      handleError(context, filename, error);
+      handleError(context, filename, error, printedFilename);
       continue;
     }
 
     const isDifferent = output !== input;
 
-    if (isTTY()) {
+    if (printedFilename) {
       // Remove previously printed filename to log it with duration.
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+      printedFilename.clear();
     }
 
     if (context.argv.write) {

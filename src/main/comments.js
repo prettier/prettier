@@ -50,16 +50,16 @@ function getSortedChildNodes(node, options, resultArray) {
     (printer.getCommentChildNodes &&
       printer.getCommentChildNodes(node, options)) ||
     (typeof node === "object" &&
-      Object.keys(node)
+      Object.entries(node)
         .filter(
-          (n) =>
+          ([n]) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
             n !== "followingNode" &&
             n !== "tokens" &&
             n !== "comments"
         )
-        .map((n) => node[n]));
+        .map(([, value]) => value));
 
   if (!childNodes) {
     return;
@@ -224,6 +224,7 @@ function attach(comments, ast, text, options) {
     }
 
     if (isOwnLineComment(text, options, decoratedComments, index)) {
+      comment.placement = "ownLine";
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
       if (handleOwnLineComment(...args)) {
@@ -241,6 +242,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
+      comment.placement = "endOfLine";
       if (handleEndOfLineComment(...args)) {
         // We're good
       } else if (precedingNode) {
@@ -257,6 +259,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(ast, comment);
       }
     } else {
+      comment.placement = "remaining";
       if (handleRemainingComment(...args)) {
         // We're good
       } else if (precedingNode && followingNode) {
@@ -544,9 +547,8 @@ function prependCursorPlaceholder(path, options, printed) {
   return printed;
 }
 
-function printComments(path, print, options, needsSemi) {
+function printComments(path, printed, options, needsSemi) {
   const value = path.getValue();
-  const printed = print(path);
   const comments = value && value.comments;
 
   if (!isNonEmptyArray(comments)) {
@@ -581,11 +583,10 @@ function printComments(path, print, options, needsSemi) {
     }
   }, "comments");
 
-  return prependCursorPlaceholder(
-    path,
-    options,
-    leadingParts.concat(trailingParts)
-  );
+  return prependCursorPlaceholder(path, options, [
+    ...leadingParts,
+    ...trailingParts,
+  ]);
 }
 
 function ensureAllCommentsPrinted(astComments) {

@@ -18,12 +18,17 @@ const {
   isLiteral,
   getTypeScriptMappedTypeModifier,
   shouldPrintComma,
+  isCallExpression,
+  isMemberExpression,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc");
 const { printTernary } = require("./ternary");
-const { printFunctionParameters } = require("./function-parameters");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters");
 const { printTemplateLiteral } = require("./template-literal");
 const { printArrayItems } = require("./array");
 const { printObject } = require("./object");
@@ -35,9 +40,9 @@ const {
 const { printPropertyKey } = require("./property");
 const { printFunctionDeclaration, printMethodInternal } = require("./function");
 const { printInterface } = require("./interface");
-const { printAssignmentRight } = require("./assignment");
 const { printBlock } = require("./block");
 const {
+  printTypeAlias,
   printIntersectionType,
   printUnionType,
   printFunctionType,
@@ -87,29 +92,8 @@ function printTypescript(path, options, print) {
     case "TSInterfaceBody":
     case "TSTypeLiteral":
       return printObject(path, options, print);
-    case "TSTypeAliasDeclaration": {
-      if (n.declare) {
-        parts.push("declare ");
-      }
-
-      const printed = printAssignmentRight(
-        n.id,
-        n.typeAnnotation,
-        n.typeAnnotation && path.call(print, "typeAnnotation"),
-        options
-      );
-
-      parts.push(
-        "type ",
-        path.call(print, "id"),
-        path.call(print, "typeParameters"),
-        " =",
-        printed,
-        semi
-      );
-
-      return group(parts);
-    }
+    case "TSTypeAliasDeclaration":
+      return printTypeAlias(path, options, print);
     case "TSQualifiedName":
       return join(".", [path.call(print, "left"), path.call(print, "right")]);
     case "TSAbstractMethodDefinition":
@@ -181,12 +165,23 @@ function printTypescript(path, options, print) {
       return "undefined";
     case "TSUnknownKeyword":
       return "unknown";
-    case "TSAsExpression":
-      return [
+    case "TSIntrinsicKeyword":
+      return "intrinsic";
+    case "TSAsExpression": {
+      parts.push(
         path.call(print, "expression"),
         " as ",
-        path.call(print, "typeAnnotation"),
-      ];
+        path.call(print, "typeAnnotation")
+      );
+      const parent = path.getParentNode();
+      if (
+        (isCallExpression(parent) && parent.callee === n) ||
+        (isMemberExpression(parent) && parent.object === n)
+      ) {
+        return group([indent([softline, ...parts]), softline]);
+      }
+      return parts;
+    }
     case "TSArrayType":
       return [path.call(print, "elementType"), "[]"];
     case "TSPropertySignature": {
@@ -301,6 +296,9 @@ function printTypescript(path, options, print) {
     case "TSConstructSignatureDeclaration":
     case "TSCallSignatureDeclaration":
     case "TSConstructorType": {
+      if (n.type === "TSConstructorType" && n.abstract) {
+        parts.push("abstract ");
+      }
       if (n.type !== "TSCallSignatureDeclaration") {
         parts.push("new ");
       }
@@ -348,7 +346,7 @@ function printTypescript(path, options, print) {
             n.optional ? getTypeScriptMappedTypeModifier(n.optional, "?") : "",
             n.typeAnnotation ? ": " : "",
             path.call(print, "typeAnnotation"),
-            ifBreak(semi, ""),
+            ifBreak(semi),
           ]),
           printDanglingComments(path, options, /* sameIndent */ true),
           options.bracketSpacing ? line : softline,
@@ -357,33 +355,50 @@ function printTypescript(path, options, print) {
         { shouldBreak }
       );
     }
-    case "TSMethodSignature":
+    case "TSMethodSignature": {
       parts.push(
         n.accessibility ? [n.accessibility, " "] : "",
         n.export ? "export " : "",
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
+        // "abstract" and "declare" are supported by only "babel-ts"
+        // https://github.com/prettier/prettier/issues/9760
+        n.abstract ? "abstract " : "",
+        n.declare ? "declare " : "",
         n.computed ? "[" : "",
         path.call(print, "key"),
         n.computed ? "]" : "",
-        printOptionalToken(path),
-        printFunctionParameters(
-          path,
-          print,
-          options,
-          /* expandArg */ false,
-          /* printTypeParams */ true
-        )
+        printOptionalToken(path)
       );
 
-      if (n.returnType || n.typeAnnotation) {
-        parts.push(
-          ": ",
-          path.call(print, "returnType"),
-          path.call(print, "typeAnnotation")
-        );
+      const parametersDoc = printFunctionParameters(
+        path,
+        print,
+        options,
+        /* expandArg */ false,
+        /* printTypeParams */ true
+      );
+
+      const returnTypePropertyName = n.returnType
+        ? "returnType"
+        : "typeAnnotation";
+      const returnTypeNode = n[returnTypePropertyName];
+      const returnTypeDoc = returnTypeNode
+        ? path.call(print, returnTypePropertyName)
+        : "";
+      const shouldGroupParameters = shouldGroupFunctionParameters(
+        n,
+        returnTypeDoc
+      );
+
+      parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
+
+      if (returnTypeNode) {
+        parts.push(": ", group(returnTypeDoc));
       }
+
       return group(parts);
+    }
     case "TSNamespaceExportDeclaration":
       parts.push("export as namespace ", path.call(print, "id"));
 

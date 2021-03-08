@@ -5,16 +5,13 @@ const { printComments, printDanglingComments } = require("../../main/comments");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document");
-const {
-  hasComment,
-  CommentCheckFlags,
-  hasNewlineBetweenOrAfterDecorators,
-} = require("../utils");
+const { hasComment, CommentCheckFlags } = require("../utils");
 const { getTypeParametersGroupId } = require("./type-parameters");
 const { printMethod } = require("./function");
 const { printOptionalToken, printTypeAnnotation } = require("./misc");
 const { printPropertyKey } = require("./property");
-const { printAssignmentRight } = require("./assignment");
+const { printAssignment } = require("./assignment");
+const { printClassMemberDecorators } = require("./decorators");
 
 function printClass(path, options, print) {
   const n = path.getValue();
@@ -55,7 +52,7 @@ function printClass(path, options, print) {
       path.call(print, "superTypeParameters"),
     ];
     const printedWithComments = path.call(
-      (superClass) => printComments(superClass, () => printed, options),
+      (superClass) => printComments(superClass, printed, options),
       "superClass"
     );
     if (groupMode) {
@@ -73,15 +70,11 @@ function printClass(path, options, print) {
   );
 
   if (groupMode) {
-    const printedExtends = extendsParts;
     let printedPartsGroup;
     if (shouldIndentOnlyHeritageClauses(n)) {
-      printedPartsGroup = [
-        ...partsGroup,
-        ifBreak(indent(printedExtends), printedExtends),
-      ];
+      printedPartsGroup = [...partsGroup, indent(extendsParts)];
     } else {
-      printedPartsGroup = indent([...partsGroup, printedExtends]);
+      printedPartsGroup = indent([...partsGroup, extendsParts]);
     }
     parts.push(group(printedPartsGroup, { id: getHeritageGroupId(n) }));
   } else {
@@ -101,8 +94,8 @@ function printHardlineAfterHeritage(node) {
 
 function hasMultipleHeritage(node) {
   return (
-    ["superClass", "extends", "mixins", "implements"].filter(
-      (key) => !!node[key]
+    ["superClass", "extends", "mixins", "implements"].filter((key) =>
+      Boolean(node[key])
     ).length > 1
   );
 }
@@ -159,11 +152,20 @@ function printClassMethod(path, options, print) {
   const parts = [];
 
   if (isNonEmptyArray(n.decorators)) {
-    parts.push(printDecorators(path, options, print));
+    parts.push(printClassMemberDecorators(path, options, print));
   }
   if (n.accessibility) {
     parts.push(n.accessibility + " ");
   }
+  // "readonly" and "declare" are supported by only "babel-ts"
+  // https://github.com/prettier/prettier/issues/9760
+  if (n.readonly) {
+    parts.push("readonly ");
+  }
+  if (n.declare) {
+    parts.push("declare ");
+  }
+
   if (n.static) {
     parts.push("static ");
   }
@@ -182,7 +184,7 @@ function printClassProperty(path, options, print) {
   const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(n.decorators)) {
-    parts.push(printDecorators(path, options, print));
+    parts.push(printClassMemberDecorators(path, options, print));
   }
   if (n.accessibility) {
     parts.push(n.accessibility + " ");
@@ -207,24 +209,8 @@ function printClassProperty(path, options, print) {
     printOptionalToken(path),
     printTypeAnnotation(path, options, print)
   );
-  if (n.value) {
-    parts.push(
-      " =",
-      printAssignmentRight(n.key, n.value, path.call(print, "value"), options)
-    );
-  }
 
-  parts.push(semi);
-
-  return group(parts);
-}
-
-function printDecorators(path, options, print) {
-  const node = path.getValue();
-  return group([
-    join(line, path.map(print, "decorators")),
-    hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
-  ]);
+  return [printAssignment(path, options, print, parts, " =", "value"), semi];
 }
 
 module.exports = {

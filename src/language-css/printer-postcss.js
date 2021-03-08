@@ -55,6 +55,7 @@ const {
   hasParensAroundNode,
   hasEmptyRawBefore,
   isKeyValuePairNode,
+  isKeyInValuePairNode,
   isDetachedRulesetCallNode,
   isTemplatePlaceholderNode,
   isTemplatePropNode,
@@ -187,7 +188,7 @@ function genericPrint(path, options, print) {
             options.originalText[locEnd(node) - 1] !== ";"
           ? ""
           : options.__isHTMLStyleAttribute && isLastNode(path, node)
-          ? ifBreak(";", "")
+          ? ifBreak(";")
           : ";",
       ];
     }
@@ -865,8 +866,9 @@ function genericPrint(path, options, print) {
 
       const lastItem = node.groups[node.groups.length - 1];
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
+      const isKey = isKeyInValuePairNode(node, parentNode);
 
-      return group(
+      const printed = group(
         [
           node.open ? path.call(print, "open") : "",
           indent([
@@ -882,6 +884,7 @@ function genericPrint(path, options, print) {
                   isKeyValuePairNode(node) &&
                   node.type === "value-comma_group" &&
                   node.groups &&
+                  node.groups[0].type !== "value-paren_group" &&
                   node.groups[2] &&
                   node.groups[2].type === "value-paren_group"
                 ) {
@@ -907,9 +910,11 @@ function genericPrint(path, options, print) {
           node.close ? path.call(print, "close") : "",
         ],
         {
-          shouldBreak: isSCSSMapItem,
+          shouldBreak: isSCSSMapItem && !isKey,
         }
       );
+
+      return isKey ? dedent(printed) : printed;
     }
     case "value-func": {
       return [
@@ -943,7 +948,9 @@ function genericPrint(path, options, print) {
       return [
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
-        (prevNode && prevNode.value[prevNode.value.length - 1] === "\\") ||
+        (prevNode &&
+          typeof prevNode.value === "string" &&
+          prevNode.value[prevNode.value.length - 1] === "\\") ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""
