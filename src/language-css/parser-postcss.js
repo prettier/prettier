@@ -648,7 +648,7 @@ function parseWithParser(parse, text, options) {
   let result;
 
   try {
-    result = parse(text);
+    result = parse(text, { map: false });
   } catch (error) {
     const { name, reason, line, column } = error;
     /* istanbul ignore next */
