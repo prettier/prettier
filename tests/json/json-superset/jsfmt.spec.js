@@ -3,8 +3,10 @@ run_spec(
     dirname: __dirname,
     snippets: [
       {
-        code: '"\u2028\u2029\u0041\\u2028\\u2029\\u0041"',
-        output: '"\u2028\u2029\u0041\\u2028\\u2029\\u0041"\n',
+        name: "json",
+        code:
+          '"\u2028\u2029\u005F\\u2028\\u2029\\u005F\\\u2028\\\u2029\\\u005F"',
+        output: '"\u2028\u2029_\\u2028\\u2029\\u005F\\\u2028\\\u2029_"\n',
       },
     ],
   },
@@ -15,8 +17,10 @@ run_spec(
     dirname: __dirname,
     snippets: [
       {
-        code: '"\u2028\u2029\u0041\\u2028\\u2029\\u0041"',
-        output: '"\u2028\u2029\u0041\u2028\u2029\u0041"\n',
+        name: "json-stringify",
+        code:
+          '"\u2028\u2029\u005F\\u2028\\u2029\\u005F\\\u2028\\\u2029\\\u005F"',
+        output: '"\u2028\u2029_\u2028\u2029__"\n',
       },
     ],
   },
