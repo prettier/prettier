@@ -152,6 +152,7 @@ const allowedMessages = new Set([
   "Invalid left-hand side in parenthesized expression",
   "Invalid left-hand side in assignment expression",
   "Invalid left-hand side in postfix operation",
+  "Invalid left-hand side in prefix operation",
 
   "Type argument list cannot be empty.",
   "Type parameter list cannot be empty.",
