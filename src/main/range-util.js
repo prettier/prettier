@@ -126,6 +126,7 @@ const jsonSourceElements = new Set([
   "BooleanLiteral",
   "NullLiteral",
   "UnaryExpression",
+  "TemplateLiteral",
 ]);
 const graphqlSourceElements = new Set([
   "OperationDefinition",
