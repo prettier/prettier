@@ -3,6 +3,24 @@
 const assert = require("assert");
 const comments = require("./comments");
 
+const isJsonParser = ({ parser }) =>
+  parser === "json" || parser === "json5" || parser === "json-stringify";
+
+function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
+  const startNodeAndAncestors = [
+    startNodeAndParents.node,
+    ...startNodeAndParents.parentNodes,
+  ];
+  const endNodeAndAncestors = [
+    endNodeAndParents.node,
+    ...endNodeAndParents.parentNodes,
+  ];
+  return startNodeAndAncestors.find(
+    (node) =>
+      jsonSourceElements.has(node.type) && endNodeAndAncestors.includes(node)
+  );
+}
+
 function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
@@ -107,6 +125,7 @@ const jsonSourceElements = new Set([
   "NumericLiteral",
   "BooleanLiteral",
   "NullLiteral",
+  "UnaryExpression",
 ]);
 const graphqlSourceElements = new Set([
   "OperationDefinition",
@@ -193,11 +212,22 @@ function calculateRange(text, opts, ast) {
     };
   }
 
-  const { startNode, endNode } = findSiblingAncestors(
-    startNodeAndParents,
-    endNodeAndParents,
-    opts
-  );
+  let startNode;
+  let endNode;
+  if (isJsonParser(opts)) {
+    const commonAncestor = findCommonAncestor(
+      startNodeAndParents,
+      endNodeAndParents
+    );
+    startNode = commonAncestor;
+    endNode = commonAncestor;
+  } else {
+    ({ startNode, endNode } = findSiblingAncestors(
+      startNodeAndParents,
+      endNodeAndParents,
+      opts
+    ));
+  }
 
   return {
     rangeStart: Math.min(locStart(startNode), locStart(endNode)),
