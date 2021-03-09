@@ -161,6 +161,8 @@ function isSourceElement(opts, node) {
     case "meriyah":
       return isJsSourceElement(node.type);
     case "json":
+    case "json5":
+    case "json-stringify":
       return jsonSourceElements.has(node.type);
     case "graphql":
       return graphqlSourceElements.has(node.kind);
