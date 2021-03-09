@@ -120,9 +120,7 @@ gql\`
   type Project {
     "Pattern: \\\`\\\${project}\\\`"
     pattern: String
-    """
-    Pattern: \\\`\\\${project}\\\`
-    """
+    """Pattern: \\\`\\\${project}\\\`"""
     pattern: String
 
     # Also: Escaping the first parentheses...

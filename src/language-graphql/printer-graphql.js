@@ -133,9 +133,9 @@ function genericPrint(path, options, print) {
       if (n.block) {
         return [
           '"""',
-          hardline,
+          n.value.includes("\n") ? softline : "",
           join(hardline, n.value.replace(/"""/g, "\\$&").split("\n")),
-          hardline,
+          n.value.includes("\n") ? softline : "",
           '"""',
         ];
       }

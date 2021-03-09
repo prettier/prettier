@@ -22,6 +22,10 @@ type Foo implements Bar {
   seven(argument: Int = null): Type
 }
 
+"""
+This is a very very very very very very very very very very very very very very very very long description
+of the `AnnotatedObject` type.
+"""
 type AnnotatedObject @onObject(arg: "value") {
   annotatedField(arg: Type = "default" @onArg): Type @onField
 }
@@ -29,6 +33,7 @@ type AnnotatedObject @onObject(arg: "value") {
 type UndefinedType
 
 extend type Foo {
+  """This should be on a single line"""
   seven(argument: [String]): Type
 }
 

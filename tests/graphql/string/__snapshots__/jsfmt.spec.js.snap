@@ -64,16 +64,12 @@ query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
   a
 }
 
-"""
-abc
-"""
+"""abc"""
 type T {
   a: Int
 }
 
-"""
-abc
-"""
+"""abc"""
 type T {
   a: Int
 }
@@ -102,24 +98,18 @@ type Foo {
     field: String
   ): Type
   q(
-    """
-    docs
-    """
+    """docs"""
     field: String
   ): Type
 }
 
 enum Enum {
-  """
-  Description of \`one\`
-  """
+  """Description of \`one\`"""
   one
 }
 
 input Input {
-  """
-  Description of \`one\`
-  """
+  """Description of \`one\`"""
   one: string
 }
 
