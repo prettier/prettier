@@ -20,6 +20,8 @@ const {
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
+  isCallLikeExpression,
+  getCallArguments,
   isCallExpression,
   isMemberExpression,
 } = require("./utils");
@@ -521,9 +523,8 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
-      ((isCallExpression(enclosingNode) ||
-        enclosingNode.type === "NewExpression") &&
-        enclosingNode.arguments.length === 0))
+      (isCallLikeExpression(enclosingNode) &&
+        getCallArguments(enclosingNode).length === 0))
   ) {
     addDanglingComment(enclosingNode, comment);
     return true;

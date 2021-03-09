@@ -2,12 +2,21 @@
 
 /** @type {import("assert")} */
 const assert = require("assert");
-const { printDanglingComments } = require("../../main/comments");
+const { printDanglingComments, printComments } = require("../../main/comments");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const {
-  builders: { line, softline, group, indent, ifBreak, hardline },
+  builders: {
+    line,
+    softline,
+    group,
+    indent,
+    ifBreak,
+    hardline,
+    join,
+    indentIfBreak,
+  },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -23,6 +32,7 @@ const {
   hasComment,
   getComments,
   CommentCheckFlags,
+  isCallLikeExpression,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const {
@@ -146,7 +156,7 @@ function printMethodInternal(path, options, print) {
   return parts;
 }
 
-function printArrowFunctionExpression(path, options, print, args) {
+function printArrowFunctionSignature(path, options, print, args) {
   const n = path.getValue();
   const parts = [];
 
@@ -190,10 +200,83 @@ function printArrowFunctionExpression(path, options, print, args) {
   if (dangling) {
     parts.push(" ", dangling);
   }
+  return parts;
+}
 
+function printArrowChain(
+  path,
+  args,
+  signatures,
+  shouldBreak,
+  bodyDoc,
+  tailNode
+) {
+  const name = path.getName();
+  const parent = path.getParentNode();
+  const isCallee = isCallLikeExpression(parent) && name === "callee";
+  const isAssignmentRhs = Boolean(args && args.assignmentLayout);
+  const shouldPutBodyOnSeparateLine =
+    tailNode.body.type !== "BlockStatement" &&
+    tailNode.body.type !== "ObjectExpression";
+  const shouldBreakBeforeChain =
+    (isCallee && shouldPutBodyOnSeparateLine) ||
+    (args && args.assignmentLayout === "chain-tail-arrow-chain");
+
+  const groupId = Symbol("arrow-chain");
+
+  return group([
+    group(
+      indent([
+        isCallee || isAssignmentRhs ? softline : "",
+        group(join([" =>", line], signatures), { shouldBreak }),
+      ]),
+      { id: groupId, shouldBreak: shouldBreakBeforeChain }
+    ),
+    " =>",
+    indentIfBreak(
+      shouldPutBodyOnSeparateLine ? indent([line, bodyDoc]) : [" ", bodyDoc],
+      { groupId }
+    ),
+    isCallee ? ifBreak(softline, "", { groupId }) : "",
+  ]);
+}
+
+function printArrowFunctionExpression(path, options, print, args) {
+  let n = path.getValue();
+  const signatures = [];
+  let body;
+  let chainShouldBreak = false;
+
+  path.call(function rec(path) {
+    const doc = printArrowFunctionSignature(path, options, print, args);
+    signatures.push(
+      signatures.length === 0 ? doc : printComments(path, doc, options)
+    );
+
+    chainShouldBreak =
+      chainShouldBreak ||
+      // Always break the chain if:
+      (n.returnType && getFunctionParameters(n).length > 0) ||
+      n.typeParameters ||
+      getFunctionParameters(n).some((param) => param.type !== "Identifier");
+
+    if (
+      n.body.type !== "ArrowFunctionExpression" ||
+      (args && args.expandLastArg)
+    ) {
+      body = path.call((bodyPath) => print(bodyPath, args), "body");
+    } else {
+      n = n.body;
+      path.call(rec, "body");
+    }
+  });
+
+  if (signatures.length > 1) {
+    return printArrowChain(path, args, signatures, chainShouldBreak, body, n);
+  }
+
+  const parts = signatures;
   parts.push(" =>");
-
-  const body = path.call((bodyPath) => print(bodyPath, args), "body");
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.

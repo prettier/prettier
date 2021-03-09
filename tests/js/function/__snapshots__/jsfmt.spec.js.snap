@@ -43,10 +43,11 @@ printWidth: 80
 (fold => fold)(fmap => algebra => function doFold(v) {return algebra(fmap(doFold)(v))})
 
 =====================================output=====================================
-((fold) => fold)((fmap) => (algebra) =>
-  function doFold(v) {
-    return algebra(fmap(doFold)(v));
-  }
+((fold) => fold)(
+  (fmap) => (algebra) =>
+    function doFold(v) {
+      return algebra(fmap(doFold)(v));
+    }
 );
 
 ================================================================================
