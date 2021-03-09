@@ -648,7 +648,10 @@ function parseWithParser(parse, text, options) {
   let result;
 
   try {
-    result = parse(text);
+    result = parse(text, {
+      // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
+      map: false,
+    });
   } catch (error) {
     const { name, reason, line, column } = error;
     /* istanbul ignore next */
