@@ -20,8 +20,8 @@ const updateConfig = (config) =>
   try {
     await execa("yarn lint:spellcheck");
   } catch ({ stdout }) {
-    let words = [...stdout.matchAll(/ - Unknown word \((.*?)\)/g)].map(
-      ([, word]) => word
+    let words = [...stdout.matchAll(/ - Unknown word \((?<word>.*?)\)/g)].map(
+      (match) => match.groups.word
     );
     // Unique
     words = [...new Set(words)];

@@ -60,7 +60,10 @@ function format(path, print, textToDoc, options, { parser }) {
         if (component) {
           component = uncookTemplateElementValue(component);
           if (options.__embeddedInHtml) {
-            component = component.replace(/<\/(script)\b/gi, "<\\/$1");
+            component = component.replace(
+              /<\/(?<closeTag>script)\b/gi,
+              "<\\/$<closeTag>"
+            );
           }
           parts.push(component);
         }

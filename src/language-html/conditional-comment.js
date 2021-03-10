@@ -7,9 +7,9 @@ const {
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
 // <!--[if ... ]> ... <![endif]-->
-const IE_CONDITIONAL_START_END_COMMENT_REGEX = /^(\[if([^\]]*?)]>)([\S\s]*?)<!\s*\[endif]$/;
+const IE_CONDITIONAL_START_END_COMMENT_REGEX = /^(?<openingTagSuffix>\[if(?<condition>[^\]]*?)]>)(?<data>[\S\s]*?)<!\s*\[endif]$/;
 // <!--[if ... ]><!-->
-const IE_CONDITIONAL_START_COMMENT_REGEX = /^\[if([^\]]*?)]><!$/;
+const IE_CONDITIONAL_START_COMMENT_REGEX = /^\[if(?<condition>[^\]]*?)]><!$/;
 // <!--<![endif]-->
 const IE_CONDITIONAL_END_COMMENT_REGEX = /^<!\s*\[endif]$/;
 
@@ -32,7 +32,7 @@ function parseIeConditionalComment(node, parseHtml) {
 }
 
 function parseIeConditionalStartEndComment(node, parseHtml, match) {
-  const [, openingTagSuffix, condition, data] = match;
+  const { openingTagSuffix, condition, data } = match.groups;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
   const contentEndSpan = contentStartSpan.moveBy(data.length);
@@ -63,7 +63,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
 }
 
 function parseIeConditionalStartComment(node, parseHtml, match) {
-  const [, condition] = match;
+  const { condition } = match.groups;
   return {
     type: "ieConditionalStartComment",
     condition: condition.trim().replace(/\s+/g, " "),

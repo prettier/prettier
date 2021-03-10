@@ -8,7 +8,7 @@ const { escapeTemplateCharacters } = require("../print/template-literal");
 function format(path, print, textToDoc) {
   const node = path.getValue();
   let text = node.quasis[0].value.raw.replace(
-    /((?:\\\\)*)\\`/g,
+    /(?<backslashes>(?:\\\\)*)\\`/g,
     (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
   );
   const indentation = getIndentation(text);
@@ -33,8 +33,10 @@ function format(path, print, textToDoc) {
 }
 
 function getIndentation(str) {
-  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/m);
-  return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
+  const firstMatchedIndent = str.match(/^(?<indentation>[^\S\n]*)\S/m);
+  return firstMatchedIndent === null
+    ? ""
+    : firstMatchedIndent.groups.indentation;
 }
 
 module.exports = format;

@@ -1018,7 +1018,7 @@ function printNodeSequence(path, options, print) {
   return parts;
 }
 
-const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\[\S\s])*\1/g;
+const STRING_REGEX = /(?<quote>["'])(?:(?!\k<quote>)[^\\]|\\[\S\s])*\k<quote>/g;
 const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g;
 const STANDARD_UNIT_REGEX = /[A-Za-z]+/g;
 const WORD_PART_REGEX = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g;

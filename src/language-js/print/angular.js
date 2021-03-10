@@ -50,7 +50,7 @@ function printAngular(path, options, print) {
         "body"
       );
     case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(n.name)
+      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(n.name)
         ? n.name
         : JSON.stringify(n.name);
     case "NGMicrosyntaxExpression":

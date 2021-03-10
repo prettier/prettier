@@ -54,7 +54,7 @@ function splitText(text, options) {
   const tokens = (options.proseWrap === "preserve"
     ? text
     : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
-  ).split(/([\t\n ]+)/);
+  ).split(/(?<space>[\t\n ]+)/);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
@@ -149,12 +149,14 @@ function splitText(text, options) {
 }
 
 function getOrderedListItemInfo(orderListItem, originalText) {
-  const [, numberText, marker, leadingSpaces] = originalText
+  const { numberText, marker, leadingSpaces } = originalText
     .slice(
       orderListItem.position.start.offset,
       orderListItem.position.end.offset
     )
-    .match(/^\s*(\d+)(\.|\))(\s*)/);
+    .match(
+      /^\s*(?<numberText>\d+)(?<marker>\.|\))(?<leadingSpaces>\s*)/
+    ).groups;
 
   return { numberText, marker, leadingSpaces };
 }

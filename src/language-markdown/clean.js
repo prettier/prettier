@@ -55,7 +55,7 @@ function clean(ast, newObj, parent) {
       ast.type === "image") &&
     ast.title
   ) {
-    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
+    newObj.title = ast.title.replace(/\\(?<character>["')])/g, "$<character>");
   }
 
   // for insert pragma
