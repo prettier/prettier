@@ -42,8 +42,6 @@ const ENABLED_OPTIONS = [
   "requirePragma",
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
-  "rangeStart",
-  "rangeEnd",
 ];
 const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
 const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
@@ -139,7 +137,11 @@ class Playground extends React.Component {
   getMarkdown({ formatted, reformatted, full, doc }) {
     const { content, options } = this.state;
     const { availableOptions, version } = this.props;
-    const orderedOptions = orderOptions(availableOptions, ENABLED_OPTIONS);
+    const orderedOptions = orderOptions(availableOptions, [
+      ...ENABLED_OPTIONS,
+      "rangeStart",
+      "rangeEnd",
+    ]);
     const cliOptions = util.buildCliArgs(orderedOptions, options);
 
     return formatMarkdown({
