@@ -81,6 +81,7 @@ test("flat-ast-path-call", {
     'path.call((childPath) => childPath.call(print), "a")',
     'path.call((childPath) => notChildPath.call(print), "a")',
     'path.call(functionReference, "a")',
+    'path.call((childPath) => notChildPath.call(print, "b"), "a")',
     // Only check `arrow function`
     'path.call((childPath) => {return childPath.call(print, "b")}, "a")',
     'path.call(function(childPath) {return childPath.call(print, "b")}, "a")',
@@ -133,6 +134,64 @@ test("no-doc-builder-concat", {
       code: "concat(['foo', line])",
       output: "(['foo', line])",
       errors: 1,
+    },
+  ],
+});
+
+test("no-identifier-n", {
+  valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
+  invalid: [
+    {
+      code: "const n = 1; alet(n)",
+      output: "const node = 1; alet(node)",
+      errors: 1,
+    },
+    {
+      code: "const n = 1; alert({n})",
+      output: "const node = 1; alert({n: node})",
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const n = 1;
+        function a(node) {
+          alert(n, node)
+        }
+        function b() {
+          alert(n)
+        }
+      `,
+      output: outdent`
+        const n = 1;
+        function a(node) {
+          alert(n, node)
+        }
+        function b() {
+          alert(n)
+        }
+      `,
+      errors: [
+        {
+          suggestions: [
+            {
+              output: outdent`
+                const node = 1;
+                function a(node) {
+                  alert(node, node)
+                }
+                function b() {
+                  alert(node)
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: "const n = 1;const node = 2;",
+      output: "const n = 1;const node = 2;",
+      errors: [{ suggestions: [{ output: "const node = 1;const node = 2;" }] }],
     },
   ],
 });
