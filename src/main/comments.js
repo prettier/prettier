@@ -4,7 +4,16 @@
 const assert = require("assert");
 
 const {
-  builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
+  builders: {
+    line,
+    hardline,
+    breakParent,
+    indent,
+    lineSuffix,
+    lineSuffixBoundary,
+    join,
+    cursor,
+  },
 } = require("../document");
 
 const {
@@ -151,6 +160,22 @@ function decorateComment(node, comment, options, enclosingNode) {
     ) {
       followingNode = null;
     }
+  }
+
+  if (
+    precedingNode &&
+    precedingNode.type === "::CommentAnchor" &&
+    !precedingNode.acceptsTrailingComments
+  ) {
+    precedingNode = null;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "::CommentAnchor" &&
+    !followingNode.acceptsLeadingComments
+  ) {
+    followingNode = null;
   }
 
   return { enclosingNode, precedingNode, followingNode };
@@ -540,6 +565,97 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent([hardline, join(hardline, parts)]);
 }
 
+function printWithDanglingComments(
+  content,
+  path,
+  options,
+  marker,
+  avoidTrailingLineBreak = false
+) {
+  const node = path.getValue();
+
+  if (!node || !node.comments) {
+    return content;
+  }
+
+  const { printer, originalText, locStart, locEnd } = options;
+  const printedComments = [];
+
+  path.each((commentPath) => {
+    const comment = commentPath.getValue();
+    if (
+      comment &&
+      !comment.leading &&
+      !comment.trailing &&
+      (comment.marker === marker || comment.marker === marker + "-trailing")
+    ) {
+      const doc = printComment(commentPath, options);
+      printedComments.push({ comment, doc });
+    }
+  }, "comments");
+
+  if (printedComments.length === 0) {
+    return content;
+  }
+
+  const result = [];
+  let contentWasPrinted = false;
+
+  for (let index = 0; index < printedComments.length; index++) {
+    let { comment, doc } = printedComments[index];
+
+    const isLeading = comment.marker === marker;
+    if (!isLeading && !contentWasPrinted) {
+      result.push(content);
+      contentWasPrinted = true;
+    }
+
+    const startOfLine =
+      hasNewline(originalText, locStart(comment), { backwards: true }) ||
+      (isLeading &&
+        // A comment is also treated as start-of-line if it is preceded by something on the same line,
+        // and that thing is not the previous comment. Example:
+        //
+        //     for( // comment
+        //      ; i < len; i++) { ... }
+        //      ^ - anchor point
+        //
+        (index === 0 ||
+          skipSpaces(originalText, locStart(comment), { backwards: true }) !==
+            locEnd(printedComments[index - 1].comment) + 1));
+    const endOfLine = hasNewline(originalText, locEnd(comment));
+    const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
+
+    if (!startOfLine) {
+      doc = [" ", doc];
+    }
+
+    if (endOfLine && (isBlock || startOfLine)) {
+      const isLast = index === printedComments.length - 1;
+      result.push(
+        lineSuffixBoundary,
+        isPreviousLineEmpty(originalText, comment, locStart) ? hardline : "",
+        doc,
+        isLast && avoidTrailingLineBreak ? "" : hardline
+      );
+    } else if (isBlock) {
+      result.push(lineSuffixBoundary, doc);
+    } else {
+      result.push(lineSuffix(doc));
+    }
+
+    if (!isBlock) {
+      result.push(breakParent);
+    }
+  }
+
+  if (!contentWasPrinted) {
+    result.push(content);
+  }
+
+  return result;
+}
+
 function prependCursorPlaceholder(path, options, printed) {
   if (path.getNode() === options.cursorNode && path.getValue()) {
     return [cursor, printed, cursor];
@@ -610,6 +726,7 @@ module.exports = {
   attach,
   printComments,
   printDanglingComments,
+  printWithDanglingComments,
   getSortedChildNodes,
   ensureAllCommentsPrinted,
 };

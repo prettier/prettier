@@ -541,6 +541,14 @@ function getStringWidth(text) {
 }
 
 function addCommentHelper(node, comment) {
+  if (node.type === "::CommentAnchor") {
+    addDanglingComment(
+      node.enclosingNode,
+      comment,
+      node.name + (comment.trailing ? "-trailing" : "")
+    );
+    return;
+  }
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
   comment.printed = false;

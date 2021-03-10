@@ -1,0 +1,3 @@
+for (/* i = <<<PRETTIER_RANGE_START>>>0 */; i<<<PRETTIER_RANGE_END>>> < j; /* i++ */) {
+  // ...
+}

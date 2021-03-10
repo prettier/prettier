@@ -891,7 +891,7 @@ function isRealFunctionLikeNode(node) {
  * @param {any} node
  * @returns {Node[] | void}
  */
-function getCommentChildNodes(node, options) {
+function getCommentChildNodes(node, { parser, originalText: text }) {
   // Prevent attaching comments to FunctionExpression in this case:
   //     class Foo {
   //       bar() // comment
@@ -900,10 +900,10 @@ function getCommentChildNodes(node, options) {
   //       }
   //     }
   if (
-    (options.parser === "typescript" ||
-      options.parser === "flow" ||
-      options.parser === "espree" ||
-      options.parser === "meriyah") &&
+    (parser === "typescript" ||
+      parser === "flow" ||
+      parser === "espree" ||
+      parser === "meriyah") &&
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&
@@ -914,6 +914,66 @@ function getCommentChildNodes(node, options) {
   ) {
     return [...(node.decorators || []), node.key, node.value.body];
   }
+
+  // If `text` is undefined, it means that `getSortedChildNodes` was called for formatting a range,
+  // not for comment attachment.
+  if (node.type === "ForStatement" && text) {
+    const result = [];
+    for (const propertyName of ["init", "test", "update"]) {
+      result.push(
+        node[propertyName] ||
+          createCommentAnchorPseudoNode(
+            node,
+            propertyName,
+            result.length > 0
+              ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+                  text,
+                  nextIndexOf(";", text, locEnd(getLast(result))) + 1
+                )
+              : nextIndexOf(";", text, locStart(node)),
+            true,
+            propertyName !== "update"
+          )
+      );
+    }
+    result.push(node.body);
+    return result;
+  }
+}
+
+function nextIndexOf(char, text, startIdx) {
+  let nextIdx = startIdx;
+  for (;;) {
+    nextIdx = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+      text,
+      nextIdx
+    );
+    if (nextIdx === false) {
+      /* istanbul ignore next */
+      return startIdx;
+    }
+    if (text.charAt(nextIdx) === char) {
+      return nextIdx;
+    }
+    nextIdx++;
+  }
+}
+
+function createCommentAnchorPseudoNode(
+  enclosingNode,
+  name,
+  loc,
+  acceptsLeadingComments,
+  acceptsTrailingComments
+) {
+  return {
+    type: "::CommentAnchor",
+    enclosingNode,
+    name,
+    range: [loc, loc],
+    acceptsLeadingComments,
+    acceptsTrailingComments,
+  };
 }
 
 /**

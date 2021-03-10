@@ -25,6 +25,7 @@ const BOM = "\uFEFF";
 const CURSOR = Symbol("cursor");
 
 function attachComments(text, ast, opts) {
+  opts.originalText = text;
   const astComments = ast.comments;
   if (astComments) {
     delete ast.comments;
@@ -32,7 +33,6 @@ function attachComments(text, ast, opts) {
   }
   opts[Symbol.for("comments")] = astComments || [];
   opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = text;
   return astComments;
 }
 
