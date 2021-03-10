@@ -152,6 +152,11 @@ test("no-identifier-n", {
       errors: 1,
     },
     {
+      code: "const {n} = 1; alert(n)",
+      output: "const {n} = 1; alert(node)",
+      errors: 1,
+    },
+    {
       code: outdent`
         const n = 1;
         function a(node) {
