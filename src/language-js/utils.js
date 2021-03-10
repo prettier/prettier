@@ -785,7 +785,7 @@ function templateLiteralHasNewLines(template) {
 }
 
 /**
- * @param {TemplateLiteral | TaggedTemplateExpression} n
+ * @param {TemplateLiteral | TaggedTemplateExpression} node
  * @param {string} text
  * @returns {boolean}
  */
