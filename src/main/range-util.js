@@ -79,7 +79,7 @@ function findNodeAtOffset(
     }
   }
 
-  if (!predicate || predicate(node)) {
+  if (!predicate || predicate(node, parentNodes[0])) {
     return {
       node,
       parentNodes,
@@ -88,15 +88,17 @@ function findNodeAtOffset(
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isJsSourceElement(type) {
+function isJsSourceElement(type, parentType) {
   return (
-    type === "Directive" ||
-    type === "TypeAlias" ||
-    type === "TSExportAssignment" ||
-    type.startsWith("Declare") ||
-    type.startsWith("TSDeclare") ||
-    type.endsWith("Statement") ||
-    type.endsWith("Declaration")
+    parentType !== "DeclareExportDeclaration" &&
+    type !== "TypeParameterDeclaration" &&
+    (type === "Directive" ||
+      type === "TypeAlias" ||
+      type === "TSExportAssignment" ||
+      type.startsWith("Declare") ||
+      type.startsWith("TSDeclare") ||
+      type.endsWith("Statement") ||
+      type.endsWith("Declaration"))
   );
 }
 
@@ -126,7 +128,7 @@ const graphqlSourceElements = new Set([
   "UnionTypeDefinition",
   "ScalarTypeDefinition",
 ]);
-function isSourceElement(opts, node) {
+function isSourceElement(opts, node, parentNode) {
   /* istanbul ignore next */
   if (!node) {
     return false;
@@ -139,7 +141,7 @@ function isSourceElement(opts, node) {
     case "typescript":
     case "espree":
     case "meriyah":
-      return isJsSourceElement(node.type);
+      return isJsSourceElement(node.type, parentNode && parentNode.type);
     case "json":
       return jsonSourceElements.has(node.type);
     case "graphql":
@@ -170,7 +172,7 @@ function calculateRange(text, opts, ast) {
     ast,
     start,
     opts,
-    (node) => isSourceElement(opts, node),
+    (node, parentNode) => isSourceElement(opts, node, parentNode),
     [],
     "rangeStart"
   );
