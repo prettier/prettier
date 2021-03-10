@@ -153,7 +153,7 @@ test("no-identifier-n", {
     },
     {
       code: "const {n} = 1; alert(n)",
-      output: "const {n} = 1; alert(node)",
+      output: "const {n: node} = 1; alert(node)",
       errors: 1,
     },
     {
