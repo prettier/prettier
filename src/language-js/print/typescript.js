@@ -339,11 +339,16 @@ function printTypescript(path, options, print) {
           indent([
             options.bracketSpacing ? line : softline,
             node.readonly
-              ? [getTypeScriptMappedTypeModifier(node.readonly, "readonly"), " "]
+              ? [
+                  getTypeScriptMappedTypeModifier(node.readonly, "readonly"),
+                  " ",
+                ]
               : "",
             printTypeScriptModifiers(path, options, print),
             path.call(print, "typeParameter"),
-            node.optional ? getTypeScriptMappedTypeModifier(node.optional, "?") : "",
+            node.optional
+              ? getTypeScriptMappedTypeModifier(node.optional, "?")
+              : "",
             node.typeAnnotation ? ": " : "",
             path.call(print, "typeAnnotation"),
             ifBreak(semi),
@@ -470,7 +475,8 @@ function printTypescript(path, options, print) {
       const parent = path.getParentNode();
       const isExternalModule = isLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
-      const bodyIsDeclaration = node.body && node.body.type === "TSModuleDeclaration";
+      const bodyIsDeclaration =
+        node.body && node.body.type === "TSModuleDeclaration";
 
       if (parentIsDeclaration) {
         parts.push(".");

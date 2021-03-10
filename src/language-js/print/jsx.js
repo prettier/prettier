@@ -132,7 +132,9 @@ function printJsxElementInternal(path, options, print) {
     isFacebookTranslationTag
   );
 
-  const containsText = node.children.some((child) => isMeaningfulJsxText(child));
+  const containsText = node.children.some((child) =>
+    isMeaningfulJsxText(child)
+  );
 
   // We can end up we multiple whitespace elements with empty string
   // content between them.
@@ -629,7 +631,9 @@ function printJsxClosingElement(path, options, print) {
   parts.push("</");
 
   const printed = path.call(print, "name");
-  if (hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)) {
+  if (
+    hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+  ) {
     parts.push(indent([hardline, printed]), hardline);
   } else if (
     hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)

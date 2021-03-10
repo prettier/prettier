@@ -520,9 +520,11 @@ function isTestCall(node, parent) {
     }
   } else if (node.arguments.length === 2 || node.arguments.length === 3) {
     if (
-      ((node.callee.type === "Identifier" && unitTestRe.test(node.callee.name)) ||
+      ((node.callee.type === "Identifier" &&
+        unitTestRe.test(node.callee.name)) ||
         isSkipOrOnlyBlock(node)) &&
-      (isTemplateLiteral(node.arguments[0]) || isStringLiteral(node.arguments[0]))
+      (isTemplateLiteral(node.arguments[0]) ||
+        isStringLiteral(node.arguments[0]))
     ) {
       // it("name", () => { ... }, 2500)
       if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {

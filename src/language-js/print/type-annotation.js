@@ -107,7 +107,10 @@ function printIntersectionType(path, options, print) {
     } else if (isObjectType(node.types[i - 1]) && isObjectType(node.types[i])) {
       // If both are objects, don't indent
       result.push([" & ", wasIndented ? indent(types[i]) : types[i]]);
-    } else if (!isObjectType(node.types[i - 1]) && !isObjectType(node.types[i])) {
+    } else if (
+      !isObjectType(node.types[i - 1]) &&
+      !isObjectType(node.types[i])
+    ) {
       // If no object is involved, go to the next line if it breaks
       result.push(indent([" &", line, types[i]]));
     } else {
@@ -267,7 +270,10 @@ function printFunctionType(path, options, print) {
         ]
       : "";
 
-  const shouldGroupParameters = shouldGroupFunctionParameters(node, returnTypeDoc);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc
+  );
 
   parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 
@@ -287,7 +293,8 @@ function printTupleType(path, options, print) {
   const node = path.getValue();
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const hasRest =
-    node[typesField].length > 0 && getLast(node[typesField]).type === "TSRestType";
+    node[typesField].length > 0 &&
+    getLast(node[typesField]).type === "TSRestType";
   return group([
     "[",
     indent([softline, printArrayItems(path, options, typesField, print)]),

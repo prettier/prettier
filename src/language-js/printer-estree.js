@@ -851,7 +851,9 @@ function printPathNoParens(path, options, print, args) {
       return [
         path.call(print, "id"),
         " = ",
-        typeof node.init === "object" ? path.call(print, "init") : String(node.init),
+        typeof node.init === "object"
+          ? path.call(print, "init")
+          : String(node.init),
       ];
     case "EnumDefaultedMember":
       return path.call(print, "id");

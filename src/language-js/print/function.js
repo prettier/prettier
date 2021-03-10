@@ -73,7 +73,10 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     expandArg
   );
   const returnTypeDoc = printReturnType(path, print, options);
-  const shouldGroupParameters = shouldGroupFunctionParameters(node, returnTypeDoc);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc
+  );
 
   parts.push(
     printFunctionTypeParameters(path, options, print),
@@ -272,7 +275,14 @@ function printArrowFunctionExpression(path, options, print, args) {
   });
 
   if (signatures.length > 1) {
-    return printArrowChain(path, args, signatures, chainShouldBreak, body, node);
+    return printArrowChain(
+      path,
+      args,
+      signatures,
+      chainShouldBreak,
+      body,
+      node
+    );
   }
 
   const parts = signatures;

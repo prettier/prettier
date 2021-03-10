@@ -179,7 +179,10 @@ function genericPrint(path, options, print) {
           join([ifBreak("", ", "), softline], path.map(print, "fields")),
         ]),
         softline,
-        ifBreak("", options.bracketSpacing && node.fields.length > 0 ? " " : ""),
+        ifBreak(
+          "",
+          options.bracketSpacing && node.fields.length > 0 ? " " : ""
+        ),
         "}",
       ]);
     }
@@ -455,7 +458,11 @@ function genericPrint(path, options, print) {
     }
 
     case "FragmentSpread": {
-      return ["...", path.call(print, "name"), printDirectives(path, print, node)];
+      return [
+        "...",
+        path.call(print, "name"),
+        printDirectives(path, print, node),
+      ];
     }
 
     case "InlineFragment": {
@@ -525,7 +532,10 @@ function printDirectives(path, print, node) {
 
   const printed = join(line, path.map(print, "directives"));
 
-  if (node.kind === "FragmentDefinition" || node.kind === "OperationDefinition") {
+  if (
+    node.kind === "FragmentDefinition" ||
+    node.kind === "OperationDefinition"
+  ) {
     return group([line, printed]);
   }
 

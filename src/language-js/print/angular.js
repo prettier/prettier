@@ -63,7 +63,8 @@ function printAngular(path, options, print) {
       const parentNode = path.getParentNode();
       const shouldNotPrintColon =
         isNgForOf(node, index, parentNode) ||
-        (((index === 1 && (node.key.name === "then" || node.key.name === "else")) ||
+        (((index === 1 &&
+          (node.key.name === "then" || node.key.name === "else")) ||
           (index === 2 &&
             node.key.name === "else" &&
             parentNode.body[index - 1].type ===
