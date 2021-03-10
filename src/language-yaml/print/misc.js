@@ -44,6 +44,7 @@ function shouldPrintEndComments(node) {
   );
 }
 
+// eslint-disable-next-line prettier-internal-rules/no-identifier-n
 function alignWithSpaces(n, doc) {
   return align(" ".repeat(n), doc);
 }

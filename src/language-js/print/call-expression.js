@@ -18,12 +18,12 @@ const printCallArguments = require("./call-arguments");
 const { printOptionalToken, printFunctionTypeParameters } = require("./misc");
 
 function printCallExpression(path, options, print) {
-  const n = path.getValue();
-  const isNew = n.type === "NewExpression";
-  const isDynamicImport = n.type === "ImportExpression";
+  const node = path.getValue();
+  const isNew = node.type === "NewExpression";
+  const isDynamicImport = node.type === "ImportExpression";
 
   const optional = printOptionalToken(path);
-  const args = getCallArguments(n);
+  const args = getCallArguments(node);
   if (
     // Dangling comments not handled, all these special cases should has argument #9668
     args.length > 0 &&
@@ -32,14 +32,14 @@ function printCallExpression(path, options, print) {
     // e.g. `define(["some/lib", (lib) => {`
     ((!isDynamicImport &&
       !isNew &&
-      n.callee.type === "Identifier" &&
-      (n.callee.name === "require" || n.callee.name === "define")) ||
+      node.callee.type === "Identifier" &&
+      (node.callee.name === "require" || node.callee.name === "define")) ||
       // Template literals as single arguments
       (args.length === 1 &&
         isTemplateOnItsOwnLine(args[0], options.originalText)) ||
       // Keep test declarations on a single line
       // e.g. `it('long name', () => {`
-      (!isNew && isTestCall(n, path.getParentNode())))
+      (!isNew && isTestCall(node, path.getParentNode())))
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, (argPath) => {
@@ -64,11 +64,11 @@ function printCallExpression(path, options, print) {
   // Here, we ensure that such comments stay between the Identifier and the Callee.
   const isIdentifierWithFlowAnnotation =
     (options.parser === "babel" || options.parser === "babel-flow") &&
-    n.callee &&
-    n.callee.type === "Identifier" &&
-    hasFlowAnnotationComment(n.callee.trailingComments);
+    node.callee &&
+    node.callee.type === "Identifier" &&
+    hasFlowAnnotationComment(node.callee.trailingComments);
   if (isIdentifierWithFlowAnnotation) {
-    n.callee.trailingComments[0].printed = true;
+    node.callee.trailingComments[0].printed = true;
   }
 
   // We detect calls on member lookups and possibly print them in a
@@ -76,7 +76,7 @@ function printCallExpression(path, options, print) {
   if (
     !isDynamicImport &&
     !isNew &&
-    isMemberish(n.callee) &&
+    isMemberish(node.callee) &&
     !path.call((path) => pathNeedsParens(path, options), "callee")
   ) {
     return printMemberChain(path, options, print);
@@ -87,7 +87,7 @@ function printCallExpression(path, options, print) {
     isDynamicImport ? "import" : path.call(print, "callee"),
     optional,
     isIdentifierWithFlowAnnotation
-      ? `/*:: ${n.callee.trailingComments[0].value.slice(2).trim()} */`
+      ? `/*:: ${node.callee.trailingComments[0].value.slice(2).trim()} */`
       : "",
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
@@ -95,7 +95,7 @@ function printCallExpression(path, options, print) {
 
   // We group here when the callee is itself a call expression.
   // See `isLongCurriedCallExpression` for more info.
-  if (isDynamicImport || isCallExpression(n.callee)) {
+  if (isDynamicImport || isCallExpression(node.callee)) {
     return group(contents);
   }
 

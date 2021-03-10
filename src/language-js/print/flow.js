@@ -19,16 +19,16 @@ const {
 } = require("./module");
 
 function printFlow(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const semi = options.semi ? ";" : "";
-  switch (n.type) {
+  switch (node.type) {
     case "DeclareClass":
       return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
       return printFlowDeclaration(path, [
         "function ",
         path.call(print, "id"),
-        n.predicate ? " " : "",
+        node.predicate ? " " : "",
         path.call(print, "predicate"),
         semi,
       ]);

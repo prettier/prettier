@@ -43,26 +43,26 @@ const { printPropertyKey } = require("./property");
 const { printFunctionTypeParameters } = require("./misc");
 
 function printFunctionDeclaration(path, print, options, expandArg) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
 
   // For TypeScript the TSDeclareFunction node shares the AST
   // structure with FunctionDeclaration
-  if (n.type === "TSDeclareFunction" && n.declare) {
+  if (node.type === "TSDeclareFunction" && node.declare) {
     parts.push("declare ");
   }
 
-  if (n.async) {
+  if (node.async) {
     parts.push("async ");
   }
 
-  if (n.generator) {
+  if (node.generator) {
     parts.push("function* ");
   } else {
     parts.push("function ");
   }
 
-  if (n.id) {
+  if (node.id) {
     parts.push(path.call(print, "id"));
   }
 
@@ -73,7 +73,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
     expandArg
   );
   const returnTypeDoc = printReturnType(path, print, options);
-  const shouldGroupParameters = shouldGroupFunctionParameters(n, returnTypeDoc);
+  const shouldGroupParameters = shouldGroupFunctionParameters(node, returnTypeDoc);
 
   parts.push(
     printFunctionTypeParameters(path, options, print),
@@ -81,11 +81,11 @@ function printFunctionDeclaration(path, print, options, expandArg) {
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
-    n.body ? " " : "",
+    node.body ? " " : "",
     path.call(print, "body")
   );
 
-  if (options.semi && (n.declare || !n.body)) {
+  if (options.semi && (node.declare || !node.body)) {
     parts.push(";");
   }
 
@@ -157,10 +157,10 @@ function printMethodInternal(path, options, print) {
 }
 
 function printArrowFunctionSignature(path, options, print, args) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
 
-  if (n.async) {
+  if (node.async) {
     parts.push("async ");
   }
 
@@ -242,7 +242,7 @@ function printArrowChain(
 }
 
 function printArrowFunctionExpression(path, options, print, args) {
-  let n = path.getValue();
+  let node = path.getValue();
   const signatures = [];
   let body;
   let chainShouldBreak = false;
@@ -256,23 +256,23 @@ function printArrowFunctionExpression(path, options, print, args) {
     chainShouldBreak =
       chainShouldBreak ||
       // Always break the chain if:
-      (n.returnType && getFunctionParameters(n).length > 0) ||
-      n.typeParameters ||
-      getFunctionParameters(n).some((param) => param.type !== "Identifier");
+      (node.returnType && getFunctionParameters(node).length > 0) ||
+      node.typeParameters ||
+      getFunctionParameters(node).some((param) => param.type !== "Identifier");
 
     if (
-      n.body.type !== "ArrowFunctionExpression" ||
+      node.body.type !== "ArrowFunctionExpression" ||
       (args && args.expandLastArg)
     ) {
       body = path.call((bodyPath) => print(bodyPath, args), "body");
     } else {
-      n = n.body;
+      node = node.body;
       path.call(rec, "body");
     }
   });
 
   if (signatures.length > 1) {
-    return printArrowChain(path, args, signatures, chainShouldBreak, body, n);
+    return printArrowChain(path, args, signatures, chainShouldBreak, body, node);
   }
 
   const parts = signatures;
@@ -281,21 +281,21 @@ function printArrowFunctionExpression(path, options, print, args) {
   // We want to always keep these types of nodes on the same line
   // as the arrow.
   if (
-    !hasLeadingOwnLineComment(options.originalText, n.body) &&
-    (n.body.type === "ArrayExpression" ||
-      n.body.type === "ObjectExpression" ||
-      n.body.type === "BlockStatement" ||
-      isJsxNode(n.body) ||
-      isTemplateOnItsOwnLine(n.body, options.originalText) ||
-      n.body.type === "ArrowFunctionExpression" ||
-      n.body.type === "DoExpression")
+    !hasLeadingOwnLineComment(options.originalText, node.body) &&
+    (node.body.type === "ArrayExpression" ||
+      node.body.type === "ObjectExpression" ||
+      node.body.type === "BlockStatement" ||
+      isJsxNode(node.body) ||
+      isTemplateOnItsOwnLine(node.body, options.originalText) ||
+      node.body.type === "ArrowFunctionExpression" ||
+      node.body.type === "DoExpression")
   ) {
     return group([...parts, " ", body]);
   }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
-  if (n.body.type === "SequenceExpression") {
+  if (node.body.type === "SequenceExpression") {
     return group([
       ...parts,
       group([" (", indent([softline, body]), softline, ")"]),
@@ -309,7 +309,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const shouldAddSoftLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
-    !hasComment(n);
+    !hasComment(node);
 
   const printTrailingComma =
     args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -318,8 +318,8 @@ function printArrowFunctionExpression(path, options, print, args) {
   // a => a ? a : a
   // a <= a ? a : a
   const shouldAddParens =
-    n.body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
+    node.body.type === "ConditionalExpression" &&
+    !startsWithNoLookaheadToken(node.body, /* forbidFunctionAndClass */ false);
 
   return group([
     ...parts,
@@ -368,12 +368,12 @@ function shouldPrintParamsWithoutParens(path, options) {
 }
 
 function printReturnType(path, print, options) {
-  const n = path.getValue();
+  const node = path.getValue();
   const returnType = path.call(print, "returnType");
 
   if (
-    n.returnType &&
-    isFlowAnnotationComment(options.originalText, n.returnType)
+    node.returnType &&
+    isFlowAnnotationComment(options.originalText, node.returnType)
   ) {
     return [" /*: ", returnType, " */"];
   }
@@ -381,14 +381,14 @@ function printReturnType(path, print, options) {
   const parts = [returnType];
 
   // prepend colon to TypeScript type annotation
-  if (n.returnType && n.returnType.typeAnnotation) {
+  if (node.returnType && node.returnType.typeAnnotation) {
     parts.unshift(": ");
   }
 
-  if (n.predicate) {
+  if (node.predicate) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
-    parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
+    parts.push(node.returnType ? " " : ": ", path.call(print, "predicate"));
   }
 
   return parts;

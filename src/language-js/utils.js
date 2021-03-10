@@ -506,34 +506,34 @@ function isUnitTestSetUp(node) {
 }
 
 // eg; `describe("some string", (done) => {})`
-function isTestCall(n, parent) {
-  if (n.type !== "CallExpression") {
+function isTestCall(node, parent) {
+  if (node.type !== "CallExpression") {
     return false;
   }
-  if (n.arguments.length === 1) {
-    if (isAngularTestWrapper(n) && parent && isTestCall(parent)) {
-      return isFunctionOrArrowExpression(n.arguments[0]);
+  if (node.arguments.length === 1) {
+    if (isAngularTestWrapper(node) && parent && isTestCall(parent)) {
+      return isFunctionOrArrowExpression(node.arguments[0]);
     }
 
-    if (isUnitTestSetUp(n)) {
-      return isAngularTestWrapper(n.arguments[0]);
+    if (isUnitTestSetUp(node)) {
+      return isAngularTestWrapper(node.arguments[0]);
     }
-  } else if (n.arguments.length === 2 || n.arguments.length === 3) {
+  } else if (node.arguments.length === 2 || node.arguments.length === 3) {
     if (
-      ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
-        isSkipOrOnlyBlock(n)) &&
-      (isTemplateLiteral(n.arguments[0]) || isStringLiteral(n.arguments[0]))
+      ((node.callee.type === "Identifier" && unitTestRe.test(node.callee.name)) ||
+        isSkipOrOnlyBlock(node)) &&
+      (isTemplateLiteral(node.arguments[0]) || isStringLiteral(node.arguments[0]))
     ) {
       // it("name", () => { ... }, 2500)
-      if (n.arguments[2] && !isNumericLiteral(n.arguments[2])) {
+      if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
         return false;
       }
       return (
-        (n.arguments.length === 2
-          ? isFunctionOrArrowExpression(n.arguments[1])
-          : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
-            getFunctionParameters(n.arguments[1]).length <= 1) ||
-        isAngularTestWrapper(n.arguments[1])
+        (node.arguments.length === 2
+          ? isFunctionOrArrowExpression(node.arguments[1])
+          : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
+            getFunctionParameters(node.arguments[1]).length <= 1) ||
+        isAngularTestWrapper(node.arguments[1])
       );
     }
   }
@@ -787,12 +787,12 @@ function templateLiteralHasNewLines(template) {
  * @param {string} text
  * @returns {boolean}
  */
-function isTemplateOnItsOwnLine(n, text) {
+function isTemplateOnItsOwnLine(node, text) {
   return (
-    ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
-      (n.type === "TaggedTemplateExpression" &&
-        templateLiteralHasNewLines(n.quasi))) &&
-    !hasNewline(text, locStart(n), { backwards: true })
+    ((node.type === "TemplateLiteral" && templateLiteralHasNewLines(node)) ||
+      (node.type === "TaggedTemplateExpression" &&
+        templateLiteralHasNewLines(node.quasi))) &&
+    !hasNewline(text, locStart(node), { backwards: true })
   );
 }
 
