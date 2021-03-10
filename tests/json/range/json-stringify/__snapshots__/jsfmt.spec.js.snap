@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`template-literal.js format 1`] = `
+exports[`template-literal.json format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
 printWidth: 80
