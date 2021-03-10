@@ -377,7 +377,7 @@ function printMemberChain(path, options, print) {
       willBreak(lastGroupDoc) &&
       callExpressions
         .slice(0, -1)
-        .some((n) => n.arguments.some(isFunctionOrArrowExpression))
+        .some((node) => node.arguments.some(isFunctionOrArrowExpression))
     );
   }
 

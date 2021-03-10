@@ -213,7 +213,7 @@ Decrease the level of indentation. (Each `align` is considered one level of inde
 ### `align`
 
 ```ts
-declare function align(n: number | string, doc: Doc): Doc;
+declare function align(widthOrString: number | string, doc: Doc): Doc;
 ```
 
 Increase the indentation by a fixed number of spaces or a string. A variant of [`indent`](#indent).

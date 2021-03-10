@@ -18,14 +18,14 @@ const { shouldHugType } = require("./type-annotation");
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
-  const n = path.getValue();
+  const node = path.getValue();
 
-  if (!n[paramsKey]) {
+  if (!node[paramsKey]) {
     return "";
   }
 
   // for TypeParameterDeclaration typeParameters is a single node
-  if (!Array.isArray(n[paramsKey])) {
+  if (!Array.isArray(node[paramsKey])) {
     return path.call(print, paramsKey);
   }
 
@@ -34,10 +34,10 @@ function printTypeParameters(path, options, print, paramsKey) {
 
   const shouldInline =
     isParameterInTestCall ||
-    n[paramsKey].length === 0 ||
-    (n[paramsKey].length === 1 &&
-      (shouldHugType(n[paramsKey][0]) ||
-        n[paramsKey][0].type === "NullableTypeAnnotation"));
+    node[paramsKey].length === 0 ||
+    (node[paramsKey].length === 1 &&
+      (shouldHugType(node[paramsKey][0]) ||
+        node[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
     return [
@@ -52,11 +52,11 @@ function printTypeParameters(path, options, print, paramsKey) {
   // has one type parameter that isn't extend with any types.
   // Because, otherwise formatted result will be invalid as tsx.
   const trailingComma =
-    n.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
+    node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
-      : getFunctionParameters(n).length === 1 &&
+      : getFunctionParameters(node).length === 1 &&
         isTSXFile(options) &&
-        !n[paramsKey][0].constraint &&
+        !node[paramsKey][0].constraint &&
         path.getParentNode().type === "ArrowFunctionExpression"
       ? ","
       : shouldPrintComma(options, "all")
@@ -71,16 +71,16 @@ function printTypeParameters(path, options, print, paramsKey) {
       softline,
       ">",
     ],
-    { id: getTypeParametersGroupId(n) }
+    { id: getTypeParametersGroupId(node) }
   );
 }
 
 function printDanglingCommentsForInline(path, options) {
-  const n = path.getValue();
-  if (!hasComment(n, CommentCheckFlags.Dangling)) {
+  const node = path.getValue();
+  if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return "";
   }
-  const hasOnlyBlockComments = !hasComment(n, CommentCheckFlags.Line);
+  const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
   const printed = printDanglingComments(
     path,
     options,
@@ -93,12 +93,12 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
   const parent = path.getParentNode();
   if (parent.type === "TSMappedType") {
     parts.push("[", path.call(print, "name"));
-    if (n.constraint) {
+    if (node.constraint) {
       parts.push(" in ", path.call(print, "constraint"));
     }
     if (parent.nameType) {
@@ -111,21 +111,21 @@ function printTypeParameter(path, options, print) {
     return parts;
   }
 
-  if (n.variance) {
+  if (node.variance) {
     parts.push(path.call(print, "variance"));
   }
 
   parts.push(path.call(print, "name"));
 
-  if (n.bound) {
+  if (node.bound) {
     parts.push(": ", path.call(print, "bound"));
   }
 
-  if (n.constraint) {
+  if (node.constraint) {
     parts.push(" extends ", path.call(print, "constraint"));
   }
 
-  if (n.default) {
+  if (node.default) {
     parts.push(" = ", path.call(print, "default"));
   }
 

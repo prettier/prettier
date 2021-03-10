@@ -69,16 +69,16 @@ function indent(contents) {
 }
 
 /**
- * @param {number | string} n
+ * @param {number | string} widthOrString
  * @param {Doc} contents
  * @returns Doc
  */
-function align(n, contents) {
+function align(widthOrString, contents) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
 
-  return { type: "align", contents, n };
+  return { type: "align", contents, n: widthOrString };
 }
 
 /**
