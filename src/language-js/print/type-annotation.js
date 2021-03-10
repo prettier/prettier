@@ -28,20 +28,20 @@ function shouldHugType(node) {
 
   if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
     const voidCount = node.types.filter(
-      (n) =>
-        n.type === "VoidTypeAnnotation" ||
-        n.type === "TSVoidKeyword" ||
-        n.type === "NullLiteralTypeAnnotation" ||
-        n.type === "TSNullKeyword"
+      (node) =>
+        node.type === "VoidTypeAnnotation" ||
+        node.type === "TSVoidKeyword" ||
+        node.type === "NullLiteralTypeAnnotation" ||
+        node.type === "TSNullKeyword"
     ).length;
 
     const hasObject = node.types.some(
-      (n) =>
-        n.type === "ObjectTypeAnnotation" ||
-        n.type === "TSTypeLiteral" ||
+      (node) =>
+        node.type === "ObjectTypeAnnotation" ||
+        node.type === "TSTypeLiteral" ||
         // This is a bit aggressive but captures Array<{x}>
-        n.type === "GenericTypeAnnotation" ||
-        n.type === "TSTypeReference"
+        node.type === "GenericTypeAnnotation" ||
+        node.type === "TSTypeReference"
     );
 
     if (node.types.length - 1 === voidCount && hasObject) {

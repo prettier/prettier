@@ -73,6 +73,7 @@ function indent(contents) {
  * @param {Doc} contents
  * @returns Doc
  */
+// eslint-disable-next-line prettier-internal-rules/no-identifier-n
 function align(n, contents) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);

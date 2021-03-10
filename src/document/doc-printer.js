@@ -19,6 +19,7 @@ function makeIndent(ind, options) {
   return generateInd(ind, { type: "indent" }, options);
 }
 
+// eslint-disable-next-line prettier-internal-rules/no-identifier-n
 function makeAlign(indent, n, options) {
   if (n === Number.NEGATIVE_INFINITY) {
     return indent.root || rootIndent();

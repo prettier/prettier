@@ -454,7 +454,7 @@ function printStartingTag(path, print) {
 
 function printChildren(path, options, print) {
   const node = path.getValue();
-  const isEmpty = node.children.every((n) => isWhitespaceNode(n));
+  const isEmpty = node.children.every((node) => isWhitespaceNode(node));
   if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
     return "";
   }
@@ -602,7 +602,7 @@ function printCloseBlock(path, print, options) {
 function blockStatementHasOnlyWhitespaceInProgram(node) {
   return (
     isNodeOfSomeType(node, ["BlockStatement"]) &&
-    node.program.body.every((n) => isWhitespaceNode(n))
+    node.program.body.every((node) => isWhitespaceNode(node))
   );
 }
 

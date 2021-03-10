@@ -691,8 +691,8 @@ function printJsxSpreadAttribute(path, options, print) {
     path.call(
       (p) => {
         const printed = ["...", print(p)];
-        const n = p.getValue();
-        if (!hasComment(n) || !willPrintOwnComments(p)) {
+        const node = p.getValue();
+        if (!hasComment(node) || !willPrintOwnComments(p)) {
           return printed;
         }
         return [

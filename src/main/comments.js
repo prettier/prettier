@@ -52,12 +52,12 @@ function getSortedChildNodes(node, options, resultArray) {
     (typeof node === "object" &&
       Object.entries(node)
         .filter(
-          ([n]) =>
-            n !== "enclosingNode" &&
-            n !== "precedingNode" &&
-            n !== "followingNode" &&
-            n !== "tokens" &&
-            n !== "comments"
+          ([node]) =>
+            node !== "enclosingNode" &&
+            node !== "precedingNode" &&
+            node !== "followingNode" &&
+            node !== "tokens" &&
+            node !== "comments"
         )
         .map(([, value]) => value));
 
