@@ -11,13 +11,12 @@ function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
     startNodeAndParents.node,
     ...startNodeAndParents.parentNodes,
   ];
-  const endNodeAndAncestors = [
+  const endNodeAndAncestors = new Set([
     endNodeAndParents.node,
     ...endNodeAndParents.parentNodes,
-  ];
+  ]);
   return startNodeAndAncestors.find(
-    (node) =>
-      jsonSourceElements.has(node.type) && endNodeAndAncestors.includes(node)
+    (node) => jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node)
   );
 }
 
