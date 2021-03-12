@@ -1,5 +1,7 @@
 "use strict";
 
+// TODO: check `astPath.map`
+
 const selector = [
   "CallExpression",
   "[optional=false]",
@@ -10,7 +12,7 @@ const selector = [
   "[arguments.length>0]",
 ].join("");
 
-const messageId = "no-ast-path-call";
+const messageId = "simplified-print";
 
 function getNamesText(node, sourceCode) {
   const [, firstName, ...restNames] = node.arguments;
@@ -37,7 +39,7 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-ast-path-call.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/simplified-print.js",
     },
     messages: {
       [messageId]: "Do not use `AstPath#call` to print.",

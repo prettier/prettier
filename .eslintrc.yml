@@ -142,4 +142,4 @@ overrides:
         - "src/language-js/parser-meriyah.js"
         - "src/language-js/pragma.js"
         - "src/language-js/parser/json.js"
-      prettier-internal-rules/no-ast-path-call: error
+      prettier-internal-rules/simplified-print: error

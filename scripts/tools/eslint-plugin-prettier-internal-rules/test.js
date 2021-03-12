@@ -138,42 +138,6 @@ test("no-doc-builder-concat", {
   ],
 });
 
-test("no-ast-path-call", {
-  valid: ["call(print, 'key')", "path.call()"],
-  invalid: [
-    {
-      code: "path.call(print)",
-      output: "print()",
-      errors: 1,
-    },
-    {
-      code: "path.call(print, name)",
-      output: "print(name)",
-      errors: 1,
-    },
-    {
-      code: "path.call(print, ...names)",
-      output: "print(names)",
-      errors: 1,
-    },
-    {
-      code: "path.call(print, name, ...names)",
-      output: "print([name, ...names])",
-      errors: 1,
-    },
-    {
-      code: "path.call(print, ...names, name, )",
-      output: "print([...names, name])",
-      errors: 1,
-    },
-    {
-      code: "path.call(notPrint, )",
-      output: "path.call(notPrint, )",
-      errors: 1,
-    },
-  ],
-});
-
 test("no-identifier-n", {
   valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
   invalid: [
@@ -400,6 +364,42 @@ test("no-empty-flat-contents-for-if-break", {
             "Please don't pass an empty string to second parameter of ifBreak.",
         },
       ],
+    },
+  ],
+});
+
+test("simplified-print", {
+  valid: ["call(print, 'key')", "path.call()"],
+  invalid: [
+    {
+      code: "path.call(print)",
+      output: "print()",
+      errors: 1,
+    },
+    {
+      code: "path.call(print, name)",
+      output: "print(name)",
+      errors: 1,
+    },
+    {
+      code: "path.call(print, ...names)",
+      output: "print(names)",
+      errors: 1,
+    },
+    {
+      code: "path.call(print, name, ...names)",
+      output: "print([name, ...names])",
+      errors: 1,
+    },
+    {
+      code: "path.call(print, ...names, name, )",
+      output: "print([...names, name])",
+      errors: 1,
+    },
+    {
+      code: "path.call(notPrint, )",
+      output: "path.call(notPrint, )",
+      errors: 1,
     },
   ],
 });

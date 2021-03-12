@@ -8,12 +8,12 @@ module.exports = {
     "jsx-identifier-case": require("./jsx-identifier-case"),
     "no-doc-builder-concat": require("./no-doc-builder-concat"),
     "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break"),
-    "no-ast-path-call": require("./no-ast-path-call"),
     "no-identifier-n": require("./no-identifier-n"),
     "no-node-comments": require("./no-node-comments"),
     "prefer-ast-path-each": require("./prefer-ast-path-each"),
     "prefer-indent-if-break": require("./prefer-indent-if-break"),
     "prefer-is-non-empty-array": require("./prefer-is-non-empty-array"),
     "require-json-extensions": require("./require-json-extensions"),
+    "simplified-print": require("./simplified-print"),
   },
 };
