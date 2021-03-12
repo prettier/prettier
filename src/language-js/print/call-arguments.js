@@ -8,6 +8,7 @@ const {
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
+  isFunctionOrArrowExpression,
   isJsxNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
@@ -133,7 +134,11 @@ function printCallArguments(path, options, print) {
   }
 
   const shouldGroupFirst = shouldGroupFirstArg(args);
-  const shouldGroupLast = shouldGroupLastArg(args);
+  const shouldGroupLast = shouldGroupLastArg(
+    args,
+    node.callee,
+    path.getParentNode().type
+  );
   if (shouldGroupFirst || shouldGroupLast) {
     const shouldBreak =
       (shouldGroupFirst
@@ -255,21 +260,56 @@ function couldGroupArg(arg, arrowChainRecursion = false) {
   );
 }
 
-function shouldGroupLastArg(args) {
+function shouldGroupLastArg(args, callee, parentType) {
   const lastArg = getLast(args);
-  const penultimateArg = getPenultimate(args);
-  return (
-    !hasComment(lastArg, CommentCheckFlags.Leading) &&
-    !hasComment(lastArg, CommentCheckFlags.Trailing) &&
-    couldGroupArg(lastArg) &&
-    // If the last two arguments are of the same type,
-    // disable last element expansion.
-    (!penultimateArg || penultimateArg.type !== lastArg.type) &&
+
+  if (
+    hasComment(lastArg, CommentCheckFlags.Leading) ||
+    hasComment(lastArg, CommentCheckFlags.Trailing) ||
+    !couldGroupArg(lastArg)
+  ) {
+    return false;
+  }
+
+  if (args.length > 1) {
+    // If the last two arguments are of the same type, disable last element expansion.
+    if (getPenultimate(args).type === lastArg.type) {
+      return false;
+    }
+
     // useMemo(() => func(), [foo, bar, baz])
-    (args.length !== 2 ||
-      args[0].type !== "ArrowFunctionExpression" ||
-      args[1].type !== "ArrayExpression")
-  );
+    if (
+      args.length === 2 &&
+      args[0].type === "ArrowFunctionExpression" &&
+      args[1].type === "ArrayExpression"
+    ) {
+      return false;
+    }
+
+    // An attempt to detect functional composition https://github.com/prettier/prettier/issues/6921
+    //
+    // Node-style callbacks:
+    //     addEventListener('click', (event) => {
+    //        ...
+    //     });
+    //
+    // Functional composition:
+    //     const subtotalSelector = createSelector(
+    //       shopItemsSelector,
+    //       (items) => items.reduce((acc, item) => acc + item.value, 0),
+    //     );
+    if (
+      isFunctionOrArrowExpression(lastArg) &&
+      ((callee.type === "Identifier" && parentType !== "ExpressionStatement") ||
+        (lastArg.body.type !== "BlockStatement" &&
+          lastArg.body.type !== "JSXElement" &&
+          parentType !== "JSXExpressionContainer"))
+    ) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function shouldGroupFirstArg(args) {

@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ramda-6921.js - {"printWidth":100} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 100
+                                                                                                    | printWidth
+=====================================input======================================
+const capitalize = compose(
+  converge(concat(), [
+    compose(
+      toUpper,
+      head,
+    ),
+    tail,
+  ]),
+  toLower,
+);
+
+const actions = {
+  toggleItem: item =>
+    evolve({
+      selectedItems: ifElse(
+        has(item.id),
+        dissoc(item.id),
+        assoc(item.id, item)
+      )
+    })
+};
+
+const getMenus = pipe(
+	pluck('menus'),
+	flatten,
+	uniqBy(prop('id')),
+);
+
+=====================================output=====================================
+const capitalize = compose(converge(concat(), [compose(toUpper, head), tail]), toLower);
+
+const actions = {
+  toggleItem: (item) =>
+    evolve({
+      selectedItems: ifElse(has(item.id), dissoc(item.id), assoc(item.id, item)),
+    }),
+};
+
+const getMenus = pipe(pluck("menus"), flatten, uniqBy(prop("id")));
+
+================================================================================
+`;
+
+exports[`reselect-6921.js - {"printWidth":100} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 100
+                                                                                                    | printWidth
+=====================================input======================================
+export const isOngoingBooking = createSelector(
+  getDetailsWithRoom,
+  ({startDt, endDt}) => {
+    return moment().isBetween(startDt, endDt, 'day');
+  }
+);
+
+export const isOngoingBooking2 = createSelector(
+  getDetailsWithRoom,
+  ({startDt, endDt}) => moment().isBetween(startDt, endDt, 'day')
+);
+
+export const getFeatures = createSelector(
+  getFeaturesMapping,
+  features => {
+    features = Object.values(features).map(f => _.pick(f, ['icon', 'name', 'title']));
+    return _.sortBy(features, 'title');
+  }
+);
+
+const subtotalSelector = createSelector(
+  shopItemsSelector,
+  items => items.reduce((acc, item) => acc + item.value, 0),
+);
+
+=====================================output=====================================
+export const isOngoingBooking = createSelector(
+  getDetailsWithRoom,
+  ({ startDt, endDt }) => {
+    return moment().isBetween(startDt, endDt, "day");
+  }
+);
+
+export const isOngoingBooking2 = createSelector(
+  getDetailsWithRoom,
+  ({ startDt, endDt }) => moment().isBetween(startDt, endDt, "day")
+);
+
+export const getFeatures = createSelector(
+  getFeaturesMapping,
+  (features) => {
+    features = Object.values(features).map((f) => _.pick(f, ["icon", "name", "title"]));
+    return _.sortBy(features, "title");
+  }
+);
+
+const subtotalSelector = createSelector(
+  shopItemsSelector,
+  (items) => items.reduce((acc, item) => acc + item.value, 0)
+);
+
+================================================================================
+`;
+
+exports[`rxjs-6921.js - {"printWidth":100} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 100
+                                                                                                    | printWidth
+=====================================input======================================
+const result$ = stream1$.pipe(
+  withLatestFrom(stream2$),
+  distinctUntilChanged(),
+  debounceTime(50)
+)
+
+const searchEpic = action$ =>
+    action$.pipe(
+        filter(isActionOf(Actions.search.request)),
+        debounceTime(500),
+        switchMap(action =>
+            from(
+                doSearch(
+                    action.payload.firstName,
+                    action.payload.middleName,
+                    action.payload.lastName,
+                    action.payload.date,
+                ),
+            ).pipe(
+                map(Actions.search.success),
+                catchApiError(Actions.search.failure()),
+            ),
+        ),
+    );
+
+=====================================output=====================================
+const result$ = stream1$.pipe(withLatestFrom(stream2$), distinctUntilChanged(), debounceTime(50));
+
+const searchEpic = (action$) =>
+  action$.pipe(
+    filter(isActionOf(Actions.search.request)),
+    debounceTime(500),
+    switchMap((action) =>
+      from(
+        doSearch(
+          action.payload.firstName,
+          action.payload.middleName,
+          action.payload.lastName,
+          action.payload.date
+        )
+      ).pipe(map(Actions.search.success), catchApiError(Actions.search.failure()))
+    )
+  );
+
+================================================================================
+`;
