@@ -28,11 +28,7 @@ function printInterface(path, options, print) {
   const extendsParts = [];
 
   if (node.type !== "InterfaceTypeAnnotation") {
-    partsGroup.push(
-      " ",
-      path.call(print, "id"),
-      path.call(print, "typeParameters")
-    );
+    partsGroup.push(" ", print("id"), print("typeParameters"));
   }
 
   const shouldIndentOnlyHeritageClauses =
@@ -69,7 +65,7 @@ function printInterface(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", path.call(print, "body"));
+  parts.push(" ", print("body"));
 
   return group(parts);
 }

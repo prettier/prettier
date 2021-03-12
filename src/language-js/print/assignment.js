@@ -74,21 +74,14 @@ function printAssignmentExpression(path, options, print) {
     path,
     options,
     print,
-    path.call(print, "left"),
+    print("left"),
     [" ", node.operator],
     "right"
   );
 }
 
 function printVariableDeclarator(path, options, print) {
-  return printAssignment(
-    path,
-    options,
-    print,
-    path.call(print, "id"),
-    " =",
-    "init"
-  );
+  return printAssignment(path, options, print, print("id"), " =", "init");
 }
 
 function chooseLayout(path, options, leftDoc, rightPropertyName) {

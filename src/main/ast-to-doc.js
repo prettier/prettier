@@ -38,36 +38,67 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   }
 
   const cache = new Map();
-
-  function printGenerically(path, args) {
-    const node = path.getValue();
-
-    const shouldCache = node && typeof node === "object" && args === undefined;
-    if (shouldCache && cache.has(node)) {
-      return cache.get(node);
+  const path = new AstPath(ast);
+  let doc = (function printGenerically(nameOrNames, args) {
+    // TODO: Remove support for passing `path` in next major version
+    if (nameOrNames === path || !nameOrNames) {
+      nameOrNames = [];
     }
 
-    let doc = callPluginPrintFunction(path, options, printGenerically, args);
-
-    // We let JSXElement print its comments itself because it adds () around
-    // UnionTypeAnnotation has to align the child without the comments
-    if (
-      !printer.willPrintOwnComments ||
-      !printer.willPrintOwnComments(path, options)
-    ) {
-      // printComments will call the plugin print function and check for
-      // comments to print
-      doc = printComments(path, doc, options);
+    const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
+    let value = path.getValue();
+    for (const name of names) {
+      value = value ? value[name] : undefined;
     }
+
+    const shouldCache =
+      value && typeof value === "object" && args === undefined;
+
+    if (shouldCache && cache.has(value)) {
+      return cache.get(value);
+    }
+
+    // if (Array.isArray(value)) {
+    //   const docs = path.map(
+    //     () => callPluginPrintFunction(path, options, printGenerically, args),
+    //     ...names
+    //   );
+
+    //   if (shouldCache) {
+    //     cache.set(value, docs);
+    //   }
+    //   return docs;
+    // }
+
+    const doc = path.call(() => {
+      const doc = callPluginPrintFunction(
+        path,
+        options,
+        printGenerically,
+        args
+      );
+
+      // We let JSXElement print its comments itself because it adds () around
+      // UnionTypeAnnotation has to align the child without the comments
+      if (
+        !printer.willPrintOwnComments ||
+        !printer.willPrintOwnComments(path, options)
+      ) {
+        // printComments will call the plugin print function and check for
+        // comments to print
+        return printComments(path, doc, options);
+      }
+
+      return doc;
+    }, ...names);
 
     if (shouldCache) {
-      cache.set(node, doc);
+      cache.set(value, doc);
     }
 
     return doc;
-  }
+  })(path);
 
-  let doc = printGenerically(new AstPath(ast));
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()

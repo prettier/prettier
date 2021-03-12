@@ -68,7 +68,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
   }
 
   if (node.id) {
-    parts.push(path.call(print, "id"));
+    parts.push(print("id"));
   }
 
   const parametersDoc = printFunctionParameters(
@@ -90,7 +90,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
       returnTypeDoc,
     ]),
     node.body ? " " : "",
-    path.call(print, "body")
+    print("body")
   );
 
   if (options.semi && (node.declare || !node.body)) {
@@ -133,7 +133,7 @@ function printMethod(path, options, print) {
       path.call((path) => printMethodInternal(path, options, print), "value")
     );
   } else {
-    parts.push(path.call(print, "value"));
+    parts.push(print("value"));
   }
 
   return parts;
@@ -156,7 +156,7 @@ function printMethodInternal(path, options, print) {
   ];
 
   if (node.body) {
-    parts.push(" ", path.call(print, "body"));
+    parts.push(" ", print("body"));
   } else {
     parts.push(options.semi ? ";" : "");
   }
@@ -173,7 +173,7 @@ function printArrowFunctionSignature(path, options, print, args) {
   }
 
   if (shouldPrintParamsWithoutParens(path, options)) {
-    parts.push(path.call(print, "params", 0));
+    parts.push(print(["params", 0]));
   } else {
     parts.push(
       group([
@@ -389,7 +389,7 @@ function shouldPrintParamsWithoutParens(path, options) {
 
 function printReturnType(path, print, options) {
   const node = path.getValue();
-  const returnType = path.call(print, "returnType");
+  const returnType = print("returnType");
 
   if (
     node.returnType &&
@@ -408,7 +408,7 @@ function printReturnType(path, print, options) {
   if (node.predicate) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
-    parts.push(node.returnType ? " " : ": ", path.call(print, "predicate"));
+    parts.push(node.returnType ? " " : ": ", print("predicate"));
   }
 
   return parts;
@@ -422,12 +422,7 @@ function printReturnAndThrowArgument(path, options, print) {
 
   if (node.argument) {
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push([
-        " (",
-        indent([hardline, path.call(print, "argument")]),
-        hardline,
-        ")",
-      ]);
+      parts.push([" (", indent([hardline, print("argument")]), hardline, ")"]);
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"
@@ -435,13 +430,13 @@ function printReturnAndThrowArgument(path, options, print) {
       parts.push(
         group([
           ifBreak(" (", " "),
-          indent([softline, path.call(print, "argument")]),
+          indent([softline, print("argument")]),
           softline,
           ifBreak(")"),
         ])
       );
     } else {
-      parts.push(" ", path.call(print, "argument"));
+      parts.push(" ", print("argument"));
     }
   }
 

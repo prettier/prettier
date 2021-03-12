@@ -60,20 +60,17 @@ function printJsxElementInternal(path, options, print) {
   const node = path.getValue();
 
   if (node.type === "JSXElement" && isEmptyJsxElement(node)) {
-    return [
-      path.call(print, "openingElement"),
-      path.call(print, "closingElement"),
-    ];
+    return [print("openingElement"), print("closingElement")];
   }
 
   const openingLines =
     node.type === "JSXElement"
-      ? path.call(print, "openingElement")
-      : path.call(print, "openingFragment");
+      ? print("openingElement")
+      : print("openingFragment");
   const closingLines =
     node.type === "JSXElement"
-      ? path.call(print, "closingElement")
-      : path.call(print, "closingFragment");
+      ? print("closingElement")
+      : print("closingFragment");
 
   if (
     node.children.length === 1 &&
@@ -473,7 +470,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
 function printJsxAttribute(path, options, print) {
   const node = path.getValue();
   const parts = [];
-  parts.push(path.call(print, "name"));
+  parts.push(print("name"));
 
   if (node.value) {
     let res;
@@ -489,7 +486,7 @@ function printJsxAttribute(path, options, print) {
       final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
       res = [quote, final, quote];
     } else {
-      res = path.call(print, "value");
+      res = print("value");
     }
     parts.push("=", res);
   }
@@ -517,17 +514,12 @@ function printJsxExpressionContainer(path, options, print) {
             isBinaryish(node.expression)))));
 
   if (shouldInline) {
-    return group([
-      "{",
-      path.call(print, "expression"),
-      lineSuffixBoundary,
-      "}",
-    ]);
+    return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 
   return group([
     "{",
-    indent([softline, path.call(print, "expression")]),
+    indent([softline, print("expression")]),
     softline,
     lineSuffixBoundary,
     "}",
@@ -543,12 +535,7 @@ function printJsxOpeningElement(path, options, print) {
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
-    return [
-      "<",
-      path.call(print, "name"),
-      path.call(print, "typeParameters"),
-      " />",
-    ];
+    return ["<", print("name"), print("typeParameters"), " />"];
   }
 
   // don't break up opening elements with a single long text attribute
@@ -572,8 +559,8 @@ function printJsxOpeningElement(path, options, print) {
   ) {
     return group([
       "<",
-      path.call(print, "name"),
-      path.call(print, "typeParameters"),
+      print("name"),
+      print("typeParameters"),
       " ",
       ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
@@ -613,8 +600,8 @@ function printJsxOpeningElement(path, options, print) {
   return group(
     [
       "<",
-      path.call(print, "name"),
-      path.call(print, "typeParameters"),
+      print("name"),
+      print("typeParameters"),
 
       indent(path.map((attr) => [line, print(attr)], "attributes")),
       node.selfClosing ? line : bracketSameLine ? ">" : softline,
@@ -630,7 +617,7 @@ function printJsxClosingElement(path, options, print) {
 
   parts.push("</");
 
-  const printed = path.call(print, "name");
+  const printed = print("name");
   if (
     hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)
   ) {
@@ -718,15 +705,9 @@ function printJsx(path, options, print) {
     case "JSXIdentifier":
       return String(node.name);
     case "JSXNamespacedName":
-      return join(":", [
-        path.call(print, "namespace"),
-        path.call(print, "name"),
-      ]);
+      return join(":", [print("namespace"), print("name")]);
     case "JSXMemberExpression":
-      return join(".", [
-        path.call(print, "object"),
-        path.call(print, "property"),
-      ]);
+      return join(".", [print("object"), print("property")]);
     case "JSXSpreadAttribute":
       return printJsxSpreadAttribute(path, options, print);
     case "JSXSpreadChild": {

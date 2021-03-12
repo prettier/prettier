@@ -65,7 +65,7 @@ function printFunctionParameters(
     if (isLastParameter && functionNode.rest) {
       printed.push("...");
     }
-    printed.push(print(parameterPath));
+    printed.push(print());
     if (isLastParameter) {
       return;
     }

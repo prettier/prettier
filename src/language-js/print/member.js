@@ -33,7 +33,7 @@ function printMemberExpression(path, options, print) {
       !isMemberExpression(parent));
 
   return [
-    path.call(print, "object"),
+    print("object"),
     shouldInline
       ? printMemberLookup(path, options, print)
       : group(indent([softline, printMemberLookup(path, options, print)])),
@@ -41,7 +41,7 @@ function printMemberExpression(path, options, print) {
 }
 
 function printMemberLookup(path, options, print) {
-  const property = path.call(print, "property");
+  const property = print("property");
   const node = path.getValue();
   const optional = printOptionalToken(path);
 

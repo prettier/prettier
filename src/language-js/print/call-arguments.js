@@ -48,13 +48,7 @@ function printCallArguments(path, options, print) {
 
   // useEffect(() => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return [
-      "(",
-      path.call(print, "arguments", 0),
-      ", ",
-      path.call(print, "arguments", 1),
-      ")",
-    ];
+    return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
   }
 
   // func(
