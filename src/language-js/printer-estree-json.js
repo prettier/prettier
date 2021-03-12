@@ -9,7 +9,7 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "JsonRoot":
-      return [print("node"), hardline];
+      return [path.call(print, "node"), hardline];
     case "ArrayExpression": {
       if (node.elements.length === 0) {
         return "[]";
@@ -41,11 +41,11 @@ function genericPrint(path, options, print) {
             "}",
           ];
     case "ObjectProperty":
-      return [print("key"), ": ", print("value")];
+      return [path.call(print, "key"), ": ", path.call(print, "value")];
     case "UnaryExpression":
       return [
         node.operator === "+" ? "" : node.operator,
-        print("argument"),
+        path.call(print, "argument"),
       ];
     case "NullLiteral":
       return "null";
@@ -63,7 +63,7 @@ function genericPrint(path, options, print) {
     }
     case "TemplateLiteral":
       // There is only one `TemplateElement`
-      return print(["quasis", 0]);
+      return path.call(print, "quasis", 0);
     case "TemplateElement":
       return JSON.stringify(node.value.cooked);
     default:
