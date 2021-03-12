@@ -47,7 +47,7 @@ function printCallExpression(path, options, print) {
     });
     return [
       isNew ? "new " : "",
-      path.call(print, "callee"),
+      print("callee"),
       optional,
       printFunctionTypeParameters(path, options, print),
       "(",
@@ -84,7 +84,7 @@ function printCallExpression(path, options, print) {
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? "import" : path.call(print, "callee"),
+    isDynamicImport ? "import" : print("callee"),
     optional,
     isIdentifierWithFlowAnnotation
       ? `/*:: ${node.callee.trailingComments[0].value.slice(2).trim()} */`

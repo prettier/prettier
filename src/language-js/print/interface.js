@@ -30,8 +30,8 @@ function printInterface(path, options, print) {
   if (node.type !== "InterfaceTypeAnnotation") {
     partsGroup.push(
       " ",
-      path.call(print, "id"),
-      path.call(print, "typeParameters")
+      print("id"),
+      print("typeParameters")
     );
   }
 
@@ -69,7 +69,7 @@ function printInterface(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", path.call(print, "body"));
+  parts.push(" ", print("body"));
 
   return group(parts);
 }

@@ -74,7 +74,7 @@ function printAssignmentExpression(path, options, print) {
     path,
     options,
     print,
-    path.call(print, "left"),
+    print("left"),
     [" ", node.operator],
     "right"
   );
@@ -85,7 +85,7 @@ function printVariableDeclarator(path, options, print) {
     path,
     options,
     print,
-    path.call(print, "id"),
+    print("id"),
     " =",
     "init"
   );

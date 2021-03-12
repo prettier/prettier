@@ -135,7 +135,7 @@ function printMemberChain(path, options, print) {
     } else {
       printedNodes.unshift({
         node,
-        printed: path.call(print),
+        printed: print(),
       });
     }
   }

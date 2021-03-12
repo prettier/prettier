@@ -48,9 +48,9 @@ function printCallArguments(path, options, print) {
   if (isReactHookCallWithDepsArray(args)) {
     return [
       "(",
-      path.call(print, "arguments", 0),
+      print(["arguments", 0]),
       ", ",
-      path.call(print, "arguments", 1),
+      print(["arguments", 1]),
       ")",
     ];
   }

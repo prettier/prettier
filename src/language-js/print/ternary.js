@@ -116,13 +116,13 @@ function printTernaryTest(path, options, print) {
   const parent = path.getParentNode();
 
   const printed = isConditionalExpression
-    ? path.call(print, "test")
+    ? print("test")
     : [
-        path.call(print, "checkType"),
+        print("checkType"),
         " ",
         "extends",
         " ",
-        path.call(print, "extendsType"),
+        print("extendsType"),
       ];
   /**
    *     a
@@ -275,12 +275,12 @@ function printTernary(path, options, print) {
     parts.push(
       " ? ",
       isNil(consequentNode)
-        ? path.call(print, consequentNodePropertyName)
-        : wrap(path.call(print, consequentNodePropertyName)),
+        ? print(consequentNodePropertyName)
+        : wrap(print(consequentNodePropertyName)),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
-        ? path.call(print, alternateNodePropertyName)
-        : wrap(path.call(print, alternateNodePropertyName))
+        ? print(alternateNodePropertyName)
+        : wrap(print(alternateNodePropertyName))
     );
   } else {
     // normal mode
@@ -288,13 +288,13 @@ function printTernary(path, options, print) {
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
-      align(2, path.call(print, consequentNodePropertyName)),
+      align(2, print(consequentNodePropertyName)),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
       alternateNode.type === node.type
-        ? path.call(print, alternateNodePropertyName)
-        : align(2, path.call(print, alternateNodePropertyName)),
+        ? print(alternateNodePropertyName)
+        : align(2, print(alternateNodePropertyName)),
     ];
     parts.push(
       parent.type !== node.type ||

@@ -217,7 +217,7 @@ function printBinaryishExpressions(
         ),
       ];
     } else {
-      parts.push(group(path.call(print, "left")));
+      parts.push(group(print("left")));
     }
 
     const shouldInline = shouldInlineLogicalExpression(node);
@@ -243,12 +243,12 @@ function printBinaryishExpressions(
         : "";
 
     const right = shouldInline
-      ? [operator, " ", path.call(print, "right"), rightSuffix]
+      ? [operator, " ", print("right"), rightSuffix]
       : [
           lineBeforeOperator ? line : "",
           operator,
           lineBeforeOperator ? " " : line,
-          path.call(print, "right"),
+          print("right"),
           rightSuffix,
         ];
 
@@ -285,7 +285,7 @@ function printBinaryishExpressions(
     }
   } else {
     // Our stopping case. Simply print the node normally.
-    parts.push(group(path.call(print)));
+    parts.push(group(print()));
   }
 
   return parts;
