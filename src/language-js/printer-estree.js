@@ -95,17 +95,27 @@ function genericPrint(path, options, printGenerically, args) {
     return "";
   }
 
-  const print = (property, args) => {
-    if (!property) {
+  const print = (nameOrNames, args) => {
+    // Old `printGenerically` way
+    if (nameOrNames === path) {
+      nameOrNames = "";
+    }
+
+    if (!nameOrNames) {
       return printGenerically(path, args);
     }
 
-    const value = node[property];
-    if (Array.isArray(value)) {
-      return path.map(() => printGenerically(path, args), property);
+    const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
+    let value = node;
+    for (const name of names) {
+      value = value ? value[name] : undefined;
     }
 
-    return path.call(() => printGenerically(path, args), property);
+    if (Array.isArray(value)) {
+      return path.map(() => printGenerically(path, args), ...names);
+    }
+
+    return path.call(() => printGenerically(path, args), ...names);
   };
 
   const printed = printPathNoParens(path, options, print, args);
