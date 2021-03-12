@@ -89,13 +89,30 @@ const { printComment } = require("./print/comment");
 const { printLiteral } = require("./print/literal");
 const { printDecorators } = require("./print/decorators");
 
-function genericPrint(path, options, print, args) {
+function genericPrint(path, options, printGenerically, args) {
+  const node = path.getValue();
+  if (!node) {
+    return "";
+  }
+
+  const print = (property, args) => {
+    if (!property) {
+      return printGenerically(path, args);
+    }
+
+    const value = node[property];
+    if (Array.isArray(value)) {
+      return path.map(() => printGenerically(path, args), property);
+    }
+
+    return path.call(() => printGenerically(path, args), property);
+  };
+
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
     return "";
   }
 
-  const node = path.getValue();
   const { type } = node;
   // Their decorators are handled themselves, and they can't have parentheses
   if (
@@ -140,10 +157,6 @@ function genericPrint(path, options, print, args) {
 function printPathNoParens(path, options, print, args) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
-
-  if (!node) {
-    return "";
-  }
 
   if (typeof node === "string") {
     return node;
