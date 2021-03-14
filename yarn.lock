@@ -6012,10 +6012,10 @@ rimraf@3.0.2, rimraf@^3.0.0, rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-rollup-plugin-polyfill-node@0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-polyfill-node/-/rollup-plugin-polyfill-node-0.6.1.tgz#021db7417559dc9faf5eac7d34232f596ad95607"
-  integrity sha512-r+A3VUWVMm5tiWoQPpe9BOPycN+G+XgXQGmOyDn6REPaZNvNz16rOQ/3X9U6xE7kQAlXQCnec9L5i0fFytNYCQ==
+rollup-plugin-polyfill-node@0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-polyfill-node/-/rollup-plugin-polyfill-node-0.6.2.tgz#dea62e00f5cc2c174e4b4654b5daab79b1a92fc3"
+  integrity sha512-gMCVuR0zsKq0jdBn8pSXN1Ejsc458k2QsFFvQdbHoM0Pot5hEnck+pBP/FDwFS6uAi77pD3rDTytsaUStsOMlA==
   dependencies:
     "@rollup/plugin-inject" "^4.0.0"
 
