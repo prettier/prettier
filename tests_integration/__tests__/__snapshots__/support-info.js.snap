@@ -170,10 +170,10 @@ Object {
         "mdx",
         "vue",
         "yaml",
+        "glimmer",
         "html",
         "angular",
         "lwc",
-        "glimmer",
       ],
       "default": undefined,
       "type": "choice",
@@ -927,14 +927,18 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
+        {
+          \\"description\\": \\"Ember / Handlebars\\",
+          \\"since\\": \\"2.3.0\\",
+          \\"value\\": \\"glimmer\\"
+        },
         { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
         { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
         {
           \\"description\\": \\"Lightning Web Components\\",
           \\"since\\": \\"1.17.0\\",
           \\"value\\": \\"lwc\\"
-        },
-        { \\"description\\": \\"Handlebars\\", \\"value\\": \\"glimmer\\" }
+        }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",

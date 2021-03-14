@@ -37,7 +37,7 @@ const categories = [
   { dir: "vue", title: "Vue" },
   { dir: "angular", title: "Angular" },
   { dir: "lwc", title: "LWC" },
-  { dir: "handlebars", title: "Handlebars" },
+  { dir: "handlebars", title: "Ember / Handlebars" },
   { dir: "graphql", title: "GraphQL" },
   { dir: "markdown", title: "Markdown" },
   { dir: "mdx", title: "MDX" },

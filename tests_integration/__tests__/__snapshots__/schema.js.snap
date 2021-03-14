@@ -241,6 +241,12 @@ This option cannot be used with --range-start and --range-end.",
               ],
             },
             Object {
+              "description": "Ember / Handlebars",
+              "enum": Array [
+                "glimmer",
+              ],
+            },
+            Object {
               "description": "HTML",
               "enum": Array [
                 "html",
@@ -256,12 +262,6 @@ This option cannot be used with --range-start and --range-end.",
               "description": "Lightning Web Components",
               "enum": Array [
                 "lwc",
-              ],
-            },
-            Object {
-              "description": "Handlebars",
-              "enum": Array [
-                "glimmer",
               ],
             },
           ],
