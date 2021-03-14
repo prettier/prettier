@@ -9,6 +9,7 @@ const {
   hasFlowAnnotationComment,
   isCallExpression,
   isMemberish,
+  isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
@@ -101,12 +102,27 @@ function printCallExpression(path, options, print) {
 }
 
 function isCommonsJsOrAmdCall(node, parentNode) {
-  return (
-    node.callee.type === "Identifier" &&
-    (node.callee.name === "require" ||
-      (node.callee.name === "define" &&
-        (!parentNode || parentNode.type === "ExpressionStatement")))
-  );
+  if (node.callee.type !== "Identifier") {
+    return false;
+  }
+
+  if (node.callee.name === "require") {
+    return true;
+  }
+
+  if (node.callee.name === "define") {
+    const args = getCallArguments(node);
+    return (
+      (!parentNode || parentNode.type === "ExpressionStatement") &&
+      (args.length === 1 ||
+        (args.length === 2 && args[0].type === "ArrayExpression") ||
+        (args.length === 3 &&
+          isStringLiteral(args[0]) &&
+          args[1].type === "ArrayExpression"))
+    );
+  }
+
+  return false;
 }
 
 module.exports = { printCallExpression };
