@@ -80,23 +80,7 @@ function printArray(path, options, print) {
         return element[itemsKey] && element[itemsKey].length > 1;
       });
 
-    const shouldUseConciseFormatting =
-      node.elements.length > 1 &&
-      node.elements.every(
-        (element) =>
-          element &&
-          (isNumericLiteral(element) ||
-            (isSignedNumericLiteral(element) &&
-              !hasComment(element.argument))) &&
-          !hasComment(
-            element,
-            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-            (comment) =>
-              !hasNewline(options.originalText, locStart(comment), {
-                backwards: true,
-              })
-          )
-      );
+    const shouldUseConciseFormatting = isConciselyPrintedArray(node, options);
 
     const trailingComma = !canHaveTrailingComma
       ? ""
@@ -136,6 +120,26 @@ function printArray(path, options, print) {
   );
 
   return parts;
+}
+
+function isConciselyPrintedArray(node, options) {
+  return (
+    node.elements.length > 1 &&
+    node.elements.every(
+      (element) =>
+        element &&
+        (isNumericLiteral(element) ||
+          (isSignedNumericLiteral(element) && !hasComment(element.argument))) &&
+        !hasComment(
+          element,
+          CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+          (comment) =>
+            !hasNewline(options.originalText, locStart(comment), {
+              backwards: true,
+            })
+        )
+    )
+  );
 }
 
 function printArrayItems(path, options, printPath, print) {
@@ -182,4 +186,4 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-module.exports = { printArray, printArrayItems };
+module.exports = { printArray, printArrayItems, isConciselyPrintedArray };

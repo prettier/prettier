@@ -31,6 +31,8 @@ const {
   utils: { willBreak },
 } = require("../../document");
 
+const { isConciselyPrintedArray } = require("./array");
+
 function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
@@ -133,7 +135,7 @@ function printCallArguments(path, options, print) {
   }
 
   const shouldGroupFirst = shouldGroupFirstArg(args);
-  const shouldGroupLast = shouldGroupLastArg(args);
+  const shouldGroupLast = shouldGroupLastArg(args, options);
   if (shouldGroupFirst || shouldGroupLast) {
     const shouldBreak =
       (shouldGroupFirst
@@ -255,7 +257,7 @@ function couldGroupArg(arg, arrowChainRecursion = false) {
   );
 }
 
-function shouldGroupLastArg(args) {
+function shouldGroupLastArg(args, options) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
@@ -267,8 +269,13 @@ function shouldGroupLastArg(args) {
     (!penultimateArg || penultimateArg.type !== lastArg.type) &&
     // useMemo(() => func(), [foo, bar, baz])
     (args.length !== 2 ||
-      args[0].type !== "ArrowFunctionExpression" ||
-      args[1].type !== "ArrayExpression")
+      penultimateArg.type !== "ArrowFunctionExpression" ||
+      lastArg.type !== "ArrayExpression") &&
+    !(
+      args.length > 1 &&
+      lastArg.type === "ArrayExpression" &&
+      isConciselyPrintedArray(lastArg, options)
+    )
   );
 }
 
