@@ -113,7 +113,7 @@ function isCommonsJsOrAmdCall(node, parentNode) {
   if (node.callee.name === "define") {
     const args = getCallArguments(node);
     return (
-      (!parentNode || parentNode.type === "ExpressionStatement") &&
+      parentNode.type === "ExpressionStatement" &&
       (args.length === 1 ||
         (args.length === 2 && args[0].type === "ArrayExpression") ||
         (args.length === 3 &&
