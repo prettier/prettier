@@ -18,7 +18,7 @@
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.2.2",
     "concurrently": "6.0.0",
-    "docusaurus": "1.14.6",
+    "docusaurus": "1.14.7",
     "js-yaml": "4.0.0",
     "webpack": "5.24.3",
     "webpack-cli": "4.5.0"
