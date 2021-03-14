@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "11.2.4",
+    "@angular/compiler": "11.2.5",
     "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.13.9",
     "@glimmer/syntax": "0.77.1",
@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
-    "@babel/preset-env": "7.13.9",
+    "@babel/preset-env": "7.13.10",
     "@babel/types": "7.13.0",
     "@glimmer/reference": "0.77.1",
     "@rollup/plugin-alias": "3.1.2",
