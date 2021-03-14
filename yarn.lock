@@ -6017,10 +6017,10 @@ rollup-plugin-terser@7.0.2:
     serialize-javascript "^4.0.0"
     terser "^5.0.0"
 
-rollup@2.40.0:
-  version "2.40.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.40.0.tgz#efc218eaede7ab590954df50f96195188999c304"
-  integrity sha512-WiOGAPbXoHu+TOz6hyYUxIksOwsY/21TRWoO593jgYt8mvYafYqQl+axaA8y1z2HFazNUUrsMSjahV2A6/2R9A==
+rollup@2.41.2:
+  version "2.41.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.41.2.tgz#b7db5cb7c21c2d524e8b26ef39c7e9808a290c7e"
+  integrity sha512-6u8fJJXJx6fmvKrAC9DHYZgONvSkz8S9b/VFBjoQ6dkKdHyPpPbpqiNl2Bao9XBzDHpq672X6sGZ9G1ZBqAHMg==
   optionalDependencies:
     fsevents "~2.3.1"
 
@@ -7080,10 +7080,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.24.3:
-  version "5.24.3"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.24.3.tgz#6ec0f5059f8d7c7961075fa553cfce7b7928acb3"
-  integrity sha512-x7lrWZ7wlWAdyKdML6YPvfVZkhD1ICuIZGODE5SzKJjqI9A4SpqGTjGJTc6CwaHqn19gGaoOR3ONJ46nYsn9rw==
+webpack@5.25.0:
+  version "5.25.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.25.0.tgz#f9409977f0f3b6d4b9c4f73adc7d7cb9603a09e9"
+  integrity sha512-jqQZopNCzt9c4K6Qa7j6kIhzHfR9wgF84go58VoNp4JbZrBr2D2l5lcv72CW80yc6NJl8CR6OY8xctnIs0r2uw==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"
