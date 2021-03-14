@@ -12,6 +12,7 @@
   variants:
     - "[Vue](https://vuejs.org)"
     - "[Angular](https://angular.io)"
+    - "[Ember / Handlebars](https://emberjs.com)"
 - name: CSS
   showName: true
   image: /images/languages/tools_css.svg
