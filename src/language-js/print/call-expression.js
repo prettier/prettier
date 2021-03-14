@@ -9,6 +9,7 @@ const {
   hasFlowAnnotationComment,
   isCallExpression,
   isMemberish,
+  isStringLiteral,
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
@@ -19,27 +20,25 @@ const { printOptionalToken, printFunctionTypeParameters } = require("./misc");
 
 function printCallExpression(path, options, print) {
   const node = path.getValue();
+  const parentNode = path.getParentNode();
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
   if (
-    // Dangling comments not handled, all these special cases should has argument #9668
+    // Dangling comments are not handled, all these special cases should have arguments #9668
     args.length > 0 &&
     // We want to keep CommonJS- and AMD-style require calls, and AMD-style
     // define calls, as a unit.
-    // e.g. `define(["some/lib", (lib) => {`
-    ((!isDynamicImport &&
-      !isNew &&
-      node.callee.type === "Identifier" &&
-      (node.callee.name === "require" || node.callee.name === "define")) ||
+    // e.g. `define(["some/lib"], (lib) => {`
+    ((!isDynamicImport && !isNew && isCommonsJsOrAmdCall(node, parentNode)) ||
       // Template literals as single arguments
       (args.length === 1 &&
         isTemplateOnItsOwnLine(args[0], options.originalText)) ||
       // Keep test declarations on a single line
       // e.g. `it('long name', () => {`
-      (!isNew && isTestCall(node, path.getParentNode())))
+      (!isNew && isTestCall(node, parentNode)))
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, (argPath) => {
@@ -100,6 +99,30 @@ function printCallExpression(path, options, print) {
   }
 
   return contents;
+}
+
+function isCommonsJsOrAmdCall(node, parentNode) {
+  if (node.callee.type !== "Identifier") {
+    return false;
+  }
+
+  if (node.callee.name === "require") {
+    return true;
+  }
+
+  if (node.callee.name === "define") {
+    const args = getCallArguments(node);
+    return (
+      parentNode.type === "ExpressionStatement" &&
+      (args.length === 1 ||
+        (args.length === 2 && args[0].type === "ArrayExpression") ||
+        (args.length === 3 &&
+          isStringLiteral(args[0]) &&
+          args[1].type === "ArrayExpression"))
+    );
+  }
+
+  return false;
 }
 
 module.exports = { printCallExpression };
