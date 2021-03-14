@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`non-amd-define.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const someVariable = define(
+  "some string literal",
+  anotherVariable,
+  yetAnotherVariable
+);
+
+=====================================output=====================================
+const someVariable = define(
+  "some string literal",
+  anotherVariable,
+  yetAnotherVariable
+);
+
+================================================================================
+`;
+
 exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
