@@ -23,3 +23,9 @@ foo = class extends aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggg
     console.log("foo");
   }
 };
+
+module.exports = class A extends B {
+  method () {
+    console.log("foo");
+  }
+};

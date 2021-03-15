@@ -132,9 +132,7 @@ var Foo = {
     };
   },
 
-  d: function (
-    arg: string
-  ): {
+  d: function (arg: string): {
     bar: string,
   } {
     return {

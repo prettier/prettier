@@ -46,8 +46,8 @@ function arrayToMap(array) {
 
 function mapObject(object, fn) {
   const newObject = Object.create(null);
-  for (const key of Object.keys(object)) {
-    newObject[key] = fn(object[key], key);
+  for (const [key, value] of Object.entries(object)) {
+    newObject[key] = fn(value, key);
   }
   return newObject;
 }
@@ -281,7 +281,7 @@ function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
     (node.type === "element" &&
-      node.children.length !== 0 &&
+      node.children.length > 0 &&
       (["body", "script", "style"].includes(node.name) ||
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
@@ -297,7 +297,7 @@ function forceBreakContent(node) {
 function forceBreakChildren(node) {
   return (
     node.type === "element" &&
-    node.children.length !== 0 &&
+    node.children.length > 0 &&
     (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
@@ -557,7 +557,7 @@ function getNodeCssStyleWhiteSpace(node) {
 }
 
 function getMinIndentation(text) {
-  let minIndentation = Infinity;
+  let minIndentation = Number.POSITIVE_INFINITY;
 
   for (const lineText of text.split("\n")) {
     if (lineText.length === 0) {
@@ -579,7 +579,7 @@ function getMinIndentation(text) {
     }
   }
 
-  return minIndentation === Infinity ? 0 : minIndentation;
+  return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
 }
 
 function dedentString(text, minIndent = getMinIndentation(text)) {

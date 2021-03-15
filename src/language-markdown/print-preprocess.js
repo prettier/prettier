@@ -39,25 +39,21 @@ function transformInlineCode(ast) {
 }
 
 function restoreUnescapedCharacter(ast, options) {
-  return mapAst(ast, (node) => {
-    return node.type !== "text"
+  return mapAst(ast, (node) =>
+    node.type !== "text" ||
+    node.value === "*" ||
+    node.value === "_" || // handle these cases in printer
+    !isSingleCharRegex.test(node.value) ||
+    node.position.end.offset - node.position.start.offset === node.value.length
       ? node
       : {
           ...node,
-          value:
-            node.value !== "*" &&
-            node.value !== "_" &&
-            node.value !== "$" && // handle these cases in printer
-            isSingleCharRegex.test(node.value) &&
-            node.position.end.offset - node.position.start.offset !==
-              node.value.length
-              ? options.originalText.slice(
-                  node.position.start.offset,
-                  node.position.end.offset
-                )
-              : node.value,
-        };
-  });
+          value: options.originalText.slice(
+            node.position.start.offset,
+            node.position.end.offset
+          ),
+        }
+  );
 }
 
 function mergeContinuousImportExport(ast) {
@@ -168,7 +164,7 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
 
 function markAlignedList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
-    if (node.type === "list" && node.children.length !== 0) {
+    if (node.type === "list" && node.children.length > 0) {
       // if one of its parents is not aligned, it's not possible to be aligned in sub-lists
       for (let i = 0; i < parentStack.length; i++) {
         const parent = parentStack[i];

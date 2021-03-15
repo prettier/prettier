@@ -279,13 +279,32 @@ const helpers = /** @type {Helpers} */ ((
 =====================================output=====================================
 const helpers1 = /** @type {Helpers} */ (((helpers = {}) => helpers)());
 
-const helpers2 = /** @type {Helpers} */ ((function () {
-  return something;
-})());
+const helpers2 = /** @type {Helpers} */ (
+  (function () {
+    return something;
+  })()
+);
 
 // TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
-const helpers = /** @type {Helpers} */ (/** @param {Partial<Helpers>} helpers */
-((helpers = {}) => helpers)());
+const helpers = /** @type {Helpers} */ (
+  /** @param {Partial<Helpers>} helpers */
+  ((helpers = {}) => helpers)()
+);
+
+================================================================================
+`;
+
+exports[`iife-issue-5850-isolated.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = /** @param {*} b */
+((b) => {})();
+
+=====================================output=====================================
+const a = /** @param {*} b */ ((b) => {})();
 
 ================================================================================
 `;
@@ -323,17 +342,104 @@ const test =
   /** @type (function (*): ?|undefined) */
   (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
 
-const test = /** @type (function (*): ?|undefined) */ (goog.partial(
-  NewThing.onTemplateChange,
-  rationaleField,
-  typeField
-));
+const test = /** @type (function (*): ?|undefined) */ (
+  goog.partial(NewThing.onTemplateChange, rationaleField, typeField)
+);
 
 const model = /** @type {?{getIndex: Function}} */ (model);
 
 const foo = /** @type {string} */ (bar);
 
 const test = /** @type (function (*): ?|undefined) */ (foo);
+
+================================================================================
+`;
+
+exports[`issue-8045.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+}
+
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+      (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (/** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz));
+}
+
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+      (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (/** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz));
+}
+
+=====================================output=====================================
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (
+    fooBarBaz
+  );
+}
+
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+  (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (
+    /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz)
+  );
+}
+
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+  (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (
+    /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz)
+  );
+}
+
+================================================================================
+`;
+
+exports[`issue-9358.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fooooba1 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems || foo);
+const fooooba2 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems + foo);
+const fooooba3 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems || foo) ? foo : bar;
+
+=====================================output=====================================
+const fooooba1 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (
+  fooobaarbazzItems || foo
+);
+const fooooba2 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (
+  fooobaarbazzItems + foo
+);
+const fooooba3 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (
+  fooobaarbazzItems || foo
+)
+  ? foo
+  : bar;
 
 ================================================================================
 `;
@@ -372,9 +478,11 @@ foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar);
 
 const BarImpl = /** @type {BarConstructor} */ (
   /** @type {unknown} */
-  (function Bar() {
-    throw new Error("Internal error: Illegal constructor");
-  })
+  (
+    function Bar() {
+      throw new Error("Internal error: Illegal constructor");
+    }
+  )
 );
 
 ================================================================================

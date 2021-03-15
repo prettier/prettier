@@ -5,7 +5,7 @@ const {
   ParseLocation,
   ParseSourceFile,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
-const { parse: parseFrontMatter } = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter/parse");
 const createError = require("../common/parser-create-error");
 const { inferParserByLanguage } = require("../common/util");
 const {
@@ -74,10 +74,7 @@ function ngHtmlParser(
       }
       const langAttr = node.attrs.find((attr) => attr.name === "lang");
       const langValue = langAttr && langAttr.value;
-      return (
-        langValue == null ||
-        inferParserByLanguage(langValue, options) === "html"
-      );
+      return !langValue || inferParserByLanguage(langValue, options) === "html";
     };
     if (rootNodes.some(shouldParseAsHTML)) {
       let secondParseResult;
@@ -136,7 +133,7 @@ function ngHtmlParser(
     errors = htmlParseResult.errors;
   }
 
-  if (errors.length !== 0) {
+  if (errors.length > 0) {
     const {
       msg,
       span: { start, end },
@@ -184,7 +181,7 @@ function ngHtmlParser(
   const restoreNameAndValue = (node) => {
     if (node instanceof Element) {
       restoreName(node);
-      node.attrs.forEach((attr) => {
+      for (const attr of node.attrs) {
         restoreName(attr);
         if (!attr.valueSpan) {
           attr.value = null;
@@ -194,7 +191,7 @@ function ngHtmlParser(
             attr.value = attr.value.slice(1, -1);
           }
         }
-      });
+      }
     } else if (node instanceof Comment) {
       node.value = node.sourceSpan
         .toString()
@@ -225,7 +222,7 @@ function ngHtmlParser(
       if (normalizeAttributeName) {
         const CURRENT_HTML_ELEMENT_ATTRIBUTES =
           HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
-        node.attrs.forEach((attr) => {
+        for (const attr of node.attrs) {
           if (!attr.namespace) {
             attr.name = lowerCaseIfFn(
               attr.name,
@@ -235,7 +232,7 @@ function ngHtmlParser(
                   lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
             );
           }
-        });
+        }
       }
     }
   };

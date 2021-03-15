@@ -8,9 +8,7 @@ const prettier = !TEST_STANDALONE
   ? require("prettier-local")
   : require("prettier-standalone");
 const checkParsers = require("./utils/check-parsers");
-const visualizeRange = require("./utils/visualize-range");
 const createSnapshot = require("./utils/create-snapshot");
-const composeOptionsForSnapshot = require("./utils/compose-options-for-snapshot");
 const visualizeEndOfLine = require("./utils/visualize-end-of-line");
 const consistentEndOfLine = require("./utils/consistent-end-of-line");
 const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
@@ -30,7 +28,6 @@ const unstableTests = new Map(
     ["js/comments/jsx.js", (options) => options.semi === false],
     "js/comments/return-statement.js",
     "js/comments/tagged-template-literal.js",
-    "js/comments-closure-typecast/iife.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
     "html/multiparser/js/script-tag-escaping.html",
@@ -50,6 +47,8 @@ const unstableTests = new Map(
   })
 );
 
+const unstableAstTests = new Map();
+
 const espreeDisabledTests = new Set(
   [
     // These tests only work for `babel`
@@ -68,8 +67,22 @@ const isUnstable = (filename, options) => {
   return testFunction(options);
 };
 
+const isAstUnstable = (filename, options) => {
+  const testFunction = unstableAstTests.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
 const shouldThrowOnFormat = (filename, options) => {
   const { errors = {} } = options;
+  if (errors === true) {
+    return true;
+  }
+
   const files = errors[options.parser];
 
   if (files === true || (Array.isArray(files) && files.includes(filename))) {
@@ -98,6 +111,14 @@ function runSpec(fixtures, parsers, options) {
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
   const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
+  if (IS_ERROR_TESTS) {
+    options = { errors: true, ...options };
+  }
+
+  const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
+    dirname,
+    "misc/typescript-only"
+  );
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [undefined];
@@ -120,7 +141,9 @@ function runSpec(fixtures, parsers, options) {
         path.extname(basename) === ".snap" ||
         !file.isFile() ||
         basename[0] === "." ||
-        basename === "jsfmt.spec.js"
+        basename === "jsfmt.spec.js" ||
+        // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
+        basename === "debug.log"
       ) {
         return;
       }
@@ -137,7 +160,7 @@ function runSpec(fixtures, parsers, options) {
 
   // Make sure tests are in correct location
   if (process.env.CHECK_TEST_PARSERS) {
-    if (!Array.isArray(parsers) || !parsers.length) {
+    if (!Array.isArray(parsers) || parsers.length === 0) {
       throw new Error(`No parsers were specified for ${dirname}`);
     }
     checkParsers({ dirname, files }, parsers);
@@ -146,16 +169,22 @@ function runSpec(fixtures, parsers, options) {
   const [parser] = parsers;
   const allParsers = [...parsers];
 
-  if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
-    allParsers.push("babel-ts");
-  }
-
-  if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
-    if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
-      allParsers.push("espree");
+  if (!IS_ERROR_TESTS) {
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !IS_TYPESCRIPT_ONLY_TEST
+    ) {
+      allParsers.push("babel-ts");
     }
-    if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
-      allParsers.push("meriyah");
+
+    if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
+      if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
+        allParsers.push("espree");
+      }
+      if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
+        allParsers.push("meriyah");
+      }
     }
   }
 
@@ -173,16 +202,9 @@ function runSpec(fixtures, parsers, options) {
         filepath: filename,
         parser,
       };
-      const formatWithMainParser = () => format(code, formatOptions);
-
-      if (IS_ERROR_TESTS) {
-        test("error test", () => {
-          expect(formatWithMainParser).toThrowErrorMatchingSnapshot();
-        });
-        return;
-      }
-
-      const mainParserFormatResult = formatWithMainParser();
+      const mainParserFormatResult = shouldThrowOnFormat(name, formatOptions)
+        ? { options: formatOptions, error: true }
+        : format(code, formatOptions);
 
       for (const currentParser of allParsers) {
         runTest({
@@ -214,8 +236,11 @@ function runTest({
   let formatResult = mainParserFormatResult;
   let formatTestTitle = "format";
 
-  // Verify parsers
-  if (parser !== parsers[0]) {
+  // Verify parsers or error tests
+  if (
+    mainParserFormatResult.error ||
+    mainParserFormatOptions.parser !== parser
+  ) {
     formatTestTitle = `[${parser}] format`;
     formatOptions = { ...mainParserFormatResult.options, parser };
     const runFormat = () => format(code, formatOptions);
@@ -247,49 +272,12 @@ function runTest({
     }
 
     // All parsers have the same result, only snapshot the result from main parser
-    // TODO: move this part to `createSnapshot`
-    const hasEndOfLine = "endOfLine" in formatOptions;
-    let codeForSnapshot = formatResult.inputWithCursor;
-    let codeOffset = 0;
-    let resultForSnapshot = formatResult.outputWithCursor;
-    const { rangeStart, rangeEnd, cursorOffset } = formatResult.options;
-
-    if (typeof rangeStart === "number" || typeof rangeEnd === "number") {
-      let rangeStartWithCursor = rangeStart;
-      let rangeEndWithCursor = rangeEnd;
-      if (typeof cursorOffset === "number") {
-        if (
-          typeof rangeStartWithCursor === "number" &&
-          rangeStartWithCursor > cursorOffset
-        ) {
-          rangeStartWithCursor += CURSOR_PLACEHOLDER.length;
-        }
-        if (
-          typeof rangeEndWithCursor === "number" &&
-          rangeEndWithCursor > cursorOffset
-        ) {
-          rangeEndWithCursor += CURSOR_PLACEHOLDER.length;
-        }
-      }
-      codeForSnapshot = visualizeRange(codeForSnapshot, {
-        rangeStart: rangeStartWithCursor,
-        rangeEnd: rangeEndWithCursor,
-      });
-      codeOffset = codeForSnapshot.match(/^>?\s+1 \| /)[0].length;
-    }
-
-    if (hasEndOfLine) {
-      codeForSnapshot = visualizeEndOfLine(codeForSnapshot);
-      resultForSnapshot = visualizeEndOfLine(resultForSnapshot);
-    }
-
     expect(
-      createSnapshot(
-        codeForSnapshot,
-        resultForSnapshot,
-        composeOptionsForSnapshot(formatResult.options, parsers),
-        { codeOffset }
-      )
+      createSnapshot(formatResult, {
+        parsers,
+        formatOptions,
+        CURSOR_PLACEHOLDER,
+      })
     ).toMatchSnapshot();
   });
 
@@ -319,17 +307,22 @@ function runTest({
     });
   }
 
+  const isAstUnstableTest = isAstUnstable(filename, formatOptions);
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
       const { input, output } = formatResult;
       const originalAst = parse(input, formatOptions);
       const formattedAst = parse(output, formatOptions);
-      expect(formattedAst).toEqual(originalAst);
+      if (isAstUnstableTest) {
+        expect(formattedAst).not.toEqual(originalAst);
+      } else {
+        expect(formattedAst).toEqual(originalAst);
+      }
     });
   }
 
-  if (!code.includes("\r") && !formatOptions.requirePragma) {
+  if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
         const output = format(code.replace(/\n/g, eol), formatOptions)
@@ -354,6 +347,25 @@ function runTest({
       expect(output).toEqual(expected);
     });
   }
+}
+
+function shouldSkipEolTest(code, options) {
+  if (code.includes("\r")) {
+    return true;
+  }
+  const { requirePragma, rangeStart, rangeEnd } = options;
+  if (requirePragma) {
+    return true;
+  }
+
+  if (
+    typeof rangeStart === "number" &&
+    typeof rangeEnd === "number" &&
+    rangeStart >= rangeEnd
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function parse(source, options) {

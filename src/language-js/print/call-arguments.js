@@ -1,28 +1,24 @@
 "use strict";
 
-const comments = require("../../main/comments");
-const {
-  getLast,
-  getPenultimate,
-  isNextLineEmpty,
-} = require("../../common/util");
+const { printDanglingComments } = require("../../main/comments");
+const { getLast, getPenultimate } = require("../../common/util");
 const {
   getFunctionParameters,
   iterateFunctionParametersPath,
-  hasLeadingComment,
-  hasTrailingComment,
+  hasComment,
+  CommentCheckFlags,
   isFunctionCompositionArgs,
-  isJSXNode,
+  isJsxNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
   getCallArguments,
   iterateCallArgumentsPath,
+  isNextLineEmpty,
+  isCallExpression,
 } = require("../utils");
-const { locEnd } = require("../loc");
 
 const {
   builders: {
-    concat,
     line,
     hardline,
     softline,
@@ -35,35 +31,30 @@ const {
   utils: { willBreak },
 } = require("../../document");
 
+const { isConciselyPrintedArray } = require("./array");
+
 function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
 
   const args = getCallArguments(node);
   if (args.length === 0) {
-    return concat([
+    return [
       "(",
-      comments.printDanglingComments(path, options, /* sameIndent */ true),
+      printDanglingComments(path, options, /* sameIndent */ true),
       ")",
-    ]);
+    ];
   }
 
   // useEffect(() => { ... }, [foo, bar, baz])
-  if (
-    args.length === 2 &&
-    args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
-    args[0].body.type === "BlockStatement" &&
-    args[1].type === "ArrayExpression" &&
-    !args.some((arg) => arg.comments)
-  ) {
-    return concat([
+  if (isReactHookCallWithDepsArray(args)) {
+    return [
       "(",
       path.call(print, "arguments", 0),
       ", ",
       path.call(print, "arguments", 1),
       ")",
-    ]);
+    ];
   }
 
   // func(
@@ -86,7 +77,7 @@ function printCallArguments(path, options, print) {
 
     let shouldBreak = false;
     iterateFunctionParametersPath(argPath, (parameterPath) => {
-      shouldBreak = shouldBreak || willBreak(concat([print(parameterPath)]));
+      shouldBreak = shouldBreak || willBreak(print(parameterPath));
     });
 
     return shouldBreak;
@@ -103,7 +94,7 @@ function printCallArguments(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, locEnd)) {
+    } else if (isNextLineEmpty(arg, options)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
@@ -119,7 +110,7 @@ function printCallArguments(path, options, print) {
       argPath
     );
 
-    printedArguments.push(concat(parts));
+    printedArguments.push(parts);
   });
 
   const maybeTrailingComma =
@@ -131,13 +122,7 @@ function printCallArguments(path, options, print) {
 
   function allArgsBrokenOut() {
     return group(
-      concat([
-        "(",
-        indent(concat([line, concat(printedArguments)])),
-        maybeTrailingComma,
-        line,
-        ")",
-      ]),
+      ["(", indent([line, ...printedArguments]), maybeTrailingComma, line, ")"],
       { shouldBreak: true }
     );
   }
@@ -150,7 +135,7 @@ function printCallArguments(path, options, print) {
   }
 
   const shouldGroupFirst = shouldGroupFirstArg(args);
-  const shouldGroupLast = shouldGroupLastArg(args);
+  const shouldGroupLast = shouldGroupLastArg(args, options);
   if (shouldGroupFirst || shouldGroupLast) {
     const shouldBreak =
       (shouldGroupFirst
@@ -164,26 +149,28 @@ function printCallArguments(path, options, print) {
     iterateCallArgumentsPath(path, (argPath, i) => {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
-          concat([
+          [
             argPath.call((p) => print(p, { expandFirstArg: true })),
             printedArguments.length > 1 ? "," : "",
             hasEmptyLineFollowingFirstArg ? hardline : line,
             hasEmptyLineFollowingFirstArg ? hardline : "",
-          ]),
-        ].concat(printedArguments.slice(1));
+          ],
+          ...printedArguments.slice(1),
+        ];
       }
       if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = printedArguments
-          .slice(0, -1)
-          .concat(argPath.call((p) => print(p, { expandLastArg: true })));
+        printedExpanded = [
+          ...printedArguments.slice(0, -1),
+          argPath.call((p) => print(p, { expandLastArg: true })),
+        ];
       }
     });
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
-    const simpleConcat = concat(["(", concat(printedExpanded), ")"]);
+    const simpleConcat = ["(", ...printedExpanded, ")"];
 
-    return concat([
+    return [
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
@@ -193,34 +180,34 @@ function printCallArguments(path, options, print) {
             ? simpleConcat
             : ifBreak(allArgsBrokenOut(), simpleConcat),
           shouldGroupFirst
-            ? concat([
+            ? [
                 "(",
                 group(printedExpanded[0], { shouldBreak: true }),
-                concat(printedExpanded.slice(1)),
+                ...printedExpanded.slice(1),
                 ")",
-              ])
-            : concat([
+              ]
+            : [
                 "(",
-                concat(printedArguments.slice(0, -1)),
+                ...printedArguments.slice(0, -1),
                 group(getLast(printedExpanded), {
                   shouldBreak: true,
                 }),
                 ")",
-              ]),
+              ],
           allArgsBrokenOut(),
         ],
         { shouldBreak }
       ),
-    ]);
+    ];
   }
 
-  const contents = concat([
+  const contents = [
     "(",
-    indent(concat([softline, concat(printedArguments)])),
+    indent([softline, ...printedArguments]),
     ifBreak(maybeTrailingComma),
     softline,
     ")",
-  ]);
+  ];
   if (isLongCurriedCallExpression(path)) {
     // By not wrapping the arguments in a group, the printer prioritizes
     // breaking up these arguments rather than the args of the parent call.
@@ -232,12 +219,12 @@ function printCallArguments(path, options, print) {
   });
 }
 
-function couldGroupArg(arg) {
+function couldGroupArg(arg, arrowChainRecursion = false) {
   return (
     (arg.type === "ObjectExpression" &&
-      (arg.properties.length > 0 || arg.comments)) ||
+      (arg.properties.length > 0 || hasComment(arg))) ||
     (arg.type === "ArrayExpression" &&
-      (arg.elements.length > 0 || arg.comments)) ||
+      (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
     (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
@@ -255,28 +242,40 @@ function couldGroupArg(arg) {
       // });
       (!arg.returnType ||
         !arg.returnType.typeAnnotation ||
-        arg.returnType.typeAnnotation.type !== "TSTypeReference") &&
+        arg.returnType.typeAnnotation.type !== "TSTypeReference" ||
+        // https://github.com/prettier/prettier/issues/7542
+        isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
-        arg.body.type === "ArrowFunctionExpression" ||
+        (arg.body.type === "ArrowFunctionExpression" &&
+          couldGroupArg(arg.body, true)) ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
-        arg.body.type === "CallExpression" ||
-        arg.body.type === "OptionalCallExpression" ||
-        arg.body.type === "ConditionalExpression" ||
-        isJSXNode(arg.body)))
+        (!arrowChainRecursion &&
+          (isCallExpression(arg.body) ||
+            arg.body.type === "ConditionalExpression")) ||
+        isJsxNode(arg.body)))
   );
 }
 
-function shouldGroupLastArg(args) {
+function shouldGroupLastArg(args, options) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
-    !hasLeadingComment(lastArg) &&
-    !hasTrailingComment(lastArg) &&
+    !hasComment(lastArg, CommentCheckFlags.Leading) &&
+    !hasComment(lastArg, CommentCheckFlags.Trailing) &&
     couldGroupArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
-    (!penultimateArg || penultimateArg.type !== lastArg.type)
+    (!penultimateArg || penultimateArg.type !== lastArg.type) &&
+    // useMemo(() => func(), [foo, bar, baz])
+    (args.length !== 2 ||
+      penultimateArg.type !== "ArrowFunctionExpression" ||
+      lastArg.type !== "ArrayExpression") &&
+    !(
+      args.length > 1 &&
+      lastArg.type === "ArrayExpression" &&
+      isConciselyPrintedArray(lastArg, options)
+    )
   );
 }
 
@@ -287,7 +286,7 @@ function shouldGroupFirstArg(args) {
 
   const [firstArg, secondArg] = args;
   return (
-    (!firstArg.comments || !firstArg.comments.length) &&
+    !hasComment(firstArg) &&
     (firstArg.type === "FunctionExpression" ||
       (firstArg.type === "ArrowFunctionExpression" &&
         firstArg.body.type === "BlockStatement")) &&
@@ -295,6 +294,25 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
     !couldGroupArg(secondArg)
+  );
+}
+
+function isReactHookCallWithDepsArray(args) {
+  return (
+    args.length === 2 &&
+    args[0].type === "ArrowFunctionExpression" &&
+    getFunctionParameters(args[0]).length === 0 &&
+    args[0].body.type === "BlockStatement" &&
+    args[1].type === "ArrayExpression" &&
+    !args.some((arg) => hasComment(arg))
+  );
+}
+
+function isNonEmptyBlockStatement(node) {
+  return (
+    node.type === "BlockStatement" &&
+    (node.body.some((node) => node.type !== "EmptyStatement") ||
+      hasComment(node, CommentCheckFlags.Dangling))
   );
 }
 

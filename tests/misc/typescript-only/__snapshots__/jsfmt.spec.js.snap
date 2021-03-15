@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`await-with-parens.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function foo(promise) { await (promise); }
+
+function a() {
+  return await (1)
+}
+
+() => { await (x) };
+
+function foo() {
+  await
+  (foo);
+}
+
+export class C {
+  p = await (0);
+}
+
+await (0);
+
+=====================================output=====================================
+function foo(promise) {
+  await(promise);
+}
+
+function a() {
+  return await(1);
+}
+
+() => {
+  await(x);
+};
+
+function foo() {
+  await(foo);
+}
+
+export class C {
+  p = await(0);
+}
+
+await 0;
+
+================================================================================
+`;
+
+exports[`invalid-modifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  declare e();
+  abstract f();
+  readonly g();
+}
+
+class Bar {
+  declare e() {};
+  abstract f() {};
+  readonly g() {};
+}
+
+=====================================output=====================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  e();
+  f();
+  readonly g();
+}
+
+class Bar {
+  e() {}
+  abstract f() {}
+  g() {}
+}
+
+================================================================================
+`;

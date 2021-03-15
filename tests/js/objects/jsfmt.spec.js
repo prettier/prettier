@@ -1,14 +1,7 @@
-run_spec(__dirname, ["babel"], {
+run_spec(__dirname, ["babel", "typescript"], {
   errors: {
-    espree: [
-      "expression.js",
-      "invalid-accessor-generator.js",
-      "invalid-setter.js",
-    ],
-    meriyah: [
-      "expression.js",
-      "invalid-accessor-generator.js",
-      "invalid-setter.js",
-    ],
+    espree: ["expression.js"],
+    typescript: ["expression.js"],
+    meriyah: ["expression.js"],
   },
 });
