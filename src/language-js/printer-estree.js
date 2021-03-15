@@ -702,7 +702,7 @@ function printPathNoParens(path, options, print, args) {
                 path.map((casePath, index, cases) => {
                   const caseNode = casePath.getValue();
                   return [
-                    casePath.call(print),
+                    print(casePath),
                     index !== cases.length - 1 &&
                     isNextLineEmpty(caseNode, options)
                       ? hardline
