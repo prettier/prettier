@@ -550,8 +550,8 @@ function printCommentsSeparately(path, options) {
     return { leading: maybeCursor, trailing: maybeCursor };
   }
 
-  const leadingDocs = [];
-  const trailingDocs = [];
+  const leadingParts = [];
+  const trailingParts = [];
 
   path.each((commentPath) => {
     const comment = commentPath.getValue();
@@ -563,7 +563,7 @@ function printCommentsSeparately(path, options) {
       if (!contents) {
         return;
       }
-      leadingDocs.push(contents);
+      leadingParts.push(contents);
 
       const text = options.originalText;
       const index = skipNewline(
@@ -571,19 +571,19 @@ function printCommentsSeparately(path, options) {
         skipSpaces(text, options.locEnd(comment))
       );
       if (index !== false && hasNewline(text, index)) {
-        leadingDocs.push(hardline);
+        leadingParts.push(hardline);
       }
     } else if (trailing) {
-      trailingDocs.push(printTrailingComment(commentPath, options));
+      trailingParts.push(printTrailingComment(commentPath, options));
     }
   }, "comments");
 
   if (isCursorNode) {
-    leadingDocs.unshift(cursor);
-    trailingDocs.push(cursor);
+    leadingParts.unshift(cursor);
+    trailingParts.push(cursor);
   }
 
-  return { leading: leadingDocs, trailing: trailingDocs };
+  return { leading: leadingParts, trailing: trailingParts };
 }
 
 function printComments(path, doc, options, needsSemi) {
