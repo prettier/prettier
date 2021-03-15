@@ -15,16 +15,35 @@ BEFORE SUBMITTING AN ISSUE:
 
 2.  We get a lot of requests for adding options, but Prettier is
     built on the principle of being opinionated about code formatting.
-    This means we have a very high bar for adding new options.
+    This means we add options only in the case of strict technical necessity.
     Find out more: https://prettier.io/docs/en/option-philosophy.html
 
-👉 Still sure you want to submit an issue? 🛑 DON'T USE THIS FORM.
-🤖 Let a program fill the issue template for you!
+Don't fill the form below manually! Let a program create a report for you:
 
 1. Go to https://prettier.io/playground
 2. Paste your code and set options
 3. Press the "Report issue" button in the lower right
-4. Enter a title and describe the expected behavior
-5. Submit
 
 -->
+
+**Prettier 2.2.1**
+[Playground link](https://prettier.io/playground/#.....)
+
+```sh
+# Options (if any):
+--single-quote
+```
+
+**Input:**
+
+```jsx
+// code snippet
+```
+
+**Output:**
+
+```jsx
+// code snippet
+```
+
+**Expected behavior:**
