@@ -186,26 +186,26 @@ a(
 
 exports.examples = [
   {
-    render: withGraphQLQuery("node(1234567890){image{uri}}", function (
-      container,
-      data
-    ) {
-      return (
-        <div>
-          <InlineBlock>
-            <img
-              src={data[1234567890].image.uri}
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                zIndex: "-1",
-              }}
-            />
-          </InlineBlock>
-        </div>
-      );
-    }),
+    render: withGraphQLQuery(
+      "node(1234567890){image{uri}}",
+      function (container, data) {
+        return (
+          <div>
+            <InlineBlock>
+              <img
+                src={data[1234567890].image.uri}
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                  zIndex: "-1",
+                }}
+              />
+            </InlineBlock>
+          </div>
+        );
+      }
+    ),
   },
 ];
 
@@ -217,32 +217,32 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
   ]
 );
 
-(function webpackUniversalModuleDefinition() {})(this, function (
-  __WEBPACK_EXTERNAL_MODULE_85__,
-  __WEBPACK_EXTERNAL_MODULE_115__
-) {
-  return /******/ (function (modules) {
-    // webpackBootstrap
-    /******/
-  })(
-    /************************************************************************/
-    /******/ [
-      /* 0 */
-      /***/ function (module, exports, __webpack_require__) {
-        /***/
-      },
-      /* 1 */
-      /***/ function (module, exports, __webpack_require__) {
-        /***/
-      },
-      /* 2 */
-      /***/ function (module, exports, __webpack_require__) {
-        /***/
-      },
+(function webpackUniversalModuleDefinition() {})(
+  this,
+  function (__WEBPACK_EXTERNAL_MODULE_85__, __WEBPACK_EXTERNAL_MODULE_115__) {
+    return /******/ (function (modules) {
+      // webpackBootstrap
       /******/
-    ]
-  );
-});
+    })(
+      /************************************************************************/
+      /******/ [
+        /* 0 */
+        /***/ function (module, exports, __webpack_require__) {
+          /***/
+        },
+        /* 1 */
+        /***/ function (module, exports, __webpack_require__) {
+          /***/
+        },
+        /* 2 */
+        /***/ function (module, exports, __webpack_require__) {
+          /***/
+        },
+        /******/
+      ]
+    );
+  }
+);
 
 ================================================================================
 `;
@@ -309,6 +309,79 @@ func(
 ================================================================================
 `;
 
+exports[`function-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function* mySagas() {
+  yield effects.takeEvery(
+    rexpress.actionTypes.REQUEST_START,
+    function*({ id }) {
+      console.log(id);
+      yield rexpress.actions(store).writeHead(id, 400);
+      yield rexpress.actions(store).end(id, 'pong');
+      console.log('pong');
+    }
+  );
+}
+
+function mySagas2() {
+  return effects.takeEvery(
+    rexpress.actionTypes.REQUEST_START,
+    function({ id }) {
+      console.log(id);
+    }
+  );
+}
+
+=====================================output=====================================
+function* mySagas() {
+  yield effects.takeEvery(
+    rexpress.actionTypes.REQUEST_START,
+    function* ({ id }) {
+      console.log(id);
+      yield rexpress.actions(store).writeHead(id, 400);
+      yield rexpress.actions(store).end(id, "pong");
+      console.log("pong");
+    }
+  );
+}
+
+function mySagas2() {
+  return effects.takeEvery(
+    rexpress.actionTypes.REQUEST_START,
+    function ({ id }) {
+      console.log(id);
+    }
+  );
+}
+
+================================================================================
+`;
+
+exports[`function-expression-issue-2239.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+someFunctionCallWithBigArgumentsAndACallback(thisArgumentIsQuiteLong, function(cool) {
+  return cool
+})
+
+=====================================output=====================================
+someFunctionCallWithBigArgumentsAndACallback(
+  thisArgumentIsQuiteLong,
+  function (cool) {
+    return cool;
+  }
+);
+
+================================================================================
+`;
+
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -327,6 +400,30 @@ const els = items.map((item) => (
     <span>{children}</span>
   </div>
 ));
+
+================================================================================
+`;
+
+exports[`number-only-array.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+instantiate(game, [
+  transform([-0.7, 0.5, 0]),
+  render_colored_diffuse(game.MaterialDiffuse, game.Meshes["monkey_flat"], [1, 1, 0.3, 1]),
+]);
+
+=====================================output=====================================
+instantiate(game, [
+  transform([-0.7, 0.5, 0]),
+  render_colored_diffuse(
+    game.MaterialDiffuse,
+    game.Meshes["monkey_flat"],
+    [1, 1, 0.3, 1]
+  ),
+]);
 
 ================================================================================
 `;

@@ -744,7 +744,7 @@ exports[`like-regexp.js [espree] format 1`] = `
 "Unterminated regular expression (1:19)
 > 1 | 0 ? a : { b : 1 }/2;
     |                   ^
-  2 | "
+  2 |"
 `;
 
 exports[`like-regexp.js format 1`] = `

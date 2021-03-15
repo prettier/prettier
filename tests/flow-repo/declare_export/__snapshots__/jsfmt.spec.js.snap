@@ -363,7 +363,7 @@ declare export * from "ES6_ExportAllFrom_Source1";
  * @flow
  */
 
-declare export * from "ES6_ExportAllFrom_Source1"
+declare export * from "ES6_ExportAllFrom_Source1";
 
 ================================================================================
 `;
@@ -387,7 +387,7 @@ declare export * from "ES6_ExportAllFrom_Source2";
  * @flow
  */
 
-declare export * from "ES6_ExportAllFrom_Source2"
+declare export * from "ES6_ExportAllFrom_Source2";
 
 ================================================================================
 `;
@@ -454,8 +454,8 @@ declare export * from "./ES6_ExportAllFrom_Source2";
 =====================================output=====================================
 // @flow
 
-declare export * from "./ES6_ExportAllFrom_Source1"
-declare export * from "./ES6_ExportAllFrom_Source2"
+declare export * from "./ES6_ExportAllFrom_Source1";
+declare export * from "./ES6_ExportAllFrom_Source2";
 
 ================================================================================
 `;
@@ -1327,8 +1327,8 @@ var numberValue6 = require("ES6_ExportFrom_Intermediary2").numberValue1;
 var ap1: number = numberValue6;
 var ap2: string = numberValue6; // Error: number ~> string
 
-var numberValue2_renamed2 = require("ES6_ExportFrom_Intermediary2")
-  .numberValue2_renamed2;
+var numberValue2_renamed2 =
+  require("ES6_ExportFrom_Intermediary2").numberValue2_renamed2;
 var aq1: number = numberValue2_renamed2;
 var aq2: string = numberValue2_renamed2; // Error: number ~> string
 

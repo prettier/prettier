@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
+const flatten = require("lodash/flatten");
 const globby = require("globby");
 const mem = require("mem");
 const internalPlugins = require("../languages");
@@ -26,7 +27,7 @@ function load(plugins, pluginSearchDirs) {
     pluginSearchDirs = [];
   }
   // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
-  if (!pluginSearchDirs.length) {
+  if (pluginSearchDirs.length === 0) {
     const autoLoadDir = thirdParty.findParentDir(__dirname, "node_modules");
     if (autoLoadDir) {
       pluginSearchDirs = [autoLoadDir];
@@ -44,7 +45,7 @@ function load(plugins, pluginSearchDirs) {
       try {
         // try local files
         requirePath = resolve(path.resolve(process.cwd(), pluginName));
-      } catch (_) {
+      } catch {
         // try node modules
         requirePath = resolve(pluginName, { paths: [process.cwd()] });
       }
@@ -56,8 +57,8 @@ function load(plugins, pluginSearchDirs) {
     }
   );
 
-  const externalAutoLoadPluginInfos = pluginSearchDirs
-    .map((pluginSearchDir) => {
+  const externalAutoLoadPluginInfos = flatten(
+    pluginSearchDirs.map((pluginSearchDir) => {
       const resolvedPluginSearchDir = path.resolve(
         process.cwd(),
         pluginSearchDir
@@ -85,19 +86,20 @@ function load(plugins, pluginSearchDirs) {
         requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
       }));
     })
-    .reduce((a, b) => a.concat(b), []);
+  );
 
-  const externalPlugins = uniqBy(
-    externalManualLoadPluginInfos.concat(externalAutoLoadPluginInfos),
-    "requirePath"
-  )
-    .map((externalPluginInfo) => ({
+  const externalPlugins = [
+    ...uniqBy(
+      [...externalManualLoadPluginInfos, ...externalAutoLoadPluginInfos],
+      "requirePath"
+    ).map((externalPluginInfo) => ({
       name: externalPluginInfo.name,
       ...eval("require")(externalPluginInfo.requirePath),
-    }))
-    .concat(externalPluginInstances);
+    })),
+    ...externalPluginInstances,
+  ];
 
-  return internalPlugins.concat(externalPlugins);
+  return [...internalPlugins, ...externalPlugins];
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
@@ -118,7 +120,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
 function isDirectory(dir) {
   try {
     return fs.statSync(dir).isDirectory();
-  } catch (e) {
+  } catch {
     return false;
   }
 }

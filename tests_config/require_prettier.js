@@ -1,7 +1,5 @@
 "use strict";
 
-const prettierRootDir = process.env.PRETTIER_DIR || "../";
-
-const prettier = require(prettierRootDir);
+const prettier = require(process.env.PRETTIER_DIR);
 
 module.exports = prettier;

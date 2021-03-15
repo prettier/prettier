@@ -130,6 +130,23 @@ class Class5 {
   ) {}
 }
 
+class Class6 {
+  method(
+    @Decorator({}) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator(
+      {}) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator([]) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator(
+      []) { prop1 }: Type
+  ) {}
+}
+
 =====================================output=====================================
 export class TestTextFileService {
   constructor(@ILifecycleService lifecycleService) {}
@@ -184,6 +201,13 @@ class Class4 {
 
 class Class5 {
   method(@Decorator { prop1 }: Type) {}
+}
+
+class Class6 {
+  method(@Decorator({}) { prop1 }: Type) {}
+  method(@Decorator({}) { prop1 }: Type) {}
+  method(@Decorator([]) { prop1 }: Type) {}
+  method(@Decorator([]) { prop1 }: Type) {}
 }
 
 ================================================================================
@@ -391,41 +415,6 @@ class Bar {
 class MyContainerComponent {
   @ContentChildren(MyComponent)
   components: QueryListSomeBigName<MyComponentThat>;
-}
-
-================================================================================
-`;
-
-exports[`interface.ts [babel-ts] format 1`] = `
-"Leading decorators must be attached to a class declaration (4:1)
-  2 | 
-  3 | @hello()
-> 4 | interface MyInterface {
-    | ^
-  5 |   id: string;
-  6 | }
-  7 | "
-`;
-
-exports[`interface.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// invalid place but shouldn't be removed
-
-@hello()
-interface MyInterface {
-  id: string;
-}
-
-=====================================output=====================================
-// invalid place but shouldn't be removed
-
-@hello()
-interface MyInterface {
-  id: string;
 }
 
 ================================================================================

@@ -66,11 +66,13 @@ printWidth: 80
 
   </div>
   {{#another-sibling as |isFixed|}}
-    <div class="fixed">
-      {{isFixed}}
+
+    <div class="fixed">{{isFixed}}
 
       All of this should be fixed
+
     </div>
+
   {{/another-sibling}}
 </div>
 ================================================================================

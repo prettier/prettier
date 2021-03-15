@@ -2,7 +2,7 @@
 
 exports[`escape-sequence-key.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -30,7 +30,7 @@ const b = {
 
 exports[`expand.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -74,9 +74,20 @@ exports[`expression.js [meriyah] format 1`] = `
   8 | ({} = 0);"
 `;
 
+exports[`expression.js [typescript] format 1`] = `
+"')' expected. (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
 exports[`expression.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -135,89 +146,33 @@ const a3 = {
 ================================================================================
 `;
 
-exports[`invalid-accessor-generator.js [espree] format 1`] = `
-"Unexpected token * (5:9)
-  3 | 
-  4 | ({
-> 5 |     get *iterator() { },
-    |         ^
-  6 |     set *iterator(iter) { },
-  7 |     get iterator2() { },
-  8 |     set iterator2(iter) { },"
-`;
-
-exports[`invalid-accessor-generator.js [meriyah] format 1`] = `
-"[5:9]: A getter cannot be a generator (5:9)
-  3 | 
-  4 | ({
-> 5 |     get *iterator() { },
-    |         ^
-  6 |     set *iterator(iter) { },
-  7 |     get iterator2() { },
-  8 |     set iterator2(iter) { },"
-`;
-
-exports[`invalid-accessor-generator.js format 1`] = `
+exports[`getter-setter.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// Invalid, but recoverable
-// https://github.com/babel/babel/pull/11921/
-
-({
-    get *iterator() { },
-    set *iterator(iter) { },
-    get iterator2() { },
-    set iterator2(iter) { },
-});
+({ set x(foo) {} });
+({ get x() { return 1 } });
+({ set x(a) {} });
+({ get x() {} });
 
 =====================================output=====================================
-// Invalid, but recoverable
-// https://github.com/babel/babel/pull/11921/
-
+({ set x(foo) {} });
 ({
-  get *iterator() {},
-  set *iterator(iter) {},
-  get iterator2() {},
-  set iterator2(iter) {},
+  get x() {
+    return 1;
+  },
 });
-
-================================================================================
-`;
-
-exports[`invalid-setter.js [espree] format 1`] = `
-"setter should have exactly one param (1:9)
-> 1 | ({ set x(){} });
-    |         ^
-  2 | "
-`;
-
-exports[`invalid-setter.js [meriyah] format 1`] = `
-"[1:10]: Setter functions must have exactly one argument (1:10)
-> 1 | ({ set x(){} });
-    |          ^
-  2 | "
-`;
-
-exports[`invalid-setter.js format 1`] = `
-====================================options=====================================
-parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-({ set x(){} });
-
-=====================================output=====================================
-({ set x() {} });
+({ set x(a) {} });
+({ get x() {} });
 
 ================================================================================
 `;
 
 exports[`method.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -231,7 +186,7 @@ a = { f() {} };
 
 exports[`range.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -269,7 +224,7 @@ group(
 
 exports[`right-break.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

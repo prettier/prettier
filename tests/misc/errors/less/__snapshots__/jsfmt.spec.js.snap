@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inline-comment.less error test 1`] = `
+exports[`inline-comment.less [less] format 1`] = `
 "CssSyntaxError: Unknown word (5:4)
   3 | a{
   4 | 	prop
@@ -11,20 +11,20 @@ exports[`inline-comment.less error test 1`] = `
   8 | }"
 `;
 
-exports[`open-double-quote.less error test 1`] = `
+exports[`open-double-quote.less [less] format 1`] = `
 "CssSyntaxError: Unclosed string (2:17)
   1 | a {
 > 2 | background: url(\\"
     |                 ^
   3 | }
-  4 | "
+  4 |"
 `;
 
-exports[`open-sigle-quote.less error test 1`] = `
+exports[`open-sigle-quote.less [less] format 1`] = `
 "CssSyntaxError: Unclosed string (2:17)
   1 | a {
 > 2 | background: url('
     |                 ^
   3 | }
-  4 | "
+  4 |"
 `;
