@@ -164,6 +164,82 @@ a = b => {
 ================================================================================
 `;
 
+exports[`arrow-chain-with-trailing-comments.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+x = (bifornCringerMoshedPerplexSawder) => ((askTrovenaBeenaDependsRowans, glimseGlyphsHazardNoopsTieTie) => (f00) => {
+  averredBathersBoxroomBuggyNurl();
+} // BOOM
+)
+
+x2 = (a) => ((askTrovenaBeenaDependsRowans1, askTrovenaBeenaDependsRowans2, askTrovenaBeenaDependsRowans3) => {
+  c();
+} /* ! */ // KABOOM
+)
+
+=====================================output=====================================
+x =
+  (bifornCringerMoshedPerplexSawder) =>
+  (askTrovenaBeenaDependsRowans, glimseGlyphsHazardNoopsTieTie) =>
+  (f00) => {
+    averredBathersBoxroomBuggyNurl();
+  }; // BOOM
+
+x2 =
+  (a) =>
+  (
+    askTrovenaBeenaDependsRowans1,
+    askTrovenaBeenaDependsRowans2,
+    askTrovenaBeenaDependsRowans3
+  ) => {
+    c();
+  } /* ! */; // KABOOM
+
+================================================================================
+`;
+
+exports[`arrow-chain-with-trailing-comments.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+x = (bifornCringerMoshedPerplexSawder) => ((askTrovenaBeenaDependsRowans, glimseGlyphsHazardNoopsTieTie) => (f00) => {
+  averredBathersBoxroomBuggyNurl();
+} // BOOM
+)
+
+x2 = (a) => ((askTrovenaBeenaDependsRowans1, askTrovenaBeenaDependsRowans2, askTrovenaBeenaDependsRowans3) => {
+  c();
+} /* ! */ // KABOOM
+)
+
+=====================================output=====================================
+x =
+  bifornCringerMoshedPerplexSawder =>
+  (askTrovenaBeenaDependsRowans, glimseGlyphsHazardNoopsTieTie) =>
+  f00 => {
+    averredBathersBoxroomBuggyNurl();
+  }; // BOOM
+
+x2 =
+  a =>
+  (
+    askTrovenaBeenaDependsRowans1,
+    askTrovenaBeenaDependsRowans2,
+    askTrovenaBeenaDependsRowans3
+  ) => {
+    c();
+  } /* ! */; // KABOOM
+
+================================================================================
+`;
+
 exports[`assignment-chain-with-arrow-chain.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"

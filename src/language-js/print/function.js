@@ -1,8 +1,13 @@
 "use strict";
 
+/** @typedef {import("../../document/doc-builders").Doc} Doc */
+
 /** @type {import("assert")} */
 const assert = require("assert");
-const { printDanglingComments, printComments } = require("../../main/comments");
+const {
+  printDanglingComments,
+  printCommentsSeparately,
+} = require("../../main/comments");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
@@ -246,15 +251,22 @@ function printArrowChain(
 
 function printArrowFunctionExpression(path, options, print, args) {
   let node = path.getValue();
+  /** @type {Doc[]} */
   const signatures = [];
-  let body;
+  const body = [];
   let chainShouldBreak = false;
 
   (function rec(path) {
     const doc = printArrowFunctionSignature(path, options, print, args);
-    signatures.push(
-      signatures.length === 0 ? doc : printComments(path, doc, options)
-    );
+    if (signatures.length === 0) {
+      signatures.push(doc);
+    } else {
+      const { leading, trailing } = printCommentsSeparately(path, options);
+      signatures.push(leading ? [leading, doc] : doc);
+      if (trailing) {
+        body.unshift(trailing);
+      }
+    }
 
     chainShouldBreak =
       chainShouldBreak ||
@@ -267,7 +279,7 @@ function printArrowFunctionExpression(path, options, print, args) {
       node.body.type !== "ArrowFunctionExpression" ||
       (args && args.expandLastArg)
     ) {
-      body = path.call((bodyPath) => print(bodyPath, args), "body");
+      body.unshift(path.call((bodyPath) => print(bodyPath, args), "body"));
     } else {
       node = node.body;
       path.call(rec, "body");
