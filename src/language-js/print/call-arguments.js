@@ -150,7 +150,7 @@ function printCallArguments(path, options, print) {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
           [
-            argPath.call((p) => print(p, { expandFirstArg: true })),
+            print(argPath, { expandFirstArg: true }),
             printedArguments.length > 1 ? "," : "",
             hasEmptyLineFollowingFirstArg ? hardline : line,
             hasEmptyLineFollowingFirstArg ? hardline : "",
@@ -161,7 +161,7 @@ function printCallArguments(path, options, print) {
       if (shouldGroupLast && i === args.length - 1) {
         printedExpanded = [
           ...printedArguments.slice(0, -1),
-          argPath.call((p) => print(p, { expandLastArg: true })),
+          print(argPath, { expandLastArg: true }),
         ];
       }
     });

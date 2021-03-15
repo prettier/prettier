@@ -250,7 +250,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   let body;
   let chainShouldBreak = false;
 
-  path.call(function rec(path) {
+  (function rec(path) {
     const doc = printArrowFunctionSignature(path, options, print, args);
     signatures.push(
       signatures.length === 0 ? doc : printComments(path, doc, options)
@@ -272,7 +272,7 @@ function printArrowFunctionExpression(path, options, print, args) {
       node = node.body;
       path.call(rec, "body");
     }
-  });
+  })(path);
 
   if (signatures.length > 1) {
     return printArrowChain(
