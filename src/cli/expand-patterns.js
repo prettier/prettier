@@ -5,7 +5,7 @@ const fs = require("fs");
 const fastGlob = require("fast-glob");
 const flat = require("lodash/flatten");
 
-/** @typedef {import('./util').Context} Context */
+/** @typedef {import('./context').Context} Context */
 
 /**
  * @param {Context} context
@@ -33,7 +33,7 @@ function* expandPatterns(context) {
     yield relativePath;
   }
 
-  if (noResults) {
+  if (noResults && context.argv["error-on-unmatched-pattern"] !== false) {
     // If there was no files and no other errors, let's yield a general error.
     yield {
       error: `No matching files. Patterns: ${context.filePatterns.join(" ")}`,
@@ -46,18 +46,13 @@ function* expandPatterns(context) {
  */
 function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
-  const silentlyIgnoredDirs = {
-    ".git": true,
-    ".svn": true,
-    ".hg": true,
-    node_modules: context.argv["with-node-modules"] !== true,
-  };
-
+  const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
+  if (context.argv["with-node-modules"] !== true) {
+    silentlyIgnoredDirs.push("node_modules");
+  }
   const globOptions = {
     dot: true,
-    ignore: Object.keys(silentlyIgnoredDirs)
-      .filter((dir) => silentlyIgnoredDirs[dir])
-      .map((dir) => "**/" + dir),
+    ignore: silentlyIgnoredDirs.map((dir) => "**/" + dir),
   };
 
   let supportedFilesGlob;
@@ -116,7 +111,9 @@ function* expandPatternsInternal(context) {
     }
 
     if (result.length === 0) {
-      yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
+      if (context.argv["error-on-unmatched-pattern"] !== false) {
+        yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
+      }
     } else {
       yield* sortPaths(result);
     }
@@ -130,9 +127,10 @@ function* expandPatternsInternal(context) {
       const filenames = flat(
         context.languages.map((lang) => lang.filenames || [])
       );
-      supportedFilesGlob = `**/{${extensions
-        .map((ext) => "*" + (ext[0] === "." ? ext : "." + ext))
-        .concat(filenames)}}`;
+      supportedFilesGlob = `**/{${[
+        ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
+        ...filenames,
+      ]}}`;
     }
     return supportedFilesGlob;
   }
@@ -154,13 +152,13 @@ const errorMessages = {
 /**
  * @param {string} absolutePath
  * @param {string} cwd
- * @param {Record<string, boolean>} ignoredDirectories
+ * @param {string[]} ignoredDirectories
  */
 function containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories) {
   return path
     .relative(cwd, absolutePath)
     .split(path.sep)
-    .some((dir) => ignoredDirectories[dir]);
+    .some((dir) => ignoredDirectories.includes(dir));
 }
 
 /**

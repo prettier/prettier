@@ -5,7 +5,8 @@ const {
   getNextNonSpaceNonCommentCharacter,
   getShebang,
 } = require("../common/util");
-const { composeLoc, locStart, locEnd } = require("./loc");
+const createError = require("../common/parser-create-error");
+const { locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
@@ -15,6 +16,50 @@ function postprocess(ast, options) {
     options.parser === "espree"
   ) {
     includeShebang(ast, options);
+  }
+
+  // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
+  // https://github.com/typescript-eslint/typescript-eslint/pull/2375
+  if (options.parser === "typescript" && options.originalText.includes("@")) {
+    const {
+      esTreeNodeToTSNodeMap,
+      tsNodeToESTreeNodeMap,
+    } = options.tsParseResult;
+    ast = visitNode(ast, (node) => {
+      const tsNode = esTreeNodeToTSNodeMap.get(node);
+      if (!tsNode) {
+        return;
+      }
+      const tsDecorators = tsNode.decorators;
+      if (!Array.isArray(tsDecorators)) {
+        return;
+      }
+      // `esTreeNodeToTSNodeMap.get(ClassBody)` and `esTreeNodeToTSNodeMap.get(ClassDeclaration)` has the same tsNode
+      const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
+      if (esTreeNode !== node) {
+        return;
+      }
+      const esTreeDecorators = esTreeNode.decorators;
+      if (
+        !Array.isArray(esTreeDecorators) ||
+        esTreeDecorators.length !== tsDecorators.length ||
+        tsDecorators.some((tsDecorator) => {
+          const esTreeDecorator = tsNodeToESTreeNodeMap.get(tsDecorator);
+          return (
+            !esTreeDecorator || !esTreeDecorators.includes(esTreeDecorator)
+          );
+        })
+      ) {
+        const { start, end } = esTreeNode.loc;
+        throw createError(
+          "Leading decorators must be attached to a class declaration",
+          {
+            start: { line: start.line, column: start.column + 1 },
+            end: { line: end.line, column: end.column + 1 },
+          }
+        );
+      }
+    });
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
@@ -51,11 +96,7 @@ function postprocess(ast, options) {
 
         const start = locStart(node);
         if (!startOffsetsOfTypeCastedNodes.has(start)) {
-          if (!expression.extra) {
-            expression.extra = {};
-          }
-          expression.extra.parenthesized = true;
-          expression.extra.parenStart = start;
+          expression.extra = { ...expression.extra, parenthesized: true };
           return expression;
         }
       }
@@ -85,34 +126,27 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        node.typeAnnotation.range = composeLoc(node);
+        node.typeAnnotation.range = [locStart(node), locEnd(node)];
         return node.typeAnnotation;
       }
-      case "TSUnionType":
-      case "TSIntersectionType":
-        if (node.types.length === 1) {
-          const [firstType] = node.types;
-          // override loc, so that comments are attached properly
-          firstType.range = composeLoc(node);
-          return firstType;
-        }
-        break;
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {
+          const start = locStart(node);
           node.name = {
             type: "Identifier",
             name: node.name,
-            range: composeLoc(node, node.name.length),
+            range: [start, start + node.name.length],
           };
         }
         break;
       case "SequenceExpression": {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
         const lastExpression = getLast(node.expressions);
-        if (locEnd(node) > locEnd(lastExpression)) {
-          node.range = composeLoc(node, lastExpression);
-        }
+        node.range = [
+          locStart(node),
+          Math.min(locEnd(lastExpression), locEnd(node)),
+        ];
         break;
       }
       case "ClassProperty":
@@ -142,13 +176,16 @@ function postprocess(ast, options) {
     if (options.originalText[locEnd(toOverrideNode)] === ";") {
       return;
     }
-    toBeOverriddenNode.range = composeLoc(toBeOverriddenNode, toOverrideNode);
+    toBeOverriddenNode.range = [
+      locStart(toBeOverriddenNode),
+      locEnd(toOverrideNode),
+    ];
   }
 }
 
-// This is a workaround to transform `ChainExpression` from `espree` into
-// `babel` shape AST, we should do the opposite, since `ChainExpression` is the
-// standard `estree` AST for `optional chaining`
+// This is a workaround to transform `ChainExpression` from `espree`, `meriyah`,
+// and `typescript` into `babel` shape AST, we should do the opposite,
+// since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {
   if (node.type === "CallExpression") {
@@ -157,6 +194,10 @@ function transformChainExpression(node) {
   } else if (node.type === "MemberExpression") {
     node.type = "OptionalMemberExpression";
     node.object = transformChainExpression(node.object);
+  }
+  // typescript
+  else if (node.type === "TSNonNullExpression") {
+    node.expression = transformChainExpression(node.expression);
   }
   return node;
 }
@@ -178,6 +219,10 @@ function visitNode(node, fn) {
 
   for (const [key, child] of entries) {
     node[key] = visitNode(child, fn);
+  }
+
+  if (Array.isArray(node)) {
+    return node;
   }
 
   return fn(node) || node;
@@ -204,10 +249,10 @@ function rebalanceLogicalTree(node) {
       operator: node.operator,
       left: node.left,
       right: node.right.left,
-      range: composeLoc(node.left, node.right.left),
+      range: [locStart(node.left), locEnd(node.right.left)],
     }),
     right: node.right.right,
-    range: composeLoc(node),
+    range: [locStart(node), locEnd(node)],
   });
 }
 

@@ -1,0 +1,6 @@
+key1: &default
+
+  subkey1: value1
+
+key2:
+  <<: *default

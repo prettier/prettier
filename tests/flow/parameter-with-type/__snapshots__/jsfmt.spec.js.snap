@@ -11,7 +11,8 @@ const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongTyp
 function g({}: Foo) {}
 
 =====================================output=====================================
-const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+const f =
+  ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
 function g({}: Foo) {}
 
 ================================================================================
@@ -27,7 +28,8 @@ const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongTyp
 function g({}: Foo) {}
 
 =====================================output=====================================
-const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+const f =
+  ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
 function g({}: Foo) {}
 
 ================================================================================

@@ -78,7 +78,8 @@ printWidth: 80
   param
   param
   param
-  hashKey=hashValue as |blockParam|
+  hashKey=hashValue
+  as |blockParam|
 }}
   Hello
 {{/block}}
@@ -152,7 +153,8 @@ printWidth: 80
 </MyComponent>
 
 <MyComponent as |firstName lastName|>
-  {{firstName}} {{lastName}}
+  {{firstName}}
+  {{lastName}}
 </MyComponent>
 ================================================================================
 `;
@@ -173,14 +175,8 @@ printWidth: 80
 =====================================output=====================================
 <div id="comments">
   {{#each comments}}
-    <h2>
-      <a href="/posts/{{permalink}}#{{id}}">
-        {{title}}
-      </a>
-    </h2>
-    <div>
-      {{body}}
-    </div>
+    <h2><a href="/posts/{{permalink}}#{{id}}">{{title}}</a></h2>
+    <div>{{body}}</div>
   {{/each}}
 </div>
 ================================================================================
@@ -392,23 +388,15 @@ printWidth: 80
 
 {{#if a}}
   a
-  <div>
-    b
-  </div>
+  <div>b</div>
   c
 {{else}}
   {{#if c}}
-    a
-    b
-    <div>
-      c
-    </div>
+    a b
+    <div>c</div>
   {{/if}}
-  <div>
-    a
-  </div>
-  b
-  c
+  <div>a</div>
+  b c
 {{/if}}
 
 {{~#if someCondition~}}
@@ -434,9 +422,7 @@ printWidth: 80
 =====================================output=====================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}
-    <li>
-      {{speaker}}
-    </li>
+    <li>{{speaker}}</li>
   {{/each}}
 </ul>
 ================================================================================

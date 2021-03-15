@@ -1,13 +1,10 @@
 "use strict";
 
-const {
-  getNextNonSpaceNonCommentCharacter,
-  isNextLineEmpty,
-} = require("../../common/util");
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
 const { printDanglingComments } = require("../../main/comments");
 const {
-  builders: { concat, line, hardline, softline, group, indent, ifBreak },
-  utils: { removeLines },
+  builders: { line, hardline, softline, group, indent, ifBreak },
+  utils: { removeLines, willBreak },
 } = require("../../document");
 const {
   getFunctionParameters,
@@ -19,6 +16,8 @@ const {
   isObjectTypePropertyAFunction,
   hasRestParameter,
   shouldPrintComma,
+  hasComment,
+  isNextLineEmpty,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const { printFunctionTypeParameters } = require("./misc");
@@ -37,7 +36,7 @@ function printFunctionParameters(
     : "";
 
   if (parameters.length === 0) {
-    return concat([
+    return [
       typeParams,
       "(",
       printDanglingComments(
@@ -52,14 +51,14 @@ function printFunctionParameters(
           ) === ")"
       ),
       ")",
-    ]);
+    ];
   }
 
   const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugFunctionParameters(functionNode);
   const shouldExpandParameters =
-    expandArg && !parameters.some((node) => node.comments);
+    expandArg && !parameters.some((node) => hasComment(node));
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
@@ -77,9 +76,7 @@ function printFunctionParameters(
       shouldExpandParameters
     ) {
       printed.push(" ");
-    } else if (
-      isNextLineEmpty(options.originalText, parameters[index], locEnd)
-    ) {
+    } else if (isNextLineEmpty(parameters[index], options)) {
       printed.push(hardline, hardline);
     } else {
       printed.push(line);
@@ -97,14 +94,12 @@ function printFunctionParameters(
   //   })                    ) => {
   //                         })
   if (shouldExpandParameters) {
-    return group(
-      concat([
-        removeLines(typeParams),
-        "(",
-        concat(printed.map(removeLines)),
-        ")",
-      ])
-    );
+    return group([
+      removeLines(typeParams),
+      "(",
+      ...printed.map(removeLines),
+      ")",
+    ]);
   }
 
   // Single object destructuring should hug
@@ -116,12 +111,12 @@ function printFunctionParameters(
   // }) {}
   const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
-    return concat([typeParams, "(", concat(printed), ")"]);
+    return [typeParams, "(", ...printed, ")"];
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    return concat([typeParams, "(", concat(printed), ")"]);
+    return [typeParams, "(", ...printed, ")"];
   }
 
   const isFlowShorthandWithOneArg =
@@ -144,15 +139,15 @@ function printFunctionParameters(
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
-      return concat(["(", concat(printed), ")"]);
+      return ["(", ...printed, ")"];
     }
-    return concat(printed);
+    return printed;
   }
 
-  return concat([
+  return [
     typeParams,
     "(",
-    indent(concat([softline, concat(printed)])),
+    indent([softline, ...printed]),
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
@@ -160,7 +155,7 @@ function printFunctionParameters(
     ),
     softline,
     ")",
-  ]);
+  ];
 }
 
 function shouldHugFunctionParameters(node) {
@@ -173,7 +168,7 @@ function shouldHugFunctionParameters(node) {
   }
   const [parameter] = parameters;
   return (
-    !parameter.comments &&
+    !hasComment(parameter) &&
     (parameter.type === "ObjectPattern" ||
       parameter.type === "ArrayPattern" ||
       (parameter.type === "Identifier" &&
@@ -194,4 +189,48 @@ function shouldHugFunctionParameters(node) {
   );
 }
 
-module.exports = { printFunctionParameters, shouldHugFunctionParameters };
+function getReturnTypeNode(functionNode) {
+  let returnTypeNode;
+  if (functionNode.returnType) {
+    returnTypeNode = functionNode.returnType;
+    if (returnTypeNode.typeAnnotation) {
+      returnTypeNode = returnTypeNode.typeAnnotation;
+    }
+  } else if (functionNode.typeAnnotation) {
+    returnTypeNode = functionNode.typeAnnotation;
+  }
+  return returnTypeNode;
+}
+
+// When parameters are grouped, the return type annotation breaks first.
+function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
+  const returnTypeNode = getReturnTypeNode(functionNode);
+  if (!returnTypeNode) {
+    return false;
+  }
+
+  const typeParameters =
+    functionNode.typeParameters && functionNode.typeParameters.params;
+  if (typeParameters) {
+    if (typeParameters.length > 1) {
+      return false;
+    }
+    if (typeParameters.length === 1) {
+      const typeParameter = typeParameters[0];
+      if (typeParameter.constraint || typeParameter.default) {
+        return false;
+      }
+    }
+  }
+
+  return (
+    getFunctionParameters(functionNode).length === 1 &&
+    (isObjectType(returnTypeNode) || willBreak(returnTypeDoc))
+  );
+}
+
+module.exports = {
+  printFunctionParameters,
+  shouldHugFunctionParameters,
+  shouldGroupFunctionParameters,
+};

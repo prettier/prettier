@@ -4,7 +4,7 @@ const remarkParse = require("remark-parse");
 const unified = require("unified");
 const remarkMath = require("remark-math");
 const footnotes = require("remark-footnotes");
-const { parse: parseFrontMatter } = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter/parse");
 const pragma = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
@@ -52,7 +52,7 @@ function htmlToJsx() {
     mapAst(ast, (node, _index, [parent]) => {
       if (
         node.type !== "html" ||
-        node.value.match(mdx.COMMENT_REGEX) ||
+        mdx.COMMENT_REGEX.test(node.value) ||
         INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
       ) {
         return node;
@@ -64,7 +64,7 @@ function htmlToJsx() {
 
 function frontMatter() {
   const proto = this.Parser.prototype;
-  proto.blockMethods = ["frontMatter"].concat(proto.blockMethods);
+  proto.blockMethods = ["frontMatter", ...proto.blockMethods];
   proto.blockTokenizers.frontMatter = tokenizer;
 
   function tokenizer(eat, value) {

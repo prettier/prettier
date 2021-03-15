@@ -26,7 +26,9 @@ async function run() {
     throw new Error(`Unexpected previousVersion: ${previousVersion}`);
   } else {
     params.previousVersion = previousVersion;
-    params.previousVersionOnMaster = (await readJson("package.json")).version;
+    params.previousVersionOnDefaultBranch = (
+      await readJson("package.json")
+    ).version;
   }
 
   const steps = [

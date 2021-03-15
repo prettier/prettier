@@ -1,5 +1,5 @@
 // parentheses around numeric literal should be preserved
-function test5(): string {
+function test5() {
   return (100).toString();
 }
 
