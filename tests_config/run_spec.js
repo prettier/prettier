@@ -141,7 +141,9 @@ function runSpec(fixtures, parsers, options) {
         path.extname(basename) === ".snap" ||
         !file.isFile() ||
         basename[0] === "." ||
-        basename === "jsfmt.spec.js"
+        basename === "jsfmt.spec.js" ||
+        // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
+        basename === "debug.log"
       ) {
         return;
       }

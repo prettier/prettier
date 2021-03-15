@@ -322,7 +322,7 @@ function genericPrint(path, options, print) {
                         options.tabWidth *
                         countParents(
                           path,
-                          (n) => n.parent && n.parent.type !== "root"
+                          (node) => node.parent && node.parent.type !== "root"
                         )
                       }}$`
                     ).test(node.lastChild.value)
