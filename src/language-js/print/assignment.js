@@ -1,8 +1,9 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray, getStringWidth } = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
+  utils: { cleanDoc },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -24,9 +25,14 @@ function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const rightDoc = path.call(print, rightPropertyName);
+  const layout = chooseLayout(path, options, leftDoc, rightPropertyName);
 
-  switch (chooseLayout(path, options, rightPropertyName)) {
+  const rightDoc = path.call(
+    (p) => print(p, { assignmentLayout: layout }),
+    rightPropertyName
+  );
+
+  switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines
     case "break-after-operator":
       return group([group(leftDoc), operator, group(indent([line, rightDoc]))]);
@@ -54,19 +60,22 @@ function printAssignment(
     case "chain-tail":
       return [group(leftDoc), operator, indent([line, rightDoc])];
 
+    case "chain-tail-arrow-chain":
+      return [group(leftDoc), operator, rightDoc];
+
     case "only-left":
       return leftDoc;
   }
 }
 
 function printAssignmentExpression(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   return printAssignment(
     path,
     options,
     print,
     path.call(print, "left"),
-    [" ", n.operator],
+    [" ", node.operator],
     "right"
   );
 }
@@ -82,8 +91,9 @@ function printVariableDeclarator(path, options, print) {
   );
 }
 
-function chooseLayout(path, options, rightPropertyName) {
-  const rightNode = path.getValue()[rightPropertyName];
+function chooseLayout(path, options, leftDoc, rightPropertyName) {
+  const node = path.getValue();
+  const rightNode = node[rightPropertyName];
 
   if (!rightNode) {
     return "only-left";
@@ -103,7 +113,12 @@ function chooseLayout(path, options, rightPropertyName) {
         node.type !== "VariableDeclaration")
   );
   if (shouldUseChainFormatting) {
-    return isTail ? "chain-tail" : "chain";
+    return !isTail
+      ? "chain"
+      : rightNode.type === "ArrowFunctionExpression" &&
+        rightNode.body.type === "ArrowFunctionExpression"
+      ? "chain-tail-arrow-chain"
+      : "chain-tail";
   }
   const isHeadOfLongChain = !isTail && isAssignment(rightNode.right);
 
@@ -119,18 +134,21 @@ function chooseLayout(path, options, rightPropertyName) {
     return "never-break-after-operator";
   }
 
-  if (shouldBreakAfterOperator(rightNode)) {
+  // wrapping object properties with very short keys usually doesn't add much value
+  const hasShortKey = isObjectPropertyWithShortKey(node, leftDoc, options);
+
+  if (shouldBreakAfterOperator(rightNode, hasShortKey)) {
     return "break-after-operator";
   }
 
-  if (shouldNeverBreakAfterOperator(rightNode)) {
+  if (hasShortKey || shouldNeverBreakAfterOperator(rightNode)) {
     return "never-break-after-operator";
   }
 
   return "fluid";
 }
 
-function shouldBreakAfterOperator(rightNode) {
+function shouldBreakAfterOperator(rightNode, hasShortKey) {
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
     return true;
   }
@@ -145,6 +163,10 @@ function shouldBreakAfterOperator(rightNode) {
     }
     case "ClassExpression":
       return isNonEmptyArray(rightNode.decorators);
+  }
+
+  if (hasShortKey) {
+    return false;
   }
 
   let node = rightNode;
@@ -221,6 +243,26 @@ function isSimpleCall(node) {
   const args = getCallArguments(node);
   return (
     args.length === 0 || (args.length === 1 && isSimpleCallArgument(args[0], 1))
+  );
+}
+
+function isObjectPropertyWithShortKey(node, keyDoc, options) {
+  if (node.type !== "ObjectProperty" && node.type !== "Property") {
+    return false;
+  }
+  // TODO: for performance, it might make sense to use a more lightweight
+  // version of cleanDoc, such that it would stop once it detects that
+  // the doc can't be reduced to a string.
+  keyDoc = cleanDoc(keyDoc);
+  const MIN_OVERLAP_FOR_BREAK = 3;
+  //   ↓↓ - insufficient overlap for a line break
+  // key1: longValue1,
+  //   ↓↓↓↓↓↓ - overlap is long enough to break
+  // key2abcd:
+  //   longValue2
+  return (
+    typeof keyDoc === "string" &&
+    getStringWidth(keyDoc) < options.tabWidth + MIN_OVERLAP_FOR_BREAK
   );
 }
 

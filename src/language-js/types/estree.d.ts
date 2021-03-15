@@ -1,6 +1,6 @@
 import * as ESTree from "estree";
 import * as Babel from "@babel/types";
-import { TSESTree } from "@typescript-eslint/types";
+import { TSESTree } from "@typescript-eslint/typescript-estree";
 import { ESTree as Meriyah } from "meriyah";
 import * as NGTree from "angular-estree-parser/lib/types";
 

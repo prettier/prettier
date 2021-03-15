@@ -112,7 +112,7 @@ module.exports = {
           left = left.right;
         }
 
-        if (!left.type === "UnaryExpression" || left.operator !== "!") {
+        if (left.type !== "UnaryExpression" || left.operator !== "!") {
           return;
         }
 

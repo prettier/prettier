@@ -90,8 +90,8 @@ function printPropertyKey(path, options, print) {
 }
 
 function printProperty(path, options, print) {
-  const n = path.getValue();
-  if (n.shorthand) {
+  const node = path.getValue();
+  if (node.shorthand) {
     return path.call(print, "value");
   }
 

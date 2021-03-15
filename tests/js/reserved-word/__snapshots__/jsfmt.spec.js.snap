@@ -1,36 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interfaces.js [espree] format 1`] = `
-"The keyword 'interface' is reserved (1:1)
-> 1 | interface = \\"foo\\";
+exports[`interfaces.js [babel] format 1`] = `
+"Unexpected reserved word 'interface' (2:1)
+  1 | foo.interface;
+> 2 | interface.foo;
     | ^
-  2 | interface + 3;
-  3 | interface();
-  4 | class interface {}"
-`;
-
-exports[`interfaces.js [meriyah] format 1`] = `
-"[1:9]: Unexpected token: 'interface' (1:9)
-> 1 | interface = \\"foo\\";
-    |         ^
-  2 | interface + 3;
-  3 | interface();
-  4 | class interface {}"
+  3 | new interface();
+  4 | ({ interface: \\"foo\\" });
+  5 | (interface, \\"foo\\");"
 `;
 
 exports[`interfaces.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["espree", "meriyah", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-interface = "foo";
-interface + 3;
-interface();
-class interface {}
-interface ? true : false;
-function interface() {}
-import interface from "foo";
 foo.interface;
 interface.foo;
 new interface();
@@ -40,13 +25,6 @@ void interface;
 const interface = "foo";
 
 =====================================output=====================================
-interface = "foo";
-interface + 3;
-interface();
-class interface {}
-interface ? true : false;
-function interface() {}
-import interface from "foo";
 foo.interface;
 interface.foo;
 new interface();

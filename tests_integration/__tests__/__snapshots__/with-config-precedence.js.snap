@@ -126,8 +126,7 @@ function js() {
 
 module.exports =
         {
-                endOfLine:
-                        \\"auto\\",
+                endOfLine: \\"auto\\",
                 tabWidth: 8,
         };
 function noConfigJs() {
@@ -222,8 +221,7 @@ function js() {
 
 module.exports =
         {
-                endOfLine:
-                        \\"auto\\",
+                endOfLine: \\"auto\\",
                 tabWidth: 8,
         };
 function noConfigJs() {

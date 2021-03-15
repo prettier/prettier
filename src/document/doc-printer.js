@@ -19,26 +19,27 @@ function makeIndent(ind, options) {
   return generateInd(ind, { type: "indent" }, options);
 }
 
-function makeAlign(indent, n, options) {
-  if (n === Number.NEGATIVE_INFINITY) {
+function makeAlign(indent, widthOrDoc, options) {
+  if (widthOrDoc === Number.NEGATIVE_INFINITY) {
     return indent.root || rootIndent();
   }
 
-  if (n < 0) {
+  if (widthOrDoc < 0) {
     return generateInd(indent, { type: "dedent" }, options);
   }
 
-  if (!n) {
+  if (!widthOrDoc) {
     return indent;
   }
 
-  if (n.type === "root") {
+  if (widthOrDoc.type === "root") {
     return { ...indent, root: indent };
   }
 
-  const alignType = typeof n === "string" ? "stringAlign" : "numberAlign";
+  const alignType =
+    typeof widthOrDoc === "string" ? "stringAlign" : "numberAlign";
 
-  return generateInd(indent, { type: alignType, n }, options);
+  return generateInd(indent, { type: alignType, n: widthOrDoc }, options);
 }
 
 function generateInd(ind, newPart, options) {

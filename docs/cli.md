@@ -114,22 +114,6 @@ If you don’t have a configuration file, or want to ignore it if it does exist,
 
 Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.prettierignore`.
 
-## `--require-pragma`
-
-Require a special comment, called a pragma, to be present in the file’s first docblock comment in order for Prettier to format it.
-
-```js
-/**
- * @prettier
- */
-```
-
-Valid pragmas are `@prettier` and `@format`.
-
-## `--insert-pragma`
-
-Insert a `@format` pragma to the top of formatted files when pragma is absent. Works well when used in tandem with `--require-pragma`.
-
 ## `--list-different`
 
 Another useful flag is `--list-different` (or `-l`) which prints the filenames of files that are different from Prettier formatting. If there are differences the script errors out, which is useful in a CI scenario.

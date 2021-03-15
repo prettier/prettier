@@ -67,8 +67,8 @@ function printBindExpressionCallee(path, options, print) {
 }
 
 function printTypeScriptModifiers(path, options, print) {
-  const n = path.getValue();
-  if (!isNonEmptyArray(n.modifiers)) {
+  const node = path.getValue();
+  if (!isNonEmptyArray(node.modifiers)) {
     return "";
   }
   return [join(" ", path.map(print, "modifiers")), " "];
