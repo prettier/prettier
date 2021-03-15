@@ -356,32 +356,11 @@ v |> #.method() |> f;
 async function * f () {
   return x
     |> (yield #)
-    |> yield;
-}
-
-async function * f () {
-  return x
-    |> (await #);
-}
-
-async function * f () {
-  return x
-    |> y;
-}
-
-async function * f () {
-  return x
-    |> a.b;
-}
-
-async function * f () {
-  return x
+    |> (await #)
+    |> y
+    |> a.b
     |> (a.b(#))
-    |> a.b(#);
-}
-
-async function * f () {
-  return x
+    |> a.b(#)
     |> (a.b?.(#))
     |> a.b?.(#);
 }
@@ -425,27 +404,17 @@ const searchResults$ =
 v |> #.method() |> f;
 
 async function* f() {
-  return x |> (yield #) |> yield;
-}
-
-async function* f() {
-  return x |> await #;
-}
-
-async function* f() {
-  return x |> y;
-}
-
-async function* f() {
-  return x |> a.b;
-}
-
-async function* f() {
-  return x |> a.b(#) |> a.b(#);
-}
-
-async function* f() {
-  return x |> a.b?.(#) |> a.b?.(#);
+  return (
+    x
+    |> (yield #)
+    |> await #
+    |> y
+    |> a.b
+    |> a.b(#)
+    |> a.b(#)
+    |> a.b?.(#)
+    |> a.b?.(#)
+  );
 }
 
 ================================================================================

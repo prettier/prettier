@@ -53,3 +53,9 @@ exports[`snippet: #8 [babel] format 1`] = `
 > 1 | async function * a() { a |> foo(#) |> a.b?.()}
     |                                       ^"
 `;
+
+exports[`snippet: #9 [babel] format 1`] = `
+"Can not use 'yield' as identifier inside a generator (1:39)
+> 1 | async function * a() { a |> foo(#) |> yield}
+    |                                       ^"
+`;

@@ -11,6 +11,7 @@ run_spec(
       "a.b()",
       "(a.b?.())",
       "a.b?.()",
+      "yield",
     ].map((code) => `async function * a() { a |> foo(#) |> ${code}}`),
   },
   ["babel"]
