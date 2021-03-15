@@ -262,10 +262,8 @@ function printArrowFunctionExpression(path, options, print, args) {
       signatures.push(doc);
     } else {
       const { leading, trailing } = printCommentsSeparately(path, options);
-      signatures.push(leading ? [leading, doc] : doc);
-      if (trailing) {
-        body.unshift(trailing);
-      }
+      signatures.push([leading, doc]);
+      body.unshift(trailing);
     }
 
     chainShouldBreak =
