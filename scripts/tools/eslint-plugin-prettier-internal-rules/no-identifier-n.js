@@ -4,7 +4,7 @@
 const { findVariable } = require("eslint-utils");
 const ERROR = "error";
 const SUGGESTION = "suggestion";
-const selectors = [
+const selector = [
   "Identifier",
   '[name="n"]',
   `:not(${[
@@ -29,7 +29,7 @@ module.exports = {
   create(context) {
     const variables = new Map();
     return {
-      [selectors](node) {
+      [selector](node) {
         const scope = context.getScope();
         const variable = findVariable(scope, node);
 
@@ -87,9 +87,5 @@ module.exports = {
         }
       },
     };
-  },
-  schema: {
-    type: "array",
-    uniqueItems: true,
   },
 };
