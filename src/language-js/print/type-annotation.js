@@ -169,7 +169,7 @@ function printUnionType(path, options, print) {
   // // comment
   // | child2
   const printed = path.map((typePath) => {
-    let printedType = typePath.call(print);
+    let printedType = print(typePath);
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
