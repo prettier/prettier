@@ -71,11 +71,25 @@ for (const dir of dirs) {
         .readFileSync(path.join(dirPath, fileName), "utf8")
         .trim()
         .split("\n");
-      return {
-        breaking: title.includes("[BREAKING]"),
-        highlight: title.includes("[HIGHLIGHT]"),
-        content: [processTitle(title), ...rest].join("\n"),
-      };
+
+      const improvement = title.match(/\[IMPROVEMENT(:(\d+))?]/);
+
+      const section = title.includes("[HIGHLIGHT]")
+        ? "highlight"
+        : title.includes("[BREAKING]")
+        ? "breaking"
+        : improvement
+        ? "improvement"
+        : undefined;
+
+      const order =
+        section === "improvement" && improvement[2] !== undefined
+          ? Number(improvement[2])
+          : undefined;
+
+      const content = [processTitle(title), ...rest].join("\n");
+
+      return { fileName, section, order, content };
     });
 }
 
@@ -89,15 +103,19 @@ fs.writeFileSync(
       "<!--truncate-->",
       ...printEntries({
         title: "Highlights",
-        filter: (entry) => entry.highlight,
+        filter: (entry) => entry.section === "highlight",
       }),
       ...printEntries({
-        title: "Breaking changes",
-        filter: (entry) => entry.breaking && !entry.highlight,
+        title: "Breaking Changes",
+        filter: (entry) => entry.section === "breaking",
       }),
       ...printEntries({
-        title: "Other changes",
-        filter: (entry) => !entry.breaking && !entry.highlight,
+        title: "Formatting Improvements",
+        filter: (entry) => entry.section === "improvement",
+      }),
+      ...printEntries({
+        title: "Other Changes",
+        filter: (entry) => !entry.section,
       }),
     ].join("\n\n") + "\n"
   )
@@ -105,7 +123,7 @@ fs.writeFileSync(
 
 function processTitle(title) {
   return title
-    .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
+    .replace(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)]/g, "")
     .replace(/\s+/g, " ")
     .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
     .replace(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
@@ -121,6 +139,12 @@ function printEntries({ title, filter }) {
   for (const { entries = [], title } of categories) {
     const filteredEntries = entries.filter(filter);
     if (filteredEntries.length > 0) {
+      filteredEntries.sort((a, b) => {
+        if (a.order !== undefined) {
+          return b.order === undefined ? 1 : a.order - b.order;
+        }
+        return a.fileName.localeCompare(b.fileName, "en", { numeric: true });
+      });
       result.push(
         "### " + title,
         ...filteredEntries.map((entry) => entry.content)
