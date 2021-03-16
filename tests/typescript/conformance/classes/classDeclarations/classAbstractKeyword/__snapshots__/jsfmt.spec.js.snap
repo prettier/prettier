@@ -9,19 +9,13 @@ printWidth: 80
 
 abstract class A {
    abstract get a();
-   abstract get aa() { return 1; }
    abstract set b(x: string);
-   abstract set bb(x: string) {}
 }
 
 =====================================output=====================================
 abstract class A {
   abstract get a();
-  abstract get aa() {
-    return 1;
-  }
   abstract set b(x: string);
-  abstract set bb(x: string) {}
 }
 
 ================================================================================
@@ -600,34 +594,9 @@ printWidth: 80
 class A {
     abstract foo();
 }
-
-class B {
-    abstract foo() {}
-}
 =====================================output=====================================
 class A {
   abstract foo();
-}
-
-class B {
-  abstract foo() {}
-}
-
-================================================================================
-`;
-
-exports[`classAbstractMethodWithImplementation.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-abstract class A {
-    abstract foo() {}
-}
-=====================================output=====================================
-abstract class A {
-  abstract foo() {}
 }
 
 ================================================================================
