@@ -543,7 +543,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
 function printCommentsSeparately(path, options) {
   const value = path.getValue();
   const hasComments = isNonEmptyArray(value && value.comments);
-  const isCursorNode = Boolean(path.getNode() === options.cursorNode && value);
+  const isCursorNode = Boolean(value && value === options.cursorNode);
 
   if (!hasComments) {
     const maybeCursor = isCursorNode ? cursor : "";
@@ -591,7 +591,7 @@ function printComments(path, doc, options) {
   if (!leading && !trailing) {
     return doc;
   }
-  return [leading || "", doc, trailing || ""];
+  return [leading, doc, trailing];
 }
 
 function ensureAllCommentsPrinted(astComments) {
