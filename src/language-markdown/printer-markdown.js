@@ -696,7 +696,7 @@ function printRoot(path, options, print) {
 
 function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
-  const processor = events.processor || ((childPath) => print());
+  const processor = events.processor || (() => print());
 
   const node = path.getValue();
   const parts = [];

@@ -666,7 +666,7 @@ function printAttributes(path, options, print) {
           options.originalText.slice(locStart(attribute), locEnd(attribute)),
           literalline
         )
-      : print(attributePath);
+      : print();
   }, "attrs");
 
   const forceNotToBreakAttrContent =

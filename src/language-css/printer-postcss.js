@@ -868,7 +868,7 @@ function genericPrint(path, options, print) {
               [",", line],
               path.map((childPath) => {
                 const node = childPath.getValue();
-                const printed = print(childPath);
+                const printed = print();
 
                 // Key/Value pair in open paren already indented
                 if (
