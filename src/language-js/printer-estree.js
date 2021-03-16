@@ -113,7 +113,7 @@ function genericPrint(path, options, print, args) {
   }
 
   const printedDecorators = printDecorators(path, options, print);
-  // Nodes with decorators can't have parentheses
+  // Nodes with decorators can't have parentheses and don't need leading semicolons
   if (printedDecorators) {
     return group([...printedDecorators, printed]);
   }
@@ -121,10 +121,10 @@ function genericPrint(path, options, print, args) {
   const needsParens = pathNeedsParens(path, options);
 
   if (!needsParens) {
-    return printed;
+    return args && args.needsSemi ? [";", printed] : printed;
   }
 
-  const parts = ["(", printed];
+  const parts = [args && args.needsSemi ? ";(" : "(", printed];
 
   if (hasFlowShorthandAnnotationComment(node)) {
     const [comment] = node.trailingComments;
