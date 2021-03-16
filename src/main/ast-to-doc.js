@@ -40,6 +40,10 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   const cache = new Map();
   const path = new AstPath(ast);
   let doc = (function printGenerically(nameOrNames, args) {
+    // if (nameOrNames === path) {
+    //   throw new Error("Do not pass `path`!");
+    // }
+
     // TODO: Remove support for passing `path` in next major version
     if (nameOrNames === path || !nameOrNames) {
       nameOrNames = [];

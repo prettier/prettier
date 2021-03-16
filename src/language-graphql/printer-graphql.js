@@ -542,7 +542,7 @@ function printSequence(sequencePath, options, print) {
   const count = sequencePath.getValue().length;
 
   return sequencePath.map((path, i) => {
-    const printed = print(path);
+    const printed = print();
 
     if (
       isNextLineEmpty(options.originalText, path.getValue(), locEnd) &&

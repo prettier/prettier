@@ -140,7 +140,7 @@ function genericPrint(path, options, print) {
               )
                 ? hardline
                 : "",
-              print(path),
+              print(),
             ],
             "endComments"
           )

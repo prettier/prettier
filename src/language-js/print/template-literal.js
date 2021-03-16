@@ -201,7 +201,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
 function printTemplateExpression(path, print) {
   const node = path.getValue();
-  let printed = print(path);
+  let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
   }
