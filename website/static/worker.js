@@ -41,7 +41,11 @@ function serializeAst(ast) {
   return JSON.stringify(
     ast,
     (_, value) =>
-      typeof value === "bigint" ? `BigInt('${String(value)}')` : value,
+      value instanceof Error
+        ? { name: value.name, message: value.message, ...value }
+        : typeof value === "bigint"
+        ? `BigInt('${String(value)}')`
+        : value,
     2
   );
 }
