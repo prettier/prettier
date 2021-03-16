@@ -285,7 +285,7 @@ function printBinaryishExpressions(
     }
   } else {
     // Our stopping case. Simply print the node normally.
-    parts.push(group(path.call(print)));
+    parts.push(group(print(path)));
   }
 
   return parts;

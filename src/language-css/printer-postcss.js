@@ -311,7 +311,7 @@ function genericPrint(path, options, print) {
         if (node.type === "media-query" && node.value === "") {
           return;
         }
-        parts.push(childPath.call(print));
+        parts.push(print(childPath));
       }, "nodes");
 
       return group(indent(join(line, parts)));
@@ -988,7 +988,7 @@ function printNodeSequence(path, options, print) {
         options.originalText.slice(locStart(childNode), locEnd(childNode))
       );
     } else {
-      parts.push(pathChild.call(print));
+      parts.push(print(pathChild));
     }
 
     if (i !== nodes.length - 1) {

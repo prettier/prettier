@@ -367,3 +367,28 @@ test("no-empty-flat-contents-for-if-break", {
     },
   ],
 });
+
+test("no-unnecessary-ast-path-call", {
+  valid: [
+    "call(foo)",
+    'foo["call"](bar)',
+    "foo.call?.(bar)",
+    "foo?.call(bar)",
+    "foo.call(bar, name)",
+    "foo.notCall(bar)",
+    "foo.call(...bar)",
+    "foo.call()",
+  ],
+  invalid: [
+    {
+      code: "foo.call(bar)",
+      output: "bar(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo.call(() => bar)",
+      output: "foo.call(() => bar)",
+      errors: 1,
+    },
+  ],
+});
