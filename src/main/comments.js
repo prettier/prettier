@@ -586,12 +586,12 @@ function printCommentsSeparately(path, options) {
   return { leading: leadingParts, trailing: trailingParts };
 }
 
-function printComments(path, doc, options, needsSemi) {
+function printComments(path, doc, options) {
   const { leading, trailing } = printCommentsSeparately(path, options);
-  if (!leading && !trailing && !needsSemi) {
+  if (!leading && !trailing) {
     return doc;
   }
-  return [leading || "", needsSemi ? ";" : "", doc, trailing || ""];
+  return [leading || "", doc, trailing || ""];
 }
 
 function ensureAllCommentsPrinted(astComments) {
