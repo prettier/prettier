@@ -20,8 +20,8 @@ exports[` 1`] = `
                              Defaults to false.
     --jsx-single-quote       Use single quotes in JSX.
                              Defaults to false.
--   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
-+   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc|foo-parser>
+-   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
++   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
                              Which parser to use.
     --print-width <int>      The line length where Prettier will try wrap.
                              Defaults to 80.
@@ -32,7 +32,7 @@ exports[` 1`] = `
 exports[`include plugin's parsers to the values of the \`parser\` option\` (stderr) 1`] = `""`;
 
 exports[`include plugin's parsers to the values of the \`parser\` option\` (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc|foo-parser>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
 
   Which parser to use.
 
@@ -56,6 +56,7 @@ Valid options:
   mdx              MDX
   vue              Vue
   yaml             YAML
+  glimmer          Ember / Handlebars
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
