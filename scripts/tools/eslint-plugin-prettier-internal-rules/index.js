@@ -15,6 +15,5 @@ module.exports = {
     "prefer-indent-if-break": require("./prefer-indent-if-break"),
     "prefer-is-non-empty-array": require("./prefer-is-non-empty-array"),
     "require-json-extensions": require("./require-json-extensions"),
-    "simplified-print": require("./simplified-print"),
   },
 };

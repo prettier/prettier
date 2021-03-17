@@ -39,6 +39,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
 
   const cache = new Map();
   const path = new AstPath(ast);
+
   let doc = (function printGenerically(nameOrNames, args) {
     // if (nameOrNames === path) {
     //   throw new Error("Do not pass `path`!");
@@ -81,6 +82,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       if (shouldCache) {
         cache.set(value, doc);
       }
+
       return doc;
     }, ...names);
 
