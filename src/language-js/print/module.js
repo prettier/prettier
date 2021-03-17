@@ -268,10 +268,7 @@ function printImportAssertions(path, options, print) {
     return [
       " assert {",
       options.bracketSpacing ? " " : "",
-      join(
-        ", ",
-        path.map(() => print(), "assertions")
-      ),
+      join(", ", print("assertions")),
       options.bracketSpacing ? " " : "",
       "}",
     ];

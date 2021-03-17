@@ -239,10 +239,7 @@ function printTypescript(path, options, print) {
           : "";
 
       const parametersGroup = group([
-        indent([
-          softline,
-          join([", ", softline], path.map(() => print(), "parameters")),
-        ]),
+        indent([softline, join([", ", softline], print("parameters"))]),
         trailingComma,
         softline,
       ]);

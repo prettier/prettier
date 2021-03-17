@@ -132,15 +132,7 @@ function printList(path, options, print, listName) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(
-      indent([
-        line,
-        join(
-          [",", line],
-          path.map(() => print(), listName)
-        ),
-      ])
-    ),
+    group(indent([line, join([",", line], print(listName))])),
   ];
 }
 

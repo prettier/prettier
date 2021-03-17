@@ -50,7 +50,7 @@ function genericPrint(path, options, print) {
   const parts = [];
 
   if (node.type !== "mappingValue" && hasLeadingComments(node)) {
-    parts.push([join(hardline, path.map(() => print(), "leadingComments")), hardline]);
+    parts.push([join(hardline, print("leadingComments")), hardline]);
   }
 
   const { tag, anchor } = node;
@@ -92,7 +92,7 @@ function genericPrint(path, options, print) {
   if (hasMiddleComments(node)) {
     parts.push([
       node.middleComments.length === 1 ? "" : hardline,
-      join(hardline, path.map(() => print(), "middleComments")),
+      join(hardline, print("middleComments")),
       hardline,
     ]);
   }
@@ -212,10 +212,7 @@ function printNode(node, parentNode, path, options, print) {
       return join(hardline, parts);
     }
     case "documentHead":
-      return join(hardline, [
-        ...path.map(() => print(), "children"),
-        ...path.map(() => print(), "endComments"),
-      ]);
+      return join(hardline, [...print("children"), ...print("endComments")]);
     case "documentBody": {
       const { children, endComments } = node;
       /** @type {Doc} */
@@ -234,9 +231,9 @@ function printNode(node, parentNode, path, options, print) {
       }
 
       return [
-        join(hardline, path.map(() => print(), "children")),
+        join(hardline, print("children")),
         separator,
-        join(hardline, path.map(() => print(), "endComments")),
+        join(hardline, print("endComments")),
       ];
     }
     case "directive":
@@ -326,7 +323,7 @@ function printNode(node, parentNode, path, options, print) {
       return printBlock(path, print, options);
     }
     case "sequence":
-      return join(hardline, path.map(() => print(), "children"));
+      return join(hardline, print("children"));
     case "sequenceItem":
       return ["- ", alignWithSpaces(2, !node.content ? "" : print("content"))];
     case "mappingKey":
@@ -334,7 +331,7 @@ function printNode(node, parentNode, path, options, print) {
     case "mappingValue":
       return !node.content ? "" : print("content");
     case "mapping":
-      return join(hardline, path.map(() => print(), "children"));
+      return join(hardline, print("children"));
     case "mappingItem":
     case "flowMappingItem": {
       return printMappingItem(node, parentNode, path, print, options);

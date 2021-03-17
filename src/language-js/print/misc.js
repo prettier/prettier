@@ -71,13 +71,7 @@ function printTypeScriptModifiers(path, options, print) {
   if (!isNonEmptyArray(node.modifiers)) {
     return "";
   }
-  return [
-    join(
-      " ",
-      path.map(() => print(), "modifiers")
-    ),
-    " ",
-  ];
+  return [join(" ", print("modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {

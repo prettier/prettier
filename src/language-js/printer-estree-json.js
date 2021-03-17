@@ -32,13 +32,7 @@ function genericPrint(path, options, print) {
         ? "{}"
         : [
             "{",
-            indent([
-              hardline,
-              join(
-                [",", hardline],
-                path.map(() => print(), "properties")
-              ),
-            ]),
+            indent([hardline, join([",", hardline], print("properties"))]),
             hardline,
             "}",
           ];

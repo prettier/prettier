@@ -46,7 +46,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     // }
 
     // TODO: Remove support for passing `path` in next major version
-    if (nameOrNames === path || !nameOrNames) {
+    if (nameOrNames === path || typeof nameOrNames === "undefined") {
       nameOrNames = [];
     }
 
@@ -59,6 +59,19 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
 
       if (shouldCache && cache.has(value)) {
         return cache.get(value);
+      }
+
+      if (Array.isArray(value)) {
+        const docs = [];
+        for (let index = 0; index < value.length; index++) {
+          docs.push(printGenerically(index, args));
+        }
+
+        if (shouldCache) {
+          cache.set(value, docs);
+        }
+
+        return docs;
       }
 
       const doc = callPluginPrintFunction(

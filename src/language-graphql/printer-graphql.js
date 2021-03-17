@@ -46,7 +46,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.map(() => print(), "variableDefinitions")
+                  print("variableDefinitions")
                 ),
               ]),
               softline,
@@ -69,7 +69,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.map(() => print(), "variableDefinitions")
+                  print("variableDefinitions")
                 ),
               ]),
               softline,
@@ -164,7 +164,7 @@ function genericPrint(path, options, print) {
         "[",
         indent([
           softline,
-          join([ifBreak("", ", "), softline], path.map(() => print(), "values")),
+          join([ifBreak("", ", "), softline], print("values")),
         ]),
         softline,
         "]",
@@ -176,7 +176,7 @@ function genericPrint(path, options, print) {
         options.bracketSpacing && node.fields.length > 0 ? " " : "",
         indent([
           softline,
-          join([ifBreak("", ", "), softline], path.map(() => print(), "fields")),
+          join([ifBreak("", ", "), softline], print("fields")),
         ]),
         softline,
         ifBreak(
@@ -315,7 +315,7 @@ function genericPrint(path, options, print) {
           : "",
         node.repeatable ? " repeatable" : "",
         " on ",
-        join(" | ", path.map(() => print(), "locations")),
+        join(" | ", print("locations")),
       ];
     }
 
@@ -487,7 +487,7 @@ function genericPrint(path, options, print) {
                 ifBreak("", " "),
                 indent([
                   ifBreak([line, "  "]),
-                  join([line, "| "], path.map(() => print(), "types")),
+                  join([line, "| "], print("types")),
                 ]),
               ]
             : "",
@@ -526,7 +526,7 @@ function printDirectives(path, print, node) {
     return "";
   }
 
-  const printed = join(line, path.map(() => print(), "directives"));
+  const printed = join(line, print("directives"));
 
   if (
     node.kind === "FragmentDefinition" ||
@@ -573,7 +573,7 @@ function printInterfaces(path, options, print) {
   const node = path.getNode();
   const parts = [];
   const { interfaces } = node;
-  const printed = path.map(() => print(), "interfaces");
+  const printed = print("interfaces");
 
   for (let index = 0; index < interfaces.length; index++) {
     const interfaceNode = interfaces[index];

@@ -10,10 +10,7 @@ const { getParentExportDeclaration } = require("../utils");
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
   return group([
-    join(
-      line,
-      path.map(() => print(), "decorators")
-    ),
+    join(line, print("decorators")),
     hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
   ]);
 }
@@ -21,13 +18,7 @@ function printClassMemberDecorators(path, options, print) {
 function printDecoratorsBeforeExport(path, options, print) {
   // Export declarations are responsible for printing any decorators
   // that logically apply to node.declaration.
-  return [
-    join(
-      hardline,
-      path.map(() => print(), "declaration", "decorators")
-    ),
-    hardline,
-  ];
+  return [join(hardline, print("declaration", "decorators")), hardline];
 }
 
 function printDecorators(path, options, print) {
@@ -55,10 +46,7 @@ function printDecorators(path, options, print) {
       : shouldBreak
       ? breakParent
       : "",
-    join(
-      line,
-      path.map(() => print(), "decorators")
-    ),
+    join(line, print("decorators")),
     line,
   ];
 }

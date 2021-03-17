@@ -78,7 +78,7 @@ function printJsxElementInternal(path, options, print) {
     (node.children[0].expression.type === "TemplateLiteral" ||
       node.children[0].expression.type === "TaggedTemplateExpression")
   ) {
-    return [openingLines, ...path.map(() => print(), "children"), closingLines];
+    return [openingLines, ...print("children"), closingLines];
   }
 
   // Convert `{" "}` to text nodes containing a space.
@@ -562,7 +562,7 @@ function printJsxOpeningElement(path, options, print) {
       print("name"),
       print("typeParameters"),
       " ",
-      ...path.map(() => print(), "attributes"),
+      ...print("attributes"),
       node.selfClosing ? " />" : ">",
     ]);
   }
