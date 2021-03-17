@@ -64,7 +64,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       return docs;
     }
 
-    const doc = callPluginPrintFunction(path, options, print, callbackArgs);
+    let doc = callPluginPrintFunction(path, options, print, callbackArgs);
 
     // We let JSXElement print its comments itself because it adds () around
     // UnionTypeAnnotation has to align the child without the comments
@@ -74,7 +74,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     ) {
       // printComments will call the plugin print function and check for
       // comments to print
-      return printComments(path, doc, options);
+      doc = printComments(path, doc, options);
     }
 
     if (shouldCache) {
