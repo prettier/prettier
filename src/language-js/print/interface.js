@@ -47,7 +47,10 @@ function printInterface(path, options, print) {
         : line,
       "extends ",
       (node.extends.length === 1 ? identity : indent)(
-        join([",", line], path.map(print, "extends"))
+        join(
+          [",", line],
+          path.map(() => print(), "extends")
+        )
       )
     );
   }

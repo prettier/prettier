@@ -52,7 +52,7 @@ function print(path, options, print) {
     case "Block":
     case "Program":
     case "Template": {
-      return group(path.map(print, "body"));
+      return group(path.map(() => print(), "body"));
     }
 
     case "ElementNode": {
@@ -191,11 +191,14 @@ function print(path, options, print) {
     }
 
     case "ConcatStatement": {
-      return path.map(print, "parts");
+      return path.map(() => print(), "parts");
     }
 
     case "Hash": {
-      return join(line, path.map(print, "pairs"));
+      return join(
+        line,
+        path.map(() => print(), "pairs")
+      );
     }
     case "HashPair": {
       return [node.key, "=", print("value")];
@@ -441,7 +444,10 @@ function printStartingTag(path, print) {
       line,
       property === "blockParams"
         ? printBlockParams(node)
-        : join(line, path.map(print, property)),
+        : join(
+            line,
+            path.map(() => print(), property)
+          ),
     ]);
 
   return [
@@ -460,7 +466,7 @@ function printChildren(path, options, print) {
   }
 
   return path.map((childPath, childIndex) => {
-    const printedChild = print(childPath, options, print);
+    const printedChild = print();
 
     if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
@@ -776,7 +782,7 @@ function printParams(path, print) {
   const parts = [];
 
   if (node.params.length > 0) {
-    const params = path.map(print, "params");
+    const params = path.map(() => print(), "params");
     parts.push(...params);
   }
 

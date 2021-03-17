@@ -42,7 +42,7 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressions = path.map(print, expressionsKey);
+  let expressions = path.map(() => print(), expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
@@ -124,7 +124,7 @@ function printJestEachTemplateLiteral(path, options, print) {
     headerNames.some((headerName) => headerName.length > 0)
   ) {
     options.__inJestEach = true;
-    const expressions = path.map(print, "expressions");
+    const expressions = path.map(() => print(), "expressions");
     options.__inJestEach = false;
     const parts = [];
     const stringifiedExpressions = expressions.map(

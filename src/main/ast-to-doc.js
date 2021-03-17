@@ -41,8 +41,8 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   const path = new AstPath(ast);
 
   let doc = (function printGenerically(nameOrNames, args) {
-    // if (nameOrNames === path) {
-    //   throw new Error("Do not pass `path`!");
+    // if (process.env.NODE_ENV !== "production" && nameOrNames === path) {
+    //   throw new Error("Do not pass `path` to `print` function!");
     // }
 
     // TODO: Remove support for passing `path` in next major version
@@ -87,7 +87,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     }, ...names);
 
     return doc;
-  })(path);
+  })();
 
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect

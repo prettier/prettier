@@ -388,6 +388,7 @@ test("no-unnecessary-ast-path-call", {
     {
       code: "foo.call(() => bar)",
       output: "foo.call(() => bar)",
+      errors: 1,
     },
   ],
 });

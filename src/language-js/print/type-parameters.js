@@ -42,7 +42,10 @@ function printTypeParameters(path, options, print, paramsKey) {
   if (shouldInline) {
     return [
       "<",
-      join(", ", path.map(print, paramsKey)),
+      join(
+        ", ",
+        path.map(() => print(), paramsKey)
+      ),
       printDanglingCommentsForInline(path, options),
       ">",
     ];
@@ -66,7 +69,13 @@ function printTypeParameters(path, options, print, paramsKey) {
   return group(
     [
       "<",
-      indent([softline, join([",", line], path.map(print, paramsKey))]),
+      indent([
+        softline,
+        join(
+          [",", line],
+          path.map(() => print(), paramsKey)
+        ),
+      ]),
       trailingComma,
       softline,
       ">",
