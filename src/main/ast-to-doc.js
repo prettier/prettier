@@ -40,7 +40,50 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   const cache = new Map();
   const path = new AstPath(ast);
 
-  let doc = (function printGenerically(nameOrNames, args) {
+  function callback(args) {
+    const value = path.getValue();
+
+    const shouldCache =
+      value && typeof value === "object" && args === undefined;
+
+    if (shouldCache && cache.has(value)) {
+      return cache.get(value);
+    }
+
+    if (Array.isArray(value)) {
+      const docs = [];
+      for (let index = 0; index < value.length; index++) {
+        docs.push(print(index, args));
+      }
+
+      if (shouldCache) {
+        cache.set(value, docs);
+      }
+
+      return docs;
+    }
+
+    const doc = callPluginPrintFunction(path, options, print, args);
+
+    // We let JSXElement print its comments itself because it adds () around
+    // UnionTypeAnnotation has to align the child without the comments
+    if (
+      !printer.willPrintOwnComments ||
+      !printer.willPrintOwnComments(path, options)
+    ) {
+      // printComments will call the plugin print function and check for
+      // comments to print
+      return printComments(path, doc, options);
+    }
+
+    if (shouldCache) {
+      cache.set(value, doc);
+    }
+
+    return doc;
+  }
+
+  function print(nameOrNames, args) {
     if (process.env.NODE_ENV !== "production" && nameOrNames === path) {
       throw new Error("Do not pass `path` to `print` function!");
     }
@@ -51,57 +94,12 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     }
 
     const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
-    const doc = path.call(() => {
-      const value = path.getValue();
-
-      const shouldCache =
-        value && typeof value === "object" && args === undefined;
-
-      if (shouldCache && cache.has(value)) {
-        return cache.get(value);
-      }
-
-      if (Array.isArray(value)) {
-        const docs = [];
-        for (let index = 0; index < value.length; index++) {
-          docs.push(printGenerically(index, args));
-        }
-
-        if (shouldCache) {
-          cache.set(value, docs);
-        }
-
-        return docs;
-      }
-
-      const doc = callPluginPrintFunction(
-        path,
-        options,
-        printGenerically,
-        args
-      );
-
-      // We let JSXElement print its comments itself because it adds () around
-      // UnionTypeAnnotation has to align the child without the comments
-      if (
-        !printer.willPrintOwnComments ||
-        !printer.willPrintOwnComments(path, options)
-      ) {
-        // printComments will call the plugin print function and check for
-        // comments to print
-        return printComments(path, doc, options);
-      }
-
-      if (shouldCache) {
-        cache.set(value, doc);
-      }
-
-      return doc;
-    }, ...names);
+    const doc = path.call(() => callback(args), ...names);
 
     return doc;
-  })();
+  }
 
+  let doc = print();
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
     // It should be removed in index.js format()
