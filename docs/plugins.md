@@ -176,21 +176,28 @@ function print(
   path: AstPath,
   options: object,
   // Recursively print a child node
-  print: (path: AstPath) => Doc
+  printGenerically: (
+    nameOrNames: string | number | Array<string | number> | undefined
+  ) => Doc
 ): Doc;
 ```
 
-The `print` function is passed a `path` object, which can be used to access nodes in the AST via `path.getValue()`. It is also passed a persistent `options` object (which contains global options and which a plugin may mutate), and a `print` function used for making recursive calls. A basic `print` function might be as follows:
+The `print` function is passed a `path` object, which can be used to access nodes in the AST via `path.getValue()`. It is also passed a persistent `options` object (which contains global options and which a plugin may mutate), and a `printGenerically` function used for making recursive calls. A basic `print` function might be as follows:
 
 ```js
-const { builders } = require("prettier").doc;
+const { join } = require("prettier").doc.builders;
 
 function print(path, options, print) {
   const node = path.getValue();
 
-  if (Array.isArray(node)) {
-    return builders.concat(path.map(print));
+  if (node.type === "ArrayExpression") {
+    return ["[", join(", ", print("elements")), "]"];
   }
+
+  if (node.type === "ExpressionStatement") {
+    return [print("expression"), ";"];
+  }
+
   return node.value;
 }
 ```
@@ -206,7 +213,9 @@ function embed(
   // Path to the current AST node
   path: AstPath,
   // Print a node with the current printer
-  print: (path: AstPath) => Doc,
+  printGenerically: (
+    nameOrNames: string | number | Array<string | number> | undefined
+  ) => Doc,
   // Parse and print some text using a different parser.
   // You should set `options.parser` to specify which parser to use.
   textToDoc: (text: string, options: object) => Doc,
