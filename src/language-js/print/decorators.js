@@ -18,7 +18,7 @@ function printClassMemberDecorators(path, options, print) {
 function printDecoratorsBeforeExport(path, options, print) {
   // Export declarations are responsible for printing any decorators
   // that logically apply to node.declaration.
-  return [join(hardline, print("declaration", "decorators")), hardline];
+  return [join(hardline, print(["declaration", "decorators"])), hardline];
 }
 
 function printDecorators(path, options, print) {

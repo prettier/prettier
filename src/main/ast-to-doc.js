@@ -41,9 +41,9 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   const path = new AstPath(ast);
 
   let doc = (function printGenerically(nameOrNames, args) {
-    // if (process.env.NODE_ENV !== "production" && nameOrNames === path) {
-    //   throw new Error("Do not pass `path` to `print` function!");
-    // }
+    if (process.env.NODE_ENV !== "production" && nameOrNames === path) {
+      throw new Error("Do not pass `path` to `print` function!");
+    }
 
     // TODO: Remove support for passing `path` in next major version
     if (nameOrNames === path || typeof nameOrNames === "undefined") {
