@@ -59,9 +59,10 @@ function printMappingItem(node, parentNode, path, print, options) {
       hardline,
       join(
         "",
-        path
-          .map(print, "value", "leadingComments")
-          .map((comment) => [comment, hardline])
+        print(["value", "leadingComments"]).map((comment) => [
+          comment,
+          hardline,
+        ])
       ),
       ": ",
       alignWithSpaces(2, printedValue),
