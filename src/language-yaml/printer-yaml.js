@@ -163,7 +163,7 @@ function printNode(node, parentNode, path, options, print) {
         if (index !== 0) {
           parts.push(hardline);
         }
-        parts.push(print(childPath));
+        parts.push(print());
         if (shouldPrintDocumentEndMarker(document, nextDocument)) {
           parts.push(hardline, "...");
           if (hasTrailingComment(document)) {

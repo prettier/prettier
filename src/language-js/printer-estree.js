@@ -397,9 +397,9 @@ function printPathNoParens(path, options, print, args) {
         const parts = [];
         path.each((expressionPath, index) => {
           if (index === 0) {
-            parts.push(print(expressionPath));
+            parts.push(print());
           } else {
-            parts.push(",", indent([line, print(expressionPath)]));
+            parts.push(",", indent([line, print()]));
           }
         }, "expressions");
         return group(parts);
@@ -441,7 +441,7 @@ function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernary(path, options, print);
     case "VariableDeclaration": {
-      const printed = path.map((childPath) => print(childPath), "declarations");
+      const printed = path.map(() => print(), "declarations");
 
       // We generally want to terminate all variable declarations with a
       // semicolon, except when they in the () part of for loops.

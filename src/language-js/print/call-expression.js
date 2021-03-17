@@ -41,8 +41,8 @@ function printCallExpression(path, options, print) {
       (!isNew && isTestCall(node, parentNode)))
   ) {
     const printed = [];
-    iterateCallArgumentsPath(path, (argPath) => {
-      printed.push(print(argPath));
+    iterateCallArgumentsPath(path, () => {
+      printed.push(print());
     });
     return [
       isNew ? "new " : "",

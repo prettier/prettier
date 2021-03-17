@@ -26,9 +26,7 @@ function printAngular(path, options, print) {
           [";", line],
           path.map(
             (childPath) =>
-              hasNgSideEffect(childPath)
-                ? print(childPath)
-                : ["(", print(childPath), ")"],
+              hasNgSideEffect(childPath) ? print() : ["(", print(), ")"],
             "expressions"
           )
         )
@@ -45,7 +43,7 @@ function printAngular(path, options, print) {
             : isNgForOf(childPath.getValue(), index, node)
             ? " "
             : [";", line],
-          print(childPath),
+          print(),
         ],
         "body"
       );

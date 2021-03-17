@@ -60,7 +60,7 @@ function printTemplateLiteral(path, print, options) {
   path.each((childPath) => {
     const i = childPath.getName();
 
-    parts.push(print(childPath));
+    parts.push(print());
 
     if (i < expressions.length) {
       // For a template literal of the following form:

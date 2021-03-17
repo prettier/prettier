@@ -357,7 +357,7 @@ function printJsxChildren(
         parts.push("", jsxWhitespace);
       }
     } else {
-      const printedChild = print(childPath);
+      const printedChild = print();
       parts.push(printedChild);
 
       const next = children[i + 1];
@@ -602,8 +602,7 @@ function printJsxOpeningElement(path, options, print) {
       "<",
       print("name"),
       print("typeParameters"),
-
-      indent(path.map((attr) => [line, print(attr)], "attributes")),
+      indent(path.map(() => [line, print()], "attributes")),
       node.selfClosing ? line : bracketSameLine ? ">" : softline,
       node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],
@@ -681,7 +680,7 @@ function printJsxSpreadAttribute(path, options, print) {
     "{",
     path.call(
       (p) => {
-        const printed = ["...", print(p)];
+        const printed = ["...", print()];
         const node = p.getValue();
         if (!hasComment(node) || !willPrintOwnComments(p)) {
           return printed;

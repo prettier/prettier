@@ -546,7 +546,7 @@ function printChildren(path, options, print) {
       ];
     }
 
-    return print(childPath);
+    return print();
   }
 
   function printBetweenLine(prevNode, nextNode) {

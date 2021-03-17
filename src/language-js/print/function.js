@@ -256,7 +256,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const body = [];
   let chainShouldBreak = false;
 
-  (function rec(path) {
+  (function rec() {
     const doc = printArrowFunctionSignature(path, options, print, args);
     if (signatures.length === 0) {
       signatures.push(doc);
@@ -277,12 +277,12 @@ function printArrowFunctionExpression(path, options, print, args) {
       node.body.type !== "ArrowFunctionExpression" ||
       (args && args.expandLastArg)
     ) {
-      body.unshift(path.call((bodyPath) => print(bodyPath, args), "body"));
+      body.unshift(print("body", args));
     } else {
       node = node.body;
       path.call(rec, "body");
     }
-  })(path);
+  })();
 
   if (signatures.length > 1) {
     return printArrowChain(

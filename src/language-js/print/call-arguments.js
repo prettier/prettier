@@ -70,8 +70,8 @@ function printCallArguments(path, options, print) {
     }
 
     let shouldBreak = false;
-    iterateFunctionParametersPath(argPath, (parameterPath) => {
-      shouldBreak = shouldBreak || willBreak(print(parameterPath));
+    iterateFunctionParametersPath(argPath, () => {
+      shouldBreak = shouldBreak || willBreak(print());
     });
 
     return shouldBreak;
@@ -84,7 +84,7 @@ function printCallArguments(path, options, print) {
   const printedArguments = [];
   iterateCallArgumentsPath(path, (argPath, index) => {
     const arg = argPath.getNode();
-    const parts = [print(argPath)];
+    const parts = [print()];
 
     if (index === lastArgIndex) {
       // do nothing
@@ -144,7 +144,7 @@ function printCallArguments(path, options, print) {
       if (shouldGroupFirst && i === 0) {
         printedExpanded = [
           [
-            print(argPath, { expandFirstArg: true }),
+            print([], { expandFirstArg: true }),
             printedArguments.length > 1 ? "," : "",
             hasEmptyLineFollowingFirstArg ? hardline : line,
             hasEmptyLineFollowingFirstArg ? hardline : "",
@@ -155,7 +155,7 @@ function printCallArguments(path, options, print) {
       if (shouldGroupLast && i === args.length - 1) {
         printedExpanded = [
           ...printedArguments.slice(0, -1),
-          print(argPath, { expandLastArg: true }),
+          print([], { expandLastArg: true }),
         ];
       }
     });
