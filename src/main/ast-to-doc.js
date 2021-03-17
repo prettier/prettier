@@ -50,31 +50,16 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     }
 
     const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
-    let value = path.getValue();
-    for (const name of names) {
-      value = value ? value[name] : undefined;
-    }
-
-    const shouldCache =
-      value && typeof value === "object" && args === undefined;
-
-    if (shouldCache && cache.has(value)) {
-      return cache.get(value);
-    }
-
-    // if (Array.isArray(value)) {
-    //   const docs = path.map(
-    //     () => callPluginPrintFunction(path, options, printGenerically, args),
-    //     ...names
-    //   );
-
-    //   if (shouldCache) {
-    //     cache.set(value, docs);
-    //   }
-    //   return docs;
-    // }
-
     const doc = path.call(() => {
+      const value = path.getValue();
+
+      const shouldCache =
+        value && typeof value === "object" && args === undefined;
+
+      if (shouldCache && cache.has(value)) {
+        return cache.get(value);
+      }
+
       const doc = callPluginPrintFunction(
         path,
         options,
@@ -93,12 +78,11 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
         return printComments(path, doc, options);
       }
 
+      if (shouldCache) {
+        cache.set(value, doc);
+      }
       return doc;
     }, ...names);
-
-    if (shouldCache) {
-      cache.set(value, doc);
-    }
 
     return doc;
   })(path);
