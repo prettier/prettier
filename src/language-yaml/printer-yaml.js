@@ -153,7 +153,7 @@ function printNode(node, parentNode, path, options, print) {
     case "root": {
       const { children } = node;
       const parts = [];
-      path.eachValue((value, index) => {
+      path.eachValue((child, index) => {
         const document = children[index];
         const nextDocument = children[index + 1];
         if (index !== 0) {

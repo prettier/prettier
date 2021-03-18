@@ -37,12 +37,8 @@ function printAngular(path, options, print) {
       return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
       return path.mapValue(
-        (value, index) => [
-          index === 0
-            ? ""
-            : isNgForOf(path.getValue(), index, node)
-            ? " "
-            : [";", line],
+        (child, index) => [
+          index === 0 ? "" : isNgForOf(child, index, node) ? " " : [";", line],
           print(path),
         ],
         "body"

@@ -1003,7 +1003,7 @@ function printNodeSequence(path, options, print) {
       } else {
         parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
-          isNextLineEmpty(options.originalText, path.getValue(), locEnd) &&
+          isNextLineEmpty(options.originalText, childNode, locEnd) &&
           !isFrontMatterNode(nodes[i])
         ) {
           parts.push(hardline);

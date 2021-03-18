@@ -20,11 +20,11 @@ function genericPrint(path, options, print) {
   switch (node.kind) {
     case "Document": {
       const parts = [];
-      path.eachValue((value, index, definitions) => {
+      path.eachValue((node, index, definitions) => {
         parts.push(print(path));
         if (index !== definitions.length - 1) {
           parts.push(hardline);
-          if (isNextLineEmpty(options.originalText, path.getValue(), locEnd)) {
+          if (isNextLineEmpty(options.originalText, node, locEnd)) {
             parts.push(hardline);
           }
         }

@@ -57,9 +57,7 @@ function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
-  path.eachValue((quasi) => {
-    const i = path.getName();
-
+  path.eachValue((quasi, i) => {
     parts.push(print(path));
 
     if (i < expressions.length) {
