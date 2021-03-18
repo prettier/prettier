@@ -395,7 +395,7 @@ function printPathNoParens(path, options, print, args) {
         // the few places a SequenceExpression appears unparenthesized, we want
         // to indent expressions after the first.
         const parts = [];
-        path.eachValue((value, index) => {
+        path.eachValue((expression, index) => {
           if (index === 0) {
             parts.push(print(path));
           } else {

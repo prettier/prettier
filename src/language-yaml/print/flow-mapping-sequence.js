@@ -42,7 +42,7 @@ function printFlowMapping(path, print, options) {
 function printChildren(path, print, options) {
   const node = path.getValue();
   const parts = path.mapValue(
-    (value, index) => [
+    (child, index) => [
       print(path),
       index === node.children.length - 1
         ? ""
