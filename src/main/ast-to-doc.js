@@ -37,7 +37,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     ast = printer.preprocess(ast, options);
   }
 
-  const cache = new Map();
+  const cache = new WeakMap();
 
   function printGenerically(path, args) {
     const node = path.getValue();
