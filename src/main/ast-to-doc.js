@@ -71,7 +71,10 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   }
 
   function print(nameOrNamesOrPath, args) {
-    if (nameOrNamesOrPath === path || typeof nameOrNames === "undefined") {
+    if (
+      nameOrNamesOrPath === path ||
+      typeof nameOrNamesOrPath === "undefined"
+    ) {
       nameOrNamesOrPath = [];
     }
 
