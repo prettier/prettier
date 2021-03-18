@@ -347,7 +347,7 @@ function genericPrint(path, options, print) {
     case "interpolation":
       return [
         printOpeningTagStart(node, options),
-        ...print("children"),
+        ...path.map(print, "children"),
         printClosingTagEnd(node, options),
       ];
     case "text": {

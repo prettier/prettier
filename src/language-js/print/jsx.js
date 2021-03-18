@@ -562,7 +562,7 @@ function printJsxOpeningElement(path, options, print) {
       print("name"),
       print("typeParameters"),
       " ",
-      ...print("attributes"),
+      ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
     ]);
   }

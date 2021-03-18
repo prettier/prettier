@@ -315,7 +315,7 @@ function genericPrint(path, options, print) {
           : "",
         node.repeatable ? " repeatable" : "",
         " on ",
-        join(" | ", print("locations")),
+        join(" | ", path.map(print, "locations")),
       ];
     }
 
@@ -487,7 +487,7 @@ function genericPrint(path, options, print) {
                 ifBreak("", " "),
                 indent([
                   ifBreak([line, "  "]),
-                  join([line, "| "], print("types")),
+                  join([line, "| "], path.map(print, "types")),
                 ]),
               ]
             : "",
@@ -526,7 +526,7 @@ function printDirectives(path, print, node) {
     return "";
   }
 
-  const printed = join(line, print("directives"));
+  const printed = join(line, path.map(print, "directives"));
 
   if (
     node.kind === "FragmentDefinition" ||
@@ -573,7 +573,7 @@ function printInterfaces(path, options, print) {
   const node = path.getNode();
   const parts = [];
   const { interfaces } = node;
-  const printed = print("interfaces");
+  const printed = path.map((node) => print(node), "interfaces");
 
   for (let index = 0; index < interfaces.length; index++) {
     const interfaceNode = interfaces[index];

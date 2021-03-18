@@ -52,7 +52,7 @@ function print(path, options, print) {
     case "Block":
     case "Program":
     case "Template": {
-      return group(print("body"));
+      return group(path.map(print, "body"));
     }
 
     case "ElementNode": {
@@ -191,11 +191,11 @@ function print(path, options, print) {
     }
 
     case "ConcatStatement": {
-      return print("parts");
+      return path.map(print, "parts");
     }
 
     case "Hash": {
-      return join(line, print("pairs"));
+      return join(line, path.map(print, "pairs"));
     }
     case "HashPair": {
       return [node.key, "=", print("value")];
@@ -441,7 +441,7 @@ function printStartingTag(path, print) {
       line,
       property === "blockParams"
         ? printBlockParams(node)
-        : join(line, print(property)),
+        : join(line, path.map(print, property)),
     ]);
 
   return [

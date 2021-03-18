@@ -18,7 +18,10 @@ function printHtmlBinding(path, options, print) {
   if (options.__isVueForBindingLeft) {
     return path.call(
       (functionDeclarationPath) => {
-        const printed = join([",", line], print("params"));
+        const printed = join(
+          [",", line],
+          functionDeclarationPath.map(print, "params")
+        );
 
         const { params } = functionDeclarationPath.getValue();
         if (params.length === 1) {
@@ -35,7 +38,8 @@ function printHtmlBinding(path, options, print) {
 
   if (options.__isVueBindings) {
     return path.call(
-      () => join([",", line], print("params")),
+      (functionDeclarationPath) =>
+        join([",", line], functionDeclarationPath.map(print, "params")),
       "program",
       "body",
       0
