@@ -39,13 +39,12 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
 
   const cache = new Map();
   const path = new AstPath(ast);
-  let callbackArgs;
 
-  function callback() {
+  function printPath(args) {
     const value = path.getValue();
 
     const shouldCache =
-      value && typeof value === "object" && callbackArgs === undefined;
+      value && typeof value === "object" && args === undefined;
 
     if (shouldCache && cache.has(value)) {
       return cache.get(value);
@@ -54,7 +53,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     if (Array.isArray(value)) {
       const docs = [];
       for (let index = 0; index < value.length; index++) {
-        docs.push(print(index, callbackArgs));
+        docs.push(print(index, args));
       }
 
       if (shouldCache) {
@@ -64,7 +63,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       return docs;
     }
 
-    let doc = callPluginPrintFunction(path, options, print, callbackArgs);
+    let doc = callPluginPrintFunction(path, options, print, args);
 
     // We let JSXElement print its comments itself because it adds () around
     // UnionTypeAnnotation has to align the child without the comments
@@ -94,12 +93,8 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       nameOrNames = [];
     }
 
-    // Assign this to outer scope variable, so we can make use
-    // `path.call(callback, ...names)` instead of `path.call(() => callback(args), ...names)`
-    // to avoid creating an new arrow function
-    callbackArgs = args;
     const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
-    const doc = names.length === 0 ? callback() : path.call(callback, ...names);
+    const doc = path.call(() => printPath(args), ...names);
 
     return doc;
   }
