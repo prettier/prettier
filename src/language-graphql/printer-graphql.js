@@ -46,7 +46,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  print("variableDefinitions")
+                  path.map(print, "variableDefinitions")
                 ),
               ]),
               softline,
@@ -69,7 +69,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  print("variableDefinitions")
+                  path.map(print, "variableDefinitions")
                 ),
               ]),
               softline,
@@ -164,7 +164,7 @@ function genericPrint(path, options, print) {
         "[",
         indent([
           softline,
-          join([ifBreak("", ", "), softline], print("values")),
+          join([ifBreak("", ", "), softline], path.map(print, "values")),
         ]),
         softline,
         "]",
@@ -176,7 +176,7 @@ function genericPrint(path, options, print) {
         options.bracketSpacing && node.fields.length > 0 ? " " : "",
         indent([
           softline,
-          join([ifBreak("", ", "), softline], print("fields")),
+          join([ifBreak("", ", "), softline], path.map(print, "fields")),
         ]),
         softline,
         ifBreak(

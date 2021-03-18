@@ -317,7 +317,10 @@ function genericPrint(path, options, print) {
       return group(indent(join(line, parts)));
     }
     case "media-query": {
-      return [join(" ", print("nodes")), isLastNode(path, node) ? "" : ","];
+      return [
+        join(" ", path.map(print, "nodes")),
+        isLastNode(path, node) ? "" : ",",
+      ];
     }
     case "media-type": {
       return adjustNumbers(adjustStrings(node.value, options));
@@ -326,7 +329,7 @@ function genericPrint(path, options, print) {
       if (!node.nodes) {
         return node.value;
       }
-      return ["(", ...print("nodes"), ")"];
+      return ["(", ...path.map(print, "nodes"), ")"];
     }
     case "media-feature": {
       return maybeToLowerCase(
@@ -364,12 +367,12 @@ function genericPrint(path, options, print) {
               ? line
               : hardline,
           ],
-          print("nodes")
+          path.map(print, "nodes")
         ),
       ]);
     }
     case "selector-selector": {
-      return group(indent(print("nodes")));
+      return group(indent(path.map(print, "nodes")));
     }
     case "selector-comment": {
       return node.value;
@@ -454,7 +457,7 @@ function genericPrint(path, options, print) {
       return [
         maybeToLowerCase(node.value),
         isNonEmptyArray(node.nodes)
-          ? ["(", join(", ", print("nodes")), ")"]
+          ? ["(", join(", ", path.map(print, "nodes")), ")"]
           : "",
       ];
     }
@@ -522,7 +525,7 @@ function genericPrint(path, options, print) {
         isInlineValueCommentNode(node)
       );
 
-      const printed = print("groups");
+      const printed = path.map(print, "groups");
       const parts = [];
       const insideURLFunction = insideValueFunctionNode(path, "url");
 
@@ -831,13 +834,13 @@ function genericPrint(path, options, print) {
       ) {
         return [
           node.open ? print("open") : "",
-          join(",", print("groups")),
+          join(",", path.map(print, "groups")),
           node.close ? print("close") : "",
         ];
       }
 
       if (!node.open) {
-        const printed = print("groups");
+        const printed = path.map(print, "groups");
         const res = [];
 
         for (let i = 0; i < printed.length; i++) {

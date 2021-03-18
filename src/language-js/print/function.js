@@ -280,7 +280,7 @@ function printArrowFunctionExpression(path, options, print, args) {
       body.unshift(print("body", args));
     } else {
       node = node.body;
-      path.call(() => rec(), "body");
+      path.call(rec, "body");
     }
   })();
 

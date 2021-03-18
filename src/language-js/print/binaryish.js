@@ -236,7 +236,7 @@ function printBinaryishExpressions(
               ": ",
               join(
                 [softline, ":", ifBreak(" ")],
-                print("arguments").map((arg) => align(2, group(arg)))
+                path.map(print, "arguments").map((arg) => align(2, group(arg)))
               ),
             ])
           )

@@ -31,7 +31,7 @@ function printFlowMapping(path, print, options) {
       printChildren(path, print, options),
       options.trailingComma === "none" ? "" : ifBreak(","),
       hasEndComments(node)
-        ? [hardline, join(hardline, print("endComments"))]
+        ? [hardline, join(hardline, path.map(print, "endComments"))]
         : "",
     ]),
     isLastItemEmptyMappingItem ? "" : bracketSpacing,

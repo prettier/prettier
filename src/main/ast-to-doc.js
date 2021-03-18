@@ -50,19 +50,6 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       return cache.get(value);
     }
 
-    if (Array.isArray(value)) {
-      const docs = [];
-      for (let index = 0; index < value.length; index++) {
-        docs.push(print(index, args));
-      }
-
-      if (shouldCache) {
-        cache.set(value, docs);
-      }
-
-      return docs;
-    }
-
     let doc = callPluginPrintFunction(path, options, print, args);
 
     // We let JSXElement print its comments itself because it adds () around
@@ -83,17 +70,14 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     return doc;
   }
 
-  function print(nameOrNames, args) {
-    if (process.env.NODE_ENV !== "production" && nameOrNames === path) {
-      throw new Error("Do not pass `path` to `print` function!");
+  function print(nameOrNamesOrPath, args) {
+    if (nameOrNamesOrPath === path || typeof nameOrNames === "undefined") {
+      nameOrNamesOrPath = [];
     }
 
-    // TODO: Remove support for passing `path` in next major version
-    if (nameOrNames === path || typeof nameOrNames === "undefined") {
-      nameOrNames = [];
-    }
-
-    const names = Array.isArray(nameOrNames) ? nameOrNames : [nameOrNames];
+    const names = Array.isArray(nameOrNamesOrPath)
+      ? nameOrNamesOrPath
+      : [nameOrNamesOrPath];
     const doc = path.call(() => printPath(args), ...names);
 
     return doc;

@@ -90,7 +90,7 @@ function printTypeAlias(path, options, print) {
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
   const node = path.getValue();
-  const types = print("types");
+  const types = path.map(print, "types");
   const result = [];
   let wasIndented = false;
   for (let i = 0; i < types.length; ++i) {
