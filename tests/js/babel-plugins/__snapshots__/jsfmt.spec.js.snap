@@ -1078,6 +1078,55 @@ let m = module {
 ================================================================================
 `;
 
+exports[`module-blocks-range.js [espree] format 1`] = `
+"Unexpected token { (1:26)
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                          ^
+  2 | };
+  3 |
+  4 | foo(module { export let foo = \\"foo\\"; })"
+`;
+
+exports[`module-blocks-range.js [meriyah] format 1`] = `
+"[1:26]: Unexpected token: '{' (1:26)
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                          ^
+  2 | };
+  3 |
+  4 | foo(module { export let foo = \\"foo\\"; })"
+`;
+
+exports[`module-blocks-range.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+rangeEnd: 52
+rangeStart: 28
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                             ^^^^^^^^^^^^^^^^^
+> 2 | };
+    | ^^
+> 3 |
+    | ^^
+> 4 | foo(module { export let foo = "foo"; })
+    | ^^
+  5 |
+=====================================output=====================================
+let moduleBlock = module {
+  export let y = 1;
+};
+
+foo(
+  module {
+    export let foo = "foo";
+  }
+);
+
+================================================================================
+`;
+
 exports[`module-string-names.js [espree] format 1`] = `
 "Unexpected token \\"😄\\" (1:10)
 > 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";
