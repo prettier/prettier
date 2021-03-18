@@ -776,7 +776,7 @@ function printParams(path, print) {
   const parts = [];
 
   if (node.params.length > 0) {
-    const params = print("params");
+    const params = path.map(print, "params");
     parts.push(...params);
   }
 
