@@ -118,7 +118,7 @@ function printPrettierIgnoredNode(node, options) {
   return originalText.slice(start, end);
 }
 
-function callPluginPrintFunction(path, options, printGenerically, args) {
+function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof AstPath);
 
   const node = path.getValue();
@@ -134,7 +134,7 @@ function callPluginPrintFunction(path, options, printGenerically, args) {
       // Potentially switch to a different parser
       const sub = multiparser.printSubtree(
         path,
-        printGenerically,
+        printPath,
         options,
         printAstToDoc
       );
@@ -150,7 +150,7 @@ function callPluginPrintFunction(path, options, printGenerically, args) {
     }
   }
 
-  return printer.print(path, options, printGenerically, args);
+  return printer.print(path, options, printPath, args);
 }
 
 module.exports = printAstToDoc;

@@ -177,7 +177,12 @@ function print(
   options: object,
   // Recursively print a child node
   print: (
-    nameOrNames: string | number | Array<string | number> | AstPath | undefined
+    nameOrNamesOrPath:
+      | string
+      | number
+      | Array<string | number>
+      | AstPath
+      | undefined
   ) => Doc
 ): Doc;
 ```
@@ -190,8 +195,8 @@ const { join } = require("prettier").doc.builders;
 function print(path, options, print) {
   const node = path.getValue();
 
-  if (node.type === "ExpressionStatement") {
-    return [print("expression"), ";"];
+  if (Array.isArray(node)) {
+    return join(", ", path.map(print));
   }
 
   return node.value;
@@ -210,7 +215,12 @@ function embed(
   path: AstPath,
   // Print a node with the current printer
   print: (
-    nameOrNames: string | number | Array<string | number> | AstPath | undefined
+    nameOrNamesOrPath:
+      | string
+      | number
+      | Array<string | number>
+      | AstPath
+      | undefined
   ) => Doc,
   // Parse and print some text using a different parser.
   // You should set `options.parser` to specify which parser to use.
