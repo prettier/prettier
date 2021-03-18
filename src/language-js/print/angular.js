@@ -6,7 +6,7 @@ const {
 const { hasNode, hasComment, getComments } = require("../utils");
 const { printBinaryishExpression } = require("./binaryish");
 
-/** @typedef {import("../../common/ast-path")} AstPath */
+/** @typedef {import("../types/estree").Node} Node */
 
 function printAngular(path, options, print) {
   const node = path.getValue();
@@ -94,7 +94,7 @@ function isNgForOf(node, index, parentNode) {
 
 /** identify if an angular expression seems to have side effects */
 /**
- * @param {AstPath} path
+ * @param {Node} node
  * @returns {boolean}
  */
 function hasNgSideEffect(node) {
