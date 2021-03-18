@@ -110,6 +110,14 @@ class AstPath {
     return result;
   }
 
+  // Similar to AstPath.prototype.each, except that first argument of the
+  // callback function is value of the array
+  eachValue(callback, ...names) {
+    this.each((path, index, array) => {
+      callback(path.getValue(), index, array);
+    }, ...names);
+  }
+
   // Similar to AstPath.prototype.map, except that first argument of the
   // callback function is value of the array
   mapValue(callback, ...names) {
