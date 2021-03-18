@@ -110,6 +110,16 @@ class AstPath {
     return result;
   }
 
+  // Similar to AstPath.prototype.map, except that first argument of the
+  // callback function is value of the array
+  mapValue(callback, ...names) {
+    const result = [];
+    this.each((path, index, array) => {
+      result[index] = callback(path.getValue(), index, array);
+    }, ...names);
+    return result;
+  }
+
   /**
    * @param {...(
    *   | ((node: any, name: string | null, number: number | null) => boolean)
