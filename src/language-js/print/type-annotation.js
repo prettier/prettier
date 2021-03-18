@@ -168,7 +168,7 @@ function printUnionType(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.mapValue((value) => {
+  const printed = path.mapValue(() => {
     let printedType = print(path);
     if (!shouldHug) {
       printedType = align(2, printedType);

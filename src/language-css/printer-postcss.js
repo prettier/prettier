@@ -867,7 +867,6 @@ function genericPrint(path, options, print) {
             join(
               [",", line],
               path.mapValue((node) => {
-                
                 const printed = print(path);
 
                 // Key/Value pair in open paren already indented

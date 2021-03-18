@@ -210,7 +210,7 @@ function printTemplateExpression(path, print) {
 
 function printTemplateExpressions(path, print) {
   return path.mapValue(
-    (value) => printTemplateExpression(path, print),
+    () => printTemplateExpression(path, print),
     "expressions"
   );
 }

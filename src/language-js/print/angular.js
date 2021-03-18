@@ -25,10 +25,8 @@ function printAngular(path, options, print) {
         join(
           [";", line],
           path.mapValue(
-            (value) =>
-              hasNgSideEffect(path)
-                ? print(path)
-                : ["(", print(path), ")"],
+            (node) =>
+              hasNgSideEffect(node) ? print(path) : ["(", print(path), ")"],
             "expressions"
           )
         )
@@ -103,8 +101,8 @@ function isNgForOf(node, index, parentNode) {
  * @param {AstPath} path
  * @returns {boolean}
  */
-function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), (node) => {
+function hasNgSideEffect(node) {
+  return hasNode(node, (node) => {
     switch (node.type) {
       case undefined:
         return false;

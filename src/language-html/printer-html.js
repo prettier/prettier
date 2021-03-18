@@ -432,7 +432,6 @@ function printChildren(path, options, print) {
       breakParent,
 
       ...path.mapValue((childNode) => {
-        
         const prevBetweenLine = !childNode.prev
           ? ""
           : printBetweenLine(childNode.prev, childNode);
@@ -451,8 +450,6 @@ function printChildren(path, options, print) {
 
   const groupIds = node.children.map(() => Symbol(""));
   return path.mapValue((childNode, childIndex) => {
-    
-
     if (isTextLikeNode(childNode)) {
       if (childNode.prev && isTextLikeNode(childNode.prev)) {
         const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
@@ -659,12 +656,16 @@ function printAttributes(path, options, print) {
       ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
       : () => false;
 
-  const printedAttributes = path.mapValue((attribute) => hasPrettierIgnoreAttribute(attribute)
-      ? replaceEndOfLineWith(
-          options.originalText.slice(locStart(attribute), locEnd(attribute)),
-          literalline
-        )
-      : print(path), "attrs");
+  const printedAttributes = path.mapValue(
+    (attribute) =>
+      hasPrettierIgnoreAttribute(attribute)
+        ? replaceEndOfLineWith(
+            options.originalText.slice(locStart(attribute), locEnd(attribute)),
+            literalline
+          )
+        : print(path),
+    "attrs"
+  );
 
   const forceNotToBreakAttrContent =
     node.type === "element" &&
