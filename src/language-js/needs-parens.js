@@ -863,7 +863,7 @@ function isFollowedByRightBracket(path) {
       if (name === "value") {
         const parentParent = path.getParentNode(1);
         return (
-          parentParent.properties[parentParent.properties.length - 1] === parent
+          getLast(parentParent.properties) === parent
         );
       }
       break;

@@ -311,7 +311,7 @@ function printMemberChain(path, options, print) {
     // accordingly
     if (
       printedGroup.length > 0 &&
-      printedGroup[printedGroup.length - 1].needsParens
+      getLast(printedGroup).needsParens
     ) {
       return ["(", ...printed, ")"];
     }

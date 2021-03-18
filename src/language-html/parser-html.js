@@ -314,7 +314,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     );
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
-      subAst.children[subAst.children.length - 1].sourceSpan.end
+      getLast(subAst.children).sourceSpan.end
     );
     const firstText = subAst.children[0];
     if (firstText.length === offset) {

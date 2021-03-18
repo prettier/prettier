@@ -89,7 +89,7 @@ function printClassNames(value) {
     ) {
       groupedByPrefix.push([]);
     }
-    groupedByPrefix[groupedByPrefix.length - 1].push(classNames[i]);
+    getLast(groupedByPrefix).push(classNames[i]);
     previousPrefix = prefix;
   }
 

@@ -141,7 +141,7 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
 
           if (
             newChildren.length === 0 ||
-            newChildren[newChildren.length - 1].type !== "text"
+            getLast(newChildren).type !== "text"
           ) {
             newChildren.push(newChild);
             continue;

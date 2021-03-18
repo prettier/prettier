@@ -140,7 +140,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
     for (let i = 1; i < node.quasis.length; i++) {
-      const row = tableBody[tableBody.length - 1];
+      const row = getLast(tableBody);
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);

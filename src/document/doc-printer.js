@@ -130,15 +130,15 @@ function trim(out) {
   // Trim whitespace at the end of line
   while (
     out.length > 0 &&
-    typeof out[out.length - 1] === "string" &&
-    /^[\t ]*$/.test(out[out.length - 1])
+    typeof getLast(out) === "string" &&
+    /^[\t ]*$/.test(getLast(out))
   ) {
     trimCount += out.pop().length;
   }
 
-  if (out.length > 0 && typeof out[out.length - 1] === "string") {
-    const trimmed = out[out.length - 1].replace(/[\t ]*$/, "");
-    trimCount += out[out.length - 1].length - trimmed.length;
+  if (out.length > 0 && typeof getLast(out) === "string") {
+    const trimmed = getLast(out).replace(/[\t ]*$/, "");
+    trimCount += getLast(out).length - trimmed.length;
     out[out.length - 1] = trimmed;
   }
 
@@ -354,7 +354,7 @@ function printDocToString(doc, options) {
                 // these states and find the first one that fits.
                 if (doc.expandedStates) {
                   const mostExpanded =
-                    doc.expandedStates[doc.expandedStates.length - 1];
+                    getLast(doc.expandedStates);
 
                   if (doc.break) {
                     cmds.push([ind, MODE_BREAK, mostExpanded]);
@@ -388,7 +388,7 @@ function printDocToString(doc, options) {
           }
 
           if (doc.id) {
-            groupModeMap[doc.id] = cmds[cmds.length - 1][1];
+            groupModeMap[doc.id] = getLast(cmds)[1];
           }
           break;
         // Fills each line with as much code as possible before moving to a new

@@ -197,7 +197,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     parameters.preprocess = (value, schema, utils) =>
       schema.preprocess(
         originalPreprocess(
-          Array.isArray(value) ? value[value.length - 1] : value
+          Array.isArray(value) ? getLast(value) : value
         ),
         utils
       );

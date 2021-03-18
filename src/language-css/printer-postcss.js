@@ -855,7 +855,7 @@ function genericPrint(path, options, print) {
 
       const isSCSSMapItem = isSCSSMapItemNode(path);
 
-      const lastItem = node.groups[node.groups.length - 1];
+      const lastItem = getLast(node.groups);
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
 
@@ -941,7 +941,7 @@ function genericPrint(path, options, print) {
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (prevNode &&
           typeof prevNode.value === "string" &&
-          prevNode.value[prevNode.value.length - 1] === "\\") ||
+          getLast(prevNode.value) === "\\") ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""

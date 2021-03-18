@@ -393,7 +393,7 @@ function handleClassComments({
       !(followingNode && followingNode.type === "Decorator")
     ) {
       addTrailingComment(
-        enclosingNode.decorators[enclosingNode.decorators.length - 1],
+        getLast(enclosingNode.decorators),
         comment
       );
       return true;

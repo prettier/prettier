@@ -76,7 +76,7 @@ class Node {
 
   get lastChild() {
     return isNonEmptyArray(this.children)
-      ? this.children[this.children.length - 1]
+      ? getLast(this.children)
       : null;
   }
 
