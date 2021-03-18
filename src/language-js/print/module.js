@@ -182,7 +182,7 @@ function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    path.each((specifierPath) => {
+    path.eachValue((value) => {
       const specifierType = path.getValue().type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
@@ -190,12 +190,12 @@ function printModuleSpecifiers(path, options, print) {
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        standaloneSpecifiers.push(print(specifierPath));
+        standaloneSpecifiers.push(print(path));
       } else if (
         specifierType === "ExportSpecifier" ||
         specifierType === "ImportSpecifier"
       ) {
-        groupedSpecifiers.push(print(specifierPath));
+        groupedSpecifiers.push(print(path));
       } else {
         /* istanbul ignore next */
         throw new Error(

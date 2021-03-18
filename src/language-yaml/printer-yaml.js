@@ -153,13 +153,13 @@ function printNode(node, parentNode, path, options, print) {
     case "root": {
       const { children } = node;
       const parts = [];
-      path.each((childPath, index) => {
+      path.eachValue((value, index) => {
         const document = children[index];
         const nextDocument = children[index + 1];
         if (index !== 0) {
           parts.push(hardline);
         }
-        parts.push(print(childPath));
+        parts.push(print(path));
         if (shouldPrintDocumentEndMarker(document, nextDocument)) {
           parts.push(hardline, "...");
           if (hasTrailingComment(document)) {

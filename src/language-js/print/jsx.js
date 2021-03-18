@@ -276,8 +276,8 @@ function printJsxChildren(
   isFacebookTranslationTag
 ) {
   const parts = [];
-  path.each((childPath, i, children) => {
-    const child = childPath.getValue();
+  path.eachValue((child, i, children) => {
+    
     if (isLiteral(child)) {
       const text = rawText(child);
 
@@ -360,7 +360,7 @@ function printJsxChildren(
         parts.push("", jsxWhitespace);
       }
     } else {
-      const printedChild = print(childPath);
+      const printedChild = print(path);
       parts.push(printedChild);
 
       const next = children[i + 1];

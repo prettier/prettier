@@ -306,12 +306,12 @@ function genericPrint(path, options, print) {
     // postcss-media-query-parser
     case "media-query-list": {
       const parts = [];
-      path.each((childPath) => {
-        const node = childPath.getValue();
+      path.eachValue((node) => {
+        
         if (node.type === "media-query" && node.value === "") {
           return;
         }
-        parts.push(print(childPath));
+        parts.push(print(path));
       }, "nodes");
 
       return group(indent(join(line, parts)));
@@ -975,19 +975,19 @@ function genericPrint(path, options, print) {
 
 function printNodeSequence(path, options, print) {
   const parts = [];
-  path.each((pathChild, i, nodes) => {
+  path.eachValue((childNode, i, nodes) => {
     const prevNode = nodes[i - 1];
     if (
       prevNode &&
       prevNode.type === "css-comment" &&
       prevNode.text.trim() === "prettier-ignore"
     ) {
-      const childNode = pathChild.getValue();
+      
       parts.push(
         options.originalText.slice(locStart(childNode), locEnd(childNode))
       );
     } else {
-      parts.push(print(pathChild));
+      parts.push(print(path));
     }
 
     if (i !== nodes.length - 1) {
@@ -1005,7 +1005,7 @@ function printNodeSequence(path, options, print) {
       } else {
         parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
-          isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd) &&
+          isNextLineEmpty(options.originalText, path.getValue(), locEnd) &&
           !isFrontMatterNode(nodes[i])
         ) {
           parts.push(hardline);

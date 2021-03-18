@@ -705,10 +705,10 @@ function printChildren(path, options, print, events = {}) {
 
   let lastChildNode;
 
-  path.each((childPath, index) => {
-    const childNode = childPath.getValue();
+  path.eachValue((childNode, index) => {
+    
 
-    const result = processor(childPath, index);
+    const result = processor(path, index);
     if (result !== false) {
       const data = {
         parts,

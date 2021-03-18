@@ -146,13 +146,13 @@ function printArrayItems(path, options, printPath, print) {
   const printedElements = [];
   let separatorParts = [];
 
-  path.each((childPath) => {
-    printedElements.push(separatorParts, group(print(childPath)));
+  path.eachValue((value) => {
+    printedElements.push(separatorParts, group(print(path)));
 
     separatorParts = [",", line];
     if (
-      childPath.getValue() &&
-      isNextLineEmpty(childPath.getValue(), options)
+      path.getValue() &&
+      isNextLineEmpty(path.getValue(), options)
     ) {
       separatorParts.push(softline);
     }
@@ -164,14 +164,14 @@ function printArrayItems(path, options, printPath, print) {
 function printArrayItemsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
-  path.each((childPath, i, elements) => {
+  path.eachValue((value, i, elements) => {
     const isLast = i === elements.length - 1;
 
-    parts.push([print(childPath), isLast ? trailingComma : ","]);
+    parts.push([print(path), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(
-        isNextLineEmpty(childPath.getValue(), options)
+        isNextLineEmpty(path.getValue(), options)
           ? [hardline, hardline]
           : hasComment(
               elements[i + 1],

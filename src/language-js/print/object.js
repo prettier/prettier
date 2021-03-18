@@ -99,11 +99,11 @@ function printObject(path, options, print) {
   // printing them.
   const propsAndLoc = [];
   for (const field of fields) {
-    path.each((childPath) => {
-      const node = childPath.getValue();
+    path.eachValue((node) => {
+      
       propsAndLoc.push({
         node,
-        printed: print(childPath),
+        printed: print(path),
         loc: locStart(node),
       });
     }, field);

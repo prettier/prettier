@@ -57,10 +57,10 @@ function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
-  path.each((childPath) => {
-    const i = childPath.getName();
+  path.eachValue((quasi) => {
+    const i = path.getName();
 
-    parts.push(print(childPath));
+    parts.push(print(path));
 
     if (i < expressions.length) {
       // For a template literal of the following form:
@@ -75,7 +75,7 @@ function printTemplateLiteral(path, print, options) {
       // expression inside at the beginning of ${ instead of the beginning
       // of the `.
       const { tabWidth } = options;
-      const quasi = childPath.getValue();
+      
       const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
       let printed = expressions[i];
