@@ -3,6 +3,7 @@
 module.exports = {
   rules: {
     "better-parent-property-check-in-needs-parens": require("./better-parent-property-check-in-needs-parens"),
+    "consistent-negative-index-access": require("./consistent-negative-index-access"),
     "directly-loc-start-end": require("./directly-loc-start-end"),
     "flat-ast-path-call": require("./flat-ast-path-call"),
     "jsx-identifier-case": require("./jsx-identifier-case"),
