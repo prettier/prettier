@@ -122,7 +122,7 @@ test("jsx-identifier-case", {
   ],
 });
 
-test("no-ast-path-map", {
+test("no-ast-path-map-each", {
   valid: [
     "const a = array.map(() => {})",
     "const a = array.map()",
@@ -130,6 +130,11 @@ test("no-ast-path-map", {
     "const a = some.path.map(() => {}, name)",
     "const a = path.map(print, name)",
     "const a = path.notMap(() => {}, name)",
+    "array.each(() => {})",
+    "array.each()",
+    "array.each(...a, ...a)",
+    "some.path.each(() => {}, name)",
+    "path.notEach(() => {}, name)",
   ],
   invalid: [
     {
@@ -176,6 +181,26 @@ test("no-ast-path-map", {
     {
       code: "const a = path.map((...args) => {}, name)",
       output: "const a = path.map((...args) => {}, name)",
+      errors: 1,
+    },
+    {
+      code: outdent`
+        path.each((childPath) => {
+          const node = childPath.getNode(); // comment
+          console.log(childPath, {childPath, node})
+        }, name)
+      `,
+      output: outdent`
+        path.eachValue((node) => {
+           // comment
+          console.log(path, {childPath: path, node})
+        }, name)
+      `,
+      errors: 1,
+    },
+    {
+      code: "path.each(print, name)",
+      output: "path.each(print, name)",
       errors: 1,
     },
   ],

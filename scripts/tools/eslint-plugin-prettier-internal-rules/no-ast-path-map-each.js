@@ -11,12 +11,12 @@ const selector = [
   // We always use `path` or `xxxPath`
   '[callee.object.type="Identifier"]',
   '[callee.property.type="Identifier"]',
-  '[callee.property.name="map"]',
+  "[callee.property.name=/^(?:map|each)$/]",
   "[arguments.length>1]",
   '[arguments.0.type!="SpreadElement"]',
 ].join("");
 
-const messageId = "no-ast-path-map";
+const messageId = "no-ast-path-map-each";
 
 function getValueDeclarator(pathParameter, scope) {
   let valueName = "value";
@@ -76,10 +76,11 @@ module.exports = {
     type: "suggestion",
     docs: {
       url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-ast-path-map.js",
+        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-ast-path-map-each.js",
     },
     messages: {
-      [messageId]: "Prefer `AstPath#mapValue()` over `AstPath#map()`.",
+      [messageId]:
+        "Prefer `AstPath#{{replacement}}()` over `AstPath#{{method}}()`.",
     },
     fixable: "code",
   },
@@ -94,14 +95,23 @@ module.exports = {
           arguments: [callback],
         } = node;
 
+        const method = callee.property.name;
+
         // ignore `path.map(print, ...)`
-        if (callback.type === "Identifier" && callback.name === "print") {
+        if (
+          method === "map" &&
+          callback.type === "Identifier" &&
+          callback.name === "print"
+        ) {
           return;
         }
+
+        const replacement = `${method}Value`;
 
         const problem = {
           node: callee.property,
           messageId,
+          data: { method, replacement },
         };
 
         if (
@@ -123,7 +133,7 @@ module.exports = {
         } = getValueDeclarator(pathParameter, callbackScope);
 
         problem.fix = function* (fixer) {
-          yield fixer.replaceText(callee.property, "mapValue");
+          yield fixer.replaceText(callee.property, replacement);
 
           if (!pathParameter) {
             return;
