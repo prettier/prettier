@@ -706,8 +706,6 @@ function printChildren(path, options, print, events = {}) {
   let lastChildNode;
 
   path.eachValue((childNode, index) => {
-    
-
     const result = processor(path, index);
     if (result !== false) {
       const data = {

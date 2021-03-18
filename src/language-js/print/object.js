@@ -100,7 +100,6 @@ function printObject(path, options, print) {
   const propsAndLoc = [];
   for (const field of fields) {
     path.eachValue((node) => {
-      
       propsAndLoc.push({
         node,
         printed: print(path),

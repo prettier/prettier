@@ -24,9 +24,7 @@ function genericPrint(path, options, print) {
         parts.push(print(path));
         if (index !== definitions.length - 1) {
           parts.push(hardline);
-          if (
-            isNextLineEmpty(options.originalText, path.getValue(), locEnd)
-          ) {
+          if (isNextLineEmpty(options.originalText, path.getValue(), locEnd)) {
             parts.push(hardline);
           }
         }

@@ -519,7 +519,6 @@ function printDanglingComments(path, options, sameIndent, filter) {
   }
 
   path.eachValue((comment) => {
-    
     if (
       comment &&
       !comment.leading &&
@@ -554,7 +553,6 @@ function printCommentsSeparately(path, options) {
   const trailingParts = [];
 
   path.eachValue((comment) => {
-    
     const { leading, trailing } = comment;
 
     if (leading) {

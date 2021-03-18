@@ -307,7 +307,6 @@ function genericPrint(path, options, print) {
     case "media-query-list": {
       const parts = [];
       path.eachValue((node) => {
-        
         if (node.type === "media-query" && node.value === "") {
           return;
         }
@@ -982,7 +981,6 @@ function printNodeSequence(path, options, print) {
       prevNode.type === "css-comment" &&
       prevNode.text.trim() === "prettier-ignore"
     ) {
-      
       parts.push(
         options.originalText.slice(locStart(childNode), locEnd(childNode))
       );

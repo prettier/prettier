@@ -27,8 +27,6 @@ function printStatementSequence(path, options, print, property) {
   const lastStatement = getLastStatement(node[property]);
 
   path.eachValue((node, index, statements) => {
-    
-
     // Skip printing EmptyStatement nodes to avoid leaving stray
     // semicolons lying around.
     if (node.type === "EmptyStatement") {

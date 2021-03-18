@@ -75,7 +75,7 @@ function printTemplateLiteral(path, print, options) {
       // expression inside at the beginning of ${ instead of the beginning
       // of the `.
       const { tabWidth } = options;
-      
+
       const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
       let printed = expressions[i];

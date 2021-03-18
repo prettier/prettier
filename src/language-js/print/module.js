@@ -182,8 +182,8 @@ function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    path.eachValue((value) => {
-      const specifierType = path.getValue().type;
+    path.eachValue((node) => {
+      const specifierType = node.type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
         specifierType === "ExportDefaultSpecifier" ||

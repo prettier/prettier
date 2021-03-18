@@ -277,7 +277,6 @@ function printJsxChildren(
 ) {
   const parts = [];
   path.eachValue((child, i, children) => {
-    
     if (isLiteral(child)) {
       const text = rawText(child);
 

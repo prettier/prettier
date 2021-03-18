@@ -146,14 +146,11 @@ function printArrayItems(path, options, printPath, print) {
   const printedElements = [];
   let separatorParts = [];
 
-  path.eachValue((value) => {
+  path.eachValue((node) => {
     printedElements.push(separatorParts, group(print(path)));
 
     separatorParts = [",", line];
-    if (
-      path.getValue() &&
-      isNextLineEmpty(path.getValue(), options)
-    ) {
+    if (node && isNextLineEmpty(node, options)) {
       separatorParts.push(softline);
     }
   }, printPath);
@@ -164,14 +161,14 @@ function printArrayItems(path, options, printPath, print) {
 function printArrayItemsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
-  path.eachValue((value, i, elements) => {
+  path.eachValue((node, i, elements) => {
     const isLast = i === elements.length - 1;
 
     parts.push([print(path), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(
-        isNextLineEmpty(path.getValue(), options)
+        isNextLineEmpty(node, options)
           ? [hardline, hardline]
           : hasComment(
               elements[i + 1],
