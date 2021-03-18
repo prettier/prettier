@@ -459,8 +459,8 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map((childPath, childIndex) => {
-    const printedChild = print(childPath, options, print);
+  return path.mapValue((value, childIndex) => {
+    const printedChild = print(path, options, print);
 
     if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];

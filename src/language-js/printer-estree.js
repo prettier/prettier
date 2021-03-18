@@ -446,7 +446,7 @@ function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernary(path, options, print);
     case "VariableDeclaration": {
-      const printed = path.map((childPath) => print(childPath), "declarations");
+      const printed = path.mapValue((value) => print(path), "declarations");
 
       // We generally want to terminate all variable declarations with a
       // semicolon, except when they in the () part of for loops.
@@ -699,16 +699,13 @@ function printPathNoParens(path, options, print, args) {
               hardline,
               join(
                 hardline,
-                path.map((casePath, index, cases) => {
-                  const caseNode = casePath.getValue();
-                  return [
-                    print(casePath),
+                path.mapValue((caseNode, index, cases) => [
+                    print(path),
                     index !== cases.length - 1 &&
                     isNextLineEmpty(caseNode, options)
                       ? hardline
                       : "",
-                  ];
-                }, "cases")
+                  ], "cases")
               ),
             ])
           : "",

@@ -24,11 +24,11 @@ function printAngular(path, options, print) {
       return group(
         join(
           [";", line],
-          path.map(
-            (childPath) =>
-              hasNgSideEffect(childPath)
-                ? print(childPath)
-                : ["(", print(childPath), ")"],
+          path.mapValue(
+            (value) =>
+              hasNgSideEffect(path)
+                ? print(path)
+                : ["(", print(path), ")"],
             "expressions"
           )
         )
@@ -38,14 +38,14 @@ function printAngular(path, options, print) {
     case "NGQuotedExpression":
       return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
-      return path.map(
-        (childPath, index) => [
+      return path.mapValue(
+        (value, index) => [
           index === 0
             ? ""
-            : isNgForOf(childPath.getValue(), index, node)
+            : isNgForOf(path.getValue(), index, node)
             ? " "
             : [";", line],
-          print(childPath),
+          print(path),
         ],
         "body"
       );

@@ -866,9 +866,9 @@ function genericPrint(path, options, print) {
             softline,
             join(
               [",", line],
-              path.map((childPath) => {
-                const node = childPath.getValue();
-                const printed = print(childPath);
+              path.mapValue((node) => {
+                
+                const printed = print(path);
 
                 // Key/Value pair in open paren already indented
                 if (

@@ -209,8 +209,8 @@ function printTemplateExpression(path, print) {
 }
 
 function printTemplateExpressions(path, print) {
-  return path.map(
-    (path) => printTemplateExpression(path, print),
+  return path.mapValue(
+    (value) => printTemplateExpression(path, print),
     "expressions"
   );
 }

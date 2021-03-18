@@ -131,8 +131,8 @@ function genericPrint(path, options, print) {
         hardline,
         join(
           hardline,
-          path.map(
-            (path) => [
+          path.mapValue(
+            (value) => [
               isPreviousLineEmpty(
                 options.originalText,
                 path.getValue(),

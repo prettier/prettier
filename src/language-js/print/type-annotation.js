@@ -168,12 +168,12 @@ function printUnionType(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.map((typePath) => {
-    let printedType = print(typePath);
+  const printed = path.mapValue((value) => {
+    let printedType = print(path);
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
-    return printComments(typePath, printedType, options);
+    return printComments(path, printedType, options);
   }, "types");
 
   if (shouldHug) {

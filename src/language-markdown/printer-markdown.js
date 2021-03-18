@@ -562,10 +562,10 @@ function printTable(path, options, print) {
 
   const columnMaxWidths = [];
   // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
-  const contents = path.map(
-    (rowPath) =>
-      rowPath.map((cellPath, columnIndex) => {
-        const text = printDocToString(print(cellPath), options).formatted;
+  const contents = path.mapValue(
+    (value) =>
+      path.mapValue((value, columnIndex) => {
+        const text = printDocToString(print(rowPath), options).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
           columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
