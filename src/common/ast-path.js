@@ -104,9 +104,14 @@ class AstPath {
   // the end of the iteration.
   map(callback, ...names) {
     const result = [];
+    // Add `isAstPathMapCallback` mark to `callback`, so we can ignore arguments in `print` function
+    // See `/src/main/ast-to-doc.js`
+    const { isAstPathMapCallback } = callback;
+    callback.isAstPathMapCallback = true;
     this.each((path, index, value) => {
       result[index] = callback(path, index, value);
     }, ...names);
+    callback.isAstPathMapCallback = isAstPathMapCallback;
     return result;
   }
 

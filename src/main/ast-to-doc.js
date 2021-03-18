@@ -42,6 +42,11 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   function printGenerically(path, args) {
     const node = path.getValue();
 
+    // When `printGenerically` is used as callback of `AstPath.map()`, it will get `index` as `args`
+    if (printGenerically.isAstPathMapCallback) {
+      args = undefined;
+    }
+
     const shouldCache = node && typeof node === "object" && args === undefined;
     if (shouldCache && cache.has(node)) {
       return cache.get(node);
