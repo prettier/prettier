@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../utils/get-last");
 const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
 
 // 0x0 ~ 0x10ffff

@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const getLast = require("../utils/get-last");
 const parseFrontMatter = require("../utils/front-matter/parse");
 const { hasPragma } = require("./pragma");
 const {

@@ -3,6 +3,7 @@
 const {
   ParseSourceSpan,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
+const getLast = require("../utils/get-last");
 const {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,

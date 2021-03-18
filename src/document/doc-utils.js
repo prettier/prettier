@@ -1,5 +1,5 @@
 "use strict";
-
+const getLast = require("../utils/get-last");
 const { literalline } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
@@ -289,10 +289,7 @@ function cleanDocFn(doc) {
     const [currentPart, ...restParts] = isConcat(part)
       ? getDocParts(part)
       : [part];
-    if (
-      typeof currentPart === "string" &&
-      typeof getLast(parts) === "string"
-    ) {
+    if (typeof currentPart === "string" && typeof getLast(parts) === "string") {
       parts[parts.length - 1] += currentPart;
     } else {
       parts.push(currentPart);

@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../utils/get-last");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -862,9 +863,7 @@ function isFollowedByRightBracket(path) {
     case "ObjectProperty":
       if (name === "value") {
         const parentParent = path.getParentNode(1);
-        return (
-          getLast(parentParent.properties) === parent
-        );
+        return getLast(parentParent.properties) === parent;
       }
       break;
     case "BinaryExpression":

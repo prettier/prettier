@@ -353,8 +353,7 @@ function printDocToString(doc, options) {
                 // group has these, we need to manually go through
                 // these states and find the first one that fits.
                 if (doc.expandedStates) {
-                  const mostExpanded =
-                    getLast(doc.expandedStates);
+                  const mostExpanded = getLast(doc.expandedStates);
 
                   if (doc.break) {
                     cmds.push([ind, MODE_BREAK, mostExpanded]);

@@ -6,6 +6,7 @@ const {
   ParseSourceFile,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
 const parseFrontMatter = require("../utils/front-matter/parse");
+const getLast = require("../utils/get-last");
 const createError = require("../common/parser-create-error");
 const { inferParserByLanguage } = require("../common/util");
 const {

@@ -8,6 +8,7 @@ const {
   printDanglingComments,
   printCommentsSeparately,
 } = require("../../main/comments");
+const getLast = require("../../utils/get-last");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");

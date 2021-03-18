@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../../utils/get-last");
 const { getStringWidth, getIndentSize } = require("../../common/util");
 const {
   builders: {

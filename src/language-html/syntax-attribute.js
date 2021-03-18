@@ -1,6 +1,7 @@
 "use strict";
 
 const parseSrcset = require("parse-srcset");
+const getLast = require("../utils/get-last");
 const {
   builders: { group, ifBreak, indent, join, line, softline },
 } = require("../document");
