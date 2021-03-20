@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../utils/get-last");
 const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
 
 // 0x0 ~ 0x10ffff
@@ -78,7 +79,7 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
       return node;
     }
     const children = node.children.reduce((current, child) => {
-      const lastChild = current[current.length - 1];
+      const lastChild = getLast(current);
       if (lastChild && shouldMerge(lastChild, child)) {
         current.splice(-1, 1, mergeNode(lastChild, child));
       } else {

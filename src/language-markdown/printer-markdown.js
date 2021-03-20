@@ -752,7 +752,7 @@ function printChildren(path, options, print, events = {}) {
 function getLastDescendantNode(node) {
   let current = node;
   while (isNonEmptyArray(current.children)) {
-    current = current.children[current.children.length - 1];
+    current = getLast(current.children);
   }
   return current;
 }

@@ -1,5 +1,5 @@
 "use strict";
-
+const getLast = require("../utils/get-last");
 const { literalline } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
@@ -128,7 +128,7 @@ function willBreak(doc) {
 
 function breakParentGroup(groupStack) {
   if (groupStack.length > 0) {
-    const parentGroup = groupStack[groupStack.length - 1];
+    const parentGroup = getLast(groupStack);
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
     if (!parentGroup.expandedStates && !parentGroup.break) {
@@ -210,7 +210,7 @@ function stripDocTrailingHardlineFromDoc(doc) {
     }
 
     if (parts.length > 0) {
-      const lastPart = stripDocTrailingHardlineFromDoc(parts[parts.length - 1]);
+      const lastPart = stripDocTrailingHardlineFromDoc(getLast(parts));
       parts[parts.length - 1] = lastPart;
     }
     return Array.isArray(doc) ? parts : { ...doc, parts };
@@ -289,10 +289,7 @@ function cleanDocFn(doc) {
     const [currentPart, ...restParts] = isConcat(part)
       ? getDocParts(part)
       : [part];
-    if (
-      typeof currentPart === "string" &&
-      typeof parts[parts.length - 1] === "string"
-    ) {
+    if (typeof currentPart === "string" && typeof getLast(parts) === "string") {
       parts[parts.length - 1] += currentPart;
     } else {
       parts.push(currentPart);
@@ -335,7 +332,7 @@ function normalizeParts(parts) {
 
     if (
       newParts.length > 0 &&
-      typeof newParts[newParts.length - 1] === "string" &&
+      typeof getLast(newParts) === "string" &&
       typeof part === "string"
     ) {
       newParts[newParts.length - 1] += part;

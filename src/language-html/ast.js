@@ -2,6 +2,7 @@
 
 const fromPairs = require("lodash/fromPairs");
 const { isNonEmptyArray } = require("../common/util");
+const getLast = require("../utils/get-last");
 const NODES_KEYS = {
   attrs: true,
   children: true,
@@ -75,9 +76,7 @@ class Node {
   }
 
   get lastChild() {
-    return isNonEmptyArray(this.children)
-      ? this.children[this.children.length - 1]
-      : null;
+    return isNonEmptyArray(this.children) ? getLast(this.children) : null;
   }
 
   // for element and attribute
