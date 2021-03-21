@@ -53,6 +53,50 @@ test("better-parent-property-check-in-needs-parens", {
   })),
 });
 
+test("consistent-negative-index-access", {
+  valid: [
+    "getLast(foo)",
+    "getPenultimate(foo)",
+    "foo[foo.length]",
+    "foo[foo.length - 3]",
+    "foo[foo.length + 1]",
+    "foo[foo.length + -1]",
+    "foo[foo.length * -1]",
+    "foo.length - 1",
+    "foo?.[foo.length - 1]",
+    "foo[foo?.length - 1]",
+    "foo[foo['length'] - 1]",
+    "foo[bar.length - 1]",
+    "foo.bar[foo.      bar.length - 1]",
+    "foo[foo.length - 1]++",
+    "--foo[foo.length - 1]",
+    "foo[foo.length - 1] += 1",
+    "foo[foo.length - 1] = 1",
+  ],
+  invalid: [
+    {
+      code: "foo[foo.length - 1]",
+      output: "getLast(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo[foo.length - 2]",
+      output: "getPenultimate(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo[foo.length - 0b10]",
+      output: "getPenultimate(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo()[foo().length - 1]",
+      output: "getLast(foo())",
+      errors: 1,
+    },
+  ],
+});
+
 test("directly-loc-start-end", {
   valid: [],
   invalid: [
