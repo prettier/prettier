@@ -457,8 +457,14 @@ function printTypescript(path, options, print) {
       if (node.isExport) {
         parts.push("export ");
       }
+
+      parts.push("import ");
+
+      if (node.importKind && node.importKind !== "value") {
+        parts.push(node.importKind, " ");
+      }
+
       parts.push(
-        "import ",
         path.call(print, "id"),
         " = ",
         path.call(print, "moduleReference")
