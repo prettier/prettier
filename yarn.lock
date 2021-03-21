@@ -7108,10 +7108,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.26.0:
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.26.0.tgz#269841ed7b5c6522221aa27f7efceda04c8916d7"
-  integrity sha512-9kQATUOGQBkqzNKFmFON4KXZDsXnE7xk58tBxca8aCi+6/QhAbmWIvtGqBL66XIsBFpomFH0/0KyCaySo0ta2g==
+webpack@5.27.1:
+  version "5.27.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.27.1.tgz#6808fb6e45e35290cdb8ae43c7a10884839a3079"
+  integrity sha512-rxIDsPZ3Apl3JcqiemiLmWH+hAq04YeOXqvCxNZOnTp8ZgM9NEPtbu4CaMfMEf9KShnx/Ym8uLGmM6P4XnwCoA==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"
