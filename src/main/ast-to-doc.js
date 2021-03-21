@@ -112,28 +112,28 @@ function callPluginPrintFunction(path, options, printPath, args) {
   const node = path.getValue();
   const { printer } = options;
 
-  // Escape hatch
-  if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
-    return printPrettierIgnoredNode(node, options);
-  }
-
   let doc;
 
-  if (node) {
-    try {
-      // Potentially switch to a different parser
-      doc = multiparser.printSubtree(path, printPath, options, printAstToDoc);
-    } catch (error) {
-      /* istanbul ignore if */
-      if (process.env.PRETTIER_DEBUG) {
-        throw error;
+  // Escape hatch
+  if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
+    doc = printPrettierIgnoredNode(node, options);
+  } else {
+    if (node) {
+      try {
+        // Potentially switch to a different parser
+        doc = multiparser.printSubtree(path, printPath, options, printAstToDoc);
+      } catch (error) {
+        /* istanbul ignore if */
+        if (process.env.PRETTIER_DEBUG) {
+          throw error;
+        }
+        // Continue with current parser
       }
-      // Continue with current parser
     }
-  }
 
-  if (!doc) {
-    doc = printer.print(path, options, printPath, args);
+    if (!doc) {
+      doc = printer.print(path, options, printPath, args);
+    }
   }
 
   // We let JSXElement print its comments itself because it adds () around
