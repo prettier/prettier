@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/compiler@11.2.5":
-  version "11.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-11.2.5.tgz#5d0aef6161484b6f8f67ff2fef10db5a631c7661"
-  integrity sha512-MrgZnTY6OPooDZw76wgj1ZM43IwwStsDfwuvYI8B7PR+QtPIwAkxi+spW78MHy3ltzsIQorC98pMiz7c7oTxDg==
+"@angular/compiler@11.2.6":
+  version "11.2.6"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-11.2.6.tgz#8b69cd2f2c3bb0fbc6f95ded1ccbe20e6858daed"
+  integrity sha512-3ijsCxnCLU1V1hy4UMf9qtMz5LR+wCdVFDqktEQccN9YEkN0cNtOc8Nu9EV9/mc2tqd1Q4xSBpb2o2mvpy7AhQ==
   dependencies:
     tslib "^2.0.0"
 
@@ -1080,6 +1080,13 @@
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
+"@glimmer/interfaces@0.77.3":
+  version "0.77.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.77.3.tgz#cd0523147da72d8901950a24c3be7aa4e38d8d09"
+  integrity sha512-i/2YmyjFKhKNheEfvajQbbQr9AWbahNV71oakipz8b+qWx0nni5cjM/m/Z0nhnwrsa2cNFIt5kNknD6rh18AHg==
+  dependencies:
+    "@simple-dom/interface" "^1.4.0"
+
 "@glimmer/reference@0.77.2":
   version "0.77.2"
   resolved "https://registry.yarnpkg.com/@glimmer/reference/-/reference-0.77.2.tgz#760d3520294ddb2f833fbebc713205e3a3d6206a"
@@ -1091,13 +1098,13 @@
     "@glimmer/util" "0.77.2"
     "@glimmer/validator" "0.77.2"
 
-"@glimmer/syntax@0.77.2":
-  version "0.77.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.77.2.tgz#0e37085c8b81228590396a7fe7365513a0d64798"
-  integrity sha512-LJYShzftktJoFLZ2r5C9RbFxGGXWwTAExsKTXCgbxUPUtNjFwJeNddnkbJOe/Ko6QhKP+mkCYyjECIiKwn8A8A==
+"@glimmer/syntax@0.77.3":
+  version "0.77.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.77.3.tgz#219bd46687147f10cf3893f81ebfd6ac7733ac07"
+  integrity sha512-C5sMmRyiDnhYHkdogcEpBuSbiFrClAwGg1tBk61dMkYmXlInjlwpAj5SfgtSzcgXjUM/60uZo+DvMacyZsx9Nw==
   dependencies:
-    "@glimmer/interfaces" "0.77.2"
-    "@glimmer/util" "0.77.2"
+    "@glimmer/interfaces" "0.77.3"
+    "@glimmer/util" "0.77.3"
     "@handlebars/parser" "~2.0.0"
     simple-html-tokenizer "^0.5.10"
 
@@ -1108,6 +1115,15 @@
   dependencies:
     "@glimmer/env" "0.1.7"
     "@glimmer/interfaces" "0.77.2"
+    "@simple-dom/interface" "^1.4.0"
+
+"@glimmer/util@0.77.3":
+  version "0.77.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.77.3.tgz#c91fc3b61743ddea3e4470cf1ed8378f88cc863f"
+  integrity sha512-pqkU2b4BOkmSehRPSbS4bIw1zk8K6dVkVbXdXRqVz4oKqM7c0zYR/5fV2Sjayd3gEElt71lAef5uBr+7WddDlA==
+  dependencies:
+    "@glimmer/env" "0.1.7"
+    "@glimmer/interfaces" "0.77.3"
     "@simple-dom/interface" "^1.4.0"
 
 "@glimmer/validator@0.77.2":

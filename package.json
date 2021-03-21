@@ -20,10 +20,10 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "11.2.5",
+    "@angular/compiler": "11.2.6",
     "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.13.10",
-    "@glimmer/syntax": "0.77.2",
+    "@glimmer/syntax": "0.77.3",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "4.16.1",
     "angular-estree-parser": "2.3.0",
