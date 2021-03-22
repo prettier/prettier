@@ -734,6 +734,7 @@ function handleOnlyComments({
   if (
     followingNode &&
     followingNode.type === "Program" &&
+    followingNode.body.length === 0 &&
     enclosingNode &&
     enclosingNode.type === "ModuleExpression"
   ) {

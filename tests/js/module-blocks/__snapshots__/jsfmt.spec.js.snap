@@ -1,5 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js [espree] format 1`] = `
+"Unexpected token { (1:32)
+> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
+    |                                ^
+  2 |   /*A4*/
+  3 |   export const foo = \\"foo\\";
+  4 |   export { foo }; /*A5*/"
+`;
+
+exports[`comments.js [meriyah] format 1`] = `
+"[1:32]: Unexpected token: '{' (1:32)
+> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
+    |                                ^
+  2 |   /*A4*/
+  3 |   export const foo = \\"foo\\";
+  4 |   export { foo }; /*A5*/"
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const m = /*A1*/ module /*A2*/ { /*A3*/
+  /*A4*/
+  export const foo = "foo";
+  export { foo }; /*A5*/
+  /*A6*/
+}/*A7*/;/*A8*/
+
+=====================================output=====================================
+const m = /*A1*/ module {
+  /*A2*/ /*A3*/
+  /*A4*/
+  export const foo = "foo";
+  export { foo }; /*A5*/
+  /*A6*/
+}; /*A7*/ /*A8*/
+
+================================================================================
+`;
+
 exports[`module-blocks.js [espree] format 1`] = `
 "Unexpected token { (1:8)
 > 1 | module { await 3 };
