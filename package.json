@@ -90,7 +90,7 @@
     "@babel/core": "7.13.10",
     "@babel/preset-env": "7.13.10",
     "@babel/types": "7.13.0",
-    "@glimmer/reference": "0.77.2",
+    "@glimmer/reference": "0.77.3",
     "@rollup/plugin-alias": "3.1.2",
     "@rollup/plugin-babel": "5.3.0",
     "@rollup/plugin-commonjs": "16.0.0",
