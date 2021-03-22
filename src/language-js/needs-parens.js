@@ -205,6 +205,16 @@ function needsParens(path, options) {
         case "TSNonNullExpression":
           return true;
 
+        case "SequenceExpression":
+          // Do not turn `(throw 1), 2;` into `throw (1, 2)`
+          return (
+            node.prefix &&
+            node.operator === "throw" &&
+            parent.type === "SequenceExpression" &&
+            parent.expressions.includes(node) &&
+            getLast(parent.expressions) !== node
+          );
+
         default:
           return false;
       }

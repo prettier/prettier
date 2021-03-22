@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`throw-expression.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token throw (2:2)
+  1 | [];
+> 2 | (throw 1, 2);
+    |  ^
+  3 |"
+`;
+
+exports[`throw-expression.js - {"semi":false} [meriyah] format 1`] = `
+"[2:6]: Unexpected token: 'throw' (2:6)
+  1 | [];
+> 2 | (throw 1, 2);
+    |      ^
+  3 |"
+`;
+
+exports[`throw-expression.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+[];
+(throw 1, 2);
+
+=====================================output=====================================
+;[]
+;(throw 1), 2
+
+================================================================================
+`;

@@ -1,5 +1,125 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parentheses.js [espree] format 1`] = `
+"Unexpected token throw (2:2)
+  1 | throw 0, 1, 2;
+> 2 | (throw 0), 1, 2;
+    |  ^
+  3 | (throw 0, 1), 2;
+  4 | throw (0, 1), 2;
+  5 | (throw (0, 1)), 2;"
+`;
+
+exports[`parentheses.js [meriyah] format 1`] = `
+"[2:6]: Unexpected token: 'throw' (2:6)
+  1 | throw 0, 1, 2;
+> 2 | (throw 0), 1, 2;
+    |      ^
+  3 | (throw 0, 1), 2;
+  4 | throw (0, 1), 2;
+  5 | (throw (0, 1)), 2;"
+`;
+
+exports[`parentheses.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+throw 0, 1, 2;
+(throw 0), 1, 2;
+(throw 0, 1), 2;
+throw (0, 1), 2;
+(throw (0, 1)), 2;
+(throw (0, 1), 2);
+0, throw 1, 2;
+0, (throw 1), 2;
+0, throw 1, 2;
+0, (throw 1, 2);
+0, ((throw 1), 2);
+0, (throw (1, 2));
+0, 1, throw 2;
+0, 1, (throw 2);
+
+call(throw 0, 1, 2);
+call((throw 0), 1, 2);
+call((throw 0, 1), 2);
+call(throw (0, 1), 2);
+call((throw (0, 1)), 2);
+call((throw (0, 1), 2));
+call(0, throw 1, 2);
+call(0, (throw 1), 2);
+call(0, throw 1, 2);
+call(0, (throw 1, 2));
+call(0, ((throw 1), 2));
+call(0, (throw (1, 2)));
+call(0, 1, throw 2);
+call(0, 1, (throw 2));
+
+call(   (throw 0, 1, 2)  );
+call(   ((throw 0), 1, 2)  );
+call(   ((throw 0, 1), 2)  );
+call(   (throw (0, 1), 2)  );
+call(   ((throw (0, 1)), 2)  );
+call(   ((throw (0, 1), 2))  );
+call(   (0, throw 1, 2)  );
+call(   (0, (throw 1), 2)  );
+call(   (0, throw 1, 2)  );
+call(   (0, (throw 1, 2))  );
+call(   (0, ((throw 1), 2))  );
+call(   (0, (throw (1, 2)))  );
+call(   (0, 1, throw 2)  );
+call(   (0, 1, (throw 2))  );
+
+=====================================output=====================================
+throw (0, 1, 2);
+(throw 0), 1, 2;
+((throw 0), 1), 2;
+throw ((0, 1), 2);
+(throw (0, 1)), 2;
+(throw (0, 1)), 2;
+0, (throw 1), 2;
+0, (throw 1), 2;
+0, (throw 1), 2;
+0, ((throw 1), 2);
+0, ((throw 1), 2);
+0, throw (1, 2);
+0, 1, throw 2;
+0, 1, throw 2;
+
+call(throw 0, 1, 2);
+call(throw 0, 1, 2);
+call(((throw 0), 1), 2);
+call(throw (0, 1), 2);
+call(throw (0, 1), 2);
+call(((throw (0, 1)), 2));
+call(0, throw 1, 2);
+call(0, throw 1, 2);
+call(0, throw 1, 2);
+call(0, ((throw 1), 2));
+call(0, ((throw 1), 2));
+call(0, throw (1, 2));
+call(0, 1, throw 2);
+call(0, 1, throw 2);
+
+call(((throw 0), 1, 2));
+call(((throw 0), 1, 2));
+call((((throw 0), 1), 2));
+call(((throw (0, 1)), 2));
+call(((throw (0, 1)), 2));
+call(((throw (0, 1)), 2));
+call((0, (throw 1), 2));
+call((0, (throw 1), 2));
+call((0, (throw 1), 2));
+call((0, ((throw 1), 2)));
+call((0, ((throw 1), 2)));
+call((0, throw (1, 2)));
+call((0, 1, throw 2));
+call((0, 1, throw 2));
+
+================================================================================
+`;
+
 exports[`throw_expression.js [espree] format 1`] = `
 "Unexpected token throw (1:26)
 > 1 | function save(filename = throw new TypeError(\\"Argument required\\")) {}
