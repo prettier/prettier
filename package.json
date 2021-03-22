@@ -43,7 +43,7 @@
     "fast-glob": "3.2.5",
     "fast-json-stable-stringify": "2.1.0",
     "find-parent-dir": "0.3.0",
-    "flow-parser": "0.145.0",
+    "flow-parser": "0.147.0",
     "get-stdin": "8.0.0",
     "globby": "11.0.2",
     "graphql": "15.5.0",
