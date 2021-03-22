@@ -189,16 +189,35 @@ The `print` function is passed the following parameters:
 Here’s a simplified example to give an idea of what a typical implementation of `print` looks like:
 
 ```js
-const { join } = require("prettier").doc.builders;
+const {
+  builders: { group, indent, join, line, softline },
+} = require("prettier").doc;
 
 function print(path, options, print) {
   const node = path.getValue();
 
-  if (Array.isArray(node)) {
-    return join(", ", path.map(print));
+  switch (node.type) {
+    case "list":
+      return group([
+        "(",
+        indent([softline, join(line, path.map(print, "elements"))]),
+        softline,
+        ")",
+      ]);
+
+    case "pair":
+      return group([
+        "(",
+        indent([softline, print("left"), line, ". ", print("right")]),
+        softline,
+        ")",
+      ]);
+
+    case "symbol":
+      return node.name;
   }
 
-  return node.value;
+  throw new Error(`Unknown node type: ${node.type}`);
 }
 ```
 
