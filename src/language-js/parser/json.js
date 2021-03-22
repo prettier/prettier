@@ -73,14 +73,25 @@ function assertJsonNode(node) {
       assertJsonNode(node.value);
 
       return;
-    case "UnaryExpression":
-      if (node.operator !== "+" && node.operator !== "-") {
+    case "UnaryExpression": {
+      const { operator, argument } = node;
+      if (operator !== "+" && operator !== "-") {
         throw createJsonError(node, `Operator '${node.operator}'`);
       }
 
-      assertJsonNode(node.argument);
+      if (
+        argument.type === "NumericLiteral" ||
+        (argument.type === "Identifier" &&
+          (argument.name === "Infinity" || argument.name === "NaN"))
+      ) {
+        return;
+      }
 
-      return;
+      throw createJsonError(
+        argument,
+        `Operator '${operator}' before '${argument.type}'`
+      );
+    }
     case "Identifier":
       if (
         // JSON5 https://spec.json5.org/#numbers

@@ -20,14 +20,14 @@ const { printOptionalToken, printTypeAnnotation } = require("./misc");
 /** @typedef {import("../../document").Doc} Doc */
 
 function printArray(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   /** @type{Doc[]} */
   const parts = [];
 
-  const openBracket = n.type === "TupleExpression" ? "#[" : "[";
+  const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
-  if (n.elements.length === 0) {
-    if (!hasComment(n, CommentCheckFlags.Dangling)) {
+  if (node.elements.length === 0) {
+    if (!hasComment(node, CommentCheckFlags.Dangling)) {
       parts.push(openBracket, closeBracket);
     } else {
       parts.push(
@@ -40,7 +40,7 @@ function printArray(path, options, print) {
       );
     }
   } else {
-    const lastElem = getLast(n.elements);
+    const lastElem = getLast(node.elements);
     const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
 
     // JavaScript allows you to have empty elements in an array which
@@ -59,8 +59,8 @@ function printArray(path, options, print) {
 
     const shouldBreak =
       !options.__inJestEach &&
-      n.elements.length > 1 &&
-      n.elements.every((element, i, elements) => {
+      node.elements.length > 1 &&
+      node.elements.every((element, i, elements) => {
         const elementType = element && element.type;
         if (
           elementType !== "ArrayExpression" &&
@@ -80,23 +80,7 @@ function printArray(path, options, print) {
         return element[itemsKey] && element[itemsKey].length > 1;
       });
 
-    const shouldUseConciseFormatting =
-      n.elements.length > 1 &&
-      n.elements.every(
-        (element) =>
-          element &&
-          (isNumericLiteral(element) ||
-            (isSignedNumericLiteral(element) &&
-              !hasComment(element.argument))) &&
-          !hasComment(
-            element,
-            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
-            (comment) =>
-              !hasNewline(options.originalText, locStart(comment), {
-                backwards: true,
-              })
-          )
-      );
+    const shouldUseConciseFormatting = isConciselyPrintedArray(node, options);
 
     const trailingComma = !canHaveTrailingComma
       ? ""
@@ -136,6 +120,26 @@ function printArray(path, options, print) {
   );
 
   return parts;
+}
+
+function isConciselyPrintedArray(node, options) {
+  return (
+    node.elements.length > 1 &&
+    node.elements.every(
+      (element) =>
+        element &&
+        (isNumericLiteral(element) ||
+          (isSignedNumericLiteral(element) && !hasComment(element.argument))) &&
+        !hasComment(
+          element,
+          CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+          (comment) =>
+            !hasNewline(options.originalText, locStart(comment), {
+              backwards: true,
+            })
+        )
+    )
+  );
 }
 
 function printArrayItems(path, options, printPath, print) {
@@ -182,4 +186,4 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-module.exports = { printArray, printArrayItems };
+module.exports = { printArray, printArrayItems, isConciselyPrintedArray };

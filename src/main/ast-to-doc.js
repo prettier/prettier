@@ -57,7 +57,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
     ) {
       // printComments will call the plugin print function and check for
       // comments to print
-      doc = printComments(path, doc, options, args && args.needsSemi);
+      doc = printComments(path, doc, options);
     }
 
     if (shouldCache) {

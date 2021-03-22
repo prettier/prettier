@@ -135,7 +135,7 @@ function printMemberChain(path, options, print) {
     } else {
       printedNodes.unshift({
         node,
-        printed: path.call(print),
+        printed: print(path),
       });
     }
   }
@@ -309,10 +309,7 @@ function printMemberChain(path, options, print) {
     const printed = printedGroup.map((tuple) => tuple.printed);
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
-    if (
-      printedGroup.length > 0 &&
-      printedGroup[printedGroup.length - 1].needsParens
-    ) {
+    if (printedGroup.length > 0 && getLast(printedGroup).needsParens) {
       return ["(", ...printed, ")"];
     }
     return printed;
@@ -377,7 +374,7 @@ function printMemberChain(path, options, print) {
       willBreak(lastGroupDoc) &&
       callExpressions
         .slice(0, -1)
-        .some((n) => n.arguments.some(isFunctionOrArrowExpression))
+        .some((node) => node.arguments.some(isFunctionOrArrowExpression))
     );
   }
 

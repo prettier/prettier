@@ -69,13 +69,13 @@ function printAssignment(
 }
 
 function printAssignmentExpression(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   return printAssignment(
     path,
     options,
     print,
     path.call(print, "left"),
-    [" ", n.operator],
+    [" ", node.operator],
     "right"
   );
 }

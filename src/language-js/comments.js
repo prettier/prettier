@@ -392,10 +392,7 @@ function handleClassComments({
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
-      addTrailingComment(
-        enclosingNode.decorators[enclosingNode.decorators.length - 1],
-        comment
-      );
+      addTrailingComment(getLast(enclosingNode.decorators), comment);
       return true;
     }
 

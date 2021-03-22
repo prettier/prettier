@@ -544,6 +544,9 @@ trailingComma: "all"
       0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
       0123,
       -Infinity, -NaN,
+      +1, -1,
+      +0o123, +0b101010, +1e5, +123_456, +0xDeeD_Beef,
+      -0o123, -0b101010, -1e5, -123_456, -0xDeeD_Beef,
     ]
   },
 
@@ -581,7 +584,28 @@ trailingComma: "all"
 
   {
     "//": "Numbers",
-    "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN]
+    "data": [
+      0o123,
+      0b101010,
+      1e5,
+      123_456,
+      0xdeed_beef,
+      0123,
+      -Infinity,
+      -NaN,
+      +1,
+      -1,
+      +0o123,
+      +0b101010,
+      +1e5,
+      +123_456,
+      +0xdeed_beef,
+      -0o123,
+      -0b101010,
+      -1e5,
+      -123_456,
+      -0xdeed_beef
+    ]
   },
 
   { "//": "empty members", "data": [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] }
@@ -629,6 +653,9 @@ trailingComma: "all"
       0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
       0123,
       -Infinity, -NaN,
+      +1, -1,
+      +0o123, +0b101010, +1e5, +123_456, +0xDeeD_Beef,
+      -0o123, -0b101010, -1e5, -123_456, -0xDeeD_Beef,
     ]
   },
 
@@ -666,7 +693,28 @@ trailingComma: "all"
 
   {
     "//": "Numbers",
-    data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN],
+    data: [
+      0o123,
+      0b101010,
+      1e5,
+      123_456,
+      0xdeed_beef,
+      0123,
+      -Infinity,
+      -NaN,
+      +1,
+      -1,
+      +0o123,
+      +0b101010,
+      +1e5,
+      +123_456,
+      +0xdeed_beef,
+      -0o123,
+      -0b101010,
+      -1e5,
+      -123_456,
+      -0xdeed_beef,
+    ],
   },
 
   { "//": "empty members", data: [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] },
@@ -713,6 +761,9 @@ printWidth: 80
       0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
       0123,
       -Infinity, -NaN,
+      +1, -1,
+      +0o123, +0b101010, +1e5, +123_456, +0xDeeD_Beef,
+      -0o123, -0b101010, -1e5, -123_456, -0xDeeD_Beef,
     ]
   },
 
@@ -750,7 +801,28 @@ printWidth: 80
 
   {
     "//": "Numbers",
-    "data": [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN]
+    "data": [
+      0o123,
+      0b101010,
+      1e5,
+      123_456,
+      0xdeed_beef,
+      0123,
+      -Infinity,
+      -NaN,
+      +1,
+      -1,
+      +0o123,
+      +0b101010,
+      +1e5,
+      +123_456,
+      +0xdeed_beef,
+      -0o123,
+      -0b101010,
+      -1e5,
+      -123_456,
+      -0xdeed_beef
+    ]
   },
 
   { "//": "empty members", "data": [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] }
@@ -797,6 +869,9 @@ printWidth: 80
       0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
       0123,
       -Infinity, -NaN,
+      +1, -1,
+      +0o123, +0b101010, +1e5, +123_456, +0xDeeD_Beef,
+      -0o123, -0b101010, -1e5, -123_456, -0xDeeD_Beef,
     ]
   },
 
@@ -834,7 +909,28 @@ printWidth: 80
 
   {
     "//": "Numbers",
-    data: [0o123, 0b101010, 1e5, 123_456, 0xdeed_beef, 0123, -Infinity, -NaN],
+    data: [
+      0o123,
+      0b101010,
+      1e5,
+      123_456,
+      0xdeed_beef,
+      0123,
+      -Infinity,
+      -NaN,
+      +1,
+      -1,
+      +0o123,
+      +0b101010,
+      +1e5,
+      +123_456,
+      +0xdeed_beef,
+      -0o123,
+      -0b101010,
+      -1e5,
+      -123_456,
+      -0xdeed_beef,
+    ],
   },
 
   { "//": "empty members", data: [[,], [1, , 2, , , ,], [1, , 2], [1, , 2]] },
@@ -881,6 +977,9 @@ printWidth: 80
       0o123, 0b101010, 1e5, 123_456, 0xDeeD_Beef,
       0123,
       -Infinity, -NaN,
+      +1, -1,
+      +0o123, +0b101010, +1e5, +123_456, +0xDeeD_Beef,
+      -0o123, -0b101010, -1e5, -123_456, -0xDeeD_Beef,
     ]
   },
 
@@ -939,7 +1038,19 @@ printWidth: 80
       3740122863,
       83,
       -Infinity,
-      -NaN
+      -NaN,
+      1,
+      -1,
+      83,
+      42,
+      100000,
+      123456,
+      3740122863,
+      -83,
+      -42,
+      -100000,
+      -123456,
+      -3740122863
     ]
   },
   {

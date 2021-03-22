@@ -30,11 +30,11 @@ const {
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   const isInsideParenthesis =
-    n !== parent.body &&
+    node !== parent.body &&
     (parent.type === "IfStatement" ||
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
@@ -71,7 +71,7 @@ function printBinaryishExpression(path, options, print) {
   //     c
   //   ).call()
   if (
-    (isCallExpression(parent) && parent.callee === n) ||
+    (isCallExpression(parent) && parent.callee === node) ||
     parent.type === "UnaryExpression" ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
@@ -85,14 +85,14 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "ThrowStatement" ||
     (parent.type === "JSXExpressionContainer" &&
       parentParent.type === "JSXAttribute") ||
-    (n.operator !== "|" && parent.type === "JsExpressionRoot") ||
-    (n.type !== "NGPipeExpression" &&
+    (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
+    (node.type !== "NGPipeExpression" &&
       ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
         (parent.type === "NGMicrosyntaxExpression" &&
           parentParent.type === "NGMicrosyntax" &&
           parentParent.body.length === 1))) ||
-    (n === parent.body && parent.type === "ArrowFunctionExpression") ||
-    (n !== parent.body && parent.type === "ForStatement") ||
+    (node === parent.body && parent.type === "ArrowFunctionExpression") ||
+    (node !== parent.body && parent.type === "ForStatement") ||
     (parent.type === "ConditionalExpression" &&
       parentParent.type !== "ReturnStatement" &&
       parentParent.type !== "ThrowStatement" &&
@@ -110,12 +110,12 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "Property";
 
   const samePrecedenceSubExpression =
-    isBinaryish(n.left) && shouldFlatten(n.operator, n.left.operator);
+    isBinaryish(node.left) && shouldFlatten(node.operator, node.left.operator);
 
   if (
     shouldNotIndent ||
-    (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
-    (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
+    (shouldInlineLogicalExpression(node) && !samePrecedenceSubExpression) ||
+    (!shouldInlineLogicalExpression(node) && shouldIndentIfInlining)
   ) {
     return group(parts);
   }
@@ -133,7 +133,7 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJsx = isJsxNode(n.right);
+  const hasJsx = isJsxNode(node.right);
 
   const firstGroupIndex = parts.findIndex(
     (part) =>
@@ -285,7 +285,7 @@ function printBinaryishExpressions(
     }
   } else {
     // Our stopping case. Simply print the node normally.
-    parts.push(group(path.call(print)));
+    parts.push(group(print(path)));
   }
 
   return parts;
