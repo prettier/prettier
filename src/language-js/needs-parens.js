@@ -205,15 +205,19 @@ function needsParens(path, options) {
         case "TSNonNullExpression":
           return true;
 
-        case "SequenceExpression":
-          // Do not turn `(throw 1), 2;` into `throw (1, 2)`
-          return (
+        case "SequenceExpression": {
+          if (
+            node.type === "UnaryExpression" &&
             node.prefix &&
             node.operator === "throw" &&
             parent.type === "SequenceExpression" &&
-            parent.expressions.includes(node) &&
-            getLast(parent.expressions) !== node
-          );
+            parent.expressions[0] === node
+          ) {
+            return !path.callParent(() => needsParens(path, options));
+          }
+
+          return false;
+        }
 
         default:
           return false;
