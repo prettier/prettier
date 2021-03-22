@@ -213,14 +213,7 @@ function embed(
   // Path to the current AST node
   path: AstPath,
   // Print a node with the current printer
-  print: (
-    nameOrNamesOrPath:
-      | string
-      | number
-      | Array<string | number>
-      | AstPath
-      | undefined
-  ) => Doc,
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
   // Parse and print some text using a different parser.
   // You should set `options.parser` to specify which parser to use.
   textToDoc: (text: string, options: object) => Doc,
