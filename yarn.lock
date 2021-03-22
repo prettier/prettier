@@ -2319,7 +2319,7 @@ chrome-trace-event@^1.0.2:
   dependencies:
     tslib "^1.9.0"
 
-ci-info@3.1.1:
+ci-info@3.1.1, ci-info@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.1.1.tgz#9a32fcefdf7bcdb6f0a7e1c0f8098ec57897b80a"
   integrity sha512-kdRWLBIJwdsYJWYJFtAFFYxybguqeF91qpZaggjG5Nf8QKdizFG2hjqvaTXbxFIcYbSaD74KpAXv6BSm17DHEQ==
@@ -3039,6 +3039,7 @@ eslint-plugin-jest@24.3.2:
 
 "eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules":
   version "0.0.0"
+  uid ""
 
 eslint-plugin-react@7.22.0:
   version "7.22.0"
@@ -3057,21 +3058,21 @@ eslint-plugin-react@7.22.0:
     resolve "^1.18.1"
     string.prototype.matchall "^4.0.2"
 
-eslint-plugin-unicorn@28.0.2:
-  version "28.0.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-28.0.2.tgz#ab9884ebae04590ecd9c1c294330d889a74b7c37"
-  integrity sha512-k4AoFP7n8/oq6lBXkdc9Flid6vw2B8j7aXFCxgzJCyKvmaKrCUFb1TFPhG9eSJQFZowqmymMPRtl8oo9NKLUbw==
+eslint-plugin-unicorn@29.0.0:
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-29.0.0.tgz#7c97cdb5afe932e9f8dc34108e4a5a2a2fbb1906"
+  integrity sha512-R9jGLKb2p6LuOixviByGlH2mkfY72EBELXAPeUufveebN0M2Woa7B7dUO3gN2xPn/+eGjrIm4I2u7dDtr9G4iA==
   dependencies:
-    ci-info "^2.0.0"
+    ci-info "^3.1.1"
     clean-regexp "^1.0.0"
-    eslint-template-visitor "^2.2.2"
+    eslint-template-visitor "^2.3.2"
     eslint-utils "^2.1.0"
     eslint-visitor-keys "^2.0.0"
     import-modules "^2.1.0"
     lodash "^4.17.20"
     pluralize "^8.0.0"
     read-pkg-up "^7.0.1"
-    regexp-tree "^0.1.22"
+    regexp-tree "^0.1.23"
     reserved-words "^0.1.2"
     safe-regex "^2.1.1"
     semver "^7.3.4"
@@ -3092,7 +3093,7 @@ eslint-scope@^5.0.0, eslint-scope@^5.1.1:
     esrecurse "^4.3.0"
     estraverse "^4.1.1"
 
-eslint-template-visitor@^2.2.2:
+eslint-template-visitor@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/eslint-template-visitor/-/eslint-template-visitor-2.3.2.tgz#b52f96ff311e773a345d79053ccc78275bbc463d"
   integrity sha512-3ydhqFpuV7x1M9EK52BPNj6V0Kwu0KKkcIAfpUhwHbR8ocRln/oUHgfxQupY8O1h4Qv/POHDumb/BwwNfxbtnA==
@@ -3455,10 +3456,10 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
-flow-parser@0.145.0:
-  version "0.145.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.145.0.tgz#e39af5f3470211cf21a50eb589da4d5cc5f71f39"
-  integrity sha512-dqpYiE0rZopmex5FR6pi/HTia8i+q/euc9WUWH6fTLt6sQgXjnAcsOwgMMLHCxwCSqPrvi/XFmBiicKitLNrKA==
+flow-parser@0.147.0:
+  version "0.147.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.147.0.tgz#747f67611e731c89927dd5d368bf7f616d1e51be"
+  integrity sha512-z+b/pgp2QLvsWJkzhKXU8yC5TmaNyXGRmHac3x0Swmn9uQESRXhNIJq9TPHKPPeWgFym33OLO+5BlIdy/tXRCQ==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -5795,7 +5796,7 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regexp-tree@^0.1.22, regexp-tree@~0.1.1:
+regexp-tree@^0.1.23, regexp-tree@~0.1.1:
   version "0.1.23"
   resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.23.tgz#8a8ce1cc5e971acef62213a7ecdb1f6e18a1f1b2"
   integrity sha512-+7HWfb4Bvu8Rs2eQTUIpX9I/PlQkYOuTNbRpKLJlQpSgwSkzFYh+pUj0gtvglnOZLKB6YgnIgRuJ2/IlpL48qw==
