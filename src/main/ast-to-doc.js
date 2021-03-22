@@ -52,24 +52,19 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   return doc;
 
   function mainPrint(selector, args) {
-    if (typeof selector === "string") {
-      return path.call(() => mainPrintInternal(args), selector);
+    if (selector === undefined || selector === path) {
+      return mainPrintInternal(args);
     }
 
     if (Array.isArray(selector)) {
       return path.call(() => mainPrintInternal(args), ...selector);
     }
 
-    return mainPrintInternal(args);
+    return path.call(() => mainPrintInternal(args), selector);
   }
 
   function mainPrintInternal(args) {
     const value = path.getValue();
-
-    // for path.map(print, ...)
-    if (typeof args === "number") {
-      args = undefined;
-    }
 
     const shouldCache =
       value && typeof value === "object" && args === undefined;
