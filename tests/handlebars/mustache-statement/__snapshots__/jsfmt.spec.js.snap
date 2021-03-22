@@ -73,16 +73,15 @@ singleQuote: true
 
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{
-    aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
-  }}
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
 />
 
 <GlimmerComponent
   class='medium'
   @autocomplete='off'
-  @errors={{
-    or this.aLongProperty (and this.aProperty (v-get bike 'number' 'message'))
+  @errors={{or
+    this.aLongProperty
+    (and this.aProperty (v-get bike 'number' 'message'))
   }}
   data-test-beneficiary-account-number
 />
@@ -90,8 +89,7 @@ singleQuote: true
 <GlimmerComponent
   class='medium'
   @autocomplete='off'
-  @errors={{
-    or
+  @errors={{or
     this.aVeryLongProperty
     (and this.aProperty (v-get bike 'number' 'message'))
   }}
@@ -236,16 +234,15 @@ printWidth: 80
 
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{
-    aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
-  }}
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
 />
 
 <GlimmerComponent
   class="medium"
   @autocomplete="off"
-  @errors={{
-    or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))
+  @errors={{or
+    this.aLongProperty
+    (and this.aProperty (v-get bike "number" "message"))
   }}
   data-test-beneficiary-account-number
 />
@@ -253,8 +250,7 @@ printWidth: 80
 <GlimmerComponent
   class="medium"
   @autocomplete="off"
-  @errors={{
-    or
+  @errors={{or
     this.aVeryLongProperty
     (and this.aProperty (v-get bike "number" "message"))
   }}
@@ -564,8 +560,7 @@ foo{{/if}}
 
 =====================================output=====================================
 <li
-  class='{{
-      if
+  class='{{if
       showAsCarousel
       'career-interests__pill--slide-item'
       'career-interests__pill'
@@ -583,8 +578,7 @@ foo{{/if}}
 }}
 
 <LinkTo
-  @query={{
-    hash
+  @query={{hash
     filter=(compute
       this.computeFilterWithEmail this.filter campaignPic.userEmail
     )
@@ -647,8 +641,7 @@ foo{{/if}}
 
 =====================================output=====================================
 <li
-  class="{{
-      if
+  class="{{if
       showAsCarousel
       "career-interests__pill--slide-item"
       "career-interests__pill"
@@ -666,8 +659,7 @@ foo{{/if}}
 }}
 
 <LinkTo
-  @query={{
-    hash
+  @query={{hash
     filter=(compute
       this.computeFilterWithEmail this.filter campaignPic.userEmail
     )

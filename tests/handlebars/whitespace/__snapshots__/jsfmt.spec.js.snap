@@ -387,8 +387,8 @@ sometimes{{nogaps}}areimportant<Hello></Hello>
 
 Some sentence with
 {{dynamic}}
-expressions. sometimes{{nogaps
-}}areimportant<Hello />
+expressions. sometimes{{nogaps}}areimportant<Hello
+/>
 
 {{name}}
 is your name
