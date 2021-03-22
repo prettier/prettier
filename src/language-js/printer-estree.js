@@ -1021,7 +1021,7 @@ function printPathNoParens(path, options, print, args) {
       return "?";
     case "ModuleExpression": {
       parts.push("module {");
-      const printed = path.call(print, "body");
+      const printed = print("body");
       if (printed) {
         parts.push(indent([hardline, printed]), hardline);
       }
