@@ -3,6 +3,7 @@
 const createError = require("../common/parser-create-error");
 const postprocess = require("./parse-postprocess");
 const createParser = require("./parser/create-parser");
+const replaceHashbang = require("./parser/replace-hashbang");
 
 // https://github.com/facebook/flow/tree/master/packages/flow-parser#options
 const parseOptions = {
@@ -47,7 +48,7 @@ function createParseError(error) {
 function parse(text, parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it
   const { parse } = require("flow-parser");
-  const ast = parse(text, parseOptions);
+  const ast = parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);

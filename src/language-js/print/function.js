@@ -8,6 +8,7 @@ const {
   printDanglingComments,
   printCommentsSeparately,
 } = require("../../main/comments");
+const getLast = require("../../utils/get-last");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
@@ -441,7 +442,7 @@ function printReturnAndThrowArgument(path, options, print) {
   }
 
   const comments = getComments(node);
-  const lastComment = comments[comments.length - 1];
+  const lastComment = getLast(comments);
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {

@@ -443,7 +443,14 @@ function printTypescript(path, options, print) {
       if (node.isExport) {
         parts.push("export ");
       }
-      parts.push("import ", print("id"), " = ", print("moduleReference"));
+
+      parts.push("import ");
+
+      if (node.importKind && node.importKind !== "value") {
+        parts.push(node.importKind, " ");
+      }
+
+      parts.push(print("id"), " = ", print("moduleReference"));
 
       if (options.semi) {
         parts.push(";");
