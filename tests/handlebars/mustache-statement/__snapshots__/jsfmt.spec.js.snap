@@ -522,3 +522,170 @@ an escaped mustache:
 another non-escaped mustache: \\\\\\{{my-component}}
 ================================================================================
 `;
+
+exports[`issue-8691.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<li class="
+{{if showAsCarousel "career-interests__pill--slide-item" "career-interests__pill"}}
+"></li>
+
+{{
+  yield
+  (hash
+    header=(component "fluid-table/thead")
+    body=(component "fluid-table/tbody")
+    th=(component "fluid-table/th")
+    td=(component "fluid-table/td")
+  )
+}}
+
+<LinkTo
+  @query={{
+    hash
+    filter=(compute this.computeFilterWithEmail this.filter campaignPic.userEmail)
+  }}
+  class="text-xs hover:underline"
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')}}
+
+{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)}}
+foo{{/if}}
+
+{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl}}
+
+=====================================output=====================================
+<li
+  class='{{
+      if
+      showAsCarousel
+      'career-interests__pill--slide-item'
+      'career-interests__pill'
+    }}
+    '
+></li>
+
+{{yield
+  (hash
+    header=(component 'fluid-table/thead')
+    body=(component 'fluid-table/tbody')
+    th=(component 'fluid-table/th')
+    td=(component 'fluid-table/td')
+  )
+}}
+
+<LinkTo
+  @query={{
+    hash
+    filter=(compute
+      this.computeFilterWithEmail this.filter campaignPic.userEmail
+    )
+  }}
+  class='text-xs hover:underline'
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')
+}}
+
+{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
+}}
+  foo{{/if}}
+
+{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl
+}}
+================================================================================
+`;
+
+exports[`issue-8691.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<li class="
+{{if showAsCarousel "career-interests__pill--slide-item" "career-interests__pill"}}
+"></li>
+
+{{
+  yield
+  (hash
+    header=(component "fluid-table/thead")
+    body=(component "fluid-table/tbody")
+    th=(component "fluid-table/th")
+    td=(component "fluid-table/td")
+  )
+}}
+
+<LinkTo
+  @query={{
+    hash
+    filter=(compute this.computeFilterWithEmail this.filter campaignPic.userEmail)
+  }}
+  class="text-xs hover:underline"
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')}}
+
+{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)}}
+foo{{/if}}
+
+{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl}}
+
+=====================================output=====================================
+<li
+  class="{{
+      if
+      showAsCarousel
+      "career-interests__pill--slide-item"
+      "career-interests__pill"
+    }}
+    "
+></li>
+
+{{yield
+  (hash
+    header=(component "fluid-table/thead")
+    body=(component "fluid-table/tbody")
+    th=(component "fluid-table/th")
+    td=(component "fluid-table/td")
+  )
+}}
+
+<LinkTo
+  @query={{
+    hash
+    filter=(compute
+      this.computeFilterWithEmail this.filter campaignPic.userEmail
+    )
+  }}
+  class="text-xs hover:underline"
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if abcdefghijklmnopqrstuvwxyz (t "abcdefghijklmnopq") (t "abcdefghijklmnopq")
+}}
+
+{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
+}}
+  foo{{/if}}
+
+{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl
+}}
+================================================================================
+`;
