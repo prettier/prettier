@@ -26,7 +26,7 @@ function printTypeParameters(path, options, print, paramsKey) {
 
   // for TypeParameterDeclaration typeParameters is a single node
   if (!Array.isArray(node[paramsKey])) {
-    return path.call(print, paramsKey);
+    return print(paramsKey);
   }
 
   const grandparent = path.getNode(2);
@@ -97,14 +97,14 @@ function printTypeParameter(path, options, print) {
   const parts = [];
   const parent = path.getParentNode();
   if (parent.type === "TSMappedType") {
-    parts.push("[", path.call(print, "name"));
+    parts.push("[", print("name"));
     if (node.constraint) {
-      parts.push(" in ", path.call(print, "constraint"));
+      parts.push(" in ", print("constraint"));
     }
     if (parent.nameType) {
       parts.push(
         " as ",
-        path.callParent((path) => path.call(print, "nameType"))
+        path.callParent(() => print("nameType"))
       );
     }
     parts.push("]");
@@ -112,21 +112,21 @@ function printTypeParameter(path, options, print) {
   }
 
   if (node.variance) {
-    parts.push(path.call(print, "variance"));
+    parts.push(print("variance"));
   }
 
-  parts.push(path.call(print, "name"));
+  parts.push(print("name"));
 
   if (node.bound) {
-    parts.push(": ", path.call(print, "bound"));
+    parts.push(": ", print("bound"));
   }
 
   if (node.constraint) {
-    parts.push(" extends ", path.call(print, "constraint"));
+    parts.push(" extends ", print("constraint"));
   }
 
   if (node.default) {
-    parts.push(" = ", path.call(print, "default"));
+    parts.push(" = ", print("default"));
   }
 
   return parts;

@@ -61,7 +61,7 @@ function printTemplateLiteral(path, print, options) {
   path.each((childPath) => {
     const i = childPath.getName();
 
-    parts.push(print(childPath));
+    parts.push(print());
 
     if (i < expressions.length) {
       // For a template literal of the following form:
@@ -202,7 +202,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
 function printTemplateExpression(path, print) {
   const node = path.getValue();
-  let printed = print(path);
+  let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
   }
