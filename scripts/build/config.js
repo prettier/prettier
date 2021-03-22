@@ -31,9 +31,6 @@ const parsers = [
     replace: {
       // `flow-parser` use this for `globalThis`, can't work in strictMode
       "(function(){return this}())": '(new Function("return this")())',
-      // https://github.com/facebook/flow/issues/8609
-      "rI.caml_create_file=": "({})._=",
-      "rI.caml_fs_tmp=": "({})._=",
     },
   },
   {
