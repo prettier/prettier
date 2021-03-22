@@ -592,7 +592,8 @@ foo{{/if}}
 {{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')
 }}
 
-{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
+{{#if
+  (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
 }}
   foo{{/if}}
 
@@ -673,7 +674,8 @@ foo{{/if}}
 {{if abcdefghijklmnopqrstuvwxyz (t "abcdefghijklmnopq") (t "abcdefghijklmnopq")
 }}
 
-{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
+{{#if
+  (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
 }}
   foo{{/if}}
 

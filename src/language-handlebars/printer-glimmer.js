@@ -536,7 +536,7 @@ function printOpenBlock(path, print) {
 
   return group([
     openingMustache,
-    indent(group(attributes)),
+    indent(attributes),
     softline,
     closingMustache,
   ]);
