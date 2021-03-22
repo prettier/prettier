@@ -22,7 +22,7 @@ const cliDescriptor = {
 class FlagSchema extends vnopts.ChoiceSchema {
   constructor({ name, flags }) {
     super({ name, choices: flags });
-    this._flags = flags.slice().sort();
+    this._flags = [...flags].sort();
   }
   preprocess(value, utils) {
     if (
