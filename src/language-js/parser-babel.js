@@ -180,7 +180,6 @@ const allowedMessages = new Set([
 
   "Using the export keyword between a decorator and a class is not allowed. Please use `export @dec class` instead.",
   "Argument name clash",
-  "import() requires exactly one or two arguments",
   "Invalid decimal",
   "Unexpected trailing comma after rest element",
   "Decorators cannot be used to decorate parameters",
@@ -190,7 +189,6 @@ const allowedMessages = new Set([
   "Unexpected token :",
   "Unexpected reserved word 'package'",
   'Duplicate key "type" is not allowed in module attributes',
-  "Cannot use new with import(...)",
   "No line break is allowed before '=>'",
   "Invalid escape sequence in template",
   "Abstract methods can only appear within an abstract class.",
