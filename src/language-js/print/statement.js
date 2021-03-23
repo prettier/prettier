@@ -35,7 +35,7 @@ function printStatementSequence(path, options, print, property) {
       return;
     }
 
-    const printed = print(path);
+    const printed = print();
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
     // don't prepend the only JSX element in a program with semicolon
@@ -46,7 +46,7 @@ function printStatementSequence(path, options, print, property) {
       statementNeedsASIProtection(path, options)
     ) {
       if (hasComment(node, CommentCheckFlags.Leading)) {
-        parts.push(print(path, { needsSemi: true }));
+        parts.push(print([], { needsSemi: true }));
       } else {
         parts.push(";", printed);
       }

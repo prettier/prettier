@@ -108,7 +108,7 @@ class AstPath {
     // Avoid pass `index` as `args` to `print` for this usage `path.map(print, ...)`
     if (callback === this.print) {
       this.each((path, index) => {
-        result[index] = callback(path);
+        result[index] = callback();
       }, ...names);
     } else {
       this.each((path, index, value) => {

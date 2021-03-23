@@ -13,7 +13,7 @@ function printAngular(path, options, print) {
   switch (node.type) {
     case "NGRoot":
       return [
-        path.call(print, "node"),
+        print("node"),
         !hasComment(node.node)
           ? ""
           : " //" + getComments(node.node)[0].value.trimEnd(),
@@ -26,9 +26,7 @@ function printAngular(path, options, print) {
           [";", line],
           path.map(
             (childPath) =>
-              hasNgSideEffect(childPath)
-                ? print(childPath)
-                : ["(", print(childPath), ")"],
+              hasNgSideEffect(childPath) ? print() : ["(", print(), ")"],
             "expressions"
           )
         )
@@ -45,7 +43,7 @@ function printAngular(path, options, print) {
             : isNgForOf(childPath.getValue(), index, node)
             ? " "
             : [";", line],
-          print(childPath),
+          print(),
         ],
         "body"
       );
@@ -55,8 +53,8 @@ function printAngular(path, options, print) {
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
       return [
-        path.call(print, "expression"),
-        node.alias === null ? "" : [" as ", path.call(print, "alias")],
+        print("expression"),
+        node.alias === null ? "" : [" as ", print("alias")],
       ];
     case "NGMicrosyntaxKeyedExpression": {
       const index = path.getName();
@@ -72,19 +70,19 @@ function printAngular(path, options, print) {
             parentNode.body[index - 1].key.name === "then")) &&
           parentNode.body[0].type === "NGMicrosyntaxExpression");
       return [
-        path.call(print, "key"),
+        print("key"),
         shouldNotPrintColon ? " " : ": ",
-        path.call(print, "expression"),
+        print("expression"),
       ];
     }
     case "NGMicrosyntaxLet":
       return [
         "let ",
-        path.call(print, "key"),
-        node.value === null ? "" : [" = ", path.call(print, "value")],
+        print("key"),
+        node.value === null ? "" : [" = ", print("value")],
       ];
     case "NGMicrosyntaxAs":
-      return [path.call(print, "key"), " as ", path.call(print, "alias")];
+      return [print("key"), " as ", print("alias")];
   }
 }
 
