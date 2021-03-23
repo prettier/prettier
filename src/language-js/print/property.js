@@ -17,7 +17,7 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    return ["[", path.call(print, "key"), "]"];
+    return ["[", print("key"), "]"];
   }
 
   const parent = path.getParentNode();
@@ -25,7 +25,7 @@ function printPropertyKey(path, options, print) {
 
   // flow has `Identifier` key, other parsers use `PrivateIdentifier` (ESTree) or `PrivateName`
   if (node.type === "ClassPrivateProperty" && key.type === "Identifier") {
-    return ["#", path.call(print, "key")];
+    return ["#", print("key")];
   }
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
@@ -86,13 +86,13 @@ function printPropertyKey(path, options, print) {
     );
   }
 
-  return path.call(print, "key");
+  return print("key");
 }
 
 function printProperty(path, options, print) {
   const node = path.getValue();
   if (node.shorthand) {
-    return path.call(print, "value");
+    return print("value");
   }
 
   return printAssignment(

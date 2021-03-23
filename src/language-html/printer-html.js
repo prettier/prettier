@@ -543,7 +543,7 @@ function printChildren(path, options, print) {
       ];
     }
 
-    return print(childPath);
+    return print();
   }
 
   function printBetweenLine(prevNode, nextNode) {
@@ -663,7 +663,7 @@ function printAttributes(path, options, print) {
             options.originalText.slice(locStart(attribute), locEnd(attribute)),
             literalline
           )
-        : print(path),
+        : print(),
     "attrs"
   );
 

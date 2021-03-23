@@ -102,7 +102,7 @@ function printObject(path, options, print) {
     path.eachValue((node) => {
       propsAndLoc.push({
         node,
-        printed: print(path),
+        printed: print(),
         loc: locStart(node),
       });
     }, field);

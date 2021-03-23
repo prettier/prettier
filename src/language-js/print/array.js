@@ -147,7 +147,7 @@ function printArrayItems(path, options, printPath, print) {
   let separatorParts = [];
 
   path.eachValue((node) => {
-    printedElements.push(separatorParts, group(print(path)));
+    printedElements.push(separatorParts, group(print()));
 
     separatorParts = [",", line];
     if (node && isNextLineEmpty(node, options)) {
@@ -164,7 +164,7 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   path.eachValue((node, i, elements) => {
     const isLast = i === elements.length - 1;
 
-    parts.push([print(path), isLast ? trailingComma : ","]);
+    parts.push([print(), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(

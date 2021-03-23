@@ -410,9 +410,7 @@ function genericPrint(path, options, print) {
                 " ".repeat(4),
                 printChildren(path, options, print, {
                   processor: (childPath, index) =>
-                    index === 0
-                      ? group([softline, print(childPath)])
-                      : print(childPath),
+                    index === 0 ? group([softline, print()]) : print(),
                 })
               ),
               nextNode && nextNode.type === "footnoteDefinition"
@@ -469,13 +467,13 @@ function printListItem(path, options, print, listPrefix) {
     printChildren(path, options, print, {
       processor: (childPath, index) => {
         if (index === 0 && childPath.getValue().type !== "list") {
-          return align(" ".repeat(prefix.length), print(childPath));
+          return align(" ".repeat(prefix.length), print());
         }
 
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
-        return [alignment, align(alignment, print(childPath))];
+        return [alignment, align(alignment, print())];
       },
     }),
   ];
@@ -565,7 +563,7 @@ function printTable(path, options, print) {
   const contents = path.mapValue(
     () =>
       path.mapValue((cell, columnIndex) => {
-        const text = printDocToString(print(path), options).formatted;
+        const text = printDocToString(print(), options).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
           columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
@@ -691,14 +689,14 @@ function printRoot(path, options, print) {
         }
       }
 
-      return print(childPath);
+      return print();
     },
   });
 }
 
 function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
-  const processor = events.processor || ((childPath) => print(childPath));
+  const processor = events.processor || (() => print());
 
   const node = path.getValue();
   const parts = [];
@@ -750,7 +748,7 @@ function printChildren(path, options, print, events = {}) {
 function getLastDescendantNode(node) {
   let current = node;
   while (isNonEmptyArray(current.children)) {
-    current = current.children[current.children.length - 1];
+    current = getLast(current.children);
   }
   return current;
 }

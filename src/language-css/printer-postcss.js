@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../utils/get-last");
 const {
   printNumber,
   printString,
@@ -114,7 +115,7 @@ function genericPrint(path, options, print) {
     }
     case "css-rule": {
       return [
-        path.call(print, "selector"),
+        print("selector"),
         node.important ? " !important" : "",
         node.nodes
           ? [
@@ -142,8 +143,8 @@ function genericPrint(path, options, print) {
       const isColon = trimmedBetween === ":";
 
       let value = hasComposesNode(node)
-        ? removeLines(path.call(print, "value"))
-        : path.call(print, "value");
+        ? removeLines(print("value"))
+        : print("value");
 
       if (!isColon && lastLineHasInlineComment(trimmedBetween)) {
         value = indent([hardline, dedent(value)]);
@@ -156,7 +157,7 @@ function genericPrint(path, options, print) {
         trimmedBetween,
         node.extend ? "" : " ",
         isLessParser(options) && node.extend && node.selector
-          ? ["extend(", path.call(print, "selector"), ")"]
+          ? ["extend(", print("selector"), ")"]
           : "",
         value,
         node.raws.important
@@ -200,7 +201,7 @@ function genericPrint(path, options, print) {
       if (isLessParser(options)) {
         if (node.mixin) {
           return [
-            path.call(print, "selector"),
+            print("selector"),
             node.important ? " !important" : "",
             isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";",
           ];
@@ -209,7 +210,7 @@ function genericPrint(path, options, print) {
         if (node.function) {
           return [
             node.name,
-            path.call(print, "params"),
+            print("params"),
             isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";",
           ];
         }
@@ -219,7 +220,7 @@ function genericPrint(path, options, print) {
             "@",
             node.name,
             ": ",
-            node.value ? path.call(print, "value") : "",
+            node.value ? print("value") : "",
             node.raws.between.trim() ? node.raws.between.trim() + " " : "",
             node.nodes
               ? [
@@ -260,14 +261,14 @@ function genericPrint(path, options, print) {
                   ? hardline
                   : " "
                 : " ",
-              path.call(print, "params"),
+              print("params"),
             ]
           : "",
-        node.selector ? indent([" ", path.call(print, "selector")]) : "",
+        node.selector ? indent([" ", print("selector")]) : "",
         node.value
           ? group([
               " ",
-              path.call(print, "value"),
+              print("value"),
               isSCSSControlDirectiveNode(node)
                 ? hasParensAroundNode(node)
                   ? " "
@@ -310,7 +311,7 @@ function genericPrint(path, options, print) {
         if (node.type === "media-query" && node.value === "") {
           return;
         }
-        parts.push(print(path));
+        parts.push(print());
       }, "nodes");
 
       return group(indent(join(line, parts)));
@@ -503,7 +504,7 @@ function genericPrint(path, options, print) {
     // postcss-values-parser
     case "value-value":
     case "value-root": {
-      return path.call(print, "group");
+      return print("group");
     }
     case "value-comment": {
       return options.originalText.slice(locStart(node), locEnd(node));
@@ -832,9 +833,9 @@ function genericPrint(path, options, print) {
             node.groups[0].groups[0].value.startsWith("data:")))
       ) {
         return [
-          node.open ? path.call(print, "open") : "",
+          node.open ? print("open") : "",
           join(",", path.map(print, "groups")),
-          node.close ? path.call(print, "close") : "",
+          node.close ? print("close") : "",
         ];
       }
 
@@ -854,19 +855,19 @@ function genericPrint(path, options, print) {
 
       const isSCSSMapItem = isSCSSMapItemNode(path);
 
-      const lastItem = node.groups[node.groups.length - 1];
+      const lastItem = getLast(node.groups);
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
 
       const printed = group(
         [
-          node.open ? path.call(print, "open") : "",
+          node.open ? print("open") : "",
           indent([
             softline,
             join(
               [",", line],
               path.mapValue((node) => {
-                const printed = print(path);
+                const printed = print();
 
                 // Key/Value pair in open paren already indented
                 if (
@@ -896,7 +897,7 @@ function genericPrint(path, options, print) {
               : ""
           ),
           softline,
-          node.close ? path.call(print, "close") : "",
+          node.close ? print("close") : "",
         ],
         {
           shouldBreak: isSCSSMapItem && !isKey,
@@ -911,7 +912,7 @@ function genericPrint(path, options, print) {
         insideAtRuleNode(path, "supports") && isMediaAndSupportsKeywords(node)
           ? " "
           : "",
-        path.call(print, "group"),
+        print("group"),
       ];
     }
     case "value-paren": {
@@ -939,7 +940,7 @@ function genericPrint(path, options, print) {
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (prevNode &&
           typeof prevNode.value === "string" &&
-          prevNode.value[prevNode.value.length - 1] === "\\") ||
+          getLast(prevNode.value) === "\\") ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""
@@ -985,7 +986,7 @@ function printNodeSequence(path, options, print) {
         options.originalText.slice(locStart(childNode), locEnd(childNode))
       );
     } else {
-      parts.push(print(path));
+      parts.push(print());
     }
 
     if (i !== nodes.length - 1) {

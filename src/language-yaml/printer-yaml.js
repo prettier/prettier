@@ -55,13 +55,13 @@ function genericPrint(path, options, print) {
 
   const { tag, anchor } = node;
   if (tag) {
-    parts.push(path.call(print, "tag"));
+    parts.push(print("tag"));
   }
   if (tag && anchor) {
     parts.push(" ");
   }
   if (anchor) {
-    parts.push(path.call(print, "anchor"));
+    parts.push(print("anchor"));
   }
 
   /** @type {Doc} */
@@ -120,7 +120,7 @@ function genericPrint(path, options, print) {
         isInlineNode(node)
           ? ""
           : breakParent,
-        path.call(print, "trailingComment"),
+        print("trailingComment"),
       ])
     );
   }
@@ -136,7 +136,7 @@ function genericPrint(path, options, print) {
               isPreviousLineEmpty(options.originalText, node, locStart)
                 ? hardline
                 : "",
-              print(path),
+              print(),
             ],
             "endComments"
           )
@@ -159,11 +159,11 @@ function printNode(node, parentNode, path, options, print) {
         if (index !== 0) {
           parts.push(hardline);
         }
-        parts.push(print(path));
+        parts.push(print());
         if (shouldPrintDocumentEndMarker(document, nextDocument)) {
           parts.push(hardline, "...");
           if (hasTrailingComment(document)) {
-            parts.push(" ", path.call(print, "trailingComment"));
+            parts.push(" ", print("trailingComment"));
           }
         } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
           parts.push(hardline, "---");
@@ -191,18 +191,18 @@ function printNode(node, parentNode, path, options, print) {
         ) === "head"
       ) {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
-          parts.push(path.call(print, "head"));
+          parts.push(print("head"));
         }
 
         if (hasTrailingComment(node.head)) {
-          parts.push(["---", " ", path.call(print, "head", "trailingComment")]);
+          parts.push(["---", " ", print(["head", "trailingComment"])]);
         } else {
           parts.push("---");
         }
       }
 
       if (shouldPrintDocumentBody(node)) {
-        parts.push(path.call(print, "body"));
+        parts.push(print("body"));
       }
 
       return join(hardline, parts);
@@ -321,19 +321,14 @@ function printNode(node, parentNode, path, options, print) {
     case "blockLiteral": {
       return printBlock(path, print, options);
     }
+    case "mapping":
     case "sequence":
       return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return [
-        "- ",
-        alignWithSpaces(2, !node.content ? "" : path.call(print, "content")),
-      ];
+      return ["- ", alignWithSpaces(2, !node.content ? "" : print("content"))];
     case "mappingKey":
-      return !node.content ? "" : path.call(print, "content");
     case "mappingValue":
-      return !node.content ? "" : path.call(print, "content");
-    case "mapping":
-      return join(hardline, path.map(print, "children"));
+      return !node.content ? "" : print("content");
     case "mappingItem":
     case "flowMappingItem": {
       return printMappingItem(node, parentNode, path, print, options);
@@ -343,7 +338,7 @@ function printNode(node, parentNode, path, options, print) {
     case "flowSequence":
       return printFlowSequence(path, print, options);
     case "flowSequenceItem":
-      return path.call(print, "content");
+      return print("content");
     // istanbul ignore next
     default:
       throw new Error(`Unexpected node type ${node.type}`);

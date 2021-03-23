@@ -4,6 +4,7 @@ const vnopts = require("vnopts");
 const leven = require("leven");
 const chalk = require("chalk");
 const flat = require("lodash/flatten");
+const getLast = require("../utils/get-last");
 
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
@@ -21,7 +22,7 @@ const cliDescriptor = {
 class FlagSchema extends vnopts.ChoiceSchema {
   constructor({ name, flags }) {
     super({ name, choices: flags });
-    this._flags = flags.slice().sort();
+    this._flags = [...flags].sort();
   }
   preprocess(value, utils) {
     if (
@@ -196,9 +197,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     const originalPreprocess = parameters.preprocess || ((x) => x);
     parameters.preprocess = (value, schema, utils) =>
       schema.preprocess(
-        originalPreprocess(
-          Array.isArray(value) ? value[value.length - 1] : value
-        ),
+        originalPreprocess(Array.isArray(value) ? getLast(value) : value),
         utils
       );
   }

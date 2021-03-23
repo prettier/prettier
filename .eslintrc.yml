@@ -118,6 +118,7 @@ overrides:
       prettier-internal-rules/better-parent-property-check-in-needs-parens: error
   - files: src/**/*.js
     rules:
+      prettier-internal-rules/consistent-negative-index-access: error
       prettier-internal-rules/flat-ast-path-call: error
       prettier-internal-rules/no-ast-path-map-each: error
       prettier-internal-rules/no-doc-builder-concat: error

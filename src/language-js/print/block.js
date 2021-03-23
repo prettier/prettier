@@ -75,7 +75,7 @@ function printBlockBody(path, options, print) {
   // Babel 6
   if (nodeHasDirectives) {
     path.eachValue((node, index, directives) => {
-      parts.push(print(path));
+      parts.push(print());
       if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
         if (isNextLineEmpty(node, options)) {

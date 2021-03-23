@@ -43,7 +43,7 @@ function printChildren(path, print, options) {
   const node = path.getValue();
   const parts = path.mapValue(
     (child, index) => [
-      print(path),
+      print(),
       index === node.children.length - 1
         ? ""
         : [

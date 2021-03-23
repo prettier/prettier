@@ -26,7 +26,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     return ": ";
   }
 
-  const printedKey = path.call(print, "key");
+  const printedKey = print("key");
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
@@ -46,7 +46,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     return ["? ", alignWithSpaces(2, printedKey)];
   }
 
-  const printedValue = path.call(print, "value");
+  const printedValue = print("value");
   if (isEmptyMappingKey) {
     return [": ", alignWithSpaces(2, printedValue)];
   }

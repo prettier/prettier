@@ -78,7 +78,7 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (declaration) {
-    parts.push(" ", path.call(print, "declaration"));
+    parts.push(" ", print("declaration"));
   } else {
     parts.push(
       exportKind === "type" ? " type" : "",
@@ -112,7 +112,7 @@ function printExportAllDeclaration(path, options, print) {
   parts.push(" *");
 
   if (exported) {
-    parts.push(" as ", path.call(print, "exported"));
+    parts.push(" as ", print("exported"));
   }
 
   parts.push(
@@ -163,7 +163,7 @@ function printModuleSource(path, options, print) {
   if (!shouldNotPrintSpecifiers(node, options)) {
     parts.push(" from");
   }
-  parts.push(" ", path.call(print, "source"));
+  parts.push(" ", print("source"));
 
   return parts;
 }
@@ -190,12 +190,12 @@ function printModuleSpecifiers(path, options, print) {
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        standaloneSpecifiers.push(print(path));
+        standaloneSpecifiers.push(print());
       } else if (
         specifierType === "ExportSpecifier" ||
         specifierType === "ImportSpecifier"
       ) {
-        groupedSpecifiers.push(print(path));
+        groupedSpecifiers.push(print());
       } else {
         /* istanbul ignore next */
         throw new Error(
@@ -297,7 +297,7 @@ function printModuleSpecifier(path, options, print) {
   ) {
     left = "*";
   } else if (node[leftSideProperty]) {
-    left = path.call(print, leftSideProperty);
+    left = print(leftSideProperty);
   }
 
   if (
@@ -306,7 +306,7 @@ function printModuleSpecifier(path, options, print) {
       // import {a as a} from '.'
       !hasSameLoc(node[leftSideProperty], node[rightSideProperty]))
   ) {
-    right = path.call(print, rightSideProperty);
+    right = print(rightSideProperty);
   }
 
   parts.push(left, left && right ? " as " : "", right);

@@ -179,7 +179,7 @@ function print(path, options, print) {
           ).quote
         : "";
 
-      const valueDoc = path.call(print, "value");
+      const valueDoc = print("value");
 
       return [
         node.name,
@@ -198,7 +198,7 @@ function print(path, options, print) {
       return join(line, path.map(print, "pairs"));
     }
     case "HashPair": {
-      return [node.key, "=", path.call(print, "value")];
+      return [node.key, "=", print("value")];
     }
     case "TextNode": {
       /* if `{{my-component}}` (or any text containing "{{")
@@ -460,7 +460,7 @@ function printChildren(path, options, print) {
   }
 
   return path.mapValue((value, childIndex) => {
-    const printedChild = print(path, options, print);
+    const printedChild = print();
 
     if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
@@ -587,14 +587,14 @@ function printCloseBlock(path, print, options) {
     return [
       escape,
       printClosingBlockOpeningMustache(node),
-      path.call(print, "path"),
+      print("path"),
       printClosingBlockClosingMustache(node),
     ];
   }
 
   return [
     printClosingBlockOpeningMustache(node),
-    path.call(print, "path"),
+    print("path"),
     printClosingBlockClosingMustache(node),
   ];
 }
@@ -626,7 +626,7 @@ function printProgram(path, print, options) {
     return "";
   }
 
-  const program = path.call(print, "program");
+  const program = print("program");
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
     return indent([hardline, program]);
@@ -638,7 +638,7 @@ function printProgram(path, print, options) {
 function printInverse(path, print, options) {
   const node = path.getValue();
 
-  const inverse = path.call(print, "inverse");
+  const inverse = print("inverse");
   const printed =
     options.htmlWhitespaceSensitivity === "ignore"
       ? [hardline, inverse]
@@ -768,7 +768,7 @@ function printPathAndParams(path, print) {
 }
 
 function printPath(path, print) {
-  return path.call(print, "path");
+  return print("path");
 }
 
 function printParams(path, print) {
@@ -781,7 +781,7 @@ function printParams(path, print) {
   }
 
   if (node.hash && node.hash.pairs.length > 0) {
-    const hash = path.call(print, "hash");
+    const hash = print("hash");
     parts.push(hash);
   }
 

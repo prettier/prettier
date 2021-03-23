@@ -176,21 +176,28 @@ function print(
   path: AstPath,
   options: object,
   // Recursively print a child node
-  print: (path: AstPath) => Doc
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc
 ): Doc;
 ```
 
-The `print` function is passed a `path` object, which can be used to access nodes in the AST via `path.getValue()`. It is also passed a persistent `options` object (which contains global options and which a plugin may mutate), and a `print` function used for making recursive calls. A basic `print` function might be as follows:
+The `print` function is passed the following parameters:
+
+- **`path`**: An object, which can be used to access nodes in the AST. It’s a stack-like data structure that maintains the current state of the recursion. It is called “path” because it represents the path to the current node from the root of the AST. The current node is returned by `path.getValue()`.
+- **`options`**: A persistent object, which contains global options and which a plugin may mutate to store contextual data.
+- **`print`**: A callback for printing sub-nodes. This function contains the core printing logic that consists of steps whose implementation is provided by plugins. In particular, it calls the printer’s `print` function and passes itself to it. Thus, the two `print` functions – the one from the core and the one from the plugin – call each other while descending down the AST recursively.
+
+Here’s a simplified example to give an idea of what a typical implementation of `print` looks like:
 
 ```js
-const { builders } = require("prettier").doc;
+const { join } = require("prettier").doc.builders;
 
 function print(path, options, print) {
   const node = path.getValue();
 
   if (Array.isArray(node)) {
-    return builders.concat(path.map(print));
+    return join(", ", path.map(print));
   }
+
   return node.value;
 }
 ```
@@ -206,7 +213,7 @@ function embed(
   // Path to the current AST node
   path: AstPath,
   // Print a node with the current printer
-  print: (path: AstPath) => Doc,
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
   // Parse and print some text using a different parser.
   // You should set `options.parser` to specify which parser to use.
   textToDoc: (text: string, options: object) => Doc,
