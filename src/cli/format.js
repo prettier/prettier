@@ -165,7 +165,7 @@ function format(context, input, opt) {
     let benchmark;
     try {
       benchmark = eval("require")("benchmark");
-    } catch (err) {
+    } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
       );

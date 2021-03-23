@@ -19,35 +19,35 @@ const {
 } = require("./module");
 
 function printFlow(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const semi = options.semi ? ";" : "";
-  switch (n.type) {
+  switch (node.type) {
     case "DeclareClass":
       return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
       return printFlowDeclaration(path, [
         "function ",
-        path.call(print, "id"),
-        n.predicate ? " " : "",
-        path.call(print, "predicate"),
+        print("id"),
+        node.predicate ? " " : "",
+        print("predicate"),
         semi,
       ]);
     case "DeclareModule":
       return printFlowDeclaration(path, [
         "module ",
-        path.call(print, "id"),
+        print("id"),
         " ",
-        path.call(print, "body"),
+        print("body"),
       ]);
     case "DeclareModuleExports":
       return printFlowDeclaration(path, [
         "module.exports",
         ": ",
-        path.call(print, "typeAnnotation"),
+        print("typeAnnotation"),
         semi,
       ]);
     case "DeclareVariable":
-      return printFlowDeclaration(path, ["var ", path.call(print, "id"), semi]);
+      return printFlowDeclaration(path, ["var ", print("id"), semi]);
     case "DeclareOpaqueType":
       return printFlowDeclaration(path, printOpaqueType(path, options, print));
     case "DeclareInterface":
@@ -78,13 +78,13 @@ function printFlow(path, options, print) {
       return printTupleType(path, options, print);
     case "GenericTypeAnnotation":
       return [
-        path.call(print, "id"),
+        print("id"),
         printTypeParameters(path, options, print, "typeParameters"),
       ];
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
-      return path.call(print, "typeAnnotation");
+      return print("typeAnnotation");
   }
 }
 

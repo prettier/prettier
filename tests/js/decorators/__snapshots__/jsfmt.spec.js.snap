@@ -355,12 +355,29 @@ class Foo {
     foo,
     bar
   ]) prop = value;
+
+  @decorator([]) method() {}
+
+  @decorator([
+  ]) method() {}
+
+  @decorator({}) method() {}
+
+  @decorator({
+  }) method() {}
 }
 
 =====================================output=====================================
 class Foo {
-  @deco([foo, bar])
-  prop = value;
+  @deco([foo, bar]) prop = value;
+
+  @decorator([]) method() {}
+
+  @decorator([]) method() {}
+
+  @decorator({}) method() {}
+
+  @decorator({}) method() {}
 }
 
 ================================================================================

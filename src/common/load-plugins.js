@@ -45,7 +45,7 @@ function load(plugins, pluginSearchDirs) {
       try {
         // try local files
         requirePath = resolve(path.resolve(process.cwd(), pluginName));
-      } catch (_) {
+      } catch {
         // try node modules
         requirePath = resolve(pluginName, { paths: [process.cwd()] });
       }
@@ -120,7 +120,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
 function isDirectory(dir) {
   try {
     return fs.statSync(dir).isDirectory();
-  } catch (e) {
+  } catch {
     return false;
   }
 }

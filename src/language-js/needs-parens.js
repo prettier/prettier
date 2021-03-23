@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../utils/get-last");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -405,8 +406,10 @@ function needsParens(path, options) {
     case "TSUnionType":
     case "TSIntersectionType":
       if (
-        parent.type === "TSUnionType" ||
-        parent.type === "TSIntersectionType"
+        (parent.type === "TSUnionType" ||
+          parent.type === "TSIntersectionType") &&
+        parent.types.length > 1 &&
+        (!node.types || node.types.length > 1)
       ) {
         return true;
       }
@@ -860,9 +863,7 @@ function isFollowedByRightBracket(path) {
     case "ObjectProperty":
       if (name === "value") {
         const parentParent = path.getParentNode(1);
-        return (
-          parentParent.properties[parentParent.properties.length - 1] === parent
-        );
+        return getLast(parentParent.properties) === parent;
       }
       break;
     case "BinaryExpression":

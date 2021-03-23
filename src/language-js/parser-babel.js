@@ -1,7 +1,6 @@
 "use strict";
 
 const flatten = require("lodash/flatten");
-const createError = require("../common/parser-create-error");
 const tryCombinations = require("../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -9,6 +8,8 @@ const {
 } = require("../common/util");
 const postprocess = require("./parse-postprocess");
 const createParser = require("./parser/create-parser");
+const createBabelParseError = require("./parser/create-babel-parse-error");
+const jsonParsers = require("./parser/json");
 
 const parseOptions = {
   sourceType: "module",
@@ -48,6 +49,10 @@ const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
+const appendPlugins = (plugins) => ({
+  ...parseOptions,
+  plugins: [...parseOptions.plugins, ...plugins],
+});
 
 // Similar to babel
 // https://github.com/babel/babel/pull/7934/files#diff-a739835084910b0ee3ea649df5a4d223R67
@@ -87,187 +92,129 @@ function parseWithOptions(parseMethod, text, options) {
   return ast;
 }
 
-function createParseError(error) {
-  // babel error prints (l:c) with cols that are zero indexed
-  // so we need our custom error
-  const { message, loc } = error;
-
-  return createError(message.replace(/ \(.*\)/, ""), {
-    start: {
-      line: loc ? loc.line : 0,
-      column: loc ? loc.column + 1 : 0,
-    },
-  });
-}
-
-function createParse(parseMethod, ...pluginCombinations) {
-  const commonPlugins = parseOptions.plugins;
-  pluginCombinations =
-    pluginCombinations.length > 0
-      ? pluginCombinations.map((plugins) => [...commonPlugins, ...plugins])
-      : [commonPlugins];
-
+function createParse(parseMethod, ...optionsCombinations) {
   return (text, parsers, opts = {}) => {
     if (opts.parser === "babel" && isFlowFile(text, opts)) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
 
-    let combinations = pluginCombinations;
+    let combinations = optionsCombinations;
+    if (opts.__babelSourceType === "script") {
+      combinations = combinations.map((options) => ({
+        ...options,
+        sourceType: "script",
+      }));
+    }
+
     if (text.includes("|>")) {
       combinations = flatten(
         pipelineOperatorPlugins.map((pipelineOperatorPlugin) =>
-          combinations.map((plugins) => [...plugins, pipelineOperatorPlugin])
+          combinations.map((options) => ({
+            ...options,
+            plugins: [...options.plugins, pipelineOperatorPlugin],
+          }))
         )
       );
     }
 
-    const sourceType =
-      opts.__babelSourceType === "script" ? "script" : "module";
     const { result: ast, error } = tryCombinations(
-      ...combinations.map((plugins) => () =>
-        parseWithOptions(parseMethod, text, {
-          ...parseOptions,
-          sourceType,
-          plugins,
-        })
+      ...combinations.map((options) => () =>
+        parseWithOptions(parseMethod, text, options)
       )
     );
 
     if (!ast) {
-      throw createParseError(error);
+      throw createBabelParseError(error);
     }
 
     return postprocess(ast, { ...opts, originalText: text });
   };
 }
 
-const parse = createParse("parse", ["jsx", "flow"]);
-const parseFlow = createParse("parse", [
-  "jsx",
-  ["flow", { all: true, enums: true }],
-]);
+const parse = createParse("parse", appendPlugins(["jsx", "flow"]));
+const parseFlow = createParse(
+  "parse",
+  appendPlugins(["jsx", ["flow", { all: true, enums: true }]])
+);
 const parseTypeScript = createParse(
   "parse",
-  ["jsx", "typescript"],
-  ["typescript"]
+  appendPlugins(["jsx", "typescript"]),
+  appendPlugins(["typescript"])
 );
-const parseExpression = createParse("parseExpression", ["jsx"]);
-const parseJson = createJsonParse();
+const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
-const messagesShouldThrow = new Set([
-  // TSErrors.UnexpectedTypeAnnotation
-  // https://github.com/babel/babel/blob/008fe25ae22e78288fbc637d41069bb4a1040987/packages/babel-parser/src/plugins/typescript/index.js#L95
-  "Did not expect a type annotation here.",
-  // ErrorMessages.ModuleAttributeDifferentFromType
-  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/parser/error-message.js#L92
-  "The only accepted module attribute is `type`",
-  // FlowErrors.UnexpectedTypeParameterBeforeAsyncArrowFunction
-  // https://github.com/babel/babel/blob/a023b6456cac4505096028f91c5b78829955bfc2/packages/babel-parser/src/plugins/flow.js#L118
-  "Type parameters must come after the async keyword, e.g. instead of `<T> async () => {}`, use `async <T>() => {}`",
-  // Rethrow on omitted call arguments: foo("a", , "b");
-  // ErrorMessages.UnexpectedToken
-  "Unexpected token ','",
-  // ErrorMessages.EscapedCharNotAnIdentifier
-  "Invalid Unicode escape",
-  // ErrorMessages.MissingUnicodeEscape
-  "Expecting Unicode escape sequence \\uXXXX",
+const allowedMessages = new Set([
+  "The only valid numeric escape in strict mode is '\\0'",
+  "'with' in strict mode",
+  "Legacy octal literals are not allowed in strict mode",
+
+  "Invalid left-hand side in parenthesized expression",
+  "Invalid left-hand side in assignment expression",
+  "Invalid left-hand side in postfix operation",
+  "Invalid left-hand side in prefix operation",
+
+  "Type argument list cannot be empty.",
+  "Type parameter list cannot be empty.",
+  "Type parameters cannot appear on a constructor declaration.",
+
+  "A parameter property may not be declared using a binding pattern.",
+  "A parameter property is only allowed in a constructor implementation.",
+
+  "Tuple members must all have names or all not have names.",
+  "Tuple members must be labeled with a simple identifier.",
+
+  "'abstract' modifier can only appear on a class, method, or property declaration.",
+  "'readonly' modifier can only appear on a property declaration or index signature.",
+  "Class methods cannot have the 'declare' modifier",
+  "Class methods cannot have the 'readonly' modifier",
+  "'public' modifier cannot appear on a type member.",
+  "'private' modifier cannot appear on a type member.",
+  "'protected' modifier cannot appear on a type member.",
+  "'static' modifier cannot appear on a type member.",
+  "'declare' modifier cannot appear on a type member.",
+  "'abstract' modifier cannot appear on a type member.",
+  "'readonly' modifier cannot appear on a type member.",
+  "Accessibility modifier already seen.",
+  "Index signatures cannot have the 'declare' modifier",
+
+  "Using the export keyword between a decorator and a class is not allowed. Please use `export @dec class` instead.",
+  "Argument name clash",
+  "Invalid decimal",
+  "Unexpected trailing comma after rest element",
+  "Decorators cannot be used to decorate parameters",
+  "Unterminated JSX contents",
+  "Invalid parenthesized assignment pattern",
+  'Unexpected token, expected "}"',
+  "Unexpected token :",
+  "Unexpected reserved word 'package'",
+  'Duplicate key "type" is not allowed in module attributes',
+  "No line break is allowed before '=>'",
+  "Invalid escape sequence in template",
+  "Abstract methods can only appear within an abstract class.",
+  "Decorators cannot be used to decorate object literal properties",
+  "A required element cannot follow an optional element.",
+  "A binding pattern parameter cannot be optional in an implementation signature.",
+  "Initializers are not allowed in ambient contexts.",
+  "A type-only import can specify a default import or named bindings, but not both.",
+  "An implementation cannot be declared in ambient contexts.",
+  "Classes may not have a field named 'constructor'",
 ]);
-
 function shouldRethrowRecoveredError(error) {
   const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
-  // Only works for literal message
-  return messagesShouldThrow.has(message);
-}
 
-function createJsonParse(options = {}) {
-  const { allowComments = true } = options;
-
-  return function parse(text /*, parsers, options*/) {
-    let ast;
-    try {
-      ast = require("@babel/parser").parseExpression(text, {
-        tokens: true,
-        ranges: true,
-      });
-    } catch (error) {
-      throw createParseError(error);
-    }
-
-    if (!allowComments) {
-      // @ts-ignore
-      for (const comment of ast.comments) {
-        assertJsonNode(comment);
-      }
-    }
-
-    assertJsonNode(ast);
-
-    return ast;
-  };
-}
-
-function assertJsonNode(node, parent) {
-  switch (node.type) {
-    case "ArrayExpression":
-      for (const element of node.elements) {
-        assertJsonChildNode(element);
-      }
-      return;
-    case "ObjectExpression":
-      for (const property of node.properties) {
-        assertJsonChildNode(property);
-      }
-      return;
-    case "ObjectProperty":
-      if (node.computed) {
-        throw createJsonError("computed");
-      }
-
-      if (node.shorthand) {
-        throw createJsonError("shorthand");
-      }
-
-      assertJsonChildNode(node.key);
-      assertJsonChildNode(node.value);
-      return;
-    case "UnaryExpression":
-      switch (node.operator) {
-        case "+":
-        case "-":
-          return assertJsonChildNode(node.argument);
-        default:
-          throw createJsonError("operator");
-      }
-    case "Identifier":
-      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
-        return;
-      }
-      throw createJsonError();
-    case "NullLiteral":
-    case "BooleanLiteral":
-    case "NumericLiteral":
-    case "StringLiteral":
-      return;
-    default:
-      throw createJsonError();
+  if (
+    allowedMessages.has(message) ||
+    /^Identifier '.*?' has already been declared$/.test(message) ||
+    /^Private name #.*? is not defined$/.test(message) ||
+    /^`.*?` has already been exported\. Exported identifiers must be unique\.$/.test(
+      message
+    )
+  ) {
+    return false;
   }
 
-  function assertJsonChildNode(child) {
-    return assertJsonNode(child, node);
-  }
-
-  function createJsonError(attribute) {
-    const name = !attribute
-      ? node.type
-      : `${node.type} with ${attribute}=${JSON.stringify(node[attribute])}`;
-    return createError(`${name} is not allowed in JSON.`, {
-      start: {
-        line: node.loc.start.line,
-        column: node.loc.start.column + 1,
-      },
-    });
-  }
+  return true;
 }
 
 const babel = createParser(parse);
@@ -279,17 +226,7 @@ module.exports = {
     babel,
     "babel-flow": createParser(parseFlow),
     "babel-ts": createParser(parseTypeScript),
-    json: createParser({
-      parse: parseJson,
-      hasPragma() {
-        return true;
-      },
-    }),
-    json5: createParser(parseJson),
-    "json-stringify": createParser({
-      parse: createJsonParse({ allowComments: false }),
-      astFormat: "estree-json",
-    }),
+    ...jsonParsers,
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */

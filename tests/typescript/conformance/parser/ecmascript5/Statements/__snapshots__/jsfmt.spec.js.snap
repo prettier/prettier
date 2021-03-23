@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parserES5ForOfStatement2.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (2:13)
+"Missing semicolon (2:12)
   1 | //@target: ES5
 > 2 | for (var of X) {
-    |             ^
+    |            ^
   3 | }
   4 |"
 `;
@@ -53,9 +53,9 @@ for (var of of) {
 `;
 
 exports[`parserForInStatement2.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (1:13)
+"Missing semicolon (1:12)
 > 1 | for (var in X) {
-    |             ^
+    |            ^
   2 | }
   3 |"
 `;

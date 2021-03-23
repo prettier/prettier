@@ -44,8 +44,8 @@ function shouldPrintEndComments(node) {
   );
 }
 
-function alignWithSpaces(n, doc) {
-  return align(" ".repeat(n), doc);
+function alignWithSpaces(width, doc) {
+  return align(" ".repeat(width), doc);
 }
 
 module.exports = {

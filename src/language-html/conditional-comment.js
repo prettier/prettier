@@ -40,7 +40,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
   const [complete, children] = (() => {
     try {
       return [true, parseHtml(data, contentStartSpan).children];
-    } catch (e) {
+    } catch {
       const text = {
         type: "text",
         value: data,

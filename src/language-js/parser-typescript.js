@@ -4,6 +4,7 @@ const createError = require("../common/parser-create-error");
 const tryCombinations = require("../utils/try-combinations");
 const postprocess = require("./parse-postprocess");
 const createParser = require("./parser/create-parser");
+const replaceHashbang = require("./parser/replace-hashbang");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -33,14 +34,15 @@ function createParseError(error) {
 }
 
 function parse(text, parsers, opts) {
+  const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
   const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
   const { result, error: firstError } = tryCombinations(
     // Try passing with our best guess first.
-    () => parseWithNodeMaps(text, { ...parseOptions, jsx }),
+    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
     // But if we get it wrong, try the opposite.
-    () => parseWithNodeMaps(text, { ...parseOptions, jsx: !jsx })
+    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx })
   );
 
   if (!result) {

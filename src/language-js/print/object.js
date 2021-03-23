@@ -28,19 +28,19 @@ const { printHardlineAfterHeritage } = require("./class");
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const n = path.getValue();
+  const node = path.getValue();
 
   let propertiesField;
 
-  if (n.type === "TSTypeLiteral") {
+  if (node.type === "TSTypeLiteral") {
     propertiesField = "members";
-  } else if (n.type === "TSInterfaceBody") {
+  } else if (node.type === "TSInterfaceBody") {
     propertiesField = "body";
   } else {
     propertiesField = "properties";
   }
 
-  const isTypeAnnotation = n.type === "ObjectTypeAnnotation";
+  const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const fields = [];
   if (isTypeAnnotation) {
     fields.push("indexers", "callProperties", "internalSlots");
@@ -48,7 +48,7 @@ function printObject(path, options, print) {
   fields.push(propertiesField);
 
   const firstProperty = fields
-    .map((field) => n[field][0])
+    .map((field) => node[field][0])
     .sort((a, b) => locStart(a) - locStart(b))[0];
 
   const parent = path.getParentNode(0);
@@ -60,9 +60,9 @@ function printObject(path, options, print) {
       parent.type === "DeclareClass") &&
     path.getName() === "body";
   const shouldBreak =
-    n.type === "TSInterfaceBody" ||
+    node.type === "TSInterfaceBody" ||
     isFlowInterfaceLikeBody ||
-    (n.type === "ObjectPattern" &&
+    (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
       parent.type !== "FunctionExpression" &&
       parent.type !== "ArrowFunctionExpression" &&
@@ -71,27 +71,28 @@ function printObject(path, options, print) {
       parent.type !== "ClassPrivateMethod" &&
       parent.type !== "AssignmentPattern" &&
       parent.type !== "CatchClause" &&
-      n.properties.some(
+      node.properties.some(
         (property) =>
           property.value &&
           (property.value.type === "ObjectPattern" ||
             property.value.type === "ArrayPattern")
       )) ||
-    (n.type !== "ObjectPattern" &&
+    (node.type !== "ObjectPattern" &&
       firstProperty &&
       hasNewlineInRange(
         options.originalText,
-        locStart(n),
+        locStart(node),
         locStart(firstProperty)
       ));
 
   const separator = isFlowInterfaceLikeBody
     ? ";"
-    : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
+    : node.type === "TSInterfaceBody" || node.type === "TSTypeLiteral"
     ? ifBreak(semi, ";")
     : ",";
-  const leftBrace = n.type === "RecordExpression" ? "#{" : n.exact ? "{|" : "{";
-  const rightBrace = n.exact ? "|}" : "}";
+  const leftBrace =
+    node.type === "RecordExpression" ? "#{" : node.exact ? "{|" : "{";
+  const rightBrace = node.exact ? "|}" : "}";
 
   // Unfortunately, things are grouped together in the ast can be
   // interleaved in the source code. So we need to reorder them before
@@ -102,7 +103,7 @@ function printObject(path, options, print) {
       const node = childPath.getValue();
       propsAndLoc.push({
         node,
-        printed: print(childPath),
+        printed: print(),
         loc: locStart(node),
       });
     }, field);
@@ -129,10 +130,10 @@ function printObject(path, options, print) {
       return result;
     });
 
-  if (n.inexact) {
+  if (node.inexact) {
     let printed;
-    if (hasComment(n, CommentCheckFlags.Dangling)) {
-      const hasLineComments = hasComment(n, CommentCheckFlags.Line);
+    if (hasComment(node, CommentCheckFlags.Dangling)) {
+      const hasLineComments = hasComment(node, CommentCheckFlags.Line);
       const printedDanglingComments = printDanglingComments(
         path,
         options,
@@ -141,7 +142,7 @@ function printObject(path, options, print) {
       printed = [
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(options.originalText, locEnd(getLast(getComments(n))))
+        hasNewline(options.originalText, locEnd(getLast(getComments(node))))
           ? hardline
           : line,
         "...",
@@ -152,10 +153,10 @@ function printObject(path, options, print) {
     props.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = getLast(n[propertiesField]);
+  const lastElem = getLast(node[propertiesField]);
 
   const canHaveTrailingSeparator = !(
-    n.inexact ||
+    node.inexact ||
     (lastElem && lastElem.type === "RestElement") ||
     (lastElem &&
       (lastElem.type === "TSPropertySignature" ||
@@ -167,7 +168,7 @@ function printObject(path, options, print) {
 
   let content;
   if (props.length === 0) {
-    if (!hasComment(n, CommentCheckFlags.Dangling)) {
+    if (!hasComment(node, CommentCheckFlags.Dangling)) {
       return [leftBrace, rightBrace, printTypeAnnotation(path, options, print)];
     }
 
@@ -181,7 +182,7 @@ function printObject(path, options, print) {
     ]);
   } else {
     content = [
-      isFlowInterfaceLikeBody && isNonEmptyArray(n.properties)
+      isFlowInterfaceLikeBody && isNonEmptyArray(node.properties)
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
