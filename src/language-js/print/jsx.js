@@ -601,7 +601,7 @@ function printJsxOpeningElement(path, options, print) {
       "<",
       print("name"),
       print("typeParameters"),
-      indent(path.map(() => [line, print()], "attributes")),
+      indent(path.mapValue(() => [line, print()], "attributes")),
       node.selfClosing ? line : bracketSameLine ? ">" : softline,
       node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],

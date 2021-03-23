@@ -25,8 +25,7 @@ function printAngular(path, options, print) {
         join(
           [";", line],
           path.mapValue(
-            (node) =>
-              hasNgSideEffect(node) ? print() : ["(", print(), ")"],
+            (node) => (hasNgSideEffect(node) ? print() : ["(", print(), ")"]),
             "expressions"
           )
         )
