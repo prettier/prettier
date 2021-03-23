@@ -56,6 +56,7 @@ class Node {
           newNode[key] = this[key];
         }
       }
+      // @ts-ignore
       const { index, siblings, prev, next, parent } = this;
       setNonEnumerableProperties(newNode, {
         index,
@@ -77,18 +78,22 @@ class Node {
   }
 
   get firstChild() {
+    // @ts-ignore
     return isNonEmptyArray(this.children) ? this.children[0] : null;
   }
 
   get lastChild() {
+    // @ts-ignore
     return isNonEmptyArray(this.children) ? getLast(this.children) : null;
   }
 
   // for element and attribute
   get rawName() {
+    // @ts-ignore
     return this.hasExplicitNamespace ? this.fullName : this.name;
   }
   get fullName() {
+    // @ts-ignore
     return this.namespace ? this.namespace + ":" + this.name : this.name;
   }
 }
