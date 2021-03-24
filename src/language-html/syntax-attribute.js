@@ -1,6 +1,7 @@
 "use strict";
 
 const parseSrcset = require("parse-srcset");
+const getLast = require("../utils/get-last");
 const {
   builders: { group, ifBreak, indent, join, line, softline },
 } = require("../document");
@@ -89,7 +90,7 @@ function printClassNames(value) {
     ) {
       groupedByPrefix.push([]);
     }
-    groupedByPrefix[groupedByPrefix.length - 1].push(classNames[i]);
+    getLast(groupedByPrefix).push(classNames[i]);
     previousPrefix = prefix;
   }
 

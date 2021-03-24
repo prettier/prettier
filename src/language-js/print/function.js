@@ -1,8 +1,14 @@
 "use strict";
 
+/** @typedef {import("../../document/doc-builders").Doc} Doc */
+
 /** @type {import("assert")} */
 const assert = require("assert");
-const { printDanglingComments, printComments } = require("../../main/comments");
+const {
+  printDanglingComments,
+  printCommentsSeparately,
+} = require("../../main/comments");
+const getLast = require("../../utils/get-last");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
@@ -63,7 +69,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
   }
 
   if (node.id) {
-    parts.push(path.call(print, "id"));
+    parts.push(print("id"));
   }
 
   const parametersDoc = printFunctionParameters(
@@ -85,7 +91,7 @@ function printFunctionDeclaration(path, print, options, expandArg) {
       returnTypeDoc,
     ]),
     node.body ? " " : "",
-    path.call(print, "body")
+    print("body")
   );
 
   if (options.semi && (node.declare || !node.body)) {
@@ -128,7 +134,7 @@ function printMethod(path, options, print) {
       path.call((path) => printMethodInternal(path, options, print), "value")
     );
   } else {
-    parts.push(path.call(print, "value"));
+    parts.push(print("value"));
   }
 
   return parts;
@@ -151,7 +157,7 @@ function printMethodInternal(path, options, print) {
   ];
 
   if (node.body) {
-    parts.push(" ", path.call(print, "body"));
+    parts.push(" ", print("body"));
   } else {
     parts.push(options.semi ? ";" : "");
   }
@@ -168,7 +174,7 @@ function printArrowFunctionSignature(path, options, print, args) {
   }
 
   if (shouldPrintParamsWithoutParens(path, options)) {
-    parts.push(path.call(print, "params", 0));
+    parts.push(print(["params", 0]));
   } else {
     parts.push(
       group([
@@ -246,15 +252,20 @@ function printArrowChain(
 
 function printArrowFunctionExpression(path, options, print, args) {
   let node = path.getValue();
+  /** @type {Doc[]} */
   const signatures = [];
-  let body;
+  const body = [];
   let chainShouldBreak = false;
 
-  path.call(function rec(path) {
+  (function rec() {
     const doc = printArrowFunctionSignature(path, options, print, args);
-    signatures.push(
-      signatures.length === 0 ? doc : printComments(path, doc, options)
-    );
+    if (signatures.length === 0) {
+      signatures.push(doc);
+    } else {
+      const { leading, trailing } = printCommentsSeparately(path, options);
+      signatures.push([leading, doc]);
+      body.unshift(trailing);
+    }
 
     chainShouldBreak =
       chainShouldBreak ||
@@ -267,12 +278,12 @@ function printArrowFunctionExpression(path, options, print, args) {
       node.body.type !== "ArrowFunctionExpression" ||
       (args && args.expandLastArg)
     ) {
-      body = path.call((bodyPath) => print(bodyPath, args), "body");
+      body.unshift(print("body", args));
     } else {
       node = node.body;
       path.call(rec, "body");
     }
-  });
+  })();
 
   if (signatures.length > 1) {
     return printArrowChain(
@@ -379,7 +390,7 @@ function shouldPrintParamsWithoutParens(path, options) {
 
 function printReturnType(path, print, options) {
   const node = path.getValue();
-  const returnType = path.call(print, "returnType");
+  const returnType = print("returnType");
 
   if (
     node.returnType &&
@@ -398,7 +409,7 @@ function printReturnType(path, print, options) {
   if (node.predicate) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
-    parts.push(node.returnType ? " " : ": ", path.call(print, "predicate"));
+    parts.push(node.returnType ? " " : ": ", print("predicate"));
   }
 
   return parts;
@@ -412,12 +423,7 @@ function printReturnAndThrowArgument(path, options, print) {
 
   if (node.argument) {
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push([
-        " (",
-        indent([hardline, path.call(print, "argument")]),
-        hardline,
-        ")",
-      ]);
+      parts.push([" (", indent([hardline, print("argument")]), hardline, ")"]);
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"
@@ -425,18 +431,18 @@ function printReturnAndThrowArgument(path, options, print) {
       parts.push(
         group([
           ifBreak(" (", " "),
-          indent([softline, path.call(print, "argument")]),
+          indent([softline, print("argument")]),
           softline,
           ifBreak(")"),
         ])
       );
     } else {
-      parts.push(" ", path.call(print, "argument"));
+      parts.push(" ", print("argument"));
     }
   }
 
   const comments = getComments(node);
-  const lastComment = comments[comments.length - 1];
+  const lastComment = getLast(comments);
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {

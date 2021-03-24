@@ -56,18 +56,14 @@ function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
   const parts = [];
-  parts.push(
-    "opaque type ",
-    path.call(print, "id"),
-    path.call(print, "typeParameters")
-  );
+  parts.push("opaque type ", print("id"), print("typeParameters"));
 
   if (node.supertype) {
-    parts.push(": ", path.call(print, "supertype"));
+    parts.push(": ", print("supertype"));
   }
 
   if (node.impltype) {
-    parts.push(" = ", path.call(print, "impltype"));
+    parts.push(" = ", print("impltype"));
   }
 
   parts.push(semi);
@@ -82,11 +78,7 @@ function printTypeAlias(path, options, print) {
   if (node.declare) {
     parts.push("declare ");
   }
-  parts.push(
-    "type ",
-    path.call(print, "id"),
-    path.call(print, "typeParameters")
-  );
+  parts.push("type ", print("id"), print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
@@ -169,7 +161,7 @@ function printUnionType(path, options, print) {
   // // comment
   // | child2
   const printed = path.map((typePath) => {
-    let printedType = typePath.call(print);
+    let printedType = print();
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
@@ -264,9 +256,9 @@ function printFunctionType(path, options, print) {
     node.returnType || node.predicate || node.typeAnnotation
       ? [
           isArrowFunctionTypeAnnotation ? " => " : ": ",
-          path.call(print, "returnType"),
-          path.call(print, "predicate"),
-          path.call(print, "typeAnnotation"),
+          print("returnType"),
+          print("predicate"),
+          print("typeAnnotation"),
         ]
       : "";
 

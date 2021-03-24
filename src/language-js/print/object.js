@@ -103,7 +103,7 @@ function printObject(path, options, print) {
       const node = childPath.getValue();
       propsAndLoc.push({
         node,
-        printed: print(childPath),
+        printed: print(),
         loc: locStart(node),
       });
     }, field);

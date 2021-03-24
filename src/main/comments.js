@@ -540,23 +540,18 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent([hardline, join(hardline, parts)]);
 }
 
-function prependCursorPlaceholder(path, options, printed) {
-  if (path.getNode() === options.cursorNode && path.getValue()) {
-    return [cursor, printed, cursor];
-  }
-  return printed;
-}
-
-function printComments(path, printed, options, needsSemi) {
+function printCommentsSeparately(path, options) {
   const value = path.getValue();
-  const comments = value && value.comments;
+  const hasComments = isNonEmptyArray(value && value.comments);
+  const isCursorNode = Boolean(value && value === options.cursorNode);
 
-  if (!isNonEmptyArray(comments)) {
-    return prependCursorPlaceholder(path, options, printed);
+  if (!hasComments) {
+    const maybeCursor = isCursorNode ? cursor : "";
+    return { leading: maybeCursor, trailing: maybeCursor };
   }
 
   const leadingParts = [];
-  const trailingParts = [needsSemi ? ";" : "", printed];
+  const trailingParts = [];
 
   path.each((commentPath) => {
     const comment = commentPath.getValue();
@@ -583,10 +578,20 @@ function printComments(path, printed, options, needsSemi) {
     }
   }, "comments");
 
-  return prependCursorPlaceholder(path, options, [
-    ...leadingParts,
-    ...trailingParts,
-  ]);
+  if (isCursorNode) {
+    leadingParts.unshift(cursor);
+    trailingParts.push(cursor);
+  }
+
+  return { leading: leadingParts, trailing: trailingParts };
+}
+
+function printComments(path, doc, options) {
+  const { leading, trailing } = printCommentsSeparately(path, options);
+  if (!leading && !trailing) {
+    return doc;
+  }
+  return [leading, doc, trailing];
 }
 
 function ensureAllCommentsPrinted(astComments) {
@@ -609,6 +614,7 @@ function ensureAllCommentsPrinted(astComments) {
 module.exports = {
   attach,
   printComments,
+  printCommentsSeparately,
   printDanglingComments,
   getSortedChildNodes,
   ensureAllCommentsPrinted,
