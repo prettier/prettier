@@ -47,6 +47,7 @@ const {
   printUnionType,
   printFunctionType,
   printTupleType,
+  printIndexedAccessType,
 } = require("./type-annotation");
 
 function printTypescript(path, options, print) {
@@ -280,7 +281,7 @@ function printTypescript(path, options, print) {
     case "TSLiteralType":
       return print("literal");
     case "TSIndexedAccessType":
-      return [print("objectType"), "[", print("indexType"), "]"];
+      return printIndexedAccessType(path, options, print);
     case "TSConstructSignatureDeclaration":
     case "TSCallSignatureDeclaration":
     case "TSConstructorType": {
