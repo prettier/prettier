@@ -297,6 +297,11 @@ function printTupleType(path, options, print) {
   ]);
 }
 
+// `TSIndexedAccessType` and `IndexedAccessType`
+function printIndexedAccessType(path, options, print) {
+  return [print("objectType"), "[", print("indexType"), "]"];
+}
+
 module.exports = {
   printOpaqueType,
   printTypeAlias,
@@ -304,5 +309,6 @@ module.exports = {
   printUnionType,
   printFunctionType,
   printTupleType,
+  printIndexedAccessType,
   shouldHugType,
 };
