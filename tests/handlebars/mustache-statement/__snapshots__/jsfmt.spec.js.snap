@@ -13,7 +13,7 @@ singleQuote: true
 <GlimmerComponent
   class="medium"
   @autocomplete="off"
-  @errors={{or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  @errors={{or this.aLProp (and this.aProperty (v-get bike "number" "message"))}}
   data-test-beneficiary-account-number
 />
 
@@ -80,7 +80,7 @@ singleQuote: true
   class='medium'
   @autocomplete='off'
   @errors={{or
-    this.aLongProperty
+    this.aLProp
     (and this.aProperty (v-get bike 'number' 'message'))
   }}
   data-test-beneficiary-account-number
@@ -174,7 +174,7 @@ printWidth: 80
 <GlimmerComponent
   class="medium"
   @autocomplete="off"
-  @errors={{or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  @errors={{or this.aLProp (and this.aProperty (v-get bike "number" "message"))}}
   data-test-beneficiary-account-number
 />
 
@@ -241,7 +241,7 @@ printWidth: 80
   class="medium"
   @autocomplete="off"
   @errors={{or
-    this.aLongProperty
+    this.aLProp
     (and this.aProperty (v-get bike "number" "message"))
   }}
   data-test-beneficiary-account-number
@@ -589,7 +589,10 @@ foo{{/if}}
   {{campaignPic.userEmail}}
 </LinkTo>
 
-{{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')
+{{if
+  abcdefghijklmnopqrstuvwxyz
+  (t 'abcdefghijklmnopq')
+  (t 'abcdefghijklmnopq')
 }}
 
 {{#if
@@ -597,7 +600,10 @@ foo{{/if}}
 }}
   foo{{/if}}
 
-{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl
+{{some-helper
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijkl
 }}
 ================================================================================
 `;
@@ -671,7 +677,10 @@ foo{{/if}}
   {{campaignPic.userEmail}}
 </LinkTo>
 
-{{if abcdefghijklmnopqrstuvwxyz (t "abcdefghijklmnopq") (t "abcdefghijklmnopq")
+{{if
+  abcdefghijklmnopqrstuvwxyz
+  (t "abcdefghijklmnopq")
+  (t "abcdefghijklmnopq")
 }}
 
 {{#if
@@ -679,7 +688,10 @@ foo{{/if}}
 }}
   foo{{/if}}
 
-{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl
+{{some-helper
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijkl
 }}
 ================================================================================
 `;
