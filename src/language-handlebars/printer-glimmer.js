@@ -750,7 +750,7 @@ function printPathAndParams(path, print) {
     return p;
   }
 
-  return [indent(group([p, line, params])), softline];
+  return [indent([p, line, params]), softline];
 }
 
 function printPath(path, print) {
