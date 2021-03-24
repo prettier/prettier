@@ -27,6 +27,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "module-string-names.js",
       "class-static-block.js",
+      "module-blocks.js",
     ],
     meriyah: [
       "decimal.js",
@@ -50,6 +51,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "import-assertions-dynamic.js",
       "import-assertions-static.js",
       "module-string-names.js",
+      "module-blocks.js",
     ],
   },
 });

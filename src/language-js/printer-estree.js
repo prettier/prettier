@@ -1017,9 +1017,17 @@ function printPathNoParens(path, options, print, args) {
       parts.push("#");
       return parts;
     }
-
     case "ArgumentPlaceholder":
       return "?";
+    case "ModuleExpression": {
+      parts.push("module {");
+      const printed = print("body");
+      if (printed) {
+        parts.push(indent([hardline, printed]), hardline);
+      }
+      parts.push("}");
+      return parts;
+    }
 
     default:
       /* istanbul ignore next */
