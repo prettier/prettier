@@ -15,7 +15,7 @@ _Make sure Prettier is installed and is in your [`devDependencies`](https://docs
 npx mrm lint-staged
 ```
 
-This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
+This will install [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
