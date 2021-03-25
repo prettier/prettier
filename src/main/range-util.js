@@ -20,7 +20,24 @@ function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
   );
 }
 
-function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
+function dropRootParents(parents) {
+  let lastParentIndex = parents.length - 1;
+  for (;;) {
+    const parent = parents[lastParentIndex];
+    if (parent && (parent.type === "Program" || parent.type === "File")) {
+      lastParentIndex--;
+    } else {
+      break;
+    }
+  }
+  return parents.slice(0, lastParentIndex + 1);
+}
+
+function findSiblingAncestors(
+  startNodeAndParents,
+  endNodeAndParents,
+  { locStart, locEnd }
+) {
   let resultStartNode = startNodeAndParents.node;
   let resultEndNode = endNodeAndParents.node;
 
@@ -31,24 +48,18 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
     };
   }
 
-  for (const endParent of endNodeAndParents.parentNodes) {
-    if (
-      endParent.type !== "Program" &&
-      endParent.type !== "File" &&
-      opts.locStart(endParent) >= opts.locStart(startNodeAndParents.node)
-    ) {
+  const startNodeStart = locStart(startNodeAndParents.node);
+  for (const endParent of dropRootParents(endNodeAndParents.parentNodes)) {
+    if (locStart(endParent) >= startNodeStart) {
       resultEndNode = endParent;
     } else {
       break;
     }
   }
 
-  for (const startParent of startNodeAndParents.parentNodes) {
-    if (
-      startParent.type !== "Program" &&
-      startParent.type !== "File" &&
-      opts.locEnd(startParent) <= opts.locEnd(endNodeAndParents.node)
-    ) {
+  const endNodeEnd = locEnd(endNodeAndParents.node);
+  for (const startParent of dropRootParents(startNodeAndParents.parentNodes)) {
+    if (locEnd(startParent) <= endNodeEnd) {
       resultStartNode = startParent;
     } else {
       break;

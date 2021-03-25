@@ -1040,6 +1040,44 @@ obj.a.b &&= c;
 ================================================================================
 `;
 
+exports[`module-blocks.js [espree] format 1`] = `
+"Unexpected token { (1:16)
+> 1 | let m = module {
+    |                ^
+  2 |   export let m = 2;
+  3 |   export let n = 3;
+  4 | };"
+`;
+
+exports[`module-blocks.js [meriyah] format 1`] = `
+"[1:16]: Unexpected token: '{' (1:16)
+> 1 | let m = module {
+    |                ^
+  2 |   export let m = 2;
+  3 |   export let n = 3;
+  4 | };"
+`;
+
+exports[`module-blocks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let m = module {
+  export let m = 2;
+  export let n = 3;
+};
+
+=====================================output=====================================
+let m = module {
+  export let m = 2;
+  export let n = 3;
+};
+
+================================================================================
+`;
+
 exports[`module-string-names.js [espree] format 1`] = `
 "Unexpected token \\"😄\\" (1:10)
 > 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";

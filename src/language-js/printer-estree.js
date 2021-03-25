@@ -1015,8 +1015,19 @@ function printPathNoParens(path, options, print, args) {
       return print("expression");
     case "PipelinePrimaryTopicReference":
       return "#";
+
     case "ArgumentPlaceholder":
       return "?";
+
+    case "ModuleExpression": {
+      parts.push("module {");
+      const printed = print("body");
+      if (printed) {
+        parts.push(indent([hardline, printed]), hardline);
+      }
+      parts.push("}");
+      return parts;
+    }
 
     default:
       /* istanbul ignore next */
