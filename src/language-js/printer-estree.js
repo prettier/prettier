@@ -1013,12 +1013,12 @@ function printPathNoParens(path, options, print, args) {
       return print("callee");
     case "PipelineTopicExpression":
       return print("expression");
-    case "PipelinePrimaryTopicReference": {
-      parts.push("#");
-      return parts;
-    }
+    case "PipelinePrimaryTopicReference":
+      return "#";
+
     case "ArgumentPlaceholder":
       return "?";
+
     case "ModuleExpression": {
       parts.push("module {");
       const printed = print("body");
