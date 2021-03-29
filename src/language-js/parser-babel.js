@@ -40,6 +40,7 @@ const parseOptions = {
     "decimal",
     "moduleStringNames",
     "classStaticBlock",
+    "moduleBlocks",
   ],
   tokens: true,
   ranges: true,

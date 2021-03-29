@@ -355,6 +355,16 @@ function needsParens(path, options) {
       ) {
         return true;
       }
+
+      if (
+        name === "expression" &&
+        node.argument &&
+        node.argument.type === "PipelinePrimaryTopicReference" &&
+        parent.type === "PipelineTopicExpression"
+      ) {
+        return true;
+      }
+
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
@@ -384,6 +394,7 @@ function needsParens(path, options) {
           if (!node.argument && parent.operator === "|>") {
             return false;
           }
+
           return true;
         }
 
