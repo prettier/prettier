@@ -6,24 +6,29 @@ const {
 
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
-// <!--[if ... ]> ... <![endif]-->
-const IE_CONDITIONAL_START_END_COMMENT_REGEX = /^(\[if([^\]]*?)]>)([\S\s]*?)<!\s*\[endif]$/;
-// <!--[if ... ]><!-->
-const IE_CONDITIONAL_START_COMMENT_REGEX = /^\[if([^\]]*?)]><!$/;
-// <!--<![endif]-->
-const IE_CONDITIONAL_END_COMMENT_REGEX = /^<!\s*\[endif]$/;
-
-const REGEX_PARSE_TUPLES = [
-  [IE_CONDITIONAL_START_END_COMMENT_REGEX, parseIeConditionalStartEndComment],
-  [IE_CONDITIONAL_START_COMMENT_REGEX, parseIeConditionalStartComment],
-  [IE_CONDITIONAL_END_COMMENT_REGEX, parseIeConditionalEndComment],
+const parseFunctions = [
+  {
+    // <!--[if ... ]> ... <![endif]-->
+    regex: /^(\[if([^\]]*?)]>)(.*?)<!\s*\[endif]$/s,
+    parse: parseIeConditionalStartEndComment,
+  },
+  {
+    // <!--[if ... ]><!-->
+    regex: /^\[if([^\]]*?)]><!$/,
+    parse: parseIeConditionalStartComment,
+  },
+  {
+    // <!--<![endif]-->
+    regex: /^<!\s*\[endif]$/,
+    parse: parseIeConditionalEndComment,
+  },
 ];
 
 function parseIeConditionalComment(node, parseHtml) {
   if (node.value) {
-    let match;
-    for (const [regex, parse] of REGEX_PARSE_TUPLES) {
-      if ((match = node.value.match(regex))) {
+    for (const { regex, parse } of parseFunctions) {
+      const match = node.value.match(regex);
+      if (match) {
         return parse(node, parseHtml, match);
       }
     }

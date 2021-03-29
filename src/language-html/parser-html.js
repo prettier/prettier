@@ -19,6 +19,11 @@ const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
 const { locStart, locEnd } = require("./loc");
 
+/**
+ * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} ASTNode
+ * @typedef {ASTNode & {type: string}} NodeWithType
+ */
+
 function ngHtmlParser(
   input,
   {
@@ -94,6 +99,7 @@ function ngHtmlParser(
             startSourceSpan.start.offset === node.startSourceSpan.start.offset
         );
       for (let i = 0; i < rootNodes.length; i++) {
+        /** @type {any} */
         const node = rootNodes[i];
         const { endSourceSpan, startSourceSpan } = node;
         const isUnclosedNode = endSourceSpan === null;
@@ -145,6 +151,7 @@ function ngHtmlParser(
     });
   }
 
+  /** @param {NodeWithType} node */
   const addType = (node) => {
     if (node instanceof Attribute) {
       node.type = "attribute";
@@ -180,7 +187,7 @@ function ngHtmlParser(
   };
 
   const restoreNameAndValue = (node) => {
-    if (node instanceof Element) {
+    if (node.type === "element") {
       restoreName(node);
       for (const attr of node.attrs) {
         restoreName(attr);
@@ -197,7 +204,7 @@ function ngHtmlParser(
       node.value = node.sourceSpan
         .toString()
         .slice("<!--".length, -"-->".length);
-    } else if (node instanceof Text) {
+    } else if (node.type === "text") {
       node.value = node.sourceSpan.toString();
     }
   };
@@ -207,7 +214,7 @@ function ngHtmlParser(
     return fn(lowerCasedText) ? lowerCasedText : text;
   };
   const normalizeName = (node) => {
-    if (node instanceof Element) {
+    if (node.type === "element") {
       if (
         normalizeTagName &&
         (!node.namespace ||
@@ -248,7 +255,7 @@ function ngHtmlParser(
   };
 
   const addTagDefinition = (node) => {
-    if (node instanceof Element) {
+    if (node.type === "element") {
       const tagDefinition = getHtmlTagDefinition(
         isTagNameCaseSensitive ? node.name : node.name.toLowerCase()
       );
@@ -298,6 +305,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
+    // @ts-ignore
     rawAst.children.unshift(frontMatter);
   }
 
@@ -352,6 +360,7 @@ function createParser({
   normalizeAttributeName = false,
   allowHtmComponentClosingTags = false,
   isTagNameCaseSensitive = false,
+  // @ts-ignore
   getTagContentType,
 } = {}) {
   return {
@@ -373,6 +382,7 @@ function createParser({
 
 module.exports = {
   parsers: {
+    // @ts-ignore
     html: createParser({
       recognizeSelfClosing: true,
       normalizeTagName: true,
