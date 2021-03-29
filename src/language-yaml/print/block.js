@@ -41,7 +41,7 @@ function printBlock(path, print, options) {
   }
 
   if (hasIndicatorComment(node)) {
-    parts.push(" ", path.call(print, "indicatorComment"));
+    parts.push(" ", print("indicatorComment"));
   }
 
   const lineContents = getBlockValueLineContents(node, {

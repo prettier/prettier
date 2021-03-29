@@ -10,6 +10,5 @@ interface Foo {
 
 class Bar {
   declare e() {};
-  abstract f() {};
   readonly g() {};
 }

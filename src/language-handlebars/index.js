@@ -5,7 +5,7 @@ const printer = require("./printer-glimmer");
 
 const languages = [
   createLanguage(require("linguist-languages/data/Handlebars.json"), () => ({
-    since: null, // unreleased
+    since: "2.3.0",
     parsers: ["glimmer"],
     vscodeLanguageIds: ["handlebars"],
   })),

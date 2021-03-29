@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../utils/get-last");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -354,6 +355,16 @@ function needsParens(path, options) {
       ) {
         return true;
       }
+
+      if (
+        name === "expression" &&
+        node.argument &&
+        node.argument.type === "PipelinePrimaryTopicReference" &&
+        parent.type === "PipelineTopicExpression"
+      ) {
+        return true;
+      }
+
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
@@ -383,6 +394,7 @@ function needsParens(path, options) {
           if (!node.argument && parent.operator === "|>") {
             return false;
           }
+
           return true;
         }
 
@@ -862,9 +874,7 @@ function isFollowedByRightBracket(path) {
     case "ObjectProperty":
       if (name === "value") {
         const parentParent = path.getParentNode(1);
-        return (
-          parentParent.properties[parentParent.properties.length - 1] === parent
-        );
+        return getLast(parentParent.properties) === parent;
       }
       break;
     case "BinaryExpression":

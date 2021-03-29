@@ -267,9 +267,9 @@ This option is only useful in the CLI and API. It doesn’t make sense to use it
 
 _First available in v1.7.0_
 
-Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful when gradually transitioning large, unformatted codebases to prettier.
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful when gradually transitioning large, unformatted codebases to Prettier.
 
-For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
+A file with the following as its first comment will be formatted when `--require-pragma` is supplied:
 
 ```js
 /**
@@ -293,11 +293,15 @@ or
 
 _First available in v1.8.0_
 
-Prettier can insert a special @format marker at the top of files specifying that the file has been formatted with prettier. This works well when used in tandem with the `--require-pragma` option. If there is already a docblock at the top of the file then this option will add a newline to it with the @format marker.
+Prettier can insert a special `@format` marker at the top of files specifying that the file has been formatted with Prettier. This works well when used in tandem with the `--require-pragma` option. If there is already a docblock at the top of the file then this option will add a newline to it with the `@format` marker.
+
+Note that “in tandem” doesn’t mean “at the same time”. When the two options are used simultaneously, `--require-pragma` has priority, so `--insert-pragma` is ignored. The idea is that during an incremental adoption of Prettier in a big codebase, the developers participating in the transition process use `--insert-pragma` whereas `--require-pragma` is used by the rest of the team and automated tooling to process only files already transitioned. The feature has been inspired by Facebook’s [adoption strategy].
 
 | Default | CLI Override      | API Override           |
 | ------- | ----------------- | ---------------------- |
 | `false` | `--insert-pragma` | `insertPragma: <bool>` |
+
+[adoption strategy]: https://prettier.io/blog/2017/05/03/1.3.0.html#facebook-adoption-update
 
 ## Prose Wrap
 

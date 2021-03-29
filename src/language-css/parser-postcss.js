@@ -1,6 +1,7 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
+const getLast = require("../utils/get-last");
 const parseFrontMatter = require("../utils/front-matter/parse");
 const { hasPragma } = require("./pragma");
 const {
@@ -43,7 +44,7 @@ function parseValueNode(valueNode, options) {
       options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
-      node.value[node.value.length - 1] === "."
+      getLast(node.value) === "."
     ) {
       // Work around postcss bug parsing `50...` as `50.` with unit `..`
       // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
@@ -115,11 +116,11 @@ function parseValueNode(valueNode, options) {
       }
 
       commaGroupStack.pop();
-      commaGroup = commaGroupStack[commaGroupStack.length - 1];
+      commaGroup = getLast(commaGroupStack);
       commaGroup.groups.push(parenGroup);
 
       parenGroupStack.pop();
-      parenGroup = parenGroupStack[parenGroupStack.length - 1];
+      parenGroup = getLast(parenGroupStack);
     } else if (node.type === "comma") {
       parenGroup.groups.push(commaGroup);
       commaGroup = {

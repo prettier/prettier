@@ -53,6 +53,50 @@ test("better-parent-property-check-in-needs-parens", {
   })),
 });
 
+test("consistent-negative-index-access", {
+  valid: [
+    "getLast(foo)",
+    "getPenultimate(foo)",
+    "foo[foo.length]",
+    "foo[foo.length - 3]",
+    "foo[foo.length + 1]",
+    "foo[foo.length + -1]",
+    "foo[foo.length * -1]",
+    "foo.length - 1",
+    "foo?.[foo.length - 1]",
+    "foo[foo?.length - 1]",
+    "foo[foo['length'] - 1]",
+    "foo[bar.length - 1]",
+    "foo.bar[foo.      bar.length - 1]",
+    "foo[foo.length - 1]++",
+    "--foo[foo.length - 1]",
+    "foo[foo.length - 1] += 1",
+    "foo[foo.length - 1] = 1",
+  ],
+  invalid: [
+    {
+      code: "foo[foo.length - 1]",
+      output: "getLast(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo[foo.length - 2]",
+      output: "getPenultimate(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo[foo.length - 0b10]",
+      output: "getPenultimate(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo()[foo().length - 1]",
+      output: "getLast(foo())",
+      errors: 1,
+    },
+  ],
+});
+
 test("directly-loc-start-end", {
   valid: [],
   invalid: [
@@ -81,6 +125,7 @@ test("flat-ast-path-call", {
     'path.call((childPath) => childPath.call(print), "a")',
     'path.call((childPath) => notChildPath.call(print), "a")',
     'path.call(functionReference, "a")',
+    'path.call((childPath) => notChildPath.call(print, "b"), "a")',
     // Only check `arrow function`
     'path.call((childPath) => {return childPath.call(print, "b")}, "a")',
     'path.call(function(childPath) {return childPath.call(print, "b")}, "a")',
@@ -133,6 +178,69 @@ test("no-doc-builder-concat", {
       code: "concat(['foo', line])",
       output: "(['foo', line])",
       errors: 1,
+    },
+  ],
+});
+
+test("no-identifier-n", {
+  valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
+  invalid: [
+    {
+      code: "const n = 1; alet(n)",
+      output: "const node = 1; alet(node)",
+      errors: 1,
+    },
+    {
+      code: "const n = 1; alert({n})",
+      output: "const node = 1; alert({n: node})",
+      errors: 1,
+    },
+    {
+      code: "const {n} = 1; alert(n)",
+      output: "const {n: node} = 1; alert(node)",
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const n = 1;
+        function a(node) {
+          alert(n, node)
+        }
+        function b() {
+          alert(n)
+        }
+      `,
+      output: outdent`
+        const n = 1;
+        function a(node) {
+          alert(n, node)
+        }
+        function b() {
+          alert(n)
+        }
+      `,
+      errors: [
+        {
+          suggestions: [
+            {
+              output: outdent`
+                const node = 1;
+                function a(node) {
+                  alert(node, node)
+                }
+                function b() {
+                  alert(node)
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: "const n = 1;const node = 2;",
+      output: "const n = 1;const node = 2;",
+      errors: [{ suggestions: [{ output: "const node = 1;const node = 2;" }] }],
     },
   ],
 });
@@ -300,6 +408,31 @@ test("no-empty-flat-contents-for-if-break", {
             "Please don't pass an empty string to second parameter of ifBreak.",
         },
       ],
+    },
+  ],
+});
+
+test("no-unnecessary-ast-path-call", {
+  valid: [
+    "call(foo)",
+    'foo["call"](bar)',
+    "foo.call?.(bar)",
+    "foo?.call(bar)",
+    "foo.call(bar, name)",
+    "foo.notCall(bar)",
+    "foo.call(...bar)",
+    "foo.call()",
+  ],
+  invalid: [
+    {
+      code: "foo.call(bar)",
+      output: "bar(foo)",
+      errors: 1,
+    },
+    {
+      code: "foo.call(() => bar)",
+      output: "foo.call(() => bar)",
+      errors: 1,
     },
   ],
 });

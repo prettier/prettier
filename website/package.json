@@ -6,21 +6,21 @@
     "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
   },
   "dependencies": {
-    "clipboard": "2.0.7",
+    "clipboard": "2.0.8",
     "codemirror-graphql": "1.0.0",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.12.13",
+    "@babel/preset-react": "7.13.13",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.2.2",
     "concurrently": "6.0.0",
-    "docusaurus": "1.14.6",
+    "docusaurus": "1.14.7",
     "js-yaml": "4.0.0",
-    "webpack": "5.24.3",
-    "webpack-cli": "4.5.0"
+    "webpack": "5.28.0",
+    "webpack-cli": "4.6.0"
   }
 }

@@ -27,10 +27,7 @@ function printAssignment(
 ) {
   const layout = chooseLayout(path, options, leftDoc, rightPropertyName);
 
-  const rightDoc = path.call(
-    (p) => print(p, { assignmentLayout: layout }),
-    rightPropertyName
-  );
+  const rightDoc = print(rightPropertyName, { assignmentLayout: layout });
 
   switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines
@@ -69,26 +66,19 @@ function printAssignment(
 }
 
 function printAssignmentExpression(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   return printAssignment(
     path,
     options,
     print,
-    path.call(print, "left"),
-    [" ", n.operator],
+    print("left"),
+    [" ", node.operator],
     "right"
   );
 }
 
 function printVariableDeclarator(path, options, print) {
-  return printAssignment(
-    path,
-    options,
-    print,
-    path.call(print, "id"),
-    " =",
-    "init"
-  );
+  return printAssignment(path, options, print, print("id"), " =", "init");
 }
 
 function chooseLayout(path, options, leftDoc, rightPropertyName) {

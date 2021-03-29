@@ -1040,6 +1040,44 @@ obj.a.b &&= c;
 ================================================================================
 `;
 
+exports[`module-blocks.js [espree] format 1`] = `
+"Unexpected token { (1:16)
+> 1 | let m = module {
+    |                ^
+  2 |   export let m = 2;
+  3 |   export let n = 3;
+  4 | };"
+`;
+
+exports[`module-blocks.js [meriyah] format 1`] = `
+"[1:16]: Unexpected token: '{' (1:16)
+> 1 | let m = module {
+    |                ^
+  2 |   export let m = 2;
+  3 |   export let n = 3;
+  4 | };"
+`;
+
+exports[`module-blocks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let m = module {
+  export let m = 2;
+  export let n = 3;
+};
+
+=====================================output=====================================
+let m = module {
+  export let m = 2;
+  export let n = 3;
+};
+
+================================================================================
+`;
+
 exports[`module-string-names.js [espree] format 1`] = `
 "Unexpected token \\"😄\\" (1:10)
 > 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";
@@ -1246,28 +1284,6 @@ try {
 ================================================================================
 `;
 
-exports[`optional-chaining.js [espree] format 1`] = `
-"Optional chaining cannot appear in the callee of new expressions (56:21)
-  54 | };
-  55 |
-> 56 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
-     |                     ^
-  57 |
-  58 | const safe5 = new obj?.qux?.baz(); // undefined
-  59 | const safe6 = new obj?.foo.bar.qux?.(); // undefined"
-`;
-
-exports[`optional-chaining.js [meriyah] format 1`] = `
-"[56:22]: Invalid optional chain from new expression (56:22)
-  54 | };
-  55 |
-> 56 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
-     |                      ^
-  57 |
-  58 | const safe5 = new obj?.qux?.baz(); // undefined
-  59 | const safe6 = new obj?.foo.bar.qux?.(); // undefined"
-`;
-
 exports[`optional-chaining.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1329,21 +1345,7 @@ const obj3 = {
   },
 };
 
-const baz3 = new obj?.foo?.bar?.baz(); // baz instance
-
-const safe5 = new obj?.qux?.baz(); // undefined
-const safe6 = new obj?.foo.bar.qux?.(); // undefined
-
-const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
-
-// Top classes can be called directly, too.
-class Test {
-}
-new Test?.(); // test instance
-
-new exists?.(); // undefined
-
-const obj = {
+const obj4 = {
   foo: {
     bar: {}
   },
@@ -1406,20 +1408,7 @@ const obj3 = {
   },
 };
 
-const baz3 = new (obj?.foo?.bar?.baz)(); // baz instance
-
-const safe5 = new (obj?.qux?.baz)(); // undefined
-const safe6 = new (obj?.foo.bar.qux)()?.(); // undefined
-
-const willThrow = new (obj?.foo.bar.qux)(); // Error: not a constructor
-
-// Top classes can be called directly, too.
-class Test {}
-new Test(); // test instance
-
-new exists(); // undefined
-
-const obj = {
+const obj4 = {
   foo: {
     bar: {},
   },

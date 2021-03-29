@@ -322,7 +322,7 @@ function genericPrint(path, options, print) {
                         options.tabWidth *
                         countParents(
                           path,
-                          (n) => n.parent && n.parent.type !== "root"
+                          (node) => node.parent && node.parent.type !== "root"
                         )
                       }}$`
                     ).test(node.lastChild.value)
@@ -546,7 +546,7 @@ function printChildren(path, options, print) {
       ];
     }
 
-    return print(childPath);
+    return print();
   }
 
   function printBetweenLine(prevNode, nextNode) {
@@ -666,7 +666,7 @@ function printAttributes(path, options, print) {
           options.originalText.slice(locStart(attribute), locEnd(attribute)),
           literalline
         )
-      : print(attributePath);
+      : print();
   }, "attrs");
 
   const forceNotToBreakAttrContent =

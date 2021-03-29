@@ -28,6 +28,13 @@ run_spec(
       "/* comment */",
       "// comment",
       "`foo${1}bar`",
+      "-+1",
+      "-+Infinity",
+      "-undefined",
+      "-null",
+      "-false",
+      "+'string'",
+      "{key: +{}}",
       // JSON6 allow this, but babel can't parse
       "----123",
     ],
