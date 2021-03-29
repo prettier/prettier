@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * @typedef {import("../common/ast-path")} AstPath
+ */
+
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
 const { inferParserByLanguage, isFrontMatterNode } = require("../common/util");
@@ -466,7 +470,7 @@ function isPreLikeNode(node) {
 }
 
 /**
- * @param {any} path
+ * @param {AstPath} path
  * @param {(any) => boolean} predicate
  */
 function countParents(path, predicate) {

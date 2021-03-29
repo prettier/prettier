@@ -1,6 +1,9 @@
 "use strict";
 
-/** @type {import("assert")} */
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
+
 const assert = require("assert");
 
 const {
@@ -678,6 +681,7 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
+  /** @type {Doc[]} */
   const parts = [
     indent([
       forceNotToBreakAttrContent ? " " : line,
@@ -704,10 +708,8 @@ function printAttributes(path, options, print) {
       needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
     forceNotToBreakAttrContent
   ) {
-    // @ts-ignore
     parts.push(node.isSelfClosing ? " " : "");
   } else {
-    // @ts-ignore
     parts.push(node.isSelfClosing ? line : softline);
   }
 
