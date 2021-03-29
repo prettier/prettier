@@ -180,7 +180,6 @@ const allowedMessages = new Set([
   "Unexpected trailing comma after rest element",
   "Decorators cannot be used to decorate parameters",
   "Unterminated JSX contents",
-  "Invalid parenthesized assignment pattern",
   'Unexpected token, expected "}"',
   "Unexpected token :",
   "Unexpected reserved word 'package'",

@@ -325,15 +325,6 @@ postMessages(<IActionMessage[]>[
 ================================================================================
 `;
 
-exports[`parenthesis.ts [babel-ts] format 1`] = `
-"Unterminated JSX contents (8:5)
-  6 | true || <x>a;
-  7 | <x>a + <x>b;
-> 8 | (<x>a) = 1;
-    |     ^
-  9 |"
-`;
-
 exports[`parenthesis.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
