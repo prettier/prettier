@@ -25,9 +25,9 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
-      "optional-chaining.js",
       "module-string-names.js",
       "class-static-block.js",
+      "module-blocks.js",
     ],
     meriyah: [
       "decimal.js",
@@ -47,11 +47,11 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
-      "optional-chaining.js",
       "class-static-block.js",
       "import-assertions-dynamic.js",
       "import-assertions-static.js",
       "module-string-names.js",
+      "module-blocks.js",
     ],
   },
 });

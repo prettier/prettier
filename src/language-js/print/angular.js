@@ -9,14 +9,14 @@ const { printBinaryishExpression } = require("./binaryish");
 /** @typedef {import("../../common/ast-path")} AstPath */
 
 function printAngular(path, options, print) {
-  const n = path.getValue();
-  switch (n.type) {
+  const node = path.getValue();
+  switch (node.type) {
     case "NGRoot":
       return [
-        path.call(print, "node"),
-        !hasComment(n.node)
+        print("node"),
+        !hasComment(node.node)
           ? ""
-          : " //" + getComments(n.node)[0].value.trimEnd(),
+          : " //" + getComments(node.node)[0].value.trimEnd(),
       ];
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
@@ -26,9 +26,7 @@ function printAngular(path, options, print) {
           [";", line],
           path.map(
             (childPath) =>
-              hasNgSideEffect(childPath)
-                ? print(childPath)
-                : ["(", print(childPath), ")"],
+              hasNgSideEffect(childPath) ? print() : ["(", print(), ")"],
             "expressions"
           )
         )
@@ -36,54 +34,55 @@ function printAngular(path, options, print) {
     case "NGEmptyExpression":
       return "";
     case "NGQuotedExpression":
-      return [n.prefix, ": ", n.value.trim()];
+      return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
       return path.map(
         (childPath, index) => [
           index === 0
             ? ""
-            : isNgForOf(childPath.getValue(), index, n)
+            : isNgForOf(childPath.getValue(), index, node)
             ? " "
             : [";", line],
-          print(childPath),
+          print(),
         ],
         "body"
       );
     case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(n.name)
-        ? n.name
-        : JSON.stringify(n.name);
+      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(node.name)
+        ? node.name
+        : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
       return [
-        path.call(print, "expression"),
-        n.alias === null ? "" : [" as ", path.call(print, "alias")],
+        print("expression"),
+        node.alias === null ? "" : [" as ", print("alias")],
       ];
     case "NGMicrosyntaxKeyedExpression": {
       const index = path.getName();
       const parentNode = path.getParentNode();
       const shouldNotPrintColon =
-        isNgForOf(n, index, parentNode) ||
-        (((index === 1 && (n.key.name === "then" || n.key.name === "else")) ||
+        isNgForOf(node, index, parentNode) ||
+        (((index === 1 &&
+          (node.key.name === "then" || node.key.name === "else")) ||
           (index === 2 &&
-            n.key.name === "else" &&
+            node.key.name === "else" &&
             parentNode.body[index - 1].type ===
               "NGMicrosyntaxKeyedExpression" &&
             parentNode.body[index - 1].key.name === "then")) &&
           parentNode.body[0].type === "NGMicrosyntaxExpression");
       return [
-        path.call(print, "key"),
+        print("key"),
         shouldNotPrintColon ? " " : ": ",
-        path.call(print, "expression"),
+        print("expression"),
       ];
     }
     case "NGMicrosyntaxLet":
       return [
         "let ",
-        path.call(print, "key"),
-        n.value === null ? "" : [" = ", path.call(print, "value")],
+        print("key"),
+        node.value === null ? "" : [" = ", print("value")],
       ];
     case "NGMicrosyntaxAs":
-      return [path.call(print, "key"), " as ", path.call(print, "alias")];
+      return [print("key"), " as ", print("alias")];
   }
 }
 

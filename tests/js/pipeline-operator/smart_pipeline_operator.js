@@ -38,3 +38,15 @@ const searchResults$ = fromEvent(document.querySelector('input'), 'input')
   |> share;
 
 v |> #.method() |> f;
+
+async function * f () {
+  return x
+    |> (yield #)
+    |> (await #)
+    |> y
+    |> a.b
+    |> (a.b(#))
+    |> a.b(#)
+    |> (a.b?.(#))
+    |> a.b?.(#);
+}

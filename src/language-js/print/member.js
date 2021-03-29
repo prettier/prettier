@@ -7,7 +7,7 @@ const { isNumericLiteral, isMemberExpression } = require("../utils");
 const { printOptionalToken } = require("./misc");
 
 function printMemberExpression(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
 
   const parent = path.getParentNode();
   let firstNonMemberParent;
@@ -27,13 +27,13 @@ function printMemberExpression(path, options, print) {
         firstNonMemberParent.type === "BindExpression" ||
         (firstNonMemberParent.type === "AssignmentExpression" &&
           firstNonMemberParent.left.type !== "Identifier"))) ||
-    n.computed ||
-    (n.object.type === "Identifier" &&
-      n.property.type === "Identifier" &&
+    node.computed ||
+    (node.object.type === "Identifier" &&
+      node.property.type === "Identifier" &&
       !isMemberExpression(parent));
 
   return [
-    path.call(print, "object"),
+    print("object"),
     shouldInline
       ? printMemberLookup(path, options, print)
       : group(indent([softline, printMemberLookup(path, options, print)])),
@@ -41,15 +41,15 @@ function printMemberExpression(path, options, print) {
 }
 
 function printMemberLookup(path, options, print) {
-  const property = path.call(print, "property");
-  const n = path.getValue();
+  const property = print("property");
+  const node = path.getValue();
   const optional = printOptionalToken(path);
 
-  if (!n.computed) {
+  if (!node.computed) {
     return [optional, ".", property];
   }
 
-  if (!n.property || isNumericLiteral(n.property)) {
+  if (!node.property || isNumericLiteral(node.property)) {
     return [optional, "[", property, "]"];
   }
 

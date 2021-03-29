@@ -404,6 +404,30 @@ const els = items.map((item) => (
 ================================================================================
 `;
 
+exports[`number-only-array.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+instantiate(game, [
+  transform([-0.7, 0.5, 0]),
+  render_colored_diffuse(game.MaterialDiffuse, game.Meshes["monkey_flat"], [1, 1, 0.3, 1]),
+]);
+
+=====================================output=====================================
+instantiate(game, [
+  transform([-0.7, 0.5, 0]),
+  render_colored_diffuse(
+    game.MaterialDiffuse,
+    game.Meshes["monkey_flat"],
+    [1, 1, 0.3, 1]
+  ),
+]);
+
+================================================================================
+`;
+
 exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]

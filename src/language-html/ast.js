@@ -2,6 +2,8 @@
 
 const fromPairs = require("lodash/fromPairs");
 const { isNonEmptyArray } = require("../common/util");
+const getLast = require("../utils/get-last");
+
 const NODES_KEYS = {
   attrs: true,
   children: true,
@@ -32,6 +34,7 @@ class Node {
   }
 
   map(fn) {
+    /** @type{any} */
     let newNode = null;
 
     for (const NODES_KEY in NODES_KEYS) {
@@ -53,6 +56,7 @@ class Node {
           newNode[key] = this[key];
         }
       }
+      // @ts-ignore
       const { index, siblings, prev, next, parent } = this;
       setNonEnumerableProperties(newNode, {
         index,
@@ -66,25 +70,30 @@ class Node {
     return fn(newNode || this);
   }
 
+  /**
+   * @param {Object} [overrides]
+   */
   clone(overrides) {
     return new Node(overrides ? { ...this, ...overrides } : this);
   }
 
   get firstChild() {
+    // @ts-ignore
     return isNonEmptyArray(this.children) ? this.children[0] : null;
   }
 
   get lastChild() {
-    return isNonEmptyArray(this.children)
-      ? this.children[this.children.length - 1]
-      : null;
+    // @ts-ignore
+    return isNonEmptyArray(this.children) ? getLast(this.children) : null;
   }
 
   // for element and attribute
   get rawName() {
+    // @ts-ignore
     return this.hasExplicitNamespace ? this.fullName : this.name;
   }
   get fullName() {
+    // @ts-ignore
     return this.namespace ? this.namespace + ":" + this.name : this.name;
   }
 }

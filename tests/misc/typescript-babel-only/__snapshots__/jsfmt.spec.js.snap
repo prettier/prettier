@@ -38,7 +38,6 @@ interface Foo {
 
 class Bar {
   declare e() {};
-  abstract f() {};
   readonly g() {};
 }
 
@@ -55,7 +54,6 @@ interface Foo {
 
 class Bar {
   declare e() {}
-  abstract f() {}
   readonly g() {}
 }
 

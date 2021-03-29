@@ -28,10 +28,10 @@ function printOptionalToken(path) {
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
   if (fun.typeArguments) {
-    return path.call(print, "typeArguments");
+    return print("typeArguments");
   }
   if (fun.typeParameters) {
-    return path.call(print, "typeParameters");
+    return print("typeParameters");
   }
   return "";
 }
@@ -53,22 +53,22 @@ function printTypeAnnotation(path, options, print) {
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
   if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return [" /*: ", path.call(print, "typeAnnotation"), " */"];
+    return [" /*: ", print("typeAnnotation"), " */"];
   }
 
   return [
     isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
-    path.call(print, "typeAnnotation"),
+    print("typeAnnotation"),
   ];
 }
 
 function printBindExpressionCallee(path, options, print) {
-  return ["::", path.call(print, "callee")];
+  return ["::", print("callee")];
 }
 
 function printTypeScriptModifiers(path, options, print) {
-  const n = path.getValue();
-  if (!isNonEmptyArray(n.modifiers)) {
+  const node = path.getValue();
+  if (!isNonEmptyArray(node.modifiers)) {
     return "";
   }
   return [join(" ", path.map(print, "modifiers")), " "];

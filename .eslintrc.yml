@@ -27,6 +27,9 @@ rules:
     - allowElseIf: false
   no-implicit-coercion: error
   no-inner-declarations: error
+  no-restricted-syntax:
+    - error
+    - 'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]'
   no-unneeded-ternary: error
   no-useless-return: error
   no-unused-vars:
@@ -55,6 +58,7 @@ rules:
   prefer-spread: error
   prettier-internal-rules/jsx-identifier-case: error
   prettier-internal-rules/require-json-extensions: error
+  prettier-internal-rules/no-identifier-n: error
   quotes:
     - error
     - double
@@ -114,9 +118,11 @@ overrides:
       prettier-internal-rules/better-parent-property-check-in-needs-parens: error
   - files: src/**/*.js
     rules:
+      prettier-internal-rules/consistent-negative-index-access: error
       prettier-internal-rules/flat-ast-path-call: error
       prettier-internal-rules/no-doc-builder-concat: error
       prettier-internal-rules/no-empty-flat-contents-for-if-break: error
+      prettier-internal-rules/no-unnecessary-ast-path-call: error
       prettier-internal-rules/prefer-ast-path-each: error
       prettier-internal-rules/prefer-indent-if-break: error
       prettier-internal-rules/prefer-is-non-empty-array: error
@@ -137,3 +143,4 @@ overrides:
         - "src/language-js/parser-babel.js"
         - "src/language-js/parser-meriyah.js"
         - "src/language-js/pragma.js"
+        - "src/language-js/parser/json.js"

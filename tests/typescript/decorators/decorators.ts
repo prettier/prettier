@@ -58,3 +58,20 @@ class Class5 {
     @Decorator { prop1 }: Type
   ) {}
 }
+
+class Class6 {
+  method(
+    @Decorator({}) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator(
+      {}) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator([]) { prop1 }: Type
+  ) {}
+  method(
+    @Decorator(
+      []) { prop1 }: Type
+  ) {}
+}

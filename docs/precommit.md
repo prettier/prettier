@@ -15,7 +15,7 @@ _Make sure Prettier is installed and is in your [`devDependencies`](https://docs
 npx mrm lint-staged
 ```
 
-This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
+This will install [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
 
 Read more at the [lint-staged](https://github.com/okonet/lint-staged#configuration) repo.
 
@@ -119,11 +119,11 @@ Alternately you can save this script as `.git/hooks/pre-commit` and give it exec
 
 ```sh
 #!/bin/sh
-FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.jsx" | sed 's| |\\ |g')
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files
-echo "$FILES" | xargs ./node_modules/.bin/prettier --write
+echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add

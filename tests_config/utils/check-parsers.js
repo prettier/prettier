@@ -67,7 +67,7 @@ const categoryParsers = new Map([
     "json",
     {
       parsers: ["json", "json5", "json-stringify"],
-      verifyParsers: [],
+      verifyParsers: ["json", "json5", "json-stringify"],
       extensions: [".json"],
     },
   ],
