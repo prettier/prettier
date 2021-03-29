@@ -277,11 +277,7 @@ printWidth: 80
 
 {{! this really should split across lines }}
 <div>
-  before{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{
-    stuff
-  }}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{
-    stuff
-  }}after{{stuff}}after{{stuff}}after{{stuff}}after
+  before{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after
 </div>
 
 {{! solitary whitespace }}

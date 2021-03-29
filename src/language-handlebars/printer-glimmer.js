@@ -121,27 +121,13 @@ function print(path, options, print) {
     }
 
     case "ElementModifierStatement": {
-      return group(["{{", printPathAndParams(path, print), softline, "}}"]);
+      return group(["{{", printPathAndParams(path, print), "}}"]);
     }
+
     case "MustacheStatement": {
-      const isParentOfSpecifiedTypes = isParentOfSomeType(path, [
-        "AttrNode",
-        "ConcatStatement",
-      ]);
-
-      const isChildOfElementNodeAndDoesNotHaveParams =
-        isParentOfSomeType(path, ["ElementNode"]) &&
-        doesNotHaveHashParams(node) &&
-        doesNotHavePositionalParams(node);
-
-      const shouldBreakOpeningMustache =
-        isParentOfSpecifiedTypes || isChildOfElementNodeAndDoesNotHaveParams;
-
       return group([
         printOpeningMustache(node),
-        shouldBreakOpeningMustache ? indent(softline) : "",
         printPathAndParams(path, print),
-        softline,
         printClosingMustache(node),
       ]);
     }
@@ -550,7 +536,7 @@ function printOpenBlock(path, print) {
 
   return group([
     openingMustache,
-    indent(group(attributes)),
+    indent(attributes),
     softline,
     closingMustache,
   ]);
@@ -570,8 +556,8 @@ function printElseIfBlock(path, print) {
 
   return [
     printInverseBlockOpeningMustache(parentNode),
-    "else ",
-    printPathAndParams(path, print),
+    "else if ",
+    printParams(path, print),
     printInverseBlockClosingMustache(parentNode),
   ];
 }
@@ -764,7 +750,7 @@ function printPathAndParams(path, print) {
     return p;
   }
 
-  return indent(group([p, line, params]));
+  return [indent([p, line, params]), softline];
 }
 
 function printPath(path, print) {
@@ -794,14 +780,6 @@ function printParams(path, print) {
 
 function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
-}
-
-function doesNotHaveHashParams(node) {
-  return node.hash.pairs.length === 0;
-}
-
-function doesNotHavePositionalParams(node) {
-  return node.params.length === 0;
 }
 
 module.exports = {
