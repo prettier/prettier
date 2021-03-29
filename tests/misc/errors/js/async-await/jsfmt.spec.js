@@ -21,6 +21,10 @@ run_spec(
       "C = class { static { function f(await) {} } };",
       "C = class { static { function f(x = await) {} } };",
       "C = class { static { function f({ [await]: x }) {} } };",
+      "f = async (a) => await a! ** 6;",
+      "f = (a) => +a! ** 6;",
+      "async (a) => (await a!) ** 6;",
+      "(-+5 ** 6);",
       // TODO: Test these two edge case
       // outdent`
       //   export class C {
@@ -61,6 +65,10 @@ run_spec(
           (foo);
         }
       `,
+      // `espree` and `meriyah` didn't throw
+      "f = async () => await 5 ** 6;",
+      // `espree` didn't throw
+      "f = async () => await -5 ** 6;",
     ],
   },
   ["babel"]
