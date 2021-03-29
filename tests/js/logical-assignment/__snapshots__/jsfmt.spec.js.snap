@@ -1,33 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid.js [espree] format 1`] = `
-"Assigning to rvalue (1:21)
-> 1 | c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
-    |                     ^
-  2 |"
-`;
-
-exports[`invalid.js [meriyah] format 1`] = `
-"[1:51]: Invalid left-hand side in assignment (1:51)
-> 1 | c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
-    |                                                   ^
-  2 |"
-`;
-
-exports[`invalid.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
-
-=====================================output=====================================
-c.foo.bar().baz ??= result.foo.bar().baz(a.baz) &&= result.baz;
-
-================================================================================
-`;
-
 exports[`logical-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]

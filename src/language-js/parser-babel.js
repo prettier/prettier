@@ -150,11 +150,6 @@ const allowedMessages = new Set([
   "'with' in strict mode",
   "Legacy octal literals are not allowed in strict mode",
 
-  "Invalid left-hand side in parenthesized expression",
-  "Invalid left-hand side in assignment expression",
-  "Invalid left-hand side in postfix operation",
-  "Invalid left-hand side in prefix operation",
-
   "Type argument list cannot be empty.",
   "Type parameter list cannot be empty.",
   "Type parameters cannot appear on a constructor declaration.",
@@ -185,7 +180,6 @@ const allowedMessages = new Set([
   "Unexpected trailing comma after rest element",
   "Decorators cannot be used to decorate parameters",
   "Unterminated JSX contents",
-  "Invalid parenthesized assignment pattern",
   'Unexpected token, expected "}"',
   "Unexpected token :",
   "Unexpected reserved word 'package'",
