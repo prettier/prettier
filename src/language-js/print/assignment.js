@@ -131,7 +131,7 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
     return "break-after-operator";
   }
 
-  if (hasShortKey || shouldNeverBreakAfterOperator(rightNode)) {
+  if (hasShortKey || shouldNeverBreakAfterOperator(rightNode, node)) {
     return "never-break-after-operator";
   }
 
@@ -183,8 +183,8 @@ function shouldBreakAfterOperator(rightNode, hasShortKey) {
   return false;
 }
 
-function shouldNeverBreakAfterOperator(rightNode) {
-  return (
+function shouldNeverBreakAfterOperator(rightNode, node) {
+  if (
     rightNode.type === "TemplateLiteral" ||
     rightNode.type === "TaggedTemplateExpression" ||
     rightNode.type === "BooleanLiteral" ||
@@ -192,7 +192,26 @@ function shouldNeverBreakAfterOperator(rightNode) {
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
     rightNode.type === "ClassExpression"
-  );
+  ) {
+    return true;
+  }
+
+  // prefer to break destructuring object assignment
+  // if it includes default values or non-shorthand properties
+  if (isAssignment(node) || node.type === "VariableDeclarator") {
+    const leftNode = node.left || node.id;
+    if (
+      leftNode.type === "ObjectPattern" &&
+      leftNode.properties.some(
+        ({ shorthand, value }) =>
+          !shorthand || (value && value.type === "AssignmentPattern")
+      )
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function isAssignment(node) {
