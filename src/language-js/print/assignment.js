@@ -202,9 +202,13 @@ function shouldNeverBreakAfterOperator(rightNode, node) {
     const leftNode = node.left || node.id;
     if (
       leftNode.type === "ObjectPattern" &&
+      leftNode.properties.length > 2 &&
       leftNode.properties.some(
-        ({ shorthand, value }) =>
-          !shorthand || (value && value.type === "AssignmentPattern")
+        (property) =>
+          (property.type === "ObjectProperty" ||
+            property.type === "Property") &&
+          (!property.shorthand ||
+            (property.value && property.value.type === "AssignmentPattern"))
       )
     ) {
       return true;
