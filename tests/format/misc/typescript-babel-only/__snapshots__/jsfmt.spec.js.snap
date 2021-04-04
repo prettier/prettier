@@ -60,29 +60,31 @@ class Bar {
 ================================================================================
 `;
 
-exports[`tuple-labeled-ts.ts format 1`] = `
+exports[`ts-4.3-override-modifier.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// Invalid label 1
-type T = [x.y: A];
-
-// Invalid label 2
-type T = [x<y>: A];
+class MyClass extends BaseClass {
+  override show() {}
+  public override show() {}
+  override size = 5;
+  override readonly size = 5;
+}
 
 =====================================output=====================================
-// Invalid label 1
-type T = [x.y: A];
-
-// Invalid label 2
-type T = [x<y>: A];
+class MyClass extends BaseClass {
+  override show() {}
+  public override show() {}
+  override size = 5;
+  override readonly size = 5;
+}
 
 ================================================================================
 `;
 
-exports[`type-members-accesors.ts format 1`] = `
+exports[`ts4.3-type-members-get-set.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
 printWidth: 80
@@ -116,6 +118,28 @@ type Foo = {
 interface Foo {
   set bar(foo: string);
 }
+
+================================================================================
+`;
+
+exports[`tuple-labeled-ts.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid label 1
+type T = [x.y: A];
+
+// Invalid label 2
+type T = [x<y>: A];
+
+=====================================output=====================================
+// Invalid label 1
+type T = [x.y: A];
+
+// Invalid label 2
+type T = [x<y>: A];
 
 ================================================================================
 `;
