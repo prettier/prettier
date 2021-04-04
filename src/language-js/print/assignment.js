@@ -49,11 +49,8 @@ function printAssignment(
       ]);
     }
 
-    case "break-lhs": {
-      const leftDoc2 =
-        leftDoc.type === "group" && !leftDoc.break ? leftDoc.contents : leftDoc;
-      return group([leftDoc2, operator, " ", group(rightDoc)]);
-    }
+    case "break-lhs":
+      return group([leftDoc, operator, " ", group(rightDoc)]);
 
     // Parts of assignment chains aren't wrapped in groups.
     // Once one of them breaks, the chain breaks too.
