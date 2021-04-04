@@ -81,3 +81,41 @@ type T = [x<y>: A];
 
 ================================================================================
 `;
+
+exports[`type-members-accesors.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  get foo(): string;
+  set bar(v);
+}
+
+type Foo = {
+  get foo(): string;
+  set bar(v);
+}
+
+interface Foo {
+  set bar(foo: string);
+}
+
+=====================================output=====================================
+interface Foo {
+  get foo(): string;
+  set bar(v);
+}
+
+type Foo = {
+  get foo(): string;
+  set bar(v);
+};
+
+interface Foo {
+  set bar(foo: string);
+}
+
+================================================================================
+`;
