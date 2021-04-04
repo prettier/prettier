@@ -49,6 +49,12 @@ function printAssignment(
       ]);
     }
 
+    case "break-lhs": {
+      const leftDoc2 =
+        leftDoc.type === "group" && !leftDoc.break ? leftDoc.contents : leftDoc;
+      return group([leftDoc2, operator, " ", group(rightDoc)]);
+    }
+
     // Parts of assignment chains aren't wrapped in groups.
     // Once one of them breaks, the chain breaks too.
     case "chain":
@@ -124,6 +130,10 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
+  if (isComplexObjectDestructuring(node)) {
+    return "break-lhs";
+  }
+
   // wrapping object properties with very short keys usually doesn't add much value
   const hasShortKey = isObjectPropertyWithShortKey(node, leftDoc, options);
 
@@ -131,7 +141,7 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
     return "break-after-operator";
   }
 
-  if (hasShortKey || shouldNeverBreakAfterOperator(rightNode, node)) {
+  if (hasShortKey || shouldNeverBreakAfterOperator(rightNode)) {
     return "never-break-after-operator";
   }
 
@@ -183,8 +193,8 @@ function shouldBreakAfterOperator(rightNode, hasShortKey) {
   return false;
 }
 
-function shouldNeverBreakAfterOperator(rightNode, node) {
-  if (
+function shouldNeverBreakAfterOperator(rightNode) {
+  return (
     rightNode.type === "TemplateLiteral" ||
     rightNode.type === "TaggedTemplateExpression" ||
     rightNode.type === "BooleanLiteral" ||
@@ -192,15 +202,15 @@ function shouldNeverBreakAfterOperator(rightNode, node) {
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
     rightNode.type === "ClassExpression"
-  ) {
-    return true;
-  }
+  );
+}
 
-  // prefer to break destructuring object assignment
-  // if it includes default values or non-shorthand properties
+// prefer to break destructuring object assignment
+// if it includes default values or non-shorthand properties
+function isComplexObjectDestructuring(node) {
   if (isAssignment(node) || node.type === "VariableDeclarator") {
     const leftNode = node.left || node.id;
-    if (
+    return (
       leftNode.type === "ObjectPattern" &&
       leftNode.properties.length > 2 &&
       leftNode.properties.some(
@@ -210,11 +220,8 @@ function shouldNeverBreakAfterOperator(rightNode, node) {
           (!property.shorthand ||
             (property.value && property.value.type === "AssignmentPattern"))
       )
-    ) {
-      return true;
-    }
+    );
   }
-
   return false;
 }
 

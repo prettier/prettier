@@ -242,9 +242,11 @@ printWidth: 80
 
     const { id1, method: isMethod1, methodId1 } = privateNamesMap.get(name);
 
-    const { id2, method: isMethod2, methodId2 } = privateNamesMap.get(
-      bifornCringerMoshedPerplexSawder
-    );
+    const {
+      id2,
+      method: isMethod2,
+      methodId2,
+    } = privateNamesMap.get(bifornCringerMoshedPerplexSawder);
 
     const {
       id3,
