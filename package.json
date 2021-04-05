@@ -131,7 +131,7 @@
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.28.0"
+    "webpack": "5.30.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
