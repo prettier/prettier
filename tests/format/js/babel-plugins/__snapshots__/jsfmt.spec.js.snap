@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`async-do-expressions.js [espree] format 1`] = `
+"Unexpected token do (1:7)
+> 1 | async do { await requestAPI().json() };
+    |       ^
+  2 |"
+`;
+
+exports[`async-do-expressions.js [meriyah] format 1`] = `
+"[1:8]: Unexpected token: 'do' (1:8)
+> 1 | async do { await requestAPI().json() };
+    |        ^
+  2 |"
+`;
+
+exports[`async-do-expressions.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async do { await requestAPI().json() };
+
+=====================================output=====================================
+(async do {
+  await requestAPI().json();
+});
+
+================================================================================
+`;
+
 exports[`async-generators.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

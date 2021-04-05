@@ -37,6 +37,7 @@ const parseOptions = {
     "decimal",
     "classStaticBlock",
     "moduleBlocks",
+    "asyncDoExpressions",
   ],
   tokens: true,
   ranges: true,
