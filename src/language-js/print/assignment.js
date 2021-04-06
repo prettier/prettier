@@ -208,20 +208,15 @@ function isComplexDestructuring(node) {
   if (isAssignmentOrVariableDeclarator(node)) {
     const leftNode = node.left || node.id;
     return (
-      (leftNode.type === "ObjectPattern" &&
-        leftNode.properties.length > 2 &&
-        leftNode.properties.some(
-          (property) =>
-            (property.type === "ObjectProperty" ||
-              property.type === "Property") &&
-            (!property.shorthand ||
-              (property.value && property.value.type === "AssignmentPattern"))
-        )) ||
-      (leftNode.type === "ArrayPattern" &&
-        leftNode.elements.length > 2 &&
-        leftNode.elements.some(
-          (element) => element && element.type === "AssignmentPattern"
-        ))
+      leftNode.type === "ObjectPattern" &&
+      leftNode.properties.length > 2 &&
+      leftNode.properties.some(
+        (property) =>
+          (property.type === "ObjectProperty" ||
+            property.type === "Property") &&
+          (!property.shorthand ||
+            (property.value && property.value.type === "AssignmentPattern"))
+      )
     );
   }
   return false;
