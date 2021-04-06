@@ -99,7 +99,7 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
   const isTail = !isAssignment(rightNode);
   const shouldUseChainFormatting = path.match(
     isAssignment,
-    (node) => isAssignment(node) || node.type === "VariableDeclarator",
+    isAssignmentOrVariableDeclarator,
     (node) =>
       !isTail ||
       (node.type !== "ExpressionStatement" &&
@@ -127,7 +127,7 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
-  if (isComplexObjectDestructuring(node)) {
+  if (isComplexDestructuring(node)) {
     return "break-lhs";
   }
 
@@ -202,21 +202,26 @@ function shouldNeverBreakAfterOperator(rightNode) {
   );
 }
 
-// prefer to break destructuring object assignment
+// prefer to break destructuring assignment
 // if it includes default values or non-shorthand properties
-function isComplexObjectDestructuring(node) {
-  if (isAssignment(node) || node.type === "VariableDeclarator") {
+function isComplexDestructuring(node) {
+  if (isAssignmentOrVariableDeclarator(node)) {
     const leftNode = node.left || node.id;
     return (
-      leftNode.type === "ObjectPattern" &&
-      leftNode.properties.length > 2 &&
-      leftNode.properties.some(
-        (property) =>
-          (property.type === "ObjectProperty" ||
-            property.type === "Property") &&
-          (!property.shorthand ||
-            (property.value && property.value.type === "AssignmentPattern"))
-      )
+      (leftNode.type === "ObjectPattern" &&
+        leftNode.properties.length > 2 &&
+        leftNode.properties.some(
+          (property) =>
+            (property.type === "ObjectProperty" ||
+              property.type === "Property") &&
+            (!property.shorthand ||
+              (property.value && property.value.type === "AssignmentPattern"))
+        )) ||
+      (leftNode.type === "ArrayPattern" &&
+        leftNode.elements.length > 2 &&
+        leftNode.elements.some(
+          (element) => element && element.type === "AssignmentPattern"
+        ))
     );
   }
   return false;
@@ -224,6 +229,10 @@ function isComplexObjectDestructuring(node) {
 
 function isAssignment(node) {
   return node.type === "AssignmentExpression";
+}
+
+function isAssignmentOrVariableDeclarator(node) {
+  return isAssignment(node) || node.type === "VariableDeclarator";
 }
 
 function isMemberExpressionChainHead(node) {
