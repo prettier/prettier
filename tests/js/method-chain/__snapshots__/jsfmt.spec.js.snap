@@ -214,8 +214,14 @@ expect(
     .style.paddingRight
 ).toBe("1000px");
 
-const { course, conflicts = [], index, scheduleId, studentId, something } =
-  a.this.props;
+const {
+  course,
+  conflicts = [],
+  index,
+  scheduleId,
+  studentId,
+  something,
+} = a.this.props;
 
 const {
   course2,

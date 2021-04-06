@@ -225,7 +225,16 @@ function printObject(path, options, print) {
           name === "this" ||
           name === "rest") &&
         number === 0
-    )
+    ) ||
+    // Assignment printing logic (printAssignment) is responsible
+    // for adding a group if needed
+    (!shouldBreak &&
+      path.match(
+        (node) => node.type === "ObjectPattern",
+        (node) =>
+          node.type === "AssignmentExpression" ||
+          node.type === "VariableDeclarator"
+      ))
   ) {
     return content;
   }

@@ -49,6 +49,9 @@ function printAssignment(
       ]);
     }
 
+    case "break-lhs":
+      return group([leftDoc, operator, " ", group(rightDoc)]);
+
     // Parts of assignment chains aren't wrapped in groups.
     // Once one of them breaks, the chain breaks too.
     case "chain":
@@ -96,7 +99,7 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
   const isTail = !isAssignment(rightNode);
   const shouldUseChainFormatting = path.match(
     isAssignment,
-    (node) => isAssignment(node) || node.type === "VariableDeclarator",
+    isAssignmentOrVariableDeclarator,
     (node) =>
       !isTail ||
       (node.type !== "ExpressionStatement" &&
@@ -122,6 +125,10 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
   // do not put values on a separate line from the key in json
   if (options.parser === "json5" || options.parser === "json") {
     return "never-break-after-operator";
+  }
+
+  if (isComplexDestructuring(node)) {
+    return "break-lhs";
   }
 
   // wrapping object properties with very short keys usually doesn't add much value
@@ -195,8 +202,32 @@ function shouldNeverBreakAfterOperator(rightNode) {
   );
 }
 
+// prefer to break destructuring assignment
+// if it includes default values or non-shorthand properties
+function isComplexDestructuring(node) {
+  if (isAssignmentOrVariableDeclarator(node)) {
+    const leftNode = node.left || node.id;
+    return (
+      leftNode.type === "ObjectPattern" &&
+      leftNode.properties.length > 2 &&
+      leftNode.properties.some(
+        (property) =>
+          (property.type === "ObjectProperty" ||
+            property.type === "Property") &&
+          (!property.shorthand ||
+            (property.value && property.value.type === "AssignmentPattern"))
+      )
+    );
+  }
+  return false;
+}
+
 function isAssignment(node) {
   return node.type === "AssignmentExpression";
+}
+
+function isAssignmentOrVariableDeclarator(node) {
+  return isAssignment(node) || node.type === "VariableDeclarator";
 }
 
 function isMemberExpressionChainHead(node) {
