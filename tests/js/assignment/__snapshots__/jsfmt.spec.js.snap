@@ -193,6 +193,25 @@ const {
 ================================================================================
 `;
 
+exports[`destructuring-array.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const [
+  width= nextWidth,
+  height= nextHeight,
+  baseline= nextBaseline,
+] = measureText(nextText, getFontString(element));
+
+=====================================output=====================================
+const [width = nextWidth, height = nextHeight, baseline = nextBaseline] =
+  measureText(nextText, getFontString(element));
+
+================================================================================
+`;
+
 exports[`destructuring-heuristic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -255,28 +274,6 @@ printWidth: 80
     } = anodyneCondosMalateOverateRetinol.get(bifornCringerMoshedPerplexSawder);
   }
 }
-
-================================================================================
-`;
-
-exports[`destructuring-heuristic-array.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const [
-  width= nextWidth,
-  height= nextHeight,
-  baseline= nextBaseline,
-] = measureText(nextText, getFontString(element));
-
-=====================================output=====================================
-const [
-  width = nextWidth,
-  height = nextHeight,
-  baseline = nextBaseline,
-] = measureText(nextText, getFontString(element));
 
 ================================================================================
 `;
