@@ -177,3 +177,53 @@ a = <div {...{} /* prettier-ignore */} />;
 
 ================================================================================
 `;
+
+exports[`issue-10661.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+verylongidentifierthatwillwrap123123123123123(
+  a.b
+    // prettier-ignore
+    // Some other comment here
+    .c
+);
+
+call(
+  a(
+/*
+this won't get formatted too,
+because the prettier-ignore comment is attached as MemberExpression leading comment
+*/
+1,
+2.0000, 3
+)
+    // prettier-ignore
+    .c
+)
+
+=====================================output=====================================
+verylongidentifierthatwillwrap123123123123123(
+  a.b
+    // prettier-ignore
+    // Some other comment here
+    .c
+);
+
+call(
+  a(
+/*
+this won't get formatted too,
+because the prettier-ignore comment is attached as MemberExpression leading comment
+*/
+1,
+2.0000, 3
+)
+    // prettier-ignore
+    .c
+);
+
+================================================================================
+`;

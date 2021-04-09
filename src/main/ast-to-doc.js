@@ -93,12 +93,16 @@ function printPrettierIgnoredNode(node, options) {
 
   const start = locStart(node);
   const end = locEnd(node);
+  const attachedComments = new Set(node.comments);
 
   for (const comment of comments) {
     if (locStart(comment) >= start && locEnd(comment) <= end) {
       comment.printed = true;
+      attachedComments.delete(comment);
     }
   }
+
+  node.comments = [...attachedComments];
 
   return originalText.slice(start, end);
 }
