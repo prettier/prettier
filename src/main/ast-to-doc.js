@@ -93,18 +93,16 @@ function printPrettierIgnoredNode(node, options) {
 
   const start = locStart(node);
   const end = locEnd(node);
-  const attachedComments = new Set(node.comments);
+  const printedComments = new Set();
 
   for (const comment of comments) {
     if (locStart(comment) >= start && locEnd(comment) <= end) {
       comment.printed = true;
-      attachedComments.delete(comment);
+      printedComments.add(comment);
     }
   }
 
-  node.comments = [...attachedComments];
-
-  return originalText.slice(start, end);
+  return { doc: originalText.slice(start, end), printedComments };
 }
 
 function callPluginPrintFunction(path, options, printPath, args) {
@@ -112,10 +110,11 @@ function callPluginPrintFunction(path, options, printPath, args) {
   const { printer } = options;
 
   let doc;
+  let printedComments;
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
-    doc = printPrettierIgnoredNode(node, options);
+    ({ doc, printedComments } = printPrettierIgnoredNode(node, options));
   } else {
     if (node) {
       try {
@@ -143,7 +142,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
   ) {
     // printComments will call the plugin print function and check for
     // comments to print
-    doc = printComments(path, doc, options);
+    doc = printComments(path, doc, options, printedComments);
   }
 
   return doc;

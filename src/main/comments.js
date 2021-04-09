@@ -15,7 +15,6 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isNonEmptyArray,
 } = require("../common/util");
 
 const childNodesCache = new WeakMap();
@@ -540,12 +539,19 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent([hardline, join(hardline, parts)]);
 }
 
-function printCommentsSeparately(path, options) {
+function printCommentsSeparately(path, options, skip) {
   const value = path.getValue();
-  const hasComments = isNonEmptyArray(value && value.comments);
-  const isCursorNode = Boolean(value && value === options.cursorNode);
+  if (!value) {
+    return {};
+  }
 
-  if (!hasComments) {
+  let comments = value.comments || [];
+  if (skip) {
+    comments = comments.filter((comment) => !skip.has(comment));
+  }
+  const isCursorNode = value === options.cursorNode;
+
+  if (comments.length === 0) {
     const maybeCursor = isCursorNode ? cursor : "";
     return { leading: maybeCursor, trailing: maybeCursor };
   }
@@ -555,6 +561,10 @@ function printCommentsSeparately(path, options) {
 
   path.each((commentPath) => {
     const comment = commentPath.getValue();
+    if (skip && skip.has(comment)) {
+      return;
+    }
+
     const { leading, trailing } = comment;
 
     if (leading) {
@@ -586,8 +596,8 @@ function printCommentsSeparately(path, options) {
   return { leading: leadingParts, trailing: trailingParts };
 }
 
-function printComments(path, doc, options) {
-  const { leading, trailing } = printCommentsSeparately(path, options);
+function printComments(path, doc, options, skip) {
+  const { leading, trailing } = printCommentsSeparately(path, options, skip);
   if (!leading && !trailing) {
     return doc;
   }
