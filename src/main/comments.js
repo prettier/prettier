@@ -444,10 +444,6 @@ function findExpressionIndexForComment(quasis, comment, options) {
 function printLeadingComment(path, options) {
   const comment = path.getValue();
   const contents = printComment(path, options);
-  /* istanbul ignore next */
-  if (!contents) {
-    return "";
-  }
   const { printer, originalText, locStart, locEnd } = options;
   const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
   const printed = [contents];
@@ -472,6 +468,7 @@ function printLeadingComment(path, options) {
     originalText,
     skipSpaces(originalText, locEnd(comment))
   );
+
   if (index !== false && hasNewline(originalText, index)) {
     printed.push(hardline);
   }
@@ -482,10 +479,6 @@ function printLeadingComment(path, options) {
 function printTrailingComment(path, options) {
   const comment = path.getValue();
   const contents = printComment(path, options);
-  /* istanbul ignore next */
-  if (!contents) {
-    return "";
-  }
   const { printer, originalText, locStart } = options;
   const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
