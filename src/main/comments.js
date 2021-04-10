@@ -420,10 +420,10 @@ function breakTies(tiesToBreak, text, options) {
   tiesToBreak.length = 0;
 }
 
-function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
+function printComment(path, options) {
+  const comment = path.getValue();
   comment.printed = true;
-  return options.printer.printComment(commentPath, options);
+  return options.printer.printComment(path, options);
 }
 
 function findExpressionIndexForComment(quasis, comment, options) {
@@ -441,9 +441,9 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-function printLeadingComment(commentPath, options) {
-  const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
+function printLeadingComment(path, options) {
+  const comment = path.getValue();
+  const contents = printComment(path, options);
   /* istanbul ignore next */
   if (!contents) {
     return "";
@@ -479,9 +479,9 @@ function printLeadingComment(commentPath, options) {
   return printed;
 }
 
-function printTrailingComment(commentPath, options) {
-  const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
+function printTrailingComment(path, options) {
+  const comment = path.getValue();
+  const contents = printComment(path, options);
   /* istanbul ignore next */
   if (!contents) {
     return "";
@@ -529,15 +529,10 @@ function printDanglingComments(path, options, sameIndent, filter) {
     return "";
   }
 
-  path.each((commentPath) => {
-    const comment = commentPath.getValue();
-    if (
-      comment &&
-      !comment.leading &&
-      !comment.trailing &&
-      (!filter || filter(comment))
-    ) {
-      parts.push(printComment(commentPath, options));
+  path.each(() => {
+    const comment = path.getValue();
+    if (!comment.leading && !comment.trailing && (!filter || filter(comment))) {
+      parts.push(printComment(path, options));
     }
   }, "comments");
 
