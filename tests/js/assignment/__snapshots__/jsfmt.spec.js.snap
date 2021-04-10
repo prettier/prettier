@@ -474,8 +474,8 @@ if (something) {
 
 =====================================output=====================================
 if (something) {
-  const otherBrandsWithThisAdjacencyCount123 =
-    Object.values(edge.to.edges).length;
+  const otherBrandsWithThisAdjacencyCount123 = Object.values(edge.to.edges)
+    .length;
 }
 
 ================================================================================
@@ -681,6 +681,41 @@ const { _id2 } =
 const { _id: id3 } =
   data.createTestMessageWithAReallyLongName.someVeryLongProperty
     .thisIsAlsoALongProperty;
+
+================================================================================
+`;
+
+exports[`lone-arg.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let vgChannel = pointPositionDefaultRef({
+  model,
+  defaultPos,
+  channel,
+})()
+
+let vgChannel2 = pointPositionDefaultRef({ model,
+  defaultPos,
+  channel,
+})()
+
+const bifornCringerMoshedPerplexSawderGlyphsHa =
+  someBigFunctionName("foo")("bar");
+
+=====================================output=====================================
+let vgChannel = pointPositionDefaultRef({
+  model,
+  defaultPos,
+  channel,
+})();
+
+let vgChannel2 = pointPositionDefaultRef({ model, defaultPos, channel })();
+
+const bifornCringerMoshedPerplexSawderGlyphsHa =
+  someBigFunctionName("foo")("bar");
 
 ================================================================================
 `;
