@@ -443,10 +443,10 @@ function findExpressionIndexForComment(quasis, comment, options) {
 
 function printLeadingComment(path, options) {
   const comment = path.getValue();
-  const contents = printComment(path, options);
+  const parts = [printComment(path, options)];
+
   const { printer, originalText, locStart, locEnd } = options;
   const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
-  const printed = [contents];
 
   // Leading block comments should see if they need to stay on the
   // same line or not.
@@ -459,9 +459,9 @@ function printLeadingComment(path, options) {
         : line
       : " ";
 
-    printed.push(lineBreak);
+    parts.push(lineBreak);
   } else {
-    printed.push(hardline);
+    parts.push(hardline);
   }
 
   const index = skipNewline(
@@ -470,15 +470,16 @@ function printLeadingComment(path, options) {
   );
 
   if (index !== false && hasNewline(originalText, index)) {
-    printed.push(hardline);
+    parts.push(hardline);
   }
 
-  return printed;
+  return parts;
 }
 
 function printTrailingComment(path, options) {
   const comment = path.getValue();
-  const contents = printComment(path, options);
+  const printed = printComment(path, options);
+
   const { printer, originalText, locStart } = options;
   const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
@@ -501,17 +502,17 @@ function printTrailingComment(path, options) {
       locStart
     );
 
-    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", contents]);
+    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]);
   }
 
-  let printed = [" ", contents];
+  let parts = [" ", printed];
 
   // Trailing block comments never need a newline
   if (!isBlock) {
-    printed = [lineSuffix(printed), breakParent];
+    parts = [lineSuffix(parts), breakParent];
   }
 
-  return printed;
+  return parts;
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
