@@ -6,6 +6,13 @@ verylongidentifierthatwillwrap123123123123123(
 );
 
 call(
+  // comment
+  a.
+    // prettier-ignore
+    b
+)
+
+call(
   a(
 /*
 this won't get formatted too,
