@@ -448,24 +448,35 @@ function printLeadingComment(commentPath, options) {
   if (!contents) {
     return "";
   }
-  const isBlock =
-    options.printer.isBlockComment && options.printer.isBlockComment(comment);
+  const { printer, originalText, locStart, locEnd } = options;
+  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
+  const printed = [contents];
 
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    const lineBreak = hasNewline(options.originalText, options.locEnd(comment))
-      ? hasNewline(options.originalText, options.locStart(comment), {
+    const lineBreak = hasNewline(originalText, locEnd(comment))
+      ? hasNewline(originalText, locStart(comment), {
           backwards: true,
         })
         ? hardline
         : line
       : " ";
 
-    return [contents, lineBreak];
+    printed.push(lineBreak);
+  } else {
+    printed.push(hardline);
   }
 
-  return [contents, hardline];
+  const index = skipNewline(
+    originalText,
+    skipSpaces(originalText, locEnd(comment))
+  );
+  if (index !== false && hasNewline(originalText, index)) {
+    printed.push(hardline);
+  }
+
+  return printed;
 }
 
 function printTrailingComment(commentPath, options) {
@@ -552,29 +563,12 @@ function printCommentsSeparately(path, options) {
 
   const leadingParts = [];
   const trailingParts = [];
-
-  path.each((commentPath) => {
-    const comment = commentPath.getValue();
-    const { leading, trailing } = comment;
-
+  path.each(() => {
+    const { leading, trailing } = path.getValue();
     if (leading) {
-      const contents = printLeadingComment(commentPath, options);
-      /* istanbul ignore next */
-      if (!contents) {
-        return;
-      }
-      leadingParts.push(contents);
-
-      const text = options.originalText;
-      const index = skipNewline(
-        text,
-        skipSpaces(text, options.locEnd(comment))
-      );
-      if (index !== false && hasNewline(text, index)) {
-        leadingParts.push(hardline);
-      }
+      leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, options));
+      trailingParts.push(printTrailingComment(path, options));
     }
   }, "comments");
 
