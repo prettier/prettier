@@ -539,15 +539,15 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent([hardline, join(hardline, parts)]);
 }
 
-function printCommentsSeparately(path, options, skip) {
+function printCommentsSeparately(path, options, ignored) {
   const value = path.getValue();
   if (!value) {
     return {};
   }
 
   let comments = value.comments || [];
-  if (skip) {
-    comments = comments.filter((comment) => !skip.has(comment));
+  if (ignored) {
+    comments = comments.filter((comment) => !ignored.has(comment));
   }
   const isCursorNode = value === options.cursorNode;
 
@@ -561,7 +561,7 @@ function printCommentsSeparately(path, options, skip) {
 
   path.each((commentPath) => {
     const comment = commentPath.getValue();
-    if (skip && skip.has(comment)) {
+    if (ignored && ignored.has(comment)) {
       return;
     }
 
@@ -596,8 +596,8 @@ function printCommentsSeparately(path, options, skip) {
   return { leading: leadingParts, trailing: trailingParts };
 }
 
-function printComments(path, doc, options, skip) {
-  const { leading, trailing } = printCommentsSeparately(path, options, skip);
+function printComments(path, doc, options, ignored) {
+  const { leading, trailing } = printCommentsSeparately(path, options, ignored);
   if (!leading && !trailing) {
     return doc;
   }
