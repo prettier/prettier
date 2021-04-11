@@ -112,7 +112,7 @@
     "eslint-plugin-prettier": "3.3.1",
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-unicorn": "21.0.0",
-    "execa": "4.1.0",
+    "execa": "5.0.0",
     "flow-parser": "0.122.0",
     "jest": "26.6.3",
     "jest-snapshot-serializer-ansi": "1.0.0",
