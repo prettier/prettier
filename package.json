@@ -110,7 +110,7 @@
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-prettier": "3.3.1",
-    "eslint-plugin-react": "7.22.0",
+    "eslint-plugin-react": "7.23.2",
     "eslint-plugin-unicorn": "21.0.0",
     "execa": "5.0.0",
     "flow-parser": "0.122.0",
