@@ -15,6 +15,7 @@ const {
   isMemberExpression,
   getCallArguments,
   rawText,
+  hasComment,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 const { printCallExpression } = require("./call-expression");
@@ -288,6 +289,10 @@ const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
 
 function isLoneShortArgument(node, { printWidth }) {
   const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
+
+  if (hasComment(node)) {
+    return false;
+  }
 
   if (
     node.type === "ThisExpression" ||

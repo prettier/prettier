@@ -705,6 +705,10 @@ let vgChannel2 = pointPositionDefaultRef({ model,
 const bifornCringerMoshedPerplexSawderGlyphsHa =
   someBigFunctionName("foo")("bar");
 
+if (true) {
+  node.id = this.flowParseTypeAnnotatableIdentifier(/*allowPrimitiveOverride*/ true);
+}
+
 =====================================output=====================================
 let vgChannel = pointPositionDefaultRef({
   model,
@@ -716,6 +720,12 @@ let vgChannel2 = pointPositionDefaultRef({ model, defaultPos, channel })();
 
 const bifornCringerMoshedPerplexSawderGlyphsHa =
   someBigFunctionName("foo")("bar");
+
+if (true) {
+  node.id = this.flowParseTypeAnnotatableIdentifier(
+    /*allowPrimitiveOverride*/ true
+  );
+}
 
 ================================================================================
 `;
