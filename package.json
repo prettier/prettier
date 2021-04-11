@@ -27,7 +27,7 @@
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "4.19.0",
     "angular-estree-parser": "2.3.0",
-    "angular-html-parser": "1.7.1",
+    "angular-html-parser": "1.8.0",
     "camelcase": "6.2.0",
     "chalk": "4.1.0",
     "ci-info": "3.1.1",

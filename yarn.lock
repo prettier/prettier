@@ -1840,10 +1840,10 @@ angular-estree-parser@2.3.0:
     lines-and-columns "^1.1.6"
     tslib "^2.0.3"
 
-angular-html-parser@1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.7.1.tgz#735cb9f2f01151e6d612b580812256a289e728a4"
-  integrity sha512-bDOeuWyKNuvggsBcN9jG7bFCuy5L3vHGoJ5+djuvo6vhQiCTu01smwOlh2WBa3ZjdttBY/vtb9XWfCoaMdKL6Q==
+angular-html-parser@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.8.0.tgz#bd315b74e8069135a046902078c73d959d1cc51c"
+  integrity sha512-n5ZowjJJs1OPG3DHDSyUXZvscQzy7uQG227ncL1NzbJEPzfb2XtBZ9qT0PW7cbD7MViho3ijawXoRLCM0ih1rw==
   dependencies:
     tslib "^1.9.3"
 
