@@ -82,32 +82,39 @@ function mapDoc(doc, cb) {
     if (mapped.has(doc)) {
       return mapped.get(doc);
     }
+    const result = process(doc);
+    mapped.set(doc, result);
+    return result;
+  }
 
-    let result;
-
+  function process(doc) {
     if (Array.isArray(doc)) {
-      result = cb(doc.map(rec));
-    } else if (doc.type === "concat" || doc.type === "fill") {
-      const parts = doc.parts.map(rec);
-      result = cb({ ...doc, parts });
-    } else if (doc.type === "if-break") {
-      const breakContents = doc.breakContents && rec(doc.breakContents);
-      const flatContents = doc.flatContents && rec(doc.flatContents);
-      result = cb({ ...doc, breakContents, flatContents });
-    } else if (doc.type === "group" && doc.expandedStates) {
-      const expandedStates = doc.expandedStates.map(rec);
-      const contents = expandedStates[0];
-      result = cb({ ...doc, contents, expandedStates });
-    } else if (doc.contents) {
-      const contents = rec(doc.contents);
-      result = cb({ ...doc, contents });
-    } else {
-      result = cb(doc);
+      return cb(doc.map(rec));
     }
 
-    mapped.set(doc, result);
+    if (doc.type === "concat" || doc.type === "fill") {
+      const parts = doc.parts.map(rec);
+      return cb({ ...doc, parts });
+    }
 
-    return result;
+    if (doc.type === "if-break") {
+      const breakContents = doc.breakContents && rec(doc.breakContents);
+      const flatContents = doc.flatContents && rec(doc.flatContents);
+      return cb({ ...doc, breakContents, flatContents });
+    }
+
+    if (doc.type === "group" && doc.expandedStates) {
+      const expandedStates = doc.expandedStates.map(rec);
+      const contents = expandedStates[0];
+      return cb({ ...doc, contents, expandedStates });
+    }
+
+    if (doc.contents) {
+      const contents = rec(doc.contents);
+      return cb({ ...doc, contents });
+    }
+
+    return cb(doc);
   }
 }
 
