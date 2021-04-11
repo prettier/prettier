@@ -10472,7 +10472,8 @@ See console log:
     {{
       $any(
         hero
-      ).marker
+      )
+        .marker
     }}
   </div>
 </div>
@@ -10486,7 +10487,8 @@ See console log:
     {{
       $any(
         this
-      ).member
+      )
+        .member
     }}
   </div>
 </div>

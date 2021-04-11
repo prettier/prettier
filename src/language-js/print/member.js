@@ -38,8 +38,10 @@ function printMemberExpression(path, options, print) {
     (node.object.type === "Identifier" &&
       node.property.type === "Identifier" &&
       !isMemberExpression(parent)) ||
-    (isCallExpression(node.object) && node.object.arguments.length > 0) ||
-    objectDoc.label === "member-chain";
+    ((parent.type === "AssignmentExpression" ||
+      parent.type === "VariableDeclarator") &&
+      ((isCallExpression(node.object) && node.object.arguments.length > 0) ||
+        objectDoc.label === "member-chain"));
 
   return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
     objectDoc,
