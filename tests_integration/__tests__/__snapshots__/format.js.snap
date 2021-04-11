@@ -14,7 +14,7 @@ exports[`markdown parser should handle CRLF correctly 1`] = `"\\"\`\`\`\\\\r\\\\
 exports[`typescript parser should throw the first error when both JSX and non-JSX mode failed 1`] = `
 "Expression expected. (9:7)
    7 | );
-   8 | 
+   8 |
 >  9 | label:
      |       ^
   10 |   "
