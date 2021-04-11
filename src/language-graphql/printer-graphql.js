@@ -39,6 +39,9 @@ function genericPrint(path, options, print) {
       return [
         hasOperation ? node.operation : "",
         hasOperation && hasName ? [" ", print("name")] : "",
+        hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
+          ? " "
+          : "",
         isNonEmptyArray(node.variableDefinitions)
           ? group([
               "(",
