@@ -71,26 +71,44 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 }
 
 function mapDoc(doc, cb) {
-  if (Array.isArray(doc)) {
-    return cb(doc.map((part) => mapDoc(part, cb)));
-  }
+  // Cache already processed docs in a map to make sure each doc is not
+  // processed more than once. It's important to do this because docs are
+  // often reused, especially in conditional groups.
+  const mapped = new Map();
 
-  if (doc.type === "concat" || doc.type === "fill") {
-    const parts = doc.parts.map((part) => mapDoc(part, cb));
-    return cb({ ...doc, parts });
-  }
+  return rec(doc);
 
-  if (doc.type === "if-break") {
-    const breakContents = doc.breakContents && mapDoc(doc.breakContents, cb);
-    const flatContents = doc.flatContents && mapDoc(doc.flatContents, cb);
-    return cb({ ...doc, breakContents, flatContents });
-  }
+  function rec(doc) {
+    if (mapped.has(doc)) {
+      return mapped.get(doc);
+    }
 
-  if (doc.contents) {
-    const contents = mapDoc(doc.contents, cb);
-    return cb({ ...doc, contents });
+    let result;
+
+    if (Array.isArray(doc)) {
+      result = cb(doc.map(rec));
+    } else if (doc.type === "concat" || doc.type === "fill") {
+      const parts = doc.parts.map(rec);
+      result = cb({ ...doc, parts });
+    } else if (doc.type === "if-break") {
+      const breakContents = doc.breakContents && rec(doc.breakContents);
+      const flatContents = doc.flatContents && rec(doc.flatContents);
+      result = cb({ ...doc, breakContents, flatContents });
+    } else if (doc.type === "group" && doc.expandedStates) {
+      const expandedStates = doc.expandedStates.map(rec);
+      const contents = expandedStates[0];
+      result = cb({ ...doc, contents, expandedStates });
+    } else if (doc.contents) {
+      const contents = rec(doc.contents);
+      result = cb({ ...doc, contents });
+    } else {
+      result = cb(doc);
+    }
+
+    mapped.set(doc, result);
+
+    return result;
   }
-  return cb(doc);
 }
 
 function findInDoc(doc, fn, defaultValue) {
