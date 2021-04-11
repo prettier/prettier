@@ -3,7 +3,11 @@
 const {
   builders: { softline, group, indent, label },
 } = require("../../document");
-const { isNumericLiteral, isMemberExpression } = require("../utils");
+const {
+  isNumericLiteral,
+  isMemberExpression,
+  isCallExpression,
+} = require("../utils");
 const { printOptionalToken } = require("./misc");
 
 function printMemberExpression(path, options, print) {
@@ -34,6 +38,7 @@ function printMemberExpression(path, options, print) {
     (node.object.type === "Identifier" &&
       node.property.type === "Identifier" &&
       !isMemberExpression(parent)) ||
+    (isCallExpression(node.object) && node.object.arguments.length > 0) ||
     objectDoc.label === "member-chain";
 
   return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
