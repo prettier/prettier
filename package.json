@@ -47,7 +47,7 @@
     "cosmiconfig": "7.0.0",
     "dashify": "2.0.0",
     "dedent": "0.7.0",
-    "diff": "4.0.2",
+    "diff": "5.0.0",
     "editorconfig": "0.15.3",
     "editorconfig-to-prettier": "0.1.1",
     "escape-string-regexp": "4.0.0",
