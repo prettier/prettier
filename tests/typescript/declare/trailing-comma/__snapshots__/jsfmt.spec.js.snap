@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`function-rest-trailing-comma.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+declare function foo(...args: any[], )
+=====================================output=====================================
+declare function foo(...args: any[]);
+
+================================================================================
+`;
+
+exports[`function-rest-trailing-comma.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+declare function foo(...args: any[], )
+=====================================output=====================================
+declare function foo(...args: any[]);
+
+================================================================================
+`;
+
+exports[`function-rest-trailing-comma.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+declare function foo(...args: any[], )
+=====================================output=====================================
+declare function foo(...args: any[]);
+
+================================================================================
+`;
