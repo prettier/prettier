@@ -9,6 +9,9 @@ const NODES_KEYS = {
   children: true,
 };
 
+// TODO: typechecking is problematic for this class because of this issue:
+// https://github.com/microsoft/TypeScript/issues/26811
+
 class Node {
   constructor(props = {}) {
     for (const [key, value] of Object.entries(props)) {
