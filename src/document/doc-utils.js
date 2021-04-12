@@ -71,9 +71,11 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 }
 
 function mapDoc(doc, cb) {
-  // Cache already processed docs in a map to make sure each doc is not
-  // processed more than once. It's important to do this because docs are
-  // often reused, especially in conditional groups.
+  // Within a doc tree, the same subtrees can be found multiple times.
+  // E.g., often this happens in conditional groups.
+  // As an optimization (those subtrees can be huge) and to maintain the
+  // reference structure of the tree, the mapping results are cached in
+  // a map and reused.
   const mapped = new Map();
 
   return rec(doc);
