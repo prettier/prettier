@@ -8,8 +8,13 @@ trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
 declare function foo(...args: any[], )
+declare function foo(...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[], )
+
 =====================================output=====================================
 declare function foo(...args: any[]);
+declare function foo(
+  ...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[]
+);
 
 ================================================================================
 `;
@@ -22,8 +27,13 @@ trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 declare function foo(...args: any[], )
+declare function foo(...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[], )
+
 =====================================output=====================================
 declare function foo(...args: any[]);
+declare function foo(
+  ...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[]
+);
 
 ================================================================================
 `;
@@ -36,8 +46,13 @@ trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 declare function foo(...args: any[], )
+declare function foo(...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[], )
+
 =====================================output=====================================
 declare function foo(...args: any[]);
+declare function foo(
+  ...long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_args: any[]
+);
 
 ================================================================================
 `;
