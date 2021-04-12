@@ -24,11 +24,12 @@ jobs:
         node:
           - "12"
           - "10"
-        include:
-          # only enable coverage on the fastest job
-          - os: "ubuntu-latest"
-            node: "12"
-            ENABLE_CODE_COVERAGE: true
+        # [prettierx] code coverage not enabled:
+        # include:
+        #   # only enable coverage on the fastest job
+        #   - os: "ubuntu-latest"
+        #     node: "12"
+        #     ENABLE_CODE_COVERAGE: true
         exclude:
           - os: "macos-latest"
             node: "13"
@@ -53,6 +54,7 @@ jobs:
       - name: Run Tests
         run: yarn test --maxWorkers=4
 
+      # [prettierx] code coverage not enabled (see above)
       - name: Upload Coverage
         uses: codecov/codecov-action@v1
         if: matrix.ENABLE_CODE_COVERAGE
@@ -67,6 +69,7 @@ jobs:
         env:
           PRETTIER_FALLBACK_RESOLVE: true
 
+      # [prettierx] code coverage not enabled (see above)
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
         uses: codecov/codecov-action@v1
         if: matrix.ENABLE_CODE_COVERAGE
