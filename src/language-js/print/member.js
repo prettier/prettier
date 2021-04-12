@@ -41,6 +41,9 @@ function printMemberExpression(path, options, print) {
     ((parent.type === "AssignmentExpression" ||
       parent.type === "VariableDeclarator") &&
       ((isCallExpression(node.object) && node.object.arguments.length > 0) ||
+        (node.object.type === "TSNonNullExpression" &&
+          isCallExpression(node.object.expression) &&
+          node.object.expression.arguments.length > 0) ||
         objectDoc.label === "member-chain"));
 
   return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
