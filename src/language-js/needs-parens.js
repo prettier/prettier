@@ -267,6 +267,7 @@ function needsParens(path, options) {
           return name === "object";
 
         case "AssignmentExpression":
+        case "AssignmentPattern":
           return (
             name === "left" &&
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
