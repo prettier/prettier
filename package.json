@@ -20,14 +20,14 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "11.2.8",
+    "@angular/compiler": "11.2.9",
     "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.13.15",
     "@glimmer/syntax": "0.77.6",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "4.19.0",
     "angular-estree-parser": "2.3.0",
-    "angular-html-parser": "1.7.1",
+    "angular-html-parser": "1.8.0",
     "camelcase": "6.2.0",
     "chalk": "4.1.0",
     "ci-info": "3.1.1",
@@ -79,7 +79,7 @@
     "semver": "7.3.5",
     "string-width": "4.2.2",
     "strip-ansi": "6.0.0",
-    "typescript": "4.2.3",
+    "typescript": "4.2.4",
     "unicode-regex": "3.0.0",
     "unified": "9.2.1",
     "vnopts": "1.0.2",
@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
-    "@babel/preset-env": "7.13.12",
+    "@babel/preset-env": "7.13.15",
     "@babel/types": "7.13.14",
     "@glimmer/reference": "0.77.6",
     "@rollup/plugin-alias": "3.1.2",
@@ -109,7 +109,7 @@
     "eslint-config-prettier": "8.1.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jest": "24.3.3",
+    "eslint-plugin-jest": "24.3.5",
     "eslint-plugin-prettier-internal-rules": "link:scripts/tools/eslint-plugin-prettier-internal-rules",
     "eslint-plugin-react": "7.23.2",
     "eslint-plugin-unicorn": "29.0.0",
@@ -131,7 +131,7 @@
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.30.0"
+    "webpack": "5.31.2"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",

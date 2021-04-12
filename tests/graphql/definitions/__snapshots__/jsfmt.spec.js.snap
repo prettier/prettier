@@ -31,6 +31,14 @@ query {
   noOperationType
 }
 
+query ($unnamed: String) {
+  id
+}
+
+query Named($var: String) {
+  id
+}
+
 =====================================output=====================================
 query MyFirstQuery {
   hello
@@ -54,6 +62,14 @@ query {
 
 {
   noOperationType
+}
+
+query ($unnamed: String) {
+  id
+}
+
+query Named($var: String) {
+  id
 }
 
 ================================================================================
