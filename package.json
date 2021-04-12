@@ -86,7 +86,7 @@
     "semver": "7.3.5",
     "srcset": "3.0.0",
     "string-width": "4.2.2",
-    "tslib": "1.14.1",
+    "tslib": "2.2.0",
     "unicode-regex": "3.0.0",
     "unified": "9.2.1",
     "vnopts": "1.0.2",
