@@ -87,8 +87,8 @@
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
-    "@babel/core": "7.13.14",
-    "@babel/preset-env": "7.13.12",
+    "@babel/core": "7.13.15",
+    "@babel/preset-env": "7.13.15",
     "@babel/types": "7.13.14",
     "@glimmer/reference": "0.77.6",
     "@rollup/plugin-alias": "3.1.2",
@@ -105,13 +105,13 @@
     "builtin-modules": "3.2.0",
     "cross-env": "7.0.3",
     "cspell": "4.2.8",
-    "eslint": "7.23.0",
+    "eslint": "7.24.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jest": "24.3.3",
+    "eslint-plugin-jest": "24.3.5",
     "eslint-plugin-prettier-internal-rules": "link:scripts/tools/eslint-plugin-prettier-internal-rules",
-    "eslint-plugin-react": "7.23.1",
+    "eslint-plugin-react": "7.23.2",
     "eslint-plugin-unicorn": "29.0.0",
     "execa": "5.0.0",
     "jest": "26.6.3",
@@ -123,7 +123,7 @@
     "prettier": "2.2.1",
     "pretty-bytes": "5.6.0",
     "rimraf": "3.0.2",
-    "rollup": "2.44.0",
+    "rollup": "2.45.1",
     "rollup-plugin-polyfill-node": "0.6.2",
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.4",
@@ -131,7 +131,7 @@
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.30.0"
+    "webpack": "5.31.2"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
