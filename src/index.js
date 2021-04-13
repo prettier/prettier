@@ -42,6 +42,12 @@ module.exports = {
     return formatWithCursor(text, opts).formatted;
   },
 
+  async formatWithConfig(text, parser) {
+    const configPath = await config.resolveConfigFile();
+    const config = await config.resolveConfig(configPath);
+    return formatWithCursor(text, { parser, ...config });
+  },
+
   check(text, opts) {
     const { formatted } = formatWithCursor(text, opts);
     return formatted === text;
