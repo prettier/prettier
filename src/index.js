@@ -43,8 +43,7 @@ module.exports = {
   },
 
   async formatWithConfig(text, parser) {
-    const configPath = await config.resolveConfigFile();
-    const config = await config.resolveConfig(configPath);
+    const config = await config.resolveConfig(resolveConfig(process.cwd()););
     return formatWithCursor(text, { parser, ...config });
   },
 
