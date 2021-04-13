@@ -22,12 +22,12 @@
   "// prettierx dependencies notes": [
     "* installing dependencies from GitHub is not desired in prettierx",
     "  due to a possible issue with firewalls in certain organizations",
-    "* latest updates of ci-info from GitHub are not needed for prettierx",
     "* flow-parser & typescript are moved to devDependencies, and",
     "  they are specified as optional in peerDependenciesMeta",
-    "* tslib is added to dependencies to avoid a peerDependencies warning",
+    "* tslib@1 is added to dependencies to avoid a peerDependencies warning",
     "  with @angular/compiler version 9",
-    "  (should not be an issue with @angular/compiler version >= 10)",
+    "  (newer tslib seems to lead to warning due to version mismatch)",
+    "  Note that this should not be an issue with @angular/compiler >= 10.",
     "* codecov is removed from devDependencies",
     "<!-- -->"
   ],
