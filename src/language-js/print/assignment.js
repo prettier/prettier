@@ -298,11 +298,7 @@ function isLoneShortArgument(node, { printWidth }) {
   if (
     node.type === "ThisExpression" ||
     (node.type === "Identifier" && node.name.length <= threshold) ||
-    (isStringLiteral(node) && rawText(node).length <= threshold) ||
-    (isSignedNumericLiteral(node) && !hasComment(node.argument)) ||
-    (node.type === "TemplateLiteral" &&
-      node.expressions.length === 0 &&
-      node.quasis[0].value.raw.length <= threshold)
+    (isSignedNumericLiteral(node) && !hasComment(node.argument))
   ) {
     return true;
   }
@@ -313,6 +309,17 @@ function isLoneShortArgument(node, { printWidth }) {
 
   if (regexpPattern) {
     return regexpPattern.length <= threshold;
+  }
+
+  if (isStringLiteral(node)) {
+    return rawText(node).length <= threshold;
+  }
+
+  if (node.type === "TemplateLiteral") {
+    return (
+      node.expressions.length === 0 &&
+      node.quasis[0].value.raw.length <= threshold
+    );
   }
 
   return isLiteral(node);
