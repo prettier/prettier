@@ -224,7 +224,7 @@ printWidth: 80
 x! = null;
 (a as any) = null;
 (a as number) = 42;
-(a as any as string) = null;
+((a as any) as string) = null;
 
 ================================================================================
 `;

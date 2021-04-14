@@ -237,10 +237,6 @@ function needsParens(path, options) {
     case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
-        case "TSAsExpression":
-          // example: foo as unknown as Bar
-          return node.type !== "TSAsExpression";
-
         case "ConditionalExpression":
           return node.type === "TSAsExpression";
 
@@ -261,6 +257,7 @@ function needsParens(path, options) {
         case "SpreadProperty":
         case "BindExpression":
         case "AwaitExpression":
+        case "TSAsExpression":
         case "TSNonNullExpression":
         case "UpdateExpression":
           return true;
