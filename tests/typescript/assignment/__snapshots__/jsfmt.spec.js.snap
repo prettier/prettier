@@ -180,6 +180,31 @@ const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> =
 ================================================================================
 `;
 
+exports[`lone-arg.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (true) {
+  if (condition) {
+    const secondType = sourceCode.getNodeByRangeIndex1234(second.range[0])!
+      .type;
+  }
+}
+
+=====================================output=====================================
+if (true) {
+  if (condition) {
+    const secondType = sourceCode.getNodeByRangeIndex1234(
+      second.range[0]
+    )!.type;
+  }
+}
+
+================================================================================
+`;
+
 exports[`parenthesized.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

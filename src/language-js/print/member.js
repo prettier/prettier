@@ -1,9 +1,13 @@
 "use strict";
 
 const {
-  builders: { softline, group, indent },
+  builders: { softline, group, indent, label },
 } = require("../../document");
-const { isNumericLiteral, isMemberExpression } = require("../utils");
+const {
+  isNumericLiteral,
+  isMemberExpression,
+  isCallExpression,
+} = require("../utils");
 const { printOptionalToken } = require("./misc");
 
 function printMemberExpression(path, options, print) {
@@ -21,6 +25,9 @@ function printMemberExpression(path, options, print) {
       firstNonMemberParent.type === "TSNonNullExpression")
   );
 
+  const objectDoc = print("object");
+  const lookupDoc = printMemberLookup(path, options, print);
+
   const shouldInline =
     (firstNonMemberParent &&
       (firstNonMemberParent.type === "NewExpression" ||
@@ -30,14 +37,19 @@ function printMemberExpression(path, options, print) {
     node.computed ||
     (node.object.type === "Identifier" &&
       node.property.type === "Identifier" &&
-      !isMemberExpression(parent));
+      !isMemberExpression(parent)) ||
+    ((parent.type === "AssignmentExpression" ||
+      parent.type === "VariableDeclarator") &&
+      ((isCallExpression(node.object) && node.object.arguments.length > 0) ||
+        (node.object.type === "TSNonNullExpression" &&
+          isCallExpression(node.object.expression) &&
+          node.object.expression.arguments.length > 0) ||
+        objectDoc.label === "member-chain"));
 
-  return [
-    print("object"),
-    shouldInline
-      ? printMemberLookup(path, options, print)
-      : group(indent([softline, printMemberLookup(path, options, print)])),
-  ];
+  return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
+    objectDoc,
+    shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
+  ]);
 }
 
 function printMemberLookup(path, options, print) {
