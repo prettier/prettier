@@ -710,6 +710,9 @@ if (true) {
   node.id = this.flowParseTypeAnnotatableIdentifier(/*allowPrimitiveOverride*/ true);
 }
 
+const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
+\`)("bar");
+
 =====================================output=====================================
 let vgChannel = pointPositionDefaultRef({
   model,
@@ -727,6 +730,9 @@ if (true) {
     /*allowPrimitiveOverride*/ true
   );
 }
+
+const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
+\`)("bar");
 
 ================================================================================
 `;

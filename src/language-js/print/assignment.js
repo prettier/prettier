@@ -318,7 +318,8 @@ function isLoneShortArgument(node, { printWidth }) {
   if (node.type === "TemplateLiteral") {
     return (
       node.expressions.length === 0 &&
-      node.quasis[0].value.raw.length <= threshold
+      node.quasis[0].value.raw.length <= threshold &&
+      !node.quasis[0].value.raw.includes("\n")
     );
   }
 
