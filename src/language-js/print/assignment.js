@@ -16,6 +16,7 @@ const {
   getCallArguments,
   rawText,
   hasComment,
+  isSignedNumericLiteral,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 const { printCallExpression } = require("./call-expression");
@@ -288,15 +289,20 @@ function isPoorlyBreakableMemberOrCallChain(
 const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
 
 function isLoneShortArgument(node, { printWidth }) {
-  const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
-
   if (hasComment(node)) {
     return false;
   }
 
+  const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
+
   if (
     node.type === "ThisExpression" ||
-    (node.type === "Identifier" && node.name.length <= threshold)
+    (node.type === "Identifier" && node.name.length <= threshold) ||
+    (isStringLiteral(node) && rawText(node).length <= threshold) ||
+    (isSignedNumericLiteral(node) && !hasComment(node.argument)) ||
+    (node.type === "TemplateLiteral" &&
+      node.expressions.length === 0 &&
+      node.quasis[0].value.raw.length <= threshold)
   ) {
     return true;
   }
@@ -309,19 +315,7 @@ function isLoneShortArgument(node, { printWidth }) {
     return regexpPattern.length <= threshold;
   }
 
-  if (isStringLiteral(node)) {
-    return rawText(node).length <= threshold;
-  }
-  if (node.type === "TemplateLiteral") {
-    // TODO: improve this
-    return false;
-  }
-
-  if (isLiteral(node)) {
-    return true;
-  }
-
-  return false;
+  return isLiteral(node);
 }
 
 function isObjectPropertyWithShortKey(node, keyDoc, options) {
