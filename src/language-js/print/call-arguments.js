@@ -145,6 +145,7 @@ function printCallArguments(path, options, print) {
     // We want to print the last argument with a special flag
     let printedExpanded = [];
     let shouldBailOutOfExpansion = false;
+    const savedPathStackLength = path.stack.length;
 
     iterateCallArgumentsPath(path, (argPath, i) => {
       try {
@@ -175,6 +176,10 @@ function printCallArguments(path, options, print) {
     });
 
     if (shouldBailOutOfExpansion) {
+      // Throwing can potentially cause an inconsistent state of path.
+      // I wasn't able to find actual input instances that lead to that,
+      // but just to be on the safe side...
+      path.stack.length = savedPathStackLength;
       return allArgsBrokenOut();
     }
 
