@@ -31,6 +31,7 @@ const {
   utils: { willBreak },
 } = require("../../document");
 
+const { ArgExpansionBailout } = require("../../common/errors");
 const { isConciselyPrintedArray } = require("./array");
 
 function printCallArguments(path, options, print) {
@@ -131,34 +132,51 @@ function printCallArguments(path, options, print) {
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args, options);
   if (shouldGroupFirst || shouldGroupLast) {
-    const shouldBreak =
+    if (
       (shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)
         : printedArguments.slice(0, -1).some(willBreak)) ||
       anyArgEmptyLine ||
-      shouldBreakForArrowFunction;
+      shouldBreakForArrowFunction
+    ) {
+      return allArgsBrokenOut();
+    }
 
     // We want to print the last argument with a special flag
     let printedExpanded = [];
+    let shouldBailOutOfExpansion = false;
+
     iterateCallArgumentsPath(path, (argPath, i) => {
-      if (shouldGroupFirst && i === 0) {
-        printedExpanded = [
-          [
-            print([], { expandFirstArg: true }),
-            printedArguments.length > 1 ? "," : "",
-            hasEmptyLineFollowingFirstArg ? hardline : line,
-            hasEmptyLineFollowingFirstArg ? hardline : "",
-          ],
-          ...printedArguments.slice(1),
-        ];
-      }
-      if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = [
-          ...printedArguments.slice(0, -1),
-          print([], { expandLastArg: true }),
-        ];
+      try {
+        if (shouldGroupFirst && i === 0) {
+          printedExpanded = [
+            [
+              print([], { expandFirstArg: true }),
+              printedArguments.length > 1 ? "," : "",
+              hasEmptyLineFollowingFirstArg ? hardline : line,
+              hasEmptyLineFollowingFirstArg ? hardline : "",
+            ],
+            ...printedArguments.slice(1),
+          ];
+        }
+        if (shouldGroupLast && i === args.length - 1) {
+          printedExpanded = [
+            ...printedArguments.slice(0, -1),
+            print([], { expandLastArg: true }),
+          ];
+        }
+      } catch (err) {
+        if (err instanceof ArgExpansionBailout) {
+          shouldBailOutOfExpansion = true;
+          return;
+        }
+        throw err;
       }
     });
+
+    if (shouldBailOutOfExpansion) {
+      return allArgsBrokenOut();
+    }
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
@@ -166,32 +184,29 @@ function printCallArguments(path, options, print) {
 
     return [
       somePrintedArgumentsWillBreak ? breakParent : "",
-      conditionalGroup(
-        [
-          !somePrintedArgumentsWillBreak &&
-          !node.typeArguments &&
-          !node.typeParameters
-            ? simpleConcat
-            : ifBreak(allArgsBrokenOut(), simpleConcat),
-          shouldGroupFirst
-            ? [
-                "(",
-                group(printedExpanded[0], { shouldBreak: true }),
-                ...printedExpanded.slice(1),
-                ")",
-              ]
-            : [
-                "(",
-                ...printedArguments.slice(0, -1),
-                group(getLast(printedExpanded), {
-                  shouldBreak: true,
-                }),
-                ")",
-              ],
-          allArgsBrokenOut(),
-        ],
-        { shouldBreak }
-      ),
+      conditionalGroup([
+        !somePrintedArgumentsWillBreak &&
+        !node.typeArguments &&
+        !node.typeParameters
+          ? simpleConcat
+          : ifBreak(allArgsBrokenOut(), simpleConcat),
+        shouldGroupFirst
+          ? [
+              "(",
+              group(printedExpanded[0], { shouldBreak: true }),
+              ...printedExpanded.slice(1),
+              ")",
+            ]
+          : [
+              "(",
+              ...printedArguments.slice(0, -1),
+              group(getLast(printedExpanded), {
+                shouldBreak: true,
+              }),
+              ")",
+            ],
+        allArgsBrokenOut(),
+      ]),
     ];
   }
 

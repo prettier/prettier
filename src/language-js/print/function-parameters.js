@@ -20,6 +20,7 @@ const {
   isNextLineEmpty,
 } = require("../utils");
 const { locEnd } = require("../loc");
+const { ArgExpansionBailout } = require("../../common/errors");
 const { printFunctionTypeParameters } = require("./misc");
 
 function printFunctionParameters(
@@ -91,15 +92,14 @@ function printFunctionParameters(
   //   verylongcall(         verylongcall((
   //     (a, b) => {           a,
   //     }                     b,
-  //   })                    ) => {
+  //   )                     ) => {
   //                         })
   if (shouldExpandParameters) {
-    return group([
-      removeLines(typeParams),
-      "(",
-      ...printed.map(removeLines),
-      ")",
-    ]);
+    if (willBreak(typeParams) || willBreak(printed)) {
+      // Removing lines in this case leads to broken or ugly output
+      throw new ArgExpansionBailout();
+    }
+    return group([removeLines(typeParams), "(", removeLines(printed), ")"]);
   }
 
   // Single object destructuring should hug
