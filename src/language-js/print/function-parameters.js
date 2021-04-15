@@ -58,8 +58,6 @@ function printFunctionParameters(
   const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugFunctionParameters(functionNode);
-  const shouldExpandParameters =
-    expandArg && !parameters.some((node) => hasComment(node));
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
@@ -71,11 +69,7 @@ function printFunctionParameters(
       return;
     }
     printed.push(",");
-    if (
-      isParametersInTestCall ||
-      shouldHugParameters ||
-      shouldExpandParameters
-    ) {
+    if (isParametersInTestCall || shouldHugParameters) {
       printed.push(" ");
     } else if (isNextLineEmpty(parameters[index], options)) {
       printed.push(hardline, hardline);
@@ -94,7 +88,7 @@ function printFunctionParameters(
   //     }                     b,
   //   )                     ) => {
   //                         })
-  if (shouldExpandParameters) {
+  if (expandArg) {
     if (willBreak(typeParams) || willBreak(printed)) {
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();

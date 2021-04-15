@@ -792,7 +792,24 @@ call((a, b) => {});
 
 call((one, two, three, four, five, six, seven, eight, nine, ten, eleven) => {});
 
-call((one, two, three, four, five, six, seven, eight, nine, ten, eleven) => {});
+call(
+  (
+    one,
+
+    two,
+    three,
+    four,
+
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+
+    eleven
+  ) => {}
+);
 
 function test({
   one,
