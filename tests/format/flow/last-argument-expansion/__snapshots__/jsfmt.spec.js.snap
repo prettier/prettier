@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.ts format 1`] = `
+exports[`break.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -38,9 +38,9 @@ export default class AddAssetHtmlPlugin {
 ================================================================================
 `;
 
-exports[`decorated-function.ts format 1`] = `
+exports[`decorated-function.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -78,32 +78,10 @@ export default decorators.decorator("my-counter")(
   }
 );
 
-export = decorators.decorator("my-counter")(
-  (props: { initialCount?: number; label?: string }) => {
-    return foo;
-  }
-);
-
-module.exports = decorators.decorator("my-counter")(
-  (props: { initialCount?: number; label?: string }) => {
-    return foo;
-  }
-);
-
-const Counter =
-  decorator("foo")(
-  decorator("bar")(
-  (props: {
-    loremFoo1: Array<Promise<any>>,
-    ipsumBarr2: Promise<number>,
-  }) => {
-    return <div/>;
-  }));
-
 =====================================output=====================================
 const Counter = decorator("my-counter")((props: {
-  initialCount?: number;
-  label?: string;
+  initialCount?: number,
+  label?: string,
 }) => {
   const p = useDefault(props, {
     initialCount: 0,
@@ -121,8 +99,8 @@ const Counter = decorator("my-counter")((props: {
 });
 
 const Counter2 = decorators.decorator("my-counter")((props: {
-  initialCount?: number;
-  label?: string;
+  initialCount?: number,
+  label?: string,
 }) => {
   return () => (
     <button onclick={onClick}>
@@ -132,43 +110,18 @@ const Counter2 = decorators.decorator("my-counter")((props: {
 });
 
 export default decorators.decorator("my-counter")((props: {
-  initialCount?: number;
-  label?: string;
+  initialCount?: number,
+  label?: string,
 }) => {
   return foo;
 });
-
-export = decorators.decorator("my-counter")((props: {
-  initialCount?: number;
-  label?: string;
-}) => {
-  return foo;
-});
-
-module.exports = decorators.decorator("my-counter")((props: {
-  initialCount?: number;
-  label?: string;
-}) => {
-  return foo;
-});
-
-const Counter = decorator("foo")(
-  decorator("bar")(
-    (props: {
-      loremFoo1: Array<Promise<any>>;
-      ipsumBarr2: Promise<number>;
-    }) => {
-      return <div />;
-    },
-  ),
-);
 
 ================================================================================
 `;
 
-exports[`edge_case.ts format 1`] = `
+exports[`edge_case.js format 1`] = `
 ====================================options=====================================
-parsers: ["typescript"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
