@@ -4,7 +4,6 @@ const { printDanglingComments } = require("../../main/comments");
 const { getLast, getPenultimate } = require("../../common/util");
 const {
   getFunctionParameters,
-  iterateFunctionParametersPath,
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
@@ -52,34 +51,7 @@ function printCallArguments(path, options, print) {
     return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
   }
 
-  // func(
-  //   ({
-  //     a,
-  //
-  //     b
-  //   }) => {}
-  // );
-  function shouldBreakForArrowFunctionInArguments(arg, argPath) {
-    if (
-      !arg ||
-      arg.type !== "ArrowFunctionExpression" ||
-      !arg.body ||
-      arg.body.type !== "BlockStatement" ||
-      getFunctionParameters(arg).length === 0
-    ) {
-      return false;
-    }
-
-    let shouldBreak = false;
-    iterateFunctionParametersPath(argPath, () => {
-      shouldBreak = shouldBreak || willBreak(print());
-    });
-
-    return shouldBreak;
-  }
-
   let anyArgEmptyLine = false;
-  let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
@@ -99,11 +71,6 @@ function printCallArguments(path, options, print) {
     } else {
       parts.push(",", line);
     }
-
-    shouldBreakForArrowFunction = shouldBreakForArrowFunctionInArguments(
-      arg,
-      argPath
-    );
 
     printedArguments.push(parts);
   });
@@ -136,8 +103,7 @@ function printCallArguments(path, options, print) {
       (shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)
         : printedArguments.slice(0, -1).some(willBreak)) ||
-      anyArgEmptyLine ||
-      shouldBreakForArrowFunction
+      anyArgEmptyLine
     ) {
       return allArgsBrokenOut();
     }
@@ -168,12 +134,12 @@ function printCallArguments(path, options, print) {
           }
         });
       },
-      (error) => {
-        if (error instanceof ArgExpansionBailout) {
+      (caught) => {
+        if (caught instanceof ArgExpansionBailout) {
           shouldBailOutOfExpansion = true;
           return;
         }
-        throw error;
+        throw caught;
       }
     );
 
@@ -203,9 +169,7 @@ function printCallArguments(path, options, print) {
           : [
               "(",
               ...printedArguments.slice(0, -1),
-              group(getLast(printedExpanded), {
-                shouldBreak: true,
-              }),
+              group(getLast(printedExpanded), { shouldBreak: true }),
               ")",
             ],
         allArgsBrokenOut(),
