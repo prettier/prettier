@@ -112,17 +112,16 @@ class AstPath {
 
   /**
    * @param {() => void} callback
-   * @param {(error: any) => void} onCaught
    * @internal Unstable API. Don't use in plugins for now.
    */
-  try(callback, onCaught) {
+  try(callback) {
     const { stack } = this;
-    const { length } = stack;
+    const stackBackup = [...stack];
     try {
       callback();
-    } catch (error) {
-      stack.length = length;
-      onCaught(error);
+    } finally {
+      stack.length = 0;
+      stack.push(...stackBackup);
     }
   }
 

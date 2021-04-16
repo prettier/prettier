@@ -110,10 +110,9 @@ function printCallArguments(path, options, print) {
 
     // We want to print the last argument with a special flag
     let printedExpanded = [];
-    let shouldBailOutOfExpansion = false;
 
-    path.try(
-      () => {
+    try {
+      path.try(() => {
         iterateCallArgumentsPath(path, (argPath, i) => {
           if (shouldGroupFirst && i === 0) {
             printedExpanded = [
@@ -133,18 +132,12 @@ function printCallArguments(path, options, print) {
             ];
           }
         });
-      },
-      (caught) => {
-        if (caught instanceof ArgExpansionBailout) {
-          shouldBailOutOfExpansion = true;
-          return;
-        }
-        throw caught;
+      });
+    } catch (caught) {
+      if (caught instanceof ArgExpansionBailout) {
+        return allArgsBrokenOut();
       }
-    );
-
-    if (shouldBailOutOfExpansion) {
-      return allArgsBrokenOut();
+      throw caught;
     }
 
     return [
