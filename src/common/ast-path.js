@@ -111,6 +111,22 @@ class AstPath {
   }
 
   /**
+   * @param {() => void} callback
+   * @param {(error: any) => void} onCaught
+   * @internal Unstable API. Don't use in plugins for now.
+   */
+  try(callback, onCaught) {
+    const { stack } = this;
+    const { length } = stack;
+    try {
+      callback();
+    } catch (error) {
+      stack.length = length;
+      onCaught(error);
+    }
+  }
+
+  /**
    * @param {...(
    *   | ((node: any, name: string | null, number: number | null) => boolean)
    *   | undefined

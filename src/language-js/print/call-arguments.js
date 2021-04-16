@@ -145,41 +145,39 @@ function printCallArguments(path, options, print) {
     // We want to print the last argument with a special flag
     let printedExpanded = [];
     let shouldBailOutOfExpansion = false;
-    const savedPathStackLength = path.stack.length;
 
-    iterateCallArgumentsPath(path, (argPath, i) => {
-      try {
-        if (shouldGroupFirst && i === 0) {
-          printedExpanded = [
-            [
-              print([], { expandFirstArg: true }),
-              printedArguments.length > 1 ? "," : "",
-              hasEmptyLineFollowingFirstArg ? hardline : line,
-              hasEmptyLineFollowingFirstArg ? hardline : "",
-            ],
-            ...printedArguments.slice(1),
-          ];
-        }
-        if (shouldGroupLast && i === args.length - 1) {
-          printedExpanded = [
-            ...printedArguments.slice(0, -1),
-            print([], { expandLastArg: true }),
-          ];
-        }
-      } catch (err) {
-        if (err instanceof ArgExpansionBailout) {
+    path.try(
+      () => {
+        iterateCallArgumentsPath(path, (argPath, i) => {
+          if (shouldGroupFirst && i === 0) {
+            printedExpanded = [
+              [
+                print([], { expandFirstArg: true }),
+                printedArguments.length > 1 ? "," : "",
+                hasEmptyLineFollowingFirstArg ? hardline : line,
+                hasEmptyLineFollowingFirstArg ? hardline : "",
+              ],
+              ...printedArguments.slice(1),
+            ];
+          }
+          if (shouldGroupLast && i === args.length - 1) {
+            printedExpanded = [
+              ...printedArguments.slice(0, -1),
+              print([], { expandLastArg: true }),
+            ];
+          }
+        });
+      },
+      (error) => {
+        if (error instanceof ArgExpansionBailout) {
           shouldBailOutOfExpansion = true;
           return;
         }
-        throw err;
+        throw error;
       }
-    });
+    );
 
     if (shouldBailOutOfExpansion) {
-      // Throwing can potentially cause an inconsistent state of path.
-      // I wasn't able to find actual input instances that lead to that,
-      // but just to be on the safe side...
-      path.stack.length = savedPathStackLength;
       return allArgsBrokenOut();
     }
 
