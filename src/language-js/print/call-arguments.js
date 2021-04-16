@@ -90,8 +90,9 @@ function printCallArguments(path, options, print) {
   }
 
   if (
-    path.getParentNode().type !== "Decorator" &&
-    isFunctionCompositionArgs(args)
+    anyArgEmptyLine ||
+    (path.getParentNode().type !== "Decorator" &&
+      isFunctionCompositionArgs(args))
   ) {
     return allArgsBrokenOut();
   }
@@ -100,10 +101,9 @@ function printCallArguments(path, options, print) {
   const shouldGroupLast = shouldGroupLastArg(args, options);
   if (shouldGroupFirst || shouldGroupLast) {
     if (
-      (shouldGroupFirst
+      shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)
-        : printedArguments.slice(0, -1).some(willBreak)) ||
-      anyArgEmptyLine
+        : printedArguments.slice(0, -1).some(willBreak)
     ) {
       return allArgsBrokenOut();
     }
@@ -125,7 +125,7 @@ function printCallArguments(path, options, print) {
               ...printedArguments.slice(1),
             ];
           }
-          if (shouldGroupLast && i === args.length - 1) {
+          if (shouldGroupLast && i === lastArgIndex) {
             printedExpanded = [
               ...printedArguments.slice(0, -1),
               print([], { expandLastArg: true }),
