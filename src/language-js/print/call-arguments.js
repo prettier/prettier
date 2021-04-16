@@ -147,18 +147,10 @@ function printCallArguments(path, options, print) {
       return allArgsBrokenOut();
     }
 
-    const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
-
-    const simpleConcat = ["(", ...printedExpanded, ")"];
-
     return [
-      somePrintedArgumentsWillBreak ? breakParent : "",
+      printedArguments.some(willBreak) ? breakParent : "",
       conditionalGroup([
-        !somePrintedArgumentsWillBreak &&
-        !node.typeArguments &&
-        !node.typeParameters
-          ? simpleConcat
-          : ifBreak(allArgsBrokenOut(), simpleConcat),
+        ["(", ...printedExpanded, ")"],
         shouldGroupFirst
           ? [
               "(",
