@@ -148,3 +148,9 @@ function foo7() {
     match[1] + match[2] + match[3] + match[4]
   )
 }
+
+const badComments =
+  schema.model ? schema
+    // If model is an array where the items schema is a referred model then we need to use that
+  : schema.type === 'array' ? schema.items
+  : schema;

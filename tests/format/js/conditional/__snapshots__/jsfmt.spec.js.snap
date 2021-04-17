@@ -1142,6 +1142,12 @@ function foo7() {
   )
 }
 
+const badComments =
+  schema.model ? schema
+    // If model is an array where the items schema is a referred model then we need to use that
+  : schema.type === 'array' ? schema.items
+  : schema;
+
 =====================================output=====================================
 // concatened string in consequent should be visually distinguishable from alternate
 // … or maybe this is okay, because the colon is enough?
@@ -1282,6 +1288,12 @@ function foo7() {
     ? linethatisverylongandbreaksthelinehoorayjustabitlonger
     : match[1] + match[2] + match[3] + match[4];
 }
+
+const badComments =
+  schema.model ? schema
+    // If model is an array where the items schema is a referred model then we need to use that
+  : schema.type === "array" ? schema.items
+  : schema;
 
 ================================================================================
 `;

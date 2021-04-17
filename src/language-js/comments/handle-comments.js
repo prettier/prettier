@@ -60,6 +60,7 @@ function handleOwnLineComment(context) {
     handleMethodNameComments,
     handleLabeledStatementComments,
     handleBreakAndContinueStatementComments,
+    handleNestedConditionalExpressionComments,
   ].some((fn) => fn(context));
 }
 
@@ -332,6 +333,23 @@ function handleMemberExpressionComments({
     return true;
   }
 
+  return false;
+}
+
+function handleNestedConditionalExpressionComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    (enclosingNode?.type === "ConditionalExpression" ||
+      enclosingNode?.type === "TSConditionalType") &&
+    (followingNode?.type === "ConditionalExpression" ||
+      followingNode?.type === "TSConditionalType")
+  ) {
+    addDanglingComment(followingNode, comment);
+    return true;
+  }
   return false;
 }
 

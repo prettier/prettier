@@ -16,9 +16,7 @@ import {
   isCallExpression,
   isMemberExpression,
   getCallArguments,
-  rawText,
-  hasComment,
-  isSignedNumericLiteral,
+  isLoneShortArgument,
   isObjectProperty,
   createTypeCheckFunction,
 } from "../utils/index.js";
@@ -189,10 +187,14 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   switch (rightNode.type) {
     case "StringLiteralTypeAnnotation":
     case "SequenceExpression":
+    case "TSConditionalType":
       return true;
     case "ConditionalExpression": {
-      const { test } = rightNode;
-      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+      const { consequent, alternate } = rightNode;
+      return (
+        consequent.type === "ConditionalExpression" ||
+        alternate.type === "ConditionalExpression"
+      );
     }
     case "ClassExpression":
       return isNonEmptyArray(rightNode.decorators);
@@ -367,46 +369,6 @@ function isPoorlyBreakableMemberOrCallChain(
   }
 
   return deep && (node.type === "Identifier" || node.type === "ThisExpression");
-}
-
-const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
-
-function isLoneShortArgument(node, { printWidth }) {
-  if (hasComment(node)) {
-    return false;
-  }
-
-  const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
-
-  if (
-    node.type === "ThisExpression" ||
-    (node.type === "Identifier" && node.name.length <= threshold) ||
-    (isSignedNumericLiteral(node) && !hasComment(node.argument))
-  ) {
-    return true;
-  }
-
-  const regexpPattern =
-    (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
-    (node.type === "RegExpLiteral" && node.pattern);
-
-  if (regexpPattern) {
-    return regexpPattern.length <= threshold;
-  }
-
-  if (isStringLiteral(node)) {
-    return rawText(node).length <= threshold;
-  }
-
-  if (node.type === "TemplateLiteral") {
-    return (
-      node.expressions.length === 0 &&
-      node.quasis[0].value.raw.length <= threshold &&
-      !node.quasis[0].value.raw.includes("\n")
-    );
-  }
-
-  return isLiteral(node);
 }
 
 function isObjectPropertyWithShortKey(node, keyDoc, options) {
