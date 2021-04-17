@@ -243,7 +243,10 @@ function printReturnOrThrowArgument(path, options, print) {
       argumentDoc = ["(", indent([hardline, argumentDoc]), hardline, ")"];
     } else if (
       isBinaryish(node.argument) ||
-      node.argument.type === "SequenceExpression"
+      node.argument.type === "SequenceExpression" ||
+      (node.argument.type === "ConditionalExpression" &&
+        (node.argument.consequent.type === "ConditionalExpression" ||
+          node.argument.alternate.type === "ConditionalExpression"))
     ) {
       argumentDoc = group([
         ifBreak("("),

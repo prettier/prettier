@@ -60,6 +60,7 @@ function handleOwnLineComment(context) {
     handleMethodNameComments,
     handleLabeledStatementComments,
     handleBreakAndContinueStatementComments,
+    handleNestedConditionalExpressionComments,
   ].some((fn) => fn(context));
 }
 
@@ -335,6 +336,32 @@ function handleMemberExpressionComments({
   return false;
 }
 
+function handleNestedConditionalExpressionComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  const enclosingIsCond =
+    enclosingNode?.type === "ConditionalExpression" ||
+    enclosingNode?.type === "ConditionalTypeAnnotation" ||
+    enclosingNode?.type === "TSConditionalType";
+
+  if (!enclosingIsCond) {
+    return false;
+  }
+
+  const followingIsCond =
+    followingNode?.type === "ConditionalExpression" ||
+    followingNode?.type === "ConditionalTypeAnnotation" ||
+    followingNode?.type === "TSConditionalType";
+
+  if (followingIsCond) {
+    addDanglingComment(followingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleConditionalExpressionComments({
   comment,
   precedingNode,
@@ -349,6 +376,7 @@ function handleConditionalExpressionComments({
   if (
     (!precedingNode || !isSameLineAsPrecedingNode) &&
     (enclosingNode?.type === "ConditionalExpression" ||
+      enclosingNode?.type === "ConditionalTypeAnnotation" ||
       enclosingNode?.type === "TSConditionalType") &&
     followingNode
   ) {
