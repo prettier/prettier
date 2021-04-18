@@ -137,6 +137,7 @@ function printCallArguments(path, options, print) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();
       }
+      /* istanbul ignore next */
       throw caught;
     }
 
