@@ -19,7 +19,7 @@
     "babel-loader": "8.2.2",
     "concurrently": "6.0.2",
     "docusaurus": "1.14.7",
-    "js-yaml": "4.0.0",
+    "js-yaml": "4.1.0",
     "webpack": "5.31.2",
     "webpack-cli": "4.6.0"
   }
