@@ -118,7 +118,7 @@ class AstPath {
     const { stack } = this;
     const stackBackup = [...stack];
     try {
-      callback();
+      return callback();
     } finally {
       stack.length = 0;
       stack.push(...stackBackup);
