@@ -46,6 +46,29 @@ export default function searchUsers(action$) {
 ================================================================================
 `;
 
+exports[`assignment-pattern.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bob.doL(({ a, b = () => {
+  console.log;
+}}) => something.else.else({}));
+
+=====================================output=====================================
+bob.doL(
+  ({
+    a,
+    b = () => {
+      console.log;
+    },
+  }) => something.else.else({})
+);
+
+================================================================================
+`;
+
 exports[`break-parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -105,6 +128,27 @@ true ? (
     f={123412341234}
     g={123412341234}
   />
+);
+
+================================================================================
+`;
+
+exports[`dangling-comment-in-arrow-function.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo(
+  (
+    // foo
+  ) => {}
+);
+
+=====================================output=====================================
+foo(() =>
+  // foo
+  {}
 );
 
 ================================================================================
@@ -247,6 +291,34 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 ================================================================================
 `;
 
+exports[`empty-lines.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+all_verylongcall_verylongcall_verylongcall_verylongcall_verylongcall(
+  (a,
+
+   b) => {
+    console.log()
+  }
+)
+
+=====================================output=====================================
+all_verylongcall_verylongcall_verylongcall_verylongcall_verylongcall(
+  (
+    a,
+
+    b
+  ) => {
+    console.log();
+  }
+);
+
+================================================================================
+`;
+
 exports[`empty-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
@@ -377,6 +449,69 @@ someFunctionCallWithBigArgumentsAndACallback(
   function (cool) {
     return cool;
   }
+);
+
+================================================================================
+`;
+
+exports[`issue-7518.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const Broken = React.forwardRef(({
+	children,
+	// 1
+	// 2
+	title,
+	hidden,
+	// 3
+}, ref) => (
+	<div ref={ref}>
+		{children}
+	</div>
+))
+
+=====================================output=====================================
+const Broken = React.forwardRef(
+  (
+    {
+      children,
+      // 1
+      // 2
+      title,
+      hidden,
+      // 3
+    },
+    ref
+  ) => <div ref={ref}>{children}</div>
+);
+
+================================================================================
+`;
+
+exports[`issue-10708.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+bob
+	.doL(({ a, b: {
+		// comment
+	}}) => something
+		.else
+      	.else({}))
+
+=====================================output=====================================
+bob.doL(
+  ({
+    a,
+    b: {
+      // comment
+    },
+  }) => something.else.else({})
 );
 
 ================================================================================

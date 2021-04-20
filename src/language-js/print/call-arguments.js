@@ -4,7 +4,6 @@ const { printDanglingComments } = require("../../main/comments");
 const { getLast, getPenultimate } = require("../../common/util");
 const {
   getFunctionParameters,
-  iterateFunctionParametersPath,
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
@@ -31,6 +30,7 @@ const {
   utils: { willBreak },
 } = require("../../document");
 
+const { ArgExpansionBailout } = require("../../common/errors");
 const { isConciselyPrintedArray } = require("./array");
 
 function printCallArguments(path, options, print) {
@@ -51,34 +51,7 @@ function printCallArguments(path, options, print) {
     return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
   }
 
-  // func(
-  //   ({
-  //     a,
-  //
-  //     b
-  //   }) => {}
-  // );
-  function shouldBreakForArrowFunctionInArguments(arg, argPath) {
-    if (
-      !arg ||
-      arg.type !== "ArrowFunctionExpression" ||
-      !arg.body ||
-      arg.body.type !== "BlockStatement" ||
-      getFunctionParameters(arg).length === 0
-    ) {
-      return false;
-    }
-
-    let shouldBreak = false;
-    iterateFunctionParametersPath(argPath, () => {
-      shouldBreak = shouldBreak || willBreak(print());
-    });
-
-    return shouldBreak;
-  }
-
   let anyArgEmptyLine = false;
-  let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
@@ -99,11 +72,6 @@ function printCallArguments(path, options, print) {
       parts.push(",", line);
     }
 
-    shouldBreakForArrowFunction = shouldBreakForArrowFunctionInArguments(
-      arg,
-      argPath
-    );
-
     printedArguments.push(parts);
   });
 
@@ -122,8 +90,9 @@ function printCallArguments(path, options, print) {
   }
 
   if (
-    path.getParentNode().type !== "Decorator" &&
-    isFunctionCompositionArgs(args)
+    anyArgEmptyLine ||
+    (path.getParentNode().type !== "Decorator" &&
+      isFunctionCompositionArgs(args))
   ) {
     return allArgsBrokenOut();
   }
@@ -131,67 +100,66 @@ function printCallArguments(path, options, print) {
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args, options);
   if (shouldGroupFirst || shouldGroupLast) {
-    const shouldBreak =
-      (shouldGroupFirst
+    if (
+      shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)
-        : printedArguments.slice(0, -1).some(willBreak)) ||
-      anyArgEmptyLine ||
-      shouldBreakForArrowFunction;
+        : printedArguments.slice(0, -1).some(willBreak)
+    ) {
+      return allArgsBrokenOut();
+    }
 
     // We want to print the last argument with a special flag
     let printedExpanded = [];
-    iterateCallArgumentsPath(path, (argPath, i) => {
-      if (shouldGroupFirst && i === 0) {
-        printedExpanded = [
-          [
-            print([], { expandFirstArg: true }),
-            printedArguments.length > 1 ? "," : "",
-            hasEmptyLineFollowingFirstArg ? hardline : line,
-            hasEmptyLineFollowingFirstArg ? hardline : "",
-          ],
-          ...printedArguments.slice(1),
-        ];
-      }
-      if (shouldGroupLast && i === args.length - 1) {
-        printedExpanded = [
-          ...printedArguments.slice(0, -1),
-          print([], { expandLastArg: true }),
-        ];
-      }
-    });
 
-    const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
-
-    const simpleConcat = ["(", ...printedExpanded, ")"];
+    try {
+      path.try(() => {
+        iterateCallArgumentsPath(path, (argPath, i) => {
+          if (shouldGroupFirst && i === 0) {
+            printedExpanded = [
+              [
+                print([], { expandFirstArg: true }),
+                printedArguments.length > 1 ? "," : "",
+                hasEmptyLineFollowingFirstArg ? hardline : line,
+                hasEmptyLineFollowingFirstArg ? hardline : "",
+              ],
+              ...printedArguments.slice(1),
+            ];
+          }
+          if (shouldGroupLast && i === lastArgIndex) {
+            printedExpanded = [
+              ...printedArguments.slice(0, -1),
+              print([], { expandLastArg: true }),
+            ];
+          }
+        });
+      });
+    } catch (caught) {
+      if (caught instanceof ArgExpansionBailout) {
+        return allArgsBrokenOut();
+      }
+      /* istanbul ignore next */
+      throw caught;
+    }
 
     return [
-      somePrintedArgumentsWillBreak ? breakParent : "",
-      conditionalGroup(
-        [
-          !somePrintedArgumentsWillBreak &&
-          !node.typeArguments &&
-          !node.typeParameters
-            ? simpleConcat
-            : ifBreak(allArgsBrokenOut(), simpleConcat),
-          shouldGroupFirst
-            ? [
-                "(",
-                group(printedExpanded[0], { shouldBreak: true }),
-                ...printedExpanded.slice(1),
-                ")",
-              ]
-            : [
-                "(",
-                ...printedArguments.slice(0, -1),
-                group(getLast(printedExpanded), {
-                  shouldBreak: true,
-                }),
-                ")",
-              ],
-          allArgsBrokenOut(),
-        ],
-        { shouldBreak }
-      ),
+      printedArguments.some(willBreak) ? breakParent : "",
+      conditionalGroup([
+        ["(", ...printedExpanded, ")"],
+        shouldGroupFirst
+          ? [
+              "(",
+              group(printedExpanded[0], { shouldBreak: true }),
+              ...printedExpanded.slice(1),
+              ")",
+            ]
+          : [
+              "(",
+              ...printedArguments.slice(0, -1),
+              group(getLast(printedExpanded), { shouldBreak: true }),
+              ")",
+            ],
+        allArgsBrokenOut(),
+      ]),
     ];
   }
 
