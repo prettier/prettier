@@ -68,7 +68,7 @@ yarn prettier --write .
 If you have a CI setup, run the following as part of it to make sure that everyone runs Prettier. This avoids merge conflicts and other collaboration issues!
 
 ```bash
-prettier --check .
+npx prettier --check .
 ```
 
 `--check` is like `--write`, but only checks that files are already formatted, rather than overwriting them. `prettier --write` and `prettier --check` are the most common ways to run Prettier.
