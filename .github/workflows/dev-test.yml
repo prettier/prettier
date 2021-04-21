@@ -18,13 +18,14 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "16"
           - "14"
           - "12"
           - "10"
         include:
           # only enable coverage on the fastest job
           - os: "ubuntu-latest"
-            node: "14"
+            node: "16"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
@@ -32,7 +33,11 @@ jobs:
             node: "15"
         exclude:
           - os: "macos-latest"
+            node: "14"
+          - os: "macos-latest"
             node: "12"
+          - os: "windows-latest"
+            node: "14"
           - os: "windows-latest"
             node: "12"
     env:
