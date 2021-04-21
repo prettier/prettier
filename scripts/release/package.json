@@ -7,6 +7,6 @@
     "node-fetch": "2.6.1",
     "outdent": "0.8.0",
     "semver": "7.3.4",
-    "string-width": "4.2.0"
+    "string-width": "5.0.0"
   }
 }
