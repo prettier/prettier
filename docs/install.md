@@ -20,7 +20,7 @@ yarn add --dev --exact prettier
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Then, create an empty config file to let editors and other tooling know you are using Prettier:
+Then, create an empty config file to let editors and other tools know you are using Prettier:
 
 <!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
 
