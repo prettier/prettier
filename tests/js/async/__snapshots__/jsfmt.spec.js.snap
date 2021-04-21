@@ -133,6 +133,20 @@ async function f2() {
 ================================================================================
 `;
 
+exports[`exponentiation.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async () => (await 5) ** 6;
+
+=====================================output=====================================
+async () => (await 5) ** 6;
+
+================================================================================
+`;
+
 exports[`inline-await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -157,6 +171,33 @@ async function f() {
 ================================================================================
 `;
 
+exports[`nested.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const getAccountCount = async () =>
+  (await
+    (await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")
+  ).getChildren()
+  ).length
+
+=====================================output=====================================
+const getAccountCount = async () =>
+  (
+    await (
+      await (
+        await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+      ).findItem("My bookmarks")
+    ).getChildren()
+  ).length;
+
+================================================================================
+`;
+
 exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -174,6 +215,26 @@ async function* f() {
 
 async function f2() {
   await (() => {});
+}
+
+================================================================================
+`;
+
+exports[`simple-nested-await.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const a = await (await request()).json();
+  const b = await fs.writeFile(file, await (await request()).text());
+}
+
+=====================================output=====================================
+async function f() {
+  const a = await (await request()).json();
+  const b = await fs.writeFile(file, await (await request()).text());
 }
 
 ================================================================================

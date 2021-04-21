@@ -126,8 +126,11 @@ printWidth: 80
 const { foo, bar: bazAndSomething, quxIsLong } = someBigFunctionName("foo")("bar");
 
 =====================================output=====================================
-const { foo, bar: bazAndSomething, quxIsLong } =
-  someBigFunctionName("foo")("bar");
+const {
+  foo,
+  bar: bazAndSomething,
+  quxIsLong,
+} = someBigFunctionName("foo")("bar");
 
 ================================================================================
 `;

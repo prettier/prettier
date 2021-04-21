@@ -238,7 +238,7 @@ printWidth: 80
 </div>
 
 <div>
-  First<div>
+  First&#11;<div>
     Second
   </div>
   Third
@@ -277,11 +277,7 @@ printWidth: 80
 
 {{! this really should split across lines }}
 <div>
-  before{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{
-    stuff
-  }}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{
-    stuff
-  }}after{{stuff}}after{{stuff}}after{{stuff}}after
+  before{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after
 </div>
 
 {{! solitary whitespace }}

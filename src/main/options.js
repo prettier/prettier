@@ -84,7 +84,7 @@ function normalize(options, opts = {}) {
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
   for (const [k, value] of Object.entries(mixedDefaults)) {
-    if (rawOptions[k] == null) {
+    if (rawOptions[k] === null || rawOptions[k] === undefined) {
       rawOptions[k] = value;
     }
   }
@@ -128,7 +128,7 @@ function getInterpreter(filepath) {
   let fd;
   try {
     fd = fs.openSync(filepath, "r");
-  } catch (err) {
+  } catch {
     // istanbul ignore next
     return "";
   }
@@ -149,7 +149,7 @@ function getInterpreter(filepath) {
       return m2[1];
     }
     return "";
-  } catch (err) {
+  } catch {
     // There are some weird cases where paths are missing, causing Jest
     // failures. It's unclear what these correspond to in the real world.
     /* istanbul ignore next */
@@ -159,7 +159,7 @@ function getInterpreter(filepath) {
       // There are some weird cases where paths are missing, causing Jest
       // failures. It's unclear what these correspond to in the real world.
       fs.closeSync(fd);
-    } catch (err) {
+    } catch {
       // nop
     }
   }

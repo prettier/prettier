@@ -88,11 +88,6 @@ function clean(ast, newObj, parent) {
     delete newObj.key;
   }
 
-  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
-    newObj.type = "MemberExpression";
-    delete newObj.optional;
-  }
-
   // Remove raw and cooked values from TemplateElement when it's CSS
   // styled-jsx
   if (
@@ -203,10 +198,12 @@ function clean(ast, newObj, parent) {
     newObj.value = newObj.value.trimEnd();
   }
 
-  // TODO: Remove this when fixing #9760
-  if (ast.type === "ClassMethod") {
-    delete newObj.declare;
-    delete newObj.readonly;
+  // Prettier removes degenerate union and intersection types with only one member.
+  if (
+    (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
+    ast.types.length === 1
+  ) {
+    return newObj.types[0];
   }
 }
 

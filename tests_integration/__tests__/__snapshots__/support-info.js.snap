@@ -19,6 +19,9 @@ Object {
     "HTML": Array [
       "html",
     ],
+    "Handlebars": Array [
+      "glimmer",
+    ],
     "JSON": Array [
       "json",
     ],
@@ -167,6 +170,7 @@ Object {
         "mdx",
         "vue",
         "yaml",
+        "glimmer",
         "html",
         "angular",
         "lwc",
@@ -367,7 +371,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"jsx\\",
       \\"extensions\\": [\\".jsx\\"],
       \\"group\\": \\"JavaScript\\",
-      \\"linguistLanguageId\\": 178,
+      \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JSX\\",
       \\"parsers\\": [
         \\"babel\\",
@@ -455,6 +459,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".tern-config\\",
         \\".tern-project\\",
         \\".watchmanconfig\\",
+        \\"Pipfile.lock\\",
         \\"composer.lock\\",
         \\"mcmod.info\\"
       ],
@@ -578,6 +583,19 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"vscodeLanguageIds\\": [\\"scss\\"]
     },
     {
+      \\"aceMode\\": \\"handlebars\\",
+      \\"aliases\\": [\\"hbs\\", \\"htmlbars\\"],
+      \\"color\\": \\"#f7931e\\",
+      \\"extensions\\": [\\".handlebars\\", \\".hbs\\"],
+      \\"linguistLanguageId\\": 155,
+      \\"name\\": \\"Handlebars\\",
+      \\"parsers\\": [\\"glimmer\\"],
+      \\"since\\": \\"2.3.0\\",
+      \\"tmScope\\": \\"text.html.handlebars\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"handlebars\\"]
+    },
+    {
       \\"aceMode\\": \\"text\\",
       \\"color\\": \\"#e10098\\",
       \\"extensions\\": [\\".graphql\\", \\".gql\\", \\".graphqls\\"],
@@ -604,6 +622,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".mkdn\\",
         \\".mkdown\\",
         \\".ronn\\",
+        \\".scd\\",
         \\".workbook\\"
       ],
       \\"filenames\\": [\\"contents.lr\\", \\"README\\"],
@@ -908,6 +927,11 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
         { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
+        {
+          \\"description\\": \\"Ember / Handlebars\\",
+          \\"since\\": \\"2.3.0\\",
+          \\"value\\": \\"glimmer\\"
+        },
         { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
         { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
         {

@@ -9,15 +9,15 @@ const { getTypeParametersGroupId } = require("./type-parameters");
 const { printTypeScriptModifiers } = require("./misc");
 
 function printInterface(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
-  if (n.declare) {
+  if (node.declare) {
     parts.push("declare ");
   }
 
-  if (n.type === "TSInterfaceDeclaration") {
+  if (node.type === "TSInterfaceDeclaration") {
     parts.push(
-      n.abstract ? "abstract " : "",
+      node.abstract ? "abstract " : "",
       printTypeScriptModifiers(path, options, print)
     );
   }
@@ -27,38 +27,34 @@ function printInterface(path, options, print) {
   const partsGroup = [];
   const extendsParts = [];
 
-  if (n.type !== "InterfaceTypeAnnotation") {
-    partsGroup.push(
-      " ",
-      path.call(print, "id"),
-      path.call(print, "typeParameters")
-    );
+  if (node.type !== "InterfaceTypeAnnotation") {
+    partsGroup.push(" ", print("id"), print("typeParameters"));
   }
 
   const shouldIndentOnlyHeritageClauses =
-    n.typeParameters &&
+    node.typeParameters &&
     !hasComment(
-      n.typeParameters,
+      node.typeParameters,
       CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
 
-  if (isNonEmptyArray(n.extends)) {
+  if (isNonEmptyArray(node.extends)) {
     extendsParts.push(
       shouldIndentOnlyHeritageClauses
         ? ifBreak(" ", line, {
-            groupId: getTypeParametersGroupId(n.typeParameters),
+            groupId: getTypeParametersGroupId(node.typeParameters),
           })
         : line,
       "extends ",
-      (n.extends.length === 1 ? identity : indent)(
+      (node.extends.length === 1 ? identity : indent)(
         join([",", line], path.map(print, "extends"))
       )
     );
   }
 
   if (
-    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
-    isNonEmptyArray(n.extends)
+    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
+    isNonEmptyArray(node.extends)
   ) {
     if (shouldIndentOnlyHeritageClauses) {
       parts.push(group([...partsGroup, indent(extendsParts)]));
@@ -69,7 +65,7 @@ function printInterface(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", path.call(print, "body"));
+  parts.push(" ", print("body"));
 
   return group(parts);
 }

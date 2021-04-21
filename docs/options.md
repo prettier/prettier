@@ -110,13 +110,13 @@ Use single quotes instead of double quotes in JSX.
 
 _Default value changed from `none` to `es5` in v2.0.0_
 
-Print trailing commas wherever possible when multi-line. (A single-line array, for example, never gets trailing commas.)
+Print trailing commas wherever possible in multi-line comma-separated syntactic structures. (A single-line array, for example, never gets trailing commas.)
 
 Valid options:
 
-- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
+- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). No trailing commas in type parameters in TypeScript.
 - `"none"` - No trailing commas.
-- `"all"` - Trailing commas wherever possible (including [trailing commas in function parameter lists and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). This requires node 8 or a modern browser that supports ES2017 or transform with [babel](https://babeljs.io/docs/en/index).
+- `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/en/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
 
 | Default | CLI Override                                           | API Override                                           |
 | ------- | ------------------------------------------------------ | ------------------------------------------------------ |
@@ -267,9 +267,9 @@ This option is only useful in the CLI and API. It doesn’t make sense to use it
 
 _First available in v1.7.0_
 
-Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful when gradually transitioning large, unformatted codebases to prettier.
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful when gradually transitioning large, unformatted codebases to Prettier.
 
-For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
+A file with the following as its first comment will be formatted when `--require-pragma` is supplied:
 
 ```js
 /**
@@ -293,11 +293,15 @@ or
 
 _First available in v1.8.0_
 
-Prettier can insert a special @format marker at the top of files specifying that the file has been formatted with prettier. This works well when used in tandem with the `--require-pragma` option. If there is already a docblock at the top of the file then this option will add a newline to it with the @format marker.
+Prettier can insert a special `@format` marker at the top of files specifying that the file has been formatted with Prettier. This works well when used in tandem with the `--require-pragma` option. If there is already a docblock at the top of the file then this option will add a newline to it with the `@format` marker.
+
+Note that “in tandem” doesn’t mean “at the same time”. When the two options are used simultaneously, `--require-pragma` has priority, so `--insert-pragma` is ignored. The idea is that during an incremental adoption of Prettier in a big codebase, the developers participating in the transition process use `--insert-pragma` whereas `--require-pragma` is used by the rest of the team and automated tooling to process only files already transitioned. The feature has been inspired by Facebook’s [adoption strategy].
 
 | Default | CLI Override      | API Override           |
 | ------- | ----------------- | ---------------------- |
 | `false` | `--insert-pragma` | `insertPragma: <bool>` |
+
+[adoption strategy]: https://prettier.io/blog/2017/05/03/1.3.0.html#facebook-adoption-update
 
 ## Prose Wrap
 

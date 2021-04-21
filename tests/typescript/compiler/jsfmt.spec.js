@@ -3,7 +3,7 @@ run_spec(__dirname, ["typescript"], {
     "babel-ts": [
       "downlevelLetConst1.ts",
       "errorOnInitializerInInterfaceProperty.ts",
-      "modifiersOnInterfaceIndexSignature1.ts",
+      "decrementAndIncrementOperators.ts",
     ],
   },
 });

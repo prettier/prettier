@@ -47,6 +47,8 @@ const unstableTests = new Map(
   })
 );
 
+const unstableAstTests = new Map();
+
 const espreeDisabledTests = new Set(
   [
     // These tests only work for `babel`
@@ -57,6 +59,16 @@ const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
+
+  if (!testFunction) {
+    return false;
+  }
+
+  return testFunction(options);
+};
+
+const isAstUnstable = (filename, options) => {
+  const testFunction = unstableAstTests.get(filename);
 
   if (!testFunction) {
     return false;
@@ -103,6 +115,11 @@ function runSpec(fixtures, parsers, options) {
     options = { errors: true, ...options };
   }
 
+  const IS_TYPESCRIPT_ONLY_TEST = isTestDirectory(
+    dirname,
+    "misc/typescript-only"
+  );
+
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [undefined];
   }
@@ -124,7 +141,9 @@ function runSpec(fixtures, parsers, options) {
         path.extname(basename) === ".snap" ||
         !file.isFile() ||
         basename[0] === "." ||
-        basename === "jsfmt.spec.js"
+        basename === "jsfmt.spec.js" ||
+        // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
+        basename === "debug.log"
       ) {
         return;
       }
@@ -151,7 +170,11 @@ function runSpec(fixtures, parsers, options) {
   const allParsers = [...parsers];
 
   if (!IS_ERROR_TESTS) {
-    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !IS_TYPESCRIPT_ONLY_TEST
+    ) {
       allParsers.push("babel-ts");
     }
 
@@ -284,13 +307,18 @@ function runTest({
     });
   }
 
+  const isAstUnstableTest = isAstUnstable(filename, formatOptions);
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     test(`[${parser}] compare AST`, () => {
       const { input, output } = formatResult;
       const originalAst = parse(input, formatOptions);
       const formattedAst = parse(output, formatOptions);
-      expect(formattedAst).toEqual(originalAst);
+      if (isAstUnstableTest) {
+        expect(formattedAst).not.toEqual(originalAst);
+      } else {
+        expect(formattedAst).toEqual(originalAst);
+      }
     });
   }
 

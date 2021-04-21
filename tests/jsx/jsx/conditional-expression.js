@@ -86,7 +86,7 @@ jsxModeFromElementBreaking ? (
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
-cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
+cable ? "satellite" : isPublic ? "affairs" : network ? <span id="c" /> : "dun";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the end). It is
@@ -94,7 +94,7 @@ cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
 // wrapped in parens.
 cable ? (
   "satellite"
-) : public ? (
+) : isPublic ? (
   "affairs"
 ) : network ? (
   <div>

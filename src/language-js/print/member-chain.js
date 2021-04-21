@@ -102,7 +102,7 @@ function printMemberChain(path, options, print) {
         printed: [
           printComments(
             path,
-            () => [
+            [
               printOptionalToken(path),
               printFunctionTypeParameters(path, options, print),
               printCallArguments(path, options, print),
@@ -119,10 +119,9 @@ function printMemberChain(path, options, print) {
         needsParens: pathNeedsParens(path, options),
         printed: printComments(
           path,
-          () =>
-            isMemberExpression(node)
-              ? printMemberLookup(path, options, print)
-              : printBindExpressionCallee(path, options, print),
+          isMemberExpression(node)
+            ? printMemberLookup(path, options, print)
+            : printBindExpressionCallee(path, options, print),
           options
         ),
       });
@@ -130,13 +129,13 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
-        printed: printComments(path, () => "!", options),
+        printed: printComments(path, "!", options),
       });
       path.call((expression) => rec(expression), "expression");
     } else {
       printedNodes.unshift({
         node,
-        printed: path.call(print),
+        printed: print(),
       });
     }
   }
@@ -310,10 +309,7 @@ function printMemberChain(path, options, print) {
     const printed = printedGroup.map((tuple) => tuple.printed);
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
-    if (
-      printedGroup.length > 0 &&
-      printedGroup[printedGroup.length - 1].needsParens
-    ) {
+    if (printedGroup.length > 0 && getLast(printedGroup).needsParens) {
       return ["(", ...printed, ")"];
     }
     return printed;
@@ -378,7 +374,7 @@ function printMemberChain(path, options, print) {
       willBreak(lastGroupDoc) &&
       callExpressions
         .slice(0, -1)
-        .some((n) => n.arguments.some(isFunctionOrArrowExpression))
+        .some((node) => node.arguments.some(isFunctionOrArrowExpression))
     );
   }
 

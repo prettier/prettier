@@ -167,6 +167,67 @@ setFoo(
 ================================================================================
 `;
 
+exports[`issue-10691.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default function include_photoswipe(
+	gallery_selector = ".my-gallery"
+) {
+	return /* HTML */ \`
+		<script>
+			window.addEventListener("load", () =>
+				initPhotoSwipeFromDOM("\${gallery_selector}")
+			);
+		</script>\`;
+}
+
+=====================================output=====================================
+export default function include_photoswipe(gallery_selector = ".my-gallery") {
+  return /* HTML */ \`
+    <script>
+      window.addEventListener("load", () =>
+        initPhotoSwipeFromDOM("\${gallery_selector}")
+      );
+    </script>
+  \`;
+}
+
+================================================================================
+`;
+
+exports[`issue-10691.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default function include_photoswipe(
+	gallery_selector = ".my-gallery"
+) {
+	return /* HTML */ \`
+		<script>
+			window.addEventListener("load", () =>
+				initPhotoSwipeFromDOM("\${gallery_selector}")
+			);
+		</script>\`;
+}
+
+=====================================output=====================================
+export default function include_photoswipe(gallery_selector = ".my-gallery") {
+  return /* HTML */ \` <script>
+    window.addEventListener("load", () =>
+      initPhotoSwipeFromDOM("\${gallery_selector}")
+    );
+  </script>\`;
+}
+
+================================================================================
+`;
+
 exports[`lit-html.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"

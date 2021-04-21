@@ -15,3 +15,43 @@ import JSONContributionRegistry = require("vs/platform/jsonschemas/common/jsonCo
 
 ================================================================================
 `;
+
+exports[`type-imports.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type A = require("foo");
+export import type = require("A");
+
+import type
+A = require("A");
+
+import
+type
+a = require("a");
+
+export import
+type
+B = require("B");
+
+export
+import
+type
+b = require("b");
+
+=====================================output=====================================
+import type A = require("foo");
+export import type = require("A");
+
+import type A = require("A");
+
+import type a = require("a");
+
+export import type B = require("B");
+
+export import type b = require("b");
+
+================================================================================
+`;

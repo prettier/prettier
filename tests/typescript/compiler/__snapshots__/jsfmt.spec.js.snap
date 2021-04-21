@@ -280,8 +280,11 @@ var r23 = dot(id)(id);
 =====================================output=====================================
 // dot f g x = f(g(x))
 var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
-dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): ((r: U) => S) => (x) =>
-  f(g(x));
+dot =
+  <T, S>(f: (_: T) => S) =>
+  <U>(g: (_: U) => T): ((r: U) => S) =>
+  (x) =>
+    f(g(x));
 var id: <T>(x: T) => T;
 var r23 = dot(id)(id);
 
@@ -320,6 +323,17 @@ module T.U {
 }
 
 ================================================================================
+`;
+
+exports[`decrementAndIncrementOperators.ts [babel-ts] format 1`] = `
+"Invalid left-hand side in postfix operation (4:1)
+  2 |
+  3 | // errors
+> 4 | 1 ++;
+    | ^
+  5 |
+  6 | (1)++;
+  7 | (1)--;"
 `;
 
 exports[`decrementAndIncrementOperators.ts format 1`] = `
@@ -428,7 +442,7 @@ const;
 `;
 
 exports[`errorOnInitializerInInterfaceProperty.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (2:17)
+"Unexpected token (2:17)
   1 | interface Foo {
 > 2 |     bar: number = 5;
     |                 ^
@@ -645,14 +659,6 @@ declare const output: Meta<Input, boolean>;
 const shouldFail: { important: boolean } = output.x.children;
 
 ================================================================================
-`;
-
-exports[`modifiersOnInterfaceIndexSignature1.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (2:10)
-  1 | interface I {
-> 2 |   public [a: string]: number;
-    |          ^
-  3 | }"
 `;
 
 exports[`modifiersOnInterfaceIndexSignature1.ts format 1`] = `
