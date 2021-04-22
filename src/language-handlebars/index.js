@@ -2,6 +2,7 @@
 
 const createLanguage = require("../utils/create-language");
 const printer = require("./printer-glimmer");
+const options = require("./options");
 
 const languages = [
   createLanguage(require("linguist-languages/data/Handlebars.json"), () => ({
@@ -22,6 +23,7 @@ const parsers = {
 };
 
 module.exports = {
+  options,
   languages,
   printers,
   parsers,
