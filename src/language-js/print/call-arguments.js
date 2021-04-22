@@ -248,6 +248,14 @@ function shouldGroupFirstArg(args) {
   }
 
   const [firstArg, secondArg] = args;
+
+  if (
+    firstArg.type === "ModuleExpression" &&
+    secondArg.type === "ObjectExpression"
+  ) {
+    return true;
+  }
+
   return (
     !hasComment(firstArg) &&
     (firstArg.type === "FunctionExpression" ||
