@@ -49,9 +49,18 @@ function print(path, options, print) {
   }
 
   switch (node.type) {
-    case "Block":
-    case "Program":
     case "Template": {
+      const body = group(path.map(print, "body"))
+
+      if (options.insertFinalNewline) {
+        return [body, hardline];
+      }
+
+      return body;
+    }
+
+    case "Block":
+    case "Program": {
       return group(path.map(print, "body"));
     }
 
