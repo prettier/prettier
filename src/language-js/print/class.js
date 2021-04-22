@@ -14,14 +14,14 @@ const { printAssignment } = require("./assignment");
 const { printClassMemberDecorators } = require("./decorators");
 
 function printClass(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
 
-  if (n.declare) {
+  if (node.declare) {
     parts.push("declare ");
   }
 
-  if (n.abstract) {
+  if (node.abstract) {
     parts.push("abstract ");
   }
 
@@ -30,26 +30,26 @@ function printClass(path, options, print) {
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
-    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
-    (n.superClass && hasComment(n.superClass)) ||
-    isNonEmptyArray(n.extends) || // DeclareClass
-    isNonEmptyArray(n.mixins) ||
-    isNonEmptyArray(n.implements);
+    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
+    (node.superClass && hasComment(node.superClass)) ||
+    isNonEmptyArray(node.extends) || // DeclareClass
+    isNonEmptyArray(node.mixins) ||
+    isNonEmptyArray(node.implements);
 
   const partsGroup = [];
   const extendsParts = [];
 
-  if (n.id) {
-    partsGroup.push(" ", path.call(print, "id"));
+  if (node.id) {
+    partsGroup.push(" ", print("id"));
   }
 
-  partsGroup.push(path.call(print, "typeParameters"));
+  partsGroup.push(print("typeParameters"));
 
-  if (n.superClass) {
+  if (node.superClass) {
     const printed = [
       "extends ",
       printSuperClass(path, options, print),
-      path.call(print, "superTypeParameters"),
+      print("superTypeParameters"),
     ];
     const printedWithComments = path.call(
       (superClass) => printComments(superClass, printed, options),
@@ -71,17 +71,17 @@ function printClass(path, options, print) {
 
   if (groupMode) {
     let printedPartsGroup;
-    if (shouldIndentOnlyHeritageClauses(n)) {
+    if (shouldIndentOnlyHeritageClauses(node)) {
       printedPartsGroup = [...partsGroup, indent(extendsParts)];
     } else {
       printedPartsGroup = indent([...partsGroup, extendsParts]);
     }
-    parts.push(group(printedPartsGroup, { id: getHeritageGroupId(n) }));
+    parts.push(group(printedPartsGroup, { id: getHeritageGroupId(node) }));
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", path.call(print, "body"));
+  parts.push(" ", print("body"));
 
   return parts;
 }
@@ -112,8 +112,8 @@ function shouldIndentOnlyHeritageClauses(node) {
 }
 
 function printList(path, options, print, listName) {
-  const n = path.getValue();
-  if (!isNonEmptyArray(n[listName])) {
+  const node = path.getValue();
+  if (!isNonEmptyArray(node[listName])) {
     return "";
   }
 
@@ -124,9 +124,9 @@ function printList(path, options, print, listName) {
     ({ marker }) => marker === listName
   );
   return [
-    shouldIndentOnlyHeritageClauses(n)
+    shouldIndentOnlyHeritageClauses(node)
       ? ifBreak(" ", line, {
-          groupId: getTypeParametersGroupId(n.typeParameters),
+          groupId: getTypeParametersGroupId(node.typeParameters),
         })
       : line,
     printedLeadingComments,
@@ -137,7 +137,7 @@ function printList(path, options, print, listName) {
 }
 
 function printSuperClass(path, options, print) {
-  const printed = path.call(print, "superClass");
+  const printed = print("superClass");
   const parent = path.getParentNode();
   if (parent.type === "AssignmentExpression") {
     return group(
@@ -148,28 +148,28 @@ function printSuperClass(path, options, print) {
 }
 
 function printClassMethod(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
 
-  if (isNonEmptyArray(n.decorators)) {
+  if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (n.accessibility) {
-    parts.push(n.accessibility + " ");
+  if (node.accessibility) {
+    parts.push(node.accessibility + " ");
   }
   // "readonly" and "declare" are supported by only "babel-ts"
   // https://github.com/prettier/prettier/issues/9760
-  if (n.readonly) {
+  if (node.readonly) {
     parts.push("readonly ");
   }
-  if (n.declare) {
+  if (node.declare) {
     parts.push("declare ");
   }
 
-  if (n.static) {
+  if (node.static) {
     parts.push("static ");
   }
-  if (n.type === "TSAbstractMethodDefinition" || n.abstract) {
+  if (node.type === "TSAbstractMethodDefinition" || node.abstract) {
     parts.push("abstract ");
   }
 
@@ -179,30 +179,30 @@ function printClassMethod(path, options, print) {
 }
 
 function printClassProperty(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
   const semi = options.semi ? ";" : "";
 
-  if (isNonEmptyArray(n.decorators)) {
+  if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (n.accessibility) {
-    parts.push(n.accessibility + " ");
+  if (node.accessibility) {
+    parts.push(node.accessibility + " ");
   }
-  if (n.declare) {
+  if (node.declare) {
     parts.push("declare ");
   }
-  if (n.static) {
+  if (node.static) {
     parts.push("static ");
   }
-  if (n.type === "TSAbstractClassProperty" || n.abstract) {
+  if (node.type === "TSAbstractClassProperty" || node.abstract) {
     parts.push("abstract ");
   }
-  if (n.readonly) {
+  if (node.readonly) {
     parts.push("readonly ");
   }
-  if (n.variance) {
-    parts.push(path.call(print, "variance"));
+  if (node.variance) {
+    parts.push(print("variance"));
   }
   parts.push(
     printPropertyKey(path, options, print),

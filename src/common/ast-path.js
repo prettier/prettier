@@ -111,6 +111,21 @@ class AstPath {
   }
 
   /**
+   * @param {() => void} callback
+   * @internal Unstable API. Don't use in plugins for now.
+   */
+  try(callback) {
+    const { stack } = this;
+    const stackBackup = [...stack];
+    try {
+      return callback();
+    } finally {
+      stack.length = 0;
+      stack.push(...stackBackup);
+    }
+  }
+
+  /**
    * @param {...(
    *   | ((node: any, name: string | null, number: number | null) => boolean)
    *   | undefined

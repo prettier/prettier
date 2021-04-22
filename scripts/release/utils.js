@@ -6,6 +6,7 @@ const fs = require("fs");
 const chalk = require("chalk");
 const execa = require("execa");
 const stringWidth = require("string-width");
+const fetch = require("node-fetch");
 
 const OK = chalk.bgGreen.black(" DONE ");
 const FAIL = chalk.bgRed.black(" FAIL ");
@@ -19,27 +20,37 @@ function fitTerminal(input) {
   return input;
 }
 
-function logPromise(name, promise) {
+async function logPromise(name, promiseOrAsyncFunction) {
+  const promise =
+    typeof promiseOrAsyncFunction === "function"
+      ? promiseOrAsyncFunction()
+      : promiseOrAsyncFunction;
+
   process.stdout.write(fitTerminal(name));
 
-  return promise
-    .then((result) => {
-      process.stdout.write(`${OK}\n`);
-      return result;
-    })
-    .catch((err) => {
-      process.stdout.write(`${FAIL}\n`);
-      throw err;
-    });
+  try {
+    const result = await promise;
+    process.stdout.write(`${OK}\n`);
+    return result;
+  } catch (error) {
+    process.stdout.write(`${FAIL}\n`);
+    throw error;
+  }
 }
 
-function runYarn(script) {
-  return execa("yarn", [
-    "--silent",
-    ...(Array.isArray(script) ? script : [script]),
-  ]).catch((error) => {
-    throw new Error(`\`yarn ${script}\` failed\n${error.stdout}`);
-  });
+async function runYarn(args, options) {
+  args = Array.isArray(args) ? args : [args];
+
+  try {
+    return await execa("yarn", ["--silent", ...args], options);
+  } catch (error) {
+    throw new Error(`\`yarn ${args.join(" ")}\` failed\n${error.stdout}`);
+  }
+}
+
+function runGit(args, options) {
+  args = Array.isArray(args) ? args : [args];
+  return execa("git", args, options);
 }
 
 function waitForEnter() {
@@ -75,8 +86,15 @@ function processFile(filename, fn) {
   fs.writeFileSync(filename, fn(content));
 }
 
+async function fetchText(url) {
+  const response = await fetch(url);
+  return response.text();
+}
+
 module.exports = {
   runYarn,
+  runGit,
+  fetchText,
   logPromise,
   processFile,
   readJson,

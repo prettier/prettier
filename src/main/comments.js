@@ -15,7 +15,6 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isNonEmptyArray,
 } = require("../common/util");
 
 const childNodesCache = new WeakMap();
@@ -52,12 +51,12 @@ function getSortedChildNodes(node, options, resultArray) {
     (typeof node === "object" &&
       Object.entries(node)
         .filter(
-          ([n]) =>
-            n !== "enclosingNode" &&
-            n !== "precedingNode" &&
-            n !== "followingNode" &&
-            n !== "tokens" &&
-            n !== "comments"
+          ([key]) =>
+            key !== "enclosingNode" &&
+            key !== "precedingNode" &&
+            key !== "followingNode" &&
+            key !== "tokens" &&
+            key !== "comments"
         )
         .map(([, value]) => value));
 
@@ -420,10 +419,10 @@ function breakTies(tiesToBreak, text, options) {
   tiesToBreak.length = 0;
 }
 
-function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
+function printComment(path, options) {
+  const comment = path.getValue();
   comment.printed = true;
-  return options.printer.printComment(commentPath, options);
+  return options.printer.printComment(path, options);
 }
 
 function findExpressionIndexForComment(quasis, comment, options) {
@@ -441,40 +440,45 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-function printLeadingComment(commentPath, options) {
-  const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
-  /* istanbul ignore next */
-  if (!contents) {
-    return "";
-  }
-  const isBlock =
-    options.printer.isBlockComment && options.printer.isBlockComment(comment);
+function printLeadingComment(path, options) {
+  const comment = path.getValue();
+  const parts = [printComment(path, options)];
+
+  const { printer, originalText, locStart, locEnd } = options;
+  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    const lineBreak = hasNewline(options.originalText, options.locEnd(comment))
-      ? hasNewline(options.originalText, options.locStart(comment), {
+    const lineBreak = hasNewline(originalText, locEnd(comment))
+      ? hasNewline(originalText, locStart(comment), {
           backwards: true,
         })
         ? hardline
         : line
       : " ";
 
-    return [contents, lineBreak];
+    parts.push(lineBreak);
+  } else {
+    parts.push(hardline);
   }
 
-  return [contents, hardline];
+  const index = skipNewline(
+    originalText,
+    skipSpaces(originalText, locEnd(comment))
+  );
+
+  if (index !== false && hasNewline(originalText, index)) {
+    parts.push(hardline);
+  }
+
+  return parts;
 }
 
-function printTrailingComment(commentPath, options) {
-  const comment = commentPath.getValue();
-  const contents = printComment(commentPath, options);
-  /* istanbul ignore next */
-  if (!contents) {
-    return "";
-  }
+function printTrailingComment(path, options) {
+  const comment = path.getValue();
+  const printed = printComment(path, options);
+
   const { printer, originalText, locStart } = options;
   const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
@@ -497,17 +501,17 @@ function printTrailingComment(commentPath, options) {
       locStart
     );
 
-    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", contents]);
+    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]);
   }
 
-  let printed = [" ", contents];
+  let parts = [" ", printed];
 
   // Trailing block comments never need a newline
   if (!isBlock) {
-    printed = [lineSuffix(printed), breakParent];
+    parts = [lineSuffix(parts), breakParent];
   }
 
-  return printed;
+  return parts;
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
@@ -518,15 +522,10 @@ function printDanglingComments(path, options, sameIndent, filter) {
     return "";
   }
 
-  path.each((commentPath) => {
-    const comment = commentPath.getValue();
-    if (
-      comment &&
-      !comment.leading &&
-      !comment.trailing &&
-      (!filter || filter(comment))
-    ) {
-      parts.push(printComment(commentPath, options));
+  path.each(() => {
+    const comment = path.getValue();
+    if (!comment.leading && !comment.trailing && (!filter || filter(comment))) {
+      parts.push(printComment(path, options));
     }
   }, "comments");
 
@@ -540,53 +539,53 @@ function printDanglingComments(path, options, sameIndent, filter) {
   return indent([hardline, join(hardline, parts)]);
 }
 
-function prependCursorPlaceholder(path, options, printed) {
-  if (path.getNode() === options.cursorNode && path.getValue()) {
-    return [cursor, printed, cursor];
-  }
-  return printed;
-}
-
-function printComments(path, printed, options, needsSemi) {
+function printCommentsSeparately(path, options, ignored) {
   const value = path.getValue();
-  const comments = value && value.comments;
+  if (!value) {
+    return {};
+  }
 
-  if (!isNonEmptyArray(comments)) {
-    return prependCursorPlaceholder(path, options, printed);
+  let comments = value.comments || [];
+  if (ignored) {
+    comments = comments.filter((comment) => !ignored.has(comment));
+  }
+  const isCursorNode = value === options.cursorNode;
+
+  if (comments.length === 0) {
+    const maybeCursor = isCursorNode ? cursor : "";
+    return { leading: maybeCursor, trailing: maybeCursor };
   }
 
   const leadingParts = [];
-  const trailingParts = [needsSemi ? ";" : "", printed];
+  const trailingParts = [];
+  path.each(() => {
+    const comment = path.getValue();
+    if (ignored && ignored.has(comment)) {
+      return;
+    }
 
-  path.each((commentPath) => {
-    const comment = commentPath.getValue();
     const { leading, trailing } = comment;
-
     if (leading) {
-      const contents = printLeadingComment(commentPath, options);
-      /* istanbul ignore next */
-      if (!contents) {
-        return;
-      }
-      leadingParts.push(contents);
-
-      const text = options.originalText;
-      const index = skipNewline(
-        text,
-        skipSpaces(text, options.locEnd(comment))
-      );
-      if (index !== false && hasNewline(text, index)) {
-        leadingParts.push(hardline);
-      }
+      leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, options));
+      trailingParts.push(printTrailingComment(path, options));
     }
   }, "comments");
 
-  return prependCursorPlaceholder(path, options, [
-    ...leadingParts,
-    ...trailingParts,
-  ]);
+  if (isCursorNode) {
+    leadingParts.unshift(cursor);
+    trailingParts.push(cursor);
+  }
+
+  return { leading: leadingParts, trailing: trailingParts };
+}
+
+function printComments(path, doc, options, ignored) {
+  const { leading, trailing } = printCommentsSeparately(path, options, ignored);
+  if (!leading && !trailing) {
+    return doc;
+  }
+  return [leading, doc, trailing];
 }
 
 function ensureAllCommentsPrinted(astComments) {
@@ -609,6 +608,7 @@ function ensureAllCommentsPrinted(astComments) {
 module.exports = {
   attach,
   printComments,
+  printCommentsSeparately,
   printDanglingComments,
   getSortedChildNodes,
   ensureAllCommentsPrinted,

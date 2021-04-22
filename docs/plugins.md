@@ -40,7 +40,6 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
 - [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
-- [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 - [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
@@ -50,7 +49,6 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-go-template`](https://github.com/NiklasPor/prettier-plugin-go-template) by [**@NiklasPor**](https://github.com/NiklasPor)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
-- [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
@@ -178,22 +176,48 @@ function print(
   path: AstPath,
   options: object,
   // Recursively print a child node
-  print: (path: AstPath) => Doc
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc
 ): Doc;
 ```
 
-The `print` function is passed a `path` object, which can be used to access nodes in the AST via `path.getValue()`. It is also passed a persistent `options` object (which contains global options and which a plugin may mutate), and a `print` function used for making recursive calls. A basic `print` function might be as follows:
+The `print` function is passed the following parameters:
+
+- **`path`**: An object, which can be used to access nodes in the AST. It’s a stack-like data structure that maintains the current state of the recursion. It is called “path” because it represents the path to the current node from the root of the AST. The current node is returned by `path.getValue()`.
+- **`options`**: A persistent object, which contains global options and which a plugin may mutate to store contextual data.
+- **`print`**: A callback for printing sub-nodes. This function contains the core printing logic that consists of steps whose implementation is provided by plugins. In particular, it calls the printer’s `print` function and passes itself to it. Thus, the two `print` functions – the one from the core and the one from the plugin – call each other while descending down the AST recursively.
+
+Here’s a simplified example to give an idea of what a typical implementation of `print` looks like:
 
 ```js
-const { builders } = require("prettier").doc;
+const {
+  builders: { group, indent, join, line, softline },
+} = require("prettier").doc;
 
 function print(path, options, print) {
   const node = path.getValue();
 
-  if (Array.isArray(node)) {
-    return builders.concat(path.map(print));
+  switch (node.type) {
+    case "list":
+      return group([
+        "(",
+        indent([softline, join(line, path.map(print, "elements"))]),
+        softline,
+        ")",
+      ]);
+
+    case "pair":
+      return group([
+        "(",
+        indent([softline, print("left"), line, ". ", print("right")]),
+        softline,
+        ")",
+      ]);
+
+    case "symbol":
+      return node.name;
   }
-  return node.value;
+
+  throw new Error(`Unknown node type: ${node.type}`);
 }
 ```
 
@@ -208,7 +232,7 @@ function embed(
   // Path to the current AST node
   path: AstPath,
   // Print a node with the current printer
-  print: (path: AstPath) => Doc,
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
   // Parse and print some text using a different parser.
   // You should set `options.parser` to specify which parser to use.
   textToDoc: (text: string, options: object) => Doc,

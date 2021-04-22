@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../utils/get-last");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -236,6 +237,10 @@ function needsParens(path, options) {
     case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
+        case "TSAsExpression":
+          // example: foo as unknown as Bar
+          return node.type !== "TSAsExpression";
+
         case "ConditionalExpression":
           return node.type === "TSAsExpression";
 
@@ -256,7 +261,6 @@ function needsParens(path, options) {
         case "SpreadProperty":
         case "BindExpression":
         case "AwaitExpression":
-        case "TSAsExpression":
         case "TSNonNullExpression":
         case "UpdateExpression":
           return true;
@@ -266,6 +270,7 @@ function needsParens(path, options) {
           return name === "object";
 
         case "AssignmentExpression":
+        case "AssignmentPattern":
           return (
             name === "left" &&
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
@@ -354,6 +359,16 @@ function needsParens(path, options) {
       ) {
         return true;
       }
+
+      if (
+        name === "expression" &&
+        node.argument &&
+        node.argument.type === "PipelinePrimaryTopicReference" &&
+        parent.type === "PipelineTopicExpression"
+      ) {
+        return true;
+      }
+
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
@@ -383,6 +398,7 @@ function needsParens(path, options) {
           if (!node.argument && parent.operator === "|>") {
             return false;
           }
+
           return true;
         }
 
@@ -862,9 +878,7 @@ function isFollowedByRightBracket(path) {
     case "ObjectProperty":
       if (name === "value") {
         const parentParent = path.getParentNode(1);
-        return (
-          parentParent.properties[parentParent.properties.length - 1] === parent
-        );
+        return getLast(parentParent.properties) === parent;
       }
       break;
     case "BinaryExpression":

@@ -135,6 +135,12 @@ class Playground extends React.Component {
   getMarkdown({ formatted, reformatted, full, doc }) {
     const { content, options } = this.state;
     const { availableOptions, version } = this.props;
+    const orderedOptions = orderOptions(availableOptions, [
+      ...ENABLED_OPTIONS,
+      "rangeStart",
+      "rangeEnd",
+    ]);
+    const cliOptions = util.buildCliArgs(orderedOptions, options);
 
     return formatMarkdown({
       input: content,
@@ -144,7 +150,7 @@ class Playground extends React.Component {
       version,
       url: window.location.href,
       options,
-      cliOptions: util.buildCliArgs(availableOptions, options),
+      cliOptions,
       full,
     });
   }

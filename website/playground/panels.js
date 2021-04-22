@@ -140,7 +140,7 @@ class CodeMirrorPanel extends React.Component {
 }
 
 function getIndexPosition(text, indexes) {
-  indexes = indexes.slice();
+  indexes = [...indexes];
   let line = 0;
   let count = 0;
   let lineStart = 0;

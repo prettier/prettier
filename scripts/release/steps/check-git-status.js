@@ -1,9 +1,9 @@
 "use strict";
 
-const execa = require("execa");
+const { runGit } = require("../utils");
 
 module.exports = async function () {
-  const status = await execa.stdout("git", ["status", "--porcelain"]);
+  const { stdout: status } = await runGit(["status", "--porcelain"]);
 
   if (status) {
     throw new Error(

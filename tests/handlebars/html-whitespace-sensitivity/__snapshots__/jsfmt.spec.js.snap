@@ -184,8 +184,7 @@ hey
 {{name}}
 
 Some sentence with {{dynamic}}
-expressions. sometimes{{nogaps
-}}areimportant
+expressions. sometimes{{nogaps}}areimportant
 <Hello />
 
 {{name}} is your name
@@ -491,8 +490,8 @@ hey
 
 Some sentence with
 {{dynamic}}
-expressions. sometimes{{nogaps
-}}areimportant<Hello />
+expressions. sometimes{{nogaps}}areimportant<Hello
+/>
 
 {{name}}
 is your name

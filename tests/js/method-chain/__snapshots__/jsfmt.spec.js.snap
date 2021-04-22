@@ -41,8 +41,9 @@ const thingamabobMetaAlias =
 path.scope.getProgramParent().path.get("body")[0].node;
 
 =====================================output=====================================
-const thingamabobMetaAlias =
-  path.scope.getProgramParent().path.get("body")[0].node;
+const thingamabobMetaAlias = path.scope
+  .getProgramParent()
+  .path.get("body")[0].node;
 
 ================================================================================
 `;
@@ -214,8 +215,14 @@ expect(
     .style.paddingRight
 ).toBe("1000px");
 
-const { course, conflicts = [], index, scheduleId, studentId, something } =
-  a.this.props;
+const {
+  course,
+  conflicts = [],
+  index,
+  scheduleId,
+  studentId,
+  something,
+} = a.this.props;
 
 const {
   course2,

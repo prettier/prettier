@@ -1,5 +1,6 @@
 "use strict";
 
+const getLast = require("../../utils/get-last");
 const { getStringWidth, getIndentSize } = require("../../common/util");
 const {
   builders: {
@@ -60,7 +61,7 @@ function printTemplateLiteral(path, print, options) {
   path.each((childPath) => {
     const i = childPath.getName();
 
-    parts.push(print(childPath));
+    parts.push(print());
 
     if (i < expressions.length) {
       // For a template literal of the following form:
@@ -140,7 +141,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
     for (let i = 1; i < node.quasis.length; i++) {
-      const row = tableBody[tableBody.length - 1];
+      const row = getLast(tableBody);
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
@@ -201,7 +202,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
 function printTemplateExpression(path, print) {
   const node = path.getValue();
-  let printed = print(path);
+  let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
   }

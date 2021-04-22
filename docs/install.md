@@ -20,7 +20,7 @@ yarn add --dev --exact prettier
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Then, create an empty config file to let editors and other tooling know you are using Prettier:
+Then, create an empty config file to let editors and other tools know you are using Prettier:
 
 <!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
 
@@ -68,7 +68,7 @@ yarn prettier --write .
 If you have a CI setup, run the following as part of it to make sure that everyone runs Prettier. This avoids merge conflicts and other collaboration issues!
 
 ```bash
-prettier --check .
+npx prettier --check .
 ```
 
 `--check` is like `--write`, but only checks that files are already formatted, rather than overwriting them. `prettier --write` and `prettier --check` are the most common ways to run Prettier.

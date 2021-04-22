@@ -177,16 +177,16 @@ const TYPE_MAP = {
   "symbolic link": "link",
 } as Foo;
 
-this.previewPlayerHandle = (setInterval(async () => {
+this.previewPlayerHandle = setInterval(async () => {
   if (this.previewIsPlaying) {
     await this.fetchNextPreviews();
     this.currentPreviewIndex++;
   }
-}, this.refreshDelay) as unknown) as number;
+}, this.refreshDelay) as unknown as number;
 
-this.intervalID = (setInterval(() => {
+this.intervalID = setInterval(() => {
   self.step();
-}, 30) as unknown) as number;
+}, 30) as unknown as number;
 
 ================================================================================
 `;

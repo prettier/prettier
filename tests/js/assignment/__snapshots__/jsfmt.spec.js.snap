@@ -193,6 +193,91 @@ const {
 ================================================================================
 `;
 
+exports[`destructuring-array.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const [
+  width= nextWidth,
+  height= nextHeight,
+  baseline= nextBaseline,
+] = measureText(nextText, getFontString(element));
+
+=====================================output=====================================
+const [width = nextWidth, height = nextHeight, baseline = nextBaseline] =
+  measureText(nextText, getFontString(element));
+
+================================================================================
+`;
+
+exports[`destructuring-heuristic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{
+  const {
+    id,
+    static: isStatic,
+    method: isMethod,
+    methodId,
+    getId,
+    setId,
+  } = privateNamesMap.get(name);
+
+  const {
+    id1,
+    method: isMethod1,
+    methodId1
+  } = privateNamesMap.get(name);
+
+  const {
+    id2,
+    method: isMethod2,
+    methodId2
+  } = privateNamesMap.get(bifornCringerMoshedPerplexSawder);
+
+  const {
+    id3,
+    method: isMethod3,
+    methodId3
+  } = anodyneCondosMalateOverateRetinol.get(bifornCringerMoshedPerplexSawder);
+}}
+
+=====================================output=====================================
+{
+  {
+    const {
+      id,
+      static: isStatic,
+      method: isMethod,
+      methodId,
+      getId,
+      setId,
+    } = privateNamesMap.get(name);
+
+    const { id1, method: isMethod1, methodId1 } = privateNamesMap.get(name);
+
+    const {
+      id2,
+      method: isMethod2,
+      methodId2,
+    } = privateNamesMap.get(bifornCringerMoshedPerplexSawder);
+
+    const {
+      id3,
+      method: isMethod3,
+      methodId3,
+    } = anodyneCondosMalateOverateRetinol.get(bifornCringerMoshedPerplexSawder);
+  }
+}
+
+================================================================================
+`;
+
 exports[`issue-1419.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -389,8 +474,9 @@ if (something) {
 
 =====================================output=====================================
 if (something) {
-  const otherBrandsWithThisAdjacencyCount123 =
-    Object.values(edge.to.edges).length;
+  const otherBrandsWithThisAdjacencyCount123 = Object.values(
+    edge.to.edges
+  ).length;
 }
 
 ================================================================================
@@ -596,6 +682,57 @@ const { _id2 } =
 const { _id: id3 } =
   data.createTestMessageWithAReallyLongName.someVeryLongProperty
     .thisIsAlsoALongProperty;
+
+================================================================================
+`;
+
+exports[`lone-arg.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let vgChannel = pointPositionDefaultRef({
+  model,
+  defaultPos,
+  channel,
+})()
+
+let vgChannel2 = pointPositionDefaultRef({ model,
+  defaultPos,
+  channel,
+})()
+
+const bifornCringerMoshedPerplexSawderGlyphsHa =
+  someBigFunctionName("foo")("bar");
+
+if (true) {
+  node.id = this.flowParseTypeAnnotatableIdentifier(/*allowPrimitiveOverride*/ true);
+}
+
+const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
+\`)("bar");
+
+=====================================output=====================================
+let vgChannel = pointPositionDefaultRef({
+  model,
+  defaultPos,
+  channel,
+})();
+
+let vgChannel2 = pointPositionDefaultRef({ model, defaultPos, channel })();
+
+const bifornCringerMoshedPerplexSawderGlyphsHa =
+  someBigFunctionName("foo")("bar");
+
+if (true) {
+  node.id = this.flowParseTypeAnnotatableIdentifier(
+    /*allowPrimitiveOverride*/ true
+  );
+}
+
+const bifornCringerMoshedPerplexSawderGlyphsHb = someBigFunctionName(\`foo
+\`)("bar");
 
 ================================================================================
 `;

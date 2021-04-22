@@ -179,3 +179,52 @@ const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> =
 
 ================================================================================
 `;
+
+exports[`lone-arg.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (true) {
+  if (condition) {
+    const secondType = sourceCode.getNodeByRangeIndex1234(second.range[0])!
+      .type;
+  }
+}
+
+=====================================output=====================================
+if (true) {
+  if (condition) {
+    const secondType = sourceCode.getNodeByRangeIndex1234(
+      second.range[0]
+    )!.type;
+  }
+}
+
+================================================================================
+`;
+
+exports[`parenthesized.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/12933/files
+(<number>x) = null;
+(x!) = null;
+(a as any) = null;
+(a as number) = 42;
+((a as any) as string) = null;
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/12933/files
+(<number>x) = null;
+x! = null;
+(a as any) = null;
+(a as number) = 42;
+(a as any as string) = null;
+
+================================================================================
+`;
