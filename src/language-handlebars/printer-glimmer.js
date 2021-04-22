@@ -50,7 +50,7 @@ function print(path, options, print) {
 
   switch (node.type) {
     case "Template": {
-      const body = group(path.map(print, "body"))
+      const body = group(path.map(print, "body"));
 
       if (options.insertFinalNewline) {
         return [body, hardline];
