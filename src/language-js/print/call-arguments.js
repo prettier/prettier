@@ -216,7 +216,8 @@ function couldGroupArg(arg, arrowChainRecursion = false) {
           (isCallExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
         isJsxNode(arg.body))) ||
-    arg.type === "DoExpression"
+    arg.type === "DoExpression" ||
+    arg.type === "ModuleExpression"
   );
 }
 
