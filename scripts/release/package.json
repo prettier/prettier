@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "chalk": "4.1.0",
+    "chalk": "4.1.1",
     "execa": "5.0.0",
     "minimist": "1.2.5",
     "node-fetch": "2.6.1",
