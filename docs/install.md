@@ -116,6 +116,8 @@ For example, you can do the following to have Prettier run before each commit:
    npx husky add .husky/pre-commit "npx lint-staged"
    ```
 
+   > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+
    <!--END_DOCUSAURUS_CODE_TABS-->
 
 2. Add the following to your `package.json`:
