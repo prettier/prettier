@@ -53,6 +53,15 @@ printWidth: 80
   exportedKey: exportedValue;
 }
 
+@keyframes :global(spin) {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 =====================================output=====================================
 @value colors: './colors.css';
 @value first, second, third from colors;
@@ -99,6 +108,15 @@ printWidth: 80
 }
 :export {
   exportedKey: exportedValue;
+}
+
+@keyframes :global(spin) {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 ================================================================================
