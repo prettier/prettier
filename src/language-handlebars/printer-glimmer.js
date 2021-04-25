@@ -49,9 +49,18 @@ function print(path, options, print) {
   }
 
   switch (node.type) {
-    case "Block":
-    case "Program":
     case "Template": {
+      const body = group(path.map(print, "body"));
+
+      if (options.insertFinalNewline) {
+        return [body, hardline];
+      }
+
+      return body;
+    }
+
+    case "Block":
+    case "Program": {
       return group(path.map(print, "body"));
     }
 
@@ -238,8 +247,6 @@ function print(path, options, print) {
         const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
 
-        // let's remove the file's final newline
-        // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
           isLastElement && isParentOfSomeType(path, ["Template"]);
         const shouldTrimLeadingNewlines =
