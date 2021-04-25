@@ -91,7 +91,9 @@ overrides:
     parserOptions:
       sourceType: module
   - files:
-      - "{tests,tests_config,tests_integration}/**/*.js"
+      - "tests/format/**/jsfmt.spec.js"
+      - "tests/config/**/*.js"
+      - "tests/integration/**/*.js"
     env:
       jest: true
     plugins:
