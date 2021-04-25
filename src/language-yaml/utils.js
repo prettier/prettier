@@ -109,13 +109,25 @@ function isPrettierIgnore(comment) {
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
+  const parentNode = path.getParentNode();
 
   if (node.type === "documentBody") {
-    const document = path.getParentNode();
     return (
-      hasEndComments(document.head) &&
-      isPrettierIgnore(getLast(document.head.endComments))
+      hasEndComments(parentNode.head) &&
+      isPrettierIgnore(getLast(parentNode.head.endComments))
     );
+  }
+
+  // If `prettier-ignore` after anchor or tag (in middleComments)
+  // https://github.com/ikatyang/yaml-unist-parser/issues/277
+  if (
+    parentNode &&
+    (parentNode.tag || parentNode.anchor) &&
+    hasMiddleComments(parentNode) &&
+    isPrettierIgnore(getLast(parentNode.middleComments)) &&
+    path.getName() === 0
+  ) {
+    return true;
   }
 
   return (

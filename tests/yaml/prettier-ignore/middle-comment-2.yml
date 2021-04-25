@@ -1,0 +1,49 @@
+a: &anchor
+  # prettier-ignore
+  - [1,      2]
+  - [1,      2]
+
+b: !!tag
+  # prettier-ignore
+  - [1,      2]
+  - [1,      2]
+
+c:
+  - &anchor
+    # prettier-ignore
+    # another comment
+    - [1,      2]
+    - [1,      2]
+
+  - !!tag
+    # prettier-ignore
+    - [1,      2]
+    - [1,      2]
+
+  - !!tag
+    # prettier-ignore
+    key:      value
+    key2:      value
+
+d:
+  - &parent
+    - &child1
+      # prettier-ignore
+      - [1,      2]
+      - [1,      2]
+    - &child2
+      - [1,      2]
+      - [1,      2]
+
+e: &anchor
+  # prettier-ignore
+  '                             should be ignored'
+
+f: &anchor
+  # prettier-ignore
+  [   [1,      2], [3,      4]            ]
+
+#9327
+prettier_ignore_ignored: &prettier_ignore_ignored
+  # prettier-ignore
+  -              echo "very very very very very very very very very very very very very very very very very very long line" > /dev/null
