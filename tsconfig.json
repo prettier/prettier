@@ -42,8 +42,6 @@
     "docs/",
     "scripts/",
     "tests/",
-    "tests_config/",
-    "tests_integration/",
     "website/"
   ]
 }
