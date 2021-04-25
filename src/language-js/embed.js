@@ -20,7 +20,7 @@ function getLanguage(path) {
     return "graphql";
   }
 
-  if (isHtml(path)) {
+  if (isHtml(path) || isSvg(path)) {
     return "html";
   }
 
@@ -286,6 +286,24 @@ function isHtml(path) {
         node.type === "TaggedTemplateExpression" &&
         node.tag.type === "Identifier" &&
         node.tag.name === "html" &&
+        name === "quasi"
+    )
+  );
+}
+
+/**
+ *     - svg`...`
+ *     - SVG comment block
+ */
+function isSvg(path) {
+  return (
+    hasLanguageComment(path.getValue(), "SVG") ||
+    path.match(
+      (node) => node.type === "TemplateLiteral",
+      (node, name) =>
+        node.type === "TaggedTemplateExpression" &&
+        node.tag.type === "Identifier" &&
+        node.tag.name === "svg" &&
         name === "quasi"
     )
   );
