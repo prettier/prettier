@@ -142,4 +142,9 @@ p {
     @if (str-slice($item, 0, 1) == ":") {}
     @if (str-slice($item, 0, 3) == " : ") {}
     @if ($type == ocean) {} @else if ($type == matador) {} @else {}
+
+    @if $something == $something-else and $another-thing == $another-thing-with-long-name {}
+    @if $something-long-very-very-very-very-very-very-very-long == $something-long-very-very-very-very-very-very-very-very-long or $another-thing == $another-thing-with-long-name {}
+    @if 0 == $some-var {}
+    @if 0 == $something-else and 1 == $another-thing-with-long-name {}
 }

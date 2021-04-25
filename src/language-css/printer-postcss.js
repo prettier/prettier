@@ -736,6 +736,9 @@ function genericPrint(path, options, print) {
         if (
           isControlDirective &&
           (isEqualityOperatorNode(iNextNode) ||
+            (isEqualityOperatorNode(iNode) &&
+              iNextNode.value &&
+              iNextNode.value.startsWith("$")) ||
             isRelationalOperatorNode(iNextNode) ||
             isIfElseKeywordNode(iNextNode) ||
             isEachKeywordNode(iNode) ||

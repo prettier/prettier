@@ -2092,6 +2092,11 @@ p {
     @if (str-slice($item, 0, 1) == ":") {}
     @if (str-slice($item, 0, 3) == " : ") {}
     @if ($type == ocean) {} @else if ($type == matador) {} @else {}
+
+    @if $something == $something-else and $another-thing == $another-thing-with-long-name {}
+    @if $something-long-very-very-very-very-very-very-very-long == $something-long-very-very-very-very-very-very-very-very-long or $another-thing == $another-thing-with-long-name {}
+    @if 0 == $some-var {}
+    @if 0 == $something-else and 1 == $another-thing-with-long-name {}
 }
 
 =====================================output=====================================
@@ -2157,18 +2162,15 @@ p {
   @if $type == ocean {
   } @else if $type == matador {
   }
-  @if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables ==
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
+  @if $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
   {
     color: blue;
   } @else if
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables ==
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
   {
     color: red;
   } @else if
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables ==
-    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
+    $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables == $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-variables
   {
     color: green;
   } @else {
@@ -2223,6 +2225,19 @@ p {
   @if ($type == ocean) {
   } @else if ($type == matador) {
   } @else {
+  }
+
+  @if $something == $something-else and
+    $another-thing == $another-thing-with-long-name
+  {
+  }
+  @if $something-long-very-very-very-very-very-very-very-long == $something-long-very-very-very-very-very-very-very-very-long or
+    $another-thing == $another-thing-with-long-name
+  {
+  }
+  @if 0 == $some-var {
+  }
+  @if 0 == $something-else and 1 == $another-thing-with-long-name {
   }
 }
 
