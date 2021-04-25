@@ -602,6 +602,11 @@ printWidth: 80
 // comment 29
 {}
 
+@media screen, // comment 30
+  print { 
+  // comment 31
+}
+
 =====================================output=====================================
 .powerPathNavigator .helm button.pressedButton, // comment 1
 .powerPathNavigator .helm button:active:not(.disabledButton),
@@ -667,6 +672,11 @@ printWidth: 80
 .bar
 // comment 29
 {
+}
+
+@media screen, // comment 30
+  print {
+  // comment 31
 }
 
 ================================================================================
