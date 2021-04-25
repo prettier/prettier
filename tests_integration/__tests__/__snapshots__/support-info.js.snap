@@ -426,7 +426,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"linguistLanguageId\\": 174,
       \\"name\\": \\"JSON.stringify\\",
       \\"parsers\\": [\\"json-stringify\\"],
-      \\"searchable\\": false,
       \\"since\\": \\"1.13.0\\",
       \\"tmScope\\": \\"source.json\\",
       \\"type\\": \\"data\\",
@@ -466,7 +465,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"linguistLanguageId\\": 174,
       \\"name\\": \\"JSON\\",
       \\"parsers\\": [\\"json\\"],
-      \\"searchable\\": false,
       \\"since\\": \\"1.5.0\\",
       \\"tmScope\\": \\"source.json\\",
       \\"type\\": \\"data\\",
@@ -679,7 +677,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".htm\\",
         \\".html.hl\\",
         \\".inc\\",
-        \\".st\\",
         \\".xht\\",
         \\".xhtml\\",
         \\".mjml\\"
