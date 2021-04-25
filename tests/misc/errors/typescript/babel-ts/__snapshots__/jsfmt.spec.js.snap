@@ -16,6 +16,16 @@ exports[`classAbstractMethodWithImplementation.ts [babel-ts] format 1`] = `
   3 | }"
 `;
 
+exports[`declare-accessor.ts [babel-ts] format 1`] = `
+"'declare' is not allowed in getters. (2:3)
+  1 | class Foo {
+> 2 |   declare get foo()
+    |   ^
+  3 |   declare set foo(v)
+  4 | }
+  5 |"
+`;
+
 exports[`snippet: #0 [babel-ts] format 1`] = `
 "Invalid left-hand side in assignment expression (1:1)
 > 1 | foo as any = 10;
