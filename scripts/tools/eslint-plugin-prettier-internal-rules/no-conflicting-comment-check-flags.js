@@ -54,7 +54,7 @@ module.exports = {
       ':not(BinaryExpression) > BinaryExpression[operator="|"]'(node) {
         const flags = flatFlags(node);
 
-        if (flags.length === 0) {
+        if (flags.length < 2) {
           return;
         }
 
