@@ -252,7 +252,7 @@ function shouldGroupFirstArg(args) {
 
   if (
     firstArg.type === "ModuleExpression" &&
-    secondArg.type === "ObjectExpression"
+    isTypeModuleObjectExpression(secondArg)
   ) {
     return true;
   }
@@ -285,6 +285,19 @@ function isNonEmptyBlockStatement(node) {
     node.type === "BlockStatement" &&
     (node.body.some((node) => node.type !== "EmptyStatement") ||
       hasComment(node, CommentCheckFlags.Dangling))
+  );
+}
+
+// { type: "module" }
+function isTypeModuleObjectExpression(node) {
+  return (
+    node.type === "ObjectExpression" &&
+    node.properties.length === 1 &&
+    node.properties[0].type === "ObjectProperty" &&
+    node.properties[0].key.type === "Identifier" &&
+    node.properties[0].key.name === "type" &&
+    node.properties[0].value.type === "StringLiteral" &&
+    node.properties[0].value.value === "module"
   );
 }
 
