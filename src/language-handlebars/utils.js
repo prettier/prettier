@@ -1,6 +1,7 @@
 "use strict";
 
 const htmlVoidElements = require("html-void-elements");
+const getLast = require("../utils/get-last");
 
 function isLastNodeOfSiblings(path) {
   const node = path.getValue();
@@ -8,14 +9,14 @@ function isLastNodeOfSiblings(path) {
 
   if (
     isParentOfSomeType(path, ["ElementNode"]) &&
-    parentNode.children[parentNode.children.length - 1] === node
+    getLast(parentNode.children) === node
   ) {
     return true;
   }
 
   if (
     isParentOfSomeType(path, ["Block"]) &&
-    parentNode.body[parentNode.body.length - 1] === node
+    getLast(parentNode.body) === node
   ) {
     return true;
   }
@@ -39,7 +40,7 @@ const voidTags = new Set(htmlVoidElements);
 function isVoid(node) {
   return (
     (isGlimmerComponent(node) &&
-      node.children.every((n) => isWhitespaceNode(n))) ||
+      node.children.every((node) => isWhitespaceNode(node))) ||
     voidTags.has(node.tag)
   );
 }

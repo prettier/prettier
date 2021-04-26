@@ -20,6 +20,8 @@ const {
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment,
   hasIgnoreComment,
+  isCallLikeExpression,
+  getCallArguments,
   isCallExpression,
   isMemberExpression,
 } = require("./utils");
@@ -390,10 +392,7 @@ function handleClassComments({
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
-      addTrailingComment(
-        enclosingNode.decorators[enclosingNode.decorators.length - 1],
-        comment
-      );
+      addTrailingComment(getLast(enclosingNode.decorators), comment);
       return true;
     }
 
@@ -521,9 +520,8 @@ function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
       getFunctionParameters(enclosingNode).length === 0) ||
-      ((isCallExpression(enclosingNode) ||
-        enclosingNode.type === "NewExpression") &&
-        enclosingNode.arguments.length === 0))
+      (isCallLikeExpression(enclosingNode) &&
+        getCallArguments(enclosingNode).length === 0))
   ) {
     addDanglingComment(enclosingNode, comment);
     return true;
@@ -701,7 +699,13 @@ function handlePropertyComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
+function handleOnlyComments({
+  comment,
+  enclosingNode,
+  followingNode,
+  ast,
+  isLastComment,
+}) {
   // With Flow the enclosingNode is undefined so use the AST instead.
   if (ast && ast.body && ast.body.length === 0) {
     if (isLastComment) {
@@ -724,6 +728,17 @@ function handleOnlyComments({ comment, enclosingNode, ast, isLastComment }) {
     } else {
       addLeadingComment(enclosingNode, comment);
     }
+    return true;
+  }
+
+  if (
+    followingNode &&
+    followingNode.type === "Program" &&
+    followingNode.body.length === 0 &&
+    enclosingNode &&
+    enclosingNode.type === "ModuleExpression"
+  ) {
+    addDanglingComment(followingNode, comment);
     return true;
   }
 
@@ -887,22 +902,6 @@ function isRealFunctionLikeNode(node) {
 }
 
 /**
- * @param {Node} enclosingNode
- * @returns {RegExp | void}
- */
-function getGapRegex(enclosingNode) {
-  if (
-    enclosingNode &&
-    enclosingNode.type !== "BinaryExpression" &&
-    enclosingNode.type !== "LogicalExpression"
-  ) {
-    // Support degenerate single-element unions and intersections.
-    // E.g.: `type A = /* 1 */ & B`
-    return /^[\s&(|]*$/;
-  }
-}
-
-/**
  * @param {any} node
  * @returns {Node[] | void}
  */
@@ -980,7 +979,6 @@ module.exports = {
   handleEndOfLineComment,
   handleRemainingComment,
   isTypeCastComment,
-  getGapRegex,
   getCommentChildNodes,
   willPrintOwnComments,
 };

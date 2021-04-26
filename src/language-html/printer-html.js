@@ -1,6 +1,11 @@
 "use strict";
 
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
+
 const assert = require("assert");
+
 const {
   builders: {
     breakParent,
@@ -322,7 +327,7 @@ function genericPrint(path, options, print) {
                         options.tabWidth *
                         countParents(
                           path,
-                          (n) => n.parent && n.parent.type !== "root"
+                          (node) => node.parent && node.parent.type !== "root"
                         )
                       }}$`
                     ).test(node.lastChild.value)
@@ -546,7 +551,7 @@ function printChildren(path, options, print) {
       ];
     }
 
-    return print(childPath);
+    return print();
   }
 
   function printBetweenLine(prevNode, nextNode) {
@@ -666,7 +671,7 @@ function printAttributes(path, options, print) {
           options.originalText.slice(locStart(attribute), locEnd(attribute)),
           literalline
         )
-      : print(attributePath);
+      : print();
   }, "attrs");
 
   const forceNotToBreakAttrContent =
@@ -676,6 +681,7 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
+  /** @type {Doc[]} */
   const parts = [
     indent([
       forceNotToBreakAttrContent ? " " : line,
@@ -992,7 +998,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     group([indent([softline, doc]), canHaveTrailingWhitespace ? softline : ""]);
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
-  const textToDoc = (code, opts) =>
+  const attributeTextToDoc = (code, opts) =>
     originalTextToDoc(
       code,
       { __onHtmlBindingRoot, __embeddedInHtml: true, ...opts },
@@ -1017,25 +1023,21 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        textToDoc(
-          value,
-          {
-            parser: "css",
-            __isHTMLStyleAttribute: true,
-          },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(value, {
+          parser: "css",
+          __isHTMLStyleAttribute: true,
+        })
       );
     }
   }
 
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
-      return printVueFor(getValue(), textToDoc);
+      return printVueFor(getValue(), attributeTextToDoc);
     }
 
     if (isVueSlotAttribute(node) || isVueSfcBindingsAttribute(node, options)) {
-      return printVueBindings(getValue(), textToDoc);
+      return printVueBindings(getValue(), attributeTextToDoc);
     }
 
     /**
@@ -1058,35 +1060,23 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
       return printMaybeHug(
-        textToDoc(
-          value,
-          {
-            parser: isVueEventBindingExpression(value)
-              ? "__js_expression"
-              : "__vue_event_binding",
-          },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(value, {
+          parser: isVueEventBindingExpression(value)
+            ? "__js_expression"
+            : "__vue_event_binding",
+        })
       );
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(
-          getValue(),
-          { parser: "__vue_expression" },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(getValue(), { parser: "__vue_expression" })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        textToDoc(
-          getValue(),
-          { parser: "__js_expression" },
-          { stripTrailingHardline: true }
-        )
+        attributeTextToDoc(getValue(), { parser: "__js_expression" })
       );
     }
   }
@@ -1094,11 +1084,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(
-        code,
-        { ...opts, trailingComma: "none" },
-        { stripTrailingHardline: true }
-      );
+      attributeTextToDoc(code, { ...opts, trailingComma: "none" });
 
     /**
      *     *directive="angularDirective"

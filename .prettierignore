@@ -3,9 +3,9 @@ dist/
 coverage/
 /tests/**/*.*
 !/tests/**/jsfmt.spec.js
-/tests_integration/cli/
-/tests_integration/plugins/
-/tests_integration/custom-parsers/
+/tests/integration/cli/
+/tests/integration/plugins/
+/tests/integration/custom-parsers/
 /website/build/
 /website/static/lib/
 /website/static/playground.js

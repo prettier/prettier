@@ -1,0 +1,668 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `
+"--arrow-parens <always|avoid>
+
+  Include parentheses around a sole arrow function parameter.
+
+Valid options:
+
+  always   Always include parens. Example: \`(x) => x\`
+  avoid    Omit parens when possible. Example: \`x => x\`
+
+Default: always
+"
+`;
+
+exports[`show detailed usage with --help arrow-parens (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help bracket-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help bracket-spacing (stdout) 1`] = `
+"--bracket-spacing
+
+  Print spaces between brackets.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help bracket-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help check (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help check (stdout) 1`] = `
+"-c, --check
+
+  Check if the given files are formatted, print a human-friendly summary
+  message and paths to unformatted files (see also --list-different).
+"
+`;
+
+exports[`show detailed usage with --help check (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help color (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help color (stdout) 1`] = `
+"--color
+
+  Colorize error messages.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help color (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help config (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help config (stdout) 1`] = `
+"--config <path>
+
+  Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).
+"
+`;
+
+exports[`show detailed usage with --help config (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help config-precedence (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help config-precedence (stdout) 1`] = `
+"--config-precedence <cli-override|file-override|prefer-file>
+
+  Define in which order config files and CLI options should be evaluated.
+
+Valid options:
+
+  cli-override    CLI options take precedence over config file
+  file-override   Config file take precedence over CLI options
+  prefer-file     If a config file is found will evaluate it and ignore other CLI options.
+                  If no config file is found CLI options will evaluate as normal.
+
+Default: cli-override
+"
+`;
+
+exports[`show detailed usage with --help config-precedence (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help cursor-offset (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help cursor-offset (stdout) 1`] = `
+"--cursor-offset <int>
+
+  Print (to stderr) where a cursor at the given position would move to after formatting.
+  This option cannot be used with --range-start and --range-end.
+
+Default: -1
+"
+`;
+
+exports[`show detailed usage with --help cursor-offset (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help editorconfig (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help editorconfig (stdout) 1`] = `
+"--editorconfig
+
+  Take .editorconfig into account when parsing configuration.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help embedded-language-formatting (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help embedded-language-formatting (stdout) 1`] = `
+"--embedded-language-formatting <auto|off>
+
+  Control how Prettier formats quoted code embedded in the file.
+
+Valid options:
+
+  auto   Format embedded code if Prettier can automatically identify it.
+  off    Never automatically format embedded code.
+
+Default: auto
+"
+`;
+
+exports[`show detailed usage with --help embedded-language-formatting (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help end-of-line (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help end-of-line (stdout) 1`] = `
+"--end-of-line <lf|crlf|cr|auto>
+
+  Which end of line characters to apply.
+
+Valid options:
+
+  lf     Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos
+  crlf   Carriage Return + Line Feed characters (\\\\r\\\\n), common on Windows
+  cr     Carriage Return character only (\\\\r), used very rarely
+  auto   Maintain existing
+         (mixed values within one file are normalised by looking at what's used after the first line)
+
+Default: lf
+"
+`;
+
+exports[`show detailed usage with --help end-of-line (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help file-info (stdout) 1`] = `
+"--file-info <path>
+
+  Extract the following info (as JSON) for a given file path. Reported fields:
+  * ignored (boolean) - true if file path is filtered by --ignore-path
+  * inferredParser (string | null) - name of parser inferred from file path
+"
+`;
+
+exports[`show detailed usage with --help file-info (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help find-config-path (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
+"--find-config-path <path>
+
+  Find and print the path to a configuration file for the given input file.
+"
+`;
+
+exports[`show detailed usage with --help find-config-path (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help help (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help help (stdout) 1`] = `
+"-h, --help <flag>
+
+  Show CLI usage, or details about the given flag.
+  Example: --help write
+"
+`;
+
+exports[`show detailed usage with --help help (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help html-whitespace-sensitivity (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help html-whitespace-sensitivity (stdout) 1`] = `
+"--html-whitespace-sensitivity <css|strict|ignore>
+
+  How to handle whitespaces in HTML.
+
+Valid options:
+
+  css      Respect the default value of CSS display property.
+  strict   Whitespaces are considered sensitive.
+  ignore   Whitespaces are considered insensitive.
+
+Default: css
+"
+`;
+
+exports[`show detailed usage with --help html-whitespace-sensitivity (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help ignore-path (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help ignore-path (stdout) 1`] = `
+"--ignore-path <path>
+
+  Path to a file with patterns describing files to ignore.
+
+Default: .prettierignore
+"
+`;
+
+exports[`show detailed usage with --help ignore-path (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help ignore-unknown (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help ignore-unknown (stdout) 1`] = `
+"-u, --ignore-unknown
+
+  Ignore unknown files.
+"
+`;
+
+exports[`show detailed usage with --help ignore-unknown (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help insert-pragma (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help insert-pragma (stdout) 1`] = `
+"--insert-pragma
+
+  Insert @format pragma into file's first docblock comment.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help insert-pragma (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help jsx-bracket-same-line (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help jsx-bracket-same-line (stdout) 1`] = `
+"--jsx-bracket-same-line
+
+  Put > on the last line instead of at a new line.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help jsx-bracket-same-line (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help jsx-single-quote (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help jsx-single-quote (stdout) 1`] = `
+"--jsx-single-quote
+
+  Use single quotes in JSX.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help jsx-single-quote (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help list-different (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help list-different (stdout) 1`] = `
+"-l, --list-different
+
+  Print the names of files that are different from Prettier's formatting (see also --check).
+"
+`;
+
+exports[`show detailed usage with --help list-different (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help loglevel (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help loglevel (stdout) 1`] = `
+"--loglevel <silent|error|warn|log|debug>
+
+  What level of logs to report.
+
+Valid options:
+
+  silent   
+  error    
+  warn     
+  log      
+  debug    
+
+Default: log
+"
+`;
+
+exports[`show detailed usage with --help loglevel (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-bracket-spacing (stdout) 1`] = `
+"--no-bracket-spacing
+
+  Do not print spaces between brackets.
+"
+`;
+
+exports[`show detailed usage with --help no-bracket-spacing (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-color (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-color (stdout) 1`] = `
+"--no-color
+
+  Do not colorize error messages.
+"
+`;
+
+exports[`show detailed usage with --help no-color (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-config (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-config (stdout) 1`] = `
+"--no-config
+
+  Do not look for a configuration file.
+"
+`;
+
+exports[`show detailed usage with --help no-config (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-editorconfig (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-editorconfig (stdout) 1`] = `
+"--no-editorconfig
+
+  Don't take .editorconfig into account when parsing configuration.
+"
+`;
+
+exports[`show detailed usage with --help no-editorconfig (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-error-on-unmatched-pattern (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-error-on-unmatched-pattern (stdout) 1`] = `
+"--no-error-on-unmatched-pattern
+
+  Prevent errors when pattern is unmatched.
+"
+`;
+
+exports[`show detailed usage with --help no-error-on-unmatched-pattern (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-semi (stdout) 1`] = `
+"--no-semi
+
+  Do not print semicolons, except at the beginning of lines which may need them.
+"
+`;
+
+exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help parser (stdout) 1`] = `
+"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+
+  Which parser to use.
+
+Valid options:
+
+  flow             Flow
+  babel            JavaScript
+  babel-flow       Flow
+  babel-ts         TypeScript
+  typescript       TypeScript
+  espree           JavaScript
+  meriyah          JavaScript
+  css              CSS
+  less             Less
+  scss             SCSS
+  json             JSON
+  json5            JSON5
+  json-stringify   JSON.stringify
+  graphql          GraphQL
+  markdown         Markdown
+  mdx              MDX
+  vue              Vue
+  yaml             YAML
+  glimmer          Ember / Handlebars
+  html             HTML
+  angular          Angular
+  lwc              Lightning Web Components
+"
+`;
+
+exports[`show detailed usage with --help parser (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help plugin (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help plugin (stdout) 1`] = `
+"--plugin <path>
+
+  Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
+
+Default: []
+"
+`;
+
+exports[`show detailed usage with --help plugin (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help plugin-search-dir (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help plugin-search-dir (stdout) 1`] = `
+"--plugin-search-dir <path>
+
+  Custom directory that contains prettier plugins in node_modules subdirectory.
+  Overrides default behavior when plugins are searched relatively to the location of Prettier.
+  Multiple values are accepted.
+
+Default: []
+"
+`;
+
+exports[`show detailed usage with --help plugin-search-dir (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help print-width (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help print-width (stdout) 1`] = `
+"--print-width <int>
+
+  The line length where Prettier will try wrap.
+
+Default: 80
+"
+`;
+
+exports[`show detailed usage with --help print-width (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help prose-wrap (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help prose-wrap (stdout) 1`] = `
+"--prose-wrap <always|never|preserve>
+
+  How to wrap prose.
+
+Valid options:
+
+  always     Wrap prose if it exceeds the print width.
+  never      Do not wrap prose.
+  preserve   Wrap prose as-is.
+
+Default: preserve
+"
+`;
+
+exports[`show detailed usage with --help prose-wrap (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help quote-props (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help quote-props (stdout) 1`] = `
+"--quote-props <as-needed|consistent|preserve>
+
+  Change when properties in objects are quoted.
+
+Valid options:
+
+  as-needed    Only add quotes around object properties where required.
+  consistent   If at least one property in an object requires quotes, quote all properties.
+  preserve     Respect the input use of quotes in object properties.
+
+Default: as-needed
+"
+`;
+
+exports[`show detailed usage with --help quote-props (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help range-end (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help range-end (stdout) 1`] = `
+"--range-end <int>
+
+  Format code ending at a given character offset (exclusive).
+  The range will extend forwards to the end of the selected statement.
+  This option cannot be used with --cursor-offset.
+
+Default: Infinity
+"
+`;
+
+exports[`show detailed usage with --help range-end (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help range-start (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help range-start (stdout) 1`] = `
+"--range-start <int>
+
+  Format code starting at a given character offset.
+  The range will extend backwards to the start of the first line containing the selected statement.
+  This option cannot be used with --cursor-offset.
+
+Default: 0
+"
+`;
+
+exports[`show detailed usage with --help range-start (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help require-pragma (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help require-pragma (stdout) 1`] = `
+"--require-pragma
+
+  Require either '@prettier' or '@format' to be present in the file's first docblock comment
+  in order for it to be formatted.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help require-pragma (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help semi (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help semi (stdout) 1`] = `
+"--semi
+
+  Print semicolons.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help semi (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help single-quote (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help single-quote (stdout) 1`] = `
+"--single-quote
+
+  Use single quotes instead of double quotes.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help stdin-filepath (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `
+"--stdin-filepath <path>
+
+  Path to the file to pretend that stdin comes from.
+"
+`;
+
+exports[`show detailed usage with --help stdin-filepath (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help support-info (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help support-info (stdout) 1`] = `
+"--support-info
+
+  Print support information as JSON.
+"
+`;
+
+exports[`show detailed usage with --help support-info (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help tab-width (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help tab-width (stdout) 1`] = `
+"--tab-width <int>
+
+  Number of spaces per indentation level.
+
+Default: 2
+"
+`;
+
+exports[`show detailed usage with --help tab-width (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help trailing-comma (stdout) 1`] = `
+"--trailing-comma <es5|none|all>
+
+  Print trailing commas wherever possible when multi-line.
+
+Valid options:
+
+  es5    Trailing commas where valid in ES5 (objects, arrays, etc.)
+  none   No trailing commas.
+  all    Trailing commas wherever possible (including function arguments).
+
+Default: es5
+"
+`;
+
+exports[`show detailed usage with --help trailing-comma (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help use-tabs (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help use-tabs (stdout) 1`] = `
+"--use-tabs
+
+  Indent with tabs instead of spaces.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help use-tabs (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help version (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help version (stdout) 1`] = `
+"-v, --version
+
+  Print Prettier version.
+"
+`;
+
+exports[`show detailed usage with --help version (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help vue-indent-script-and-style (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help vue-indent-script-and-style (stdout) 1`] = `
+"--vue-indent-script-and-style
+
+  Indent script and style tags in Vue files.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help vue-indent-script-and-style (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help with-node-modules (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help with-node-modules (stdout) 1`] = `
+"--with-node-modules
+
+  Process files inside 'node_modules' directory.
+"
+`;
+
+exports[`show detailed usage with --help with-node-modules (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help write (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help write (stdout) 1`] = `
+"-w, --write
+
+  Edit files in-place. (Beware!)
+"
+`;
+
+exports[`show detailed usage with --help write (write) 1`] = `Array []`;

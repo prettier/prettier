@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CLI overrides take precedence (stderr) 1`] = `""`;
+
+exports[`CLI overrides take precedence (stdout) 1`] = `
+"function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
+console.log(
+  \\"jest/Component.js should not have semi\\"
+)
+console.log(
+  \\"jest/Component.test.js should have semi\\"
+);
+function js() {
+        console.log(
+                \\"js/file.js should have tab width 8 (1 if CLI)\\"
+        );
+}
+\\"use strict\\";
+
+module.exports =
+        {
+                endOfLine: \\"auto\\",
+                tabWidth: 8,
+        };
+function noConfigJs() {
+  console.log(
+    \\"no-config/file.js should have no semicolons\\"
+  )
+}
+function packageJs() {
+   console.log(
+      \\"package/file.js should have tab width 3\\"
+   );
+}
+function rcJson() {
+  console.log.apply(
+    null,
+    [
+      'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcYaml() {
+  console.log.apply(
+    null,
+    [
+      'rc-yaml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+"
+`;
+
+exports[`CLI overrides take precedence (write) 1`] = `Array []`;
+
+exports[`accepts configuration from --config (stderr) 1`] = `""`;
+
+exports[`accepts configuration from --config (stdout) 1`] = `
+"function js() {
+ console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\")
+}
+"
+`;
+
+exports[`accepts configuration from --config (write) 1`] = `Array []`;
+
+exports[`prints error message when no file found with --find-config-path (stderr) 1`] = `
+"[error] Can not find configure file for \\"..\\"
+"
+`;
+
+exports[`prints error message when no file found with --find-config-path (write) 1`] = `Array []`;
+
+exports[`resolves configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves configuration file with --find-config-path file (stdout) 1`] = `
+".prettierrc
+"
+`;
+
+exports[`resolves configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves configuration from external files (stderr) 1`] = `""`;
+
+exports[`resolves configuration from external files (stdout) 1`] = `
+"function f() {
+	console.log(\\"should have tab width 8\\")
+}
+function f() {
+  console.log(\\"should have space width 2\\")
+}
+function f() {
+        console.log(\\"should have space width 8\\")
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(\\"should have no semi\\")
+console.log(\\"jest/__best-tests__/.file.js should have semi\\");
+console.log(\\"jest/__best-tests__/file.js should have semi\\");
+console.log(\\"jest/Component.js should not have semi\\")
+console.log(\\"jest/Component.test.js should have semi\\");
+function js() {
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
+}
+\\"use strict\\";
+
+module.exports = {
+        endOfLine: \\"auto\\",
+        tabWidth: 8,
+};
+function noConfigJs() {
+  console.log(\\"no-config/file.js should have no semicolons\\")
+}
+function packageJs() {
+   console.log(\\"package/file.js should have tab width 3\\");
+}
+function rcJson() {
+  console.log.apply(null, [
+    'rc-json/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcToml() {
+  console.log.apply(null, [
+    'rc-toml/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcYaml() {
+  console.log.apply(null, [
+    'rc-yaml/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+"
+`;
+
+exports[`resolves configuration from external files (write) 1`] = `Array []`;
+
+exports[`resolves configuration from external files and overrides by extname (stderr) 1`] = `""`;
+
+exports[`resolves configuration from external files and overrides by extname (stdout) 1`] = `
+"function noConfigTs() {
+  console.log(
+    \\"no-config/file.ts should have semicolons because it has a .ts extension\\"
+  );
+}
+function packageTs() {
+     console.log(
+          \\"package/file.ts should have tab width 5 because it has .ts extension\\"
+     );
+}
+"
+`;
+
+exports[`resolves configuration from external files and overrides by extname (write) 1`] = `Array []`;
+
+exports[`resolves external configuration from package.json (stderr) 1`] = `""`;
+
+exports[`resolves external configuration from package.json (stdout) 1`] = `
+"console.log(\\"should have no semi\\")
+"
+`;
+
+exports[`resolves external configuration from package.json (write) 1`] = `Array []`;
+
+exports[`resolves json configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves json configuration file with --find-config-path file (stdout) 1`] = `
+"rc-json/.prettierrc.json
+"
+`;
+
+exports[`resolves json configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves toml configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves toml configuration file with --find-config-path file (stdout) 1`] = `
+"rc-toml/.prettierrc.toml
+"
+`;
+
+exports[`resolves toml configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves yaml configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves yaml configuration file with --find-config-path file (stdout) 1`] = `
+"rc-yaml/.prettierrc.yaml
+"
+`;
+
+exports[`resolves yaml configuration file with --find-config-path file (write) 1`] = `Array []`;

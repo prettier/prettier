@@ -1,6 +1,7 @@
 !/*.js
-/tests/**/*.js
-!/tests/**/jsfmt.spec.js
+/tests/format/**/*.js
+/tests/integration/cli/
+!/tests/format/**/jsfmt.spec.js
 !/**/.eslintrc.js
 /test*.js
 /scripts/release/node_modules
@@ -10,4 +11,3 @@
 /website/build/
 /website/static/playground.js
 /website/static/lib/
-/tests_integration/cli/

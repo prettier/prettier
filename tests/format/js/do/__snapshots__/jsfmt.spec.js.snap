@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`call-arguments.js [espree] format 1`] = `
+"Unexpected token do (3:3)
+  1 | // from https://github.com/babel/babel/pull/13122/
+  2 | expect(
+> 3 |   do {
+    |   ^
+  4 |     var bar = \\"foo\\";
+  5 |     if (!bar) throw new Error(
+  6 |       \\"unreachable\\""
+`;
+
+exports[`call-arguments.js [meriyah] format 1`] = `
+"[3:4]: Unexpected token: 'do' (3:4)
+  1 | // from https://github.com/babel/babel/pull/13122/
+  2 | expect(
+> 3 |   do {
+    |    ^
+  4 |     var bar = \\"foo\\";
+  5 |     if (!bar) throw new Error(
+  6 |       \\"unreachable\\""
+`;
+
+exports[`call-arguments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// from https://github.com/babel/babel/pull/13122/
+expect(
+  do {
+    var bar = "foo";
+    if (!bar) throw new Error(
+      "unreachable"
+    )
+    bar;
+  }
+).toBe("foo");
+expect(bar).toBe("foo");
+
+var x = do {
+  var bar = "foo";
+  if (!bar) throw new Error(
+    "unreachable"
+  )
+  bar;
+};
+
+expect(
+  do {
+    var bar = "foo";
+    bar;
+  }
+).toBe("foo");
+expect(bar).toBe("foo");
+
+var x = do {
+  var bar = "foo";
+  bar;
+};
+
+expect(
+  () => do {
+    () => {
+      var bar = "foo";
+    };
+    bar;
+  }
+).toThrow(ReferenceError);
+
+=====================================output=====================================
+// from https://github.com/babel/babel/pull/13122/
+expect(do {
+  var bar = "foo";
+  if (!bar) throw new Error("unreachable");
+  bar;
+}).toBe("foo");
+expect(bar).toBe("foo");
+
+var x = do {
+  var bar = "foo";
+  if (!bar) throw new Error("unreachable");
+  bar;
+};
+
+expect(do {
+  var bar = "foo";
+  bar;
+}).toBe("foo");
+expect(bar).toBe("foo");
+
+var x = do {
+  var bar = "foo";
+  bar;
+};
+
+expect(
+  () => do {
+    () => {
+      var bar = "foo";
+    };
+    bar;
+  }
+).toThrow(ReferenceError);
+
+================================================================================
+`;
+
+exports[`do.js [espree] format 1`] = `
+"Unexpected token do (3:5)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |     ^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }"
+`;
+
+exports[`do.js [meriyah] format 1`] = `
+"[3:6]: Unexpected token: 'do' (3:6)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |      ^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }"
+`;
+
+exports[`do.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const envSpecific = {
+  domain:
+    do {
+      if(env === 'production') 'https://abc.mno.com/';
+      else if(env === 'development') 'http://localhost:4000';
+    }
+};
+
+let x = do {
+  let tmp = f();
+  tmp * tmp + 1
+};
+
+let y = do {
+  if (foo()) { f() }
+  else if (bar()) { g() }
+  else { h() }
+};
+
+function foo() {
+  return (
+    <nav>
+      <Home />
+      {
+        do {
+          if (loggedIn) {
+            <LogoutButton />
+          } else {
+            <LoginButton />
+          }
+        }
+      }
+    </nav>
+  );
+}
+
+(do {});
+(do {} + 1);
+(1 + do {});
+() => do {};
+
+(do {
+  switch(0) {
+    case 0: "foo";
+    case 1: break;
+  }
+});
+
+() => do {
+  var obj = { foo: "bar", bar: "foo" };
+  for (var key in obj) {
+    obj[key];
+  }
+};
+
+=====================================output=====================================
+const envSpecific = {
+  domain: do {
+    if (env === "production") "https://abc.mno.com/";
+    else if (env === "development") "http://localhost:4000";
+  },
+};
+
+let x = do {
+  let tmp = f();
+  tmp * tmp + 1;
+};
+
+let y = do {
+  if (foo()) {
+    f();
+  } else if (bar()) {
+    g();
+  } else {
+    h();
+  }
+};
+
+function foo() {
+  return (
+    <nav>
+      <Home />
+      {do {
+        if (loggedIn) {
+          <LogoutButton />;
+        } else {
+          <LoginButton />;
+        }
+      }}
+    </nav>
+  );
+}
+
+(do {});
+(do {} + 1);
+1 + do {};
+() => do {};
+
+(do {
+  switch (0) {
+    case 0:
+      "foo";
+    case 1:
+      break;
+  }
+});
+
+() => do {
+  var obj = { foo: "bar", bar: "foo" };
+  for (var key in obj) {
+    obj[key];
+  }
+};
+
+================================================================================
+`;

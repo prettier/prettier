@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CLI --stdin-filepath works with --config-precedence cli-override (stdout) 1`] = `
+"let x: keyof Y = foo<typeof X>()
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence cli-override (write) 1`] = `Array []`;
+
+exports[`CLI --stdin-filepath works with --config-precedence file-override (stdout) 1`] = `
+"let x: keyof Y = foo<typeof X>();
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI --stdin-filepath works with --config-precedence prefer-file (stdout) 1`] = `
+"let x: keyof Y = foo<typeof X>();
+"
+`;
+
+exports[`CLI --stdin-filepath works with --config-precedence prefer-file (write) 1`] = `Array []`;
+
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stderr) 1`] = `""`;
+
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stdout) 1`] = `
+"function noConfigJs() {
+      console.log(\\"no-config/file.js should have no semicolons\\")
+}
+"
+`;
+
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stderr) 1`] = `""`;
+
+exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stdout) 1`] = `
+"function noConfigJs() {
+       console.log(
+              \\"no-config/file.js should have no semicolons\\"
+       );
+}
+"
+`;
+
+exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (write) 1`] = `Array []`;
+
+exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stderr) 1`] = `""`;
+
+exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stdout) 1`] = `
+"function js() {
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
+}
+\\"use strict\\";
+
+module.exports = {
+        endOfLine: \\"auto\\",
+        tabWidth: 8,
+};
+"
+`;
+
+exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (write) 1`] = `Array []`;
+
+exports[`CLI overrides take lower precedence with --config-precedence file-override (stderr) 1`] = `""`;
+
+exports[`CLI overrides take lower precedence with --config-precedence file-override (stdout) 1`] = `
+"function js() {
+        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
+}
+\\"use strict\\";
+
+module.exports = {
+        endOfLine: \\"auto\\",
+        tabWidth: 8,
+};
+"
+`;
+
+exports[`CLI overrides take lower precedence with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI overrides take precedence with --config-precedence cli-override (stderr) 1`] = `""`;
+
+exports[`CLI overrides take precedence with --config-precedence cli-override (stdout) 1`] = `
+"function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
+console.log(
+  \\"jest/Component.js should not have semi\\"
+)
+console.log(
+  \\"jest/Component.test.js should have semi\\"
+);
+function js() {
+        console.log(
+                \\"js/file.js should have tab width 8 (1 if CLI)\\"
+        );
+}
+\\"use strict\\";
+
+module.exports =
+        {
+                endOfLine: \\"auto\\",
+                tabWidth: 8,
+        };
+function noConfigJs() {
+  console.log(
+    \\"no-config/file.js should have no semicolons\\"
+  )
+}
+function packageJs() {
+   console.log(
+      \\"package/file.js should have tab width 3\\"
+   );
+}
+function rcJson() {
+  console.log.apply(
+    null,
+    [
+      'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcYaml() {
+  console.log.apply(
+    null,
+    [
+      'rc-yaml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+"
+`;
+
+exports[`CLI overrides take precedence with --config-precedence cli-override (write) 1`] = `Array []`;
+
+exports[`CLI overrides take precedence without --config-precedence (stderr) 1`] = `""`;
+
+exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] = `
+"function f() {
+	console.log(
+		\\"should have tab width 8\\"
+	)
+}
+function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
+        console.log(
+                \\"should have space width 8\\"
+        )
+}
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
+console.log(
+  \\"jest/Component.js should not have semi\\"
+)
+console.log(
+  \\"jest/Component.test.js should have semi\\"
+);
+function js() {
+        console.log(
+                \\"js/file.js should have tab width 8 (1 if CLI)\\"
+        );
+}
+\\"use strict\\";
+
+module.exports =
+        {
+                endOfLine: \\"auto\\",
+                tabWidth: 8,
+        };
+function noConfigJs() {
+  console.log(
+    \\"no-config/file.js should have no semicolons\\"
+  )
+}
+function packageJs() {
+   console.log(
+      \\"package/file.js should have tab width 3\\"
+   );
+}
+function rcJson() {
+  console.log.apply(
+    null,
+    [
+      'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcYaml() {
+  console.log.apply(
+    null,
+    [
+      'rc-yaml/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+"
+`;
+
+exports[`CLI overrides take precedence without --config-precedence (write) 1`] = `Array []`;
+
+exports[`CLI validate options with --config-precedence cli-override (stderr) 1`] = `
+"[error] Invalid printWidth value. Expected an integer, but received 0.5.
+"
+`;
+
+exports[`CLI validate options with --config-precedence cli-override (stdout) 1`] = `""`;
+
+exports[`CLI validate options with --config-precedence cli-override (write) 1`] = `Array []`;
+
+exports[`CLI validate options with --config-precedence file-override (stderr) 1`] = `
+"[error] Invalid printWidth value. Expected an integer, but received 0.5.
+"
+`;
+
+exports[`CLI validate options with --config-precedence file-override (stdout) 1`] = `""`;
+
+exports[`CLI validate options with --config-precedence file-override (write) 1`] = `Array []`;
+
+exports[`CLI validate options with --config-precedence prefer-file (stderr) 1`] = `
+"[error] Invalid printWidth value. Expected an integer, but received 0.5.
+"
+`;
+
+exports[`CLI validate options with --config-precedence prefer-file (stdout) 1`] = `""`;
+
+exports[`CLI validate options with --config-precedence prefer-file (write) 1`] = `Array []`;

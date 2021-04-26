@@ -75,7 +75,7 @@ function printBlockBody(path, options, print) {
   // Babel 6
   if (nodeHasDirectives) {
     path.each((childPath, index, directives) => {
-      parts.push(print(childPath));
+      parts.push(print());
       if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
         if (isNextLineEmpty(childPath.getValue(), options)) {
@@ -94,7 +94,10 @@ function printBlockBody(path, options, print) {
   }
 
   if (node.type === "Program") {
-    parts.push(hardline);
+    const parent = path.getParentNode();
+    if (!parent || parent.type !== "ModuleExpression") {
+      parts.push(hardline);
+    }
   }
 
   return parts;

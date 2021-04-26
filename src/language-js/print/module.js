@@ -13,6 +13,10 @@ const {
   needsHardlineAfterDanglingComment,
 } = require("../utils");
 const { locStart, hasSameLoc } = require("../loc");
+const {
+  hasDecoratorsBeforeExport,
+  printDecoratorsBeforeExport,
+} = require("./decorators");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -47,6 +51,12 @@ function printExportDeclaration(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
 
+  // Only print decorators here if they were written before the export,
+  // otherwise they are printed by the node.declaration
+  if (hasDecoratorsBeforeExport(node)) {
+    parts.push(printDecoratorsBeforeExport(path, options, print));
+  }
+
   const { type, exportKind, declaration } = node;
 
   parts.push("export");
@@ -68,7 +78,7 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (declaration) {
-    parts.push(" ", path.call(print, "declaration"));
+    parts.push(" ", print("declaration"));
   } else {
     parts.push(
       exportKind === "type" ? " type" : "",
@@ -102,7 +112,7 @@ function printExportAllDeclaration(path, options, print) {
   parts.push(" *");
 
   if (exported) {
-    parts.push(" as ", path.call(print, "exported"));
+    parts.push(" as ", print("exported"));
   }
 
   parts.push(
@@ -153,7 +163,7 @@ function printModuleSource(path, options, print) {
   if (!shouldNotPrintSpecifiers(node, options)) {
     parts.push(" from");
   }
-  parts.push(" ", path.call(print, "source"));
+  parts.push(" ", print("source"));
 
   return parts;
 }
@@ -172,7 +182,7 @@ function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    path.each((specifierPath) => {
+    path.each(() => {
       const specifierType = path.getValue().type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
@@ -180,12 +190,12 @@ function printModuleSpecifiers(path, options, print) {
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        standaloneSpecifiers.push(print(specifierPath));
+        standaloneSpecifiers.push(print());
       } else if (
         specifierType === "ExportSpecifier" ||
         specifierType === "ImportSpecifier"
       ) {
-        groupedSpecifiers.push(print(specifierPath));
+        groupedSpecifiers.push(print());
       } else {
         /* istanbul ignore next */
         throw new Error(
@@ -287,7 +297,7 @@ function printModuleSpecifier(path, options, print) {
   ) {
     left = "*";
   } else if (node[leftSideProperty]) {
-    left = path.call(print, leftSideProperty);
+    left = print(leftSideProperty);
   }
 
   if (
@@ -296,7 +306,7 @@ function printModuleSpecifier(path, options, print) {
       // import {a as a} from '.'
       !hasSameLoc(node[leftSideProperty], node[rightSideProperty]))
   ) {
-    right = path.call(print, rightSideProperty);
+    right = print(rightSideProperty);
   }
 
   parts.push(left, left && right ? " as " : "", right);

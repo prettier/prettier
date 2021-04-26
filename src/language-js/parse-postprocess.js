@@ -3,21 +3,12 @@
 const {
   getLast,
   getNextNonSpaceNonCommentCharacter,
-  getShebang,
 } = require("../common/util");
 const createError = require("../common/parser-create-error");
 const { locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
-  if (
-    options.parser === "typescript" ||
-    options.parser === "flow" ||
-    options.parser === "espree"
-  ) {
-    includeShebang(ast, options);
-  }
-
   // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
   // https://github.com/typescript-eslint/typescript-eslint/pull/2375
   if (options.parser === "typescript" && options.originalText.includes("@")) {
@@ -129,15 +120,6 @@ function postprocess(ast, options) {
         node.typeAnnotation.range = [locStart(node), locEnd(node)];
         return node.typeAnnotation;
       }
-      case "TSUnionType":
-      case "TSIntersectionType":
-        if (node.types.length === 1) {
-          const [firstType] = node.types;
-          // override loc, so that comments are attached properly
-          firstType.range = [locStart(node), locEnd(node)];
-          return firstType;
-        }
-        break;
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {
@@ -263,18 +245,6 @@ function rebalanceLogicalTree(node) {
     right: node.right.right,
     range: [locStart(node), locEnd(node)],
   });
-}
-
-function includeShebang(ast, options) {
-  const shebang = getShebang(options.originalText);
-
-  if (shebang) {
-    ast.comments.unshift({
-      type: "Line",
-      value: shebang.slice(2),
-      range: [0, shebang.length],
-    });
-  }
 }
 
 module.exports = postprocess;
