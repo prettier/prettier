@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const globby = require("globby");
 const { outdent } = require("outdent");
-const prettier = require("..");
+const prettier = require("../..");
 
 const PROJECT_ROOT = path.join(__dirname, "..");
 const FIXTURES_PACKAGE_DIRECTORY = path.dirname(

@@ -1,6 +1,6 @@
 "use strict";
 
-const { runCompareTest } = require("../../tests_config/compare-test");
+const { runCompareTest } = require("../../config/compare-test");
 
 runCompareTest({
   patterns: "babel/packages/babel-parser/test/fixtures/flow/**/*",
