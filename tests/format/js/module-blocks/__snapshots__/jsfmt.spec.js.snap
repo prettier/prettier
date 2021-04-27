@@ -141,11 +141,9 @@ module {
 
 const m = module {};
 
-const worker = new Worker(
-  module {
-    export const foo = "foo";
-  }
-);
+const worker = new Worker(module {
+  export const foo = "foo";
+});
 
 let m = module {
   module {
@@ -161,11 +159,9 @@ let moduleBlock = module {
   export let y = 1;
 };
 
-foo(
-  module {
-    export let foo = "foo";
-  }
-);
+foo(module {
+  export let foo = "foo";
+});
 
 let m = module {
   /* foo */
@@ -231,11 +227,76 @@ let moduleBlock = module {
   export let y = 1;
 };
 
-foo(
-  module {
-    export let foo = "foo";
+foo(module {
+  export let foo = "foo";
+});
+
+================================================================================
+`;
+
+exports[`worker.js [espree] format 1`] = `
+"Unexpected token { (1:32)
+> 1 | let worker = new Worker(module {
+    |                                ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());"
+`;
+
+exports[`worker.js [meriyah] format 1`] = `
+"[1:32]: Expected ')' (1:32)
+> 1 | let worker = new Worker(module {
+    |                                ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());"
+`;
+
+exports[`worker.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
   }
+}, {type: "module"});
+
+let worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {type: "module", foo: "bar" });
+
+worker.postMessage(module { export function fn() { return "hello!" } });
+
+=====================================output=====================================
+let worker = new Worker(module {
+  onmessage = function ({ data }) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  };
+}, { type: "module" });
+
+let worker = new Worker(
+  module {
+    onmessage = function ({ data }) {
+      let mod = import(data);
+      postMessage(mod.fn());
+    };
+  },
+  { type: "module", foo: "bar" }
 );
+
+worker.postMessage(module {
+  export function fn() {
+    return "hello!";
+  }
+});
 
 ================================================================================
 `;
