@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`optional-indexed-access.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type A = Obj?.['foo'];
+
+type B = Obj?.['foo']['bar'];
+
+type C = Obj['foo']?.['bar'];
+
+type D = (Obj?.['foo'])['bar'];
+
+=====================================output=====================================
+type A = Obj?.["foo"];
+
+type B = Obj?.["foo"]["bar"];
+
+type C = Obj["foo"]?.["bar"];
+
+type D = (Obj?.["foo"])["bar"];
+
+================================================================================
+`;
