@@ -63,6 +63,16 @@ function needsParens(path, options) {
     ) {
       return true;
     }
+
+    // `for (async of []);` is invalid
+    if (
+      name === "left" &&
+      node.name === "async" &&
+      parent.type === "ForOfStatement"
+    ) {
+      return true;
+    }
+
     return false;
   }
 

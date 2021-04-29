@@ -11,7 +11,7 @@ for ((foo) of async);
 for ((foo) of []) async;
 
 =====================================output=====================================
-for (async of []);
+for ((async) of []);
 for (foo of async);
 for (foo of []) async;
 
