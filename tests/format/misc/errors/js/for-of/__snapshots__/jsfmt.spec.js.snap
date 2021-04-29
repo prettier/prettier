@@ -6,16 +6,40 @@ exports[`snippet: #0 [babel] format 1`] = `
     |      ^"
 `;
 
+exports[`snippet: #0 [babel] format 2`] = `
+"Unexpected token, expected \\"=>\\" (1:15)
+> 1 | for (async of []);
+    |               ^"
+`;
+
 exports[`snippet: #0 [babel-flow] format 1`] = `
 "Unexpected reserved word 'let' (1:6)
 > 1 | for (let.foo of []);
     |      ^"
 `;
 
+exports[`snippet: #0 [babel-flow] format 2`] = `
+"Unexpected token, expected \\"=>\\" (1:15)
+> 1 | for (async of []);
+    |               ^"
+`;
+
 exports[`snippet: #0 [babel-ts] format 1`] = `
 "The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let.foo of []);
     |      ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 2`] = `
+"Unexpected token, expected \\"=>\\" (1:15)
+> 1 | for (async of []);
+    |               ^"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Unexpected token [ (1:15)
+> 1 | for (async of []);
+    |               ^"
 `;
 
 exports[`snippet: #0 [flow] format 1`] = `
