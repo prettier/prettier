@@ -163,10 +163,6 @@ function needsParens(path, options) {
   }
 
   switch (node.type) {
-    case "SpreadElement":
-    case "SpreadProperty":
-      return name === "object" && parent.type === "MemberExpression";
-
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
         return (
