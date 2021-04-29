@@ -1342,6 +1342,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
+"@prettier/core-test-fixtures@prettier/core-test-fixtures#19fada2d02ebe5439eff2150253bfc987f0bb433":
+  version "1.0.0"
+  resolved "https://codeload.github.com/prettier/core-test-fixtures/tar.gz/19fada2d02ebe5439eff2150253bfc987f0bb433"
+
 "@rollup/plugin-alias@3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.2.tgz#c585b05be4a7782d269c69d13def56f44e417772"
@@ -3071,6 +3075,7 @@ eslint-plugin-jest@24.3.5:
 
 "eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules":
   version "0.0.0"
+  uid ""
 
 eslint-plugin-react@7.23.2:
   version "7.23.2"
