@@ -169,3 +169,9 @@ prettier --write . '!**/*.{js,jsx,vue}'
 ```
 
 See [fast-glob](https://prettier.io/docs/en/cli.html#file-patterns) to learn more about advanced glob syntax.
+
+## Ignore-revs-file <file>
+
+Ignore revisions listed in `file`, which must be in the same format as an `fsck.skipList`. This option may be in the same formart as an `fsck.skipList`.This
+option may be repeated, and these files will be processed after any files specified with the `blame.ignoreRevsFile` config option. An empty file name, `""`, will clear the list of revs from previously processed files.
+
