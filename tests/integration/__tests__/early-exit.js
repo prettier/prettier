@@ -90,14 +90,21 @@ describe("throw error and show usage with something unexpected", () => {
   });
 });
 
-describe("node version error", () => {
+test("node version error", async () => {
   const originalProcessVersion = process.version;
+
   try {
     Object.defineProperty(process, "version", {
       value: "v8.0.0",
       writable: false,
     });
-    runPrettier("cli", ["--help"]).test({ status: 1 });
+    const result = runPrettier("cli", ["--help"]);
+    expect(await result.status).toEqual(1);
+    const snapshot = {};
+    for (const name of ["stderr", "stdout", "write"]) {
+      snapshot[name] = await result[name];
+    }
+    expect(snapshot).toMatchSnapshot();
   } finally {
     Object.defineProperty(process, "version", {
       value: originalProcessVersion,

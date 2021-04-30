@@ -1,6 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`show detailed external option with \`--help foo-string\` (stderr) 1`] = `""`;
+
+exports[`show detailed external option with \`--help foo-string\` (stdout) 1`] = `
+"--foo-string <string>
+
+  foo description
+
+Default: bar
+"
+`;
+
+exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `Array []`;
+
+exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
@@ -28,16 +41,3 @@ exports[` 1`] = `
     --prose-wrap <always|never|preserve>
                              How to wrap prose."
 `;
-
-exports[`show detailed external option with \`--help foo-string\` (stderr) 1`] = `""`;
-
-exports[`show detailed external option with \`--help foo-string\` (stdout) 1`] = `
-"--foo-string <string>
-
-  foo description
-
-Default: bar
-"
-`;
-
-exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `Array []`;

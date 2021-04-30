@@ -3,10 +3,10 @@
 const snapshotDiff = require("snapshot-diff");
 const runPrettier = require("../runPrettier");
 
-describe("show external options with `--help`", () => {
-  const originalStdout = runPrettier("plugins/options-string", ["--help"])
+test("show external options with `--help`", async () => {
+  const originalStdout = await runPrettier("plugins/options-string", ["--help"])
     .stdout;
-  const pluggedStdout = runPrettier("plugins/options-string", [
+  const pluggedStdout = await runPrettier("plugins/options-string", [
     "--help",
     "--plugin=./plugin",
   ]).stdout;

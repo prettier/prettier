@@ -127,15 +127,45 @@ async function run(dir, args, options) {
   }
 }
 
+let hasRunningCLi = false;
 function runPrettier(dir, args = [], options = {}) {
-  let result;
+  let promise;
+  const getters = {
+    get status() {
+      return runCli().then(({ status }) => status);
+    },
+    get stdout() {
+      return runCli().then(({ stdout }) => stdout);
+    },
+    get stderr() {
+      return runCli().then(({ stderr }) => stderr);
+    },
+    get write() {
+      return runCli().then(({ write }) => write);
+    },
+    test: testResult,
+  };
 
-  const testResult = (testOptions) => {
+  return getters;
+
+  function runCli() {
+    if (hasRunningCLi) {
+      throw new Error("Please wait for previous CLI to exit.");
+    }
+
+    if (!promise) {
+      promise = run(dir, args, options);
+      promise.then(() => {
+        hasRunningCLi = false;
+      });
+    }
+    return promise;
+  }
+
+  function testResult(testOptions) {
     for (const name of ["status", "stdout", "stderr", "write"]) {
       test(`(${name})`, async () => {
-        if (!result) {
-          result = await run(dir, args, options);
-        }
+        const result = await runCli();
         const value =
           // \r is trimmed from jest snapshots by default;
           // manually replacing this character with /*CR*/ to test its true presence
@@ -156,9 +186,9 @@ function runPrettier(dir, args = [], options = {}) {
         }
       });
     }
-  };
 
-  return { test: testResult };
+    return getters;
+  }
 }
 
 function normalizeDir(dir) {
