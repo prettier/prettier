@@ -4572,10 +4572,10 @@ jest-snapshot-serializer-ansi@1.0.0:
     has-ansi "^3.0.0"
     strip-ansi "^4.0.0"
 
-jest-snapshot-serializer-raw@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/jest-snapshot-serializer-raw/-/jest-snapshot-serializer-raw-1.1.0.tgz#1d7f09c02f3dbbc3ae70b5b7598fb2f45e37d6c8"
-  integrity sha512-OL3bXRCnSn7Kur3YTGYj+A3Hwh2eyb5QL5VLQ9OSsPBOva7r3sCB0Jf1rOT/KN3ypzH42hrkDz96lpbiMo+AlQ==
+jest-snapshot-serializer-raw@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/jest-snapshot-serializer-raw/-/jest-snapshot-serializer-raw-1.2.0.tgz#cd67afb5e5cc39d88d518b45e7320dd01ce55148"
+  integrity sha512-Cnp2u7GkaXBVOOelhU94x6Kb/10WJjQtgKDvqynnYGNGQlKBj06x8QZmRkL8XWWVLQ5DKA2fT5rY9kRd512JcA==
 
 jest-snapshot@^26.1.0, jest-snapshot@^26.6.2:
   version "26.6.2"
