@@ -3,6 +3,7 @@
 
 run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
   errors: {
+    "babel-ts": ["class-static-block.js"],
     espree: [
       "class-properties.js",
       "decimal.js",
