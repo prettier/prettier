@@ -145,6 +145,11 @@ const parseTypeScript = createParse(
 );
 const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
+// Error codes are defined in
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/parser/error-message.js
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/typescript/index.js#L69-L153
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/flow/index.js#L51-L140
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/jsx/index.js#L23-L39
 const allowedMessageCodes = new Set([
   "StrictNumericEscape",
   "StrictWith",
