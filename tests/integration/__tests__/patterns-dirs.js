@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs");
+// const fs = require("fs");
 const runPrettier = require("../runPrettier");
 const { projectRoot } = require("../env");
 
