@@ -24,13 +24,10 @@ const parseOptions = {
     // When adding a plugin, please add a test in `tests/js/babel-plugins`,
     // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
     "doExpressions",
-    "classProperties",
     "exportDefaultFrom",
     "functionBind",
     "functionSent",
-    "classPrivateProperties",
     "throwExpressions",
-    "classPrivateMethods",
     "v8intrinsic",
     "partialApplication",
     ["decorators", { decoratorsBeforeExport: false }],
