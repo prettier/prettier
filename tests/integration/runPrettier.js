@@ -6,7 +6,7 @@ const stripAnsi = require("strip-ansi");
 const { SynchronousPromise } = require("synchronous-promise");
 const { prettierCli, thirdParty } = require("./env");
 
-function runPrettier(dir, args = [], options = {}) {
+async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
 
   let status;
@@ -99,7 +99,7 @@ function runPrettier(dir, args = [], options = {}) {
     .mockImplementation(() => process.cwd());
 
   try {
-    require(prettierCli);
+    await require(prettierCli);
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
@@ -113,11 +113,29 @@ function runPrettier(dir, args = [], options = {}) {
     jest.restoreAllMocks();
   }
 
-  const result = { status, stdout, stderr, write };
+  return { status, stdout, stderr, write };
+
+  function appendStdout(text) {
+    if (status === undefined) {
+      stdout += text;
+    }
+  }
+  function appendStderr(text) {
+    if (status === undefined) {
+      stderr += text;
+    }
+  }
+}
+
+function runPrettier(dir, args = [], options = {}) {
+  let result;
 
   const testResult = (testOptions) => {
-    for (const name of Object.keys(result)) {
-      test(`(${name})`, () => {
+    for (const name of ["status", "stdout", "stderr", "write"]) {
+      test(`(${name})`, async () => {
+        if (!result) {
+          result = await run(dir, args, options);
+        }
         const value =
           // \r is trimmed from jest snapshots by default;
           // manually replacing this character with /*CR*/ to test its true presence
@@ -138,22 +156,9 @@ function runPrettier(dir, args = [], options = {}) {
         }
       });
     }
-
-    return result;
   };
 
-  return { test: testResult, ...result };
-
-  function appendStdout(text) {
-    if (status === undefined) {
-      stdout += text;
-    }
-  }
-  function appendStderr(text) {
-    if (status === undefined) {
-      stderr += text;
-    }
-  }
+  return { test: testResult };
 }
 
 function normalizeDir(dir) {
