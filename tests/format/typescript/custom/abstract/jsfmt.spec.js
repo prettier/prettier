@@ -1,5 +1,5 @@
 run_spec(__dirname, ["typescript"], {
   errors: {
-    "babel-ts": ["abstractProperties.ts", "abstractPropertiesWithBreaks.ts"],
+    "babel-ts": ["abstractProperties.ts"],
   },
 });
