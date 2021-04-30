@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [babel] format 1`] = `
-"constructors in/after an Optional Chain are not allowed (1:36)
+"Constructors in/after an Optional Chain are not allowed. (1:36)
 > 1 | const baz3 = new obj?.foo?.bar?.baz(); // baz instance
     |                                    ^"
 `;
@@ -19,7 +19,7 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
-"constructors in/after an Optional Chain are not allowed (1:32)
+"Constructors in/after an Optional Chain are not allowed. (1:32)
 > 1 | const safe5 = new obj?.qux?.baz(); // undefined
     |                                ^"
 `;
@@ -37,7 +37,7 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #2 [babel] format 1`] = `
-"constructors in/after an Optional Chain are not allowed (1:35)
+"Constructors in/after an Optional Chain are not allowed. (1:35)
 > 1 | const safe6 = new obj?.foo.bar.qux?.(); // undefined
     |                                   ^"
 `;
@@ -55,7 +55,7 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #3 [babel] format 1`] = `
-"constructors in/after an Optional Chain are not allowed (1:39)
+"Constructors in/after an Optional Chain are not allowed. (1:39)
 > 1 | const willThrow = new obj?.foo.bar.qux(); // Error: not a constructor
     |                                       ^"
 `;
@@ -73,7 +73,7 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel] format 1`] = `
-"constructors in/after an Optional Chain are not allowed (4:11)
+"Constructors in/after an Optional Chain are not allowed. (4:11)
   2 | class Test {
   3 | }
 > 4 | new Test?.(); // test instance
@@ -97,7 +97,7 @@ exports[`snippet: #4 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #5 [babel] format 1`] = `
-"constructors in/after an Optional Chain are not allowed (1:13)
+"Constructors in/after an Optional Chain are not allowed. (1:13)
 > 1 | new exists?.(); // undefined
     |             ^"
 `;

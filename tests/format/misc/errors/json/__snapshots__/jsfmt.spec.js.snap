@@ -91,19 +91,19 @@ exports[`snippet: #4 [json5] format 1`] = `
 `;
 
 exports[`snippet: #5 [json] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX (1:10)
+"Expecting Unicode escape sequence \\\\uXXXX. (1:10)
 > 1 | packages\\\\the-hub\\\\cypress\\\\fixtures\\\\gridConfiguration.json
     |          ^"
 `;
 
 exports[`snippet: #5 [json-stringify] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX (1:10)
+"Expecting Unicode escape sequence \\\\uXXXX. (1:10)
 > 1 | packages\\\\the-hub\\\\cypress\\\\fixtures\\\\gridConfiguration.json
     |          ^"
 `;
 
 exports[`snippet: #5 [json5] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX (1:10)
+"Expecting Unicode escape sequence \\\\uXXXX. (1:10)
 > 1 | packages\\\\the-hub\\\\cypress\\\\fixtures\\\\gridConfiguration.json
     |          ^"
 `;
@@ -601,19 +601,19 @@ exports[`snippet: #32 [json5] format 1`] = `
 `;
 
 exports[`snippet: #33 [json] format 1`] = `
-"Invalid left-hand side in prefix operation (1:5)
+"Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^"
 `;
 
 exports[`snippet: #33 [json-stringify] format 1`] = `
-"Invalid left-hand side in prefix operation (1:5)
+"Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^"
 `;
 
 exports[`snippet: #33 [json5] format 1`] = `
-"Invalid left-hand side in prefix operation (1:5)
+"Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^"
 `;

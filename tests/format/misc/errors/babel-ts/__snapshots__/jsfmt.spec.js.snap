@@ -8,7 +8,7 @@ exports[`export-declare.ts [babel-ts] format 1`] = `
 `;
 
 exports[`multiline-declaration-abstract-class.ts [babel-ts] format 1`] = `
-"Missing semicolon (1:8)
+"Missing semicolon. (1:8)
 > 1 | declare abstract
     |        ^
   2 | class A {}
@@ -16,7 +16,7 @@ exports[`multiline-declaration-abstract-class.ts [babel-ts] format 1`] = `
 `;
 
 exports[`multiline-declaration-interface.ts [babel-ts] format 1`] = `
-"Missing semicolon (1:8)
+"Missing semicolon. (1:8)
 > 1 | declare interface
     |        ^
   2 | I
@@ -25,7 +25,7 @@ exports[`multiline-declaration-interface.ts [babel-ts] format 1`] = `
 `;
 
 exports[`multiline-declaration-module.ts [babel-ts] format 1`] = `
-"Missing semicolon (1:8)
+"Missing semicolon. (1:8)
 > 1 | declare module
     |        ^
   2 | 'bar'
@@ -34,7 +34,7 @@ exports[`multiline-declaration-module.ts [babel-ts] format 1`] = `
 `;
 
 exports[`multiline-declaration-type.ts [babel-ts] format 1`] = `
-"Missing semicolon (1:8)
+"Missing semicolon. (1:8)
 > 1 | declare type
     |        ^
   2 | T = number
