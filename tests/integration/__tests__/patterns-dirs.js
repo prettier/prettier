@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-// const fs = require("fs");
+const fs = require("fs");
 const runPrettier = require("../runPrettier");
 const { projectRoot } = require("../env");
 
@@ -87,38 +87,38 @@ describe("plugins `*`", () => {
   });
 });
 
-// TODO: fix this test
-// if (path.sep === "/") {
-//   // Don't use snapshots in these tests as they're conditionally executed on non-Windows only.
+TODO: fix this test
+if (path.sep === "/") {
+  // Don't use snapshots in these tests as they're conditionally executed on non-Windows only.
 
-//   const base = path.resolve(__dirname, "../cli/patterns-dirs");
+  const base = path.resolve(__dirname, "../cli/patterns-dirs");
 
-//   // We can't commit these dirs without causing problems on Windows.
+  describe("Backslashes in names", () => {
+    // We can't commit these dirs without causing problems on Windows.
 
-//   // TODO: these should be moved to a `beforeAll`, but for that to be possible,
-//   // `runPrettier` should be refactored to use `describe` and `beforeEach` for doing setup.
-//   fs.mkdirSync(path.resolve(base, "test-a\\"));
-//   fs.writeFileSync(path.resolve(base, "test-a\\", "test.js"), "x");
-//   fs.mkdirSync(path.resolve(base, "test-b\\?"));
-//   fs.writeFileSync(path.resolve(base, "test-b\\?", "test.js"), "x");
+    beforeAll(() => {
+      fs.mkdirSync(path.resolve(base, "test-a\\"));
+      fs.writeFileSync(path.resolve(base, "test-a\\", "test.js"), "x");
+      fs.mkdirSync(path.resolve(base, "test-b\\?"));
+      fs.writeFileSync(path.resolve(base, "test-b\\?", "test.js"), "x");
+    });
 
-//   describe("Backslashes in names", () => {
-//     afterAll(() => {
-//       fs.unlinkSync(path.resolve(base, "test-a\\", "test.js"));
-//       fs.rmdirSync(path.resolve(base, "test-a\\"));
-//       fs.unlinkSync(path.resolve(base, "test-b\\?", "test.js"));
-//       fs.rmdirSync(path.resolve(base, "test-b\\?"));
-//     });
+    afterAll(() => {
+      fs.unlinkSync(path.resolve(base, "test-a\\", "test.js"));
+      fs.rmdirSync(path.resolve(base, "test-a\\"));
+      fs.unlinkSync(path.resolve(base, "test-b\\?", "test.js"));
+      fs.rmdirSync(path.resolve(base, "test-b\\?"));
+    });
 
-//     testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js\n" });
-//     testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js\n" });
-//     testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js\n" });
+    testPatterns("", ["test-a\\/test.js"], { stdout: "test-a\\/test.js\n" });
+    testPatterns("", ["test-a\\"], { stdout: "test-a\\/test.js\n" });
+    testPatterns("", ["test-a*/*"], { stdout: "test-a\\/test.js\n" });
 
-//     testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js\n" });
-//     testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js\n" });
-//     testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js\n" });
-//   });
-// }
+    testPatterns("", ["test-b\\?/test.js"], { stdout: "test-b\\?/test.js\n" });
+    testPatterns("", ["test-b\\?"], { stdout: "test-b\\?/test.js\n" });
+    testPatterns("", ["test-b*/*"], { stdout: "test-b\\?/test.js\n" });
+  });
+}
 
 function testPatterns(namePrefix, cliArgs, expected = {}) {
   const testName =
