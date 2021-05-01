@@ -87,7 +87,6 @@ describe("plugins `*`", () => {
   });
 });
 
-TODO: fix this test
 if (path.sep === "/") {
   // Don't use snapshots in these tests as they're conditionally executed on non-Windows only.
 
