@@ -127,7 +127,7 @@ async function run(dir, args, options) {
   }
 }
 
-let hasRunningCLi = false;
+let hasRunningCli = false;
 function runPrettier(dir, args = [], options = {}) {
   let promise;
   const getters = {
@@ -149,14 +149,15 @@ function runPrettier(dir, args = [], options = {}) {
   return getters;
 
   function runCli() {
-    if (hasRunningCLi) {
+    if (hasRunningCli) {
       throw new Error("Please wait for previous CLI to exit.");
     }
 
     if (!promise) {
+      hasRunningCli = true;
       promise = run(dir, args, options);
       promise.then(() => {
-        hasRunningCLi = false;
+        hasRunningCli = false;
       });
     }
     return promise;
