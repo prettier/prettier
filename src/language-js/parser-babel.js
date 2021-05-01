@@ -35,7 +35,6 @@ const parseOptions = {
     "importAssertions",
     ["recordAndTuple", { syntaxType: "hash" }],
     "decimal",
-    "moduleStringNames",
     "classStaticBlock",
     "moduleBlocks",
   ],
