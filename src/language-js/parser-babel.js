@@ -82,7 +82,9 @@ function parseWithOptions(parseMethod, text, options) {
   const parse = require("@babel/parser")[parseMethod];
   const ast = parse(text, options);
   // @ts-ignore
-  const error = ast.errors.find((error) => shouldRethrowRecoveredError(error));
+  const error = ast.errors.find(
+    (error) => !allowedMessageCodes.has(error.reasonCode)
+  );
   if (error) {
     throw error;
   }
@@ -193,10 +195,6 @@ const allowedMessageCodes = new Set([
   "InvalidPrivateFieldResolution",
   "DuplicateExport",
 ]);
-
-function shouldRethrowRecoveredError(error) {
-  return !allowedMessageCodes.has(error.reasonCode);
-}
 
 const babel = createParser(parse);
 const babelExpression = createParser(parseExpression);
