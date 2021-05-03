@@ -603,14 +603,14 @@ class A {
 `;
 
 exports[`classAbstractMixedWithModifiers.ts [babel-ts] format 1`] = `
-"Unexpected token (8:21)
-   6 |     private abstract foo_d();
-   7 |     
->  8 |     abstract public foo_bb();
-     |                     ^
-   9 |     abstract protected foo_cc();
+"'static' modifier cannot be used with 'abstract' modifier. (12:14)
   10 |     abstract private foo_dd();
-  11 |     "
+  11 |     
+> 12 |     abstract static foo_d();
+     |              ^
+  13 |     
+  14 |     static abstract foo_e();
+  15 | }"
 `;
 
 exports[`classAbstractMixedWithModifiers.ts format 1`] = `

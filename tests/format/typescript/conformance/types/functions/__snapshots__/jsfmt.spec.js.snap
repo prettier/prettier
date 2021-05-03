@@ -593,7 +593,7 @@ function f(x: string): void {
 `;
 
 exports[`functionOverloadErrorsSyntax.ts [babel-ts] format 1`] = `
-"Rest element must be last element (9:36)
+"Rest element must be last element. (9:36)
    7 |
    8 | //Function overload signature with rest param followed by non-optional parameter
 >  9 | function fn5(x: string, ...y: any[], z: string);

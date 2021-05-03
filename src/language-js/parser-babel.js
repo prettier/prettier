@@ -24,13 +24,10 @@ const parseOptions = {
     // When adding a plugin, please add a test in `tests/js/babel-plugins`,
     // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
     "doExpressions",
-    "classProperties",
     "exportDefaultFrom",
     "functionBind",
     "functionSent",
-    "classPrivateProperties",
     "throwExpressions",
-    "classPrivateMethods",
     "v8intrinsic",
     "partialApplication",
     ["decorators", { decoratorsBeforeExport: false }],
@@ -38,7 +35,6 @@ const parseOptions = {
     "importAssertions",
     ["recordAndTuple", { syntaxType: "hash" }],
     "decimal",
-    "moduleStringNames",
     "classStaticBlock",
     "moduleBlocks",
   ],
@@ -86,7 +82,9 @@ function parseWithOptions(parseMethod, text, options) {
   const parse = require("@babel/parser")[parseMethod];
   const ast = parse(text, options);
   // @ts-ignore
-  const error = ast.errors.find((error) => shouldRethrowRecoveredError(error));
+  const error = ast.errors.find(
+    (error) => !allowedMessageCodes.has(error.reasonCode)
+  );
   if (error) {
     throw error;
   }
@@ -145,72 +143,58 @@ const parseTypeScript = createParse(
 );
 const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
-const allowedMessages = new Set([
-  "The only valid numeric escape in strict mode is '\\0'",
-  "'with' in strict mode",
-  "Legacy octal literals are not allowed in strict mode",
+// Error codes are defined in
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/parser/error-message.js
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/typescript/index.js#L69-L153
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/flow/index.js#L51-L140
+//  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/jsx/index.js#L23-L39
+const allowedMessageCodes = new Set([
+  "StrictNumericEscape",
+  "StrictWith",
+  "StrictOctalLiteral",
 
-  "Type argument list cannot be empty.",
-  "Type parameter list cannot be empty.",
-  "Type parameters cannot appear on a constructor declaration.",
+  "EmptyTypeArguments",
+  "EmptyTypeParameters",
+  "ConstructorHasTypeParameters",
 
-  "A parameter property may not be declared using a binding pattern.",
-  "A parameter property is only allowed in a constructor implementation.",
+  "UnsupportedParameterPropertyKind",
+  "UnexpectedParameterModifier",
 
-  "Tuple members must all have names or all not have names.",
-  "Tuple members must be labeled with a simple identifier.",
+  "MixedLabeledAndUnlabeledElements",
+  "InvalidTupleMemberLabel",
 
-  "'abstract' modifier can only appear on a class, method, or property declaration.",
-  "'readonly' modifier can only appear on a property declaration or index signature.",
-  "Class methods cannot have the 'declare' modifier",
-  "Class methods cannot have the 'readonly' modifier",
-  "'public' modifier cannot appear on a type member.",
-  "'private' modifier cannot appear on a type member.",
-  "'protected' modifier cannot appear on a type member.",
-  "'static' modifier cannot appear on a type member.",
-  "'declare' modifier cannot appear on a type member.",
-  "'abstract' modifier cannot appear on a type member.",
-  "'readonly' modifier cannot appear on a type member.",
-  "Accessibility modifier already seen.",
-  "Index signatures cannot have the 'declare' modifier",
+  "NonClassMethodPropertyHasAbstractModifer",
+  "ReadonlyForMethodSignature",
+  "ClassMethodHasDeclare",
+  "ClassMethodHasReadonly",
+  "InvalidModifierOnTypeMember",
+  "DuplicateAccessibilityModifier",
+  "IndexSignatureHasDeclare",
 
-  "Using the export keyword between a decorator and a class is not allowed. Please use `export @dec class` instead.",
-  "Argument name clash",
-  "Invalid decimal",
-  "Unexpected trailing comma after rest element",
-  "Decorators cannot be used to decorate parameters",
-  "Unterminated JSX contents",
-  'Unexpected token, expected "}"',
-  "Unexpected token :",
-  "Unexpected reserved word 'package'",
-  'Duplicate key "type" is not allowed in module attributes',
-  "No line break is allowed before '=>'",
-  "Invalid escape sequence in template",
-  "Abstract methods can only appear within an abstract class.",
-  "Decorators cannot be used to decorate object literal properties",
-  "A required element cannot follow an optional element.",
-  "A binding pattern parameter cannot be optional in an implementation signature.",
-  "Initializers are not allowed in ambient contexts.",
-  "A type-only import can specify a default import or named bindings, but not both.",
-  "An implementation cannot be declared in ambient contexts.",
-  "Classes may not have a field named 'constructor'",
+  "DecoratorExportClass",
+  "ParamDupe",
+  "InvalidDecimal",
+  "RestTrailingComma",
+  "UnsupportedParameterDecorator",
+  "UnterminatedJsxContent",
+  "UnexpectedReservedWord",
+  "ModuleAttributesWithDuplicateKeys",
+  "LineTerminatorBeforeArrow",
+  "InvalidEscapeSequenceTemplate",
+  "NonAbstractClassHasAbstractMethod",
+  "UnsupportedPropertyDecorator",
+  "OptionalTypeBeforeRequired",
+  "PatternIsOptional",
+  "OptionalBindingPattern",
+  "DeclareClassFieldHasInitializer",
+  "TypeImportCannotSpecifyDefaultAndNamed",
+  "DeclareFunctionHasImplementation",
+  "ConstructorClassField",
+
+  "VarRedeclaration",
+  "InvalidPrivateFieldResolution",
+  "DuplicateExport",
 ]);
-function shouldRethrowRecoveredError(error) {
-  const [, message] = error.message.match(/(.*?)\s*\(\d+:\d+\)/);
-
-  if (
-    allowedMessages.has(message) ||
-    /^Identifier '.*?' has already been declared$/.test(message) ||
-    /^Private name #.*? is not defined$/.test(message) ||
-    /^`.*?` has already been exported\. Exported identifiers must be unique\.$/.test(
-      message
-    )
-  ) {
-    return false;
-  }
-
-  return true;
-}
 
 const babel = createParser(parse);
 const babelExpression = createParser(parseExpression);
