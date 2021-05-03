@@ -481,6 +481,9 @@ function needsParens(path, options) {
       );
     }
 
+    case "OptionalIndexedAccessType":
+      return name === "objectType" && parent.type === "IndexedAccessType";
+
     case "StringLiteral":
     case "NumericLiteral":
     case "Literal":
