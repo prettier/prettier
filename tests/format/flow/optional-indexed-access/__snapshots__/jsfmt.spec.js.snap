@@ -2,7 +2,7 @@
 
 exports[`optional-indexed-access.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["flow", "babel"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
