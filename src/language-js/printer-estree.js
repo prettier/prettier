@@ -620,7 +620,7 @@ function printPathNoParens(path, options, print, args) {
       return parts;
     }
     case "DoExpression":
-      return ["do ", print("body")];
+      return [node.async ? "async " : "", "do ", print("body")];
     case "BreakStatement":
       parts.push("break");
 
