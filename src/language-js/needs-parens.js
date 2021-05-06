@@ -68,7 +68,8 @@ function needsParens(path, options) {
     if (
       name === "left" &&
       node.name === "async" &&
-      parent.type === "ForOfStatement"
+      parent.type === "ForOfStatement" &&
+      !parent.await
     ) {
       return true;
     }
