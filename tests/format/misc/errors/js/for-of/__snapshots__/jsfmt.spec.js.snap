@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [babel] format 1`] = `
-"Unexpected reserved word 'let' (1:6)
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let.foo of []);
     |      ^"
 `;
@@ -13,7 +13,7 @@ exports[`snippet: #0 [babel] format 2`] = `
 `;
 
 exports[`snippet: #0 [babel-flow] format 1`] = `
-"Unexpected reserved word 'let' (1:6)
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let.foo of []);
     |      ^"
 `;
@@ -61,13 +61,13 @@ exports[`snippet: #0 [typescript] format 1`] = `
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
-"Unexpected reserved word 'let' (1:6)
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let().bar of []);
     |      ^"
 `;
 
 exports[`snippet: #1 [babel-flow] format 1`] = `
-"Unexpected reserved word 'let' (1:6)
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let().bar of []);
     |      ^"
 `;
@@ -97,13 +97,13 @@ exports[`snippet: #1 [typescript] format 1`] = `
 `;
 
 exports[`snippet: #2 [babel] format 1`] = `
-"Unexpected reserved word 'let' (1:6)
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let\`\`.bar of []);
     |      ^"
 `;
 
 exports[`snippet: #2 [babel-flow] format 1`] = `
-"Unexpected reserved word 'let' (1:6)
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
 > 1 | for (let\`\`.bar of []);
     |      ^"
 `;

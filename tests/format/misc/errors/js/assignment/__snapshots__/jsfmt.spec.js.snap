@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [babel] format 1`] = `
-"Invalid parenthesized assignment pattern (1:1)
+"Invalid parenthesized assignment pattern. (1:1)
 > 1 | ({}) = x;
     | ^"
 `;
 
 exports[`snippet: #0 [babel-ts] format 1`] = `
-"Invalid parenthesized assignment pattern (1:1)
+"Invalid parenthesized assignment pattern. (1:1)
 > 1 | ({}) = x;
     | ^"
 `;
