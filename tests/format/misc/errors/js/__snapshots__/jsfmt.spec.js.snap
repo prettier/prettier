@@ -12,7 +12,7 @@ exports[`html-like-comments.js [babel] format 1`] = `
 `;
 
 exports[`import-assertions-for-export-without-from.js [babel] format 1`] = `
-"Missing semicolon (1:15)
+"Missing semicolon. (1:15)
 > 1 | export { foo } assert { type: \\"json\\" };
     |               ^
   2 |"
@@ -26,7 +26,7 @@ exports[`import-assertions-with-parens.js [babel] format 1`] = `
 `;
 
 exports[`invalid-escape-in-identifier.js [babel] format 1`] = `
-"Invalid Unicode escape (1:7)
+"Invalid Unicode escape. (1:7)
 > 1 | const \\\\u{20} = 1
     |       ^
   2 | const \\\\u{3000} = 1
@@ -34,7 +34,7 @@ exports[`invalid-escape-in-identifier.js [babel] format 1`] = `
 `;
 
 exports[`invalid-escape-in-identifier-2.js [babel] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX (1:3)
+"Expecting Unicode escape sequence \\\\uXXXX. (1:3)
 > 1 | a\\\\ = a
     |   ^
   2 |"
@@ -126,25 +126,25 @@ exports[`snippet: #8 [babel] format 1`] = `
 `;
 
 exports[`snippet: #9 [babel] format 1`] = `
-"Tuple expressions starting with '[|' are only allowed when the 'syntaxType' option of the 'recordAndTuple' plugin is set to 'bar' (1:1)
+"Tuple expressions starting with '[|' are only allowed when the 'syntaxType' option of the 'recordAndTuple' plugin is set to 'bar'. (1:1)
 > 1 | [| 1 |]
     | ^"
 `;
 
 exports[`snippet: #10 [babel] format 1`] = `
-"Invalid decimal (1:1)
+"Invalid decimal. (1:1)
 > 1 | 0b101011101m;
     | ^"
 `;
 
 exports[`snippet: #11 [babel] format 1`] = `
-"Invalid decimal (1:1)
+"Invalid decimal. (1:1)
 > 1 | 0x16432m;
     | ^"
 `;
 
 exports[`snippet: #12 [babel] format 1`] = `
-"Invalid decimal (1:1)
+"Invalid decimal. (1:1)
 > 1 | 0o16432m;
     | ^"
 `;

@@ -169,6 +169,9 @@ function printClassMethod(path, options, print) {
   if (node.static) {
     parts.push("static ");
   }
+  if (node.override) {
+    parts.push("override ");
+  }
   if (node.type === "TSAbstractMethodDefinition" || node.abstract) {
     parts.push("abstract ");
   }
@@ -194,6 +197,9 @@ function printClassProperty(path, options, print) {
   }
   if (node.static) {
     parts.push("static ");
+  }
+  if (node.override) {
+    parts.push("override ");
   }
   if (node.type === "TSAbstractClassProperty" || node.abstract) {
     parts.push("abstract ");

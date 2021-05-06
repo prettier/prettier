@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`invalid-exponent.js [babel] format 1`] = `
-"Floating-point numbers require a valid exponent after the 'e' (1:1)
+"Floating-point numbers require a valid exponent after the 'e'. (1:1)
 > 1 | 12.3e
     | ^
   2 |"

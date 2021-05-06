@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getter-generator.js [babel] format 1`] = `
-"A getter cannot be a generator (2:10)
+"A getter cannot be a generator. (2:10)
   1 | ({
 > 2 |     get *iterator() { },
     |          ^
@@ -28,7 +28,7 @@ exports[`getter-generator.js [meriyah] format 1`] = `
 `;
 
 exports[`getter-with-parameter.js [babel] format 1`] = `
-"getter must not have any formal parameters (1:4)
+"A 'get' accesor must not have any formal parameters. (1:4)
 > 1 | ({ get x(a){} });
     |    ^
   2 |"
@@ -49,7 +49,7 @@ exports[`getter-with-parameter.js [meriyah] format 1`] = `
 `;
 
 exports[`setter-generator.js [babel] format 1`] = `
-"A setter cannot be a generator (2:10)
+"A setter cannot be a generator. (2:10)
   1 | ({
 > 2 |     set *iterator(iter) { },
     |          ^
@@ -76,7 +76,7 @@ exports[`setter-generator.js [meriyah] format 1`] = `
 `;
 
 exports[`setter-without-parameter.js [babel] format 1`] = `
-"setter must have exactly one formal parameter (1:4)
+"A 'set' accesor must have exactly one formal parameter. (1:4)
 > 1 | ({ set x(){} });
     |    ^
   2 |"

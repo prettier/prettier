@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`decorator.ts [babel-ts] format 1`] = `
-"Leading decorators must be attached to a class declaration (4:1)
+"Leading decorators must be attached to a class declaration. (4:1)
   2 |
   3 | @dec
 > 4 | enum E {}
@@ -21,7 +21,7 @@ exports[`decorator.ts [typescript] format 1`] = `
 `;
 
 exports[`enums.ts [babel-ts] format 1`] = `
-"Leading decorators must be attached to a class declaration (4:1)
+"Leading decorators must be attached to a class declaration. (4:1)
   2 |
   3 | @decorator()
 > 4 | enum Direction {
@@ -53,7 +53,7 @@ exports[`enums.ts [typescript] format 1`] = `
 `;
 
 exports[`function.ts [babel-ts] format 1`] = `
-"Leading decorators must be attached to a class declaration (4:1)
+"Leading decorators must be attached to a class declaration. (4:1)
   2 |
   3 | @decorator()
 > 4 | function foo(      ){}
@@ -73,7 +73,7 @@ exports[`function.ts [typescript] format 1`] = `
 `;
 
 exports[`interface.ts [babel-ts] format 1`] = `
-"Leading decorators must be attached to a class declaration (5:1)
+"Leading decorators must be attached to a class declaration. (5:1)
   3 |
   4 | @hello()
 > 5 | interface MyInterface {id: string;
@@ -96,7 +96,7 @@ exports[`interface.ts [typescript] format 1`] = `
 `;
 
 exports[`issue-9102.ts [babel-ts] format 1`] = `
-"Leading decorators must be attached to a class declaration (2:1)
+"Leading decorators must be attached to a class declaration. (2:1)
   1 | @Decorator()
 > 2 | type T = 1;
     | ^
