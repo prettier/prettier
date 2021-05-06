@@ -163,10 +163,6 @@ function needsParens(path, options) {
   }
 
   switch (node.type) {
-    case "SpreadElement":
-    case "SpreadProperty":
-      return name === "object" && parent.type === "MemberExpression";
-
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
         return (
@@ -237,6 +233,10 @@ function needsParens(path, options) {
     case "TSAsExpression":
     case "LogicalExpression":
       switch (parent.type) {
+        case "TSAsExpression":
+          // example: foo as unknown as Bar
+          return node.type !== "TSAsExpression";
+
         case "ConditionalExpression":
           return node.type === "TSAsExpression";
 
@@ -257,7 +257,6 @@ function needsParens(path, options) {
         case "SpreadProperty":
         case "BindExpression":
         case "AwaitExpression":
-        case "TSAsExpression":
         case "TSNonNullExpression":
         case "UpdateExpression":
           return true;
@@ -267,6 +266,7 @@ function needsParens(path, options) {
           return name === "object";
 
         case "AssignmentExpression":
+        case "AssignmentPattern":
           return (
             name === "left" &&
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")

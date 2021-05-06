@@ -1,16 +1,12 @@
 "use strict";
 
 const chalk = require("chalk");
-const fetch = require("node-fetch");
-const execa = require("execa");
-const { logPromise, processFile } = require("../utils");
+const { runGit, fetchText, logPromise, processFile } = require("../utils");
 
 async function update() {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
-    fetch("https://www.npmjs.com/package/prettier").then((response) =>
-      response.text()
-    )
+    fetchText("https://www.npmjs.com/package/prettier")
   );
   const dependentsCountNpm = Number(
     npmPage.match(/"dependentsCount":(\d+),/)[1]
@@ -23,9 +19,7 @@ async function update() {
 
   const githubPage = await logPromise(
     "Fetching github dependents count",
-    fetch(
-      "https://github.com/prettier/prettier/network/dependents"
-    ).then((response) => response.text())
+    fetchText("https://github.com/prettier/prettier/network/dependents")
   );
   const dependentsCountGithub = Number(
     githubPage
@@ -55,20 +49,17 @@ async function update() {
 
   const isUpdated = await logPromise(
     "Checking if dependents count has been updated",
-    execa("git", ["diff", "--name-only"]).then(
-      ({ stdout }) => stdout === "website/pages/en/index.js"
-    )
+    async () =>
+      (await runGit(["diff", "--name-only"])).stdout ===
+      "website/pages/en/index.js"
   );
 
   if (isUpdated) {
-    logPromise(
-      "Committing and pushing to remote",
-      (async () => {
-        await execa("git", ["add", "."]);
-        await execa("git", ["commit", "-m", "Update dependents count"]);
-        await execa("git", ["push"]);
-      })()
-    );
+    logPromise("Committing and pushing to remote", async () => {
+      await runGit(["add", "."]);
+      await runGit(["commit", "-m", "Update dependents count"]);
+      await runGit(["push"]);
+    });
   }
 }
 

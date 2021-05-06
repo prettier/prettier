@@ -2,15 +2,14 @@
 
 "use strict";
 
-const { exec, execSync } = require("child_process");
+const { exec } = require("child_process");
 
 async function run() {
   const chalk = require("chalk");
-  const { string: outdentString } = require("outdent");
   const minimist = require("minimist");
   const semver = require("semver");
-
-  const { readJson } = require("./utils");
+  const { string: outdentString } = require("outdent");
+  const { runGit, readJson } = require("./utils");
 
   const params = minimist(process.argv.slice(2), {
     string: ["version"],
@@ -18,9 +17,11 @@ async function run() {
     alias: { v: "version" },
   });
 
-  const previousVersion = execSync("git describe --tags --abbrev=0")
-    .toString()
-    .trim();
+  const { stdout: previousVersion } = await runGit([
+    "describe",
+    "--tags",
+    "--abbrev=0",
+  ]);
 
   if (semver.parse(previousVersion) === null) {
     throw new Error(`Unexpected previousVersion: ${previousVersion}`);

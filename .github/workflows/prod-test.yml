@@ -24,7 +24,7 @@ jobs:
 
       - name: Cache Build Results
         id: build-cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: .cache
           key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
@@ -85,18 +85,23 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "16"
           - "14"
           - "12"
           - "10"
         include:
           - os: "ubuntu-latest"
-            node: "14"
+            node: "16"
             FULL_TEST: true
           - os: "ubuntu-latest"
             node: "15"
         exclude:
           - os: "macos-latest"
+            node: "14"
+          - os: "macos-latest"
             node: "12"
+          - os: "windows-latest"
+            node: "14"
           - os: "windows-latest"
             node: "12"
     env:
@@ -140,7 +145,7 @@ jobs:
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true

@@ -9,13 +9,17 @@ const {
   hasLeadingOwnLineComment,
   isBinaryish,
   isStringLiteral,
+  isLiteral,
   isNumericLiteral,
   isCallExpression,
   isMemberExpression,
   getCallArguments,
-  isSimpleCallArgument,
+  rawText,
+  hasComment,
+  isSignedNumericLiteral,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
+const { printCallExpression } = require("./call-expression");
 
 function printAssignment(
   path,
@@ -25,7 +29,7 @@ function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const layout = chooseLayout(path, options, leftDoc, rightPropertyName);
+  const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
 
   const rightDoc = print(rightPropertyName, { assignmentLayout: layout });
 
@@ -48,6 +52,9 @@ function printAssignment(
         indentIfBreak(rightDoc, { groupId }),
       ]);
     }
+
+    case "break-lhs":
+      return group([leftDoc, operator, " ", group(rightDoc)]);
 
     // Parts of assignment chains aren't wrapped in groups.
     // Once one of them breaks, the chain breaks too.
@@ -81,7 +88,7 @@ function printVariableDeclarator(path, options, print) {
   return printAssignment(path, options, print, print("id"), " =", "init");
 }
 
-function chooseLayout(path, options, leftDoc, rightPropertyName) {
+function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   const node = path.getValue();
   const rightNode = node[rightPropertyName];
 
@@ -96,7 +103,7 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
   const isTail = !isAssignment(rightNode);
   const shouldUseChainFormatting = path.match(
     isAssignment,
-    (node) => isAssignment(node) || node.type === "VariableDeclarator",
+    isAssignmentOrVariableDeclarator,
     (node) =>
       !isTail ||
       (node.type !== "ExpressionStatement" &&
@@ -119,26 +126,49 @@ function chooseLayout(path, options, leftDoc, rightPropertyName) {
     return "break-after-operator";
   }
 
-  // do not put values on a separate line from the key in json
-  if (options.parser === "json5" || options.parser === "json") {
+  if (
+    (rightNode.type === "CallExpression" &&
+      rightNode.callee.name === "require") ||
+    // do not put values on a separate line from the key in json
+    options.parser === "json5" ||
+    options.parser === "json"
+  ) {
     return "never-break-after-operator";
+  }
+
+  if (isComplexDestructuring(node)) {
+    return "break-lhs";
   }
 
   // wrapping object properties with very short keys usually doesn't add much value
   const hasShortKey = isObjectPropertyWithShortKey(node, leftDoc, options);
 
-  if (shouldBreakAfterOperator(rightNode, hasShortKey)) {
+  if (
+    path.call(
+      () => shouldBreakAfterOperator(path, options, print, hasShortKey),
+      rightPropertyName
+    )
+  ) {
     return "break-after-operator";
   }
 
-  if (hasShortKey || shouldNeverBreakAfterOperator(rightNode)) {
+  if (
+    hasShortKey ||
+    rightNode.type === "TemplateLiteral" ||
+    rightNode.type === "TaggedTemplateExpression" ||
+    rightNode.type === "BooleanLiteral" ||
+    isNumericLiteral(rightNode) ||
+    rightNode.type === "ClassExpression"
+  ) {
     return "never-break-after-operator";
   }
 
   return "fluid";
 }
 
-function shouldBreakAfterOperator(rightNode, hasShortKey) {
+function shouldBreakAfterOperator(path, options, print, hasShortKey) {
+  const rightNode = path.getValue();
+
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
     return true;
   }
@@ -160,22 +190,24 @@ function shouldBreakAfterOperator(rightNode, hasShortKey) {
   }
 
   let node = rightNode;
+  const propertiesForPath = [];
   for (;;) {
     if (node.type === "UnaryExpression") {
       node = node.argument;
+      propertiesForPath.push("argument");
     } else if (node.type === "TSNonNullExpression") {
       node = node.expression;
+      propertiesForPath.push("expression");
     } else {
       break;
     }
   }
   if (
     isStringLiteral(node) ||
-    isMemberExpressionChainWithSimpleCalls(node) ||
-    (isSimpleCall(node) &&
-      isSimpleCall(node.callee) &&
-      (isMemberExpressionChainHead(node.callee.callee) ||
-        isMemberExpressionChainWithSimpleCalls(node.callee.callee)))
+    path.call(
+      () => isPoorlyBreakableMemberOrCallChain(path, options, print),
+      ...propertiesForPath
+    )
   ) {
     return true;
   }
@@ -183,57 +215,115 @@ function shouldBreakAfterOperator(rightNode, hasShortKey) {
   return false;
 }
 
-function shouldNeverBreakAfterOperator(rightNode) {
-  return (
-    rightNode.type === "TemplateLiteral" ||
-    rightNode.type === "TaggedTemplateExpression" ||
-    rightNode.type === "BooleanLiteral" ||
-    isNumericLiteral(rightNode) ||
-    (rightNode.type === "CallExpression" &&
-      rightNode.callee.name === "require") ||
-    rightNode.type === "ClassExpression"
-  );
+// prefer to break destructuring assignment
+// if it includes default values or non-shorthand properties
+function isComplexDestructuring(node) {
+  if (isAssignmentOrVariableDeclarator(node)) {
+    const leftNode = node.left || node.id;
+    return (
+      leftNode.type === "ObjectPattern" &&
+      leftNode.properties.length > 2 &&
+      leftNode.properties.some(
+        (property) =>
+          (property.type === "ObjectProperty" ||
+            property.type === "Property") &&
+          (!property.shorthand ||
+            (property.value && property.value.type === "AssignmentPattern"))
+      )
+    );
+  }
+  return false;
 }
 
 function isAssignment(node) {
   return node.type === "AssignmentExpression";
 }
 
-function isMemberExpressionChainHead(node) {
-  return node.type === "Identifier" || node.type === "ThisExpression";
+function isAssignmentOrVariableDeclarator(node) {
+  return isAssignment(node) || node.type === "VariableDeclarator";
 }
 
-function isMemberExpressionChainWithSimpleCalls(node) {
-  if (!isMemberExpression(node)) {
-    return false;
+/**
+ * A chain with no calls at all or whose calls are all without arguments or with lone short arguments,
+ * excluding chains printed by `printMemberChain`
+ */
+function isPoorlyBreakableMemberOrCallChain(
+  path,
+  options,
+  print,
+  deep = false
+) {
+  const node = path.getValue();
+  const goDeeper = () =>
+    isPoorlyBreakableMemberOrCallChain(path, options, print, true);
+
+  if (node.type === "TSNonNullExpression") {
+    return path.call(goDeeper, "expression");
   }
-  let { object } = node;
-  for (;;) {
-    if (object.type === "TSNonNullExpression") {
-      object = object.expression;
-    } else if (isCallExpression(object)) {
-      if (!isSimpleCall(object)) {
-        return false;
-      }
-      object = object.callee;
-    } else {
-      break;
+
+  if (isCallExpression(node)) {
+    /** @type {any} TODO */
+    const doc = printCallExpression(path, options, print);
+    if (doc.label === "member-chain") {
+      return false;
     }
+
+    const args = getCallArguments(node);
+    const isPoorlyBreakableCall =
+      args.length === 0 ||
+      (args.length === 1 && isLoneShortArgument(args[0], options));
+    if (!isPoorlyBreakableCall) {
+      return false;
+    }
+
+    return path.call(goDeeper, "callee");
   }
-  return (
-    isMemberExpressionChainHead(object) ||
-    isMemberExpressionChainWithSimpleCalls(object)
-  );
+
+  if (isMemberExpression(node)) {
+    return path.call(goDeeper, "object");
+  }
+
+  return deep && (node.type === "Identifier" || node.type === "ThisExpression");
 }
 
-function isSimpleCall(node) {
-  if (!isCallExpression(node)) {
+const LONE_SHORT_ARGUMENT_THRESHOLD_RATE = 0.25;
+
+function isLoneShortArgument(node, { printWidth }) {
+  if (hasComment(node)) {
     return false;
   }
-  const args = getCallArguments(node);
-  return (
-    args.length === 0 || (args.length === 1 && isSimpleCallArgument(args[0], 1))
-  );
+
+  const threshold = printWidth * LONE_SHORT_ARGUMENT_THRESHOLD_RATE;
+
+  if (
+    node.type === "ThisExpression" ||
+    (node.type === "Identifier" && node.name.length <= threshold) ||
+    (isSignedNumericLiteral(node) && !hasComment(node.argument))
+  ) {
+    return true;
+  }
+
+  const regexpPattern =
+    (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
+    (node.type === "RegExpLiteral" && node.pattern);
+
+  if (regexpPattern) {
+    return regexpPattern.length <= threshold;
+  }
+
+  if (isStringLiteral(node)) {
+    return rawText(node).length <= threshold;
+  }
+
+  if (node.type === "TemplateLiteral") {
+    return (
+      node.expressions.length === 0 &&
+      node.quasis[0].value.raw.length <= threshold &&
+      !node.quasis[0].value.raw.includes("\n")
+    );
+  }
+
+  return isLiteral(node);
 }
 
 function isObjectPropertyWithShortKey(node, keyDoc, options) {

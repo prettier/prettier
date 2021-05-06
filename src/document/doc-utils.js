@@ -71,26 +71,53 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 }
 
 function mapDoc(doc, cb) {
-  if (Array.isArray(doc)) {
-    return cb(doc.map((part) => mapDoc(part, cb)));
+  // Within a doc tree, the same subtrees can be found multiple times.
+  // E.g., often this happens in conditional groups.
+  // As an optimization (those subtrees can be huge) and to maintain the
+  // reference structure of the tree, the mapping results are cached in
+  // a map and reused.
+  const mapped = new Map();
+
+  return rec(doc);
+
+  function rec(doc) {
+    if (mapped.has(doc)) {
+      return mapped.get(doc);
+    }
+    const result = process(doc);
+    mapped.set(doc, result);
+    return result;
   }
 
-  if (doc.type === "concat" || doc.type === "fill") {
-    const parts = doc.parts.map((part) => mapDoc(part, cb));
-    return cb({ ...doc, parts });
-  }
+  function process(doc) {
+    if (Array.isArray(doc)) {
+      return cb(doc.map(rec));
+    }
 
-  if (doc.type === "if-break") {
-    const breakContents = doc.breakContents && mapDoc(doc.breakContents, cb);
-    const flatContents = doc.flatContents && mapDoc(doc.flatContents, cb);
-    return cb({ ...doc, breakContents, flatContents });
-  }
+    if (doc.type === "concat" || doc.type === "fill") {
+      const parts = doc.parts.map(rec);
+      return cb({ ...doc, parts });
+    }
 
-  if (doc.contents) {
-    const contents = mapDoc(doc.contents, cb);
-    return cb({ ...doc, contents });
+    if (doc.type === "if-break") {
+      const breakContents = doc.breakContents && rec(doc.breakContents);
+      const flatContents = doc.flatContents && rec(doc.flatContents);
+      return cb({ ...doc, breakContents, flatContents });
+    }
+
+    if (doc.type === "group" && doc.expandedStates) {
+      const expandedStates = doc.expandedStates.map(rec);
+      const contents = expandedStates[0];
+      return cb({ ...doc, contents, expandedStates });
+    }
+
+    if (doc.contents) {
+      const contents = rec(doc.contents);
+      return cb({ ...doc, contents });
+    }
+
+    return cb(doc);
   }
-  return cb(doc);
 }
 
 function findInDoc(doc, fn, defaultValue) {

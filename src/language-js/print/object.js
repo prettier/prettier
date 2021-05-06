@@ -41,11 +41,10 @@ function printObject(path, options, print) {
   }
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
-  const fields = [];
+  const fields = [propertiesField];
   if (isTypeAnnotation) {
     fields.push("indexers", "callProperties", "internalSlots");
   }
-  fields.push(propertiesField);
 
   const firstProperty = fields
     .map((field) => node[field][0])
@@ -109,26 +108,28 @@ function printObject(path, options, print) {
     }, field);
   }
 
+  if (fields.length > 1) {
+    propsAndLoc.sort((a, b) => a.loc - b.loc);
+  }
+
   /** @type {Doc[]} */
   let separatorParts = [];
-  const props = propsAndLoc
-    .sort((a, b) => a.loc - b.loc)
-    .map((prop) => {
-      const result = [...separatorParts, group(prop.printed)];
-      separatorParts = [separator, line];
-      if (
-        (prop.node.type === "TSPropertySignature" ||
-          prop.node.type === "TSMethodSignature" ||
-          prop.node.type === "TSConstructSignatureDeclaration") &&
-        hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
-      ) {
-        separatorParts.shift();
-      }
-      if (isNextLineEmpty(prop.node, options)) {
-        separatorParts.push(hardline);
-      }
-      return result;
-    });
+  const props = propsAndLoc.map((prop) => {
+    const result = [...separatorParts, group(prop.printed)];
+    separatorParts = [separator, line];
+    if (
+      (prop.node.type === "TSPropertySignature" ||
+        prop.node.type === "TSMethodSignature" ||
+        prop.node.type === "TSConstructSignatureDeclaration") &&
+      hasComment(prop.node, CommentCheckFlags.PrettierIgnore)
+    ) {
+      separatorParts.shift();
+    }
+    if (isNextLineEmpty(prop.node, options)) {
+      separatorParts.push(hardline);
+    }
+    return result;
+  });
 
   if (node.inexact) {
     let printed;
@@ -225,7 +226,16 @@ function printObject(path, options, print) {
           name === "this" ||
           name === "rest") &&
         number === 0
-    )
+    ) ||
+    // Assignment printing logic (printAssignment) is responsible
+    // for adding a group if needed
+    (!shouldBreak &&
+      path.match(
+        (node) => node.type === "ObjectPattern",
+        (node) =>
+          node.type === "AssignmentExpression" ||
+          node.type === "VariableDeclarator"
+      ))
   ) {
     return content;
   }
