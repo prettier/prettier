@@ -27,6 +27,7 @@ async function f() {
   for await ((foo) of async);
   for await ((foo) of []) async;
 }
+
 =====================================output=====================================
 for ((async) of []);
 for (foo of async);
