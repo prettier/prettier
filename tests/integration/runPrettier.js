@@ -155,8 +155,7 @@ function runPrettier(dir, args = [], options = {}) {
 
     if (!promise) {
       hasRunningCli = true;
-      promise = run(dir, args, options);
-      promise.then(() => {
+      promise = run(dir, args, options).finally(() => {
         hasRunningCli = false;
       });
     }
