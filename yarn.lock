@@ -3532,10 +3532,10 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
-flow-parser@0.150.0:
-  version "0.150.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.150.0.tgz#69ba3e90b0d127bc2f0d7025854805eeb09fd2c1"
-  integrity sha512-kYoNG9BH4RlYwEt0A9+30ZiUiYBNB9KLDeDI4rSBb0QsoH5F12ywNUOHp5JD2KVYz6nhapbn/kCIZALSmd3q6w==
+flow-parser@0.150.1:
+  version "0.150.1"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.150.1.tgz#750dbe738e3b54b7f5f4fc52fd0bc5277a2d587d"
+  integrity sha512-BGzmgjz6Ma6LN6rfrnVGDo/2wsAGHbcCASDVpWu8/GAriikDQCiiIND/6HBVBxhy1Uga1Sgmfl8iiIln+t3kCw==
 
 for-in@^1.0.2:
   version "1.0.2"
