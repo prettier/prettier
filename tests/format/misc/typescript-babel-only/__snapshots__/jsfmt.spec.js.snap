@@ -60,6 +60,68 @@ class Bar {
 ================================================================================
 `;
 
+exports[`ts-4.3-override-modifier.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class MyClass extends BaseClass {
+  override show() {}
+  public override show() {}
+  override size = 5;
+  override readonly size = 5;
+}
+
+=====================================output=====================================
+class MyClass extends BaseClass {
+  override show() {}
+  public override show() {}
+  override size = 5;
+  override readonly size = 5;
+}
+
+================================================================================
+`;
+
+exports[`ts4.3-type-members-get-set.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  get foo(): string;
+  set bar(v);
+}
+
+type Foo = {
+  get foo(): string;
+  set bar(v);
+}
+
+interface Foo {
+  set bar(foo: string);
+}
+
+=====================================output=====================================
+interface Foo {
+  get foo(): string;
+  set bar(v);
+}
+
+type Foo = {
+  get foo(): string;
+  set bar(v);
+};
+
+interface Foo {
+  set bar(foo: string);
+}
+
+================================================================================
+`;
+
 exports[`tuple-labeled-ts.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]

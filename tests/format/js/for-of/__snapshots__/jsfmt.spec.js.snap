@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`async-identifier.js [espree] format 1`] = `
+"Unexpected token [ (6:23)
+  4 |
+  5 | async function f() {
+> 6 |   for await (async of []);
+    |                       ^
+  7 |   for await ((async) of []);
+  8 |   for await ((foo) of async);
+  9 |   for await ((foo) of []) async;"
+`;
+
+exports[`async-identifier.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for ((async) of []);
+for ((foo) of async);
+for ((foo) of []) async;
+
+async function f() {
+  for await (async of []);
+  for await ((async) of []);
+  for await ((foo) of async);
+  for await ((foo) of []) async;
+}
+
+=====================================output=====================================
+for ((async) of []);
+for (foo of async);
+for (foo of []) async;
+
+async function f() {
+  for await (async of []);
+  for await (async of []);
+  for await (foo of async);
+  for await (foo of []) async;
+}
+
+================================================================================
+`;

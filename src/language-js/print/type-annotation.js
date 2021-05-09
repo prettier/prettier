@@ -297,9 +297,12 @@ function printTupleType(path, options, print) {
   ]);
 }
 
-// `TSIndexedAccessType` and `IndexedAccessType`
+// `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
 function printIndexedAccessType(path, options, print) {
-  return [print("objectType"), "[", print("indexType"), "]"];
+  const node = path.getValue();
+  const leftDelimiter =
+    node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
+  return [print("objectType"), leftDelimiter, print("indexType"), "]"];
 }
 
 module.exports = {

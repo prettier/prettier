@@ -8,7 +8,7 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index");
 const core = require("./core");
 
-function run(rawArguments) {
+async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
   let logger = core.createLogger();
 

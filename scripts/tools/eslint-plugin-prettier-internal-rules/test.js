@@ -166,6 +166,69 @@ test("jsx-identifier-case", {
   ],
 });
 
+test("no-conflicting-comment-check-flags", {
+  valid: [
+    "CommentCheckFlags.Leading",
+    "NotCommentCheckFlags.Leading | NotCommentCheckFlags.Trailing",
+    "CommentCheckFlags.Leading | CommentCheckFlags.Trailing | SOMETHING_ELSE",
+    "CommentCheckFlags.Leading & CommentCheckFlags.Trailing",
+  ],
+  invalid: [
+    {
+      code: "CommentCheckFlags.Leading | CommentCheckFlags.Trailing",
+      output: null,
+      errors: [
+        {
+          message:
+            "Do not use 'CommentCheckFlags.Leading', 'CommentCheckFlags.Trailing' together.",
+        },
+      ],
+    },
+    {
+      code:
+        "(CommentCheckFlags.Leading | CommentCheckFlags.Trailing) | CommentCheckFlags.Dangling",
+      output: null,
+      errors: [
+        {
+          message:
+            "Do not use 'CommentCheckFlags.Leading', 'CommentCheckFlags.Trailing', 'CommentCheckFlags.Dangling' together.",
+        },
+      ],
+    },
+    {
+      code:
+        "CommentCheckFlags.Leading | CommentCheckFlags.Trailing | CommentCheckFlags.UNKNOWN",
+      output: null,
+      errors: [
+        {
+          message:
+            "Do not use 'CommentCheckFlags.Leading', 'CommentCheckFlags.Trailing' together.",
+        },
+      ],
+    },
+    {
+      code:
+        "CommentCheckFlags.Block | CommentCheckFlags.Line | CommentCheckFlags.UNKNOWN",
+      output: null,
+      errors: [
+        {
+          message:
+            "Do not use 'CommentCheckFlags.Block', 'CommentCheckFlags.Line' together.",
+        },
+      ],
+    },
+    {
+      code: "CommentCheckFlags.Block | CommentCheckFlags.Block",
+      output: null,
+      errors: [
+        {
+          message: "Do not use same flag multiple times.",
+        },
+      ],
+    },
+  ],
+});
+
 test("no-doc-builder-concat", {
   valid: ["notConcat([])", "concat", "[].concat([])"],
   invalid: [

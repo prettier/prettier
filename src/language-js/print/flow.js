@@ -83,6 +83,7 @@ function printFlow(path, options, print) {
         printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "IndexedAccessType":
+    case "OptionalIndexedAccessType":
       return printIndexedAccessType(path, options, print);
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.

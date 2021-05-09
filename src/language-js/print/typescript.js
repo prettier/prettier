@@ -350,8 +350,10 @@ function printTypescript(path, options, print) {
       );
     }
     case "TSMethodSignature": {
+      const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
         node.accessibility ? [node.accessibility, " "] : "",
+        kind,
         node.export ? "export " : "",
         node.static ? "static " : "",
         node.readonly ? "readonly " : "",

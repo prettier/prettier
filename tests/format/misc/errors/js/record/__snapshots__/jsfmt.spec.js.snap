@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [babel] format 1`] = `
-"Only properties and spread elements are allowed in record definitions (1:3)
+"Only properties and spread elements are allowed in record definitions. (1:3)
 > 1 | #{a() {}}
     |   ^"
 `;
@@ -19,7 +19,7 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
-"Only properties and spread elements are allowed in record definitions (1:3)
+"Only properties and spread elements are allowed in record definitions. (1:3)
 > 1 | #{async b() {}}
     |   ^"
 `;
@@ -37,7 +37,7 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #2 [babel] format 1`] = `
-"Only properties and spread elements are allowed in record definitions (1:3)
+"Only properties and spread elements are allowed in record definitions. (1:3)
 > 1 | #{get c() {}}
     |   ^"
 `;
@@ -55,7 +55,7 @@ exports[`snippet: #2 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #3 [babel] format 1`] = `
-"Only properties and spread elements are allowed in record definitions (1:3)
+"Only properties and spread elements are allowed in record definitions. (1:3)
 > 1 | #{set d(_) {}}
     |   ^"
 `;
@@ -73,7 +73,7 @@ exports[`snippet: #3 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel] format 1`] = `
-"Only properties and spread elements are allowed in record definitions (1:3)
+"Only properties and spread elements are allowed in record definitions. (1:3)
 > 1 | #{*e() {}}
     |   ^"
 `;
