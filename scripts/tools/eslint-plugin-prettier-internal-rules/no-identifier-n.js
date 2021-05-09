@@ -17,8 +17,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
     },
     messages: {
       [ERROR]: "Please rename variable 'n'.",

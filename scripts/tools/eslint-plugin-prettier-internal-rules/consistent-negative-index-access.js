@@ -27,8 +27,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/consistent-negative-index-access.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/consistent-negative-index-access.js",
     },
     messages: {
       [messageId]: "Prefer `{{method}}(…)` over `…[….length - {{index}}]`.",

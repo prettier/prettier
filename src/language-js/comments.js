@@ -585,10 +585,11 @@ function handleLastFunctionArgComments({
           locEnd(getLast(parameters))
         );
       }
-      const functionParamLeftParenIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-        text,
-        locEnd(enclosingNode.id)
-      );
+      const functionParamLeftParenIndex =
+        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          text,
+          locEnd(enclosingNode.id)
+        );
       return (
         functionParamLeftParenIndex !== false &&
         getNextNonSpaceNonCommentCharacterIndexWithStartIndex(

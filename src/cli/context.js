@@ -39,13 +39,11 @@ class Context {
     this.logger = logger;
     this.stack = [];
 
-    const {
-      plugin: plugins,
-      "plugin-search-dir": pluginSearchDirs,
-    } = parseArgvWithoutPlugins(rawArguments, logger, [
-      "plugin",
-      "plugin-search-dir",
-    ]);
+    const { plugin: plugins, "plugin-search-dir": pluginSearchDirs } =
+      parseArgvWithoutPlugins(rawArguments, logger, [
+        "plugin",
+        "plugin-search-dir",
+      ]);
 
     this.pushContextPlugins(plugins, pluginSearchDirs);
 

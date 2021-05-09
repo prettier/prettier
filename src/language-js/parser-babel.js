@@ -65,10 +65,8 @@ function isFlowFile(text, options) {
     text = text.slice(shebang.length);
   }
 
-  const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-    text,
-    0
-  );
+  const firstNonSpaceNonCommentCharacterIndex =
+    getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, 0);
 
   if (firstNonSpaceNonCommentCharacterIndex !== false) {
     text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
@@ -119,8 +117,8 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     const { result: ast, error } = tryCombinations(
-      ...combinations.map((options) => () =>
-        parseWithOptions(parseMethod, text, options)
+      ...combinations.map(
+        (options) => () => parseWithOptions(parseMethod, text, options)
       )
     );
 

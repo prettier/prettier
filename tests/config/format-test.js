@@ -325,8 +325,10 @@ function runTest({
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
       test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
-        const output = format(code.replace(/\n/g, eol), formatOptions)
-          .eolVisualizedOutput;
+        const output = format(
+          code.replace(/\n/g, eol),
+          formatOptions
+        ).eolVisualizedOutput;
         // Only if `endOfLine: "auto"` the result will be different
         const expected =
           formatOptions.endOfLine === "auto"

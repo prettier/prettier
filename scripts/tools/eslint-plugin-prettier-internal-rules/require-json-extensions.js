@@ -26,8 +26,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/require-json-extensions.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/require-json-extensions.js",
     },
     messages: {
       [MESSAGE_ID]: 'Missing file extension ".json" for "{{id}}".',

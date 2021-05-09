@@ -163,11 +163,9 @@ describe("--write and --list-different with unknown path and no parser", () => {
   });
 
   describe("multiple files", () => {
-    runPrettier("cli/infer-parser/", [
-      "--list-different",
-      "--write",
-      "*",
-    ]).test({ status: 0 });
+    runPrettier("cli/infer-parser/", ["--list-different", "--write", "*"]).test(
+      { status: 0 }
+    );
   });
 });
 

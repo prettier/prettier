@@ -17,8 +17,10 @@ describe("standalone", () => {
     .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 
-  const esmStandalone = require(path.join(distDirectory, "esm/standalone.mjs"))
-    .default;
+  const esmStandalone = require(path.join(
+    distDirectory,
+    "esm/standalone.mjs"
+  )).default;
   const esmPlugins = globby
     .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file).default);

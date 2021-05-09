@@ -12,10 +12,8 @@ function postprocess(ast, options) {
   // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
   // https://github.com/typescript-eslint/typescript-eslint/pull/2375
   if (options.parser === "typescript" && options.originalText.includes("@")) {
-    const {
-      esTreeNodeToTSNodeMap,
-      tsNodeToESTreeNodeMap,
-    } = options.tsParseResult;
+    const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } =
+      options.tsParseResult;
     ast = visitNode(ast, (node) => {
       const tsNode = esTreeNodeToTSNodeMap.get(node);
       if (!tsNode) {
