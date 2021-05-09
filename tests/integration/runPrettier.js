@@ -3,7 +3,6 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const { SynchronousPromise } = require("synchronous-promise");
 const { prettierCli, thirdParty } = require("./env");
 
 async function run(dir, args, options) {
@@ -74,7 +73,7 @@ async function run(dir, args, options) {
   // "get-stream" module to mock.
   jest
     .spyOn(require(thirdParty), "getStdin")
-    .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
+    .mockImplementation(() => Promise.resolve(options.input || ""));
   jest
     .spyOn(require(thirdParty), "isCI")
     .mockImplementation(() => Boolean(options.ci));

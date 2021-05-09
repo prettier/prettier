@@ -128,7 +128,6 @@
     "rollup-plugin-terser": "7.0.2",
     "shelljs": "0.8.4",
     "snapshot-diff": "0.8.1",
-    "synchronous-promise": "2.0.15",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "5.1.1",
     "webpack": "5.36.2"
