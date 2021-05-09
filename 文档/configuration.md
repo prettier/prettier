@@ -173,3 +173,4 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 ## Configuration Schema
 
 If you’d like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+#### 1
