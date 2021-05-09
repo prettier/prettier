@@ -1,14 +1,14 @@
 "use strict";
 
-const dashify = require("dashify");
-
 const fromPairs = require("lodash/fromPairs");
+const dashify = require("dashify");
+const vnopts = require("vnopts");
 
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 
 const minimist = require("./minimist");
-const { optionsNormalizer } = require("./prettier-internal");
+const { normalizeOptions } = require("./prettier-internal");
 const createMinimistOptions = require("./create-minimist-options");
 
 function getOptions(argv, detailedOptions) {
@@ -46,7 +46,7 @@ function parseArgsToOptions(context, overrideDefaults) {
     context.detailedOptions
   );
   return getOptions(
-    optionsNormalizer.normalizeCliOptions(
+    normalizeCliOptions(
       minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
@@ -121,7 +121,7 @@ function getOptionsForFile(context, filepath) {
     ...applyConfigPrecedence(
       context,
       options &&
-        optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
+        normalizeOptions(options, context.supportOptions, {
           logger: context.logger,
         })
     ),
@@ -139,7 +139,28 @@ function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
+const descriptor = {
+  key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
+  value: (value) => vnopts.apiDescriptor.value(value),
+  pair: ({ key, value }) =>
+    value === false
+      ? `--no-${key}`
+      : value === true
+      ? descriptor.key(key)
+      : value === ""
+      ? `${descriptor.key(key)} without an argument`
+      : `${descriptor.key(key)}=${value}`,
+};
+function normalizeCliOptions(options, optionInfos, opts) {
+  return normalizeOptions(options, optionInfos, {
+    ...opts,
+    isCLI: true,
+    descriptor,
+  });
+}
+
 module.exports = {
   getOptionsForFile,
   createMinimistOptions,
+  normalizeCliOptions,
 };

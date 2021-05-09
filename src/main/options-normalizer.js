@@ -6,19 +6,6 @@ const chalk = require("chalk");
 const flat = require("lodash/flatten");
 const getLast = require("../utils/get-last");
 
-const cliDescriptor = {
-  key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
-  value: (value) => vnopts.apiDescriptor.value(value),
-  pair: ({ key, value }) =>
-    value === false
-      ? `--no-${key}`
-      : value === true
-      ? cliDescriptor.key(key)
-      : value === ""
-      ? `${cliDescriptor.key(key)} without an argument`
-      : `${cliDescriptor.key(key)}=${value}`,
-};
-
 class FlagSchema extends vnopts.ChoiceSchema {
   constructor({ name, flags }) {
     super({ name, choices: flags });
@@ -53,7 +40,12 @@ let hasDeprecationWarned;
 function normalizeOptions(
   options,
   optionInfos,
-  { logger, isCLI = false, passThrough = false } = {}
+  {
+    logger,
+    isCLI = false,
+    passThrough = false,
+    descriptor = vnopts.apiDescriptor,
+  } = {}
 ) {
   const unknown = !passThrough
     ? (key, value, options) => {
@@ -69,7 +61,6 @@ function normalizeOptions(
         !passThrough.includes(key) ? undefined : { [key]: value }
     : (key, value) => ({ [key]: value });
 
-  const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
   const schemas = optionInfosToSchemas(optionInfos, { isCLI });
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,
@@ -211,15 +202,4 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     : SchemaConstructor.create({ ...parameters, ...handlers });
 }
 
-function normalizeApiOptions(options, optionInfos, opts) {
-  return normalizeOptions(options, optionInfos, opts);
-}
-
-function normalizeCliOptions(options, optionInfos, opts) {
-  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
-}
-
-module.exports = {
-  normalizeApiOptions,
-  normalizeCliOptions,
-};
+module.exports = normalizeOptions;
