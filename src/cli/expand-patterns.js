@@ -10,12 +10,12 @@ const flat = require("lodash/flatten");
 /**
  * @param {Context} context
  */
-function* expandPatterns(context) {
+async function* expandPatterns(context) {
   const cwd = process.cwd();
   const seen = new Set();
   let noResults = true;
 
-  for (const pathOrError of expandPatternsInternal(context)) {
+  for await (const pathOrError of expandPatternsInternal(context)) {
     noResults = false;
     if (typeof pathOrError !== "string") {
       yield pathOrError;
@@ -44,7 +44,7 @@ function* expandPatterns(context) {
 /**
  * @param {Context} context
  */
-function* expandPatternsInternal(context) {
+async function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
   const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
   if (context.argv["with-node-modules"] !== true) {
@@ -102,7 +102,7 @@ function* expandPatternsInternal(context) {
     let result;
 
     try {
-      result = fastGlob.sync(glob, globOptions);
+      result = await fastGlob(glob, globOptions);
     } catch ({ message }) {
       /* istanbul ignore next */
       yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };

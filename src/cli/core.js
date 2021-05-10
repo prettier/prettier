@@ -16,9 +16,9 @@ const {
 const { createDetailedUsage, createUsage } = require("./usage");
 const { createLogger } = require("./logger");
 
-function logResolvedConfigPathOrDie(context) {
+async function logResolvedConfigPathOrDie(context) {
   const file = context.argv["find-config-path"];
-  const configFile = prettier.resolveConfigFile.sync(file);
+  const configFile = await prettier.resolveConfigFile(file);
   if (configFile) {
     context.logger.log(path.relative(process.cwd(), configFile));
   } else {
@@ -26,7 +26,7 @@ function logResolvedConfigPathOrDie(context) {
   }
 }
 
-function logFileInfoOrDie(context) {
+async function logFileInfoOrDie(context) {
   const options = {
     ignorePath: context.argv["ignore-path"],
     withNodeModules: context.argv["with-node-modules"],
@@ -37,7 +37,7 @@ function logFileInfoOrDie(context) {
 
   context.logger.log(
     prettier.format(
-      stringify(prettier.getFileInfo.sync(context.argv["file-info"], options)),
+      stringify(await prettier.getFileInfo(context.argv["file-info"], options)),
       { parser: "json" }
     )
   );

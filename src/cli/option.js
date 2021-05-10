@@ -59,7 +59,7 @@ function parseArgsToOptions(context, overrideDefaults) {
   );
 }
 
-function getOptionsOrDie(context, filePath) {
+async function getOptionsOrDie(context, filePath) {
   try {
     if (context.argv.config === false) {
       context.logger.debug(
@@ -74,7 +74,7 @@ function getOptionsOrDie(context, filePath) {
         : `resolve config from '${filePath}'`
     );
 
-    const options = prettier.resolveConfig.sync(filePath, {
+    const options = await prettier.resolveConfig(filePath, {
       editorconfig: context.argv.editorconfig,
       config: context.argv.config,
     });
@@ -108,8 +108,8 @@ function applyConfigPrecedence(context, options) {
   }
 }
 
-function getOptionsForFile(context, filepath) {
-  const options = getOptionsOrDie(context, filepath);
+async function getOptionsForFile(context, filepath) {
+  const options = await getOptionsOrDie(context, filepath);
 
   const hasPlugins = options && options.plugins;
   if (hasPlugins) {
