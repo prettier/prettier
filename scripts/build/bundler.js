@@ -107,18 +107,18 @@ function getBabelConfig(bundle) {
       require.resolve("@babel/preset-env"),
       {
         targets,
-        exclude: ["transform-async-to-generator"],
+        exclude: [
+          "transform-async-to-generator",
+          "es.array.unscopables.flat-map",
+          "es.string.replace",
+          "es.symbol.description",
+          "es.promise",
+          "web.*",
+        ],
         modules: false,
         useBuiltIns: "usage",
         corejs: {
           version: 3,
-          exclude: [
-            "es.array.unscopables.flat-map",
-            "es.string.replace",
-            "es.symbol.description",
-            "es.promise",
-            "web.*",
-          ],
         },
         debug: true,
       },
