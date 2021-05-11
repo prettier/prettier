@@ -42,18 +42,28 @@ async function run(dir, args, options) {
 
   const write = [];
 
-  jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
-    write.push({ filename, content });
-  });
+  jest
+    .spyOn(fs.promises, "writeFile")
+    .mockImplementation(async (filename, content) => {
+      write.push({ filename, content });
+    });
 
-  const origStatSync = fs.statSync;
+  /*
+    A fake non-existing directory to test plugin search won't crash.
 
-  jest.spyOn(fs, "statSync").mockImplementation((filename) => {
-    if (path.basename(filename) === "virtualDirectory") {
-      return origStatSync(path.join(__dirname, __filename));
-    }
-    return origStatSync(filename);
-  });
+    See:
+    - `isDirectory` function in `src/common/load-plugins.js`
+    - Test file `./__tests__/plugin-virtual-directory.js`
+    - Pull request #5819
+  */
+  const originalStatSync = fs.statSync;
+  jest
+    .spyOn(fs, "statSync")
+    .mockImplementation((filename) =>
+      originalStatSync(
+        path.basename(filename) === "virtualDirectory" ? __filename : filename
+      )
+    );
 
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
@@ -73,7 +83,7 @@ async function run(dir, args, options) {
   // "get-stream" module to mock.
   jest
     .spyOn(require(thirdParty), "getStdin")
-    .mockImplementation(() => Promise.resolve(options.input || ""));
+    .mockImplementation(async () => options.input || "");
   jest
     .spyOn(require(thirdParty), "isCI")
     .mockImplementation(() => Boolean(options.ci));

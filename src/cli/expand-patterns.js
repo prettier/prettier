@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs");
+const { promises: fs } = require("fs");
 const fastGlob = require("fast-glob");
 
 /** @typedef {import('./context').Context} Context */
@@ -67,7 +67,7 @@ async function* expandPatternsInternal(context) {
       continue;
     }
 
-    const stat = statSafeSync(absolutePath);
+    const stat = await statSafe(absolutePath);
     if (stat) {
       if (stat.isFile()) {
         entries.push({
@@ -170,11 +170,11 @@ function sortPaths(paths) {
 /**
  * Get stats of a given path.
  * @param {string} filePath The path to target file.
- * @returns {fs.Stats | undefined} The stats.
+ * @returns {Promise<import('fs').Stats | undefined>} The stats.
  */
-function statSafeSync(filePath) {
+async function statSafe(filePath) {
   try {
-    return fs.statSync(filePath);
+    return await fs.stat(filePath);
   } catch (error) {
     /* istanbul ignore next */
     if (error.code !== "ENOENT") {
