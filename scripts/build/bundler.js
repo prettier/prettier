@@ -112,6 +112,13 @@ function getBabelConfig(bundle) {
         useBuiltIns: "usage",
         corejs: {
           version: 3,
+          exclude: [
+            "es.array.unscopables.flat-map",
+            "es.string.replace",
+            "es.symbol.description",
+            "es.promise",
+            "web.*",
+          ],
         },
         debug: true,
       },
