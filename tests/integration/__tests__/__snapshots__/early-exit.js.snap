@@ -1,14 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`node version error 1`] = `
-Object {
-  "stderr": "prettier requires at least version 10.13.0 of Node, please upgrade
-",
-  "stdout": "",
-  "write": Array [],
-}
-`;
-
 exports[`show detailed usage with --help l (alias) (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
