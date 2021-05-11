@@ -1,6 +1,6 @@
 "use strict";
 
-const { promises: fsAsync } = require("fs");
+const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
 const { prettierCli, thirdParty } = require("./env");
@@ -43,20 +43,27 @@ async function run(dir, args, options) {
   const write = [];
 
   jest
-    .spyOn(fsAsync, "writeFile")
+    .spyOn(fs.promises, "writeFile")
     .mockImplementation(async (filename, content) => {
       write.push({ filename, content });
     });
 
-  const originalStat = fsAsync.stat;
-  jest.spyOn(fsAsync, "stat").mockImplementation((filename) =>
-    originalStat(
-      // A fake non-existing directory to test plugin search won't crash
-      // See ./__tests__/plugin-virtual-directory.js
-      // #5819
-      path.basename(filename) === "virtualDirectory" ? __filename : filename
-    )
-  );
+  /*
+    A fake non-existing directory to test plugin search won't crash.
+
+    See:
+    - `isDirectory` function in `src/common/load-plugins.js`
+    - ./__tests__/plugin-virtual-directory.js
+    - Pull request #5819
+  */
+  const originalStatSync = fs.statSync;
+  jest
+    .spyOn(fs, "statSync")
+    .mockImplementation((filename) =>
+      originalStatSync(
+        path.basename(filename) === "virtualDirectory" ? __filename : filename
+      )
+    );
 
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
