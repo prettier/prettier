@@ -108,11 +108,13 @@ function getBabelConfig(bundle) {
       {
         targets,
         exclude: [
-          "transform-async-to-generator",
           "es.array.unscopables.flat-map",
+          "es.promise",
+          "es.promise.finally",
           "es.string.replace",
           "es.symbol.description",
-          "es.promise",
+          "es.typed-array.*",
+          "transform-async-to-generator",
           "web.*",
         ],
         modules: false,
