@@ -83,8 +83,10 @@ function webpackNativeShims(config, modules) {
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
+    sourceType: "unambiguous",
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto",
+    exclude: [/\/core-js\//],
   };
   if (bundle.type === "core") {
     config.plugins.push(
@@ -105,8 +107,22 @@ function getBabelConfig(bundle) {
       require.resolve("@babel/preset-env"),
       {
         targets,
-        exclude: ["transform-async-to-generator"],
+        exclude: [
+          "es.array.unscopables.flat-map",
+          "es.promise",
+          "es.promise.finally",
+          "es.string.replace",
+          "es.symbol.description",
+          "es.typed-array.*",
+          "transform-async-to-generator",
+          "web.*",
+        ],
         modules: false,
+        useBuiltIns: "usage",
+        corejs: {
+          version: 3,
+        },
+        debug: false,
       },
     ],
   ];

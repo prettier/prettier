@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
-const flatten = require("lodash/flatten");
 const globby = require("globby");
 const mem = require("mem");
 const internalPlugins = require("../languages");
@@ -57,8 +56,8 @@ function load(plugins, pluginSearchDirs) {
     }
   );
 
-  const externalAutoLoadPluginInfos = flatten(
-    pluginSearchDirs.map((pluginSearchDir) => {
+  const externalAutoLoadPluginInfos = pluginSearchDirs.flatMap(
+    (pluginSearchDir) => {
       const resolvedPluginSearchDir = path.resolve(
         process.cwd(),
         pluginSearchDir
@@ -85,7 +84,7 @@ function load(plugins, pluginSearchDirs) {
         name: pluginName,
         requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
       }));
-    })
+    }
   );
 
   const externalPlugins = [

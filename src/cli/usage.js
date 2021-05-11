@@ -1,7 +1,6 @@
 "use strict";
 
 const groupBy = require("lodash/groupBy");
-const flat = require("lodash/flatten");
 const camelCase = require("camelcase");
 const constant = require("./constant");
 
@@ -112,7 +111,7 @@ function getOptionsWithOpposites(options) {
         }
       : null,
   ]);
-  return flat(optionsWithOpposites).filter(Boolean);
+  return optionsWithOpposites.flat().filter(Boolean);
 }
 
 function createUsage(context) {
