@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const { promises: fsAsync } = require("fs");
+const { promises: fs } = require("fs");
 const fastGlob = require("fast-glob");
 const flat = require("lodash/flatten");
 
@@ -175,7 +175,7 @@ function sortPaths(paths) {
  */
 async function statSafe(filePath) {
   try {
-    return await fsAsync.stat(filePath);
+    return await fs.stat(filePath);
   } catch (error) {
     /* istanbul ignore next */
     if (error.code !== "ENOENT") {
