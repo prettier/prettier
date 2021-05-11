@@ -102,7 +102,7 @@ function getBabelConfig(bundle) {
       setComputedProperties: true,
       setPublicClassFields: true,
       setSpreadProperties: true,
-      skipForOfIteratorClosing: true,
+      skipForOfIteratorClosing: false,
       superIsCallableConstructor: true,
     },
     plugins: bundle.babelPlugins || [],
