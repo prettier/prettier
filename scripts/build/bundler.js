@@ -83,6 +83,9 @@ function webpackNativeShims(config, modules) {
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
+    assumptions: {
+      setSpreadProperties: true,
+    },
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto",
   };
@@ -110,13 +113,10 @@ function getBabelConfig(bundle) {
       },
     ],
   ];
-  config.plugins.push(
-    [
-      require.resolve("@babel/plugin-proposal-object-rest-spread"),
-      { loose: true, useBuiltIns: true },
-    ],
-    require.resolve("@babel/plugin-proposal-optional-catch-binding")
-  );
+  config.plugins.push([
+    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    { useBuiltIns: true },
+  ]);
   return config;
 }
 
