@@ -85,6 +85,7 @@ function getBabelConfig(bundle) {
     babelrc: false,
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto",
+    exclude: [/\/core-js\//],
   };
   if (bundle.type === "core") {
     config.plugins.push(
