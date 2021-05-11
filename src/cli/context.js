@@ -1,5 +1,4 @@
 "use strict";
-const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 
 // eslint-disable-next-line no-restricted-modules
@@ -92,7 +91,7 @@ function getContextOptions(plugins, pluginSearchDirs) {
 
   const apiDefaultOptions = {
     ...optionsModule.hiddenDefaults,
-    ...fromPairs(
+    ...Object.fromEntries(
       supportOptions
         .filter(({ deprecated }) => !deprecated)
         .map((option) => [option.name, option.default])

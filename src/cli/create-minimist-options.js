@@ -1,7 +1,6 @@
 "use strict";
 
 const partition = require("lodash/partition");
-const fromPairs = require("lodash/fromPairs");
 
 module.exports = function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(
@@ -13,7 +12,7 @@ module.exports = function createMinimistOptions(detailedOptions) {
     )
   );
 
-  const defaults = fromPairs(
+  const defaults = Object.fromEntries(
     detailedOptions
       .filter(
         (option) =>

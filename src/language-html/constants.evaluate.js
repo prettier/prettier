@@ -1,10 +1,9 @@
 "use strict";
 
 const htmlStyles = require("html-styles");
-const fromPairs = require("lodash/fromPairs");
 
 const getCssStyleTags = (property) =>
-  fromPairs(
+  Object.fromEntries(
     htmlStyles
       .filter((htmlStyle) => htmlStyle.style[property])
       .flatMap((htmlStyle) =>
