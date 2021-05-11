@@ -53,7 +53,7 @@ async function run(dir, args, options) {
 
     See:
     - `isDirectory` function in `src/common/load-plugins.js`
-    - ./__tests__/plugin-virtual-directory.js
+    - Test file `./__tests__/plugin-virtual-directory.js`
     - Pull request #5819
   */
   const originalStatSync = fs.statSync;
