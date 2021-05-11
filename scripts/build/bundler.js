@@ -122,7 +122,7 @@ function getBabelConfig(bundle) {
         corejs: {
           version: 3,
         },
-        debug: true,
+        debug: false,
       },
     ],
   ];
