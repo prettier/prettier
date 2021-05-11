@@ -49,13 +49,14 @@ async function run(dir, args, options) {
     });
 
   const originalStat = fsAsync.stat;
-
-  jest.spyOn(fsAsync, "stat").mockImplementation((filename) => {
-    if (path.basename(filename) === "virtualDirectory") {
-      return originalStat(path.join(__dirname, __filename));
-    }
-    return originalStat(filename);
-  });
+  jest.spyOn(fsAsync, "stat").mockImplementation((filename) =>
+    originalStat(
+      // A fake non-existing directory to test plugin search won't crash
+      // See ./__tests__/plugin-virtual-directory.js
+      // #5819
+      path.basename(filename) === "virtualDirectory" ? __filename : filename
+    )
+  );
 
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
