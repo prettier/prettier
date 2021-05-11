@@ -83,6 +83,7 @@ function webpackNativeShims(config, modules) {
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
+    sourceType: "unambiguous",
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto",
     exclude: [/\/core-js\//],
