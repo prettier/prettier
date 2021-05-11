@@ -128,7 +128,7 @@ function getBabelConfig(bundle) {
       {
         targets,
         modules: false,
-        debug: true,
+        debug: false,
       },
     ],
   ];
