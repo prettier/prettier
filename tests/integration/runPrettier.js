@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require("fs");
+const { promises: fsAsync } = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
 const { prettierCli, thirdParty } = require("./env");
@@ -42,17 +42,19 @@ async function run(dir, args, options) {
 
   const write = [];
 
-  jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
-    write.push({ filename, content });
-  });
+  jest
+    .spyOn(fsAsync, "writeFile")
+    .mockImplementation(async (filename, content) => {
+      write.push({ filename, content });
+    });
 
-  const origStatSync = fs.statSync;
+  const originalStat = fsAsync.stat;
 
-  jest.spyOn(fs, "statSync").mockImplementation((filename) => {
+  jest.spyOn(fsAsync, "stat").mockImplementation((filename) => {
     if (path.basename(filename) === "virtualDirectory") {
-      return origStatSync(path.join(__dirname, __filename));
+      return originalStat(path.join(__dirname, __filename));
     }
-    return origStatSync(filename);
+    return originalStat(filename);
   });
 
   const originalCwd = process.cwd();
@@ -73,7 +75,7 @@ async function run(dir, args, options) {
   // "get-stream" module to mock.
   jest
     .spyOn(require(thirdParty), "getStdin")
-    .mockImplementation(() => Promise.resolve(options.input || ""));
+    .mockImplementation(async () => options.input || "");
   jest
     .spyOn(require(thirdParty), "isCI")
     .mockImplementation(() => Boolean(options.ci));
