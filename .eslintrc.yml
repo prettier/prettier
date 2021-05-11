@@ -112,6 +112,8 @@ overrides:
       - tests/**/*.js
     rules:
       strict: off
+      unicorn/prefer-array-flat: off
+      unicorn/prefer-array-flat-map: off
     globals:
       run_spec: false
   - files:
