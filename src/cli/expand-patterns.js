@@ -3,7 +3,6 @@
 const path = require("path");
 const fs = require("fs");
 const fastGlob = require("fast-glob");
-const flat = require("lodash/flatten");
 
 /** @typedef {import('./context').Context} Context */
 
@@ -121,11 +120,11 @@ async function* expandPatternsInternal(context) {
 
   function getSupportedFilesGlob() {
     if (!supportedFilesGlob) {
-      const extensions = flat(
-        context.languages.map((lang) => lang.extensions || [])
+      const extensions = context.languages.flatMap(
+        (lang) => lang.extensions || []
       );
-      const filenames = flat(
-        context.languages.map((lang) => lang.filenames || [])
+      const filenames = context.languages.flatMap(
+        (lang) => lang.filenames || []
       );
       supportedFilesGlob = `**/{${[
         ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),

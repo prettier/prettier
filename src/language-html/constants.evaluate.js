@@ -2,21 +2,18 @@
 
 const htmlStyles = require("html-styles");
 const fromPairs = require("lodash/fromPairs");
-const flat = require("lodash/flatten");
 
 const getCssStyleTags = (property) =>
   fromPairs(
-    flat(
-      htmlStyles
-        .filter((htmlStyle) => htmlStyle.style[property])
-        .map((htmlStyle) =>
-          htmlStyle.selectorText
-            .split(",")
-            .map((selector) => selector.trim())
-            .filter((selector) => /^[\dA-Za-z]+$/.test(selector))
-            .map((tagName) => [tagName, htmlStyle.style[property]])
-        )
-    )
+    htmlStyles
+      .filter((htmlStyle) => htmlStyle.style[property])
+      .flatMap((htmlStyle) =>
+        htmlStyle.selectorText
+          .split(",")
+          .map((selector) => selector.trim())
+          .filter((selector) => /^[\dA-Za-z]+$/.test(selector))
+          .map((tagName) => [tagName, htmlStyle.style[property]])
+      )
   );
 
 const CSS_DISPLAY_TAGS = {
