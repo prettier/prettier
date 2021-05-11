@@ -127,8 +127,8 @@ function getBabelConfig(bundle) {
       "@babel/preset-env",
       {
         targets,
-        exclude: ["transform-async-to-generator"],
         modules: false,
+        debug: true,
       },
     ],
   ];
