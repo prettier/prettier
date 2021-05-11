@@ -124,7 +124,7 @@ function getBabelConfig(bundle) {
   }
   config.presets = [
     [
-      require.resolve("@babel/preset-env"),
+      "@babel/preset-env",
       {
         targets,
         exclude: ["transform-async-to-generator"],
@@ -133,7 +133,7 @@ function getBabelConfig(bundle) {
     ],
   ];
   config.plugins.push([
-    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    "@babel/plugin-proposal-object-rest-spread",
     { useBuiltIns: true },
   ]);
   return config;
