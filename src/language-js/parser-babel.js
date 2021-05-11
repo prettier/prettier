@@ -1,6 +1,5 @@
 "use strict";
 
-const flatten = require("lodash/flatten");
 const tryCombinations = require("../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -106,13 +105,11 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     if (text.includes("|>")) {
-      combinations = flatten(
-        pipelineOperatorPlugins.map((pipelineOperatorPlugin) =>
-          combinations.map((options) => ({
-            ...options,
-            plugins: [...options.plugins, pipelineOperatorPlugin],
-          }))
-        )
+      combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
+        combinations.map((options) => ({
+          ...options,
+          plugins: [...options.plugins, pipelineOperatorPlugin],
+        }))
       );
     }
 

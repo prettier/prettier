@@ -75,6 +75,12 @@ rules:
   unicorn/no-array-for-each: error
   unicorn/no-array-push-push: error
   unicorn/no-useless-undefined: error
+  unicorn/prefer-array-flat:
+    - error
+    - functions:
+        - flat
+        - flatten
+  unicorn/prefer-array-flat-map: error
   unicorn/prefer-includes: error
   unicorn/prefer-number-properties: error
   unicorn/prefer-optional-catch-binding: error
@@ -106,6 +112,8 @@ overrides:
       - tests/**/*.js
     rules:
       strict: off
+      unicorn/prefer-array-flat: off
+      unicorn/prefer-array-flat-map: off
     globals:
       run_spec: false
   - files:

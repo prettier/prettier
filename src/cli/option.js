@@ -1,18 +1,14 @@
 "use strict";
 
 const dashify = require("dashify");
-
-const fromPairs = require("lodash/fromPairs");
-
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
-
 const minimist = require("./minimist");
 const { optionsNormalizer } = require("./prettier-internal");
 const createMinimistOptions = require("./create-minimist-options");
 
 function getOptions(argv, detailedOptions) {
-  return fromPairs(
+  return Object.fromEntries(
     detailedOptions
       .filter(({ forwardToApi }) => forwardToApi)
       .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
@@ -20,7 +16,7 @@ function getOptions(argv, detailedOptions) {
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {
-  return fromPairs(
+  return Object.fromEntries(
     Object.entries(object || {}).map(([key, value]) => {
       const apiOption = apiDetailedOptionMap[key];
       const cliKey = apiOption ? apiOption.name : key;
@@ -31,7 +27,7 @@ function cliifyOptions(object, apiDetailedOptionMap) {
 }
 
 function createApiDetailedOptionMap(detailedOptions) {
-  return fromPairs(
+  return Object.fromEntries(
     detailedOptions
       .filter(
         (option) => option.forwardToApi && option.forwardToApi !== option.name

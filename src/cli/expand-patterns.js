@@ -1,9 +1,8 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs");
+const { promises: fs } = require("fs");
 const fastGlob = require("fast-glob");
-const flat = require("lodash/flatten");
 
 /** @typedef {import('./context').Context} Context */
 
@@ -68,7 +67,7 @@ async function* expandPatternsInternal(context) {
       continue;
     }
 
-    const stat = statSafeSync(absolutePath);
+    const stat = await statSafe(absolutePath);
     if (stat) {
       if (stat.isFile()) {
         entries.push({
@@ -121,11 +120,11 @@ async function* expandPatternsInternal(context) {
 
   function getSupportedFilesGlob() {
     if (!supportedFilesGlob) {
-      const extensions = flat(
-        context.languages.map((lang) => lang.extensions || [])
+      const extensions = context.languages.flatMap(
+        (lang) => lang.extensions || []
       );
-      const filenames = flat(
-        context.languages.map((lang) => lang.filenames || [])
+      const filenames = context.languages.flatMap(
+        (lang) => lang.filenames || []
       );
       supportedFilesGlob = `**/{${[
         ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
@@ -171,11 +170,11 @@ function sortPaths(paths) {
 /**
  * Get stats of a given path.
  * @param {string} filePath The path to target file.
- * @returns {fs.Stats | undefined} The stats.
+ * @returns {Promise<import('fs').Stats | undefined>} The stats.
  */
-function statSafeSync(filePath) {
+async function statSafe(filePath) {
   try {
-    return fs.statSync(filePath);
+    return await fs.stat(filePath);
   } catch (error) {
     /* istanbul ignore next */
     if (error.code !== "ENOENT") {

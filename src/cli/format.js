@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require("fs");
+const { promises: fs } = require("fs");
 const path = require("path");
 
 const chalk = require("chalk");
@@ -319,7 +319,7 @@ async function formatFiles(context) {
 
     let input;
     try {
-      input = fs.readFileSync(filename, "utf8");
+      input = await fs.readFile(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
       /* istanbul ignore next */
@@ -372,7 +372,7 @@ async function formatFiles(context) {
         }
 
         try {
-          fs.writeFileSync(filename, output, "utf8");
+          await fs.writeFile(filename, output, "utf8");
         } catch (error) {
           /* istanbul ignore next */
           context.logger.error(
