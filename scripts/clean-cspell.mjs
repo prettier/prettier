@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import execa from "execa";
 
-const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta);
+const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta.url);
 
 const updateConfig = async (config) =>
   await fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
