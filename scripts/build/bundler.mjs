@@ -2,19 +2,19 @@ import path from "node:path";
 import fs from "node:fs";
 import { rollup } from "rollup";
 import webpack from "webpack";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
+import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
 import rollupPluginAlias from "@rollup/plugin-alias";
-import commonjs from "@rollup/plugin-commonjs";
+import rollupPluginCommonjs from "@rollup/plugin-commonjs";
 import rollupPluginPolyfillNode from "rollup-plugin-polyfill-node";
-import json from "@rollup/plugin-json";
-import replace from "@rollup/plugin-replace";
-import { terser } from "rollup-plugin-terser";
-import { babel } from "@rollup/plugin-babel";
+import rollupPluginJson from "@rollup/plugin-json";
+import rollupPluginReplace from "@rollup/plugin-replace";
+import { terser as rollupPluginTerser } from "rollup-plugin-terser";
+import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import WebpackPluginTerser from "terser-webpack-plugin";
 import { commonjsObjects } from "./utils.mjs";
-import executable from "./rollup-plugins/executable.mjs";
-import evaluate from "./rollup-plugins/evaluate.mjs";
-import externals from "./rollup-plugins/externals.mjs";
+import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
+import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
+import rollupPluginExternals from "./rollup-plugins/externals.mjs";
 
 const { __dirname, require } = commonjsObjects(import.meta);
 const PROJECT_ROOT = path.join(__dirname, "../..");
@@ -196,20 +196,20 @@ function getRollupConfig(bundle) {
   alias.entries = [...entries, ...(alias.entries || [])];
 
   config.plugins = [
-    replace({
+    rollupPluginReplace({
       values: replaceStrings,
       delimiters: ["", ""],
       preventAssignment: true,
     }),
-    executable(),
-    evaluate(),
-    json(),
+    rollupPluginExecutable(),
+    rollupPluginEvaluate(),
+    rollupPluginJson(),
     rollupPluginAlias(alias),
-    nodeResolve({
+    rollupPluginNodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
     }),
-    commonjs({
+    rollupPluginCommonjs({
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
       ignore:
@@ -218,12 +218,12 @@ function getRollupConfig(bundle) {
           : (id) => /\.\/parser-.*?/.test(id),
       requireReturnsDefault: "preferred",
     }),
-    externals(bundle.externals),
+    rollupPluginExternals(bundle.externals),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
-    babel(babelConfig),
+    rollupPluginBabel(babelConfig),
     bundle.minify !== false &&
       bundle.target === "universal" &&
-      terser({
+      rollupPluginTerser({
         output: {
           ascii_only: true,
         },
