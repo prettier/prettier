@@ -235,7 +235,7 @@ function extractInterpolation(ast, options) {
     return ast;
   }
 
-  const interpolationRegex = /{{([\S\s]+?)}}/g;
+  const interpolationRegex = /{{(.+?)}}/gs;
   return ast.map((node) => {
     if (!canHaveInterpolation(node)) {
       return node;

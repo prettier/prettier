@@ -32,7 +32,7 @@ function printVueFor(value, textToDoc) {
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueFor(value) {
-  const forAliasRE = /([^]*?)\s+(in|of)\s+([^]*)/;
+  const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/s;
   const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
   const stripParensRE = /^\(|\)$/g;
 

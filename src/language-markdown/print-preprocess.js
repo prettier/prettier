@@ -4,7 +4,7 @@ const getLast = require("../utils/get-last");
 const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
 
 // 0x0 ~ 0x10ffff
-// eslint-disable-next-line no-control-regex
+// eslint-disable-next-line no-control-regex, regexp/match-any
 const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
 
 function preprocess(ast, options) {
