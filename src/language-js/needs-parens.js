@@ -413,7 +413,6 @@ function needsParens(path, options) {
           return false;
       }
 
-    case "TSJSDocFunctionType":
     case "TSConditionalType":
       if (name === "extendsType" && parent.type === "TSConditionalType") {
         return true;

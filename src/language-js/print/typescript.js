@@ -141,10 +141,6 @@ function printTypescript(path, options, print) {
       return "abstract";
     case "TSAsyncKeyword":
       return "async";
-    case "TSDeclareKeyword":
-      return "declare";
-    case "TSExportKeyword":
-      return "export";
     case "TSNeverKeyword":
       return "never";
     case "TSObjectKeyword":
@@ -179,15 +175,6 @@ function printTypescript(path, options, print) {
     case "TSArrayType":
       return [print("elementType"), "[]"];
     case "TSPropertySignature": {
-      if (node.export) {
-        parts.push("export ");
-      }
-      if (node.accessibility) {
-        parts.push(node.accessibility + " ");
-      }
-      if (node.static) {
-        parts.push("static ");
-      }
       if (node.readonly) {
         parts.push("readonly ");
       }
@@ -547,13 +534,6 @@ function printTypescript(path, options, print) {
       return ["?", print("typeAnnotation")];
     case "TSJSDocNonNullableType":
       return ["!", print("typeAnnotation")];
-    case "TSJSDocFunctionType":
-      return [
-        "function(",
-        // The parameters could be here, but typescript-estree doesn't convert them anyway (throws an error).
-        "): ",
-        print("typeAnnotation"),
-      ];
   }
 }
 
