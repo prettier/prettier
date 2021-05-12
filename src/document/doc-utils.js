@@ -390,7 +390,7 @@ function normalizeDoc(doc) {
 function replaceNewlinesWithLiterallines(doc) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? join(literalline, currentDoc.split(/\n/))
+      ? join(literalline, currentDoc.split("\n"))
       : currentDoc
   );
 }
