@@ -303,8 +303,8 @@ function extractInterpolation(ast, options) {
  * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
+const WHITESPACE_NODE = { type: "whitespace" };
 function extractWhitespaces(ast /*, options*/) {
-  const TYPE_WHITESPACE = "whitespace";
   return ast.map((node) => {
     if (!node.children) {
       return node;
@@ -341,7 +341,7 @@ function extractWhitespaces(ast /*, options*/) {
             getLeadingAndTrailingHtmlWhitespace(child.value);
 
           if (leadingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            localChildren.push(WHITESPACE_NODE);
           }
 
           if (text) {
@@ -356,22 +356,21 @@ function extractWhitespaces(ast /*, options*/) {
           }
 
           if (trailingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            localChildren.push(WHITESPACE_NODE);
           }
 
           return localChildren;
         })
-        // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
+        // set hasLeadingSpaces/hasTrailingSpaces
         .map((child, i, children) => {
-          if (child.type === TYPE_WHITESPACE) {
-            return;
+          if (child === WHITESPACE_NODE) {
+            return child;
           }
 
           const hasLeadingSpaces =
-            i !== 0 && children[i - 1].type === TYPE_WHITESPACE;
+            i !== 0 && children[i - 1] === WHITESPACE_NODE;
           const hasTrailingSpaces =
-            i !== children.length - 1 &&
-            children[i + 1].type === TYPE_WHITESPACE;
+            i !== children.length - 1 && children[i + 1] === WHITESPACE_NODE;
 
           return {
             ...child,
@@ -379,7 +378,8 @@ function extractWhitespaces(ast /*, options*/) {
             hasTrailingSpaces,
           };
         })
-        .filter(Boolean),
+        // filter whitespace nodes
+        .filter((node) => node !== WHITESPACE_NODE),
     });
   });
 }
