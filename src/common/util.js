@@ -568,17 +568,6 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function replaceEndOfLineWith(text, replacement) {
-  const parts = [];
-  for (const part of text.split("\n")) {
-    if (parts.length > 0) {
-      parts.push(replacement);
-    }
-    parts.push(part);
-  }
-  return parts;
-}
-
 function inferParserByLanguage(language, options) {
   const { languages } = getSupportInfo({ plugins: options.plugins });
   const matched =
@@ -645,7 +634,6 @@ function describeNodeForDebugging(node) {
 
 module.exports = {
   inferParserByLanguage,
-  replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,

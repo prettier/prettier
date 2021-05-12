@@ -21,9 +21,9 @@ const {
     literalline,
     softline,
   },
-  utils: { mapDoc, cleanDoc, getDocParts, isConcat },
+  utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceEndOfLineWith },
 } = require("../document");
-const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
+const { isNonEmptyArray } = require("../common/util");
 const printFrontMatter = require("../utils/front-matter/print");
 const clean = require("./clean");
 const {

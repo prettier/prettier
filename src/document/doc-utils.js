@@ -1,6 +1,6 @@
 "use strict";
 const getLast = require("../utils/get-last");
-const { literalline } = require("./doc-builders");
+const { join, literalline } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {
@@ -395,6 +395,12 @@ function replaceNewlinesWithLiterallines(doc) {
   );
 }
 
+// This function need return array
+// TODO: remove `.parts` when we remove `docBuilders.concat()`
+function replaceEndOfLineWith(text, replacement) {
+  return join(replacement, text.split("\n")).parts;
+}
+
 module.exports = {
   isConcat,
   getDocParts,
@@ -408,5 +414,6 @@ module.exports = {
   normalizeParts,
   normalizeDoc,
   cleanDoc,
+  replaceEndOfLineWith,
   replaceNewlinesWithLiterallines,
 };
