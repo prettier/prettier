@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
-"use strict";
-
-const path = require("path");
-const fs = require("fs");
-const shell = require("shelljs");
-const globby = require("globby");
-const prettier = require("prettier");
+import path from "node:path";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
+import shell from "shelljs";
+import globby from "globby";
+import prettier from "prettier";
 
 shell.config.fatal = true;
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 const rootDir = path.join(__dirname, "..");
 const docs = path.join(rootDir, "website/static/lib");
 

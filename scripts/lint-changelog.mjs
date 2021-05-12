@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-"use strict";
-const fs = require("fs");
-const path = require("path");
-const { outdent } = require("outdent");
+
+import path from "node:path";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+import { outdent } from "outdent";
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
@@ -28,7 +29,10 @@ const CHANGELOG_CATEGORIES = [
   "vue",
   "yaml",
 ];
-const CHANGELOG_ROOT = path.join(__dirname, `../${CHANGELOG_DIR}`);
+const CHANGELOG_ROOT = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  `../${CHANGELOG_DIR}`
+);
 const showErrorMessage = (message) => {
   console.error(message);
   process.exitCode = 1;

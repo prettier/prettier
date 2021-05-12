@@ -1,6 +1,4 @@
-"use strict";
-
-const path = require("path");
+import path from "node:path";
 
 /**
  * @typedef {Object} Bundle
@@ -171,7 +169,7 @@ function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = [...coreBundles, ...parsers].map((bundle) => ({
+export default [...coreBundles, ...parsers].map((bundle) => ({
   ...bundle,
   output: getFileOutput(bundle),
 }));

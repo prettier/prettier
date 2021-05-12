@@ -96,6 +96,9 @@ overrides:
       - "**/*.mjs"
     parserOptions:
       sourceType: module
+    rules:
+      unicorn/prefer-module: error
+      unicorn/prefer-node-protocol: error
   - files:
       - "tests/format/**/jsfmt.spec.js"
       - "tests/config/**/*.js"

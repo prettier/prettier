@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
+import rimraf from "rimraf";
+import semver from "semver";
 
-const fs = require("fs");
-const path = require("path");
-const rimraf = require("rimraf");
-const semver = require("semver");
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
 const introTemplateFile = path.join(

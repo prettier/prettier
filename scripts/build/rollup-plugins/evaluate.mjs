@@ -1,6 +1,8 @@
-"use strict";
+import { commonjsObjects } from "../utils.mjs";
 
-module.exports = function () {
+const { require } = commonjsObjects(import.meta);
+
+export default function () {
   return {
     name: "evaluate",
 
@@ -25,4 +27,4 @@ module.exports = function () {
       };
     },
   };
-};
+}
