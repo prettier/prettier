@@ -1,6 +1,6 @@
 "use strict";
 const getLast = require("../utils/get-last");
-const { literalline } = require("./doc-builders");
+const { literalline, join } = require("./doc-builders");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {
@@ -390,7 +390,7 @@ function normalizeDoc(doc) {
 function replaceNewlinesWithLiterallines(doc) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? currentDoc.split(/(\n)/g).map((v, i) => (i % 2 === 0 ? v : literalline))
+      ? join(literalline, currentDoc.split(/\n/))
       : currentDoc
   );
 }
