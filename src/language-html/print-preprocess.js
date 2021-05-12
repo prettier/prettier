@@ -362,9 +362,9 @@ function extractWhitespaces(ast /*, options*/) {
           return localChildren;
         })
         // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
-        .flatMap((child, i, children) => {
+        .map((child, i, children) => {
           if (child.type === TYPE_WHITESPACE) {
-            return [];
+            return;
           }
 
           const hasLeadingSpaces =
@@ -373,14 +373,13 @@ function extractWhitespaces(ast /*, options*/) {
             i !== children.length - 1 &&
             children[i + 1].type === TYPE_WHITESPACE;
 
-          return [
-            {
-              ...child,
-              hasLeadingSpaces,
-              hasTrailingSpaces,
-            },
-          ];
-        }),
+          return {
+            ...child,
+            hasLeadingSpaces,
+            hasTrailingSpaces,
+          };
+        })
+        .filter(Boolean),
     });
   });
 }
