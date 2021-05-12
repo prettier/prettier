@@ -88,9 +88,13 @@ function printMappingItem(node, parentNode, path, print, options) {
     ifBreak("? "),
     group(alignWithSpaces(2, printedKey), { id: groupId }),
   ]);
-  const breakValue = [hardline, ": ", alignWithSpaces(2, printedValue)];
+
+  // Construct both explicit and implicit mapping values.
+  const explicitMappingValue = [hardline, ": ", alignWithSpaces(2, printedValue)];
   /** @type {Doc[]} */
-  const flatValueParts = [spaceBeforeColon, ":"];
+  // In the implicit case, it's convenient to treat everything from the key's colon
+  // as part of the mapping value
+  const implicitMappingValueParts = [spaceBeforeColon, ":"];
   if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
@@ -103,15 +107,28 @@ function printMappingItem(node, parentNode, path, print, options) {
       value.content.tag === null &&
       value.content.anchor === null)
   ) {
-    flatValueParts.push(hardline);
+    implicitMappingValueParts.push(hardline);
   } else if (value.content) {
-    flatValueParts.push(line);
+    implicitMappingValueParts.push(line);
   }
-  flatValueParts.push(printedValue);
-  const flatValue = alignWithSpaces(options.tabWidth, flatValueParts);
+  implicitMappingValueParts.push(printedValue);
+  const implicitMappingValue = alignWithSpaces(options.tabWidth, implicitMappingValueParts);
 
+  // If a key is definitely single-line, forcibly use implicit style to avoid edge cases (very long
+  // keys) that would otherwise trigger explicit style as if it was multiline.
+  // In those cases, explicit style makes the line even longer and causes confusion.
+  if (
+    isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
+    !hasLeadingComments(key.content) &&
+    !hasMiddleComments(key.content) &&
+    !hasEndComments(key)
+  ) {
+    return conditionalGroup([[printedKey, implicitMappingValue],]);
+  }
+
+  // Use explicit mapping syntax if the key breaks, implicit otherwise
   return conditionalGroup([
-    [groupedKey, ifBreak(breakValue, flatValue, { groupId })],
+    [groupedKey, ifBreak(explicitMappingValue, implicitMappingValue, { groupId })],
   ]);
 }
 
