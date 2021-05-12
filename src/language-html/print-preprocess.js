@@ -330,9 +330,9 @@ function extractWhitespaces(ast /*, options*/) {
       isIndentationSensitive,
       children: node.children
         // extract whitespace nodes
-        .reduce((newChildren, child) => {
+        .flatMap((child) => {
           if (child.type !== "text" || isWhitespaceSensitive) {
-            return [...newChildren, child];
+            return [child];
           }
 
           const localChildren = [];
@@ -359,12 +359,12 @@ function extractWhitespaces(ast /*, options*/) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
 
-          return [...newChildren, ...localChildren];
-        }, [])
+          return localChildren;
+        })
         // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
-        .reduce((newChildren, child, i, children) => {
+        .flatMap((child, i, children) => {
           if (child.type === TYPE_WHITESPACE) {
-            return newChildren;
+            return [];
           }
 
           const hasLeadingSpaces =
@@ -374,14 +374,13 @@ function extractWhitespaces(ast /*, options*/) {
             children[i + 1].type === TYPE_WHITESPACE;
 
           return [
-            ...newChildren,
             {
               ...child,
               hasLeadingSpaces,
               hasTrailingSpaces,
             },
           ];
-        }, []),
+        }),
     });
   });
 }
