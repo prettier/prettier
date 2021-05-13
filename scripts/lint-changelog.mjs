@@ -2,9 +2,10 @@
 
 import path from "node:path";
 import fs from "node:fs";
-import { fileURLToPath } from "node:url";
 import { outdent } from "outdent";
+import createEsmUtils from "esm-utils";
 
+const { __dirname } = createEsmUtils(import.meta);
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
 const BLOG_POST_INTRO_TEMPLATE_FILE = "BLOG_POST_INTRO_TEMPLATE.md";
@@ -29,10 +30,7 @@ const CHANGELOG_CATEGORIES = [
   "vue",
   "yaml",
 ];
-const CHANGELOG_ROOT = path.join(
-  path.dirname(fileURLToPath(import.meta.url)),
-  `../${CHANGELOG_DIR}`
-);
+const CHANGELOG_ROOT = path.join(__dirname, `../${CHANGELOG_DIR}`);
 const showErrorMessage = (message) => {
   console.error(message);
   process.exitCode = 1;

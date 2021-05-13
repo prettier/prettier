@@ -1,7 +1,4 @@
 import fs from "node:fs/promises";
-import url from "node:url";
-import path from "node:path";
-import { createRequire } from "node:module";
 
 async function readJson(file) {
   const data = await fs.readFile(file);
@@ -18,18 +15,4 @@ async function copyFile(from, to) {
   return fs.writeFile(to, data);
 }
 
-function commonjsObjects(importMeta) {
-  return {
-    get __filename() {
-      return url.fileURLToPath(importMeta.url);
-    },
-    get __dirname() {
-      return path.dirname(url.fileURLToPath(importMeta.url));
-    },
-    get require() {
-      return createRequire(importMeta.url);
-    },
-  };
-}
-
-export { commonjsObjects, readJson, writeJson, copyFile };
+export { readJson, writeJson, copyFile };

@@ -1,6 +1,6 @@
-import { commonjsObjects } from "../utils.mjs";
+import createEsmUtils from "esm-utils";
 
-const { require } = commonjsObjects(import.meta);
+const { require } = createEsmUtils(import.meta);
 
 export default function () {
   return {

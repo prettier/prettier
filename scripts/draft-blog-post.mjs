@@ -2,13 +2,11 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { createRequire } from "node:module";
 import rimraf from "rimraf";
 import semver from "semver";
+import createEsmUtils from "esm-utils";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const require = createRequire(import.meta.url);
+const { __dirname, require } = createEsmUtils(import.meta);
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
 const introTemplateFile = path.join(

@@ -4,9 +4,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import execa from "execa";
 import { rollup } from "rollup";
-import { commonjsObjects } from "./utils.mjs";
+import createEsmUtils from "esm-utils";
 
-const { __dirname } = commonjsObjects(import.meta);
+const { __dirname } = createEsmUtils(import.meta);
 const ROOT = path.join(__dirname, "..", "..");
 
 class Cache {

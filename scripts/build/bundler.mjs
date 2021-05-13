@@ -11,12 +11,12 @@ import rollupPluginReplace from "@rollup/plugin-replace";
 import { terser as rollupPluginTerser } from "rollup-plugin-terser";
 import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import WebpackPluginTerser from "terser-webpack-plugin";
-import { commonjsObjects } from "./utils.mjs";
+import createEsmUtils from "esm-utils";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginExternals from "./rollup-plugins/externals.mjs";
 
-const { __dirname, require } = commonjsObjects(import.meta);
+const { __dirname, require } = createEsmUtils(import.meta);
 const PROJECT_ROOT = path.join(__dirname, "../..");
 
 const EXTERNALS = [
