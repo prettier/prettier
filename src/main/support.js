@@ -1,6 +1,5 @@
 "use strict";
 
-const fromPairs = require("lodash/fromPairs");
 const semver = {
   compare: require("semver/functions/compare"),
   lt: require("semver/functions/lt"),
@@ -65,7 +64,7 @@ function getSupportInfo({
         }
       }
 
-      const pluginDefaults = fromPairs(
+      const pluginDefaults = Object.fromEntries(
         plugins
           .filter(
             (plugin) =>

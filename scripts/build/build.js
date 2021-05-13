@@ -22,7 +22,7 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-const CACHE_VERSION = "v32"; // This need update when updating build scripts
+const CACHE_VERSION = "v34"; // This need update when updating build scripts
 const statusConfig = [
   { color: "bgYellow", text: "CACHED" },
   { color: "bgGreen", text: "DONE" },
@@ -135,6 +135,7 @@ async function cacheFiles(cache) {
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
   pkg.bin = "./bin-prettier.js";
+  pkg.engines.node = ">=10.13.0";
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {

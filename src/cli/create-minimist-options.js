@@ -1,20 +1,18 @@
 "use strict";
 
 const partition = require("lodash/partition");
-const flat = require("lodash/flatten");
-const fromPairs = require("lodash/fromPairs");
 
 module.exports = function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(
     detailedOptions,
     ({ type }) => type === "boolean"
   ).map((detailedOptions) =>
-    flat(
-      detailedOptions.map(({ name, alias }) => (alias ? [name, alias] : [name]))
+    detailedOptions.flatMap(({ name, alias }) =>
+      alias ? [name, alias] : [name]
     )
   );
 
-  const defaults = fromPairs(
+  const defaults = Object.fromEntries(
     detailedOptions
       .filter(
         (option) =>

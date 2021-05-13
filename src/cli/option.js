@@ -1,18 +1,14 @@
 "use strict";
 
 const dashify = require("dashify");
-
-const fromPairs = require("lodash/fromPairs");
-
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
-
 const minimist = require("./minimist");
 const { optionsNormalizer } = require("./prettier-internal");
 const createMinimistOptions = require("./create-minimist-options");
 
 function getOptions(argv, detailedOptions) {
-  return fromPairs(
+  return Object.fromEntries(
     detailedOptions
       .filter(({ forwardToApi }) => forwardToApi)
       .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
@@ -20,7 +16,7 @@ function getOptions(argv, detailedOptions) {
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {
-  return fromPairs(
+  return Object.fromEntries(
     Object.entries(object || {}).map(([key, value]) => {
       const apiOption = apiDetailedOptionMap[key];
       const cliKey = apiOption ? apiOption.name : key;
@@ -31,7 +27,7 @@ function cliifyOptions(object, apiDetailedOptionMap) {
 }
 
 function createApiDetailedOptionMap(detailedOptions) {
-  return fromPairs(
+  return Object.fromEntries(
     detailedOptions
       .filter(
         (option) => option.forwardToApi && option.forwardToApi !== option.name
@@ -59,7 +55,7 @@ function parseArgsToOptions(context, overrideDefaults) {
   );
 }
 
-function getOptionsOrDie(context, filePath) {
+async function getOptionsOrDie(context, filePath) {
   try {
     if (context.argv.config === false) {
       context.logger.debug(
@@ -74,7 +70,7 @@ function getOptionsOrDie(context, filePath) {
         : `resolve config from '${filePath}'`
     );
 
-    const options = prettier.resolveConfig.sync(filePath, {
+    const options = await prettier.resolveConfig(filePath, {
       editorconfig: context.argv.editorconfig,
       config: context.argv.config,
     });
@@ -108,8 +104,8 @@ function applyConfigPrecedence(context, options) {
   }
 }
 
-function getOptionsForFile(context, filepath) {
-  const options = getOptionsOrDie(context, filepath);
+async function getOptionsForFile(context, filepath) {
+  const options = await getOptionsOrDie(context, filepath);
 
   const hasPlugins = options && options.plugins;
   if (hasPlugins) {

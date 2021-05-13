@@ -337,11 +337,8 @@ function extractWhitespaces(ast /*, options*/) {
 
           const localChildren = [];
 
-          const {
-            leadingWhitespace,
-            text,
-            trailingWhitespace,
-          } = getLeadingAndTrailingHtmlWhitespace(child.value);
+          const { leadingWhitespace, text, trailingWhitespace } =
+            getLeadingAndTrailingHtmlWhitespace(child.value);
 
           if (leadingWhitespace) {
             localChildren.push({ type: TYPE_WHITESPACE });

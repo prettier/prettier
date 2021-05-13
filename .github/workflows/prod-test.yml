@@ -92,8 +92,6 @@ jobs:
           - os: "ubuntu-latest"
             node: "16"
             FULL_TEST: true
-          - os: "ubuntu-latest"
-            node: "15"
         exclude:
           - os: "macos-latest"
             node: "14"
@@ -116,6 +114,10 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node }}
+
+      - name: Config `ignore-engines=true` (Node.js 10)
+        if: matrix.node == '10'
+        run: yarn config set ignore-engines true
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -144,7 +146,7 @@ jobs:
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true

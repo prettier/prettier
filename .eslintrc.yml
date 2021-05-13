@@ -75,6 +75,12 @@ rules:
   unicorn/no-array-for-each: error
   unicorn/no-array-push-push: error
   unicorn/no-useless-undefined: error
+  unicorn/prefer-array-flat:
+    - error
+    - functions:
+        - flat
+        - flatten
+  unicorn/prefer-array-flat-map: error
   unicorn/prefer-includes: error
   unicorn/prefer-number-properties: error
   unicorn/prefer-optional-catch-binding: error
@@ -91,7 +97,9 @@ overrides:
     parserOptions:
       sourceType: module
   - files:
-      - "{tests,tests_config,tests_integration}/**/*.js"
+      - "tests/format/**/jsfmt.spec.js"
+      - "tests/config/**/*.js"
+      - "tests/integration/**/*.js"
     env:
       jest: true
     plugins:
@@ -104,6 +112,8 @@ overrides:
       - tests/**/*.js
     rules:
       strict: off
+      unicorn/prefer-array-flat: off
+      unicorn/prefer-array-flat-map: off
     globals:
       run_spec: false
   - files:
@@ -120,6 +130,7 @@ overrides:
     rules:
       prettier-internal-rules/consistent-negative-index-access: error
       prettier-internal-rules/flat-ast-path-call: error
+      prettier-internal-rules/no-conflicting-comment-check-flags: error
       prettier-internal-rules/no-doc-builder-concat: error
       prettier-internal-rules/no-empty-flat-contents-for-if-break: error
       prettier-internal-rules/no-unnecessary-ast-path-call: error

@@ -53,7 +53,8 @@ export function getCodemirrorMode(parser) {
 }
 
 const astAutoFold = {
-  estree: /^\s*"(loc|start|end|tokens|leadingComments|trailingComments|innerComments)":/,
+  estree:
+    /^\s*"(loc|start|end|tokens|leadingComments|trailingComments|innerComments)":/,
   postcss: /^\s*"(source|input|raws|file)":/,
   html: /^\s*"(sourceSpan|valueSpan|nameSpan|startSourceSpan|endSourceSpan|tagDefinition)":/,
   mdast: /^\s*"position":/,

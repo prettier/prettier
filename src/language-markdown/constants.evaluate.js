@@ -27,7 +27,8 @@ const kPattern = unicodeRegex({ Script: ["Hangul"] })
   .toString();
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharset = /* prettier-ignore */ regexpUtil.charset(
+const asciiPunctuationCharset =
+  /* prettier-ignore */ regexpUtil.charset(
   "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
   "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
   "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",

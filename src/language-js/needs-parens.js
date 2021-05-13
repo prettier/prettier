@@ -63,6 +63,17 @@ function needsParens(path, options) {
     ) {
       return true;
     }
+
+    // `for (async of []);` is invalid
+    if (
+      name === "left" &&
+      node.name === "async" &&
+      parent.type === "ForOfStatement" &&
+      !parent.await
+    ) {
+      return true;
+    }
+
     return false;
   }
 
@@ -163,10 +174,6 @@ function needsParens(path, options) {
   }
 
   switch (node.type) {
-    case "SpreadElement":
-    case "SpreadProperty":
-      return name === "object" && parent.type === "MemberExpression";
-
     case "UpdateExpression":
       if (parent.type === "UnaryExpression") {
         return (
@@ -484,6 +491,9 @@ function needsParens(path, options) {
           ))
       );
     }
+
+    case "OptionalIndexedAccessType":
+      return name === "objectType" && parent.type === "IndexedAccessType";
 
     case "StringLiteral":
     case "NumericLiteral":

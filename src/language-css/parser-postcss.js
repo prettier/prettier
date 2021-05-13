@@ -477,7 +477,7 @@ function parseNestedCSS(node, options) {
 
         // `@color :blue;`
         if (
-          !["page", "nest"].includes(node.name) &&
+          !["page", "nest", "keyframes"].includes(node.name) &&
           node.params &&
           node.params[0] === ":"
         ) {

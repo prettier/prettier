@@ -31,7 +31,7 @@ Install it along with [husky](https://github.com/typicode/husky):
 ```bash
 npx husky-init
 npm install --save-dev pretty-quick
-npx husky set .husky/pre-commit "pretty-quick --staged"
+npx husky set .husky/pre-commit "npx pretty-quick --staged"
 ```
 
 <!--yarn-->
@@ -39,7 +39,7 @@ npx husky set .husky/pre-commit "pretty-quick --staged"
 ```bash
 npx husky-init # add --yarn2 for Yarn 2
 yarn add --dev pretty-quick
-yarn husky set .husky/pre-commit "pretty-quick --staged"
+yarn husky set .husky/pre-commit "npx pretty-quick --staged"
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->

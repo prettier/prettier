@@ -93,15 +93,37 @@ If you use ESLint, install [eslint-config-prettier](https://github.com/prettier/
 
 In addition to running Prettier from the command line (`prettier --write`), checking formatting in CI, and running Prettier from your editor, many people like to run Prettier as a pre-commit hook as well. This makes sure all your commits are formatted, without having to wait for your CI build to finish.
 
-For example, you can add the following to your `package.json` to have ESLint and Prettier run before each commit, via [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky).
+For example, you can do the following to have Prettier run before each commit:
+
+1. Install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged):
+
+   <!--DOCUSAURUS_CODE_TABS-->
+   <!--npm-->
+
+   ```bash
+   npm install --save-dev husky lint-staged
+   npx husky install
+   npm set-script prepare "husky install"
+   npx husky add .husky/pre-commit "npx lint-staged"
+   ```
+
+   <!--yarn-->
+
+   ```bash
+   yarn add --dev husky lint-staged
+   npx husky install
+   npm set-script prepare "husky install"
+   npx husky add .husky/pre-commit "npx lint-staged"
+   ```
+
+   > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+
+   <!--END_DOCUSAURUS_CODE_TABS-->
+
+2. Add the following to your `package.json`:
 
 ```json
 {
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   }

@@ -75,7 +75,8 @@ function isVueEventBindingExpression(eventBindingValue) {
   // arrow function or anonymous function
   const fnExpRE = /^([\w$]+|\([^)]*?\))\s*=>|^function\s*\(/;
   // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
-  const simplePathRE = /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
+  const simplePathRE =
+    /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
 
   // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
   const value = eventBindingValue.trim();

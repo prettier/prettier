@@ -21,7 +21,7 @@ async function commit(version) {
   // Add rev to `.git-blame-ignore-revs` file
   const file = ".git-blame-ignore-revs";
   const mark = "# Prettier bump after release";
-  const { stdout: rev } = await runGit("git", ["rev-parse", "HEAD"]);
+  const { stdout: rev } = await runGit(["rev-parse", "HEAD"]);
   let text = fs.readFileSync(file, "utf8");
   text = text.replace(mark, `${mark}\n# ${version}\n${rev}`);
   fs.writeFileSync(file, text);

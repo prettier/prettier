@@ -83,8 +83,13 @@ function webpackNativeShims(config, modules) {
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
+    assumptions: {
+      setSpreadProperties: true,
+    },
+    sourceType: "unambiguous",
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto",
+    exclude: [/\/core-js\//],
   };
   if (bundle.type === "core") {
     config.plugins.push(
@@ -102,21 +107,31 @@ function getBabelConfig(bundle) {
   }
   config.presets = [
     [
-      require.resolve("@babel/preset-env"),
+      "@babel/preset-env",
       {
         targets,
-        exclude: ["transform-async-to-generator"],
+        exclude: [
+          "es.array.unscopables.flat-map",
+          "es.promise",
+          "es.promise.finally",
+          "es.string.replace",
+          "es.symbol.description",
+          "es.typed-array.*",
+          "web.*",
+        ],
         modules: false,
+        useBuiltIns: "usage",
+        corejs: {
+          version: 3,
+        },
+        debug: false,
       },
     ],
   ];
-  config.plugins.push(
-    [
-      require.resolve("@babel/plugin-proposal-object-rest-spread"),
-      { loose: true, useBuiltIns: true },
-    ],
-    require.resolve("@babel/plugin-proposal-optional-catch-binding")
-  );
+  config.plugins.push([
+    "@babel/plugin-proposal-object-rest-spread",
+    { useBuiltIns: true },
+  ]);
   return config;
 }
 

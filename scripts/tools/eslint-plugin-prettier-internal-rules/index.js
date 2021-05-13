@@ -7,6 +7,7 @@ module.exports = {
     "directly-loc-start-end": require("./directly-loc-start-end"),
     "flat-ast-path-call": require("./flat-ast-path-call"),
     "jsx-identifier-case": require("./jsx-identifier-case"),
+    "no-conflicting-comment-check-flags": require("./no-conflicting-comment-check-flags"),
     "no-doc-builder-concat": require("./no-doc-builder-concat"),
     "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break"),
     "no-identifier-n": require("./no-identifier-n"),

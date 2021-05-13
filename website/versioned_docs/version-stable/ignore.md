@@ -160,3 +160,13 @@ hello: world
   {{/my-crazy-component}}
 </div>
 ```
+
+## Command Line File Patterns
+
+For one-off commands, when you want to exclude some files without adding them to `.prettierignore`, negative patterns can come in handy:
+
+```bash
+prettier --write . '!**/*.{js,jsx,vue}'
+```
+
+See [fast-glob](https://prettier.io/docs/en/cli.html#file-patterns) to learn more about advanced glob syntax.

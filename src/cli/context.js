@@ -1,5 +1,4 @@
 "use strict";
-const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 
 // eslint-disable-next-line no-restricted-modules
@@ -39,13 +38,11 @@ class Context {
     this.logger = logger;
     this.stack = [];
 
-    const {
-      plugin: plugins,
-      "plugin-search-dir": pluginSearchDirs,
-    } = parseArgvWithoutPlugins(rawArguments, logger, [
-      "plugin",
-      "plugin-search-dir",
-    ]);
+    const { plugin: plugins, "plugin-search-dir": pluginSearchDirs } =
+      parseArgvWithoutPlugins(rawArguments, logger, [
+        "plugin",
+        "plugin-search-dir",
+      ]);
 
     this.pushContextPlugins(plugins, pluginSearchDirs);
 
@@ -94,7 +91,7 @@ function getContextOptions(plugins, pluginSearchDirs) {
 
   const apiDefaultOptions = {
     ...optionsModule.hiddenDefaults,
-    ...fromPairs(
+    ...Object.fromEntries(
       supportOptions
         .filter(({ deprecated }) => !deprecated)
         .map((option) => [option.name, option.default])
