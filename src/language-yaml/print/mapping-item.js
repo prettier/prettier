@@ -90,7 +90,11 @@ function printMappingItem(node, parentNode, path, print, options) {
   ]);
 
   // Construct both explicit and implicit mapping values.
-  const explicitMappingValue = [hardline, ": ", alignWithSpaces(2, printedValue)];
+  const explicitMappingValue = [
+    hardline,
+    ": ",
+    alignWithSpaces(2, printedValue),
+  ];
   /** @type {Doc[]} */
   // In the implicit case, it's convenient to treat everything from the key's colon
   // as part of the mapping value
@@ -112,7 +116,10 @@ function printMappingItem(node, parentNode, path, print, options) {
     implicitMappingValueParts.push(line);
   }
   implicitMappingValueParts.push(printedValue);
-  const implicitMappingValue = alignWithSpaces(options.tabWidth, implicitMappingValueParts);
+  const implicitMappingValue = alignWithSpaces(
+    options.tabWidth,
+    implicitMappingValueParts
+  );
 
   // If a key is definitely single-line, forcibly use implicit style to avoid edge cases (very long
   // keys) that would otherwise trigger explicit style as if it was multiline.
@@ -123,12 +130,15 @@ function printMappingItem(node, parentNode, path, print, options) {
     !hasMiddleComments(key.content) &&
     !hasEndComments(key)
   ) {
-    return conditionalGroup([[printedKey, implicitMappingValue],]);
+    return conditionalGroup([[printedKey, implicitMappingValue]]);
   }
 
   // Use explicit mapping syntax if the key breaks, implicit otherwise
   return conditionalGroup([
-    [groupedKey, ifBreak(explicitMappingValue, implicitMappingValue, { groupId })],
+    [
+      groupedKey,
+      ifBreak(explicitMappingValue, implicitMappingValue, { groupId }),
+    ],
   ]);
 }
 
@@ -144,6 +154,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
       break;
     case "alias":
       return true;
+
     default:
       return false;
   }
