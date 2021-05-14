@@ -53,7 +53,7 @@ const {
 function printTypescript(path, options, print) {
   const node = path.getValue();
 
-  // Typescript nodes always starts with `TS`
+  // TypeScript nodes always starts with `TS`
   if (!node.type.startsWith("TS")) {
     return;
   }
@@ -524,7 +524,7 @@ function printTypescript(path, options, print) {
     default:
       /* istanbul ignore next */
       throw new Error(
-        `Unknown typescript node type: ${JSON.stringify(node.type)}.`
+        `Unknown TypeScript node type: ${JSON.stringify(node.type)}.`
       );
   }
 }
