@@ -60,6 +60,8 @@ function printTypescript(path, options, print) {
   }
 
   switch (node.type) {
+    case "TSBigIntKeyword":
+      return "bigint";
     case "TSThisType":
       return "this";
     case "TSTypeAssertion": {
