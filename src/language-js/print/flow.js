@@ -13,7 +13,10 @@ const {
   printIndexedAccessType,
 } = require("./type-annotation");
 const { printInterface } = require("./interface");
-const { printTypeParameters } = require("./type-parameters");
+const {
+  printTypeParameter,
+  printTypeParameters,
+} = require("./type-parameters");
 const {
   printExportDeclaration,
   printExportAllDeclaration,
@@ -89,6 +92,8 @@ function printFlow(path, options, print) {
     // transformed away before printing.
     case "TypeAnnotation":
       return print("typeAnnotation");
+    case "TypeParameter":
+      return printTypeParameter(path, options, print);
   }
 }
 

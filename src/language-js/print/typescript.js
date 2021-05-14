@@ -146,9 +146,7 @@ function printTypescript(path, options, print) {
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
-
     case "TSTypeParameter":
-    case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
       return ["typeof ", print("argument")];
