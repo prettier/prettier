@@ -54,6 +54,11 @@ function printTypescript(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   const parts = [];
+
+  if (/^TS[A-Z][a-z]+Keyword$/.test(node.type)) {
+    return node.type.slice(2, -7).toLowerCase();
+  }
+
   switch (node.type) {
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
@@ -137,30 +142,6 @@ function printTypescript(path, options, print) {
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
       return ["typeof ", print("argument")];
-    case "TSAbstractKeyword":
-      return "abstract";
-    case "TSAsyncKeyword":
-      return "async";
-    case "TSNeverKeyword":
-      return "never";
-    case "TSObjectKeyword":
-      return "object";
-    case "TSProtectedKeyword":
-      return "protected";
-    case "TSPrivateKeyword":
-      return "private";
-    case "TSPublicKeyword":
-      return "public";
-    case "TSReadonlyKeyword":
-      return "readonly";
-    case "TSStaticKeyword":
-      return "static";
-    case "TSUndefinedKeyword":
-      return "undefined";
-    case "TSUnknownKeyword":
-      return "unknown";
-    case "TSIntrinsicKeyword":
-      return "intrinsic";
     case "TSAsExpression": {
       parts.push(print("expression"), " as ", print("typeAnnotation"));
       const parent = path.getParentNode();
