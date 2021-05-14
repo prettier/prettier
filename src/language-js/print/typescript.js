@@ -52,12 +52,18 @@ const {
 
 function printTypescript(path, options, print) {
   const node = path.getValue();
-  const semi = options.semi ? ";" : "";
-  const parts = [];
+
+  // Typescript nodes always starts with `TS`
+  if (!node.type.startsWith("TS")) {
+    return;
+  }
 
   if (/^TS[A-Z][a-z]+Keyword$/.test(node.type)) {
     return node.type.slice(2, -7).toLowerCase();
   }
+
+  const semi = options.semi ? ";" : "";
+  const parts = [];
 
   switch (node.type) {
     case "TSBigIntKeyword":
@@ -519,6 +525,11 @@ function printTypescript(path, options, print) {
       return ["?", print("typeAnnotation")];
     case "TSJSDocNonNullableType":
       return ["!", print("typeAnnotation")];
+    default:
+      /* istanbul ignore next */
+      throw new Error(
+        `Unknown typescript node type: ${JSON.stringify(node.type)}.`
+      );
   }
 }
 
