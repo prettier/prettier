@@ -148,8 +148,6 @@ function printTypescript(path, options, print) {
       return printTypeParameters(path, options, print, "params");
     case "TSTypeParameter":
       return printTypeParameter(path, options, print);
-    case "TypeofTypeAnnotation":
-      return ["typeof ", print("argument")];
     case "TSAsExpression": {
       parts.push(print("expression"), " as ", print("typeAnnotation"));
       const parent = path.getParentNode();

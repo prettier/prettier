@@ -94,6 +94,8 @@ function printFlow(path, options, print) {
       return print("typeAnnotation");
     case "TypeParameter":
       return printTypeParameter(path, options, print);
+    case "TypeofTypeAnnotation":
+      return ["typeof ", print("argument")];
   }
 }
 
