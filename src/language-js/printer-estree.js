@@ -966,33 +966,22 @@ function printPathNoParens(path, options, print, args) {
     case "DeclaredPredicate":
       return ["%checks(", print("value"), ")"];
     case "AnyTypeAnnotation":
-    case "TSAnyKeyword":
       return "any";
     case "BooleanTypeAnnotation":
-    case "TSBooleanKeyword":
       return "boolean";
     case "BigIntTypeAnnotation":
-    case "TSBigIntKeyword":
       return "bigint";
-    case "TSConstKeyword":
-      return "const";
     case "NullLiteralTypeAnnotation":
-    case "TSNullKeyword":
       return "null";
     case "NumberTypeAnnotation":
-    case "TSNumberKeyword":
       return "number";
     case "SymbolTypeAnnotation":
-    case "TSSymbolKeyword":
       return "symbol";
     case "StringTypeAnnotation":
-    case "TSStringKeyword":
       return "string";
     case "VoidTypeAnnotation":
-    case "TSVoidKeyword":
       return "void";
     case "ThisTypeAnnotation":
-    case "TSThisType":
       return "this";
 
     case "PrivateIdentifier":

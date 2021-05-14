@@ -60,6 +60,8 @@ function printTypescript(path, options, print) {
   }
 
   switch (node.type) {
+    case "TSThisType":
+      return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
         node.expression.type === "ArrayExpression" ||
