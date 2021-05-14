@@ -699,7 +699,7 @@ function printJsxSpreadAttribute(path, options, print) {
 function printJsx(path, options, print) {
   const node = path.getValue();
 
-  // JSX nodes always starts with `TS`
+  // JSX nodes always starts with `JSX`
   if (!node.type.startsWith("JSX")) {
     return;
   }
