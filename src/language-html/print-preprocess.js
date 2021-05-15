@@ -362,24 +362,19 @@ function extractWhitespaces(ast /*, options*/) {
           return localChildren;
         })
         // set hasLeadingSpaces/hasTrailingSpaces
-        .map((child, i, children) => {
+        .map((child, index, children) => {
           if (child === WHITESPACE_NODE) {
-            return child;
+            return;
           }
-
-          const hasLeadingSpaces =
-            i !== 0 && children[i - 1] === WHITESPACE_NODE;
-          const hasTrailingSpaces =
-            i !== children.length - 1 && children[i + 1] === WHITESPACE_NODE;
 
           return {
             ...child,
-            hasLeadingSpaces,
-            hasTrailingSpaces,
+            hasLeadingSpaces: children[index - 1] === WHITESPACE_NODE,
+            hasTrailingSpaces: children[index + 1] === WHITESPACE_NODE,
           };
         })
         // filter whitespace nodes
-        .filter((node) => node !== WHITESPACE_NODE),
+        .filter(Boolean),
     });
   });
 }
