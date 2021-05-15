@@ -1,10 +1,14 @@
-"use strict";
+import fs from "node:fs/promises";
+import chalk from "chalk";
 
-const chalk = require("chalk");
-const pkg = require("../package.json");
+(async () => {
+  const packageJson = JSON.parse(
+    await fs.readFile(new URL("../package.json", import.meta))
+  );
 
-validateDependencyObject(pkg.dependencies);
-validateDependencyObject(pkg.devDependencies);
+  validateDependencyObject(packageJson.dependencies);
+  validateDependencyObject(packageJson.devDependencies);
+})();
 
 function validateDependencyObject(object) {
   for (const key of Object.keys(object)) {

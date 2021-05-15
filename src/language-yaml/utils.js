@@ -164,7 +164,7 @@ function splitWithSingleSpace(text) {
   const parts = [];
 
   let lastPart;
-  for (const part of text.split(/( +)/g)) {
+  for (const part of text.split(/( +)/)) {
     /* istanbul ignore else */
     if (part !== " ") {
       if (lastPart === " ") {

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-"use strict";
-
-const path = require("path");
-const fs = require("fs");
-const shell = require("shelljs");
-const globby = require("globby");
-const prettier = require("prettier");
+import path from "node:path";
+import fs from "node:fs";
+import shell from "shelljs";
+import globby from "globby";
+import prettier from "prettier";
+import createEsmUtils from "esm-utils";
 
 shell.config.fatal = true;
 
+const { __dirname, require } = createEsmUtils(import.meta);
 const rootDir = path.join(__dirname, "..");
 const docs = path.join(rootDir, "website/static/lib");
 

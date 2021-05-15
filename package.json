@@ -113,7 +113,9 @@
     "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-prettier-internal-rules": "link:scripts/tools/eslint-plugin-prettier-internal-rules",
     "eslint-plugin-react": "7.23.2",
+    "eslint-plugin-regexp": "0.10.0",
     "eslint-plugin-unicorn": "31.0.0",
+    "esm-utils": "1.0.1",
     "execa": "5.0.0",
     "jest": "26.6.3",
     "jest-snapshot-serializer-ansi": "1.0.0",
@@ -147,15 +149,15 @@
     "lint": "run-p lint:*",
     "lint:typecheck": "tsc",
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
-    "lint:changelog": "node ./scripts/lint-changelog.js",
+    "lint:changelog": "node ./scripts/lint-changelog.mjs",
     "lint:prettier": "prettier . \"!test*\" --check",
     "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --env=es6,browser --parser-options=ecmaVersion:2019 \"dist/!(bin-prettier|index|third-party).js\"",
     "lint:spellcheck": "cspell \"**/*\" \".github/**/*\"",
-    "lint:deps": "node ./scripts/check-deps.js",
+    "lint:deps": "node ./scripts/check-deps.mjs",
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
-    "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
-    "build-docs": "node ./scripts/build-docs.js"
+    "build": "node --max-old-space-size=3072 ./scripts/build/build.mjs",
+    "build-docs": "node ./scripts/build-docs.mjs"
   }
 }
