@@ -1,9 +1,7 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
 
-const fs = require("fs");
-const path = require("path");
-
-module.exports = function () {
+export default function () {
   let banner;
   let entry;
   let file;
@@ -46,4 +44,4 @@ module.exports = function () {
       }
     },
   };
-};
+}

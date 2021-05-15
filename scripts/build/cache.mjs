@@ -1,12 +1,12 @@
-"use strict";
+import { strict as assert } from "node:assert";
+import crypto from "node:crypto";
+import fs from "node:fs/promises";
+import path from "node:path";
+import execa from "execa";
+import { rollup } from "rollup";
+import createEsmUtils from "esm-utils";
 
-const assert = require("assert").strict;
-const crypto = require("crypto");
-const fs = require("fs").promises;
-const path = require("path");
-const execa = require("execa");
-const { rollup } = require("rollup");
-
+const { __dirname } = createEsmUtils(import.meta);
 const ROOT = path.join(__dirname, "..", "..");
 
 class Cache {
@@ -146,4 +146,4 @@ function getRollupConfig(rollupConfig) {
   };
 }
 
-module.exports = Cache;
+export default Cache;

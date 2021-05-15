@@ -1,6 +1,4 @@
-"use strict";
-
-const fs = require("fs").promises;
+import fs from "node:fs/promises";
 
 async function readJson(file) {
   const data = await fs.readFile(file);
@@ -17,8 +15,4 @@ async function copyFile(from, to) {
   return fs.writeFile(to, data);
 }
 
-module.exports = {
-  readJson,
-  writeJson,
-  copyFile,
-};
+export { readJson, writeJson, copyFile };
