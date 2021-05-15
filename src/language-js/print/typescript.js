@@ -58,7 +58,7 @@ function printTypescript(path, options, print) {
     return;
   }
 
-  if (/^TS[A-Z][a-z]+Keyword$/.test(node.type)) {
+  if (node.type.endsWith("Keyword")) {
     return node.type.slice(2, -7).toLowerCase();
   }
 
@@ -66,8 +66,6 @@ function printTypescript(path, options, print) {
   const parts = [];
 
   switch (node.type) {
-    case "TSBigIntKeyword":
-      return "bigint";
     case "TSThisType":
       return "this";
     case "TSTypeAssertion": {
