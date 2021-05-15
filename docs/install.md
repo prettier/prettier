@@ -37,7 +37,6 @@ coverage
 ```
 
 > Tip! Base your .prettierignore on .gitignore and .eslintignore (if you have one).
-
 > Another tip! If your project isn’t ready to format, say, HTML files yet, add `*.html`.
 
 Now, format all files with Prettier:
