@@ -348,7 +348,7 @@ function genericPrint(path, options, print) {
     }
     case "media-url": {
       return adjustStrings(
-        node.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/gi, ")"),
+        node.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/g, ")"),
         options
       );
     }

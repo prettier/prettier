@@ -2533,6 +2533,11 @@ comment-json@^4.0.6, comment-json@^4.1.0:
     has-own-prop "^2.0.0"
     repeat-string "^1.6.1"
 
+comment-parser@^1.1.2:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/comment-parser/-/comment-parser-1.1.5.tgz#453627ef8f67dbcec44e79a9bd5baa37f0bce9b2"
+  integrity sha512-RePCE4leIhBlmrqiYTvaqEeGYg7qpSl4etaIabKtdOQVi+mSTIBBklGUwIr79GXYnl3LpMwmDw4KeR2stNc6FA==
+
 commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
@@ -3138,6 +3143,18 @@ eslint-plugin-react@7.23.2:
     prop-types "^15.7.2"
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.4"
+
+eslint-plugin-regexp@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.10.0.tgz#5391e21d805bce53b6846446fe4aed7961f33b62"
+  integrity sha512-KwIdNUnwz9CFZ1jApWZ++Y1cVWbJBYdJHMDh7KNe9HpElSwHGZHtX1QaHq3Iv2nMYJitGIE6JdkYbfzm9BzPQw==
+  dependencies:
+    comment-parser "^1.1.2"
+    eslint-utils "^2.1.0"
+    jsdoctypeparser "^9.0.0"
+    refa "^0.8.0"
+    regexp-ast-analysis "^0.2.0"
+    regexpp "^3.1.0"
 
 eslint-plugin-unicorn@31.0.0:
   version "31.0.0"
@@ -4734,6 +4751,11 @@ jsbn@~0.1.0:
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
 
+jsdoctypeparser@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/jsdoctypeparser/-/jsdoctypeparser-9.0.0.tgz#8c97e2fb69315eb274b0f01377eaa5c940bd7b26"
+  integrity sha512-jrTA2jJIL6/DAEILBEh2/w9QxCuwmvNXIry39Ay/HVfhE3o2yVV0U44blYkqdHA/OKloJEqvJy0xU+GSdE2SIw==
+
 jsdom@^16.4.0:
   version "16.4.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-16.4.0.tgz#36005bde2d136f73eee1a830c6d45e55408edddb"
@@ -5853,6 +5875,13 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
+refa@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/refa/-/refa-0.8.0.tgz#81813b0ac80fd6e2d79f191e31054f210ef80a53"
+  integrity sha512-qOf9zk1McAuGPtQ16nzuWCUg9zx3Quc48i6oD6nxWJdrFeh3Do0vCpIGYLij/1ysAbh5rxdUNg+YzSVBRycX5g==
+  dependencies:
+    regexpp "^3.1.0"
+
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-8.2.0.tgz#e5de7111d655e7ba60c057dbe9ff37c87e65cdec"
@@ -5884,6 +5913,14 @@ regex-not@^1.0.0, regex-not@^1.0.2:
   dependencies:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
+
+regexp-ast-analysis@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.0.tgz#2d676024539dc11a0d99d0ddf861d818ba20a1b5"
+  integrity sha512-ZVNwBF65Gn4CbRdPNYle8NAPFSDbbJ83svYUk4Mpqmr1QTUx2M06my9x7o8Hw/oFXDwXrJo/7W+ijLfFM5oG2Q==
+  dependencies:
+    refa "^0.8.0"
+    regexpp "^3.1.0"
 
 regexp-tree@^0.1.23, regexp-tree@~0.1.1:
   version "0.1.23"
