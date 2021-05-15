@@ -1,8 +1,6 @@
-"use strict";
+import path from "node:path";
 
-const path = require("path");
-
-module.exports = function (modules = []) {
+export default function (modules = []) {
   const requires = modules.reduce((obj, mod) => {
     obj[mod] = path.basename(mod).replace(/\.js$/, "");
     return obj;
@@ -17,4 +15,4 @@ module.exports = function (modules = []) {
       }
     },
   };
-};
+}

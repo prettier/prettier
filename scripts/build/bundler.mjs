@@ -1,21 +1,22 @@
-"use strict";
+import path from "node:path";
+import fs from "node:fs";
+import { rollup } from "rollup";
+import webpack from "webpack";
+import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
+import rollupPluginAlias from "@rollup/plugin-alias";
+import rollupPluginCommonjs from "@rollup/plugin-commonjs";
+import rollupPluginPolyfillNode from "rollup-plugin-polyfill-node";
+import rollupPluginJson from "@rollup/plugin-json";
+import rollupPluginReplace from "@rollup/plugin-replace";
+import { terser as rollupPluginTerser } from "rollup-plugin-terser";
+import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
+import WebpackPluginTerser from "terser-webpack-plugin";
+import createEsmUtils from "esm-utils";
+import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
+import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
+import rollupPluginExternals from "./rollup-plugins/externals.mjs";
 
-const path = require("path");
-const fs = require("fs");
-const { rollup } = require("rollup");
-const webpack = require("webpack");
-const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const rollupPluginAlias = require("@rollup/plugin-alias");
-const commonjs = require("@rollup/plugin-commonjs");
-const rollupPluginPolyfillNode = require("rollup-plugin-polyfill-node");
-const json = require("@rollup/plugin-json");
-const replace = require("@rollup/plugin-replace");
-const { terser } = require("rollup-plugin-terser");
-const { babel } = require("@rollup/plugin-babel");
-const executable = require("./rollup-plugins/executable");
-const evaluate = require("./rollup-plugins/evaluate");
-const externals = require("./rollup-plugins/externals");
-
+const { __dirname, require } = createEsmUtils(import.meta);
 const PROJECT_ROOT = path.join(__dirname, "../..");
 
 const EXTERNALS = [
@@ -195,20 +196,20 @@ function getRollupConfig(bundle) {
   alias.entries = [...entries, ...(alias.entries || [])];
 
   config.plugins = [
-    replace({
+    rollupPluginReplace({
       values: replaceStrings,
       delimiters: ["", ""],
       preventAssignment: true,
     }),
-    executable(),
-    evaluate(),
-    json(),
+    rollupPluginExecutable(),
+    rollupPluginEvaluate(),
+    rollupPluginJson(),
     rollupPluginAlias(alias),
-    nodeResolve({
+    rollupPluginNodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
     }),
-    commonjs({
+    rollupPluginCommonjs({
       ignoreGlobal: bundle.target === "node",
       ...bundle.commonjs,
       ignore:
@@ -217,12 +218,12 @@ function getRollupConfig(bundle) {
           : (id) => /\.\/parser-.*?/.test(id),
       requireReturnsDefault: "preferred",
     }),
-    externals(bundle.externals),
+    rollupPluginExternals(bundle.externals),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
-    babel(babelConfig),
+    rollupPluginBabel(babelConfig),
     bundle.minify !== false &&
       bundle.target === "universal" &&
-      terser({
+      rollupPluginTerser({
         output: {
           ascii_only: true,
         },
@@ -311,8 +312,9 @@ function getWebpackConfig(bundle) {
   };
 
   if (bundle.terserOptions) {
-    const TerserPlugin = require("terser-webpack-plugin");
-    config.optimization.minimizer = [new TerserPlugin(bundle.terserOptions)];
+    config.optimization.minimizer = [
+      new WebpackPluginTerser(bundle.terserOptions),
+    ];
   }
   // config.optimization.minimize = false;
 
@@ -345,7 +347,7 @@ function runWebpack(config) {
   });
 }
 
-module.exports = async function createBundle(bundle, cache, options) {
+async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle, options);
 
@@ -374,4 +376,6 @@ module.exports = async function createBundle(bundle, cache, options) {
   }
 
   return { bundled: true };
-};
+}
+
+export default createBundle;

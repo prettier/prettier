@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-"use strict";
-const fs = require("fs");
-const path = require("path");
-const { outdent } = require("outdent");
 
+import path from "node:path";
+import fs from "node:fs";
+import { outdent } from "outdent";
+import createEsmUtils from "esm-utils";
+
+const { __dirname } = createEsmUtils(import.meta);
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
 const BLOG_POST_INTRO_TEMPLATE_FILE = "BLOG_POST_INTRO_TEMPLATE.md";

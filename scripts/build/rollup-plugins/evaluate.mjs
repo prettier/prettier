@@ -1,6 +1,8 @@
-"use strict";
+import createEsmUtils from "esm-utils";
 
-module.exports = function () {
+const { require } = createEsmUtils(import.meta);
+
+export default function () {
   return {
     name: "evaluate",
 
@@ -25,4 +27,4 @@ module.exports = function () {
       };
     },
   };
-};
+}
