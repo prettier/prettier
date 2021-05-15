@@ -332,7 +332,7 @@ function extractWhitespaces(ast /*, options*/) {
         // extract whitespace nodes
         .flatMap((child) => {
           if (child.type !== "text" || isWhitespaceSensitive) {
-            return [child];
+            return child;
           }
 
           const localChildren = [];
