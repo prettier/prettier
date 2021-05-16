@@ -23,7 +23,7 @@
     "@angular/compiler": "11.2.13",
     "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.14.1",
-    "@glimmer/syntax": "0.79.0",
+    "@glimmer/syntax": "0.79.1",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "4.22.0",
     "angular-estree-parser": "2.3.0",
