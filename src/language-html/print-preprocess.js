@@ -303,8 +303,8 @@ function extractInterpolation(ast, options) {
  * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
+const WHITESPACE_NODE = { type: "whitespace" };
 function extractWhitespaces(ast /*, options*/) {
-  const TYPE_WHITESPACE = "whitespace";
   return ast.map((node) => {
     if (!node.children) {
       return node;
@@ -330,9 +330,9 @@ function extractWhitespaces(ast /*, options*/) {
       isIndentationSensitive,
       children: node.children
         // extract whitespace nodes
-        .reduce((newChildren, child) => {
+        .flatMap((child) => {
           if (child.type !== "text" || isWhitespaceSensitive) {
-            return [...newChildren, child];
+            return child;
           }
 
           const localChildren = [];
@@ -341,7 +341,7 @@ function extractWhitespaces(ast /*, options*/) {
             getLeadingAndTrailingHtmlWhitespace(child.value);
 
           if (leadingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            localChildren.push(WHITESPACE_NODE);
           }
 
           if (text) {
@@ -356,32 +356,25 @@ function extractWhitespaces(ast /*, options*/) {
           }
 
           if (trailingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            localChildren.push(WHITESPACE_NODE);
           }
 
-          return [...newChildren, ...localChildren];
-        }, [])
-        // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
-        .reduce((newChildren, child, i, children) => {
-          if (child.type === TYPE_WHITESPACE) {
-            return newChildren;
+          return localChildren;
+        })
+        // set hasLeadingSpaces/hasTrailingSpaces
+        .map((child, index, children) => {
+          if (child === WHITESPACE_NODE) {
+            return;
           }
 
-          const hasLeadingSpaces =
-            i !== 0 && children[i - 1].type === TYPE_WHITESPACE;
-          const hasTrailingSpaces =
-            i !== children.length - 1 &&
-            children[i + 1].type === TYPE_WHITESPACE;
-
-          return [
-            ...newChildren,
-            {
-              ...child,
-              hasLeadingSpaces,
-              hasTrailingSpaces,
-            },
-          ];
-        }, []),
+          return {
+            ...child,
+            hasLeadingSpaces: children[index - 1] === WHITESPACE_NODE,
+            hasTrailingSpaces: children[index + 1] === WHITESPACE_NODE,
+          };
+        })
+        // filter whitespace nodes
+        .filter(Boolean),
     });
   });
 }
