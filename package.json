@@ -105,7 +105,7 @@
     "builtin-modules": "3.2.0",
     "core-js": "3.12.1",
     "cross-env": "7.0.3",
-    "cspell": "4.2.8",
+    "cspell": "5.4.1",
     "eslint": "7.26.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-formatter-friendly": "7.0.0",
