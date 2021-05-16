@@ -252,8 +252,8 @@ function isCompletxTypeAliasParams(node) {
   if (isNonEmptyArray(typeParams)) {
     if (
       typeParams.length > 1 &&
-      !!getLast(typeParams).default &&
-      typeParams.every((param) => !!param.constraint)
+      Boolean(getLast(typeParams).default) &&
+      typeParams.every((param) => Boolean(param.constraint))
     ) {
       return true;
     }
