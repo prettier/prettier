@@ -1,6 +1,10 @@
 "use strict";
 
-const { isNonEmptyArray, getStringWidth } = require("../../common/util");
+const {
+  isNonEmptyArray,
+  getStringWidth,
+  getLast,
+} = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
   utils: { cleanDoc },
@@ -248,7 +252,7 @@ function isCompletxTypeAliasParams(node) {
   if (isNonEmptyArray(typeParams)) {
     if (
       typeParams.length > 1 &&
-      typeParams.some((param) => !!param.default) &&
+      !!getLast(typeParams).default &&
       typeParams.every((param) => !!param.constraint)
     ) {
       return true;
