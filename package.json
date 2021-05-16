@@ -132,7 +132,7 @@
     "shelljs": "0.8.4",
     "snapshot-diff": "0.8.1",
     "tempy": "1.0.1",
-    "terser-webpack-plugin": "5.1.1",
+    "terser-webpack-plugin": "5.1.2",
     "webpack": "5.37.0"
   },
   "scripts": {
