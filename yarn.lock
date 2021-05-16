@@ -3326,10 +3326,10 @@ eslint@7.26.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-esm-utils@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/esm-utils/-/esm-utils-1.0.1.tgz#297085fbb352140c70789744c0b858fd43f0b391"
-  integrity sha512-flJFfIoZmKFiz2wqz++NVT4rUia3ht80fDKmixuhmvCdf4JZyAx9RO5SSzfZY5Rv7/vBhB1xYzzFUM5qt1MBBg==
+esm-utils@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/esm-utils/-/esm-utils-1.1.0.tgz#026fd8c97eee9a9b956f6f3890c9b6b5b57c4771"
+  integrity sha512-vm3Q1u5RvJFKbizsyK4POBdFjXJFwA+1zEbSAuC+ekjOVWGt/FCXfY8b548fccFLGPihOu1CuS//EOUsj6jczA==
 
 espree@7.3.1, espree@^7.3.0, espree@^7.3.1:
   version "7.3.1"
