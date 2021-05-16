@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import rimraf from "rimraf";
+import semver from "semver";
+import createEsmUtils from "esm-utils";
 
-const fs = require("fs");
-const path = require("path");
-const rimraf = require("rimraf");
-const semver = require("semver");
-
+const { __dirname, require } = createEsmUtils(import.meta);
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
 const introTemplateFile = path.join(

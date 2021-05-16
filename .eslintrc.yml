@@ -6,9 +6,10 @@ extends:
   - eslint:recommended
   - prettier
 plugins:
-  - import
-  - unicorn
   - prettier-internal-rules
+  - import
+  - regexp
+  - unicorn
 settings:
   import/internal-regex: ^linguist-languages/
 rules:
@@ -69,6 +70,7 @@ rules:
     - error
     - never
     - exceptRange: true
+  regexp/no-useless-flag: error
   unicorn/better-regex: error
   unicorn/explicit-length-check: error
   unicorn/new-for-builtins: error
@@ -96,6 +98,9 @@ overrides:
       - "**/*.mjs"
     parserOptions:
       sourceType: module
+    rules:
+      unicorn/prefer-module: error
+      unicorn/prefer-node-protocol: error
   - files:
       - "tests/format/**/jsfmt.spec.js"
       - "tests/config/**/*.js"

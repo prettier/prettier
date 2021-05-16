@@ -73,9 +73,7 @@ function createChoiceUsages(choices, margin, indentation) {
     (choice) => !choice.deprecated && choice.since !== null
   );
   const threshold =
-    activeChoices
-      .map((choice) => choice.value.length)
-      .reduce((current, length) => Math.max(current, length), 0) + margin;
+    Math.max(0, ...activeChoices.map((choice) => choice.value.length)) + margin;
   return activeChoices.map((choice) =>
     indent(
       createOptionUsageRow(choice.value, choice.description, threshold),

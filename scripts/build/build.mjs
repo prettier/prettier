@@ -1,16 +1,16 @@
-"use strict";
+#!/usr/bin/env node
 
-const path = require("path");
-const fs = require("fs").promises;
-const readline = require("readline");
-const chalk = require("chalk");
-const execa = require("execa");
-const minimist = require("minimist");
-
-const bundler = require("./bundler");
-const bundleConfigs = require("./config");
-const util = require("./util");
-const Cache = require("./cache");
+import path from "node:path";
+import fs from "node:fs/promises";
+import readline from "node:readline";
+import chalk from "chalk";
+import execa from "execa";
+import minimist from "minimist";
+import prettyBytes from "pretty-bytes";
+import bundler from "./bundler.mjs";
+import bundleConfigs from "./config.mjs";
+import * as utils from "./utils.mjs";
+import Cache from "./cache.mjs";
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -84,7 +84,6 @@ async function createBundle(bundleConfig, cache, options) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
 
-      const prettyBytes = require("pretty-bytes");
       const getSizeText = async (file) =>
         prettyBytes((await fs.stat(file)).size);
       const sizeTexts = [await getSizeText(file)];
@@ -133,7 +132,7 @@ async function cacheFiles(cache) {
 }
 
 async function preparePackage() {
-  const pkg = await util.readJson("package.json");
+  const pkg = await utils.readJson("package.json");
   pkg.bin = "./bin-prettier.js";
   pkg.engines.node = ">=10.13.0";
   delete pkg.dependencies;
@@ -143,10 +142,10 @@ async function preparePackage() {
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
   pkg.files = ["*.js", "esm/*.mjs"];
-  await util.writeJson("dist/package.json", pkg);
+  await utils.writeJson("dist/package.json", pkg);
 
-  await util.copyFile("./README.md", "./dist/README.md");
-  await util.copyFile("./LICENSE", "./dist/LICENSE");
+  await utils.copyFile("./README.md", "./dist/README.md");
+  await utils.copyFile("./LICENSE", "./dist/LICENSE");
 }
 
 async function run(params) {

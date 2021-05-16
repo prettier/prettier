@@ -3,7 +3,7 @@
 /tests/integration/cli/
 !/tests/format/**/jsfmt.spec.js
 !/**/.eslintrc.js
-/test*.js
+/test*.*
 /scripts/release/node_modules
 /coverage/
 /dist/

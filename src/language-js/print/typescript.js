@@ -52,9 +52,22 @@ const {
 
 function printTypescript(path, options, print) {
   const node = path.getValue();
+
+  // TypeScript nodes always starts with `TS`
+  if (!node.type.startsWith("TS")) {
+    return;
+  }
+
+  if (node.type.endsWith("Keyword")) {
+    return node.type.slice(2, -7).toLowerCase();
+  }
+
   const semi = options.semi ? ";" : "";
   const parts = [];
+
   switch (node.type) {
+    case "TSThisType":
+      return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
         node.expression.type === "ArrayExpression" ||
@@ -131,40 +144,8 @@ function printTypescript(path, options, print) {
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
-
     case "TSTypeParameter":
-    case "TypeParameter":
       return printTypeParameter(path, options, print);
-    case "TypeofTypeAnnotation":
-      return ["typeof ", print("argument")];
-    case "TSAbstractKeyword":
-      return "abstract";
-    case "TSAsyncKeyword":
-      return "async";
-    case "TSDeclareKeyword":
-      return "declare";
-    case "TSExportKeyword":
-      return "export";
-    case "TSNeverKeyword":
-      return "never";
-    case "TSObjectKeyword":
-      return "object";
-    case "TSProtectedKeyword":
-      return "protected";
-    case "TSPrivateKeyword":
-      return "private";
-    case "TSPublicKeyword":
-      return "public";
-    case "TSReadonlyKeyword":
-      return "readonly";
-    case "TSStaticKeyword":
-      return "static";
-    case "TSUndefinedKeyword":
-      return "undefined";
-    case "TSUnknownKeyword":
-      return "unknown";
-    case "TSIntrinsicKeyword":
-      return "intrinsic";
     case "TSAsExpression": {
       parts.push(print("expression"), " as ", print("typeAnnotation"));
       const parent = path.getParentNode();
@@ -179,15 +160,6 @@ function printTypescript(path, options, print) {
     case "TSArrayType":
       return [print("elementType"), "[]"];
     case "TSPropertySignature": {
-      if (node.export) {
-        parts.push("export ");
-      }
-      if (node.accessibility) {
-        parts.push(node.accessibility + " ");
-      }
-      if (node.static) {
-        parts.push("static ");
-      }
       if (node.readonly) {
         parts.push("readonly ");
       }
@@ -547,13 +519,11 @@ function printTypescript(path, options, print) {
       return ["?", print("typeAnnotation")];
     case "TSJSDocNonNullableType":
       return ["!", print("typeAnnotation")];
-    case "TSJSDocFunctionType":
-      return [
-        "function(",
-        // The parameters could be here, but typescript-estree doesn't convert them anyway (throws an error).
-        "): ",
-        print("typeAnnotation"),
-      ];
+    default:
+      /* istanbul ignore next */
+      throw new Error(
+        `Unknown TypeScript node type: ${JSON.stringify(node.type)}.`
+      );
   }
 }
 

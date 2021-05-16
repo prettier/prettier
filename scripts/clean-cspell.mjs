@@ -1,19 +1,16 @@
 #!/usr/bin/env node
 
-"use strict";
+import fs from "node:fs/promises";
+import execa from "execa";
 
-const fs = require("fs");
-const path = require("path");
-const execa = require("execa");
+const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta.url);
 
-const CSPELL_CONFIG_FILE = path.join(__dirname, "../cspell.json");
-
-const updateConfig = (config) =>
-  fs.writeFileSync(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
+const updateConfig = async (config) =>
+  await fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
 
 (async () => {
   console.log("Empty words ...");
-  const config = JSON.parse(fs.readFileSync(CSPELL_CONFIG_FILE, "utf8"));
+  const config = JSON.parse(await fs.readFile(CSPELL_CONFIG_FILE, "utf8"));
   updateConfig({ ...config, words: [] });
 
   console.log("Running spellcheck with empty words ...");
