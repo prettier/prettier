@@ -136,7 +136,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
-  if (isComplexDestructuring(node)) {
+  if (isComplexDestructuring(node) || isCompletxTypeAliasParams(node)) {
     return "break-lhs";
   }
 
@@ -241,6 +241,31 @@ function isAssignment(node) {
 
 function isAssignmentOrVariableDeclarator(node) {
   return isAssignment(node) || node.type === "VariableDeclarator";
+}
+
+function isCompletxTypeAliasParams(node) {
+  const typeParams = getTypeParametersFromTypeAlias(node);
+  if (isNonEmptyArray(typeParams)) {
+    if (
+      typeParams.length > 1 &&
+      typeParams.some((param) => !!param.default) &&
+      typeParams.every((param) => !!param.constraint)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getTypeParametersFromTypeAlias(node) {
+  if (isTypeAlias(node) && node.typeParameters && node.typeParameters.params) {
+    return node.typeParameters.params;
+  }
+  return null;
+}
+
+function isTypeAlias(node) {
+  return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
 /**
