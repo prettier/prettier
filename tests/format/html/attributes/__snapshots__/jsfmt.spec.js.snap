@@ -341,6 +341,27 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`class-colon.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<my-tag class="md:foo md:bar xl:foo xl:prefix2 --prefix2--something-else unrelated_class_to_fill_80_chars"></my-tag>
+
+=====================================output=====================================
+<my-tag
+  class="
+    md:foo md:bar
+    xl:foo xl:prefix2
+    --prefix2--something-else
+    unrelated_class_to_fill_80_chars
+  "
+></my-tag>
+
+================================================================================
+`;
+
 exports[`class-leading-dashes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
