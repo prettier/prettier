@@ -250,10 +250,12 @@ function isAssignmentOrVariableDeclarator(node) {
 function isCompletxTypeAliasParams(node) {
   const typeParams = getTypeParametersFromTypeAlias(node);
   if (isNonEmptyArray(typeParams)) {
+    const constraintPropertyName =
+      node.type === "TSTypeAliasDeclaration" ? "constraint" : "bound";
     if (
       typeParams.length > 1 &&
       Boolean(getLast(typeParams).default) &&
-      typeParams.every((param) => Boolean(param.constraint))
+      typeParams.every((param) => Boolean(param[constraintPropertyName]))
     ) {
       return true;
     }
