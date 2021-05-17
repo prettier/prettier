@@ -347,6 +347,7 @@ function runWebpack(config) {
   });
 }
 
+let rollupCache;
 async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle, options);
@@ -371,7 +372,9 @@ async function createBundle(bundle, cache, options) {
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
+    inputOptions.cache = rollupCache;
     const result = await rollup(inputOptions);
+    rollupCache = result.cache;
     await Promise.all(outputOptions.map((option) => result.write(option)));
   }
 
