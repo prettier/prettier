@@ -13,13 +13,14 @@ describe("CLI --support-info", () => {
 
 function getCoreInfo() {
   const supportInfo = prettier.getSupportInfo();
-  const languages = supportInfo.languages.reduce(
-    (obj, language) => ({ [language.name]: language.parsers, ...obj }),
-    {}
+  const languages = Object.fromEntries(
+    supportInfo.languages.map(({ name, parsers }) => [name, parsers])
   );
-  const options = supportInfo.options.reduce(
-    (obj, option) => ({
-      [option.name]: {
+
+  const options = Object.fromEntries(
+    supportInfo.options.map((option) => [
+      option.name,
+      {
         type: option.type,
         default: option.default,
         ...(option.type === "int"
@@ -28,9 +29,8 @@ function getCoreInfo() {
           ? { choices: option.choices.map((choice) => choice.value) }
           : null),
       },
-      ...obj,
-    }),
-    {}
+    ])
   );
+
   return { languages, options };
 }
