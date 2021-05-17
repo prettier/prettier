@@ -43,7 +43,7 @@ const parseOptions = {
 };
 
 function createParseError(error) {
-  const { GraphQLError } = require("graphql/error");
+  const { GraphQLError } = require("graphql/error/GraphQLError");
   if (error instanceof GraphQLError) {
     const {
       message,
@@ -58,7 +58,7 @@ function createParseError(error) {
 
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
-  const { parse } = require("graphql/language");
+  const { parse } = require("graphql/language/parser");
   const { result: ast, error } = tryCombinations(
     () => parse(text, { ...parseOptions }),
     () =>
