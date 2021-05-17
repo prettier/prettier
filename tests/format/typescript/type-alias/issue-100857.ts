@@ -23,3 +23,21 @@ type FieldLayoutWith<
   code: string;
   size: S;
 };
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  T extends stringggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  S = stringggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
