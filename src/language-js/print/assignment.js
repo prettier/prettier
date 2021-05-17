@@ -1,10 +1,6 @@
 "use strict";
 
-const {
-  isNonEmptyArray,
-  getStringWidth,
-  getLast,
-} = require("../../common/util");
+const { isNonEmptyArray, getStringWidth } = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
   utils: { cleanDoc },
@@ -254,8 +250,7 @@ function isCompletxTypeAliasParams(node) {
       node.type === "TSTypeAliasDeclaration" ? "constraint" : "bound";
     if (
       typeParams.length > 1 &&
-      Boolean(getLast(typeParams).default) &&
-      typeParams.every((param) => Boolean(param[constraintPropertyName]))
+      typeParams.some((param) => param[constraintPropertyName] || param.default)
     ) {
       return true;
     }
