@@ -4,7 +4,7 @@ const getLast = require("../utils/get-last");
 const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
 
 // 0x0 ~ 0x10ffff
-const isSingleCharRegex = /^.$/us;
+const isSingleCharRegex = /^.$/su;
 
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
