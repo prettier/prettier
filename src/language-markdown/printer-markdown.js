@@ -274,7 +274,7 @@ function genericPrint(path, options, print) {
         parentNode.type === "root" && getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
+      const isHtmlComment = /^<!--.*-->$/s.test(value);
       return replaceEndOfLineWith(
         value,
         isHtmlComment ? hardline : markAsRoot(literalline)

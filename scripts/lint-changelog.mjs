@@ -64,7 +64,7 @@ const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
   "utf8"
 );
-const [templateComment] = template.match(/<!--[\S\s]*?-->/);
+const [templateComment] = template.match(/<!--.*?-->/s);
 const [templateAuthorLink] = template.match(authorRegex);
 const checkedFiles = new Map();
 

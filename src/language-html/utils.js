@@ -30,7 +30,7 @@ const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
 const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
   const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
+    /^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s
   );
   return {
     leadingWhitespace,
@@ -119,7 +119,7 @@ function isPrettierIgnore(node) {
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
-  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/s);
 
   if (!match) {
     return false;
