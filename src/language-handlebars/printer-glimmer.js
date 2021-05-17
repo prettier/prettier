@@ -13,9 +13,9 @@ const {
     softline,
     literalline,
   },
-  utils: { getDocParts },
+  utils: { getDocParts, replaceEndOfLineWith },
 } = require("../document");
-const { isNonEmptyArray, replaceEndOfLineWith } = require("../common/util");
+const { isNonEmptyArray } = require("../common/util");
 const { locStart, locEnd } = require("./loc");
 const clean = require("./clean");
 const {

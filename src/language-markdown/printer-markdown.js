@@ -23,10 +23,9 @@ const {
     group,
     hardlineWithoutBreakParent,
   },
-  utils: { normalizeDoc },
+  utils: { normalizeDoc, replaceEndOfLineWith },
   printer: { printDocToString },
 } = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
 const embed = require("./embed");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
