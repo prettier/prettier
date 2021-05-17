@@ -136,7 +136,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
-  if (isComplexDestructuring(node) || isCompletxTypeAliasParams(node)) {
+  if (isComplexDestructuring(node) || isComplexTypeAliasParams(node)) {
     return "break-lhs";
   }
 
@@ -243,7 +243,7 @@ function isAssignmentOrVariableDeclarator(node) {
   return isAssignment(node) || node.type === "VariableDeclarator";
 }
 
-function isCompletxTypeAliasParams(node) {
+function isComplexTypeAliasParams(node) {
   const typeParams = getTypeParametersFromTypeAlias(node);
   if (isNonEmptyArray(typeParams)) {
     const constraintPropertyName =
