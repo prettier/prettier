@@ -608,6 +608,10 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+/**
+ * @param {any} object
+ * @returns {object is Array<any>}
+ */
 function isNonEmptyArray(object) {
   return Array.isArray(object) && object.length > 0;
 }
