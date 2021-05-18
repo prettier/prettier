@@ -917,7 +917,8 @@ function getCommentChildNodes(node, options) {
     (options.parser === "typescript" ||
       options.parser === "flow" ||
       options.parser === "espree" ||
-      options.parser === "meriyah") &&
+      options.parser === "meriyah" ||
+      options.parser === "__babel_estree") &&
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&
