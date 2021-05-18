@@ -721,8 +721,7 @@ function handleOnlyComments({
     enclosingNode &&
     enclosingNode.type === "Program" &&
     enclosingNode.body.length === 0 &&
-    enclosingNode.directives &&
-    enclosingNode.directives.length === 0
+    !isNonEmptyArray(enclosingNode.directives)
   ) {
     if (isLastComment) {
       addDanglingComment(enclosingNode, comment);
