@@ -275,8 +275,10 @@ function genericPrint(path, options, print) {
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
+
       return replaceTextEndOfLine(
         value,
+        // @ts-ignore
         isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
