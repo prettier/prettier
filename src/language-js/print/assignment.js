@@ -136,7 +136,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
-  if (isComplexDestructuring(node)) {
+  if (isComplexDestructuring(node) || isComplexTypeAliasParams(node)) {
     return "break-lhs";
   }
 
@@ -241,6 +241,32 @@ function isAssignment(node) {
 
 function isAssignmentOrVariableDeclarator(node) {
   return isAssignment(node) || node.type === "VariableDeclarator";
+}
+
+function isComplexTypeAliasParams(node) {
+  const typeParams = getTypeParametersFromTypeAlias(node);
+  if (isNonEmptyArray(typeParams)) {
+    const constraintPropertyName =
+      node.type === "TSTypeAliasDeclaration" ? "constraint" : "bound";
+    if (
+      typeParams.length > 1 &&
+      typeParams.some((param) => param[constraintPropertyName] || param.default)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getTypeParametersFromTypeAlias(node) {
+  if (isTypeAlias(node) && node.typeParameters && node.typeParameters.params) {
+    return node.typeParameters.params;
+  }
+  return null;
+}
+
+function isTypeAlias(node) {
+  return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
 /**
