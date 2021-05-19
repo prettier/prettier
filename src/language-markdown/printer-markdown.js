@@ -23,7 +23,7 @@ const {
     group,
     hardlineWithoutBreakParent,
   },
-  utils: { normalizeDoc, replaceEndOfLineInText },
+  utils: { normalizeDoc, replaceTextEndOfLine },
   printer: { printDocToString },
 } = require("../document");
 const embed = require("./embed");
@@ -245,7 +245,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          ...replaceEndOfLineInText(node.value, hardline),
+          ...replaceTextEndOfLine(node.value, hardline),
         ]);
       }
 
@@ -260,7 +260,7 @@ function genericPrint(path, options, print) {
         node.meta ? " " + node.meta : "",
         hardline,
 
-        ...replaceEndOfLineInText(
+        ...replaceTextEndOfLine(
           getFencedCodeBlockValue(node, options.originalText),
           hardline
         ),
@@ -275,7 +275,7 @@ function genericPrint(path, options, print) {
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
-      return replaceEndOfLineInText(
+      return replaceTextEndOfLine(
         value,
         isHtmlComment ? hardline : markAsRoot(literalline)
       );
@@ -427,7 +427,7 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-      return replaceEndOfLineInText(node.value, hardline);
+      return replaceTextEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
@@ -440,7 +440,7 @@ function genericPrint(path, options, print) {
         "$$",
         hardline,
         node.value
-          ? [...replaceEndOfLineInText(node.value, hardline), hardline]
+          ? [...replaceTextEndOfLine(node.value, hardline), hardline]
           : "",
         "$$",
       ];

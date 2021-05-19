@@ -21,7 +21,7 @@ const {
     literalline,
     softline,
   },
-  utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceEndOfLineInText },
+  utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
 } = require("../document");
 const { isNonEmptyArray } = require("../common/util");
 const printFrontMatter = require("../utils/front-matter/print");
@@ -227,7 +227,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return replaceEndOfLineInText(node.raw);
+      return replaceTextEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -240,7 +240,7 @@ function genericPrint(path, options, print) {
         return [
           printOpeningTagPrefix(node, options),
           group(printOpeningTag(path, options, print)),
-          ...replaceEndOfLineInText(getNodeContent(node, options)),
+          ...replaceTextEndOfLine(getNodeContent(node, options)),
           ...printClosingTag(node, options),
           printClosingTagSuffix(node, options),
         ];
@@ -364,7 +364,7 @@ function genericPrint(path, options, print) {
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
         return [
-          ...replaceEndOfLineInText(value),
+          ...replaceTextEndOfLine(value),
           hasTrailingNewline ? hardline : "",
         ];
       }
@@ -392,7 +392,7 @@ function genericPrint(path, options, print) {
     case "comment": {
       return [
         printOpeningTagPrefix(node, options),
-        ...replaceEndOfLineInText(
+        ...replaceTextEndOfLine(
           options.originalText.slice(locStart(node), locEnd(node)),
           literalline
         ),
@@ -413,7 +413,7 @@ function genericPrint(path, options, print) {
         "=",
         quote,
 
-        ...replaceEndOfLineInText(
+        ...replaceTextEndOfLine(
           quote === '"'
             ? value.replace(/"/g, "&quot;")
             : value.replace(/'/g, "&apos;")
@@ -532,7 +532,7 @@ function printChildren(path, options, print) {
     if (hasPrettierIgnore(child)) {
       return [
         printOpeningTagPrefix(child, options),
-        ...replaceEndOfLineInText(
+        ...replaceTextEndOfLine(
           options.originalText.slice(
             locStart(child) +
               (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
@@ -664,7 +664,7 @@ function printAttributes(path, options, print) {
   const printedAttributes = path.map((attributePath) => {
     const attribute = attributePath.getValue();
     return hasPrettierIgnoreAttribute(attribute)
-      ? replaceEndOfLineInText(
+      ? replaceTextEndOfLine(
           options.originalText.slice(locStart(attribute), locEnd(attribute))
         )
       : print();
@@ -951,8 +951,8 @@ function printClosingTagEndMarker(node, options) {
 function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
-      ? replaceEndOfLineInText(value)
-      : replaceEndOfLineInText(
+      ? replaceTextEndOfLine(value)
+      : replaceTextEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
@@ -1137,7 +1137,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       const parts = [];
       for (const [index, part] of value.split(interpolationRegex).entries()) {
         if (index % 2 === 0) {
-          parts.push(replaceEndOfLineInText(part));
+          parts.push(replaceTextEndOfLine(part));
         } else {
           try {
             parts.push(
@@ -1155,7 +1155,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
               ])
             );
           } catch {
-            parts.push("{{", replaceEndOfLineInText(part), "}}");
+            parts.push("{{", replaceTextEndOfLine(part), "}}");
           }
         }
       }

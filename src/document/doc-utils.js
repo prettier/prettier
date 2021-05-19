@@ -390,14 +390,14 @@ function normalizeDoc(doc) {
 function replaceEndOfLine(doc) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? replaceEndOfLineInText(currentDoc)
+      ? replaceTextEndOfLine(currentDoc)
       : currentDoc
   );
 }
 
 // This function need return array
 // TODO: remove `.parts` when we remove `docBuilders.concat()`
-function replaceEndOfLineInText(text, replacement = literalline) {
+function replaceTextEndOfLine(text, replacement = literalline) {
   return join(replacement, text.split("\n")).parts;
 }
 
@@ -414,6 +414,6 @@ module.exports = {
   normalizeParts,
   normalizeDoc,
   cleanDoc,
-  replaceEndOfLineInText,
+  replaceTextEndOfLine,
   replaceEndOfLine,
 };
