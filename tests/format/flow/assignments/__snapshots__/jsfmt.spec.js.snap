@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-10850.js format 1`] = `
+====================================options=====================================
+parsers: ["babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const map: Map<Function, Map<string | void, { value: UnloadedDescriptor }>> =
+  new Map();
+
+const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
+  new Map();
+
+const map: Map<Function, Foo<S>> = new Map();
+
+=====================================output=====================================
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
+  new Map();
+
+const map: Map<Function, Foo<S>> = new Map();
+
+================================================================================
+`;
