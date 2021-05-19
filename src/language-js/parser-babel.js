@@ -91,7 +91,10 @@ function parseWithOptions(parseMethod, text, options) {
 
 function createParse(parseMethod, ...optionsCombinations) {
   return (text, parsers, opts = {}) => {
-    if (opts.parser === "babel" && isFlowFile(text, opts)) {
+    if (
+      (opts.parser === "babel" || opts.parser === "__babel_estree") &&
+      isFlowFile(text, opts)
+    ) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
@@ -136,6 +139,10 @@ const parseTypeScript = createParse(
   "parse",
   appendPlugins(["jsx", "typescript"]),
   appendPlugins(["typescript"])
+);
+const parseEstree = createParse(
+  "parse",
+  appendPlugins(["jsx", "flow", "estree"])
 );
 const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
@@ -208,5 +215,7 @@ module.exports = {
     __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */
     __vue_event_binding: babel,
+    /** verify that we can print this AST */
+    __babel_estree: createParser(parseEstree),
   },
 };

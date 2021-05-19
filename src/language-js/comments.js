@@ -721,8 +721,7 @@ function handleOnlyComments({
     enclosingNode &&
     enclosingNode.type === "Program" &&
     enclosingNode.body.length === 0 &&
-    enclosingNode.directives &&
-    enclosingNode.directives.length === 0
+    !isNonEmptyArray(enclosingNode.directives)
   ) {
     if (isLastComment) {
       addDanglingComment(enclosingNode, comment);
@@ -918,7 +917,8 @@ function getCommentChildNodes(node, options) {
     (options.parser === "typescript" ||
       options.parser === "flow" ||
       options.parser === "espree" ||
-      options.parser === "meriyah") &&
+      options.parser === "meriyah" ||
+      options.parser === "__babel_estree") &&
     node.type === "MethodDefinition" &&
     node.value &&
     node.value.type === "FunctionExpression" &&

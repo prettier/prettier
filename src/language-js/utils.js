@@ -733,7 +733,8 @@ function isStringPropSafeToUnquote(node, options) {
         String(Number(node.key.value)) === node.key.value &&
         (options.parser === "babel" ||
           options.parser === "espree" ||
-          options.parser === "meriyah")))
+          options.parser === "meriyah" ||
+          options.parser === "__babel_estree")))
   );
 }
 
@@ -916,14 +917,11 @@ function isSimpleCallArgument(node, depth) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
-  if (node.type === "ImportExpression") {
-    return isChildSimple(node.source);
-  }
-
   if (isCallLikeExpression(node)) {
     return (
-      isSimpleCallArgument(node.callee, depth) &&
-      node.arguments.every(isChildSimple)
+      (node.type === "ImportExpression" ||
+        isSimpleCallArgument(node.callee, depth)) &&
+      getCallArguments(node).every(isChildSimple)
     );
   }
 
@@ -1195,13 +1193,15 @@ function getCallArguments(node) {
   if (callArgumentsCache.has(node)) {
     return callArgumentsCache.get(node);
   }
-  const args =
-    node.type === "ImportExpression"
-      ? // No parser except `babel` supports `import("./foo.json", { assert: { type: "json" } })` yet,
-        // And `babel` parser it as `CallExpression`
-        // We need add the second argument here
-        [node.source]
-      : node.arguments;
+
+  let args = node.arguments;
+  if (node.type === "ImportExpression") {
+    args = [node.source];
+
+    if (node.attributes) {
+      args.push(node.attributes);
+    }
+  }
 
   callArgumentsCache.set(node, args);
   return args;
@@ -1209,9 +1209,12 @@ function getCallArguments(node) {
 
 function iterateCallArgumentsPath(path, iteratee) {
   const node = path.getValue();
-  // See comment in `getCallArguments`
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+
+    if (node.attributes) {
+      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
+    }
   } else {
     path.each(iteratee, "arguments");
   }
