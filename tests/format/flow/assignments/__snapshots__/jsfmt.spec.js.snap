@@ -2,7 +2,7 @@
 
 exports[`issue-10850.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel-flow"]
+parsers: ["babel-flow", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
