@@ -11,7 +11,7 @@ yarn test
 
 The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-testing.html). You can make changes and run `jest -u` (or `yarn test -u`) to update the snapshots. Then run `git diff` to take a look at what changed. Always update the snapshots when opening a PR.
 
-Each test directory in `tests` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `run_spec` global function. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
+Each test directory in `tests/format` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `run_spec` global function. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
 
 ```js
 run_spec(__dirname, ["babel", "flow", "typescript"]);
