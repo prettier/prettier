@@ -139,7 +139,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
-    isComplexTypeAnnotation(node)
+    hasComplexTypeAnnotation(node)
   ) {
     return "break-lhs";
   }
@@ -273,7 +273,7 @@ function isTypeAlias(node) {
   return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
-function isComplexTypeAnnotation(node) {
+function hasComplexTypeAnnotation(node) {
   if (node.type !== "VariableDeclarator") {
     return false;
   }
