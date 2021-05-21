@@ -7,8 +7,7 @@ function embed(path, print, textToDoc, options) {
   if (
     node.type === "root" &&
     options.filepath &&
-    (/(?:[/\\]|^)\.prettierrc$/.test(options.filepath) ||
-      /(?:[/\\]|^)\.stylelintrc$/.test(options.filepath))
+    /(?:[/\\]|^)\.(?:prettier|stylelint)rc$/.test(options.filepath)
   ) {
     return textToDoc(options.originalText, { ...options, parser: "json" });
   }
