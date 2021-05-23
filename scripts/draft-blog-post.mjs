@@ -46,10 +46,9 @@ const categories = [
   { dir: "cli", title: "CLI" },
 ];
 
-const categoriesByDir = categories.reduce((result, category) => {
-  result[category.dir] = category;
-  return result;
-}, {});
+const categoriesByDir = new Map(
+  categories.map((category) => [category.dir, category])
+);
 
 const dirs = fs
   .readdirSync(changelogUnreleasedDir, { withFileTypes: true })
@@ -57,7 +56,7 @@ const dirs = fs
 
 for (const dir of dirs) {
   const dirPath = path.join(changelogUnreleasedDir, dir.name);
-  const category = categoriesByDir[dir.name];
+  const category = categoriesByDir.get(dir.name);
 
   if (!category) {
     throw new Error("Unknown category: " + dir.name);
