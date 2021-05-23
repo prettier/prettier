@@ -182,7 +182,7 @@ function formatRange(originalText, opts) {
   const rangeTrimmed = rangeResult.formatted.trimEnd();
 
   let { cursorOffset } = opts;
-  if (cursorOffset >= rangeEnd) {
+  if (cursorOffset > rangeEnd) {
     // handle the case where the cursor was past the end of the range
     cursorOffset += rangeTrimmed.length - rangeString.length;
   } else if (rangeResult.cursorOffset >= 0) {
