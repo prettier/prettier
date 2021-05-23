@@ -136,7 +136,11 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
-  if (isComplexDestructuring(node) || isComplexTypeAliasParams(node)) {
+  if (
+    isComplexDestructuring(node) ||
+    isComplexTypeAliasParams(node) ||
+    hasComplexTypeAnnotation(node)
+  ) {
     return "break-lhs";
   }
 
@@ -267,6 +271,45 @@ function getTypeParametersFromTypeAlias(node) {
 
 function isTypeAlias(node) {
   return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
+}
+
+function hasComplexTypeAnnotation(node) {
+  if (node.type !== "VariableDeclarator") {
+    return false;
+  }
+  const { typeAnnotation } = node.id;
+  if (!typeAnnotation || !typeAnnotation.typeAnnotation) {
+    return false;
+  }
+  const typeParams = getTypeParametersFromTypeReference(
+    typeAnnotation.typeAnnotation
+  );
+  return (
+    isNonEmptyArray(typeParams) &&
+    typeParams.length > 1 &&
+    typeParams.some(
+      (param) =>
+        isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
+        param.type === "TSConditionalType"
+    )
+  );
+}
+
+function getTypeParametersFromTypeReference(node) {
+  if (
+    isTypeReference(node) &&
+    node.typeParameters &&
+    node.typeParameters.params
+  ) {
+    return node.typeParameters.params;
+  }
+  return null;
+}
+
+function isTypeReference(node) {
+  return (
+    node.type === "TSTypeReference" || node.type === "GenericTypeAnnotation"
+  );
 }
 
 /**
