@@ -108,6 +108,11 @@ longfunctionWithCallBack("blabla", foobarbazblablabla, (thing: string): complex<
   code();
 });
 
+longfunctionWithCall1("bla", foo, (thing: string): complex<type<\`
+\`>> => {
+  code();
+});
+
 =====================================output=====================================
 longfunctionWithCall1("bla", foo, (thing: string): complex<type<something>> => {
   code();
@@ -133,6 +138,19 @@ longfunctionWithCallBack(
   "blabla",
   foobarbazblablabla,
   (thing: string): complex<type<something>> => {
+    code();
+  }
+);
+
+longfunctionWithCall1(
+  "bla",
+  foo,
+  (
+    thing: string
+  ): complex<
+    type<\`
+\`>
+  > => {
     code();
   }
 );
