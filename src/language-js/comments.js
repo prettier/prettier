@@ -361,7 +361,6 @@ function handleObjectPropertyAssignment({
   enclosingNode,
 }) {
   if (
-    enclosingNode &&
     isProperty(enclosingNode) &&
     enclosingNode.shorthand &&
     enclosingNode.key === precedingNode &&

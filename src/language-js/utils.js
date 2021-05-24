@@ -1321,7 +1321,7 @@ function isCallLikeExpression(node) {
 }
 
 function isProperty(node) {
-  return node.type === "ObjectProperty" || node.type === "Property";
+  return node && (node.type === "ObjectProperty" || node.type === "Property");
 }
 
 module.exports = {
