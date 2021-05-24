@@ -175,7 +175,8 @@ Curabitur consectetur maximus risus, sed maximus tellus tincidunt et.
 `.trim();
     case "mdx":
       // modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx/test/fixtures/blog-post.md
-      return `
+      return (
+        `
 import     {     Baz } from     './Fixture'
 import { Buz  }   from './Fixture'
 
@@ -217,7 +218,8 @@ npm i -g foo
 |   Col1  | Col2    |
 
 export   default     ({children   }) => < div>{    children}</div>
-`.trim();
+`.trim() + "\n"
+      );
     case "vue":
       return `
 <template>
