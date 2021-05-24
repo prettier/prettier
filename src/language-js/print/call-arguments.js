@@ -117,12 +117,10 @@ function printCallArguments(path, options, print) {
         iterateCallArgumentsPath(path, (argPath, i) => {
           if (shouldGroupFirst && i === 0) {
             printedExpanded = [
-              [
-                print([], { expandFirstArg: true }),
-                printedArguments.length > 1 ? "," : "",
-                hasEmptyLineFollowingFirstArg ? hardline : line,
-                hasEmptyLineFollowingFirstArg ? hardline : "",
-              ],
+              print([], { expandFirstArg: true }),
+              printedArguments.length > 1 ? "," : "",
+              hasEmptyLineFollowingFirstArg ? hardline : line,
+              hasEmptyLineFollowingFirstArg ? hardline : "",
               ...printedArguments.slice(1),
             ];
           }
