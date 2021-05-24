@@ -688,7 +688,7 @@ function handleUnionTypeComments({
 }
 
 function handlePropertyComments({ comment, enclosingNode }) {
-  if (enclosingNode && isProperty(enclosingNode)) {
+  if (isProperty(enclosingNode)) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
