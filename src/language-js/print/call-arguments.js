@@ -15,7 +15,7 @@ const {
   isNextLineEmpty,
   isCallExpression,
   isStringLiteral,
-  isProperty,
+  isObjectProperty,
 } = require("../utils");
 
 const {
@@ -295,7 +295,7 @@ function isTypeModuleObjectExpression(node) {
   return (
     node.type === "ObjectExpression" &&
     node.properties.length === 1 &&
-    isProperty(node.properties[0]) &&
+    isObjectProperty(node.properties[0]) &&
     node.properties[0].key.type === "Identifier" &&
     node.properties[0].key.name === "type" &&
     isStringLiteral(node.properties[0].value) &&

@@ -1,6 +1,6 @@
 "use strict";
 
-const { hasComment, CommentCheckFlags, isProperty } = require("./utils");
+const { hasComment, CommentCheckFlags, isObjectProperty } = require("./utils");
 const formatMarkdown = require("./embed/markdown");
 const formatCss = require("./embed/css");
 const formatGraphql = require("./embed/graphql");
@@ -135,7 +135,7 @@ function isAngularComponentStyles(path) {
     (node) => node.type === "TemplateLiteral",
     (node, name) => node.type === "ArrayExpression" && name === "elements",
     (node, name) =>
-      isProperty(node) &&
+      isObjectProperty(node) &&
       node.key.type === "Identifier" &&
       node.key.name === "styles" &&
       name === "value",
@@ -146,7 +146,7 @@ function isAngularComponentTemplate(path) {
   return path.match(
     (node) => node.type === "TemplateLiteral",
     (node, name) =>
-      isProperty(node) &&
+      isObjectProperty(node) &&
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",

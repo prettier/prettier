@@ -24,7 +24,7 @@ const {
   getCallArguments,
   isCallExpression,
   isMemberExpression,
-  isProperty,
+  isObjectProperty,
 } = require("./utils");
 const { locStart, locEnd } = require("./loc");
 
@@ -361,7 +361,7 @@ function handleObjectPropertyAssignment({
   enclosingNode,
 }) {
   if (
-    isProperty(enclosingNode) &&
+    isObjectProperty(enclosingNode) &&
     enclosingNode.shorthand &&
     enclosingNode.key === precedingNode &&
     enclosingNode.value.type === "AssignmentPattern"
@@ -688,7 +688,7 @@ function handleUnionTypeComments({
 }
 
 function handlePropertyComments({ comment, enclosingNode }) {
-  if (isProperty(enclosingNode)) {
+  if (isObjectProperty(enclosingNode)) {
     addLeadingComment(enclosingNode, comment);
     return true;
   }
