@@ -85,3 +85,57 @@ const bar8 = [1, 2, 3].reduce(
 
 ================================================================================
 `;
+
+exports[`arrow-with-return-type.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+longfunctionWithCall1("bla", foo, (thing: string): complex<type<something>> => {
+  code();
+});
+
+longfunctionWithCall12("bla", foo, (thing: string): complex<type<something>> => {
+  code();
+});
+
+longfunctionWithCallBack("blabla", foobarbazblablablablabla, (thing: string): complex<type<something>> => {
+  code();
+});
+
+longfunctionWithCallBack("blabla", foobarbazblablabla, (thing: string): complex<type<something>> => {
+  code();
+});
+
+=====================================output=====================================
+longfunctionWithCall1("bla", foo, (thing: string): complex<type<something>> => {
+  code();
+});
+
+longfunctionWithCall12(
+  "bla",
+  foo,
+  (thing: string): complex<type<something>> => {
+    code();
+  }
+);
+
+longfunctionWithCallBack(
+  "blabla",
+  foobarbazblablablablabla,
+  (thing: string): complex<type<something>> => {
+    code();
+  }
+);
+
+longfunctionWithCallBack(
+  "blabla",
+  foobarbazblablabla,
+  (thing: string): complex<type<something>> => {
+    code();
+  }
+);
+
+================================================================================
+`;
