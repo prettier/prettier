@@ -17,6 +17,7 @@ const {
   rawText,
   hasComment,
   isSignedNumericLiteral,
+  isObjectProperty,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 const { printCallExpression } = require("./call-expression");
@@ -229,8 +230,7 @@ function isComplexDestructuring(node) {
       leftNode.properties.length > 2 &&
       leftNode.properties.some(
         (property) =>
-          (property.type === "ObjectProperty" ||
-            property.type === "Property") &&
+          isObjectProperty(property) &&
           (!property.shorthand ||
             (property.value && property.value.type === "AssignmentPattern"))
       )
@@ -396,7 +396,7 @@ function isLoneShortArgument(node, { printWidth }) {
 }
 
 function isObjectPropertyWithShortKey(node, keyDoc, options) {
-  if (node.type !== "ObjectProperty" && node.type !== "Property") {
+  if (!isObjectProperty(node)) {
     return false;
   }
   // TODO: for performance, it might make sense to use a more lightweight
