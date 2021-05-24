@@ -1320,7 +1320,7 @@ function isCallLikeExpression(node) {
   );
 }
 
-function isObjectProperty(node) {
+function isProperty(node) {
   return node.type === "ObjectProperty" || node.type === "Property";
 }
 
@@ -1362,7 +1362,7 @@ module.exports = {
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,
-  isObjectProperty,
+  isProperty,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleType,

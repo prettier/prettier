@@ -13,7 +13,7 @@ const {
   getPrecedence,
   isCallExpression,
   isMemberExpression,
-  isObjectProperty,
+  isProperty,
 } = require("./utils");
 
 function needsParens(path, options) {
@@ -764,7 +764,7 @@ function needsParens(path, options) {
           parent.type !== "JSXFragment" &&
           parent.type !== "LogicalExpression" &&
           !isCallExpression(parent) &&
-          !isObjectProperty(parent) &&
+          !isProperty(parent) &&
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&

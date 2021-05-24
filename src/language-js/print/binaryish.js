@@ -24,7 +24,7 @@ const {
   CommentCheckFlags,
   isCallExpression,
   isMemberExpression,
-  isObjectProperty,
+  isProperty,
 } = require("../utils");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -107,7 +107,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "PropertyDefinition" ||
     parent.type === "TSAbstractClassProperty" ||
     parent.type === "ClassPrivateProperty" ||
-    isObjectProperty(parent);
+    isProperty(parent);
 
   const samePrecedenceSubExpression =
     isBinaryish(node.left) && shouldFlatten(node.operator, node.left.operator);
