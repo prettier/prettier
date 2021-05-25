@@ -23,7 +23,9 @@ const {
     join,
     indentIfBreak,
   },
+  utils: { removeLines, willBreak },
 } = require("../../document");
+const { ArgExpansionBailout } = require("../../common/errors");
 const {
   getFunctionParameters,
   hasLeadingOwnLineComment,
@@ -176,16 +178,24 @@ function printArrowFunctionSignature(path, options, print, args) {
   if (shouldPrintParamsWithoutParens(path, options)) {
     parts.push(print(["params", 0]));
   } else {
+    const expandArg = args && (args.expandLastArg || args.expandFirstArg);
+    let returnTypeDoc = printReturnType(path, print, options);
+    if (expandArg) {
+      if (willBreak(returnTypeDoc)) {
+        throw new ArgExpansionBailout();
+      }
+      returnTypeDoc = group(removeLines(returnTypeDoc));
+    }
     parts.push(
       group([
         printFunctionParameters(
           path,
           print,
           options,
-          /* expandLast */ args && (args.expandLastArg || args.expandFirstArg),
+          expandArg,
           /* printTypeParams */ true
         ),
-        printReturnType(path, print, options),
+        returnTypeDoc,
       ])
     );
   }
@@ -388,6 +398,7 @@ function shouldPrintParamsWithoutParens(path, options) {
   return false;
 }
 
+/** @returns {Doc} */
 function printReturnType(path, print, options) {
   const node = path.getValue();
   const returnType = print("returnType");
