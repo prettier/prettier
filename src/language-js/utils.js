@@ -1320,6 +1320,14 @@ function isCallLikeExpression(node) {
   );
 }
 
+function isObjectProperty(node) {
+  return (
+    node &&
+    (node.type === "ObjectProperty" ||
+      (node.type === "Property" && !node.method && node.kind === "init"))
+  );
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1358,6 +1366,7 @@ module.exports = {
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,
+  isObjectProperty,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleType,
