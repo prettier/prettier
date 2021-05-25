@@ -3,7 +3,7 @@
 const { isNonEmptyArray, getStringWidth } = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
-  utils: { cleanDoc },
+  utils: { cleanDoc, willBreak },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -342,6 +342,14 @@ function isPoorlyBreakableMemberOrCallChain(
       args.length === 0 ||
       (args.length === 1 && isLoneShortArgument(args[0], options));
     if (!isPoorlyBreakableCall) {
+      return false;
+    }
+
+    const hasComplexTypeParams =
+      node.typeParameters &&
+      isNonEmptyArray(node.typeParameters.params) &&
+      willBreak(print("typeParameters"));
+    if (hasComplexTypeParams) {
       return false;
     }
 
