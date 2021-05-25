@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`override-modifier.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class MyClass extends BaseClass {
+  override show() {}
+  public override show() {}
+  override size = 5;
+  override readonly size = 5;
+}
+
+=====================================output=====================================
+class MyClass extends BaseClass {
+  override show() {}
+  public override show() {}
+  override size = 5;
+  override readonly size = 5;
+}
+
+================================================================================
+`;
