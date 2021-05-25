@@ -180,6 +180,50 @@ const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> =
 ================================================================================
 `;
 
+exports[`issue-10737.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+export const CallRecorderContext =
+  createContext<{
+    deleteRecording: (id: string) => void;
+    deleteAll: () => void;
+  } | null>(null);
+
+export const CallRecorderContext =
+  createContext<{
+    deleteRecording: (id: string) => void;
+    deleteAll: () => void;
+  } | null>(null, "useless");
+
+=====================================output=====================================
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+export const CallRecorderContext = createContext<{
+  deleteRecording: (id: string) => void;
+  deleteAll: () => void;
+} | null>(null);
+
+export const CallRecorderContext = createContext<{
+  deleteRecording: (id: string) => void;
+  deleteAll: () => void;
+} | null>(null, "useless");
+
+================================================================================
+`;
+
 exports[`issue-10850.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
