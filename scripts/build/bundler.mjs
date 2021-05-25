@@ -204,13 +204,14 @@ function getRollupConfig(bundle) {
     }),
     rollupPluginCommonjs({
       ignoreGlobal: bundle.target === "node",
-      ...bundle.commonjs,
       ignore:
         bundle.type === "plugin"
           ? undefined
           : (id) => /\.\/parser-.*?/.test(id),
       requireReturnsDefault: "preferred",
       ignoreDynamicRequires: true,
+      ignoreTryCatch: true,
+      ...bundle.commonjs,
     }),
     replaceModule && rollupPluginReplaceModule(replaceModule),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
