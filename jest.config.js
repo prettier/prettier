@@ -72,7 +72,6 @@ module.exports = {
     "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
   },
   modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website/static/lib"],
-  testEnvironment: "node",
   transform,
   watchPlugins: [
     "jest-watch-typeahead/filename",
