@@ -20,7 +20,7 @@ const getExplorerMemoized = mem(
           if (typeof result.config === "string") {
             const dir = path.dirname(result.filepath);
             const modulePath = resolve(result.config, { paths: [dir] });
-            result.config = eval("require")(modulePath);
+            result.config = require(modulePath);
           }
 
           if (typeof result.config !== "object") {

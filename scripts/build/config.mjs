@@ -9,7 +9,7 @@ import path from "node:path";
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
- * @property {string[]} externals - array of paths that should not be included in the final bundle
+ * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {Object?} terserOptions - options for `terser`
@@ -101,20 +101,20 @@ const parsers = [
   {
     input: "src/language-yaml/parser-yaml.js",
   },
-].map((parser) => ({
+].map((bundle) => ({
   type: "plugin",
   target: "universal",
-  name: getFileOutput(parser).replace(/\.js$/, "").split("-")[1],
-  ...parser,
+  name: `prettierPlugins.${
+    bundle.input.match(/parser-(?<name>.*?)\.js$/).groups.name
+  }`,
+  output: path.basename(bundle.input),
+  ...bundle,
 }));
 
 /** @type {Bundle[]} */
 const coreBundles = [
   {
-    input: "index.js",
-    type: "core",
-    target: "node",
-    externals: [path.resolve("src/common/third-party.js")],
+    input: "src/index.js",
     replace: {
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect",
@@ -123,53 +123,35 @@ const coreBundles = [
   {
     input: "src/document/index.js",
     name: "doc",
-    type: "core",
     output: "doc.js",
     target: "universal",
     format: "umd",
     minify: false,
   },
   {
-    input: "standalone.js",
+    input: "src/standalone.js",
     name: "prettier",
-    type: "core",
     target: "universal",
-    // TODO: Find a better way to remove parsers
-    replace: Object.fromEntries(
-      parsers.map(({ name }) => [`require("./parser-${name}")`, "({})"])
-    ),
   },
   {
     input: "bin/prettier.js",
-    type: "core",
     output: "bin-prettier.js",
-    target: "node",
-    externals: [
-      path.resolve("src/index.js"),
-      path.resolve("src/common/third-party.js"),
-    ],
+    commonjs: {
+      ignore: ["benchmark"],
+    },
   },
   {
     input: "src/common/third-party.js",
-    type: "core",
-    target: "node",
     replace: {
-      // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
-      // Dynamic requires are not currently supported by rollup-plugin-commonjs.
-      "require(filePath)": "eval('require')(filePath)",
-      "parent.eval('require')(filePath)": "parent.require(filePath)",
-      "require.cache": "eval('require').cache",
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       "parentModule(__filename)": "__filename",
     },
   },
-];
-
-function getFileOutput(bundle) {
-  return bundle.output || path.basename(bundle.input);
-}
-
-export default [...coreBundles, ...parsers].map((bundle) => ({
+].map((bundle) => ({
+  type: "core",
+  target: "node",
+  output: path.basename(bundle.input),
   ...bundle,
-  output: getFileOutput(bundle),
 }));
+
+export default [...coreBundles, ...parsers];
