@@ -180,7 +180,7 @@ const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> =
 ================================================================================
 `;
 
-exports[`issue-10737.ts format 1`] = `
+exports[`issue-10846.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
