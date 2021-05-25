@@ -210,7 +210,7 @@ function getRollupConfig(bundle) {
           : (id) => /\.\/parser-.*?/.test(id),
       requireReturnsDefault: "preferred",
       ignoreDynamicRequires: true,
-      ignoreTryCatch: true,
+      ignoreTryCatch: bundle.target === "node",
       ...bundle.commonjs,
     }),
     replaceModule && rollupPluginReplaceModule(replaceModule),
