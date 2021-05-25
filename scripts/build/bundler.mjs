@@ -119,7 +119,6 @@ function getBabelConfig(bundle) {
 function getRollupConfig(bundle) {
   const config = {
     input: bundle.input,
-
     onwarn(warning) {
       if (
         // ignore `MIXED_EXPORTS` warn
@@ -145,6 +144,7 @@ function getRollupConfig(bundle) {
 
       console.warn(warning);
     },
+    external: [],
   };
 
   const replaceStrings = {
@@ -218,7 +218,10 @@ function getRollupConfig(bundle) {
   ].filter(Boolean);
 
   if (bundle.target === "node") {
-    config.external = builtinModules;
+    config.external.push(...builtinModules);
+  }
+  if (bundle.external) {
+    config.external.push(...bundle.external);
   }
 
   return config;

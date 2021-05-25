@@ -9,6 +9,7 @@ import path from "node:path";
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
+ * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
@@ -136,9 +137,7 @@ const coreBundles = [
   {
     input: "bin/prettier.js",
     output: "bin-prettier.js",
-    commonjs: {
-      ignore: ["benchmark"],
-    },
+    external: ["benchmark"],
   },
   {
     input: "src/common/third-party.js",
