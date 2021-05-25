@@ -99,7 +99,7 @@
     "@rollup/plugin-replace": "2.4.2",
     "@types/estree": "0.0.47",
     "@types/node": "15.0.1",
-    "babel-jest": "26.6.3",
+    "babel-jest": "27.0.0",
     "babel-loader": "8.2.2",
     "benchmark": "2.1.4",
     "builtin-modules": "3.2.0",
