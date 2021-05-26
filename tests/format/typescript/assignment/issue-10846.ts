@@ -15,3 +15,24 @@ export const CallRecorderContext =
     deleteRecording: (id: string) => void;
     deleteAll: () => void;
   } | null>(null, "useless");
+
+const foo =
+  call<Foooooo, Foooooo, Foooooo, Foooooo, Foooooo, Foooooo, Foooooo>();
+
+const foo =
+  call<
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+  >();
+
+const foo =
+  call<
+    Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo
+  >();

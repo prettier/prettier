@@ -345,11 +345,7 @@ function isPoorlyBreakableMemberOrCallChain(
       return false;
     }
 
-    const hasComplexTypeParams =
-      node.typeParameters &&
-      isNonEmptyArray(node.typeParameters.params) &&
-      willBreak(print("typeParameters"));
-    if (hasComplexTypeParams) {
+    if (isCallExpressionWithComplexTypeParameters(node, print)) {
       return false;
     }
 
@@ -421,6 +417,34 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
     typeof keyDoc === "string" &&
     getStringWidth(keyDoc) < options.tabWidth + MIN_OVERLAP_FOR_BREAK
   );
+}
+
+function isCallExpressionWithComplexTypeParameters(node, print) {
+  if (
+    isCallExpression(node) &&
+    node.typeParameters &&
+    node.typeParameters.params &&
+    isNonEmptyArray(node.typeParameters.params)
+  ) {
+    if (node.typeParameters.params.length > 1) {
+      return true;
+    }
+    if (node.typeParameters.params.length === 1) {
+      const firstParam = node.typeParameters.params[0];
+      if (
+        firstParam.type === "TSUnionType" ||
+        firstParam.type === "UnionTypeAnnotation" ||
+        firstParam.type === "TSIntersectionType" ||
+        firstParam.type === "IntersectionTypeAnnotation"
+      ) {
+        return true;
+      }
+    }
+    if (willBreak(print("typeParameters"))) {
+      return true;
+    }
+  }
+  return false;
 }
 
 module.exports = {
