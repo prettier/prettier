@@ -45,7 +45,7 @@ const {
   printBindExpressionCallee,
   printTypeAnnotation,
   adjustClause,
-  printRestElement,
+  printRestSpread,
 } = require("./print/misc");
 const {
   printImportDeclaration,
@@ -263,7 +263,7 @@ function printPathNoParens(path, options, print, args) {
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
-      return printRestElement(path, options, print);
+      return printRestSpread(path, options, print);
     case "FunctionDeclaration":
     case "FunctionExpression": {
       let expandArg = false;

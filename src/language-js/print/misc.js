@@ -86,7 +86,7 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestElement(path, options, print) {
+function printRestSpread(path, options, print) {
   return ["...", print("argument"), printTypeAnnotation(path, options, print)];
 }
 
@@ -96,6 +96,6 @@ module.exports = {
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printTypeAnnotation,
-  printRestElement,
+  printRestSpread,
   adjustClause,
 };

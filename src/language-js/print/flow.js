@@ -41,7 +41,7 @@ const { printPropertyKey } = require("./property");
 const {
   printOptionalToken,
   printTypeAnnotation,
-  printRestElement,
+  printRestSpread,
 } = require("./misc");
 
 function printFlow(path, options, print) {
@@ -272,7 +272,7 @@ function printFlow(path, options, print) {
       ];
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":
-      return printRestElement(path, options, print);
+      return printRestSpread(path, options, print);
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
     case "StringLiteralTypeAnnotation":
