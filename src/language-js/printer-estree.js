@@ -45,6 +45,7 @@ const {
   printBindExpressionCallee,
   printTypeAnnotation,
   adjustClause,
+  printRestElement,
 } = require("./print/misc");
 const {
   printImportDeclaration,
@@ -262,12 +263,7 @@ function printPathNoParens(path, options, print, args) {
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
-    case "ObjectTypeSpreadProperty":
-      return [
-        "...",
-        print("argument"),
-        printTypeAnnotation(path, options, print),
-      ];
+      return printRestElement(path, options, print);
     case "FunctionDeclaration":
     case "FunctionExpression": {
       let expandArg = false;
@@ -347,16 +343,6 @@ function printPathNoParens(path, options, print, args) {
     case "OptionalCallExpression":
     case "CallExpression":
       return printCallExpression(path, options, print);
-    case "ObjectTypeInternalSlot":
-      return [
-        node.static ? "static " : "",
-        "[[",
-        print("id"),
-        "]]",
-        printOptionalToken(path),
-        node.method ? "" : ": ",
-        print("value"),
-      ];
 
     case "ObjectExpression":
     case "ObjectPattern":

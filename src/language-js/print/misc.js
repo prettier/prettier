@@ -86,11 +86,16 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
+function printRestElement(path, options, print) {
+  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printTypeAnnotation,
+  printRestElement,
   adjustClause,
 };

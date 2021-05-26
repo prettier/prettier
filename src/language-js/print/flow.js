@@ -1,5 +1,7 @@
 "use strict";
 
+/** @typedef {import("../../document").Doc} Doc */
+
 const assert = require("assert");
 const { printDanglingComments } = require("../../main/comments");
 const { printString, printNumber } = require("../../common/util");
@@ -36,7 +38,11 @@ const {
 const { printArrayItems } = require("./array");
 const { printObject } = require("./object");
 const { printPropertyKey } = require("./property");
-const { printOptionalToken, printTypeAnnotation } = require("./misc");
+const {
+  printOptionalToken,
+  printTypeAnnotation,
+  printRestElement,
+} = require("./misc");
 
 function printFlow(path, options, print) {
   const node = path.getValue();
@@ -252,6 +258,21 @@ function printFlow(path, options, print) {
         print("value"),
       ];
     }
+    case "ObjectTypeAnnotation":
+      return printObject(path, options, print);
+    case "ObjectTypeInternalSlot":
+      return [
+        node.static ? "static " : "",
+        "[[",
+        print("id"),
+        "]]",
+        printOptionalToken(path),
+        node.method ? "" : ": ",
+        print("value"),
+      ];
+    // Same as `RestElement`
+    case "ObjectTypeSpreadProperty":
+      return printRestElement(path, options, print);
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
     case "StringLiteralTypeAnnotation":
@@ -324,8 +345,6 @@ function printFlow(path, options, print) {
       return "void";
     case "ThisTypeAnnotation":
       return "this";
-    case "ObjectTypeAnnotation":
-      return printObject(path, options, print);
     // These types are unprintable because they serve as abstract
     // supertypes for other (printable) types.
     case "Node":
