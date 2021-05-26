@@ -2,12 +2,9 @@
 
 /** @typedef {import("../document").Doc} Doc */
 
-/** @type {import("assert")} */
-const assert = require("assert");
-
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const { printDanglingComments } = require("../main/comments");
-const { hasNewline, printString, printNumber } = require("../common/util");
+const { hasNewline } = require("../common/util");
 const {
   builders: { join, line, hardline, softline, group, indent },
   utils: { replaceNewlinesWithLiterallines },
@@ -23,15 +20,12 @@ const {
   hasFlowShorthandAnnotationComment,
   hasComment,
   CommentCheckFlags,
-  isFunctionNotation,
-  isGetterOrSetter,
   isTheOnlyJsxElementInMarkdown,
   isBlockComment,
   isLineComment,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
-  shouldPrintComma,
   hasIgnoreComment,
   isCallExpression,
   isMemberExpression,
@@ -60,15 +54,14 @@ const {
 } = require("./print/module");
 const { printTernary } = require("./print/ternary");
 const { printTemplateLiteral } = require("./print/template-literal");
-const { printArray, printArrayItems } = require("./print/array");
+const { printArray } = require("./print/array");
 const { printObject } = require("./print/object");
 const {
   printClass,
   printClassMethod,
   printClassProperty,
 } = require("./print/class");
-const { printTypeParameters } = require("./print/type-parameters");
-const { printPropertyKey, printProperty } = require("./print/property");
+const { printProperty } = require("./print/property");
 const {
   printFunctionDeclaration,
   printArrowFunctionExpression,
@@ -77,7 +70,6 @@ const {
   printThrowStatement,
 } = require("./print/function");
 const { printCallExpression } = require("./print/call-expression");
-const { printInterface } = require("./print/interface");
 const {
   printVariableDeclarator,
   printAssignmentExpression,
@@ -773,218 +765,6 @@ function printPathNoParens(path, options, print, args) {
     case "Type":
       /* istanbul ignore next */
       throw new Error("unprintable type: " + JSON.stringify(node.type));
-    case "ExistsTypeAnnotation":
-      return "*";
-    case "EmptyTypeAnnotation":
-      return "empty";
-    case "MixedTypeAnnotation":
-      return "mixed";
-    case "ArrayTypeAnnotation":
-      return [print("elementType"), "[]"];
-    case "BooleanLiteralTypeAnnotation":
-      return String(node.value);
-
-    case "EnumDeclaration":
-      return ["enum ", print("id"), " ", print("body")];
-    case "EnumBooleanBody":
-    case "EnumNumberBody":
-    case "EnumStringBody":
-    case "EnumSymbolBody": {
-      if (node.type === "EnumSymbolBody" || node.explicitType) {
-        let type = null;
-        switch (node.type) {
-          case "EnumBooleanBody":
-            type = "boolean";
-            break;
-          case "EnumNumberBody":
-            type = "number";
-            break;
-          case "EnumStringBody":
-            type = "string";
-            break;
-          case "EnumSymbolBody":
-            type = "symbol";
-            break;
-        }
-        parts.push("of ", type, " ");
-      }
-      if (node.members.length === 0 && !node.hasUnknownMembers) {
-        parts.push(
-          group(["{", printDanglingComments(path, options), softline, "}"])
-        );
-      } else {
-        const members =
-          node.members.length > 0
-            ? [
-                hardline,
-                printArrayItems(path, options, "members", print),
-                node.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
-              ]
-            : [];
-
-        parts.push(
-          group([
-            "{",
-            indent([
-              ...members,
-              ...(node.hasUnknownMembers ? [hardline, "..."] : []),
-            ]),
-            printDanglingComments(path, options, /* sameIndent */ true),
-            hardline,
-            "}",
-          ])
-        );
-      }
-      return parts;
-    }
-    case "EnumBooleanMember":
-    case "EnumNumberMember":
-    case "EnumStringMember":
-      return [
-        print("id"),
-        " = ",
-        typeof node.init === "object" ? print("init") : String(node.init),
-      ];
-    case "EnumDefaultedMember":
-      return print("id");
-    case "FunctionTypeParam": {
-      const name = node.name
-        ? print("name")
-        : path.getParentNode().this === node
-        ? "this"
-        : "";
-      return [
-        name,
-        printOptionalToken(path),
-        name ? ": " : "",
-        print("typeAnnotation"),
-      ];
-    }
-
-    case "InterfaceDeclaration":
-    case "InterfaceTypeAnnotation":
-      return printInterface(path, options, print);
-    case "ClassImplements":
-    case "InterfaceExtends":
-      return [print("id"), print("typeParameters")];
-    case "NullableTypeAnnotation":
-      return ["?", print("typeAnnotation")];
-    case "Variance": {
-      const { kind } = node;
-      assert.ok(kind === "plus" || kind === "minus");
-      return kind === "plus" ? "+" : "-";
-    }
-    case "ObjectTypeCallProperty":
-      if (node.static) {
-        parts.push("static ");
-      }
-
-      parts.push(print("value"));
-
-      return parts;
-    case "ObjectTypeIndexer": {
-      return [
-        node.variance ? print("variance") : "",
-        "[",
-        print("id"),
-        node.id ? ": " : "",
-        print("key"),
-        "]: ",
-        print("value"),
-      ];
-    }
-    case "ObjectTypeProperty": {
-      let modifier = "";
-
-      if (node.proto) {
-        modifier = "proto ";
-      } else if (node.static) {
-        modifier = "static ";
-      }
-
-      return [
-        modifier,
-        isGetterOrSetter(node) ? node.kind + " " : "",
-        node.variance ? print("variance") : "",
-        printPropertyKey(path, options, print),
-        printOptionalToken(path),
-        isFunctionNotation(node) ? "" : ": ",
-        print("value"),
-      ];
-    }
-    case "QualifiedTypeIdentifier":
-      return [print("qualification"), ".", print("id")];
-    case "StringLiteralTypeAnnotation":
-      return printString(rawText(node), options);
-    case "NumberLiteralTypeAnnotation":
-      assert.strictEqual(typeof node.value, "number");
-    // fall through
-    case "BigIntLiteralTypeAnnotation":
-      if (node.extra) {
-        return printNumber(node.extra.raw);
-      }
-      return printNumber(node.raw);
-    case "TypeCastExpression": {
-      return [
-        "(",
-        print("expression"),
-        printTypeAnnotation(path, options, print),
-        ")",
-      ];
-    }
-
-    case "TypeParameterDeclaration":
-    case "TypeParameterInstantiation": {
-      const printed = printTypeParameters(path, options, print, "params");
-
-      if (options.parser === "flow") {
-        const start = locStart(node);
-        const end = locEnd(node);
-        const commentStartIndex = options.originalText.lastIndexOf("/*", start);
-        const commentEndIndex = options.originalText.indexOf("*/", end);
-        if (commentStartIndex !== -1 && commentEndIndex !== -1) {
-          const comment = options.originalText
-            .slice(commentStartIndex + 2, commentEndIndex)
-            .trim();
-          if (
-            comment.startsWith("::") &&
-            !comment.includes("/*") &&
-            !comment.includes("*/")
-          ) {
-            return ["/*:: ", printed, " */"];
-          }
-        }
-      }
-
-      return printed;
-    }
-
-    case "InferredPredicate":
-      return "%checks";
-    // Unhandled types below. If encountered, nodes of these types should
-    // be either left alone or desugared into AST types that are fully
-    // supported by the pretty-printer.
-    case "DeclaredPredicate":
-      return ["%checks(", print("value"), ")"];
-    case "AnyTypeAnnotation":
-      return "any";
-    case "BooleanTypeAnnotation":
-      return "boolean";
-    case "BigIntTypeAnnotation":
-      return "bigint";
-    case "NullLiteralTypeAnnotation":
-      return "null";
-    case "NumberTypeAnnotation":
-      return "number";
-    case "SymbolTypeAnnotation":
-      return "symbol";
-    case "StringTypeAnnotation":
-      return "string";
-    case "VoidTypeAnnotation":
-      return "void";
-    case "ThisTypeAnnotation":
-      return "this";
-
     case "PrivateIdentifier":
       return ["#", print("name")];
     case "PrivateName":
