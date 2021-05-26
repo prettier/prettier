@@ -34,9 +34,9 @@ const {
   printExportAllDeclaration,
 } = require("./module");
 const { printArrayItems } = require("./array");
-const { printObject } = require("./print/object");
+const { printObject } = require("./object");
 const { printPropertyKey } = require("./property");
-const { printOptionalToken, printTypeAnnotation } = require("./print/misc");
+const { printOptionalToken, printTypeAnnotation } = require("./misc");
 
 function printFlow(path, options, print) {
   const node = path.getValue();
