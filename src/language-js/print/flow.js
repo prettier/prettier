@@ -34,6 +34,7 @@ const {
   printExportAllDeclaration,
 } = require("./module");
 const { printArrayItems } = require("./array");
+const { printObject } = require("./print/object");
 const { printPropertyKey } = require("./property");
 const { printOptionalToken, printTypeAnnotation } = require("./print/misc");
 
@@ -323,6 +324,26 @@ function printFlow(path, options, print) {
       return "void";
     case "ThisTypeAnnotation":
       return "this";
+    case "ObjectTypeAnnotation":
+      return printObject(path, options, print);
+    // These types are unprintable because they serve as abstract
+    // supertypes for other (printable) types.
+    case "Node":
+    case "Printable":
+    case "SourceLocation":
+    case "Position":
+    case "Statement":
+    case "Function":
+    case "Pattern":
+    case "Expression":
+    case "Declaration":
+    case "Specifier":
+    case "NamedSpecifier":
+    case "Comment":
+    case "MemberTypeAnnotation": // Flow
+    case "Type":
+      /* istanbul ignore next */
+      throw new Error("unprintable type: " + JSON.stringify(node.type));
   }
 }
 

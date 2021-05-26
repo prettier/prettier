@@ -360,7 +360,6 @@ function printPathNoParens(path, options, print, args) {
 
     case "ObjectExpression":
     case "ObjectPattern":
-    case "ObjectTypeAnnotation":
     case "RecordExpression":
       return printObject(path, options, print);
     // Babel 6
@@ -747,24 +746,6 @@ function printPathNoParens(path, options, print, args) {
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":
       return [print("tag"), print("typeParameters"), print("quasi")];
-    // These types are unprintable because they serve as abstract
-    // supertypes for other (printable) types.
-    case "Node":
-    case "Printable":
-    case "SourceLocation":
-    case "Position":
-    case "Statement":
-    case "Function":
-    case "Pattern":
-    case "Expression":
-    case "Declaration":
-    case "Specifier":
-    case "NamedSpecifier":
-    case "Comment":
-    case "MemberTypeAnnotation": // Flow
-    case "Type":
-      /* istanbul ignore next */
-      throw new Error("unprintable type: " + JSON.stringify(node.type));
     case "PrivateIdentifier":
       return ["#", print("name")];
     case "PrivateName":
