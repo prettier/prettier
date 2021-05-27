@@ -34,7 +34,6 @@ const {
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-  returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
   hasComment,
@@ -43,6 +42,8 @@ const {
   isCallLikeExpression,
   isCallExpression,
   getCallArguments,
+  hasNakedLeftSide,
+  getLeftSide,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const {
@@ -496,6 +497,29 @@ function printReturnStatement(path, options, print) {
 
 function printThrowStatement(path, options, print) {
   return ["throw", printReturnOrThrowArgument(path, options, print)];
+}
+
+// This recurses the return argument, looking for the first token
+// (the leftmost leaf node) and, if it (or its parents) has any
+// leadingComments, returns true (so it can be wrapped in parens).
+function returnArgumentHasLeadingComment(options, argument) {
+  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+    return true;
+  }
+
+  if (hasNakedLeftSide(argument)) {
+    let leftMost = argument;
+    let newLeftMost;
+    while ((newLeftMost = getLeftSide(leftMost))) {
+      leftMost = newLeftMost;
+
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 module.exports = {
