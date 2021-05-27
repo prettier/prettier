@@ -419,25 +419,10 @@ function print(path, options, print) {
 /* ElementNode print helpers */
 
 function sortByLoc(a, b) {
-  if (a.loc.start.line < b.loc.start.line) {
-    return -1;
-  }
-
-  if (
-    a.loc.start.line === b.loc.start.line &&
-    a.loc.start.column < b.loc.start.column
-  ) {
-    return -1;
-  }
-
-  if (
-    a.loc.start.line === b.loc.start.line &&
-    a.loc.start.column === b.loc.start.column
-  ) {
-    return 0;
-  }
-
-  return 1;
+  return (
+    a.loc.start.line - b.loc.start.line ||
+    a.loc.start.column - b.loc.start.column
+  );
 }
 
 function printStartingTag(path, print) {
@@ -446,9 +431,7 @@ function printStartingTag(path, print) {
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
     isNonEmptyArray(node[property])
   );
-  const attributes = types
-    .reduce((acc, type) => [...acc, ...node[type]], [])
-    .sort(sortByLoc);
+  const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
   for (const attributeType of types) {
     path.each((attributePath) => {
