@@ -16,7 +16,6 @@ const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const preprocess = require("./print-preprocess");
 const {
-  getCallArguments,
   hasFlowShorthandAnnotationComment,
   hasComment,
   CommentCheckFlags,
@@ -64,8 +63,8 @@ const {
 } = require("./print/class");
 const { printProperty } = require("./print/property");
 const {
-  printFunctionDeclaration,
-  printArrowFunctionExpression,
+  printFunction,
+  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,
@@ -265,18 +264,10 @@ function printPathNoParens(path, options, print, args) {
     case "RestElement":
       return printRestSpread(path, options, print);
     case "FunctionDeclaration":
-    case "FunctionExpression": {
-      let expandArg = false;
-      if (args && args.expandLastArg) {
-        const parent = path.getParentNode();
-        if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
-          expandArg = true;
-        }
-      }
-      return printFunctionDeclaration(path, print, options, expandArg);
-    }
+    case "FunctionExpression":
+      return printFunction(path, options, print, args);
     case "ArrowFunctionExpression":
-      return printArrowFunctionExpression(path, options, print, args);
+      return printArrowFunction(path, options, print);
     case "YieldExpression":
       parts.push("yield");
 
