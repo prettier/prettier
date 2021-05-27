@@ -420,17 +420,13 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
 }
 
 function isCallExpressionWithComplexTypeParameters(node, print) {
-  if (
-    isCallExpression(node) &&
-    node.typeParameters &&
-    node.typeParameters.params &&
-    isNonEmptyArray(node.typeParameters.params)
-  ) {
-    if (node.typeParameters.params.length > 1) {
+  const typeParams = getTypeParametersFromCallExpression(node);
+  if (isNonEmptyArray(typeParams)) {
+    if (typeParams.length > 1) {
       return true;
     }
-    if (node.typeParameters.params.length === 1) {
-      const firstParam = node.typeParameters.params[0];
+    if (typeParams.length === 1) {
+      const firstParam = typeParams[0];
       if (
         firstParam.type === "TSUnionType" ||
         firstParam.type === "UnionTypeAnnotation" ||
@@ -440,11 +436,24 @@ function isCallExpressionWithComplexTypeParameters(node, print) {
         return true;
       }
     }
-    if (willBreak(print("typeParameters"))) {
+    const typeParamsKeyName = node.typeParameters
+      ? "typeParameters"
+      : "typeArguments";
+    if (willBreak(print(typeParamsKeyName))) {
       return true;
     }
   }
   return false;
+}
+
+function getTypeParametersFromCallExpression(node) {
+  if (isCallExpression(node)) {
+    return (
+      (node.typeParameters && node.typeParameters.params) ||
+      (node.typeArguments && node.typeArguments.params)
+    );
+  }
+  return null;
 }
 
 module.exports = {
