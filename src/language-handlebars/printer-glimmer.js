@@ -418,24 +418,50 @@ function print(path, options, print) {
 
 /* ElementNode print helpers */
 
+function sortByLoc(a, b) {
+  if (a.loc.start.line < b.loc.start.line) {
+    return -1;
+  }
+
+  if (
+    a.loc.start.line === b.loc.start.line &&
+    a.loc.start.column < b.loc.start.column
+  ) {
+    return -1;
+  }
+
+  if (
+    a.loc.start.line === b.loc.start.line &&
+    a.loc.start.column === b.loc.start.column
+  ) {
+    return 0;
+  }
+
+  return 1;
+}
+
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  const attributesLike = ["attributes", "modifiers", "comments", "blockParams"]
-    .filter((property) => isNonEmptyArray(node[property]))
-    .map((property) => [
-      line,
-      property === "blockParams"
-        ? printBlockParams(node)
-        : join(line, path.map(print, property)),
-    ]);
+  const types = ["attributes", "modifiers", "comments"].filter((property) =>
+    isNonEmptyArray(node[property])
+  );
+  const attributes = types
+    .reduce((acc, type) => [...acc, ...node[type]], [])
+    .sort(sortByLoc);
 
-  return [
-    "<",
-    node.tag,
-    indent(attributesLike),
-    printStartingTagEndMarker(node),
-  ];
+  for (const attributeType of types) {
+    path.each((attributePath) => {
+      const index = attributes.indexOf(attributePath.getValue());
+      attributes.splice(index, 1, [line, print()]);
+    }, attributeType);
+  }
+
+  if (isNonEmptyArray(node.blockParams)) {
+    attributes.push(line, printBlockParams(node));
+  }
+
+  return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
 }
 
 function printChildren(path, options, print) {
