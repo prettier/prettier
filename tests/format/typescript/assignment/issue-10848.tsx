@@ -2,7 +2,7 @@ interface MyComponentProps {
   x: number
 }
 
-const MyComponent: React.VoidFunctonComponent<MyComponentProps> = ({ x }) => {
+const MyComponent: React.VoidFunctionComponent<MyComponentProps> = ({ x }) => {
   const a = useA()
   return <div>x = {x}; a = {a}</div>
 }
@@ -12,7 +12,7 @@ interface MyComponent2Props {
   y: number
 }
 
-const MyComponent2: React.VoidFunctonComponent<MyComponent2Props> = ({ x, y }) => {
+const MyComponent2: React.VoidFunctionComponent<MyComponent2Props> = ({ x, y }) => {
   const a = useA()
   return <div>x = {x}; y = {y}; a = {a}</div>
 }
@@ -23,12 +23,22 @@ interface MyComponentWithLongNameProps {
   [key: string]: unknown
 }
 
-const MyComponentWithLongName1: React.VoidFunctonComponent<MyComponentWithLongNameProps> = ({ x, y }) => {
+const MyComponentWithLongName1: React.VoidFunctionComponent<MyComponentWithLongNameProps> = ({ x, y }) => {
   const a = useA()
   return <div>x = {x}; y = {y}; a = {a}</div>
 }
 
-const MyComponentWithLongName2: React.VoidFunctonComponent<MyComponentWithLongNameProps> = ({ x, y, anotherPropWithLongName1, anotherPropWithLongName2, anotherPropWithLongName3, anotherPropWithLongName4 }) => {
+const MyComponentWithLongName2: React.VoidFunctionComponent<MyComponentWithLongNameProps> = ({ x, y, anotherPropWithLongName1, anotherPropWithLongName2, anotherPropWithLongName3, anotherPropWithLongName4 }) => {
+  const a = useA()
+  return <div>x = {x}; y = {y}; a = {a}</div>
+}
+
+interface MyGenericComponentProps<T> {
+  x: T;
+  y: T;
+}
+
+const MyGenericComponent: React.VoidFunctionComponent<MyGenericComponentProps<number>> = ({ x, y }) => {
   const a = useA()
   return <div>x = {x}; y = {y}; a = {a}</div>
 }
