@@ -93,7 +93,7 @@ function load(plugins, pluginSearchDirs) {
       "requirePath"
     ).map((externalPluginInfo) => ({
       name: externalPluginInfo.name,
-      ...eval("require")(externalPluginInfo.requirePath),
+      ...require(externalPluginInfo.requirePath),
     })),
     ...externalPluginInstances,
   ];

@@ -2,9 +2,6 @@
 
 // eslint-disable-next-line no-restricted-modules
 const packageJson = require("../../package.json");
-if (process.env.NODE_ENV === "production") {
-  packageJson.engines.node = ">=10.13.0";
-}
 require("please-upgrade-node")(packageJson);
 
 // eslint-disable-next-line import/order

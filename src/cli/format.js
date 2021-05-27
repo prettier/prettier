@@ -164,7 +164,8 @@ async function format(context, input, opt) {
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
-      benchmark = eval("require")("benchmark");
+      // eslint-disable-next-line import/no-extraneous-dependencies
+      benchmark = require("benchmark");
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
