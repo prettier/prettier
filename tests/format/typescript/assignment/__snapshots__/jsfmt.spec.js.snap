@@ -240,10 +240,9 @@ interface MyComponent2Props {
   y: number;
 }
 
-const MyComponent2: React.VoidFunctonComponent<MyComponent2Props> = ({
-  x,
-  y,
-}) => {
+const MyComponent2: (
+  React.VoidFunctonComponent<MyComponent2Props>
+) = ({ x, y }) => {
   const a = useA();
   return (
     <div>
