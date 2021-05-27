@@ -34,13 +34,16 @@ const {
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-  returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
   hasComment,
   getComments,
   CommentCheckFlags,
   isCallLikeExpression,
+  isCallExpression,
+  getCallArguments,
+  hasNakedLeftSide,
+  getLeftSide,
 } = require("../utils");
 const { locEnd } = require("../loc");
 const {
@@ -50,8 +53,22 @@ const {
 const { printPropertyKey } = require("./property");
 const { printFunctionTypeParameters } = require("./misc");
 
-function printFunctionDeclaration(path, print, options, expandArg) {
+function printFunction(path, print, options, args) {
   const node = path.getValue();
+
+  let expandArg = false;
+  if (
+    (node.type === "FunctionDeclaration" ||
+      node.type === "FunctionExpression") &&
+    args &&
+    args.expandLastArg
+  ) {
+    const parent = path.getParentNode();
+    if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
+      expandArg = true;
+    }
+  }
+
   const parts = [];
 
   // For TypeScript the TSDeclareFunction node shares the AST
@@ -260,7 +277,7 @@ function printArrowChain(
   ]);
 }
 
-function printArrowFunctionExpression(path, options, print, args) {
+function printArrowFunction(path, options, print, args) {
   let node = path.getValue();
   /** @type {Doc[]} */
   const signatures = [];
@@ -427,7 +444,7 @@ function printReturnType(path, print, options) {
 }
 
 // `ReturnStatement` and `ThrowStatement`
-function printReturnAndThrowArgument(path, options, print) {
+function printReturnOrThrowArgument(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   const parts = [];
@@ -475,16 +492,39 @@ function printReturnAndThrowArgument(path, options, print) {
 }
 
 function printReturnStatement(path, options, print) {
-  return ["return", printReturnAndThrowArgument(path, options, print)];
+  return ["return", printReturnOrThrowArgument(path, options, print)];
 }
 
 function printThrowStatement(path, options, print) {
-  return ["throw", printReturnAndThrowArgument(path, options, print)];
+  return ["throw", printReturnOrThrowArgument(path, options, print)];
+}
+
+// This recurses the return argument, looking for the first token
+// (the leftmost leaf node) and, if it (or its parents) has any
+// leadingComments, returns true (so it can be wrapped in parens).
+function returnArgumentHasLeadingComment(options, argument) {
+  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+    return true;
+  }
+
+  if (hasNakedLeftSide(argument)) {
+    let leftMost = argument;
+    let newLeftMost;
+    while ((newLeftMost = getLeftSide(leftMost))) {
+      leftMost = newLeftMost;
+
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 module.exports = {
-  printFunctionDeclaration,
-  printArrowFunctionExpression,
+  printFunction,
+  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,

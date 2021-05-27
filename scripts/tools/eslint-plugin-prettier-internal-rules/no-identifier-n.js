@@ -34,7 +34,7 @@ module.exports = {
 
         /* istanbul ignore next */
         if (!variable) {
-          throw new Error("Unexpected case.");
+          return;
         }
 
         if (!variables.has(variable)) {

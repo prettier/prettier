@@ -668,29 +668,6 @@ function hasLeadingOwnLineComment(text, node) {
   );
 }
 
-// This recurses the return argument, looking for the first token
-// (the leftmost leaf node) and, if it (or its parents) has any
-// leadingComments, returns true (so it can be wrapped in parens).
-function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument)) {
-    return true;
-  }
-
-  if (hasNakedLeftSide(argument)) {
-    let leftMost = argument;
-    let newLeftMost;
-    while ((newLeftMost = getLeftSide(leftMost))) {
-      leftMost = newLeftMost;
-
-      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
 // Note: Quoting/unquoting numbers in TypeScript is not safe.
 //
 // let a = { 1: 1, 2: 2 }
@@ -1334,6 +1311,7 @@ module.exports = {
   getCallArguments,
   iterateCallArgumentsPath,
   hasRestParameter,
+  getLeftSide,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -1382,7 +1360,6 @@ module.exports = {
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
-  returnArgumentHasLeadingComment,
   shouldPrintComma,
   isBitwiseOperator,
   shouldFlatten,
