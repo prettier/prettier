@@ -140,7 +140,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
-    hasComplexTypeAnnotation(node)
+    hasComplexOrLongTypeAnnotation(node, options)
   ) {
     return "break-lhs";
   }
@@ -273,7 +273,7 @@ function isTypeAlias(node) {
   return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
-function hasComplexTypeAnnotation(node) {
+function hasComplexOrLongTypeAnnotation(node, { printWidth }) {
   if (node.type !== "VariableDeclarator") {
     return false;
   }
@@ -284,7 +284,9 @@ function hasComplexTypeAnnotation(node) {
   const typeParams = getTypeParametersFromTypeReference(
     typeAnnotation.typeAnnotation
   );
-  return (
+
+  // Complex type
+  if (
     isNonEmptyArray(typeParams) &&
     typeParams.length > 1 &&
     typeParams.some(
@@ -292,7 +294,17 @@ function hasComplexTypeAnnotation(node) {
         isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
         param.type === "TSConditionalType"
     )
-  );
+  ) {
+    return true
+  }
+
+  // Simple but long type
+  const widthOfStatementBeforeEquals = 1000 // TODO (Halp!)
+  if (widthOfStatementBeforeEquals > printWidth) {
+    return true
+  }
+
+  return false
 }
 
 function getTypeParametersFromTypeReference(node) {
