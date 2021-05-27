@@ -345,7 +345,7 @@ function isPoorlyBreakableMemberOrCallChain(
       return false;
     }
 
-    if (isCallExpressionWithComplexTypeParameters(node, print)) {
+    if (isCallExpressionWithComplexTypeArguments(node, print)) {
       return false;
     }
 
@@ -419,34 +419,34 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
   );
 }
 
-function isCallExpressionWithComplexTypeParameters(node, print) {
-  const typeParams = getTypeParametersFromCallExpression(node);
-  if (isNonEmptyArray(typeParams)) {
-    if (typeParams.length > 1) {
+function isCallExpressionWithComplexTypeArguments(node, print) {
+  const typeArgs = getTypeArgumentsFromCallExpression(node);
+  if (isNonEmptyArray(typeArgs)) {
+    if (typeArgs.length > 1) {
       return true;
     }
-    if (typeParams.length === 1) {
-      const firstParam = typeParams[0];
+    if (typeArgs.length === 1) {
+      const firstArg = typeArgs[0];
       if (
-        firstParam.type === "TSUnionType" ||
-        firstParam.type === "UnionTypeAnnotation" ||
-        firstParam.type === "TSIntersectionType" ||
-        firstParam.type === "IntersectionTypeAnnotation"
+        firstArg.type === "TSUnionType" ||
+        firstArg.type === "UnionTypeAnnotation" ||
+        firstArg.type === "TSIntersectionType" ||
+        firstArg.type === "IntersectionTypeAnnotation"
       ) {
         return true;
       }
     }
-    const typeParamsKeyName = node.typeParameters
+    const typeArgsKeyName = node.typeParameters
       ? "typeParameters"
       : "typeArguments";
-    if (willBreak(print(typeParamsKeyName))) {
+    if (willBreak(print(typeArgsKeyName))) {
       return true;
     }
   }
   return false;
 }
 
-function getTypeParametersFromCallExpression(node) {
+function getTypeArgumentsFromCallExpression(node) {
   if (isCallExpression(node)) {
     return (
       (node.typeParameters && node.typeParameters.params) ||
