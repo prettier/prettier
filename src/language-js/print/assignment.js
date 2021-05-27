@@ -447,13 +447,10 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
 }
 
 function getTypeArgumentsFromCallExpression(node) {
-  if (isCallExpression(node)) {
-    return (
-      (node.typeParameters && node.typeParameters.params) ||
-      (node.typeArguments && node.typeArguments.params)
-    );
-  }
-  return null;
+  return (
+    (node.typeParameters && node.typeParameters.params) ||
+    (node.typeArguments && node.typeArguments.params)
+  );
 }
 
 module.exports = {
