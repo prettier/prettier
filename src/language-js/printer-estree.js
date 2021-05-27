@@ -267,7 +267,7 @@ function printPathNoParens(path, options, print, args) {
     case "FunctionExpression":
       return printFunction(path, print, options, args);
     case "ArrowFunctionExpression":
-      return printArrowFunction(path, options, print);
+      return printArrowFunction(path, options, print, args);
     case "YieldExpression":
       parts.push("yield");
 
