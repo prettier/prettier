@@ -147,6 +147,7 @@ printWidth: 80
   @arg4="hello"
   {{! this is a comment for arg 5}}
   @arg5="hello"
+  ...arguments
 />
 
 =====================================output=====================================
@@ -160,6 +161,7 @@ printWidth: 80
   @arg4="hello"
   {{! this is a comment for arg 5}}
   @arg5="hello"
+  ...arguments
 />
 ================================================================================
 `;
