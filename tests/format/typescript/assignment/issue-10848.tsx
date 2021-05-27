@@ -23,12 +23,12 @@ interface MyComponentWithLongNameProps {
   [key: string]: unknown
 }
 
-const MyComponentWithLongName: React.VoidFunctonComponent<MyComponentWithLongNameProps> = ({ x, y }) => {
+const MyComponentWithLongName1: React.VoidFunctonComponent<MyComponentWithLongNameProps> = ({ x, y }) => {
   const a = useA()
   return <div>x = {x}; y = {y}; a = {a}</div>
 }
 
-const MyComponentWithLongName: React.VoidFunctonComponent<MyComponentWithLongNameProps> = ({ x, y, anotherPropWithLongName1, anotherPropWithLongName2, anotherPropWithLongName3, anotherPropWithLongName4 }) => {
+const MyComponentWithLongName2: React.VoidFunctonComponent<MyComponentWithLongNameProps> = ({ x, y, anotherPropWithLongName1, anotherPropWithLongName2, anotherPropWithLongName3, anotherPropWithLongName4 }) => {
   const a = useA()
   return <div>x = {x}; y = {y}; a = {a}</div>
 }
