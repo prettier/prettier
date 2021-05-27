@@ -265,7 +265,7 @@ function printPathNoParens(path, options, print, args) {
       return printRestSpread(path, options, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
-      return printFunction(path, options, print, args);
+      return printFunction(path, print, options, args);
     case "ArrowFunctionExpression":
       return printArrowFunction(path, options, print);
     case "YieldExpression":
