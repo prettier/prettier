@@ -1311,6 +1311,7 @@ module.exports = {
   getCallArguments,
   iterateCallArgumentsPath,
   hasRestParameter,
+  getLeftSide,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
