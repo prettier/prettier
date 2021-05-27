@@ -258,7 +258,7 @@ interface MyComponentWithLongNameProps {
   [key: string]: unknown;
 }
 
-const MyComponentWithLongName2: (
+const MyComponentWithLongName1: (
   React.VoidFunctonComponent<MyComponentWithLongNameProps>
 ) = ({ x, y }) => {
   const a = useA();
