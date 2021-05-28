@@ -9,8 +9,9 @@ printWidth: 80
 export const listAuthorizedSitesForDefaultHandler: ListAuthorizedSitesForHandler = aListAuthorizedSitesForResponse;
 
 =====================================output=====================================
-export const listAuthorizedSitesForDefaultHandler: ListAuthorizedSitesForHandler =
-  aListAuthorizedSitesForResponse;
+export const listAuthorizedSitesForDefaultHandler: (
+  ListAuthorizedSitesForHandler
+) = aListAuthorizedSitesForResponse;
 
 ================================================================================
 `;
@@ -385,9 +386,9 @@ interface MyGenericComponentProps<T> {
   y: T;
 }
 
-const MyGenericComponent: (
-  React.VoidFunctionComponent<MyGenericComponentProps<number>>
-) = ({ x, y }) => {
+const MyGenericComponent: React.VoidFunctionComponent<
+  MyGenericComponentProps<number>
+> = ({ x, y }) => {
   const a = useA();
   return (
     <div>
@@ -417,13 +418,15 @@ const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
 const map: Map<Function, Foo<S>> = new Map();
 
 =====================================output=====================================
-const map: (
-  Map<Function, Map<string | void, { value: UnloadedDescriptor }>>
-) = new Map();
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
 
-const map: (
-  Map<Function, Condition extends Foo ? FooFooFoo : BarBarBar>
-) = new Map();
+const map: Map<
+  Function,
+  Condition extends Foo ? FooFooFoo : BarBarBar
+> = new Map();
 
 const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
   new Map();
