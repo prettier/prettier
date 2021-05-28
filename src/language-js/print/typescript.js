@@ -203,7 +203,7 @@ function printTypescript(path, options, print) {
       const parent = path.getParentNode();
 
       // The typescript parser accepts multiple parameters here. If you're
-      // using fthem, it makes sense to have a trailing comma. But if you
+      // using them, it makes sense to have a trailing comma. But if you
       // aren't, this is more like a computed property name than an array.
       // So we leave off the trailing comma when there's just one parameter.
       const trailingComma =
