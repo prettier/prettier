@@ -459,7 +459,7 @@ function makeTypeAnnotationBreakable(leftDoc) {
 
   const [variableName, space, typeAnnotationDoc] = leftDoc;
 
-  if (!typeAnnotationDoc) {
+  if (!typeAnnotationDoc || !Array.isArray(typeAnnotationDoc)) {
     return leftDoc;
   }
 
