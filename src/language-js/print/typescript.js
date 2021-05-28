@@ -203,7 +203,7 @@ function printTypescript(path, options, print) {
       const parent = path.getParentNode();
 
       // The typescript parser accepts multiple parameters here. If you're
-      // using them, it makes sense to have a trailing comma. But if you
+      // using fthem, it makes sense to have a trailing comma. But if you
       // aren't, this is more like a computed property name than an array.
       // So we leave off the trailing comma when there's just one parameter.
       const trailingComma =
@@ -506,7 +506,12 @@ function printTypescript(path, options, print) {
         printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSTypeAnnotation":
-      return print("typeAnnotation");
+      return group([
+        ifBreak("("),
+        indent([softline, print("typeAnnotation")]),
+        softline,
+        ifBreak(")"),
+      ]);
     case "TSEmptyBodyFunctionExpression":
       return printMethodInternal(path, options, print);
 
