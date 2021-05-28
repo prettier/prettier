@@ -506,12 +506,7 @@ function printTypescript(path, options, print) {
         printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSTypeAnnotation":
-      return group([
-        ifBreak("("),
-        indent([softline, print("typeAnnotation")]),
-        softline,
-        ifBreak(")"),
-      ]);
+      return print("typeAnnotation");
     case "TSEmptyBodyFunctionExpression":
       return printMethodInternal(path, options, print);
 
