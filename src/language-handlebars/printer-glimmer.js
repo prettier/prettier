@@ -419,10 +419,7 @@ function print(path, options, print) {
 /* ElementNode print helpers */
 
 function sortByLoc(a, b) {
-  return (
-    a.loc.start.line - b.loc.start.line ||
-    a.loc.start.column - b.loc.start.column
-  );
+  return locStart(a) - locStart(b);
 }
 
 function printStartingTag(path, print) {
