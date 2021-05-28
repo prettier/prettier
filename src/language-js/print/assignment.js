@@ -18,6 +18,7 @@ const {
   hasComment,
   isSignedNumericLiteral,
   isObjectProperty,
+  isFunctionOrArrowExpression,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 const { printCallExpression } = require("./call-expression");
@@ -146,7 +147,8 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
-    hasComplexTypeAnnotation(node)
+    hasComplexTypeAnnotation(node) ||
+    (getTypeAnnotation(node) && isFunctionOrArrowExpression(rightNode))
   ) {
     return "break-lhs";
   }
@@ -279,19 +281,32 @@ function isTypeAlias(node) {
   return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
-function hasComplexTypeAnnotation(node) {
+function getTypeAnnotation(node) {
   if (node.type !== "VariableDeclarator") {
-    return false;
+    return;
   }
   const { typeAnnotation } = node.id;
   if (!typeAnnotation || !typeAnnotation.typeAnnotation) {
+    return;
+  }
+  return typeAnnotation.typeAnnotation;
+}
+
+function hasComplexTypeAnnotation(node) {
+  const typeAnnotation = getTypeAnnotation(node);
+  if (!typeAnnotation) {
     return false;
   }
-  const typeParams = getTypeParametersFromTypeReference(
-    typeAnnotation.typeAnnotation
+  const typeParams = getTypeParametersFromTypeReference(typeAnnotation);
+  return (
+    isNonEmptyArray(typeParams) &&
+    typeParams.length > 1 &&
+    typeParams.some(
+      (param) =>
+        isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
+        param.type === "TSConditionalType"
+    )
   );
-
-  return isNonEmptyArray(typeParams);
 }
 
 function getTypeParametersFromTypeReference(node) {
