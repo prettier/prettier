@@ -3,7 +3,7 @@
 const { isNonEmptyArray, getStringWidth } = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
-  utils: { cleanDoc },
+  utils: { cleanDoc, willBreak },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -357,6 +357,10 @@ function isPoorlyBreakableMemberOrCallChain(
       return false;
     }
 
+    if (isCallExpressionWithComplexTypeArguments(node, print)) {
+      return false;
+    }
+
     return path.call(goDeeper, "callee");
   }
 
@@ -424,6 +428,40 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
   return (
     typeof keyDoc === "string" &&
     getStringWidth(keyDoc) < options.tabWidth + MIN_OVERLAP_FOR_BREAK
+  );
+}
+
+function isCallExpressionWithComplexTypeArguments(node, print) {
+  const typeArgs = getTypeArgumentsFromCallExpression(node);
+  if (isNonEmptyArray(typeArgs)) {
+    if (typeArgs.length > 1) {
+      return true;
+    }
+    if (typeArgs.length === 1) {
+      const firstArg = typeArgs[0];
+      if (
+        firstArg.type === "TSUnionType" ||
+        firstArg.type === "UnionTypeAnnotation" ||
+        firstArg.type === "TSIntersectionType" ||
+        firstArg.type === "IntersectionTypeAnnotation"
+      ) {
+        return true;
+      }
+    }
+    const typeArgsKeyName = node.typeParameters
+      ? "typeParameters"
+      : "typeArguments";
+    if (willBreak(print(typeArgsKeyName))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getTypeArgumentsFromCallExpression(node) {
+  return (
+    (node.typeParameters && node.typeParameters.params) ||
+    (node.typeArguments && node.typeArguments.params)
   );
 }
 
