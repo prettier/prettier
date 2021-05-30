@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/**
+ * Pass the pull request number and category as arguments.
+ * Get the PR title and author name via the GitHub API and create a file in ./changelog_unreleased
+ *   $ node ./scripts/generate-changelog.mjs 10961 typescript
+ */
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import fetch from "node-fetch";
