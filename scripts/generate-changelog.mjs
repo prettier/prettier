@@ -13,7 +13,7 @@ if (!prNumberString || !category) {
   throw new Error("Two args are required.");
 }
 const prNumber = convertToNumber(prNumberString);
-assertCatogory(category);
+assertCategory(category);
 
 const { title, user } = await getPr(prNumber);
 
@@ -102,7 +102,7 @@ function convertToNumber(value) {
  * @param {unknown}
  * @returns {void}
  */
-function assertCatogory(category) {
+function assertCategory(category) {
   if (!CHANGELOG_CATEGORIES.includes(category)) {
     throw new Error(`${category} is invalid category`);
   }
