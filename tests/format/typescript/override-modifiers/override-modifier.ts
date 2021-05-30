@@ -3,4 +3,6 @@ class MyClass extends BaseClass {
   public override show() {}
   override size = 5;
   override readonly size = 5;
+  abstract override foo: string;
+  static override foo: string;
 }
