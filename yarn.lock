@@ -2453,10 +2453,10 @@ chrome-trace-event@^1.0.2:
   dependencies:
     tslib "^1.9.0"
 
-ci-info@3.1.1, ci-info@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.1.1.tgz#9a32fcefdf7bcdb6f0a7e1c0f8098ec57897b80a"
-  integrity sha512-kdRWLBIJwdsYJWYJFtAFFYxybguqeF91qpZaggjG5Nf8QKdizFG2hjqvaTXbxFIcYbSaD74KpAXv6BSm17DHEQ==
+ci-info@3.2.0, ci-info@^3.1.1:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.2.0.tgz#2876cb948a498797b5236f0095bc057d0dca38b6"
+  integrity sha512-dVqRX7fLUm8J6FgHJ418XuIgDLZDkYcDFTeL6TA2gt5WlIZUQrrH6EZrNClwT/H0FateUsZkGIOPRrLbP+PR9A==
 
 ci-info@^2.0.0:
   version "2.0.0"
@@ -3169,7 +3169,6 @@ eslint-plugin-jest@24.3.6:
 
 "eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules":
   version "0.0.0"
-  uid ""
 
 eslint-plugin-react@7.23.2:
   version "7.23.2"
