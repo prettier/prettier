@@ -52,7 +52,7 @@
     "html-tag-names": "1.1.5",
     "html-void-elements": "1.0.5",
     "ignore": "4.0.6",
-    "jest-docblock": "26.0.0",
+    "jest-docblock": "27.0.1",
     "json5": "2.2.0",
     "leven": "3.1.0",
     "lines-and-columns": "1.1.6",
