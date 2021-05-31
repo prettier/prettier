@@ -145,6 +145,7 @@ function getRollupConfig(bundle) {
       console.warn(warning);
     },
     external: [],
+    sourcemap: false,
   };
 
   const replaceStrings = {
@@ -243,6 +244,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
           },
         }),
     ],
+    sourcemap: false,
   };
 
   if (bundle.target === "node") {
