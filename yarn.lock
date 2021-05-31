@@ -1975,10 +1975,10 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-angular-estree-parser@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.3.0.tgz#1504d5a1b67db2a49084f952a79849a7e8dc9d5b"
-  integrity sha512-+jW3uOXSHAbDRJTpVodLhH4DhpI7Qe1NyFtemyv+MowcZXBLBF5QRwCzi1/+LWNbxjNNm8mWo7tjT9z4MUIBqg==
+angular-estree-parser@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.4.0.tgz#96c03248633067caa55aff021476056def238b3e"
+  integrity sha512-4IVVXsO4nBFmgb4L+TgwgtWuIlH72wSaKw/ZU+x3LsQSOqvL5W8sE6JPqpwSAgrHZ1lTtWlpnr6j/r98qFqw5A==
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^2.0.3"
