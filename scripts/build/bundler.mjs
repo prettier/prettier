@@ -145,7 +145,6 @@ function getRollupConfig(bundle) {
       console.warn(warning);
     },
     external: [],
-    sourcemap: false,
   };
 
   const replaceStrings = {
