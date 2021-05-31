@@ -953,15 +953,7 @@
     debug "^4.1.0"
     globals "^11.1.0"
 
-"@babel/types@7.14.2":
-  version "7.14.2"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.14.2.tgz#4208ae003107ef8a057ea8333e56eb64d2f6a2c3"
-  integrity sha512-SdjAG/3DikRHpUOjxZgnkbR11xUlyDMUFJdvnIgZEE16mqmY0BINMmc4//JMJglEmn6i7sq6p+mGrFWyZ98EEw==
-  dependencies:
-    "@babel/helper-validator-identifier" "^7.14.0"
-    to-fast-properties "^2.0.0"
-
-"@babel/types@^7.0.0", "@babel/types@^7.12.1", "@babel/types@^7.12.13", "@babel/types@^7.13.0", "@babel/types@^7.13.12", "@babel/types@^7.14.0", "@babel/types@^7.14.2", "@babel/types@^7.14.4", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4":
+"@babel/types@7.14.4", "@babel/types@^7.0.0", "@babel/types@^7.12.1", "@babel/types@^7.12.13", "@babel/types@^7.13.0", "@babel/types@^7.13.12", "@babel/types@^7.14.0", "@babel/types@^7.14.2", "@babel/types@^7.14.4", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.4.4":
   version "7.14.4"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.14.4.tgz#bfd6980108168593b38b3eb48a24aa026b919bc0"
   integrity sha512-lCj4aIs0xUefJFQnwwQv2Bxg7Omd6bgquZ6LGC+gGMh6/s5qDVfjuCMlDmYQ15SLsWHd9n+X3E75lKIhl5Lkiw==
@@ -1975,10 +1967,10 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-angular-estree-parser@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.3.0.tgz#1504d5a1b67db2a49084f952a79849a7e8dc9d5b"
-  integrity sha512-+jW3uOXSHAbDRJTpVodLhH4DhpI7Qe1NyFtemyv+MowcZXBLBF5QRwCzi1/+LWNbxjNNm8mWo7tjT9z4MUIBqg==
+angular-estree-parser@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.4.0.tgz#96c03248633067caa55aff021476056def238b3e"
+  integrity sha512-4IVVXsO4nBFmgb4L+TgwgtWuIlH72wSaKw/ZU+x3LsQSOqvL5W8sE6JPqpwSAgrHZ1lTtWlpnr6j/r98qFqw5A==
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^2.0.3"
@@ -3418,10 +3410,10 @@ exec-sh@^0.3.2:
   resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.3.4.tgz#3a018ceb526cc6f6df2bb504b2bfe8e3a4934ec5"
   integrity sha512-sEFIkc61v75sWeOe72qyrqg2Qg0OuLESziUDk/O/z2qgS15y2gWVFrI6f2Qn/qw/0/NCfCEsmNA4zOjkwEZT1A==
 
-execa@5.0.0, execa@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-5.0.0.tgz#4029b0007998a841fbd1032e5f4de86a3c1e3376"
-  integrity sha512-ov6w/2LCiuyO4RLYGdpFGjkcs0wMTgGE8PrkTHikeUy5iJekXyPIKUjifk5CsE0pt7sMCrMZ3YNqoCj6idQOnQ==
+execa@5.0.1, execa@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-5.0.1.tgz#aee63b871c9b2cb56bc9addcd3c70a785c6bf0d1"
+  integrity sha512-4hFTjFbFzQa3aCLobpbPJR/U+VoL1wdV5ozOWjeet0AWDeYr9UFGM1eUFWHX+VtOWFq4p0xXUXfW1YxUaP4fpw==
   dependencies:
     cross-spawn "^7.0.3"
     get-stream "^6.0.0"
