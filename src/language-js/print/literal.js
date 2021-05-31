@@ -13,9 +13,7 @@ function printLiteral(path, options /*, print*/) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(node.extra.raw);
     case "StringLiteral": // Babel 6 Literal split
-      // When `estree` plugin is enabled in babel `node.raw`
-      // https://github.com/babel/babel/issues/13329
-      return printString(node.raw || node.extra.raw, options);
+      return printString(node.extra.raw, options);
     case "NullLiteral": // Babel 6 Literal split
       return "null";
     case "BooleanLiteral": // Babel 6 Literal split
