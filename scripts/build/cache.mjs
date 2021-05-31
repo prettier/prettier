@@ -66,6 +66,7 @@ class Cache {
 
     const bundle = await rollup(getRollupConfig(inputOptions));
     const { output } = await bundle.generate(outputOptions);
+    await bundle.close();
 
     const modules = output
       .filter((mod) => !/\0/.test(mod.facadeModuleId))

@@ -373,6 +373,7 @@ async function createBundle(bundle, cache, options) {
   } else {
     const result = await rollup(inputOptions);
     await Promise.all(outputOptions.map((option) => result.write(option)));
+    await result.close();
   }
 
   return { bundled: true };
