@@ -212,6 +212,7 @@ function getRollupConfig(bundle) {
       requireReturnsDefault: "preferred",
       ignoreDynamicRequires: true,
       ignoreTryCatch: bundle.target === "node",
+      sourceMap: false,
       ...bundle.commonjs,
     }),
     replaceModule && rollupPluginReplaceModule(replaceModule),
