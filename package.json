@@ -157,7 +157,7 @@
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
-    "build": "node --max-old-space-size=3072 ./scripts/build/build.mjs",
+    "build": "node --max-old-space-size=4096 ./scripts/build/build.mjs",
     "build-docs": "node ./scripts/build-docs.mjs"
   }
 }
