@@ -2,7 +2,6 @@
 
 /** @typedef {import("../../document/doc-builders").Doc} Doc */
 
-/** @type {import("assert")} */
 const assert = require("assert");
 const {
   printDanglingComments,
