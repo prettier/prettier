@@ -49,7 +49,7 @@ describe("Trailing slash", () => {
   testPatterns("2", [".//"], { status: 1, stderr: "" });
   testPatterns("3", ["dir1/"], { status: 1, stderr: "" });
   testPatterns("4", ["dir1//"], { status: 1, stderr: "" });
-  testPatterns("5", ["./dir2/../dir1//"], { status: 1, stderr: "" });
+  testPatterns("5", [".//dir2/..//./dir1//"], { status: 1, stderr: "" });
   testPatterns(
     "run in sub dir 1",
     [".."],

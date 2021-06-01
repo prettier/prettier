@@ -195,7 +195,7 @@ dir1/nested1/bn1.js
 "
 `;
 
-exports[`Trailing slash 5: prettier ./dir2/../dir1// (stdout) 1`] = `
+exports[`Trailing slash 5: prettier .//dir2/..//./dir1// (stdout) 1`] = `
 "dir1/a1.js
 dir1/b1.js
 dir1/nested1/an1.css
