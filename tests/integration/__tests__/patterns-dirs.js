@@ -44,6 +44,38 @@ testPatterns("3", ["nonexistent-dir", "dir2/**/*"], { status: 2 });
 
 testPatterns("4", [".", "dir2/**/*"], { status: 1 });
 
+describe("Trailing slash", () => {
+  testPatterns("1", ["./"], { status: 1, stderr: "" });
+  testPatterns("2", [".//"], { status: 1, stderr: "" });
+  testPatterns("3", ["dir1/"], { status: 1, stderr: "" });
+  testPatterns("4", ["dir1//"], { status: 1, stderr: "" });
+  testPatterns("5", ["./dir2/../dir1//"], { status: 1, stderr: "" });
+  testPatterns(
+    "run in sub dir 1",
+    [".."],
+    { status: 1, stderr: "" },
+    "cli/patterns-dirs/dir2"
+  );
+  testPatterns(
+    "run in sub dir 2",
+    ["../"],
+    { status: 1, stderr: "" },
+    "cli/patterns-dirs/dir2"
+  );
+  testPatterns(
+    "run in sub dir 3",
+    ["../dir1"],
+    { status: 1, stderr: "" },
+    "cli/patterns-dirs/dir2"
+  );
+  testPatterns(
+    "run in sub dir 4",
+    ["../dir1/"],
+    { status: 1, stderr: "" },
+    "cli/patterns-dirs/dir2"
+  );
+});
+
 describe("Negative patterns", () => {
   testPatterns("1", ["dir1", "!dir1/nested1"]);
   testPatterns("1a", ["dir1", "!dir1/nested1/*"]);
@@ -119,7 +151,12 @@ if (path.sep === "/") {
   });
 }
 
-function testPatterns(namePrefix, cliArgs, expected = {}) {
+function testPatterns(
+  namePrefix,
+  cliArgs,
+  expected = {},
+  cwd = "cli/patterns-dirs"
+) {
   const testName =
     (namePrefix ? namePrefix + ": " : "") +
     "prettier " +
@@ -128,7 +165,7 @@ function testPatterns(namePrefix, cliArgs, expected = {}) {
       .join(" ");
 
   describe(testName, () => {
-    runPrettier("cli/patterns-dirs", [...cliArgs, "-l"]).test({
+    runPrettier(cwd, [...cliArgs, "-l"]).test({
       write: [],
       ...(!("status" in expected) && { stderr: "", status: 1 }),
       ...expected,

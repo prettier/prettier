@@ -76,10 +76,11 @@ async function* expandPatternsInternal(context) {
           input: pattern,
         });
       } else if (stat.isDirectory()) {
+        const relativePath = path.relative(cwd, absolutePath) || ".";
         entries.push({
           type: "dir",
           glob:
-            escapePathForGlob(fixWindowsSlashes(pattern)) +
+            escapePathForGlob(fixWindowsSlashes(relativePath)) +
             "/" +
             getSupportedFilesGlob(),
           input: pattern,
