@@ -8,9 +8,15 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.18.1-dev
+## prettierx 0.18.1
 
-[compare prettierx-0.18.0...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.18.0...dev)
+[compare prettierx-0.18.0...prettierx-0.18.1](https://github.com/brodybits/prettierx/compare/prettierx-0.18.0...prettierx-0.18.1)
+
+- cleanup(src): add another objectCurlySpacing option comment
+- Update some dependencies
+  - chalk -> 4.1.1
+  - get-stream -> 6.0.1
+  - mem -> 8.1.1
 
 ## prettierx 0.18.0
 
