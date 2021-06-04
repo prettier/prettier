@@ -464,7 +464,7 @@ function printTypescript(path, options, print) {
         if (!isGlobalDeclaration) {
           parts.push(
             isExternalModule ||
-              /(^|\s)module(\s|$)/.test(textBetweenNodeAndItsId)
+              /(?:^|\s)module(?:\s|$)/.test(textBetweenNodeAndItsId)
               ? "module "
               : "namespace "
           );
