@@ -4,7 +4,7 @@ const frontMatterRegex = new RegExp(
   "^(?<startDelimiter>-{3}|\\+{3})" +
     // trailing spaces after delimiters are allowed
     "(?<language>[^\\n]*)" +
-    "\\n(?:|(?<value>.*?)\\n)" +
+    "\\n(?:(?<value>.*?)\\n)?" +
     // In some markdown processors such as pandoc,
     // "..." can be used as the end delimiter for YAML front-matter.
     // Adding `\.{3}` make the regex matches `+++\n...`, but we'll exclude it later
