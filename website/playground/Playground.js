@@ -37,7 +37,7 @@ const ENABLED_OPTIONS = [
   "trailingComma",
   "proseWrap",
   "htmlWhitespaceSensitivity",
-  "angleBracketSameLine",
+  "bracketSameLine",
   "insertPragma",
   "requirePragma",
   "vueIndentScriptAndStyle",
