@@ -79,9 +79,7 @@ async function* expandPatternsInternal(context) {
         entries.push({
           type: "dir",
           glob:
-            escapePathForGlob(
-              fixWindowsSlashes(pattern.replace(/[/\\]+$/, ""))
-            ) +
+            escapePathForGlob(fixWindowsSlashes(pattern).replace(/\/+$/, "")) +
             "/" +
             getSupportedFilesGlob(),
           input: pattern,
