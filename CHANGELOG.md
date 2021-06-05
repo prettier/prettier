@@ -2,6 +2,33 @@
 
 [diff](https://github.com/prettier/prettier/compare/2.3.0...2.3.1)
 
+#### Support TypeScript 4.3 (#10945 by @sosukesuzuki)
+
+##### [`override` modifiers in class elements](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#override)
+
+```ts
+class Foo extends  {
+  override method() {}
+}
+```
+
+##### [static index signatures (`[key: KeyType]: ValueType`) in classes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#static-index-signatures)
+
+```ts
+class Foo {
+  static [key: string]: Bar;
+}
+```
+
+##### [`get` / `set` in type declarations](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#separate-write-types)
+
+```ts
+interface Foo {
+  set foo(value);
+  get foo(): string;
+}
+```
+
 #### Preserve attributes order for element node (#10958 by @dcyriller)
 
 <!-- prettier-ignore -->
@@ -147,33 +174,6 @@ longfunctionWithCall12(
     code();
   }
 );
-```
-
-#### Support TypeScript 4.3 (#10945 by @sosukesuzuki)
-
-##### [`override` modifiers in class elements](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#override)
-
-```ts
-class Foo extends  {
-  override method() {}
-}
-```
-
-##### [static index signatures (`[key: KeyType]: ValueType`) in classes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#static-index-signatures)
-
-```ts
-class Foo {
-  static [key: string]: Bar;
-}
-```
-
-##### [`get` / `set` in type declarations](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#separate-write-types)
-
-```ts
-interface Foo {
-  set foo(value);
-  get foo(): string;
-}
 ```
 
 #### Avoid breaking call expressions after assignments with complex type arguments (#10949 by @sosukesuzuki)
