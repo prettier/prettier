@@ -30,7 +30,6 @@ async function commit(version) {
   await runGit(["push"]);
 }
 
-// eslint-disable-next-line no-unused-vars
 async function bump({
   version,
   previousVersion,
@@ -58,6 +57,6 @@ module.exports = async function (params) {
   );
 
   await logPromise("Updating files", format());
-  // await logPromise("Bump default branch version", bump(params));
+  await logPromise("Bump default branch version", bump(params));
   await logPromise("Committing changed files", commit(version));
 };
