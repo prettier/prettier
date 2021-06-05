@@ -13,7 +13,6 @@ const languages = [
     filenames: [
       ...data.filenames.filter((filename) => filename !== "yarn.lock"),
       ".prettierrc",
-      ".stylelintrc",
     ],
   })),
 ];
