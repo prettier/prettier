@@ -16,8 +16,7 @@ async function retryNpmPublish() {
     });
   for (let i = 5; i > 0; i--) {
     try {
-      await runNpmPublish();
-      break;
+      return await runNpmPublish();
     } catch (error) {
       if (error.code === "EOTP" && i > 0) {
         console.log(`To enter OTP is failed, you can retry it ${i} times.`);
