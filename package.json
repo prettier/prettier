@@ -113,7 +113,7 @@
     "eslint-plugin-prettier-internal-rules": "link:scripts/tools/eslint-plugin-prettier-internal-rules",
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-regexp": "0.11.0",
-    "eslint-plugin-unicorn": "32.0.1",
+    "eslint-plugin-unicorn": "33.0.1",
     "esm-utils": "1.1.0",
     "execa": "5.1.1",
     "jest": "27.0.3",
