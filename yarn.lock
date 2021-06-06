@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/compiler@12.0.2":
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-12.0.2.tgz#07acd56c3c18320ad2f3e1128b56fa3a9c8a812c"
-  integrity sha512-PLkDb1mxWpsOJwR0t9yDI8A9dSMUEmVf+HdNWFO1aFY84nZ3sH8t6e/BpoaRcbLJCkNgtm9YD8FmRHE30LZ3CA==
+"@angular/compiler@12.0.3":
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-12.0.3.tgz#0d88c652b827bcace866e7e044b3d46ba2abd5de"
+  integrity sha512-Vux9JwHd5pYsSmNvACUWULdT8/nIekP9k2yGqaDdbiHsptk5UCcyH7E0zhMh8Um4NYFqMBZeO0yXySa+7u5aJA==
   dependencies:
     tslib "^2.1.0"
 
@@ -3196,7 +3196,6 @@ eslint-plugin-jest@24.3.6:
 
 "eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules":
   version "0.0.0"
-  uid ""
 
 eslint-plugin-react@7.24.0:
   version "7.24.0"
