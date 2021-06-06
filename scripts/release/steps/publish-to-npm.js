@@ -19,12 +19,11 @@ async function retryNpmPublish() {
     try {
       await runNpmPublish();
     } catch (error) {
-      if (error.code === "EOTP") {
+      if (error.code === "EOTP" && i > 0) {
         console.log(`To enter OTP is failed, you can retry it ${i} times.`);
         continue;
-      } else {
-        throw error;
       }
+      throw error;
     }
   }
 }
