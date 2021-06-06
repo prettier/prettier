@@ -9,7 +9,7 @@ const { logPromise, waitForEnter } = require("../utils");
  * Retry "npm publish" when to enter OTP is failed.
  */
 async function retryNpmPublish() {
-  const runNpmPublish = async () =>
+  const runNpmPublish = () =>
     execa("npm", ["publish"], {
       cwd: "./dist",
       stdio: "inherit", // we need to input OTP if 2FA enabled
