@@ -23,7 +23,7 @@ assertCategory(category);
 
 const { title, user } = await getPr(prNumber);
 
-const newChangelog = await createChangelog(title, user, prNumber);
+const newChangelog = await createChangelog(title, user, prNumber, category);
 
 await addNewChangelog(prNumber, category, newChangelog);
 
@@ -73,9 +73,10 @@ async function addNewChangelog(prNumber, category, newChangelog) {
  * @param {string} title
  * @param {string} user
  * @param {number} prNumber
+ * @param {string} string
  * @returns {string}
  */
-async function createChangelog(title, user, prNumber) {
+async function createChangelog(title, user, prNumber, category) {
   const changelogTemplatePath = path.resolve(
     __dirname,
     "../changelog_unreleased/TEMPLATE.md"
@@ -85,11 +86,81 @@ async function createChangelog(title, user, prNumber) {
   const titlePart = "Title";
   const prNumberPart = "#XXXX";
   const userPart = "@user";
+  const codeBlockPart = "```jsx\n";
+  const inputCommentPart = "// Input\n";
+  const stableCommentPart = "// Prettier stable\n";
+  const mainCommentPart = "// Prettier main\n";
+
+  const syntax = getSyntaxFromCategory(category);
 
   return changelogTemplate
     .replace(titlePart, title)
     .replace(prNumberPart, `#${prNumber}`)
-    .replace(userPart, `@${user}`);
+    .replace(userPart, `@${user}`)
+    .replace(codeBlockPart, `\`\`\`${syntax}\n`)
+    .replace(inputCommentPart, getCommentForSyntax(syntax, "Input") + "\n")
+    .replace(
+      stableCommentPart,
+      getCommentForSyntax(syntax, "Prettier stable") + "\n"
+    )
+    .replace(
+      mainCommentPart,
+      getCommentForSyntax(syntax, "Prettier main") + "\n"
+    );
+}
+
+/**
+ * @param {string} category
+ * @returns {string}
+ */
+function getSyntaxFromCategory(category) {
+  switch (category) {
+    case "angular":
+    case "html":
+    case "lwc":
+      return "html";
+    case "cli":
+      return "sh";
+    case "graphql":
+      return "gql";
+    case "handlebars":
+      return "hbs";
+    case "json":
+      return "jsonc";
+    case "markdownk":
+      return "md";
+    case "mdx":
+      return "mdx";
+    case "flow":
+    case "javascript":
+    case "api":
+      "jsx";
+    case "typescript":
+      "tsx";
+    default:
+      return category;
+  }
+}
+
+/**
+ * @param {string} syntax
+ * @param {string} comment
+ * @returns {string}
+ */
+function getCommentForSyntax(syntax, comment) {
+  switch (syntax) {
+    case "md":
+    case "mdx":
+    case "html":
+      return `<!-- ${comment} -->`;
+    case "sh":
+    case "gql":
+      return `# ${comment}`;
+    case "hbs":
+      return `{{! ${comment} }}`;
+    default:
+      return `// ${comment}`;
+  }
 }
 
 /**
