@@ -3,7 +3,7 @@ import chalk from "chalk";
 
 (async () => {
   const packageJson = JSON.parse(
-    await fs.readFile(new URL("../package.json", import.meta))
+    await fs.readFile(new URL("../package.json", import.meta.url))
   );
 
   validateDependencyObject(packageJson.dependencies);
