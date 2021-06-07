@@ -127,7 +127,7 @@ function getSyntaxFromCategory(category) {
       return "hbs";
     case "json":
       return "jsonc";
-    case "markdownk":
+    case "markdown":
       return "md";
     case "mdx":
       return "mdx";
