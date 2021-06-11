@@ -76,10 +76,16 @@ async function* expandPatternsInternal(context) {
           input: pattern,
         });
       } else if (stat.isDirectory()) {
+        /*
+        1. Remove trailing `/`, `fast-glob` can't find files for `src//*.js` pattern
+        2. Cleanup dirname, when glob `src/../*.js` pattern with `fast-glob`,
+          it returns files like 'src/../index.js'
+        */
+        const relativePath = path.relative(cwd, absolutePath) || ".";
         entries.push({
           type: "dir",
           glob:
-            escapePathForGlob(fixWindowsSlashes(pattern)) +
+            escapePathForGlob(fixWindowsSlashes(relativePath)) +
             "/" +
             getSupportedFilesGlob(),
           input: pattern,
