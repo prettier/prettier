@@ -1,5 +1,4 @@
 import path from "node:path";
-import fs from "node:fs";
 import { rollup } from "rollup";
 import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
 import rollupPluginAlias from "@rollup/plugin-alias";
