@@ -171,6 +171,7 @@ function isSourceElement(opts, node, parentNode) {
     case "typescript":
     case "espree":
     case "meriyah":
+    case "__babel_estree":
       return isJsSourceElement(node.type, parentNode && parentNode.type);
     case "json":
     case "json5":

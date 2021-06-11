@@ -57,7 +57,6 @@ previous: doc0 # previous doc on sidebar for navigation
 next: doc2 # next doc on the sidebar for navigation
 # don’t include next if this is the last doc; don’t include previous if first doc
 ---
-
 ```
 
 The docs from `docs/` are published to `https://prettier.io/docs/en/next/` and are considered to be the docs of the next (not yet released) version of Prettier. When a release happens, the docs from `docs/` are copied to the `website/versioned_docs/version-stable` directory, whose content is published to `https://prettier.io/docs/en`.
@@ -71,7 +70,6 @@ title: Blog Post Title
 author: Author Name
 authorURL: http://github.com/author # (or some other link)
 ---
-
 ```
 
 In the blog post, you should include a line `<!--truncate-->`. This determines under which point text will be ignored when generating the preview of your blog post. Blog posts should have the file name format: `yyyy-mm-dd-your-file-name.md`.

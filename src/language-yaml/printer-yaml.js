@@ -13,9 +13,9 @@ const {
     lineSuffix,
     literalline,
   },
-  utils: { getDocParts },
+  utils: { getDocParts, replaceEndOfLineWith },
 } = require("../document");
-const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
+const { isPreviousLineEmpty } = require("../common/util");
 const { insertPragma, isPragma } = require("./pragma");
 const { locStart } = require("./loc");
 const embed = require("./embed");

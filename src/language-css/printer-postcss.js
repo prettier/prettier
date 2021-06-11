@@ -356,7 +356,7 @@ function genericPrint(path, options, print) {
     }
     case "media-url": {
       return adjustStrings(
-        node.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/gi, ")"),
+        node.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/g, ")"),
         options
       );
     }
@@ -1028,7 +1028,7 @@ function printNodeSequence(path, options, print) {
   return parts;
 }
 
-const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\[\S\s])*\1/g;
+const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\.)*\1/gs;
 const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g;
 const STANDARD_UNIT_REGEX = /[A-Za-z]+/g;
 const WORD_PART_REGEX = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g;

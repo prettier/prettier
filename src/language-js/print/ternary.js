@@ -1,6 +1,5 @@
 "use strict";
 
-const flat = require("lodash/flatten");
 const { hasNewlineInRange } = require("../../common/util");
 const {
   isJsxNode,
@@ -304,13 +303,13 @@ function printTernary(path, options, print) {
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
-  const comments = flat([
+  const comments = [
     ...testNodePropertyNames.map((propertyName) =>
       getComments(node[propertyName])
     ),
     getComments(consequentNode),
     getComments(alternateNode),
-  ]);
+  ].flat();
   const shouldBreak = comments.some(
     (comment) =>
       isBlockComment(comment) &&

@@ -21,9 +21,9 @@ const {
     literalline,
     softline,
   },
-  utils: { mapDoc, cleanDoc, getDocParts, isConcat },
+  utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceEndOfLineWith },
 } = require("../document");
-const { replaceEndOfLineWith, isNonEmptyArray } = require("../common/util");
+const { isNonEmptyArray } = require("../common/util");
 const printFrontMatter = require("../utils/front-matter/print");
 const clean = require("./clean");
 const {
@@ -179,7 +179,7 @@ function embed(path, print, textToDoc, options) {
 
       // lwc: html`<my-element data-for={value}></my-element>`
       if (options.parser === "lwc") {
-        const interpolationRegex = /^{[\S\s]*}$/;
+        const interpolationRegex = /^{.*}$/s;
         if (
           interpolationRegex.test(
             options.originalText.slice(
@@ -1135,7 +1135,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       );
     }
 
-    const interpolationRegex = /{{([\S\s]+?)}}/g;
+    const interpolationRegex = /{{(.+?)}}/gs;
     const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];

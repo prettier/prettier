@@ -455,6 +455,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"filenames\\": [
         \\".arcconfig\\",
         \\".htmlhintrc\\",
+        \\".imgbotconfig\\",
         \\".tern-config\\",
         \\".tern-project\\",
         \\".watchmanconfig\\",
@@ -497,6 +498,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".jscsrc\\",
         \\".jshintrc\\",
         \\".jslintrc\\",
+        \\"api-extractor.json\\",
         \\"devcontainer.json\\",
         \\"jsconfig.json\\",
         \\"language-configuration.json\\",
@@ -707,7 +709,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"aceMode\\": \\"html\\",
-      \\"color\\": \\"#2c3e50\\",
+      \\"color\\": \\"#41b883\\",
       \\"extensions\\": [\\".vue\\"],
       \\"linguistLanguageId\\": 391,
       \\"name\\": \\"Vue\\",

@@ -1,6 +1,5 @@
 "use strict";
 
-const flatten = require("lodash/flatten");
 const tryCombinations = require("../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -65,10 +64,8 @@ function isFlowFile(text, options) {
     text = text.slice(shebang.length);
   }
 
-  const firstNonSpaceNonCommentCharacterIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-    text,
-    0
-  );
+  const firstNonSpaceNonCommentCharacterIndex =
+    getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, 0);
 
   if (firstNonSpaceNonCommentCharacterIndex !== false) {
     text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);
@@ -94,7 +91,10 @@ function parseWithOptions(parseMethod, text, options) {
 
 function createParse(parseMethod, ...optionsCombinations) {
   return (text, parsers, opts = {}) => {
-    if (opts.parser === "babel" && isFlowFile(text, opts)) {
+    if (
+      (opts.parser === "babel" || opts.parser === "__babel_estree") &&
+      isFlowFile(text, opts)
+    ) {
       opts.parser = "babel-flow";
       return parseFlow(text, parsers, opts);
     }
@@ -108,19 +108,17 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     if (text.includes("|>")) {
-      combinations = flatten(
-        pipelineOperatorPlugins.map((pipelineOperatorPlugin) =>
-          combinations.map((options) => ({
-            ...options,
-            plugins: [...options.plugins, pipelineOperatorPlugin],
-          }))
-        )
+      combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
+        combinations.map((options) => ({
+          ...options,
+          plugins: [...options.plugins, pipelineOperatorPlugin],
+        }))
       );
     }
 
     const { result: ast, error } = tryCombinations(
-      ...combinations.map((options) => () =>
-        parseWithOptions(parseMethod, text, options)
+      ...combinations.map(
+        (options) => () => parseWithOptions(parseMethod, text, options)
       )
     );
 
@@ -141,6 +139,10 @@ const parseTypeScript = createParse(
   "parse",
   appendPlugins(["jsx", "typescript"]),
   appendPlugins(["typescript"])
+);
+const parseEstree = createParse(
+  "parse",
+  appendPlugins(["jsx", "flow", "estree"])
 );
 const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
@@ -213,5 +215,7 @@ module.exports = {
     __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */
     __vue_event_binding: babel,
+    /** verify that we can print this AST */
+    __babel_estree: createParser(parseEstree),
   },
 };

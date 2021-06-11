@@ -1,14 +1,16 @@
 "use strict";
 
 // eslint-disable-next-line no-restricted-modules
-require("please-upgrade-node")(require("../../package.json"));
+const packageJson = require("../../package.json");
+require("please-upgrade-node")(packageJson);
 
+// eslint-disable-next-line import/order
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 const core = require("./core");
 
-function run(rawArguments) {
+async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
   let logger = core.createLogger();
 
@@ -22,14 +24,14 @@ function run(rawArguments) {
       logger = core.createLogger(logLevel);
     }
 
-    main(rawArguments, logger);
+    await main(rawArguments, logger);
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
   }
 }
 
-function main(rawArguments, logger) {
+async function main(rawArguments, logger) {
   const context = new core.Context({ rawArguments, logger });
 
   logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
@@ -79,13 +81,13 @@ function main(rawArguments, logger) {
     (!process.stdin.isTTY || context.argv["stdin-filepath"]);
 
   if (context.argv["find-config-path"]) {
-    core.logResolvedConfigPathOrDie(context);
+    await core.logResolvedConfigPathOrDie(context);
   } else if (context.argv["file-info"]) {
-    core.logFileInfoOrDie(context);
+    await core.logFileInfoOrDie(context);
   } else if (useStdin) {
-    core.formatStdin(context);
+    await core.formatStdin(context);
   } else if (hasFilePatterns) {
-    core.formatFiles(context);
+    await core.formatFiles(context);
   } else {
     logger.log(core.createUsage(context));
     process.exitCode = 1;

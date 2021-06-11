@@ -1,6 +1,6 @@
-a:
+a: # a.trailingComment
   123
-  # impicitMappginValue
+  # implicitMappingValue
 
 ? b
   # explicitMappingKey

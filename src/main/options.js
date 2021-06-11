@@ -3,7 +3,6 @@
 const fs = require("fs");
 const path = require("path");
 const readlines = require("n-readlines");
-const fromPairs = require("lodash/fromPairs");
 const { UndefinedParserError } = require("../common/errors");
 const { getSupportInfo } = require("../main/support");
 const normalizer = require("./options-normalizer");
@@ -29,7 +28,7 @@ function normalize(options, opts = {}) {
 
   const defaults = {
     ...hiddenDefaults,
-    ...fromPairs(
+    ...Object.fromEntries(
       supportOptions
         .filter((optionInfo) => optionInfo.default !== undefined)
         .map((option) => [option.name, option.default])
@@ -68,7 +67,7 @@ function normalize(options, opts = {}) {
   const plugin = getPlugin(rawOptions);
   rawOptions.printer = plugin.printers[rawOptions.astFormat];
 
-  const pluginDefaults = fromPairs(
+  const pluginDefaults = Object.fromEntries(
     supportOptions
       .filter(
         (optionInfo) =>

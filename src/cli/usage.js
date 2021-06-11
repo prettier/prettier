@@ -1,7 +1,6 @@
 "use strict";
 
 const groupBy = require("lodash/groupBy");
-const flat = require("lodash/flatten");
 const camelCase = require("camelcase");
 const constant = require("./constant");
 
@@ -74,9 +73,7 @@ function createChoiceUsages(choices, margin, indentation) {
     (choice) => !choice.deprecated && choice.since !== null
   );
   const threshold =
-    activeChoices
-      .map((choice) => choice.value.length)
-      .reduce((current, length) => Math.max(current, length), 0) + margin;
+    Math.max(0, ...activeChoices.map((choice) => choice.value.length)) + margin;
   return activeChoices.map((choice) =>
     indent(
       createOptionUsageRow(choice.value, choice.description, threshold),
@@ -112,7 +109,7 @@ function getOptionsWithOpposites(options) {
         }
       : null,
   ]);
-  return flat(optionsWithOpposites).filter(Boolean);
+  return optionsWithOpposites.flat().filter(Boolean);
 }
 
 function createUsage(context) {

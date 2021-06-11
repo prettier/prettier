@@ -9,9 +9,10 @@ function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
   return function parse(text /*, parsers, options*/) {
+    const { parseExpression } = require("@babel/parser");
     let ast;
     try {
-      ast = require("@babel/parser").parseExpression(text, {
+      ast = parseExpression(text, {
         tokens: true,
         ranges: true,
       });

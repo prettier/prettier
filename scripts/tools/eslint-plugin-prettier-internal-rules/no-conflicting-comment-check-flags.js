@@ -41,8 +41,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-conflicting-comment-check-flags.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-conflicting-comment-check-flags.js",
     },
     messages: {
       [MESSAGE_ID_UNIQUE]: "Do not use same flag multiple times.",

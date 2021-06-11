@@ -1,21 +1,20 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs");
+const { promises: fs } = require("fs");
 const fastGlob = require("fast-glob");
-const flat = require("lodash/flatten");
 
 /** @typedef {import('./context').Context} Context */
 
 /**
  * @param {Context} context
  */
-function* expandPatterns(context) {
+async function* expandPatterns(context) {
   const cwd = process.cwd();
   const seen = new Set();
   let noResults = true;
 
-  for (const pathOrError of expandPatternsInternal(context)) {
+  for await (const pathOrError of expandPatternsInternal(context)) {
     noResults = false;
     if (typeof pathOrError !== "string") {
       yield pathOrError;
@@ -44,7 +43,7 @@ function* expandPatterns(context) {
 /**
  * @param {Context} context
  */
-function* expandPatternsInternal(context) {
+async function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
   const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
   if (context.argv["with-node-modules"] !== true) {
@@ -68,7 +67,7 @@ function* expandPatternsInternal(context) {
       continue;
     }
 
-    const stat = statSafeSync(absolutePath);
+    const stat = await statSafe(absolutePath);
     if (stat) {
       if (stat.isFile()) {
         entries.push({
@@ -77,10 +76,16 @@ function* expandPatternsInternal(context) {
           input: pattern,
         });
       } else if (stat.isDirectory()) {
+        /*
+        1. Remove trailing `/`, `fast-glob` can't find files for `src//*.js` pattern
+        2. Cleanup dirname, when glob `src/../*.js` pattern with `fast-glob`,
+          it returns files like 'src/../index.js'
+        */
+        const relativePath = path.relative(cwd, absolutePath) || ".";
         entries.push({
           type: "dir",
           glob:
-            escapePathForGlob(fixWindowsSlashes(pattern)) +
+            escapePathForGlob(fixWindowsSlashes(relativePath)) +
             "/" +
             getSupportedFilesGlob(),
           input: pattern,
@@ -102,7 +107,7 @@ function* expandPatternsInternal(context) {
     let result;
 
     try {
-      result = fastGlob.sync(glob, globOptions);
+      result = await fastGlob(glob, globOptions);
     } catch ({ message }) {
       /* istanbul ignore next */
       yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
@@ -121,11 +126,11 @@ function* expandPatternsInternal(context) {
 
   function getSupportedFilesGlob() {
     if (!supportedFilesGlob) {
-      const extensions = flat(
-        context.languages.map((lang) => lang.extensions || [])
+      const extensions = context.languages.flatMap(
+        (lang) => lang.extensions || []
       );
-      const filenames = flat(
-        context.languages.map((lang) => lang.filenames || [])
+      const filenames = context.languages.flatMap(
+        (lang) => lang.filenames || []
       );
       supportedFilesGlob = `**/{${[
         ...extensions.map((ext) => "*" + (ext[0] === "." ? ext : "." + ext)),
@@ -171,11 +176,11 @@ function sortPaths(paths) {
 /**
  * Get stats of a given path.
  * @param {string} filePath The path to target file.
- * @returns {fs.Stats | undefined} The stats.
+ * @returns {Promise<import('fs').Stats | undefined>} The stats.
  */
-function statSafeSync(filePath) {
+async function statSafe(filePath) {
   try {
-    return fs.statSync(filePath);
+    return await fs.stat(filePath);
   } catch (error) {
     /* istanbul ignore next */
     if (error.code !== "ENOENT") {

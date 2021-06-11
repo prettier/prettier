@@ -1,6 +1,5 @@
 "use strict";
 
-const fromPairs = require("lodash/fromPairs");
 const semver = {
   compare: require("semver/functions/compare"),
   lt: require("semver/functions/lt"),
@@ -31,7 +30,7 @@ function getSupportInfo({
   const version = currentVersion.split("-", 1)[0];
 
   const languages = plugins
-    .reduce((all, plugin) => [...all, ...(plugin.languages || [])], [])
+    .flatMap((plugin) => plugin.languages || [])
     .filter(filterSince);
 
   const options = arrayify(
@@ -65,7 +64,7 @@ function getSupportInfo({
         }
       }
 
-      const pluginDefaults = fromPairs(
+      const pluginDefaults = Object.fromEntries(
         plugins
           .filter(
             (plugin) =>

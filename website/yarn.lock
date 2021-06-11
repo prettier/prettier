@@ -1200,22 +1200,22 @@
     "@webassemblyjs/ast" "1.11.0"
     "@xtuc/long" "4.2.2"
 
-"@webpack-cli/configtest@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@webpack-cli/configtest/-/configtest-1.0.2.tgz#2a20812bfb3a2ebb0b27ee26a52eeb3e3f000836"
-  integrity sha512-3OBzV2fBGZ5TBfdW50cha1lHDVf9vlvRXnjpVbJBa20pSZQaSkMJZiwA8V2vD9ogyeXn8nU5s5A6mHyf5jhMzA==
+"@webpack-cli/configtest@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@webpack-cli/configtest/-/configtest-1.0.3.tgz#204bcff87cda3ea4810881f7ea96e5f5321b87b9"
+  integrity sha512-WQs0ep98FXX2XBAfQpRbY0Ma6ADw8JR6xoIkaIiJIzClGOMqVRvPCWqndTxf28DgFopWan0EKtHtg/5W1h0Zkw==
 
-"@webpack-cli/info@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@webpack-cli/info/-/info-1.2.3.tgz#ef819d10ace2976b6d134c7c823a3e79ee31a92c"
-  integrity sha512-lLek3/T7u40lTqzCGpC6CAbY6+vXhdhmwFRxZLMnRm6/sIF/7qMpT8MocXCRQfz0JAh63wpbXLMnsQ5162WS7Q==
+"@webpack-cli/info@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@webpack-cli/info/-/info-1.2.4.tgz#7381fd41c9577b2d8f6c2594fad397ef49ad5573"
+  integrity sha512-ogE2T4+pLhTTPS/8MM3IjHn0IYplKM4HbVNMCWA9N4NrdPzunwenpCsqKEXyejMfRu6K8mhauIPYf8ZxWG5O6g==
   dependencies:
     envinfo "^7.7.3"
 
-"@webpack-cli/serve@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.3.1.tgz#911d1b3ff4a843304b9c3bacf67bb34672418441"
-  integrity sha512-0qXvpeYO6vaNoRBI52/UsbcaBydJCggoBBnIo/ovQQdn6fug0BgwsjorV1hVS7fMqGVTZGcVxv8334gjmbj5hw==
+"@webpack-cli/serve@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@webpack-cli/serve/-/serve-1.4.0.tgz#f84fd07bcacefe56ce762925798871092f0f228e"
+  integrity sha512-xgT/HqJ+uLWGX+Mzufusl3cgjAcnqYYskaB7o0vRcwOEfuu6hMzSILQpnIzFMGsTaeaX4Nnekl+6fadLbl1/Vg==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -1294,11 +1294,6 @@ alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
-
-ansi-colors@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
-  integrity sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==
 
 ansi-red@^0.1.1:
   version "0.1.1"
@@ -2026,10 +2021,10 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
-codemirror-graphql@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-1.0.1.tgz#858fd43b0c5d48fd2f6e90a0efe72ee95033b139"
-  integrity sha512-5ttMpv2kMn99Rmf2aZ5P6/hMd3y11cN8LP/x5MUeF0ipcalZA/GE/OxxXkhV0YJE/uW5QIcPyZDkvtSsGZa23A==
+codemirror-graphql@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-1.0.2.tgz#cfbfb4ab9ed81467dc606848c5eb84e1f5d82766"
+  integrity sha512-D4+BdYa6iQnDlio4mBk1Yap5ROCqEWapSFLkiKGatx/I0dF6euzdwd0um3Ndudw6rFQbNuT7hpcH8tnBO6VOfQ==
   dependencies:
     graphql-language-service-interface "^2.8.2"
     graphql-language-service-parser "^1.9.0"
@@ -2139,10 +2134,10 @@ concat-with-sourcemaps@*:
   dependencies:
     source-map "^0.6.1"
 
-concurrently@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.0.2.tgz#4ecdfc78a72a6f626a3a5d3c2a7a81962f3663e3"
-  integrity sha512-u+1Q0dJG5BidgUTpz9CU16yoHTt/oApFDQ3mbvHwSDgMjU7aGqy0q8ZQyaZyaNxdwRKTD872Ux3Twc6//sWA+Q==
+concurrently@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.2.0.tgz#587e2cb8afca7234172d8ea55176088632c4c56d"
+  integrity sha512-v9I4Y3wFoXCSY2L73yYgwA9ESrQMpRn80jMcqMgHx720Hecz2GZAvTI6bREVST6lkddNypDKRN22qhK0X8Y00g==
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.16.1"
@@ -2836,13 +2831,6 @@ enhanced-resolve@^5.8.0:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
 
-enquirer@^2.3.6:
-  version "2.3.6"
-  resolved "https://registry.yarnpkg.com/enquirer/-/enquirer-2.3.6.tgz#2a7fe5dd634a1e4125a975ec994ff5456dc3734d"
-  integrity sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
-  dependencies:
-    ansi-colors "^4.1.1"
-
 entities@^1.1.1, entities@~1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
@@ -3019,7 +3007,7 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-scope@^5.1.1:
+eslint-scope@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-5.1.1.tgz#e786e59a66cb92b3f6c1fb0d508aab174848f48c"
   integrity sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==
@@ -7615,10 +7603,10 @@ vscode-languageserver-types@^3.15.1:
   resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.15.1.tgz#17be71d78d2f6236d414f0001ce1ef4d23e6b6de"
   integrity sha512-+a9MPUQrNGRrGU630OGbYVQ+11iOIovjCkqxajPa9w57Sd5ruK8WQNsslzpa0x/QJqC8kRc2DUxWjIFwoNm4ZQ==
 
-watchpack@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-2.0.0.tgz#b12248f32f0fd4799b7be0802ad1f6573a45955c"
-  integrity sha512-xSdCxxYZWNk3VK13bZRYhsQpfa8Vg63zXG+3pyU8ouqSLRCv4IGXIp9Kr226q6GBkGRlZrST2wwKtjfKz2m7Cg==
+watchpack@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-2.2.0.tgz#47d78f5415fe550ecd740f99fe2882323a58b1ce"
+  integrity sha512-up4YAn/XHgZHIxFBVCdlMiWDj6WaLKpwVeGQk2I5thdYxF/KmF0aaz6TfJZ/hfl1h/XlcDr7k1KH7ThDagpFaA==
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
@@ -7628,18 +7616,17 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-cli@4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-4.6.0.tgz#27ae86bfaec0cf393fcfd58abdc5a229ad32fd16"
-  integrity sha512-9YV+qTcGMjQFiY7Nb1kmnupvb1x40lfpj8pwdO/bom+sQiP4OBMKjHq29YQrlDWDPZO9r/qWaRRywKaRDKqBTA==
+webpack-cli@4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-4.7.0.tgz#3195a777f1f802ecda732f6c95d24c0004bc5a35"
+  integrity sha512-7bKr9182/sGfjFm+xdZSwgQuFjgEcy0iCTIBxRUeteJ2Kr8/Wz0qNJX+jw60LU36jApt4nmMkep6+W5AKhok6g==
   dependencies:
     "@discoveryjs/json-ext" "^0.5.0"
-    "@webpack-cli/configtest" "^1.0.2"
-    "@webpack-cli/info" "^1.2.3"
-    "@webpack-cli/serve" "^1.3.1"
+    "@webpack-cli/configtest" "^1.0.3"
+    "@webpack-cli/info" "^1.2.4"
+    "@webpack-cli/serve" "^1.4.0"
     colorette "^1.2.1"
     commander "^7.0.0"
-    enquirer "^2.3.6"
     execa "^5.0.0"
     fastest-levenshtein "^1.0.12"
     import-local "^3.0.2"
@@ -7656,18 +7643,18 @@ webpack-merge@^5.7.3:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"
 
-webpack-sources@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.1.1.tgz#6922dc1bf7f7f95aab56675535b6e20f87b9147f"
-  integrity sha512-hraq9n99K564zuZUsE61iATO3jvzxOmGo20UlOe3zgdHOBp8inTJgv7EY4RgvCv7Ywx0/vpQTyYSjnFpv4gNtQ==
+webpack-sources@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.3.0.tgz#9ed2de69b25143a4c18847586ad9eccb19278cfa"
+  integrity sha512-WyOdtwSvOML1kbgtXbTDnEW0jkJ7hZr/bDByIwszhWd/4XX1A3XMkrbFMsuH4+/MfLlZCUzlAdg4r7jaGKEIgQ==
   dependencies:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.36.2:
-  version "5.36.2"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.36.2.tgz#6ef1fb2453ad52faa61e78d486d353d07cca8a0f"
-  integrity sha512-XJumVnnGoH2dV+Pk1VwgY4YT6AiMKpVoudUFCNOXMIVrEKPUgEwdIfWPjIuGLESAiS8EdIHX5+TiJz/5JccmRg==
+webpack@5.38.1:
+  version "5.38.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.38.1.tgz#5224c7f24c18e729268d3e3bc97240d6e880258e"
+  integrity sha512-OqRmYD1OJbHZph6RUMD93GcCZy4Z4wC0ele4FXyYF0J6AxO1vOSuIlU1hkS/lDlR9CDYBz64MZRmdbdnFFoT2g==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.47"
@@ -7679,7 +7666,7 @@ webpack@5.36.2:
     chrome-trace-event "^1.0.2"
     enhanced-resolve "^5.8.0"
     es-module-lexer "^0.4.0"
-    eslint-scope "^5.1.1"
+    eslint-scope "5.1.1"
     events "^3.2.0"
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.2.4"
@@ -7690,8 +7677,8 @@ webpack@5.36.2:
     schema-utils "^3.0.0"
     tapable "^2.1.1"
     terser-webpack-plugin "^5.1.1"
-    watchpack "^2.0.0"
-    webpack-sources "^2.1.1"
+    watchpack "^2.2.0"
+    webpack-sources "^2.3.0"
 
 websocket-driver@>=0.5.1:
   version "0.7.0"

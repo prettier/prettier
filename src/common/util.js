@@ -423,7 +423,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
-  const regex = /\\([\S\s])|(["'])/g;
+  const regex = /\\(.)|(["'])/gs;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
@@ -568,17 +568,6 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function replaceEndOfLineWith(text, replacement) {
-  const parts = [];
-  for (const part of text.split("\n")) {
-    if (parts.length > 0) {
-      parts.push(replacement);
-    }
-    parts.push(part);
-  }
-  return parts;
-}
-
 function inferParserByLanguage(language, options) {
   const { languages } = getSupportInfo({ plugins: options.plugins });
   const matched =
@@ -608,6 +597,10 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+/**
+ * @param {any} object
+ * @returns {object is Array<any>}
+ */
 function isNonEmptyArray(object) {
   return Array.isArray(object) && object.length > 0;
 }
@@ -645,7 +638,6 @@ function describeNodeForDebugging(node) {
 
 module.exports = {
   inferParserByLanguage,
-  replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,

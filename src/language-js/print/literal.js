@@ -29,6 +29,10 @@ function printLiteral(path, options /*, print*/) {
         return printBigInt(node.raw);
       }
 
+      if (node.decimal) {
+        return printNumber(node.decimal) + "m";
+      }
+
       const { value } = node;
 
       if (typeof value === "number") {

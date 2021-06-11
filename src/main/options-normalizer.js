@@ -3,7 +3,6 @@
 const vnopts = require("vnopts");
 const leven = require("leven");
 const chalk = require("chalk");
-const flat = require("lodash/flatten");
 const getLast = require("../utils/get-last");
 
 const cliDescriptor = {
@@ -148,14 +147,12 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       break;
     case "flag":
       SchemaConstructor = FlagSchema;
-      parameters.flags = flat(
-        optionInfos.map((optionInfo) =>
-          [
-            optionInfo.alias,
-            optionInfo.description && optionInfo.name,
-            optionInfo.oppositeDescription && `no-${optionInfo.name}`,
-          ].filter(Boolean)
-        )
+      parameters.flags = optionInfos.flatMap((optionInfo) =>
+        [
+          optionInfo.alias,
+          optionInfo.description && optionInfo.name,
+          optionInfo.oppositeDescription && `no-${optionInfo.name}`,
+        ].filter(Boolean)
       );
       break;
     case "path":

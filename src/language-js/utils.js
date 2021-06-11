@@ -668,29 +668,6 @@ function hasLeadingOwnLineComment(text, node) {
   );
 }
 
-// This recurses the return argument, looking for the first token
-// (the leftmost leaf node) and, if it (or its parents) has any
-// leadingComments, returns true (so it can be wrapped in parens).
-function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument)) {
-    return true;
-  }
-
-  if (hasNakedLeftSide(argument)) {
-    let leftMost = argument;
-    let newLeftMost;
-    while ((newLeftMost = getLeftSide(leftMost))) {
-      leftMost = newLeftMost;
-
-      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
 // Note: Quoting/unquoting numbers in TypeScript is not safe.
 //
 // let a = { 1: 1, 2: 2 }
@@ -733,7 +710,8 @@ function isStringPropSafeToUnquote(node, options) {
         String(Number(node.key.value)) === node.key.value &&
         (options.parser === "babel" ||
           options.parser === "espree" ||
-          options.parser === "meriyah")))
+          options.parser === "meriyah" ||
+          options.parser === "__babel_estree")))
   );
 }
 
@@ -916,14 +894,11 @@ function isSimpleCallArgument(node, depth) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
-  if (node.type === "ImportExpression") {
-    return isChildSimple(node.source);
-  }
-
   if (isCallLikeExpression(node)) {
     return (
-      isSimpleCallArgument(node.callee, depth) &&
-      node.arguments.every(isChildSimple)
+      (node.type === "ImportExpression" ||
+        isSimpleCallArgument(node.callee, depth)) &&
+      getCallArguments(node).every(isChildSimple)
     );
   }
 
@@ -1195,13 +1170,15 @@ function getCallArguments(node) {
   if (callArgumentsCache.has(node)) {
     return callArgumentsCache.get(node);
   }
-  const args =
-    node.type === "ImportExpression"
-      ? // No parser except `babel` supports `import("./foo.json", { assert: { type: "json" } })` yet,
-        // And `babel` parser it as `CallExpression`
-        // We need add the second argument here
-        [node.source]
-      : node.arguments;
+
+  let args = node.arguments;
+  if (node.type === "ImportExpression") {
+    args = [node.source];
+
+    if (node.attributes) {
+      args.push(node.attributes);
+    }
+  }
 
   callArgumentsCache.set(node, args);
   return args;
@@ -1209,9 +1186,12 @@ function getCallArguments(node) {
 
 function iterateCallArgumentsPath(path, iteratee) {
   const node = path.getValue();
-  // See comment in `getCallArguments`
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+
+    if (node.attributes) {
+      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
+    }
   } else {
     path.each(iteratee, "arguments");
   }
@@ -1317,12 +1297,21 @@ function isCallLikeExpression(node) {
   );
 }
 
+function isObjectProperty(node) {
+  return (
+    node &&
+    (node.type === "ObjectProperty" ||
+      (node.type === "Property" && !node.method && node.kind === "init"))
+  );
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,
   iterateCallArgumentsPath,
   hasRestParameter,
+  getLeftSide,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -1355,6 +1344,7 @@ module.exports = {
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,
+  isObjectProperty,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleType,
@@ -1370,7 +1360,6 @@ module.exports = {
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
-  returnArgumentHasLeadingComment,
   shouldPrintComma,
   isBitwiseOperator,
   shouldFlatten,

@@ -185,8 +185,7 @@ test("no-conflicting-comment-check-flags", {
       ],
     },
     {
-      code:
-        "(CommentCheckFlags.Leading | CommentCheckFlags.Trailing) | CommentCheckFlags.Dangling",
+      code: "(CommentCheckFlags.Leading | CommentCheckFlags.Trailing) | CommentCheckFlags.Dangling",
       output: null,
       errors: [
         {
@@ -196,8 +195,7 @@ test("no-conflicting-comment-check-flags", {
       ],
     },
     {
-      code:
-        "CommentCheckFlags.Leading | CommentCheckFlags.Trailing | CommentCheckFlags.UNKNOWN",
+      code: "CommentCheckFlags.Leading | CommentCheckFlags.Trailing | CommentCheckFlags.UNKNOWN",
       output: null,
       errors: [
         {
@@ -207,8 +205,7 @@ test("no-conflicting-comment-check-flags", {
       ],
     },
     {
-      code:
-        "CommentCheckFlags.Block | CommentCheckFlags.Line | CommentCheckFlags.UNKNOWN",
+      code: "CommentCheckFlags.Block | CommentCheckFlags.Line | CommentCheckFlags.UNKNOWN",
       output: null,
       errors: [
         {

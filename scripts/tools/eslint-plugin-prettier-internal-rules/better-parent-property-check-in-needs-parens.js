@@ -48,8 +48,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/better-parent-property-check-in-needs-parens.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/better-parent-property-check-in-needs-parens.js",
     },
     messages: {
       [MESSAGE_ID_PREFER_NAME_CHECK]:

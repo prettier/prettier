@@ -18,8 +18,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-unnecessary-ast-path-call.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-unnecessary-ast-path-call.js",
     },
     messages: {
       [messageId]: "Do not use `AstPath.call()` with one argument.",

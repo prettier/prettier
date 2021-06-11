@@ -23,10 +23,9 @@ const {
     group,
     hardlineWithoutBreakParent,
   },
-  utils: { normalizeDoc },
+  utils: { normalizeDoc, replaceEndOfLineWith },
   printer: { printDocToString },
 } = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
 const embed = require("./embed");
 const { insertPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
@@ -275,7 +274,7 @@ function genericPrint(path, options, print) {
         parentNode.type === "root" && getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
+      const isHtmlComment = /^<!--.*-->$/s.test(value);
       return replaceEndOfLineWith(
         value,
         isHtmlComment ? hardline : markAsRoot(literalline)
