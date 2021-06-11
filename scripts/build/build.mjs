@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import path from "node:path";
-import fs from "node:fs/promises";
 import readline from "node:readline";
 import chalk from "chalk";
 import execa from "execa";
