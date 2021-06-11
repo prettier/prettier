@@ -27,7 +27,7 @@ function calculateLocStart(node, text) {
   }
 
   /* istanbul ignore next */
-  console.log(node);
+  // console.log(node);
   /* istanbul ignore next */
   throw new Error("Can not locate node.");
 }
