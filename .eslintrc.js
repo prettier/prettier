@@ -1,4 +1,5 @@
 "use strict";
+const { isCI } = require("ci-info");
 
 module.exports = {
   root: true,
@@ -23,6 +24,7 @@ module.exports = {
       },
     ],
     "import/order": "error",
+    "no-console": isCI ? "error" : "off",
     "no-else-return": [
       "error",
       {
@@ -121,7 +123,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["scripts/**/*.js"],
+      files: ["scripts/**/*.js", "scripts/**/*.mjs"],
       rules: {
         "no-console": "off",
       },
