@@ -42,7 +42,7 @@ run_spec(
 run_spec(
   {
     dirname: __dirname,
-    snippets: ["async (x = await (2)) => {};"],
+    snippets: ["async (x = await (2)) => {};", "async({ foo33 = 1 });"],
   },
   ["babel", "espree", "meriyah"]
 );
