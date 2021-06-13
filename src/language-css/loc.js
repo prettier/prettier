@@ -27,6 +27,7 @@ function calculateLocStart(node, text) {
   }
 
   /* istanbul ignore next */
+  // eslint-disable-next-line no-console
   console.log(node);
   /* istanbul ignore next */
   throw new Error("Can not locate node.");
