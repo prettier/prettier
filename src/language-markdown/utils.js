@@ -51,9 +51,13 @@ function splitText(text, options) {
   /** @type {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>} */
   const nodes = [];
 
-  const tokens = (options.proseWrap === "preserve"
-    ? text
-    : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
+  const tokens = (
+    options.proseWrap === "preserve"
+      ? text
+      : text.replace(
+          new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"),
+          "$1$2"
+        )
   ).split(/([\t\n ]+)/);
   for (const [index, token] of tokens.entries()) {
     // whitespace

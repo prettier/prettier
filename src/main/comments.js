@@ -1,6 +1,5 @@
 "use strict";
 
-/** @type {import("assert")} */
 const assert = require("assert");
 
 const {
@@ -312,10 +311,8 @@ function isOwnLineComment(text, options, decoratedComments, commentIndex) {
   if (precedingNode) {
     // Find first comment on the same line
     for (let index = commentIndex - 1; index >= 0; index--) {
-      const {
-        comment,
-        precedingNode: currentCommentPrecedingNode,
-      } = decoratedComments[index];
+      const { comment, precedingNode: currentCommentPrecedingNode } =
+        decoratedComments[index];
       if (
         currentCommentPrecedingNode !== precedingNode ||
         !isAllEmptyAndNoLineBreak(text.slice(locEnd(comment), start))
@@ -341,10 +338,8 @@ function isEndOfLineComment(text, options, decoratedComments, commentIndex) {
       index < decoratedComments.length;
       index++
     ) {
-      const {
-        comment,
-        followingNode: currentCommentFollowingNode,
-      } = decoratedComments[index];
+      const { comment, followingNode: currentCommentFollowingNode } =
+        decoratedComments[index];
       if (
         currentCommentFollowingNode !== followingNode ||
         !isAllEmptyAndNoLineBreak(text.slice(end, locStart(comment)))

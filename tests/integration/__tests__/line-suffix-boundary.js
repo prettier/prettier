@@ -3,14 +3,8 @@
 /** @type {import('prettier')} */
 const prettier = require("prettier-local");
 
-const {
-  group,
-  indent,
-  line,
-  lineSuffix,
-  lineSuffixBoundary,
-  softline,
-} = prettier.doc.builders;
+const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
+  prettier.doc.builders;
 
 const printDoc = require("../printDoc");
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require("fs");
+const { promises: fs } = require("fs");
 const path = require("path");
 
 const chalk = require("chalk");
@@ -105,7 +105,7 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-function format(context, input, opt) {
+async function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
       "No parser and no file path given, couldn't infer a parser."
@@ -164,7 +164,8 @@ function format(context, input, opt) {
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
-      benchmark = eval("require")("benchmark");
+      // eslint-disable-next-line import/no-extraneous-dependencies
+      benchmark = require("benchmark");
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
@@ -220,9 +221,9 @@ function format(context, input, opt) {
   return prettier.formatWithCursor(input, opt);
 }
 
-function createIgnorerFromContextOrDie(context) {
+async function createIgnorerFromContextOrDie(context) {
   try {
-    return createIgnorer.sync(
+    return await createIgnorer(
       context.argv["ignore-path"],
       context.argv["with-node-modules"]
     );
@@ -232,45 +233,45 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function formatStdin(context) {
+async function formatStdin(context) {
   const filepath = context.argv["stdin-filepath"]
     ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
     : process.cwd();
 
-  const ignorer = createIgnorerFromContextOrDie(context);
+  const ignorer = await createIgnorerFromContextOrDie(context);
   // If there's an ignore-path set, the filename must be relative to the
   // ignore path, not the current working directory.
   const relativeFilepath = context.argv["ignore-path"]
     ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
     : path.relative(process.cwd(), filepath);
 
-  getStdin()
-    .then((input) => {
-      if (
-        relativeFilepath &&
-        ignorer.ignores(fixWindowsSlashes(relativeFilepath))
-      ) {
-        writeOutput(context, { formatted: input });
-        return;
-      }
+  try {
+    const input = await getStdin();
 
-      const options = getOptionsForFile(context, filepath);
+    if (
+      relativeFilepath &&
+      ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+    ) {
+      writeOutput(context, { formatted: input });
+      return;
+    }
 
-      if (listDifferent(context, input, options, "(stdin)")) {
-        return;
-      }
+    const options = await getOptionsForFile(context, filepath);
 
-      writeOutput(context, format(context, input, options), options);
-    })
-    .catch((error) => {
-      handleError(context, relativeFilepath || "stdin", error);
-    });
+    if (listDifferent(context, input, options, "(stdin)")) {
+      return;
+    }
+
+    writeOutput(context, await format(context, input, options), options);
+  } catch (error) {
+    handleError(context, relativeFilepath || "stdin", error);
+  }
 }
 
-function formatFiles(context) {
+async function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = createIgnorerFromContextOrDie(context);
+  const ignorer = await createIgnorerFromContextOrDie(context);
 
   let numberOfUnformattedFilesFound = 0;
 
@@ -278,7 +279,7 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  for (const pathOrError of expandPatterns(context)) {
+  for await (const pathOrError of expandPatterns(context)) {
     if (typeof pathOrError === "object") {
       context.logger.error(pathOrError.error);
       // Don't exit, but set the exit code to 2
@@ -305,7 +306,7 @@ function formatFiles(context) {
     }
 
     const options = {
-      ...getOptionsForFile(context, filename),
+      ...(await getOptionsForFile(context, filename)),
       filepath: filename,
     };
 
@@ -319,7 +320,7 @@ function formatFiles(context) {
 
     let input;
     try {
-      input = fs.readFileSync(filename, "utf8");
+      input = await fs.readFile(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
       /* istanbul ignore next */
@@ -349,7 +350,7 @@ function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, options);
+      result = await format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error, printedFilename);
@@ -372,7 +373,7 @@ function formatFiles(context) {
         }
 
         try {
-          fs.writeFileSync(filename, output, "utf8");
+          await fs.writeFile(filename, output, "utf8");
         } catch (error) {
           /* istanbul ignore next */
           context.logger.error(

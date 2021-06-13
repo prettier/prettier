@@ -55,7 +55,7 @@ async function update() {
   );
 
   if (isUpdated) {
-    logPromise("Committing and pushing to remote", async () => {
+    await logPromise("Committing and pushing to remote", async () => {
       await runGit(["add", "."]);
       await runGit(["commit", "-m", "Update dependents count"]);
       await runGit(["push"]);

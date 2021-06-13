@@ -5,8 +5,10 @@ const { hasPragma } = require("./pragma");
 const { locStart, locEnd } = require("./loc");
 
 function parse(text) {
+  const { parse } = require("yaml-unist-parser");
+
   try {
-    const root = require("yaml-unist-parser").parse(text);
+    const root = parse(text);
 
     /**
      * suppress `comment not printed` error

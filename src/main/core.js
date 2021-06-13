@@ -168,7 +168,7 @@ function formatRange(originalText, opts) {
       rangeEnd: Number.POSITIVE_INFINITY,
       // Track the cursor offset only if it's within our range
       cursorOffset:
-        opts.cursorOffset > rangeStart && opts.cursorOffset < rangeEnd
+        opts.cursorOffset > rangeStart && opts.cursorOffset <= rangeEnd
           ? opts.cursorOffset - rangeStart
           : -1,
       // Always use `lf` to format, we'll replace it later
@@ -182,7 +182,7 @@ function formatRange(originalText, opts) {
   const rangeTrimmed = rangeResult.formatted.trimEnd();
 
   let { cursorOffset } = opts;
-  if (cursorOffset >= rangeEnd) {
+  if (cursorOffset > rangeEnd) {
     // handle the case where the cursor was past the end of the range
     cursorOffset += rangeTrimmed.length - rangeString.length;
   } else if (rangeResult.cursorOffset >= 0) {

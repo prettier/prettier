@@ -3,7 +3,7 @@
 const { isNonEmptyArray, getStringWidth } = require("../../common/util");
 const {
   builders: { line, group, indent, indentIfBreak },
-  utils: { cleanDoc },
+  utils: { cleanDoc, willBreak },
 } = require("../../document");
 const {
   hasLeadingOwnLineComment,
@@ -17,6 +17,7 @@ const {
   rawText,
   hasComment,
   isSignedNumericLiteral,
+  isObjectProperty,
 } = require("../utils");
 const { shouldInlineLogicalExpression } = require("./binaryish");
 const { printCallExpression } = require("./call-expression");
@@ -136,7 +137,11 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     return "never-break-after-operator";
   }
 
-  if (isComplexDestructuring(node)) {
+  if (
+    isComplexDestructuring(node) ||
+    isComplexTypeAliasParams(node) ||
+    hasComplexTypeAnnotation(node)
+  ) {
     return "break-lhs";
   }
 
@@ -225,8 +230,7 @@ function isComplexDestructuring(node) {
       leftNode.properties.length > 2 &&
       leftNode.properties.some(
         (property) =>
-          (property.type === "ObjectProperty" ||
-            property.type === "Property") &&
+          isObjectProperty(property) &&
           (!property.shorthand ||
             (property.value && property.value.type === "AssignmentPattern"))
       )
@@ -241,6 +245,71 @@ function isAssignment(node) {
 
 function isAssignmentOrVariableDeclarator(node) {
   return isAssignment(node) || node.type === "VariableDeclarator";
+}
+
+function isComplexTypeAliasParams(node) {
+  const typeParams = getTypeParametersFromTypeAlias(node);
+  if (isNonEmptyArray(typeParams)) {
+    const constraintPropertyName =
+      node.type === "TSTypeAliasDeclaration" ? "constraint" : "bound";
+    if (
+      typeParams.length > 1 &&
+      typeParams.some((param) => param[constraintPropertyName] || param.default)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getTypeParametersFromTypeAlias(node) {
+  if (isTypeAlias(node) && node.typeParameters && node.typeParameters.params) {
+    return node.typeParameters.params;
+  }
+  return null;
+}
+
+function isTypeAlias(node) {
+  return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
+}
+
+function hasComplexTypeAnnotation(node) {
+  if (node.type !== "VariableDeclarator") {
+    return false;
+  }
+  const { typeAnnotation } = node.id;
+  if (!typeAnnotation || !typeAnnotation.typeAnnotation) {
+    return false;
+  }
+  const typeParams = getTypeParametersFromTypeReference(
+    typeAnnotation.typeAnnotation
+  );
+  return (
+    isNonEmptyArray(typeParams) &&
+    typeParams.length > 1 &&
+    typeParams.some(
+      (param) =>
+        isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
+        param.type === "TSConditionalType"
+    )
+  );
+}
+
+function getTypeParametersFromTypeReference(node) {
+  if (
+    isTypeReference(node) &&
+    node.typeParameters &&
+    node.typeParameters.params
+  ) {
+    return node.typeParameters.params;
+  }
+  return null;
+}
+
+function isTypeReference(node) {
+  return (
+    node.type === "TSTypeReference" || node.type === "GenericTypeAnnotation"
+  );
 }
 
 /**
@@ -273,6 +342,10 @@ function isPoorlyBreakableMemberOrCallChain(
       args.length === 0 ||
       (args.length === 1 && isLoneShortArgument(args[0], options));
     if (!isPoorlyBreakableCall) {
+      return false;
+    }
+
+    if (isCallExpressionWithComplexTypeArguments(node, print)) {
       return false;
     }
 
@@ -327,7 +400,7 @@ function isLoneShortArgument(node, { printWidth }) {
 }
 
 function isObjectPropertyWithShortKey(node, keyDoc, options) {
-  if (node.type !== "ObjectProperty" && node.type !== "Property") {
+  if (!isObjectProperty(node)) {
     return false;
   }
   // TODO: for performance, it might make sense to use a more lightweight
@@ -343,6 +416,40 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
   return (
     typeof keyDoc === "string" &&
     getStringWidth(keyDoc) < options.tabWidth + MIN_OVERLAP_FOR_BREAK
+  );
+}
+
+function isCallExpressionWithComplexTypeArguments(node, print) {
+  const typeArgs = getTypeArgumentsFromCallExpression(node);
+  if (isNonEmptyArray(typeArgs)) {
+    if (typeArgs.length > 1) {
+      return true;
+    }
+    if (typeArgs.length === 1) {
+      const firstArg = typeArgs[0];
+      if (
+        firstArg.type === "TSUnionType" ||
+        firstArg.type === "UnionTypeAnnotation" ||
+        firstArg.type === "TSIntersectionType" ||
+        firstArg.type === "IntersectionTypeAnnotation"
+      ) {
+        return true;
+      }
+    }
+    const typeArgsKeyName = node.typeParameters
+      ? "typeParameters"
+      : "typeArguments";
+    if (willBreak(print(typeArgsKeyName))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getTypeArgumentsFromCallExpression(node) {
+  return (
+    (node.typeParameters && node.typeParameters.params) ||
+    (node.typeArguments && node.typeArguments.params)
   );
 }
 

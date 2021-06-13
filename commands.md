@@ -59,7 +59,7 @@ declare function conditionalGroup(
 ): Doc;
 ```
 
-This will try to print the first argument, if it fit use it, otherwise go to the next one and so on.
+This will try to print the first alternative, if it fit use it, otherwise go to the next one and so on. The alternatives is an array of documents going from the least expanded (most flattened) representation first to the most expanded.
 
 ```js
 conditionalGroup([a, b, c]);
@@ -292,7 +292,7 @@ declare const hardlineWithoutBreakParent: Doc;
 declare const literallineWithoutBreakParent: Doc;
 ```
 
-These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit (`breakParent`)[#breakParent].
+These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit [`breakParent`](#breakParent).
 
 Examples:
 

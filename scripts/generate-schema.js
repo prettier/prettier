@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 "use strict";
-const fromPairs = require("lodash/fromPairs");
 
 if (require.main !== module) {
   module.exports = generateSchema;
@@ -22,7 +21,7 @@ function generateSchema(options) {
     definitions: {
       optionsDefinition: {
         type: "object",
-        properties: fromPairs(
+        properties: Object.fromEntries(
           options.map((option) => [option.name, optionToSchema(option)])
         ),
       },
@@ -79,19 +78,30 @@ function generateSchema(options) {
 }
 
 function optionToSchema(option) {
+  let schema;
+  if (option.type === "choice") {
+    const choicesSchema = option.choices.map(choiceToSchema);
+    let key = "oneOf";
+    if (option.name === "parser") {
+      // To support custom parser
+      //   ref: https://github.com/SchemaStore/schemastore/pull/1636
+      choicesSchema.push({ type: "string", description: "Custom parser" });
+      // We should use "anyOf" for "parser" option.
+      //   ref: https://github.com/SchemaStore/schemastore/pull/1642
+      key = "anyOf";
+    }
+    schema = { [key]: choicesSchema };
+  } else {
+    schema = { type: optionTypeToSchemaType(option.type) };
+  }
+  if (option.array) {
+    schema = wrapWithArraySchema(schema);
+  }
   return {
     description: option.description,
     default: option.default,
-    ...(option.array ? wrapWithArraySchema : identity)(
-      option.type === "choice"
-        ? { oneOf: option.choices.map(choiceToSchema) }
-        : { type: optionTypeToSchemaType(option.type) }
-    ),
+    ...schema,
   };
-}
-
-function identity(x) {
-  return x;
 }
 
 function wrapWithArraySchema(items) {

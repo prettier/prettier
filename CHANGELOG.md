@@ -1,3 +1,234 @@
+# 2.3.1
+
+[diff](https://github.com/prettier/prettier/compare/2.3.0...2.3.1)
+
+#### Support TypeScript 4.3 (#10945 by @sosukesuzuki)
+
+##### [`override` modifiers in class elements](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#override)
+
+```ts
+class Foo extends  {
+  override method() {}
+}
+```
+
+##### [static index signatures (`[key: KeyType]: ValueType`) in classes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#static-index-signatures)
+
+```ts
+class Foo {
+  static [key: string]: Bar;
+}
+```
+
+##### [`get` / `set` in type declarations](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#separate-write-types)
+
+```ts
+interface Foo {
+  set foo(value);
+  get foo(): string;
+}
+```
+
+#### Preserve attributes order for element node (#10958 by @dcyriller)
+
+<!-- prettier-ignore -->
+```handlebars
+{{!-- Input --}}
+<MyComponent
+  {{! this is a comment for arg 1}}
+  @arg1="hello"
+  {{on "clik" this.modify}}
+  @arg2="hello"
+  {{! this is a comment for arg 3}}
+  @arg3="hello"
+  @arg4="hello"
+  {{! this is a comment for arg 5}}
+  @arg5="hello"
+  ...arguments
+/>
+{{!-- Prettier stable --}}
+<MyComponent
+  @arg1="hello"
+  @arg2="hello"
+  @arg3="hello"
+  @arg4="hello"
+  @arg5="hello"
+  ...arguments
+  {{on "clik" this.modify}}
+  {{! this is a comment for arg 1}}
+  {{! this is a comment for arg 3}}
+  {{! this is a comment for arg 5}}
+/>
+{{!-- Prettier main --}}
+<MyComponent
+  {{! this is a comment for arg 1}}
+  @arg1="hello"
+  {{on "clik" this.modify}}
+  @arg2="hello"
+  {{! this is a comment for arg 3}}
+  @arg3="hello"
+  @arg4="hello"
+  {{! this is a comment for arg 5}}
+  @arg5="hello"
+  ...arguments
+/>
+```
+
+#### Track cursor position properly when it’s at the end of the range to format (#10938 by @j-f1)
+
+Previously, if the cursor was at the end of the range to format, it would simply be placed back at the end of the updated range.
+Now, it will be repositioned if Prettier decides to add additional code to the end of the range (such as a semicolon).
+
+<!-- prettier-ignore -->
+```jsx
+// Input (<|> represents the cursor)
+const someVariable = myOtherVariable<|>
+// range to format:  ^^^^^^^^^^^^^^^
+
+// Prettier stable
+const someVariable = myOtherVariable;<|>
+// range to format:  ^^^^^^^^^^^^^^^
+
+// Prettier main
+const someVariable = myOtherVariable<|>;
+// range to format:  ^^^^^^^^^^^^^^^
+```
+
+#### Break the LHS of type alias that has complex type parameters (#10901 by @sosukesusuzki)
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+// Prettier stable
+type FieldLayoutWith<T extends string, S extends unknown = { width: string }> =
+  {
+    type: T;
+    code: string;
+    size: S;
+  };
+
+// Prettier main
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+```
+
+#### Break the LHS of assignments that has complex type parameters (#10916 by @sosukesuzuki)
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+// Prettier stable
+const map: Map<Function, Map<string | void, { value: UnloadedDescriptor }>> =
+  new Map();
+
+// Prettier main
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+```
+
+#### Fix incorrectly wrapped arrow functions with return types (#10940 by @thorn0)
+
+<!-- prettier-ignore -->
+```ts
+// Input
+longfunctionWithCall12("bla", foo, (thing: string): complex<type<something>> => {
+  code();
+});
+
+// Prettier stable
+longfunctionWithCall12("bla", foo, (thing: string): complex<
+  type<something>
+> => {
+  code();
+});
+
+// Prettier main
+longfunctionWithCall12(
+  "bla",
+  foo,
+  (thing: string): complex<type<something>> => {
+    code();
+  }
+);
+```
+
+#### Avoid breaking call expressions after assignments with complex type arguments (#10949 by @sosukesuzuki)
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+// Prettier stable
+const foo =
+  call<{
+    prop1: string;
+    prop2: string;
+    prop3: string;
+  }>();
+
+// Prettier main
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+```
+
+#### Fix order of `override` modifiers (#10961 by @sosukesuzuki)
+
+```ts
+// Input
+class Foo extends Bar {
+  abstract override foo: string;
+}
+
+// Prettier stable
+class Foo extends Bar {
+  abstract override foo: string;
+}
+
+// Prettier main
+class Foo extends Bar {
+  abstract override foo: string;
+}
+```
+
+# 2.3.0
+
+[diff](https://github.com/prettier/prettier/compare/2.2.1...2.3.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/05/09/2.3.0.html)
+
 # 2.2.1
 
 [diff](https://github.com/prettier/prettier/compare/2.2.0...2.2.1)

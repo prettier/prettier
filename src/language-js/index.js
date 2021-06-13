@@ -167,6 +167,10 @@ const parsers = {
   get meriyah() {
     return require("./parser-meriyah").parsers.meriyah;
   },
+  // JS - Babel Estree
+  get __babel_estree() {
+    return require("./parser-babel").parsers.__babel_estree;
+  },
 };
 
 module.exports = {

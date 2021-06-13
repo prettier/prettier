@@ -60,7 +60,7 @@ function printImgSrcset(value) {
   );
 }
 
-const prefixDelimiters = ["__", "--", "_", "-"];
+const prefixDelimiters = [":", "__", "--", "_", "-"];
 
 function getClassPrefix(className) {
   const startIndex = className.search(/[^_-]/);

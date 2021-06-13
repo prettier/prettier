@@ -3,10 +3,9 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const { SynchronousPromise } = require("synchronous-promise");
 const { prettierCli, thirdParty } = require("./env");
 
-function runPrettier(dir, args = [], options = {}) {
+async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
 
   let status;
@@ -43,18 +42,28 @@ function runPrettier(dir, args = [], options = {}) {
 
   const write = [];
 
-  jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
-    write.push({ filename, content });
-  });
+  jest
+    .spyOn(fs.promises, "writeFile")
+    .mockImplementation(async (filename, content) => {
+      write.push({ filename, content });
+    });
 
-  const origStatSync = fs.statSync;
+  /*
+    A fake non-existing directory to test plugin search won't crash.
 
-  jest.spyOn(fs, "statSync").mockImplementation((filename) => {
-    if (path.basename(filename) === "virtualDirectory") {
-      return origStatSync(path.join(__dirname, __filename));
-    }
-    return origStatSync(filename);
-  });
+    See:
+    - `isDirectory` function in `src/common/load-plugins.js`
+    - Test file `./__tests__/plugin-virtual-directory.js`
+    - Pull request #5819
+  */
+  const originalStatSync = fs.statSync;
+  jest
+    .spyOn(fs, "statSync")
+    .mockImplementation((filename) =>
+      originalStatSync(
+        path.basename(filename) === "virtualDirectory" ? __filename : filename
+      )
+    );
 
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
@@ -74,7 +83,7 @@ function runPrettier(dir, args = [], options = {}) {
   // "get-stream" module to mock.
   jest
     .spyOn(require(thirdParty), "getStdin")
-    .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
+    .mockImplementation(async () => options.input || "");
   jest
     .spyOn(require(thirdParty), "isCI")
     .mockImplementation(() => Boolean(options.ci));
@@ -99,7 +108,7 @@ function runPrettier(dir, args = [], options = {}) {
     .mockImplementation(() => process.cwd());
 
   try {
-    require(prettierCli);
+    await require(prettierCli);
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
@@ -113,11 +122,59 @@ function runPrettier(dir, args = [], options = {}) {
     jest.restoreAllMocks();
   }
 
-  const result = { status, stdout, stderr, write };
+  return { status, stdout, stderr, write };
 
-  const testResult = (testOptions) => {
-    for (const name of Object.keys(result)) {
-      test(`(${name})`, () => {
+  function appendStdout(text) {
+    if (status === undefined) {
+      stdout += text;
+    }
+  }
+  function appendStderr(text) {
+    if (status === undefined) {
+      stderr += text;
+    }
+  }
+}
+
+let hasRunningCli = false;
+function runPrettier(dir, args = [], options = {}) {
+  let promise;
+  const getters = {
+    get status() {
+      return runCli().then(({ status }) => status);
+    },
+    get stdout() {
+      return runCli().then(({ stdout }) => stdout);
+    },
+    get stderr() {
+      return runCli().then(({ stderr }) => stderr);
+    },
+    get write() {
+      return runCli().then(({ write }) => write);
+    },
+    test: testResult,
+  };
+
+  return getters;
+
+  function runCli() {
+    if (hasRunningCli) {
+      throw new Error("Please wait for previous CLI to exit.");
+    }
+
+    if (!promise) {
+      hasRunningCli = true;
+      promise = run(dir, args, options).finally(() => {
+        hasRunningCli = false;
+      });
+    }
+    return promise;
+  }
+
+  function testResult(testOptions) {
+    for (const name of ["status", "stdout", "stderr", "write"]) {
+      test(`(${name})`, async () => {
+        const result = await runCli();
         const value =
           // \r is trimmed from jest snapshots by default;
           // manually replacing this character with /*CR*/ to test its true presence
@@ -139,20 +196,7 @@ function runPrettier(dir, args = [], options = {}) {
       });
     }
 
-    return result;
-  };
-
-  return { test: testResult, ...result };
-
-  function appendStdout(text) {
-    if (status === undefined) {
-      stdout += text;
-    }
-  }
-  function appendStderr(text) {
-    if (status === undefined) {
-      stderr += text;
-    }
+    return getters;
   }
 }
 

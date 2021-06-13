@@ -10,6 +10,12 @@ const { printBinaryishExpression } = require("./binaryish");
 
 function printAngular(path, options, print) {
   const node = path.getValue();
+
+  // Angular nodes always starts with `NG`
+  if (!node.type.startsWith("NG")) {
+    return;
+  }
+
   switch (node.type) {
     case "NGRoot":
       return [
@@ -83,6 +89,11 @@ function printAngular(path, options, print) {
       ];
     case "NGMicrosyntaxAs":
       return [print("key"), " as ", print("alias")];
+    default:
+      /* istanbul ignore next */
+      throw new Error(
+        `Unknown Angular node type: ${JSON.stringify(node.type)}.`
+      );
   }
 }
 

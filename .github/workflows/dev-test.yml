@@ -22,7 +22,6 @@ jobs:
           - "16"
           - "14"
           - "12"
-          - "10"
         include:
           # only enable coverage on the fastest job
           - os: "ubuntu-latest"
@@ -30,17 +29,11 @@ jobs:
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
-          - os: "ubuntu-latest"
-            node: "15"
         exclude:
           - os: "macos-latest"
             node: "14"
-          - os: "macos-latest"
-            node: "12"
           - os: "windows-latest"
             node: "14"
-          - os: "windows-latest"
-            node: "12"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
@@ -71,7 +64,7 @@ jobs:
         run: yarn test --maxWorkers=2
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v1.4.1
+        uses: codecov/codecov-action@v1.5.2
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           fail_ci_if_error: true
@@ -83,7 +76,7 @@ jobs:
           PRETTIER_FALLBACK_RESOLVE: true
 
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v1.4.1
+        uses: codecov/codecov-action@v1.5.2
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           fail_ci_if_error: true

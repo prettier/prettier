@@ -164,7 +164,7 @@ function splitWithSingleSpace(text) {
   const parts = [];
 
   let lastPart;
-  for (const part of text.split(/( +)/g)) {
+  for (const part of text.split(/( +)/)) {
     /* istanbul ignore else */
     if (part !== " ") {
       if (lastPart === " ") {
@@ -251,7 +251,7 @@ function getBlockValueLineContents(
       : options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           // exclude open line `>` or `|`
-          .match(/^[^\n]*?\n([\S\s]*)$/)[1];
+          .match(/^[^\n]*?\n(.*)$/s)[1];
 
   const leadingSpaceCount =
     node.indent === null

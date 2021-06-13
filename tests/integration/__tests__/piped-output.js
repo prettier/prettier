@@ -19,8 +19,12 @@ describe("output with --check + unformatted differs when piped", () => {
     status: 0,
   });
 
-  expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-  expect(result0.write).toEqual(result1.write);
+  test("Result", async () => {
+    expect((await result0.stdout).length).toBeGreaterThan(
+      (await result1.stdout).length
+    );
+    expect(await result0.write).toEqual(await result1.write);
+  });
 });
 
 describe("no file diffs with --check + formatted file", () => {
@@ -40,9 +44,13 @@ describe("no file diffs with --check + formatted file", () => {
     status: 0,
   });
 
-  expect(result0.stdout).not.toEqual(result1.stdout);
-  expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-  expect(result0.write).toEqual(result1.write);
+  test("Result", async () => {
+    expect(await result0.stdout).not.toEqual(await result1.stdout);
+    expect((await result0.stdout).length).toBeGreaterThan(
+      (await result1.stdout).length
+    );
+    expect(await result0.write).toEqual(await result1.write);
+  });
 });
 
 describe("output with --list-different + unformatted differs when piped", () => {
@@ -62,8 +70,12 @@ describe("output with --list-different + unformatted differs when piped", () => 
     status: 0,
   });
 
-  expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-  expect(result0.write).toEqual(result1.write);
+  test("Result", async () => {
+    expect((await result0.stdout).length).toBeGreaterThan(
+      (await result1.stdout).length
+    );
+    expect(await result0.write).toEqual(await result1.write);
+  });
 });
 
 describe("no file diffs with --list-different + formatted file", () => {
@@ -83,7 +95,11 @@ describe("no file diffs with --list-different + formatted file", () => {
     status: 0,
   });
 
-  expect(result0.stdout).not.toEqual(result1.stdout);
-  expect(result0.stdout.length).toBeGreaterThan(result1.stdout.length);
-  expect(result0.write).toEqual(result1.write);
+  test("Result", async () => {
+    expect(await result0.stdout).not.toEqual(await result1.stdout);
+    expect((await result0.stdout).length).toBeGreaterThan(
+      (await result1.stdout).length
+    );
+    expect(await result0.write).toEqual(await result1.write);
+  });
 });
