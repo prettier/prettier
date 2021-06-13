@@ -101,6 +101,34 @@ import json from "./foo.json" assert { type: "json", type: "bar" };
 ================================================================================
 `;
 
+exports[`non-type.js [espree] format 1`] = `
+"Unexpected token assert (1:28)
+> 1 | import foo from \\"foo.json\\" assert { lazy: \\"true\\" };
+    |                            ^
+  2 |"
+`;
+
+exports[`non-type.js [meriyah] format 1`] = `
+"[1:33]: Unexpected token: 'identifier' (1:33)
+> 1 | import foo from \\"foo.json\\" assert { lazy: \\"true\\" };
+    |                                 ^
+  2 |"
+`;
+
+exports[`non-type.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import foo from "foo.json" assert { lazy: "true" };
+
+=====================================output=====================================
+import foo from "foo.json" assert { lazy: "true" };
+
+================================================================================
+`;
+
 exports[`not-import-assertions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
