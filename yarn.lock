@@ -3319,16 +3319,16 @@ eslint-plugin-react@7.24.0:
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.5"
 
-eslint-plugin-regexp@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.11.0.tgz#e260e844e1a93d9fd63c8ca87be7433d8d5b6163"
-  integrity sha512-+I/iCVkdjRRG+EPnw+hdbh1daNGkeiwEhPQuwM2AMOxvOuuI2nvjjg3PIPsdWsrVzUOzY0d7boLlSmFR7Z7G/Q==
+eslint-plugin-regexp@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.12.0.tgz#e65e96356de8ffa665bc35f0c5f47611dd2ac52a"
+  integrity sha512-sHq+6+F4+A7wy+z5xdmv88az5qm3GzT5XwifWSz1oPYNo5Oy2mXij230ULq4S0rL/OOu4kn0AUBhXV05Vb/I5Q==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
     jsdoctypeparser "^9.0.0"
     refa "^0.8.0"
-    regexp-ast-analysis "^0.2.0"
+    regexp-ast-analysis "^0.2.2"
     regexpp "^3.1.0"
 
 eslint-plugin-unicorn@33.0.1:
@@ -6211,10 +6211,10 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regexp-ast-analysis@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.0.tgz#2d676024539dc11a0d99d0ddf861d818ba20a1b5"
-  integrity sha512-ZVNwBF65Gn4CbRdPNYle8NAPFSDbbJ83svYUk4Mpqmr1QTUx2M06my9x7o8Hw/oFXDwXrJo/7W+ijLfFM5oG2Q==
+regexp-ast-analysis@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.2.tgz#01512911f2e1fdf69d070aff3951bbeb5a5b9ca4"
+  integrity sha512-inLIbwizLLAZkpC9/8zp8CeSkJJPsRaqXGDVpxEbNRZD10E+OP6vRDHt7OS9JjWECQLvOI2EmHx7DgdpyAvdrQ==
   dependencies:
     refa "^0.8.0"
     regexpp "^3.1.0"
