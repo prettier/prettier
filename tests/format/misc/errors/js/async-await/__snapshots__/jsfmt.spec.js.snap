@@ -84,6 +84,12 @@ exports[`snippet: #1 [babel] format 2`] = `
     |                       ^"
 `;
 
+exports[`snippet: #1 [babel] format 3`] = `
+"Unexpected token (1:15)
+> 1 | async({ foo33 = 1 });
+    |               ^"
+`;
+
 exports[`snippet: #1 [espree] format 1`] = `
 "Cannot use keyword 'await' outside an async function (1:12)
 > 1 | async (x = await 2) => {};
@@ -91,6 +97,12 @@ exports[`snippet: #1 [espree] format 1`] = `
 `;
 
 exports[`snippet: #1 [espree] format 2`] = `
+"Shorthand property assignments are valid only in destructuring patterns (1:15)
+> 1 | async({ foo33 = 1 });
+    |               ^"
+`;
+
+exports[`snippet: #1 [espree] format 3`] = `
 "Cannot use keyword 'await' outside an async function (1:1)
 > 1 | await 0;
     | ^"
@@ -109,6 +121,12 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 2`] = `
+"[1:21]: Invalid shorthand property initializer (1:21)
+> 1 | async({ foo33 = 1 });
+    |                     ^"
+`;
+
+exports[`snippet: #1 [meriyah] format 3`] = `
 "[1:5]: 'Await' may not be used as an identifier in this context (1:5)
 > 1 | await 0;
     |     ^"
