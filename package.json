@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "2.3.0-dev",
+  "version": "2.3.0",
   "description": "Prettier is an opinionated code formatter",
   "bin": "./bin/prettier.js",
   "repository": "prettier/prettier",
@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "11.2.12",
+    "@angular/compiler": "11.2.13",
     "@babel/code-frame": "7.12.13",
     "@babel/parser": "7.14.1",
     "@glimmer/syntax": "0.79.0",
@@ -43,7 +43,7 @@
     "fast-glob": "3.2.5",
     "fast-json-stable-stringify": "2.1.0",
     "find-parent-dir": "0.3.0",
-    "flow-parser": "0.150.0",
+    "flow-parser": "0.150.1",
     "get-stdin": "8.0.0",
     "globby": "11.0.3",
     "graphql": "15.5.0",
@@ -106,7 +106,7 @@
     "builtin-modules": "3.2.0",
     "cross-env": "7.0.3",
     "cspell": "4.2.8",
-    "eslint": "7.25.0",
+    "eslint": "7.26.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.22.1",

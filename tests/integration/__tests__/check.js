@@ -44,5 +44,7 @@ describe("--checks works in CI just as in a non-TTY mode", () => {
     status: 1,
   });
 
-  expect(result0.stdout).toEqual(result1.stdout);
+  test("Should have same stdout", async () => {
+    expect(await result0.stdout).toEqual(await result1.stdout);
+  });
 });
