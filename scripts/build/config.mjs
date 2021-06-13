@@ -71,6 +71,8 @@ const parsers = [
       // `colorette`
       '"NO_COLOR" in process.env': "true",
     },
+    // TODO[@fisker]: Enable minify
+    minify: false,
   },
   {
     input: "src/language-graphql/parser-graphql.js",
