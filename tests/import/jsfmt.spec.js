@@ -1,2 +1,5 @@
-run_spec(__dirname, ["flow", "typescript"]);
-run_spec(__dirname, ["flow", "typescript"], { importCurlySpacing: false });
+// [prettierx] test with muliple Babel parsers:
+run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"]);
+run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
+  importCurlySpacing: false,
+});
