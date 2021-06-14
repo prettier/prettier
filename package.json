@@ -25,7 +25,7 @@
     "@babel/parser": "7.14.5",
     "@glimmer/syntax": "0.79.3",
     "@iarna/toml": "2.2.5",
-    "@typescript-eslint/typescript-estree": "4.26.1",
+    "@typescript-eslint/typescript-estree": "4.27.0",
     "angular-estree-parser": "2.4.0",
     "angular-html-parser": "1.8.0",
     "camelcase": "6.2.0",
