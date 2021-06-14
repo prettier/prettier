@@ -190,6 +190,9 @@ function printTypescript(path, options, print) {
       if (node.static) {
         parts.push("static ");
       }
+      if (node.override) {
+        parts.push("override ");
+      }
       if (node.readonly) {
         parts.push("readonly ");
       }
