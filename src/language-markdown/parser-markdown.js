@@ -1,6 +1,6 @@
 "use strict";
 
-const remarkParse = require("remark-parse");
+const remarkParse = require("@brodybits/remark-parse");
 const unified = require("unified");
 const pragma = require("./pragma");
 const parseFrontMatter = require("../utils/front-matter");
