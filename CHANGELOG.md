@@ -8,9 +8,15 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.18.2-dev
+## prettierx 0.18.2
 
-[compare prettierx-0.18.1...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.18.1...dev)
+[compare prettierx-0.18.1...prettierx-0.18.2](https://github.com/brodybits/prettierx/compare/prettierx-0.18.1...prettierx-0.18.2)
+
+- fix: switch to @brodybits/remark-parse fork (#598)
+- Update some dependencies
+  - @glimmer/syntax -> 0.56.2
+  - ci-info -> 3.2.0
+  - find-parent-dir -> 0.3.1
 
 ## prettierx 0.18.1
 
