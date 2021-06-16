@@ -11,6 +11,7 @@ const updateConfig = (config) =>
 (async () => {
   console.log("Empty words ...");
   const config = JSON.parse(await fs.readFile(CSPELL_CONFIG_FILE, "utf8"));
+  const oldWords = config.words;
   await updateConfig({ ...config, words: [] });
 
   console.log("Running spellcheck with empty words ...");
@@ -41,6 +42,24 @@ const updateConfig = (config) =>
   const subprocess = execa("yarn lint:spellcheck");
   subprocess.stdout.pipe(process.stdout);
   await subprocess;
+
+  const newWords = config.words;
+  const removed = oldWords.filter((word) => !newWords.includes(word));
+  if (removed.length > 0) {
+    console.log(
+      `${removed.length} words removed: \n${removed
+        .map((word) => ` - ${word}`)
+        .join("\n")}`
+    );
+  }
+  const added = newWords.filter((word) => !oldWords.includes(word));
+  if (added.length > 0) {
+    console.log(
+      `${added.length} words added: \n${removed
+        .map((word) => ` - ${word}`)
+        .join("\n")}`
+    );
+  }
 
   console.log("CSpell config file updated.");
 })().catch((error) => {
