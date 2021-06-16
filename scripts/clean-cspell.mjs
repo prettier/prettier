@@ -5,13 +5,13 @@ import execa from "execa";
 
 const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta.url);
 
-const updateConfig = async (config) =>
-  await fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
+const updateConfig = (config) =>
+  fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
 
 (async () => {
   console.log("Empty words ...");
   const config = JSON.parse(await fs.readFile(CSPELL_CONFIG_FILE, "utf8"));
-  updateConfig({ ...config, words: [] });
+  await updateConfig({ ...config, words: [] });
 
   console.log("Running spellcheck with empty words ...");
   try {
@@ -35,7 +35,7 @@ const updateConfig = async (config) =>
   }
 
   console.log("Updating words ...");
-  updateConfig(config);
+  await updateConfig(config);
 
   console.log("Running spellcheck with new words ...");
   const subprocess = execa("yarn lint:spellcheck");
@@ -43,4 +43,7 @@ const updateConfig = async (config) =>
   await subprocess;
 
   console.log("CSpell config file updated.");
-})();
+})().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

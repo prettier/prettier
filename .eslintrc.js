@@ -38,6 +38,7 @@ module.exports = {
       // `!foo === bar` and `!foo !== bar`
       'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]',
     ],
+    "no-return-await": "error",
     "no-unneeded-ternary": "error",
     "no-useless-return": "error",
     "no-unused-vars": [
@@ -85,6 +86,7 @@ module.exports = {
         avoidEscape: true,
       },
     ],
+    "require-await": "error",
     strict: "error",
     "symbol-description": "error",
     yoda: [
