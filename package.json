@@ -133,7 +133,7 @@
     "synchronous-promise": "2.0.15",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "4.2.3",
-    "typescript": "3.9.9",
+    "typescript": "3.9.10",
     "webpack": "4.46.0"
   },
   "peerDependenciesMeta": {
