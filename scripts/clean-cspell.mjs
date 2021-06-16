@@ -4,9 +4,9 @@ import fs from "node:fs/promises";
 import execa from "execa";
 
 const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta.url);
-
 const updateConfig = (config) =>
   fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
+const runSpellcheck = () => execa("yarn", ["lint:spellcheck"]);
 
 (async () => {
   console.log("Empty words ...");
@@ -16,7 +16,7 @@ const updateConfig = (config) =>
 
   console.log("Running spellcheck with empty words ...");
   try {
-    await execa("yarn lint:spellcheck");
+    await runSpellcheck();
   } catch ({ stdout }) {
     let words = [...stdout.matchAll(/ - Unknown word \((.*?)\)/g)].map(
       ([, word]) => word
@@ -35,14 +35,6 @@ const updateConfig = (config) =>
     config.words = words;
   }
 
-  console.log("Updating words ...");
-  await updateConfig(config);
-
-  console.log("Running spellcheck with new words ...");
-  const subprocess = execa("yarn lint:spellcheck");
-  subprocess.stdout.pipe(process.stdout);
-  await subprocess;
-
   const newWords = config.words;
   const removed = oldWords.filter((word) => !newWords.includes(word));
   if (removed.length > 0) {
@@ -55,11 +47,19 @@ const updateConfig = (config) =>
   const added = newWords.filter((word) => !oldWords.includes(word));
   if (added.length > 0) {
     console.log(
-      `${added.length} words added: \n${removed
+      `${added.length} words added: \n${added
         .map((word) => ` - ${word}`)
         .join("\n")}`
     );
   }
+
+  console.log("Updating words ...");
+  await updateConfig(config);
+
+  console.log("Running spellcheck with new words ...");
+  const subprocess = runSpellcheck();
+  subprocess.stdout.pipe(process.stdout);
+  await subprocess;
 
   console.log("CSpell config file updated.");
 })().catch((error) => {
