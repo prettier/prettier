@@ -148,7 +148,7 @@ export const printers = {
 Printing is a recursive process of converting an AST node (represented by a path to that node) into a doc. The doc is constructed using the [builder commands](https://github.com/prettier/prettier/blob/master/commands.md):
 
 ```js
-const { concat, join, line, ifBreak, group } = require("prettier").doc.builders;
+const { concat, join, line, ifBreak, group } = require("prettierx").doc.builders;
 ```
 
 The signature of the `print` function is:
@@ -261,7 +261,7 @@ function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => nu
 Since plugins can be resolved using relative paths, when working on one you can do:
 
 ```js
-const prettier = require("prettier");
+const prettier = require("prettierx");
 const code = "(add 1 2)";
 prettier.format(code, {
   parser: "lisp",

@@ -29,8 +29,8 @@ See [Usage](#usage) below for examples.
 ### ES Modules
 
 ```js
-import prettier from "prettier/standalone";
-import parserGraphql from "prettier/parser-graphql";
+import prettier from "prettierx/standalone";
+import parserGraphql from "prettierx/parser-graphql";
 
 prettier.format("query { }", {
   parser: "graphql",
@@ -52,8 +52,8 @@ define([
 ### CommonJS
 
 ```js
-const prettier = require("prettier/standalone");
-const plugins = [require("prettier/parser-graphql")];
+const prettier = require("prettierx/standalone");
+const plugins = [require("prettierx/parser-graphql")];
 prettier.format("query { }", { parser: "graphql", plugins });
 ```
 
