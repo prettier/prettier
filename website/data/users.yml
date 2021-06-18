@@ -53,6 +53,9 @@
 - caption: PayPal
   image: /images/users/paypal-200x100.png
   infoLink: https://github.com/paypal/
+- caption: Duolingo
+  image: /images/users/duolingo.svg
+  infoLink: https://www.duolingo.com/
 - caption: Hudl
   image: /images/users/hudl-200x100.png
   infoLink: http://hudl.github.io
