@@ -1,0 +1,73 @@
+name: "Update cspell.json"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "00 01 1 * *"
+
+jobs:
+  update-cspell-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Configure git user
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: "14"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run clean-cspell.mjs
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const execa = require("execa");
+
+            const date = new Date();
+            // yyyy-mm-dd-hh-mm
+            const dateStr =
+              date.getFullYear() +
+              "-" +
+              ("0" + (date.getMonth() + 1)).slice(-2) +
+              "-" +
+              ("0" + date.getDate()).slice(-2) +
+              "-" +
+              ("0" + date.getHours()).slice(-2) +
+              "-" +
+              ("0" + date.getMinutes()).slice(-2);
+            const branch = `update-cspell-${dateStr}`;
+
+            await execa("git", ["checkout", "-b", branch]);
+
+            console.log("Run ./scripts/clean-cspell.mjs");
+            await execa("node", ["./scripts/clean-cspell.mjs"]);
+
+            const { stdout: diff } = await execa("git", ["diff", "--name-only"]);
+            if (diff.includes("cspell.json")) {
+              await execa("git", ["add", "."]);
+              await execa("git", ["commit", "-m", "Update clean-cspell.json"]);
+
+              console.log("Push to remote...");
+              await execa("git", ["push", "origin", branch]);
+
+              console.log("Create a pull request...");
+              await github.pulls.create({
+                ...context.repo,
+                title: `Update cspell.json (${dateStr})`,
+                head: branch,
+                base: "main",
+                maintainer_can_modify: true,
+              });
+              console.log("Done");
+            } else {
+              console.log("cspell.json is not updated.");
+            }
