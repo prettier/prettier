@@ -148,7 +148,13 @@ export const printers = {
 Printing is a recursive process of converting an AST node (represented by a path to that node) into a doc. The doc is constructed using the [builder commands](https://github.com/prettier/prettier/blob/master/commands.md):
 
 ```js
-const { concat, join, line, ifBreak, group } = require("prettierx").doc.builders;
+const {
+  concat,
+  join,
+  line,
+  ifBreak,
+  group,
+} = require("prettierx").doc.builders;
 ```
 
 The signature of the `print` function is:
