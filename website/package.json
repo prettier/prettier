@@ -20,7 +20,7 @@
     "concurrently": "6.2.0",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
-    "webpack": "5.38.1",
+    "webpack": "5.39.1",
     "webpack-cli": "4.7.2"
   }
 }
