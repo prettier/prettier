@@ -60,8 +60,6 @@ const parsers = [
   },
   {
     input: "src/language-css/parser-postcss.js",
-    // postcss has dependency cycles that don't work with rollup
-    bundler: "webpack",
     terserOptions: {
       // prevent terser generate extra .LICENSE file
       extractComments: false,
