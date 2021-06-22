@@ -27,6 +27,7 @@ const {
   isObjectProperty,
   isEnabledHackPipeline,
 } = require("../utils/index.js");
+const needsParens = require("../needs-parens.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -81,7 +82,8 @@ function printBinaryishExpression(path, options, print) {
   if (
     (isCallExpression(parent) && parent.callee === node) ||
     parent.type === "UnaryExpression" ||
-    (isMemberExpression(parent) && !parent.computed)
+    (isMemberExpression(parent) && !parent.computed) ||
+    (parent.type === "LogicalExpression" && needsParens(path, options))
   ) {
     return group([indent([softline, ...parts]), softline]);
   }
