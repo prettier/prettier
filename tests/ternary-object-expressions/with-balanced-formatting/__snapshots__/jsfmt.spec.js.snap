@@ -319,3 +319,427 @@ function test1() {
 
 ================================================================================
 `;
+
+exports[`nesting-object-ternary-expression.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? {
+      beth: {
+          carol: 101
+        }
+        ? {
+            debbie: 202
+          }
+          ? {
+              ellen: 303
+            }
+          : 404
+        : 505
+    }
+    ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+    : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+  : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201
+
+=====================================output=====================================
+alice
+  ? {
+    beth: {
+      carol: 101
+    }
+      ? {
+        debbie: 202
+      }
+        ? {
+          ellen: 303
+        }
+        : 404
+      : 505
+  }
+    ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+    : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+  : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201;
+
+================================================================================
+`;
+
+exports[`nesting-object-ternary-expression.js 2`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? {
+      beth: {
+          carol: 101
+        }
+        ? {
+            debbie: 202
+          }
+          ? {
+              ellen: 303
+            }
+          : 404
+        : 505
+    }
+    ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+    : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+  : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201
+
+=====================================output=====================================
+alice
+    ? {
+        beth: {
+            carol: 101
+        }
+            ? {
+                debbie: 202
+            }
+                ? {
+                    ellen: 303
+                }
+                : 404
+            : 505
+    }
+        ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+        : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+    : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201;
+
+================================================================================
+`;
+
+exports[`nesting-object-ternary-expression.js 3`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? {
+      beth: {
+          carol: 101
+        }
+        ? {
+            debbie: 202
+          }
+          ? {
+              ellen: 303
+            }
+          : 404
+        : 505
+    }
+    ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+    : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+  : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201
+
+=====================================output=====================================
+alice
+	? {
+		beth: {
+			carol: 101
+		}
+			? {
+				debbie: 202
+			}
+				? {
+					ellen: 303
+				}
+				: 404
+			: 505
+	}
+		? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+		: loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+	: loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201;
+
+================================================================================
+`;
+
+exports[`nesting-object-ternary-expression.js 4`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? {
+      beth: {
+          carol: 101
+        }
+        ? {
+            debbie: 202
+          }
+          ? {
+              ellen: 303
+            }
+          : 404
+        : 505
+    }
+    ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+    : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+  : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201
+
+=====================================output=====================================
+alice
+	? {
+		beth: {
+			carol: 101
+		}
+			? {
+				debbie: 202
+			}
+				? {
+					ellen: 303
+				}
+				: 404
+			: 505
+	}
+		? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101
+		: loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102
+	: loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201;
+
+================================================================================
+`;
+
+exports[`nesting-ternary-arrays.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? [
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+      [
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202,
+      ]
+        ? [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302,
+          ]
+        : [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402,
+          ],
+    ]
+      ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+      : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+  : 1000
+
+=====================================output=====================================
+alice
+  ? [
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+    [
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202
+    ]
+      ? [
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302
+      ]
+      : [
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402
+      ]
+  ]
+    ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+    : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+  : 1000;
+
+================================================================================
+`;
+
+exports[`nesting-ternary-arrays.js 2`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? [
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+      [
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202,
+      ]
+        ? [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302,
+          ]
+        : [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402,
+          ],
+    ]
+      ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+      : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+  : 1000
+
+=====================================output=====================================
+alice
+    ? [
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+        [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202
+        ]
+            ? [
+                loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+                loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302
+            ]
+            : [
+                loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+                loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402
+            ]
+    ]
+        ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+        : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+    : 1000;
+
+================================================================================
+`;
+
+exports[`nesting-ternary-arrays.js 3`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? [
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+      [
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202,
+      ]
+        ? [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302,
+          ]
+        : [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402,
+          ],
+    ]
+      ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+      : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+  : 1000
+
+=====================================output=====================================
+alice
+	? [
+		loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+		loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+		[
+			loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+			loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202
+		]
+			? [
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302
+			]
+			: [
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402
+			]
+	]
+		? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+		: loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+	: 1000;
+
+================================================================================
+`;
+
+exports[`nesting-ternary-arrays.js 4`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+alice
+  ? [
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+      loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+      [
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+        loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202,
+      ]
+        ? [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302,
+          ]
+        : [
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+            loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402,
+          ],
+    ]
+      ? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+      : loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+  : 1000
+
+=====================================output=====================================
+alice
+	? [
+		loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0101,
+		loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0102,
+		[
+			loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0201,
+			loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0202
+		]
+			? [
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0301,
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0302
+			]
+			: [
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0401,
+				loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0402
+			]
+	]
+		? loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+		: loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong0501
+	: 1000;
+
+================================================================================
+`;
