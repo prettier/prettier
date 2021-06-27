@@ -5,8 +5,7 @@ on:
   push:
     branches:
       # [prettierx ...]
-      # - master
-      # - patch-release
+      - "@prettier-x/*"
       - dev
       - dev-*
       - prettierx-*

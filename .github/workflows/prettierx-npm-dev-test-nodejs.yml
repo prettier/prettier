@@ -8,6 +8,7 @@ name: npm clean dev test
 on:
   push:
     branches:
+      - "@prettier-x/*"
       - dev
       - dev-*
       - prettierx-*
