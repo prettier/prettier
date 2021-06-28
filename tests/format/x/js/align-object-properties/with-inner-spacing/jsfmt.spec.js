@@ -2,9 +2,9 @@
 // This test script runs for test files in parent directory,
 // **not** on any files in *this* directory.
 
-const dirpath = `${__dirname}/..`;
+const dirPath = `${__dirname}/..`;
 
-run_spec(dirpath, ["babel", "babel-flow", "flow", "typescript"], {
+run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
   // "Standard JS":
   alignObjectProperties: true,
   // prettierx: test with --paren-spacing

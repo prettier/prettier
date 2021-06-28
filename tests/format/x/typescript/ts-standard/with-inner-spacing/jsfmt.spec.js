@@ -2,9 +2,9 @@
 // This test script runs for test files in parent directory,
 // **not** on any files in *this* directory.
 
-const dirpath = `${__dirname}/..`;
+const dirPath = `${__dirname}/..`;
 
-run_spec(dirpath, ["typescript"], {
+run_spec(dirPath, ["typescript"], {
   spaceInParens: true,
   yieldStarSpacing: true,
   generatorStarSpacing: true,
