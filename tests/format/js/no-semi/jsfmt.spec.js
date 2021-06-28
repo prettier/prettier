@@ -1,4 +1,8 @@
 const errors = { espree: ["class.js", "private-field.js"] };
 
-run_spec(__dirname, ["babel", "flow"], { errors });
-run_spec(__dirname, ["babel", "flow"], { semi: false, errors });
+// [prettierx] test with all ES parsers
+run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], { errors });
+run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
+  semi: false,
+  errors,
+});

@@ -24,7 +24,7 @@ exports[`class.js - {"semi":false} [espree] format 1`] = `
 
 exports[`class.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -271,7 +271,7 @@ class G4 {
 
 exports[`class.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -517,7 +517,7 @@ class G4 {
 
 exports[`comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -552,7 +552,7 @@ x
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -586,7 +586,7 @@ x;
 
 exports[`issue2006.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -615,7 +615,7 @@ var c = a.e
 
 exports[`issue2006.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -643,7 +643,7 @@ var c = a.e;
 
 exports[`no-semi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -827,7 +827,7 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 
 exports[`no-semi.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1030,7 +1030,7 @@ exports[`private-field.js - {"semi":false} [espree] format 1`] = `
 
 exports[`private-field.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1051,7 +1051,7 @@ class C {
 
 exports[`private-field.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
