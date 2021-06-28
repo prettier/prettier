@@ -9,7 +9,7 @@ printWidth: 80
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
-trailingComma: "none"
+trailingComma: "es5"
 yieldStarSpacing: true
                                                                                 | printWidth
 =====================================input======================================
@@ -62,7 +62,7 @@ printWidth: 80
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
-trailingComma: "none"
+trailingComma: "es5"
 yieldStarSpacing: true
                                                                                 | printWidth
 =====================================input======================================

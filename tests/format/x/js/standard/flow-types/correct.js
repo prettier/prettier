@@ -1,17 +1,9 @@
-type IdentityWrapper = {
-  func<T>(T): T
-}
-
 const identity2 = <T>(t: T): T => t
 
 const a = 1
 
 function identity<T> (value: T): T {
   return value
-}
-
-interface Foo<T> {
-  getter(value: T): T;
 }
 
 class Example<T> implements Foo<T> {

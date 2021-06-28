@@ -4,50 +4,22 @@ exports[`correct.js 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
-trailingComma: "none"
+trailingComma: "es5"
 yieldStarSpacing: true
                                                                                 | printWidth
 =====================================input======================================
-const identity2 = <T>(t: T): T => t
-
-const a = 1
-
-function identity<T> (value: T): T {
-  return value
-}
-
-class Example<T> implements Foo<T> {
-  value: T
-  getter (value: T): T {
-    return this.value
-  }
-  set setter (value: T) {
-    this.value = value
-  }
+interface Foo<T> {
+  getter(value: T): T;
 }
 
 =====================================output=====================================
-const identity2 = <T>(t: T): T => t
-
-const a = 1
-
-function identity<T> (value: T): T {
-  return value
-}
-
-class Example<T> implements Foo<T> {
-  value: T
-  getter (value: T): T {
-    return this.value
-  }
-  set setter (value: T) {
-    this.value = value
-  }
+interface Foo<T> {
+  getter(value: T): T
 }
 
 ================================================================================
@@ -57,42 +29,22 @@ exports[`incorrect.js 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
 singleQuote: true
 spaceBeforeFunctionParen: true
-trailingComma: "none"
+trailingComma: "es5"
 yieldStarSpacing: true
                                                                                 | printWidth
 =====================================input======================================
-function identity <T>(value :T) :T {
-  return value
-}
-
-class Example<T> implements Foo <T>{
-  value:T;
-  getter(value :T) :T {
-    return this.value
-  }
-  set setter(value :T) {
-    this.value = value
-  }
+interface Foo <T>{
+  getter(value:T):T
 }
 
 =====================================output=====================================
-function identity<T> (value: T): T {
-  return value
-}
-
-class Example<T> implements Foo<T> {
-  value: T
-  getter (value: T): T {
-    return this.value
-  }
-  set setter (value: T) {
-    this.value = value
-  }
+interface Foo<T> {
+  getter(value: T): T
 }
 
 ================================================================================
