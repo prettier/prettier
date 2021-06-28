@@ -46,7 +46,7 @@ jobs:
       # The cache step might saving the result of main branch, need investigate
       - name: Check Sizes
         if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
-        uses: preactjs/compressed-size-action@2.1.0
+        uses: preactjs/compressed-size-action@2.3.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           compression: none
