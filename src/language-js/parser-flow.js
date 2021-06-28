@@ -6,7 +6,9 @@ const { locStart, locEnd } = require("./loc");
 const postprocess = require("./postprocess");
 
 function parse(text, parsers, opts) {
+  // [prettierx] optional dependency here:
   // Inline the require to avoid loading all the JS if we don't use it
+  // eslint-disable-next-line import/no-extraneous-dependencies
   const flowParser = require("flow-parser");
 
   const ast = flowParser.parse(text, {

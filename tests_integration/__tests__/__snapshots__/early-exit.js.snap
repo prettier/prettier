@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`node version error (stderr) 1`] = `
-"prettier requires at least version 10.13.0 of Node, please upgrade
+"prettierx-rebase-branch-001 requires at least version 10.13.0 of Node, please upgrade
 "
 `;
 

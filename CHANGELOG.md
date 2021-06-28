@@ -1,3 +1,27 @@
+# prettierx-rebase-branch-001
+
+intended to help rebase some prettierX JavaScript features on updated version of Prettier
+
+(in a hopefully relatively clean manner)
+
+with some updates including:
+
+- update package name (**not** expected to affect default branch of prettierX)
+- remove author & upstream project URLs from package.json
+- move flow-parser & typescript dependencies to devDependencies
+- include some Prettier updates from GitHub, with more info in `changelog_unreleased`
+  ([./changelog_unreleased](./changelog_unreleased)):
+  - update some package dependencies
+  - an update from Prettier `next` branch to use PostCSS 8
+  - some other updates from Prettier 2.2.0
+
+NOTE: This version branch is MISSING package dependency notes & documentation updates.
+
+Some PostCSS dependencies need to be updated, maybe with help from Renovate Bot.
+
+Existing remark-parse dependency has known vulnerability in trim sub-dependency,
+to be resolved by using @brodybits/remark-parse@8 version.
+
 # 2.1.2
 
 [diff](https://github.com/prettier/prettier/compare/2.1.1...2.1.2)
